@@ -1,0 +1,25 @@
+PODS:
+  - Protobuf (3.8.0)
+  - Textile (0.1.15):
+    - Protobuf (~> 3.7)
+    - TextileCore (~> 0.1.14)
+  - TextileCore (0.1.14):
+    - Protobuf (~> 3.7)
+
+DEPENDENCIES:
+  - Textile
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Protobuf
+    - Textile
+    - TextileCore
+
+SPEC CHECKSUMS:
+  Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
+  Textile: 4d16be4bf354c9dbef9e08ff3823f11b7aedeb91
+  TextileCore: 25e8c7e1988b3729e9d241f3a5c0bd0cd2e85f9f
+
+PODFILE CHECKSUM: f660706d4ba23677371e9f592ad2823e3c4c817e
+
+COCOAPODS: 1.7.4

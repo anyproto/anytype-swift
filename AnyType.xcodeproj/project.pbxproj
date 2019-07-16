@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0422D8EDAD005C552B /* Assets.xcassets */; };
 		0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */; };
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
+		53F8EDE79D4D872A3286D720 /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5AC3B5C729B0F201F675E1F /* Pods_AnyType.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,10 @@
 		0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0303ED0A22D8EDAD005C552B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0303ED0C22D8EDAD005C552B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		037E9AA222DCE124001ADA30 /* Textile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Textile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4B907F4508584DEA6C38F2C /* Pods-AnyType.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.release.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.release.xcconfig"; sourceTree = "<group>"; };
+		E5AC3B5C729B0F201F675E1F /* Pods_AnyType.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnyType.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED72865C1A9CF5EDF4134F9B /* Pods-AnyType.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.debug.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53F8EDE79D4D872A3286D720 /* Pods_AnyType.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +48,8 @@
 			children = (
 				0303ECFD22D8EDAA005C552B /* AnyType */,
 				0303ECFC22D8EDAA005C552B /* Products */,
+				09D3C3F886505DD631723EC9 /* Pods */,
+				ED79E6F7693FFE933050D8BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,13 +64,9 @@
 		0303ECFD22D8EDAA005C552B /* AnyType */ = {
 			isa = PBXGroup;
 			children = (
-				0303ECFE22D8EDAA005C552B /* AppDelegate.swift */,
-				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
-				0303ED0222D8EDAA005C552B /* ContentView.swift */,
-				0303ED0422D8EDAD005C552B /* Assets.xcassets */,
-				0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */,
-				0303ED0C22D8EDAD005C552B /* Info.plist */,
-				0303ED0622D8EDAD005C552B /* Preview Content */,
+				0303ED1222D8F231005C552B /* Sources */,
+				038FB5C422D8F284002B90B8 /* Resources */,
+				038FB5C522D8F2A0002B90B8 /* Supporting files */,
 			);
 			path = AnyType;
 			sourceTree = "<group>";
@@ -75,6 +79,100 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		0303ED1222D8F231005C552B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				038FB5CB22D8F380002B90B8 /* FrameworkExtensions */,
+				038FB5C722D8F304002B90B8 /* ApplicationLayer */,
+				038FB5C922D8F32F002B90B8 /* Models */,
+				038FB5CA22D8F34E002B90B8 /* CoreLayer */,
+				038FB5C822D8F321002B90B8 /* ServiceLayer */,
+				038FB5C622D8F2DE002B90B8 /* PresentationLayer */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		038FB5C422D8F284002B90B8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0303ED0422D8EDAD005C552B /* Assets.xcassets */,
+				0303ED0622D8EDAD005C552B /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		038FB5C522D8F2A0002B90B8 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */,
+				0303ED0C22D8EDAD005C552B /* Info.plist */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				0303ED0222D8EDAA005C552B /* ContentView.swift */,
+			);
+			path = PresentationLayer;
+			sourceTree = "<group>";
+		};
+		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
+			isa = PBXGroup;
+			children = (
+				0303ECFE22D8EDAA005C552B /* AppDelegate.swift */,
+				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
+			);
+			path = ApplicationLayer;
+			sourceTree = "<group>";
+		};
+		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServiceLayer;
+			sourceTree = "<group>";
+		};
+		038FB5C922D8F32F002B90B8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		038FB5CA22D8F34E002B90B8 /* CoreLayer */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreLayer;
+			sourceTree = "<group>";
+		};
+		038FB5CB22D8F380002B90B8 /* FrameworkExtensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FrameworkExtensions;
+			sourceTree = "<group>";
+		};
+		09D3C3F886505DD631723EC9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ED72865C1A9CF5EDF4134F9B /* Pods-AnyType.debug.xcconfig */,
+				A4B907F4508584DEA6C38F2C /* Pods-AnyType.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				037E9AA222DCE124001ADA30 /* Textile.framework */,
+				E5AC3B5C729B0F201F675E1F /* Pods_AnyType.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +180,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0303ED0F22D8EDAD005C552B /* Build configuration list for PBXNativeTarget "AnyType" */;
 			buildPhases = (
+				D157B688B6B52719F070A763 /* [CP] Check Pods Manifest.lock */,
 				0303ECF722D8EDAA005C552B /* Sources */,
 				0303ECF822D8EDAA005C552B /* Frameworks */,
 				0303ECF922D8EDAA005C552B /* Resources */,
+				D6F361157210000684CFEB36 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -140,6 +240,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D157B688B6B52719F070A763 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AnyType-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D6F361157210000684CFEB36 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnyType/Pods-AnyType-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AnyType/Pods-AnyType-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AnyType/Pods-AnyType-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0303ECF722D8EDAA005C552B /* Sources */ = {
@@ -282,13 +424,20 @@
 		};
 		0303ED1022D8EDAD005C552B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED72865C1A9CF5EDF4134F9B /* Pods-AnyType.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "AnyType/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = YNGM6DNQBS;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = AnyType/Info.plist;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Protobuf/Protobuf.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Textile/Textile.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/TextileCore/TextileCore.framework/Headers\"",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,13 +451,20 @@
 		};
 		0303ED1122D8EDAD005C552B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4B907F4508584DEA6C38F2C /* Pods-AnyType.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "AnyType/Preview\\ Content";
+				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = YNGM6DNQBS;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = AnyType/Info.plist;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Protobuf/Protobuf.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Textile/Textile.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/TextileCore/TextileCore.framework/Headers\"",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
