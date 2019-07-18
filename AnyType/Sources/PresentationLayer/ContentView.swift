@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct ContentView : View {
+	@ObjectBinding var model = ContentViewModel()
+	
     var body: some View {
-        Text("Hello World")
+        Text("\(model.accountName)")
     }
 }
 

@@ -14,17 +14,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		
-		do {
-			// recoveryPhrase should be optional here, fix coming asap
-			let recoveryPhrase = try Textile.initialize(withDebug: false, logToDisk: false)
-			// Return phrase to the user for secure, out of app, storage
-			print("recoveryPhrase: \(recoveryPhrase)")
-			
-			// Set the Textile delegate to self so we can make use of events such nodeStarted
-			Textile.instance().delegate = self
-		} catch {
-			print("Unexpected error: \(error).")
+		// init Textile
+		let repoPath = getDocumentsDirectory().appendingPathComponent("textile-go").absoluteString
+		
+		if !Textile.isInitialized(repoPath) {
+			initTextile(repoPath: repoPath)
 		}
+		
+		do {
+			try Textile.launch(repoPath, debug: false)
+		} catch {
+			print("\(error)")
+		}
+		
+		// Set the Textile delegate to self so we can make use of events such nodeStarted
+		Textile.instance().delegate = self
 		
 		return true
 	}
@@ -45,6 +49,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+// MARK: - Private methods
+
+extension AppDelegate {
+	
+	func initTextile(repoPath: String) {
+		var error: NSError?
+		// recoveryPhrase should be optional here, fix coming asap
+		let recoveryPhrase = Textile.initializeCreatingNewWalletAndAccount(repoPath, debug: false, logToDisk: false, error: &error)
+		// Return phrase to the user for secure, out of app, storage
+		print("recoveryPhrase: \(recoveryPhrase)")
+	}
+}
 
 extension AppDelegate: TextileDelegate {
 	

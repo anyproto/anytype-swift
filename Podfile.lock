@@ -1,9 +1,9 @@
 PODS:
-  - Protobuf (3.8.0)
-  - Textile (0.1.15):
+  - Protobuf (3.9.0)
+  - Textile (2.0.1):
     - Protobuf (~> 3.7)
-    - TextileCore (~> 0.1.14)
-  - TextileCore (0.1.14):
+    - TextileCore (~> 0.6.2)
+  - TextileCore (0.6.2):
     - Protobuf (~> 3.7)
 
 DEPENDENCIES:
@@ -16,9 +16,9 @@ SPEC REPOS:
     - TextileCore
 
 SPEC CHECKSUMS:
-  Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
-  Textile: 4d16be4bf354c9dbef9e08ff3823f11b7aedeb91
-  TextileCore: 25e8c7e1988b3729e9d241f3a5c0bd0cd2e85f9f
+  Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
+  Textile: 1f9d276e8be4bdd996dbcbb0a57a904838e96221
+  TextileCore: 2a2a1715ac409f93043256d3eed0d97196b59858
 
 PODFILE CHECKSUM: f660706d4ba23677371e9f592ad2823e3c4c817e
 
