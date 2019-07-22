@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ProfileView.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 12.07.2019.
@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct ContentView : View {
-	@ObjectBinding var model = ContentViewModel()
+struct ProfileView : View {
+	@ObjectBinding var model = ProfileViewModel()
 	
     var body: some View {
         Text("\(model.accountName)")
@@ -17,9 +17,9 @@ struct ContentView : View {
 }
 
 #if DEBUG
-struct ContentView_Previews : PreviewProvider {
+struct ProfileView_Previews : PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ProfileView()
     }
 }
 #endif

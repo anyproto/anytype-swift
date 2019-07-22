@@ -32,13 +32,15 @@ protocol SecureStoreQueryable {
 	var query: [String: Any] { get }
 }
 
-public struct GenericPasswordQueryable {
+struct GenericPasswordQueryable {
 	let service: String
 	let accessGroup: String?
+	let account: String
 	
-	init(service: String, accessGroup: String? = nil) {
+	init(account: String, service: String, accessGroup: String? = nil) {
 		self.service = service
 		self.accessGroup = accessGroup
+		self.account = account
 	}
 }
 
@@ -47,6 +49,7 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
 		var query: [String: Any] = [:]
 		query[String(kSecClass)] = kSecClassGenericPassword
 		query[String(kSecAttrService)] = service
+		query[String(kSecAttrAccount)] = account
 		// Access group if target environment is not simulator
 		#if !targetEnvironment(simulator)
 		if let accessGroup = accessGroup {
@@ -57,13 +60,13 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
 	}
 }
 
-public struct InternetPasswordQueryable {
+struct InternetPasswordQueryable {
 	let server: String
 	let port: Int
 	let path: String
 	let securityDomain: String
 	let internetProtocol: InternetProtocol
-	let internetAuthenticationType: InternetAuthenticationType
+//	let internetAuthenticationType: InternetAuthenticationType
 }
 
 extension InternetPasswordQueryable: SecureStoreQueryable {
@@ -74,8 +77,8 @@ extension InternetPasswordQueryable: SecureStoreQueryable {
 		query[String(kSecAttrServer)] = server
 		query[String(kSecAttrSecurityDomain)] = securityDomain
 		query[String(kSecAttrPath)] = path
-		query[String(kSecAttrProtocol)] = internetProtocol.rawValue
-		query[String(kSecAttrAuthenticationType)] = internetAuthenticationType.rawValue
+//		query[String(kSecAttrProtocol)] = internetProtocol.rawValue
+//		query[String(kSecAttrAuthenticationType)] = internetAuthenticationType.rawValue
 		return query
 	}
 }

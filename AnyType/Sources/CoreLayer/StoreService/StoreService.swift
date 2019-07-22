@@ -8,76 +8,39 @@
 
 import Foundation
 
-/// Протокол для работы со стором
-protocol StoreServiceProtocol {
-    var jwtAccessToken: String? { get set }
-    var jwtRefreshToken: String? { get set }
-    var fireBaseToken: String? { get set }
-    var pinCode: String? { get set }
+private enum StoreServiceConstants {
+	static let serviceName = "com.AnyType.seed"
 }
 
-/// Класс реализует протокол для работы со стором
-class StoreService: StoreServiceProtocol {
-    static let shared = StoreService()
-    private let keychainService = KeychainService.shared
-    
-    // MARK: - Lifecycle
-    
-    private init() {
-    }
-    
-    
-    // MARK: - Public properties
-    
-    var jwtRefreshToken: String? {
-        get {
-            return keychainService.retreiveItem(itemLabel: .JWTRefreshTokenLabel)
-        }
-        set {
-            if let newValue = newValue {
-                keychainService.storeGeneralItem(token: newValue, itemLabel: .JWTRefreshTokenLabel)
-            } else {
-                keychainService.removeItem(itemLabel: .JWTRefreshTokenLabel)
-            }
-        }
-    }
-    
-    var fireBaseToken: String? {
-        get {
-            return keychainService.retreiveItem(itemLabel: .FireBaseTokenLabel)
-        }
-        set {
-            if let newValue = newValue {
-                keychainService.storeGeneralItem(token: newValue, itemLabel: .FireBaseTokenLabel)
-            } else {
-                keychainService.removeItem(itemLabel: .FireBaseTokenLabel)
-            }
-        }
-    }
-    
-    var pinCode: String? {
-        get {
-            return keychainService.retreiveItem(itemLabel: .PINCodeLabel)
-        }
-        set {
-            if let newValue = newValue {
-                keychainService.storeGeneralItem(token: newValue, itemLabel: .PINCodeLabel)
-            } else {
-                keychainService.removeItem(itemLabel: .PINCodeLabel)
-            }
-        }
-    }
-    
-    var jwtAccessToken: String? {
-        get {
-            return keychainService.retreiveItem(itemLabel: .JWTAccessTokenLabel)
-        }
-        set {
-            if let newValue = newValue {
-                keychainService.storeGeneralItem(token: newValue, itemLabel: .JWTAccessTokenLabel)
-            } else {
-                keychainService.removeItem(itemLabel: .JWTAccessTokenLabel)
-            }
-        }
-    }
+/// Protocol for interaction with store
+protocol StoreServiceProtocol {
+	func obtainSeed(for name: String) throws -> String?
+	func saveSeedForAccount(name: String) throws
+}
+
+/// Keychain store serivce
+class KeychainStoreService {
+    static let shared = KeychainStoreService()
+	
+	private let keychainService = KeychainService()
+	
+}
+
+
+// MARK: - StoreServiceProtocol
+
+extension KeychainStoreService: StoreServiceProtocol {
+	
+	func obtainSeed(for name: String) throws -> String? {
+		let seedQuery = GenericPasswordQueryable(account: name, service: StoreServiceConstants.serviceName)
+		let seed = try keychainService.retreiveItem(queryable: seedQuery)
+		
+		return seed
+	}
+	
+	func saveSeedForAccount(name: String) throws {
+		let seedQuery = GenericPasswordQueryable(account: name, service: StoreServiceConstants.serviceName)
+		try keychainService.storeItem(item: name, queryable: seedQuery)
+	}
+	
 }

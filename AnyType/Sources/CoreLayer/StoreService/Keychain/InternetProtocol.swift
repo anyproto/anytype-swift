@@ -28,7 +28,7 @@
 
 import Foundation
 
-public enum InternetProtocol: RawRepresentable {
+enum InternetProtocol: RawRepresentable {
   case ftp, ftpAccount, http, irc, nntp, pop3, smtp, socks, imap, ldap, appleTalk, afp, telnet, ssh, ftps, https, httpProxy, httpsProxy, ftpProxy, smb, rtsp, rtspProxy, daap, eppc, ipp, nntps, ldaps, telnetS, imaps, ircs, pop3S
   
   public init?(rawValue: String) {

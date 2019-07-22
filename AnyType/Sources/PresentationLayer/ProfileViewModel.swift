@@ -1,5 +1,5 @@
 //
-//  ContentViewModel.swift
+//  ProfileViewModel.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 16.07.2019.
@@ -10,8 +10,8 @@ import Combine
 import SwiftUI
 import Textile
 
-final class ContentViewModel: BindableObject {
-	let didChange = PassthroughSubject<ContentViewModel, Never>()
+final class ProfileViewModel: BindableObject {
+	let didChange = PassthroughSubject<ProfileViewModel, Never>()
 	
 	var accountName: String = "" {
 		didSet {

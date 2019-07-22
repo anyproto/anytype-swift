@@ -9,23 +9,8 @@
 import Security
 import Foundation
 
-enum KeychainItemLabel: String {
-    case PINCodeLabel = "CRYP.PINCodeItemLabel"
-    case JWTAccessTokenLabel = "CRYP.JWTAccessTokenLabel"
-    case JWTRefreshTokenLabel = "CRYP.JWTRefreshToken"
-    case FireBaseTokenLabel = "CRYP.FireBaseToken"
-}
-
 /// Wrapper for keychain store
 class KeychainService {
-	private let secureStoreQueryable: SecureStoreQueryable
-	
-	
-    // MARK: - Lifecycle
-    
-    init(secureStoreQueryable: SecureStoreQueryable) {
-		self.secureStoreQueryable = secureStoreQueryable
-    }
 	
     // MARK: - Public methods
     
@@ -33,7 +18,7 @@ class KeychainService {
     ///
     /// - Parameters:
     ///   - item: Item to store in keychain
-    func storeItem(item: String) throws {
+	func storeItem(item: String, queryable: SecureStoreQueryable) throws {
 		guard let dataItem = item.data(using: .utf8) else {
 			throw KeychainError.stringItem2DataConversionError
 		}
@@ -42,7 +27,7 @@ class KeychainService {
         let attributes: [String: Any] = [
             (kSecValueData as String): dataItem
 		]
-        var query = self.secureStoreQueryable.query
+        var query = queryable.query
 
         var status = SecItemUpdate(query as CFDictionary, attributes as CFDictionary)
         
@@ -60,8 +45,8 @@ class KeychainService {
 	/// Obtain item from keychain
 	///
 	/// - Returns: Stored item from keychain
-    func retreiveItem() throws -> String? {
-        var query = self.secureStoreQueryable.query
+    func retreiveItem(queryable: SecureStoreQueryable) throws -> String? {
+        var query = queryable.query
 		query[String(kSecMatchLimit)] = kSecMatchLimitOne
 		query[String(kSecReturnAttributes)] = kCFBooleanTrue
 		query[String(kSecReturnData)] = kCFBooleanTrue
@@ -88,8 +73,8 @@ class KeychainService {
     }
     
     /// Remove item from keychain
-    func removeItem() throws {
-        let query = self.secureStoreQueryable.query
+    func removeItem(queryable: SecureStoreQueryable) throws {
+        let query = queryable.query
         
         let status = SecItemDelete(query as CFDictionary)
 		
