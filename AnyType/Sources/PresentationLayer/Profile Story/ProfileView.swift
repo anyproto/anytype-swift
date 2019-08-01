@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProfileView : View {
-	@ObjectBinding var model = ProfileViewModel()
+	@ObservedObject var model = ProfileViewModel()
 	
     var body: some View {
         Text("\(model.accountName)")

@@ -10,12 +10,12 @@ import Combine
 import SwiftUI
 import Textile
 
-final class ProfileViewModel: BindableObject {
-	let didChange = PassthroughSubject<ProfileViewModel, Never>()
+final class ProfileViewModel: ObservableObject {
+	let willChange = PassthroughSubject<ProfileViewModel, Never>()
 	
 	var accountName: String = "" {
-		didSet {
-			didChange.send(self)
+		willSet {
+			willChange.send(self)
 		}
 	}
 	

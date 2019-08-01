@@ -1,5 +1,5 @@
 //
-//  KeychainManager.swift
+//  KeychainStore.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 11/07/2019.
@@ -10,7 +10,7 @@ import Security
 import Foundation
 
 /// Wrapper for keychain store
-class KeychainService {
+class KeychainStore {
 	
     // MARK: - Public methods
     

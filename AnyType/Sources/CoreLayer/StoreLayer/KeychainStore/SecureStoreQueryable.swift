@@ -66,7 +66,7 @@ struct InternetPasswordQueryable {
 	let path: String
 	let securityDomain: String
 	let internetProtocol: InternetProtocol
-//	let internetAuthenticationType: InternetAuthenticationType
+	let internetAuthenticationType: InternetAuthenticationType
 }
 
 extension InternetPasswordQueryable: SecureStoreQueryable {
@@ -77,8 +77,8 @@ extension InternetPasswordQueryable: SecureStoreQueryable {
 		query[String(kSecAttrServer)] = server
 		query[String(kSecAttrSecurityDomain)] = securityDomain
 		query[String(kSecAttrPath)] = path
-//		query[String(kSecAttrProtocol)] = internetProtocol.rawValue
-//		query[String(kSecAttrAuthenticationType)] = internetAuthenticationType.rawValue
+		query[String(kSecAttrProtocol)] = internetProtocol.rawValue
+		query[String(kSecAttrAuthenticationType)] = internetAuthenticationType.rawValue
 		return query
 	}
 }

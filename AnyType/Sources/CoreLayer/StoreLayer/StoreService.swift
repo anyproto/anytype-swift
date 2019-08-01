@@ -22,7 +22,7 @@ protocol StoreServiceProtocol {
 class KeychainStoreService {
     static let shared = KeychainStoreService()
 	
-	private let keychainService = KeychainService()
+	private let keychainStore = KeychainStore()
 	
 }
 
@@ -33,14 +33,14 @@ extension KeychainStoreService: StoreServiceProtocol {
 	
 	func obtainSeed(for name: String) throws -> String? {
 		let seedQuery = GenericPasswordQueryable(account: name, service: StoreServiceConstants.serviceName)
-		let seed = try keychainService.retreiveItem(queryable: seedQuery)
+		let seed = try keychainStore.retreiveItem(queryable: seedQuery)
 		
 		return seed
 	}
 	
 	func saveSeedForAccount(name: String) throws {
 		let seedQuery = GenericPasswordQueryable(account: name, service: StoreServiceConstants.serviceName)
-		try keychainService.storeItem(item: name, queryable: seedQuery)
+		try keychainStore.storeItem(item: name, queryable: seedQuery)
 	}
 	
 }
