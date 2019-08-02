@@ -10,17 +10,12 @@ import Combine
 import SwiftUI
 
 class AuthViewModel: ObservableObject {
-	let willChange = PassthroughSubject<AuthViewModel, Never>()
-	
-	var publicKeys = [String]() {
-		willSet {
-			willChange.send(self)
-		}
-	}
+	@Published var publicKeys = [String]()
 	
 	init(publicKeys: [String]? = nil) {
 		if let publicKeys = publicKeys {
 			self.publicKeys = publicKeys
 		}
 	}
+	
 }

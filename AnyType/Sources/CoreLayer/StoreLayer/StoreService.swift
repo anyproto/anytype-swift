@@ -15,7 +15,7 @@ private enum StoreServiceConstants {
 /// Protocol for interaction with store
 protocol StoreServiceProtocol {
 	func obtainSeed(for name: String) throws -> String?
-	func saveSeedForAccount(name: String) throws
+	func saveSeedForAccount(name: String, password: String?) throws
 }
 
 /// Keychain store serivce
@@ -38,9 +38,8 @@ extension KeychainStoreService: StoreServiceProtocol {
 		return seed
 	}
 	
-	func saveSeedForAccount(name: String) throws {
+	func saveSeedForAccount(name: String, password: String? = nil) throws {
 		let seedQuery = GenericPasswordQueryable(account: name, service: StoreServiceConstants.serviceName)
 		try keychainStore.storeItem(item: name, queryable: seedQuery)
 	}
-	
 }

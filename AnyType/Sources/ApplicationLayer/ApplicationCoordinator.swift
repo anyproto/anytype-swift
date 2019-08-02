@@ -8,57 +8,52 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
-/// First coordinator that start ui flow
-class ApplicationCoordinator {
+enum CurrentRootView {
+	case auth(publicKeys: [String]? = nil)
+	case saveRecoveryPhrase
+	case setPinCode
+	case home
+}
+
+class ApplicationState: ObservableObject {
+	@Published var isLoggedIn: Bool = false
+	@Published var currentRootView: CurrentRootView = .auth(publicKeys: nil)
 	
-	/// How many user accounts we have stored on device
-	enum AccountsCount {
-		case empty
-		case one(publicKey: String)
-		case many(publicKeys: [String])
+	// MARK: - Lifecycle
+	
+	init() {
+		checkAccountInKeychain()
+	}
+	
+	// MARK: - Private methods
+	
+	private func checkAccountInKeychain() {
+		let publicKeyes = UserDefaultsConfig.usersPublicKey
 		
-		init(publicKeyes: [String]) {
-			switch publicKeyes.count {
-			case 1:
-				guard let key = publicKeyes.first else {
-					fallthrough
-				}
-				self = .one(publicKey: key)
-			case 2...Int.max:
-				self = .many(publicKeys: publicKeyes)
-			default:
-				self = .empty
-			}
+		if publicKeyes.count == 0 {
+			self.currentRootView = .auth(publicKeys: nil)
+		} else if publicKeyes.count == 1 {
+			self.currentRootView = .home
+		} else {
+			self.currentRootView = .auth(publicKeys: publicKeyes)
 		}
 	}
 	
-	// MARK: - Lifecycle
+}
+
+/// First coordinator that start ui flow
+class ApplicationCoordinator {
+	var applicationState = ApplicationState()
 	
 	// MARK: - Public methods
 	
 	func start(windowScene: UIWindowScene) -> UIWindow {
 		let window = UIWindow(windowScene: windowScene)
-		let view = selectFirstView()
-		window.rootViewController = UIHostingController(rootView: view)
+		window.rootViewController = UIHostingController(rootView: StartView().environmentObject(applicationState))
 		
 		return window
-	}
-	
-	// MARK: - Private methods
-	
-	private func selectFirstView() -> some View {
-		let publicKeyes = UserDefaultsConfig.usersPublicKey
-		let accontsCount = AccountsCount(publicKeyes: publicKeyes)
-		
-		switch accontsCount {
-		case .empty:
-			return AnyView(AuthViewCoordinator().start())
-		case .one(let publicKey):
-			return AnyView(HomeViewCoordinator().start())
-		case .many(let publicKeys):
-			return AnyView(AuthViewCoordinator().start(publicKeys: publicKeys))
-		}
 	}
 	
 }

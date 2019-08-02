@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SaveRecoveryPhraseView: View {
 	@ObservedObject var viewModel: SaveRecoveryPhraseViewModel
+	@EnvironmentObject var applicationState: ApplicationState
 	
     var body: some View {
 		VStack(alignment: .leading, spacing: 10) {
@@ -25,19 +26,25 @@ struct SaveRecoveryPhraseView: View {
 				.font(.robotMonoRegularFontWith(size: 15.0))
 				.lineLimit(nil)
 			StandardButton(text: "I've written it down", style: .yellow) {
-				
+				self.applicationState.currentRootView = .setPinCode
 			}.padding()
 			Spacer()
 		}
 		.padding()
 		.padding(.top, 40)
-    }
+		.onAppear(perform: createRecoveryPhrase)
+	}
+	
+	private func createRecoveryPhrase() {
+		viewModel.createAccount()
+	}
 }
 
 #if DEBUG
 struct SaveRecoveryPhraseView_Previews: PreviewProvider {
     static var previews: some View {
-		let viewModel = SaveRecoveryPhraseViewModel(recoveryPhrase: "Here's your recovery phrase")
+		let viewModel = SaveRecoveryPhraseViewModel()
+		viewModel.recoveryPhrase = "some phrase to save"
         return SaveRecoveryPhraseView(viewModel: viewModel)
     }
 }

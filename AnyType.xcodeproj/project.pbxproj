@@ -24,6 +24,7 @@
 		0339382C22EF71B600589108 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339382B22EF71B600589108 /* StandardButton.swift */; };
 		0340D70F22F119EA00D0BF88 /* SetupPinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0340D70E22F119EA00D0BF88 /* SetupPinCodeView.swift */; };
 		0340D71122F11CBF00D0BF88 /* PinCodeDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0340D71022F11CBF00D0BF88 /* PinCodeDotsView.swift */; };
+		034BDD3722F4B48C00D8CD83 /* SetupPinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BDD3622F4B48B00D8CD83 /* SetupPinCodeViewModel.swift */; };
 		03746CF922DE506200380AA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03746CF822DE506200380AA1 /* Constants.swift */; };
 		037AA83222E224EA002CB09F /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83122E224EA002CB09F /* AuthView.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
@@ -41,6 +42,7 @@
 		03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54C22E0A0C100DD91DE /* InternetProtocol.swift */; };
 		03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */; };
 		03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C55022E0A3E800DD91DE /* KeychainError.swift */; };
+		03D245DF22F46B50006645AB /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D245DE22F46B50006645AB /* StartView.swift */; };
 		53F8EDE79D4D872A3286D720 /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5AC3B5C729B0F201F675E1F /* Pods_AnyType.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +76,7 @@
 		0339382B22EF71B600589108 /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardButton.swift; path = ../../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/PresentationLayer/Helpers/Buttons/StandardButton.swift; sourceTree = "<group>"; };
 		0340D70E22F119EA00D0BF88 /* SetupPinCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupPinCodeView.swift; sourceTree = "<group>"; };
 		0340D71022F11CBF00D0BF88 /* PinCodeDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PinCodeDotsView.swift; path = "../../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/PresentationLayer/Auth Story/SetupPinCodeView/PinCodeDotsView.swift"; sourceTree = "<group>"; };
+		034BDD3622F4B48B00D8CD83 /* SetupPinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPinCodeViewModel.swift; sourceTree = "<group>"; };
 		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83122E224EA002CB09F /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 		03C5C54C22E0A0C100DD91DE /* InternetProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetProtocol.swift; sourceTree = "<group>"; };
 		03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetAuthenticationType.swift; sourceTree = "<group>"; };
 		03C5C55022E0A3E800DD91DE /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
+		03D245DE22F46B50006645AB /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		A4B907F4508584DEA6C38F2C /* Pods-AnyType.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.release.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.release.xcconfig"; sourceTree = "<group>"; };
 		E5AC3B5C729B0F201F675E1F /* Pods_AnyType.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnyType.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED72865C1A9CF5EDF4134F9B /* Pods-AnyType.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.debug.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,9 +178,9 @@
 		0331BBD722E5D8A1002AD179 /* Home Story */ = {
 			isa = PBXGroup;
 			children = (
-				0331BBDF22E607D1002AD179 /* HomeViewCoordinator.swift */,
-				0331BBDB22E5D9AB002AD179 /* HomeViewModel.swift */,
 				0331BBD922E5D998002AD179 /* HomeView.swift */,
+				0331BBDB22E5D9AB002AD179 /* HomeViewModel.swift */,
+				0331BBDF22E607D1002AD179 /* HomeViewCoordinator.swift */,
 			);
 			path = "Home Story";
 			sourceTree = "<group>";
@@ -184,8 +188,8 @@
 		0331BBD822E5D8AB002AD179 /* Profile Story */ = {
 			isa = PBXGroup;
 			children = (
-				0311612D22DE0D1700885211 /* ProfileViewModel.swift */,
 				0303ED0222D8EDAA005C552B /* ProfileView.swift */,
+				0311612D22DE0D1700885211 /* ProfileViewModel.swift */,
 			);
 			path = "Profile Story";
 			sourceTree = "<group>";
@@ -227,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				0340D70E22F119EA00D0BF88 /* SetupPinCodeView.swift */,
+				034BDD3622F4B48B00D8CD83 /* SetupPinCodeViewModel.swift */,
 				0340D71022F11CBF00D0BF88 /* PinCodeDotsView.swift */,
 			);
 			path = SetupPinCodeView;
@@ -253,9 +258,9 @@
 		0388BF6C22F0A27500B73E39 /* MainAuthView */ = {
 			isa = PBXGroup;
 			children = (
-				0388BF7422F0A96800B73E39 /* AuthViewCoordinator.swift */,
-				0388BF7522F0A96900B73E39 /* AuthViewModel.swift */,
 				037AA83122E224EA002CB09F /* AuthView.swift */,
+				0388BF7522F0A96900B73E39 /* AuthViewModel.swift */,
+				0388BF7422F0A96800B73E39 /* AuthViewCoordinator.swift */,
 			);
 			path = MainAuthView;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				03D245DD22F46B32006645AB /* Start Stroy */,
 				0331BBE122E608AC002AD179 /* Helpers */,
 				0331BBD822E5D8AB002AD179 /* Profile Story */,
 				0331BBD722E5D8A1002AD179 /* Home Story */,
@@ -378,6 +384,14 @@
 				03C5C54422DFD90C00DD91DE /* Info.plist */,
 			);
 			path = AnyTypeTests;
+			sourceTree = "<group>";
+		};
+		03D245DD22F46B32006645AB /* Start Stroy */ = {
+			isa = PBXGroup;
+			children = (
+				03D245DE22F46B50006645AB /* StartView.swift */,
+			);
+			path = "Start Stroy";
 			sourceTree = "<group>";
 		};
 		09D3C3F886505DD631723EC9 /* Pods */ = {
@@ -555,6 +569,7 @@
 				037AA83222E224EA002CB09F /* AuthView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				0303CAF322EEFAD9007E3EA1 /* AuthService.swift in Sources */,
+				034BDD3722F4B48C00D8CD83 /* SetupPinCodeViewModel.swift in Sources */,
 				0340D71122F11CBF00D0BF88 /* PinCodeDotsView.swift in Sources */,
 				0339382C22EF71B600589108 /* StandardButton.swift in Sources */,
 				0303CAF622EEFCCC007E3EA1 /* UserDefault.swift in Sources */,
@@ -573,6 +588,7 @@
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				0388BF7322F0A3C700B73E39 /* SaveRecoveryPhraseViewModel.swift in Sources */,
+				03D245DF22F46B50006645AB /* StartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

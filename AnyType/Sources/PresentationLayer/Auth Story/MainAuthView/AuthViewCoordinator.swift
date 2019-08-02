@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AuthViewCoordinator {
 	
@@ -14,7 +15,9 @@ class AuthViewCoordinator {
 	
 	func start(publicKeys: [String]? = nil) -> AuthView {
 		let viewModel = AuthViewModel(publicKeys: publicKeys)
-		return AuthView(viewModel: viewModel)
+		let view = AuthView(viewModel: viewModel)
+		
+		return view
 	}
 	
 }

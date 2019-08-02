@@ -8,17 +8,26 @@
 
 import Combine
 import SwiftUI
+import Textile
 
 class SaveRecoveryPhraseViewModel: ObservableObject {
-	let willChange = PassthroughSubject<SaveRecoveryPhraseViewModel, Never>()
+	var authService: AuthService?
+	var storeService: KeychainStoreService?
 	
-	var recoveryPhrase: String {
-		willSet {
-			willChange.send(self)
+	@Published var recoveryPhrase: String  = ""
+	@Published var error: AuthServiceError? = nil
+	
+	// MARK: - Public methods
+	
+	func createAccount() {
+		authService?.createWalletAndAccount { result in
+			switch result {
+			case .success(let recoveryPhrase):
+				self.recoveryPhrase = recoveryPhrase
+			case .failure(let error):
+				self.error = error
+			}
 		}
 	}
 	
-	init(recoveryPhrase: String) {
-		self.recoveryPhrase = recoveryPhrase
-	}
 }
