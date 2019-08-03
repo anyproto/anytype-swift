@@ -1,5 +1,5 @@
 //
-//  SetupPinCodeView.swift
+//  PinCodeView.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 31.07.2019.
@@ -8,15 +8,20 @@
 
 import SwiftUI
 
-struct SetupPinCodeView: View {
-	@State var pinCode: String = ""
+struct PinCodeView: View {
 	@EnvironmentObject var applicationState: ApplicationState
+	@ObservedObject var viewModel: PinCodeViewModel
+	@State var pinCode: String = ""
+	@State var repeatPinCode: String = ""
 	
     var body: some View {
 		
 		VStack(alignment: .leading, spacing: 25.0) {
-			Text("Create a pin code").font(.title).fontWeight(.bold)
-			Text("Create a pin code description")
+			Text(viewModel.titleText).font(.title).fontWeight(.bold)
+			
+			if viewModel.pinCodeViewState == .setup {
+				Text("Create a pin code description")
+			}
 			
 			VStack(alignment: .leading, spacing: 5.0) {
 				Text("Enter a pin code")
@@ -26,17 +31,19 @@ struct SetupPinCodeView: View {
 					.border(Color.gray, cornerRadius: 7.0)
 			}
 			
-			VStack(alignment: .leading, spacing: 5.0) {
-				Text("Repeat a pin code")
-				SecureField("****", text: $pinCode)
-					.padding()
-					.textContentType(.password)
-					.border(Color.gray, cornerRadius: 7.0)
+			if viewModel.pinCodeViewState == .setup {
+				VStack(alignment: .leading, spacing: 5.0) {
+					Text("Repeat a pin code")
+					SecureField("****", text: $repeatPinCode)
+						.padding()
+						.textContentType(.password)
+						.border(Color.gray, cornerRadius: 7.0)
+				}
 			}
 			
 			HStack {
 				StandardButton(text: "Confirm", style: .yellow) {
-					self.applicationState.currentRootView = .home
+					self.viewModel.onConfirm(password: self.pinCode)
 				}
 				Spacer()
 			}
@@ -50,7 +57,9 @@ struct SetupPinCodeView: View {
 #if DEBUG
 struct SetupPinCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        SetupPinCodeView()
+		PinCodeView(viewModel: PinCodeViewModel(pinCodeViewState: .setup) {
+			ApplicationState().currentRootView = .home
+		}).environmentObject(ApplicationState())
     }
 }
 #endif

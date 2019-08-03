@@ -37,12 +37,14 @@ struct GenericPasswordQueryable {
 	let accessGroup: String?
 	let account: String
 	let password: String?
+	let keyChainPassword: String?
 	
-	init(account: String, service: String, accessGroup: String? = nil, password: String? = nil) {
+	init(account: String, service: String, accessGroup: String? = nil, password: String? = nil, keyChainPassword: String? = nil) {
 		self.service = service
 		self.accessGroup = accessGroup
 		self.account = account
 		self.password = password
+		self.keyChainPassword = keyChainPassword
 	}
 	
 	fileprivate func getPwSecAccessControl() -> SecAccessControl {
@@ -51,7 +53,7 @@ struct GenericPasswordQueryable {
         
         access = SecAccessControlCreateWithFlags(nil,
             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-            .applicationPassword,
+			[.biometryAny, .applicationPassword],
             &error)
         precondition(access != nil, "SecAccessControlCreateWithFlags failed")
         
@@ -71,8 +73,13 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
 			query[String(kSecAttrAccessGroup)] = accessGroup
 		}
 		
-		if let password = password {
+		if let password = keyChainPassword {
+			let context = LAContext()
+			context.setCredential(password.data(using: .utf8), type: .applicationPassword)
+			
+			query[String[kSecUseAuthenticationContext]] = context
 			query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
+			
 		}
 		
 		#endif

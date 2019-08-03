@@ -13,7 +13,7 @@ import Combine
 enum CurrentRootView {
 	case auth(publicKeys: [String]? = nil)
 	case saveRecoveryPhrase
-	case setPinCode
+	case pinCode(state: PinCodeViewState)
 	case home
 }
 
@@ -34,8 +34,8 @@ class ApplicationState: ObservableObject {
 		
 		if publicKeyes.count == 0 {
 			self.currentRootView = .auth(publicKeys: nil)
-		} else if publicKeyes.count == 1 {
-			self.currentRootView = .home
+		} else if publicKeyes.count == 1, let key = publicKeyes.first {
+			self.currentRootView = .pinCode(state: .verify(publicAddress: key))
 		} else {
 			self.currentRootView = .auth(publicKeys: publicKeyes)
 		}

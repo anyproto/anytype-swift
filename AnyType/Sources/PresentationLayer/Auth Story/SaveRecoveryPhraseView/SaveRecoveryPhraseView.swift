@@ -26,7 +26,7 @@ struct SaveRecoveryPhraseView: View {
 				.font(.robotMonoRegularFontWith(size: 15.0))
 				.lineLimit(nil)
 			StandardButton(text: "I've written it down", style: .yellow) {
-				self.applicationState.currentRootView = .setPinCode
+				self.applicationState.currentRootView = .pinCode(state: .setup)
 			}.padding()
 			Spacer()
 		}

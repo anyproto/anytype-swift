@@ -16,5 +16,7 @@
 "Here's your recovery phrase" = "Here's your recovery phrase";
 "Please make sure to keep and back up your recovery phrases" = "Please make sure to keep and back up your recovery phrases properly to prevent loss";
 "I've written it down" = "I've written it down";
-"Create a pin code" = "Create a pin code";
+
+"Create pin code" = "Create pin code";
+"Verify pin code" = "Verify pin code";
 "Create a pin code description" = "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code";

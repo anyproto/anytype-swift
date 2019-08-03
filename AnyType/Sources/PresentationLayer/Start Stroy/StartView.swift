@@ -13,20 +13,20 @@ struct StartView: View {
 	
 	var body: some View {
 		VStack {
-			extractedFunc()
+			currentView()
 		}
     }
 	
 	// MARK: - Private methods
 	
-	fileprivate func extractedFunc() -> AnyView {
+	fileprivate func currentView() -> AnyView {
 		switch applicationState.currentRootView {
 		case .auth(let publicKeyes):
 			return showAuthView(publicKeys: publicKeyes)
 		case .saveRecoveryPhrase:
 			return showSaverRecoveryPhraseView()
-		case .setPinCode:
-			return showPinCodeView()
+		case .pinCode(let state):
+			return showPinCodeView(state: state)
 		case .home:
 			return showHomeView()
 		}
@@ -54,8 +54,13 @@ struct StartView: View {
 		return AnyView(view)
 	}
 	
-	private func showPinCodeView() -> AnyView {
-		let view = SetupPinCodeView()
+	private func showPinCodeView(state: PinCodeViewState) -> AnyView {
+		let viewModel = PinCodeViewModel(pinCodeViewState: state) {
+			self.applicationState.currentRootView = .home
+		}
+		viewModel.storeService = KeychainStoreService()
+		viewModel.authService = TextileService()
+		let view = PinCodeView(viewModel: viewModel)
 		
 		return AnyView(view)
 	}

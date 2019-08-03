@@ -45,7 +45,7 @@ class KeychainStore {
 	/// Obtain item from keychain
 	///
 	/// - Returns: Stored item from keychain
-    func retreiveItem(queryable: SecureStoreQueryable) throws -> String? {
+    func retreiveItem(queryable: SecureStoreQueryable) throws -> String {
         var query = queryable.query
 		query[String(kSecMatchLimit)] = kSecMatchLimitOne
 		query[String(kSecReturnAttributes)] = kCFBooleanTrue
@@ -55,7 +55,7 @@ class KeychainStore {
         
         // try to find item in keychain
         let status = SecItemCopyMatching(query as CFDictionary, &item)
-		var currentToken: String?
+		var currentToken: String = ""
 		
 		if status == errSecSuccess {
 			guard

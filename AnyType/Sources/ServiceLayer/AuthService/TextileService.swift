@@ -60,6 +60,8 @@ extension TextileService: AuthService {
 			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
 			onReceivingRecoveryPhrase(.failure(error))
 		}
+		let publicKey = Textile.instance().account.address()
+		UserDefaultsConfig.usersPublicKey.append(publicKey)
 		onReceivingRecoveryPhrase(.success(recoveryPhrase))
 	}
 	
@@ -68,6 +70,10 @@ extension TextileService: AuthService {
 			try destroyAccount()
 			try Textile.initialize(textileRepo, seed: seed, debug: false, logToDisk: false)
 			try launchTextile()
+			
+			let publicKey = Textile.instance().account.address()
+			UserDefaultsConfig.usersPublicKey.append(publicKey)
+			
 		} catch {
 			let error = AuthServiceError.logoutError(message: error.localizedDescription)
 			throw error
@@ -84,13 +90,17 @@ extension TextileService: AuthService {
 	}
 	
 	fileprivate func destroyAccount() throws {
+		let publicKey = Textile.instance().account.address()
+		
 		if Textile.isInitialized(textileRepo) {
 			var error: NSError?
 			textile?.destroy(&error)
-			
 			if error != nil {
 				throw AuthServiceError.logoutError(message: error?.localizedDescription)
 			}
+		}
+		UserDefaultsConfig.usersPublicKey.removeAll {
+			$0 == publicKey
 		}
 		try? FileManager.default.removeItem(atPath: textileRepo)
 	}

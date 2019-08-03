@@ -22,9 +22,9 @@
 		0331BBE022E607D1002AD179 /* HomeViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331BBDF22E607D1002AD179 /* HomeViewCoordinator.swift */; };
 		0339382722EF590A00589108 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0339382922EF590A00589108 /* Localizable.strings */; };
 		0339382C22EF71B600589108 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339382B22EF71B600589108 /* StandardButton.swift */; };
-		0340D70F22F119EA00D0BF88 /* SetupPinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0340D70E22F119EA00D0BF88 /* SetupPinCodeView.swift */; };
+		0340D70F22F119EA00D0BF88 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0340D70E22F119EA00D0BF88 /* PinCodeView.swift */; };
 		0340D71122F11CBF00D0BF88 /* PinCodeDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0340D71022F11CBF00D0BF88 /* PinCodeDotsView.swift */; };
-		034BDD3722F4B48C00D8CD83 /* SetupPinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BDD3622F4B48B00D8CD83 /* SetupPinCodeViewModel.swift */; };
+		034BDD3722F4B48C00D8CD83 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BDD3622F4B48B00D8CD83 /* PinCodeViewModel.swift */; };
 		03746CF922DE506200380AA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03746CF822DE506200380AA1 /* Constants.swift */; };
 		037AA83222E224EA002CB09F /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83122E224EA002CB09F /* AuthView.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
@@ -74,9 +74,9 @@
 		0331BBDF22E607D1002AD179 /* HomeViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewCoordinator.swift; path = "../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/PresentationLayer/Home Story/HomeViewCoordinator.swift"; sourceTree = "<group>"; };
 		0339382822EF590A00589108 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0339382B22EF71B600589108 /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardButton.swift; path = ../../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/PresentationLayer/Helpers/Buttons/StandardButton.swift; sourceTree = "<group>"; };
-		0340D70E22F119EA00D0BF88 /* SetupPinCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupPinCodeView.swift; sourceTree = "<group>"; };
+		0340D70E22F119EA00D0BF88 /* PinCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		0340D71022F11CBF00D0BF88 /* PinCodeDotsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PinCodeDotsView.swift; path = "../../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/PresentationLayer/Auth Story/SetupPinCodeView/PinCodeDotsView.swift"; sourceTree = "<group>"; };
-		034BDD3622F4B48B00D8CD83 /* SetupPinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPinCodeViewModel.swift; sourceTree = "<group>"; };
+		034BDD3622F4B48B00D8CD83 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
 		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83122E224EA002CB09F /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
@@ -230,8 +230,8 @@
 		0340D70B22F119B900D0BF88 /* SetupPinCodeView */ = {
 			isa = PBXGroup;
 			children = (
-				0340D70E22F119EA00D0BF88 /* SetupPinCodeView.swift */,
-				034BDD3622F4B48B00D8CD83 /* SetupPinCodeViewModel.swift */,
+				0340D70E22F119EA00D0BF88 /* PinCodeView.swift */,
+				034BDD3622F4B48B00D8CD83 /* PinCodeViewModel.swift */,
 				0340D71022F11CBF00D0BF88 /* PinCodeDotsView.swift */,
 			);
 			path = SetupPinCodeView;
@@ -565,11 +565,11 @@
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				0388BF7622F0A96900B73E39 /* AuthViewCoordinator.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
-				0340D70F22F119EA00D0BF88 /* SetupPinCodeView.swift in Sources */,
+				0340D70F22F119EA00D0BF88 /* PinCodeView.swift in Sources */,
 				037AA83222E224EA002CB09F /* AuthView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				0303CAF322EEFAD9007E3EA1 /* AuthService.swift in Sources */,
-				034BDD3722F4B48C00D8CD83 /* SetupPinCodeViewModel.swift in Sources */,
+				034BDD3722F4B48C00D8CD83 /* PinCodeViewModel.swift in Sources */,
 				0340D71122F11CBF00D0BF88 /* PinCodeDotsView.swift in Sources */,
 				0339382C22EF71B600589108 /* StandardButton.swift in Sources */,
 				0303CAF622EEFCCC007E3EA1 /* UserDefault.swift in Sources */,
