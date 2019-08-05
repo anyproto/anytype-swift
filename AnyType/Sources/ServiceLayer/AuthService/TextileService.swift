@@ -11,7 +11,6 @@ import Textile
 
 class TextileService: NSObject {
 	private var textileRepo: String
-	private var textile: Textile?
 	
 	override init() {
 		textileRepo = getDocumentsDirectory().appendingPathComponent("textile-go").path
@@ -65,6 +64,52 @@ extension TextileService: AuthService {
 		onReceivingRecoveryPhrase(.success(recoveryPhrase))
 	}
 	
+	func generateRecoveryPhrase(wordCount: Int?) throws -> String {
+		var error: NSError?
+		let recoveryPhrase = Textile.newWallet(wordCount ?? 12, error: &error)
+		
+		if recoveryPhrase.isEmpty, let error = error {
+			throw AuthServiceError.generateRecoveryPhraseError(message: error.localizedDescription)
+		}
+		return recoveryPhrase
+	}
+	
+	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: OnReceivingRecoveryPhrase) {
+		// first destroy old account with repo (reset current Textile node)
+		do {
+			try destroyAccount()
+		} catch {
+			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+			onReceivingRecoveryPhrase(.failure(error))
+		}
+		var error: NSError?
+		
+		// resolve a wallet account
+		let mobileWalletAccount = Textile.walletAccount(at: recoveryPhrase, index: 0, password: "", error: &error)
+
+		if mobileWalletAccount.seed == nil, let error = error {
+			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+			onReceivingRecoveryPhrase(.failure(error))
+		}
+		
+		do {
+			try Textile.initialize(textileRepo, seed: mobileWalletAccount.seed, debug: false, logToDisk: false)
+		} catch {
+			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+			onReceivingRecoveryPhrase(.failure(error))
+		}
+		
+		do {
+			try launchTextile()
+		} catch {
+			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+			onReceivingRecoveryPhrase(.failure(error))
+		}
+		let publicKey = Textile.instance().account.address()
+		UserDefaultsConfig.usersPublicKey.append(publicKey)
+		onReceivingRecoveryPhrase(.success(recoveryPhrase))
+	}
+	
 	func login(with seed: String) throws {
 		do {
 			try destroyAccount()
@@ -94,7 +139,8 @@ extension TextileService: AuthService {
 		
 		if Textile.isInitialized(textileRepo) {
 			var error: NSError?
-			textile?.destroy(&error)
+			Textile.instance().destroy(&error)
+			
 			if error != nil {
 				throw AuthServiceError.logoutError(message: error?.localizedDescription)
 			}

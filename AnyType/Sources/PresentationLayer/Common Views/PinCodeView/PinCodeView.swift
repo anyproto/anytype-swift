@@ -8,18 +8,35 @@
 
 import SwiftUI
 
+enum PinCodeViewType: Equatable {
+	case setup
+	case verify(publicAddress: String)
+	
+	var title: String {
+		switch self {
+		case .setup:
+			return "Create a pin code"
+		case .verify:
+			return "Create a pin code"
+		}
+	}
+}
+
+struct PinCodeViewModel {
+	var pinCodeViewType: PinCodeViewType = .setup
+	var pinCodeConfirmed: Bool = false
+}
+
 struct PinCodeView: View {
-	@EnvironmentObject var applicationState: ApplicationState
-	@ObservedObject var viewModel: PinCodeViewModel
+	@Binding var viewModel: PinCodeViewModel
 	@State var pinCode: String = ""
 	@State var repeatPinCode: String = ""
 	
     var body: some View {
-		
 		VStack(alignment: .leading, spacing: 25.0) {
-			Text(viewModel.titleText).font(.title).fontWeight(.bold)
+			Text(viewModel.pinCodeViewType.title).font(.title).fontWeight(.bold)
 			
-			if viewModel.pinCodeViewState == .setup {
+			if viewModel.pinCodeViewType == .setup {
 				Text("Create a pin code description")
 			}
 			
@@ -31,7 +48,7 @@ struct PinCodeView: View {
 					.border(Color.gray, cornerRadius: 7.0)
 			}
 			
-			if viewModel.pinCodeViewState == .setup {
+			if viewModel.pinCodeViewType == .setup {
 				VStack(alignment: .leading, spacing: 5.0) {
 					Text("Repeat a pin code")
 					SecureField("****", text: $repeatPinCode)
@@ -43,7 +60,7 @@ struct PinCodeView: View {
 			
 			HStack {
 				StandardButton(text: "Confirm", style: .yellow) {
-					self.viewModel.onConfirm(password: self.pinCode)
+					self.viewModel.pinCodeConfirmed = true
 				}
 				Spacer()
 			}
@@ -57,9 +74,7 @@ struct PinCodeView: View {
 #if DEBUG
 struct SetupPinCodeView_Previews: PreviewProvider {
     static var previews: some View {
-		PinCodeView(viewModel: PinCodeViewModel(pinCodeViewState: .setup) {
-			ApplicationState().currentRootView = .home
-		}).environmentObject(ApplicationState())
+		PinCodeView(viewModel: .constant(PinCodeViewModel()))
     }
 }
 #endif

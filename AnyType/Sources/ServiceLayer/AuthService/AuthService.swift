@@ -13,6 +13,7 @@ enum AuthServiceError: Error {
 	case logoutError(message: String? = nil)
 	case loginError(message: String? = nil)
 	case createWalletError(message: String? = nil)
+	case generateRecoveryPhraseError(message: String? = nil)
 }
 
 /// Service for auth in AnyType account
@@ -30,4 +31,13 @@ protocol AuthService {
 	/// Create new wallet and account
 	/// - Parameter onReceivingRecoveryPhrase: Called on completion with recovery wallet string or AuthServiceError.
 	func createWalletAndAccount(onReceivingRecoveryPhrase: OnReceivingRecoveryPhrase)
+	
+	/// Generate recovery phrase
+	/// - Parameter wordCount: word's count in recovery phrase
+	func generateRecoveryPhrase(wordCount: Int?) throws -> String
+	
+	/// Create new wallet and account with generated recovery phrase
+	/// - Parameter recoveryPhrase: recovery phrase (mnemonic phase)
+	/// - Parameter onReceivingRecoveryPhrase: Called on completion with recovery wallet string or AuthServiceError.
+	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: OnReceivingRecoveryPhrase)
 }

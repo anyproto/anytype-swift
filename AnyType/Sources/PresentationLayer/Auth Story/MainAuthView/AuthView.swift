@@ -11,18 +11,21 @@ import SwiftUI
 struct AuthView : View {
 	@ObservedObject var viewModel: AuthViewModel
 	@State var selectedKey = 0
-	@EnvironmentObject var applicationState: ApplicationState
+	@State var recovery: Bool = false
 	
 	init(viewModel: AuthViewModel) {
 		self.viewModel = viewModel
+		
+		UINavigationBar.appearance().barTintColor = .white
+		UINavigationBar.appearance().shadowImage = UIImage()
 	}
 	
 	var body: some View {
 		NavigationView {
 			VStack(alignment: .leading, spacing: 20) {
-
+				
 				Image("logo-sign-part-mobile").resizable().aspectRatio(contentMode: .fit).frame(width: 50, height: 50, alignment: .leading)
-
+				
 				VStack(alignment: .leading) {
 					Text("Welcome to AnyType!")
 						.font(.title)
@@ -30,7 +33,7 @@ struct AuthView : View {
 						.padding(.top, 20)
 					Text("AnyTypeShortDescription").font(.headline).fontWeight(.regular)
 				}
-
+				
 				VStack(alignment: .leading) {
 					if !viewModel.publicKeys.isEmpty {
 						Picker(selection: $selectedKey, label: Text("Accounts")) {
@@ -39,13 +42,15 @@ struct AuthView : View {
 							}
 						}
 					}
-
+					
 					Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline).fontWeight(.regular)
 					
-					StandardButton(text: "Create new account", style: .black) {
-						self.applicationState.currentRootView = .saveRecoveryPhrase
+					NavigationLink(destination: showSaverRecoveryPhraseView(), isActive: $recovery) {
+						StandardButton(text: "Create new account", style: .black) {
+							self.recovery.toggle()
+						}
 					}
-
+					
 					StandardButton(text: "I have an account", style: .black) {
 					}
 				}.padding(.top, 20)
@@ -55,13 +60,20 @@ struct AuthView : View {
 		}
 	}
 	
+	private func showSaverRecoveryPhraseView() -> some View {
+		let viewModel = AuthRecoveryViewModel()
+		viewModel.authService = TextileService()
+		let view = AuthRecoveryView(viewModel: viewModel)
+		
+		return view
+	}
 }
 
 #if DEBUG
 struct SwiftUIView_Previews : PreviewProvider {
 	static var previews: some View {
 		let viewModel = AuthViewModel()
-		return AuthView(viewModel: viewModel).environmentObject(ApplicationState())
+		return AuthView(viewModel: viewModel)
 	}
 }
 #endif

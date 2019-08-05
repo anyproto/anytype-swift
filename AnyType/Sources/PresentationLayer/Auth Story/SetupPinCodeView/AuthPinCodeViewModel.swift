@@ -1,5 +1,5 @@
 //
-//  PinCodeViewModel.swift
+//  AuthPinCodeViewModel.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 02.08.2019.
@@ -9,43 +9,24 @@
 import SwiftUI
 import Textile
 
-enum PinCodeViewState: Equatable {
-	case setup
-	case verify(publicAddress: String)
-}
-
-class PinCodeViewModel: ObservableObject {
-	typealias ConfirmAction = () -> Void
-	
+class AuthPinCodeViewModel: ObservableObject {
 	var storeService: StoreServiceProtocol?
 	var authService: AuthService?
-	var pinCodeViewState: PinCodeViewState
+	var pinCodeViewModel = PinCodeViewModel()
 	
 	@Published var storeError: Error? = nil
 	@Published var keyChainError: Error? = nil
 	
-	var titleText: String {
-		switch pinCodeViewState {
-		case .setup:
-			return "Create a pin code"
-		case .verify:
-			return "Create a pin code"
-		}
-	}
-	
-	var confirmAction: ConfirmAction
-	
 	// MARK: - Lifecycle
 	
-	init(pinCodeViewState: PinCodeViewState, confirmAction: @escaping ConfirmAction) {
-		self.pinCodeViewState = pinCodeViewState
-		self.confirmAction = confirmAction
+	init(pinCodeViewType: PinCodeViewType) {
+		self.pinCodeViewModel.pinCodeViewType = pinCodeViewType
 	}
 	
 	// MARK: - Public methods
 	
 	func onConfirm(password: String) {
-		switch pinCodeViewState {
+		switch pinCodeViewModel.pinCodeViewType {
 		case .setup:
 			saveSeedPhrase(password: password)
 		case .verify(let publicAddress):
