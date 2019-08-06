@@ -35,12 +35,17 @@ struct AuthView : View {
 				}
 				
 				VStack(alignment: .leading) {
+					Text("Accounts")
 					if !viewModel.publicKeys.isEmpty {
-						Picker(selection: $selectedKey, label: Text("Accounts")) {
+						Picker(selection: $selectedKey, label: Text("")) {
 							ForEach(0 ..< viewModel.publicKeys.count) {
 								Text(self.viewModel.publicKeys[$0]).tag($0)
 							}
 						}
+						.padding()
+						.frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
+						.clipShape(RoundedRectangle(cornerRadius: 7.0))
+//						.overlay(RoundedRectangle(cornerRadius: 7.0).stroke())
 					}
 					
 					Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline).fontWeight(.regular)
@@ -73,6 +78,7 @@ struct AuthView : View {
 struct SwiftUIView_Previews : PreviewProvider {
 	static var previews: some View {
 		let viewModel = AuthViewModel()
+		viewModel.publicKeys = ["dsfsdfdsfsdfsdfsdfsdfsdf", "222222222222222", "333333333333333"]
 		return AuthView(viewModel: viewModel)
 	}
 }

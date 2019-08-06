@@ -16,13 +16,11 @@ struct AuthPinCodeView: View {
 	
     var body: some View {
 		VStack {
-			PinCodeView(viewModel: $viewModel.pinCodeViewModel)
+			PinCodeView(viewModel: $viewModel.pinCodeViewModel, pinCodeConfirmed: {
+				self.viewModel.onConfirm()
+			})
 			
-			if viewModel.pinCodeViewModel.pinCodeConfirmed {
-				on
-			}
-			
-			NavigationLink(destination: showHomeView(), isActive: $viewModel.pinCodeAccepted) {
+			NavigationLink(destination: showHomeView(), isActive: $viewModel.pinAccepted) {
 				EmptyView()
 			}
 		}

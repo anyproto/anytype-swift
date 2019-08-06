@@ -23,18 +23,20 @@ enum PinCodeViewType: Equatable {
 }
 
 struct PinCodeViewModel {
-	var pinCodeViewType: PinCodeViewType = .setup
-	var pinCodeConfirmed: Bool = false
+	let pinCodeViewType: PinCodeViewType
+	var pinCode: String = ""
+	var repeatPinCode: String = ""
 }
+
+typealias OnPinCodeConfirmed = () -> Void
 
 struct PinCodeView: View {
 	@Binding var viewModel: PinCodeViewModel
-	@State var pinCode: String = ""
-	@State var repeatPinCode: String = ""
+	var pinCodeConfirmed: OnPinCodeConfirmed
 	
     var body: some View {
 		VStack(alignment: .leading, spacing: 25.0) {
-			Text(viewModel.pinCodeViewType.title).font(.title).fontWeight(.bold)
+		Text(viewModel.pinCodeViewType.title).font(.title).fontWeight(.bold)
 			
 			if viewModel.pinCodeViewType == .setup {
 				Text("Create a pin code description")
@@ -42,7 +44,7 @@ struct PinCodeView: View {
 			
 			VStack(alignment: .leading, spacing: 5.0) {
 				Text("Enter a pin code")
-				SecureField("****", text: $pinCode)
+				SecureField("****", text: $viewModel.pinCode)
 					.padding()
 					.textContentType(.password)
 					.border(Color.gray, cornerRadius: 7.0)
@@ -51,7 +53,7 @@ struct PinCodeView: View {
 			if viewModel.pinCodeViewType == .setup {
 				VStack(alignment: .leading, spacing: 5.0) {
 					Text("Repeat a pin code")
-					SecureField("****", text: $repeatPinCode)
+					SecureField("****", text: $viewModel.repeatPinCode)
 						.padding()
 						.textContentType(.password)
 						.border(Color.gray, cornerRadius: 7.0)
@@ -60,13 +62,11 @@ struct PinCodeView: View {
 			
 			HStack {
 				StandardButton(text: "Confirm", style: .yellow) {
-					self.viewModel.pinCodeConfirmed = true
+					self.pinCodeConfirmed()
 				}
 				Spacer()
 			}
 		}
-		.frame(maxHeight: .infinity ,alignment:  .topLeading)
-		.padding(.top, 40).padding(.horizontal, 20)
     }
 	
 }
@@ -74,7 +74,7 @@ struct PinCodeView: View {
 #if DEBUG
 struct SetupPinCodeView_Previews: PreviewProvider {
     static var previews: some View {
-		PinCodeView(viewModel: .constant(PinCodeViewModel()))
+		PinCodeView(viewModel: .constant(PinCodeViewModel(pinCodeViewType: .setup)), pinCodeConfirmed: {})
     }
 }
 #endif

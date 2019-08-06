@@ -42,9 +42,7 @@ struct AuthRecoveryView: View {
 	}
 	
 	private func showPinCodeView(state: PinCodeViewType) -> some View {
-		let viewModel = AuthPinCodeViewModel(pinCodeViewState: state) {
-			
-		}
+		let viewModel = AuthPinCodeViewModel(pinCodeViewType: .setup)
 		viewModel.storeService = KeychainStoreService()
 		viewModel.authService = TextileService()
 		let view = AuthPinCodeView(viewModel: viewModel)
@@ -59,9 +57,7 @@ struct AuthRecoveryView_Previews: PreviewProvider {
 		let viewModel = AuthRecoveryViewModel()
 		viewModel.saveRecoveryModel.recoveryPhrase = "some phrase to save"
 		
-		return NavigationView() {
-			AuthRecoveryView(viewModel: viewModel)
-		}
+		return AuthRecoveryView(viewModel: viewModel)
     }
 }
 #endif

@@ -12,25 +12,27 @@ import Textile
 class AuthPinCodeViewModel: ObservableObject {
 	var storeService: StoreServiceProtocol?
 	var authService: AuthService?
-	var pinCodeViewModel = PinCodeViewModel()
+	
+	var pinCodeViewModel: PinCodeViewModel
 	
 	@Published var storeError: Error? = nil
 	@Published var keyChainError: Error? = nil
+	@Published var pinAccepted: Bool = false
 	
 	// MARK: - Lifecycle
 	
 	init(pinCodeViewType: PinCodeViewType) {
-		self.pinCodeViewModel.pinCodeViewType = pinCodeViewType
+		self.pinCodeViewModel = PinCodeViewModel(pinCodeViewType: pinCodeViewType)
 	}
 	
 	// MARK: - Public methods
 	
-	func onConfirm(password: String) {
+	func onConfirm() {
 		switch pinCodeViewModel.pinCodeViewType {
 		case .setup:
-			saveSeedPhrase(password: password)
+			saveSeedPhrase(password: pinCodeViewModel.pinCode)
 		case .verify(let publicAddress):
-			if let seed = obtainSeedPhrase(publicKey: publicAddress, password: password) {
+			if let seed = obtainSeedPhrase(publicKey: publicAddress, password: pinCodeViewModel.pinCode) {
 				do {
 					try authService?.login(with: seed)
 				} catch {
@@ -39,7 +41,7 @@ class AuthPinCodeViewModel: ObservableObject {
 				}
 			}
 		}
-		confirmAction()
+		pinAccepted = true
 	}
 	
 	// MARK: - Private methods
