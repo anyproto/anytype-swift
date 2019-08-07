@@ -6,25 +6,27 @@
 //  Copyright © 2019 AnyType. All rights reserved.
 //
 
-import Foundation
 import Textile
+import Combine
 
 class TextileService: NSObject {
 	private var textileRepo: String
+	private let subject = PassthroughSubject<Bool, Never>()
+	var nodeSubscriber: AnyCancellable?
 	
 	override init() {
 		textileRepo = getDocumentsDirectory().appendingPathComponent("textile-go").path
 		
 		super.init()
-		
-		// Set the Textile delegate to self so we can make use of events such nodeStarted
-		Textile.instance().delegate = self
 	}
 	
 	// MARK: - Private methods
 	
-	fileprivate func launchTextile() throws {
+	func launchTextile() throws {
+		// Set the Textile delegate to self so we can make use of events such nodeStarted
+		
 		try Textile.launch(textileRepo, debug: false)
+		Textile.instance().delegate = self
 	}
 }
 
@@ -33,7 +35,7 @@ class TextileService: NSObject {
 
 extension TextileService: AuthService {
 	
-	func createWalletAndAccount(onReceivingRecoveryPhrase: OnReceivingRecoveryPhrase) {
+	func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
 		// first destroy old account with repo (reset current Textile node)
 		do {
 			try destroyAccount()
@@ -59,9 +61,16 @@ extension TextileService: AuthService {
 			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
 			onReceivingRecoveryPhrase(.failure(error))
 		}
-		let publicKey = Textile.instance().account.address()
-		UserDefaultsConfig.usersPublicKey.append(publicKey)
-		onReceivingRecoveryPhrase(.success(recoveryPhrase))
+		
+		nodeSubscriber = subject.sink { value in
+			guard value == true else {
+				onReceivingRecoveryPhrase(.failure(.createWalletError(message: "node failed to start")))
+				return
+			}
+			let publicKey = Textile.instance().account.address()
+			UserDefaultsConfig.usersPublicKey.append(publicKey)
+			onReceivingRecoveryPhrase(.success(recoveryPhrase))
+		}
 	}
 	
 	func generateRecoveryPhrase(wordCount: Int?) throws -> String {
@@ -74,7 +83,7 @@ extension TextileService: AuthService {
 		return recoveryPhrase
 	}
 	
-	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: OnReceivingRecoveryPhrase) {
+	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
 		// first destroy old account with repo (reset current Textile node)
 		do {
 			try destroyAccount()
@@ -105,9 +114,17 @@ extension TextileService: AuthService {
 			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
 			onReceivingRecoveryPhrase(.failure(error))
 		}
-		let publicKey = Textile.instance().account.address()
-		UserDefaultsConfig.usersPublicKey.append(publicKey)
-		onReceivingRecoveryPhrase(.success(recoveryPhrase))
+		
+		nodeSubscriber = subject.sink { value in
+			guard value == true else {
+				onReceivingRecoveryPhrase(.failure(.createWalletError(message: "node failed to start")))
+				return
+			}
+			let publicKey = Textile.instance().account.address()
+			UserDefaultsConfig.usersPublicKey.append(publicKey)
+			onReceivingRecoveryPhrase(.success(recoveryPhrase))
+
+		}
 	}
 	
 	func login(with seed: String) throws {
@@ -153,4 +170,12 @@ extension TextileService: AuthService {
 }
 
 extension TextileService: TextileDelegate {
+	
+	func nodeStarted() {
+		self.subject.send(true)
+	}
+	
+	func nodeFailedToStartWithError(_ error: Error) {
+		self.subject.send(false)
+	}
 }

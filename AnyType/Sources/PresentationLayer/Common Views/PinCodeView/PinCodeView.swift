@@ -17,7 +17,7 @@ enum PinCodeViewType: Equatable {
 		case .setup:
 			return "Create a pin code"
 		case .verify:
-			return "Create a pin code"
+			return "Verify pin code"
 		}
 	}
 }

@@ -12,6 +12,7 @@ struct AuthView : View {
 	@ObservedObject var viewModel: AuthViewModel
 	@State var selectedKey = 0
 	@State var recovery: Bool = false
+	@State var loginWithPK: Bool = false
 	
 	init(viewModel: AuthViewModel) {
 		self.viewModel = viewModel
@@ -34,34 +35,43 @@ struct AuthView : View {
 					Text("AnyTypeShortDescription").font(.headline).fontWeight(.regular)
 				}
 				
+				Divider()
+				
 				VStack(alignment: .leading) {
-					Text("Accounts")
+					
 					if !viewModel.publicKeys.isEmpty {
-						Picker(selection: $selectedKey, label: Text("")) {
-							ForEach(0 ..< viewModel.publicKeys.count) {
-								Text(self.viewModel.publicKeys[$0]).tag($0)
+						DetailedPickerView(title: Text("Select account for public key").font(.headline)
+							, content: viewModel.publicKeys, selected: $selectedKey).padding(.bottom, 20)
+						
+						NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey]), isActive: $loginWithPK) {
+							StandardButton(text: "Login with selected public key", style: .black) {
+								self.loginWithPK.toggle()
 							}
+						}.padding(.bottom, 20)
+						
+						Divider().padding(.bottom, 20)
+					}
+					
+					VStack(alignment: .leading, spacing: 7.0) {
+						Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline)
+						
+						NavigationLink(destination: showSaverRecoveryPhraseView(), isActive: $recovery) {
+							StandardButton(text: "Create new account", style: .black) {
+								self.recovery.toggle()
+							}
+						}.padding(.bottom, 20)
+					}
+					
+					VStack(alignment: .leading, spacing: 7.0) {
+						Text("I know accont seed").font(.headline)
+						StandardButton(text: "Enter account ssed", style: .black) {
 						}
-						.padding()
-						.frame(minWidth: 0, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
-						.clipShape(RoundedRectangle(cornerRadius: 7.0))
-//						.overlay(RoundedRectangle(cornerRadius: 7.0).stroke())
 					}
 					
-					Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline).fontWeight(.regular)
-					
-					NavigationLink(destination: showSaverRecoveryPhraseView(), isActive: $recovery) {
-						StandardButton(text: "Create new account", style: .black) {
-							self.recovery.toggle()
-						}
-					}
-					
-					StandardButton(text: "I have an account", style: .black) {
-					}
-				}.padding(.top, 20)
+				}
 			}
 			.frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-			.padding(.all, 40)
+			.padding(.horizontal, 40)
 		}
 	}
 	
@@ -69,6 +79,13 @@ struct AuthView : View {
 		let viewModel = AuthRecoveryViewModel()
 		viewModel.authService = TextileService()
 		let view = AuthRecoveryView(viewModel: viewModel)
+		
+		return view
+	}
+	
+	private func showAuthPineCodeViweOnExistsPublicKey(publicKey: String) -> some View {
+		let viewModel = AuthPinCodeViewModel(pinCodeViewType: .verify(publicAddress: publicKey))
+		let view = AuthPinCodeView(viewModel: viewModel)
 		
 		return view
 	}

@@ -30,7 +30,7 @@ protocol AuthService {
 	
 	/// Create new wallet and account
 	/// - Parameter onReceivingRecoveryPhrase: Called on completion with recovery wallet string or AuthServiceError.
-	func createWalletAndAccount(onReceivingRecoveryPhrase: OnReceivingRecoveryPhrase)
+	func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase)
 	
 	/// Generate recovery phrase
 	/// - Parameter wordCount: word's count in recovery phrase
@@ -39,5 +39,5 @@ protocol AuthService {
 	/// Create new wallet and account with generated recovery phrase
 	/// - Parameter recoveryPhrase: recovery phrase (mnemonic phase)
 	/// - Parameter onReceivingRecoveryPhrase: Called on completion with recovery wallet string or AuthServiceError.
-	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: OnReceivingRecoveryPhrase)
+	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase)
 }

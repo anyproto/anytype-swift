@@ -26,15 +26,6 @@ class AuthRecoveryViewModel: ObservableObject {
 		} catch {
 			self.error = error as? AuthServiceError
 		}
-		
-//		authService?.createWalletAndAccount { result in
-//			switch result {
-//			case .success(let recoveryPhrase):
-//				self.recoveryPhrase = recoveryPhrase
-//			case .failure(let error):
-//				self.error = error
-//			}
-//		}
 	}
 	
 }

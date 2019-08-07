@@ -10,9 +10,9 @@ import SwiftUI
 
 
 struct DetailedPickerView: View {
-	let title: String
+	let title: Text
 	@State var content: [String]
-	@State var selected: Int {
+	@Binding var selected: Int {
 		didSet {
 			let isValidIndex = content.indices.contains(selected)
 			
@@ -23,20 +23,18 @@ struct DetailedPickerView: View {
 	}
 	
     var body: some View {
-		NavigationView {
-			VStack(alignment: .leading, spacing: 0) {
-				Text(title)
-				
-				if !content.isEmpty {
-					NavigationLink(destination: PickerDetailView(content: $content, selection: $selected)) {
-						HStack {
-							Text(content[selected]).foregroundColor(.gray)
-							Spacer()
-							Image(systemName: "chevron.right").foregroundColor(.gray)
-						}
+		VStack(alignment: .leading, spacing: 0) {
+			title
+			
+			if !content.isEmpty {
+				NavigationLink(destination: PickerDetailView(content: $content, selection: $selected)) {
+					HStack {
+						Text(content[selected]).foregroundColor(.gray)
+						Spacer()
+						Image(systemName: "chevron.right").foregroundColor(.gray)
 					}
 				}
-			}.padding()
+			}
 		}
     }
 }
@@ -45,7 +43,7 @@ struct DetailedPickerView: View {
 struct DetailPickerView_Previews: PreviewProvider {
     static var previews: some View {
 		let model = ["public key 1", "public key 2", "public key 3"]
-		return DetailedPickerView(title: "Accounts", content: model, selected: 0)
+		return DetailedPickerView(title: Text("Accounts"), content: model, selected: .constant(0))
     }
 }
 #endif

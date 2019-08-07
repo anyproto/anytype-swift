@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0303CAF322EEFAD9007E3EA1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303CAF122EEFAD8007E3EA1 /* AuthService.swift */; };
 		0303CAF422EEFAD9007E3EA1 /* TextileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303CAF222EEFAD9007E3EA1 /* TextileService.swift */; };
-		0303CAF622EEFCCC007E3EA1 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303CAF522EEFCCC007E3EA1 /* UserDefault.swift */; };
 		0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ECFE22D8EDAA005C552B /* AppDelegate.swift */; };
 		0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0022D8EDAA005C552B /* SceneDelegate.swift */; };
 		0303ED0322D8EDAA005C552B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0222D8EDAA005C552B /* ProfileView.swift */; };
@@ -34,6 +33,7 @@
 		0388BF7B22F10F9B00B73E39 /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */; };
 		0388BF7D22F1113000B73E39 /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0388BF7C22F1113000B73E39 /* FontExtension.swift */; };
 		03A8011E22F8CAA200F31E01 /* PickerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A8011D22F8CAA100F31E01 /* PickerDetailView.swift */; };
+		03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA488C22FA5C8A00D756AA /* UserDefault.swift */; };
 		03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53622DF6C9900DD91DE /* KeychainStore.swift */; };
 		03C5C53922DF6C9900DD91DE /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53722DF6C9900DD91DE /* StoreService.swift */; };
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
@@ -62,7 +62,6 @@
 /* Begin PBXFileReference section */
 		0303CAF122EEFAD8007E3EA1 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = ../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/ServiceLayer/AuthService/AuthService.swift; sourceTree = "<group>"; };
 		0303CAF222EEFAD9007E3EA1 /* TextileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextileService.swift; path = ../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/ServiceLayer/AuthService/TextileService.swift; sourceTree = "<group>"; };
-		0303CAF522EEFCCC007E3EA1 /* UserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDefault.swift; path = ../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/CoreLayer/StoreLayer/UserDefault.swift; sourceTree = "<group>"; };
 		0303ECFB22D8EDAA005C552B /* AnyType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnyType.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0303ECFE22D8EDAA005C552B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0303ED0022D8EDAA005C552B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 		0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		0388BF7C22F1113000B73E39 /* FontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FontExtension.swift; path = ../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/FrameworkExtensions/FontExtension.swift; sourceTree = "<group>"; };
 		03A8011D22F8CAA100F31E01 /* PickerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDetailView.swift; sourceTree = "<group>"; };
+		03AA488C22FA5C8A00D756AA /* UserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		03C5C53622DF6C9900DD91DE /* KeychainStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		03C5C53722DF6C9900DD91DE /* StoreService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		03C5C53A22DF785000DD91DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -343,6 +343,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				03AA488A22FA55E800D756AA /* StoreService */,
 				0331BBE422E61BA1002AD179 /* AuthService */,
 			);
 			path = ServiceLayer;
@@ -371,12 +372,19 @@
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
 		};
+		03AA488A22FA55E800D756AA /* StoreService */ = {
+			isa = PBXGroup;
+			children = (
+				03C5C53722DF6C9900DD91DE /* StoreService.swift */,
+				03AA488C22FA5C8A00D756AA /* UserDefault.swift */,
+			);
+			path = StoreService;
+			sourceTree = "<group>";
+		};
 		03C5C53422DF6C9900DD91DE /* StoreLayer */ = {
 			isa = PBXGroup;
 			children = (
 				03C5C53522DF6C9900DD91DE /* KeychainStore */,
-				03C5C53722DF6C9900DD91DE /* StoreService.swift */,
-				0303CAF522EEFCCC007E3EA1 /* UserDefault.swift */,
 			);
 			path = StoreLayer;
 			sourceTree = "<group>";
@@ -591,9 +599,9 @@
 				0303CAF322EEFAD9007E3EA1 /* AuthService.swift in Sources */,
 				03F7BD2122F7A5B100F47583 /* AuthPinCodeView.swift in Sources */,
 				034BDD3722F4B48C00D8CD83 /* AuthPinCodeViewModel.swift in Sources */,
-				0303CAF622EEFCCC007E3EA1 /* UserDefault.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				03F7BD2322F7A62D00F47583 /* PinCodeDotsView.swift in Sources */,
+				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				0388BF7D22F1113000B73E39 /* FontExtension.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,

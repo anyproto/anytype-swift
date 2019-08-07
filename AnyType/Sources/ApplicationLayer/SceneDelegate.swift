@@ -12,7 +12,7 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 	var window: UIWindow?
-	let applicationCoordinator = ApplicationCoordinator()
+	private(set) var applicationCoordinator: ApplicationCoordinator?
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 		// Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -21,8 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		// Use a UIHostingController as window root view controller
 		if let windowScene = scene as? UIWindowScene {
-		    self.window = applicationCoordinator.start(windowScene: windowScene)
-		    self.window?.makeKeyAndVisible()
+			window = UIWindow(windowScene: windowScene)
+			
+			guard let window = window else { return }
+			
+			applicationCoordinator = ApplicationCoordinator(window: window)
+			applicationCoordinator?.start()
 		}
 	}
 

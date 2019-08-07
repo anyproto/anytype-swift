@@ -14,20 +14,27 @@ struct PickerDetailView: View {
 	
 	var body: some View {
 		Form {
-			List(0 ..< content.count) { index in
-				Button(action: {
-					self.selection = index
-				}) {
-					HStack {
-						Text(self.content[index]).foregroundColor(Color.black)
-						Spacer()
-						if self.selection == index {
-							Image(systemName: "checkmark").foregroundColor(.gray)
+			List {
+				ForEach(0 ..< content.count) { index in
+					Button(action: {
+						self.selection = index
+					}) {
+						HStack {
+							Text(self.content[index]).foregroundColor(Color.black)
+							Spacer()
+							if self.selection == index {
+								Image(systemName: "checkmark").foregroundColor(.gray)
+							}
 						}
 					}
-				}
+				}.onDelete(perform: delete)
 			}
+			.navigationBarItems(trailing: EditButton())
 		}
+	}
+	
+	private func delete(at offsets: IndexSet) {
+		content.remove(atOffsets: offsets)
 	}
 }
 
@@ -35,7 +42,10 @@ struct PickerDetailView: View {
 struct PickerDetailView_Previews: PreviewProvider {
 	static var previews: some View {
 		let model = ["public key 1", "public key 2", "public key 3"]
-		return PickerDetailView(content: .constant(model), selection: .constant(0))
+		
+		return NavigationView {
+			PickerDetailView(content: .constant(model), selection: .constant(0))
+		}
 	}
 }
 #endif

@@ -19,23 +19,12 @@ struct AuthPinCodeView: View {
 			PinCodeView(viewModel: $viewModel.pinCodeViewModel, pinCodeConfirmed: {
 				self.viewModel.onConfirm()
 			})
-			
-			NavigationLink(destination: showHomeView(), isActive: $viewModel.pinAccepted) {
-				EmptyView()
-			}
 		}
 		.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
 		.padding()
 		.navigationBarTitle("", displayMode: .inline)
 		.onDisappear(perform: restoreNavigationApperance)
-		
     }
-	
-	private func showHomeView() -> some View {
-		let view = HomeView()
-		
-		return view
-	}
 	
 	private func restoreNavigationApperance() {
 		UINavigationBar.appearance().barTintColor = defautlNavColor
@@ -47,8 +36,7 @@ struct AuthPinCodeView: View {
 struct AuthPinCodeView_Previews: PreviewProvider {
     static var previews: some View {
 		let viewModel = AuthPinCodeViewModel(pinCodeViewType: .setup)
-		viewModel.storeService = KeychainStoreService()
-		viewModel.authService = TextileService()
+		viewModel.recoveryPhrase = "bla bla bla"
 		
 		return AuthPinCodeView(viewModel: viewModel)
     }

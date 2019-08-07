@@ -72,6 +72,24 @@ class KeychainStore {
 		return currentToken
     }
     
+	/// Obtain item from keychain
+	///
+	/// - Returns: Stored item from keychain
+    func contains(queryable: SecureStoreQueryable) -> Bool {
+        var query = queryable.query
+		// specify kSecUseAuthenticationUIFail so that the error
+        // errSecInteractionNotAllowed will be returned if an item needs
+        // to authenticate with UI and the authentication UI will not be presented.
+		query[String(kSecUseAuthenticationUI)] = kSecUseAuthenticationUIFail
+		
+        var item: CFTypeRef?
+        
+        // try to find item in keychain
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+		
+		return status == errSecInteractionNotAllowed || status == errSecSuccess
+    }
+	
     /// Remove item from keychain
     func removeItem(queryable: SecureStoreQueryable) throws {
         let query = queryable.query

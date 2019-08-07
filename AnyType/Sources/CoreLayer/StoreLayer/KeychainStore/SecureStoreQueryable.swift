@@ -36,18 +36,16 @@ struct GenericPasswordQueryable {
 	let service: String
 	let accessGroup: String?
 	let account: String
-	let password: String?
 	let keyChainPassword: String?
 	
-	init(account: String, service: String, accessGroup: String? = nil, password: String? = nil, keyChainPassword: String? = nil) {
+	init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: String? = nil) {
 		self.service = service
 		self.accessGroup = accessGroup
 		self.account = account
-		self.password = password
 		self.keyChainPassword = keyChainPassword
 	}
 	
-	fileprivate func getPwSecAccessControl() -> SecAccessControl {
+	private func getPwSecAccessControl() -> SecAccessControl {
         var access: SecAccessControl?
         var error: Unmanaged<CFError>?
         
