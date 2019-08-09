@@ -11,7 +11,7 @@ import SwiftUI
 
 struct DetailedPickerView: View {
 	let title: Text
-	@State var content: [String]
+	@Binding var content: [String]
 	@Binding var selected: Int {
 		didSet {
 			let isValidIndex = content.indices.contains(selected)
@@ -43,7 +43,7 @@ struct DetailedPickerView: View {
 struct DetailPickerView_Previews: PreviewProvider {
     static var previews: some View {
 		let model = ["public key 1", "public key 2", "public key 3"]
-		return DetailedPickerView(title: Text("Accounts"), content: model, selected: .constant(0))
+		return DetailedPickerView(title: Text("Accounts"), content: .constant(model), selected: .constant(0))
     }
 }
 #endif

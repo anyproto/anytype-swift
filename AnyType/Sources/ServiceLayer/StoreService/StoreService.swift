@@ -42,7 +42,6 @@ class KeychainStoreService {
     static let shared = KeychainStoreService()
 	
 	private let keychainStore = KeychainStore()
-	
 }
 
 // MARK: - StoreServiceProtocol implementaion

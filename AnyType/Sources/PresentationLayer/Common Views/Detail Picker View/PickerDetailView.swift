@@ -27,9 +27,9 @@ struct PickerDetailView: View {
 							}
 						}
 					}
+					.navigationBarItems(trailing: EditButton())
 				}.onDelete(perform: delete)
 			}
-			.navigationBarItems(trailing: EditButton())
 		}
 	}
 	

@@ -41,7 +41,7 @@ struct AuthView : View {
 					
 					if !viewModel.publicKeys.isEmpty {
 						DetailedPickerView(title: Text("Select account for public key").font(.headline)
-							, content: viewModel.publicKeys, selected: $selectedKey).padding(.bottom, 20)
+							, content: $viewModel.publicKeys, selected: $selectedKey).padding(.bottom, 20)
 						
 						NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey]), isActive: $loginWithPK) {
 							StandardButton(text: "Login with selected public key", style: .black) {

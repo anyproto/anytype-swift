@@ -10,7 +10,12 @@ import Combine
 import SwiftUI
 
 class AuthViewModel: ObservableObject {
-	@Published var publicKeys = [String]()
+	
+	@Published var publicKeys = [String]() {
+		didSet {
+			UserDefaultsConfig.usersPublicKey = publicKeys
+		}
+	}
 	
 	init(publicKeys: [String]? = nil) {
 		if let publicKeys = publicKeys {
