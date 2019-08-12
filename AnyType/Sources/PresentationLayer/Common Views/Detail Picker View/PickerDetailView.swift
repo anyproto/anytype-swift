@@ -13,24 +13,23 @@ struct PickerDetailView: View {
 	@Binding var selection: Int
 	
 	var body: some View {
-		Form {
-			List {
-				ForEach(0 ..< content.count) { index in
-					Button(action: {
-						self.selection = index
-					}) {
-						HStack {
-							Text(self.content[index]).foregroundColor(Color.black)
-							Spacer()
-							if self.selection == index {
-								Image(systemName: "checkmark").foregroundColor(.gray)
-							}
+		List {
+			ForEach(content, id: \.self) { publicKey in
+				Button(action: {
+					self.selection = self.content.firstIndex(of: publicKey) ?? 0
+				}) {
+					HStack {
+						Text(publicKey).foregroundColor(Color.black)
+						Spacer()
+						if self.selection == self.content.firstIndex(of: publicKey) {
+							Image(systemName: "checkmark").foregroundColor(.gray)
 						}
 					}
-					.navigationBarItems(trailing: EditButton())
-				}.onDelete(perform: delete)
-			}
+				}
+			}.onDelete(perform: delete)
 		}
+		.navigationBarItems(trailing: EditButton())
+		.listStyle(GroupedListStyle())
 	}
 	
 	private func delete(at offsets: IndexSet) {
@@ -44,7 +43,7 @@ struct PickerDetailView_Previews: PreviewProvider {
 		let model = ["public key 1", "public key 2", "public key 3"]
 		
 		return NavigationView {
-			PickerDetailView(content: .constant(model), selection: .constant(0))
+			return PickerDetailView(content: .constant(model), selection: .constant(0))
 		}
 	}
 }

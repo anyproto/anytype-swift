@@ -10,9 +10,12 @@ import Textile
 import Combine
 
 class TextileService: NSObject {
-	private var textileRepo: String
 	private let subject = PassthroughSubject<Bool, Never>()
+	private var textileRepo: String
+	private var keyChainStore = KeychainStoreService()
+	
 	var nodeSubscriber: AnyCancellable?
+	
 	
 	override init() {
 		textileRepo = getDocumentsDirectory().appendingPathComponent("textile-go").path
@@ -38,7 +41,7 @@ extension TextileService: AuthService {
 	func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
 		// first destroy old account with repo (reset current Textile node)
 		do {
-			try destroyAccount()
+			try cleanCurrentRepo()
 		} catch {
 			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
 			onReceivingRecoveryPhrase(.failure(error))
@@ -86,7 +89,7 @@ extension TextileService: AuthService {
 	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
 		// first destroy old account with repo (reset current Textile node)
 		do {
-			try destroyAccount()
+			try cleanCurrentRepo()
 		} catch {
 			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
 			onReceivingRecoveryPhrase(.failure(error))
@@ -123,13 +126,12 @@ extension TextileService: AuthService {
 			let publicKey = Textile.instance().account.address()
 			UserDefaultsConfig.usersPublicKey.append(publicKey)
 			onReceivingRecoveryPhrase(.success(recoveryPhrase))
-
 		}
 	}
 	
 	func login(with seed: String) throws {
 		do {
-			try destroyAccount()
+			try cleanCurrentRepo()
 			try Textile.initialize(textileRepo, seed: seed, debug: false, logToDisk: false)
 			try launchTextile()
 			
@@ -144,16 +146,22 @@ extension TextileService: AuthService {
 	
 	func logout() throws {
 		do {
-			try destroyAccount()
+			try cleanCurrentRepo()
 		} catch {
 			let error = AuthServiceError.logoutError(message: error.localizedDescription)
 			throw error
 		}
 	}
 	
-	fileprivate func destroyAccount() throws {
-		let publicKey = Textile.instance().account.address()
+	func removeAccount(publicKey: String) throws {
+		UserDefaultsConfig.usersPublicKey.removeAll {
+			$0 == publicKey
+		}
 		
+		try? keyChainStore.removeSeed(for: publicKey)
+	}
+	
+	private func cleanCurrentRepo() throws {
 		if Textile.isInitialized(textileRepo) {
 			var error: NSError?
 			Textile.instance().destroy(&error)
@@ -161,9 +169,6 @@ extension TextileService: AuthService {
 			if error != nil {
 				throw AuthServiceError.logoutError(message: error?.localizedDescription)
 			}
-		}
-		UserDefaultsConfig.usersPublicKey.removeAll {
-			$0 == publicKey
 		}
 		try? FileManager.default.removeItem(atPath: textileRepo)
 	}

@@ -26,7 +26,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import LocalAuthentication
 
 protocol SecureStoreQueryable {
 	var query: [String: Any] { get }
@@ -65,21 +65,21 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
 		query[String(kSecClass)] = kSecClassGenericPassword
 		query[String(kSecAttrService)] = service
 		query[String(kSecAttrAccount)] = account
+		
+		if let password = keyChainPassword, !password.isEmpty {
+			let context = LAContext()
+			context.setCredential(password.data(using: .utf8), type: .applicationPassword)
+			
+			query[String(kSecUseAuthenticationContext)] = context
+			query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
+			
+		}
+		
 		// Access group if target environment is not simulator
 		#if !targetEnvironment(simulator)
 		if let accessGroup = accessGroup {
 			query[String(kSecAttrAccessGroup)] = accessGroup
 		}
-		
-		if let password = keyChainPassword {
-			let context = LAContext()
-			context.setCredential(password.data(using: .utf8), type: .applicationPassword)
-			
-			query[String[kSecUseAuthenticationContext]] = context
-			query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
-			
-		}
-		
 		#endif
 		return query
 	}

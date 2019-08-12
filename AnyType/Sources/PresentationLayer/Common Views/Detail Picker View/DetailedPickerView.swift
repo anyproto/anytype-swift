@@ -24,7 +24,6 @@ struct DetailedPickerView: View {
 	
     var body: some View {
 		VStack(alignment: .leading, spacing: 0) {
-			title
 			
 			if !content.isEmpty {
 				NavigationLink(destination: PickerDetailView(content: $content, selection: $selected)) {

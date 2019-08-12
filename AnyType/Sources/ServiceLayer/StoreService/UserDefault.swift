@@ -34,13 +34,5 @@ struct UserDefaultsConfig {
 	private static let keyChainStore = KeychainStoreService()
 	
     @UserDefault("usersPublicKey", defaultValue: [])
-	static var usersPublicKey: [String] {
-		didSet {
-			let usersPublicKeyRemoved = Array(Set(oldValue).subtracting(Set(usersPublicKey)))
-			
-			for key in usersPublicKeyRemoved {
-				try? keyChainStore.removeSeed(for: key)
-			}
-		}
-	}
+	static var usersPublicKey: [String]
 }
