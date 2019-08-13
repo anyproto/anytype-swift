@@ -24,8 +24,10 @@ struct AuthView : View {
 	var body: some View {
 		NavigationView {
 			VStack(alignment: .leading, spacing: 20) {
-				
-				Image("logo-sign-part-mobile").resizable().aspectRatio(contentMode: .fit).frame(width: 50, height: 50, alignment: .leading)
+				Image("logo-sign-part-mobile")
+					.resizable()
+					.aspectRatio(contentMode: .fit)
+					.frame(width: 50, height: 50, alignment: .leading)
 				
 				VStack(alignment: .leading) {
 					Text("Welcome to AnyType!")
@@ -35,21 +37,20 @@ struct AuthView : View {
 					Text("AnyTypeShortDescription").font(.headline).fontWeight(.regular)
 				}
 				
-				Divider()
-				
 				VStack(alignment: .leading) {
-					
 					if !viewModel.publicKeys.isEmpty {
-						DetailedPickerView(title: Text("Select account for public key").font(.headline)
-							, content: $viewModel.publicKeys, selected: $selectedKey).padding(.bottom, 20)
+						DetailedPickerView(title: Text("Select account for public key").font(.headline),
+										   content: $viewModel.publicKeys, selected: $selectedKey)
+							.padding()
+							.background(Color("backgroundColor"))
+							.cornerRadius(7.0)
+							.padding(.bottom, 20)
 						
 						NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey]), isActive: $loginWithPK) {
 							StandardButton(text: "Login with selected public key", style: .black) {
 								self.loginWithPK.toggle()
 							}
 						}.padding(.bottom, 20)
-						
-						Divider().padding(.bottom, 20)
 					}
 					
 					VStack(alignment: .leading, spacing: 7.0) {
@@ -63,9 +64,13 @@ struct AuthView : View {
 					}
 					
 					VStack(alignment: .leading, spacing: 7.0) {
-						Text("I know accont seed").font(.headline)
-						StandardButton(text: "Enter account ssed", style: .black) {
-						}
+						Text("I have an account").font(.headline)
+						
+						NavigationLink(destination: showEnterAccountSeedView(), isActive: $recovery) {
+							StandardButton(text: "Enter account seed", style: .black) {
+								self.recovery.toggle()
+							}
+						}.padding(.bottom, 20)
 					}
 					
 				}
@@ -86,6 +91,13 @@ struct AuthView : View {
 	private func showAuthPineCodeViweOnExistsPublicKey(publicKey: String) -> some View {
 		let viewModel = AuthPinCodeViewModel(pinCodeViewType: .verify(publicAddress: publicKey))
 		let view = AuthPinCodeView(viewModel: viewModel)
+		
+		return view
+	}
+	
+	private func showEnterAccountSeedView() -> some View {
+		let viewModel = EnterAccountSeedViewModel()
+		let view = EnterAccountSeedView(viewModel: viewModel)
 		
 		return view
 	}

@@ -17,6 +17,8 @@
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
 		0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311612D22DE0D1700885211 /* ProfileViewModel.swift */; };
 		0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D575230186CA000527B1 /* LocalAuthentication.framework */; };
+		031EA61E2302C62D00584EFD /* EnterAccountSeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0318D57A23022687000527B1 /* EnterAccountSeedViewModel.swift */; };
+		031EA61F2302C8A100584EFD /* EnterAccountSeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0318D578230224A2000527B1 /* EnterAccountSeedView.swift */; };
 		032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032225D922F87AAB0064E544 /* DetailedPickerView.swift */; };
 		0331BBDA22E5D998002AD179 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331BBD922E5D998002AD179 /* HomeView.swift */; };
 		0331BBDC22E5D9AB002AD179 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331BBDB22E5D9AB002AD179 /* HomeViewModel.swift */; };
@@ -73,6 +75,8 @@
 		0303ED0C22D8EDAD005C552B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0311612D22DE0D1700885211 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		0318D575230186CA000527B1 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		0318D578230224A2000527B1 /* EnterAccountSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAccountSeedView.swift; sourceTree = "<group>"; };
+		0318D57A23022687000527B1 /* EnterAccountSeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAccountSeedViewModel.swift; sourceTree = "<group>"; };
 		032225D922F87AAB0064E544 /* DetailedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedPickerView.swift; sourceTree = "<group>"; };
 		0331BBD922E5D998002AD179 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeView.swift; path = "../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/PresentationLayer/Home Story/HomeView.swift"; sourceTree = "<group>"; };
 		0331BBDB22E5D9AB002AD179 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeViewModel.swift; path = "../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/PresentationLayer/Home Story/HomeViewModel.swift"; sourceTree = "<group>"; };
@@ -184,6 +188,15 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		0318D5772302246A000527B1 /* EnterAccountSeedView */ = {
+			isa = PBXGroup;
+			children = (
+				0318D578230224A2000527B1 /* EnterAccountSeedView.swift */,
+				0318D57A23022687000527B1 /* EnterAccountSeedViewModel.swift */,
+			);
+			path = EnterAccountSeedView;
+			sourceTree = "<group>";
+		};
 		032225DB22F87AB40064E544 /* Detail Picker View */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +281,7 @@
 		037AA83022E224B9002CB09F /* Auth Story */ = {
 			isa = PBXGroup;
 			children = (
+				0318D5772302246A000527B1 /* EnterAccountSeedView */,
 				0340D70B22F119B900D0BF88 /* SetupPinCodeView */,
 				0388BF6F22F0A30A00B73E39 /* AuthRecoveryPhraseView */,
 				0388BF6C22F0A27500B73E39 /* MainAuthView */,
@@ -593,6 +607,7 @@
 				03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */,
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				03592D8C22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift in Sources */,
+				031EA61E2302C62D00584EFD /* EnterAccountSeedViewModel.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				0388BF7622F0A96900B73E39 /* AuthViewCoordinator.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
@@ -612,6 +627,7 @@
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0303CAF422EEFAD9007E3EA1 /* TextileService.swift in Sources */,
 				03E140CE22F73DC400FF7979 /* AuthRecoveryView.swift in Sources */,
+				031EA61F2302C8A100584EFD /* EnterAccountSeedView.swift in Sources */,
 				0331BBE022E607D1002AD179 /* HomeViewCoordinator.swift in Sources */,
 				0303ED0322D8EDAA005C552B /* ProfileView.swift in Sources */,
 				03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */,

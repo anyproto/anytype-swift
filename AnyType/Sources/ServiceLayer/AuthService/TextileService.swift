@@ -137,7 +137,6 @@ extension TextileService: AuthService {
 			
 			let publicKey = Textile.instance().account.address()
 			UserDefaultsConfig.usersPublicKey.append(publicKey)
-			
 		} catch {
 			let error = AuthServiceError.logoutError(message: error.localizedDescription)
 			throw error
