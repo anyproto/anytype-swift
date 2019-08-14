@@ -47,7 +47,7 @@ struct AuthView : View {
 							.padding(.bottom, 20)
 						
 						NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey]), isActive: $loginWithPK) {
-							StandardButton(text: "Login with selected public key", style: .black) {
+							StandardButton(disabled: false, text: "Login with selected public key", style: .black) {
 								self.loginWithPK.toggle()
 							}
 						}.padding(.bottom, 20)
@@ -57,7 +57,7 @@ struct AuthView : View {
 						Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline)
 						
 						NavigationLink(destination: showSaverRecoveryPhraseView(), isActive: $recovery) {
-							StandardButton(text: "Create new account", style: .black) {
+							StandardButton(disabled: false, text: "Create new account", style: .black) {
 								self.recovery.toggle()
 							}
 						}.padding(.bottom, 20)
@@ -67,7 +67,7 @@ struct AuthView : View {
 						Text("I have an account").font(.headline)
 						
 						NavigationLink(destination: showEnterAccountSeedView(), isActive: $recovery) {
-							StandardButton(text: "Enter account seed", style: .black) {
+							StandardButton(disabled: false, text: "Enter account seed", style: .black) {
 								self.recovery.toggle()
 							}
 						}.padding(.bottom, 20)

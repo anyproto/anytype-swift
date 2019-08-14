@@ -28,7 +28,7 @@ struct SaveRecoveryPhraseView: View {
 				.background(Color("backgroundColor"))
 				.cornerRadius(7)
 				.font(.robotMonoRegularFontWith(size: 15.0))
-			StandardButton(text: "I've written it down", style: .yellow) {
+			StandardButton(disabled: false, text: "I've written it down", style: .yellow) {
 				self.model.recoveryPhraseSaved = true
 			}.padding()
 		}

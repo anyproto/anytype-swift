@@ -24,7 +24,7 @@ struct EnterAccountSeedView: View {
 			.cornerRadius(7)
 			.font(.robotMonoRegularFontWith(size: 15.0))
 			
-			StandardButton(text: "Confirm", style: .yellow) {
+			StandardButton(disabled: false, text: "Confirm", style: .yellow) {
 				self.viewModel.verifySeedPhrase()
 			}.padding()
 		}

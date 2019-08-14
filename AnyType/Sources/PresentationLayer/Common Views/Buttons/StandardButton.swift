@@ -34,23 +34,30 @@ enum StandardButtonStyle {
 }
 
 struct StandardButton: View {
+	var disabled: Bool
 	var text: String
 	var style: StandardButtonStyle
 	var action: StandardButtonAction
-
+	
 	var body: some View {
 		Button(action: {
 			self.action()
 		}) {
-			Text(text).font(.headline).foregroundColor(style.textColor()).frame(minWidth: 0, maxWidth: .infinity)
-		}.padding(.all).background(style.backgroundColor()).cornerRadius(7)
+			Text(text).font(.headline)
+				.padding(.all)
+				.foregroundColor(disabled ? Color.gray : style.textColor())
+				.frame(minWidth: 0, maxWidth: .infinity)
+				.background(style.backgroundColor())
+				.cornerRadius(7)
+		}
+		.disabled(disabled)
 	}
 }
 
 #if DEBUG
 struct StandardButton_Previews: PreviewProvider {
     static var previews: some View {
-		StandardButton(text: "Standard button", style: .yellow, action: {})
+		StandardButton(disabled: true, text: "Standard button", style: .yellow, action: {})
     }
 }
 #endif

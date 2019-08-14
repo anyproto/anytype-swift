@@ -25,7 +25,8 @@ class AuthPinCodeViewModel: ObservableObject {
 	// MARK: - Lifecycle
 	
 	init(pinCodeViewType: PinCodeViewType) {
-		self.pinCodeViewModel = PinCodeViewModel(pinCodeViewType: pinCodeViewType)
+		self.pinCodeViewModel = PinCodeViewModel()
+		self.pinCodeViewModel.pinCodeViewType = pinCodeViewType
 	}
 	
 	// MARK: - Public methods
