@@ -24,13 +24,19 @@ struct EnterAccountSeedView: View {
 			.cornerRadius(7)
 			.font(.robotMonoRegularFontWith(size: 15.0))
 			
-			StandardButton(disabled: false, text: "Confirm", style: .yellow) {
-				self.viewModel.verifySeedPhrase()
-			}.padding()
+			HStack {
+				StandardButton(disabled: false, text: "Confirm", style: .yellow) {
+					self.viewModel.verifySeedPhrase()
+				}
+				Spacer()
+			}.padding(.top, 10)
 		}
+		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+		.padding()
 		.onAppear(perform: onAppear)
 		.onDisappear(perform: onDisappear)
 		.navigationBarTitle("", displayMode: .inline)
+		.erroToast(isShowing: $viewModel.isShowingError, errorText: $viewModel.error)
     }
 	
 	private func onAppear() {

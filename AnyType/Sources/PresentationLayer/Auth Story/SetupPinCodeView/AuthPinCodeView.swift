@@ -24,6 +24,7 @@ struct AuthPinCodeView: View {
 		.padding()
 		.navigationBarTitle("", displayMode: .inline)
 		.onDisappear(perform: restoreNavigationApperance)
+		.erroToast(isShowing: $viewModel.isShowingError,  errorText: $viewModel.error)
     }
 	
 	private func restoreNavigationApperance() {
@@ -35,7 +36,7 @@ struct AuthPinCodeView: View {
 #if DEBUG
 struct AuthPinCodeView_Previews: PreviewProvider {
     static var previews: some View {
-		let viewModel = AuthPinCodeViewModel(pinCodeViewType: .setup)
+		let viewModel = AuthPinCodeViewModel(authPinCodeViewType: .setup)
 		viewModel.recoveryPhrase = "bla bla bla"
 		
 		return AuthPinCodeView(viewModel: viewModel)

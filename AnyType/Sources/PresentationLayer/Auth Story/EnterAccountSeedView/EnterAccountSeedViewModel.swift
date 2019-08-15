@@ -12,8 +12,15 @@ class EnterAccountSeedViewModel: ObservableObject {
 	private var textileService = TextileService()
 	
 	@Published var seedPhrase: String = ""
-	@Published var error: Error? = nil
 	@Published var seedAccepted: Bool = false
+	@Published var error: String = "" {
+		didSet {
+			if !error.isEmpty {
+				isShowingError = true
+			}
+		}
+	}
+	@Published var isShowingError: Bool = false
 	
 	// MARK: - Public methods
 	
@@ -22,7 +29,7 @@ class EnterAccountSeedViewModel: ObservableObject {
 			try textileService.login(with: seedPhrase)
 			showHomeView()
 		} catch {
-			self.error = error
+			self.error = error.localizedDescription
 		}
 	}
 	

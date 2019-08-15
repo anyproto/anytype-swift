@@ -42,7 +42,7 @@ struct AuthRecoveryView: View {
 	}
 	
 	private func showPinCodeView(state: PinCodeViewType) -> some View {
-		let viewModel = AuthPinCodeViewModel(pinCodeViewType: .setup)
+		let viewModel = AuthPinCodeViewModel(authPinCodeViewType: .setup)
 		viewModel.recoveryPhrase = self.viewModel.saveRecoveryModel.recoveryPhrase
 		let view = AuthPinCodeView(viewModel: viewModel)
 		

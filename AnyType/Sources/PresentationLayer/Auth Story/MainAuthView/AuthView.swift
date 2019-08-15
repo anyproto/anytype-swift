@@ -13,6 +13,7 @@ struct AuthView : View {
 	@State var selectedKey = 0
 	@State var recovery: Bool = false
 	@State var loginWithPK: Bool = false
+	@State var loginWithSeed: Bool = false
 	
 	init(viewModel: AuthViewModel) {
 		self.viewModel = viewModel
@@ -66,13 +67,12 @@ struct AuthView : View {
 					VStack(alignment: .leading, spacing: 7.0) {
 						Text("I have an account").font(.headline)
 						
-						NavigationLink(destination: showEnterAccountSeedView(), isActive: $recovery) {
+						NavigationLink(destination: showEnterAccountSeedView(), isActive: $loginWithSeed) {
 							StandardButton(disabled: false, text: "Enter account seed", style: .black) {
-								self.recovery.toggle()
+								self.loginWithSeed.toggle()
 							}
 						}.padding(.bottom, 20)
 					}
-					
 				}
 			}
 			.frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -89,7 +89,7 @@ struct AuthView : View {
 	}
 	
 	private func showAuthPineCodeViweOnExistsPublicKey(publicKey: String) -> some View {
-		let viewModel = AuthPinCodeViewModel(pinCodeViewType: .verify(publicAddress: publicKey))
+		let viewModel = AuthPinCodeViewModel(authPinCodeViewType: .verify(publicKey: publicKey))
 		let view = AuthPinCodeView(viewModel: viewModel)
 		
 		return view

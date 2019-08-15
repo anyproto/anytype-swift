@@ -7,44 +7,12 @@
 //
 
 import SwiftUI
-import Combine
-
-enum PinCodeViewType: Equatable {
-	case setup
-	case verify(publicAddress: String)
-	
-	var title: String {
-		switch self {
-		case .setup:
-			return "Create a pin code"
-		case .verify:
-			return "Verify pin code"
-		}
-	}
-}
-
-class PinCodeViewModel: ObservableObject {
-	var pinCodeViewType: PinCodeViewType = .setup
-	
-	@Published var pinCode: String = ""
-	@Published var repeatPinCode: String = ""
-	
-	var validatedPassword: AnyPublisher<String?, Never> {
-		return Publishers.CombineLatest($pinCode, $repeatPinCode)
-			.map { pinCode, repeatPinCode in
-				guard pinCode == repeatPinCode, pinCode.count > 3 else { return nil }
-				return pinCode
-		}.eraseToAnyPublisher()
-	}
-	
-	var pinCodeStream: AnyCancellable?
-}
 
 typealias OnPinCodeConfirmed = () -> Void
 	
 struct PinCodeView: View {
 	@Binding var viewModel: PinCodeViewModel
-	@State var confirmIsDisabled = true
+	@State var confirmIsDisabled = false
 	var pinCodeConfirmed: OnPinCodeConfirmed
 	
     var body: some View {
@@ -79,7 +47,8 @@ struct PinCodeView: View {
 				}
 				Spacer()
 			}
-		}.onAppear(perform: onAppear)
+		}
+		.onAppear(perform: onAppear)
 	}
 	
 	private func onAppear() {
@@ -93,7 +62,8 @@ struct PinCodeView: View {
 #if DEBUG
 struct SetupPinCodeView_Previews: PreviewProvider {
     static var previews: some View {
-		PinCodeView(viewModel: .constant(PinCodeViewModel()), pinCodeConfirmed: {})
+		let viewModel = PinCodeViewModel(pinCodeViewType: .setup)
+		return PinCodeView(viewModel: .constant(viewModel), pinCodeConfirmed: {})
     }
 }
 #endif
