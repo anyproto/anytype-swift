@@ -26,7 +26,6 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
 						.foregroundColor(Color.white)
 						.padding()
 					
-					
 					Spacer()
 					
 					VStack(spacing: 0) {

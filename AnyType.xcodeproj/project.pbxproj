@@ -26,6 +26,7 @@
 		0339382722EF590A00589108 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0339382922EF590A00589108 /* Localizable.strings */; };
 		0340D70F22F119EA00D0BF88 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0340D70E22F119EA00D0BF88 /* PinCodeView.swift */; };
 		03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B6E2306031D00F8FCE7 /* ViewExtension.swift */; };
+		03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */; };
 		034BDD3722F4B48C00D8CD83 /* AuthPinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034BDD3622F4B48B00D8CD83 /* AuthPinCodeViewModel.swift */; };
 		03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */; };
 		03592D8C22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03592D8B22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift */; };
@@ -39,6 +40,7 @@
 		039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039DA2E52305843D0041F95C /* ErrorAlertView.swift */; };
 		03A8011E22F8CAA200F31E01 /* PickerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A8011D22F8CAA100F31E01 /* PickerDetailView.swift */; };
 		03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA488C22FA5C8A00D756AA /* UserDefault.swift */; };
+		03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */; };
 		03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53622DF6C9900DD91DE /* KeychainStore.swift */; };
 		03C5C53922DF6C9900DD91DE /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53722DF6C9900DD91DE /* StoreService.swift */; };
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
@@ -88,6 +90,7 @@
 		0339382822EF590A00589108 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0340D70E22F119EA00D0BF88 /* PinCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		03475B6E2306031D00F8FCE7 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayWaitingView.swift; sourceTree = "<group>"; };
 		034BDD3622F4B48B00D8CD83 /* AuthPinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPinCodeViewModel.swift; sourceTree = "<group>"; };
 		03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveRecoveryPhraseView.swift; sourceTree = "<group>"; };
 		03592D8B22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRecoveryViewModel.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 		039DA2E52305843D0041F95C /* ErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
 		03A8011D22F8CAA100F31E01 /* PickerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDetailView.swift; sourceTree = "<group>"; };
 		03AA488C22FA5C8A00D756AA /* UserDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		03C5C53622DF6C9900DD91DE /* KeychainStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		03C5C53722DF6C9900DD91DE /* StoreService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
 		03C5C53A22DF785000DD91DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -236,6 +240,7 @@
 		0331BBE122E608AC002AD179 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
+				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				039DA2E2230583DC0041F95C /* Alerts */,
 				039DA2E1230583C00041F95C /* Save Recovery Phrase View */,
 				032225DB22F87AB40064E544 /* Detail Picker View */,
@@ -277,6 +282,15 @@
 				034BDD3622F4B48B00D8CD83 /* AuthPinCodeViewModel.swift */,
 			);
 			path = SetupPinCodeView;
+			sourceTree = "<group>";
+		};
+		03475B702306CFA900F8FCE7 /* Waiting Views */ = {
+			isa = PBXGroup;
+			children = (
+				03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */,
+				03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */,
+			);
+			path = "Waiting Views";
 			sourceTree = "<group>";
 		};
 		03746CF722DE504600380AA1 /* Helpers */ = {
@@ -642,6 +656,7 @@
 				0340D70F22F119EA00D0BF88 /* PinCodeView.swift in Sources */,
 				037AA83222E224EA002CB09F /* AuthView.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
+				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				0303CAF322EEFAD9007E3EA1 /* AuthService.swift in Sources */,
@@ -654,6 +669,7 @@
 				0388BF7D22F1113000B73E39 /* FontExtension.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
+				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0303CAF422EEFAD9007E3EA1 /* TextileService.swift in Sources */,
 				03E140CE22F73DC400FF7979 /* AuthRecoveryView.swift in Sources */,
