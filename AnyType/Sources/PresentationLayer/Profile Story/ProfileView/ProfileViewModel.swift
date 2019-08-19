@@ -10,20 +10,20 @@ import Combine
 import SwiftUI
 import Textile
 
+struct NotificationSettings {
+	let updates: Bool = false
+}
+
 final class ProfileViewModel: ObservableObject {
-	let willChange = PassthroughSubject<ProfileViewModel, Never>()
+	@Published var accountName: String = ""
+	@Published var accountImage: UIImage? = nil
 	
-	var accountName: String = "" {
-		willSet {
-			willChange.send(self)
-		}
-	}
+	@Published var updates: Bool = false
+	@Published var newInvites: Bool = false
+	@Published var newComments: Bool = false
+	@Published var newDevice: Bool = false
 	
-	init() {
-		obtainAccountName()
-	}
-	
-	private func obtainAccountName() {
+	func obtainAccountName() {
 		var error: NSError?
 		let profile = Textile.instance().profile.get(&error)
 		if (error != nil) {
