@@ -11,7 +11,7 @@ import SwiftUI
 import Textile
 
 class AuthRecoveryViewModel: ObservableObject {
-	var authService: AuthService?
+	var authService: AuthServiceProtocol?
 	
 	@Published var error: AuthServiceError? = nil
 	@Published var saveRecoveryModel = SaveRecoveryModel(recoveryPhrase: "")

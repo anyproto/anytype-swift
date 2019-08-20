@@ -10,26 +10,61 @@ import Combine
 import SwiftUI
 import Textile
 
-struct NotificationSettings {
-	let updates: Bool = false
-}
 
 final class ProfileViewModel: ObservableObject {
-	@Published var accountName: String = ""
-	@Published var accountImage: UIImage? = nil
+	private var profileService: ProfileServiceProtocol
 	
-	@Published var updates: Bool = false
-	@Published var newInvites: Bool = false
-	@Published var newComments: Bool = false
-	@Published var newDevice: Bool = false
+	@Published var accountName: String = "" {
+		didSet {
+			profileService.name = accountName
+		}
+	}
+	@Published var accountAvatar: UIImage? {
+		didSet {
+//			profileService.avatar = accountAvatar
+		}
+	}
+	@Published var selectedColor: UIColor = .blue {
+		didSet {
+			selectedColor.image()
+			
+		}
+	}
 	
-	func obtainAccountName() {
-		var error: NSError?
-		let profile = Textile.instance().profile.get(&error)
-		if (error != nil) {
-			// Do something with this error
-		} else {
-			accountName = profile.name
+	@Published var updates: Bool = UserDefaultsConfig.notificationUpdates {
+		didSet {
+			UserDefaultsConfig.notificationUpdates = updates
+		}
+	}
+	@Published var newInvites: Bool = UserDefaultsConfig.notificationNewInvites {
+		didSet {
+			UserDefaultsConfig.notificationNewInvites = newInvites
+		}
+	}
+	@Published var newComments: Bool = UserDefaultsConfig.notificationNewComments {
+		didSet {
+			UserDefaultsConfig.notificationNewComments = newComments
+		}
+	}
+	@Published var newDevice: Bool = UserDefaultsConfig.notificationNewDevice {
+		didSet {
+			UserDefaultsConfig.notificationNewDevice = newDevice
+		}
+	}
+	
+	// MARK: - Lifecycle
+	
+	init(profileService: ProfileServiceProtocol) {
+		self.profileService = profileService
+	}
+	
+	// MARK: - Public methods
+	
+	func obtainAccountInfo() {
+		accountName = profileService.name
+		
+		if let avatarURL = URL(string: profileService.avatar) {
+			self.accountAvatar = ImageLoaderCache.shared.loaderFor(path: avatarURL).image
 		}
 	}
 }

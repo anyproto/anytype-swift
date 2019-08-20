@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct SelectColorView: View {
-	@State var colors: [Color]
-	@Binding var selectedColor: Color
+	@State var colors: [UIColor]
+	@Binding var selectedColor: UIColor
 	
     var body: some View {
         HStack {
-			ForEach(Colors.colors, id: \.self) { color in
+			ForEach(colors, id: \.self) { color in
 				Circle()
 					.frame(height: 50)
-					.foregroundColor(color)
+					.foregroundColor(Color(color))
 					.onTapGesture {
 						self.selectedColor = color
 				}
@@ -31,7 +31,7 @@ struct SelectColorView: View {
 #if DEBUG
 struct SelectColorView_Previews: PreviewProvider {
     static var previews: some View {
-		let colors: [Color] = [.black, .gray, .yellow, .red, .purple, .blue, .green]
+		let colors: [UIColor] = [.black, .gray, .yellow, .red, .purple, .blue, .green]
 		return SelectColorView(colors: colors, selectedColor: .constant(.blue))
     }
 }

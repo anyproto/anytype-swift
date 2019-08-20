@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 class AuthViewModel: ObservableObject {
-	private var textileService = TextileService()
+	private var textileService = TextileAuthService()
 	
 	@Published var publicKeys = UserDefaultsConfig.usersPublicKey {
 		didSet {

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0303CAF322EEFAD9007E3EA1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303CAF122EEFAD8007E3EA1 /* AuthService.swift */; };
-		0303CAF422EEFAD9007E3EA1 /* TextileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303CAF222EEFAD9007E3EA1 /* TextileService.swift */; };
 		0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ECFE22D8EDAA005C552B /* AppDelegate.swift */; };
 		0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0022D8EDAA005C552B /* SceneDelegate.swift */; };
 		0303ED0322D8EDAA005C552B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0222D8EDAA005C552B /* ProfileView.swift */; };
@@ -45,13 +43,22 @@
 		03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */; };
 		03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C50829230AE32900A1BD9D /* ProfileViewCoordinator.swift */; };
 		03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53622DF6C9900DD91DE /* KeychainStore.swift */; };
-		03C5C53922DF6C9900DD91DE /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53722DF6C9900DD91DE /* StoreService.swift */; };
+		03C5C53922DF6C9900DD91DE /* StoreServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53722DF6C9900DD91DE /* StoreServiceProtocol.swift */; };
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
 		03C5C54322DFD90C00DD91DE /* AnyTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54222DFD90C00DD91DE /* AnyTypeTests.swift */; };
 		03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54A22E09E0F00DD91DE /* SecureStoreQueryable.swift */; };
 		03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54C22E0A0C100DD91DE /* InternetProtocol.swift */; };
 		03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */; };
 		03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C55022E0A3E800DD91DE /* KeychainError.swift */; };
+		03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3EFE230C0FF2003D5DFD /* KeychainStoreService.swift */; };
+		03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3EFD230C0FC4003D5DFD /* AuthServiceProtocol.swift */; };
+		03CB3F02230C10FE003D5DFD /* TextileAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3EFC230C0F8F003D5DFD /* TextileAuthService.swift */; };
+		03CB3F04230C1185003D5DFD /* ProfileServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F03230C1185003D5DFD /* ProfileServiceProtocol.swift */; };
+		03CB3F06230C1238003D5DFD /* TextileProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F05230C1238003D5DFD /* TextileProfileService.swift */; };
+		03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F07230C1EDE003D5DFD /* UIViewExtension.swift */; };
+		03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F09230C2464003D5DFD /* UIColorExtension.swift */; };
+		03CB3F0D230C3EAA003D5DFD /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0C230C3EAA003D5DFD /* ImageLoader.swift */; };
+		03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0F230C414C003D5DFD /* ImageService.swift */; };
 		03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAB230457FC00701782 /* PinCodeViewModel.swift */; };
 		03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAD2304589E00701782 /* PinCodeValidator.swift */; };
 		03E140CE22F73DC400FF7979 /* AuthRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E140CD22F73DC400FF7979 /* AuthRecoveryView.swift */; };
@@ -72,8 +79,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0303CAF122EEFAD8007E3EA1 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = ../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/ServiceLayer/AuthService/AuthService.swift; sourceTree = "<group>"; };
-		0303CAF222EEFAD9007E3EA1 /* TextileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextileService.swift; path = ../../../../../../../../../../System/Volumes/Data/Users/batvos/WorkEnv/anytype/ios/AnyType/AnyType/Sources/ServiceLayer/AuthService/TextileService.swift; sourceTree = "<group>"; };
 		0303ECFB22D8EDAA005C552B /* AnyType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnyType.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0303ECFE22D8EDAA005C552B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0303ED0022D8EDAA005C552B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,7 +118,7 @@
 		03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		03C50829230AE32900A1BD9D /* ProfileViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewCoordinator.swift; sourceTree = "<group>"; };
 		03C5C53622DF6C9900DD91DE /* KeychainStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
-		03C5C53722DF6C9900DD91DE /* StoreService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
+		03C5C53722DF6C9900DD91DE /* StoreServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreServiceProtocol.swift; sourceTree = "<group>"; };
 		03C5C53A22DF785000DD91DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		03C5C54022DFD90C00DD91DE /* AnyTypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnyTypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03C5C54222DFD90C00DD91DE /* AnyTypeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTypeTests.swift; sourceTree = "<group>"; };
@@ -122,6 +127,15 @@
 		03C5C54C22E0A0C100DD91DE /* InternetProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetProtocol.swift; sourceTree = "<group>"; };
 		03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetAuthenticationType.swift; sourceTree = "<group>"; };
 		03C5C55022E0A3E800DD91DE /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
+		03CB3EFC230C0F8F003D5DFD /* TextileAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextileAuthService.swift; sourceTree = "<group>"; };
+		03CB3EFD230C0FC4003D5DFD /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
+		03CB3EFE230C0FF2003D5DFD /* KeychainStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStoreService.swift; sourceTree = "<group>"; };
+		03CB3F03230C1185003D5DFD /* ProfileServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceProtocol.swift; sourceTree = "<group>"; };
+		03CB3F05230C1238003D5DFD /* TextileProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextileProfileService.swift; sourceTree = "<group>"; };
+		03CB3F07230C1EDE003D5DFD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		03CB3F09230C2464003D5DFD /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		03CB3F0C230C3EAA003D5DFD /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		03CB3F0F230C414C003D5DFD /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		03CCADAB230457FC00701782 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
 		03CCADAD2304589E00701782 /* PinCodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeValidator.swift; sourceTree = "<group>"; };
 		03E140CD22F73DC400FF7979 /* AuthRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRecoveryView.swift; sourceTree = "<group>"; };
@@ -260,15 +274,6 @@
 			path = "Common Views";
 			sourceTree = "<group>";
 		};
-		0331BBE422E61BA1002AD179 /* AuthService */ = {
-			isa = PBXGroup;
-			children = (
-				0303CAF122EEFAD8007E3EA1 /* AuthService.swift */,
-				0303CAF222EEFAD9007E3EA1 /* TextileService.swift */,
-			);
-			path = AuthService;
-			sourceTree = "<group>";
-		};
 		0339382422EF571600589108 /* Strings */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,8 +398,9 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				03AA488A22FA55E800D756AA /* StoreService */,
-				0331BBE422E61BA1002AD179 /* AuthService */,
+				03CB3F00230C104F003D5DFD /* AuthServices */,
+				03CB3EFB230C0F52003D5DFD /* ProfileServices */,
+				03AA488A22FA55E800D756AA /* StoreServices */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -409,6 +415,7 @@
 		038FB5CA22D8F34E002B90B8 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				03CB3F0B230C3E98003D5DFD /* NetwrokLayer */,
 				03C5C53422DF6C9900DD91DE /* StoreLayer */,
 			);
 			path = CoreLayer;
@@ -419,6 +426,8 @@
 			children = (
 				0388BF7C22F1113000B73E39 /* FontExtension.swift */,
 				03475B6E2306031D00F8FCE7 /* ViewExtension.swift */,
+				03CB3F07230C1EDE003D5DFD /* UIViewExtension.swift */,
+				03CB3F09230C2464003D5DFD /* UIColorExtension.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -478,13 +487,14 @@
 			path = Alerts;
 			sourceTree = "<group>";
 		};
-		03AA488A22FA55E800D756AA /* StoreService */ = {
+		03AA488A22FA55E800D756AA /* StoreServices */ = {
 			isa = PBXGroup;
 			children = (
-				03C5C53722DF6C9900DD91DE /* StoreService.swift */,
+				03C5C53722DF6C9900DD91DE /* StoreServiceProtocol.swift */,
+				03CB3EFE230C0FF2003D5DFD /* KeychainStoreService.swift */,
 				03AA488C22FA5C8A00D756AA /* UserDefault.swift */,
 			);
-			path = StoreService;
+			path = StoreServices;
 			sourceTree = "<group>";
 		};
 		03C5C53422DF6C9900DD91DE /* StoreLayer */ = {
@@ -514,6 +524,41 @@
 				03C5C54422DFD90C00DD91DE /* Info.plist */,
 			);
 			path = AnyTypeTests;
+			sourceTree = "<group>";
+		};
+		03CB3EFB230C0F52003D5DFD /* ProfileServices */ = {
+			isa = PBXGroup;
+			children = (
+				03CB3F03230C1185003D5DFD /* ProfileServiceProtocol.swift */,
+				03CB3F05230C1238003D5DFD /* TextileProfileService.swift */,
+			);
+			path = ProfileServices;
+			sourceTree = "<group>";
+		};
+		03CB3F00230C104F003D5DFD /* AuthServices */ = {
+			isa = PBXGroup;
+			children = (
+				03CB3EFD230C0FC4003D5DFD /* AuthServiceProtocol.swift */,
+				03CB3EFC230C0F8F003D5DFD /* TextileAuthService.swift */,
+			);
+			path = AuthServices;
+			sourceTree = "<group>";
+		};
+		03CB3F0B230C3E98003D5DFD /* NetwrokLayer */ = {
+			isa = PBXGroup;
+			children = (
+				03CB3F0E230C4137003D5DFD /* ImageLoader */,
+			);
+			path = NetwrokLayer;
+			sourceTree = "<group>";
+		};
+		03CB3F0E230C4137003D5DFD /* ImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				03CB3F0C230C3EAA003D5DFD /* ImageLoader.swift */,
+				03CB3F0F230C414C003D5DFD /* ImageService.swift */,
+			);
+			path = ImageLoader;
 			sourceTree = "<group>";
 		};
 		03F7BD1F22F7A58400F47583 /* PinCodeView */ = {
@@ -694,24 +739,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03CB3F02230C10FE003D5DFD /* TextileAuthService.swift in Sources */,
+				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				0331BBDC22E5D9AB002AD179 /* HomeViewModel.swift in Sources */,
 				03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */,
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				03592D8C22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift in Sources */,
+				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				031EA61E2302C62D00584EFD /* EnterAccountSeedViewModel.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				0388BF7622F0A96900B73E39 /* AuthViewCoordinator.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
+				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				0340D70F22F119EA00D0BF88 /* PinCodeView.swift in Sources */,
 				037AA83222E224EA002CB09F /* AuthView.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
+				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
-				0303CAF322EEFAD9007E3EA1 /* AuthService.swift in Sources */,
 				03F7BD2122F7A5B100F47583 /* AuthPinCodeView.swift in Sources */,
+				03CB3F0D230C3EAA003D5DFD /* ImageLoader.swift in Sources */,
 				034BDD3722F4B48C00D8CD83 /* AuthPinCodeViewModel.swift in Sources */,
+				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				03F7BD2322F7A62D00F47583 /* PinCodeDotsView.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
@@ -719,16 +770,16 @@
 				0388BF7D22F1113000B73E39 /* FontExtension.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
+				03CB3F06230C1238003D5DFD /* TextileProfileService.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
-				0303CAF422EEFAD9007E3EA1 /* TextileService.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
 				03E140CE22F73DC400FF7979 /* AuthRecoveryView.swift in Sources */,
 				031EA61F2302C8A100584EFD /* EnterAccountSeedView.swift in Sources */,
 				0331BBE022E607D1002AD179 /* HomeViewCoordinator.swift in Sources */,
 				0303ED0322D8EDAA005C552B /* ProfileView.swift in Sources */,
 				03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */,
-				03C5C53922DF6C9900DD91DE /* StoreService.swift in Sources */,
+				03C5C53922DF6C9900DD91DE /* StoreServiceProtocol.swift in Sources */,
 				0331BBDA22E5D998002AD179 /* HomeView.swift in Sources */,
 				0388BF7722F0A96900B73E39 /* AuthViewModel.swift in Sources */,
 				03A8011E22F8CAA200F31E01 /* PickerDetailView.swift in Sources */,
@@ -736,6 +787,7 @@
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
+				03CB3F04230C1185003D5DFD /* ProfileServiceProtocol.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

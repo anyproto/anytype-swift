@@ -1,5 +1,5 @@
 //
-//  TextileService.swift
+//  TextileAuthService.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 22.07.2019.
@@ -9,7 +9,7 @@
 import Textile
 import Combine
 
-class TextileService: NSObject {
+final class TextileAuthService: NSObject {
 	private let subject = PassthroughSubject<Bool, Never>()
 	private var textileRepo: String
 	private var keyChainStore = KeychainStoreService()
@@ -36,7 +36,7 @@ class TextileService: NSObject {
 
 // MARK: - AuthService protocol
 
-extension TextileService: AuthService {
+extension TextileAuthService: AuthServiceProtocol {
 	
 	func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
 		// first destroy old account with repo (reset current Textile node)
@@ -173,7 +173,7 @@ extension TextileService: AuthService {
 	}
 }
 
-extension TextileService: TextileDelegate {
+extension TextileAuthService: TextileDelegate {
 	
 	func nodeStarted() {
 		self.subject.send(true)

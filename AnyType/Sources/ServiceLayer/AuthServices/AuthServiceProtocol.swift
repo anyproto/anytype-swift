@@ -1,5 +1,5 @@
 //
-//  AuthService.swift
+//  AuthServiceProtocol.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 22.07.2019.
@@ -17,7 +17,7 @@ enum AuthServiceError: Error {
 }
 
 /// Service for auth in AnyType account
-protocol AuthService {
+protocol AuthServiceProtocol {
 	
 	/// Login with account seed
 	/// - Parameter seed: seed phrase

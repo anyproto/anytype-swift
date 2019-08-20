@@ -28,7 +28,7 @@ class AuthPinCodeViewModel: ObservableObject {
 	
 	// TODO: move init to fabric
 	let storeService: StoreServiceProtocol = KeychainStoreService()
-	let authService: AuthService = TextileService()
+	let authService: AuthServiceProtocol = TextileAuthService()
 	
 	var pinCodeViewModel: PinCodeViewModel
 	var authPinCodeType: AuthPinCodeViewType

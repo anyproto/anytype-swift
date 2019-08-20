@@ -7,10 +7,11 @@
 //
 
 
-class ProfileViewCoordinator {
+final class ProfileViewCoordinator {
 	
 	func profileView() -> ProfileView {
-		let viewModel = ProfileViewModel()
+		let profileService = TextileProfileService()
+		let viewModel = ProfileViewModel(profileService: profileService)
 		
 		return ProfileView(model: viewModel)
 	}

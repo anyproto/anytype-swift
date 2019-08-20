@@ -82,7 +82,7 @@ struct AuthView : View {
 	
 	private func showSaverRecoveryPhraseView() -> some View {
 		let viewModel = AuthRecoveryViewModel()
-		viewModel.authService = TextileService()
+		viewModel.authService = TextileAuthService()
 		let view = AuthRecoveryView(viewModel: viewModel)
 		
 		return view

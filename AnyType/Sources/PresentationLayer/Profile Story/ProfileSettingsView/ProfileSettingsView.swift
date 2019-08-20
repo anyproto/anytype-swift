@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum Colors {
-	static let colors: [Color] = [.black, .gray, .yellow, .red, .purple, .blue, .green]
+	static let colors: [UIColor] = [.black, .gray, .yellow, .red, .purple, .blue, .green]
 }
 
 struct ProfileSettingsView: View {
@@ -18,8 +18,7 @@ struct ProfileSettingsView: View {
 	
 	@Binding var accountImage: UIImage?
 	@Binding var accountName: String
-	
-	@State var selectedColor: Color = .blue
+	@Binding var selectedColor: UIColor
 	
 	var body: some View {
 		VStack(alignment: .leading) {
@@ -31,7 +30,7 @@ struct ProfileSettingsView: View {
 						.fontWeight(.bold)
 						.font(.largeTitle)
 						.padding(.all, 50)
-						.background(selectedColor)
+						.background(Color(selectedColor))
 						.foregroundColor(Color.white)
 						.clipShape(Circle())
 				}
@@ -56,9 +55,10 @@ struct ProfileSettingsView: View {
 				.fontWeight(.bold)
 				.font(.headline)
 				.padding(.top)
-			Text(accountName)
-				.fontWeight(.bold)
+			
+			TextField("", text: $accountName)
 				.font(.title)
+				.lineLimit(1)
 				.padding(.top)
 			
 			Divider()
@@ -88,7 +88,7 @@ struct ProfileSettingsView: View {
 struct ProfileSettingsView_Previews: PreviewProvider {
 	static var previews: some View {
 		return NavigationView {
-			ProfileSettingsView(accountImage: .constant(nil), accountName: .constant("Anton Pronkin"))
+			ProfileSettingsView(accountImage: .constant(nil), accountName: .constant("Anton Pronkin"), selectedColor: .constant(.blue))
 		}
 	}
 }

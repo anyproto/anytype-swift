@@ -18,12 +18,13 @@ struct ProfileView : View {
 		NavigationView {
 			VStack(alignment: .leading) {
 				VStack {
-					if model.accountImage != nil {
-						Image(uiImage: model.accountImage!)
+					if model.accountAvatar != nil {
+						Image(uiImage: model.accountAvatar!)
 					} else {
 						Text(String(model.accountName.first ?? "A"))
-							.padding()
-							.background(Color.blue)
+							.padding(.all, 30)
+							.font(.title)
+							.background(Color(model.selectedColor))
 							.foregroundColor(Color.white)
 							.clipShape(Circle())
 							.overlay(Circle().stroke(Color.white))
@@ -33,7 +34,7 @@ struct ProfileView : View {
 				.padding()
 				
 				Form {
-					NavigationLink(destination: Text("123")) {
+					NavigationLink(destination: ProfileSettingsView(accountImage: $model.accountAvatar, accountName: $model.accountName, selectedColor: $model.selectedColor)) {
 						Text("Profile settings")
 							.fontWeight(.bold)
 							.foregroundColor(Color.black)
@@ -45,18 +46,18 @@ struct ProfileView : View {
 						Toggle(isOn: $model.updates) {
 							Text("Updates")
 						}
-						Toggle(isOn: $model.updates) {
+						Toggle(isOn: $model.newInvites) {
 							Text("New invites")
 						}
-						Toggle(isOn: $model.updates) {
+						Toggle(isOn: $model.newComments) {
 							Text("New comments")
 						}
-						Toggle(isOn: $model.updates) {
+						Toggle(isOn: $model.newDevice) {
 							Text("New device paired")
 						}
 					}.padding(.top)
 					
-					NavigationLink(destination: Text("123")) {
+					NavigationLink(destination: Text("1")) {
 						Text("Pin code")
 							.fontWeight(.bold)
 							.foregroundColor(Color.black)
@@ -99,7 +100,11 @@ struct ProfileView : View {
 #if DEBUG
 struct ProfileView_Previews : PreviewProvider {
 	static var previews: some View {
-		let viewModel = ProfileViewModel()
+		struct ProfileService: ProfileServiceProtocol {
+			var name: String = "Anton Pronkin"
+			var avatar: String = ""
+		}
+		let viewModel = ProfileViewModel(profileService: ProfileService())
 		return ProfileView(model: viewModel)
 	}
 }
