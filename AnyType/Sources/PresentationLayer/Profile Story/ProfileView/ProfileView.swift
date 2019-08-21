@@ -78,10 +78,21 @@ struct ProfileView : View {
 							.padding([.top, .bottom])
 					}
 				}
+				
+				HStack {
+					StandardButton(disabled: .constant(false), text: "Log out", style: .black) {
+						self.model.logout()
+					}
+					.offset(y: -40)
+					.padding(.horizontal, 20)
+					
+					Spacer()
+				}
 			}
 			.background(Color("backgroundColor"))
 			.navigationBarTitle("", displayMode: .inline)
 		}
+		.errorToast(isShowing: $model.isShowingError, errorText: $model.error)
 		.onAppear(perform: onAppear)
 		.onDisappear(perform: onDisappear)
 	}
@@ -99,12 +110,30 @@ struct ProfileView : View {
 
 #if DEBUG
 struct ProfileView_Previews : PreviewProvider {
-	static var previews: some View {
-		struct ProfileService: ProfileServiceProtocol {
-			var name: String = "Anton Pronkin"
-			var avatar: String = ""
+	private struct ProfileService: ProfileServiceProtocol {
+		var name: String = "Anton Pronkin"
+		var avatar: String = ""
+	}
+	private struct AuthService: AuthServiceProtocol {
+		func login(with seed: String) throws {
 		}
-		let viewModel = ProfileViewModel(profileService: ProfileService())
+		
+		func logout() throws {
+		}
+		
+		func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
+		}
+		
+		func generateRecoveryPhrase(wordCount: Int?) throws -> String {
+			return ""
+		}
+		
+		func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
+		}
+	}
+	
+	static var previews: some View {
+		let viewModel = ProfileViewModel(profileService: ProfileService(), authService: AuthService())
 		return ProfileView(model: viewModel)
 	}
 }

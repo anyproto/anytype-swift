@@ -54,7 +54,7 @@ struct AuthRecoveryView: View {
 struct AuthRecoveryView_Previews: PreviewProvider {
     static var previews: some View {
 		let viewModel = AuthRecoveryViewModel()
-		viewModel.saveRecoveryModel.recoveryPhrase = "some phrase to save"
+		viewModel.saveRecoveryModel.recoveryPhrase = "some phrase to save some phrase to save"
 		
 		return AuthRecoveryView(viewModel: viewModel)
     }

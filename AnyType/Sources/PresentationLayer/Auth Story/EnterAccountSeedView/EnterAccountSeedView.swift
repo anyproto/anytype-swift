@@ -25,7 +25,7 @@ struct EnterAccountSeedView: View {
 			.font(.robotMonoRegularFontWith(size: 15.0))
 			
 			HStack {
-				StandardButton(disabled: false, text: "Confirm", style: .yellow) {
+				StandardButton(disabled: .constant(false), text: "Confirm", style: .yellow) {
 					self.viewModel.verifySeedPhrase()
 				}
 				Spacer()
@@ -36,7 +36,7 @@ struct EnterAccountSeedView: View {
 		.onAppear(perform: onAppear)
 		.onDisappear(perform: onDisappear)
 		.navigationBarTitle("", displayMode: .inline)
-		.erroToast(isShowing: $viewModel.isShowingError, errorText: $viewModel.error)
+		.errorToast(isShowing: $viewModel.isShowingError, errorText: $viewModel.error)
     }
 	
 	private func onAppear() {

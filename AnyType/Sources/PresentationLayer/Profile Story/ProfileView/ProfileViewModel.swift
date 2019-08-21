@@ -13,6 +13,14 @@ import Textile
 
 final class ProfileViewModel: ObservableObject {
 	private var profileService: ProfileServiceProtocol
+	private var authService: AuthServiceProtocol
+	
+	@Published var error: String = nil {
+		didSet {
+			isShowingError = true
+		}
+	}
+	@Published var isShowingError: Bool = false
 	
 	@Published var accountName: String = "" {
 		didSet {
@@ -21,15 +29,10 @@ final class ProfileViewModel: ObservableObject {
 	}
 	@Published var accountAvatar: UIImage? {
 		didSet {
-//			profileService.avatar = accountAvatar
+			// TODO: load avatar to ipfs by textile api
 		}
 	}
-	@Published var selectedColor: UIColor = .blue {
-		didSet {
-			selectedColor.image()
-			
-		}
-	}
+	@Published var selectedColor: UIColor = .blue
 	
 	@Published var updates: Bool = UserDefaultsConfig.notificationUpdates {
 		didSet {
@@ -54,8 +57,9 @@ final class ProfileViewModel: ObservableObject {
 	
 	// MARK: - Lifecycle
 	
-	init(profileService: ProfileServiceProtocol) {
+	init(profileService: ProfileServiceProtocol, authService: AuthServiceProtocol) {
 		self.profileService = profileService
+		self.authService = authService
 	}
 	
 	// MARK: - Public methods
@@ -65,6 +69,14 @@ final class ProfileViewModel: ObservableObject {
 		
 		if let avatarURL = URL(string: profileService.avatar) {
 			self.accountAvatar = ImageLoaderCache.shared.loaderFor(path: avatarURL).image
+		}
+	}
+	
+	func logout() {
+		do {
+			try authService.logout()
+		} catch {
+			self.error = error.localizedDescription
 		}
 	}
 }

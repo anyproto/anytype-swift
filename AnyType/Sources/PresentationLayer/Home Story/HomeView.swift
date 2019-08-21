@@ -24,11 +24,11 @@ struct HomeView: View {
 			}
 			.tag(TabIdentifer.home)
 			
-//			profileView()
-//				.tabItem {
-//					Text("Profile")
-//			}
-//			.tag(TabIdentifer.profile)
+			profileView()
+				.tabItem {
+					Text("Profile")
+			}
+			.tag(TabIdentifer.profile)
 		}
     }
 	

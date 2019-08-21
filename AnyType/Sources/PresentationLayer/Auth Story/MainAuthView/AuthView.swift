@@ -29,13 +29,15 @@ struct AuthView : View {
 					.resizable()
 					.aspectRatio(contentMode: .fit)
 					.frame(width: 50, height: 50, alignment: .leading)
+					.padding(.bottom, 20)
 				
 				VStack(alignment: .leading) {
 					Text("Welcome to AnyType!")
 						.font(.title)
 						.fontWeight(.heavy)
-						.padding(.top, 20)
-					Text("AnyTypeShortDescription").font(.headline).fontWeight(.regular)
+					Text("AnyTypeShortDescription")
+						.font(.headline)
+						.fontWeight(.regular)
 				}
 				
 				VStack(alignment: .leading) {
@@ -48,7 +50,7 @@ struct AuthView : View {
 							.padding(.bottom, 20)
 						
 						NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey]), isActive: $loginWithPK) {
-							StandardButton(disabled: false, text: "Login with selected public key", style: .black) {
+							StandardButton(disabled: .constant(false), text: "Login with selected public key", style: .black) {
 								self.loginWithPK.toggle()
 							}
 						}.padding(.bottom, 20)
@@ -58,7 +60,7 @@ struct AuthView : View {
 						Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline)
 						
 						NavigationLink(destination: showSaverRecoveryPhraseView(), isActive: $recovery) {
-							StandardButton(disabled: false, text: "Create new account", style: .black) {
+							StandardButton(disabled: .constant(false), text: "Create new account", style: .black) {
 								self.recovery.toggle()
 							}
 						}.padding(.bottom, 20)
@@ -68,7 +70,7 @@ struct AuthView : View {
 						Text("I have an account").font(.headline)
 						
 						NavigationLink(destination: showEnterAccountSeedView(), isActive: $loginWithSeed) {
-							StandardButton(disabled: false, text: "Enter account seed", style: .black) {
+							StandardButton(disabled: .constant(false), text: "Enter account seed", style: .black) {
 								self.loginWithSeed.toggle()
 							}
 						}.padding(.bottom, 20)

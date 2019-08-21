@@ -24,7 +24,7 @@ struct AuthPinCodeView: View {
 		.padding()
 		.navigationBarTitle("", displayMode: .inline)
 		.onDisappear(perform: restoreNavigationApperance)
-		.erroToast(isShowing: $viewModel.isShowingError,  errorText: $viewModel.error)
+		.errorToast(isShowing: $viewModel.isShowingError,  errorText: $viewModel.error)
     }
 	
 	private func restoreNavigationApperance() {

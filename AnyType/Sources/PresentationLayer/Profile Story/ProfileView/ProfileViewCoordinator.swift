@@ -11,7 +11,8 @@ final class ProfileViewCoordinator {
 	
 	func profileView() -> ProfileView {
 		let profileService = TextileProfileService()
-		let viewModel = ProfileViewModel(profileService: profileService)
+		let textilAuthService = TextileAuthService()
+		let viewModel = ProfileViewModel(profileService: profileService, authService: textilAuthService)
 		
 		return ProfileView(model: viewModel)
 	}
