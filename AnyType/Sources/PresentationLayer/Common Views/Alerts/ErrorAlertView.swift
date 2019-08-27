@@ -20,13 +20,12 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
 				self.presenting.blur(radius: self.isShowing ? 1 : 0)
 				
 				VStack() {
-					Spacer()
-					
+
 					Text(self.errorText)
 						.foregroundColor(Color.white)
 						.padding()
+						.layoutPriority(1)
 					
-					Spacer()
 					
 					VStack(spacing: 0) {
 						Divider().background(Color.white)
@@ -39,7 +38,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
 						}
 					}
 				}
-				.frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.25)
+				.frame(maxWidth: geometry.size.width * 0.8, minHeight: 0)
 				.background(Color("BrownMenu"))
 				.cornerRadius(10)
 				.transition(.slide)
@@ -55,7 +54,7 @@ struct ErrorAlertView_Previews: PreviewProvider {
 		let view = VStack {
 			Text("ParentView")
 		}
-		return ErrorAlertView(isShowing: .constant(true), errorText: .constant("Some Error"), presenting: view)
+		return ErrorAlertView(isShowing: .constant(true), errorText: .constant("Some Error long very long long long error"), presenting: view)
     }
 }
 #endif

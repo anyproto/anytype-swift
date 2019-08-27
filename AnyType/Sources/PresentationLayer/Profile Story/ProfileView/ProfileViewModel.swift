@@ -15,7 +15,7 @@ final class ProfileViewModel: ObservableObject {
 	private var profileService: ProfileServiceProtocol
 	private var authService: AuthServiceProtocol
 	
-	@Published var error: String = nil {
+	@Published var error: String = "" {
 		didSet {
 			isShowingError = true
 		}
@@ -75,6 +75,9 @@ final class ProfileViewModel: ObservableObject {
 	func logout() {
 		do {
 			try authService.logout()
+			let authViewCoordinator = AuthViewCoordinator()
+			let view = authViewCoordinator.authView()
+			applicationCoordinator?.startNewRootView(content: view)
 		} catch {
 			self.error = error.localizedDescription
 		}

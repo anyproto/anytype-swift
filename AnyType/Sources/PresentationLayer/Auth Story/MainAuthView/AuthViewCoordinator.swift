@@ -13,7 +13,7 @@ class AuthViewCoordinator {
 	
 	// MARK: - Public methods
 	
-	func start() -> AuthView {
+	func authView() -> AuthView {
 		let viewModel = AuthViewModel()
 		let view = AuthView(viewModel: viewModel)
 		

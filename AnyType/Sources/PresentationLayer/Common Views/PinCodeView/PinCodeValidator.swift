@@ -28,9 +28,6 @@ struct VerifyPinCodeValidator: PinCodeValidator {
 	var viewModel: PinCodeViewModel
 	
 	var validatePinCode: AnyPublisher<String?, Never> {
-		return viewModel.$pinCode.map { pinCode in
-			guard pinCode.count > 3 else { return nil }
-			return pinCode
-		}.eraseToAnyPublisher()
+		return Just(viewModel.pinCode).eraseToAnyPublisher()
 	}
 }

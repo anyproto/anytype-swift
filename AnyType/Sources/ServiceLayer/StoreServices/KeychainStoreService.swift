@@ -36,7 +36,7 @@ extension KeychainStoreService: StoreServiceProtocol {
 	func obtainSeed(for name: String, keyChainPassword: String? = nil) throws -> String {
 		let seedQuery = GenericPasswordQueryable(account: name, service: StoreServiceConstants.serviceName, keyChainPassword: keyChainPassword)
 		let seed = try keychainStore.retreiveItem(queryable: seedQuery)
-		
+
 		return seed
 	}
 	

@@ -162,12 +162,7 @@ extension TextileAuthService: AuthServiceProtocol {
 	
 	private func cleanCurrentRepo() throws {
 		if Textile.isInitialized(textileRepo) {
-			var error: NSError?
-			Textile.instance().destroy(&error)
-			
-			if error != nil {
-				throw AuthServiceError.logoutError(message: error?.localizedDescription)
-			}
+			Textile.instance().destroy()
 		}
 		try? FileManager.default.removeItem(atPath: textileRepo)
 	}

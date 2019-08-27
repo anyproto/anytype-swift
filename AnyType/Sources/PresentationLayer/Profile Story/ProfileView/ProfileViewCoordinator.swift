@@ -8,12 +8,11 @@
 
 
 final class ProfileViewCoordinator {
+	private let profileService = TextileProfileService()
+	private let textilAuthService = TextileAuthService()
+	private lazy var viewModel = ProfileViewModel(profileService: profileService, authService: textilAuthService)
 	
-	func profileView() -> ProfileView {
-		let profileService = TextileProfileService()
-		let textilAuthService = TextileAuthService()
-		let viewModel = ProfileViewModel(profileService: profileService, authService: textilAuthService)
-		
+	var profileView: ProfileView {
 		return ProfileView(model: viewModel)
 	}
 }

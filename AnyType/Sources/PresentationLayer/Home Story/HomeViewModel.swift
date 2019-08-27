@@ -6,4 +6,11 @@
 //  Copyright © 2019 AnyType. All rights reserved.
 //
 
-import Foundation
+
+class HomeViewModel {
+	private var profileCoordinator = ProfileViewCoordinator()
+	
+	var profileView: ProfileView {
+		return profileCoordinator.profileView
+	}
+}
