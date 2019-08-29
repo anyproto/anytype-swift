@@ -18,6 +18,7 @@ struct AuthRecoveryView: View {
     var body: some View {
 		VStack {
 			SaveRecoveryPhraseView(model: $viewModel.saveRecoveryModel)
+				.layoutPriority(1)
 			NavigationLink(destination: showPinCodeView(state: .setup), isActive: $viewModel.saveRecoveryModel.recoveryPhraseSaved) {
 				EmptyView()
 			}

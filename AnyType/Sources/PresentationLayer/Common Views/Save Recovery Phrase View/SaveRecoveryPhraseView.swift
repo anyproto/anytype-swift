@@ -25,6 +25,7 @@ struct SaveRecoveryPhraseView: View {
 				.font(.body)
 				.fontWeight(.medium)
 				.padding(.top)
+			
 			Text(model.recoveryPhrase)
 				.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
 				.padding()
@@ -32,10 +33,18 @@ struct SaveRecoveryPhraseView: View {
 				.cornerRadius(7)
 				.font(.robotMonoRegularFontWith(size: 15.0))
 				.layoutPriority(1) // TODO: remove workaround when fixed by apple
+				.contextMenu {
+					Button(action: {
+						UIPasteboard.general.string = self.model.recoveryPhrase
+					}) {
+						Text("Copy")
+						Image(systemName: "doc.on.doc")
+					}
+				}
 			
 			StandardButton(disabled: .constant(false) ,text: "I've written it down", style: .yellow) {
 				self.model.recoveryPhraseSaved = true
-			}.padding()
+			}
 		}
 	}
 }

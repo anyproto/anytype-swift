@@ -11,9 +11,6 @@ import SwiftUI
 struct AuthView : View {
 	@ObservedObject var viewModel: AuthViewModel
 	@State var selectedKey = 0
-	@State var recovery: Bool = false
-	@State var loginWithPK: Bool = false
-	@State var loginWithSeed: Bool = false
 	
 	init(viewModel: AuthViewModel) {
 		self.viewModel = viewModel
@@ -38,6 +35,7 @@ struct AuthView : View {
 					Text("AnyTypeShortDescription")
 						.font(.headline)
 						.fontWeight(.regular)
+						.layoutPriority(1)
 				}
 				
 				VStack(alignment: .leading) {
@@ -48,31 +46,23 @@ struct AuthView : View {
 							.background(Color("backgroundColor"))
 							.cornerRadius(7.0)
 							.padding(.bottom, 20)
-						
-						NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey]), isActive: $loginWithPK) {
-							StandardButton(disabled: .constant(false), text: "Login with selected public key", style: .black) {
-								self.loginWithPK.toggle()
-							}
+
+						NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey])) {
+							NavigationButtonView(disabled: .constant(false), text: "Login with selected public key", style: .black)
 						}.padding(.bottom, 20)
 					}
-					
+
 					VStack(alignment: .leading, spacing: 7.0) {
 						Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline)
-						
-						NavigationLink(destination: showSaverRecoveryPhraseView(), isActive: $recovery) {
-							StandardButton(disabled: .constant(false), text: "Create new account", style: .black) {
-								self.recovery.toggle()
-							}
+
+						NavigationLink(destination: showSaverRecoveryPhraseView()) {
+							NavigationButtonView(disabled: .constant(false), text: "Create new account", style: .black)
 						}.padding(.bottom, 20)
-					}
-					
-					VStack(alignment: .leading, spacing: 7.0) {
-						Text("I have an account").font(.headline)
 						
-						NavigationLink(destination: showEnterAccountSeedView(), isActive: $loginWithSeed) {
-							StandardButton(disabled: .constant(false), text: "Enter account seed", style: .black) {
-								self.loginWithSeed.toggle()
-							}
+						Text("I have an account").font(.headline)
+
+						NavigationLink(destination: showEnterAccountSeedView()) {
+							NavigationButtonView(disabled: .constant(false), text: "Enter account seed", style: .black)
 						}.padding(.bottom, 20)
 					}
 				}
