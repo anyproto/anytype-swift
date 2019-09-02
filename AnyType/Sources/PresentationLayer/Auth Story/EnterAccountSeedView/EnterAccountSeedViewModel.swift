@@ -25,11 +25,12 @@ class EnterAccountSeedViewModel: ObservableObject {
 	// MARK: - Public methods
 	
 	func verifySeedPhrase() {
-		do {
-			try textileService.login(with: seedPhrase)
-			showHomeView()
-		} catch {
-			self.error = error.localizedDescription
+		textileService.login(with: seedPhrase) { [weak self] error in
+			if let error = error {
+				self?.error = error.localizedDescription
+				return
+			}
+			self?.showHomeView()
 		}
 	}
 	

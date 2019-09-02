@@ -12,7 +12,7 @@ import SwiftUI
 class AuthViewModel: ObservableObject {
 	private var textileService = TextileAuthService()
 	
-	@Published var publicKeys = UserDefaultsConfig.usersPublicKey {
+	@Published var publicKeys = Array(UserDefaultsConfig.usersPublicKey).sorted() {
 		didSet {
 			let usersPublicKeyRemoved = Array(Set(oldValue).subtracting(Set(publicKeys)))
 			

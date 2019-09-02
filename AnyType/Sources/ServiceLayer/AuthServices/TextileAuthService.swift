@@ -10,7 +10,7 @@ import Textile
 import Combine
 
 final class TextileAuthService: NSObject {
-	private let subject = PassthroughSubject<Bool, Never>()
+	private let nodePublisher = PassthroughSubject<Bool, Never>()
 	private var textileRepo: String
 	private var keyChainStore = KeychainStoreService()
 	
@@ -40,39 +40,29 @@ extension TextileAuthService: AuthServiceProtocol {
 	
 	func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
 		// first destroy old account with repo (reset current Textile node)
-		do {
-			try cleanCurrentRepo()
-		} catch {
-			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
-			onReceivingRecoveryPhrase(.failure(error))
-		}
-		
-		var error: NSError?
-		// recoveryPhrase should be optional here, fix coming asap
-		let recoveryPhrase = Textile.initializeCreatingNewWalletAndAccount(textileRepo, debug: false, logToDisk: false, error: &error)
-		// Return phrase to the user for secure, out of app, storage
-		print("recoveryPhrase: \(recoveryPhrase)")
-		
-		if error != nil {
-			let error = AuthServiceError.createWalletError(message: error?.localizedDescription)
-			onReceivingRecoveryPhrase(.failure(error))
-		}
-		
-		do {
-			try launchTextile()
-		} catch {
-			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
-			onReceivingRecoveryPhrase(.failure(error))
-		}
-		
-		nodeSubscriber = subject.sink { value in
-			guard value == true else {
-				onReceivingRecoveryPhrase(.failure(.createWalletError(message: "node failed to start")))
+		cleanCurrentRepo { [weak self] in
+			guard let strongSelf = self else {
 				return
 			}
-			let publicKey = Textile.instance().account.address()
-			UserDefaultsConfig.usersPublicKey.append(publicKey)
-			onReceivingRecoveryPhrase(.success(recoveryPhrase))
+			
+			var error: NSError?
+			// recoveryPhrase should be optional here, fix coming asap
+			let recoveryPhrase = Textile.initializeCreatingNewWalletAndAccount(strongSelf.textileRepo, debug: false, logToDisk: false, error: &error)
+			// Return phrase to the user for secure, out of app, storage
+			print("recoveryPhrase: \(recoveryPhrase)")
+			
+			if error != nil {
+				let error = AuthServiceError.createWalletError(message: error?.localizedDescription)
+				onReceivingRecoveryPhrase(.failure(error))
+			}
+			strongSelf.createNodeSubscriber(completion: nil)
+			
+			do {
+				try self?.launchTextile()
+			} catch {
+				let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+				onReceivingRecoveryPhrase(.failure(error))
+			}
 		}
 	}
 	
@@ -88,93 +78,101 @@ extension TextileAuthService: AuthServiceProtocol {
 	
 	func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
 		// first destroy old account with repo (reset current Textile node)
-		do {
-			try cleanCurrentRepo()
-		} catch {
-			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
-			onReceivingRecoveryPhrase(.failure(error))
-		}
-		var error: NSError?
 		
-		// resolve a wallet account
-		let mobileWalletAccount = Textile.walletAccount(at: recoveryPhrase, index: 0, password: "", error: &error)
-
-		if mobileWalletAccount.seed == nil, let error = error {
-			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
-			onReceivingRecoveryPhrase(.failure(error))
-		}
-		
-		do {
-			try Textile.initialize(textileRepo, seed: mobileWalletAccount.seed, debug: false, logToDisk: false)
-		} catch {
-			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
-			onReceivingRecoveryPhrase(.failure(error))
-		}
-		
-		do {
-			try launchTextile()
-		} catch {
-			let error = AuthServiceError.createWalletError(message: error.localizedDescription)
-			onReceivingRecoveryPhrase(.failure(error))
-		}
-		
-		nodeSubscriber = subject.sink { value in
-			guard value == true else {
-				onReceivingRecoveryPhrase(.failure(.createWalletError(message: "node failed to start")))
+		cleanCurrentRepo { [weak self] in
+			guard let strongSelf = self else {
 				return
 			}
-			let publicKey = Textile.instance().account.address()
-			UserDefaultsConfig.usersPublicKey.append(publicKey)
-			onReceivingRecoveryPhrase(.success(recoveryPhrase))
-		}
-	}
-	
-	func login(with seed: String) throws {
-		do {
-			try cleanCurrentRepo()
-			try Textile.initialize(textileRepo, seed: seed, debug: false, logToDisk: false)
-			try launchTextile()
 			
-			let publicKey = Textile.instance().account.address()
-			UserDefaultsConfig.usersPublicKey.append(publicKey)
-		} catch {
-			let error = AuthServiceError.logoutError(message: error.localizedDescription)
-			throw error
+			var error: NSError?
+			
+			// resolve a wallet account
+			let mobileWalletAccount = Textile.walletAccount(at: recoveryPhrase, index: 0, password: "", error: &error)
+			
+			if mobileWalletAccount.seed == nil, let error = error {
+				let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+				onReceivingRecoveryPhrase(.failure(error))
+			}
+			
+			do {
+				try Textile.initialize(strongSelf.textileRepo, seed: mobileWalletAccount.seed, debug: false, logToDisk: false)
+			} catch {
+				let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+				onReceivingRecoveryPhrase(.failure(error))
+			}
+			strongSelf.createNodeSubscriber(completion: nil)
+			
+			do {
+				try self?.launchTextile()
+			} catch {
+				let error = AuthServiceError.createWalletError(message: error.localizedDescription)
+				onReceivingRecoveryPhrase(.failure(error))
+			}
 		}
 	}
 	
-	func logout() throws {
-		do {
-			try cleanCurrentRepo()
-		} catch {
-			let error = AuthServiceError.logoutError(message: error.localizedDescription)
-			throw error
+	func login(with seed: String, completion: @escaping (_ : Swift.Error?) -> Void) {
+		cleanCurrentRepo { [weak self] in
+			guard let strongSelf = self else { return }
+			
+			do {
+				try Textile.initialize(strongSelf.textileRepo, seed: seed, debug: false, logToDisk: false)
+				strongSelf.createNodeSubscriber(completion: completion)
+				try strongSelf.launchTextile()
+			} catch {
+				completion(error)
+			}
+		}
+	}
+	
+	func logout(completion: @escaping () -> Void) {
+		cleanCurrentRepo {
+			completion()
 		}
 	}
 	
 	func removeAccount(publicKey: String) throws {
-		UserDefaultsConfig.usersPublicKey.removeAll {
-			$0 == publicKey
-		}
+		UserDefaultsConfig.usersPublicKey.remove(publicKey)
 		
 		try? keyChainStore.removeSeed(for: publicKey)
 	}
 	
-	private func cleanCurrentRepo() throws {
+	private func cleanCurrentRepo(completion: @escaping () -> Void) {
 		if Textile.isInitialized(textileRepo) {
 			Textile.instance().destroy()
 		}
-		try? FileManager.default.removeItem(atPath: textileRepo)
+		
+		// FIXME: Workaround. We should wait for a while for destroy method to stop nodes.
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+				try? FileManager.default.removeItem(atPath: self.textileRepo)
+				completion()
+		}
+	}
+	
+	private func createNodeSubscriber(completion: ((_ : Swift.Error?) -> Void)?) {
+		nodeSubscriber = nodePublisher.sink(receiveValue: { [weak self] value in
+			defer {
+				self?.nodeSubscriber?.cancel()
+			}
+			guard value == true else {
+				let error =  AuthServiceError.loginError(message: "node failed to start")
+				completion?(error)
+				return
+			}
+			let publicKey = Textile.instance().account.address()
+			UserDefaultsConfig.usersPublicKey.insert(publicKey)
+			completion?(nil)
+		})
 	}
 }
 
 extension TextileAuthService: TextileDelegate {
 	
 	func nodeStarted() {
-		self.subject.send(true)
+		self.nodePublisher.send(true)
 	}
 	
 	func nodeFailedToStartWithError(_ error: Error) {
-		self.subject.send(false)
+		self.nodePublisher.send(false)
 	}
 }

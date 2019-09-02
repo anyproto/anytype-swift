@@ -31,11 +31,8 @@ struct UserDefault<T> {
 
 /// User defaults store
 struct UserDefaultsConfig {
-	static let removePublicKeysSubject = PassthroughSubject<[String], Never>()
-	private static let keyChainStore = KeychainStoreService()
-	
     @UserDefault("usersPublicKey", defaultValue: [])
-	static var usersPublicKey: [String]
+	static var usersPublicKey: Set<String>
 	
 	@UserDefault("notificationUpdates", defaultValue: false)
 	static var notificationUpdates: Bool

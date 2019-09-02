@@ -21,12 +21,12 @@ protocol AuthServiceProtocol {
 	
 	/// Login with account seed
 	/// - Parameter seed: seed phrase
-	/// - Throws: AuthServiceError error
-	func login(with seed: String) throws
+	/// - Parameter completion: Called on completion
+	func login(with seed: String, completion: @escaping (_ error: Swift.Error?) -> Void)
 	
 	/// Logout from the current account.  Accounts seed will be removed from keychain.
-	/// - Throws: AuthServiceError error
-	func logout() throws
+	/// - Parameter completion: Called on completion
+	func logout(completion: @escaping () -> Void)
 	
 	/// Create new wallet and account
 	/// - Parameter onReceivingRecoveryPhrase: Called on completion with recovery wallet string or AuthServiceError.

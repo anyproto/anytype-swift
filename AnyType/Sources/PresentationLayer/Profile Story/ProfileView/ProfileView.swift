@@ -115,10 +115,10 @@ struct ProfileView_Previews : PreviewProvider {
 		var avatar: String = ""
 	}
 	private struct AuthService: AuthServiceProtocol {
-		func login(with seed: String) throws {
+		func login(with seed: String, completion: @escaping (Error?) -> Void) {
 		}
 		
-		func logout() throws {
+		func logout(completion: @escaping () -> Void) {
 		}
 		
 		func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {

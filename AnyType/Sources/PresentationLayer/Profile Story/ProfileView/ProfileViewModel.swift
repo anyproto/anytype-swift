@@ -73,13 +73,10 @@ final class ProfileViewModel: ObservableObject {
 	}
 	
 	func logout() {
-		do {
-			try authService.logout()
+		authService.logout() { [weak self] in
 			let authViewCoordinator = AuthViewCoordinator()
 			let view = authViewCoordinator.authView()
 			applicationCoordinator?.startNewRootView(content: view)
-		} catch {
-			self.error = error.localizedDescription
 		}
 	}
 }

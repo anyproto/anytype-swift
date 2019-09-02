@@ -56,13 +56,14 @@ class AuthPinCodeViewModel: ObservableObject {
 		case .setup:
 			saveSeedPhrase(password: pinCodeViewModel.pinCode)
 		case .verify(let publicKey):
-			do {
-				let seed = try obtainSeedPhrase(publicKey: publicKey, password: pinCodeViewModel.pinCode)
-				try authService.login(with: seed)
-				showHomeView()
-			} catch {
-				self.error = error.localizedDescription
-				return
+			if let seed = try? obtainSeedPhrase(publicKey: publicKey, password: pinCodeViewModel.pinCode) {
+				authService.login(with: seed) { [weak self] error in
+					if let error = error {
+						self?.error = error.localizedDescription
+						return
+					}
+					self?.showHomeView()
+				}
 			}
 		}
 	}
