@@ -18,7 +18,7 @@ struct EnterAccountSeedView: View {
 		VStack(alignment: .leading, spacing: 10) {
 			Text("Enter your seed phrase below")
 			.font(.title).fontWeight(.bold)
-			TextField("", text: $viewModel.seedPhrase)
+			TextField("", text: $viewModel.recoveryPhrase)
 			.padding()
 			.background(Color("backgroundColor"))
 			.cornerRadius(7)

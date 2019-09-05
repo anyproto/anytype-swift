@@ -25,7 +25,7 @@ class ApplicationCoordinator {
 	
 	func start() {
 		// just in case
-//		removePublicKeysIfSeedsNotExist(publicKeys: UserDefaultsConfig.usersPublicKey)
+		removePublicKeysIfSeedsNotExist(publicKeys: UserDefaultsConfig.usersPublicKey)
 		
 		let authViewCoordinator = AuthViewCoordinator()
 		let view = authViewCoordinator.authView()

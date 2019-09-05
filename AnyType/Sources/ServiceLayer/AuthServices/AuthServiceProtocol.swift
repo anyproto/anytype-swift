@@ -22,7 +22,12 @@ protocol AuthServiceProtocol {
 	/// Login with account seed
 	/// - Parameter seed: seed phrase
 	/// - Parameter completion: Called on completion
-	func login(with seed: String, completion: @escaping (_ error: Swift.Error?) -> Void)
+	func login(seed: String, completion: @escaping (_ error: Swift.Error?) -> Void)
+	
+	/// Loging with recovery phrase
+	/// - Parameter recoveryPhrase: recovery phrase
+	/// - Parameter completion: Called on completion
+	func login(recoveryPhrase: String, completion: @escaping (_ error: Swift.Error?) -> Void)
 	
 	/// Logout from the current account.  Accounts seed will be removed from keychain.
 	/// - Parameter completion: Called on completion

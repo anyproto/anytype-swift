@@ -55,7 +55,10 @@ extension TextileAuthService: AuthServiceProtocol {
 				let error = AuthServiceError.createWalletError(message: error?.localizedDescription)
 				onReceivingRecoveryPhrase(.failure(error))
 			}
-			strongSelf.createNodeSubscriber(completion: nil)
+			strongSelf.createNodeSubscriber() { error in
+				let result: Result<String, AuthServiceError> = error != nil ? .failure(error!) : .success(recoveryPhrase)
+				onReceivingRecoveryPhrase(result)
+			}
 			
 			do {
 				try self?.launchTextile()
@@ -100,7 +103,10 @@ extension TextileAuthService: AuthServiceProtocol {
 				let error = AuthServiceError.createWalletError(message: error.localizedDescription)
 				onReceivingRecoveryPhrase(.failure(error))
 			}
-			strongSelf.createNodeSubscriber(completion: nil)
+			strongSelf.createNodeSubscriber() { error in
+				let result: Result<String, AuthServiceError> = error != nil ? .failure(error!) : .success(recoveryPhrase)
+				onReceivingRecoveryPhrase(result)
+			}
 			
 			do {
 				try self?.launchTextile()
@@ -111,7 +117,7 @@ extension TextileAuthService: AuthServiceProtocol {
 		}
 	}
 	
-	func login(with seed: String, completion: @escaping (_ : Swift.Error?) -> Void) {
+	func login(seed: String, completion: @escaping (_ : Swift.Error?) -> Void) {
 		cleanCurrentRepo { [weak self] in
 			guard let strongSelf = self else { return }
 			
@@ -125,6 +131,16 @@ extension TextileAuthService: AuthServiceProtocol {
 		}
 	}
 	
+	func login(recoveryPhrase: String, completion: @escaping (_ : Swift.Error?) -> Void) {
+		createWalletAndAccount(with: recoveryPhrase) { result in
+			if case Result.failure(let error) = result {
+				completion(error)
+				return
+			}
+			completion(nil)
+		}
+	}
+	
 	func logout(completion: @escaping () -> Void) {
 		cleanCurrentRepo {
 			completion()
@@ -132,7 +148,9 @@ extension TextileAuthService: AuthServiceProtocol {
 	}
 	
 	func removeAccount(publicKey: String) throws {
-		UserDefaultsConfig.usersPublicKey.remove(publicKey)
+		UserDefaultsConfig.usersPublicKey.removeAll {
+			$0 == publicKey
+		}
 		
 		try? keyChainStore.removeSeed(for: publicKey)
 	}
@@ -149,7 +167,7 @@ extension TextileAuthService: AuthServiceProtocol {
 		}
 	}
 	
-	private func createNodeSubscriber(completion: ((_ : Swift.Error?) -> Void)?) {
+	private func createNodeSubscriber(completion: ((_ : AuthServiceError?) -> Void)?) {
 		nodeSubscriber = nodePublisher.sink(receiveValue: { [weak self] value in
 			defer {
 				self?.nodeSubscriber?.cancel()
@@ -160,7 +178,7 @@ extension TextileAuthService: AuthServiceProtocol {
 				return
 			}
 			let publicKey = Textile.instance().account.address()
-			UserDefaultsConfig.usersPublicKey.insert(publicKey)
+			UserDefaultsConfig.usersPublicKey.appendUniq(publicKey)
 			completion?(nil)
 		})
 	}

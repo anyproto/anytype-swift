@@ -115,7 +115,10 @@ struct ProfileView_Previews : PreviewProvider {
 		var avatar: String = ""
 	}
 	private struct AuthService: AuthServiceProtocol {
-		func login(with seed: String, completion: @escaping (Error?) -> Void) {
+		func login(seed: String, completion: @escaping (Error?) -> Void) {
+		}
+		
+		func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {
 		}
 		
 		func logout(completion: @escaping () -> Void) {

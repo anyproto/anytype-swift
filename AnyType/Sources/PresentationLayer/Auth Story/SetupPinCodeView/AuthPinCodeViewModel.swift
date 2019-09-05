@@ -57,12 +57,13 @@ class AuthPinCodeViewModel: ObservableObject {
 			saveSeedPhrase(password: pinCodeViewModel.pinCode)
 		case .verify(let publicKey):
 			if let seed = try? obtainSeedPhrase(publicKey: publicKey, password: pinCodeViewModel.pinCode) {
-				authService.login(with: seed) { [weak self] error in
+				authService.login(seed: seed) { [weak self] error in
 					if let error = error {
 						self?.error = error.localizedDescription
 						return
 					}
 					self?.showHomeView()
+					
 				}
 			}
 		}
@@ -78,6 +79,7 @@ class AuthPinCodeViewModel: ObservableObject {
 		authService.createWalletAndAccount(with: recoveryPhrase) { [weak self] result in
 			if case Result.failure(let error) = result {
 				self?.error = error.localizedDescription
+				return
 			}
 		
 			let publicKey = Textile.instance().account.address()
@@ -85,10 +87,10 @@ class AuthPinCodeViewModel: ObservableObject {
 			
 			do {
 				try self?.storeService.saveSeedForAccount(name: publicKey, seed: seed, keyChainPassword: password)
+				self?.showHomeView()
 			} catch {
 				self?.error = error.localizedDescription
 			}
-			self?.showHomeView()
 		}
 	}
 	

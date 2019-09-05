@@ -11,7 +11,7 @@ import SwiftUI
 class EnterAccountSeedViewModel: ObservableObject {
 	private var textileService = TextileAuthService()
 	
-	@Published var seedPhrase: String = ""
+	@Published var recoveryPhrase: String = ""
 	@Published var seedAccepted: Bool = false
 	@Published var error: String = "" {
 		didSet {
@@ -25,7 +25,7 @@ class EnterAccountSeedViewModel: ObservableObject {
 	// MARK: - Public methods
 	
 	func verifySeedPhrase() {
-		textileService.login(with: seedPhrase) { [weak self] error in
+		textileService.login(recoveryPhrase: recoveryPhrase) { [weak self] error in
 			if let error = error {
 				self?.error = error.localizedDescription
 				return

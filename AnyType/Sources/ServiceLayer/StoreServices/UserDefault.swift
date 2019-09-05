@@ -32,7 +32,7 @@ struct UserDefault<T> {
 /// User defaults store
 struct UserDefaultsConfig {
     @UserDefault("usersPublicKey", defaultValue: [])
-	static var usersPublicKey: Set<String>
+	static var usersPublicKey: Array<String>
 	
 	@UserDefault("notificationUpdates", defaultValue: false)
 	static var notificationUpdates: Bool
