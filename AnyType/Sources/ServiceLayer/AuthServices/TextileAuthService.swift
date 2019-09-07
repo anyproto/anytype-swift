@@ -190,10 +190,14 @@ extension TextileAuthService: AuthServiceProtocol {
 extension TextileAuthService: TextileDelegate {
 	
 	func nodeStarted() {
+		print("node started")
+		
 		self.nodePublisher.send(true)
 	}
 	
 	func nodeFailedToStartWithError(_ error: Error) {
+		print("node failed to start")
+		
 		self.nodePublisher.send(false)
 	}
 }
