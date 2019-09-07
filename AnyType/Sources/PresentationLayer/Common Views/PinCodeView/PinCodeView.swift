@@ -52,10 +52,12 @@ struct PinCodeView: View {
 	}
 	
 	private func onAppear() {
+		#if !targetEnvironment(simulator)
 		viewModel.pinCodeStream = viewModel.validatedPassword
 			.map{ $0 == nil }
 			.receive(on: RunLoop.main)
 			.assign(to: \.confirmIsDisabled, on: self)
+		#endif
 	}
 }
 

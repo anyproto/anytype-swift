@@ -1,5 +1,5 @@
 //
-//  HomeViewCoordinator.swift
+//  HomeViewContainerCoordinator.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 22.07.2019.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-class HomeViewCoordinator {
+class HomeViewContainerCoordinator {
 	
 	// MARK: - Public methods
 	
-	func start() -> HomeView {
-		return HomeView()
+	func start() -> HomeViewContainer {
+		return HomeViewContainer()
 	}
 }

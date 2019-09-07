@@ -101,7 +101,7 @@ class AuthPinCodeViewModel: ObservableObject {
 	}
 	
 	private func showHomeView() {
-		let view = HomeView()
+		let view = HomeViewContainer()
 		applicationCoordinator?.startNewRootView(content: view)
 	}
 	

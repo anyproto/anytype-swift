@@ -37,7 +37,7 @@ class EnterAccountSeedViewModel: ObservableObject {
 	// MARK: - Private methodss
 	
 	private func showHomeView() {
-		let view = HomeView()
+		let view = HomeViewContainer()
 		applicationCoordinator?.startNewRootView(content: view)
 	}
 }

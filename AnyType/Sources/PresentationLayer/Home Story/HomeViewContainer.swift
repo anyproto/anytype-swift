@@ -1,5 +1,5 @@
 //
-//  HomeView.swift
+//  HomeViewContainer.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 22.07.2019.
@@ -13,9 +13,9 @@ enum TabIdentifer {
 	case profile
 }
 
-struct HomeView: View {
+struct HomeViewContainer: View {
 	@State var selectedTab: TabIdentifer = .home
-	var model = HomeViewModel()
+	var model = HomeViewContainerModel()
 	
 	var body: some View {
 		TabView(selection: $selectedTab) {
@@ -35,9 +35,9 @@ struct HomeView: View {
 }
 
 #if DEBUG
-struct HomeView_Previews: PreviewProvider {
+struct HomeViewContainer_Previews: PreviewProvider {
 	static var previews: some View {
-		HomeView()
+		HomeViewContainer()
 	}
 }
 #endif

@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  HomeViewContainerModel.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 22.07.2019.
@@ -7,7 +7,7 @@
 //
 
 
-class HomeViewModel {
+class HomeViewContainerModel {
 	private var profileCoordinator = ProfileViewCoordinator()
 	
 	var profileView: ProfileView {

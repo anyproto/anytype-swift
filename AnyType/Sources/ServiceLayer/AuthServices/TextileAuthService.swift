@@ -157,13 +157,16 @@ extension TextileAuthService: AuthServiceProtocol {
 	
 	private func cleanCurrentRepo(completion: @escaping () -> Void) {
 		if Textile.isInitialized(textileRepo) {
-			Textile.instance().destroy()
-		}
-		
-		// FIXME: Workaround. We should wait for a while for destroy method to stop nodes.
-		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+			Textile.instance().destroy { isSuccess, error in
 				try? FileManager.default.removeItem(atPath: self.textileRepo)
-				completion()
+				
+				DispatchQueue.main.async {
+					completion()
+				}
+			}
+		} else {
+			try? FileManager.default.removeItem(atPath: self.textileRepo)
+			completion()
 		}
 	}
 	
