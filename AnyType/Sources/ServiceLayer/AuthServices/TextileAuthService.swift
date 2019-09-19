@@ -148,6 +148,7 @@ extension TextileAuthService: AuthServiceProtocol {
 	}
 	
 	func removeAccount(publicKey: String) throws {
+		
 		UserDefaultsConfig.usersPublicKey.removeAll {
 			$0 == publicKey
 		}

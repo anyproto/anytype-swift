@@ -13,4 +13,8 @@ class HomeViewContainerModel {
 	var profileView: ProfileView {
 		return profileCoordinator.profileView
 	}
+	
+	var homeView: HomeView {
+		return HomeView()
+	}
 }

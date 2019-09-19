@@ -19,7 +19,7 @@ struct HomeViewContainer: View {
 	
 	var body: some View {
 		TabView(selection: $selectedTab) {
-			Text(/*@START_MENU_TOKEN@*/"Hello World!"/*@END_MENU_TOKEN@*/)
+			model.homeView
 				.tabItem {
 					Text("Home")
 			}
