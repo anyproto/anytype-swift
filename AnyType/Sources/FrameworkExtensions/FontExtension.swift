@@ -9,9 +9,9 @@
 import SwiftUI
 
 extension Font {
-	
-	static func robotMonoRegularFontWith(size: CGFloat) -> Font {
-		return Font.custom("RobotoMono-Regular", size: size)
-	}
-	
+    
+    static func robotMonoRegularFontWith(size: CGFloat) -> Font {
+        return Font.custom("RobotoMono-Regular", size: size)
+    }
+    
 }

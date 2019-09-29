@@ -29,81 +29,81 @@
 import LocalAuthentication
 
 protocol SecureStoreQueryable {
-	var query: [String: Any] { get }
+    var query: [String: Any] { get }
 }
 
 struct GenericPasswordQueryable {
-	let service: String
-	let accessGroup: String?
-	let account: String
-	let keyChainPassword: String?
-	
-	init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: String? = nil) {
-		self.service = service
-		self.accessGroup = accessGroup
-		self.account = account
-		self.keyChainPassword = keyChainPassword
-	}
-	
-	private func getPwSecAccessControl() -> SecAccessControl {
+    let service: String
+    let accessGroup: String?
+    let account: String
+    let keyChainPassword: String?
+    
+    init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: String? = nil) {
+        self.service = service
+        self.accessGroup = accessGroup
+        self.account = account
+        self.keyChainPassword = keyChainPassword
+    }
+    
+    private func getPwSecAccessControl() -> SecAccessControl {
         var access: SecAccessControl?
         var error: Unmanaged<CFError>?
         
         access = SecAccessControlCreateWithFlags(nil,
             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-			[.biometryAny, .applicationPassword],
+            [.biometryAny, .applicationPassword],
             &error)
         precondition(access != nil, "SecAccessControlCreateWithFlags failed")
         
-		return access!
+        return access!
     }
 }
 
 extension GenericPasswordQueryable: SecureStoreQueryable {
-	public var query: [String: Any] {
-		var query: [String: Any] = [:]
-		query[String(kSecClass)] = kSecClassGenericPassword
-		query[String(kSecAttrService)] = service
-		query[String(kSecAttrAccount)] = account
-		
-		if let password = keyChainPassword, !password.isEmpty {
-			let context = LAContext()
-			context.setCredential(password.data(using: .utf8), type: .applicationPassword)
-			
-			query[String(kSecUseAuthenticationContext)] = context
-			query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
-			
-		}
-		
-		// Access group if target environment is not simulator
-		#if !targetEnvironment(simulator)
-		if let accessGroup = accessGroup {
-			query[String(kSecAttrAccessGroup)] = accessGroup
-		}
-		#endif
-		return query
-	}
+    public var query: [String: Any] {
+        var query: [String: Any] = [:]
+        query[String(kSecClass)] = kSecClassGenericPassword
+        query[String(kSecAttrService)] = service
+        query[String(kSecAttrAccount)] = account
+        
+        if let password = keyChainPassword, !password.isEmpty {
+            let context = LAContext()
+            context.setCredential(password.data(using: .utf8), type: .applicationPassword)
+            
+            query[String(kSecUseAuthenticationContext)] = context
+            query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
+            
+        }
+        
+        // Access group if target environment is not simulator
+        #if !targetEnvironment(simulator)
+        if let accessGroup = accessGroup {
+            query[String(kSecAttrAccessGroup)] = accessGroup
+        }
+        #endif
+        return query
+    }
 }
 
 struct InternetPasswordQueryable {
-	let server: String
-	let port: Int
-	let path: String
-	let securityDomain: String
-	let internetProtocol: InternetProtocol
-	let internetAuthenticationType: InternetAuthenticationType
+    let server: String
+    let port: Int
+    let path: String
+    let securityDomain: String
+    let internetProtocol: InternetProtocol
+    let internetAuthenticationType: InternetAuthenticationType
 }
 
 extension InternetPasswordQueryable: SecureStoreQueryable {
-	public var query: [String: Any] {
-		var query: [String: Any] = [:]
-		query[String(kSecClass)] = kSecClassInternetPassword
-		query[String(kSecAttrPort)] = port
-		query[String(kSecAttrServer)] = server
-		query[String(kSecAttrSecurityDomain)] = securityDomain
-		query[String(kSecAttrPath)] = path
-		query[String(kSecAttrProtocol)] = internetProtocol.rawValue
-		query[String(kSecAttrAuthenticationType)] = internetAuthenticationType.rawValue
-		return query
-	}
+    public var query: [String: Any] {
+        var query: [String: Any] = [:]
+        query[String(kSecClass)] = kSecClassInternetPassword
+        query[String(kSecAttrPort)] = port
+        query[String(kSecAttrServer)] = server
+        query[String(kSecAttrSecurityDomain)] = securityDomain
+        query[String(kSecAttrPath)] = path
+        query[String(kSecAttrProtocol)] = internetProtocol.rawValue
+        query[String(kSecAttrAuthenticationType)] = internetAuthenticationType.rawValue
+        return query
+    }
 }

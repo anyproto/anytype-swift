@@ -10,9 +10,9 @@ import Foundation
 
 /// Model for document in workspace
 struct DocumentModel {
-	var data: Data? = nil
-	var modificationDate: Date? = nil
-	var name: String
-	var imagePath: String? = nil
-	var emojiImage: String? = nil
+    var data: Data? = nil
+    var modificationDate: Date? = nil
+    var name: String
+    var imagePath: String? = nil
+    var emojiImage: String? = nil
 }

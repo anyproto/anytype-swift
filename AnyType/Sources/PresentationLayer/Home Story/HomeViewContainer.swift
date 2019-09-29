@@ -9,35 +9,35 @@
 import SwiftUI
 
 enum TabIdentifer {
-	case home
-	case profile
+    case home
+    case profile
 }
 
 struct HomeViewContainer: View {
-	@State var selectedTab: TabIdentifer = .home
-	var model = HomeViewContainerModel()
-	
-	var body: some View {
-		TabView(selection: $selectedTab) {
-			model.homeView
-				.tabItem {
-					Text("Home")
-			}
-			.tag(TabIdentifer.home)
-			
-			model.profileView
-				.tabItem {
-					Text("Profile")
-			}
-			.tag(TabIdentifer.profile)
-		}
-	}
+    @State var selectedTab: TabIdentifer = .home
+    var model = HomeViewContainerModel()
+    
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            model.homeView
+                .tabItem {
+                    Text("Home")
+            }
+            .tag(TabIdentifer.home)
+            
+            model.profileView
+                .tabItem {
+                    Text("Profile")
+            }
+            .tag(TabIdentifer.profile)
+        }
+    }
 }
 
 #if DEBUG
 struct HomeViewContainer_Previews: PreviewProvider {
-	static var previews: some View {
-		HomeViewContainer()
-	}
+    static var previews: some View {
+        HomeViewContainer()
+    }
 }
 #endif

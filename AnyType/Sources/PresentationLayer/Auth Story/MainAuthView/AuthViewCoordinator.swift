@@ -10,14 +10,14 @@ import Foundation
 import UIKit
 
 class AuthViewCoordinator {
-	
-	// MARK: - Public methods
-	
-	func authView() -> AuthView {
-		let viewModel = AuthViewModel()
-		let view = AuthView(viewModel: viewModel)
-		
-		return view
-	}
-	
+    
+    // MARK: - Public methods
+    
+    func authView() -> AuthView {
+        let viewModel = AuthViewModel()
+        let view = AuthView(viewModel: viewModel)
+        
+        return view
+    }
+    
 }

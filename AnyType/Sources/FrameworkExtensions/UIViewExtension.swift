@@ -11,10 +11,10 @@ import UIKit
 
 extension UIView {
     
-	func renderedImage(rect: CGRect) -> UIImage {
+    func renderedImage(rect: CGRect) -> UIImage {
         let renderer = UIGraphicsImageRenderer(bounds: rect)
         
-		return renderer.image { rendererContext in
+        return renderer.image { rendererContext in
             layer.render(in: rendererContext.cgContext)
         }
     }

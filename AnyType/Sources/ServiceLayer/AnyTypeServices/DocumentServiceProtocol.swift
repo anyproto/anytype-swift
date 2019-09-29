@@ -10,8 +10,8 @@ import Foundation
 
 /// Service for managing documents in workspace
 protocol DocumentServiceProtocol {
-	
-	/// Obtain documents list in workspace
-	/// - Parameter completion: called on completion
-	func obtainDocuments(completion: (_ resutl: Result<Array<DocumentModel>, Error>) -> Void)
+    
+    /// Obtain documents list in workspace
+    /// - Parameter completion: called on completion
+    func obtainDocuments(completion: (_ resutl: Result<Array<DocumentModel>, Error>) -> Void)
 }

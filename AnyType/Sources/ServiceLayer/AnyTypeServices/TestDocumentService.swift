@@ -9,15 +9,15 @@
 import Foundation
 
 class TestDocumentService: DocumentServiceProtocol {
-	
-	func obtainDocuments(completion: (Result<Array<DocumentModel>, Error>) -> Void) {
-		let documents = [
-			DocumentModel(name: "Get started", emojiImage: "👋"),
-			DocumentModel(name: "Ideas", emojiImage: "💡"),
-			DocumentModel(name: "Projects", emojiImage: "🔭"),
-			DocumentModel(name: "Archive", emojiImage: "🗑"),
-		]
-		completion(Result.success(documents))
-	}
-	
+    
+    func obtainDocuments(completion: (Result<Array<DocumentModel>, Error>) -> Void) {
+        let documents = [
+            DocumentModel(name: "Get started", emojiImage: "👋"),
+            DocumentModel(name: "Ideas", emojiImage: "💡"),
+            DocumentModel(name: "Projects", emojiImage: "🔭"),
+            DocumentModel(name: "Archive", emojiImage: "🗑"),
+        ]
+        completion(Result.success(documents))
+    }
+    
 }
