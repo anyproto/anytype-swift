@@ -1,5 +1,5 @@
 PODS:
-  - Protobuf (3.9.0)
+  - Protobuf (3.9.2)
   - Textile (2.0.10):
     - Protobuf (~> 3.7)
     - TextileCore (= 0.7.1)
@@ -16,10 +16,10 @@ SPEC REPOS:
     - TextileCore
 
 SPEC CHECKSUMS:
-  Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
+  Protobuf: 67fb42ba613def994e61854de2b3164f13790cc4
   Textile: 5dc335e1e41bd308d26ac14025ba6cccbef11732
   TextileCore: 4376d528c22aa0abfdd29ffa3967f4b62d7569c1
 
-PODFILE CHECKSUM: f660706d4ba23677371e9f592ad2823e3c4c817e
+PODFILE CHECKSUM: a978ade68d5d5eac53e6557bd26aded67f0c2570
 
 COCOAPODS: 1.7.5
