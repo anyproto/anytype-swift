@@ -7,12 +7,12 @@
 //
 
 extension Array where Element: Equatable {
-	
-	/// Add to array only uniq element
-	/// - Parameter newElement: new element
-	mutating func appendUniq(_ newElement: Element) {
-		if !self.contains(newElement) {
-			self.append(newElement)
-		}
-	}
+    
+    /// Add to array only uniq element
+    /// - Parameter newElement: new element
+    mutating func appendUniq(_ newElement: Element) {
+        if !self.contains(newElement) {
+            self.append(newElement)
+        }
+    }
 }

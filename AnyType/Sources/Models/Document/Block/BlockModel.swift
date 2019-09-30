@@ -9,18 +9,18 @@
 import Foundation
 
 enum Content {
-	case text(TextContent)
-	case header
-	case quote
-	case todo
-	case bulleted
-	case numbered
-	case toggle
-	case callout
+    case text(TextContent)
+    case header
+    case quote
+    case todo
+    case bulleted
+    case numbered
+    case toggle
+    case callout
 }
 
 struct Block {
-	var id: String
-	var parentId: String
-	var type: Content
+    var id: String
+    var parentId: String
+    var type: Content
 }

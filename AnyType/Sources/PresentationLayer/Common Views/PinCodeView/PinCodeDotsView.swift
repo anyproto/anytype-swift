@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct PinCodeDotsView: View {
-	@State var pinCode: String = ""
-	
+    @State var pinCode: String = ""
+    
     var body: some View {
         VStack {
             HStack {
@@ -19,9 +19,9 @@ struct PinCodeDotsView: View {
                 Circle()
                 Circle()
             }
-			.padding()
-			.shadow(color: Color("yellow"), radius: 10)
-			.foregroundColor(Color("yellow"))
+            .padding()
+            .shadow(color: Color("yellow"), radius: 10)
+            .foregroundColor(Color("yellow"))
         }
     }
 }

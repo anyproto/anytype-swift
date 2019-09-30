@@ -8,13 +8,13 @@
 
 
 class HomeViewContainerModel {
-	private var profileCoordinator = ProfileViewCoordinator()
-	
-	var profileView: ProfileView {
-		return profileCoordinator.profileView
-	}
-	
-	var homeView: HomeView {
-		return HomeView()
-	}
+    private var profileCoordinator = ProfileViewCoordinator()
+    
+    var profileView: ProfileView {
+        return profileCoordinator.profileView
+    }
+    
+    var homeView: HomeView {
+        return HomeView()
+    }
 }

@@ -9,10 +9,10 @@
 import Foundation
 
 class HomeViewContainerCoordinator {
-	
-	// MARK: - Public methods
-	
-	func start() -> HomeViewContainer {
-		return HomeViewContainer()
-	}
+    
+    // MARK: - Public methods
+    
+    func start() -> HomeViewContainer {
+        return HomeViewContainer()
+    }
 }

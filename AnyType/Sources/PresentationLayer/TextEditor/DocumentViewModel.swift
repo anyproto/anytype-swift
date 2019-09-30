@@ -9,10 +9,10 @@
 import Foundation
 
 class DocumentViewModel: ObservableObject {
-		
-//	var documentModel: DocumentModel
-	
-	init() {
-		
-	}
+        
+//  var documentModel: DocumentModel
+    
+    init() {
+        
+    }
 }

@@ -7,5 +7,5 @@
 //
 
 struct TextContent {
-	var text: String
+    var text: String
 }
