@@ -69,7 +69,7 @@ struct AuthView : View {
 			}
 			.frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
 			.padding(.horizontal, 40)
-		}
+        }
 	}
 	
 	private func showSaverRecoveryPhraseView() -> some View {

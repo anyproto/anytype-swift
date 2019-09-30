@@ -13,5 +13,9 @@ protocol DocumentServiceProtocol {
 	
 	/// Obtain documents list in workspace
 	/// - Parameter completion: called on completion
-	func obtainDocuments(completion: (_ resutl: Result<Array<DocumentModel>, Error>) -> Void)
+	func obtainDocuments(completion: (_ resutl: Result<Documents, Error>) -> Void)
+	
+	/// Obtain document and its blocks
+	/// - Parameter id: Document id
+	func obtainDocument(id: String, completion: (_ resutl: Result<Document, Error>) -> Void)
 }

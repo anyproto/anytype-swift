@@ -28,7 +28,7 @@ struct OverlayWaitingView<Presenting>: View where Presenting: View {
 				.transition(.slide)
 				.opacity(self.isShowing ? 1 : 0)
 				.background(Color.secondary.colorInvert())
-				.foregroundColor(Color.primary)
+                .foregroundColor(Color.primary)
 				.cornerRadius(20)
 			}
 		}

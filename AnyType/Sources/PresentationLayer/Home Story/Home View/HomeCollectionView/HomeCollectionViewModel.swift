@@ -28,7 +28,7 @@ class HomeCollectionViewModel: ObservableObject {
 		documentService.obtainDocuments { result in
 			switch result {
 			case .success(let documents):
-				processObtainedDocuments(documents: documents)
+                processObtainedDocuments(documents: documents)
 			case .failure(let error):
 				self.error = error.localizedDescription
 			}
@@ -39,10 +39,10 @@ class HomeCollectionViewModel: ObservableObject {
 
 extension HomeCollectionViewModel {
 	
-	private func processObtainedDocuments(documents: [DocumentModel]) {
-		for document in documents {
+	private func processObtainedDocuments(documents: Documents) {
+        for document in documents.documents {
 			var documentCellModel = HomeCollectionViewDocumentCellModel(title: document.name)
-			documentCellModel.emojiImage = document.emojiImage
+			documentCellModel.emojiImage = document.icon
 			documentsCell.append(.document(documentCellModel))
 		}
 		documentsCell.append(.plus)

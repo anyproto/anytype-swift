@@ -13,22 +13,22 @@ enum HomeCollectionViewSection {
 }
 
 struct HomeCollectionView: UIViewRepresentable {
-	private let documentService = TestDocumentService()
-	
 	@ObservedObject var viewModel = HomeCollectionViewModel()
-	
+    @Binding var showDocument: Bool
+    
 	let containerSize: CGSize
 	
 	// MARK: - UIViewRepresentable
 	
-	func makeCoordinator() -> HomeCollectionView.Coordinator {
-		Coordinator()
+	func makeCoordinator() -> HomeCollectionViewCoordinator {
+		HomeCollectionViewCoordinator(self)
 	}
 	
 	func makeUIView(context: Context) -> UICollectionView {
 		let collectionView = configureCollectionView()
 		let dataSource = configureDataSource(collectionView: collectionView)
-		
+        collectionView.delegate = context.coordinator
+        
 		populate(dataSource: dataSource)
 		context.coordinator.dataSource = dataSource
 		
@@ -47,12 +47,6 @@ struct HomeCollectionView: UIViewRepresentable {
 		
 		snapshot.appendItems(viewModel.documentsCell)
         dataSource.apply(snapshot, animatingDifferences: false)
-    }
-	
-	// MARK: - Coordinator
-	
-	final class Coordinator: NSObject {
-		var dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?
     }
 }
 
@@ -108,4 +102,22 @@ extension HomeCollectionView {
 		return layout
 	}
 
+}
+
+// MARK: - Coordinator
+
+class HomeCollectionViewCoordinator: NSObject {
+    var parent: HomeCollectionView
+    var dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?
+    
+    init(_ collectionView: HomeCollectionView) {
+        self.parent = collectionView
+    }
+}
+
+extension HomeCollectionViewCoordinator: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        parent.showDocument = true
+    }
 }
