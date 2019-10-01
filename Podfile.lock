@@ -10,7 +10,7 @@ DEPENDENCIES:
   - Textile
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Protobuf
     - Textile
     - TextileCore
@@ -20,6 +20,6 @@ SPEC CHECKSUMS:
   Textile: 5dc335e1e41bd308d26ac14025ba6cccbef11732
   TextileCore: 4376d528c22aa0abfdd29ffa3967f4b62d7569c1
 
-PODFILE CHECKSUM: a978ade68d5d5eac53e6557bd26aded67f0c2570
+PODFILE CHECKSUM: 43c2a0d278ab77e29997bf173e6fdab0270090c9
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.1

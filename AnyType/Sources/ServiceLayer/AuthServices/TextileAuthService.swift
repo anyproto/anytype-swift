@@ -196,7 +196,7 @@ extension TextileAuthService: TextileDelegate {
         self.nodePublisher.send(true)
     }
     
-    func nodeFailedToStartWithError(_ error: Error) {
+    private func nodeFailedToStartWithError(_ error: Error) {
         print("node failed to start")
         
         self.nodePublisher.send(false)
