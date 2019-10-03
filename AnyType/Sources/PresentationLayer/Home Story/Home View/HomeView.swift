@@ -9,13 +9,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    private var viewModel = HomeViewModel()
+    
     @State var showDocument: Bool = false
     
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
-                    NavigationLink(destination: DocumentView(), isActive: self.$showDocument) {
+                    NavigationLink(destination: self.viewModel.documentView, isActive: self.$showDocument) {
                         EmptyView()
                     }
                     .frame(width: 0, height: 0)

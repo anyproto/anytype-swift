@@ -9,10 +9,38 @@
 import Foundation
 
 class DocumentViewModel: ObservableObject {
-        
-//  var documentModel: DocumentModel
+    private let documentService = TestDocumentService()
     
-    init() {
+    @Published var documentModel: Document?
+    @Published var error: String?
+    
+    init(documentId: String?) {
+        obtainDocument(documentId: documentId)
+    }
+    
+    func addBlock(content: Content) {
+        documentService.addBlock(content: content, by: <#T##Int#>, for: <#T##Document#>, completion: <#T##(Result<Document, Error>) -> Void#>)
+    }
+}
+ 
+extension DocumentViewModel {
+    
+    private func obtainDocument(documentId: String?) {
+        let completion = { [weak self] (result: Result<Document, Error>) in
+            guard let strongSelf = self else { return }
+            
+            switch result {
+            case .success(let document):
+                strongSelf.documentModel = document
+            case .failure(let error):
+                strongSelf.error = error.localizedDescription
+            }
+        }
         
+        if let documentId = documentId {
+            documentService.obtainDocument(id: documentId, completion: completion)
+        } else {
+            documentService.createNewDocument(completion: completion)
+        }
     }
 }

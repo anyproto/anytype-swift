@@ -9,4 +9,9 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
+    
+    var documentView: some View {
+        let viewModel = DocumentViewModel(documentId: nil)
+        return DocumentView(viewModel: viewModel)
+    }
 }

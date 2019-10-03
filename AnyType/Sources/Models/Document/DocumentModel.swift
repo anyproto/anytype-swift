@@ -9,9 +9,9 @@
 import Foundation
 
 struct DocumentHeader {
-    var id: Data? = nil
+    var id: String
     var name: String
-    var version: String? = nil
+    var version: String
     var icon: String? = nil
 }
 

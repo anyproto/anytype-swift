@@ -19,7 +19,7 @@ enum Content {
     case callout
 }
 
-struct Block {
+struct Block: Identifiable {
     var id: String
     var parentId: String
     var type: Content
