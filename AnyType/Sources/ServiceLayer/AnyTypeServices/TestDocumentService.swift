@@ -21,22 +21,22 @@ class TestDocumentService: DocumentServiceProtocol {
         completion(Result.success(documentsModel))
     }
     
-    func obtainDocument(id: String, completion: (Result<Document, Error>) -> Void) {
+    func obtainDocument(id: String, completion: (Result<Documents.Document, Error>) -> Void) {
         let header = DocumentHeader(id: "1", name: "Ideas", version: "1", icon: "💡")
         let blocks = [
-            Block(id: "1", parentId: "2", type: .text(TextContent(text: "some string")))
+            Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text)))
         ]
-        let documentModel = Document(header: header, blocks: blocks)
+        let documentModel = Documents.Document(header: header, blocks: blocks)
         completion(Result.success(documentModel))
     }
     
-    func createNewDocument(completion: (Result<Document, Error>) -> Void) {
+    func createNewDocument(completion: (Result<Documents.Document, Error>) -> Void) {
         let header = DocumentHeader(id: "1", name: "Untitled", version: "1", icon: "📄")
-        let documentModel = Document(header: header, blocks: [])
+        let documentModel = Documents.Document(header: header, blocks: [])
         completion(Result.success(documentModel))
     }
     
-    func addBlock(content: Content, by index: Int, for document: Document, completion: (Result<Document, Error>) -> Void) {
+    func addBlock(content: BlockType, by index: Int, for document: Documents.Document, completion: (Result<Documents.Document, Error>) -> Void) {
         let block = Block(id: "1", parentId: "", type: content)
         var documentModel = document
         documentModel.blocks.insert(block, at: index)

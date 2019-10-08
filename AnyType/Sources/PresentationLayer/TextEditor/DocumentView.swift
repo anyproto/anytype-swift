@@ -16,11 +16,11 @@ struct DocumentView: View {
     }
     
     var body: some View {
-        if let blocks = viewModel.documentModel?.blocks {
-            if blocks.isEmpty {
+        if let builders = viewModel.blocksViewsBuilders {
+            if viewModel.blocksViewsBuilders.isEmpty {
                 return AnyView(EmptyDocumentView(title: ""))
             } else {
-                return AnyView(blocksView(blocks: blocks))
+                return AnyView(blocksView(viewBulders: builders))
             }
         } else {
           return AnyView(loading)
@@ -30,9 +30,9 @@ struct DocumentView: View {
 
 private extension DocumentView {
     
-    func blocksView(blocks: [Block]) -> some View {
-        return List(blocks) { block in
-            TextBlockView()
+    func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
+        return List(viewBulders, id: \.id) { rowViewBuilder in
+            rowViewBuilder.buildView()
         }
         .onAppear {
             UITableView.appearance().separatorColor = .clear
@@ -46,6 +46,7 @@ private extension DocumentView {
       Text("Loading...")
         .foregroundColor(.gray)
     }
+    
 }
 
 struct DocumentView_Previews: PreviewProvider {

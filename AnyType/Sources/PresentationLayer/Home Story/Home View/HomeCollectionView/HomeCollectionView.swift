@@ -53,7 +53,7 @@ struct HomeCollectionView: UIViewRepresentable {
 extension HomeCollectionView {
     
     private func configureCollectionView() -> UICollectionView {
-        let rect  = CGRect(origin: .zero, size: containerSize)
+        let rect = CGRect(origin: .zero, size: containerSize)
         let collectionView = UICollectionView(frame: rect, collectionViewLayout: createCollectionLayout())
         collectionView.backgroundColor = .clear
         collectionView.register(HomeCollectionViewDocumentCell.self, forCellWithReuseIdentifier: HomeCollectionViewDocumentCell.reuseIdentifer)

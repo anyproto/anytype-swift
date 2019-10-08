@@ -17,13 +17,11 @@ struct DocumentHeader {
 
 struct Documents {
     let currentDocumentId: String
-    
     var documents = [DocumentHeader]()
-}
-
-/// Model for document in workspace
-struct Document {
-    let header: DocumentHeader
     
-    var blocks = [Block]()
+    /// Model for document in workspace
+    struct Document {
+        let header: DocumentHeader
+        var blocks = [Block]()
+    }
 }

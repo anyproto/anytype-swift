@@ -11,7 +11,7 @@ import Foundation
 /// Service for managing documents in workspace
 protocol DocumentServiceProtocol {
     typealias CompletionWithDocumentsListResult = (_ resutl: Result<Documents, Error>) -> Void
-    typealias CompletionWithDocumentResult = (_ resutl: Result<Document, Error>) -> Void
+    typealias CompletionWithDocumentResult = (_ resutl: Result<Documents.Document, Error>) -> Void
     
     /// Obtain documents list in workspace
     /// - Parameter completion: called on completion
@@ -31,5 +31,5 @@ protocol DocumentServiceProtocol {
     /// - Parameter completion: called on completion with document information
     /// - Parameter index: block index
     /// - Parameter document: document with new block
-    func addBlock(content: Content, by index: Int, for document: Document, completion: CompletionWithDocumentResult)
+    func addBlock(content: BlockType, by index: Int, for document: Documents.Document, completion: CompletionWithDocumentResult)
 }
