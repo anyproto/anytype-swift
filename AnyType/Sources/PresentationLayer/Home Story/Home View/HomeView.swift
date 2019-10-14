@@ -42,11 +42,3 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
-
-struct DocumentItem: View {
-    var name: String
-    
-    var body: some View {
-        Text(name)
-    }
-}

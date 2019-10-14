@@ -17,7 +17,7 @@ struct DocumentView: View {
     
     var body: some View {
         if let builders = viewModel.blocksViewsBuilders {
-            if viewModel.blocksViewsBuilders.isEmpty {
+            if builders.isEmpty {
                 return AnyView(EmptyDocumentView(title: ""))
             } else {
                 return AnyView(blocksView(viewBulders: builders))

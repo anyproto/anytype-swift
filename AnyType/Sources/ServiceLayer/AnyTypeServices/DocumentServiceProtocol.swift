@@ -8,10 +8,23 @@
 
 import Foundation
 
+enum DocumentServiceError: Error {
+    case documentNotFound
+}
+
+extension DocumentServiceError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .documentNotFound:
+            return NSLocalizedString("Document not found", comment: "")
+        }
+    }
+}
+
 /// Service for managing documents in workspace
 protocol DocumentServiceProtocol {
-    typealias CompletionWithDocumentsListResult = (_ resutl: Result<Documents, Error>) -> Void
-    typealias CompletionWithDocumentResult = (_ resutl: Result<Documents.Document, Error>) -> Void
+    typealias CompletionWithDocumentsListResult = (_ resutl: Result<DocumentsHeaders, Error>) -> Void
+    typealias CompletionWithDocumentResult = (_ resutl: Result<Document, Error>) -> Void
     
     /// Obtain documents list in workspace
     /// - Parameter completion: called on completion
@@ -31,5 +44,5 @@ protocol DocumentServiceProtocol {
     /// - Parameter completion: called on completion with document information
     /// - Parameter index: block index
     /// - Parameter document: document with new block
-    func addBlock(content: BlockType, by index: Int, for document: Documents.Document, completion: CompletionWithDocumentResult)
+    func addBlock(content: BlockType, by index: Int, for documentId: String, completion: CompletionWithDocumentResult)
 }

@@ -16,6 +16,7 @@ enum HomeCollectionViewCellType: Hashable {
 
 class HomeCollectionViewModel: ObservableObject {
     private let documentService = TestDocumentService()
+    private var documentsHeaders: DocumentsHeaders?
     
     var documentsCell = [HomeCollectionViewCellType]()
     @Published var error: String = ""
@@ -25,12 +26,15 @@ class HomeCollectionViewModel: ObservableObject {
     }
     
     func obtainDocuments() {
-        documentService.obtainDocuments { result in
+        documentService.obtainDocuments { [weak self] result in
+            guard let strongSelf = self else { return }
+            
             switch result {
             case .success(let documents):
+                strongSelf.documentsHeaders = documents
                 processObtainedDocuments(documents: documents)
             case .failure(let error):
-                self.error = error.localizedDescription
+                strongSelf.error = error.localizedDescription
             }
         }
     }
@@ -39,8 +43,8 @@ class HomeCollectionViewModel: ObservableObject {
 
 extension HomeCollectionViewModel {
     
-    private func processObtainedDocuments(documents: Documents) {
-        for document in documents.documents {
+    private func processObtainedDocuments(documents: DocumentsHeaders) {
+        for document in documents.headers {
             var documentCellModel = HomeCollectionViewDocumentCellModel(title: document.name)
             documentCellModel.emojiImage = document.icon
             documentsCell.append(.document(documentCellModel))

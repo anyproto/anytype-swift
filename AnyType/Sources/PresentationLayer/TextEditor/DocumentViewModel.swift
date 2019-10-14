@@ -10,6 +10,7 @@ import Foundation
 
 class DocumentViewModel: ObservableObject {
     private let documentService = TestDocumentService()
+    private var documentHeader: DocumentHeader?
     
     @Published var error: String?
     @Published var blocksViewsBuilders: [BlockViewRowBuilderProtocol]?
@@ -21,16 +22,16 @@ class DocumentViewModel: ObservableObject {
     func addBlock(content: BlockType, afterBlock: Int) {
         let index = afterBlock + 1
         
-//        documentService.addBlock(content: content, by: index, for: documentModel) { [weak self] result in
-//            guard let strongSelf = self else { return }
-//
-//            switch result {
-//            case .success(let newDocumentModel):
-//                strongSelf.documentModel = newDocumentModel
-//            case .failure(let error):
-//                strongSelf.error = error.localizedDescription
-//            }
-//        }
+        documentService.addBlock(content: content, by: index, for: documentHeader?.id) { [weak self] result in
+            guard let strongSelf = self else { return }
+
+            switch result {
+            case .success(let newDocumentModel):
+                strongSelf.documentModel = newDocumentModel
+            case .failure(let error):
+                strongSelf.error = error.localizedDescription
+            }
+        }
     }
     
 }
@@ -38,11 +39,12 @@ class DocumentViewModel: ObservableObject {
 extension DocumentViewModel {
     
     private func obtainDocument(documentId: String?) {
-        let completion = { [weak self] (result: Result<Documents.Document, Error>) in
+        let completion = { [weak self] (result: Result<Document, Error>) in
             guard let strongSelf = self else { return }
             
             switch result {
             case .success(let document):
+                strongSelf.documentHeader = document.header
                 strongSelf.createblocksViewsBuilders(document: document)
             case .failure(let error):
                 strongSelf.error = error.localizedDescription
@@ -58,7 +60,7 @@ extension DocumentViewModel {
     }
     
     // TODO: Refact when middle will be ready
-    private func createblocksViewsBuilders(document: Documents.Document) {
+    private func createblocksViewsBuilders(document: Document) {
         blocksViewsBuilders = [BlockViewRowBuilderProtocol]()
         
         // TODO: Maybe we need to create some fabric for resolver?

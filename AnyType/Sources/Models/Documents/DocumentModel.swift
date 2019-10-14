@@ -15,13 +15,13 @@ struct DocumentHeader {
     var icon: String? = nil
 }
 
-struct Documents {
+struct DocumentsHeaders {
     let currentDocumentId: String
-    var documents = [DocumentHeader]()
-    
-    /// Model for document in workspace
-    struct Document {
-        let header: DocumentHeader
-        var blocks = [Block]()
-    }
+    var headers = [DocumentHeader]()
+}
+
+/// Model for document in workspace
+struct Document {
+    let header: DocumentHeader
+    var blocks = [Block]()
 }

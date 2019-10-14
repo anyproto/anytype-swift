@@ -16,6 +16,7 @@ struct HomeCollectionView: UIViewRepresentable {
     @ObservedObject var viewModel = HomeCollectionViewModel()
     @Binding var showDocument: Bool
     
+    
     let containerSize: CGSize
     
     // MARK: - UIViewRepresentable
