@@ -15,7 +15,7 @@ enum HomeCollectionViewSection {
 struct HomeCollectionView: UIViewRepresentable {
     @ObservedObject var viewModel = HomeCollectionViewModel()
     @Binding var showDocument: Bool
-    
+    @Binding var selectedDocumentId: String
     
     let containerSize: CGSize
     
@@ -120,5 +120,11 @@ extension HomeCollectionViewCoordinator: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         parent.showDocument = true
+        
+        guard parent.viewModel.documentsHeaders?.headers.indices.contains(indexPath.row) ?? false,
+            let documentId = parent.viewModel.documentsHeaders?.headers[indexPath.row].id else { return }
+        
+        parent.selectedDocumentId = documentId
     }
+    
 }

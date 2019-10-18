@@ -12,12 +12,13 @@ struct HomeView: View {
     private var viewModel = HomeViewModel()
     
     @State var showDocument: Bool = false
+    @State var selectedDocumentId: String = ""
     
     var body: some View {
         NavigationView {
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
-                    NavigationLink(destination: self.viewModel.documentView, isActive: self.$showDocument) {
+                    NavigationLink(destination: self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId), isActive: self.$showDocument) {
                         EmptyView()
                     }
                     .frame(width: 0, height: 0)
@@ -28,7 +29,7 @@ struct HomeView: View {
                         .foregroundColor(.white)
                         .font(.title)
                         .padding(.top, 20)
-                    HomeCollectionView(showDocument: self.$showDocument, containerSize: geometry.size)
+                    HomeCollectionView(showDocument: self.$showDocument, selectedDocumentId: self.$selectedDocumentId,containerSize: geometry.size)
                         .padding()
                 }
             }

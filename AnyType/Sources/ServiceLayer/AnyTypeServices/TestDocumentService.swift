@@ -18,18 +18,18 @@ class TestDocumentService: DocumentServiceProtocol {
                 DocumentHeader(id: "3", name: "Projects", version: "1", icon: "🔭"),
                 DocumentHeader(id: "4", name: "Archive", version: "1", icon: "🗑"),
             ]
-            let documentsModel = DocumentsHeaders(currentDocumentId: "", headers: documentsHeaders)
+            let documentsHeadersModel = DocumentsHeaders(currentDocumentId: "", headers: documentsHeaders)
             
-            return documentsModel
+            return documentsHeadersModel
         }()
         
-        var blocks: [Block] {
+        var blocks: [Block] = {
             return [
                 Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
                 Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
                 Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text)))
             ]
-        }
+        }()
         
         func document(id: String) -> Document? {
             let document = documentsHeaders.headers.first { $0.id == id }.map { Document(header: $0, blocks: blocks) }
@@ -45,12 +45,11 @@ class TestDocumentService: DocumentServiceProtocol {
     }
     
     func obtainDocument(id: String, completion: (Result<Document, Error>) -> Void) {
-        let header = DocumentHeader(id: "1", name: "Ideas", version: "1", icon: "💡")
-        let blocks = [
-            Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text)))
-        ]
-        let documentModel = Document(header: header, blocks: blocks)
-        completion(Result.success(documentModel))
+        if let document = testDocuments.document(id: id) {
+            completion(Result.success(document))
+        } else {
+            completion(Result.failure(DocumentServiceError.documentNotFound))
+        }
     }
     
     func createNewDocument(completion: (Result<Document, Error>) -> Void) {

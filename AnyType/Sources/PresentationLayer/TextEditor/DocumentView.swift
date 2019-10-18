@@ -51,7 +51,8 @@ private extension DocumentView {
 
 struct DocumentView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = DocumentViewModel(documentId: nil)
+        let viewModel = DocumentViewModel(documentId: "1")
+        
         return DocumentView(viewModel: viewModel)
     }
 }

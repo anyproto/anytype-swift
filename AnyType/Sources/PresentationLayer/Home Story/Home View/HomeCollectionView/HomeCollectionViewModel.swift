@@ -16,7 +16,7 @@ enum HomeCollectionViewCellType: Hashable {
 
 class HomeCollectionViewModel: ObservableObject {
     private let documentService = TestDocumentService()
-    private var documentsHeaders: DocumentsHeaders?
+    var documentsHeaders: DocumentsHeaders?
     
     var documentsCell = [HomeCollectionViewCellType]()
     @Published var error: String = ""

@@ -20,14 +20,16 @@ class DocumentViewModel: ObservableObject {
     }
     
     func addBlock(content: BlockType, afterBlock: Int) {
+        guard let documentHeader = documentHeader else { return }
+        
         let index = afterBlock + 1
         
-        documentService.addBlock(content: content, by: index, for: documentHeader?.id) { [weak self] result in
+        documentService.addBlock(content: content, by: index, for: documentHeader.id) { [weak self] result in
             guard let strongSelf = self else { return }
 
             switch result {
             case .success(let newDocumentModel):
-                strongSelf.documentModel = newDocumentModel
+                strongSelf.createblocksViewsBuilders(document: newDocumentModel)
             case .failure(let error):
                 strongSelf.error = error.localizedDescription
             }
