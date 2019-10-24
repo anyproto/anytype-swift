@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DocumentView: View {
     @ObservedObject var viewModel: DocumentViewModel
+    @State var cellSize: CGFloat = 31.0
     
     init(viewModel: DocumentViewModel) {
         self.viewModel = viewModel
@@ -31,9 +32,14 @@ struct DocumentView: View {
 private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
-        return List(viewBulders, id: \.id) { rowViewBuilder in
-            rowViewBuilder.buildView()
+        VStack(alignment: .leading) {
+            ForEach(viewBulders, id: \.id) { rowViewBuilder in
+                rowViewBuilder.buildView()
+            }
         }
+//        List(viewBulders, id: \.id) { rowViewBuilder in
+//            rowViewBuilder.buildView().frame(minHeight: self.cellSize, idealHeight: self.cellSize, maxHeight: self.cellSize)
+//        }
         .onAppear {
             UITableView.appearance().separatorColor = .clear
         }

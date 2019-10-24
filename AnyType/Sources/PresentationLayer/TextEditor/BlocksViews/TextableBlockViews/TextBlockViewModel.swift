@@ -9,7 +9,7 @@
 import SwiftUI
 
 /// Textable block view
-class TextBlockViewModel: ObservableObject, BlockViewRowBuilderProtocol {
+class TextBlockViewModel: ObservableObject {
     private var block: Block
     @Published var text: String = ""
     
@@ -18,7 +18,7 @@ class TextBlockViewModel: ObservableObject, BlockViewRowBuilderProtocol {
     }
 }
 
-extension TextBlockViewModel: Identifiable {
+extension TextBlockViewModel: BlockViewRowBuilderProtocol, Identifiable {
     
     var id: UUID {
         return UUID()

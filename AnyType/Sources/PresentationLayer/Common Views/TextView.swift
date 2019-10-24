@@ -9,27 +9,31 @@
 import SwiftUI
 
 struct TextView: UIViewRepresentable {
+    private let textView: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont(name: "HelveticaNeue", size: 15)
+        textView.isScrollEnabled = false
+        textView.isEditable = true
+        textView.isUserInteractionEnabled = true
+        textView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
+        textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        textView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
+        
+        return textView
+    }()
+    
     @Binding var text: String
     @Binding var sizeThatFit: CGSize
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        return Coordinator(self)
     }
     
     func makeUIView(context: Context) -> UITextView {
-        let rect = CGRect(origin: .zero, size: sizeThatFit)
-        let myTextView = UITextView(frame: rect)
-        myTextView.delegate = context.coordinator
+        textView.delegate = context.coordinator
+        self.sizeThatFit = self.textView.intrinsicContentSize
         
-        myTextView.font = UIFont(name: "HelveticaNeue", size: 15)
-        myTextView.isScrollEnabled = false
-        myTextView.textContainer.lineBreakMode = .byWordWrapping
-        myTextView.isEditable = true
-        myTextView.isUserInteractionEnabled = true
-        myTextView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
-        myTextView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        
-        return myTextView
+        return textView
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
@@ -48,7 +52,6 @@ struct TextView: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            print("text now: \(String(describing: textView.text!))")
             self.parent.text = textView.text
             
             self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
