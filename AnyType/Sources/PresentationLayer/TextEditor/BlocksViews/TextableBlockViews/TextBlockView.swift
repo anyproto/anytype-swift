@@ -25,6 +25,7 @@ struct TextBlockView: View {
                 .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height)
         }
     }
+    
 }
 
 struct TextBlockView_Previews: PreviewProvider {

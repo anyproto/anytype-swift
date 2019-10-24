@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DocumentView: View {
     @ObservedObject var viewModel: DocumentViewModel
-    @State var cellSize: CGFloat = 31.0
+    @State var dragOffser: CGSize = .zero
     
     init(viewModel: DocumentViewModel) {
         self.viewModel = viewModel
@@ -24,7 +24,7 @@ struct DocumentView: View {
                 return AnyView(blocksView(viewBulders: builders))
             }
         } else {
-          return AnyView(loading)
+            return AnyView(loading)
         }
     }
 }
@@ -32,16 +32,19 @@ struct DocumentView: View {
 private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
-        VStack(alignment: .leading) {
-            ForEach(viewBulders, id: \.id) { rowViewBuilder in
-                rowViewBuilder.buildView()
-            }
+        ScrollView {
+            VStack(alignment: .leading) {
+                ForEach(viewBulders, id: \.id) { rowViewBuilder in
+                    rowViewBuilder.buildView()
+                }
+                
+            }        
         }
-//        List(viewBulders, id: \.id) { rowViewBuilder in
-//            rowViewBuilder.buildView().frame(minHeight: self.cellSize, idealHeight: self.cellSize, maxHeight: self.cellSize)
-//        }
-        .onAppear {
-            UITableView.appearance().separatorColor = .clear
+            //        List(viewBulders, id: \.id) { rowViewBuilder in
+            //            rowViewBuilder.buildView().frame(minHeight: self.cellSize, idealHeight: self.cellSize, maxHeight: self.cellSize)
+            //        }
+            .onAppear {
+                UITableView.appearance().separatorColor = .clear
         }
         .onDisappear {
             UITableView.appearance().separatorColor = .opaqueSeparator
@@ -49,8 +52,8 @@ private extension DocumentView {
     }
     
     var loading: some View {
-      Text("Loading...")
-        .foregroundColor(.gray)
+        Text("Loading...")
+            .foregroundColor(.gray)
     }
     
 }
