@@ -8,15 +8,40 @@
 
 import SwiftUI
 
+struct BaseViewPreferenceData: Identifiable, Equatable {
+    static func == (lhs: BaseViewPreferenceData, rhs: BaseViewPreferenceData) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    let id = UUID()
+    let bounds: Anchor<CGRect>?
+    let isDragging: Bool
+}
+
+struct BaseViewPreferenceKey: PreferenceKey {
+    typealias Value = BaseViewPreferenceData
+    
+    static var defaultValue = BaseViewPreferenceData(bounds: nil, isDragging: false)
+    
+    static func reduce(value: inout BaseViewPreferenceData, nextValue: () -> BaseViewPreferenceData) {
+        value = nextValue()
+    }
+}
 
 struct BaseView: ViewModifier {
     @State var dragOffset: CGSize = .zero
     
     func body(content: Content) -> some View {
         HStack {
-            Text("+").gesture(createDragGeasture())
+            Text("+")
+                .gesture(createDragGeasture())
             content
-        }.offset(x: self.dragOffset.width, y: self.dragOffset.height)
+        }
+        .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) {
+            print("anchorPreference: \(self.dragOffset.equalTo(.zero))")
+            return BaseViewPreferenceData(bounds: $0, isDragging: !self.dragOffset.equalTo(.zero))
+        }
+        .offset(x: self.dragOffset.width, y: self.dragOffset.height)
     }
     
     private func createDragGeasture() -> some Gesture {

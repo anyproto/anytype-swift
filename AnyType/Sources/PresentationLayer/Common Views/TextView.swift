@@ -17,7 +17,7 @@ struct TextView: UIViewRepresentable {
         textView.isUserInteractionEnabled = true
         textView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        textView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
+//        textView.setContentCompressionResistancePriority(.defaultHigh + 1, for: .vertical)
         
         return textView
     }()

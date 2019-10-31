@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DocumentView: View {
     @ObservedObject var viewModel: DocumentViewModel
-    @State var dragOffser: CGSize = .zero
+    @State var dragCoordinates: Anchor<CGRect>
     
     init(viewModel: DocumentViewModel) {
         self.viewModel = viewModel
@@ -33,27 +33,33 @@ private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
         ScrollView {
-            VStack(alignment: .leading) {
-                ForEach(viewBulders, id: \.id) { rowViewBuilder in
-                    rowViewBuilder.buildView()
-                }
-                
-            }        
+            ForEach(viewBulders, id: \.id) { rowViewBuilder in
+                rowViewBuilder.buildView()
+            }
         }
-            //        List(viewBulders, id: \.id) { rowViewBuilder in
-            //            rowViewBuilder.buildView().frame(minHeight: self.cellSize, idealHeight: self.cellSize, maxHeight: self.cellSize)
-            //        }
-            .onAppear {
-                UITableView.appearance().separatorColor = .clear
-        }
-        .onDisappear {
-            UITableView.appearance().separatorColor = .opaqueSeparator
+        .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
+            if let bounds = preference.bounds, preference.isDragging {
+                self.dragCoordinates = bounds
+            }
         }
     }
     
     var loading: some View {
         Text("Loading...")
             .foregroundColor(.gray)
+    }
+    
+    private func makeView(geometry: GeometryProxy, preference: BaseViewPreferenceData) -> some View {
+        print("make view")
+        
+        if let bounds = preference.bounds, preference.isDragging {
+            let bounds = geometry[bounds]
+            print("some bounds: \(bounds)")
+        }
+        
+        return ZStack {
+            Divider()
+        }
     }
     
 }
@@ -64,4 +70,5 @@ struct DocumentView_Previews: PreviewProvider {
         
         return DocumentView(viewModel: viewModel)
     }
+    
 }

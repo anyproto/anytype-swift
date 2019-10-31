@@ -25,6 +25,6 @@ extension TextBlockViewModel: BlockViewRowBuilderProtocol, Identifiable {
     }
     
     func buildView() -> AnyView {
-       AnyView(TextBlockView(viewModel: self))
+        AnyView(TextBlockView(viewModel: self, showBottomInsertLine: .constant(false)))
     }
 }

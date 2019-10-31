@@ -13,9 +13,11 @@ struct TextBlockView: View {
     
     @State var text: String = ""
     @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
+    @Binding var showBottomInsertLine: Bool
     
-    init(viewModel: TextBlockViewModel) {
+    init(viewModel: TextBlockViewModel, showBottomInsertLine: Binding<Bool>) {
         self.viewModel = viewModel
+        self._showBottomInsertLine = showBottomInsertLine
     }
     
     var body: some View {
@@ -23,6 +25,9 @@ struct TextBlockView: View {
             TextView(text: self.$text, sizeThatFit: self.$sizeThatFit)
                 .modifier(BaseView())
                 .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height)
+            if showBottomInsertLine {
+                Divider()
+            }
         }
     }
     
@@ -33,6 +38,6 @@ struct TextBlockView_Previews: PreviewProvider {
         let textType = BlockType.Text(text: "some text", contentType: .text)
         let block = Block(id: "1", parentId: "", type: .text(textType))
         let textBlockViewModel = TextBlockViewModel(block: block)
-        return TextBlockView(viewModel: textBlockViewModel)
+        return TextBlockView(viewModel: textBlockViewModel, showBottomInsertLine: .constant(true))
     }
 }
