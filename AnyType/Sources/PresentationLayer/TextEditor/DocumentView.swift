@@ -10,7 +10,8 @@ import SwiftUI
 
 struct DocumentView: View {
     @ObservedObject var viewModel: DocumentViewModel
-    @State var dragCoordinates: Anchor<CGRect>
+    @State var dragCoordinates: Anchor<CGRect>? = nil
+    @State var someBool: Bool = false
     
     init(viewModel: DocumentViewModel) {
         self.viewModel = viewModel
@@ -34,13 +35,25 @@ private extension DocumentView {
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
         ScrollView {
             ForEach(viewBulders, id: \.id) { rowViewBuilder in
-                rowViewBuilder.buildView()
+//                rowViewBuilder.buildView()
+                AnyView(Text("ss").modifier(BaseView()))
             }
         }
-        .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
-            if let bounds = preference.bounds, preference.isDragging {
-                self.dragCoordinates = bounds
+        .background(
+            GeometryReader { geometry -> EmptyView in
+//                if let dragCoordinates = self.dragCoordinates {
+//                    print("\(geometry[dragCoordinates])")
+//                }
+                return EmptyView()
             }
+        )
+        .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
+            print("some bool: \(self.someBool)")
+            if let bounds = preference.bounds, preference.isDragging {
+//                self.dragCoordinates = bounds
+//                self.someBool.toggle()
+            }
+            self.someBool.toggle()
         }
     }
     

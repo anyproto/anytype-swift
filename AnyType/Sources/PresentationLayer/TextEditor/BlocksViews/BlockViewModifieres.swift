@@ -24,7 +24,12 @@ struct BaseViewPreferenceKey: PreferenceKey {
     static var defaultValue = BaseViewPreferenceData(bounds: nil, isDragging: false)
     
     static func reduce(value: inout BaseViewPreferenceData, nextValue: () -> BaseViewPreferenceData) {
-        value = nextValue()
+        let next = nextValue()
+        
+        if next.isDragging {
+            print("dragging")
+            value = next
+        }
     }
 }
 
@@ -38,7 +43,7 @@ struct BaseView: ViewModifier {
             content
         }
         .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) {
-            print("anchorPreference: \(self.dragOffset.equalTo(.zero))")
+            print("anchorPreference")
             return BaseViewPreferenceData(bounds: $0, isDragging: !self.dragOffset.equalTo(.zero))
         }
         .offset(x: self.dragOffset.width, y: self.dragOffset.height)

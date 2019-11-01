@@ -31,7 +31,10 @@ struct TextView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UITextView {
         textView.delegate = context.coordinator
-        self.sizeThatFit = self.textView.intrinsicContentSize
+        
+        DispatchQueue.main.async {
+            self.sizeThatFit = self.textView.intrinsicContentSize
+        }
         
         return textView
     }
