@@ -11,7 +11,6 @@ import SwiftUI
 struct DocumentView: View {
     @ObservedObject var viewModel: DocumentViewModel
     @State var dragCoordinates: Anchor<CGRect>? = nil
-    @State var someBool: Bool = false
     
     init(viewModel: DocumentViewModel) {
         self.viewModel = viewModel
@@ -35,26 +34,33 @@ private extension DocumentView {
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
         ScrollView {
             ForEach(viewBulders, id: \.id) { rowViewBuilder in
-//                rowViewBuilder.buildView()
-                AnyView(Text("ss").modifier(BaseView()))
+                VStack {
+                    if self.showDropLine() {
+                        Divider()
+                    }
+                    rowViewBuilder.buildView()
+                        .background(
+                            GeometryReader { geometry -> EmptyView in
+                                if let dragCoordinates = self.dragCoordinates {
+                                    print("\(geometry[dragCoordinates])")
+                                }
+                                return EmptyView()
+                            }
+                    )
+                }
             }
         }
-        .background(
-            GeometryReader { geometry -> EmptyView in
-//                if let dragCoordinates = self.dragCoordinates {
-//                    print("\(geometry[dragCoordinates])")
-//                }
-                return EmptyView()
-            }
-        )
         .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
-            print("some bool: \(self.someBool)")
+            print("onPreferenceChange")
             if let bounds = preference.bounds, preference.isDragging {
-//                self.dragCoordinates = bounds
-//                self.someBool.toggle()
+                self.dragCoordinates = bounds
             }
-            self.someBool.toggle()
         }
+    }
+    
+    private func showDropLine() -> Bool {
+        
+        return false
     }
     
     var loading: some View {

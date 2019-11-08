@@ -9,24 +9,20 @@
 import SwiftUI
 
 /// Textable block view
-class TextBlockViewModel: ObservableObject {
+class TextBlockViewModel: ObservableObject, Identifiable {
     private var block: Block
     @Published var text: String = ""
     
     required init(block: Block) {
         self.block = block
     }
+    
+    var id = UUID()
 }
 
-extension TextBlockViewModel: BlockViewRowBuilderProtocol, Identifiable {
-    
-    var id: UUID {
-        return UUID()
-    }
-    
+extension TextBlockViewModel: BlockViewRowBuilderProtocol {
+
     func buildView() -> AnyView {
-//        AnyView(TextBlockView(viewModel: self, showBottomInsertLine: .constant(false)))
-        AnyView(Text("sss").modifier(BaseView()))
-//        AnyView(TextBlockView(viewModel: self))
+        AnyView(TextBlockView(viewModel: self))
     }
 }

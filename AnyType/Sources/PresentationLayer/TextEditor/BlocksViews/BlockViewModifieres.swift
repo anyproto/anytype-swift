@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct BaseViewPreferenceData: Identifiable, Equatable {
     static func == (lhs: BaseViewPreferenceData, rhs: BaseViewPreferenceData) -> Bool {
         lhs.id == rhs.id
@@ -18,6 +19,7 @@ struct BaseViewPreferenceData: Identifiable, Equatable {
     let isDragging: Bool
 }
 
+
 struct BaseViewPreferenceKey: PreferenceKey {
     typealias Value = BaseViewPreferenceData
     
@@ -27,11 +29,11 @@ struct BaseViewPreferenceKey: PreferenceKey {
         let next = nextValue()
         
         if next.isDragging {
-            print("dragging")
             value = next
         }
     }
 }
+
 
 struct BaseView: ViewModifier {
     @State var dragOffset: CGSize = .zero
@@ -43,7 +45,6 @@ struct BaseView: ViewModifier {
             content
         }
         .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) {
-            print("anchorPreference")
             return BaseViewPreferenceData(bounds: $0, isDragging: !self.dragOffset.equalTo(.zero))
         }
         .offset(x: self.dragOffset.width, y: self.dragOffset.height)
@@ -58,5 +59,12 @@ struct BaseView: ViewModifier {
         .onEnded { value in
             self.dragOffset = .zero
         }
+    }
+}
+
+
+struct BaseView_Previews: PreviewProvider {
+    static var previews: some View {
+        Text("Base modifier").modifier(BaseView())
     }
 }
