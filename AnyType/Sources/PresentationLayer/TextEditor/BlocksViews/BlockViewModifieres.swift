@@ -35,6 +35,17 @@ struct BaseViewPreferenceKey: PreferenceKey {
 }
 
 
+//struct DropInView: ViewModifier {
+//    
+//    func body(content: Content) -> some View {
+//        HStack {
+//            content
+//            Divider()
+//        }
+//    }
+//}
+
+
 struct BaseView: ViewModifier {
     @State var dragOffset: CGSize = .zero
     
