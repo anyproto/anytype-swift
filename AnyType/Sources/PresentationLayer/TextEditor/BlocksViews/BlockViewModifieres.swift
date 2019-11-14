@@ -15,7 +15,7 @@ struct BaseViewPreferenceData: Identifiable, Equatable {
     }
     
     let id = UUID()
-    let bounds: Anchor<CGRect>?
+    let dragRect: CGRect?
     let isDragging: Bool
 }
 
@@ -23,7 +23,7 @@ struct BaseViewPreferenceData: Identifiable, Equatable {
 struct BaseViewPreferenceKey: PreferenceKey {
     typealias Value = BaseViewPreferenceData
     
-    static var defaultValue = BaseViewPreferenceData(bounds: nil, isDragging: false)
+    static var defaultValue = BaseViewPreferenceData(dragRect: nil, isDragging: false)
     
     static func reduce(value: inout BaseViewPreferenceData, nextValue: () -> BaseViewPreferenceData) {
         let next = nextValue()
@@ -35,17 +35,6 @@ struct BaseViewPreferenceKey: PreferenceKey {
 }
 
 
-//struct DropInView: ViewModifier {
-//    
-//    func body(content: Content) -> some View {
-//        HStack {
-//            content
-//            Divider()
-//        }
-//    }
-//}
-
-
 struct BaseView: ViewModifier {
     @State var dragOffset: CGSize = .zero
     
@@ -55,9 +44,11 @@ struct BaseView: ViewModifier {
                 .gesture(createDragGeasture())
             content
         }
-        .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) {
-            return BaseViewPreferenceData(bounds: $0, isDragging: !self.dragOffset.equalTo(.zero))
-        }
+        .overlay(GeometryReader { proxy in
+            Color.clear.preference(key: BaseViewPreferenceKey.self,
+                                   value:
+                BaseViewPreferenceData(dragRect: proxy.frame(in: .global), isDragging: !self.dragOffset.equalTo(.zero)))
+        })
         .offset(x: self.dragOffset.width, y: self.dragOffset.height)
     }
     
