@@ -14,7 +14,6 @@ struct TextBlockView: View {
     
     @State var text: String = ""
     @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
-    @State var showBottomInsertLine: Bool = false
     
     init(viewModel: TextBlockViewModel) {
         self.viewModel = viewModel
@@ -25,9 +24,6 @@ struct TextBlockView: View {
             TextView(text: self.$text, sizeThatFit: self.$sizeThatFit)
                 .modifier(BaseView())
                 .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height)
-            if showBottomInsertLine {
-                Divider()
-            }
         }
     }
 }
