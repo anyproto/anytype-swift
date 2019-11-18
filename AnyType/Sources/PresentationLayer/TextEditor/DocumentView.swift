@@ -35,16 +35,15 @@ private extension DocumentView {
         ScrollView {
             ForEach(viewBulders, id: \.id) { rowViewBuilder in
                 VStack(spacing: 0) {
-                    Divider().modifier(ShowViewOnRectIntersect(dragCoordinates: self.dragCoordinates, emptyView:  Spacer()))
+                    Divider().modifier(ShowViewOnRectIntersect(dragCoordinates: self.dragCoordinates))
                     rowViewBuilder.buildView()
                 }
+                .padding(.top, -10) // Workaround: remove spacing
             }
+            .padding(.top, 10) // Workaround: adjust first item after removing spacing
+            .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
         }
         .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
-            print("onPreferenceChange \(preference.dragRect?.origin.y ?? -0)")
-//            if let bounds = preference.dragRect, preference.isDragging {
-//                self.dragCoordinates = bounds
-//            }
             if preference.isDragging {
                 self.dragCoordinates = preference.dragRect
             } else {
@@ -59,27 +58,33 @@ private extension DocumentView {
     }
 }
 
-struct ShowViewOnRectIntersect<EmptyView: View>: ViewModifier {
+struct ShowViewOnRectIntersect: ViewModifier {
     @State private var dropCoordinate: CGRect?
     var dragCoordinates: CGRect?
-    var emptyView: EmptyView
     
     func body(content: Content) -> some View {
         VStack {
             if showContent() {
                 content
             } else {
-                emptyView
+                content.hidden()
             }
         }
         .background(
             GeometryReader { proxy in
-                Color.clear
-                    .onAppear {
-                        self.dropCoordinate = proxy.frame(in: .global)
-                }
+                self.obtainCoordinates(proxy: proxy)
             }
         )
+    }
+    
+    private func obtainCoordinates(proxy: GeometryProxy) -> some View {
+        DispatchQueue.main.async {
+            if self.dragCoordinates == nil {
+                self.dropCoordinate = proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace")))
+            }
+        }
+        
+        return Color.clear
     }
     
     private func showContent() -> Bool {

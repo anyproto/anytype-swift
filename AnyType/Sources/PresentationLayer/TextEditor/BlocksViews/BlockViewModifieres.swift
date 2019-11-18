@@ -45,11 +45,15 @@ struct BaseView: ViewModifier {
             content
         }
         .overlay(GeometryReader { proxy in
-            Color.clear.preference(key: BaseViewPreferenceKey.self,
-                                   value:
-                BaseViewPreferenceData(dragRect: proxy.frame(in: .global), isDragging: !self.dragOffset.equalTo(.zero)))
+            VStack {
+                 // TODO: create String object in proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace"))) as workaround cause string literal not working here
+                Color.clear.preference(key: BaseViewPreferenceKey.self,
+                                       value:
+                    BaseViewPreferenceData(dragRect: proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace"))),
+                                           isDragging: !self.dragOffset.equalTo(.zero)))
+            }
         })
-        .offset(x: self.dragOffset.width, y: self.dragOffset.height)
+            .offset(x: self.dragOffset.width, y: self.dragOffset.height)
     }
     
     private func createDragGeasture() -> some Gesture {
