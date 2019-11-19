@@ -8,12 +8,19 @@
 
 import SwiftUI
 
+
 struct DocumentView: View {
     @ObservedObject var viewModel: DocumentViewModel
     @State var dragCoordinates: CGRect? = nil
+    @State var blocksRects: [CGRect] // blocks' rects
     
     init(viewModel: DocumentViewModel) {
         self.viewModel = viewModel
+        _blocksRects = State(initialValue: [CGRect]())
+        
+        if let builders = viewModel.blocksViewsBuilders {
+            _blocksRects = State(initialValue: Array<CGRect>(repeating: CGRect.zero, count: builders.count))
+        }
     }
     
     var body: some View {
@@ -29,15 +36,13 @@ struct DocumentView: View {
     }
 }
 
+
 private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
         ScrollView {
-            ForEach(viewBulders, id: \.id) { rowViewBuilder in
-                VStack(spacing: 0) {
-                    Divider().modifier(ShowViewOnRectIntersect(dragCoordinates: self.dragCoordinates))
-                    rowViewBuilder.buildView()
-                }
+            ForEach(0..<viewBulders.count, id: \.self) { index in
+                self.makeBlockView(for: index, in: viewBulders)
                 .padding(.top, -10) // Workaround: remove spacing
             }
             .padding(.top, 10) // Workaround: adjust first item after removing spacing
@@ -52,49 +57,88 @@ private extension DocumentView {
         }
     }
     
+    private func makeBlockView(for index: Int, in builders: [BlockViewRowBuilderProtocol]) -> some View {
+        let rowViewBuilder = builders[index]
+        
+        return VStack(spacing: 0) {
+            rowViewBuilder.buildView().modifier(ShowViewOnRectIntersect(blocksRects: self.$blocksRects, dragCoordinates: self.dragCoordinates, index: index))
+        }
+    }
+    
     var loading: some View {
         Text("Loading...")
             .foregroundColor(.gray)
     }
 }
 
+
 struct ShowViewOnRectIntersect: ViewModifier {
     @State private var dropCoordinate: CGRect?
+    @Binding var blocksRects: [CGRect]
+    
     var dragCoordinates: CGRect?
+    var index: Int
     
     func body(content: Content) -> some View {
-        VStack {
+        VStack(spacing: 0) {
+            content
+                .background(
+                    GeometryReader { proxy in
+                        self.obtainCoordinates(proxy: proxy)
+                    }
+            )
+
             if showContent() {
-                content
+                DropDividerView()
             } else {
-                content.hidden()
+                DropDividerView().hidden()
             }
         }
-        .background(
-            GeometryReader { proxy in
-                self.obtainCoordinates(proxy: proxy)
-            }
-        )
     }
     
     private func obtainCoordinates(proxy: GeometryProxy) -> some View {
         DispatchQueue.main.async {
-            if self.dragCoordinates == nil {
-                self.dropCoordinate = proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace")))
-            }
+            let frame = proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace")))
+            self.blocksRects[self.index] = frame
         }
         
         return Color.clear
     }
     
     private func showContent() -> Bool {
-        if let dropCoordinate = dropCoordinate, let dragCoordinates = dragCoordinates, dragCoordinates.intersects(dropCoordinate) {
+        let rect1 = blocksRects[index]
+        var rect2: CGRect = CGRect(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+        
+        if blocksRects.count > index + 1 {
+            rect2 = blocksRects[index + 1]
+        }
+        
+        // get min x
+        let minX = min(rect1.minX, rect2.minX)
+        // get max x
+        let maxX = max(rect1.maxX, rect2.maxX)
+        // get min y
+        let minY = rect1.midY
+        // get max y
+        let maxY = rect2.midY
+        
+        let dropArea = CGRect.frame(from: CGPoint(x: minX, y: minY), to: CGPoint(x: maxX, y: maxY))
+        
+        if let dragCoordinates = dragCoordinates, dropArea.contains(dragCoordinates.origin) {
             return true
         }
         return false
     }
 }
 
+struct DropDividerView: View {
+    
+    var body: some View {
+        Rectangle()
+            .foregroundColor(Color.blue)
+            .frame(height: 4)
+    }
+}
 
 struct DocumentView_Previews: PreviewProvider {
     static var previews: some View {

@@ -27,8 +27,10 @@ class ApplicationCoordinator {
         // just in case
         removePublicKeysIfSeedsNotExist(publicKeys: UserDefaultsConfig.usersPublicKey)
         
-        let authViewCoordinator = AuthViewCoordinator()
-        let view = authViewCoordinator.authView()
+//        let authViewCoordinator = AuthViewCoordinator()
+//        let view = authViewCoordinator.authView()
+        let view = HomeViewContainer()
+        applicationCoordinator?.startNewRootView(content: view)
         
         startNewRootView(content: view)
     }
