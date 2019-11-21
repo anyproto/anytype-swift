@@ -40,12 +40,12 @@ struct DocumentView: View {
 private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
-        ScrollView {
+        CustomScrollView {
             ForEach(0..<viewBulders.count, id: \.self) { index in
                 self.makeBlockView(for: index, in: viewBulders)
-                .padding(.top, -10) // Workaround: remove spacing
+//                .padding(.top, -10) // Workaround: remove spacing
             }
-            .padding(.top, 10) // Workaround: adjust first item after removing spacing
+//            .padding(.top, 10) // Workaround: adjust first item after removing spacing
             .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
         }
         .onPreferenceChange(BaseViewPreferenceKey.self) { preference in

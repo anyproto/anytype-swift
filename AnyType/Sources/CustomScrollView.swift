@@ -1,5 +1,5 @@
 //
-//  CollectionView.swift
+//  CustomScrollView.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 20.11.2019.
@@ -9,124 +9,98 @@
 import SwiftUI
 
 
-enum HomeCollectionViewSection {
-    case main
-}
-
-struct CollectionView<Content>: UIViewRepresentable where Content: View {
-    @ObservedObject var viewModel = HomeCollectionViewModel()
-    @Binding var showDocument: Bool
-    @Binding var selectedDocumentId: String
+struct CustomScrollView<Content>: UIViewRepresentable where Content: View {
+    var content: Content
     
-    let containerSize: CGSize
+    public init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
     
     // MARK: - UIViewRepresentable
     
-    func makeCoordinator() -> CollectionViewCoordinator {
-        HomeCollectionViewCoordinator(self)
+    func makeCoordinator() -> CustomScrollViewCoordinator<Content> {
+        CustomScrollViewCoordinator(self)
     }
     
-    func makeUIView(context: Context) -> UICollectionView {
-        let collectionView = configureCollectionView()
-        let dataSource = configureDataSource(collectionView: collectionView)
-        collectionView.delegate = context.coordinator
+    func makeUIView(context: Context) -> UIScrollView {
+        let scrollView = configureScrollView()
+        populate()
         
-        populate(dataSource: dataSource)
-        context.coordinator.dataSource = dataSource
-        
-        return collectionView
+        return scrollView
     }
     
-    func updateUIView(_ uiView: UICollectionView, context: Context) {
-        if let dataSource = context.coordinator.dataSource {
-            populate(dataSource: dataSource)
-        }
+    func updateUIView(_ uiView: UIScrollView, context: Context) {
+        populate()
     }
     
-    private func populate(dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>) {
-        var snapshot = NSDiffableDataSourceSnapshot<HomeCollectionViewSection, HomeCollectionViewCellType>()
-        snapshot.appendSections([.main])
-        
-        snapshot.appendItems(viewModel.documentsCell)
-        dataSource.apply(snapshot, animatingDifferences: false)
+    private func populate() {
     }
 }
 
-extension CollectionView {
+
+extension CustomScrollView {
     
-    private func configureCollectionView() -> UICollectionView {
-        let rect = CGRect(origin: .zero, size: containerSize)
-        let collectionView = UICollectionView(frame: rect, collectionViewLayout: createCollectionLayout())
-        collectionView.backgroundColor = .clear
-        collectionView.register(HomeCollectionViewDocumentCell.self, forCellWithReuseIdentifier: HomeCollectionViewDocumentCell.reuseIdentifer)
-        collectionView.register(HomeCollectionViewPlusCell.self, forCellWithReuseIdentifier: HomeCollectionViewPlusCell.reuseIdentifer)
+    private func configureScrollView() -> UIScrollView {
+        let scrollView = UIScrollView()
         
-        return collectionView
-    }
-    
-    private func configureDataSource(collectionView: UICollectionView) -> UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType> {
-        let dataSource = UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>(collectionView: collectionView) { collectionView, indexPath, cellType in
+        if let contentView = UIHostingController(rootView: content).view {
+            scrollView.addSubview(contentView)
+            contentView.translatesAutoresizingMaskIntoConstraints = false
+            let contentGuide = scrollView.contentLayoutGuide
             
-            switch cellType {
-            case .document(let viewModel):
-                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewDocumentCell.reuseIdentifer, for: indexPath) as? HomeCollectionViewDocumentCell {
-                    cell.updateWithModel(viewModel: viewModel)
-                    return cell
-                }
-            case .plus:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewPlusCell.reuseIdentifer, for: indexPath)
-                return cell
-            }
-            fatalError("Cannot create new cell")
+            NSLayoutConstraint.activate([
+                contentView.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor),
+                contentView.topAnchor.constraint(equalTo: contentGuide.topAnchor),
+                contentView.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor),
+                contentView.bottomAnchor.constraint(equalTo: contentGuide.bottomAnchor),
+                
+                contentGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            ])
         }
+        scrollView.alwaysBounceVertical = true
+        scrollView.backgroundColor = .clear
         
-        return dataSource
+        return scrollView
     }
-    
-    private func createCollectionLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { _, layoutEnvironment in
-            let columns = Int(layoutEnvironment.container.effectiveContentSize.width / 160)
-            
-            let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(160), heightDimension: .fractionalHeight(1.0))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(112))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
-            group.interItemSpacing = .fixed(16.0)
-            
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 16.0
-            
-            return section
-        }
-        
-        return layout
-    }
-    
 }
+
 
 // MARK: - Coordinator
 
-class CollectionViewCoordinator: NSObject {
-    var parent: HomeCollectionView
-    var dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?
+class CustomScrollViewCoordinator<Content>: NSObject where Content: View {
+    var parent: CustomScrollView<Content>
     
-    init(_ collectionView: HomeCollectionView) {
-        self.parent = collectionView
+    init(_ scrollView: CustomScrollView<Content>) {
+        self.parent = scrollView
     }
 }
 
-extension CollectionViewCoordinator: UICollectionViewDelegate {
+
+// MARK: - Preview
+
+struct CustomScrollView_Previews: PreviewProvider {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        parent.showDocument = true
-        
-        guard parent.viewModel.documentsHeaders?.headers.indices.contains(indexPath.row) ?? false,
-            let documentId = parent.viewModel.documentsHeaders?.headers[indexPath.row].id else { return }
-        
-        parent.selectedDocumentId = documentId
+    static var previews: some View {
+        VStack {
+            CustomScrollView {
+                ForEach(1...50, id: \.self) { i in
+                    TestView(index: i)
+                }
+            }
+        }
     }
     
 }
 
+struct TestView: View {
+    @State var offset: CGFloat = 0
+    var index: Int
+    
+    var body: some View {
+        Button(action: {
+            self.offset += 10
+        }) {
+            Text("someText \(index)").padding(.top, offset)
+        }
+    }
+}
