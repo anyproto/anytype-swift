@@ -54,9 +54,10 @@ struct TextView: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            self.parent.text = textView.text
-            
-            self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+            DispatchQueue.main.async {
+                self.parent.text = textView.text                
+                self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+            }
         }
     }
 }

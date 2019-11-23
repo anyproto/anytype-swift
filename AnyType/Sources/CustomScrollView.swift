@@ -8,18 +8,50 @@
 
 import SwiftUI
 
+struct ViewHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat {
+        0
+    }
+    
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        //        value = nextValue()
+        
+        print("reduced \(value)")
+    }
+}
+
+extension ViewHeightKey: ViewModifier {
+    func body(content: Content) -> some View {
+        return content.background(GeometryReader { proxy in
+            Color.clear.preference(key: ViewHeightKey.self, value: proxy.size.height)
+        })
+    }
+}
+
+extension UIScrollView {
+    func updateContentView() {
+        contentSize.height = subviews.sorted(by: { $0.frame.maxY < $1.frame.maxY }).last?.frame.maxY ?? contentSize.height
+    }
+}
 
 struct CustomScrollView<Content>: UIViewRepresentable where Content: View {
     var content: Content
+    @Binding var contentHeight: CGFloat
     
-    public init(@ViewBuilder content: () -> Content) {
+    public init(contentHeight: Binding<CGFloat>, @ViewBuilder content: () -> Content) {
         self.content = content()
+        _contentHeight = contentHeight
+    }
+    
+    private func obtainCoordinates(proxy: GeometryProxy) -> some View {
+        
+        return Color.clear
     }
     
     // MARK: - UIViewRepresentable
     
-    func makeCoordinator() -> CustomScrollViewCoordinator<Content> {
-        CustomScrollViewCoordinator(self)
+    func makeCoordinator() -> CustomScrollViewCoordinator {
+        CustomScrollViewCoordinator()
     }
     
     func makeUIView(context: Context) -> UIScrollView {
@@ -30,13 +62,17 @@ struct CustomScrollView<Content>: UIViewRepresentable where Content: View {
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
+        //        uiView.updateContentView()
+        uiView.contentSize.height = self.contentHeight
+        
+        print("scrollH: \(self.contentHeight)")
+        
         populate()
     }
     
     private func populate() {
     }
 }
-
 
 extension CustomScrollView {
     
@@ -64,14 +100,33 @@ extension CustomScrollView {
     }
 }
 
+struct OtherScrollView<Content>: View where Content: View {
+    var content: Content
+    @State var contentHeight: CGFloat = .zero
+    
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+    
+    var body: some View {
+        CustomScrollView(contentHeight: self.$contentHeight) {
+            self.content
+                .modifier(ViewHeightKey())
+                .onPreferenceChange(ViewHeightKey.self) {
+                    self.contentHeight = $0
+                    print("customH: \(self.contentHeight)")
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, idealHeight: .infinity, maxHeight: .infinity, alignment: .top)
+        }
+    }
+}
 
 // MARK: - Coordinator
 
-class CustomScrollViewCoordinator<Content>: NSObject where Content: View {
-    var parent: CustomScrollView<Content>
+class CustomScrollViewCoordinator: NSObject, UIScrollViewDelegate {
     
-    init(_ scrollView: CustomScrollView<Content>) {
-        self.parent = scrollView
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
 }
 
@@ -81,16 +136,14 @@ class CustomScrollViewCoordinator<Content>: NSObject where Content: View {
 struct CustomScrollView_Previews: PreviewProvider {
     
     static var previews: some View {
-        VStack {
-            CustomScrollView {
-                ForEach(1...50, id: \.self) { i in
-                    TestView(index: i)
-                }
+        OtherScrollView {
+            ForEach(1...33, id: \.self) { i in
+                TestView(index: i)
             }
         }
     }
-    
 }
+
 
 struct TestView: View {
     @State var offset: CGFloat = 0

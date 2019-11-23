@@ -40,12 +40,12 @@ struct DocumentView: View {
 private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
-        CustomScrollView {
+        OtherScrollView {
             ForEach(0..<viewBulders.count, id: \.self) { index in
                 self.makeBlockView(for: index, in: viewBulders)
-//                .padding(.top, -10) // Workaround: remove spacing
+                .padding(.top, -10) // Workaround: remove spacing
             }
-//            .padding(.top, 10) // Workaround: adjust first item after removing spacing
+            .padding(.top, 10) // Workaround: adjust first item after removing spacing
             .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
         }
         .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
@@ -61,7 +61,7 @@ private extension DocumentView {
         let rowViewBuilder = builders[index]
         
         return VStack(spacing: 0) {
-            rowViewBuilder.buildView().modifier(ShowViewOnRectIntersect(blocksRects: self.$blocksRects, dragCoordinates: self.dragCoordinates, index: index))
+            rowViewBuilder.buildView().modifier(ShowViewOnRectIntersect(blocksRects: self.$blocksRects, dragCoordinates: self.$dragCoordinates, index: index))
         }
     }
     
@@ -76,7 +76,7 @@ struct ShowViewOnRectIntersect: ViewModifier {
     @State private var dropCoordinate: CGRect?
     @Binding var blocksRects: [CGRect]
     
-    var dragCoordinates: CGRect?
+    @Binding var dragCoordinates: CGRect?
     var index: Int
     
     func body(content: Content) -> some View {
