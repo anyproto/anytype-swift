@@ -13,7 +13,6 @@ struct TextBlockView: View {
     private var viewModel: TextBlockViewModel?
     
     @State var text: String = ""
-    @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
     
     init(viewModel: TextBlockViewModel) {
         self.viewModel = viewModel
@@ -21,9 +20,8 @@ struct TextBlockView: View {
     
     var body: some View {
         VStack {
-            TextView(text: self.$text, sizeThatFit: self.$sizeThatFit)
+            TextView(text: self.$text)
                 .modifier(BaseView())
-                .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height)
         }
     }
 }
