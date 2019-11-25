@@ -13,6 +13,7 @@ struct DocumentView: View {
     @ObservedObject var viewModel: DocumentViewModel
     @State var dragCoordinates: CGRect? = nil
     @State var blocksRects: [CGRect] // blocks' rects
+    @State var velocity: CGPoint = .zero
     
     init(viewModel: DocumentViewModel) {
         self.viewModel = viewModel
@@ -40,7 +41,7 @@ struct DocumentView: View {
 private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
-        OtherScrollView {
+        CustomScrollView {
             ForEach(0..<viewBulders.count, id: \.self) { index in
                 self.makeBlockView(for: index, in: viewBulders)
                 .padding(.top, -10) // Workaround: remove spacing
@@ -48,6 +49,8 @@ private extension DocumentView {
             .padding(.top, 10) // Workaround: adjust first item after removing spacing
             .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
         }
+        .scrollViewOffset(offset: self.velocity)
+        .modifier(VelocityOnViewBoundary(velocity: self.$velocity, dragCoordinates: self.$dragCoordinates))
         .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
             if preference.isDragging {
                 self.dragCoordinates = preference.dragRect
@@ -68,6 +71,55 @@ private extension DocumentView {
     var loading: some View {
         Text("Loading...")
             .foregroundColor(.gray)
+    }
+}
+
+
+struct VelocityOnViewBoundary: ViewModifier {
+    @Binding var velocity: CGPoint
+    @Binding var dragCoordinates: CGRect?
+    
+    private struct VelocityKey: PreferenceKey {
+        
+        static var defaultValue: CGPoint {
+            .zero
+        }
+        
+        static func reduce(value: inout Value, nextValue: () -> Value) {
+//            value = nextValue()
+        }
+    }
+    
+    func body(content: Content) -> some View {
+        return content
+            .background(GeometryReader { proxy in
+                self.obtainBoundary(proxy: proxy)
+            })
+            .onPreferenceChange(VelocityKey.self) { velocity in
+                self.velocity = velocity
+        }
+    }
+    
+    private func obtainBoundary(proxy: GeometryProxy) -> some View {
+        var velocity = CGPoint(x: 0, y: 0)
+        
+        guard let dragCoordinates = dragCoordinates else {
+            return Color.clear.preference(key: VelocityKey.self, value: velocity)
+        }
+        let frame = proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace")))
+        let upperBoundary = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height * 0.15))
+        
+        let bottomY = frame.maxY - frame.height * 0.15
+        let bottomOrigin = CGPoint(x: frame.minX, y: bottomY)
+        let bottomBoundary = CGRect(origin: bottomOrigin, size: CGSize(width: frame.width, height: frame.height * 0.15))
+        
+        if upperBoundary.intersects(dragCoordinates) {
+            velocity = CGPoint(x: 0, y: -10)
+        } else if bottomBoundary.intersects(dragCoordinates) {
+            velocity = CGPoint(x: 0, y: 10)
+        }
+        
+        return Color.clear.preference(key: VelocityKey.self, value: velocity)
     }
 }
 
