@@ -76,7 +76,8 @@ extension DocumentViewModel {
                 return TextBlockViewModel(block: block)
             }
         }
-        blocksViewsBuilders = document.blocks.map { resolver($0) }
+//        blocksViewsBuilders = document.blocks.map { resolver($0) }
+        blocksViewsBuilders = TextBlocksViews.Supplement.Matcher.resolver(blocks: document.blocks)
     }
     
 }
