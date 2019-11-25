@@ -11,7 +11,7 @@ import SwiftUI
 struct TextView: View {
     @Binding var text: String
     @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
-    
+    typealias InnerTextView = TheTextView
     var body: some View {
         InnterTextView(text: self.$text, sizeThatFit: self.$sizeThatFit)
             .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height)
