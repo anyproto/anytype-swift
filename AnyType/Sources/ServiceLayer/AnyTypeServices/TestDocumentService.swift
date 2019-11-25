@@ -23,43 +23,39 @@ class TestDocumentService: DocumentServiceProtocol {
             return documentsHeadersModel
         }()
         
-        var blocks: [Block] = {
+        static func allBlocks() -> [Block] {
             return [
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "1", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text))),
-                Block(id: "2", parentId: "2", type: .text(BlockType.Text(text: "1", contentType: .text)))
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .header))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .bulleted))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .bulleted))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .bulleted))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
+                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .toggle))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .callout))),
             ]
+        }
+        static func focusedBlocks() -> [Block] {
+            return [
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
+            ]
+        }
+        static func getBlocks(focused: Bool) -> [Block] {
+            return focused ? self.focusedBlocks() : self.allBlocks()
+        }
+        var blocks: [Block] = {
+            return Self.getBlocks(focused: true)
         }()
+
         
         func document(id: String) -> Document? {
             let document = documentsHeaders.headers.first { $0.id == id }.map { Document(header: $0, blocks: blocks) }
