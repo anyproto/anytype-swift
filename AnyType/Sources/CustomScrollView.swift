@@ -34,9 +34,7 @@ struct CustomScrollView<Content>: View where Content: View {
                     self.contentHeight = $0
                     print("customH: \(self.contentHeight)")
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, idealHeight: .infinity, maxHeight: .infinity, alignment: .top)
         }
-            
     }
     
     func scrollViewOffset(offset: CGPoint) -> some View {
@@ -80,11 +78,6 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
         _contentOffset = contentOffset
     }
     
-    private func obtainCoordinates(proxy: GeometryProxy) -> some View {
-        
-        return Color.clear
-    }
-    
     // MARK: - UIViewRepresentable
     
     func makeCoordinator() -> CustomScrollViewCoordinator {
@@ -99,10 +92,7 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        uiView.contentSize.height = self.contentHeight
-        uiView.setContentOffset(uiView.contentOffset + contentOffset, animated: true)
-        
-        print("contentOffset: \(self.contentOffset)")
+        uiView.subviews[0].setNeedsUpdateConstraints()
         
         populate()
     }
@@ -113,22 +103,26 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
 
 extension InnerScrollView {
     
+    private func setContentViewLayout(for contentView: UIView, to scrollView: UIScrollView) {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        let contentGuide = scrollView.contentLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor),
+            contentView.topAnchor.constraint(equalTo: contentGuide.topAnchor),
+            contentView.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: contentGuide.bottomAnchor),
+            
+            contentGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+        ])
+    }
+    
     private func configureScrollView() -> UIScrollView {
         let scrollView = UIScrollView()
         
         if let contentView = UIHostingController(rootView: content).view {
             scrollView.addSubview(contentView)
-            contentView.translatesAutoresizingMaskIntoConstraints = false
-            let contentGuide = scrollView.contentLayoutGuide
-            
-            NSLayoutConstraint.activate([
-                contentView.leadingAnchor.constraint(equalTo: contentGuide.leadingAnchor),
-                contentView.topAnchor.constraint(equalTo: contentGuide.topAnchor),
-                contentView.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor),
-                contentView.bottomAnchor.constraint(equalTo: contentGuide.bottomAnchor),
-                
-                contentGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
-            ])
+            setContentViewLayout(for: contentView, to: scrollView)
         }
         scrollView.alwaysBounceVertical = true
         scrollView.backgroundColor = .clear
