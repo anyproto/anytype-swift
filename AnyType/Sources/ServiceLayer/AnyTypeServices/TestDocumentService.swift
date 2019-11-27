@@ -27,7 +27,7 @@ class TestDocumentService: DocumentServiceProtocol {
             return [
                 .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .header))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
                 .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
@@ -37,7 +37,7 @@ class TestDocumentService: DocumentServiceProtocol {
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
                 .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
+                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
                 .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .toggle))),
@@ -53,7 +53,7 @@ class TestDocumentService: DocumentServiceProtocol {
             return focused ? self.focusedBlocks() : self.allBlocks()
         }
         var blocks: [Block] = {
-            return Self.getBlocks(focused: true)
+            return Self.getBlocks(focused: false)
         }()
 
         
