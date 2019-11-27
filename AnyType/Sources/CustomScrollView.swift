@@ -113,6 +113,8 @@ extension InnerScrollView {
             contentView.trailingAnchor.constraint(equalTo: contentGuide.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: contentGuide.bottomAnchor),
             
+            // HERE: Uncomment me if you want to look at fun animations
+//            contentGuide.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor),
             contentGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
         ])
     }
