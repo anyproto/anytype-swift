@@ -30,10 +30,20 @@ extension TextBlocksViews.Quote.BlockViewModel: BlockViewRowBuilderProtocol {
 // MARK: View
 import SwiftUI
 extension TextBlocksViews.Quote {
-    struct MarkedViewModifier: ViewModifier {
+    struct GeometryReaderModifier: ViewModifier {
+        @Binding var sizeThatFit: CGSize
         func body(content: Content) -> some View {
             HStack {
-                Rectangle().frame(minWidth: 3.0, idealWidth: 3.0, maxWidth: 3.0, minHeight: 3.0, idealHeight: nil, maxHeight: nil, alignment: .leading).foregroundColor(.black)
+                Rectangle().frame(width: 3.0, height: self.sizeThatFit.height, alignment: .leading).foregroundColor(.black).animation(.default)
+//                Rectangle().frame(minWidth: 3.0, idealWidth: 3.0, maxWidth: 3.0, minHeight: self.sizeThatFit.height, alignment: .leading)
+                content
+            }
+        }
+    }
+    struct FrameViewModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            HStack {
+                Rectangle().frame(minWidth: 3.0, idealWidth: 3.0, maxWidth: 3.0, minHeight: 3.0, idealHeight: 3.0, maxHeight: nil, alignment: .leading).foregroundColor(.black).animation(.default)
                 content
             }
         }
@@ -43,8 +53,21 @@ extension TextBlocksViews.Quote {
         @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
         var body: some View {
             VStack {
-                TextView(text: self.$viewModel.text).modifier(MarkedViewModifier())
+                TextView(text: self.$viewModel.text)
+                .modifier(FrameViewModifier())
+//                    .background(GeometryReader {
+//                    proxy in
+//                    self.geometryReader(proxy: proxy)
+//                })
+//                .modifier(GeometryReaderModifier(sizeThatFit: self.$sizeThatFit))
             }
+        }
+        func geometryReader(proxy: GeometryProxy) -> Color {
+            DispatchQueue.main.async {
+                print("this is: \(proxy.size)")
+                self.sizeThatFit = proxy.size
+            }
+            return .clear
         }
         func logFunc(object: Any) -> some View {
             print("this is: \(object)")
