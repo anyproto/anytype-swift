@@ -34,7 +34,7 @@ extension TextBlocksViews.Quote {
         @Binding var sizeThatFit: CGSize
         func body(content: Content) -> some View {
             HStack {
-                Rectangle().frame(width: 3.0, height: self.sizeThatFit.height, alignment: .leading).foregroundColor(.black).animation(.default)
+                Rectangle().frame(width: 3.0, height: self.sizeThatFit.height, alignment: .leading).foregroundColor(.black)
 //                Rectangle().frame(minWidth: 3.0, idealWidth: 3.0, maxWidth: 3.0, minHeight: self.sizeThatFit.height, alignment: .leading)
                 content
             }
@@ -54,12 +54,12 @@ extension TextBlocksViews.Quote {
         var body: some View {
             VStack {
                 TextView(text: self.$viewModel.text)
-                .modifier(FrameViewModifier())
-//                    .background(GeometryReader {
-//                    proxy in
-//                    self.geometryReader(proxy: proxy)
-//                })
-//                .modifier(GeometryReaderModifier(sizeThatFit: self.$sizeThatFit))
+//                .modifier(FrameViewModifier())
+                    .background(GeometryReader {
+                    proxy in
+                    self.geometryReader(proxy: proxy)
+                })
+                .modifier(GeometryReaderModifier(sizeThatFit: self.$sizeThatFit))
             }
         }
         func geometryReader(proxy: GeometryProxy) -> Color {
