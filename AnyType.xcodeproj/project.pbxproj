@@ -85,6 +85,17 @@
 		03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F7BD1D22F7A50400F47583 /* StandardButton.swift */; };
 		03F7BD2122F7A5B100F47583 /* AuthPinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F7BD2022F7A5B100F47583 /* AuthPinCodeView.swift */; };
 		03F7BD2322F7A62D00F47583 /* PinCodeDotsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F7BD2222F7A62D00F47583 /* PinCodeDotsView.swift */; };
+		0A693219238C4C8200575544 /* TextBlocksViews+Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */; };
+		0A69321A238C4C8200575544 /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693210238C4C8200575544 /* TextBlocksViews+Quote.swift */; };
+		0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693211238C4C8200575544 /* TextBlocksViews+Text.swift */; };
+		0A69321C238C4C8200575544 /* TextBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693212238C4C8200575544 /* TextBlocksViews.swift */; };
+		0A69321D238C4C8200575544 /* TextBlocksViews+Numbered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693213238C4C8200575544 /* TextBlocksViews+Numbered.swift */; };
+		0A69321E238C4C8200575544 /* TextBlocksViews+Toggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693214238C4C8200575544 /* TextBlocksViews+Toggle.swift */; };
+		0A69321F238C4C8200575544 /* TextBlocksViews+Bulleted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693215238C4C8200575544 /* TextBlocksViews+Bulleted.swift */; };
+		0A693220238C4C8200575544 /* TextBlocksViews+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693216238C4C8200575544 /* TextBlocksViews+Header.swift */; };
+		0A693221238C4C8200575544 /* TextBlocksViews+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693217238C4C8200575544 /* TextBlocksViews+List.swift */; };
+		0A693222238C4C8200575544 /* TextBlocksViews+Callout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693218238C4C8200575544 /* TextBlocksViews+Callout.swift */; };
+		0A693224238C4EC300575544 /* TextView+MarkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693223238C4EC300575544 /* TextView+MarkStyle.swift */; };
 		0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */; };
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
@@ -185,6 +196,17 @@
 		03F7BD1D22F7A50400F47583 /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		03F7BD2022F7A5B100F47583 /* AuthPinCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthPinCodeView.swift; sourceTree = "<group>"; };
 		03F7BD2222F7A62D00F47583 /* PinCodeDotsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PinCodeDotsView.swift; sourceTree = "<group>"; };
+		0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Checkbox.swift"; sourceTree = "<group>"; };
+		0A693210238C4C8200575544 /* TextBlocksViews+Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Quote.swift"; sourceTree = "<group>"; };
+		0A693211238C4C8200575544 /* TextBlocksViews+Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Text.swift"; sourceTree = "<group>"; };
+		0A693212238C4C8200575544 /* TextBlocksViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlocksViews.swift; sourceTree = "<group>"; };
+		0A693213238C4C8200575544 /* TextBlocksViews+Numbered.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Numbered.swift"; sourceTree = "<group>"; };
+		0A693214238C4C8200575544 /* TextBlocksViews+Toggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Toggle.swift"; sourceTree = "<group>"; };
+		0A693215238C4C8200575544 /* TextBlocksViews+Bulleted.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Bulleted.swift"; sourceTree = "<group>"; };
+		0A693216238C4C8200575544 /* TextBlocksViews+Header.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Header.swift"; sourceTree = "<group>"; };
+		0A693217238C4C8200575544 /* TextBlocksViews+List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+List.swift"; sourceTree = "<group>"; };
+		0A693218238C4C8200575544 /* TextBlocksViews+Callout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Callout.swift"; sourceTree = "<group>"; };
+		0A693223238C4EC300575544 /* TextView+MarkStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+MarkStyle.swift"; sourceTree = "<group>"; };
 		0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerCoordinator.swift; sourceTree = "<group>"; };
 		0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerModel.swift; sourceTree = "<group>"; };
 		0AAC96602340C203006CE58C /* HomeViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainer.swift; sourceTree = "<group>"; };
@@ -340,6 +362,7 @@
 		0331BBE122E608AC002AD179 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A693223238C4EC300575544 /* TextView+MarkStyle.swift */,
 				03425C5323849AAE00E22FF1 /* CustomScrollView.swift */,
 				030DF8692333E4D000FE6DA5 /* TextView.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
@@ -619,6 +642,16 @@
 		03B65750234D474A0084D9F5 /* TextableBlockViews */ = {
 			isa = PBXGroup;
 			children = (
+				0A693212238C4C8200575544 /* TextBlocksViews.swift */,
+				0A693215238C4C8200575544 /* TextBlocksViews+Bulleted.swift */,
+				0A693218238C4C8200575544 /* TextBlocksViews+Callout.swift */,
+				0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */,
+				0A693216238C4C8200575544 /* TextBlocksViews+Header.swift */,
+				0A693217238C4C8200575544 /* TextBlocksViews+List.swift */,
+				0A693213238C4C8200575544 /* TextBlocksViews+Numbered.swift */,
+				0A693210238C4C8200575544 /* TextBlocksViews+Quote.swift */,
+				0A693211238C4C8200575544 /* TextBlocksViews+Text.swift */,
+				0A693214238C4C8200575544 /* TextBlocksViews+Toggle.swift */,
 				03B6574E234CEDC70084D9F5 /* TextBlockViewModel.swift */,
 				031B355323465BBA0066DDB8 /* TextBlockView.swift */,
 			);
@@ -876,6 +909,7 @@
 				03592D8C22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift in Sources */,
 				0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */,
 				037B91CE23438E77004EBCCD /* HomeViewContainer.swift in Sources */,
+				0A693220238C4C8200575544 /* TextBlocksViews+Header.swift in Sources */,
 				03B65752234D47A90084D9F5 /* BlockViewRowBuilderProtocol.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				031EA61E2302C62D00584EFD /* EnterAccountSeedViewModel.swift in Sources */,
@@ -897,19 +931,25 @@
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				03F7BD2122F7A5B100F47583 /* AuthPinCodeView.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* ImageLoader.swift in Sources */,
+				0A693224238C4EC300575544 /* TextView+MarkStyle.swift in Sources */,
 				030DF86C23354EEE00FE6DA5 /* BlockModel.swift in Sources */,
 				034BDD3722F4B48C00D8CD83 /* AuthPinCodeViewModel.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
+				0A693221238C4C8200575544 /* TextBlocksViews+List.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				037CC4E523154AF900D5AB62 /* NavigationButtonView.swift in Sources */,
 				03F7BD2322F7A62D00F47583 /* PinCodeDotsView.swift in Sources */,
 				03C6E84C233BAB35004EB6B6 /* DocumentServiceProtocol.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
+				0A69321F238C4C8200575544 /* TextBlocksViews+Bulleted.swift in Sources */,
 				0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
+				0A69321D238C4C8200575544 /* TextBlocksViews+Numbered.swift in Sources */,
 				03425C522383726400E22FF1 /* GeometryExtension.swift in Sources */,
+				0A693222238C4C8200575544 /* TextBlocksViews+Callout.swift in Sources */,
+				0A693219238C4C8200575544 /* TextBlocksViews+Checkbox.swift in Sources */,
 				03CB3F06230C1238003D5DFD /* TextileProfileService.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */,
 				031B355423465BBA0066DDB8 /* TextBlockView.swift in Sources */,
@@ -929,6 +969,7 @@
 				03D1A04A2389F7650028371C /* CGPointExtension.swift in Sources */,
 				03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */,
 				0AAC96652340C229006CE58C /* FontExtension.swift in Sources */,
+				0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* StoreServiceProtocol.swift in Sources */,
 				0388BF7722F0A96900B73E39 /* AuthViewModel.swift in Sources */,
 				03A8011E22F8CAA200F31E01 /* PickerDetailView.swift in Sources */,
@@ -938,9 +979,12 @@
 				0327B0B8232BBAD9007DB8A7 /* TestDocumentService.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
+				0A69321A238C4C8200575544 /* TextBlocksViews+Quote.swift in Sources */,
 				03CB3F04230C1185003D5DFD /* ProfileServiceProtocol.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,
+				0A69321C238C4C8200575544 /* TextBlocksViews.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
+				0A69321E238C4C8200575544 /* TextBlocksViews+Toggle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
