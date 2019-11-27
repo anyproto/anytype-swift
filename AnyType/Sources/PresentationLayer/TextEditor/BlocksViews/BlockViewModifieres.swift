@@ -15,7 +15,7 @@ struct BaseViewPreferenceData: Identifiable, Equatable {
     }
     
     let id = UUID()
-    let dragRect: CGRect?
+    let dragRect: Anchor<CGRect>?
     let isDragging: Bool
 }
 
@@ -44,16 +44,10 @@ struct BaseView: ViewModifier {
                 .gesture(createDragGeasture())
             content
         }
-        .overlay(GeometryReader { proxy in
-            VStack {
-                 // TODO: create String object in proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace"))) as workaround cause string literal not working here
-                Color.clear.preference(key: BaseViewPreferenceKey.self,
-                                       value:
-                    BaseViewPreferenceData(dragRect: proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace"))),
-                                           isDragging: !self.dragOffset.equalTo(.zero)))
-            }
-        })
-            .offset(x: self.dragOffset.width, y: self.dragOffset.height)
+        .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) { anchor in
+            return BaseViewPreferenceData(dragRect: anchor, isDragging:  !self.dragOffset.equalTo(.zero))
+        }
+        .offset(x: self.dragOffset.width, y: self.dragOffset.height)
     }
     
     private func createDragGeasture() -> some Gesture {

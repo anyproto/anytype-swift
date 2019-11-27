@@ -44,20 +44,18 @@ private extension DocumentView {
         CustomScrollView {
             ForEach(0..<viewBulders.count, id: \.self) { index in
                 self.makeBlockView(for: index, in: viewBulders)
-                .padding(.top, -10) // Workaround: remove spacing
+                    .padding(.top, -10) // Workaround: remove spacing
             }
-            .padding(.top, 10) // Workaround: adjust first item after removing spacing
-            .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
+                .padding(.top, 10) // Workaround: adjust first item after removing spacing
+                .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
+                .backgroundPreferenceValue(BaseViewPreferenceKey.self) {preference in
+                    GeometryReader { proxy in
+                        self.convertDragRectFromAnchor(preference: preference, in: proxy)
+                    }
+            }
         }
         .scrollViewOffset(offset: self.velocity)
         .modifier(VelocityOnViewBoundary(velocity: self.$velocity, dragCoordinates: self.$dragCoordinates))
-        .onPreferenceChange(BaseViewPreferenceKey.self) { preference in
-            if preference.isDragging {
-                self.dragCoordinates = preference.dragRect
-            } else {
-                self.dragCoordinates = nil
-            }
-        }
     }
     
     private func makeBlockView(for index: Int, in builders: [BlockViewRowBuilderProtocol]) -> some View {
@@ -69,6 +67,16 @@ private extension DocumentView {
                 rowViewBuilder.buildView().modifier(ShowViewOnRectIntersect(blocksRects: self.$blocksRects, dragCoordinates: self.$dragCoordinates, index: index))
             }
         }
+    }
+    
+    // Convert anchor drag to frame in current ccoordinates 
+    private func convertDragRectFromAnchor(preference: BaseViewPreferenceData, in proxy: GeometryProxy) -> some View {
+        if preference.isDragging, let dragRect = preference.dragRect {
+            self.dragCoordinates = proxy[dragRect]
+        } else {
+            self.dragCoordinates = nil
+        }
+        return Color.clear
     }
     
     var loading: some View {
@@ -142,7 +150,7 @@ struct ShowViewOnRectIntersect: ViewModifier {
                         self.obtainCoordinates(proxy: proxy)
                     }
             )
-
+            
             if showContent() {
                 DropDividerView()
             } else {
