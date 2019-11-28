@@ -10,6 +10,8 @@ import SwiftUI
 
 
 struct DocumentView: View {
+    @Environment(\.showViewFrames) private var showViewFrames
+    
     @ObservedObject var viewModel: DocumentViewModel
     @State var dragCoordinates: CGRect? = nil
     @State var blocksRects: [CGRect] // blocks' rects
@@ -55,7 +57,8 @@ private extension DocumentView {
             }
         }
         .scrollViewOffset(offset: self.velocity)
-        .modifier(VelocityOnViewBoundary(velocity: self.$velocity, dragCoordinates: self.$dragCoordinates))
+        .border(showViewFrames ? Color.red : Color.clear)
+        .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity, dragCoordinates: self.$dragCoordinates))
     }
     
     private func makeBlockView(for index: Int, in builders: [BlockViewRowBuilderProtocol]) -> some View {
@@ -69,7 +72,7 @@ private extension DocumentView {
         }
     }
     
-    // Convert anchor drag to frame in current ccoordinates 
+    // Convert anchor drag to frame in current ccoordinates
     private func convertDragRectFromAnchor(preference: BaseViewPreferenceData, in proxy: GeometryProxy) -> some View {
         if preference.isDragging, let dragRect = preference.dragRect {
             self.dragCoordinates = proxy[dragRect]
@@ -86,9 +89,10 @@ private extension DocumentView {
 }
 
 
-struct VelocityOnViewBoundary: ViewModifier {
+struct VelocityOnIntersectViewBoundary: ViewModifier {
     @Binding var velocity: CGPoint
     @Binding var dragCoordinates: CGRect?
+    @Environment(\.showViewFrames) private var showViewFrames
     
     private struct VelocityKey: PreferenceKey {
         
@@ -103,7 +107,7 @@ struct VelocityOnViewBoundary: ViewModifier {
     
     func body(content: Content) -> some View {
         return content
-            .background(GeometryReader { proxy in
+            .overlay(GeometryReader { proxy in
                 self.obtainBoundary(proxy: proxy)
             })
             .onPreferenceChange(VelocityKey.self) { velocity in
@@ -114,23 +118,35 @@ struct VelocityOnViewBoundary: ViewModifier {
     private func obtainBoundary(proxy: GeometryProxy) -> some View {
         var velocity = CGPoint(x: 0, y: 0)
         
-        guard let dragCoordinates = dragCoordinates else {
-            return Color.clear.preference(key: VelocityKey.self, value: velocity)
-        }
-        let frame = proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace")))
+        let frame = proxy.frame(in: .local)
         let upperBoundary = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height * 0.15))
         
         let bottomY = frame.maxY - frame.height * 0.15
         let bottomOrigin = CGPoint(x: frame.minX, y: bottomY)
         let bottomBoundary = CGRect(origin: bottomOrigin, size: CGSize(width: frame.width, height: frame.height * 0.15))
         
-        if upperBoundary.intersects(dragCoordinates) {
-            velocity = CGPoint(x: 0, y: -10)
-        } else if bottomBoundary.intersects(dragCoordinates) {
-            velocity = CGPoint(x: 0, y: 10)
+        if let dragCoordinates = dragCoordinates {
+            if upperBoundary.intersects(dragCoordinates) {
+                velocity = CGPoint(x: 0, y: -10)
+            } else if bottomBoundary.intersects(dragCoordinates) {
+                velocity = CGPoint(x: 0, y: 10)
+            }
         }
         
-        return Color.clear.preference(key: VelocityKey.self, value: velocity)
+        return ZStack {
+            Color.clear
+            
+            if showViewFrames {
+                Rectangle()
+                    .stroke(Color.green)
+                    .frame(width: upperBoundary.width, height: upperBoundary.height)
+                    .position(x: upperBoundary.midX, y: upperBoundary.midY)
+                Rectangle()
+                    .stroke(Color.blue)
+                    .frame(width: bottomBoundary.width, height: bottomBoundary.height)
+                    .position(x: bottomBoundary.midX, y: bottomBoundary.midY)
+            }
+        }.preference(key: VelocityKey.self, value: velocity)
     }
 }
 

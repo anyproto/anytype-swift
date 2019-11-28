@@ -42,7 +42,6 @@ struct CustomScrollView<Content>: View where Content: View {
                 .modifier(ViewHeightKey())
                 .onPreferenceChange(ViewHeightKey.self) {
                     self.contentHeight = $0
-                    print("customH: \(self.contentHeight)")
             }
         }
     }
@@ -62,7 +61,6 @@ struct ViewHeightKey: PreferenceKey {
     
     static func reduce(value: inout Value, nextValue: () -> Value) {
         //        value = nextValue()
-        print("reduced \(value)")
     }
 }
 
