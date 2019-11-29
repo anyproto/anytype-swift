@@ -96,6 +96,8 @@
 		0A693221238C4C8200575544 /* TextBlocksViews+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693217238C4C8200575544 /* TextBlocksViews+List.swift */; };
 		0A693222238C4C8200575544 /* TextBlocksViews+Callout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693218238C4C8200575544 /* TextBlocksViews+Callout.swift */; };
 		0A693224238C4EC300575544 /* TextView+MarkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693223238C4EC300575544 /* TextView+MarkStyle.swift */; };
+		0A69322723911B1800575544 /* DrawableBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322623911B1800575544 /* DrawableBlocksViews.swift */; };
+		0A69322923911D0200575544 /* ImageBlocksViews+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322823911D0200575544 /* ImageBlocksViews+Image.swift */; };
 		0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */; };
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
@@ -207,6 +209,8 @@
 		0A693217238C4C8200575544 /* TextBlocksViews+List.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+List.swift"; sourceTree = "<group>"; };
 		0A693218238C4C8200575544 /* TextBlocksViews+Callout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Callout.swift"; sourceTree = "<group>"; };
 		0A693223238C4EC300575544 /* TextView+MarkStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+MarkStyle.swift"; sourceTree = "<group>"; };
+		0A69322623911B1800575544 /* DrawableBlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawableBlocksViews.swift; sourceTree = "<group>"; };
+		0A69322823911D0200575544 /* ImageBlocksViews+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageBlocksViews+Image.swift"; sourceTree = "<group>"; };
 		0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerCoordinator.swift; sourceTree = "<group>"; };
 		0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerModel.swift; sourceTree = "<group>"; };
 		0AAC96602340C203006CE58C /* HomeViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainer.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 			children = (
 				031B35582346C5B60066DDB8 /* BlockViewModifieres.swift */,
 				03B65751234D47A90084D9F5 /* BlockViewRowBuilderProtocol.swift */,
+				0A69322523911AF700575544 /* DrawableBlockViews */,
 				03B65750234D474A0084D9F5 /* TextableBlockViews */,
 			);
 			path = BlocksViews;
@@ -742,6 +747,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		0A69322523911AF700575544 /* DrawableBlockViews */ = {
+			isa = PBXGroup;
+			children = (
+				0A69322623911B1800575544 /* DrawableBlocksViews.swift */,
+				0A69322823911D0200575544 /* ImageBlocksViews+Image.swift */,
+			);
+			path = DrawableBlockViews;
+			sourceTree = "<group>";
+		};
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -939,6 +953,7 @@
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				037CC4E523154AF900D5AB62 /* NavigationButtonView.swift in Sources */,
 				03F7BD2322F7A62D00F47583 /* PinCodeDotsView.swift in Sources */,
+				0A69322923911D0200575544 /* ImageBlocksViews+Image.swift in Sources */,
 				03C6E84C233BAB35004EB6B6 /* DocumentServiceProtocol.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
@@ -961,6 +976,7 @@
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
 				0327B0BB232BCE2A007DB8A7 /* HomeCollectionViewModel.swift in Sources */,
 				0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */,
+				0A69322723911B1800575544 /* DrawableBlocksViews.swift in Sources */,
 				0350A2E7232960D900E00FB5 /* HomeCollectionViewPlusCell.swift in Sources */,
 				0327B0B0232BB876007DB8A7 /* HomeViewModel.swift in Sources */,
 				0327B0B3232BB994007DB8A7 /* DocumentModel.swift in Sources */,
