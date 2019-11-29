@@ -78,6 +78,7 @@ extension DocumentViewModel {
         }
 //        blocksViewsBuilders = document.blocks.map { resolver($0) }
         blocksViewsBuilders = TextBlocksViews.Supplement.Matcher.resolver(blocks: document.blocks)
+        blocksViewsBuilders = ImageBlocksViews.Supplement.Matcher.resolver(blocks: document.blocks)
     }
     
 }
