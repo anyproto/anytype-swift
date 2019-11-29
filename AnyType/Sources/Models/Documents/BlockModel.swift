@@ -10,7 +10,7 @@ import Foundation
 
 enum BlockType {
     case text(Text)
-    case image
+    case image(Image)
     case video
 }
 
@@ -29,6 +29,16 @@ extension BlockType {
         }
         
         var text: String
+        var contentType: ContentType
+    }
+}
+
+extension BlockType {
+    struct Image {
+        enum ContentType {
+            case image
+        }
+        var path: URL?
         var contentType: ContentType
     }
 }
