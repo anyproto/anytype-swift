@@ -8,7 +8,18 @@
 
 import SwiftUI
 
-struct TextView: UIViewRepresentable {
+struct TextView: View {
+    @Binding var text: String
+    @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
+    typealias InnerTextView = TheTextView
+    var body: some View {
+        InnterTextView(text: self.$text, sizeThatFit: self.$sizeThatFit)
+            .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height)
+    }
+}
+
+
+private struct InnterTextView: UIViewRepresentable {
     private let textView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont(name: "HelveticaNeue", size: 15)
@@ -43,9 +54,9 @@ struct TextView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, UITextViewDelegate {
-        var parent: TextView
+        var parent: InnterTextView
         
-        init(_ uiTextView: TextView) {
+        init(_ uiTextView: InnterTextView) {
             self.parent = uiTextView
         }
         
@@ -54,9 +65,10 @@ struct TextView: UIViewRepresentable {
         }
         
         func textViewDidChange(_ textView: UITextView) {
-            self.parent.text = textView.text
-            
-            self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+            DispatchQueue.main.async {
+                self.parent.text = textView.text                
+                self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+            }
         }
     }
 }
@@ -68,9 +80,9 @@ struct TextView_Previews: PreviewProvider {
     
     static var previews: some View {
         VStack {
-            TextView(text: $text, sizeThatFit: $sizeThatFit)
+            TextView(text: $text)
                 .frame(maxWidth: 300, maxHeight: 50)
-            TextView(text: $text, sizeThatFit: $sizeThatFit)
+            TextView(text: $text)
                 .frame(maxWidth: 300, maxHeight: 50)
         }
     }
