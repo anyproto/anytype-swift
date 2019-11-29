@@ -46,14 +46,15 @@ class TestDocumentService: DocumentServiceProtocol {
         }
         static func focusedBlocks() -> [Block] {
             return [
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
+//                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
+                .init(id: "1", parentId: "2", type: .image(.init(contentType: .image)))
             ]
         }
         static func getBlocks(focused: Bool) -> [Block] {
             return focused ? self.focusedBlocks() : self.allBlocks()
         }
         var blocks: [Block] = {
-            return Self.getBlocks(focused: false)
+            return Self.getBlocks(focused: true)
         }()
 
         
