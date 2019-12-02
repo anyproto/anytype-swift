@@ -57,6 +57,11 @@ private extension DocumentView {
             }
         }
         .scrollViewOffset(offset: self.velocity)
+        .overlayPreferenceValue(BaseViewPreferenceKey.self) { preference in
+            if preference.view != nil {
+                preference.view
+            }
+        }
         .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity))
         .border(showViewFrames ? Color.red : Color.clear)
     }

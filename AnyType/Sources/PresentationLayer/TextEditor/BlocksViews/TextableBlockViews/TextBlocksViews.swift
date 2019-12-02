@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum TextBlocksViews {
     enum Text {} // -> Text.ContentType.text
     enum Header {} // -> Text.ContentType.header

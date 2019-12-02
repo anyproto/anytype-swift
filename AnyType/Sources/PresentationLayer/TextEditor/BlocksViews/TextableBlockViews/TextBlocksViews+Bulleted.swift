@@ -27,8 +27,9 @@ extension TextBlocksViews.Bulleted.BlockViewModel: BlockViewRowBuilderProtocol {
     }
 }
 
-// MARK: View
+// MARK: - View
 import SwiftUI
+
 extension TextBlocksViews.Bulleted {
     struct MarkedViewModifier: ViewModifier {
         func body(content: Content) -> some View {
@@ -41,7 +42,7 @@ extension TextBlocksViews.Bulleted {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier())
+            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier()).modifier(DraggbleView())
         }
     }
 }
