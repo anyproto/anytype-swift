@@ -21,7 +21,7 @@ struct TextBlockView: View {
     var body: some View {
         VStack {
             TextView(text: self.$text)
-                .modifier(BaseView())
+                .modifier(DraggbleView())
         }
     }
 }

@@ -7,22 +7,53 @@
 //
 
 import SwiftUI
-
+import Combine
 
 enum GlobalEnvironment {
-    // Inject them!
-    enum OurEnvironmentObjects {
-        class PageScrollViewLayout: ObservableObject {
-            @Published var needsLayout: Bool = false
-        }
-    }
+// Inject them!
+enum OurEnvironmentObjects {
+class PageScrollViewLayout: ObservableObject {
+@Published var needsLayout: Bool = false
+}
+}
 }
 
-private class ScrollModel: ObservableObject {
-    var velocity: CGPoint
+var scrollModelInst: Int = 0
+
+fileprivate class ScrollTimer {
+    private var numberOfInstance: Int = 0
     
-    init(velocity: CGPoint) {
-        self.velocity = velocity
+    var fireTimer: (() -> Void)?
+    
+    private var timer = Timer.publish(every: 1, on: .main, in: .common)
+    private var cancellableTimer: AnyCancellable?
+    
+    var velocity: CGPoint = .zero {
+        didSet {
+            guard oldValue.y != velocity.y else { return }
+            
+            self.cancellableTimer?.cancel()
+            print("cancel timer")
+            
+            if velocity.y != 0 {
+                timer = Timer.publish(every: 1, on: .main, in: .common)
+                cancellableTimer = timer.autoconnect().sink { [weak self] _ in
+                    self?.fireTimer?()
+                }
+                print("start timer")
+            }
+        }
+    }
+    
+    init() {
+        scrollModelInst += 1
+        numberOfInstance = scrollModelInst
+        print("init \(numberOfInstance)")
+    }
+    
+    deinit {
+        print("deinit \(numberOfInstance)")
+        self.cancellableTimer?.cancel()
     }
 }
 
@@ -30,29 +61,27 @@ struct CustomScrollView<Content>: View where Content: View {
     var content: Content
     
     @State private var contentHeight: CGFloat = .zero
-    @ObservedObject fileprivate var scrollModel: ScrollModel = .init(velocity: .zero)
     @EnvironmentObject fileprivate var pageScrollViewLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
     
     var body: some View {
-        InnerScrollView(contentHeight: self.$contentHeight, contentOffset: $scrollModel.velocity, pageScrollViewLayout: $pageScrollViewLayout.needsLayout) {
+        InnerScrollView(contentHeight: self.$contentHeight, pageScrollViewLayout: $pageScrollViewLayout.needsLayout) {
             self.content
                 .modifier(ViewHeightKey())
-                .onPreferenceChange(ViewHeightKey.self) {
-                    self.contentHeight = $0
-            }
+        }
+            // SwiftUI: Don't call onPreferenceChange inside InnerScrollView otherwise InnerScrollView retain this view with  self.contentHeight. It happens only with UIViewRepresentable views (they are not recreate every time as swiftui views)
+        .onPreferenceChange(ViewHeightKey.self) {
+            self.contentHeight = $0
         }
     }
     
     func scrollViewOffset(offset: CGPoint) -> some View {
-        scrollModel.velocity = offset
-        
-        return self
+        // SwiftUI: use environment cause we can't change local view state here from func that called in context parent view
+        self.environment(\.scrollViewOffsetVelocity, offset)
     }
 }
-
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat {
@@ -60,7 +89,7 @@ struct ViewHeightKey: PreferenceKey {
     }
     
     static func reduce(value: inout Value, nextValue: () -> Value) {
-        //        value = nextValue()
+//        value = nextValue()
     }
 }
 
@@ -78,14 +107,13 @@ extension ViewHeightKey: ViewModifier {
 private struct InnerScrollView<Content>: UIViewRepresentable where Content: View {
     var content: Content
     @Binding var contentHeight: CGFloat
-    @Binding var contentOffset: CGPoint
     @Binding var pageScrollViewLayout: Bool
+    @Environment(\.scrollViewOffsetVelocity) private var offsetVelocity: CGPoint
     
-    public init(contentHeight: Binding<CGFloat>, contentOffset: Binding<CGPoint>, pageScrollViewLayout: Binding<Bool>, @ViewBuilder content: () -> Content) {
+    public init(contentHeight: Binding<CGFloat>, pageScrollViewLayout: Binding<Bool>, @ViewBuilder content: () -> Content) {
         self.content = content()
         _contentHeight = contentHeight
-        _contentOffset = contentOffset
-        _pageScrollViewLayout = pageScrollViewLayout
+_pageScrollViewLayout = pageScrollViewLayout
     }
     
     // MARK: - UIViewRepresentable
@@ -96,20 +124,16 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
     
     func makeUIView(context: Context) -> UIScrollView {
         let scrollView = configureScrollView()
-        populate()
         
         return scrollView
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
+        context.coordinator.setContentOffsetVelocity(self.offsetVelocity, for: uiView)
         uiView.subviews[0].setNeedsUpdateConstraints()
-        
-        populate()
-    }
-    
-    private func populate() {
     }
 }
+
 
 extension InnerScrollView {
     
@@ -146,6 +170,15 @@ extension InnerScrollView {
 // MARK: - Coordinator
 
 class CustomScrollViewCoordinator: NSObject, UIScrollViewDelegate {
+    private var scrollModel = ScrollTimer()
+    
+    func setContentOffsetVelocity(_ velocity: CGPoint, for scrollView: UIScrollView) {
+        scrollModel.velocity = velocity
+        
+        scrollModel.fireTimer = { [weak scrollView] in
+            scrollView?.contentOffset += velocity
+        }
+    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         

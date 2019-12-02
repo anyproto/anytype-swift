@@ -43,7 +43,7 @@ struct DocumentView: View {
 private extension DocumentView {
     
     func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
-        CustomScrollView {
+        CustomScrollView() {
             ForEach(0..<viewBulders.count, id: \.self) { index in
                 self.makeBlockView(for: index, in: viewBulders)
                     .padding(.top, -10) // Workaround: remove spacing
@@ -57,8 +57,8 @@ private extension DocumentView {
             }
         }
         .scrollViewOffset(offset: self.velocity)
+        .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity))
         .border(showViewFrames ? Color.red : Color.clear)
-        .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity, dragCoordinates: self.$dragCoordinates))
     }
     
     private func makeBlockView(for index: Int, in builders: [BlockViewRowBuilderProtocol]) -> some View {
@@ -91,7 +91,6 @@ private extension DocumentView {
 
 struct VelocityOnIntersectViewBoundary: ViewModifier {
     @Binding var velocity: CGPoint
-    @Binding var dragCoordinates: CGRect?
     @Environment(\.showViewFrames) private var showViewFrames
     
     private struct VelocityKey: PreferenceKey {
@@ -101,21 +100,23 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
         }
         
         static func reduce(value: inout Value, nextValue: () -> Value) {
-//            value = nextValue()
+            value = nextValue()
         }
     }
     
     func body(content: Content) -> some View {
         return content
-            .overlay(GeometryReader { proxy in
-                self.obtainBoundary(proxy: proxy)
-            })
+            .overlayPreferenceValue(BaseViewPreferenceKey.self) { preference in
+                GeometryReader { proxy in
+                    self.obtainBoundary(proxy: proxy, preference: preference)
+                }
+        }
             .onPreferenceChange(VelocityKey.self) { velocity in
                 self.velocity = velocity
         }
     }
     
-    private func obtainBoundary(proxy: GeometryProxy) -> some View {
+    private func obtainBoundary(proxy: GeometryProxy, preference: BaseViewPreferenceData) -> some View {
         var velocity = CGPoint(x: 0, y: 0)
         
         let frame = proxy.frame(in: .local)
@@ -125,10 +126,10 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
         let bottomOrigin = CGPoint(x: frame.minX, y: bottomY)
         let bottomBoundary = CGRect(origin: bottomOrigin, size: CGSize(width: frame.width, height: frame.height * 0.15))
         
-        if let dragCoordinates = dragCoordinates {
-            if upperBoundary.intersects(dragCoordinates) {
+        if let anchorDragRect = preference.dragRect, preference.isDragging {
+            if upperBoundary.intersects(proxy[anchorDragRect]) {
                 velocity = CGPoint(x: 0, y: -10)
-            } else if bottomBoundary.intersects(dragCoordinates) {
+            } else if bottomBoundary.intersects(proxy[anchorDragRect]) {
                 velocity = CGPoint(x: 0, y: 10)
             }
         }
@@ -146,7 +147,8 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
                     .frame(width: bottomBoundary.width, height: bottomBoundary.height)
                     .position(x: bottomBoundary.midX, y: bottomBoundary.midY)
             }
-        }.preference(key: VelocityKey.self, value: velocity)
+        }
+        .preference(key: VelocityKey.self, value: velocity)
     }
 }
 
@@ -154,7 +156,6 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
 struct ShowViewOnRectIntersect: ViewModifier {
     @State private var dropCoordinate: CGRect?
     @Binding var blocksRects: [CGRect]
-    
     @Binding var dragCoordinates: CGRect?
     var index: Int
     

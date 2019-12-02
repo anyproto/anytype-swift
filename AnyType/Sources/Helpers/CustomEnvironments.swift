@@ -81,3 +81,19 @@ extension EnvironmentValues {
         }
     }
 }
+
+
+struct ScrollOffsetVelocityKey: EnvironmentKey {
+    static let defaultValue: CGPoint = .zero
+}
+
+extension EnvironmentValues {
+    var scrollViewOffsetVelocity: CGPoint {
+        get {
+            return self[ScrollOffsetVelocityKey.self]
+        }
+        set {
+            self[ScrollOffsetVelocityKey.self] = newValue
+        }
+    }
+}
