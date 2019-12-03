@@ -24,3 +24,24 @@
 "Accounts" = "Accounts";
 "Recovery pharse is nil" = "Recovery pharse is nil";
 "node failed to start" = "node failed to start";
+
+// Auth
+
+"Organazie everything" = "Organazie everything";
+"OrganazieEverythingDescription" = "With Anytype you can write notes and documents, manage tasks, share files and save important content from the web.";
+"Sign up" = "Sign up";
+"Login" = "Login";
+"Login with keychain" = "Login with keychain";
+"or Type your keychain phrase" = "or Type your keychain phrase";
+"Choose pin code" = "Choose pin code";
+"Do it later" = "Do it later";
+"Setting up the wallet…" = "Setting up the wallet…";
+"Create a new profile" = "Create a new profile";
+"Enter your name" = "Enter your name";
+"Create" = "Create";
+"Congratulations!" = "Congratulations!";
+"CongratulationDescription" = "You’ve created your first profile!\nIt is stored on your device and nobody will know about it until you share it!";
+"Let’s start!" = "Let’s start!";
+"Choose profile" = "Choose profile";
+"no peers" = "no peers";
+"Add profile" = "Add profile";

@@ -48,7 +48,7 @@ struct AuthView : View {
                             .padding(.bottom, 20)
 
                         NavigationLink(destination: showAuthPineCodeViweOnExistsPublicKey(publicKey: viewModel.publicKeys[selectedKey])) {
-                            NavigationButtonView(disabled: .constant(false), text: "Login with selected public key", style: .black)
+                            NavigationButtonView(disabled: .constant(false), text: "Login with selected public key", style: .white)
                         }.padding(.bottom, 20)
                     }
 
@@ -56,13 +56,13 @@ struct AuthView : View {
                         Text(viewModel.publicKeys.isEmpty ? "FirstCreateAnAccount" : "or create an account").font(.headline)
 
                         NavigationLink(destination: showSaverRecoveryPhraseView()) {
-                            NavigationButtonView(disabled: .constant(false), text: "Create new account", style: .black)
+                            NavigationButtonView(disabled: .constant(false), text: "Create new account", style: .white)
                         }.padding(.bottom, 20)
                         
                         Text("I have an account").font(.headline)
 
                         NavigationLink(destination: showEnterAccountSeedView()) {
-                            NavigationButtonView(disabled: .constant(false), text: "Enter account seed", style: .black)
+                            NavigationButtonView(disabled: .constant(false), text: "Enter account seed", style: .white)
                         }.padding(.bottom, 20)
                     }
                 }

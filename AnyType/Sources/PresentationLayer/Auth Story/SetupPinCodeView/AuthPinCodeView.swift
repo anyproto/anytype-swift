@@ -16,7 +16,7 @@ struct AuthPinCodeView: View {
     
     var body: some View {
         VStack {
-            PinCodeView(viewModel: $viewModel.pinCodeViewModel, pinCodeConfirmed: {
+            OldPinCodeView(viewModel: $viewModel.pinCodeViewModel, pinCodeConfirmed: {
                 self.viewModel.onConfirm()
             })
         }

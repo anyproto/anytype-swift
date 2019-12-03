@@ -12,12 +12,12 @@ typealias StandardButtonAction = () -> Void
 
 enum StandardButtonStyle {
     case yellow
-    case black
+    case white
     
     func backgroundColor() -> Color {
         switch self {
-        case .black:
-            return Color.black
+        case .white:
+            return Color.white
         case .yellow:
             return Color.yellow
         }
@@ -25,10 +25,10 @@ enum StandardButtonStyle {
     
     func textColor() -> Color {
         switch self {
-        case .black:
-            return Color.white
-        case .yellow:
+        case .white:
             return Color.black
+        case .yellow:
+            return Color.white
         }
     }
 }
@@ -47,8 +47,9 @@ struct StandardButton: View {
                 .padding(.all)
                 .foregroundColor(disabled ? Color.gray : style.textColor())
                 .frame(minWidth: 0, maxWidth: .infinity)
+                .overlay(RoundedRectangle(cornerRadius: 7.0).stroke().foregroundColor(style == StandardButtonStyle.white ? Color.gray : style.backgroundColor()))
                 .background(style.backgroundColor())
-                .cornerRadius(7)
+                .cornerRadius(7.0)
         }
         .disabled(disabled)
     }

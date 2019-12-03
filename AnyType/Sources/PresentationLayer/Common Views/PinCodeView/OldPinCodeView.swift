@@ -1,5 +1,5 @@
 //
-//  PinCodeView.swift
+//  OldPinCodeView.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 31.07.2019.
@@ -10,7 +10,7 @@ import SwiftUI
 
 typealias OnPinCodeConfirmed = () -> Void
     
-struct PinCodeView: View {
+struct OldPinCodeView: View {
     @Binding var viewModel: PinCodeViewModel
     @State var confirmIsDisabled = false
     var pinCodeConfirmed: OnPinCodeConfirmed
@@ -65,7 +65,7 @@ struct PinCodeView: View {
 struct SetupPinCodeView_Previews: PreviewProvider {
     static var previews: some View {
         let viewModel = PinCodeViewModel(pinCodeViewType: .setup)
-        return PinCodeView(viewModel: .constant(viewModel), pinCodeConfirmed: {})
+        return OldPinCodeView(viewModel: .constant(viewModel), pinCodeConfirmed: {})
     }
 }
 #endif
