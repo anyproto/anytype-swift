@@ -42,11 +42,14 @@ class TestDocumentService: DocumentServiceProtocol {
                 .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
                 .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .toggle))),
                 .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .callout))),
+                .init(id: "1", parentId: "2", type: .image(.init(contentType: .image))),
+                .init(id: "1", parentId: "2", type: .image(.init(contentType: .image)))
             ]
         }
         static func focusedBlocks() -> [Block] {
             return [
                 .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
+                .init(id: "1", parentId: "2", type: .image(.init(contentType: .image)))
             ]
         }
         static func getBlocks(focused: Bool) -> [Block] {

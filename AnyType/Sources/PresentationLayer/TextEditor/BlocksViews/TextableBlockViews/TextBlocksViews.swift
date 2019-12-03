@@ -25,35 +25,8 @@ extension TextBlocksViews {
 }
 
 extension TextBlocksViews.Supplement {
-    class Matcher {
-        private static func sameBlock(lhs: Block, rhs: Block) -> Bool {
-            switch (lhs.type, rhs.type) {
-            case let (.text(left), .text(right)):
-                return left.contentType == right.contentType
-//                switch (left.contentType, right.contentType) {
-//                case ()
-//                }
-            default: return false
-            }
-        }
-//        static func resolver2(blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
-//
-//            // 1. first step - group together views which have "same"
-//            let remains = blocks.dropFirst()
-//            let prefix = blocks.prefix(1)
-//            let result = Array(prefix)
-//
-//            for element in blocks.dropFirst() {
-//
-//            }
-//
-//            return []
-//        }
-        
-        //
-        // TODO: Add sequence resolver for each block type.
-        // each block type should have its own sequence resolver.
-        private static func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
+    class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
+        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
             switch block.type {
             case let .text(text):
                 switch text.contentType {
@@ -73,40 +46,7 @@ extension TextBlocksViews.Supplement {
                 }
             default: return []
             }
-        }
-        
-        private static func sequencesResolver(blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
-            guard let first = blocks.first else { return [] }
-            return self.sequenceResolver(block: first, blocks: blocks)
-        }
-        
-        static func resolver(blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
-            if blocks.isEmpty {
-                return []
-            }
-            
-            // 1. first step - group together views which have "same"
-            let remains = blocks.dropFirst()
-            let prefix = blocks.prefix(1)
-            let firstElements = Array(prefix)
-            
-            let grouped = remains.reduce([firstElements]) { (result, block) in
-                var result = result
-                if let lastGroup = result.last, let firstObject = lastGroup.first, sameBlock(lhs: firstObject, rhs: block) {
-                    result = result.dropLast() + [(lastGroup + [block])]
-                }
-                else {
-                    result.append([block])
-                }
-                return result
-            }
-                                                
-            // 2. Next, we have to choose which group has which ViewModel
-            let result = grouped.flatMap { (blocks) in
-                self.sequencesResolver(blocks: blocks)
-            }
-            return result
-        }
+        }                        
     }
 }
 

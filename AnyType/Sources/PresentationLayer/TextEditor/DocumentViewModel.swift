@@ -77,7 +77,8 @@ extension DocumentViewModel {
             }
         }
 //        blocksViewsBuilders = document.blocks.map { resolver($0) }
-        blocksViewsBuilders = TextBlocksViews.Supplement.Matcher.resolver(blocks: document.blocks)
+//        blocksViewsBuilders = TextBlocksViews.Supplement.Matcher.resolver(blocks: document.blocks)
+        blocksViewsBuilders = BlocksViews.Supplement.BlocksSerializer.default.resolver(blocks: document.blocks)
     }
     
 }
