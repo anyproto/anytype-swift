@@ -8,8 +8,8 @@
 
 
 final class ProfileViewCoordinator {
-    private let profileService = TextileProfileService()
-    private let textilAuthService = TextileAuthService()
+    private let profileService = ProfileService()
+    private let textilAuthService = AnytypeAuthService()
     private lazy var viewModel = ProfileViewModel(profileService: profileService, authService: textilAuthService)
     
     var profileView: ProfileView {

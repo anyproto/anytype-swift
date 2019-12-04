@@ -74,7 +74,7 @@ struct AuthView : View {
     
     private func showSaverRecoveryPhraseView() -> some View {
         let viewModel = AuthRecoveryViewModel()
-        viewModel.authService = TextileAuthService()
+        viewModel.authService = AnytypeAuthService()
         let view = AuthRecoveryView(viewModel: viewModel)
         
         return view

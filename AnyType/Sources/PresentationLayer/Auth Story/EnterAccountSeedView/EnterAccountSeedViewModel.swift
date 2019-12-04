@@ -9,7 +9,7 @@
 import SwiftUI
 
 class EnterAccountSeedViewModel: ObservableObject {
-    private var textileService = TextileAuthService()
+    private var textileService = AnytypeAuthService()
     
     @Published var recoveryPhrase: String = ""
     @Published var seedAccepted: Bool = false

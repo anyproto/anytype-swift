@@ -45,3 +45,10 @@
 "Choose profile" = "Choose profile";
 "no peers" = "no peers";
 "Add profile" = "Add profile";
+
+// Auth Errors
+
+"Error creating wallet" = "Error creating wallet";
+"Login error" = "Login error";
+"Logout error" = "Logout error";
+"Error creating account" = "Error creating account";

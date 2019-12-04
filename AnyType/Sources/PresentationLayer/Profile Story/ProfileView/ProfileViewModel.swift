@@ -8,7 +8,6 @@
 
 import Combine
 import SwiftUI
-import Textile
 
 
 final class ProfileViewModel: ObservableObject {

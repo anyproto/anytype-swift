@@ -8,7 +8,7 @@
 
 import Combine
 import SwiftUI
-import Textile
+
 
 class AuthRecoveryViewModel: ObservableObject {
     var authService: AuthServiceProtocol?
@@ -22,7 +22,7 @@ class AuthRecoveryViewModel: ObservableObject {
         guard let authService = authService else { return }
         
         do {
-            try self.saveRecoveryModel.recoveryPhrase = authService.generateRecoveryPhrase(wordCount: 12)
+//            try self.saveRecoveryModel.recoveryPhrase = authService.generateRecoveryPhrase(wordCount: 12)
         } catch {
             self.error = error as? AuthServiceError
         }

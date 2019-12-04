@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Textile
+
 
 enum AuthPinCodeViewType {
     case setup
@@ -28,7 +28,7 @@ class AuthPinCodeViewModel: ObservableObject {
     
     // TODO: move init to fabric
     let storeService: StoreServiceProtocol = KeychainStoreService()
-    let authService: AuthServiceProtocol = TextileAuthService()
+    let authService: AuthServiceProtocol = AnytypeAuthService()
     
     var pinCodeViewModel: PinCodeViewModel
     var authPinCodeType: AuthPinCodeViewType
@@ -57,14 +57,14 @@ class AuthPinCodeViewModel: ObservableObject {
             saveSeedPhrase(password: pinCodeViewModel.pinCode)
         case .verify(let publicKey):
             if let seed = try? obtainSeedPhrase(publicKey: publicKey, password: pinCodeViewModel.pinCode) {
-                authService.login(seed: seed) { [weak self] error in
-                    if let error = error {
-                        self?.error = error.localizedDescription
-                        return
-                    }
-                    self?.showHomeView()
-                    
-                }
+//                authService.login(seed: seed) { [weak self] error in
+//                    if let error = error {
+//                        self?.error = error.localizedDescription
+//                        return
+//                    }
+//                    self?.showHomeView()
+//                    
+//                }
             }
         }
     }
@@ -76,22 +76,22 @@ class AuthPinCodeViewModel: ObservableObject {
             self.error = AuthServiceError.createWalletError(message: "Recovery pharse is nil").localizedDescription
             return
         }
-        authService.createWalletAndAccount(with: recoveryPhrase) { [weak self] result in
-            if case Result.failure(let error) = result {
-                self?.error = error.localizedDescription
-                return
-            }
-        
-            let publicKey = Textile.instance().account.address()
-            let seed = Textile.instance().account.seed()
-            
-            do {
-                try self?.storeService.saveSeedForAccount(name: publicKey, seed: seed, keyChainPassword: password)
-                self?.showHomeView()
-            } catch {
-                self?.error = error.localizedDescription
-            }
-        }
+//        authService.createWalletAndAccount(with: recoveryPhrase) { [weak self] result in
+//            if case Result.failure(let error) = result {
+//                self?.error = error.localizedDescription
+//                return
+//            }
+//        
+//            let publicKey = ""//Textile.instance().account.address()
+//            let seed = ""//Textile.instance().account.seed()
+//            
+//            do {
+//                try self?.storeService.saveSeedForAccount(name: publicKey, seed: seed, keyChainPassword: password)
+//                self?.showHomeView()
+//            } catch {
+//                self?.error = error.localizedDescription
+//            }
+//        }
     }
     
     private func obtainSeedPhrase(publicKey: String, password: String) throws -> String {

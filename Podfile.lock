@@ -1,25 +1,16 @@
 PODS:
-  - Protobuf (3.10.0)
-  - Textile (2.0.11):
-    - Protobuf (~> 3.7)
-    - TextileCore (= 0.7.4)
-  - TextileCore (0.7.4):
-    - Protobuf (~> 3.7)
+  - SwiftProtobuf (1.7.0)
 
 DEPENDENCIES:
-  - Textile
+  - SwiftProtobuf
 
 SPEC REPOS:
   trunk:
-    - Protobuf
-    - Textile
-    - TextileCore
+    - SwiftProtobuf
 
 SPEC CHECKSUMS:
-  Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
-  Textile: d36bb21f333f282f69f23569d3e255b3d1883e37
-  TextileCore: c3b7d9a1dfb36eaa772a942fa13fae80c7a6d0cd
+  SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
 
-PODFILE CHECKSUM: 43c2a0d278ab77e29997bf173e6fdab0270090c9
+PODFILE CHECKSUM: 5138246330744d3fb5edfda5d96ebc852de45894
 
 COCOAPODS: 1.8.4

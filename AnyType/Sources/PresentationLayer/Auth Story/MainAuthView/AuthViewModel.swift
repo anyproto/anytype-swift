@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 class AuthViewModel: ObservableObject {
-    private var textileService = TextileAuthService()
+    private var textileService = AnytypeAuthService()
     
     @Published var publicKeys = Array(UserDefaultsConfig.usersPublicKey).sorted() {
         didSet {
@@ -18,7 +18,7 @@ class AuthViewModel: ObservableObject {
             
             for key in usersPublicKeyRemoved {
                 do {
-                    try textileService.removeAccount(publicKey: key)
+//                    try textileService.removeAccount(publicKey: key)
                 } catch {
                     publicKeys = oldValue
                 }

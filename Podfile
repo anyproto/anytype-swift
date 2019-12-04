@@ -6,7 +6,7 @@ target 'AnyType' do
   use_frameworks!
 
   # Pods for AnyType
-	pod 'Textile'
+  	pod 'SwiftProtobuf'
 	
 end
 
