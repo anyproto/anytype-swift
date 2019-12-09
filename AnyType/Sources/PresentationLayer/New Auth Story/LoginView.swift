@@ -61,5 +61,6 @@ struct KeychainPhraseView: View {
         .padding()
         .background(Color.white)
         .cornerRadius(12.0)
+        .navigationBarBackButtonHidden(true)
     }
 }

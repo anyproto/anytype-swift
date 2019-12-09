@@ -52,3 +52,6 @@
 "Login error" = "Login error";
 "Logout error" = "Logout error";
 "Error creating account" = "Error creating account";
+"Error select account" = "Error select account";
+"Error wallet recover account" = "Error wallet recover account";
+"Error account recover" = "Error account recover";

@@ -29,7 +29,9 @@ class ApplicationCoordinator {
         
 //        let authViewCoordinator = AuthViewCoordinator()
 //        let view = authViewCoordinator.authView()
-        let view = HomeViewContainer()
+        
+//        let view = HomeViewContainer()
+        let view = MainAuthView(viewModel: MainAuthViewModel())
         applicationCoordinator?.startNewRootView(content: view)
         
         startNewRootView(content: view)

@@ -52,6 +52,7 @@ struct NewProfileView: View {
             }
             .padding(.bottom, 16)
         }
+        .navigationBarBackButtonHidden(true)
         .padding()
         .background(Color.white)
         .cornerRadius(12.0)
