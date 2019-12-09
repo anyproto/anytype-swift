@@ -11,7 +11,7 @@ import SwiftUI
 
 struct MainAuthView: View {
     @ObservedObject var viewModel: MainAuthViewModel
-    @State private var navigateToLogin: Int? = nil
+    @State private var showLoginView: Bool = false
     
     var body: some View {
         NavigationView {
@@ -31,18 +31,20 @@ struct MainAuthView: View {
                         Text("OrganazieEverythingDescription")
                             .padding([.leading, .trailing, .bottom], 20)
                         
-                        HStack {
-                            NavigationLink(destination: viewModel.showCreateProfileView(), isActive: $viewModel.shouldShowCreateProfileView) {
+                        HStack(spacing: 0) {
+                            NavigationLink(destination: viewModel.showCreateProfileView(showCreateProfileView: $viewModel.shouldShowCreateProfileView), isActive: $viewModel.shouldShowCreateProfileView) {
                                 EmptyView()
                             }
                             StandardButton(disabled: .constant(false), text: "Sing up", style: .white) {
                                 self.viewModel.singUp()
                             }
+                            .padding(.trailing, 12)
                             
-                            NavigationLink(destination: viewModel.showLoginView(), tag: 1, selection: $navigateToLogin) {
-                                StandardButton(disabled: .constant(false), text: "Login", style: .yellow) {
-                                    self.navigateToLogin = 1
-                                }
+                            NavigationLink(destination: viewModel.showLoginView(), isActive: $showLoginView) {
+                                EmptyView()
+                            }
+                            StandardButton(disabled: .constant(false), text: "Login", style: .yellow) {
+                                self.showLoginView = true
                             }
                         }
                         .padding([.leading, .trailing], 20)

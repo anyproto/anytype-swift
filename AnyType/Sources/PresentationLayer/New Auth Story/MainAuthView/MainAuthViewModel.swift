@@ -42,8 +42,8 @@ class MainAuthViewModel: ObservableObject {
     
     // MARK: - Coordinator
     
-    func showCreateProfileView() -> some View {
-        return CreateNewProfileView()
+    func showCreateProfileView(showCreateProfileView: Binding<Bool>) -> some View {
+        return CreateNewProfileView(showCreateProfileView: showCreateProfileView)
     }
     
     func showLoginView() -> some View {

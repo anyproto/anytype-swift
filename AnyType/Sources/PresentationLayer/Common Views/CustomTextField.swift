@@ -12,12 +12,13 @@ struct CustomTextField: View {
     @Binding var text: String
     var title: String
     
+    @State var action: String = ""
+    
     var body: some View {
         VStack(spacing: 13) {
-            TextField(title, text: $text)
+            TextField(title, text: $action)
             Divider()
         }
-        
     }
 }
 
