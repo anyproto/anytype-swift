@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//Anytype_Rpc.Account.Create.Request
+
 
 enum AuthModels {
     enum CreateAccount {}

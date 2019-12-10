@@ -12,12 +12,12 @@ import UIKit
 
 class DiskStorage {
     
-    func saveImage(imageName: String, image: UIImage) {
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+    func saveImage(imageName: String, image: UIImage) -> String? {
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
         
         let fileName = imageName
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        guard let data = image.jpegData(compressionQuality: 1) else { return }
+        guard let data = image.jpegData(compressionQuality: 1) else { return nil }
         
         //Checks if file exists, removes it if so.
         if FileManager.default.fileExists(atPath: fileURL.path) {
@@ -32,10 +32,11 @@ class DiskStorage {
         
         do {
             try data.write(to: fileURL)
+            return fileURL.absoluteString
         } catch let error {
             print("error saving file with error", error)
         }
-        
+        return nil
     }
     
     

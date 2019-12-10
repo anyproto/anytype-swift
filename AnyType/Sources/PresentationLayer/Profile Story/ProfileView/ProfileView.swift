@@ -80,7 +80,7 @@ struct ProfileView : View {
                 }
                 
                 HStack {
-                    StandardButton(disabled: .constant(false), text: "Log out", style: .white) {
+                    StandardButton(disabled: false, text: "Log out", style: .white) {
                         self.model.logout()
                     }
                     .offset(y: -40)

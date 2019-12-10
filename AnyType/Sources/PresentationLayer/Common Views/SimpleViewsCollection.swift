@@ -7,14 +7,24 @@
 //
 
 import SwiftUI
+import UIKit
+
 
 struct ImageWithCircleBackgroundView: View {
     var imageName: String
-    var backgroundColor: Color
+    var backgroundColor: Color?
+    var backgoundImage: UIImage?
     
     var body: some View {
-        ZStack {
-            backgroundColor
+        let image = backgoundImage?.withRenderingMode(.alwaysOriginal)
+        
+        return ZStack {
+            if backgroundColor != nil {
+                backgroundColor
+            } else if backgoundImage != nil {
+                Image(uiImage: image!)
+                    .resizable()
+            }
             Image(imageName)
         }
         .clipShape(Circle())
@@ -44,7 +54,7 @@ struct UserIconView: View {
                         .font(.title)
                         .foregroundColor(Color.white)
                 }
-                    
+                
             }
         }
         .clipShape(Circle())

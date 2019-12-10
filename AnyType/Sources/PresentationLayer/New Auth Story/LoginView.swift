@@ -48,11 +48,11 @@ struct KeychainPhraseView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 97)
             HStack(spacing: 12) {
-                StandardButton(disabled: .constant(false), text: "Back", style: .white) {
+                StandardButton(disabled: false, text: "Back", style: .white) {
                     
                 }
                 
-                StandardButton(disabled: .constant(false), text: "Login", style: .yellow) {
+                StandardButton(disabled: false, text: "Login", style: .yellow) {
                     
                 }
             }

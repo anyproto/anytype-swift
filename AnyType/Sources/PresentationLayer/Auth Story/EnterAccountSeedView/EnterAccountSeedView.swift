@@ -25,7 +25,7 @@ struct EnterAccountSeedView: View {
             .font(.robotMonoRegularFontWith(size: 15.0))
             
             HStack {
-                StandardButton(disabled: .constant(false), text: "Confirm", style: .yellow) {
+                StandardButton(disabled: false, text: "Confirm", style: .yellow) {
                     self.viewModel.verifySeedPhrase()
                 }
                 Spacer()

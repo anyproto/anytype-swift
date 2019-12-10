@@ -21,10 +21,6 @@ struct KeyboardInfo {
 final class KeyboardObserver: ObservableObject {
     @Published public var kInfo = KeyboardInfo()
     
-    // keyboardWillShow notification may be posted repeatedly,
-    // this flag makes sure we only act once per keyboard appearance
-    public var keyboardIsHidden = true
-    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -43,12 +39,9 @@ final class KeyboardObserver: ObservableObject {
     }
     
     @objc func keyboardWillShow(notification: Notification) {
-        if keyboardIsHidden {
-            keyboardIsHidden = false
-            if let rect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
-                let duration =  notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval {
-                kInfo = KeyboardInfo(keyboardRect: rect, duration: duration)
-            }
+        if let rect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+            let duration =  notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval {
+            kInfo = KeyboardInfo(keyboardRect: rect, duration: duration)
         }
     }
     
@@ -58,6 +51,5 @@ final class KeyboardObserver: ObservableObject {
             return
         }
         kInfo = KeyboardInfo(keyboardRect: .zero, duration: duration)
-        keyboardIsHidden = true
     }
 }

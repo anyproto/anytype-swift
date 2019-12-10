@@ -22,8 +22,6 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
      }
     
     func createWallet(in path: String, onCompletion: @escaping OnCompletion) {
-//        getDocumentsDirectory().appendingPathComponent("textile-go").path
-        
         var walletRequest = Anytype_Rpc.Wallet.Create.Request()
         walletRequest.rootPath = path
         
@@ -65,6 +63,7 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
                 onCompletion(.failure(.createAccountError()))
                 return
             }
+            UserDefaultsConfig.usersIdKey = response.account.id
             onCompletion(.success(response.account.id))
         }
     }

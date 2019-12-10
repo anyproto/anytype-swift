@@ -32,10 +32,10 @@ struct MainAuthView: View {
                             .padding([.leading, .trailing, .bottom], 20)
                         
                         HStack(spacing: 0) {
-                            NavigationLink(destination: viewModel.showCreateProfileView(showCreateProfileView: $viewModel.shouldShowCreateProfileView), isActive: $viewModel.shouldShowCreateProfileView) {
+                            NavigationLink(destination: viewModel.showCreateProfileView(), isActive: $viewModel.shouldShowCreateProfileView) {
                                 EmptyView()
                             }
-                            StandardButton(disabled: .constant(false), text: "Sing up", style: .white) {
+                            StandardButton(disabled: false, text: "Sing up", style: .white) {
                                 self.viewModel.singUp()
                             }
                             .padding(.trailing, 12)
@@ -43,7 +43,7 @@ struct MainAuthView: View {
                             NavigationLink(destination: viewModel.showLoginView(), isActive: $showLoginView) {
                                 EmptyView()
                             }
-                            StandardButton(disabled: .constant(false), text: "Login", style: .yellow) {
+                            StandardButton(disabled: false, text: "Login", style: .yellow) {
                                 self.showLoginView = true
                             }
                         }

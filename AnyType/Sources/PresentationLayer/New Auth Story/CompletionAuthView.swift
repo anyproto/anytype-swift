@@ -23,8 +23,8 @@ struct CompletionAuthView: View {
                         .padding(.top, 16)
                     Text("CongratulationDescription")
                         .padding(.top, 10)
-                    StandardButton(disabled: .constant(false), text: "Let’s start!", style: .yellow) {
-                        
+                    StandardButton(disabled: false, text: "Let’s start!", style: .yellow) {
+                        applicationCoordinator?.startNewRootView(content: HomeViewContainer())
                     }
                     .padding(.top, 18)
                 }

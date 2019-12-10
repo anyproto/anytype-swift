@@ -34,7 +34,7 @@ enum StandardButtonStyle {
 }
 
 struct StandardButton: View {
-    @Binding var disabled: Bool
+    var disabled: Bool
     var text: String
     var style: StandardButtonStyle
     var action: StandardButtonAction
@@ -58,7 +58,7 @@ struct StandardButton: View {
 #if DEBUG
 struct StandardButton_Previews: PreviewProvider {
     static var previews: some View {
-        StandardButton(disabled: .constant(false) ,text: "Standard button", style: .yellow, action: {})
+        StandardButton(disabled: false ,text: "Standard button", style: .yellow, action: {})
     }
 }
 #endif

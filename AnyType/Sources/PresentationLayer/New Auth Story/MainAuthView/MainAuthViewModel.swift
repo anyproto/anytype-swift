@@ -11,6 +11,7 @@ import SwiftUI
 
 
 class MainAuthViewModel: ObservableObject {
+    private let repoPath = getDocumentsDirectory().appendingPathComponent("middleware-go").path
     private var authService: AuthServiceProtocol = AnytypeAuthService()
     private let storeService: StoreServiceProtocol = KeychainStoreService()
     
@@ -24,9 +25,12 @@ class MainAuthViewModel: ObservableObject {
     @Published var isShowingError: Bool = false
     @Published var shouldShowCreateProfileView: Bool = false
     
+    init() {
+        print("repoPath: \(repoPath)")
+    }
+    
     func singUp() {
-        let path = getDocumentsDirectory().appendingPathComponent("textile-go").path
-        authService.createWallet(in: path) { [weak self] result in
+        authService.createWallet(in: repoPath) { [weak self] result in
             
             switch result {
             case .failure(let error):
@@ -42,8 +46,8 @@ class MainAuthViewModel: ObservableObject {
     
     // MARK: - Coordinator
     
-    func showCreateProfileView(showCreateProfileView: Binding<Bool>) -> some View {
-        return CreateNewProfileView(showCreateProfileView: showCreateProfileView)
+    func showCreateProfileView() -> some View {
+        return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
     }
     
     func showLoginView() -> some View {

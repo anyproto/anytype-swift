@@ -42,7 +42,7 @@ struct OldPinCodeView: View {
             }
             
             HStack {
-                StandardButton(disabled: $confirmIsDisabled, text: "Confirm", style: .yellow) {
+                StandardButton(disabled: confirmIsDisabled, text: "Confirm", style: .yellow) {
                     self.pinCodeConfirmed()
                 }
                 Spacer()

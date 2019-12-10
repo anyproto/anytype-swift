@@ -11,7 +11,7 @@ import UIKit
 
 enum ProfileModels {
     enum Avatar {
-        case color(UIColor)
+        case color(String)
         case imagePath(String)
     }
     
