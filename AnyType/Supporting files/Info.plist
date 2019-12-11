@@ -20,8 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>blablabla</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string></string>
+	<string>hehehe</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>RobotoMono-Regular.ttf</string>

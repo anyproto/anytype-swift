@@ -1,5 +1,5 @@
 //
-//  ProfileModels.swift
+//  ProfileModel.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 05.12.2019.
@@ -9,15 +9,19 @@
 import UIKit
 
 
-enum ProfileModels {
+struct ProfileModel {
+    let profiles: [ProfileModel]
+    
     enum Avatar {
         case color(String)
         case imagePath(String)
     }
     
-    struct Profile {
+    struct Profile: Identifiable {
         var id: String
         var name: String
         var avatar: Avatar
+        var peers: String? = nil
+        var uploaded: Bool
     }
 }

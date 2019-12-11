@@ -32,7 +32,7 @@ class DiskStorage {
         
         do {
             try data.write(to: fileURL)
-            return fileURL.absoluteString
+            return fileURL.path
         } catch let error {
             print("error saving file with error", error)
         }

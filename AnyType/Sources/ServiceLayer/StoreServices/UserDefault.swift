@@ -31,7 +31,7 @@ struct UserDefault<T> {
 
 /// User defaults store
 struct UserDefaultsConfig {
-    @UserDefault("userId", defaultValue: [])
+    @UserDefault("userId", defaultValue: "")
     static var usersIdKey: String
     
     @UserDefault("usersPublicKey", defaultValue: [])

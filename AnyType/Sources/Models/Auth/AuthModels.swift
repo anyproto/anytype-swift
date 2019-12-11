@@ -17,6 +17,6 @@ extension AuthModels.CreateAccount {
     
     struct Request {
         var name: String
-        var avatar: ProfileModels.Avatar
+        var avatar: ProfileModel.Avatar
     }
 }

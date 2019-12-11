@@ -51,6 +51,6 @@ class MainAuthViewModel: ObservableObject {
     }
     
     func showLoginView() -> some View {
-        return LoginView()
+        return LoginView(viewModel: LoginViewModel())
     }
 }

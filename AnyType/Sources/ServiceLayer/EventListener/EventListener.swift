@@ -17,7 +17,7 @@ enum EventListenerFilter {
 
 class EventListener: NSObject {
     
-    init(filter: EventListenerFilter) {
+    override init() {
         super.init()
         Lib.LibSetEventHandlerMobile(self)
     }

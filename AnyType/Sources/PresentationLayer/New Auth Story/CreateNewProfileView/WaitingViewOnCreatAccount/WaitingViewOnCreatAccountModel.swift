@@ -23,14 +23,14 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
     }
     
     func createAccount() {
-        var avatar = ProfileModels.Avatar.color(UIColor.randomColor().toHexString())
+        var avatar = ProfileModel.Avatar.color(UIColor.randomColor().toHexString())
         
         DispatchQueue.global().async { [weak self] in
             guard let stronSelf = self else { return }
             
             if let image = stronSelf.image,
                 let path = stronSelf.diskStorage.saveImage(imageName: "avatar_\(stronSelf.userName)_\(UUID())", image: image) {
-                avatar = ProfileModels.Avatar.imagePath(path)
+                avatar = ProfileModel.Avatar.imagePath(path)
             }
             let request = AuthModels.CreateAccount.Request(name: stronSelf.userName, avatar: avatar)
             

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ErrorAlertView<Presenting>: View where Presenting: View {
     @Binding var isShowing: Bool
-    @Binding var errorText: String
+    var errorText: String
     
     let presenting: Presenting
     
@@ -54,7 +54,7 @@ struct ErrorAlertView_Previews: PreviewProvider {
         let view = VStack {
             Text("ParentView")
         }
-        return ErrorAlertView(isShowing: .constant(true), errorText: .constant("Some Error long very long long long error"), presenting: view)
+        return ErrorAlertView(isShowing: .constant(true), errorText: "Some Error long very long long long error", presenting: view)
     }
 }
 #endif

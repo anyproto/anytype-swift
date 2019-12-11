@@ -8,16 +8,9 @@
 
 import SwiftUI
 
-struct ProfileModel: Identifiable {
-    var id = UUID()
-    var name: String
-    var peers: String? = nil
-    var uploaded: Bool
-    var image: UIImage? = nil
-}
 
 struct SelectProfileView: View {
-    @State var profiles: [ProfileModel] = [ProfileModel(name: "Anton Pronkin", peers: "32/129", uploaded: false), ProfileModel(name: "James Simon", peers: "0/36", uploaded: true), ProfileModel(name: "Tony Leung", uploaded: false)]
+    @State var profiles: [ProfileModel.Profile] = [ProfileModel.Profile(name: "Anton Pronkin", peers: "32/129", uploaded: false), ProfileModel.Profile(name: "James Simon", peers: "0/36", uploaded: true), ProfileModel.Profile(name: "Tony Leung", uploaded: false)]
     
     var body: some View {
         ZStack(alignment: .bottom) {

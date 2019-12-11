@@ -45,9 +45,9 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
         var createAccountRequest = Anytype_Rpc.Account.Create.Request()
         createAccountRequest.name = profile.name
         
-        if case ProfileModels.Avatar.color(let color) = profile.avatar {
+        if case ProfileModel.Avatar.color(let color) = profile.avatar {
             createAccountRequest.avatarColor = color.description
-        } else if case  ProfileModels.Avatar.imagePath(let path) = profile.avatar {
+        } else if case  ProfileModel.Avatar.imagePath(let path) = profile.avatar {
             createAccountRequest.avatarLocalPath = path
         }
         

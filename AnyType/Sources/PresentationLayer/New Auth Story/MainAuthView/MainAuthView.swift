@@ -54,7 +54,7 @@ struct MainAuthView: View {
                     .cornerRadius(12.0)
                     .padding(20)
                 }
-                .errorToast(isShowing: $viewModel.isShowingError, errorText: $viewModel.error)
+                .errorToast(isShowing: $viewModel.isShowingError, errorText: viewModel.error)
                 .navigationBarTitle("")
                 .navigationBarHidden(true)
             }

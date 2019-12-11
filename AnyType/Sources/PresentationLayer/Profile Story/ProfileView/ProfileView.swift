@@ -92,7 +92,7 @@ struct ProfileView : View {
             .background(Color("backgroundColor"))
             .navigationBarTitle("", displayMode: .inline)
         }
-        .errorToast(isShowing: $model.isShowingError, errorText: $model.error)
+        .errorToast(isShowing: $model.isShowingError, errorText: model.error)
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
     }

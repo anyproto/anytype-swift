@@ -36,7 +36,7 @@ struct EnterAccountSeedView: View {
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
         .navigationBarTitle("", displayMode: .inline)
-        .errorToast(isShowing: $viewModel.isShowingError, errorText: $viewModel.error)
+        .errorToast(isShowing: $viewModel.isShowingError, errorText: viewModel.error)
     }
     
     private func onAppear() {
