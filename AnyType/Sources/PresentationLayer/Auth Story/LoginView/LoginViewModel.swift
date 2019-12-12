@@ -33,7 +33,9 @@ class LoginViewModel: ObservableObject {
                 self.error = error
                 return
             }
-//            applicationCoordinator?.startNewRootView(content: SelectProfileView())
+            DispatchQueue.main.async {
+                applicationCoordinator?.startNewRootView(content: SelectProfileView(viewModel: SelectProfileViewModel()))
+            }
         }
     }
 }

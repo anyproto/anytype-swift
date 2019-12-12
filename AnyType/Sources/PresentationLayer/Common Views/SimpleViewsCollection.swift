@@ -35,10 +35,16 @@ struct UserIconView: View {
     private var colors: [UIColor] = [.black, .gray, .yellow, .red, .purple, .blue, .green, .darkGray, .darkText]
     
     var image: UIImage?
+    var color: UIColor?
     var name: String
     
     init(image: UIImage?, name: String) {
         self.image = image
+        self.name = name
+    }
+    
+    init(color: UIColor?, name: String) {
+        self.color = color
         self.name = name
     }
     
@@ -48,7 +54,7 @@ struct UserIconView: View {
                 Image(uiImage: image!)
             } else {
                 ZStack {
-                    Color(colors[Int.random(in: 0..<colors.count)])
+                    Color(color ?? colors[Int.random(in: 0..<colors.count)])
                     Text(String(name.first ?? "A"))
                         .fontWeight(.bold)
                         .font(.title)

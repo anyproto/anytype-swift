@@ -69,3 +69,21 @@ struct WaitingView_Previews: PreviewProvider {
         WaitingView(text: "Setting up the wallet…", errorState: false, errorText: "Some error happens")
     }
 }
+
+
+struct WaitingViewModifier: ViewModifier {
+    var showWaitingView: Bool = false
+    var text: String
+    var errorState: Bool
+    var errorText: String?
+    
+    func body(content: Content) -> some View {
+        VStack {
+            if showWaitingView {
+                WaitingView(text: text, errorState: errorState, errorText: errorText)
+            } else {
+                content
+            }
+        }
+    }
+}

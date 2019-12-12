@@ -30,7 +30,7 @@ extension EventListener: LibMessageHandlerProtocol {
             let event = try? Anytype_Event(serializedData: rawEvent)
         else { return }
         
-//        event.messages.first(where: { $0.accountShow.})
+        NotificationCenter.default.post(name: .middlewareEvent, object: event)
     }
     
 }

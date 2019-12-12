@@ -26,16 +26,32 @@ extension EnvironmentValues {
 
 
 struct AuthServiceKey: EnvironmentKey {
-    static let defaultValue: AnytypeAuthService = AnytypeAuthService()
+    static let defaultValue: AuthService = AuthService()
 }
 
 extension EnvironmentValues {
-    var authService: AnytypeAuthService {
+    var authService: AuthService {
         get {
             return self[AuthServiceKey.self]
         }
         set {
             self[AuthServiceKey.self] = newValue
+        }
+    }
+}
+
+
+struct IpfsFilesServiceKey: EnvironmentKey {
+    static let defaultValue: IpfsFilesService = IpfsFilesService()
+}
+
+extension EnvironmentValues {
+    var ipfsFilesServie: IpfsFilesService {
+        get {
+            return self[IpfsFilesServiceKey.self]
+        }
+        set {
+            self[IpfsFilesServiceKey.self] = newValue
         }
     }
 }

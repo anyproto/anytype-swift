@@ -1,5 +1,5 @@
 //
-//  AnytypeAuthService.swift
+//  AuthService.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 04.12.2019.
@@ -9,17 +9,23 @@
 import Foundation
 import Combine
 import Lib
+import SwiftUI
 
 
-final class AnytypeAuthService: NSObject, AuthServiceProtocol {
+final class AuthService: NSObject, AuthServiceProtocol {
+    @Environment(\.localRepoService) private var localRepoService
+    private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
     
     func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {
         
-     }
-     
-     func logout(completion: @escaping () -> Void) {
-         
-     }
+    }
+    
+    func logout(completion: @escaping () -> Void) {
+        completion()
+        try? FileManager.default.removeItem(atPath: localRepoService.middlewareRepoPath)
+        try? storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: nil)
+        UserDefaultsConfig.usersIdKey = ""
+    }
     
     func createWallet(in path: String, onCompletion: @escaping OnCompletion) {
         var walletRequest = Anytype_Rpc.Wallet.Create.Request()
@@ -31,11 +37,10 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
             guard
                 let data = Lib.LibWalletCreate(requestData),
                 let response = try? Anytype_Rpc.Wallet.Create.Response(serializedData: data),
-//                response.hasError == false
                 response.error.code == .null
-            else {
-                onCompletion(.failure(.createWalletError()))
-                return
+                else {
+                    onCompletion(.failure(.createWalletError()))
+                    return
             }
             onCompletion(.success(response.mnemonic))
         }
@@ -57,11 +62,10 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
             guard
                 let data = Lib.LibAccountCreate(requestData),
                 let response = try? Anytype_Rpc.Account.Create.Response(serializedData: data),
-//                response.hasError == false
                 response.error.code == .null
-            else {
-                onCompletion(.failure(.createAccountError()))
-                return
+                else {
+                    onCompletion(.failure(.createAccountError()))
+                    return
             }
             UserDefaultsConfig.usersIdKey = response.account.id
             onCompletion(.success(response.account.id))
@@ -69,10 +73,9 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
     }
     
     func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        //        getDocumentsDirectory().appendingPathComponent("textile-go").path
-        
         var walletRequest = Anytype_Rpc.Wallet.Recover.Request()
         walletRequest.rootPath = path
+        walletRequest.mnemonic = mnemonic
         
         let requestData = try? walletRequest.serializedData()
         
@@ -80,11 +83,10 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
             guard
                 let data = Lib.LibWalletRecover(requestData),
                 let response = try? Anytype_Rpc.Wallet.Recover.Response(serializedData: data),
-//                response.hasError == false
                 response.error.code == .null
-            else {
-                onCompletion(.failure(.recoverWalletError()))
-                return
+                else {
+                    onCompletion(.failure(.recoverWalletError()))
+                    return
             }
             onCompletion(.success(()))
         }
@@ -99,11 +101,10 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
             guard
                 let data = Lib.LibAccountRecover(requestData),
                 let response = try? Anytype_Rpc.Account.Select.Response(serializedData: data),
-//                response.hasError == false
                 response.error.code == .null
-            else {
-                onCompletion(.failure(.recoverAccountError()))
-                return
+                else {
+                    onCompletion(.failure(.recoverAccountError()))
+                    return
             }
             onCompletion(.success(()))
         }
@@ -116,17 +117,22 @@ final class AnytypeAuthService: NSObject, AuthServiceProtocol {
         
         let requestData = try? selectAccountRequest.serializedData()
         
-        if let requestData = requestData {
-            guard
-                let data = Lib.LibAccountSelect(requestData),
-                let response = try? Anytype_Rpc.Account.Select.Response(serializedData: data),
-//                response.hasError == false
-                response.error.code == .null
-            else {
-                onCompletion(.failure(.selectAccountError()))
-                return
+        DispatchQueue.global().async {
+            if let requestData = requestData {
+                guard
+                    let data = Lib.LibAccountSelect(requestData),
+                    let response = try? Anytype_Rpc.Account.Select.Response(serializedData: data),
+                    response.error.code == .null
+                    else {
+                        DispatchQueue.main.async {
+                            onCompletion(.failure(.selectAccountError()))
+                        }
+                        return
+                }
+                DispatchQueue.main.async {
+                    onCompletion(.success(response.account.id))
+                }
             }
-            onCompletion(.success(response.account.id))
         }
     }
 }

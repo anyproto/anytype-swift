@@ -10,7 +10,8 @@ import SwiftUI
 
 
 class WaitingViewOnCreatAccountModel: ObservableObject {
-    private var authService = AnytypeAuthService()
+    private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
+    private var authService = AuthService()
     private var diskStorage = DiskStorage()
     var userName: String
     var image: UIImage?
@@ -40,6 +41,11 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
                     case .failure(let error):
                         stronSelf.error = error.localizedDescription
                     case .success(let id):
+                        UserDefaultsConfig.usersIdKey = id
+                        
+                        if let seed = try? self?.storeService.obtainSeed(for: nil, keyChainPassword: nil) {
+                            try? self?.storeService.saveSeedForAccount(name: id, seed: seed, keyChainPassword: nil)
+                        }
                         applicationCoordinator?.startNewRootView(content: CompletionAuthView())
                     }
                 }

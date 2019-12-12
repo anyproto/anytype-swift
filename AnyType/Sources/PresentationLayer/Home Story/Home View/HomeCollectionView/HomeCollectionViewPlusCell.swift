@@ -40,6 +40,6 @@ extension HomeCollectionViewPlusCell {
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
         
-        imageView.image = #imageLiteral(resourceName: "Plus").withTintColor(.white)
+        imageView.image = #imageLiteral(resourceName: "plus").withTintColor(.white)
     }
 }

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import SwiftUI
 
 
 struct ProfileModel {
+    @Environment(\.localRepoService) var localRepoService
     let profiles: [ProfileModel]
     
     enum Avatar {

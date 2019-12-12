@@ -34,9 +34,6 @@ struct UserDefaultsConfig {
     @UserDefault("userId", defaultValue: "")
     static var usersIdKey: String
     
-    @UserDefault("usersPublicKey", defaultValue: [])
-    static var usersPublicKey: Array<String>
-    
     @UserDefault("notificationUpdates", defaultValue: false)
     static var notificationUpdates: Bool
     

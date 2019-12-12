@@ -10,8 +10,12 @@ import UIKit
 import SwiftUI
 import Combine
 
+
 /// First coordinator that start ui flow
 class ApplicationCoordinator {
+    @Environment(\.authService) private var authService
+    @Environment(\.localRepoService) private var localRepoService
+    
     private let window: UIWindow
     private let keychainStore = KeychainStoreService()
     
@@ -24,34 +28,32 @@ class ApplicationCoordinator {
     // MARK: - Public methods
     
     func start() {
-        // just in case
-        removePublicKeysIfSeedsNotExist(publicKeys: UserDefaultsConfig.usersPublicKey)
-        
-//        let authViewCoordinator = AuthViewCoordinator()
-//        let view = authViewCoordinator.authView()
-        
 //        let view = HomeViewContainer()
-        let view = MainAuthView(viewModel: MainAuthViewModel())
-        applicationCoordinator?.startNewRootView(content: view)
+//        startNewRootView(content: view)
         
-        startNewRootView(content: view)
+        login(id: UserDefaultsConfig.usersIdKey)
     }
     
     func startNewRootView<Content: View>(content: Content) {
         window.rootViewController = UIHostingController(rootView: content)
         window.makeKeyAndVisible()
     }
-    
-    private func removePublicKeysIfSeedsNotExist(publicKeys: [String]) {
-        for key in publicKeys {
-            removePublicKeyIfSeedNotExists(publicKey: key)
+
+    private func login(id: String) {
+        guard id.isEmpty == false else {
+            let view = MainAuthView(viewModel: MainAuthViewModel())
+            startNewRootView(content: view)
+            return
         }
-    }
-    
-    private func removePublicKeyIfSeedNotExists(publicKey: String) {
-        if !keychainStore.containsSeed(for: publicKey) {
-            UserDefaultsConfig.usersPublicKey = UserDefaultsConfig.usersPublicKey.filter {
-                $0 != publicKey
+        
+        self.authService.selectAccount(id: id, path: localRepoService.middlewareRepoPath) { [weak self] result in
+            switch result {
+            case .success:
+                let view = HomeViewContainer()
+                self?.startNewRootView(content: view)
+            case .failure:
+                let view = MainAuthView(viewModel: MainAuthViewModel())
+                self?.startNewRootView(content: view)
             }
         }
     }

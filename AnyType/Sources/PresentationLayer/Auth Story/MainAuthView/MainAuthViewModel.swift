@@ -11,9 +11,10 @@ import SwiftUI
 
 
 class MainAuthViewModel: ObservableObject {
-    private let repoPath = getDocumentsDirectory().appendingPathComponent("middleware-go").path
-    private var authService: AuthServiceProtocol = AnytypeAuthService()
-    private let storeService: StoreServiceProtocol = KeychainStoreService()
+    @Environment(\.localRepoService) private var localRepoService
+    
+    private var authService: AuthServiceProtocol = AuthService()
+    private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
     
     @Published var error: String = "" {
         didSet {
@@ -26,19 +27,20 @@ class MainAuthViewModel: ObservableObject {
     @Published var shouldShowCreateProfileView: Bool = false
     
     init() {
-        print("repoPath: \(repoPath)")
+        print("repoPath: \(localRepoService.middlewareRepoPath)")
     }
     
     func singUp() {
-        authService.createWallet(in: repoPath) { [weak self] result in
-            
+        try? self.storeService.removeSeed(for: nil, keyChainPassword: nil)
+        
+        authService.createWallet(in: localRepoService.middlewareRepoPath) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.error = error.localizedDescription
             case .success(let seed):
                 // TODO: handel error
                 // TODO: here is we need true password
-                try? self?.storeService.saveSeedForAccount(name: "defaultSeed", seed: seed, keyChainPassword: "temppass")
+                try? self?.storeService.saveSeedForAccount(name: nil, seed: seed, keyChainPassword: nil)
                 self?.shouldShowCreateProfileView = true
             }
         }

@@ -51,7 +51,7 @@ struct GenericPasswordQueryable {
         
         access = SecAccessControlCreateWithFlags(nil,
             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-            [.biometryAny, .applicationPassword],
+            [.userPresence],
             &error)
         precondition(access != nil, "SecAccessControlCreateWithFlags failed")
         
@@ -66,14 +66,12 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
         query[String(kSecAttrService)] = service
         query[String(kSecAttrAccount)] = account
         
+        let context = LAContext()
         if let password = keyChainPassword, !password.isEmpty {
-            let context = LAContext()
             context.setCredential(password.data(using: .utf8), type: .applicationPassword)
-            
-            query[String(kSecUseAuthenticationContext)] = context
-            query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
-            
         }
+        query[String(kSecUseAuthenticationContext)] = context
+        query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
         
         // Access group if target environment is not simulator
         #if !targetEnvironment(simulator)

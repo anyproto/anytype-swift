@@ -6,6 +6,8 @@
 //  Copyright © 2019 AnyType. All rights reserved.
 //
 
+import UIKit
+
 
 /// Protocol provides local paths where user data stored
 protocol LocalRepoServiceProtocol {
@@ -14,6 +16,10 @@ protocol LocalRepoServiceProtocol {
     
     /// Returns path to dir with cashed images (for example user avatar)
     var imagePath: String { get }
+    
+    /// Check if file exists on path
+    /// - Parameter path: path where file should be
+    func fileExists(on path: String) -> Bool
 }
 
 
@@ -25,5 +31,9 @@ class LocalRepoService: LocalRepoServiceProtocol {
     
     var imagePath: String {
         return getDocumentsDirectory().appendingPathComponent("images").path
+    }
+    
+    func fileExists(on path: String) -> Bool {
+       return FileManager.default.fileExists(atPath: path)
     }
 }
