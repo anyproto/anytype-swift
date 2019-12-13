@@ -64,7 +64,10 @@ private extension DocumentView {
         let rowViewBuilder = builders[index]
         
         return VStack(spacing: 0) {
-            rowViewBuilder.buildView().modifier(ShowViewOnRectIntersect(blocksRects: self.$blocksRects, dragCoordinates: self.$dragCoordinates, index: index))
+            HStack {
+                Spacer(minLength: 10)
+                rowViewBuilder.buildView().modifier(ShowViewOnRectIntersect(blocksRects: self.$blocksRects, dragCoordinates: self.$dragCoordinates, index: index))
+            }
         }
     }
     

@@ -66,7 +66,7 @@ extension DocumentViewModel {
         blocksViewsBuilders = [BlockViewRowBuilderProtocol]()
         
         // TODO: Maybe we need to create some fabric for resolver?
-        let resolver: (Block) -> BlockViewRowBuilderProtocol = { block in
+        let _ : (Block) -> BlockViewRowBuilderProtocol = { block in
             switch block.type {
             case .text:
                 return TextBlockViewModel(block: block)
