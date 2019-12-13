@@ -18,7 +18,7 @@ class ApplicationCoordinator {
     
     private let window: UIWindow
     private let keychainStore = KeychainStoreService()
-    
+    private let pageScrollViewLayout = GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout()
     // MARK: - Lifecycle
     
     init(window: UIWindow) {
@@ -28,10 +28,16 @@ class ApplicationCoordinator {
     // MARK: - Public methods
     
     func start() {
-//        let view = HomeViewContainer()
-//        startNewRootView(content: view)
-        
-        login(id: UserDefaultsConfig.usersIdKey)
+        let shouldLogin = true
+        if shouldLogin {
+            login(id: UserDefaultsConfig.usersIdKey)
+        }
+        else {
+            let view = HomeViewContainer()
+            applicationCoordinator?.startNewRootView(content: view)
+            
+            startNewRootView(content: view.environmentObject(self.pageScrollViewLayout))
+        }
     }
     
     func startNewRootView<Content: View>(content: Content) {
