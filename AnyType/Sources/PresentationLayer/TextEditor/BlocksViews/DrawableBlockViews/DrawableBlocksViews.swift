@@ -8,7 +8,8 @@
 
 import Foundation
 enum ImageBlocksViews {
-    enum Image {} // -> Text.ContentType.image
+    enum Image {} // -> Image.ContentType.image
+    enum PageIcon {} // -> Image.ContentType.pageIcon
 }
 
 extension ImageBlocksViews {
@@ -22,6 +23,7 @@ extension ImageBlocksViews.Supplement {
             case let .image(text):
                 switch text.contentType {
                 case .image: return blocks.map{ImageBlocksViews.Image.BlockViewModel(block: $0)}
+                case .pageIcon: return blocks.map{ImageBlocksViews.PageIcon.BlockViewModel(block: $0)}
                 }
             default: return []
             }

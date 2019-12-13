@@ -15,7 +15,7 @@ extension TextBlocksViews.Bulleted {
         @Published var text: String
         init(block: Block) {
             self.block = block
-            self.text = "1234567"
+            self.text = "Bulleted"
         }
         var id = UUID()
     }
@@ -32,7 +32,7 @@ import SwiftUI
 extension TextBlocksViews.Bulleted {
     struct MarkedViewModifier: ViewModifier {
         func body(content: Content) -> some View {
-            HStack {
+            HStack(alignment: .top) {
                 Text("⊙")
                 content
             }

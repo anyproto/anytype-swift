@@ -17,7 +17,7 @@ extension TextBlocksViews.Header {
         init(block: Block) {
             self.block = block
             self.style = .heading1
-            self.text = "1234567"
+            self.text = "Header"
         }
         func update(style: Style) -> Self {
             self.style = style
@@ -44,23 +44,44 @@ extension TextBlocksViews.Header {
         func font() -> Font {
             switch self {
             case .none: return .body
-            case .heading1: return .title
+            case .heading1: return .largeTitle
             case .heading2: return .title
             case .heading3: return .headline
             case .heading4: return .subheadline
             }
         }
+        func fontStyle() -> UIFont.TextStyle {
+            switch self {
+                case .none: return .body
+                case .heading1: return .largeTitle
+                case .heading2: return .title1
+                case .heading3: return .title2
+                case .heading4: return .title3
+            }
+        }
+        func fontSize() -> CGFloat {
+            switch self {
+            case .none: return 0
+            default: return UIFont.preferredFont(forTextStyle: self.fontStyle()).pointSize
+            }
+        }
+        func theFont() -> Font {
+            switch self {
+            case .none: return self.font()
+            default: return .system(size: self.fontSize(), weight: self.fontWeight(), design: .default)
+            }
+        }
         func fontWeight() -> Font.Weight {
             switch self {
             case .none: return .regular
-            case .heading1: return .heavy
+            case .heading1: return .bold
             case .heading2: return .heavy
             case .heading3: return .heavy
             case .heading4: return .heavy
             }
         }
         func foregroundColor() -> Color {
-            return .gray
+            return .black
         }
     }
 }
@@ -70,14 +91,14 @@ extension TextBlocksViews.Header {
     struct MarkedViewModifier: ViewModifier {
         fileprivate var style: Style
         func body(content: Content) -> some View {
-            content.font(self.style.font()).foregroundColor(self.style.foregroundColor())
+            content.font(self.style.theFont()).foregroundColor(self.style.foregroundColor())
         }
     }
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextField("Input", text: self.$viewModel.text).modifier(MarkedViewModifier(style: self.viewModel.style))
-//            TextView(text: self.$viewModel.text, sizeThatFit: self.$sizeThatFit)
+            TextField("Untitled", text: self.$viewModel.text)
+                .modifier(MarkedViewModifier(style: self.viewModel.style))
         }
     }
 }

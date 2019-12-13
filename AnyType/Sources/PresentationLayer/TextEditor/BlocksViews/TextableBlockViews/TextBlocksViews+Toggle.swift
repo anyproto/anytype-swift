@@ -17,7 +17,7 @@ extension TextBlocksViews.Toggle {
         @Published var toggled: Bool
         init(block: Block) {
             self.block = block
-            self.text = "1234567"
+            self.text = "Toggle"
             self.toggled = false
         }
         func update(blocks: [BlockViewRowBuilderProtocol]) -> Self {
@@ -46,11 +46,11 @@ extension TextBlocksViews.Toggle {
         }
         @Binding var toggled: Bool
         func body(content: Content) -> some View {
-            HStack {
+            HStack(alignment: .top) {
                 Button(action: {
                     self.toggled.toggle()
                 }) {
-                    Image(self.image(checked: self.toggled)).rotationEffect(.init(radians: self.toggled ? Double.pi / 2 : 0))
+                    Image(self.image(checked: self.toggled)).foregroundColor(.orange).rotationEffect(.init(radians: self.toggled ? Double.pi / 2 : 0))
                 }
                 content
             }
