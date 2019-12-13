@@ -23,46 +23,78 @@ class TestDocumentService: DocumentServiceProtocol {
             return documentsHeadersModel
         }()
         
-        static func allBlocks() -> [Block] {
-            return [
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .header))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .todo))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .bulleted))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .bulleted))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .bulleted))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .numbered))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .text))),
-                .init(id: "2", parentId: "2", type: .text(.init(text: "1", contentType: .toggle))),
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .callout))),
-                .init(id: "1", parentId: "2", type: .image(.init(contentType: .image))),
-                .init(id: "1", parentId: "2", type: .image(.init(contentType: .image)))
-            ]
+        private enum BlocksSet: Int {
+            case debug
+            case focus
+            case presentation
+            static func debugSet() -> [Block] {
+                
+                [
+                    .mockText(.text),
+                    .mockText(.header),
+                    .mockText(.text),
+                    .mockText(.todo),
+                    .mockText(.todo),
+                    .mockText(.todo),
+                    .mockText(.bulleted),
+                    .mockText(.bulleted),
+                    .mockText(.bulleted),
+                    .mockText(.numbered),
+                    .mockText(.numbered),
+                    .mockText(.numbered),
+                    .mockText(.quote),
+                    .mockText(.numbered),
+                    .mockText(.text),
+                    .mockText(.toggle),
+                    .mockText(.callout),
+                    .mockImage(.image),
+                    .mockImage(.image)
+                ]
+            }
+            static func focusSet() -> [Block] {
+                [
+//                    .mockText(.quote),
+//                    .mockImage(.image)
+                    .mockText(.todo)
+                ]
+            }
+            static func presentationSet() -> [Block] {
+                [
+                    .mockImage(.pageIcon),
+                    .mockText(.header),
+                    .mockText(.text),
+                    .mockText(.todo),
+                    .mockText(.todo),
+                    .mockText(.todo),
+                    .mockText(.bulleted),
+                    .mockText(.bulleted),
+                    .mockText(.bulleted),
+                    .mockText(.numbered),
+                    .mockText(.numbered),
+                    .mockText(.numbered),
+                    .mockText(.quote),
+                    .mockText(.toggle),
+                    .mockText(.callout),
+                ]
+            }
+            func blocks() -> [Block] {
+                switch self {
+                case .debug: return Self.debugSet()
+                case .focus: return Self.focusSet()
+                case .presentation: return Self.presentationSet()
+                }
+            }
         }
-        static func focusedBlocks() -> [Block] {
-            return [
-                .init(id: "1", parentId: "2", type: .text(.init(text: "1", contentType: .quote))),
-                .init(id: "1", parentId: "2", type: .image(.init(contentType: .image)))
-            ]
-        }
-        static func getBlocks(focused: Bool) -> [Block] {
-            return focused ? self.focusedBlocks() : self.allBlocks()
+        private static func getBlocks(set: BlocksSet) -> [Block] {
+            set.blocks()
         }
         var blocks: [Block] = {
-            return Self.getBlocks(focused: false)
+            Self.getBlocks(set: .presentation)
         }()
 
         
         func document(id: String) -> Document? {
             let document = documentsHeaders.headers.first { $0.id == id }.map { Document(header: $0, blocks: blocks) }
-            
             return document
         }
     }
