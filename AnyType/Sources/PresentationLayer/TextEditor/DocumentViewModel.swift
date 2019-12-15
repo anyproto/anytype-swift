@@ -13,7 +13,7 @@ class DocumentViewModel: ObservableObject {
     private var documentHeader: DocumentHeader?
     
     @Published var error: String?
-    @Published var blocksViewsBuilders: [BlockViewRowBuilderProtocol]?
+    @Published var blocksViewsBuilders: [BlockViewBuilderProtocol]?
     
     init(documentId: String?) {
         obtainDocument(documentId: documentId)
@@ -63,10 +63,10 @@ extension DocumentViewModel {
     
     // TODO: Refact when middle will be ready
     private func createblocksViewsBuilders(document: Document) {
-        blocksViewsBuilders = [BlockViewRowBuilderProtocol]()
+        blocksViewsBuilders = [BlockViewBuilderProtocol]()
         
         // TODO: Maybe we need to create some fabric for resolver?
-        let _ : (Block) -> BlockViewRowBuilderProtocol = { block in
+        let _ : (Block) -> BlockViewBuilderProtocol = { block in
             switch block.type {
             case .text:
                 return TextBlockViewModel(block: block)

@@ -17,11 +17,13 @@ extension TextBlocksViews.Text {
             self.block = block
             self.text = "Text"
         }
-        var id = UUID()
+        var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Text.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Text.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Text.BlockView(viewModel: self))
     }

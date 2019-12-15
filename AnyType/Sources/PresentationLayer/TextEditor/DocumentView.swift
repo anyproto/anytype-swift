@@ -42,7 +42,7 @@ struct DocumentView: View {
 
 private extension DocumentView {
     
-    func blocksView(viewBulders: [BlockViewRowBuilderProtocol]) -> some View {
+    func blocksView(viewBulders: [BlockViewBuilderProtocol]) -> some View {
         CustomScrollView() {
             ForEach(0..<viewBulders.count, id: \.self) { index in
                 self.makeBlockView(for: index, in: viewBulders)
@@ -50,23 +50,92 @@ private extension DocumentView {
             }
                 .padding(.top, 10) // Workaround: adjust first item after removing spacing
                 .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
-                .backgroundPreferenceValue(BaseViewPreferenceKey.self) {preference in
-                    GeometryReader { proxy in
-                        self.convertDragRectFromAnchor(preference: preference, in: proxy)
-                    }
-            }
         }
         .scrollViewOffset(offset: self.velocity)
+        .border(showViewFrames ? Color.red : Color.clear)
+            // TODO: Replace with pasteDraggingView func
         .overlayPreferenceValue(BaseViewPreferenceKey.self) { preference in
-            if preference.view != nil {
-                preference.view
+            GeometryReader { proxy in
+                return DraggingView(proxy: proxy, viewBulders: viewBulders, preference: preference)
             }
         }
+//        .overlayPreferenceValue(DraggingViewPreferenceDataKey.self) { preference in
+//            GeometryReader { proxy in
+//                self.convertDragRectFromAnchor(preference: preference, in: proxy)
+//            }
+//        }
         .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity))
-        .border(showViewFrames ? Color.red : Color.clear)
     }
     
-    private func makeBlockView(for index: Int, in builders: [BlockViewRowBuilderProtocol]) -> some View {
+     // TODO: Move to PasteDraggingView struct
+    
+    struct DraggingViewPreferenceData: Identifiable, Equatable {
+        static func == (lhs: DraggingViewPreferenceData, rhs: DraggingViewPreferenceData) -> Bool {
+            lhs.id == rhs.id
+        }
+        
+        let id = UUID()
+        let position: Anchor<CGRect>?
+    }
+    
+    
+    struct DraggingViewPreferenceDataKey: PreferenceKey {
+        typealias Value = DraggingViewPreferenceData
+        
+        static var defaultValue = DraggingViewPreferenceData(position: nil)
+        
+        static func reduce(value: inout DraggingViewPreferenceData, nextValue: () -> DraggingViewPreferenceData) {
+            value = nextValue()
+        }
+    }
+    
+    struct DraggingView: View {
+        var proxy: GeometryProxy
+        var viewBulders: [BlockViewBuilderProtocol]
+        var preference: BaseViewPreferenceData
+        @State var position: Anchor<CGRect>?
+        
+        init(proxy: GeometryProxy, viewBulders: [BlockViewBuilderProtocol], preference: BaseViewPreferenceData) {
+            self.proxy = proxy
+            self.viewBulders = viewBulders
+            self.preference = preference
+        }
+        
+        var body: some View {
+            dragginView(proxy: proxy, viewBulders: viewBulders, preference: preference)
+        }
+        
+        private func dragginView(proxy: GeometryProxy, viewBulders: [BlockViewBuilderProtocol], preference: BaseViewPreferenceData) -> some View {
+            let dragginView = viewBulders.first(where: { viewBuilder in
+                viewBuilder.id == preference.id
+            })?.buildView()
+            
+            return Group {
+                if preference.isActive {
+                    dragginView
+                        .position(CGPoint(x: proxy[self.position ?? self.preference.position!].midX, y: proxy[self.position ?? self.preference.position!].midY))
+                        .offset(x: preference.translation.width, y: preference.translation.height)
+                        .anchorPreference(key: DraggingViewPreferenceDataKey.self, value: .bounds) {
+                            DraggingViewPreferenceData(position: $0)
+                    }
+                    .onAppear {
+                        self.position = self.preference.position
+                    }
+                    .onDisappear {
+                        self.position = nil
+                    }
+                } else {
+                    EmptyView()
+                        .onAppear {
+                            self.position = nil
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    private func makeBlockView(for index: Int, in builders: [BlockViewBuilderProtocol]) -> some View {
         let rowViewBuilder = builders[index]
         
         return VStack(spacing: 0) {
@@ -78,12 +147,13 @@ private extension DocumentView {
     }
     
     // Convert anchor drag to frame in current ccoordinates
-    private func convertDragRectFromAnchor(preference: BaseViewPreferenceData, in proxy: GeometryProxy) -> some View {
-        if preference.isDragging, let dragRect = preference.dragRect {
-            self.dragCoordinates = proxy[dragRect]
-        } else {
-            self.dragCoordinates = nil
+    private func convertDragRectFromAnchor(preference: DraggingViewPreferenceData, in proxy: GeometryProxy) -> some View {
+        guard let position = preference.position else { return Color.clear }
+        
+        DispatchQueue.main.async {
+            self.dragCoordinates = proxy[position]
         }
+            
         return Color.clear
     }
     
@@ -111,7 +181,7 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
     
     func body(content: Content) -> some View {
         return content
-            .overlayPreferenceValue(BaseViewPreferenceKey.self) { preference in
+            .overlayPreferenceValue(DocumentView.DraggingViewPreferenceDataKey.self) { preference in
                 GeometryReader { proxy in
                     self.obtainBoundary(proxy: proxy, preference: preference)
                 }
@@ -121,7 +191,7 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
         }
     }
     
-    private func obtainBoundary(proxy: GeometryProxy, preference: BaseViewPreferenceData) -> some View {
+    private func obtainBoundary(proxy: GeometryProxy, preference: DocumentView.DraggingViewPreferenceData) -> some View {
         var velocity = CGPoint(x: 0, y: 0)
         
         let frame = proxy.frame(in: .local)
@@ -131,7 +201,7 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
         let bottomOrigin = CGPoint(x: frame.minX, y: bottomY)
         let bottomBoundary = CGRect(origin: bottomOrigin, size: CGSize(width: frame.width, height: frame.height * 0.15))
         
-        if let anchorDragRect = preference.dragRect, preference.isDragging {
+        if let anchorDragRect = preference.position {
             if upperBoundary.intersects(proxy[anchorDragRect]) {
                 velocity = CGPoint(x: 0, y: -10)
             } else if bottomBoundary.intersects(proxy[anchorDragRect]) {

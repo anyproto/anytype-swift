@@ -11,7 +11,7 @@ import Foundation
 // MARK: ViewModel
 extension TextBlocksViews.Toggle {
     class BlockViewModel: ObservableObject, Identifiable {
-        fileprivate var blocks: [BlockViewRowBuilderProtocol] = []
+        fileprivate var blocks: [BlockViewBuilderProtocol] = []
         fileprivate var block: Block
         @Published var text: String
         @Published var toggled: Bool
@@ -20,15 +20,17 @@ extension TextBlocksViews.Toggle {
             self.text = "Toggle"
             self.toggled = false
         }
-        func update(blocks: [BlockViewRowBuilderProtocol]) -> Self {
+        func update(blocks: [BlockViewBuilderProtocol]) -> Self {
             self.blocks = blocks
             return self
         }
-        var id = UUID()
+        var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Toggle.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Toggle.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Toggle.BlockView(viewModel: self))
     }
@@ -59,7 +61,7 @@ extension TextBlocksViews.Toggle {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         
-        func blocks() -> [BlockViewRowBuilderProtocol] {
+        func blocks() -> [BlockViewBuilderProtocol] {
             self.viewModel.toggled ? self.viewModel.blocks : []
         }
         var body: some View {

@@ -21,11 +21,13 @@ extension TextBlocksViews.Checkbox {
             self.checked = false
             self.text = "Checkbox"
         }
-        var id = UUID()
+        var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Checkbox.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Checkbox.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Checkbox.BlockView(viewModel: self))
     }

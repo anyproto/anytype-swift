@@ -17,10 +17,12 @@ class TextBlockViewModel: ObservableObject, Identifiable {
         self.block = block
     }
     
-    var id = UUID()
+    var id: String {
+        return block.id
+    }
 }
 
-extension TextBlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlockViewModel: BlockViewBuilderProtocol {
 
     func buildView() -> AnyView {
         AnyView(TextBlockView(viewModel: self))

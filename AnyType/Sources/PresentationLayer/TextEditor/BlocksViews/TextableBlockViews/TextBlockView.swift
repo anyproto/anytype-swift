@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct TextBlockView: View {
-    private var viewModel: TextBlockViewModel?
+    private var viewModel: TextBlockViewModel
     
     @State var text: String = ""
     
@@ -21,7 +21,7 @@ struct TextBlockView: View {
     var body: some View {
         VStack {
             TextView(text: self.$text)
-                .modifier(DraggbleView())
+                .modifier(DraggbleView(blockId: viewModel.id))
         }
     }
 }

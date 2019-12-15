@@ -17,11 +17,13 @@ extension TextBlocksViews.Bulleted {
             self.block = block
             self.text = "Bulleted"
         }
-        var id = UUID()
+        var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Bulleted.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Bulleted.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Bulleted.BlockView(viewModel: self))
     }
@@ -42,7 +44,7 @@ extension TextBlocksViews.Bulleted {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier()).modifier(DraggbleView())
+            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier()).modifier(DraggbleView(blockId: viewModel.id))
         }
     }
 }

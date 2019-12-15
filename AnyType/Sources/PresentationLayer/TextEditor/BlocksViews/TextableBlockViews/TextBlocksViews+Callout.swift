@@ -24,11 +24,13 @@ extension TextBlocksViews.Callout {
             self.style = style
             return self
         }
-        var id = UUID()
+       var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Callout.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Callout.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Callout.BlockView(viewModel: self))
     }

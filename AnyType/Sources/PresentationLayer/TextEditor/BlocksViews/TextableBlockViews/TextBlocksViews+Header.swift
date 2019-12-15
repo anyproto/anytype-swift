@@ -23,11 +23,13 @@ extension TextBlocksViews.Header {
             self.style = style
             return self
         }
-        var id = UUID()
+        var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Header.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Header.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Header.BlockView(viewModel: self))
     }
