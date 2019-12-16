@@ -49,9 +49,12 @@ struct UserIconView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             if image != nil {
                 Image(uiImage: image!)
+                    .resizable()
+                    .renderingMode(.original)
+                    .aspectRatio(contentMode: .fill)
             } else {
                 ZStack {
                     Color(color ?? colors[Int.random(in: 0..<colors.count)])
@@ -71,7 +74,7 @@ struct SimpleViews_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ImageWithCircleBackgroundView(imageName: "logo-sign-part-mobile", backgroundColor: Color.secondary)
-            UserIconView(image: nil, name: "Anton B")
+            UserIconView(image: UIImage(named: "logo-sign-part-mobile"), name: "Anton B")
         }
     }
 }

@@ -22,22 +22,22 @@ class IpfsFilesService {
     }
     
     private func fetchImage(requestModel: IpfsFilesModel.Image.Download.Request, _ completion: @escaping (Result<Data, IpfsFilesModel.Image.Download.DownloadError>) -> Void) {
-        var accountRecoverRequest = Anytype_Rpc.Ipfs.Image.Get.Blob.Request()
-        accountRecoverRequest.id = requestModel.id
-        accountRecoverRequest.size = requestModel.size
+        var imageRequest = Anytype_Rpc.Ipfs.Image.Get.Blob.Request()
+        imageRequest.id = requestModel.id
+        imageRequest.size = requestModel.size
         
-        let requestData = try? accountRecoverRequest.serializedData()
+        let requestData = try? imageRequest.serializedData()
         
         DispatchQueue.global().async {
             if let requestData = requestData {
                 guard
                     let data = Lib.LibImageGetBlob(requestData),
-                    let response = try? Anytype_Rpc.Account.Select.Response(serializedData: data),
+                    let response = try? Anytype_Rpc.Ipfs.Image.Get.Blob.Response(serializedData: data),
                     response.error.code == .null else {
                         completion(.failure(.downLoadImageError))
                         return
                 }
-                completion(.success(data))
+                completion(.success(response.blob))
             }
         }
     }

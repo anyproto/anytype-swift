@@ -62,7 +62,7 @@
 		03992F652395D7A10027A4AD /* CreateNewProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F642395D7A10027A4AD /* CreateNewProfileView.swift */; };
 		03992F672395DA350027A4AD /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F662395DA350027A4AD /* CustomTextField.swift */; };
 		03992F6923969B030027A4AD /* CompletionAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6823969B030027A4AD /* CompletionAuthView.swift */; };
-		03992F6B23969B970027A4AD /* SimpleViewsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6A23969B970027A4AD /* SimpleViewsCollection.swift */; };
+		03992F6B23969B970027A4AD /* SimpleViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6A23969B970027A4AD /* SimpleViews.swift */; };
 		039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039DA2E52305843D0041F95C /* ErrorAlertView.swift */; };
 		039F6D78239580A10097560A /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F6D77239580A10097560A /* LoginView.swift */; };
 		039F6D7A239591C80097560A /* Colors+Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F6D79239591C80097560A /* Colors+Gradients.swift */; };
@@ -204,7 +204,7 @@
 		03992F642395D7A10027A4AD /* CreateNewProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileView.swift; sourceTree = "<group>"; };
 		03992F662395DA350027A4AD /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		03992F6823969B030027A4AD /* CompletionAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAuthView.swift; sourceTree = "<group>"; };
-		03992F6A23969B970027A4AD /* SimpleViewsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewsCollection.swift; sourceTree = "<group>"; };
+		03992F6A23969B970027A4AD /* SimpleViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViews.swift; sourceTree = "<group>"; };
 		03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileView.swift; sourceTree = "<group>"; };
 		039DA2E52305843D0041F95C /* ErrorAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAlertView.swift; sourceTree = "<group>"; };
 		039F6D77239580A10097560A /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -442,7 +442,7 @@
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				03A3D5C3239EF0FE006D7962 /* ImagePicker.swift */,
 				03507437239E8673001CF477 /* KeyboardObserver.swift */,
-				03992F6A23969B970027A4AD /* SimpleViewsCollection.swift */,
+				03992F6A23969B970027A4AD /* SimpleViews.swift */,
 				03992F662395DA350027A4AD /* CustomTextField.swift */,
 				0A693223238C4EC300575544 /* TextView+MarkStyle.swift */,
 				03425C5323849AAE00E22FF1 /* CustomScrollView.swift */,
@@ -1035,7 +1035,7 @@
 			files = (
 				03992F672395DA350027A4AD /* CustomTextField.swift in Sources */,
 				039F6D7A239591C80097560A /* Colors+Gradients.swift in Sources */,
-				03992F6B23969B970027A4AD /* SimpleViewsCollection.swift in Sources */,
+				03992F6B23969B970027A4AD /* SimpleViews.swift in Sources */,
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */,
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
