@@ -74,18 +74,19 @@ struct DraggbleView: ViewModifier {
     func body(content: Content) -> some View {
         return HStack {
             Text("+")
-                .gesture(createDragGeasture())
+//                .gesture(createDragGeasture())
             content
                 .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) { anchor in
                     return BaseViewPreferenceData(id: self.blockId, position: anchor, translation: self.dragState.translation, isActive: self.dragState.isActive)
             }
         }
+        .gesture(createDragGeasture())
     }
     
     private func createDragGeasture() -> some Gesture {
-        let minimumLongPressDuration = 0.5
+        let minimumLongPressDuration = 1.5
         return LongPressGesture(minimumDuration: minimumLongPressDuration)
-            .sequenced(before: DragGesture())
+            .sequenced(before: DragGesture(coordinateSpace: .global))
             .updating($dragState) { value, state, transaction in
                 switch value {
                 // Long press begins.

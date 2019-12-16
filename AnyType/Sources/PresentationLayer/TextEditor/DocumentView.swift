@@ -13,7 +13,7 @@ struct DocumentView: View {
     @Environment(\.showViewFrames) private var showViewFrames
     
     @ObservedObject var viewModel: DocumentViewModel
-    @State var dragCoordinates: CGRect? = nil
+    @State var dragCoordinates: CGRect?
     @State var blocksRects: [CGRect] // blocks' rects
     @State var velocity: CGPoint = .zero
     
@@ -49,7 +49,6 @@ private extension DocumentView {
                     .padding(.top, -10) // Workaround: remove spacing
             }
                 .padding(.top, 10) // Workaround: adjust first item after removing spacing
-                .coordinateSpace(name: "DocumentViewScrollCoordinateSpace")
         }
         .scrollViewOffset(offset: self.velocity)
         .border(showViewFrames ? Color.red : Color.clear)
@@ -59,11 +58,9 @@ private extension DocumentView {
                 return DraggingView(proxy: proxy, viewBulders: viewBulders, preference: preference)
             }
         }
-//        .overlayPreferenceValue(DraggingViewPreferenceDataKey.self) { preference in
-//            GeometryReader { proxy in
-//                self.convertDragRectFromAnchor(preference: preference, in: proxy)
-//            }
-//        }
+        .overlayPreferenceValue(DraggingViewPreferenceDataKey.self) { preference in
+            self.saveDraggingViewPostion(preference: preference)
+        }
         .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity))
     }
     
@@ -76,13 +73,14 @@ private extension DocumentView {
         
         let id = UUID()
         let position: Anchor<CGRect>?
+        let globalPositon: CGRect?
     }
     
     
     struct DraggingViewPreferenceDataKey: PreferenceKey {
         typealias Value = DraggingViewPreferenceData
         
-        static var defaultValue = DraggingViewPreferenceData(position: nil)
+        static var defaultValue = DraggingViewPreferenceData(position: nil, globalPositon: nil)
         
         static func reduce(value: inout DraggingViewPreferenceData, nextValue: () -> DraggingViewPreferenceData) {
             value = nextValue()
@@ -94,6 +92,7 @@ private extension DocumentView {
         var viewBulders: [BlockViewBuilderProtocol]
         var preference: BaseViewPreferenceData
         @State var position: Anchor<CGRect>?
+        @State var globalPosition: CGRect = .zero
         
         init(proxy: GeometryProxy, viewBulders: [BlockViewBuilderProtocol], preference: BaseViewPreferenceData) {
             self.proxy = proxy
@@ -113,11 +112,13 @@ private extension DocumentView {
             return Group {
                 if preference.isActive {
                     dragginView
-                        .position(CGPoint(x: proxy[self.position ?? self.preference.position!].midX, y: proxy[self.position ?? self.preference.position!].midY))
-                        .offset(x: preference.translation.width, y: preference.translation.height)
                         .anchorPreference(key: DraggingViewPreferenceDataKey.self, value: .bounds) {
-                            DraggingViewPreferenceData(position: $0)
+                            DraggingViewPreferenceData(position: $0, globalPositon: self.globalPosition)
                     }
+                    .saveBounds(viewId: 1)
+                    .retrieveBounds(viewId: 1, $globalPosition)
+                    .position(CGPoint(x: proxy[self.position ?? self.preference.position!].midX, y: proxy[self.position ?? self.preference.position!].midY))
+                    .offset(x: preference.translation.width, y: preference.translation.height)
                     .onAppear {
                         self.position = self.preference.position
                     }
@@ -147,11 +148,11 @@ private extension DocumentView {
     }
     
     // Convert anchor drag to frame in current ccoordinates
-    private func convertDragRectFromAnchor(preference: DraggingViewPreferenceData, in proxy: GeometryProxy) -> some View {
-        guard let position = preference.position else { return Color.clear }
+    private func saveDraggingViewPostion(preference: DraggingViewPreferenceData) -> some View {
+//        guard let position = preference.globalPositon else { return Color.clear }
         
         DispatchQueue.main.async {
-            self.dragCoordinates = proxy[position]
+            self.dragCoordinates = preference.globalPositon
         }
             
         return Color.clear
@@ -229,7 +230,7 @@ struct VelocityOnIntersectViewBoundary: ViewModifier {
 
 
 struct ShowViewOnRectIntersect: ViewModifier {
-    @State private var dropCoordinate: CGRect?
+    @State private var showDivider: Bool = false
     @Binding var blocksRects: [CGRect]
     @Binding var dragCoordinates: CGRect?
     var index: Int
@@ -240,27 +241,22 @@ struct ShowViewOnRectIntersect: ViewModifier {
                 .background(
                     GeometryReader { proxy in
                         self.obtainCoordinates(proxy: proxy)
-                    }
-            )
-            
-            if showContent() {
-                DropDividerView()
-            } else {
-                DropDividerView().hidden()
-            }
+                })
+            DropDividerView().opacity(showDivider ? 1 : 0)
         }
     }
     
     private func obtainCoordinates(proxy: GeometryProxy) -> some View {
         DispatchQueue.main.async {
-            let frame = proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace")))
+            let frame = proxy.frame(in: .global)
             self.blocksRects[self.index] = frame
         }
+        self.showContent(proxy: proxy, dragCoordinates: self.dragCoordinates)
         
         return Color.clear
     }
     
-    private func showContent() -> Bool {
+    private func showContent(proxy: GeometryProxy, dragCoordinates: CGRect?) {
         let rect1 = blocksRects[index]
         var rect2: CGRect = CGRect(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         
@@ -280,9 +276,16 @@ struct ShowViewOnRectIntersect: ViewModifier {
         let dropArea = CGRect.frame(from: CGPoint(x: minX, y: minY), to: CGPoint(x: maxX, y: maxY))
         
         if let dragCoordinates = dragCoordinates, dropArea.contains(dragCoordinates.origin) {
-            return true
+//            print("divider: \(dropArea.minY) : \(dropArea.maxY) : \(dragCoordinates.minY)")
+            DispatchQueue.main.async {
+                self.showDivider = true
+            }
+        } else {
+//            print("divider: hide")
+            DispatchQueue.main.async {
+                self.showDivider = false
+            }
         }
-        return false
     }
 }
 
