@@ -56,7 +56,7 @@ struct Anytype_Rpc {
 
         var dropTargetID: String = String()
 
-        var position: Anytype_Model_Block.Position = .before
+        var position: Anytype_Model_Block.Position = .none
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -297,6 +297,11 @@ struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
 
+        var blockID: String {
+          get {return _storage._blockID}
+          set {_uniqueStorage()._blockID = newValue}
+        }
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -448,6 +453,8 @@ struct Anytype_Rpc {
       init() {}
     }
 
+    ///
+    /// Makes block copy by given id and paste it to shown place
     struct Duplicate {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -460,9 +467,16 @@ struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// id of the context block
         var contextID: String = String()
 
+        /// id of the closest block
+        var targetID: String = String()
+
+        /// id of block for duplicate
         var blockID: String = String()
+
+        var position: Anytype_Model_Block.Position = .none
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -482,6 +496,11 @@ struct Anytype_Rpc {
         var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var blockID: String {
+          get {return _storage._blockID}
+          set {_uniqueStorage()._blockID = newValue}
+        }
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2625,12 +2644,6 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._position = newValue}
         }
 
-        /// id of the parent block
-        var parentID: String {
-          get {return _storage._parentID}
-          set {_uniqueStorage()._parentID = newValue}
-        }
-
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         init() {}
@@ -2743,9 +2756,6 @@ struct Anytype_Rpc {
 
           /// id of the block to remove
           var blockID: String = String()
-
-          /// id of the parent block
-          var parentID: String = String()
 
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3514,6 +3524,7 @@ struct Anytype_Rpc {
             case failedToRunNode // = 103
             case failedToFindAccountInfo // = 104
             case localRepoNotExistsAndMnemonicNotSet // = 105
+            case failedToStopSearcherNode // = 106
             case UNRECOGNIZED(Int)
 
             init() {
@@ -3530,6 +3541,7 @@ struct Anytype_Rpc {
               case 103: self = .failedToRunNode
               case 104: self = .failedToFindAccountInfo
               case 105: self = .localRepoNotExistsAndMnemonicNotSet
+              case 106: self = .failedToStopSearcherNode
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -3544,6 +3556,7 @@ struct Anytype_Rpc {
               case .failedToRunNode: return 103
               case .failedToFindAccountInfo: return 104
               case .localRepoNotExistsAndMnemonicNotSet: return 105
+              case .failedToStopSearcherNode: return 106
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -4033,6 +4046,7 @@ struct Anytype_Rpc {
                 case badInput // = 2
                 case notFound // = 101
                 case timeout // = 102
+                case nodeNotStarted // = 103
                 case UNRECOGNIZED(Int)
 
                 init() {
@@ -4046,6 +4060,7 @@ struct Anytype_Rpc {
                   case 2: self = .badInput
                   case 101: self = .notFound
                   case 102: self = .timeout
+                  case 103: self = .nodeNotStarted
                   default: self = .UNRECOGNIZED(rawValue)
                   }
                 }
@@ -4057,6 +4072,7 @@ struct Anytype_Rpc {
                   case .badInput: return 2
                   case .notFound: return 101
                   case .timeout: return 102
+                  case .nodeNotStarted: return 103
                   case .UNRECOGNIZED(let i): return i
                   }
                 }
@@ -4136,6 +4152,7 @@ struct Anytype_Rpc {
                 case badInput // = 2
                 case notFound // = 101
                 case timeout // = 102
+                case nodeNotStarted // = 103
                 case UNRECOGNIZED(Int)
 
                 init() {
@@ -4149,6 +4166,7 @@ struct Anytype_Rpc {
                   case 2: self = .badInput
                   case 101: self = .notFound
                   case 102: self = .timeout
+                  case 103: self = .nodeNotStarted
                   default: self = .UNRECOGNIZED(rawValue)
                   }
                 }
@@ -4160,6 +4178,7 @@ struct Anytype_Rpc {
                   case .badInput: return 2
                   case .notFound: return 101
                   case .timeout: return 102
+                  case .nodeNotStarted: return 103
                   case .UNRECOGNIZED(let i): return i
                   }
                 }
@@ -4477,7 +4496,7 @@ extension Anytype_Rpc.BlockList.Move.Request: SwiftProtobuf.Message, SwiftProtob
     if !self.dropTargetID.isEmpty {
       try visitor.visitSingularStringField(value: self.dropTargetID, fieldNumber: 3)
     }
-    if self.position != .before {
+    if self.position != .none {
       try visitor.visitSingularEnumField(value: self.position, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -4882,10 +4901,12 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
   static let protoMessageName: String = Anytype_Rpc.Block.Split.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "blockId"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Split.Response.Error? = nil
+    var _blockID: String = String()
 
     static let defaultInstance = _StorageClass()
 
@@ -4893,6 +4914,7 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _blockID = source._blockID
     }
   }
 
@@ -4909,6 +4931,7 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
         default: break
         }
       }
@@ -4920,6 +4943,9 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if !_storage._blockID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -4930,6 +4956,7 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._blockID != rhs_storage._blockID {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -5169,14 +5196,18 @@ extension Anytype_Rpc.Block.Duplicate.Request: SwiftProtobuf.Message, SwiftProto
   static let protoMessageName: String = Anytype_Rpc.Block.Duplicate.protoMessageName + ".Request"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
-    2: .same(proto: "blockId"),
+    2: .same(proto: "targetId"),
+    3: .same(proto: "blockId"),
+    4: .same(proto: "position"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.contextID)
-      case 2: try decoder.decodeSingularStringField(value: &self.blockID)
+      case 2: try decoder.decodeSingularStringField(value: &self.targetID)
+      case 3: try decoder.decodeSingularStringField(value: &self.blockID)
+      case 4: try decoder.decodeSingularEnumField(value: &self.position)
       default: break
       }
     }
@@ -5186,15 +5217,23 @@ extension Anytype_Rpc.Block.Duplicate.Request: SwiftProtobuf.Message, SwiftProto
     if !self.contextID.isEmpty {
       try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
     }
+    if !self.targetID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 2)
+    }
     if !self.blockID.isEmpty {
-      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 3)
+    }
+    if self.position != .none {
+      try visitor.visitSingularEnumField(value: self.position, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Rpc.Block.Duplicate.Request, rhs: Anytype_Rpc.Block.Duplicate.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
+    if lhs.targetID != rhs.targetID {return false}
     if lhs.blockID != rhs.blockID {return false}
+    if lhs.position != rhs.position {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5204,10 +5243,12 @@ extension Anytype_Rpc.Block.Duplicate.Response: SwiftProtobuf.Message, SwiftProt
   static let protoMessageName: String = Anytype_Rpc.Block.Duplicate.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "blockId"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Duplicate.Response.Error? = nil
+    var _blockID: String = String()
 
     static let defaultInstance = _StorageClass()
 
@@ -5215,6 +5256,7 @@ extension Anytype_Rpc.Block.Duplicate.Response: SwiftProtobuf.Message, SwiftProt
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _blockID = source._blockID
     }
   }
 
@@ -5231,6 +5273,7 @@ extension Anytype_Rpc.Block.Duplicate.Response: SwiftProtobuf.Message, SwiftProt
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
         default: break
         }
       }
@@ -5242,6 +5285,9 @@ extension Anytype_Rpc.Block.Duplicate.Response: SwiftProtobuf.Message, SwiftProt
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if !_storage._blockID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -5252,6 +5298,7 @@ extension Anytype_Rpc.Block.Duplicate.Response: SwiftProtobuf.Message, SwiftProt
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._blockID != rhs_storage._blockID {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -8881,15 +8928,13 @@ extension Anytype_Rpc.Block.Create.Request: SwiftProtobuf.Message, SwiftProtobuf
     2: .same(proto: "targetId"),
     3: .same(proto: "block"),
     4: .same(proto: "position"),
-    5: .same(proto: "parentId"),
   ]
 
   fileprivate class _StorageClass {
     var _contextID: String = String()
     var _targetID: String = String()
     var _block: Anytype_Model_Block? = nil
-    var _position: Anytype_Model_Block.Position = .before
-    var _parentID: String = String()
+    var _position: Anytype_Model_Block.Position = .none
 
     static let defaultInstance = _StorageClass()
 
@@ -8900,7 +8945,6 @@ extension Anytype_Rpc.Block.Create.Request: SwiftProtobuf.Message, SwiftProtobuf
       _targetID = source._targetID
       _block = source._block
       _position = source._position
-      _parentID = source._parentID
     }
   }
 
@@ -8920,7 +8964,6 @@ extension Anytype_Rpc.Block.Create.Request: SwiftProtobuf.Message, SwiftProtobuf
         case 2: try decoder.decodeSingularStringField(value: &_storage._targetID)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._block)
         case 4: try decoder.decodeSingularEnumField(value: &_storage._position)
-        case 5: try decoder.decodeSingularStringField(value: &_storage._parentID)
         default: break
         }
       }
@@ -8938,11 +8981,8 @@ extension Anytype_Rpc.Block.Create.Request: SwiftProtobuf.Message, SwiftProtobuf
       if let v = _storage._block {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
-      if _storage._position != .before {
+      if _storage._position != .none {
         try visitor.visitSingularEnumField(value: _storage._position, fieldNumber: 4)
-      }
-      if !_storage._parentID.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._parentID, fieldNumber: 5)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -8957,7 +8997,6 @@ extension Anytype_Rpc.Block.Create.Request: SwiftProtobuf.Message, SwiftProtobuf
         if _storage._targetID != rhs_storage._targetID {return false}
         if _storage._block != rhs_storage._block {return false}
         if _storage._position != rhs_storage._position {return false}
-        if _storage._parentID != rhs_storage._parentID {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -9137,14 +9176,12 @@ extension Anytype_Rpc.Block.Unlink.Request.Target: SwiftProtobuf.Message, SwiftP
   static let protoMessageName: String = Anytype_Rpc.Block.Unlink.Request.protoMessageName + ".Target"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "blockId"),
-    2: .same(proto: "parentId"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.blockID)
-      case 2: try decoder.decodeSingularStringField(value: &self.parentID)
       default: break
       }
     }
@@ -9154,15 +9191,11 @@ extension Anytype_Rpc.Block.Unlink.Request.Target: SwiftProtobuf.Message, SwiftP
     if !self.blockID.isEmpty {
       try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 1)
     }
-    if !self.parentID.isEmpty {
-      try visitor.visitSingularStringField(value: self.parentID, fieldNumber: 2)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Rpc.Block.Unlink.Request.Target, rhs: Anytype_Rpc.Block.Unlink.Request.Target) -> Bool {
     if lhs.blockID != rhs.blockID {return false}
-    if lhs.parentID != rhs.parentID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -10287,6 +10320,7 @@ extension Anytype_Rpc.Account.Select.Response.Error.Code: SwiftProtobuf._ProtoNa
     103: .same(proto: "FAILED_TO_RUN_NODE"),
     104: .same(proto: "FAILED_TO_FIND_ACCOUNT_INFO"),
     105: .same(proto: "LOCAL_REPO_NOT_EXISTS_AND_MNEMONIC_NOT_SET"),
+    106: .same(proto: "FAILED_TO_STOP_SEARCHER_NODE"),
   ]
 }
 
@@ -11071,6 +11105,7 @@ extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error.Code: SwiftProtobuf._Pr
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "NOT_FOUND"),
     102: .same(proto: "TIMEOUT"),
+    103: .same(proto: "NODE_NOT_STARTED"),
   ]
 }
 
@@ -11239,6 +11274,7 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error.Code: SwiftProtobuf._Pr
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "NOT_FOUND"),
     102: .same(proto: "TIMEOUT"),
+    103: .same(proto: "NODE_NOT_STARTED"),
   ]
 }
 

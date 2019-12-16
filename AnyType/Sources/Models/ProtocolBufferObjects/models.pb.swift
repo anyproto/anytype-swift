@@ -197,26 +197,38 @@ struct Anytype_Model_Block {
 
   enum Position: SwiftProtobuf.Enum {
     typealias RawValue = Int
-    case before // = 0
-    case after // = 1
+    case none // = 0
+    case before // = 1
+    case after // = 2
+    case left // = 3
+    case right // = 4
+    case inner // = 5
     case UNRECOGNIZED(Int)
 
     init() {
-      self = .before
+      self = .none
     }
 
     init?(rawValue: Int) {
       switch rawValue {
-      case 0: self = .before
-      case 1: self = .after
+      case 0: self = .none
+      case 1: self = .before
+      case 2: self = .after
+      case 3: self = .left
+      case 4: self = .right
+      case 5: self = .inner
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     var rawValue: Int {
       switch self {
-      case .before: return 0
-      case .after: return 1
+      case .none: return 0
+      case .before: return 1
+      case .after: return 2
+      case .left: return 3
+      case .right: return 4
+      case .inner: return 5
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -937,8 +949,12 @@ struct Anytype_Model_Block {
 extension Anytype_Model_Block.Position: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Anytype_Model_Block.Position] = [
+    .none,
     .before,
     .after,
+    .left,
+    .right,
+    .inner,
   ]
 }
 
@@ -1453,8 +1469,12 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
 
 extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Before"),
-    1: .same(proto: "After"),
+    0: .same(proto: "None"),
+    1: .same(proto: "Before"),
+    2: .same(proto: "After"),
+    3: .same(proto: "Left"),
+    4: .same(proto: "Right"),
+    5: .same(proto: "Inner"),
   ]
 }
 
