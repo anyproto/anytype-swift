@@ -44,6 +44,8 @@
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
 		0372AB4723A136EE008CF5B9 /* IpfsFilesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */; };
 		0372AB4A23A1378A008CF5B9 /* IpfsFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4923A1378A008CF5B9 /* IpfsFilesModel.swift */; };
+		03592D8C22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03592D8B22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift */; };
+		036508AF23A7214F00B9605E /* CustomLongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */; };
 		03746CF922DE506200380AA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03746CF822DE506200380AA1 /* Constants.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
 		037B91CE23438E77004EBCCD /* HomeViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96602340C203006CE58C /* HomeViewContainer.swift */; };
@@ -201,6 +203,8 @@
 		0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
 		0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpfsFilesService.swift; sourceTree = "<group>"; };
 		0372AB4923A1378A008CF5B9 /* IpfsFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpfsFilesModel.swift; sourceTree = "<group>"; };
+		03592D8B22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRecoveryViewModel.swift; sourceTree = "<group>"; };
+		036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLongPressGesture.swift; sourceTree = "<group>"; };
 		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		037CC4E423154AF900D5AB62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
@@ -462,12 +466,13 @@
 		0331BBE122E608AC002AD179 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
-				0A74E50423A90FE900B6C406 /* CustomTextField.swift */,
-				0A74E50223A90FE800B6C406 /* ImagePicker.swift */,
-				0A74E50323A90FE900B6C406 /* KeyboardObserver.swift */,
-				0A74E50523A90FE900B6C406 /* ScannerViewController.swift */,
-				0A74E50623A90FE900B6C406 /* SimpleViews.swift */,
-				0A70816823993040004B04AB /* TextView */,
+				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
+				03A3D5C3239EF0FE006D7962 /* ImagePicker.swift */,
+				03507437239E8673001CF477 /* KeyboardObserver.swift */,
+				03992F6A23969B970027A4AD /* SimpleViews.swift */,
+				03992F662395DA350027A4AD /* CustomTextField.swift */,
+				036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */,
+				0A693223238C4EC300575544 /* TextView+MarkStyle.swift */,
 				03425C5323849AAE00E22FF1 /* CustomScrollView.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
@@ -1133,6 +1138,7 @@
 				037260C123A8E2F90034F9F5 /* DrawableBlocksViews.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0A69321D238C4C8200575544 /* TextBlocksViews+Numbered.swift in Sources */,
+				036508AF23A7214F00B9605E /* CustomLongPressGesture.swift in Sources */,
 				03425C522383726400E22FF1 /* GeometryExtension.swift in Sources */,
 				0A693222238C4C8200575544 /* TextBlocksViews+Callout.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
