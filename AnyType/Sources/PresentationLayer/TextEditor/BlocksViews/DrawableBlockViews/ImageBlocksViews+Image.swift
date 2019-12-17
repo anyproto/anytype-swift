@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 // MARK: ViewModel
 extension ImageBlocksViews.Image {
     class BlockViewModel: ObservableObject, Identifiable {
@@ -28,7 +28,6 @@ extension ImageBlocksViews.Image.BlockViewModel: BlockViewRowBuilderProtocol {
 }
 
 // MARK: View
-import SwiftUI
 extension ImageBlocksViews.Image {
     struct MarkedViewModifier: ViewModifier {
         func body(content: Content) -> some View {

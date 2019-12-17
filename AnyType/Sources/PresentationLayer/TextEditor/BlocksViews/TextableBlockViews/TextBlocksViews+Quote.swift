@@ -15,7 +15,7 @@ extension TextBlocksViews.Quote {
         @Published var text: String
         init(block: Block) {
             self.block = block
-            self.text = "1234567"
+            self.text = "Quote"
         }
         var id = UUID()
     }
@@ -43,7 +43,7 @@ extension TextBlocksViews.Quote {
     struct FrameViewModifier: ViewModifier {
         func body(content: Content) -> some View {
             HStack {
-                Rectangle().frame(minWidth: 3.0, idealWidth: 3.0, maxWidth: 3.0, minHeight: 3.0, idealHeight: 3.0, maxHeight: nil, alignment: .leading).foregroundColor(.black).animation(.default)
+                Rectangle().frame(minWidth: 3.0, idealWidth: 3.0, maxWidth: 3.0, minHeight: 3.0, idealHeight: 3.0, maxHeight: nil, alignment: .leading).foregroundColor(.black)//.animation(.default)
                 content
             }
         }
@@ -54,12 +54,12 @@ extension TextBlocksViews.Quote {
         var body: some View {
             VStack {
                 TextView(text: self.$viewModel.text)
-//                .modifier(FrameViewModifier())
-                    .background(GeometryReader {
-                    proxy in
-                    self.geometryReader(proxy: proxy)
-                })
-                .modifier(GeometryReaderModifier(sizeThatFit: self.$sizeThatFit))
+                .modifier(FrameViewModifier())
+//                    .background(GeometryReader {
+//                    proxy in
+//                    self.geometryReader(proxy: proxy)
+//                })
+//                .modifier(GeometryReaderModifier(sizeThatFit: self.$sizeThatFit))
             }
         }
         func geometryReader(proxy: GeometryProxy) -> Color {

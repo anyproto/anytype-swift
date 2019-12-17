@@ -17,7 +17,7 @@ extension TextBlocksViews.Numbered {
         init(block: Block) {
             self.block = block
             self.style = .none
-            self.text = "1234567"
+            self.text = "Numbered"
         }
         func update(style: Style) -> Self {
             self.style = style
@@ -56,7 +56,7 @@ extension TextBlocksViews.Numbered {
             // "TextEditor/Style/Bulleted/mark"
         }
         func body(content: Content) -> some View {
-            HStack {
+            HStack(alignment: .top) {
                 self.accessoryView()
                 content
             }

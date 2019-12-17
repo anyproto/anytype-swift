@@ -15,7 +15,7 @@ extension TextBlocksViews.Text {
         @Published var text: String
         init(block: Block) {
             self.block = block
-            self.text = "1234567"
+            self.text = "Text"
         }
         var id = UUID()
     }

@@ -17,7 +17,7 @@ extension TextBlocksViews.Callout {
         @Published var style: Style
         init(block: Block) {
             self.block = block
-            self.text = "1234567"
+            self.text = "Callout"
             self.style = .emoji("🥳")
         }
         func update(style: Style) -> Self {
@@ -63,7 +63,7 @@ extension TextBlocksViews.Callout {
             }
         }
         func body(content: Content) -> some View {
-            HStack {
+            HStack(alignment: .top) {
                 Button(action: {
                     
                 }) {

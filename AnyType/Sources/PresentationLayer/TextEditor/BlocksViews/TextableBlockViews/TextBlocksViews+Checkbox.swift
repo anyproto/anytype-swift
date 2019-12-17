@@ -19,7 +19,7 @@ extension TextBlocksViews.Checkbox {
         init(block: Block) {
             self.block = block
             self.checked = false
-            self.text = "1234567"
+            self.text = "Checkbox"
         }
         var id = UUID()
     }
@@ -64,11 +64,11 @@ extension TextBlocksViews.Checkbox {
         }
         @Binding var checked: Bool
         func body(content: Content) -> some View {
-            HStack {
+            HStack(alignment: .top) {
                 Button(action: {
                     self.checked.toggle()
                 }) {
-                    Image(self.image(checked: self.checked))
+                    Image(self.image(checked: self.checked)).foregroundColor(.orange)
                 }
                 content
             }
@@ -82,8 +82,8 @@ extension TextBlocksViews.Checkbox {
         }
         var body: some View {
             TextView(text: self.$viewModel.text)
-//                .foregroundColor(self.style.foregroundColor())
-//                .strikedthrough(self.style.strikedthrough())
+                .foregroundColor(self.style.foregroundColor())
+                .strikedthrough(self.style.strikedthrough())
                 .modifier(MarkedViewModifier(checked: self.$viewModel.checked))
         }
     }

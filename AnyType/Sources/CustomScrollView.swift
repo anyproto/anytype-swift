@@ -9,6 +9,15 @@
 import SwiftUI
 
 
+enum GlobalEnvironment {
+    // Inject them!
+    enum OurEnvironmentObjects {
+        class PageScrollViewLayout: ObservableObject {
+            @Published var needsLayout: Bool = false
+        }
+    }
+}
+
 private class ScrollModel: ObservableObject {
     var velocity: CGPoint
     
@@ -19,15 +28,16 @@ private class ScrollModel: ObservableObject {
 
 struct CustomScrollView<Content>: View where Content: View {
     var content: Content
-    @State private var contentHeight: CGFloat = .zero
-    @ObservedObject fileprivate var scrollModel: ScrollModel = ScrollModel(velocity: .zero)
     
+    @State private var contentHeight: CGFloat = .zero
+    @ObservedObject fileprivate var scrollModel: ScrollModel = .init(velocity: .zero)
+    @EnvironmentObject fileprivate var pageScrollViewLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
     
     var body: some View {
-        InnerScrollView(contentHeight: self.$contentHeight, contentOffset: $scrollModel.velocity) {
+        InnerScrollView(contentHeight: self.$contentHeight, contentOffset: $scrollModel.velocity, pageScrollViewLayout: $pageScrollViewLayout.needsLayout) {
             self.content
                 .modifier(ViewHeightKey())
                 .onPreferenceChange(ViewHeightKey.self) {
@@ -71,11 +81,13 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
     var content: Content
     @Binding var contentHeight: CGFloat
     @Binding var contentOffset: CGPoint
+    @Binding var pageScrollViewLayout: Bool
     
-    public init(contentHeight: Binding<CGFloat>, contentOffset: Binding<CGPoint>, @ViewBuilder content: () -> Content) {
+    public init(contentHeight: Binding<CGFloat>, contentOffset: Binding<CGPoint>, pageScrollViewLayout: Binding<Bool>, @ViewBuilder content: () -> Content) {
         self.content = content()
         _contentHeight = contentHeight
         _contentOffset = contentOffset
+        _pageScrollViewLayout = pageScrollViewLayout
     }
     
     // MARK: - UIViewRepresentable
