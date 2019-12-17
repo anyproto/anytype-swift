@@ -39,8 +39,8 @@ protocol AuthServiceProtocol {
     
     /// Create new wallet
     /// - Parameters:
-    /// - onCompletion: Called on completion with recovery wallet string or AuthServiceError.
-    func createWallet(in path: String, onCompletion: @escaping OnCompletion)
+    /// - onCompletion: Called on completion.
+    func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Recover wallet with mnemonic phrase
     /// - Parameters:

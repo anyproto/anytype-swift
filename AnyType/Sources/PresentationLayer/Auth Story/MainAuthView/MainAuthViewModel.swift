@@ -31,16 +31,12 @@ class MainAuthViewModel: ObservableObject {
     }
     
     func singUp() {
-        try? self.storeService.removeSeed(for: nil, keyChainPassword: nil)
-        
         authService.createWallet(in: localRepoService.middlewareRepoPath) { [weak self] result in
             switch result {
             case .failure(let error):
-                self?.error = error.localizedDescription
-            case .success(let seed):
                 // TODO: handel error
-                // TODO: here is we need true password
-                try? self?.storeService.saveSeedForAccount(name: nil, seed: seed, keyChainPassword: nil)
+                self?.error = error.localizedDescription
+            case .success:
                 self?.shouldShowCreateProfileView = true
             }
         }

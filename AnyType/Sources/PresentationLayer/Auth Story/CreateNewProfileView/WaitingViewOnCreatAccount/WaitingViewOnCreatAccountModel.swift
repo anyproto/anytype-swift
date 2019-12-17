@@ -40,12 +40,7 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
                     switch result {
                     case .failure(let error):
                         stronSelf.error = error.localizedDescription
-                    case .success(let id):
-                        UserDefaultsConfig.usersIdKey = id
-                        
-                        if let seed = try? self?.storeService.obtainSeed(for: nil, keyChainPassword: nil) {
-                            try? self?.storeService.saveSeedForAccount(name: id, seed: seed, keyChainPassword: nil)
-                        }
+                    case .success:
                         applicationCoordinator?.startNewRootView(content: CompletionAuthView())
                     }
                 }

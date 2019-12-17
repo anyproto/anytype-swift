@@ -97,8 +97,6 @@ class SelectProfileViewModel: ObservableObject {
                 case .color(let hexColor):
                     profileViewModel.color = UIColor(hexString: hexColor)
                 case .image(let imageModel):
-                    print("img crashed")
-                    // TODO: uncomment when fetching img will be fixed
                     self?.downloadAvatarImage(imageModel: imageModel, profileViewModel: profileViewModel)
                 default: break
                 }

@@ -23,11 +23,11 @@ final class AuthService: NSObject, AuthServiceProtocol {
     func logout(completion: @escaping () -> Void) {
         completion()
         try? FileManager.default.removeItem(atPath: localRepoService.middlewareRepoPath)
-        try? storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: nil)
+        try? storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
         UserDefaultsConfig.usersIdKey = ""
     }
     
-    func createWallet(in path: String, onCompletion: @escaping OnCompletion) {
+    func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
         var walletRequest = Anytype_Rpc.Wallet.Create.Request()
         walletRequest.rootPath = path
         
@@ -42,7 +42,8 @@ final class AuthService: NSObject, AuthServiceProtocol {
                     onCompletion(.failure(.createWalletError()))
                     return
             }
-            onCompletion(.success(response.mnemonic))
+            try? self.storeService.saveSeedForAccount(name: nil, seed: response.mnemonic, keyChainPassword: .none)
+            onCompletion(.success(()))
         }
     }
     
@@ -68,6 +69,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
                     return
             }
             UserDefaultsConfig.usersIdKey = response.account.id
+            self.replaceDefaultSeed(with: response.account.id, keyChainPassword: .userPresence)
             onCompletion(.success(response.account.id))
         }
     }
@@ -76,6 +78,8 @@ final class AuthService: NSObject, AuthServiceProtocol {
         var walletRequest = Anytype_Rpc.Wallet.Recover.Request()
         walletRequest.rootPath = path
         walletRequest.mnemonic = mnemonic
+        
+        try? self.storeService.saveSeedForAccount(name: nil, seed: mnemonic, keyChainPassword: .none)
         
         let requestData = try? walletRequest.serializedData()
         
@@ -129,10 +133,25 @@ final class AuthService: NSObject, AuthServiceProtocol {
                         }
                         return
                 }
+                UserDefaultsConfig.usersIdKey = response.account.id
+                self.replaceDefaultSeed(with: response.account.id, keyChainPassword: .userPresence)
+                
                 DispatchQueue.main.async {
                     onCompletion(.success(response.account.id))
                 }
             }
+        }
+    }
+}
+
+
+// MARK: - Private methods
+
+extension AuthService {
+    private func replaceDefaultSeed(with name: String, keyChainPassword: KeychainPasswordType) {
+        if let seed = try? self.storeService.obtainSeed(for: nil, keyChainPassword: .none) {
+            try? self.storeService.saveSeedForAccount(name: name, seed: seed, keyChainPassword: keyChainPassword)
+            try? self.storeService.removeSeed(for: nil, keyChainPassword: .none)
         }
     }
 }

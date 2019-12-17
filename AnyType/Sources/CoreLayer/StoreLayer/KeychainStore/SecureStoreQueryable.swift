@@ -28,6 +28,13 @@
 
 import LocalAuthentication
 
+
+enum KeychainPasswordType {
+    case none
+    case userPresence // access an item with either biometry or passcode
+    case appPassword(String)
+}
+
 protocol SecureStoreQueryable {
     var query: [String: Any] { get }
 }
@@ -36,9 +43,9 @@ struct GenericPasswordQueryable {
     let service: String
     let accessGroup: String?
     let account: String
-    let keyChainPassword: String?
+    let keyChainPassword: KeychainPasswordType?
     
-    init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: String? = nil) {
+    init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: KeychainPasswordType = .none) {
         self.service = service
         self.accessGroup = accessGroup
         self.account = account
@@ -67,11 +74,17 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
         query[String(kSecAttrAccount)] = account
         
         let context = LAContext()
-        if let password = keyChainPassword, !password.isEmpty {
-            context.setCredential(password.data(using: .utf8), type: .applicationPassword)
+        
+        if let password = keyChainPassword, case KeychainPasswordType.appPassword(let pinCode) = password {
+            context.setCredential(pinCode.data(using: .utf8), type: .applicationPassword)
         }
-        query[String(kSecUseAuthenticationContext)] = context
-        query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
+        
+        switch keyChainPassword {
+        case .none: break
+        default:
+            query[String(kSecUseAuthenticationContext)] = context
+            query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
+        }
         
         // Access group if target environment is not simulator
         #if !targetEnvironment(simulator)
