@@ -36,12 +36,12 @@ class ApplicationCoordinator {
             let view = HomeViewContainer()
             applicationCoordinator?.startNewRootView(content: view)
             
-            startNewRootView(content: view.environmentObject(self.pageScrollViewLayout))
+            startNewRootView(content: view)
         }
     }
     
     func startNewRootView<Content: View>(content: Content) {
-        window.rootViewController = UIHostingController(rootView: content)
+        window.rootViewController = UIHostingController(rootView: content.environmentObject(self.pageScrollViewLayout))
         window.makeKeyAndVisible()
     }
 
