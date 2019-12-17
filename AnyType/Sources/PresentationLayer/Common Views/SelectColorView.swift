@@ -31,7 +31,7 @@ struct SelectColorView: View {
 #if DEBUG
 struct SelectColorView_Previews: PreviewProvider {
     static var previews: some View {
-        let colors: [UIColor] = [.black, .gray, .yellow, .red, .purple, .blue, .green]
+        let colors: [UIColor] = [.white, .gray, .yellow, .red, .purple, .blue, .green]
         return SelectColorView(colors: colors, selectedColor: .constant(.blue))
     }
 }

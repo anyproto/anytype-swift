@@ -42,7 +42,7 @@ struct SaveRecoveryPhraseView: View {
                     }
                 }
             
-            StandardButton(disabled: .constant(false) ,text: "I've written it down", style: .yellow) {
+            StandardButton(disabled: false ,text: "I've written it down", style: .yellow) {
                 self.model.recoveryPhraseSaved = true
             }
         }

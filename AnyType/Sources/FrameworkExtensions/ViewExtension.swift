@@ -11,7 +11,7 @@ import SwiftUI
 
 extension View {
     
-    func errorToast(isShowing: Binding<Bool>, errorText: Binding<String>) -> some View {
+    func errorToast(isShowing: Binding<Bool>, errorText: String) -> some View {
         ErrorAlertView(isShowing: isShowing, errorText: errorText, presenting: self)
     }
     

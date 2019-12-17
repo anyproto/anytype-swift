@@ -8,7 +8,6 @@
 
 import Combine
 import SwiftUI
-import Textile
 
 
 final class ProfileViewModel: ObservableObject {
@@ -74,8 +73,7 @@ final class ProfileViewModel: ObservableObject {
     
     func logout() {
         authService.logout() {
-            let authViewCoordinator = AuthViewCoordinator()
-            let view = authViewCoordinator.authView()
+            let view = MainAuthView(viewModel: MainAuthViewModel())
             applicationCoordinator?.startNewRootView(content: view)
         }
     }

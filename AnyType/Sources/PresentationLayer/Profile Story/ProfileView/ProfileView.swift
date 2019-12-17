@@ -80,7 +80,7 @@ struct ProfileView : View {
                 }
                 
                 HStack {
-                    StandardButton(disabled: .constant(false), text: "Log out", style: .black) {
+                    StandardButton(disabled: false, text: "Log out", style: .white) {
                         self.model.logout()
                     }
                     .offset(y: -40)
@@ -92,7 +92,7 @@ struct ProfileView : View {
             .background(Color("backgroundColor"))
             .navigationBarTitle("", displayMode: .inline)
         }
-        .errorToast(isShowing: $model.isShowingError, errorText: $model.error)
+        .errorToast(isShowing: $model.isShowingError, errorText: model.error)
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
     }
@@ -114,30 +114,30 @@ struct ProfileView_Previews : PreviewProvider {
         var name: String = "Anton Pronkin"
         var avatar: String = ""
     }
-    private struct AuthService: AuthServiceProtocol {
-        func login(seed: String, completion: @escaping (Error?) -> Void) {
-        }
-        
-        func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {
-        }
-        
-        func logout(completion: @escaping () -> Void) {
-        }
-        
-        func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
-        }
-        
-        func generateRecoveryPhrase(wordCount: Int?) throws -> String {
-            return ""
-        }
-        
-        func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
-        }
-    }
-    
+//    private struct AuthService: AuthServiceProtocol {
+//        func login(seed: String, completion: @escaping (Error?) -> Void) {
+//        }
+//        
+//        func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {
+//        }
+//        
+//        func logout(completion: @escaping () -> Void) {
+//        }
+//        
+//        func createWalletAndAccount(onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
+//        }
+//        
+//        func generateRecoveryPhrase(wordCount: Int?) throws -> String {
+//            return ""
+//        }
+//        
+//        func createWalletAndAccount(with recoveryPhrase: String, onReceivingRecoveryPhrase: @escaping OnReceivingRecoveryPhrase) {
+//        }
+//    }
+//    
     static var previews: some View {
-        let viewModel = ProfileViewModel(profileService: ProfileService(), authService: AuthService())
-        return ProfileView(model: viewModel)
+//        let viewModel = ProfileViewModel(profileService: ProfileService(), authService: AuthService())
+        return Text("")
     }
 }
 #endif
