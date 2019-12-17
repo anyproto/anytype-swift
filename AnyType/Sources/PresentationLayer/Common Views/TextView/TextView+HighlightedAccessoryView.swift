@@ -12,7 +12,7 @@ import Combine
 import SwiftUI
 
 // MARK: - UIKit / UITextView / AccessoryView
-extension ABC {
+extension TextView {
     enum Style {
         static let `default`: Self = .presentation
         case debug, presentation
@@ -41,7 +41,7 @@ extension ABC {
 
     // It should store buttons and react on their changes.
     class HighlightedAccessoryView: UIView {
-        typealias Style = ABC.Style
+        typealias Style = TextView.Style
         // MARK: Variables
         var style: Style = .default
         var model: ViewModel = .init()
@@ -299,7 +299,7 @@ extension ABC {
 // MARK: KeyboardHandler, move to services.
 // We could, for example, subscribe on event?
 // But actually, we don't want to store this object.
-extension ABC {
+extension TextView {
     class KeyboardHandler {
         static var shared: KeyboardHandler = .init()
         func dismiss() {
@@ -310,7 +310,7 @@ extension ABC {
     }
 }
 
-extension ABC.HighlightedAccessoryView {
+extension TextView.HighlightedAccessoryView {
     // MARK: UserResponse State
     enum State {
         case bold(Bool)
@@ -370,7 +370,7 @@ extension ABC.HighlightedAccessoryView {
         func getRange() -> NSRange {
             return range
         }
-        @ObservedObject var changeColorViewModel: ABC.BlockToolbar.ChangeColor.ViewModel
+        @ObservedObject var changeColorViewModel: TextView.BlockToolbar.ChangeColor.ViewModel
 
         // MARK: Initialization
         override init() {
@@ -410,21 +410,21 @@ extension ABC.HighlightedAccessoryView {
         fileprivate func process(_ action: Action) {
             switch action {
             case .unknown: return
-            case .keyboardDismiss: ABC.KeyboardHandler.shared.dismiss()
+            case .keyboardDismiss: TextView.KeyboardHandler.shared.dismiss()
             case .bold: self.userAction = .bold(range)
             case .italic: self.userAction = .italic(range)
             case .strikethrough: self.userAction = .strikethrough(range)
             case .code: self.userAction = .code(range)
                 // TODO: Show input link.
             //            case .link: return //self.userAction = .link(range)
-            case let .changeColor(range, _): self.userAction = .changeColor(range, ABC.BlockToolbar.ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
+            case let .changeColor(range, _): self.userAction = .changeColor(range, TextView.BlockToolbar.ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
             }
         }
 
         // MARK: Public Setters
         func update(range: NSRange, attributedText: NSMutableAttributedString) {
             self.range = range
-            let modifier = ABC.MarkStyleModifier(attributedText: attributedText)
+            let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
             let styles = modifier.getMarkStyles(at: .range(range))
             let states = StatesConvertor.states(styles)
             self.userResponse = .init(range: range, states: states)

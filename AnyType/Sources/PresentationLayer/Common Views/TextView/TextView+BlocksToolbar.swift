@@ -12,7 +12,7 @@ import UIKit
 import SwiftUI
 
 // MARK: Style
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     enum Style {
         static let `default`: Self = .presentation
         case presentation
@@ -25,7 +25,7 @@ extension ABC.BlockToolbar {
 }
 
 // MARK: BlockTypes
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     enum BlocksTypes: CaseIterable {
         static let typesPath = "TextEditor/Toolbar/Blocks/Types/"
         static func resolvedPath(_ subpath: String) -> String {
@@ -138,7 +138,7 @@ extension ABC.BlockToolbar {
 }
 
 // MARK: ViewModifiers
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     struct RoundedButtonViewModifier: ViewModifier {
         func body(content: Content) -> some View {
             content.padding(20).background(Color.white).cornerRadius(10)
@@ -164,14 +164,14 @@ extension ABC.BlockToolbar {
 }
 
 // MARK: TurnInto
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     enum TurnIntoBlock {}
 }
 
-extension ABC.BlockToolbar.TurnIntoBlock {
-    typealias BlocksTypes = ABC.BlockToolbar.BlocksTypes
-    typealias Style = ABC.BlockToolbar.Style
-    class ViewModel: ABC.BlockToolbar.AddBlock.ViewModel {
+extension TextView.BlockToolbar.TurnIntoBlock {
+    typealias BlocksTypes = TextView.BlockToolbar.BlocksTypes
+    typealias Style = TextView.BlockToolbar.Style
+    class ViewModel: TextView.BlockToolbar.AddBlock.ViewModel {
         override init() {
             super.init()
             self.title = "Turn Into"
@@ -196,21 +196,21 @@ extension ABC.BlockToolbar.TurnIntoBlock {
         @Binding var typeIndex: Int?
         
         var body: some View {
-            ABC.BlockToolbar.AddBlock.InputView(title: self.title, model: self.model, categories: self.categories, categoryIndex: self.$categoryIndex, typeIndex: self.$typeIndex)
+            TextView.BlockToolbar.AddBlock.InputView(title: self.title, model: self.model, categories: self.categories, categoryIndex: self.$categoryIndex, typeIndex: self.$typeIndex)
         }
     }
 //    typealias InputView = ABC.BlockToolbar.AddBlock.InputView
 }
 
 // MARK: AddBlock
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     enum AddBlock {}
 }
 
-extension ABC.BlockToolbar.AddBlock {
-    typealias BlockTypesColors = ABC.BlockToolbar.BlockTypesColors
-    typealias BlocksTypes = ABC.BlockToolbar.BlocksTypes
-    typealias Style = ABC.BlockToolbar.Style
+extension TextView.BlockToolbar.AddBlock {
+    typealias BlockTypesColors = TextView.BlockToolbar.BlockTypesColors
+    typealias BlocksTypes = TextView.BlockToolbar.BlocksTypes
+    typealias Style = TextView.BlockToolbar.Style
     class ViewModel: ObservableObject {
         struct ChosenType: Identifiable, Equatable {
             var title: String
@@ -288,7 +288,7 @@ extension ABC.BlockToolbar.AddBlock {
                                     self.typeIndex = i.0
                                 }) {
                                     VStack(spacing: 2) {
-                                        Image(i.1.image).renderingMode(.template).foregroundColor(BlockTypesColors.swiftUIColor(for: self.categories[self.categoryIndex ?? 0])).modifier(ABC.BlockToolbar.RoundedButtonViewModifier())
+                                        Image(i.1.image).renderingMode(.template).foregroundColor(BlockTypesColors.swiftUIColor(for: self.categories[self.categoryIndex ?? 0])).modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                                         Text(i.1.title).font(.caption).foregroundColor(.black)//.foregroundColor(BlockTypesColors.color(for: self.categories[self.categoryIndex ?? 0]))
                                     }
                                 }
@@ -296,18 +296,18 @@ extension ABC.BlockToolbar.AddBlock {
                         }
                     }
                 }
-            }.modifier(ABC.BlockToolbar.OuterHorizontalStackViewModifier())
+            }.modifier(TextView.BlockToolbar.OuterHorizontalStackViewModifier())
         }
     }
 }
 
 // MARK: ChangeColor
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     enum ChangeColor {}
 }
 
-extension ABC.BlockToolbar.ChangeColor {
-    typealias Style = ABC.BlockToolbar.Style
+extension TextView.BlockToolbar.ChangeColor {
+    typealias Style = TextView.BlockToolbar.Style
     enum Colors {
         case black, grey, yellow, orange, red, magenta, purple, ultramarine, lightBlue, teal, green
         func color(_ highlighted: Bool = false) -> UIColor {
@@ -363,7 +363,7 @@ extension ABC.BlockToolbar.ChangeColor {
                                 self.textColor = self.colors[i].color()
                             }) {
                                 Text("Aa").font(.headline).fontWeight(.semibold).foregroundColor(self.colors[i].swiftUIColor())
-                            }.modifier(ABC.BlockToolbar.RoundedButtonViewModifier())
+                            }.modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                         }
                     }
                 }
@@ -378,22 +378,22 @@ extension ABC.BlockToolbar.ChangeColor {
 //                                print("font: \(self.fonts[self.fontIndex])")
                             }) {
                                 Text("Aa").font(.headline).fontWeight(.semibold).background(self.colors[i].swiftUIColor(true)).foregroundColor(.black)
-                            }.modifier(ABC.BlockToolbar.RoundedButtonViewModifier())
+                            }.modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                         }
                     }
                 }
-            }.modifier(ABC.BlockToolbar.OuterHorizontalStackViewModifier())
+            }.modifier(TextView.BlockToolbar.OuterHorizontalStackViewModifier())
         }
     }
 }
 
 // MARK: EditActions
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     enum EditActions {}
 }
 
 // MARK: EditActions / Actions
-extension ABC.BlockToolbar.EditActions {
+extension TextView.BlockToolbar.EditActions {
     enum Action: CaseIterable {
         case delete, duplicate, undo ,redo
         func path() -> String {
@@ -412,8 +412,8 @@ extension ABC.BlockToolbar.EditActions {
 }
 
 // MARK: EditActions / ViewModel
-extension ABC.BlockToolbar.EditActions {
-    typealias Style = ABC.BlockToolbar.Style
+extension TextView.BlockToolbar.EditActions {
+    typealias Style = TextView.BlockToolbar.Style
     class ViewModel: ObservableObject {
         @Published var action: Action?
         var actions = Action.allCases
@@ -439,14 +439,14 @@ extension ABC.BlockToolbar.EditActions {
                                 self.action = self.actions[i]
                             }) {
                                 VStack(spacing: 2) {
-                                    Image(self.actions[i].path()).renderingMode(.template).foregroundColor(.black).modifier(ABC.BlockToolbar.RoundedButtonViewModifier())
+                                    Image(self.actions[i].path()).renderingMode(.template).foregroundColor(.black).modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                                     Text(self.actions[i].title()).font(.caption).foregroundColor(.black)
                                 }
                             }
                         }
                     }
                 }
-            }.modifier(ABC.BlockToolbar.OuterHorizontalStackViewModifier())
+            }.modifier(TextView.BlockToolbar.OuterHorizontalStackViewModifier())
         }
     }
 }

@@ -10,29 +10,8 @@ import Foundation
 import UIKit
 import SwiftUI
 
-typealias ABC = TextView
-
-// MARK: Conversion
-extension ABC {
-    enum Convertor {
-        static func color(from color: Color?) -> UIColor? {
-            return color.flatMap { (color) -> UIColor? in
-                nil
-            }
-        }
-        static func font(from font: Font?) -> UIFont? {
-            return font.flatMap { (font) -> UIFont? in
-                nil
-            }
-        }
-        static func range(from range: Range<Int>) -> NSRange {
-            return NSRange(location: range.lowerBound, length: range.count)
-        }
-    }
-}
-
 // MARK: MarkStyle
-extension ABC {
+extension TextView {
     enum MarkStyle: Equatable, CaseIterable {
         static var allCases: [MarkStyle] {
             return [
@@ -223,7 +202,7 @@ extension NSParagraphStyle {
 }
 
 // MARK: Range Either
-extension ABC {
+extension TextView {
     enum Either<Left, Right> {
         case left(Left)
         case right(Right)
@@ -236,7 +215,7 @@ extension ABC {
 }
 
 // MARK: MarkStyleModifier
-extension ABC {
+extension TextView {
     class MarkStyleModifier {
         func charactersCount() -> Int {
             return self.attributedString.length
@@ -254,10 +233,9 @@ extension ABC {
 }
 
 // MARK: MarkStyleModifier / Apply Styles
-extension ABC.MarkStyleModifier {
-    typealias Convertor = ABC.Convertor
-    typealias MarkStyle = ABC.MarkStyle
-    typealias RangeEither = ABC.RangeEither
+extension TextView.MarkStyleModifier {
+    typealias MarkStyle = TextView.MarkStyle
+    typealias RangeEither = TextView.RangeEither
     // MARK: Attributes
     private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
         return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)

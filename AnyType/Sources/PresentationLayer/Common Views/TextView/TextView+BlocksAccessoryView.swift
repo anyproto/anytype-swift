@@ -11,14 +11,14 @@ import Combine
 import SwiftUI
 
 // We have several views here.
-extension ABC {
+extension TextView {
     enum BlockToolbar {}
 }
 
 // MARK: BlockToolbar
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     class AccessoryView: UIView {
-        typealias Style = ABC.Style
+        typealias Style = TextView.Style
         // MARK: Variables
         var style: Style = .default
         var model: ViewModel = .init()
@@ -238,7 +238,7 @@ extension ABC.BlockToolbar {
 }
 
 // MARK: ViewModel
-extension ABC.BlockToolbar {
+extension TextView.BlockToolbar {
     // MARK: Action
     enum Action {
         case unknown
@@ -308,7 +308,7 @@ extension ABC.BlockToolbar {
             case .turnIntoBlock: self.userAction = .init(action: action, view: TurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel))
             case .changeColor: self.userAction = .init(action: action, view: ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
             case .editBlock: self.userAction = .init(action: action, view: EditActions.InputViewBuilder.createView(self._editActionsViewModel))
-            case .keyboardDismiss: ABC.KeyboardHandler.shared.dismiss()
+            case .keyboardDismiss: TextView.KeyboardHandler.shared.dismiss()
             }
         }
     }
