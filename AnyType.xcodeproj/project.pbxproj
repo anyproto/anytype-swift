@@ -19,7 +19,6 @@
 		030DF86C23354EEE00FE6DA5 /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF86B23354EED00FE6DA5 /* BlockModel.swift */; };
 		0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311612D22DE0D1700885211 /* ProfileViewModel.swift */; };
 		0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D575230186CA000527B1 /* LocalAuthentication.framework */; };
-		031917C6238F3D71001B33CE /* CustomEnvironments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031917C5238F3D71001B33CE /* CustomEnvironments.swift */; };
 		031B355423465BBA0066DDB8 /* TextBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031B355323465BBA0066DDB8 /* TextBlockView.swift */; };
 		031B355623465DFF0066DDB8 /* EmptyDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031B355523465DFF0066DDB8 /* EmptyDocumentView.swift */; };
 		031B35592346C5B60066DDB8 /* BlockViewModifieres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031B35582346C5B60066DDB8 /* BlockViewModifieres.swift */; };
@@ -38,14 +37,14 @@
 		0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */; };
 		0350A2E7232960D900E00FB5 /* HomeCollectionViewPlusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */; };
 		03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */; };
+		036508AF23A7214F00B9605E /* CustomLongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */; };
+		037260BF23A8E2A90034F9F5 /* BlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70816423968410004B04AB /* BlocksViews.swift */; };
 		037260C023A8E2DB0034F9F5 /* ImageBlocksViews+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322823911D0200575544 /* ImageBlocksViews+Image.swift */; };
 		037260C123A8E2F90034F9F5 /* DrawableBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322623911B1800575544 /* DrawableBlocksViews.swift */; };
 		0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */; };
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
 		0372AB4723A136EE008CF5B9 /* IpfsFilesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */; };
 		0372AB4A23A1378A008CF5B9 /* IpfsFilesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4923A1378A008CF5B9 /* IpfsFilesModel.swift */; };
-		03592D8C22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03592D8B22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift */; };
-		036508AF23A7214F00B9605E /* CustomLongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */; };
 		03746CF922DE506200380AA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03746CF822DE506200380AA1 /* Constants.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
 		037B91CE23438E77004EBCCD /* HomeViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96602340C203006CE58C /* HomeViewContainer.swift */; };
@@ -93,9 +92,7 @@
 		03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0F230C414C003D5DFD /* ImageService.swift */; };
 		03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAB230457FC00701782 /* PinCodeViewModel.swift */; };
 		03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAD2304589E00701782 /* PinCodeValidator.swift */; };
-		03D1A04A2389F7650028371C /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1A0492389F7650028371C /* CGPointExtension.swift */; };
 		03D7023023A01F0E0088ED14 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03652DD7239F5E7B0029E773 /* ScannerViewController.swift */; };
-		03E140CE22F73DC400FF7979 /* AuthRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E140CD22F73DC400FF7979 /* AuthRecoveryView.swift */; };
 		03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F7BD1D22F7A50400F47583 /* StandardButton.swift */; };
 		0A43F49823A6653D00018B36 /* TextView+BlocksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43F49723A6653D00018B36 /* TextView+BlocksToolbar.swift */; };
 		0A693219238C4C8200575544 /* TextBlocksViews+Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */; };
@@ -177,8 +174,6 @@
 		030DF86B23354EED00FE6DA5 /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
 		0311612D22DE0D1700885211 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		0318D575230186CA000527B1 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
-		0318D578230224A2000527B1 /* EnterAccountSeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAccountSeedView.swift; sourceTree = "<group>"; };
-		0318D57A23022687000527B1 /* EnterAccountSeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAccountSeedViewModel.swift; sourceTree = "<group>"; };
 		031917C5238F3D71001B33CE /* CustomEnvironments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironments.swift; sourceTree = "<group>"; };
 		031B355323465BBA0066DDB8 /* TextBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockView.swift; sourceTree = "<group>"; };
 		031B355523465DFF0066DDB8 /* EmptyDocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDocumentView.swift; sourceTree = "<group>"; };
@@ -199,12 +194,12 @@
 		0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewDocumentCell.swift; sourceTree = "<group>"; };
 		0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewPlusCell.swift; sourceTree = "<group>"; };
 		03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveRecoveryPhraseView.swift; sourceTree = "<group>"; };
+		036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLongPressGesture.swift; sourceTree = "<group>"; };
+		03652DD7239F5E7B0029E773 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
 		0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpfsFilesService.swift; sourceTree = "<group>"; };
 		0372AB4923A1378A008CF5B9 /* IpfsFilesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpfsFilesModel.swift; sourceTree = "<group>"; };
-		03592D8B22F7A7C0007CE7E2 /* AuthRecoveryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRecoveryViewModel.swift; sourceTree = "<group>"; };
-		036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLongPressGesture.swift; sourceTree = "<group>"; };
 		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		037CC4E423154AF900D5AB62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
@@ -325,7 +320,7 @@
 				03C5C54122DFD90C00DD91DE /* AnyTypeTests */,
 				0303ECFC22D8EDAA005C552B /* Products */,
 				ED79E6F7693FFE933050D8BC /* Frameworks */,
-				4D385379DA00C6FCCA303F1D /* Pods */,
+				037260C623A8EF5A0034F9F5 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -406,7 +401,7 @@
 				0A70816423968410004B04AB /* BlocksViews.swift */,
 				031B35582346C5B60066DDB8 /* BlockViewModifieres.swift */,
 				03B65751234D47A90084D9F5 /* BlockViewBuilderProtocol.swift */,
-                0A69322523911AF700575544 /* DrawableBlockViews */,
+				0A69322523911AF700575544 /* DrawableBlockViews */,
 				03B65750234D474A0084D9F5 /* TextableBlockViews */,
 			);
 			path = BlocksViews;
@@ -541,6 +536,15 @@
 				0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */,
 			);
 			path = HomeCollectionView;
+			sourceTree = "<group>";
+		};
+		037260C623A8EF5A0034F9F5 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				031917C5238F3D71001B33CE /* CustomEnvironments.swift */,
+				03E140CD22F73DC400FF7979 /* AuthRecoveryView.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		0372AB4323A09DE1008CF5B9 /* SelectProfileView */ = {
@@ -1091,7 +1095,6 @@
 				037B91CE23438E77004EBCCD /* HomeViewContainer.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A693220238C4C8200575544 /* TextBlocksViews+Header.swift in Sources */,
-				0A74E4FC23A90EA000B6C406 /* ProfileModel.swift in Sources */,
 				03C6750823981BBD0041A7C4 /* ProfileService.swift in Sources */,
 				03B65752234D47A90084D9F5 /* BlockViewBuilderProtocol.swift in Sources */,
 				0ADF8CB9239FFD33003CA31E /* TextView+BlocksAccessoryView.swift in Sources */,
@@ -1108,7 +1111,6 @@
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
-				031917C6238F3D71001B33CE /* CustomEnvironments.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				030DF8682333E3DD00FE6DA5 /* DocumentView.swift in Sources */,
@@ -1171,9 +1173,6 @@
 				037260C023A8E2DB0034F9F5 /* ImageBlocksViews+Image.swift in Sources */,
 				0327B0B3232BB994007DB8A7 /* DocumentModel.swift in Sources */,
 				0372AB4723A136EE008CF5B9 /* IpfsFilesService.swift in Sources */,
-				03D1A04A2389F7650028371C /* CGPointExtension.swift in Sources */,
-				03E140CE22F73DC400FF7979 /* AuthRecoveryView.swift in Sources */,
-				031EA61F2302C8A100584EFD /* EnterAccountSeedView.swift in Sources */,
 				03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */,
 				0AAC96652340C229006CE58C /* FontExtension.swift in Sources */,
 				0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */,

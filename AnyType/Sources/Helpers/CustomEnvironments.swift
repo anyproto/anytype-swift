@@ -56,17 +56,6 @@ extension EnvironmentValues {
     }
 }
 
-//
-//  CustomEnvironments.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 28.11.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
-import SwiftUI
-
-
 struct ShowViewFramesKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }

@@ -26,7 +26,7 @@ extension TextBlocksViews {
 }
 
 extension TextBlocksViews.Supplement {
-    class Matcher {
+    class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
         private static func sameBlock(lhs: Block, rhs: Block) -> Bool {
             switch (lhs.type, rhs.type) {
             case let (.text(left), .text(right)):

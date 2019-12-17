@@ -17,11 +17,14 @@ extension ImageBlocksViews.Image {
             self.block = block
             self.imageSource = UIImage(named: "logo-sign-part-mobile") ?? .init() // take from asset
         }
-        var id = UUID()
+        var id: Block.ID {
+            return block.id
+        }
     }
 }
 
-extension ImageBlocksViews.Image.BlockViewModel: BlockViewRowBuilderProtocol {
+extension ImageBlocksViews.Image.BlockViewModel: BlockViewBuilderProtocol {
+    
     func buildView() -> AnyView {
         AnyView(ImageBlocksViews.Image.BlockView(viewModel: self))
     }
