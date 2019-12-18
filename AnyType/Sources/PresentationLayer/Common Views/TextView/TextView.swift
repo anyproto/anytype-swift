@@ -122,6 +122,7 @@ private struct InnerTextView: UIViewRepresentable {
         context.coordinator.configureBlocksToolbarHandler(textView)
 //        context.coordinator.configureWholeMarkStylePublisher(textView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
         textView.delegate = context.coordinator
+        textView.autocorrectionType = .no
         
         
         DispatchQueue.main.async {
@@ -133,10 +134,7 @@ private struct InnerTextView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UITextView, context: Context) {
 //        uiView.textStorage.setAttributedString()
-        context.coordinator.configureWholeMarkStylePublisher(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
-        // TODO: rethink.
-        // We require this environment object update to notify outer views to call setNeedsLayout to fix sizes.
-        self.outerViewNeedsLayout.needsLayout = true
+        context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
     }
 }
 
@@ -150,14 +148,16 @@ extension InnerTextView {
         // MARK: Variables
         var parent: InnerTextView
         
-        private var highlightedAccessoryView: HighlightedAccessoryView = .init()
+        @EnvironmentObject var outerViewNeedsLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
+        
+        lazy private var highlightedAccessoryView: HighlightedAccessoryView = .init()
         private var highlightedAccessoryViewHandler: (((NSRange, NSTextStorage)) -> ())?
 
         var highlightedMarkStyleHandler: AnyCancellable?
         var changeColorMarkStyleHandler: AnyCancellable?
         var wholeMarkStyleHandler: AnyCancellable?
         
-        private var blocksAccessoryView: BlockToolbarAccesoryView = .init()
+        lazy private var blocksAccessoryView: BlockToolbarAccesoryView = .init()
         
         var defaultKeyboardRect: CGRect = .zero
         var blocksAccessoryViewHandler: AnyCancellable?
@@ -165,6 +165,7 @@ extension InnerTextView {
         // MARK: - Initiazliation
         init(_ uiTextView: InnerTextView) {
             self.parent = uiTextView
+            self._outerViewNeedsLayout = uiTextView._outerViewNeedsLayout
             super.init()
             self.setup()
         }
@@ -179,6 +180,7 @@ extension InnerTextView {
             if self.defaultKeyboardRect == .zero, let rect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                 // save size?
                 self.defaultKeyboardRect = rect
+                print("get new keyboard size: \(self.defaultKeyboardRect)")
             }
         }
         
@@ -215,10 +217,21 @@ extension InnerTextView.Coordinator {
     }
     
     // MARK: - Publishers / Highlighted Toolbar
+    func updateWholeMarkStyle(_ view: UITextView, wholeMarkStyleKeeper: TextView.MarkStyleKeeper) {
+        let (textView, value) = (view, wholeMarkStyleKeeper.value)
+        let attributedText = textView.textStorage
+        let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
+        if let style = modifier.getMarkStyle(style: .strikethrough(value.strikedthrough), at: .whole(true)), style != .strikethrough(value.strikedthrough) {
+            _ = modifier.applyStyle(style: .strikethrough(value.strikedthrough), rangeOrWholeString: .whole(true))
+        }
+        if let color = value.textColor, let style = modifier.getMarkStyle(style: .textColor(color), at: .whole(true)), style != .textColor(color) {
+            _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .whole(true))
+        }
+    }
     func configureWholeMarkStylePublisher(_ view: UITextView, wholeMarkStyleKeeper: TextView.MarkStyleKeeper) {
         self.wholeMarkStyleHandler = Publishers.CombineLatest(Just(view), wholeMarkStyleKeeper.$value).sink { (textView, value) in
             let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
+            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             if let style = modifier.getMarkStyle(style: .strikethrough(value.strikedthrough), at: .whole(true)), style != .strikethrough(value.strikedthrough) {
                 _ = modifier.applyStyle(style: .strikethrough(value.strikedthrough), rangeOrWholeString: .whole(true))
             }
@@ -239,7 +252,7 @@ extension InnerTextView.Coordinator {
         self.changeColorMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.changeColorSubject).sink { (pair) in
             let (textView, (range, textColor, backgroundColor)) = pair
             let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
+            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             print("range is: \(range)")
             guard range.length > 0 else { return }
             if let textColor = textColor {
@@ -252,7 +265,7 @@ extension InnerTextView.Coordinator {
         }
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { (textView, action) in
             let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
+            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             print("\(action)")
             switch action {
             case let .bold(range):
@@ -295,18 +308,8 @@ extension InnerTextView.Coordinator {
 
 // MARK: InnerTextView.Coordinator / UITextViewDelegate
 extension InnerTextView.Coordinator: UITextViewDelegate {
-    // MARK: - Animations
-    func animateAppearance(_ textView: UITextView, inputView: UIView?, appearing: Bool) {
-        
-    }
-        
-    // MARK: - UITextViewDelegate
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        // MARK: Switchers
-        func switchInputs(of textView: UITextView) -> (Bool, UIView?, UIView?) {
-            switchInputs(textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView)
-        }
-        
+    // MARK: Input Switching
+    func switchInputs(_ textView: UITextView) {
         func switchInputs(_ length: Int, accessoryView: UIView?, inputView: UIView?) -> (Bool, UIView?, UIView?) {
             switch (length, accessoryView, inputView) {
             // Length == 0, => set blocks toolbar and restore default keyboard.
@@ -318,13 +321,12 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
             }
         }
         
-        let (shouldAnimate, accessoryView, inputView) = switchInputs(of: textView)
+        let (shouldAnimate, accessoryView, inputView) = switchInputs(textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView)
+        
         if shouldAnimate {
-            UIView.animate(withDuration: 0.3) {
-                textView.inputAccessoryView = accessoryView
-                textView.inputView = inputView
-                textView.reloadInputViews()
-            }
+            textView.inputAccessoryView = accessoryView
+            textView.inputView = inputView
+            textView.reloadInputViews()
         }
         
         if (textView.inputAccessoryView is HighlightedAccessoryView) {
@@ -334,15 +336,24 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
         }
     }
     
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        textView.inputAccessoryView = self.blocksAccessoryView
-        textView.inputView = nil
-        textView.reloadInputViews()
-        return true
+    // MARK: - UITextViewDelegate
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        self.switchInputs(textView)
+    }
+        
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.switchInputs(textView)
     }
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.switchInputs(textView)
+    }
+        
     func textViewDidChange(_ textView: UITextView) {
         DispatchQueue.main.async {
+            // TODO: rethink.
+            // We require this environment object update to notify outer views to call setNeedsLayout to fix sizes.
+            self.outerViewNeedsLayout.needsLayout = true
             self.parent.text = textView.text
             self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
         }
