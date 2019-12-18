@@ -38,6 +38,7 @@ extension TextBlocksViews.Toggle.BlockViewModel: BlockViewRowBuilderProtocol {
 import SwiftUI
 extension TextBlocksViews.Toggle {
     struct MarkedViewModifier: ViewModifier {
+        @EnvironmentObject var outerViewNeedsLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
         func image(checked: Bool) -> String {
             return checked ? "TextEditor/Style/Checkbox/checked"
             // "TextEditor/Style/Checkbox/checked"
@@ -48,6 +49,7 @@ extension TextBlocksViews.Toggle {
         func body(content: Content) -> some View {
             HStack(alignment: .top) {
                 Button(action: {
+                    self.outerViewNeedsLayout.needsLayout = true
                     self.toggled.toggle()
                 }) {
                     Image(self.image(checked: self.toggled)).foregroundColor(.orange).rotationEffect(.init(radians: self.toggled ? Double.pi / 2 : 0))
@@ -58,8 +60,9 @@ extension TextBlocksViews.Toggle {
     }
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
+        
         func blocks() -> [BlockViewRowBuilderProtocol] {
-            self.viewModel.blocks
+            self.viewModel.toggled ? self.viewModel.blocks : []
         }
         var body2: some View {
             VStack {
@@ -72,7 +75,7 @@ extension TextBlocksViews.Toggle {
             }.animation(.default)
         }
         var body: some View {
-            VStack {
+            VStack(spacing: 0.0) {
                 TextView(text: self.$viewModel.text).modifier(MarkedViewModifier(toggled: self.$viewModel.toggled))
 //                List(self.$viewModel.toggled.wrappedValue ? self.viewModel.blocks : [], id: \.id, rowContent: { (element) in
 //                    Text("Abc")
@@ -80,17 +83,17 @@ extension TextBlocksViews.Toggle {
 ////                        element.buildView()
 ////                    }
 //                }).animation(.default)
-                VStack {
-                    if self.viewModel.toggled {
-                        //                        ForEach(self.viewModel.blocks, id: \.id) { (element) in
-                        //                            element.buildView()
-                        //                        }
-                        // TODO: add check via geometry reader that offset from left is
-                        ForEach(self.viewModel.blocks, id: \.id) { (element) in
-                            element.buildView()
-                        }
+                VStack(spacing: 0.0) {
+                    ForEach(self.blocks(), id: \.id) { (element) in
+                        element.buildView()
                     }
-                }.animation(.easeInOut)
+//                    if self.viewModel.toggled {
+//                        //                        ForEach(self.viewModel.blocks, id: \.id) { (element) in
+//                        //                            element.buildView()
+//                        //                        }
+//                        // TODO: add check via geometry reader that offset from left is
+//                    }
+                }
             }
         }
     }

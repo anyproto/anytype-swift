@@ -52,15 +52,8 @@ extension TextBlocksViews.Quote {
         @ObservedObject var viewModel: BlockViewModel
         @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
         var body: some View {
-            VStack {
-                TextView(text: self.$viewModel.text)
+            TextView(text: self.$viewModel.text)
                 .modifier(FrameViewModifier())
-//                    .background(GeometryReader {
-//                    proxy in
-//                    self.geometryReader(proxy: proxy)
-//                })
-//                .modifier(GeometryReaderModifier(sizeThatFit: self.$sizeThatFit))
-            }
         }
         func geometryReader(proxy: GeometryProxy) -> Color {
             DispatchQueue.main.async {

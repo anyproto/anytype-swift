@@ -32,10 +32,8 @@ import SwiftUI
 extension TextBlocksViews.Text {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
-        var body: some View {
-            VStack {
-                TextView(text: self.$viewModel.text)
-            }
+        var body: some View {            
+            TextView(text: self.$viewModel.text)
         }
     }
 }
