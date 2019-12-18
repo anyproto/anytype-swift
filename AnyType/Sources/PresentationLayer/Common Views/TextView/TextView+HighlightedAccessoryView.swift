@@ -290,7 +290,8 @@ extension TextView {
         override var intrinsicContentSize: CGSize {
             var size = self.dismissKeyboardButton.intrinsicContentSize
             size.width += self.insets.left + self.insets.right
-            size.height += self.insets.top + self.insets.bottom
+//            size.height += self.insets.top + self.insets.bottom
+            size.height = 48
             return size
         }
     }

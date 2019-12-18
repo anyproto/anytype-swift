@@ -231,7 +231,8 @@ extension TextView.BlockToolbar {
         override var intrinsicContentSize: CGSize {
             var size = self.addBlockButton.intrinsicContentSize
             size.width += self.insets.left + self.insets.right
-            size.height += self.insets.top + self.insets.bottom
+//            size.height += self.insets.top + self.insets.bottom
+            size.height = 48
             return size
         }
     }
@@ -276,10 +277,12 @@ extension TextView.BlockToolbar {
 
         // MARK: Setup
         func setup() {
-            self.addBlockViewModelDidChanged = (self.addBlockViewModel.value).sink { (value) in
+            // WARN: Don't call this function outside of `.init()`
+            // NOTE: We should drop first notification in case of setup() function in `.init()`
+            self.addBlockViewModelDidChanged = (self.addBlockViewModel.value).dropFirst().sink { (value) in
                 print("AddBlock Model!: \(String(describing: value.0)) \(String(describing: value.1)) \(value.2.types)")
             }
-            self.changeColorViewModelDidChangeColor = (self.changeColorViewModel.$value).sink { (value) in
+            self.changeColorViewModelDidChangeColor = (self.changeColorViewModel.$value).dropFirst().sink { (value) in
                 let textColor = value.textColor
                 let backgroundColor = value.backgroundColor
                 print("TextColor! \(String(describing: textColor)) \n BackgroundColor! \(String(describing: backgroundColor))")
