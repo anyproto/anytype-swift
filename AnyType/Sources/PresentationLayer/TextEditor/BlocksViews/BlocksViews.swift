@@ -11,6 +11,11 @@ enum BlocksViews {
     enum Supplement {}
 }
 
+// MARK: MetaBlockType
+// Brief: BlockType -> String
+// Overview:
+// Maps BlockType ( .text, .image, .video ) to String.
+// This type automatically adopts Hashable and Equatable protocols and can be used as key in dictionaries.
 private enum MetaBlockType: String {
     case text, image, video
     static func from(_ block: Block) -> Self {
@@ -24,7 +29,7 @@ private enum MetaBlockType: String {
 
 extension BlocksViews.Supplement {
     class BaseBlocksSeriazlier {
-        // Move it somewhere later.
+        // Move it somewhere later.        
         private static func sameBlock(lhs: Block, rhs: Block) -> Bool {
             switch (lhs.type, rhs.type) {
             case let (.text(left), .text(right)): return left.contentType == right.contentType
@@ -49,7 +54,7 @@ extension BlocksViews.Supplement {
                 return []
             }
             
-            // 1. first step - group together views which have "same"
+            // 1. first step - group together views which have "same" blocks. ( types and content types are the same ).
             let remains = blocks.dropFirst()
             let prefix = blocks.prefix(1)
             let firstElements = Array(prefix)
@@ -73,6 +78,8 @@ extension BlocksViews.Supplement {
         }
     }
     
+    // MARK: BlocksSerializer
+    // It dispatches blocks types to appropriate serializers.
     class BlocksSerializer: BaseBlocksSeriazlier {
         static var `default`: BlocksSerializer = {
             let value = BlocksSerializer()

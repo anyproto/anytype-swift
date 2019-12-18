@@ -18,7 +18,7 @@ extension TextView.BlockToolbar {
         case presentation
         func backgroundColor() -> UIColor {
             switch self {
-            case .presentation: return .init(red: 0.953, green: 0.949, blue: 0.925, alpha: 1)
+            case .presentation: return .init(red: 0.953, green: 0.949, blue: 0.925, alpha: 1) // #F3F2EC
             }
         }
     }
@@ -182,8 +182,6 @@ extension TextView.BlockToolbar.TurnIntoBlock {
         class func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let controller = UIHostingController(rootView: InputView(title: viewModel.wrappedValue.title, model: viewModel.wrappedValue, categories: viewModel.wrappedValue.categories, categoryIndex: viewModel.projectedValue.categoryIndex, typeIndex: viewModel.projectedValue.typeIndex))
             let view = controller.view
-
-            // #F3F2EC
             view?.backgroundColor = Style.default.backgroundColor()
             return view
         }
@@ -199,7 +197,6 @@ extension TextView.BlockToolbar.TurnIntoBlock {
             TextView.BlockToolbar.AddBlock.InputView(title: self.title, model: self.model, categories: self.categories, categoryIndex: self.$categoryIndex, typeIndex: self.$typeIndex)
         }
     }
-//    typealias InputView = ABC.BlockToolbar.AddBlock.InputView
 }
 
 // MARK: AddBlock
@@ -246,8 +243,6 @@ extension TextView.BlockToolbar.AddBlock {
         class func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let controller = UIHostingController(rootView: InputView(title: viewModel.wrappedValue.title, model: viewModel.wrappedValue, categories: viewModel.wrappedValue.categories, categoryIndex: viewModel.projectedValue.categoryIndex, typeIndex: viewModel.projectedValue.typeIndex))
             let view = controller.view
-
-            // #F3F2EC
             view?.backgroundColor = Style.default.backgroundColor()
             return view
         }
@@ -275,7 +270,6 @@ extension TextView.BlockToolbar.AddBlock {
                                 self.categoryIndex = i
                             }) {
                                 Text(self.categories[i].title()).font(.subheadline).fontWeight(.semibold).foregroundColor(self.categoryIndex == i ? .white : .black)
-                                //.foregroundColor(self.colors[i].swiftUIColor()).padding(10)
                             }.padding(.vertical, 5).padding(.horizontal, 15).background(self.categoryIndex == i ? BlockTypesColors.swiftUIColor(for: self.categories[i]) : .white).cornerRadius(15)
                         }
                     }
@@ -289,7 +283,7 @@ extension TextView.BlockToolbar.AddBlock {
                                 }) {
                                     VStack(spacing: 2) {
                                         Image(i.1.image).renderingMode(.template).foregroundColor(BlockTypesColors.swiftUIColor(for: self.categories[self.categoryIndex ?? 0])).modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
-                                        Text(i.1.title).font(.caption).foregroundColor(.black)//.foregroundColor(BlockTypesColors.color(for: self.categories[self.categoryIndex ?? 0]))
+                                        Text(i.1.title).font(.caption).foregroundColor(.black)
                                     }
                                 }
                             }
@@ -310,7 +304,7 @@ extension TextView.BlockToolbar.ChangeColor {
     typealias Style = TextView.BlockToolbar.Style
     enum Colors {
         case black, grey, yellow, orange, red, magenta, purple, ultramarine, lightBlue, teal, green
-        func color(_ highlighted: Bool = false) -> UIColor {
+        func color(highlighted: Bool = false) -> UIColor {
 
             switch self {
             case .black: return highlighted ? .clear : .black
@@ -326,8 +320,8 @@ extension TextView.BlockToolbar.ChangeColor {
             case .green: return highlighted ? #colorLiteral(red: 0.89, green: 0.969, blue: 0.816, alpha: 1) :  #colorLiteral(red: 0.3647058824, green: 0.831372549, blue: 0, alpha: 1) // #5DD400
             }
         }
-        func swiftUIColor(_ highlighted: Bool = false) -> Color {
-            return .init(self.color(highlighted))
+        func swiftUIColor(highlighted: Bool = false) -> Color {
+            return .init(self.color(highlighted: highlighted))
         }
         static var colors: [Colors] = [.black, .grey, .yellow, .orange, .red, .magenta, .purple, .ultramarine, .lightBlue, .teal, .green]
     }
@@ -351,8 +345,6 @@ extension TextView.BlockToolbar.ChangeColor {
         var colors: [Colors]
         @Binding var textColor: UIColor?
         @Binding var backgroundColor: UIColor?
-        var fonts: [Font] = [.body, .callout, .caption, .footnote, .headline, .largeTitle, .subheadline, .title]
-        @State var fontIndex: Int = 0
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
                 Text("Text Color").fontWeight(.semibold)
@@ -370,14 +362,11 @@ extension TextView.BlockToolbar.ChangeColor {
                 Text("Highlight Color").fontWeight(.semibold)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .center, spacing: 8) {
-                        // We are dropping black color for highlight.
                         ForEach(0..<self.colors.count) { i in
                             Button(action: {
-                                self.backgroundColor = self.colors[i].color(true)
-//                                self.fontIndex = (self.fontIndex + 1) % self.fonts.count
-//                                print("font: \(self.fonts[self.fontIndex])")
+                                self.backgroundColor = self.colors[i].color(highlighted: true)
                             }) {
-                                Text("Aa").font(.headline).fontWeight(.semibold).background(self.colors[i].swiftUIColor(true)).foregroundColor(.black)
+                                Text("Aa").font(.headline).fontWeight(.semibold).background(self.colors[i].swiftUIColor(highlighted: true)).foregroundColor(.black)
                             }.modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                         }
                     }

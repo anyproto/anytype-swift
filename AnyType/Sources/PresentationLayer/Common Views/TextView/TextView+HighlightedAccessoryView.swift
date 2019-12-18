@@ -39,7 +39,6 @@ extension TextView {
         }
     }
 
-    // It should store buttons and react on their changes.
     class HighlightedAccessoryView: UIView {
         typealias Style = TextView.Style
         // MARK: Variables
@@ -173,9 +172,6 @@ extension TextView {
         }
 
         func setupUIElements() {
-
-            // UIView
-
             self.translatesAutoresizingMaskIntoConstraints = false
 
             self.boldButton = { () -> UIButton in

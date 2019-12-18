@@ -10,7 +10,6 @@ import Foundation
 import Combine
 import SwiftUI
 
-// We have several views here.
 extension TextView {
     enum BlockToolbar {}
 }
@@ -131,9 +130,6 @@ extension TextView.BlockToolbar {
 
         // MARK: Setup UI Elements
         func setupUIElements() {
-
-            // UIView
-
             self.translatesAutoresizingMaskIntoConstraints = false
 
             self.addBlockButton = { () -> UIButton in

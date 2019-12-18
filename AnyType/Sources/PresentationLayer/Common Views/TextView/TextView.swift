@@ -74,7 +74,6 @@ extension TextView {
     }
     func strikedthrough(_ strikedthrough: Bool) -> Self {
         self.wholeTextMarkStyleKeeper.value.strikedthrough = strikedthrough
-//        _ = self.markStyleModifier.applyStyle(style: .strikethrough(strikedthrough), rangeOrWholeString: .whole(true))
         return self
     }
 }
@@ -120,7 +119,6 @@ private struct InnerTextView: UIViewRepresentable {
         textView.textStorage.setAttributedString(attributedString)
         context.coordinator.configureMarkStylePublisher(textView)
         context.coordinator.configureBlocksToolbarHandler(textView)
-//        context.coordinator.configureWholeMarkStylePublisher(textView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
         textView.delegate = context.coordinator
         textView.autocorrectionType = .no
         
@@ -133,7 +131,6 @@ private struct InnerTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
-//        uiView.textStorage.setAttributedString()
         context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
     }
 }
@@ -260,7 +257,9 @@ extension InnerTextView.Coordinator {
             }
             if let backgroundColor = backgroundColor {
                 _ = modifier.applyStyle(style: .backgroundColor(backgroundColor), rangeOrWholeString: .range(range))
-            }            
+            }
+            //TODO: Uncomment if needed.
+            //We can process .textColor and .backgroundColor states to change icon.
 //            self.highlightedAccessoryViewHandler?((range, attributedText))
         }
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { (textView, action) in

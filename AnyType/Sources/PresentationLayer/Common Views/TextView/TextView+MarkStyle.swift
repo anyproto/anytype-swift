@@ -161,7 +161,11 @@ extension TextView {
                     }
                 }
                 
-                // we don't care about paragraphStyle, cause we set custom paragraph style IF value is true.
+                //TODO: Uncomment when you're ready.
+                // Maybe don't.
+                // It should be inconsistent with .from method.
+                // NOTE:
+                // We don't care about paragraphStyle, cause we set custom paragraph style IF value is true.
                 // otherwise, we set it to default or nil (?)
 //                if value {
 //                    result.merge([.paragraphStyle: NSParagraphStyle.keyboardStyle], uniquingKeysWith: {(lhs, rhs) in rhs})
