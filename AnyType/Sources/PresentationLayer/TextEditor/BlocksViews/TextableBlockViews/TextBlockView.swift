@@ -20,8 +20,13 @@ struct TextBlockView: View {
     
     var body: some View {
         VStack {
-            TextView(text: self.$text)
-                .modifier(DraggbleView(blockId: viewModel.id))
+            HStack {
+                Text("+")
+                TextView(text: self.$text)
+                    .padding()
+                    .background(Color.gray)
+            }
+//                .mlkjodifier(DraggbleView(blockId: viewModel.id))
         }
     }
 }

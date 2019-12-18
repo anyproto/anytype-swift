@@ -33,6 +33,7 @@ class TestDocumentService: DocumentServiceProtocol {
                     .mockText(.text),
                     .mockText(.header),
                     .mockText(.text),
+                    .mockText(.text),
                     .mockText(.todo),
                     .mockText(.todo),
                     .mockText(.todo),
@@ -89,7 +90,7 @@ class TestDocumentService: DocumentServiceProtocol {
             set.blocks()
         }
         var blocks: [Block] = {
-            Self.getBlocks(set: .focus)
+            Self.getBlocks(set: .presentation)
         }()
 
         

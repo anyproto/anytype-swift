@@ -15,7 +15,7 @@ struct CustomLongPressGestureModifier: ViewModifier {
     }
 }
 
-struct CustomLongPressGesture<Content>: UIViewRepresentable where Content: View {
+private struct CustomLongPressGesture<Content>: UIViewRepresentable where Content: View {
     var content: Content
     
     func makeCoordinator() -> Coordinator {

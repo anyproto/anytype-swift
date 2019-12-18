@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import UIKit
 
+
 // public TextView -> InnerTextView
 // private InnerTextView -> UITextView
 // private InnerTextView -> AttributesModifier
@@ -41,8 +42,10 @@ struct TextView: View {
     }
 }
 
-// MARK: Decorations
+
+// MARK: - Decorations
 extension TextView {
+    
     class MarkStyleKeeper: ObservableObject {
         class InnerStorage {
             var strikedthrough: Bool = false
@@ -50,15 +53,19 @@ extension TextView {
         }
         @Published var value: InnerStorage = .init()
     }
+   
     class Storage: ObservableObject {
         struct Update {
 //            var style: MarkStyle
             var range: Range<Int>
         }
+        
         @Published var updates: [Update] = []
+        
         init(_ updates: [Update] = []) {
             self.updates = updates
         }
+        
         func add(_ update: Update) -> Self {
             self.updates += [update]
             return self
@@ -72,13 +79,15 @@ extension TextView {
         }
         return self
     }
+    
     func strikedthrough(_ strikedthrough: Bool) -> Self {
         self.wholeTextMarkStyleKeeper.value.strikedthrough = strikedthrough
         return self
     }
 }
 
-// MARK: TextView
+
+// MARK: - TextView
 private struct InnerTextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var sizeThatFit: CGSize
@@ -102,7 +111,7 @@ private struct InnerTextView: UIViewRepresentable {
         textView.textContainerInset = .zero
         textView.isScrollEnabled = false
         //TODO: add debug here.
-//        textView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
+        textView.backgroundColor = .clear
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         return textView
@@ -135,7 +144,8 @@ private struct InnerTextView: UIViewRepresentable {
     }
 }
 
-// MARK: InnerTextView / Coordinator
+
+// MARK: - InnerTextView / Coordinator
 extension InnerTextView {
     class Coordinator: NSObject {
         // MARK: Aliases
@@ -187,7 +197,8 @@ extension InnerTextView {
     }
 }
 
-// MARK: InnerTextView.Coordinator / Publishers
+
+// MARK: - InnerTextView.Coordinator / Publishers
 extension InnerTextView.Coordinator {
     // MARK: - Publishers
     // MARK: - Publishers / Blocks Toolbar
@@ -305,7 +316,8 @@ extension InnerTextView.Coordinator {
 
 }
 
-// MARK: InnerTextView.Coordinator / UITextViewDelegate
+
+// MARK: - InnerTextView.Coordinator / UITextViewDelegate
 extension InnerTextView.Coordinator: UITextViewDelegate {
     // MARK: Input Switching
     func switchInputs(_ textView: UITextView) {
@@ -359,6 +371,7 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
     }
 }
 
+
 //MARK: - Previews
 struct TextView_Previews: PreviewProvider {
     @State static var text = ""
@@ -373,4 +386,3 @@ struct TextView_Previews: PreviewProvider {
         }
     }
 }
-

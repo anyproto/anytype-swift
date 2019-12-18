@@ -7,21 +7,26 @@
 //
 
 import Foundation
+import SwiftUI
 
-// MARK: ViewModel
+
+// MARK: - ViewModel
 extension TextBlocksViews.Text {
     class BlockViewModel: ObservableObject, Identifiable {
         private var block: Block
         @Published var text: String
+        
         init(block: Block) {
             self.block = block
             self.text = "Text"
         }
+        
         var id: String {
             return block.id
         }
     }
 }
+
 
 extension TextBlocksViews.Text.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
@@ -29,18 +34,23 @@ extension TextBlocksViews.Text.BlockViewModel: BlockViewBuilderProtocol {
     }
 }
 
-// MARK: View
-import SwiftUI
+
+// MARK: - View
+
 extension TextBlocksViews.Text {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
-        var body: some View {            
-            TextView(text: self.$viewModel.text)
+        var body: some View {
+            VStack {
+                TextView(text: self.$viewModel.text)
+                    .modifier(DraggbleView(blockId: viewModel.id))
+            }
         }
     }
 }
 
-// MARK: View Previews
+
+// MARK: - View Previews
 extension TextBlocksViews.Text {
     struct BlockView__Previews: PreviewProvider {
         static var previews: some View {

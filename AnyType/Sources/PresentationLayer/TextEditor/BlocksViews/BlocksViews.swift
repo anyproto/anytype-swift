@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+
 enum BlocksViews {
     enum Supplement {}
 }
@@ -18,6 +20,7 @@ enum BlocksViews {
 // This type automatically adopts Hashable and Equatable protocols and can be used as key in dictionaries.
 private enum MetaBlockType: String {
     case text, image, video
+    
     static func from(_ block: Block) -> Self {
         switch block.type {
         case .text(_): return .text
@@ -27,9 +30,11 @@ private enum MetaBlockType: String {
     }
 }
 
+
 extension BlocksViews.Supplement {
+    
     class BaseBlocksSeriazlier {
-        // Move it somewhere later.        
+        // TODO: Move it to each block where block should conform equitability
         private static func sameBlock(lhs: Block, rhs: Block) -> Bool {
             switch (lhs.type, rhs.type) {
             case let (.text(left), .text(right)): return left.contentType == right.contentType
@@ -87,6 +92,7 @@ extension BlocksViews.Supplement {
             return value
         }()
         private var serializers: [MetaBlockType : BaseBlocksSeriazlier] = [:]
+       
         private func defaultSerializers() -> [MetaBlockType : BaseBlocksSeriazlier] {
             [
                 .text: TextBlocksViews.Supplement.Matcher(),
@@ -101,3 +107,4 @@ extension BlocksViews.Supplement {
         }
     }
 }
+

@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import SwiftUI
 
-// MARK: ViewModel
+
+// MARK: - ViewModel
 extension TextBlocksViews.Bulleted {
     class BlockViewModel: ObservableObject, Identifiable {
         private var block: Block
@@ -29,9 +31,8 @@ extension TextBlocksViews.Bulleted.BlockViewModel: BlockViewBuilderProtocol {
     }
 }
 
-// MARK: - View
-import SwiftUI
 
+// MARK: - View
 extension TextBlocksViews.Bulleted {
     struct MarkedViewModifier: ViewModifier {
         func body(content: Content) -> some View {
@@ -41,6 +42,7 @@ extension TextBlocksViews.Bulleted {
             }
         }
     }
+    
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
@@ -49,7 +51,7 @@ extension TextBlocksViews.Bulleted {
     }
 }
 
-// MARK: View Previews
+// MARK: - View Previews
 extension TextBlocksViews.Bulleted {
     struct BlockView__Previews: PreviewProvider {
         static var previews: some View {
