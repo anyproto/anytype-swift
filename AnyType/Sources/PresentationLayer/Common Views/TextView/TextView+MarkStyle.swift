@@ -217,10 +217,17 @@ extension TextView {
 // MARK: MarkStyleModifier
 extension TextView {
     class MarkStyleModifier {
+        // MARK: Convenient Wrappers
         func charactersCount() -> Int {
             return self.attributedString.length
         }
+        
+        // MARK: Variables
         var attributedString: NSMutableAttributedString = .init()
+        var typingAttributes: [NSAttributedString.Key : Any] = [:]
+        var linkAttributes: [NSAttributedString.Key : Any] = [:]
+        
+        // MARK: Initialization
         init() {}
         init(attributedText: NSMutableAttributedString) {
             attributedString = attributedText
@@ -229,6 +236,21 @@ extension TextView {
             attributedString = NSMutableAttributedString(string: text)
             attributedString.setAttributes([.font : UIFont.preferredFont(forTextStyle: .body)], range: NSRange(location: 0, length: attributedString.length))
         }
+        
+        // MARK: Updating attributes.
+        func update(by textView: UITextView) -> Self {
+            self.update(typingAttributes: textView.typingAttributes).update(linkAttributes: textView.linkTextAttributes)
+        }
+        
+        func update(typingAttributes: [NSAttributedString.Key : Any]) -> Self {
+            self.typingAttributes = typingAttributes
+            return self
+        }
+        
+        func update(linkAttributes: [NSAttributedString.Key : Any]) -> Self {
+            self.linkAttributes = linkAttributes
+            return self
+        }
     }
 }
 
@@ -236,8 +258,21 @@ extension TextView {
 extension TextView.MarkStyleModifier {
     typealias MarkStyle = TextView.MarkStyle
     typealias RangeEither = TextView.RangeEither
+    
     // MARK: Attributes
     private func getAttributes(at range: NSRange) -> [NSAttributedString.Key : Any] {
+        switch (attributedString.string.isEmpty, range) {
+        // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
+        case (true, NSRange(location: 0, length: 0)): return self.typingAttributes
+        
+        // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
+        case (true, _): return [:]
+            
+        // Otherwise, return string attributes.
+        default: break
+        }
+        
+        // TODO: We still DON'T check range and attributedString length here. Fix it.
         return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
     }
     
