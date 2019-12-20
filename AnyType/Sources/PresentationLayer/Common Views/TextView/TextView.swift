@@ -97,12 +97,13 @@ private struct InnerTextView: UIViewRepresentable {
     
     private func createTextView() -> UITextView {
         let textView = UITextView()
-        textView.font = UIFont.preferredFont(forTextStyle: .title1)
+        textView.font = .preferredFont(forTextStyle: .title1)
         textView.textContainer.lineFragmentPadding = 0.0
         textView.textContainerInset = .zero
         textView.isScrollEnabled = false
         //TODO: add debug here.
 //        textView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
+//        textView.backgroundColor = .clear
         textView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
         return textView
@@ -115,8 +116,11 @@ private struct InnerTextView: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView {
         let textView = createTextView()
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.setAttributes([.font : UIFont.preferredFont(forTextStyle: .body)], range: NSRange(location: 0, length: attributedString.length))
+        let attributes: [NSAttributedString.Key : Any] = [.font : UIFont.preferredFont(forTextStyle: .body)]
+        let range = NSRange(location: 0, length: attributedString.length)
+        textView.typingAttributes = attributes
         textView.textStorage.setAttributedString(attributedString)
+        textView.textStorage.setAttributes(attributes, range: range)
         context.coordinator.configureMarkStylePublisher(textView)
         context.coordinator.configureBlocksToolbarHandler(textView)
         textView.delegate = context.coordinator
