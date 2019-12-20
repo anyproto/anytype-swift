@@ -13,32 +13,6 @@ import SwiftUI
 
 // MARK: - UIKit / UITextView / AccessoryView
 extension TextView {
-    enum Style {
-        static let `default`: Self = .presentation
-        case debug, presentation
-        func normalColor() -> UIColor {
-            switch self {
-            case .debug: return .white
-            case .presentation: return .gray
-            }
-        }
-        func highlightedColor() -> UIColor {
-            switch self {
-            case .debug: return .orange
-            case .presentation: return .black
-            }
-        }
-        func backgroundColor() -> UIColor {
-            switch self {
-            case .debug: return .darkGray
-            case .presentation: return .white
-            }
-        }
-        func color(for state: Bool) -> UIColor {
-            state ? highlightedColor() : normalColor()
-        }
-    }
-
     class HighlightedAccessoryView: UIView {
         typealias Style = TextView.Style
         // MARK: Variables
@@ -113,9 +87,6 @@ extension TextView {
             self.setup()
         }
 
-        // MARK: Customization
-        var insets: UIEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-
         // MARK: Outlets
         var boldButton: UIButton!
         var italicButton: UIButton!
@@ -123,12 +94,10 @@ extension TextView {
         var linkButton: UIButton!
         var codeButton: UIButton!
 
-        var leftStackView: UIStackView!
-
         var changeColorButton: UIButton!
         var dismissKeyboardButton: UIButton!
-        var rightStackView: UIStackView!
-
+        
+        var toolbarView: BaseToolbarView!
         var contentView: UIView!
 
         // MARK: Public API Configurations
@@ -209,19 +178,6 @@ extension TextView {
                 return view
             }()
 
-            self.leftStackView = { () -> UIStackView in
-                let view = UIStackView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.axis = .horizontal
-                view.distribution = .fillEqually
-                return view
-            }()
-
-            for view in [boldButton, italicButton, strikethroughButton, linkButton, codeButton].compactMap({$0}) {
-                view.sizeToFit()
-                leftStackView.addArrangedSubview(view)
-            }
-
             self.changeColorButton = { () -> UIButton in
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -235,60 +191,49 @@ extension TextView {
                 view.setImage(UIImage(named: "TextEditor/Toolbar/General/Keyboard"), for: .normal)
                 return view
             }()
-
-            self.rightStackView = { () -> UIStackView in
-                let view = UIStackView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.axis = .horizontal
-                view.distribution = .fillEqually
+            
+            self.toolbarView = { () -> BaseToolbarView in
+                let view = BaseToolbarView()
                 return view
             }()
-
-            for view in [changeColorButton, dismissKeyboardButton].compactMap({$0}) {
-                view.sizeToFit()
-                rightStackView.addArrangedSubview(view)
+            
+            for view in [boldButton, italicButton, strikethroughButton, linkButton, codeButton].compactMap({$0}) {
+                toolbarView.leftStackView.addArrangedSubview(view)
             }
-
+            
+            for view in [changeColorButton, dismissKeyboardButton].compactMap({$0}) {
+                toolbarView.rightStackView.addArrangedSubview(view)
+            }
+                        
             self.contentView = { () -> UIView in
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
 
-            self.contentView.addSubview(leftStackView)
-            self.contentView.addSubview(rightStackView)
+            self.contentView.addSubview(toolbarView)
             self.addSubview(contentView)
         }
 
         // MARK: Layout
         func addLayout() {
             if let view = self.contentView, let superview = view.superview {
-                view.leftAnchor.constraint(equalTo: superview.leftAnchor).isActive = true
-                view.rightAnchor.constraint(equalTo: superview.rightAnchor).isActive = true
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
                 view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
             }
-            if let view = self.leftStackView, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: 16.0).isActive = true
+            
+            if let view = self.toolbarView, let superview = view.superview {
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
                 view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-                //                view.rightAnchor.constraint(greaterThanOrEqualTo: rightView.leftAnchor, constant: -10.0).isActive = true
-                view.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: 0.4, constant: 0.0).isActive = true
-            }
-            if let view = self.rightStackView, let superview = view.superview {
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -16.0).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-                view.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: 0.20, constant: 0.0).isActive = true
             }
         }
-
+                
         override var intrinsicContentSize: CGSize {
-            var size = self.dismissKeyboardButton.intrinsicContentSize
-            size.width += self.insets.left + self.insets.right
-//            size.height += self.insets.top + self.insets.bottom
-            size.height = 48
-            return size
+            return self.toolbarView.intrinsicContentSize
         }
     }
 }

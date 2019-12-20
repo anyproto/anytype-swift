@@ -93,6 +93,7 @@
 		03D1A04A2389F7650028371C /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1A0492389F7650028371C /* CGPointExtension.swift */; };
 		03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F7BD1D22F7A50400F47583 /* StandardButton.swift */; };
 		0A43F49823A6653D00018B36 /* TextView+BlocksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A43F49723A6653D00018B36 /* TextView+BlocksToolbar.swift */; };
+		0A563B1823AD0FC200617065 /* TextView+BaseToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A563B1723AD0FC200617065 /* TextView+BaseToolbarView.swift */; };
 		0A693219238C4C8200575544 /* TextBlocksViews+Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */; };
 		0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693211238C4C8200575544 /* TextBlocksViews+Text.swift */; };
 		0A69321C238C4C8200575544 /* TextBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693212238C4C8200575544 /* TextBlocksViews.swift */; };
@@ -252,6 +253,7 @@
 		03D1A0492389F7650028371C /* CGPointExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 		03F7BD1D22F7A50400F47583 /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		0A43F49723A6653D00018B36 /* TextView+BlocksToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksToolbar.swift"; sourceTree = "<group>"; };
+		0A563B1723AD0FC200617065 /* TextView+BaseToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+BaseToolbarView.swift"; sourceTree = "<group>"; };
 		0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Checkbox.swift"; sourceTree = "<group>"; };
 		0A693211238C4C8200575544 /* TextBlocksViews+Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Text.swift"; sourceTree = "<group>"; };
 		0A693212238C4C8200575544 /* TextBlocksViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlocksViews.swift; sourceTree = "<group>"; };
@@ -897,6 +899,7 @@
 				0A70816F239CFF4F004B04AB /* TextView+HighlightedAccessoryView.swift */,
 				0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */,
 				0A43F49723A6653D00018B36 /* TextView+BlocksToolbar.swift */,
+				0A563B1723AD0FC200617065 /* TextView+BaseToolbarView.swift */,
 			);
 			path = TextView;
 			sourceTree = "<group>";
@@ -1083,6 +1086,7 @@
 				03C6750823981BBD0041A7C4 /* ProfileService.swift in Sources */,
 				03B65752234D47A90084D9F5 /* BlockViewRowBuilderProtocol.swift in Sources */,
 				0ADF8CB9239FFD33003CA31E /* TextView+BlocksAccessoryView.swift in Sources */,
+				0A563B1823AD0FC200617065 /* TextView+BaseToolbarView.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,
