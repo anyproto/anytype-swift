@@ -44,6 +44,7 @@ struct TextView: View {
 
 
 // MARK: - Decorations
+
 extension TextView {
     
     class MarkStyleKeeper: ObservableObject {
@@ -88,6 +89,7 @@ extension TextView {
 
 
 // MARK: - TextView
+
 private struct InnerTextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var sizeThatFit: CGSize
@@ -148,6 +150,7 @@ private struct InnerTextView: UIViewRepresentable {
 
 
 // MARK: - InnerTextView / Coordinator
+
 extension InnerTextView {
     class Coordinator: NSObject {
         // MARK: Aliases
@@ -378,8 +381,6 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
 // MARK: - InnerTextView.Coordinator / UIGestureRecognizerDelegate
 
 extension InnerTextView.Coordinator: UIGestureRecognizerDelegate {
-    
-    // MARK: UIGestureRecognizerDelegate
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
