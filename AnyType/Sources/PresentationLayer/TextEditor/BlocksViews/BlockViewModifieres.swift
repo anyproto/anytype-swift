@@ -70,6 +70,7 @@ struct DraggbleView: ViewModifier {
     var blockId: String
     @State var initialPosition: Anchor<CGRect>?
     @GestureState private var dragState = DragState.inactive
+    @State var contentViewId = UUID().hashValue
     
     func body(content: Content) -> some View {
         return HStack {
@@ -78,8 +79,9 @@ struct DraggbleView: ViewModifier {
                 .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) { anchor in
                     return BaseViewPreferenceData(id: self.blockId, position: anchor, translation: self.dragState.translation, isActive: self.dragState.isActive)
             }
+            .saveBounds(viewId: contentViewId)
         }
-        .modifier(CustomLongPressGestureModifier())
+//        .modifier(CustomLongPressGestureModifier(contentViewid: contentViewId))
 //        .gesture(createDragGeasture())
     }
     

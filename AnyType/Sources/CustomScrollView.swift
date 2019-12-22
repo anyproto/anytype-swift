@@ -10,12 +10,12 @@ import SwiftUI
 import Combine
 
 enum GlobalEnvironment {
-// Inject them!
-enum OurEnvironmentObjects {
-class PageScrollViewLayout: ObservableObject {
-@Published var needsLayout: Bool = false
-}
-}
+    // Inject them!
+    enum OurEnvironmentObjects {
+        class PageScrollViewLayout: ObservableObject {
+            @Published var needsLayout: Bool = false
+        }
+    }
 }
 
 var scrollModelInst: Int = 0
@@ -72,8 +72,8 @@ struct CustomScrollView<Content>: View where Content: View {
                 .modifier(ViewHeightKey())
         }
             // SwiftUI: Don't call onPreferenceChange inside InnerScrollView otherwise InnerScrollView retain this view with  self.contentHeight. It happens only with UIViewRepresentable views (they are not recreate every time as swiftui views)
-        .onPreferenceChange(ViewHeightKey.self) {
-            self.contentHeight = $0
+            .onPreferenceChange(ViewHeightKey.self) {
+                self.contentHeight = $0
         }
     }
     
@@ -89,7 +89,7 @@ struct ViewHeightKey: PreferenceKey {
     }
     
     static func reduce(value: inout Value, nextValue: () -> Value) {
-//        value = nextValue()
+        //        value = nextValue()
     }
 }
 
@@ -113,7 +113,7 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
     public init(contentHeight: Binding<CGFloat>, pageScrollViewLayout: Binding<Bool>, @ViewBuilder content: () -> Content) {
         self.content = content()
         _contentHeight = contentHeight
-_pageScrollViewLayout = pageScrollViewLayout
+        _pageScrollViewLayout = pageScrollViewLayout
     }
     
     // MARK: - UIViewRepresentable
@@ -148,7 +148,7 @@ extension InnerScrollView {
             contentView.bottomAnchor.constraint(equalTo: contentGuide.bottomAnchor),
             
             // HERE: Uncomment me if you want to look at fun animations
-//            contentGuide.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor),
+            //            contentGuide.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor),
             contentGuide.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
         ])
     }

@@ -106,9 +106,9 @@ private struct InnerTextView: UIViewRepresentable {
     
     private func createTextView() -> UITextView {
         let textView = UITextView()
-        textView.font = UIFont.preferredFont(forTextStyle: .title1)
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.textContainer.lineFragmentPadding = 0.0
-        textView.textContainerInset = .zero
+//        textView.textContainerInset = .zero
         textView.isScrollEnabled = false
         //TODO: add debug here.
         textView.backgroundColor = .clear
@@ -131,16 +131,13 @@ private struct InnerTextView: UIViewRepresentable {
         textView.delegate = context.coordinator
         textView.autocorrectionType = .no
         
-        
-        DispatchQueue.main.async {
-            self.sizeThatFit = textView.intrinsicContentSize
-        }
-        
         return textView
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
-        context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
+        DispatchQueue.main.async {
+            context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
+        }
     }
 }
 
@@ -359,14 +356,14 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         self.switchInputs(textView)
     }
-        
+    
     func textViewDidChange(_ textView: UITextView) {
         DispatchQueue.main.async {
             // TODO: rethink.
             // We require this environment object update to notify outer views to call setNeedsLayout to fix sizes.
             self.outerViewNeedsLayout.needsLayout = true
             self.parent.text = textView.text
-            self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+            self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude))
         }
     }
 }

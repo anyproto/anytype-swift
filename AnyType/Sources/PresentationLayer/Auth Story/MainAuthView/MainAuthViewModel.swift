@@ -27,7 +27,10 @@ class MainAuthViewModel: ObservableObject {
     @Published var shouldShowCreateProfileView: Bool = false
     
     init() {
+        // TODO: Move to auth service, and call this from fabric or coordiantor
+        try? FileManager.default.removeItem(atPath: localRepoService.middlewareRepoPath)
         print("repoPath: \(localRepoService.middlewareRepoPath)")
+        
     }
     
     func singUp() {

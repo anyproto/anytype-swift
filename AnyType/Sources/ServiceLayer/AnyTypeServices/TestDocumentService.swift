@@ -54,9 +54,28 @@ class TestDocumentService: DocumentServiceProtocol {
             }
             static func focusSet() -> [Block] {
                 [
-                    .mockText(.quote),
+//                    .mockText(.quote),
 //                    .mockImage(.image)
-                    .mockText(.toggle)
+//                    .mockText(.toggle)
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
                 ]
             }
             static func presentationSet() -> [Block] {
@@ -90,7 +109,7 @@ class TestDocumentService: DocumentServiceProtocol {
             set.blocks()
         }
         var blocks: [Block] = {
-            Self.getBlocks(set: .presentation)
+            Self.getBlocks(set: .focus)
         }()
 
         

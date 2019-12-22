@@ -52,18 +52,18 @@ private extension DocumentView {
             }
                 .padding(.top, 10) // Workaround: adjust first item after removing spacing
         }
-//        .scrollViewOffset(offset: self.velocity)
-//        .border(showViewFrames ? Color.red : Color.clear)
-//            // TODO: Replace with pasteDraggingView func
-//        .overlayPreferenceValue(BaseViewPreferenceKey.self) { preference in
-//            GeometryReader { proxy in
-//                return DraggingView(proxy: proxy, viewBulders: viewBulders, preference: preference)
-//            }
-//        }
-//        .overlayPreferenceValue(DraggingViewPreferenceDataKey.self) { preference in
-//            self.saveDraggingViewPostion(preference: preference)
-//        }
-//        .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity))
+        .scrollViewOffset(offset: self.velocity)
+        .border(showViewFrames ? Color.red : Color.clear)
+            // TODO: Replace with pasteDraggingView func
+        .overlayPreferenceValue(BaseViewPreferenceKey.self) { preference in
+            GeometryReader { proxy in
+                return DraggingView(proxy: proxy, viewBulders: viewBulders, preference: preference)
+            }
+        }
+        .overlayPreferenceValue(DraggingViewPreferenceDataKey.self) { preference in
+            self.saveDraggingViewPostion(preference: preference)
+        }
+        .modifier(VelocityOnIntersectViewBoundary(velocity: self.$velocity))
     }
     
      // TODO: Move to PasteDraggingView struct
