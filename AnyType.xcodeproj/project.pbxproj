@@ -37,7 +37,6 @@
 		0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */; };
 		0350A2E7232960D900E00FB5 /* HomeCollectionViewPlusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */; };
 		03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */; };
-		036508AF23A7214F00B9605E /* CustomLongPressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */; };
 		037260C023A8E2DB0034F9F5 /* ImageBlocksViews+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322823911D0200575544 /* ImageBlocksViews+Image.swift */; };
 		037260C123A8E2F90034F9F5 /* DrawableBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322623911B1800575544 /* DrawableBlocksViews.swift */; };
 		0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */; };
@@ -192,7 +191,6 @@
 		0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewDocumentCell.swift; sourceTree = "<group>"; };
 		0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewPlusCell.swift; sourceTree = "<group>"; };
 		03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveRecoveryPhraseView.swift; sourceTree = "<group>"; };
-		036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLongPressGesture.swift; sourceTree = "<group>"; };
 		03652DD7239F5E7B0029E773 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
@@ -474,7 +472,6 @@
 				03E2AD5023A93D1000C701CE /* ImagePicker.swift */,
 				03E2AD4323A93C8C00C701CE /* TextView */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
-				036508AE23A7214F00B9605E /* CustomLongPressGesture.swift */,
 				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
 				03425C5323849AAE00E22FF1 /* CustomScrollView.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
@@ -1161,7 +1158,6 @@
 				037260C123A8E2F90034F9F5 /* DrawableBlocksViews.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0A69321D238C4C8200575544 /* TextBlocksViews+Numbered.swift in Sources */,
-				036508AF23A7214F00B9605E /* CustomLongPressGesture.swift in Sources */,
 				03425C522383726400E22FF1 /* GeometryExtension.swift in Sources */,
 				0A693222238C4C8200575544 /* TextBlocksViews+Callout.swift in Sources */,
 				03E2AD4A23A93C8C00C701CE /* TextView+MarkStyle.swift in Sources */,

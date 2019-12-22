@@ -66,7 +66,6 @@ private struct SaveBoundsPrefKey: PreferenceKey {
     static var defaultValue: [SaveBoundsPrefData] = []
     
     static func reduce(value: inout [SaveBoundsPrefData], nextValue: () -> [SaveBoundsPrefData]) {
-        let next = nextValue()
         value.append(contentsOf: nextValue())
     }
 }

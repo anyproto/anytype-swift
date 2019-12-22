@@ -21,11 +21,11 @@ struct TextView: View {
     @ObservedObject private var wholeTextMarkStyleKeeper: MarkStyleKeeper = .init()
     @ObservedObject var storage: Storage
     @Binding var text: String
-    @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
+    @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 38.0)
     
     var body: some View {
         InnerTextView(text: self.$text, sizeThatFit: self.$sizeThatFit, wholeTextMarkStyleKeeper: self._wholeTextMarkStyleKeeper)
-            .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height)
+            .frame(height: self.sizeThatFit.height)
     }
     
     // MARK: Lifecycle
@@ -123,13 +123,18 @@ private struct InnerTextView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UITextView {
         let textView = createTextView()
-        let attributedString = NSMutableAttributedString(string: text)
-        attributedString.setAttributes([.font : UIFont.preferredFont(forTextStyle: .body)], range: NSRange(location: 0, length: attributedString.length))
-        textView.textStorage.setAttributedString(attributedString)
         context.coordinator.configureMarkStylePublisher(textView)
         context.coordinator.configureBlocksToolbarHandler(textView)
         textView.delegate = context.coordinator
         textView.autocorrectionType = .no
+        
+        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.tap(_:)))
+        tapGesture.delegate = context.coordinator
+        textView.addGestureRecognizer(tapGesture)
+        
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.setAttributes([.font : UIFont.preferredFont(forTextStyle: .body)], range: NSRange(location: 0, length: attributedString.length))
+        textView.textStorage.setAttributedString(attributedString)
         
         return textView
     }
@@ -315,6 +320,7 @@ extension InnerTextView.Coordinator {
 
 
 // MARK: - InnerTextView.Coordinator / UITextViewDelegate
+
 extension InnerTextView.Coordinator: UITextViewDelegate {
     // MARK: Input Switching
     func switchInputs(_ textView: UITextView) {
@@ -364,6 +370,37 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
             self.outerViewNeedsLayout.needsLayout = true
             self.parent.text = textView.text
             self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude))
+        }
+    }
+}
+
+
+// MARK: - InnerTextView.Coordinator / UIGestureRecognizerDelegate
+
+extension InnerTextView.Coordinator: UIGestureRecognizerDelegate {
+    
+    // MARK: UIGestureRecognizerDelegate
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    @objc func tap(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+             print("tap began")
+        } else if gestureRecognizer.state == .recognized {
+            gestureRecognizer.view?.becomeFirstResponder()
+             print("tap recognized")
+        } else if gestureRecognizer.state == .possible {
+            print("tap possible")
+        } else if gestureRecognizer.state == .changed {
+            print("tap changed")
+        } else if gestureRecognizer.state == .ended {
+            print("tap ended")
+        } else if gestureRecognizer.state == .failed {
+            print("tap failed")
+        } else if gestureRecognizer.state == .cancelled {
+             print("tap cancelled")
         }
     }
 }
