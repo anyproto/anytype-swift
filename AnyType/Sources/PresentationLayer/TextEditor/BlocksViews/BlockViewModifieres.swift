@@ -9,20 +9,20 @@
 import SwiftUI
 
 
-struct BaseViewPreferenceData: Identifiable {
-    let id: String?
-    let position: Anchor<CGRect>?
-    let translation: CGSize
-    let isActive: Bool
+struct DraggingViewPreferenceData: Identifiable {
+    var id: String? = nil
+    var position: Anchor<CGRect>? = nil
+    var translation: CGSize = .zero
+    var isActive: Bool = false
 }
 
 
-struct BaseViewPreferenceKey: PreferenceKey {
-    typealias Value = BaseViewPreferenceData
+struct DraggingViewPreferenceKey: PreferenceKey {
+    typealias Value = DraggingViewPreferenceData
     
-    static var defaultValue = BaseViewPreferenceData(id: nil, position: nil, translation: .zero, isActive: false)
+    static var defaultValue = DraggingViewPreferenceData()
     
-    static func reduce(value: inout BaseViewPreferenceData, nextValue: () -> BaseViewPreferenceData) {
+    static func reduce(value: inout DraggingViewPreferenceData, nextValue: () -> DraggingViewPreferenceData) {
         let next = nextValue()
         
         if next.isActive {
@@ -74,35 +74,35 @@ struct DraggbleView: ViewModifier {
     func body(content: Content) -> some View {
         HStack {
             content
-                .anchorPreference(key: BaseViewPreferenceKey.self, value: .bounds) { anchor in
-                    return BaseViewPreferenceData(id: self.blockId, position: anchor, translation: self.dragState.translation, isActive: self.dragState.isActive)
+                .anchorPreference(key: DraggingViewPreferenceKey.self, value: .bounds) { anchor in
+                    return DraggingViewPreferenceData(id: self.blockId, position: anchor, translation: self.dragState.translation, isActive: self.dragState.isActive)
             }
         }
         .simultaneousGesture(createDragGeasture())
     }
     
     private func createDragGeasture() -> some Gesture {
-        let minimumLongPressDuration = 1.5
+        let minimumLongPressDuration = 0.5
         return LongPressGesture(minimumDuration: minimumLongPressDuration)
             .sequenced(before: DragGesture(coordinateSpace: .global))
             .updating($dragState) { value, state, transaction in
                 switch value {
                 // Long press begins.
                 case .first(true):
-                    print("pressing")
+//                    print("pressing")
                     state = .pressing
                 // Long press confirmed, dragging may begin.
                 case .second(true, let drag):
-                    print("drag")
+//                    print("drag")
                     state = .dragging(translation: drag?.translation ?? .zero)
                 // Dragging ended or the long press cancelled.
                 default:
-                    print("inactive")
+//                    print("inactive")
                     state = .inactive
                 }
         }
         .onEnded { value in
-            print("END")
+//            print("END")
             self.initialPosition = nil
             guard case .second(true, let drag?) = value else { return }
 //            self.viewState.width += drag.translation.width

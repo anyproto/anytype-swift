@@ -761,10 +761,8 @@
 		03A24B8D232152ED00DA7369 /* TextEditor */ = {
 			isa = PBXGroup;
 			children = (
+				03F7793423B00A6800B03CF9 /* DocumentView */,
 				031B35572346C5650066DDB8 /* BlocksViews */,
-				030DF8672333E3DD00FE6DA5 /* DocumentView.swift */,
-				030DF8632333E31100FE6DA5 /* DocumentViewModel.swift */,
-				031B355523465DFF0066DDB8 /* EmptyDocumentView.swift */,
 			);
 			path = TextEditor;
 			sourceTree = "<group>";
@@ -911,6 +909,16 @@
 				03E2AD4823A93C8C00C701CE /* TextView+BlocksAccessoryView.swift */,
 			);
 			path = TextView;
+			sourceTree = "<group>";
+		};
+		03F7793423B00A6800B03CF9 /* DocumentView */ = {
+			isa = PBXGroup;
+			children = (
+				030DF8672333E3DD00FE6DA5 /* DocumentView.swift */,
+				030DF8632333E31100FE6DA5 /* DocumentViewModel.swift */,
+				031B355523465DFF0066DDB8 /* EmptyDocumentView.swift */,
+			);
+			path = DocumentView;
 			sourceTree = "<group>";
 		};
 		03F7BD1F22F7A58400F47583 /* PinCodeView */ = {

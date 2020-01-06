@@ -192,7 +192,7 @@ extension InnerTextView {
             if self.defaultKeyboardRect == .zero, let rect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                 // save size?
                 self.defaultKeyboardRect = rect
-                print("get new keyboard size: \(self.defaultKeyboardRect)")
+//                print("get new keyboard size: \(self.defaultKeyboardRect)")
             }
         }
         
@@ -218,12 +218,12 @@ extension InnerTextView.Coordinator {
                 return
             }
 
-            print("keyboardSize: \(self.defaultKeyboardRect.size)")
+//            print("keyboardSize: \(self.defaultKeyboardRect.size)")
             
             let view = action.view
             view?.frame = .init(x: 0, y: 0, width: self.defaultKeyboardRect.size.width, height: self.defaultKeyboardRect.size.height)
             
-            print("newKeyboardSize: \(String(describing: view?.frame.size))")
+//            print("newKeyboardSize: \(String(describing: view?.frame.size))")
             textView.inputView = view
             textView.reloadInputViews()
         })
@@ -266,7 +266,9 @@ extension InnerTextView.Coordinator {
             let (textView, (range, textColor, backgroundColor)) = pair
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            print("range is: \(range)")
+
+//            print("range is: \(range)")
+            
             guard range.length > 0 else { return }
             if let textColor = textColor {
                 _ = modifier.applyStyle(style: .textColor(textColor), rangeOrWholeString: .range(range))
@@ -281,7 +283,9 @@ extension InnerTextView.Coordinator {
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { (textView, action) in
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            print("\(action)")
+            
+//            print("\(action)")
+            
             switch action {
             case let .bold(range):
                 if let style = modifier.getMarkStyle(style: .bold(false), at: .range(range)) {

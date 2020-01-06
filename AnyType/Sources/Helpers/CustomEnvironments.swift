@@ -77,7 +77,7 @@ struct ScrollOffsetVelocityKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
-    var scrollViewOffsetVelocity: CGPoint {
+    var scrollViewOffset: CGPoint {
         get {
             return self[ScrollOffsetVelocityKey.self]
         }

@@ -100,7 +100,7 @@ extension TextView.BlockToolbar {
 
         func setupInteraction() {
             self.userResponse = self.model.$userResponse.dropFirst().sink { (state) in
-                print("Value! \(state)")
+//                print("Value! \(state)")
                 self.update(state: state)
             }
         }
