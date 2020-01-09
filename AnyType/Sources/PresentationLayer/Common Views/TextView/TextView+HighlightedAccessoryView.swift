@@ -143,56 +143,56 @@ extension TextView {
         func setupUIElements() {
             self.translatesAutoresizingMaskIntoConstraints = false
 
-            self.boldButton = { () -> UIButton in
+            self.boldButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Marks/Bold"), for: .normal)
                 return view
             }()
 
-            self.italicButton = { () -> UIButton in
+            self.italicButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Marks/Italic"), for: .normal)
                 return view
             }()
 
-            self.strikethroughButton = { () -> UIButton in
+            self.strikethroughButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Marks/Strikethrough"), for: .normal)
                 return view
             }()
 
-            self.linkButton = { () -> UIButton in
+            self.linkButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Marks/Link"), for: .normal)
                 return view
             }()
 
-            self.codeButton = { () -> UIButton in
+            self.codeButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Marks/Code"), for: .normal)
                 return view
             }()
 
-            self.changeColorButton = { () -> UIButton in
+            self.changeColorButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/ChangeColor"), for: .normal)
                 return view
             }()
 
-            self.dismissKeyboardButton = { () -> UIButton in
+            self.dismissKeyboardButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/General/Keyboard"), for: .normal)
                 return view
             }()
             
-            self.toolbarView = { () -> BaseToolbarView in
+            self.toolbarView = {
                 let view = BaseToolbarView()
                 return view
             }()
@@ -205,7 +205,7 @@ extension TextView {
                 toolbarView.rightStackView.addArrangedSubview(view)
             }
                         
-            self.contentView = { () -> UIView in
+            self.contentView = {
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view

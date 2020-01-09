@@ -89,6 +89,7 @@ extension TextView.BlockToolbar {
 
         func setupCustomization() {
             self.backgroundColor = self.style.backgroundColor()
+            
             for button in [addBlockButton, turnIntoBlockButton, changeColorButton, editActionsButton, dismissKeyboardButton] {
                 button?.tintColor = self.style.normalColor()
             }
@@ -130,42 +131,42 @@ extension TextView.BlockToolbar {
         func setupUIElements() {
             self.translatesAutoresizingMaskIntoConstraints = false
 
-            self.addBlockButton = { () -> UIButton in
+            self.addBlockButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/AddBlock"), for: .normal)
                 return view
             }()
 
-            self.turnIntoBlockButton = { () -> UIButton in
+            self.turnIntoBlockButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/TurnIntoBlock"), for: .normal)
                 return view
             }()
             
-            self.changeColorButton = { () -> UIButton in
+            self.changeColorButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/ChangeColor"), for: .normal)
                 return view
             }()
 
-            self.editActionsButton = { () -> UIButton in
+            self.editActionsButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/EditActions"), for: .normal)
                 return view
             }()
             
-            self.dismissKeyboardButton = { () -> UIButton in
+            self.dismissKeyboardButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.setImage(UIImage(named: "TextEditor/Toolbar/General/Keyboard"), for: .normal)
                 return view
             }()
             
-            self.toolbarView = { () -> BaseToolbarView in
+            self.toolbarView = {
                 let view = BaseToolbarView()
                 return view
             }()
@@ -178,14 +179,14 @@ extension TextView.BlockToolbar {
                 toolbarView.rightStackView.addArrangedSubview(view)
             }
             
-            self.contentView = { () -> UIView in
+            self.contentView = {
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
 
             self.contentView.addSubview(self.toolbarView)
-            self.addSubview(contentView)
+            self.addSubview(self.contentView)
         }
 
         // MARK: Layout
@@ -276,7 +277,7 @@ extension TextView.BlockToolbar {
         @ObservedObject var editActionsViewModel: EditActions.ViewModel
 
         // MARK: Private Setters
-        fileprivate func process(_ action: Action) {
+        fileprivate func process(_ action: Action) {            
             switch action {
             case .unknown: return
             case .addBlock: self.userAction = .init(action: action, view: AddBlock.InputViewBuilder.createView(self._addBlockViewModel))
