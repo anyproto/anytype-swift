@@ -123,6 +123,12 @@
 		0A74E50923A90FE900B6C406 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74E50423A90FE900B6C406 /* CustomTextField.swift */; };
 		0A74E50A23A90FE900B6C406 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74E50523A90FE900B6C406 /* ScannerViewController.swift */; };
 		0A74E50B23A90FE900B6C406 /* SimpleViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74E50623A90FE900B6C406 /* SimpleViews.swift */; };
+		0AA04DEA23C79203005B37A4 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DE523C79203005B37A4 /* Services.swift */; };
+		0AA04DEB23C79203005B37A4 /* AppearanceService+Schemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DE723C79203005B37A4 /* AppearanceService+Schemes.swift */; };
+		0AA04DEC23C79203005B37A4 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DE823C79203005B37A4 /* AppearanceServices+Schemes+Domains+Auth.swift */; };
+		0AA04DED23C79203005B37A4 /* AppearanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DE923C79203005B37A4 /* AppearanceService.swift */; };
+		0AA04DF623C7926F005B37A4 /* AssetsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DF423C7926F005B37A4 /* AssetsReader.swift */; };
+		0AA04DF723C7926F005B37A4 /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DF523C7926F005B37A4 /* PlistReader.swift */; };
 		0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */; };
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
@@ -275,6 +281,12 @@
 		0A74E50423A90FE900B6C406 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		0A74E50523A90FE900B6C406 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		0A74E50623A90FE900B6C406 /* SimpleViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleViews.swift; sourceTree = "<group>"; };
+		0AA04DE523C79203005B37A4 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		0AA04DE723C79203005B37A4 /* AppearanceService+Schemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceService+Schemes.swift"; sourceTree = "<group>"; };
+		0AA04DE823C79203005B37A4 /* AppearanceServices+Schemes+Domains+Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceServices+Schemes+Domains+Auth.swift"; sourceTree = "<group>"; };
+		0AA04DE923C79203005B37A4 /* AppearanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceService.swift; sourceTree = "<group>"; };
+		0AA04DF423C7926F005B37A4 /* AssetsReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsReader.swift; sourceTree = "<group>"; };
+		0AA04DF523C7926F005B37A4 /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerCoordinator.swift; sourceTree = "<group>"; };
 		0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerModel.swift; sourceTree = "<group>"; };
 		0AAC96602340C203006CE58C /* HomeViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainer.swift; sourceTree = "<group>"; };
@@ -357,6 +369,7 @@
 				038FB5CA22D8F34E002B90B8 /* CoreLayer */,
 				038FB5C822D8F321002B90B8 /* ServiceLayer */,
 				038FB5C622D8F2DE002B90B8 /* PresentationLayer */,
+				0AA04DF323C7926F005B37A4 /* Utilities */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -620,6 +633,7 @@
 		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0AA04DE423C79203005B37A4 /* Services */,
 				0303ECFE22D8EDAA005C552B /* AppDelegate.swift */,
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
 				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
@@ -904,6 +918,34 @@
 			path = TextView;
 			sourceTree = "<group>";
 		};
+		0AA04DE423C79203005B37A4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0AA04DE523C79203005B37A4 /* Services.swift */,
+				0AA04DE623C79203005B37A4 /* Appearance */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		0AA04DE623C79203005B37A4 /* Appearance */ = {
+			isa = PBXGroup;
+			children = (
+				0AA04DE723C79203005B37A4 /* AppearanceService+Schemes.swift */,
+				0AA04DE823C79203005B37A4 /* AppearanceServices+Schemes+Domains+Auth.swift */,
+				0AA04DE923C79203005B37A4 /* AppearanceService.swift */,
+			);
+			path = Appearance;
+			sourceTree = "<group>";
+		};
+		0AA04DF323C7926F005B37A4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0AA04DF423C7926F005B37A4 /* AssetsReader.swift */,
+				0AA04DF523C7926F005B37A4 /* PlistReader.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		4D385379DA00C6FCCA303F1D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1083,6 +1125,7 @@
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A693220238C4C8200575544 /* TextBlocksViews+Header.swift in Sources */,
 				0A74E4FC23A90EA000B6C406 /* ProfileModel.swift in Sources */,
+				0AA04DEB23C79203005B37A4 /* AppearanceService+Schemes.swift in Sources */,
 				03C6750823981BBD0041A7C4 /* ProfileService.swift in Sources */,
 				03B65752234D47A90084D9F5 /* BlockViewRowBuilderProtocol.swift in Sources */,
 				0ADF8CB9239FFD33003CA31E /* TextView+BlocksAccessoryView.swift in Sources */,
@@ -1094,6 +1137,7 @@
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03425C5423849AAF00E22FF1 /* CustomScrollView.swift in Sources */,
+				0AA04DEA23C79203005B37A4 /* Services.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
 				030DF8642333E31100FE6DA5 /* DocumentViewModel.swift in Sources */,
@@ -1104,6 +1148,7 @@
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				030DF8682333E3DD00FE6DA5 /* DocumentView.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
+				0AA04DF723C7926F005B37A4 /* PlistReader.swift in Sources */,
 				0372AB4A23A1378A008CF5B9 /* IpfsFilesModel.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
@@ -1123,6 +1168,7 @@
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
+				0AA04DEC23C79203005B37A4 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */,
 				0A69321F238C4C8200575544 /* TextBlocksViews+Bulleted.swift in Sources */,
 				0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
@@ -1147,6 +1193,7 @@
 				03B42F2A232910AB000F2BA2 /* HomeView.swift in Sources */,
 				03B6574F234CEDC70084D9F5 /* TextBlockViewModel.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
+				0AA04DF623C7926F005B37A4 /* AssetsReader.swift in Sources */,
 				0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,
 				0A43F49823A6653D00018B36 /* TextView+BlocksToolbar.swift in Sources */,
@@ -1161,6 +1208,7 @@
 				037260C023A8E2DB0034F9F5 /* ImageBlocksViews+Image.swift in Sources */,
 				0327B0B3232BB994007DB8A7 /* DocumentModel.swift in Sources */,
 				0372AB4723A136EE008CF5B9 /* IpfsFilesService.swift in Sources */,
+				0AA04DED23C79203005B37A4 /* AppearanceService.swift in Sources */,
 				03D1A04A2389F7650028371C /* CGPointExtension.swift in Sources */,
 				03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */,
 				0AAC96652340C229006CE58C /* FontExtension.swift in Sources */,
