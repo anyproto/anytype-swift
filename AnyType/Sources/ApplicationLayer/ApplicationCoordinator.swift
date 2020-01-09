@@ -34,8 +34,6 @@ class ApplicationCoordinator {
         }
         else {
             let view = HomeViewContainer()
-            applicationCoordinator?.startNewRootView(content: view)
-            
             startNewRootView(content: view)
         }
     }
