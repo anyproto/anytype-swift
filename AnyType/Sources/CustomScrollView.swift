@@ -14,86 +14,167 @@ enum GlobalEnvironment {
     // Inject them!
     enum OurEnvironmentObjects {
         class PageScrollViewLayout: ObservableObject {
-            @Published var needsLayout: Bool = false
+            @Published var needsLayout: Void = ()
         }
     }
 }
 
 
 struct CustomScrollView<Content>: View where Content: View {
-    var content: Content
-    
     @State private var contentHeight: CGFloat = .zero
     @EnvironmentObject fileprivate var pageScrollViewLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
+    // Scroll timer for dragging view near upper/bottom scroll view edges
+    @Environment(\.timingTimer) private var scrollTimer
+    
+    var content: Content
+    
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
     
     var body: some View {
-        InnerScrollView(contentHeight: self.$contentHeight, pageScrollViewLayout: $pageScrollViewLayout.needsLayout) {
+        InnerScrollView(contentHeight: self.$contentHeight, pageScrollViewLayout: $pageScrollViewLayout.needsLayout, timer: scrollTimer) {
             self.content
                 .modifier(ViewHeightKey())
         }
-            // SwiftUI: Don't call onPreferenceChange inside InnerScrollView otherwise InnerScrollView retain this view with  self.contentHeight. It happens only with UIViewRepresentable views (they are not recreate every time as swiftui views)
-            .onPreferenceChange(ViewHeightKey.self) {
+        // SwiftUI: Don't call onPreferenceChange inside InnerScrollView otherwise InnerScrollView retain this view with  self.contentHeight. It happens only with UIViewRepresentable views (they are not recreate every time as swiftui views)
+        .onPreferenceChange(ViewHeightKey.self) {
                 self.contentHeight = $0
         }
     }
-    
-    func scrollViewOffset(offset: CGPoint) -> some View {
-        // SwiftUI: use environment cause we can't change local view state here from func that called in context parent view
-        self.environment(\.scrollViewOffset, offset)
-    }
-    
-    
 }
 
-struct ViewHeightKey: PreferenceKey {
-    static var defaultValue: CGFloat {
-        0
-    }
+
+extension CustomScrollView {
     
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        //        value = nextValue()
+    struct ViewHeightKey: PreferenceKey, ViewModifier {
+        static var defaultValue: CGFloat {
+            0
+        }
+        
+        static func reduce(value: inout Value, nextValue: () -> Value) {
+            //        value = nextValue()
+        }
+        
+        func body(content: _ViewModifier_Content<CustomScrollView<Content>.ViewHeightKey>) -> some View {
+            return content.background(GeometryReader { proxy in
+                Color.clear.preference(key: ViewHeightKey.self, value: proxy.size.height)
+            })
+        }
     }
 }
 
-extension ViewHeightKey: ViewModifier {
-    func body(content: Content) -> some View {
-        return content.background(GeometryReader { proxy in
-            Color.clear.preference(key: ViewHeightKey.self, value: proxy.size.height)
+
+// MARK: - Boundary stuff
+
+extension CustomScrollView {
+    
+    func scrollIfAnchorIntersectBoundary(anchor: Anchor<CGRect>?) -> some View {
+        self.modifier(ViewBoundary(checkingAnchor: anchor) { boundary in
+            switch boundary {
+            case .top(let intersectionRate):
+                print("upperBoundary")
+                self.scrollTimer.timing = 0.05 / intersectionRate
+            case .bottom(let intersectionRate):
+                print("bottomBoundary")
+                self.scrollTimer.timing = 0.05 / intersectionRate
+            case .neither:
+                self.scrollTimer.timing = 0.0
+                print("neither")
+            }
         })
     }
+    
+    private struct ViewBoundary: ViewModifier {
+        enum Boundary {
+            case top(intersectionRate: Double), bottom(intersectionRate: Double)
+            case neither
+        }
+        @Environment(\.showViewFrames) private var showViewFrames
+        
+        var checkingAnchor: Anchor<CGRect>?
+        var onBoundary: (_ boundary: Boundary) -> Void
+        
+        func body(content: _ViewModifier_Content<CustomScrollView<Content>.ViewBoundary>) -> some View {
+            content.overlay(
+                GeometryReader { proxy in
+                    self.checkBoundary(proxy: proxy)
+            })
+        }
+        
+        private func checkBoundary(proxy: GeometryProxy) -> some View {
+            let frame = proxy.frame(in: .local)
+            let upperBoundary = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height * 0.15))
+            
+            let bottomY = frame.maxY - frame.height * 0.15
+            let bottomOrigin = CGPoint(x: frame.minX, y: bottomY)
+            let bottomBoundary = CGRect(origin: bottomOrigin, size: CGSize(width: frame.width, height: frame.height * 0.15))
+            
+            if let checkingAnchor = checkingAnchor {
+                if upperBoundary.intersects(proxy[checkingAnchor]) {
+                    let intersection = upperBoundary.intersection(proxy[checkingAnchor])
+                    let YIntersectionRate = intersection.height / upperBoundary.height
+                    onBoundary(.top(intersectionRate: Double(YIntersectionRate)))
+                } else if bottomBoundary.intersects(proxy[checkingAnchor]) {
+                    let intersection = bottomBoundary.intersection(proxy[checkingAnchor])
+                    let YIntersectionRate = intersection.height / upperBoundary.height
+                    onBoundary(.bottom(intersectionRate: Double(YIntersectionRate)))
+                } else {
+                    onBoundary(.neither)
+                }
+            } else {
+                onBoundary(.neither)
+            }
+            
+            return ZStack {
+                Color.clear
+                
+                if showViewFrames {
+                    Rectangle()
+                        .stroke(Color.green)
+                        .frame(width: upperBoundary.width, height: upperBoundary.height)
+                        .position(x: upperBoundary.midX, y: upperBoundary.midY)
+                    Rectangle()
+                        .stroke(Color.blue)
+                        .frame(width: bottomBoundary.width, height: bottomBoundary.height)
+                        .position(x: bottomBoundary.midX, y: bottomBoundary.midY)
+                }
+            }
+        }
+    }
 }
+
 
 // MARK: - InnerScrollViews
 
 private struct InnerScrollView<Content>: UIViewRepresentable where Content: View {
     var content: Content
     @Binding var contentHeight: CGFloat
-    @Binding var pageScrollViewLayout: Bool
-    @Environment(\.scrollViewOffset) private var scrollViewOffset: CGPoint
+    @Binding var pageScrollViewLayout: Void
     
-    public init(contentHeight: Binding<CGFloat>, pageScrollViewLayout: Binding<Bool>, @ViewBuilder content: () -> Content) {
+    @State var timer: TimingTimer
+    
+    public init(contentHeight: Binding<CGFloat>, pageScrollViewLayout: Binding<Void>, timer: TimingTimer, @ViewBuilder content: () -> Content) {
         self.content = content()
         _contentHeight = contentHeight
         _pageScrollViewLayout = pageScrollViewLayout
+        _timer = State(initialValue: timer)
     }
     
     // MARK: - UIViewRepresentable
     
     func makeCoordinator() -> CustomScrollViewCoordinator {
-        CustomScrollViewCoordinator()
+        CustomScrollViewCoordinator(timer: timer)
     }
     
     func makeUIView(context: Context) -> UIScrollView {
         let scrollView = configureScrollView(context: context)
+        context.coordinator.scrollView = scrollView
         
         return scrollView
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        context.coordinator.addContentOffset(self.scrollViewOffset, for: uiView)
         uiView.subviews[0].setNeedsUpdateConstraints()
     }
 }
@@ -146,13 +227,20 @@ extension InnerScrollView {
 // MARK: - Coordinator
 
 class CustomScrollViewCoordinator: NSObject, UIScrollViewDelegate {
+    var scrollView: UIScrollView?
     
-    func addContentOffset(_ velocity: CGPoint, for scrollView: UIScrollView) {
-        scrollView.contentOffset += velocity
+    init(timer: TimingTimer) {
+        super.init()
+        
+        timer.fireTimer = { [weak self] in
+            DispatchQueue.main.async {
+                let contentOffset = (self?.scrollView?.contentOffset ?? .zero) + CGPoint(x: 0, y: 20)
+                self?.scrollView?.setContentOffset(contentOffset, animated: true)
+            }
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
     }
 }
 

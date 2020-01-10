@@ -374,7 +374,7 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
         DispatchQueue.main.async {
             // TODO: rethink.
             // We require this environment object update to notify outer views to call setNeedsLayout to fix sizes.
-            self.outerViewNeedsLayout.needsLayout = true
+            self.outerViewNeedsLayout.needsLayout = ()
             self.parent.text = textView.text
             self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude))
         }

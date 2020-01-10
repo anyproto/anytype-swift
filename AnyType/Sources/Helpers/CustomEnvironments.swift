@@ -56,6 +56,7 @@ extension EnvironmentValues {
     }
 }
 
+
 struct ShowViewFramesKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }
@@ -72,17 +73,33 @@ extension EnvironmentValues {
 }
 
 
-struct ScrollOffsetVelocityKey: EnvironmentKey {
+struct AddedScrollViewOffsetKey: EnvironmentKey {
     static let defaultValue: CGPoint = .zero
 }
 
 extension EnvironmentValues {
-    var scrollViewOffset: CGPoint {
+    var addedScrollViewOffset: CGPoint {
         get {
-            return self[ScrollOffsetVelocityKey.self]
+            return self[AddedScrollViewOffsetKey.self]
         }
         set {
-            self[ScrollOffsetVelocityKey.self] = newValue
+            self[AddedScrollViewOffsetKey.self] = newValue
+        }
+    }
+}
+
+
+struct TimingTimerKey: EnvironmentKey {
+    static let defaultValue: TimingTimer = TimingTimer()
+}
+
+extension EnvironmentValues {
+    var timingTimer: TimingTimer {
+        get {
+            return self[TimingTimerKey.self]
+        }
+        set {
+            self[TimingTimerKey.self] = newValue
         }
     }
 }

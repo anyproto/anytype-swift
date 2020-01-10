@@ -49,7 +49,7 @@ extension TextBlocksViews.Toggle {
         func body(content: Content) -> some View {
             HStack(alignment: .top) {
                 Button(action: {
-                    self.outerViewNeedsLayout.needsLayout = true
+                    self.outerViewNeedsLayout.needsLayout = ()
                     self.toggled.toggle()
                 }) {
                     Image(self.image(checked: self.toggled)).foregroundColor(.orange).rotationEffect(.init(radians: self.toggled ? Double.pi / 2 : 0))
