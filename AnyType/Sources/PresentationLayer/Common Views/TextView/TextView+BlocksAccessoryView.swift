@@ -128,9 +128,8 @@ extension TextView.BlockToolbar {
         var contentView: UIView!
 
         // MARK: Setup UI Elements
-        func setupUIElements() {
-            self.translatesAutoresizingMaskIntoConstraints = false
-
+        func setupUIElements() {            
+            self.autoresizingMask = .flexibleHeight
             self.addBlockButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -206,7 +205,7 @@ extension TextView.BlockToolbar {
         }
 
         override var intrinsicContentSize: CGSize {
-            return self.toolbarView.intrinsicContentSize
+            return .zero
         }
     }
 }
@@ -284,7 +283,7 @@ extension TextView.BlockToolbar {
             case .turnIntoBlock: self.userAction = .init(action: action, view: TurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel))
             case .changeColor: self.userAction = .init(action: action, view: ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
             case .editBlock: self.userAction = .init(action: action, view: EditActions.InputViewBuilder.createView(self._editActionsViewModel))
-            case .keyboardDismiss: TextView.KeyboardHandler.shared.dismiss()
+            case .keyboardDismiss: self.userAction = .init(action: .keyboardDismiss, view: nil)
             }
         }
     }
