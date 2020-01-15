@@ -143,7 +143,7 @@ private struct InnerTextView: UIViewRepresentable {
 extension InnerTextView {
     class Coordinator: NSObject {
         // MARK: Aliases
-        typealias HighlightedAccessoryView = TextView.HighlightedAccessoryView
+        typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
         
         // MARK: Variables
@@ -155,7 +155,7 @@ extension InnerTextView {
         private var highlightedAccessoryViewHandler: (((NSRange, NSTextStorage)) -> ())?
 
         var highlightedMarkStyleHandler: AnyCancellable?
-        var changeColorMarkStyleHandler: AnyCancellable?
+        
         var wholeMarkStyleHandler: AnyCancellable?
         
         lazy private var blocksAccessoryView: BlockToolbarAccesoryView = .init()
@@ -199,21 +199,12 @@ extension InnerTextView.Coordinator {
         self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { (value) in
             let (textView, action) = value
             
-            if let currentView = textView.inputView, let nextView = action.view, type(of: currentView) == type(of: nextView) {
-                textView.inputView = nil
-                textView.reloadInputViews()
-                // send event.
+            guard action.action != .keyboardDismiss else {
+                textView.endEditing(false)
                 return
             }
-
-            print("keyboardSize: \(self.defaultKeyboardRect.size)")
             
-            let view = action.view
-            view?.frame = .init(x: 0, y: 0, width: self.defaultKeyboardRect.size.width, height: self.defaultKeyboardRect.size.height)
-            
-            print("newKeyboardSize: \(String(describing: view?.frame.size))")
-            textView.inputView = view
-            textView.reloadInputViews()
+            self.switchInputs(textView, accessoryView: nil, inputView: action.view)
         })
     }
     
@@ -250,27 +241,12 @@ extension InnerTextView.Coordinator {
     }
     
     func configureMarkStylePublisher(_ view: UITextView) {
-        self.changeColorMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.changeColorSubject).sink { (pair) in
-            let (textView, (range, textColor, backgroundColor)) = pair
-            let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            print("range is: \(range)")
-            guard range.length > 0 else { return }
-            if let textColor = textColor {
-                _ = modifier.applyStyle(style: .textColor(textColor), rangeOrWholeString: .range(range))
-            }
-            if let backgroundColor = backgroundColor {
-                _ = modifier.applyStyle(style: .backgroundColor(backgroundColor), rangeOrWholeString: .range(range))
-            }
-            //TODO: Uncomment if needed.
-            //We can process .textColor and .backgroundColor states to change icon.
-//            self.highlightedAccessoryViewHandler?((range, attributedText))
-        }
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { (textView, action) in
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             print("\(action)")
             switch action {
+            case .keyboardDismiss: textView.endEditing(false)
             case let .bold(range):
                 if let style = modifier.getMarkStyle(style: .bold(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
@@ -282,26 +258,52 @@ extension InnerTextView.Coordinator {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
                 self.highlightedAccessoryViewHandler?((range, attributedText))
+                
             case let .strikethrough(range):
                 if let style = modifier.getMarkStyle(style: .strikethrough(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
                 self.highlightedAccessoryViewHandler?((range, attributedText))
+                
             case let .code(range):
                 if let style = modifier.getMarkStyle(style: .keyboard(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
                 self.highlightedAccessoryViewHandler?((range, attributedText))
-            case let .changeColor(_, inputView):
-                if let currentView = textView.inputView, let nextView = inputView, type(of: currentView) == type(of: nextView) {
-                    textView.inputView = nil
-                    textView.reloadInputViews()
-                    // send event.
-                    return
+                
+            case let .linkView(range, builder):
+                let style = modifier.getMarkStyle(style: .link(nil), at: .range(range))
+                let string = attributedText.attributedSubstring(from: range).string
+                let view = builder(string, style.flatMap({
+                    switch $0 {
+                    case let .link(link): return link
+                    default: return nil
+                    }
+                }))
+                self.setFocus(in: textView, at: range)
+                self.switchInputs(textView, accessoryView: view, inputView: nil)
+                // we should apply selection attributes to indicate place where link will be applied.
+
+            case let .link(range, url):
+                self.unsetFocus(in: textView)
+                guard range.length > 0 else { return }
+                _ = modifier.applyStyle(style: .link(url), rangeOrWholeString: .range(range))
+                self.highlightedAccessoryViewHandler?((range, attributedText))
+                self.switchInputs(textView)
+                textView.becomeFirstResponder()
+                
+            case let .changeColorView(_, inputView):
+                self.switchInputs(textView, accessoryView: nil, inputView: inputView)
+
+            case let .changeColor(range, textColor, backgroundColor):
+                guard range.length > 0 else { return }
+                if let textColor = textColor {
+                    _ = modifier.applyStyle(style: .textColor(textColor), rangeOrWholeString: .range(range))
                 }
-                inputView?.frame = .init(x: 0, y: 0, width: self.defaultKeyboardRect.size.width, height: self.defaultKeyboardRect.size.height)
-                textView.inputView = inputView
-                textView.reloadInputViews()
+                if let backgroundColor = backgroundColor {
+                    _ = modifier.applyStyle(style: .backgroundColor(backgroundColor), rangeOrWholeString: .range(range))
+                }
+                return
             default: return
             }
         }
@@ -311,7 +313,44 @@ extension InnerTextView.Coordinator {
 
 // MARK: InnerTextView.Coordinator / UITextViewDelegate
 extension InnerTextView.Coordinator: UITextViewDelegate {
+    // MARK: Selection and Marked Text
+    func setFocus(in textView: UITextView, at range: NSRange) {
+        // set attributes of text or place view around it?
+//        let attributedText = textView.textStorage
+//        let string = attributedText.attributedSubstring(from: range).string
+//        textView.setMarkedText(string, selectedRange: range)
+//        textView.selectedTextRange = textView.markedTextRange
+//        print("setFocus here: \(String(describing: textView.selectedTextRange))")
+//        textView.selectedTextRange = textView.textRange(from: <#T##UITextPosition#>, to: <#T##UITextPosition#>)
+//        textView.textStorage.setAttributes([.markedClauseSegment : 1], range: range)
+    }
+    
+    func unsetFocus(in textView: UITextView) {
+//        let markedTextRange = textView.markedTextRange
+//        textView.unmarkText()
+//        textView.selectedTextRange = markedTextRange
+//        let range = textView.selectedRange
+//        textView.textStorage.removeAttribute(.markedClauseSegment, range: range)//([.textEffect : nil], range: range)
+    }
+    
     // MARK: Input Switching
+    func switchInputs(_ textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
+        if let currentView = textView.inputView, let nextView = inputView, type(of: currentView) == type(of: nextView) {
+            textView.inputView = nil
+            textView.reloadInputViews()
+            return
+        }
+        else {
+            inputView?.frame = .init(x: 0, y: 0, width: self.defaultKeyboardRect.size.width, height: self.defaultKeyboardRect.size.height)
+            textView.inputView = inputView
+            textView.reloadInputViews()
+        }
+        
+        if let accessoryView = accessoryView {
+            textView.inputAccessoryView = accessoryView
+            textView.reloadInputViews()
+        }
+    }
     func switchInputs(_ textView: UITextView) {
         func switchInputs(_ length: Int, accessoryView: UIView?, inputView: UIView?) -> (Bool, UIView?, UIView?) {
             switch (length, accessoryView, inputView) {
@@ -319,11 +358,13 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
             case (0, _, _): return (true, self.blocksAccessoryView, nil)
             // Length != 0 and is BlockToolbarAccessoryView => set highlighted accessory view and restore default keyboard.
             case (_, is BlockToolbarAccesoryView, _): return (true, self.highlightedAccessoryView, nil)
+            // Length != 0 and is InputLink.CustomContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
+            case (_, is TextView.HighlightedToolbar.InputLink.CustomContainerView, _) where textView.isFirstResponder: return (true, self.highlightedAccessoryView, nil)
             // Otherwise, we need to keep accessory view and keyboard.
             default: return (false, accessoryView, inputView)
             }
         }
-        
+                
         let (shouldAnimate, accessoryView, inputView) = switchInputs(textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView)
         
         if shouldAnimate {
