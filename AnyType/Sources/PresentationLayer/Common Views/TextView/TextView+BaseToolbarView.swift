@@ -53,13 +53,10 @@ extension TextView {
             }
         }
         var marginOffset: CGFloat = 16.0
-        func leadingOffset() -> CGFloat {
-            marginOffset
-        }
-        func trailingOffset() -> CGFloat {
-            marginOffset * (-1)
-        }
-        var intrinsicContentSizeHeight: CGFloat = 48.0
+        func leadingOffset() -> CGFloat { marginOffset }
+        func trailingOffset() -> CGFloat { marginOffset * (-1) }
+        func topOffset() -> CGFloat { marginOffset * 0.5 }
+        func bottomOffset() -> CGFloat { marginOffset * (-1) * 0.5 }
     }
 }
 
@@ -128,8 +125,8 @@ extension TextView {
             if let view = self.contentView, let superview = view.superview {
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: TextView.Layout.default.leadingOffset()).isActive = true
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: TextView.Layout.default.trailingOffset()).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: TextView.Layout.default.topOffset()).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: TextView.Layout.default.bottomOffset()).isActive = true
             }
             if let view = self.leftStackView, let superview = view.superview {
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
@@ -141,12 +138,6 @@ extension TextView {
                 view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
             }
-        }
-        
-        override var intrinsicContentSize: CGSize {
-            var size: CGSize = .zero
-            size.height = TextView.Layout.default.intrinsicContentSizeHeight
-            return size
-        }
+        }        
     }
 }
