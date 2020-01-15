@@ -12,8 +12,8 @@ import Combine
 import SwiftUI
 
 // MARK: - UIKit / UITextView / AccessoryView
-extension TextView {
-    class HighlightedAccessoryView: UIView {
+extension TextView.HighlightedToolbar {
+    class AccessoryView: UIView {
         typealias Style = TextView.Style
         // MARK: Variables
         var style: Style = .default
@@ -61,11 +61,11 @@ extension TextView {
         }
 
         @objc func processApplyLink() {
-            //            process(.bold(range))
+            process(.linkView(.init(), { _, _ -> UIView? in nil }))
         }
 
         @objc func processChangeColor() {
-            process(.changeColor(.init(), nil))
+            process(.changeColorView(.init(), nil))
         }
 
         @objc func processDismissKeyboard() {
@@ -97,7 +97,7 @@ extension TextView {
         var changeColorButton: UIButton!
         var dismissKeyboardButton: UIButton!
         
-        var toolbarView: BaseToolbarView!
+        var toolbarView: TextView.BaseToolbarView!
         var contentView: UIView!
 
         // MARK: Public API Configurations
@@ -141,8 +141,7 @@ extension TextView {
         }
 
         func setupUIElements() {
-            self.translatesAutoresizingMaskIntoConstraints = false
-
+            self.autoresizingMask = .flexibleHeight
             self.boldButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -193,7 +192,7 @@ extension TextView {
             }()
             
             self.toolbarView = {
-                let view = BaseToolbarView()
+                let view = TextView.BaseToolbarView()
                 return view
             }()
             
@@ -231,28 +230,18 @@ extension TextView {
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
             }
         }
-                
+        
+        // NOTE: To enable auto-layout for input accessory views, you should
+        // In parentAccessoryView
+        // 1. Set autoresizingMask = .flexibleHeight
+        // 2. Set intrinsicContentSize = .zero
         override var intrinsicContentSize: CGSize {
-            return self.toolbarView.intrinsicContentSize
+            return .zero
         }
     }
 }
 
-// MARK: KeyboardHandler, move to services.
-// We could, for example, subscribe on event?
-// But actually, we don't want to store this object.
-extension TextView {
-    class KeyboardHandler {
-        static var shared: KeyboardHandler = .init()
-        func dismiss() {
-            DispatchQueue.main.async {
-                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-            }
-        }
-    }
-}
-
-extension TextView.HighlightedAccessoryView {
+extension TextView.HighlightedToolbar {
     // MARK: UserResponse State
     enum State {
         case bold(Bool)
@@ -270,6 +259,7 @@ extension TextView.HighlightedAccessoryView {
             case let .italic(value): return .italic(value)
             case let .strikethrough(value): return .strikethrough(value)
             case let .keyboard(value): return .code(value)
+            case let .link(value): return .link(value != nil)
             default: return nil
             }
         }
@@ -301,9 +291,18 @@ extension TextView.HighlightedAccessoryView {
         case italic(NSRange)
         case strikethrough(NSRange)
         case code(NSRange)
+        case linkView(NSRange, (String, URL?) -> (UIView?))
+        case link(NSRange, URL?)
         // link?
-        case changeColor(NSRange, UIView?)
+        case changeColorView(NSRange, UIView?)
+        case changeColor(NSRange, UIColor?, UIColor?)
     }
+    
+//    struct UserAction {
+//        var action: Action = .unknown
+//        var view: UIView?
+//        static var zero = Self.init()
+//    }
 
     // MARK: ViewModel
     class ViewModel: NSObject, ObservableObject {
@@ -312,36 +311,48 @@ extension TextView.HighlightedAccessoryView {
         func getRange() -> NSRange {
             return range
         }
-        @ObservedObject var changeColorViewModel: TextView.BlockToolbar.ChangeColor.ViewModel
 
         // MARK: Initialization
         override init() {
+            self.inputLinkViewModel = .init()
             self.changeColorViewModel = .init()
+            
             super.init()
             self.setup()
         }
+        
+        // MARK: ViewModels
+        @ObservedObject var inputLinkViewModel: TextView.HighlightedToolbar.InputLink.ViewModel
+        @ObservedObject var changeColorViewModel: TextView.BlockToolbar.ChangeColor.ViewModel
 
         // MARK: Publishers
         @Published fileprivate var userResponse: UserResponse = .zero
         @Published var userAction: Action = .unknown
 
         // MARK: Subjects
+        var inputLinkViewModelDidChange: AnyCancellable?
         var changeColorViewModelDidChange: AnyCancellable?
-        var changeColorSubject: PassthroughSubject<(NSRange, UIColor?, UIColor?), Never> = .init()
 
         // MARK: Setup
         func setup() {
-            let colors = self.changeColorViewModel.$value.map{($0.textColor, $0.backgroundColor)}
-            let just = Just(self.range).scan(self.range) { _,_ -> NSRange in
-                print("range: \(self.range)")
-                return self.range
-            }.filter { (range) -> Bool in
-                range.length == 0
-            }.last()
+            let links = self.inputLinkViewModel.$action.map { value -> URL? in
+                switch value {
+                case .unknown: return nil
+                case .decline: return nil
+                case let .accept(value): return URL(string: value)
+                }
+            }
             
-            let dirty = colors.map{[weak self] in (self?.range ?? .init(), $0.0, $0.1)}.subscribe(self.changeColorSubject)
-            _ = Publishers.CombineLatest(just, colors).map{($0.0, $0.1.0, $0.1.1)}.subscribe(self.changeColorSubject)
-            self.changeColorViewModelDidChange = dirty
+            let linksAndRanges = links.map{[weak self] in (self?.range ?? .init(), $0)}.sink { [weak self] (range, url) in
+                self?.userAction = .link(range, url)
+            }
+            self.inputLinkViewModelDidChange = linksAndRanges
+            
+            let colorsAndRanges = self.changeColorViewModel.$value.map{[weak self] in (self?.range ?? .init(), $0.textColor, $0.backgroundColor)}
+                .map { pair in Action.changeColor(pair.0, pair.1, pair.2) }.sink { [weak self] action in
+                self?.userAction = action
+            }
+            self.changeColorViewModelDidChange = colorsAndRanges
         }
 
         //  -> (SelectRange) -> (SelectRange)
@@ -352,14 +363,23 @@ extension TextView.HighlightedAccessoryView {
         fileprivate func process(_ action: Action) {
             switch action {
             case .unknown: return
-            case .keyboardDismiss: TextView.KeyboardHandler.shared.dismiss()
+            case .keyboardDismiss: self.userAction = .keyboardDismiss
             case .bold: self.userAction = .bold(range)
             case .italic: self.userAction = .italic(range)
             case .strikethrough: self.userAction = .strikethrough(range)
             case .code: self.userAction = .code(range)
-                // TODO: Show input link.
-            //            case .link: return //self.userAction = .link(range)
-            case let .changeColor(range, _): self.userAction = .changeColor(range, TextView.BlockToolbar.ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
+            
+            // Later we can create view here when we can get current selected text.
+            // Whole this setup and cheating with functions will be eliminated when we get underlying model.
+            case .linkView: self.userAction = .linkView(range, { (value, url) in
+                let viewModel = self.inputLinkViewModel
+                viewModel.title = value
+                viewModel.link = url?.absoluteString ?? ""
+                return TextView.HighlightedToolbar.InputLink.InputViewBuilder.createView(self._inputLinkViewModel)
+            })
+            case .link(_, _): return
+            case let .changeColorView(range, _): self.userAction = .changeColorView(range, TextView.BlockToolbar.ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
+            case .changeColor(_, _, _): return
             }
         }
 
