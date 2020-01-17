@@ -46,5 +46,4 @@ extension CGRect {
     public static func frame(from point1: CGPoint, to point2: CGPoint) -> CGRect {
         return point1.frame(to: point2)
     }
-    
 }

@@ -70,14 +70,17 @@ extension CustomScrollView {
 extension CustomScrollView {
     
     func scrollIfAnchorIntersectBoundary(anchor: Anchor<CGRect>?) -> some View {
-        self.modifier(ViewBoundary(checkingAnchor: anchor) { boundary in
+        let maxTiming = 0.06
+        let power = 15.0 //
+        
+        return self.modifier(ViewBoundary(checkingAnchor: anchor) { boundary in
             switch boundary {
             case .top(let intersectionRate):
-                print("upperBoundary")
-                self.scrollTimer.timing = 0.05 / intersectionRate
+                print("upperBoundary: \(intersectionRate)")
+                self.scrollTimer.timing = (intersectionRate + maxTiming) / (intersectionRate * intersectionRate * power)
             case .bottom(let intersectionRate):
                 print("bottomBoundary")
-                self.scrollTimer.timing = 0.05 / intersectionRate
+                self.scrollTimer.timing = (intersectionRate + maxTiming) / (intersectionRate * intersectionRate * power)
             case .neither:
                 self.scrollTimer.timing = 0.0
                 print("neither")
@@ -112,12 +115,12 @@ extension CustomScrollView {
             
             if let checkingAnchor = checkingAnchor {
                 if upperBoundary.intersects(proxy[checkingAnchor]) {
-                    let intersection = upperBoundary.intersection(proxy[checkingAnchor])
-                    let YIntersectionRate = intersection.height / upperBoundary.height
+                    let intersectionHeight = upperBoundary.maxY - proxy[checkingAnchor].minY
+                    let YIntersectionRate = intersectionHeight / upperBoundary.height
                     onBoundary(.top(intersectionRate: Double(YIntersectionRate)))
                 } else if bottomBoundary.intersects(proxy[checkingAnchor]) {
-                    let intersection = bottomBoundary.intersection(proxy[checkingAnchor])
-                    let YIntersectionRate = intersection.height / upperBoundary.height
+                    let intersectionHeight = proxy[checkingAnchor].maxY - bottomBoundary.minY
+                    let YIntersectionRate = intersectionHeight / upperBoundary.height
                     onBoundary(.bottom(intersectionRate: Double(YIntersectionRate)))
                 } else {
                     onBoundary(.neither)

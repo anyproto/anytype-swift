@@ -31,7 +31,7 @@ class TimingTimer {
             }
             
             if timing != 0 {
-                timer = Timer.publish(every: abs(timing), on: .main, in: .common)
+                timer = Timer.publish(every: abs(timing), tolerance: 0, on: .main, in: .common)
                 cancellableTimer = timer.autoconnect().sink { [weak self] _ in
                     self?.fireTimer?()
                 }

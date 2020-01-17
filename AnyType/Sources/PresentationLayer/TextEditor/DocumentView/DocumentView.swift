@@ -11,9 +11,44 @@ import Combine
 
 
 struct DocumentView: View {
+    struct DraggingData: Equatable {
+        static func == (lhs: DocumentView.DraggingData, rhs: DocumentView.DraggingData) -> Bool {
+            lhs.draggingRect == rhs.draggingRect && lhs.blockIndex == rhs.blockIndex
+        }
+        
+        var draggingRect: CGRect
+        var blockIndex: Int
+        
+        var draggingAnchor: Anchor<CGRect>? = nil
+    }
+    
+    struct CurrentDropDividers {
+        enum DividerType {
+            case top
+            case bottom
+        }
+        struct DividerData {
+            var type: DividerType
+            var idx: Int
+            var rect: CGRect
+            var isActive: Bool = false // if true block will be dropped in the area of this divider
+        }
+        var topDivider: DividerData
+        var bottomDivider: DividerData
+        
+        var active: DividerData { // return divider where block will be dropped
+            if topDivider.isActive {
+                return topDivider
+            } else {
+                return bottomDivider
+            }
+        }
+    }
+    
     @Environment(\.showViewFrames) private var showViewFrames
-    @State private var possibleBlockIdForObtainingDrop: Int?
-    @State private var draggingAnchor: Anchor<CGRect>?
+    @State private var draggingData: DraggingData?
+    @State private var droppableDividerRect: [CGRect]?
+    @State private var currentDroppableData: CurrentDropDividers?
     
     @ObservedObject var viewModel: DocumentViewModel
     
@@ -50,41 +85,118 @@ private extension DocumentView {
             }
                 .padding(.top, 10) // Workaround: adjust first item after removing spacing
         }
-        .scrollIfAnchorIntersectBoundary(anchor: self.draggingAnchor)
-        .modifier(DraggingView(viewBulders: viewBulders))
-        .onPreferenceChange(DraggingViewCoordinatePreferenceKey.self) { preference in
-            self.draggingAnchor = preference.position
-        }
-        .overlayPreferenceValue(SaveBlockAnchorPreferenceKey.self) { preferences in
-            GeometryReader { proxy in
-                return self.buildDroppingArea(proxy: proxy, preferences: preferences)
+        .scrollIfAnchorIntersectBoundary(anchor: self.draggingData?.draggingAnchor)
+        .modifier(DraggingView(viewBulders: viewBulders, onStartDragging: {
+            guard let count = self.droppableDividerRect?.count,
+                let idx = self.draggingData?.blockIndex,
+                count >= idx else { return }
+            guard let top = self.droppableDividerRect?[idx], let bottom = self.droppableDividerRect?[idx + 1] else { return }
+            
+            let topDivider = CurrentDropDividers.DividerData(type: .top, idx: idx, rect: top)
+            let bottomDivider = CurrentDropDividers.DividerData(type: .top, idx: idx, rect: bottom)
+            
+            self.currentDroppableData = CurrentDropDividers(topDivider: topDivider, bottomDivider: bottomDivider)
+        }) {
+            self.currentDroppableData = nil
+        })
+        .onGeometryPreferenceChange(DraggingViewCoordinatePreferenceKey.self, compute: { proxy, value in // save droppable divider rect
+            if let anchor = value.position, let id = value.id {
+                return DraggingData(draggingRect: proxy[anchor], blockIndex: id, draggingAnchor: value.position)
             }
-        }
+            return nil
+        }, onChange: { (value: DraggingData?) -> Void in
+            self.draggingData = value
+            
+            if let draggingData = self.draggingData, let currentDroppableData = self.currentDroppableData, let droppableDividerRect = self.droppableDividerRect {
+                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableData: currentDroppableData, droppableDividerRect: droppableDividerRect)
+            }
+        })
+        .onGeometryPreferenceChange(SaveBlockAnchorPreferenceKey.self, compute: { proxy, value in // save droppable divider rect
+            var rects = [CGRect]()
+            for preference in value {
+                rects.append(proxy[preference.bounds])
+            }
+            return rects
+        }, onChange: { value in
+            self.droppableDividerRect = value
+        })
         .environment(\.showViewFrames, true)
+    }
+    
+    private func defineDroppableDivider(draggingData: DraggingData, currentDroppableData: CurrentDropDividers, droppableDividerRect: [CGRect]) -> CurrentDropDividers {
+        var currentDroppableData = currentDroppableData
+        // check where dragging view realated to dropAreaDivider
+        // if dragging view upper top divider
+        if draggingData.draggingRect.minY < currentDroppableData.topDivider.rect.minY {
+            let upperDividerIdx = currentDroppableData.topDivider.idx - 1
+            
+            // check if it not last divider
+            if upperDividerIdx < 0 {
+                return currentDroppableData
+            }
+            
+            let upperDividerRect = droppableDividerRect[upperDividerIdx]
+            let upperDivider = CurrentDropDividers.DividerData(type: .top, idx: upperDividerIdx, rect: upperDividerRect)
+            currentDroppableData = CurrentDropDividers(topDivider: upperDivider, bottomDivider: currentDroppableData.topDivider)
+        } // if dragging view lower bottom divider
+        else if draggingData.draggingRect.minY > currentDroppableData.bottomDivider.rect.minY {
+            let lowerDividerIdx = currentDroppableData.topDivider.idx + 1
+            
+            // check if it not last divider
+            if lowerDividerIdx < 0 {
+                return currentDroppableData
+            }
+            
+            let lowerDividerRect = droppableDividerRect[lowerDividerIdx]
+            let lowerDivider = CurrentDropDividers.DividerData(type: .top, idx: lowerDividerIdx, rect: lowerDividerRect)
+            currentDroppableData = CurrentDropDividers(topDivider: currentDroppableData.bottomDivider, bottomDivider: lowerDivider)
+        }
+        
+        // check which divider is active
+        let topDivider = abs(draggingData.draggingRect.minY - currentDroppableData.topDivider.rect.maxY)
+        let bottomDivider = abs(draggingData.draggingRect.minY - currentDroppableData.bottomDivider.rect.minY)
+        
+        if topDivider < bottomDivider {
+            currentDroppableData.topDivider.isActive = true
+        } else {
+            currentDroppableData.bottomDivider.isActive = true
+        }
+        
+        return currentDroppableData
     }
     
     private func makeBlockView(for index: Int, in builders: [BlockViewBuilderProtocol]) -> some View {
         let rowViewBuilder = builders[index]
         
         return VStack(spacing: 0) {
+            ShowDroppableArea(droppableAreaId: index, currentDroppableAreaDividers: $currentDroppableData)
+                .anchorPreference(key: SaveBlockAnchorPreferenceKey.self, value: .bounds) { anchor in
+                    [SaveBlockAnchorPreferenceData(viewIdx: index, bounds: anchor)]
+            }
             HStack {
                 Spacer(minLength: 10)
                 rowViewBuilder.buildView()
+            }
+            if index == (builders.count - 1) { // last one
+                ShowDroppableArea(droppableAreaId: index + 1, currentDroppableAreaDividers: $currentDroppableData)
                     .anchorPreference(key: SaveBlockAnchorPreferenceKey.self, value: .bounds) { anchor in
-                        [SaveBlockAnchorPreferenceData(viewIdx: index, bounds: anchor)]
+                        [SaveBlockAnchorPreferenceData(viewIdx: index + 1, bounds: anchor)]
                 }
-                .modifier(ShowDroppableArea(viewId: index, possibleBlockIdForObtainingDrop: $possibleBlockIdForObtainingDrop))
-                
             }
         }
     }
 }
 
+
 // MARK: - Building dropping area
 
 private extension DocumentView {
     
-    struct SaveBlockAnchorPreferenceData {
+    struct SaveBlockAnchorPreferenceData: Equatable {
+        static func == (lhs: DocumentView.SaveBlockAnchorPreferenceData, rhs: DocumentView.SaveBlockAnchorPreferenceData) -> Bool {
+            lhs.viewIdx == rhs.viewIdx
+        }
+        
         let viewIdx: Int
         let bounds: Anchor<CGRect>
     }
@@ -99,47 +211,12 @@ private extension DocumentView {
         }
     }
     
-    func buildDroppingArea(proxy: GeometryProxy, preferences: [SaveBlockAnchorPreferenceData]) -> some View {
-        for (i, preference) in preferences.enumerated() {
-            let rect1 = proxy[preference.bounds]
-            
-            var rect2: CGRect = CGRect(x: CGFloat.greatestFiniteMagnitude, y: CGFloat.greatestFiniteMagnitude, width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
-            
-            if preferences.count > i + 1 {
-                let preference = preferences[i + 1]
-                rect2 = proxy[preference.bounds]
-            }
-            
-            // get min x
-            let minX = min(rect1.minX, rect2.minX)
-            // get max x
-            let maxX = max(rect1.maxX, rect2.maxX)
-            // get min y
-            let minY = rect1.midY
-            // get max y
-            let maxY = rect2.midY
-            
-            let dropArea = CGRect.frame(from: CGPoint(x: minX, y: minY), to: CGPoint(x: maxX, y: maxY))
-            
-            if let dragCoordinates = draggingAnchor,
-                dropArea.contains(proxy[dragCoordinates].origin) {
-                DispatchQueue.main.async {
-                    self.possibleBlockIdForObtainingDrop =  preference.viewIdx
-                }
-            }
-        }
-        return Color.clear
-    }
-    
-    struct ShowDroppableArea: ViewModifier {
-        var viewId: Int
-        @Binding var possibleBlockIdForObtainingDrop: Int?
+    struct ShowDroppableArea: View {
+        @State var droppableAreaId: Int
+        @Binding var currentDroppableAreaDividers: CurrentDropDividers?
         
-        func body(content: Content) -> some View {
-            return VStack(spacing: 0) {
-                content
-                DropDividerView().opacity(viewId == possibleBlockIdForObtainingDrop ? 1.0 : 0.0)
-            }
+        var body: some View {
+            DropDividerView().opacity(droppableAreaId == currentDroppableAreaDividers?.active.idx ? 1.0 : 0.0)
         }
         
         private struct DropDividerView: View {
@@ -162,7 +239,7 @@ private extension DocumentView {
             lhs.id == rhs.id && lhs.translation == rhs.translation
         }
         
-        var id: String? = nil
+        var id: Int? = nil
         var position: Anchor<CGRect>? = nil
         var translation: CGSize = .zero
     }
@@ -183,6 +260,9 @@ private extension DocumentView {
         var viewBulders: [BlockViewBuilderProtocol]
         @State var initialPosition: Anchor<CGRect>? // We need it due to original postion of dragging view could change (for example when we scrolling)
         
+        var onStartDragging: () -> Void
+        var onEndDragging: () -> Void
+        
         func body(content: Content) -> some View {
             return content.overlayPreferenceValue(DraggingViewPreferenceKey.self) { preference in
                 self.buildDraggingView(preference: preference)
@@ -190,16 +270,21 @@ private extension DocumentView {
         }
         
         private func buildDraggingView(preference: DraggingViewPreferenceData) -> some View {
-            let dragginView = viewBulders.first(where: { viewBuilder in
+            let draggingViewIdx = viewBulders.firstIndex(where: { viewBuilder in
                 viewBuilder.id == preference.id
-            })?.buildView()
+            })
+            var draggingView = AnyView(Color.clear)
+            
+            if let draggingViewIdx = draggingViewIdx {
+                draggingView = viewBulders[draggingViewIdx].buildView()
+            }
             
             return Group {
                 if preference.isActive {
                     GeometryReader { proxy in
-                        dragginView
+                        draggingView
                             .anchorPreference(key: DraggingViewCoordinatePreferenceKey.self, value: .bounds) {
-                                return DraggingViewCoordinatePreferenceData(id: preference.id, position: $0, translation: preference.translation)
+                                return DraggingViewCoordinatePreferenceData(id: draggingViewIdx, position: $0, translation: preference.translation)
                         } // save dragging view anchor
                             .position(CGPoint(x: proxy[self.initialPosition ?? preference.position!].midX, y: proxy[self.initialPosition ?? preference.position!].midY))
                             .offset(x: preference.translation.width, y: preference.translation.height)
@@ -207,9 +292,11 @@ private extension DocumentView {
                     .opacity(0.5)
                     .colorInvert()
                     .onAppear {
+                        self.onStartDragging()
                         self.initialPosition = preference.position
                     }
                     .onDisappear {
+                        self.onEndDragging()
                         self.initialPosition = nil
                     }
                 } else {
