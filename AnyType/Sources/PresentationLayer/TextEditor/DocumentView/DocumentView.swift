@@ -47,8 +47,9 @@ struct DocumentView: View {
     
     @Environment(\.showViewFrames) private var showViewFrames
     @State private var draggingData: DraggingData?
-    @State private var droppableDividerRect: [CGRect]?
     @State private var currentDroppableData: CurrentDropDividers?
+    @State private var droppableDividerRect: [CGRect]?
+    @State private var droppableDividerAnchor: [DividerAnchorPreferenceData]?
     
     @ObservedObject var viewModel: DocumentViewModel
     
@@ -108,23 +109,40 @@ private extension DocumentView {
             self.draggingData = value
             
             if let draggingData = self.draggingData, let currentDroppableData = self.currentDroppableData, let droppableDividerRect = self.droppableDividerRect {
-                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableData: currentDroppableData, droppableDividerRect: droppableDividerRect)
+                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableDivider: currentDroppableData, droppableDividerRect: droppableDividerRect)
             }
         })
-        .onGeometryPreferenceChange(SaveBlockAnchorPreferenceKey.self, compute: { proxy, value in // save droppable divider rect
+        .onGeometryPreferenceChange(DividerAnchorPreferenceKey.self, compute: { proxy, value in // save droppable divider rect
             var rects = [CGRect]()
             for preference in value {
                 rects.append(proxy[preference.bounds])
             }
             return rects
-        }, onChange: { value in
+        }, onChange: { (value:  [CGRect]?) -> Void in
             self.droppableDividerRect = value
+            
+            // update current droppable area divider
+            guard let topDivider = self.currentDroppableData?.topDivider,
+                let bottomDivider = self.currentDroppableData?.bottomDivider,
+                let droppableDividerRect = self.droppableDividerRect else {
+                    return
+            }
+            self.currentDroppableData?.topDivider.rect = droppableDividerRect[topDivider.idx]
+            self.currentDroppableData?.bottomDivider.rect = droppableDividerRect[bottomDivider.idx]
+            
+            if let draggingData = self.draggingData, let currentDroppableData = self.currentDroppableData, let droppableDividerRect = self.droppableDividerRect {
+                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableDivider: currentDroppableData, droppableDividerRect: droppableDividerRect)
+            }
         })
         .environment(\.showViewFrames, true)
     }
     
-    private func defineDroppableDivider(draggingData: DraggingData, currentDroppableData: CurrentDropDividers, droppableDividerRect: [CGRect]) -> CurrentDropDividers {
-        var currentDroppableData = currentDroppableData
+    private func defineDroppableDivider(draggingData: DraggingData, currentDroppableDivider: CurrentDropDividers, droppableDividerRect: [CGRect]) -> CurrentDropDividers {
+        var currentDroppableData = currentDroppableDivider
+
+        print("draggingData: \(draggingData.draggingRect)")
+        print("currentDroppableData: \(currentDroppableData.active.rect)")
+        
         // check where dragging view realated to dropAreaDivider
         // if dragging view upper top divider
         if draggingData.draggingRect.minY < currentDroppableData.topDivider.rect.minY {
@@ -143,7 +161,7 @@ private extension DocumentView {
             let lowerDividerIdx = currentDroppableData.topDivider.idx + 1
             
             // check if it not last divider
-            if lowerDividerIdx < 0 {
+            if lowerDividerIdx > droppableDividerRect.count - 1 {
                 return currentDroppableData
             }
             
@@ -170,8 +188,8 @@ private extension DocumentView {
         
         return VStack(spacing: 0) {
             ShowDroppableArea(droppableAreaId: index, currentDroppableAreaDividers: $currentDroppableData)
-                .anchorPreference(key: SaveBlockAnchorPreferenceKey.self, value: .bounds) { anchor in
-                    [SaveBlockAnchorPreferenceData(viewIdx: index, bounds: anchor)]
+                .anchorPreference(key: DividerAnchorPreferenceKey.self, value: .bounds) { anchor in
+                    [DividerAnchorPreferenceData(viewIdx: index, bounds: anchor)]
             }
             HStack {
                 Spacer(minLength: 10)
@@ -179,8 +197,8 @@ private extension DocumentView {
             }
             if index == (builders.count - 1) { // last one
                 ShowDroppableArea(droppableAreaId: index + 1, currentDroppableAreaDividers: $currentDroppableData)
-                    .anchorPreference(key: SaveBlockAnchorPreferenceKey.self, value: .bounds) { anchor in
-                        [SaveBlockAnchorPreferenceData(viewIdx: index + 1, bounds: anchor)]
+                    .anchorPreference(key: DividerAnchorPreferenceKey.self, value: .bounds) { anchor in
+                        [DividerAnchorPreferenceData(viewIdx: index + 1, bounds: anchor)]
                 }
             }
         }
@@ -192,21 +210,17 @@ private extension DocumentView {
 
 private extension DocumentView {
     
-    struct SaveBlockAnchorPreferenceData: Equatable {
-        static func == (lhs: DocumentView.SaveBlockAnchorPreferenceData, rhs: DocumentView.SaveBlockAnchorPreferenceData) -> Bool {
-            lhs.viewIdx == rhs.viewIdx
-        }
-        
+    struct DividerAnchorPreferenceData {
         let viewIdx: Int
         let bounds: Anchor<CGRect>
     }
     
-    struct SaveBlockAnchorPreferenceKey: PreferenceKey {
-        typealias Value = [SaveBlockAnchorPreferenceData]
+    struct DividerAnchorPreferenceKey: PreferenceKey {
+        typealias Value = [DividerAnchorPreferenceData]
         
-        static var defaultValue: [SaveBlockAnchorPreferenceData] = []
+        static var defaultValue: [DividerAnchorPreferenceData] = []
         
-        static func reduce(value: inout [SaveBlockAnchorPreferenceData], nextValue: () -> [SaveBlockAnchorPreferenceData]) {
+        static func reduce(value: inout [DividerAnchorPreferenceData], nextValue: () -> [DividerAnchorPreferenceData]) {
             value.append(contentsOf: nextValue())
         }
     }
