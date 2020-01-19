@@ -127,6 +127,7 @@ private extension DocumentView {
                 let droppableDividerRect = self.droppableDividerRect else {
                     return
             }
+            
             self.currentDroppableData?.topDivider.rect = droppableDividerRect[topDivider.idx]
             self.currentDroppableData?.bottomDivider.rect = droppableDividerRect[bottomDivider.idx]
             
@@ -140,9 +141,6 @@ private extension DocumentView {
     private func defineDroppableDivider(draggingData: DraggingData, currentDroppableDivider: CurrentDropDividers, droppableDividerRect: [CGRect]) -> CurrentDropDividers {
         var currentDroppableData = currentDroppableDivider
 
-        print("draggingData: \(draggingData.draggingRect)")
-        print("currentDroppableData: \(currentDroppableData.active.rect)")
-        
         // check where dragging view realated to dropAreaDivider
         // if dragging view upper top divider
         if draggingData.draggingRect.minY < currentDroppableData.topDivider.rect.minY {

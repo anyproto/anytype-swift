@@ -20,11 +20,16 @@ enum GlobalEnvironment {
 }
 
 
+class PublishedAuthoScrollData {
+    @Published var autoScrollData = CustomScrollViewCoordinator.AutoScrollData()
+}
+
+
 struct CustomScrollView<Content>: View where Content: View {
     @State private var contentHeight: CGFloat = .zero
     @EnvironmentObject fileprivate var pageScrollViewLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
-    // Scroll timer for dragging view near upper/bottom scroll view edges
-    @Environment(\.timingTimer) private var scrollTimer
+    @State private var autoScrollData = CustomScrollViewCoordinator.AutoScrollData()
+    private var pAutoScrollData = PublishedAuthoScrollData()
     
     var content: Content
     
@@ -33,13 +38,16 @@ struct CustomScrollView<Content>: View where Content: View {
     }
     
     var body: some View {
-        InnerScrollView(contentHeight: self.$contentHeight, pageScrollViewLayout: $pageScrollViewLayout.needsLayout, timer: scrollTimer) {
+        return InnerScrollView(contentHeight: self.$contentHeight, pageScrollViewLayout: $pageScrollViewLayout.needsLayout, autoScrollData: $autoScrollData) {
             self.content
                 .modifier(ViewHeightKey())
         }
         // SwiftUI: Don't call onPreferenceChange inside InnerScrollView otherwise InnerScrollView retain this view with  self.contentHeight. It happens only with UIViewRepresentable views (they are not recreate every time as swiftui views)
         .onPreferenceChange(ViewHeightKey.self) {
                 self.contentHeight = $0
+        }
+        .onReceive(pAutoScrollData.$autoScrollData) { value in
+            self.autoScrollData = value
         }
     }
 }
@@ -70,27 +78,30 @@ extension CustomScrollView {
 extension CustomScrollView {
     
     func scrollIfAnchorIntersectBoundary(anchor: Anchor<CGRect>?) -> some View {
-        let maxTiming = 0.06
-        let power = 15.0 //
+        let maxTiming = 0.02
+        let minTiming = 0.005
         
         return self.modifier(ViewBoundary(checkingAnchor: anchor) { boundary in
             switch boundary {
             case .top(let intersectionRate):
                 print("upperBoundary: \(intersectionRate)")
-                self.scrollTimer.timing = (intersectionRate + maxTiming) / (intersectionRate * intersectionRate * power)
+                let timing = min(minTiming / (intersectionRate * intersectionRate), maxTiming)
+                self.pAutoScrollData.autoScrollData = CustomScrollViewCoordinator.AutoScrollData(timing: timing, direction: .top)
             case .bottom(let intersectionRate):
                 print("bottomBoundary")
-                self.scrollTimer.timing = (intersectionRate + maxTiming) / (intersectionRate * intersectionRate * power)
+                let timing = min(minTiming / (intersectionRate * intersectionRate), maxTiming)
+                self.pAutoScrollData.autoScrollData = CustomScrollViewCoordinator.AutoScrollData(timing: timing, direction: .bottom)
             case .neither:
-                self.scrollTimer.timing = 0.0
+                self.pAutoScrollData.autoScrollData = CustomScrollViewCoordinator.AutoScrollData(timing: 0, direction: nil)
                 print("neither")
             }
         })
     }
     
     private struct ViewBoundary: ViewModifier {
-        enum Boundary {
-            case top(intersectionRate: Double), bottom(intersectionRate: Double)
+        enum Boundary: Equatable {
+            case top(intersectionRate: Double)
+            case bottom(intersectionRate: Double)
             case neither
         }
         @Environment(\.showViewFrames) private var showViewFrames
@@ -99,50 +110,45 @@ extension CustomScrollView {
         var onBoundary: (_ boundary: Boundary) -> Void
         
         func body(content: _ViewModifier_Content<CustomScrollView<Content>.ViewBoundary>) -> some View {
-            content.overlay(
-                GeometryReader { proxy in
-                    self.checkBoundary(proxy: proxy)
-            })
+            content
+                .onGeometryChange(compute: checkBoundary) { value in
+                    self.onBoundary(value ?? .neither)
+            }
+//            if showViewFrames {
+//                Rectangle()
+//                    .stroke(Color.green)
+//                    .frame(width: upperBoundary.width, height: upperBoundary.height)
+//                    .position(x: upperBoundary.midX, y: upperBoundary.midY)
+//                Rectangle()
+//                    .stroke(Color.blue)
+//                    .frame(width: bottomBoundary.width, height: bottomBoundary.height)
+//                    .position(x: bottomBoundary.midX, y: bottomBoundary.midY)
+//            }
         }
         
-        private func checkBoundary(proxy: GeometryProxy) -> some View {
+        private func checkBoundary(_ proxy: GeometryProxy) -> Boundary {
+            let boundaryRatio: CGFloat = 0.15
             let frame = proxy.frame(in: .local)
-            let upperBoundary = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height * 0.15))
+            let upperBoundary = CGRect(origin: .zero, size: CGSize(width: frame.width, height: frame.height * boundaryRatio))
             
-            let bottomY = frame.maxY - frame.height * 0.15
+            let bottomY = frame.maxY - frame.height * boundaryRatio
             let bottomOrigin = CGPoint(x: frame.minX, y: bottomY)
-            let bottomBoundary = CGRect(origin: bottomOrigin, size: CGSize(width: frame.width, height: frame.height * 0.15))
+            let bottomBoundary = CGRect(origin: bottomOrigin, size: CGSize(width: frame.width, height: frame.height * boundaryRatio))
+            
+            var boundary = Boundary.neither
             
             if let checkingAnchor = checkingAnchor {
                 if upperBoundary.intersects(proxy[checkingAnchor]) {
                     let intersectionHeight = upperBoundary.maxY - proxy[checkingAnchor].minY
-                    let YIntersectionRate = intersectionHeight / upperBoundary.height
-                    onBoundary(.top(intersectionRate: Double(YIntersectionRate)))
+                    let YIntersectionRate = min(intersectionHeight / upperBoundary.height, 1)
+                    boundary = .top(intersectionRate: Double(YIntersectionRate))
                 } else if bottomBoundary.intersects(proxy[checkingAnchor]) {
                     let intersectionHeight = proxy[checkingAnchor].maxY - bottomBoundary.minY
-                    let YIntersectionRate = intersectionHeight / upperBoundary.height
-                    onBoundary(.bottom(intersectionRate: Double(YIntersectionRate)))
-                } else {
-                    onBoundary(.neither)
-                }
-            } else {
-                onBoundary(.neither)
-            }
-            
-            return ZStack {
-                Color.clear
-                
-                if showViewFrames {
-                    Rectangle()
-                        .stroke(Color.green)
-                        .frame(width: upperBoundary.width, height: upperBoundary.height)
-                        .position(x: upperBoundary.midX, y: upperBoundary.midY)
-                    Rectangle()
-                        .stroke(Color.blue)
-                        .frame(width: bottomBoundary.width, height: bottomBoundary.height)
-                        .position(x: bottomBoundary.midX, y: bottomBoundary.midY)
+                    let YIntersectionRate = min(intersectionHeight / upperBoundary.height, 1)
+                    boundary = .bottom(intersectionRate: Double(YIntersectionRate))
                 }
             }
+            return boundary
         }
     }
 }
@@ -154,20 +160,21 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
     var content: Content
     @Binding var contentHeight: CGFloat
     @Binding var pageScrollViewLayout: Void
+    // Scroll timer for dragging view near upper/bottom scroll view edges
+    @Environment(\.timingTimer) private var scrollTimer
+    @Binding var autoScrollData: CustomScrollViewCoordinator.AutoScrollData
     
-    @State var timer: TimingTimer
-    
-    public init(contentHeight: Binding<CGFloat>, pageScrollViewLayout: Binding<Void>, timer: TimingTimer, @ViewBuilder content: () -> Content) {
+    public init(contentHeight: Binding<CGFloat>, pageScrollViewLayout: Binding<Void>, autoScrollData: Binding<CustomScrollViewCoordinator.AutoScrollData>, @ViewBuilder content: () -> Content) {
         self.content = content()
         _contentHeight = contentHeight
         _pageScrollViewLayout = pageScrollViewLayout
-        _timer = State(initialValue: timer)
+        _autoScrollData = autoScrollData
     }
     
     // MARK: - UIViewRepresentable
     
     func makeCoordinator() -> CustomScrollViewCoordinator {
-        CustomScrollViewCoordinator(timer: timer)
+        CustomScrollViewCoordinator()
     }
     
     func makeUIView(context: Context) -> UIScrollView {
@@ -179,6 +186,7 @@ private struct InnerScrollView<Content>: UIViewRepresentable where Content: View
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
         uiView.subviews[0].setNeedsUpdateConstraints()
+        context.coordinator.autoScrollData = autoScrollData
     }
 }
 
@@ -230,15 +238,50 @@ extension InnerScrollView {
 // MARK: - Coordinator
 
 class CustomScrollViewCoordinator: NSObject, UIScrollViewDelegate {
-    var scrollView: UIScrollView?
+    struct AutoScrollData {
+        enum Direction {
+            case top, bottom
+        }
+       var timing: TimeInterval = 0
+        var direction: Direction?
+    }
     
-    init(timer: TimingTimer) {
+    var scrollView: UIScrollView?
+    // Scroll timer for dragging view near upper/bottom scroll view edges
+    @Environment(\.timingTimer) private var scrollTimer
+    
+    var autoScrollData: AutoScrollData {
+        didSet {
+            scrollTimer.timing = autoScrollData.timing
+        }
+    }
+    
+    override init() {
+        self.autoScrollData = AutoScrollData()
+        
         super.init()
         
-        timer.fireTimer = { [weak self] in
+        scrollTimer.fireTimer = { [weak self] in
+            guard let scrollView = self?.scrollView else { return }
+            
             DispatchQueue.main.async {
-                let contentOffset = (self?.scrollView?.contentOffset ?? .zero) + CGPoint(x: 0, y: 20)
-                self?.scrollView?.setContentOffset(contentOffset, animated: true)
+                var newAdditionalOffset = CGPoint(x: 0, y: 0)
+                
+                switch self?.autoScrollData.direction {
+                case .top:
+                    newAdditionalOffset = CGPoint(x: 0, y: -2)
+                case .bottom:
+                    newAdditionalOffset = CGPoint(x: 0, y: 2)
+                case .none:
+                    break
+                }
+
+                let newContentOffset = scrollView.contentOffset + newAdditionalOffset
+                let endPoint = max(scrollView.contentSize.height - scrollView.bounds.height, 0)
+                let maxY = min(newContentOffset.y, endPoint + 10)
+                let normalizedContentOffset = CGPoint(x: 0, y: max(maxY, -10))
+                
+                scrollView.setContentOffset(normalizedContentOffset, animated: false)
             }
         }
     }
