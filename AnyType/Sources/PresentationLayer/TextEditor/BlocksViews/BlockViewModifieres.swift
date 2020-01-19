@@ -50,9 +50,9 @@ struct DraggbleView: ViewModifier {
         
         var isActive: Bool {
             switch self {
-            case .inactive:
+            case .inactive, .pressing:
                 return false
-            case .pressing, .dragging:
+            case .dragging:
                 return true
             }
         }
@@ -82,7 +82,7 @@ struct DraggbleView: ViewModifier {
     }
     
     private func createDragGeasture() -> some Gesture {
-        let minimumLongPressDuration = 0.5
+        let minimumLongPressDuration = 0.4
         return LongPressGesture(minimumDuration: minimumLongPressDuration)
             .sequenced(before: DragGesture(coordinateSpace: .global))
             .updating($dragState) { value, state, transaction in
@@ -93,7 +93,7 @@ struct DraggbleView: ViewModifier {
                     state = .pressing
                 // Long press confirmed, dragging may begin.
                 case .second(true, let drag):
-//                    print("drag")
+                    print("drag")
                     state = .dragging(translation: drag?.translation ?? .zero)
                 // Dragging ended or the long press cancelled.
                 default:
