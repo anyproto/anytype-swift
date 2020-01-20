@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import SwiftUI
 
-// MARK: ViewModel
+
+// MARK: - ViewModel
 extension TextBlocksViews.Bulleted {
     class BlockViewModel: ObservableObject, Identifiable {
         private var block: Block
@@ -17,18 +19,20 @@ extension TextBlocksViews.Bulleted {
             self.block = block
             self.text = "Bulleted"
         }
-        var id = UUID()
+        var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Bulleted.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Bulleted.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Bulleted.BlockView(viewModel: self))
     }
 }
 
-// MARK: View
-import SwiftUI
+
+// MARK: - View
 extension TextBlocksViews.Bulleted {
     struct MarkedViewModifier: ViewModifier {
         func body(content: Content) -> some View {
@@ -38,15 +42,16 @@ extension TextBlocksViews.Bulleted {
             }
         }
     }
+    
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier())
+            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier()).modifier(DraggbleView(blockId: viewModel.id))
         }
     }
 }
 
-// MARK: View Previews
+// MARK: - View Previews
 extension TextBlocksViews.Bulleted {
     struct BlockView__Previews: PreviewProvider {
         static var previews: some View {

@@ -18,7 +18,7 @@ extension ImageBlocksViews {
 
 extension ImageBlocksViews.Supplement {
     class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
-        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
+        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewBuilderProtocol] {
             switch block.type {
             case let .image(text):
                 switch text.contentType {

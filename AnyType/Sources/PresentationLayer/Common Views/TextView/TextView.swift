@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import UIKit
 
+
 // public TextView -> InnerTextView
 // private InnerTextView -> UITextView
 // private InnerTextView -> AttributesModifier
@@ -20,11 +21,11 @@ struct TextView: View {
     @ObservedObject private var wholeTextMarkStyleKeeper: MarkStyleKeeper = .init()
     @ObservedObject var storage: Storage
     @Binding var text: String
-    @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
+    @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 38.0)
     
     var body: some View {
         InnerTextView(text: self.$text, sizeThatFit: self.$sizeThatFit, wholeTextMarkStyleKeeper: self._wholeTextMarkStyleKeeper)
-            .frame(minHeight: self.sizeThatFit.height, idealHeight: self.sizeThatFit.height, maxHeight: self.sizeThatFit.height).modifier(BaseView())
+            .frame(height: self.sizeThatFit.height)
     }
     
     // MARK: Lifecycle
@@ -41,8 +42,11 @@ struct TextView: View {
     }
 }
 
-// MARK: Decorations
+
+// MARK: - Decorations
+
 extension TextView {
+    
     class MarkStyleKeeper: ObservableObject {
         class InnerStorage {
             var strikedthrough: Bool = false
@@ -50,15 +54,19 @@ extension TextView {
         }
         @Published var value: InnerStorage = .init()
     }
+   
     class Storage: ObservableObject {
         struct Update {
 //            var style: MarkStyle
             var range: Range<Int>
         }
+        
         @Published var updates: [Update] = []
+        
         init(_ updates: [Update] = []) {
             self.updates = updates
         }
+        
         func add(_ update: Update) -> Self {
             self.updates += [update]
             return self
@@ -72,13 +80,16 @@ extension TextView {
         }
         return self
     }
+    
     func strikedthrough(_ strikedthrough: Bool) -> Self {
         self.wholeTextMarkStyleKeeper.value.strikedthrough = strikedthrough
         return self
     }
 }
 
-// MARK: TextView
+
+// MARK: - TextView
+
 private struct InnerTextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var sizeThatFit: CGSize
@@ -97,9 +108,9 @@ private struct InnerTextView: UIViewRepresentable {
     
     private func createTextView() -> UITextView {
         let textView = UITextView()
-        textView.font = .preferredFont(forTextStyle: .title1)
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
         textView.textContainer.lineFragmentPadding = 0.0
-        textView.textContainerInset = .zero
+//        textView.textContainerInset = .zero
         textView.isScrollEnabled = false
         //TODO: add debug here.
 //        textView.backgroundColor = UIColor(white: 0.0, alpha: 0.05)
@@ -115,17 +126,14 @@ private struct InnerTextView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UITextView {
         let textView = createTextView()
-        let attributedString = NSMutableAttributedString(string: text)
-        let attributes: [NSAttributedString.Key : Any] = [.font : UIFont.preferredFont(forTextStyle: .body)]
-        let range = NSRange(location: 0, length: attributedString.length)
-        textView.typingAttributes = attributes
-        textView.textStorage.setAttributedString(attributedString)
-        textView.textStorage.setAttributes(attributes, range: range)
         context.coordinator.configureMarkStylePublisher(textView)
         context.coordinator.configureBlocksToolbarHandler(textView)
         textView.delegate = context.coordinator
         textView.autocorrectionType = .no
         
+        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.tap(_:)))
+        tapGesture.delegate = context.coordinator
+        textView.addGestureRecognizer(tapGesture)
         
         DispatchQueue.main.async {
             self.sizeThatFit = textView.intrinsicContentSize
@@ -135,11 +143,15 @@ private struct InnerTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
-        context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
+        DispatchQueue.main.async {
+            context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
+        }
     }
 }
 
-// MARK: InnerTextView / Coordinator
+
+// MARK: - InnerTextView / Coordinator
+
 extension InnerTextView {
     class Coordinator: NSObject {
         // MARK: Aliases
@@ -181,7 +193,7 @@ extension InnerTextView {
             if self.defaultKeyboardRect == .zero, let rect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
                 // save size?
                 self.defaultKeyboardRect = rect
-                print("get new keyboard size: \(self.defaultKeyboardRect)")
+//                print("get new keyboard size: \(self.defaultKeyboardRect)")
             }
         }
         
@@ -191,7 +203,8 @@ extension InnerTextView {
     }
 }
 
-// MARK: InnerTextView.Coordinator / Publishers
+
+// MARK: - InnerTextView.Coordinator / Publishers
 extension InnerTextView.Coordinator {
     // MARK: - Publishers
     // MARK: - Publishers / Blocks Toolbar
@@ -206,12 +219,12 @@ extension InnerTextView.Coordinator {
                 return
             }
 
-            print("keyboardSize: \(self.defaultKeyboardRect.size)")
+//            print("keyboardSize: \(self.defaultKeyboardRect.size)")
             
             let view = action.view
             view?.frame = .init(x: 0, y: 0, width: self.defaultKeyboardRect.size.width, height: self.defaultKeyboardRect.size.height)
             
-            print("newKeyboardSize: \(String(describing: view?.frame.size))")
+//            print("newKeyboardSize: \(String(describing: view?.frame.size))")
             textView.inputView = view
             textView.reloadInputViews()
         })
@@ -254,7 +267,9 @@ extension InnerTextView.Coordinator {
             let (textView, (range, textColor, backgroundColor)) = pair
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            print("range is: \(range)")
+
+//            print("range is: \(range)")
+            
             guard range.length > 0 else { return }
             if let textColor = textColor {
                 _ = modifier.applyStyle(style: .textColor(textColor), rangeOrWholeString: .range(range))
@@ -269,7 +284,9 @@ extension InnerTextView.Coordinator {
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { (textView, action) in
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            print("\(action)")
+            
+//            print("\(action)")
+            
             switch action {
             case let .bold(range):
                 if let style = modifier.getMarkStyle(style: .bold(false), at: .range(range)) {
@@ -309,7 +326,9 @@ extension InnerTextView.Coordinator {
 
 }
 
-// MARK: InnerTextView.Coordinator / UITextViewDelegate
+
+// MARK: - InnerTextView.Coordinator / UITextViewDelegate
+
 extension InnerTextView.Coordinator: UITextViewDelegate {
     // MARK: Input Switching
     func switchInputs(_ textView: UITextView) {
@@ -351,17 +370,47 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         self.switchInputs(textView)
     }
-        
+    
     func textViewDidChange(_ textView: UITextView) {
         DispatchQueue.main.async {
             // TODO: rethink.
             // We require this environment object update to notify outer views to call setNeedsLayout to fix sizes.
-            self.outerViewNeedsLayout.needsLayout = true
+            self.outerViewNeedsLayout.needsLayout = ()
             self.parent.text = textView.text
-            self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+            self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude))
         }
     }
 }
+
+
+// MARK: - InnerTextView.Coordinator / UIGestureRecognizerDelegate
+
+extension InnerTextView.Coordinator: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    @objc func tap(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+             print("tap began")
+        } else if gestureRecognizer.state == .recognized {
+            gestureRecognizer.view?.becomeFirstResponder()
+             print("tap recognized")
+        } else if gestureRecognizer.state == .possible {
+            print("tap possible")
+        } else if gestureRecognizer.state == .changed {
+            print("tap changed")
+        } else if gestureRecognizer.state == .ended {
+            print("tap ended")
+        } else if gestureRecognizer.state == .failed {
+            print("tap failed")
+        } else if gestureRecognizer.state == .cancelled {
+             print("tap cancelled")
+        }
+    }
+}
+
 
 //MARK: - Previews
 struct TextView_Previews: PreviewProvider {
@@ -377,4 +426,3 @@ struct TextView_Previews: PreviewProvider {
         }
     }
 }
-

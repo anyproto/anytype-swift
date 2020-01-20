@@ -56,3 +56,50 @@ extension EnvironmentValues {
     }
 }
 
+
+struct ShowViewFramesKey: EnvironmentKey {
+    static let defaultValue: Bool = false
+}
+
+extension EnvironmentValues {
+    var showViewFrames: Bool {
+        get {
+            return self[ShowViewFramesKey.self]
+        }
+        set {
+            self[ShowViewFramesKey.self] = newValue
+        }
+    }
+}
+
+
+struct AddedScrollViewOffsetKey: EnvironmentKey {
+    static let defaultValue: CGPoint = .zero
+}
+
+extension EnvironmentValues {
+    var addedScrollViewOffset: CGPoint {
+        get {
+            return self[AddedScrollViewOffsetKey.self]
+        }
+        set {
+            self[AddedScrollViewOffsetKey.self] = newValue
+        }
+    }
+}
+
+
+struct TimingTimerKey: EnvironmentKey {
+    static let defaultValue: TimingTimer = TimingTimer()
+}
+
+extension EnvironmentValues {
+    var timingTimer: TimingTimer {
+        get {
+            return self[TimingTimerKey.self]
+        }
+        set {
+            self[TimingTimerKey.self] = newValue
+        }
+    }
+}

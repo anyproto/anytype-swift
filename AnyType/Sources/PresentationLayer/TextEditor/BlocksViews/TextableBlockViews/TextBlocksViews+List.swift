@@ -11,15 +11,17 @@ import Foundation
 // MARK: ViewModel
 extension TextBlocksViews.List {
     class BlockViewModel: ObservableObject, Identifiable {
-        fileprivate var blocks: [BlockViewRowBuilderProtocol]
-        init(blocks: [BlockViewRowBuilderProtocol]) {
+        fileprivate var blocks: [BlockViewBuilderProtocol]
+        init(blocks: [BlockViewBuilderProtocol]) {
             self.blocks = blocks
         }
-        var id = UUID()
+        var id: String {
+            return "list"
+        }
     }
 }
 
-extension TextBlocksViews.List.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.List.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.List.BlockView(viewModel: self))
     }
@@ -38,8 +40,10 @@ extension TextBlocksViews.List {
         }
     }
 }
+
 // MARK: View
 import SwiftUI
+
 extension TextBlocksViews.List {
     struct MarkedViewModifier: ViewModifier {
         fileprivate var style: Style

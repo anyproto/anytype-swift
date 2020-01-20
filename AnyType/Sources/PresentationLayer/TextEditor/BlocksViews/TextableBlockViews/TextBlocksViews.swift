@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+
 enum TextBlocksViews {
     enum Text {} // -> Text.ContentType.text
     enum Header {} // -> Text.ContentType.header
@@ -20,13 +22,17 @@ enum TextBlocksViews {
     enum List {} // -> No content type. It is group or list of items.
 }
 
+
 extension TextBlocksViews {
     enum Supplement {}
 }
 
+
 extension TextBlocksViews.Supplement {
+    
     class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
-        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
+        
+        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewBuilderProtocol] {
             switch block.type {
             case let .text(text):
                 switch text.contentType {
@@ -40,13 +46,13 @@ extension TextBlocksViews.Supplement {
                         TextBlocksViews.Numbered.BlockViewModel(block: $0.0).update(style: .number($0.1.advanced(by: 1)))
                     }
                     )]
-//                case .toggle: return blocks.map{TextBlocksViews.Toggle.BlockViewModel(block: $0)}}
+                //                case .toggle: return blocks.map{TextBlocksViews.Toggle.BlockViewModel(block: $0)}}
                 case .toggle: return blocks.map{($0, TextBlocksViews.Toggle.BlockViewModel(block: $0))}.map{$0.1.update(blocks: Array(repeating: $0.0, count: 4).map{TextBlocksViews.Text.BlockViewModel(block: $0)})}
                 case .callout: return blocks.map{TextBlocksViews.Callout.BlockViewModel(block: $0)}
                 }
             default: return []
             }
-        }                        
+        }
     }
 }
 

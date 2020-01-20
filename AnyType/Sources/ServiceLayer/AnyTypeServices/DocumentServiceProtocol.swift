@@ -21,6 +21,10 @@ extension DocumentServiceError: LocalizedError {
     }
 }
 
+enum PostionBlock {
+    case none, top, bottom, left, right, inner
+}
+
 /// Service for managing documents in workspace
 protocol DocumentServiceProtocol {
     typealias CompletionWithDocumentsListResult = (_ resutl: Result<DocumentsHeaders, Error>) -> Void
@@ -45,4 +49,13 @@ protocol DocumentServiceProtocol {
     /// - Parameter index: block index
     /// - Parameter document: document with new block
     func addBlock(content: BlockType, by index: Int, for documentId: String, completion: CompletionWithDocumentResult)
+    
+    /// Move blocks list
+    /// - Parameters:
+    ///   - contextId: page id or dashboard id from where block moving
+    ///   - blockIds: moving blocks ids
+    ///   - targetContextId: page id or dashboard id to where moving
+    ///   - dropTargetId: target block, to which will be moved blocks
+    ///   - position: position where will be moved blocks realtive to target block
+    func moveBlockList(contextId: String, blockIds: String, targetContextId: String, dropTargetId: String, position: PostionBlock)
 }

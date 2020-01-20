@@ -9,61 +9,104 @@
 import SwiftUI
 
 
-struct BaseViewPreferenceData: Identifiable, Equatable {
-    static func == (lhs: BaseViewPreferenceData, rhs: BaseViewPreferenceData) -> Bool {
-        lhs.id == rhs.id
-    }
-    
-    let id = UUID()
-    let dragRect: CGRect?
-    let isDragging: Bool
+struct DraggingViewPreferenceData: Identifiable {
+    var id: String? = nil
+    var position: Anchor<CGRect>? = nil
+    var translation: CGSize = .zero
+    var isActive: Bool = false
 }
 
 
-struct BaseViewPreferenceKey: PreferenceKey {
-    typealias Value = BaseViewPreferenceData
+struct DraggingViewPreferenceKey: PreferenceKey {
+    typealias Value = DraggingViewPreferenceData
     
-    static var defaultValue = BaseViewPreferenceData(dragRect: nil, isDragging: false)
+    static var defaultValue = DraggingViewPreferenceData()
     
-    static func reduce(value: inout BaseViewPreferenceData, nextValue: () -> BaseViewPreferenceData) {
+    static func reduce(value: inout DraggingViewPreferenceData, nextValue: () -> DraggingViewPreferenceData) {
         let next = nextValue()
         
-        if next.isDragging {
+        if next.isActive {
             value = next
         }
     }
 }
 
 
-struct BaseView: ViewModifier {
-    @State var dragOffset: CGSize = .zero
+struct DraggbleView: ViewModifier {
+   
+    enum DragState {
+        case inactive
+        case pressing
+        case dragging(translation: CGSize)
+        
+        var translation: CGSize {
+            switch self {
+            case .inactive, .pressing:
+                return .zero
+            case .dragging(let translation):
+                return translation
+            }
+        }
+        
+        var isActive: Bool {
+            switch self {
+            case .inactive, .pressing:
+                return false
+            case .dragging:
+                return true
+            }
+        }
+        
+        var isDragging: Bool {
+            switch self {
+            case .inactive, .pressing:
+                return false
+            case .dragging:
+                return true
+            }
+        }
+    }
+    
+    var blockId: String
+    @State var initialPosition: Anchor<CGRect>?
+    @GestureState private var dragState = DragState.inactive
     
     func body(content: Content) -> some View {
         HStack {
-            Text("+")
-                .gesture(createDragGeasture())
             content
-        }
-        .overlay(GeometryReader { proxy in
-            VStack {
-                 // TODO: create String object in proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace"))) as workaround cause string literal not working here
-                Color.clear.preference(key: BaseViewPreferenceKey.self,
-                                       value:
-                    BaseViewPreferenceData(dragRect: proxy.frame(in: .named(String("DocumentViewScrollCoordinateSpace"))),
-                                           isDragging: !self.dragOffset.equalTo(.zero)))
+                .anchorPreference(key: DraggingViewPreferenceKey.self, value: .bounds) { anchor in
+                    return DraggingViewPreferenceData(id: self.blockId, position: anchor, translation: self.dragState.translation, isActive: self.dragState.isActive)
             }
-        })
-            .offset(x: self.dragOffset.width, y: self.dragOffset.height)
+        }
+        .simultaneousGesture(createDragGeasture())
     }
     
     private func createDragGeasture() -> some Gesture {
-        return DragGesture()
-            .onChanged { value in
-                self.dragOffset.width += value.translation.width
-                self.dragOffset.height += value.translation.height
+        let minimumLongPressDuration = 0.4
+        return LongPressGesture(minimumDuration: minimumLongPressDuration)
+            .sequenced(before: DragGesture(coordinateSpace: .global))
+            .updating($dragState) { value, state, transaction in
+                switch value {
+                // Long press begins.
+                case .first(true):
+//                    print("pressing")
+                    state = .pressing
+                // Long press confirmed, dragging may begin.
+                case .second(true, let drag):
+                    print("drag")
+                    state = .dragging(translation: drag?.translation ?? .zero)
+                // Dragging ended or the long press cancelled.
+                default:
+//                    print("inactive")
+                    state = .inactive
+                }
         }
         .onEnded { value in
-            self.dragOffset = .zero
+//            print("END")
+            self.initialPosition = nil
+            guard case .second(true, let drag?) = value else { return }
+//            self.viewState.width += drag.translation.width
+//            self.viewState.height += drag.translation.height
         }
     }
 }
@@ -71,6 +114,6 @@ struct BaseView: ViewModifier {
 
 struct BaseView_Previews: PreviewProvider {
     static var previews: some View {
-        Text("Base modifier").modifier(BaseView())
+        Text("Base modifier").modifier(DraggbleView(blockId: "123"))
     }
 }

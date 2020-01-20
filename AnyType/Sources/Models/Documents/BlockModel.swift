@@ -65,7 +65,7 @@ struct Block: Identifiable {
 // MARK: Mocking
 extension Block {
     static func mock(_ contentType: BlockType) -> Self {
-        return .init(id: "", parentId: "", type: contentType)
+        return .init(id: UUID().uuidString, parentId: "", type: contentType)
     }
     static func mockText(_ type: BlockType.Text.ContentType) -> Self {
         return .mock(.text(.init(text: "", contentType: type)))

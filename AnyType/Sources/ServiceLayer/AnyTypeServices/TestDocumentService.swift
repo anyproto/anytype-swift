@@ -33,6 +33,7 @@ class TestDocumentService: DocumentServiceProtocol {
                     .mockText(.text),
                     .mockText(.header),
                     .mockText(.text),
+                    .mockText(.text),
                     .mockText(.todo),
                     .mockText(.todo),
                     .mockText(.todo),
@@ -53,9 +54,28 @@ class TestDocumentService: DocumentServiceProtocol {
             }
             static func focusSet() -> [Block] {
                 [
-                    .mockText(.quote),
+//                    .mockText(.quote),
 //                    .mockImage(.image)
-                    .mockText(.toggle)
+//                    .mockText(.toggle)
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
+                    .mockText(.text),
                 ]
             }
             static func presentationSet() -> [Block] {
@@ -130,6 +150,12 @@ class TestDocumentService: DocumentServiceProtocol {
         } else {
             completion(Result.failure(DocumentServiceError.documentNotFound))
         }
+    }
+    
+    func moveBlockList(contextId: String, blockIds: String, targetContextId: String, dropTargetId: String, position: PostionBlock) {
+        guard var document = testDocuments.document(id: "1") else { return }
+        
+//        document.blocks.move(fromOffsets: <#T##IndexSet#>, toOffset: <#T##Int#>)
     }
     
 }

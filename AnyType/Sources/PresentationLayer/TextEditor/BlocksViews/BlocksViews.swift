@@ -7,6 +7,8 @@
 //
 
 import Foundation
+
+
 enum BlocksViews {
     enum Supplement {}
 }
@@ -18,6 +20,7 @@ enum BlocksViews {
 // This type automatically adopts Hashable and Equatable protocols and can be used as key in dictionaries.
 private enum MetaBlockType: String {
     case text, image, video
+    
     static func from(_ block: Block) -> Self {
         switch block.type {
         case .text(_): return .text
@@ -27,9 +30,11 @@ private enum MetaBlockType: String {
     }
 }
 
+
 extension BlocksViews.Supplement {
+    
     class BaseBlocksSeriazlier {
-        // Move it somewhere later.        
+        // TODO: Move it to each block where block should conform equitability
         private static func sameBlock(lhs: Block, rhs: Block) -> Bool {
             switch (lhs.type, rhs.type) {
             case let (.text(left), .text(right)): return left.contentType == right.contentType
@@ -40,16 +45,16 @@ extension BlocksViews.Supplement {
         }
         
         // TODO: Subclass
-        open func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
+        open func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewBuilderProtocol] {
             return []
         }
 
-        private func sequencesResolver(blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
+        private func sequencesResolver(blocks: [Block]) -> [BlockViewBuilderProtocol] {
             guard let first = blocks.first else { return [] }
             return self.sequenceResolver(block: first, blocks: blocks)
         }
         
-        public func resolver(blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
+        public func resolver(blocks: [Block]) -> [BlockViewBuilderProtocol] {
             if blocks.isEmpty {
                 return []
             }
@@ -87,8 +92,9 @@ extension BlocksViews.Supplement {
             return value
         }()
         private var serializers: [MetaBlockType : BaseBlocksSeriazlier] = [:]
+       
         private func defaultSerializers() -> [MetaBlockType : BaseBlocksSeriazlier] {
-            return [
+            [
                 .text: TextBlocksViews.Supplement.Matcher(),
                 .image: ImageBlocksViews.Supplement.Matcher(),
                 .video: TextBlocksViews.Supplement.Matcher()
@@ -96,8 +102,9 @@ extension BlocksViews.Supplement {
         }
         override private init() {}
         
-        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewRowBuilderProtocol] {
+        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewBuilderProtocol] {
             return self.serializers[MetaBlockType.from(block)]?.sequenceResolver(block: block, blocks: blocks) ?? []
         }
     }
 }
+

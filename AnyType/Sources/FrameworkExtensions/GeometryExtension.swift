@@ -10,6 +10,14 @@ import Foundation
 import CoreGraphics
 
 
+public func + (left: CGPoint, right: CGPoint) -> CGPoint {
+  return CGPoint(x: left.x + right.x, y: left.y + right.y)
+}
+
+public func += (left: inout CGPoint, right: CGPoint) {
+  left = left + right
+}
+
 extension CGPoint {
 
     /// Creates a frame given another point.
@@ -38,5 +46,4 @@ extension CGRect {
     public static func frame(from point1: CGPoint, to point2: CGPoint) -> CGRect {
         return point1.frame(to: point2)
     }
-    
 }

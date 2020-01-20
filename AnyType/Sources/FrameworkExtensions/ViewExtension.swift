@@ -9,10 +9,13 @@
 import SwiftUI
 
 
+// MARK: Bounds accessors
 extension View {
+    
     func errorToast(isShowing: Binding<Bool>, errorText: String) -> some View {
         ErrorAlertView(isShowing: isShowing, errorText: errorText, presenting: self)
     }
+    
     func renderedImage(size: CGSize = CGSize(width: 320, height: 160)) -> UIImage? {
         let sceneDeleage = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
         let rect = CGRect(origin: .zero, size: size)
@@ -20,10 +23,7 @@ extension View {
         
         return image
     }
-}
-
-// MARK: Bounds accessors
-extension View {
+    
     public func saveBounds(viewId: Int, coordinateSpace: CoordinateSpace = .global) -> some View {
         background(GeometryReader { proxy in
             Color.clear.preference(key: SaveBoundsPrefKey.self, value: [SaveBoundsPrefData(viewId: viewId, bounds: proxy.frame(in: coordinateSpace))])
@@ -53,7 +53,36 @@ extension View {
     }
     
     public func outputBounds(viewId: Int) -> some View {
-        saveBounds(viewId: 0).retrieveBounds(viewId: viewId, onRect: {print($0)})
+        saveBounds(viewId: viewId).retrieveBounds(viewId: viewId, onRect: { print("\(viewId): \($0)")} )
+    }
+    
+    func onGeometryChange<Value>(compute: @escaping (GeometryProxy) -> Value?, onChange: @escaping (Value?) -> ()) -> some View where Value: Equatable {
+        let key = TaggedKey<Value, ()>.self
+        return self.overlay(GeometryReader { proxy in
+            Color.clear.preference(key: key, value: compute(proxy))
+        }).onPreferenceChange(key) { value in
+            onChange(value)
+        }.preference(key: key, value: nil)
+    }
+    
+    func onGeometryPreferenceChange<Value, Preference>(_ preference: Preference.Type, compute: @escaping (GeometryProxy, Preference.Value) -> Value?, onChange: @escaping (Value?) -> ()) -> some View where Value: Equatable, Preference: PreferenceKey {
+        let key = TaggedKey<Value, ()>.self
+        
+        return self.overlayPreferenceValue(preference) { preference in
+            return GeometryReader { proxy in
+                Color.clear.preference(key: key, value: compute(proxy, preference))
+            }.onPreferenceChange(key) { value in
+                onChange(value)
+            }.preference(key: key, value: nil)
+        }
+    }
+}
+
+// This key takes the first non-`nil` value
+struct TaggedKey<Value, Tag>: PreferenceKey {
+    static var defaultValue: Value? { nil }
+    static func reduce(value: inout Value?, nextValue: () -> Value?) {
+        value = value ?? nextValue()
     }
 }
 

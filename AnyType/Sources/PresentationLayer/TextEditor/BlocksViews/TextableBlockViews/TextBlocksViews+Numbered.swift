@@ -23,11 +23,13 @@ extension TextBlocksViews.Numbered {
             self.style = style
             return self
         }
-        var id = UUID()
+        var id: String {
+            return block.id
+        }
     }
 }
 
-extension TextBlocksViews.Numbered.BlockViewModel: BlockViewRowBuilderProtocol {
+extension TextBlocksViews.Numbered.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         AnyView(TextBlocksViews.Numbered.BlockView(viewModel: self))
     }

@@ -8,6 +8,8 @@
 
 import Foundation
 import SwiftUI
+
+
 // MARK: ViewModel
 extension ImageBlocksViews.PageIcon {
     class BlockViewModel: ObservableObject, Identifiable {
@@ -17,11 +19,14 @@ extension ImageBlocksViews.PageIcon {
             self.block = block
             self.imageSource = UIImage(named: "Page/DefaultIcon") ?? .init() // take from asset
         }
-        var id = UUID()
+        var id: Block.ID {
+            return block.id
+        }
     }
 }
 
-extension ImageBlocksViews.PageIcon.BlockViewModel: BlockViewRowBuilderProtocol {
+extension ImageBlocksViews.PageIcon.BlockViewModel: BlockViewBuilderProtocol {
+    
     func buildView() -> AnyView {
         AnyView(ImageBlocksViews.PageIcon.BlockView(viewModel: self))
     }

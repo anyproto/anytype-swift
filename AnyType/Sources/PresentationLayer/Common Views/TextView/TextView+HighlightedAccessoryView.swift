@@ -333,7 +333,8 @@ extension TextView.HighlightedAccessoryView {
         func setup() {
             let colors = self.changeColorViewModel.$value.map{($0.textColor, $0.backgroundColor)}
             let just = Just(self.range).scan(self.range) { _,_ -> NSRange in
-                print("range: \(self.range)")
+                
+//                print("range: \(self.range)")
                 return self.range
             }.filter { (range) -> Bool in
                 range.length == 0
