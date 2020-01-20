@@ -12,8 +12,12 @@ class DocumentViewModel: ObservableObject {
     private let documentService = TestDocumentService()
     private var documentHeader: DocumentHeader?
     
+    // TODO: Probably we don't need it here, remove after midleware integration
+    private var document: Document?
+    
     @Published var error: String?
     @Published var blocksViewsBuilders: [BlockViewBuilderProtocol]?
+    
     
     init(documentId: String?) {
         obtainDocument(documentId: documentId)
@@ -36,6 +40,12 @@ class DocumentViewModel: ObservableObject {
         }
     }
     
+    func moveBlock(fromIndex: Int, toIndex: Int) {
+        guard var document = document else { return }
+        document.blocks.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex)
+        createblocksViewsBuilders(document: document)
+    }
+    
 }
  
 extension DocumentViewModel {
@@ -48,6 +58,7 @@ extension DocumentViewModel {
             case .success(let document):
                 strongSelf.documentHeader = document.header
                 strongSelf.createblocksViewsBuilders(document: document)
+                strongSelf.document = document
             case .failure(let error):
                 strongSelf.error = error.localizedDescription
             }

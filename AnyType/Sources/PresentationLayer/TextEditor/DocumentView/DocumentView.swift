@@ -98,7 +98,14 @@ private extension DocumentView {
             
             self.currentDroppableData = CurrentDropDividers(topDivider: topDivider, bottomDivider: bottomDivider)
         }) {
-            self.currentDroppableData = nil
+            defer {
+                self.currentDroppableData = nil
+            }
+            guard let dividerIdx = self.currentDroppableData?.active.idx else { return }
+            guard let draggbleBlockIdx = self.draggingData?.blockIndex else { return }
+            guard dividerIdx != draggbleBlockIdx, (dividerIdx + 1) != draggbleBlockIdx else { return }
+            
+            self.viewModel.moveBlock(fromIndex: draggbleBlockIdx, toIndex: dividerIdx)
         })
         .onGeometryPreferenceChange(DraggingViewCoordinatePreferenceKey.self, compute: { proxy, value in // save droppable divider rect
             if let anchor = value.position, let id = value.id {

@@ -152,4 +152,10 @@ class TestDocumentService: DocumentServiceProtocol {
         }
     }
     
+    func moveBlockList(contextId: String, blockIds: String, targetContextId: String, dropTargetId: String, position: PostionBlock) {
+        guard var document = testDocuments.document(id: "1") else { return }
+        
+//        document.blocks.move(fromOffsets: <#T##IndexSet#>, toOffset: <#T##Int#>)
+    }
+    
 }
