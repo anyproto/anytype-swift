@@ -142,7 +142,7 @@ class TestDocumentService: DocumentServiceProtocol {
     }
     
     func addBlock(content: BlockType, by index: Int, for documentId: String, completion: (Result<Document, Error>) -> Void) {
-        let block = Block(id: "1", parentId: "", type: content)
+        let block = Block(id: "1", childrensIDs: "", type: content)
         
         if var document = testDocuments.document(id: documentId) {
             document.blocks.insert(block, at: index)
