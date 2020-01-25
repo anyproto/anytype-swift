@@ -10,6 +10,45 @@ import Foundation
 import Lib
 import Combine
 
+/// request/response model
+struct IpfsFilesModel {
+    enum Image {
+        enum Download {}
+    }
+    enum File {
+        enum Download {}
+    }
+}
+
+
+extension IpfsFilesModel.Image.Download {
+    enum DownloadError: Error {
+        case downLoadImageError
+    }
+    
+    struct Request {
+        let id: String
+        let size: Anytype_Model_Image.Size
+    }
+    
+    struct Response {
+        let data: Data
+        let error: DownloadError
+    }
+}
+
+
+extension IpfsFilesModel.Image.Download.DownloadError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .downLoadImageError:
+            return "Error downloading image"
+        }
+    }
+}
+
+
+/// Ipfs file service
 class IpfsFilesService {
     
     func fetchImage(requestModel: IpfsFilesModel.Image.Download.Request) -> Future<Data, IpfsFilesModel.Image.Download.DownloadError> {

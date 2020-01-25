@@ -85,6 +85,8 @@ extension DocumentViewModel {
                 return TextBlockViewModel(block: block)
             case .video:
                 return TextBlockViewModel(block: block)
+            default:
+                return TextBlockViewModel(block: block)
             }
         }
         blocksViewsBuilders = document.blocks.map { resolver($0) }

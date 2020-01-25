@@ -73,7 +73,7 @@ extension TextBlocksViews.List {
     struct BlockView__Previews: PreviewProvider {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
-            let block = Block(id: "1", childrensIDs: "", type: .text(textType))
+            let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
             let model = TextBlocksViews.Checkbox.BlockViewModel(block: block)
             let viewModel = BlockViewModel(blocks: [model])
             let view = BlockView(viewModel: viewModel)
