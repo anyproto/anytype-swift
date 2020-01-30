@@ -358,8 +358,8 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
             case (0, _, _): return (true, self.blocksAccessoryView, nil)
             // Length != 0 and is BlockToolbarAccessoryView => set highlighted accessory view and restore default keyboard.
             case (_, is BlockToolbarAccesoryView, _): return (true, self.highlightedAccessoryView, nil)
-            // Length != 0 and is InputLink.CustomContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
-            case (_, is TextView.HighlightedToolbar.InputLink.CustomContainerView, _) where textView.isFirstResponder: return (true, self.highlightedAccessoryView, nil)
+            // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
+            case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return (true, self.highlightedAccessoryView, nil)
             // Otherwise, we need to keep accessory view and keyboard.
             default: return (false, accessoryView, inputView)
             }

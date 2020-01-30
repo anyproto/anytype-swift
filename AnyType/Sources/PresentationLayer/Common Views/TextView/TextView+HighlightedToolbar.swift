@@ -31,6 +31,12 @@ extension TextView.HighlightedToolbar.InputLink {
 // MARK: InputLink / Style
 extension TextView.HighlightedToolbar.InputLink {
     enum Style {
+        enum TextField {
+            case `default`
+            func separatorColor() -> UIColor {
+                return .lightGray
+            }
+        }
         enum Button {
             case decline, accept
             func backgroundColor() -> UIColor {
@@ -47,7 +53,7 @@ extension TextView.HighlightedToolbar.InputLink {
             }
             func borderColor() -> UIColor {
                 switch self {
-                case .decline: return .lightGray//self.textColor()
+                case .decline: return .lightGray //self.textColor()
                 case .accept: return self.backgroundColor()
                 }
             }
@@ -81,33 +87,27 @@ extension TextView.HighlightedToolbar.InputLink {
         class func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let view: UIView? = {
                 let theViewModel = viewModel.wrappedValue
-                let view = InputView(title: theViewModel.title, resources: theViewModel.resources, link: theViewModel.link, action: viewModel.projectedValue.action)
-                let controller = UIHostingController(rootView: view)
-                return controller.view
-//                let view = CustomInputView().configure(theViewModel.resources).configure(title: theViewModel.title).configure(link: theViewModel.link).configure(action: viewModel.projectedValue.action)
-//                return view
+//                let view = InputView(title: theViewModel.title, resources: theViewModel.resources, link: theViewModel.link, action: viewModel.projectedValue.action)
+//                let controller = UIHostingController(rootView: view)
+//                return controller.view
+                let view = InputViewAsUIKit().configure(theViewModel.resources).configure(title: theViewModel.title).configure(link: theViewModel.link).configure(action: viewModel.projectedValue.action)
+                return view
             }()
             
             view?.backgroundColor = Style.default.backgroundColor()
             // Set flexible width for inputAccessoryView.
             view?.autoresizingMask = .flexibleHeight
             
-            let containerView = CustomContainerView()
+            let containerView = ContainerView()
             containerView.addView(view)
             containerView.autoresizingMask = .flexibleHeight
             return containerView
-        }
-        class func createViewController(_ viewModel: ObservedObject<ViewModel>) -> UIInputViewController? {
-            let view = self.createView(viewModel)
-            let controller = CustomInputViewController()
-            controller.addView(view)
-            return controller
         }
     }
     struct InputView: View {
         struct RoundedButtonViewModifier: ViewModifier {
             var style: Style.Button
-            func body(content: Content) -> some View {                content.padding(10).background(Color(self.style.backgroundColor())).foregroundColor(Color(self.style.textColor()))
+            func body(content: Content) -> some View { content.padding(10).background(Color(self.style.backgroundColor())).foregroundColor(Color(self.style.textColor()))
                 .cornerRadius(8)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8).stroke(Color(self.style.borderColor()), lineWidth: 1)
@@ -151,31 +151,16 @@ extension TextView.HighlightedToolbar.InputLink {
     }
 }
 
-// MARK: InputLink / View / UIKit
+// MARK: InputLink / ContainerView
 extension TextView.HighlightedToolbar.InputLink {
-    class CustomInputViewController: UIInputViewController {
-        override var canBecomeFirstResponder: Bool { true }
-        func addView(_ view: UIView?) {
-            if let view = view {
-                self.view.addSubview(view)
-                self.addViewLayout(view)
-            }
+    class ContainerView: UIInputView {
+        override init(frame: CGRect, inputViewStyle: UIInputView.Style) {
+            super.init(frame: frame, inputViewStyle: inputViewStyle)
+            self.allowsSelfSizing = true
         }
-        private func addViewLayout(_ view: UIView?) {
-            if let view = view, let superview = view.superview {
-                let constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ]
-                NSLayoutConstraint.activate(constraints)
-            }
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
-    }
-}
-extension TextView.HighlightedToolbar.InputLink {
-    class CustomContainerView: UIView {
         func addView(_ view: UIView?) {
             view?.translatesAutoresizingMaskIntoConstraints = false
             if let view = view {
@@ -186,10 +171,10 @@ extension TextView.HighlightedToolbar.InputLink {
         private func addLayout(_ view: UIView?) {
             if let view = view, let superview = view.superview {
                 let constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
                 ]
                 NSLayoutConstraint.activate(constraints)
             }
@@ -197,22 +182,12 @@ extension TextView.HighlightedToolbar.InputLink {
         override var canBecomeFirstResponder: Bool {
             return true
         }
-        override var intrinsicContentSize: CGSize {
-            if let view = self.subviews.first {
-                return view.intrinsicContentSize
-            }
-            return super.intrinsicContentSize
-        }
     }
-    
-    class CustomInputView: UIView {
-        // MARK: Views
-        class TextField: UITextField {
-            var theNextResponder: UIResponder? = nil
-            override var next: UIResponder? { theNextResponder ?? super.next }
-            override var canBecomeFirstResponder: Bool { true }
-            override var canResignFirstResponder: Bool { false }
-        }
+}
+
+// MARK: InputLink / InputView as UIKit
+extension TextView.HighlightedToolbar.InputLink {
+    class InputViewAsUIKit: UIView {
         // MARK: Outlets
         private var contentView: UIView!
         private var textViewsStackView: UIStackView!
@@ -220,8 +195,8 @@ extension TextView.HighlightedToolbar.InputLink {
         
         private var titleTextField: TextField!
         private var linkTextField: TextField!
-        private var declineButton: UIButton!
-        private var acceptButton: UIButton!
+        private var declineButton: Button!
+        private var acceptButton: Button!
         
         // MARK: Actions
         @Binding var action: Action
@@ -232,7 +207,7 @@ extension TextView.HighlightedToolbar.InputLink {
         }
         
         @objc func processAcceptButton() {
-            self.action = .accept(self.linkTextField.text ?? "")
+            self.action = .accept(self.linkTextField.text)
         }
         
         // MARK: Resources
@@ -248,13 +223,13 @@ extension TextView.HighlightedToolbar.InputLink {
         
         func configure(title: String?) -> Self {
             self.title = title
-            self.titleTextField.text = self.title
+            _ = self.titleTextField.configure(title)
             return self
         }
         
         func configure(link: String?) -> Self {
             self.link = link
-            self.linkTextField.text = self.link
+            _ = self.linkTextField.configure(link)
             return self
         }
         
@@ -297,6 +272,7 @@ extension TextView.HighlightedToolbar.InputLink {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.axis = .vertical
                 view.distribution = .fillEqually
+                view.spacing = TextView.Layout.StackViewSpacing.default.size()
                 return view
             }()
             
@@ -305,49 +281,54 @@ extension TextView.HighlightedToolbar.InputLink {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.axis = .horizontal
                 view.distribution = .fillEqually
+                view.spacing = TextView.Layout.StackViewSpacing.default.size()
                 return view
             }()
             
             self.titleTextField = {
                 let view = TextField()
+                    .configure(TextField.Resources.init(title: self.title, placeholder: self.resources.titlePlaceholder, separatorBackgroundColor: Style.TextField.default.separatorColor()))
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
             
             self.linkTextField = {
                 let view = TextField()
+                    .configure(TextField.Resources.init(title: self.title, placeholder: self.resources.linkPlaceholder, separatorBackgroundColor: Style.TextField.default.separatorColor()))
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
             
             self.declineButton = {
-                let view = UIButton(type: .system)
+                let style = Style.Button.decline
+                let title = self.resources.declineButtonTitle
+                
+                let view: Button = Button.init(frame: .zero)
+                .configure(Button.Resources.init(textColor: style.textColor(), backgroundColor: style.backgroundColor(), borderColor: style.borderColor()))
+                .configure(title)
+                .configure { [weak self] in
+                    self?.processDeclineButton()
+                }
+                
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
             
             self.acceptButton = {
-                let view = UIButton(type: .system)
+                let style = Style.Button.accept
+                let title = self.resources.acceptButtonTitle
+                
+                let view: Button = Button.init(frame: .zero)
+                .configure(Button.Resources.init(textColor: style.textColor(), backgroundColor: style.backgroundColor(), borderColor: style.borderColor()))
+                .configure(title)
+                .configure { [weak self] in
+                    self?.processAcceptButton()
+                }
+                
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
-            
-            self.titleTextField.placeholder = self.resources.titlePlaceholder
-            self.titleTextField.text = "Title"//self.title
-            self.linkTextField.placeholder = self.resources.linkPlaceholder
-            self.linkTextField.text = "Link"//self.link
-            
-            for textField in [titleTextField, linkTextField].compactMap({$0}) {
-                textField.autocorrectionType = .no
-//                textField.theNextResponder = self
-            }
-            
-            self.declineButton.setTitle(self.resources.declineButtonTitle, for: .normal)
-            self.acceptButton.setTitle(self.resources.acceptButtonTitle, for: .normal)
-            
-            self.declineButton.addTarget(self, action: #selector(processDeclineButton), for: .touchUpInside)
-            self.acceptButton.addTarget(self, action: #selector(processAcceptButton), for: .touchUpInside)
-            
+                                                
             self.contentView = {
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -371,8 +352,8 @@ extension TextView.HighlightedToolbar.InputLink {
             if let view = self.contentView, let superview = view.superview {
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: TextView.Layout.default.leadingOffset()).isActive = true
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: TextView.Layout.default.trailingOffset()).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: TextView.Layout.default.topOffset()).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: TextView.Layout.default.bottomOffset()).isActive = true
             }
             
             if let view = self.textViewsStackView, let superview = view.superview {
@@ -387,4 +368,253 @@ extension TextView.HighlightedToolbar.InputLink {
             return .zero
         }
     }
+}
+
+// MARK: InputLink / InputView as UIKit / Components / TextField
+extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
+    class TextField: UIView {
+        class SeparatorView: UIView {
+            // TODO: Move this constant to style someday.
+            var intristicHeight: CGFloat = 1.0
+            func configure(_ height: CGFloat) -> Self {
+                self.intristicHeight = height
+                return self
+            }
+            override var intrinsicContentSize: CGSize {
+                var size = super.intrinsicContentSize
+                size.height = self.intristicHeight
+                return size
+            }
+        }
+        struct Resources {
+            var title: String?
+            var placeholder: String?
+            var separatorBackgroundColor: UIColor?
+        }
+        
+        // MARK: Outlets
+        private var contentView: UIView!
+        private var stackView: UIStackView!
+        private var textField: UITextField!
+        private var separatorView: SeparatorView!
+                
+        // MARK: Resources
+        // public accessor for text
+        var text: String { self.title ?? "" }
+        private var title: String? {
+            get {
+                self.textField.text
+            }
+            set {
+                self.textField.text = newValue
+            }
+        }
+        
+        private var resources: Resources = .init()
+        
+        // MARK: Configuration
+        func configure(_ title: String?) -> Self {
+            self.title = title
+            return self
+        }
+        
+        func configure(_ resources: Resources) -> Self {
+            self.resources = resources
+            self.title = resources.title
+            self.textField.placeholder = resources.placeholder
+            self.separatorView.backgroundColor = resources.separatorBackgroundColor
+            return self
+        }
+                
+        // MARK: Initialization
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.setup()
+        }
+
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            self.setup()
+        }
+        
+        // MARK: Setup
+        private func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        // MARK: UI Elements
+        private func setupUIElements() {
+            self.autoresizingMask = .flexibleHeight
+            
+            self.textField = {
+                let view = UITextField()
+                view.autocorrectionType = .no
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
+            self.separatorView = {
+                let view = SeparatorView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+
+            self.configure(nil).configure(.init())
+            
+            self.stackView = {
+                let view = UIStackView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.axis = .vertical
+                view.distribution = .fillProportionally
+                return view
+            }()
+            
+            self.contentView = {
+                let view = UIView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
+            for view in [textField, separatorView].compactMap({$0}) {
+                self.stackView.addArrangedSubview(view)
+            }
+            
+            self.contentView.addSubview(self.stackView)
+            self.addSubview(self.contentView)
+        }
+        
+        // MARK: Layout
+        private func addLayout() {
+            if let view = self.contentView, let superview = view.superview {
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: TextView.Layout.default.leadingOffset()).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: TextView.Layout.default.trailingOffset()).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+            }
+            
+            if let view = self.stackView, let superview = view.superview {
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+            }
+        }
+        
+        override var intrinsicContentSize: CGSize {
+            return .zero
+        }
+
+    }
+}
+
+// MARK: InputLink / InputView as UIKit / Components / Button
+extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
+    class Button: UIView {
+        struct Resources {
+            var textColor: UIColor?
+            var backgroundColor: UIColor?
+            var borderColor: UIColor?
+        }
+        
+        // MARK: Outlets
+        private var contentView: UIView!
+        private var button: UIButton!
+        
+        // MARK: Action
+        var buttonPressed: () -> () = {}
+        
+        // MARK: Actions / UIKit
+        @objc func processButtonPressed() {
+            self.buttonPressed()
+        }
+        
+        // MARK: Resources
+        private var title: String? = ""
+        private var resources: Resources = .init()
+        
+        // MARK: Configuration
+        func configure(_ title: String?) -> Self {
+            self.title = title
+            self.button.setTitle(title, for: .normal)
+            return self
+        }
+        
+        func configure(_ resources: Resources) -> Self {
+            self.resources = resources
+            self.button.setTitleColor(resources.textColor, for: .normal)
+            self.button.backgroundColor = resources.backgroundColor
+            self.button.layer.borderWidth = 1.0
+            self.button.layer.borderColor = resources.borderColor?.cgColor
+            return self
+        }
+        
+        func configure(_ buttonPressed: @escaping () -> ()) -> Self {
+            self.buttonPressed = buttonPressed
+            return self
+        }
+        
+        // MARK: Initialization
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.setup()
+        }
+
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            self.setup()
+        }
+        
+        // MARK: Setup
+        private func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        // MARK: UI Elements
+        private func setupUIElements() {
+            self.autoresizingMask = .flexibleHeight
+                
+            self.button = {
+                let view = UIButton(type: .system)
+                view.addTarget(self, action: #selector(processButtonPressed), for: .touchUpInside)
+                view.layer.cornerRadius = 8
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+                                                            
+            self.button.setTitle(self.title, for: .normal)
+            
+            self.contentView = {
+                let view = UIView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
+            self.contentView.addSubview(self.button)
+            self.addSubview(self.contentView)
+        }
+        
+        // MARK: Layout
+        private func addLayout() {
+            if let view = self.contentView, let superview = view.superview {
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: TextView.Layout.default.leadingOffset()).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: TextView.Layout.default.trailingOffset()).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+            }
+            
+            if let view = self.button, let superview = view.superview {
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+            }
+        }
+        
+        override var intrinsicContentSize: CGSize {
+            return .zero
+        }
+    }
+
 }
