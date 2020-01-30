@@ -107,7 +107,7 @@ extension TextView.BlockToolbar {
             }
             static var allCases: [Self] = [.divider]
         }
-        case text, list, media, tool, other
+        case text(Text), list(List), media(Media), tool(Tool), other(Other)
         func title() -> String {
             switch self {
             case .text: return "Text"
@@ -117,7 +117,7 @@ extension TextView.BlockToolbar {
             case .other: return "Other"
             }
         }
-        static var allCases: [Self] = [.text, .list, .media, .tool, .other]
+        static var allCases: [Self] = [.text(.text), .list(.bulleted), .media(.bookmark), .tool(.contact), .other(.divider)]
     }
     class BlockTypesColors {
         static let path = "TextEditor/Toolbar/Blocks/Types/TypesColors/"
@@ -171,7 +171,15 @@ extension TextView.BlockToolbar.TurnIntoBlock {
         override init() {
             super.init()
             self.title = "Turn Into"
-            self.categories = [.text, .list, .tool]
+            self.categories = self.categories.filter {
+                switch $0 {
+                case .text: return true
+                case .list: return true
+                case .tool: return true
+                case .media: return false
+                case .other: return false
+                }
+            }
         }
     }
     class InputViewBuilder {
@@ -214,7 +222,7 @@ extension TextView.BlockToolbar.AddBlock {
         }
         @Published var categoryIndex: Int? = 0
         @Published var typeIndex: Int?
-        var value: PassthroughSubject<(Int?, Int?, ViewModel), Never> = .init()
+        var value: PassthroughSubject<BlocksTypes?, Never> = .init()
         var handler: AnyCancellable?
         var types: [ChosenType] {
             return self.chosenTypes(category: self.categoryIndex)
@@ -231,8 +239,23 @@ extension TextView.BlockToolbar.AddBlock {
             case .other: return BlocksTypes.Other.allCases.compactMap{($0.title(), $0.path())}.map{ChosenType(title: $0.0, image: $0.1)}
             }
         }
+        func chosenAction(category: Int?, type: Int?) -> BlocksTypes? {
+            guard let category = category, let type = type else { return nil }
+            switch self.categories[category] {
+            case .text: return .text(BlocksTypes.Text.allCases[type])
+            case .list: return .list(BlocksTypes.List.allCases[type])
+            case .media: return .media(BlocksTypes.Media.allCases[type])
+            case .tool: return .tool(BlocksTypes.Tool.allCases[type])
+            case .other: return .other(BlocksTypes.Other.allCases[type])
+            }
+        }
         init() {
-            self.handler = Publishers.CombineLatest3(self.$categoryIndex, self.$typeIndex, Just(self)).subscribe(self.value)
+//            self.handler = Publishers.CombineLatest3(self.$categoryIndex, self.$typeIndex, Just(self)).subscribe(self.value)
+            self.handler = Publishers.CombineLatest(Just(self), self.$typeIndex).map { value in
+                let category = value.0.categoryIndex
+                let type = value.1
+                return self.chosenAction(category: category, type: type)
+            }.subscribe(self.value)
         }
     }
     class InputViewBuilder {
@@ -396,12 +419,12 @@ extension TextView.BlockToolbar.EditActions {
 extension TextView.BlockToolbar.EditActions {
     typealias Style = TextView.BlockToolbar.Style
     class ViewModel: ObservableObject {
-        @Published var action: Action?
+        @Published var value: Action?
         var actions = Action.allCases
     }
     class InputViewBuilder {
         class func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
-            let controller = UIHostingController(rootView: InputView(actions: viewModel.wrappedValue.actions, action: viewModel.projectedValue.action))
+            let controller = UIHostingController(rootView: InputView(actions: viewModel.wrappedValue.actions, action: viewModel.projectedValue.value))
             let view = controller.view
             view?.backgroundColor = Style.default.backgroundColor()
             return view

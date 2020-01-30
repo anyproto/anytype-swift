@@ -153,15 +153,15 @@ extension InnerTextView {
         
         lazy private var highlightedAccessoryView: HighlightedAccessoryView = .init()
         private var highlightedAccessoryViewHandler: (((NSRange, NSTextStorage)) -> ())?
-
-        var highlightedMarkStyleHandler: AnyCancellable?
         
+        var highlightedMarkStyleHandler: AnyCancellable?
         var wholeMarkStyleHandler: AnyCancellable?
         
         lazy private var blocksAccessoryView: BlockToolbarAccesoryView = .init()
+        var blocksAccessoryViewHandler: AnyCancellable?
+        var blocksUserActionsHandler: AnyCancellable?
         
         var defaultKeyboardRect: CGRect = .zero
-        var blocksAccessoryViewHandler: AnyCancellable?
                 
         // MARK: - Initiazliation
         init(_ uiTextView: InnerTextView) {
@@ -206,6 +206,12 @@ extension InnerTextView.Coordinator {
             
             self.switchInputs(textView, accessoryView: nil, inputView: action.view)
         })
+        
+        self.blocksUserActionsHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.allInOnePublisher).sink { value in
+            let (textView, action) = value
+            // now tell outer world that we are ready to process actions.
+            // ...
+        }
     }
     
     // MARK: - Publishers / Highlighted Toolbar
