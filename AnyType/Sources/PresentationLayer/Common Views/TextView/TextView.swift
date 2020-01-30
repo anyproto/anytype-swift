@@ -78,6 +78,31 @@ extension TextView {
     }
 }
 
+// MARK: UserActions
+extension TextView {
+    public enum UserAction {
+        typealias BlockAction = TextView.BlockToolbar.UnderlyingAction
+        
+        typealias MarksAction = TextView.HighlightedToolbar.UnderlyingAction // it should be what?! I guess it is Action with range, right?!
+         
+        // Actions with text...
+        enum InputAction {
+            case changeText(String)
+        }
+        
+        // Actions with input custom keys...
+        enum KeyboardAction {
+            enum Key {
+                case enter
+                case delete
+            }
+            case pressKey(Key)
+        }
+        
+        case blockAction(BlockAction), marksAction(MarksAction), inputAction(InputAction), keyboardAction(KeyboardAction)
+    }
+}
+
 // MARK: TextView
 private struct InnerTextView: UIViewRepresentable {
     @Binding var text: String
@@ -207,10 +232,12 @@ extension InnerTextView.Coordinator {
             self.switchInputs(textView, accessoryView: nil, inputView: action.view)
         })
         
+        // TODO: Add other user interaction publishers.
         self.blocksUserActionsHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.allInOnePublisher).sink { value in
             let (textView, action) = value
             // now tell outer world that we are ready to process actions.
             // ...
+            
         }
     }
     

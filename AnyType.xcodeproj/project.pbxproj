@@ -134,6 +134,7 @@
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
+		0ACA77CF23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77CE23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift */; };
 		0ADF8CB9239FFD33003CA31E /* TextView+BlocksAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */; };
 		0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */; };
 		B946AF4F589668391720FD14 /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E0FA740E958323954CB10F /* Pods_AnyType.framework */; };
@@ -294,6 +295,7 @@
 		0AAC96602340C203006CE58C /* HomeViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainer.swift; sourceTree = "<group>"; };
 		0AAC96642340C229006CE58C /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0ACA77CE23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar+InputLink.swift"; sourceTree = "<group>"; };
 		0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksAccessoryView.swift"; sourceTree = "<group>"; };
 		0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Quote.swift"; sourceTree = "<group>"; };
 		363F59EE65C138C060202EE3 /* Pods-AnyType.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.release.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.release.xcconfig"; sourceTree = "<group>"; };
@@ -914,6 +916,7 @@
 				0A70816923993040004B04AB /* TextView+MarkStyle.swift */,
 				0A70816F239CFF4F004B04AB /* TextView+HighlightedAccessoryView.swift */,
 				0AA04DF823C7943B005B37A4 /* TextView+HighlightedToolbar.swift */,
+				0ACA77CE23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift */,
 				0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */,
 				0A43F49723A6653D00018B36 /* TextView+BlocksToolbar.swift */,
 				0A563B1723AD0FC200617065 /* TextView+BaseToolbarView.swift */,
@@ -1236,6 +1239,7 @@
 				0A69321C238C4C8200575544 /* TextBlocksViews.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				0A69321E238C4C8200575544 /* TextBlocksViews+Toggle.swift in Sources */,
+				0ACA77CF23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

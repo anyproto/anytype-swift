@@ -305,13 +305,15 @@ extension TextView.BlockToolbar {
 // But where?...
 // These entries are coming from user actions.
 // So, they are nice to be there, right?...
-extension TextView.BlockToolbar.ViewModel {
+
+extension TextView.BlockToolbar {
     enum UnderlyingAction {
         enum BlockType {
             case known
             case unknown
             static func convert(_ type: TextView.BlockToolbar.AddBlock.BlocksTypes) -> Self {
                 switch type {
+                    // TODO: Add conversion.
                 default: return .known
                 }
             }

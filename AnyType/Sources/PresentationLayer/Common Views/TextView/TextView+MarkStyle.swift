@@ -22,14 +22,14 @@ extension TextView {
                 switch self {
                 case .empty: return [:]
                 case let .change(value): return value
-                case let .changeAndDeletedKeys(value, keys): return value
+                case let .changeAndDeletedKeys(value, _): return value
                 }
             }
             func deletedKeys() -> [NSAttributedString.Key] {
                 switch self {
                 case .empty: return []
-                case let .change(value): return []
-                case let .changeAndDeletedKeys(value, keys): return keys
+                case .change: return []
+                case let .changeAndDeletedKeys(_, keys): return keys
                 }
             }
         }
