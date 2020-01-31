@@ -309,12 +309,24 @@ extension TextView.BlockToolbar {
 extension TextView.BlockToolbar {
     enum UnderlyingAction {
         enum BlockType {
-            case known
-            case unknown
+            // TODO: Add existences or invert dependencies by moving BlocksTypes here?
+            typealias Text = AddBlock.BlocksTypes.Text
+            typealias List = AddBlock.BlocksTypes.List
+            typealias Media = AddBlock.BlocksTypes.Media
+            typealias Tool = AddBlock.BlocksTypes.Tool
+            typealias Other = AddBlock.BlocksTypes.Other
+            case text(Text)
+            case list(List)
+            case media(Media)
+            case tool(Tool)
+            case other(Other)
             static func convert(_ type: TextView.BlockToolbar.AddBlock.BlocksTypes) -> Self {
                 switch type {
-                    // TODO: Add conversion.
-                default: return .known
+                case let .text(value): return .text(value)
+                case let .list(value): return .list(value)
+                case let .media(value): return .media(value)
+                case let .tool(value): return .tool(value)
+                case let .other(value): return .other(value)
                 }
             }
         }
