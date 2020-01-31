@@ -128,6 +128,11 @@
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
+		0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D023E4481700442690 /* commands+Service.pb.swift */; };
+		0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D123E4481700442690 /* events+Initializers.pb.swift */; };
+		0ACA77D623E4481800442690 /* commands+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */; };
+		0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D323E4481800442690 /* models+Initializers.pb.swift */; };
+		0ACA77D923E4482000442690 /* commands+ErrorAdoption.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D823E4482000442690 /* commands+ErrorAdoption.pb.swift */; };
 		0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */; };
 		465BEE5AFFDFF6AC5900B5DB /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C07365EEBD9F2E018C0FE2EF /* Pods_AnyType.framework */; };
 /* End PBXBuildFile section */
@@ -292,6 +297,11 @@
 		0AAC96602340C203006CE58C /* HomeViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainer.swift; sourceTree = "<group>"; };
 		0AAC96642340C229006CE58C /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0ACA77D023E4481700442690 /* commands+Service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Service.pb.swift"; sourceTree = "<group>"; };
+		0ACA77D123E4481700442690 /* events+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "events+Initializers.pb.swift"; sourceTree = "<group>"; };
+		0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Initializers.pb.swift"; sourceTree = "<group>"; };
+		0ACA77D323E4481800442690 /* models+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "models+Initializers.pb.swift"; sourceTree = "<group>"; };
+		0ACA77D823E4482000442690 /* commands+ErrorAdoption.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+ErrorAdoption.pb.swift"; sourceTree = "<group>"; };
 		0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksAccessoryView.swift"; sourceTree = "<group>"; };
 		0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Quote.swift"; sourceTree = "<group>"; };
 		49244431F638A977861A1CC0 /* Pods-AnyType.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.debug.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.debug.xcconfig"; sourceTree = "<group>"; };
@@ -829,6 +839,11 @@
 		03BC991A2398121C00A4FB92 /* ProtocolBufferObjects */ = {
 			isa = PBXGroup;
 			children = (
+				0ACA77D823E4482000442690 /* commands+ErrorAdoption.pb.swift */,
+				0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */,
+				0ACA77D023E4481700442690 /* commands+Service.pb.swift */,
+				0ACA77D123E4481700442690 /* events+Initializers.pb.swift */,
+				0ACA77D323E4481800442690 /* models+Initializers.pb.swift */,
 				03AA854723A80C2300892713 /* commands.pb.swift */,
 				03AA854623A80C2200892713 /* events.pb.swift */,
 				03AA854523A80C2200892713 /* models.pb.swift */,
@@ -1154,7 +1169,9 @@
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				030DF8682333E3DD00FE6DA5 /* DocumentView.swift in Sources */,
+				0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
+				0ACA77D623E4481800442690 /* commands+Initializers.pb.swift in Sources */,
 				0372AB4A23A1378A008CF5B9 /* IpfsFilesModel.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
@@ -1165,6 +1182,7 @@
 				0A7081672396C5E3004B04AB /* ImageBlocksViews+PageIcon.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
+				0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */,
 				0A693221238C4C8200575544 /* TextBlocksViews+List.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
@@ -1194,6 +1212,7 @@
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */,
 				0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */,
+				0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				03B42F2A232910AB000F2BA2 /* HomeView.swift in Sources */,
@@ -1220,6 +1239,7 @@
 				03A8011E22F8CAA200F31E01 /* PickerDetailView.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
+				0ACA77D923E4482000442690 /* commands+ErrorAdoption.pb.swift in Sources */,
 				031B355623465DFF0066DDB8 /* EmptyDocumentView.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
