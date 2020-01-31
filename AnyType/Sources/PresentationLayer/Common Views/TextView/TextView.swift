@@ -93,10 +93,37 @@ extension TextView {
         // Actions with input custom keys...
         enum KeyboardAction {
             enum Key {
+                case enterWithPayload(String?)
+                case enterAtBeginning
                 case enter
+                case deleteWithPayload(String?)
                 case delete
+                static func convert(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Self? {
+                    //
+                    // Well...
+                    // We should also keep values to the right of the Cursor.
+                    // So, enter key should have minimum one value as String on the right as Optional<String>
+//                    print("textView: \(textView.text) range: \(range) text: \(text). Text length: \(text.count)")
+                    print("textViewLength: \(textView.text.count) range: \(range) textLength: \(text.count)")
+                    switch (textView.text, range, text) {
+                    case (_, .init(location: 1, length: 0), "\n"): return .enterAtBeginning
+                    case let (source, at, "\n") where source?.count == at.location + at.length: return .enter
+                    case let (source, at, "\n"):
+                        guard let source = source, let theRange = Range(at, in: source) else { return nil }
+                        return .enterWithPayload(source.replacingCharacters(in: theRange, with: "\n").split(separator: "\n").last.flatMap(String.init))
+                    case ("", .init(location: 0,length: 0), ""): return .delete
+                    case let (source, .init(location: 0, length: 0), ""): return .deleteWithPayload(source)
+                    default: return nil
+                    }
+                }
             }
             case pressKey(Key)
+            static func convert(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Self? {
+//                print("textView.text: \(String(describing: textView.text))")
+//                print("textView.range: \(range)")
+//                print("textView.replacementText: \(text)")
+                return Key.convert(textView, shouldChangeTextIn: range, replacementText: text).flatMap{.pressKey($0)}
+            }
         }
         
         case blockAction(BlockAction), marksAction(MarksAction), inputAction(InputAction), keyboardAction(KeyboardAction)
@@ -148,6 +175,7 @@ private struct InnerTextView: UIViewRepresentable {
         textView.textStorage.setAttributes(attributes, range: range)
         context.coordinator.configureMarkStylePublisher(textView)
         context.coordinator.configureBlocksToolbarHandler(textView)
+        context.coordinator.userInteractionDelegate = context.coordinator
         textView.delegate = context.coordinator
         textView.autocorrectionType = .no
         
@@ -175,6 +203,12 @@ extension InnerTextView {
         var parent: InnerTextView
         
         @EnvironmentObject var outerViewNeedsLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
+        
+        weak var userInteractionDelegate: TextViewUserInteractionProtocol?
+        func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
+            self.userInteractionDelegate = delegate
+            return self
+        }
         
         lazy private var highlightedAccessoryView: HighlightedAccessoryView = .init()
         private var highlightedAccessoryViewHandler: (((NSRange, NSTextStorage)) -> ())?
@@ -219,6 +253,24 @@ extension InnerTextView {
 // MARK: InnerTextView.Coordinator / Publishers
 extension InnerTextView.Coordinator {
     // MARK: - Publishers
+    // MARK: - Publishers / Outer world
+    
+    func publishToOuterWorld(_ action: TextView.UserAction?) {
+        action.flatMap({self.userInteractionDelegate?.didReceiveAction($0)})
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.BlockAction?) {
+        action.flatMap(TextView.UserAction.blockAction).flatMap(publishToOuterWorld)
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.MarksAction?) {
+        action.flatMap(TextView.UserAction.marksAction).flatMap(publishToOuterWorld)
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.InputAction?) {
+        action.flatMap(TextView.UserAction.inputAction).flatMap(publishToOuterWorld)
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.KeyboardAction?) {
+        action.flatMap(TextView.UserAction.keyboardAction).flatMap(publishToOuterWorld)
+    }
+    
     // MARK: - Publishers / Blocks Toolbar
     func configureBlocksToolbarHandler(_ view: UITextView) {
         self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { (value) in
@@ -239,11 +291,11 @@ extension InnerTextView.Coordinator {
         // 4. Second delegate is a documentViewModel ( so, it needs information about block if available.. )
         // 5. Add hook to receive user key inputs and context of current text View. ( enter may behave different ).
         // 6. Add hook that will catch marks styles. ( special convert for links and colors )
-        self.blocksUserActionsHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.allInOnePublisher).sink { value in
-            let (textView, action) = value
+        self.blocksUserActionsHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.allInOnePublisher).sink { [weak self] value in
+            let (_, action) = value
             // now tell outer world that we are ready to process actions.
             // ...
-            
+            self?.publishToOuterWorld(action)
         }
     }
     
@@ -350,8 +402,34 @@ extension InnerTextView.Coordinator {
 
 }
 
+// MARK: InnerTextView.Coordinator / ResponderProxy
+extension InnerTextView.Coordinator {
+//    class ResponderProxy: UIResponder {
+//        var textView: UITextView?
+//        var hasTextView: Bool {textView != nil}
+//        fileprivate func configure(_ textView: UITextView?) -> Self {
+//            self.textView = textView
+//            return self
+//        }
+//        func inject() {
+//            if hasTextView {
+//                let next = self.textView?.next
+//                self.textView?.next = self
+//                self.next = next
+//            }
+//        }
+//    }
+}
+
 // MARK: InnerTextView.Coordinator / UITextViewDelegate
 extension InnerTextView.Coordinator: UITextViewDelegate {
+    // MARK: Debug
+    func outputResponderChain(_ responder: UIResponder?) {
+        let chain = sequence(first: responder, next: {$0?.next}).compactMap({$0}).reduce("") { (result, responder) -> String in
+            result + " -> \(String(describing: type(of: responder)))"
+        }
+        print("chain: \(chain)")
+    }
     // MARK: Selection and Marked Text
     func setFocus(in textView: UITextView, at range: NSRange) {
         // set attributes of text or place view around it?
@@ -420,6 +498,13 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
     }
     
     // MARK: - UITextViewDelegate
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        self.publishToOuterWorld(TextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))
+        if text == "\n" {
+            // we should return false and perform update by ourselves.
+        }
+        return true
+    }
     func textViewDidChangeSelection(_ textView: UITextView) {
         self.switchInputs(textView)
     }
@@ -440,6 +525,13 @@ extension InnerTextView.Coordinator: UITextViewDelegate {
             self.parent.text = textView.text
             self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
         }
+    }
+}
+
+//MARK: TextViewUserInteractionProtocol
+extension InnerTextView.Coordinator: TextViewUserInteractionProtocol {
+    func didReceiveAction(_ action: TextView.UserAction) {
+        print("I receive! \(action)")
     }
 }
 
