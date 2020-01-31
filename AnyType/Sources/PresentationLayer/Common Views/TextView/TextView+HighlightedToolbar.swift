@@ -19,38 +19,27 @@ extension TextView.HighlightedToolbar {
         enum MarksType {
             case bold(Bool)
             case italic(Bool)
+            case keyboard(Bool)
             case strikethrough(Bool)
-            case code(Bool)
+            case underscored(Bool)
             case link(URL?) // should retrieve in custom place
             case textColor(UIColor?) // should retrieve in custom place
             case backgroundColor(UIColor?) // should retrieve in custom place
-            static func convert(_ type: State) -> Self {
+            static func convert(_ type: TextView.MarkStyle) -> Self {
                 switch type {
                 case let .bold(value): return .bold(value)
                 case let .italic(value): return .italic(value)
+                case let .keyboard(value): return .keyboard(value)
                 case let .strikethrough(value): return .strikethrough(value)
-                case let .code(value): return .code(value)
-                case .link(_): return .link(nil) // not used, actually. Use appropriate convertor
+                case let .underscored(value): return .underscored(value)
+                case let .textColor(value): return .textColor(value)
+                case let .backgroundColor(value): return .backgroundColor(value)
+                case let .link(value): return .link(value)
                 }
-            }
-            static func convert(_ link: URL?) -> Self {
-                return .link(link)
-            }
-            static func convert(_ pair: (UIColor?, UIColor?), background: Bool) -> Self {
-                if background {
-                    return .backgroundColor(pair.1)
-                }
-                else {
-                    return .textColor(pair.0)
-                }
-            }
-            static func convert(textColor: UIColor?) -> Self {
-                .textColor(textColor)
-            }
-            static func convert(backgroundColor: UIColor?) -> Self {
-                .backgroundColor(backgroundColor)
             }
         }
+        // TODO: Think about api usage.
+        // Should we send single value or an array?
         case changeMark(NSRange, MarksType)
     }
 }

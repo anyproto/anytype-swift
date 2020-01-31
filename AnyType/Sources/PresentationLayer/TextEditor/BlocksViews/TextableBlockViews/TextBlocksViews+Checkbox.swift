@@ -42,7 +42,7 @@ extension TextBlocksViews.Checkbox {
             case .checked: return .gray
             }
         }
-        func strikedthrough() -> Bool {
+        func strikethrough() -> Bool {
             return self == .checked
         }
         static func from(_ flag: Bool) -> Self {
@@ -83,7 +83,7 @@ extension TextBlocksViews.Checkbox {
         var body: some View {
             TextView(text: self.$viewModel.text)
                 .foregroundColor(self.style.foregroundColor())
-                .strikedthrough(self.style.strikedthrough())
+                .strikethrough(self.style.strikethrough())
                 .modifier(MarkedViewModifier(checked: self.$viewModel.checked))
         }
     }

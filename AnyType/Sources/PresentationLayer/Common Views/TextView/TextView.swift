@@ -45,7 +45,7 @@ struct TextView: View {
 extension TextView {
     class MarkStyleKeeper: ObservableObject {
         class InnerStorage {
-            var strikedthrough: Bool = false
+            var strikethrough: Bool = false
             var textColor: UIColor?
         }
         @Published var value: InnerStorage = .init()
@@ -72,8 +72,8 @@ extension TextView {
         }
         return self
     }
-    func strikedthrough(_ strikedthrough: Bool) -> Self {
-        self.wholeTextMarkStyleKeeper.value.strikedthrough = strikedthrough
+    func strikethrough(_ strikethrough: Bool) -> Self {
+        self.wholeTextMarkStyleKeeper.value.strikethrough = strikethrough
         return self
     }
 }
@@ -252,8 +252,8 @@ extension InnerTextView.Coordinator {
         let (textView, value) = (view, wholeMarkStyleKeeper.value)
         let attributedText = textView.textStorage
         let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-        if let style = modifier.getMarkStyle(style: .strikethrough(value.strikedthrough), at: .whole(true)), style != .strikethrough(value.strikedthrough) {
-            _ = modifier.applyStyle(style: .strikethrough(value.strikedthrough), rangeOrWholeString: .whole(true))
+        if let style = modifier.getMarkStyle(style: .strikethrough(value.strikethrough), at: .whole(true)), style != .strikethrough(value.strikethrough) {
+            _ = modifier.applyStyle(style: .strikethrough(value.strikethrough), rangeOrWholeString: .whole(true))
         }
         if let color = value.textColor, let style = modifier.getMarkStyle(style: .textColor(color), at: .whole(true)), style != .textColor(color) {
             _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .whole(true))
@@ -263,8 +263,8 @@ extension InnerTextView.Coordinator {
         self.wholeMarkStyleHandler = Publishers.CombineLatest(Just(view), wholeMarkStyleKeeper.$value).sink { (textView, value) in
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            if let style = modifier.getMarkStyle(style: .strikethrough(value.strikedthrough), at: .whole(true)), style != .strikethrough(value.strikedthrough) {
-                _ = modifier.applyStyle(style: .strikethrough(value.strikedthrough), rangeOrWholeString: .whole(true))
+            if let style = modifier.getMarkStyle(style: .strikethrough(value.strikethrough), at: .whole(true)), style != .strikethrough(value.strikethrough) {
+                _ = modifier.applyStyle(style: .strikethrough(value.strikethrough), rangeOrWholeString: .whole(true))
             }
             if let color = value.textColor, let style = modifier.getMarkStyle(style: .textColor(color), at: .whole(true)), style != .textColor(color) {
                 _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .whole(true))
@@ -304,7 +304,7 @@ extension InnerTextView.Coordinator {
                 }
                 self.highlightedAccessoryViewHandler?((range, attributedText))
                 
-            case let .code(range):
+            case let .keyboard(range):
                 if let style = modifier.getMarkStyle(style: .keyboard(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }

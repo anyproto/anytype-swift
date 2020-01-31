@@ -12,6 +12,7 @@ import SwiftUI
 
 // MARK: MarkStyle
 extension TextView {
+    // TODO: Move MarkStyle to HighlitedToolbar Scope.
     enum MarkStyle: Equatable, CaseIterable {
         enum Update {
             case empty

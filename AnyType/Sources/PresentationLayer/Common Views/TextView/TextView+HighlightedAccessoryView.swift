@@ -36,7 +36,7 @@ extension TextView.HighlightedToolbar {
                     case let .bold(value): self.boldButton.tintColor = self.style.color(for: value)
                     case let .italic(value): self.italicButton.tintColor = self.style.color(for: value)
                     case let .strikethrough(value): self.strikethroughButton.tintColor = self.style.color(for: value)
-                    case let .code(value): self.codeButton.tintColor = self.style.color(for: value)
+                    case let .keyboard(value): self.codeButton.tintColor = self.style.color(for: value)
                     case let .link(value): self.linkButton.tintColor = self.style.color(for: value)
                     }
                 }
@@ -57,7 +57,7 @@ extension TextView.HighlightedToolbar {
         }
 
         @objc func processApplyCode() {
-            process(.code(.init()))
+            process(.keyboard(.init()))
         }
 
         @objc func processApplyLink() {
@@ -247,7 +247,7 @@ extension TextView.HighlightedToolbar {
         case bold(Bool)
         case italic(Bool)
         case strikethrough(Bool)
-        case code(Bool)
+        case keyboard(Bool)
         case link(Bool)
     }
 
@@ -258,7 +258,7 @@ extension TextView.HighlightedToolbar {
             case let .bold(value): return .bold(value)
             case let .italic(value): return .italic(value)
             case let .strikethrough(value): return .strikethrough(value)
-            case let .keyboard(value): return .code(value)
+            case let .keyboard(value): return .keyboard(value)
             case let .link(value): return .link(value != nil)
             default: return nil
             }
@@ -290,7 +290,7 @@ extension TextView.HighlightedToolbar {
         case bold(NSRange)
         case italic(NSRange)
         case strikethrough(NSRange)
-        case code(NSRange)
+        case keyboard(NSRange)
         case linkView(NSRange, (String, URL?) -> (UIView?))
         case link(NSRange, URL?)
         // link?
@@ -367,7 +367,7 @@ extension TextView.HighlightedToolbar {
             case .bold: self.userAction = .bold(range)
             case .italic: self.userAction = .italic(range)
             case .strikethrough: self.userAction = .strikethrough(range)
-            case .code: self.userAction = .code(range)
+            case .keyboard: self.userAction = .keyboard(range)
             
             // Later we can create view here when we can get current selected text.
             // Whole this setup and cheating with functions will be eliminated when we get underlying model.
