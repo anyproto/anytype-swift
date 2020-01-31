@@ -20,7 +20,7 @@ struct TextView: View {
     @ObservedObject private var wholeTextMarkStyleKeeper: MarkStyleKeeper = .init()
     @ObservedObject var storage: Storage
     @Binding var text: String
-    @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
+    @State var sizeThatFit: CGSize = .init(width: 0.0, height: 31.0)
     
     var body: some View {
         InnerTextView(text: self.$text, sizeThatFit: self.$sizeThatFit, wholeTextMarkStyleKeeper: self._wholeTextMarkStyleKeeper)
@@ -233,6 +233,12 @@ extension InnerTextView.Coordinator {
         })
         
         // TODO: Add other user interaction publishers.
+        // 1. Add hook that will send this data to delegate.
+        // 2. Add delegate that will take UserAction like delegate?.onUserAction(UserAction)
+        // 3. Add another delegate that will "wraps" UserAction with information about block ( first delegate IS a observableModel or even just ObservableObject or @binding... )
+        // 4. Second delegate is a documentViewModel ( so, it needs information about block if available.. )
+        // 5. Add hook to receive user key inputs and context of current text View. ( enter may behave different ).
+        // 6. Add hook that will catch marks styles. ( special convert for links and colors )
         self.blocksUserActionsHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.allInOnePublisher).sink { value in
             let (textView, action) = value
             // now tell outer world that we are ready to process actions.
