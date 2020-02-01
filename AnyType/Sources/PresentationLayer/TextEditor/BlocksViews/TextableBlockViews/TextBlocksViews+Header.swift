@@ -82,7 +82,7 @@ extension TextBlocksViews.Header {
             case .heading4: return .heavy
             }
         }
-        func foregroundColor() -> Color {
+        func foregroundColor() -> UIColor {
             return .black
         }
     }
@@ -93,7 +93,7 @@ extension TextBlocksViews.Header {
     struct MarkedViewModifier: ViewModifier {
         fileprivate var style: Style
         func body(content: Content) -> some View {
-            content.font(self.style.theFont()).foregroundColor(self.style.foregroundColor())
+            content.font(self.style.theFont()).foregroundColor(Color(self.style.foregroundColor()))
         }
     }
     struct BlockView: View {

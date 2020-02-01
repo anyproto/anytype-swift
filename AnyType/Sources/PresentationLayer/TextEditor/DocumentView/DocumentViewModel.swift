@@ -77,17 +77,17 @@ extension DocumentViewModel {
         blocksViewsBuilders = [BlockViewBuilderProtocol]()
         
         // TODO: Maybe we need to create some fabric for resolver?
-        let resolver: (Block) -> BlockViewBuilderProtocol = { block in
-            switch block.type {
-            case .text: return TextBlockViewModel(block: block)
-            case .image: return TextBlockViewModel(block: block)
-            case .video: return TextBlockViewModel(block: block)
-            default: return TextBlockViewModel(block: block)
-            }
-        }
-        blocksViewsBuilders = document.blocks.map { resolver($0) }
+//        let resolver: (Block) -> BlockViewBuilderProtocol = { block in
+//            switch block.type {
+//            case .text: return TextBlockViewModel(block: block)
+//            case .image: return TextBlockViewModel(block: block)
+//            case .video: return TextBlockViewModel(block: block)
+//            default: return TextBlockViewModel(block: block)
+//            }
+//        }
+//        blocksViewsBuilders = document.blocks.map(resolver)
 //        blocksViewsBuilders = TextBlocksViews.Supplement.Matcher.resolver(blocks: document.blocks)
-//        blocksViewsBuilders = BlocksViews.Supplement.BlocksSerializer.default.resolver(blocks: document.blocks)
+        blocksViewsBuilders = BlocksViews.Supplement.BlocksSerializer.default.resolver(blocks: document.blocks)
     }
     
 }

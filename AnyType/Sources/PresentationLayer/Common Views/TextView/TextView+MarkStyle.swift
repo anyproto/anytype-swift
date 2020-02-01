@@ -12,7 +12,28 @@ import SwiftUI
 
 // MARK: MarkStyle
 extension TextView {
+    // TODO: Move MarkStyle to HighlitedToolbar Scope.
     enum MarkStyle: Equatable, CaseIterable {
+        enum Update {
+            case empty
+            case change([NSAttributedString.Key : Any])
+//            case deletedKeys([NSAttributedString.Key])
+            case changeAndDeletedKeys([NSAttributedString.Key : Any], [NSAttributedString.Key])
+            func attributes() -> [NSAttributedString.Key : Any] {
+                switch self {
+                case .empty: return [:]
+                case let .change(value): return value
+                case let .changeAndDeletedKeys(value, _): return value
+                }
+            }
+            func deletedKeys() -> [NSAttributedString.Key] {
+                switch self {
+                case .empty: return []
+                case .change: return []
+                case let .changeAndDeletedKeys(_, keys): return keys
+                }
+            }
+        }
         static var allCases: [MarkStyle] {
             return [
                 .bold(false),
@@ -117,7 +138,8 @@ extension TextView {
         
         // CAUTION:
         // This method return ONLY SLIDES of correspoding attributes and can return empty dictionary.
-        func to(old: [NSAttributedString.Key : Any]) -> [NSAttributedString.Key : Any] {
+        // Second value in a pair is keys to remove.
+        func to(old: [NSAttributedString.Key : Any]) -> Update {
             switch self {
             case let .bold(value):
                 if let font = old[.font] as? UIFont {
@@ -125,24 +147,21 @@ extension TextView {
                     let traits = value ? oldTraits.union(.traitBold) : oldTraits.symmetricDifference(.traitBold)
                     if let newDescriptor = font.fontDescriptor.withSymbolicTraits(traits) {
                         let newFont: UIFont = .init(descriptor: newDescriptor, size: font.pointSize)
-                        return [.font : newFont]
+                        return .change([.font : newFont])
                     }
-                    return [:]
                 }
-                return [:]
+                return .empty
             case let .italic(value):
                 if let font = old[.font] as? UIFont {
                     let oldTraits = font.fontDescriptor.symbolicTraits
                     let traits = value ? oldTraits.union(.traitItalic) : oldTraits.symmetricDifference(.traitItalic)
                     if let newDescriptor = font.fontDescriptor.withSymbolicTraits(traits) {
                         let newFont: UIFont = .init(descriptor: newDescriptor, size: font.pointSize)
-                        return [.font : newFont]
+                        return .change([.font : newFont])
                     }
-                    return [:]
                 }
-                return [:]
+                return .empty
             case let .keyboard(value):
-                print("value: \(value)")
                 var result: [NSAttributedString.Key : Any] = [:]
                 
                 if let font = old[.font] as? UIFont {
@@ -156,7 +175,6 @@ extension TextView {
                     // !value - preferred body font
                     if let newDescriptor = (value ? font : .preferredFont(forTextStyle: .body)).fontDescriptor.withSymbolicTraits(traits) {
                         let newFont: UIFont = .init(descriptor: newDescriptor, size: font.pointSize)
-                        print("font: \(font) \n vs \n \(newFont)")
                         result.merge([.font : newFont], uniquingKeysWith: {(lhs,rhs) in rhs})
                     }
                 }
@@ -175,12 +193,12 @@ extension TextView {
 //                    _ = result.removeValue(forKey: .paragraphStyle)
 //                }
                 
-                return result
-            case let .strikethrough(value): return [ .strikethroughStyle : value ? 1 : 0 ]
-            case let .underscored(value): return [ .underlineStyle : value ? 1 : 0 ]
-            case let .textColor(value): return [ .foregroundColor : value as Any ]
-            case let .backgroundColor(value): return [ .backgroundColor : value as Any ]
-            case let .link(value): return [ .link : value as Any ]
+                return .change(result)
+            case let .strikethrough(value): return .change([.strikethroughStyle : value ? 1 : 0])
+            case let .underscored(value): return .change([ .underlineStyle : value ? 1 : 0 ])
+            case let .textColor(value): return .change([ .foregroundColor : value as Any ])
+            case let .backgroundColor(value): return .change([ .backgroundColor : value as Any ])
+            case let .link(value): return .changeAndDeletedKeys([ .link : value as Any ], value == nil ? [.link] : [])
             }
         }
     }
@@ -275,7 +293,6 @@ extension TextView.MarkStyleModifier {
         // Otherwise, return string attributes.
         default: break
         }
-        
         // TODO: We still DON'T check range and attributedString length here. Fix it.
         return attributedString.attributes(at: range.lowerBound, longestEffectiveRange: nil, in: range)
     }
@@ -289,8 +306,17 @@ extension TextView.MarkStyleModifier {
     // MARK: Applying style
     private func applyStyle(style: MarkStyle, range: NSRange) -> Self {
         let oldAttributes = getAttributes(at: range)
-        let changedAttributes = style.to(old: oldAttributes)
-        let newAttributes = self.mergeAttributes(origin: oldAttributes, changes: changedAttributes)
+        let update = style.to(old: oldAttributes)
+        
+        let changedAttributes = update.attributes()
+        let deletedKeys = update.deletedKeys()
+        
+        var newAttributes = self.mergeAttributes(origin: oldAttributes, changes: changedAttributes)
+        for key in deletedKeys {
+            newAttributes.removeValue(forKey: key)
+            attributedString.removeAttribute(key, range: range)
+        }
+
         attributedString.addAttributes(newAttributes, range: range)
         // and send event about it?
         // that attributes at range are changed.

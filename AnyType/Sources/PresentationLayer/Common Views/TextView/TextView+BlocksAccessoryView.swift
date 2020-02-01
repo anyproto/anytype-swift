@@ -103,7 +103,6 @@ extension TextView.BlockToolbar {
 
         func setupInteraction() {
             self.userResponse = self.model.$userResponse.dropFirst().sink { (state) in
-//                print("Value! \(state)")
                 self.update(state: state)
             }
         }
@@ -117,20 +116,19 @@ extension TextView.BlockToolbar {
         }
 
         // MARK: UI Elements
-        var addBlockButton: UIButton!
-        var turnIntoBlockButton: UIButton!
+        private var addBlockButton: UIButton!
+        private var turnIntoBlockButton: UIButton!
 
-        var changeColorButton: UIButton!
-        var editActionsButton: UIButton!
-        var dismissKeyboardButton: UIButton!
+        private var changeColorButton: UIButton!
+        private var editActionsButton: UIButton!
+        private var dismissKeyboardButton: UIButton!
 
-        var toolbarView: BaseToolbarView!
-        var contentView: UIView!
+        private var toolbarView: BaseToolbarView!
+        private var contentView: UIView!
 
         // MARK: Setup UI Elements
-        func setupUIElements() {
-            self.translatesAutoresizingMaskIntoConstraints = false
-
+        func setupUIElements() {            
+            self.autoresizingMask = .flexibleHeight
             self.addBlockButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -206,7 +204,7 @@ extension TextView.BlockToolbar {
         }
 
         override var intrinsicContentSize: CGSize {
-            return self.toolbarView.intrinsicContentSize
+            return .zero
         }
     }
 }
@@ -252,14 +250,23 @@ extension TextView.BlockToolbar {
         func setup() {
             // WARN: Don't call this function outside of `.init()`
             // NOTE: We should drop first notification in case of setup() function in `.init()`
-            self.addBlockViewModelDidChanged = (self.addBlockViewModel.value).dropFirst().sink { (value) in
-                print("AddBlock Model!: \(String(describing: value.0)) \(String(describing: value.1)) \(value.2.types)")
+            let addBlock = self.addBlockViewModel.value.dropFirst().map { value -> UnderlyingAction? in
+                value.flatMap{.addBlock(UnderlyingAction.BlockType.convert($0))}
             }
-            self.changeColorViewModelDidChangeColor = (self.changeColorViewModel.$value).dropFirst().sink { (value) in
-                let textColor = value.textColor
-                let backgroundColor = value.backgroundColor
-                print("TextColor! \(String(describing: textColor)) \n BackgroundColor! \(String(describing: backgroundColor))")
+            let turnIntoBlock = self.turnIntoBlockViewModel.value.dropFirst().map { value -> UnderlyingAction? in
+                value.flatMap{.turnIntoBlock(UnderlyingAction.BlockType.convert($0))}
             }
+            let changeColor = self.changeColorViewModel.$value.dropFirst().map { value -> UnderlyingAction? in
+                UnderlyingAction.ChangeColor.convert((value.textColor, value.backgroundColor)).flatMap(UnderlyingAction.changeColor)
+            }
+            let editBlock = self.editActionsViewModel.$value.dropFirst().map { value -> UnderlyingAction? in
+                value.flatMap{.editBlock(UnderlyingAction.EditBlock.convert($0))}
+            }
+            
+            self.allInOneStreamDescription = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).sink { value in
+                print("UnderlyingAction! \(String(describing: value))")
+            }
+            self.allInOneStream = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).subscribe(self.allInOnePublisher)
         }
 
         // MARK: Publishers
@@ -267,14 +274,15 @@ extension TextView.BlockToolbar {
         @Published var userAction: UserAction = .zero
 
         // MARK: Streams
-        var changeColorViewModelDidChangeColor: AnyCancellable?
-        var addBlockViewModelDidChanged: AnyCancellable?
+        private var allInOneStreamDescription: AnyCancellable?
+        private var allInOneStream: AnyCancellable?
+        var allInOnePublisher: PassthroughSubject<UnderlyingAction?, Never> = .init()
 
         // MARK: ViewModels
-        @ObservedObject var turnIntoBlockViewModel: TurnIntoBlock.ViewModel
-        @ObservedObject var addBlockViewModel: AddBlock.ViewModel
-        @ObservedObject var changeColorViewModel: ChangeColor.ViewModel
-        @ObservedObject var editActionsViewModel: EditActions.ViewModel
+        @ObservedObject private var turnIntoBlockViewModel: TurnIntoBlock.ViewModel
+        @ObservedObject private var addBlockViewModel: AddBlock.ViewModel
+        @ObservedObject private var changeColorViewModel: ChangeColor.ViewModel
+        @ObservedObject private var editActionsViewModel: EditActions.ViewModel
 
         // MARK: Private Setters
         fileprivate func process(_ action: Action) {            
@@ -284,8 +292,71 @@ extension TextView.BlockToolbar {
             case .turnIntoBlock: self.userAction = .init(action: action, view: TurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel))
             case .changeColor: self.userAction = .init(action: action, view: ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
             case .editBlock: self.userAction = .init(action: action, view: EditActions.InputViewBuilder.createView(self._editActionsViewModel))
-            case .keyboardDismiss: TextView.KeyboardHandler.shared.dismiss()
+            case .keyboardDismiss: self.userAction = .init(action: .keyboardDismiss, view: nil)
             }
         }
+    }
+}
+
+// MARK: These actions are only blueprints.
+// Supposeedly, that we have to move them somewhere on domain level.
+// So, now we have to move it somewhere.
+// But where?...
+// These entries are coming from user actions.
+// So, they are nice to be there, right?...
+
+extension TextView.BlockToolbar {
+    enum UnderlyingAction {
+        enum BlockType {
+            // TODO: Add existences or invert dependencies by moving BlocksTypes here?
+            typealias Text = AddBlock.BlocksTypes.Text
+            typealias List = AddBlock.BlocksTypes.List
+            typealias Media = AddBlock.BlocksTypes.Media
+            typealias Tool = AddBlock.BlocksTypes.Tool
+            typealias Other = AddBlock.BlocksTypes.Other
+            case text(Text)
+            case list(List)
+            case media(Media)
+            case tool(Tool)
+            case other(Other)
+            static func convert(_ type: TextView.BlockToolbar.AddBlock.BlocksTypes) -> Self {
+                switch type {
+                case let .text(value): return .text(value)
+                case let .list(value): return .list(value)
+                case let .media(value): return .media(value)
+                case let .tool(value): return .tool(value)
+                case let .other(value): return .other(value)
+                }
+            }
+        }
+        enum EditBlock {
+            case delete
+            case duplicate
+            case undo
+            case redo
+            static func convert(_ type: TextView.BlockToolbar.EditActions.Action) -> Self {
+                switch type {
+                case .delete: return .delete
+                case .duplicate: return .duplicate
+                case .undo: return .undo
+                case .redo: return .redo
+                }
+            }
+        }
+        enum ChangeColor {
+            case textColor(UIColor)
+            case backgroundColor(UIColor)
+            // TODO: Add type that wraps textColor and backgroundColor like this type.
+            static func convert(_ type: (UIColor?, UIColor?)) -> Self? {
+                if let first = type.0 {
+                    return .textColor(first)
+                }
+                else if let second = type.1 {
+                    return .backgroundColor(second)
+                }
+                return nil
+            }
+        }
+        case addBlock(BlockType), turnIntoBlock(BlockType), changeColor(ChangeColor), editBlock(EditBlock)
     }
 }
