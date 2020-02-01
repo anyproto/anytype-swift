@@ -11,25 +11,11 @@ import SwiftUI
 
 // MARK: ViewModel
 extension TextBlocksViews.Checkbox {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var text: String
-        @Published var checked: Bool
-        
-        init(block: Block) {
-            self.block = block
-            self.checked = false
-            self.text = "Checkbox"
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        @Published var checked: Bool = false
+        override func buildView() -> AnyView {
+            .init(TextBlocksViews.Checkbox.BlockView(viewModel: self))
         }
-        var id: String {
-            return block.id
-        }
-    }
-}
-
-extension TextBlocksViews.Checkbox.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Checkbox.BlockView(viewModel: self))
     }
 }
 
@@ -97,7 +83,7 @@ extension TextBlocksViews.Checkbox {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

@@ -143,6 +143,7 @@
 		0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */; };
 		0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781523E5C99A00442690 /* AppearanceService.swift */; };
 		0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781B23E5C9A300442690 /* AssetsReader.swift */; };
+		0ACA782023E5D5AC00442690 /* TextBlocksViews+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */; };
 		0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */; };
 		465BEE5AFFDFF6AC5900B5DB /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C07365EEBD9F2E018C0FE2EF /* Pods_AnyType.framework */; };
 /* End PBXBuildFile section */
@@ -311,6 +312,7 @@
 		0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceServices+Schemes+Domains+Auth.swift"; sourceTree = "<group>"; };
 		0ACA781523E5C99A00442690 /* AppearanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceService.swift; sourceTree = "<group>"; };
 		0ACA781B23E5C9A300442690 /* AssetsReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsReader.swift; sourceTree = "<group>"; };
+		0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Base.swift"; sourceTree = "<group>"; };
 		0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Quote.swift"; sourceTree = "<group>"; };
 		49244431F638A977861A1CC0 /* Pods-AnyType.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.debug.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.debug.xcconfig"; sourceTree = "<group>"; };
 		B8316BA5C441C3F3C890A2C2 /* Pods-AnyType.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.release.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.release.xcconfig"; sourceTree = "<group>"; };
@@ -813,6 +815,7 @@
 				0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */,
 				03B6574E234CEDC70084D9F5 /* TextBlockViewModel.swift */,
 				031B355323465BBA0066DDB8 /* TextBlockView.swift */,
+				0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */,
 			);
 			path = TextableBlockViews;
 			sourceTree = "<group>";
@@ -1194,6 +1197,7 @@
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* ImageLoader.swift in Sources */,
 				030DF86C23354EEE00FE6DA5 /* BlockModel.swift in Sources */,
+				0ACA782023E5D5AC00442690 /* TextBlocksViews+Base.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
 				0A7081672396C5E3004B04AB /* ImageBlocksViews+PageIcon.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,

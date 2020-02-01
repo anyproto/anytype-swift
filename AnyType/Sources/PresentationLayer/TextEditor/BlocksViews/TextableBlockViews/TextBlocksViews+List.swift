@@ -23,7 +23,7 @@ extension TextBlocksViews.List {
 
 extension TextBlocksViews.List.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
-        AnyView(TextBlocksViews.List.BlockView(viewModel: self))
+        .init(TextBlocksViews.List.BlockView(viewModel: self))
     }
 }
 
@@ -74,7 +74,7 @@ extension TextBlocksViews.List {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let model = TextBlocksViews.Checkbox.BlockViewModel(block: block)
+            let model = TextBlocksViews.Checkbox.BlockViewModel(block)
             let viewModel = BlockViewModel(blocks: [model])
             let view = BlockView(viewModel: viewModel)
             return view

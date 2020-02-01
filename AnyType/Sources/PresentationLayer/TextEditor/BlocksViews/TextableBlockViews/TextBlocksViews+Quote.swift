@@ -10,22 +10,10 @@ import Foundation
 
 // MARK: ViewModel
 extension TextBlocksViews.Quote {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var text: String
-        init(block: Block) {
-            self.block = block
-            self.text = "Quote"
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        override func buildView() -> AnyView {
+            .init(TextBlocksViews.Quote.BlockView(viewModel: self))
         }
-        var id: String {
-            return block.id
-        }
-    }
-}
-
-extension TextBlocksViews.Quote.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Quote.BlockView(viewModel: self))
     }
 }
 
@@ -77,7 +65,7 @@ extension TextBlocksViews.Quote {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

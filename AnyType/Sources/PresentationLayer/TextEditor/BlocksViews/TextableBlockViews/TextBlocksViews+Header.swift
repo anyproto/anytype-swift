@@ -10,28 +10,16 @@ import Foundation
 
 // MARK: ViewModel
 extension TextBlocksViews.Header {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        fileprivate var style: Style
-        @Published var text: String
-        init(block: Block) {
-            self.block = block
-            self.style = .heading1
-            self.text = "Header"
-        }
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        fileprivate var style: Style = .heading1
         func update(style: Style) -> Self {
             self.style = style
             return self
         }
-        var id: String {
-            return block.id
-        }
-    }
-}
 
-extension TextBlocksViews.Header.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Header.BlockView(viewModel: self))
+        override func buildView() -> AnyView {
+            .init(TextBlocksViews.Header.BlockView(viewModel: self))
+        }
     }
 }
 
@@ -111,7 +99,7 @@ extension TextBlocksViews.Header {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

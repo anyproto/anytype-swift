@@ -10,28 +10,15 @@ import Foundation
 
 // MARK: ViewModel
 extension TextBlocksViews.Numbered {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        fileprivate var style: Style
-        @Published var text: String
-        init(block: Block) {
-            self.block = block
-            self.style = .none
-            self.text = "Numbered"
-        }
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        fileprivate var style: Style = .none
         func update(style: Style) -> Self {
             self.style = style
             return self
         }
-        var id: String {
-            return block.id
+        override func buildView() -> AnyView {
+            .init(TextBlocksViews.Numbered.BlockView(viewModel: self))
         }
-    }
-}
-
-extension TextBlocksViews.Numbered.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Numbered.BlockView(viewModel: self))
     }
 }
 
@@ -78,7 +65,7 @@ extension TextBlocksViews.Numbered {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }
