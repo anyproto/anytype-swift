@@ -136,6 +136,9 @@
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
 		0ACA77CF23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77CE23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift */; };
 		0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77DA23E44B8F00442690 /* TextView+Protocols.swift */; };
+		0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */; };
+		0ACA780123E5C3A800442690 /* TextView+InnerTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA780023E5C3A800442690 /* TextView+InnerTextView.swift */; };
+		0ACA780323E5C63C00442690 /* TextView+InnerTextView+Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA780223E5C63C00442690 /* TextView+InnerTextView+Coordinator.swift */; };
 		0ADF8CB9239FFD33003CA31E /* TextView+BlocksAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */; };
 		0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */; };
 		B946AF4F589668391720FD14 /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47E0FA740E958323954CB10F /* Pods_AnyType.framework */; };
@@ -298,6 +301,9 @@
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0ACA77CE23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar+InputLink.swift"; sourceTree = "<group>"; };
 		0ACA77DA23E44B8F00442690 /* TextView+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+Protocols.swift"; sourceTree = "<group>"; };
+		0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+UserAction.swift"; sourceTree = "<group>"; };
+		0ACA780023E5C3A800442690 /* TextView+InnerTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+InnerTextView.swift"; sourceTree = "<group>"; };
+		0ACA780223E5C63C00442690 /* TextView+InnerTextView+Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+InnerTextView+Coordinator.swift"; sourceTree = "<group>"; };
 		0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksAccessoryView.swift"; sourceTree = "<group>"; };
 		0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Quote.swift"; sourceTree = "<group>"; };
 		363F59EE65C138C060202EE3 /* Pods-AnyType.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.release.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.release.xcconfig"; sourceTree = "<group>"; };
@@ -923,6 +929,9 @@
 				0ADF8CB8239FFD33003CA31E /* TextView+BlocksAccessoryView.swift */,
 				0A43F49723A6653D00018B36 /* TextView+BlocksToolbar.swift */,
 				0A563B1723AD0FC200617065 /* TextView+BaseToolbarView.swift */,
+				0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */,
+				0ACA780023E5C3A800442690 /* TextView+InnerTextView.swift */,
+				0ACA780223E5C63C00442690 /* TextView+InnerTextView+Coordinator.swift */,
 			);
 			path = TextView;
 			sourceTree = "<group>";
@@ -1133,6 +1142,7 @@
 				037B91CE23438E77004EBCCD /* HomeViewContainer.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A693220238C4C8200575544 /* TextBlocksViews+Header.swift in Sources */,
+				0ACA780323E5C63C00442690 /* TextView+InnerTextView+Coordinator.swift in Sources */,
 				0AA04DF923C7943B005B37A4 /* TextView+HighlightedToolbar.swift in Sources */,
 				0A74E4FC23A90EA000B6C406 /* ProfileModel.swift in Sources */,
 				0AA04DEB23C79203005B37A4 /* AppearanceService+Schemes.swift in Sources */,
@@ -1198,8 +1208,10 @@
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */,
+				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
+				0ACA780123E5C3A800442690 /* TextView+InnerTextView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				03B42F2A232910AB000F2BA2 /* HomeView.swift in Sources */,
 				03B6574F234CEDC70084D9F5 /* TextBlockViewModel.swift in Sources */,
