@@ -18,6 +18,8 @@
 		030DF8682333E3DD00FE6DA5 /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF8672333E3DD00FE6DA5 /* DocumentView.swift */; };
 		030DF86C23354EEE00FE6DA5 /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF86B23354EED00FE6DA5 /* BlockModel.swift */; };
 		0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311612D22DE0D1700885211 /* ProfileViewModel.swift */; };
+		0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0316497A23E5B339009A3984 /* CustomScrollView.swift */; };
+		0316497C23E5C223009A3984 /* commands+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */; };
 		0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D575230186CA000527B1 /* LocalAuthentication.framework */; };
 		031B355423465BBA0066DDB8 /* TextBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031B355323465BBA0066DDB8 /* TextBlockView.swift */; };
 		031B355623465DFF0066DDB8 /* EmptyDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031B355523465DFF0066DDB8 /* EmptyDocumentView.swift */; };
@@ -28,7 +30,6 @@
 		0327B0B8232BBAD9007DB8A7 /* TestDocumentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0327B0B7232BBAD9007DB8A7 /* TestDocumentService.swift */; };
 		0327B0BB232BCE2A007DB8A7 /* HomeCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0327B0BA232BCE2A007DB8A7 /* HomeCollectionViewModel.swift */; };
 		032E00122395D0C400620E1A /* WaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032E00112395D0C300620E1A /* WaitingView.swift */; };
-		03425C5423849AAF00E22FF1 /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03425C5323849AAE00E22FF1 /* CustomScrollView.swift */; };
 		03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B6E2306031D00F8FCE7 /* ViewExtension.swift */; };
 		03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */; };
 		03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */; };
@@ -129,7 +130,6 @@
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
 		0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D023E4481700442690 /* commands+Service.pb.swift */; };
 		0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D123E4481700442690 /* events+Initializers.pb.swift */; };
-		0ACA77D623E4481800442690 /* commands+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */; };
 		0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D323E4481800442690 /* models+Initializers.pb.swift */; };
 		0ACA77D923E4482000442690 /* commands+ErrorAdoption.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D823E4482000442690 /* commands+ErrorAdoption.pb.swift */; };
 		0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */; };
@@ -176,6 +176,7 @@
 		030DF8672333E3DD00FE6DA5 /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		030DF86B23354EED00FE6DA5 /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
 		0311612D22DE0D1700885211 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		0316497A23E5B339009A3984 /* CustomScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomScrollView.swift; sourceTree = "<group>"; };
 		0318D575230186CA000527B1 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		031917C5238F3D71001B33CE /* CustomEnvironments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironments.swift; sourceTree = "<group>"; };
 		031B355323465BBA0066DDB8 /* TextBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockView.swift; sourceTree = "<group>"; };
@@ -188,7 +189,6 @@
 		0327B0BA232BCE2A007DB8A7 /* HomeCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewModel.swift; sourceTree = "<group>"; };
 		032E00112395D0C300620E1A /* WaitingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingView.swift; sourceTree = "<group>"; };
 		0339676F2397DA7E000CB7BA /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		03425C5323849AAE00E22FF1 /* CustomScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomScrollView.swift; path = AnyType/Sources/CustomScrollView.swift; sourceTree = SOURCE_ROOT; };
 		03475B6E2306031D00F8FCE7 /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayWaitingView.swift; sourceTree = "<group>"; };
 		03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileViewModel.swift; sourceTree = "<group>"; };
@@ -478,13 +478,13 @@
 		0331BBE122E608AC002AD179 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
+				0316497A23E5B339009A3984 /* CustomScrollView.swift */,
 				03E2AD5423A93D3800C701CE /* SimpleViews.swift */,
 				03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */,
 				03E2AD5023A93D1000C701CE /* ImagePicker.swift */,
 				03E2AD4323A93C8C00C701CE /* TextView */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
-				03425C5323849AAE00E22FF1 /* CustomScrollView.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				039DA2E2230583DC0041F95C /* Alerts */,
@@ -582,13 +582,6 @@
 			path = SelectProfileView;
 			sourceTree = "<group>";
 		};
-		0372AB4823A1376A008CF5B9 /* IpfsFiles */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = IpfsFiles;
-			sourceTree = "<group>";
-		};
 		03746CF722DE504600380AA1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -681,7 +674,6 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0372AB4823A1376A008CF5B9 /* IpfsFiles */,
 				030DF4B12399345C00AD3BC3 /* Auth */,
 				03BC991A2398121C00A4FB92 /* ProtocolBufferObjects */,
 				0327B0B1232BB904007DB8A7 /* Documents */,
@@ -1147,6 +1139,7 @@
 				03E2AD5523A93D3800C701CE /* SimpleViews.swift in Sources */,
 				03B65752234D47A90084D9F5 /* BlockViewBuilderProtocol.swift in Sources */,
 				03A8E93123D5DCA2003D62CE /* TextView+BaseToolbarView.swift in Sources */,
+				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,
@@ -1154,7 +1147,6 @@
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
-				03425C5423849AAF00E22FF1 /* CustomScrollView.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
 				030DF8642333E31100FE6DA5 /* DocumentViewModel.swift in Sources */,
@@ -1190,6 +1182,7 @@
 				0A69321F238C4C8200575544 /* TextBlocksViews+Bulleted.swift in Sources */,
 				03E2AD4C23A93C8C00C701CE /* TextView+BlocksToolbar.swift in Sources */,
 				0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */,
+				0316497C23E5C223009A3984 /* commands+Initializers.pb.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				037260C123A8E2F90034F9F5 /* DrawableBlocksViews.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,

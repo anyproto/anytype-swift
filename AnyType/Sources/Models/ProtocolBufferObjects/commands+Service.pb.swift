@@ -14,7 +14,7 @@ internal extension Anytype_Rpc.BlockList.Move {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListMove(data) }
   }
-
+    
   enum Service {
     public static func invoke(contextID: String, blockIds: [String], dropTargetID: String, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
       .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, dropTargetID: dropTargetID, position: position))) }
@@ -1054,7 +1054,7 @@ internal extension Anytype_Rpc.Version.Get {
 
 internal extension Anytype_Rpc.Ipfs.File.Get {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { return nil }
+    static func invoke(_ data: Data?) -> Data? { nil }
   }
 
   enum Service {
