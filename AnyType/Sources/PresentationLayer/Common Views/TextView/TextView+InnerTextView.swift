@@ -19,10 +19,16 @@ extension TextView {
         @ObservedObject var wholeTextMarkStyleKeeper: TextView.MarkStyleKeeper
         @EnvironmentObject var outerViewNeedsLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
         
+        weak var delegate: TextViewUserInteractionProtocol?
+        
         init(text: Binding<String>, sizeThatFit: Binding<CGSize>, wholeTextMarkStyleKeeper: ObservedObject<TextView.MarkStyleKeeper>) {
             _text = text
             _sizeThatFit = sizeThatFit
             _wholeTextMarkStyleKeeper = wholeTextMarkStyleKeeper
+        }
+        init(text: Binding<String>, sizeThatFit: Binding<CGSize>, wholeTextMarkStyleKeeper: ObservedObject<TextView.MarkStyleKeeper>, delegate: TextViewUserInteractionProtocol?) {
+            self.init(text: text, sizeThatFit: sizeThatFit, wholeTextMarkStyleKeeper: wholeTextMarkStyleKeeper)
+            self.delegate = delegate
         }
     }
 }
@@ -74,7 +80,10 @@ extension TextView.InnerTextView: UIViewRepresentable {
         let textView = self.configuredTextView(createTextView(), context: context)
         context.coordinator.configureMarkStylePublisher(textView)
         context.coordinator.configureBlocksToolbarHandler(textView)
-        context.coordinator.userInteractionDelegate = context.coordinator
+        
+//        if context.coordinator.userInteractionDelegate == nil {            
+//            context.coordinator.userInteractionDelegate = context.coordinator
+//        }
         
         DispatchQueue.main.async {
             self.sizeThatFit = textView.intrinsicContentSize
@@ -84,6 +93,7 @@ extension TextView.InnerTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
+        context.coordinator.userInteractionDelegate = self.delegate
         context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
     }
 }
@@ -122,6 +132,7 @@ extension TextView.InnerTextView {
         init(_ uiTextView: TextView.InnerTextView) {
             self.parent = uiTextView
             self._outerViewNeedsLayout = uiTextView._outerViewNeedsLayout
+            self.userInteractionDelegate = uiTextView.delegate
             super.init()
             self.setup()
         }
