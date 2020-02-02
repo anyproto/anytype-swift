@@ -51,8 +51,8 @@ extension TextBlocksViews.Supplement {
                     }
                     )]
                 //                case .toggle: return blocks.map{TextBlocksViews.Toggle.BlockViewModel(block: $0)}}
-                case .toggle: return blocks.map{($0, TextBlocksViews.Toggle.BlockViewModel($0))}.map{$0.1.update(blocks: Array(repeating: $0.0, count: 4).map{TextBlocksViews.Text.BlockViewModel($0)})}
-                case .callout: return blocks.map{TextBlocksViews.Callout.BlockViewModel($0)}
+                case .toggle: return blocks.map{($0, TextBlocksViews.Toggle.BlockViewModel($0))}.map{$0.1.update(blocks: Array(repeating: $0.0, count: 4).map(TextBlocksViews.Text.BlockViewModel.init))}
+                case .callout: return blocks.map(TextBlocksViews.Callout.BlockViewModel.init)
                 }
             default: return []
             }

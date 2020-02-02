@@ -12,7 +12,7 @@ import Foundation
 extension TextBlocksViews.Quote {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         override func buildView() -> AnyView {
-            .init(TextBlocksViews.Quote.BlockView(viewModel: self))
+            .init(BlockView(viewModel: self))
         }
     }
 }
@@ -42,7 +42,7 @@ extension TextBlocksViews.Quote {
         @ObservedObject var viewModel: BlockViewModel
         @State var sizeThatFit: CGSize = CGSize(width: 0.0, height: 31.0)
         var body: some View {
-            TextView(text: self.$viewModel.text)
+            TextView(text: self.$viewModel.text, delegate: self.viewModel as TextViewUserInteractionProtocol)
                 .modifier(FrameViewModifier())
         }
         func geometryReader(proxy: GeometryProxy) -> Color {

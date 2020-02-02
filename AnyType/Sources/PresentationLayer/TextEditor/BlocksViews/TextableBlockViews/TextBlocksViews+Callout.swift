@@ -19,7 +19,7 @@ extension TextBlocksViews.Callout {
         }
 
         override func buildView() -> AnyView {
-            .init(TextBlocksViews.Callout.BlockView(viewModel: self))
+            .init(BlockView(viewModel: self))
         }
     }
 }

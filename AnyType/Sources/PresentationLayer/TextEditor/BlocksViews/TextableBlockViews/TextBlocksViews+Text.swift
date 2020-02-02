@@ -14,7 +14,7 @@ import SwiftUI
 extension TextBlocksViews.Text {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         override func buildView() -> AnyView {
-            .init(TextBlocksViews.Text.BlockView(viewModel: self))
+            .init(BlockView(viewModel: self))
         }
     }
 }

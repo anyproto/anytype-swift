@@ -18,7 +18,7 @@ extension TextBlocksViews.Header {
         }
 
         override func buildView() -> AnyView {
-            .init(TextBlocksViews.Header.BlockView(viewModel: self))
+            .init(BlockView(viewModel: self))
         }
     }
 }

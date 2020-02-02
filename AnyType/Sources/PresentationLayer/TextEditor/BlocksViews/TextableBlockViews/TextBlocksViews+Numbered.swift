@@ -17,7 +17,7 @@ extension TextBlocksViews.Numbered {
             return self
         }
         override func buildView() -> AnyView {
-            .init(TextBlocksViews.Numbered.BlockView(viewModel: self))
+            .init(BlockView(viewModel: self))
         }
     }
 }

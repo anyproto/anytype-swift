@@ -14,7 +14,7 @@ extension TextBlocksViews.Checkbox {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         @Published var checked: Bool = false
         override func buildView() -> AnyView {
-            .init(TextBlocksViews.Checkbox.BlockView(viewModel: self))
+            .init(BlockView(viewModel: self))
         }
     }
 }
@@ -69,7 +69,7 @@ extension TextBlocksViews.Checkbox {
             return Style.from(self.viewModel.checked)
         }
         var body: some View {
-            TextView(text: self.$viewModel.text)
+            TextView(text: self.$viewModel.text, delegate: self.viewModel as TextViewUserInteractionProtocol)
                 .foregroundColor(self.style.foregroundColor())
                 .strikethrough(self.style.strikethrough())
                 .modifier(MarkedViewModifier(checked: self.$viewModel.checked))

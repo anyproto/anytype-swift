@@ -18,7 +18,7 @@ extension TextBlocksViews.Toggle {
             return self
         }
         override func buildView() -> AnyView {
-            .init(TextBlocksViews.Toggle.BlockView(viewModel: self))
+            .init(BlockView(viewModel: self))
         }
     }
 }
