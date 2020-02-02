@@ -58,14 +58,10 @@ struct DocumentView: View {
     }
     
     var body: some View {
-        if let builders = viewModel.blocksViewsBuilders {
-            if builders.isEmpty {
-                return AnyView(EmptyDocumentView(title: ""))
-            } else {
-                return AnyView(blocksView(viewBulders: builders))
-            }
-        } else {
-            return AnyView(loading)
+        switch viewModel.state {
+        case .loading: return AnyView(loading)
+        case .empty: return AnyView(EmptyDocumentView(title: ""))
+        case .ready: return AnyView(blocksView(viewBulders: viewModel.builders))
         }
     }
     
