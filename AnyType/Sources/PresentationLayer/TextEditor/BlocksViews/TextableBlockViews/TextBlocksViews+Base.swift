@@ -17,11 +17,11 @@ extension TextBlocksViews {
             @Published var text: String
             
             // TODO: Don't forget to replace by block.id!
-            var id: Block.ID = .init()
+            var id: Block.ID = UUID.init().uuidString
             
             init(_ block: Block) {
                 self.block = block
-                self.text = TextBlocksViews.Base.BlockViewModel.defaultDebugString()
+                self.text = Self.defaultDebugString()
             }
             
             func buildView() -> AnyView {
@@ -49,7 +49,7 @@ extension TextBlocksViews.Base.BlockViewModel: Identifiable {}
 extension TextBlocksViews.Base.BlockViewModel {
     // Class scope, actually.
     class func defaultDebugString() -> String {
-        .init("\(type(of: self))".split(separator: ".").dropFirst().first ?? "")
+        .init("\(String(reflecting: self))".split(separator: ".").dropLast().last ?? "")
     }
 }
 
