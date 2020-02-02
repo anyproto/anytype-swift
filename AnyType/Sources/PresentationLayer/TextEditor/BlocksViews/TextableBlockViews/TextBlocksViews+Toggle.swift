@@ -12,7 +12,14 @@ import Foundation
 extension TextBlocksViews.Toggle {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         fileprivate var blocks: [BlockViewBuilderProtocol] = []
-        @Published var toggled: Bool = false
+        @Published var toggled: Bool = false {
+            willSet {
+                // BUG: Apple Bug.
+                // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
+                // Workaround: Explicit invocation
+                self.objectWillChange.send()
+            }
+        }
         func update(blocks: [BlockViewBuilderProtocol]) -> Self {
             self.blocks = blocks
             return self

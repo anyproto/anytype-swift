@@ -12,7 +12,14 @@ import SwiftUI
 // MARK: ViewModel
 extension TextBlocksViews.Checkbox {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
-        @Published var checked: Bool = false
+        @Published var checked: Bool = false {
+            willSet {
+                // BUG: Apple Bug.
+                // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
+                // Workaround: Explicit invocation
+                self.objectWillChange.send()
+            }
+        }
         override func buildView() -> AnyView {
             .init(BlockView(viewModel: self))
         }

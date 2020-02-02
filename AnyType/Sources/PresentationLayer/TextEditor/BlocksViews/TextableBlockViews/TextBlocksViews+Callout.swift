@@ -12,7 +12,14 @@ import SwiftUI
 // MARK: ViewModel
 extension TextBlocksViews.Callout {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
-        @Published var style: Style = .emoji("🥳")
+        @Published var style: Style = .emoji("🥳") {
+            willSet {
+                // BUG: Apple Bug.
+                // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
+                // Workaround: Explicit invocation
+                self.objectWillChange.send()
+            }
+        }
         func update(style: Style) -> Self {
             self.style = style
             return self
