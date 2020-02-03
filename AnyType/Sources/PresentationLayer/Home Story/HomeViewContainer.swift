@@ -17,20 +17,23 @@ struct HomeViewContainer: View {
     @State var selectedTab: TabIdentifer = .home
     var model = HomeViewContainerModel()
     
-    var body: some View {
+    var oldBody: some View {
         TabView(selection: $selectedTab) {
             model.homeView
                 .tabItem {
-                    Text("Home")
+                    Text("Home").font(.headline)
             }
             .tag(TabIdentifer.home)
-            
+
             model.profileView
                 .tabItem {
                     Text("Profile")
             }
             .tag(TabIdentifer.profile)
         }
+    }
+    var body: some View {
+        model.homeView
     }
 }
 
