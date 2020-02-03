@@ -132,7 +132,7 @@ internal extension Anytype_Rpc.Block.Merge {
 
 internal extension Anytype_Rpc.Block.Duplicate {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockDuplicate(data) }
+    static func invoke(_ data: Data?) -> Data? { nil }
   }
 
   enum Service {
@@ -694,7 +694,7 @@ internal extension Anytype_Rpc.Block.Get.Marks {
 
 internal extension Anytype_Rpc.Block.History.Move {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockHistoryMove(data) }
+    static func invoke(_ data: Data?) -> Data? { nil }
   }
 
   enum Service {

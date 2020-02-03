@@ -19,7 +19,7 @@ struct HomeView: View {
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
                     NavigationLink(destination: self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId), isActive: self.$showDocument) {
-                        EmptyView()
+                        return EmptyView()
                     }
                     .frame(width: 0, height: 0)
                     
