@@ -106,10 +106,10 @@ class TestDocumentService: DocumentServiceProtocol {
             }
         }
         private static func getBlocks(set: BlocksSet) -> [Block] {
-            set.blocks()
+            set.blocks() + set.blocks().dropFirst()
         }
         var blocks: [Block] = {
-            Self.getBlocks(set: .focus)
+            Self.getBlocks(set: .presentation)
         }()
 
         
