@@ -16,9 +16,8 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            GeometryReader { geometry in
                 VStack(alignment: .leading) {
-                    NavigationLink(destination: self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId), isActive: self.$showDocument) {
+                    NavigationLink(destination: self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId).navigationBarTitle("", displayMode: .inline), isActive: self.$showDocument) {
                         return EmptyView()
                     }
                     .frame(width: 0, height: 0)
@@ -29,6 +28,7 @@ struct HomeView: View {
                         .foregroundColor(.white)
                         .font(.title)
                         .padding(.top, 20)
+                    GeometryReader { geometry in
                     HomeCollectionView(showDocument: self.$showDocument, selectedDocumentId: self.$selectedDocumentId,containerSize: geometry.size)
                         .padding()
                 }
