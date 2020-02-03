@@ -65,7 +65,7 @@ extension TextView.InnerTextView: UIViewRepresentable {
         textView.delegate = context.coordinator
         textView.autocorrectionType = .no
         
-        _ = configuredTapGesture(textView, context: context)
+//        _ = configuredTapGesture(textView, context: context)
         return textView
     }
     
@@ -93,7 +93,6 @@ extension TextView.InnerTextView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
-        context.coordinator.userInteractionDelegate = self.delegate
         context.coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
     }
 }

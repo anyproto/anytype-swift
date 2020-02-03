@@ -26,7 +26,7 @@ extension TextBlocksViews.Text {
         var body: some View {
             VStack {
                 TextView(text: self.$viewModel.text)
-                    .modifier(DraggbleView(blockId: viewModel.id))
+                    //.modifier(DraggbleView(blockId: viewModel.id))
             }
         }
     }

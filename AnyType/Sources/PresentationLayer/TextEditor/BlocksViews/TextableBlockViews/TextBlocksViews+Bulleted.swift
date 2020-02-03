@@ -33,7 +33,7 @@ extension TextBlocksViews.Bulleted {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier()).modifier(DraggbleView(blockId: viewModel.id))
+            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier())//.modifier(DraggbleView(blockId: viewModel.id))
         }
     }
 }
