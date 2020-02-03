@@ -20,6 +20,14 @@ extension DocumentViewModel: TextBlocksViewsUserInteractionProtocol {
     func didReceiveAction(block: Block, id: Block.ID, action: TextView.UserAction) {
         switch action {
         case let .blockAction(action): self.handlingBlockAction(block, id, action)
+        case let .keyboardAction(value):
+            switch value {
+            case let .pressKey(action):
+                switch action {
+                case .delete: self.index(of: id).flatMap(self.testDelete(at:))
+                default: return
+                }
+            }
         default: return
         }
     }
