@@ -9,15 +9,16 @@
 import Foundation
 
 class DocumentViewModel: ObservableObject {
-    private let documentService = TestDocumentService()
+    private let documentService: DocumentServiceProtocol = TestDocumentService()
     private var documentHeader: DocumentHeader?
     
     // TODO: Probably we don't need it here, remove after midleware integration
     private var document: Document?
     
     @Published var error: String?
-    @Published var blocksViewsBuilders: [BlockViewBuilderProtocol]?
-    
+    @Published var builders: [BlockViewBuilderProtocol] = []
+    var indexDictionary: IndexDictionary = .init()
+    var internalState: State = .loading
     
     init(documentId: String?) {
         obtainDocument(documentId: documentId)
@@ -45,15 +46,32 @@ class DocumentViewModel: ObservableObject {
         document.blocks.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex)
         createblocksViewsBuilders(document: document)
     }
-    
 }
- 
+
+// MARK: State
+extension DocumentViewModel {
+    enum State {
+        case loading
+        case empty
+        case ready
+    }
+    var state: State {
+        switch self.internalState {
+        case .loading: return .loading
+        default: return self.builders.isEmpty ? .empty : .ready
+        }
+    }
+}
+
+// MARK: Obtain Document and Builders.
 extension DocumentViewModel {
     
     private func obtainDocument(documentId: String?) {
+        self.internalState = .loading
         let completion = { [weak self] (result: Result<Document, Error>) in
             guard let strongSelf = self else { return }
             
+            strongSelf.internalState = .empty // not loading.
             switch result {
             case .success(let document):
                 strongSelf.documentHeader = document.header
@@ -74,20 +92,10 @@ extension DocumentViewModel {
     
     // TODO: Refact when middle will be ready
     private func createblocksViewsBuilders(document: Document) {
-        blocksViewsBuilders = [BlockViewBuilderProtocol]()
-        
-        // TODO: Maybe we need to create some fabric for resolver?
-//        let resolver: (Block) -> BlockViewBuilderProtocol = { block in
-//            switch block.type {
-//            case .text: return TextBlockViewModel(block: block)
-//            case .image: return TextBlockViewModel(block: block)
-//            case .video: return TextBlockViewModel(block: block)
-//            default: return TextBlockViewModel(block: block)
-//            }
-//        }
-//        blocksViewsBuilders = document.blocks.map(resolver)
-//        blocksViewsBuilders = TextBlocksViews.Supplement.Matcher.resolver(blocks: document.blocks)
-        blocksViewsBuilders = BlocksViews.Supplement.BlocksSerializer.default.resolver(blocks: document.blocks)
+        builders = BlocksViews.Supplement.BlocksSerializer.default.resolver(blocks: document.blocks)
+//        builders.flatMap{ self.indexDictionary.update($0.compactMap{$0.id}) }
+        self.indexDictionary.update(builders.map{$0.id})
+        _ = builders.compactMap{$0 as? TextBlocksViews.Base.BlockViewModel}.compactMap{$0.configure(self)}
     }
     
 }

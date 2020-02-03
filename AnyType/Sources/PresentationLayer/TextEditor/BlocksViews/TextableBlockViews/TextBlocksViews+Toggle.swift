@@ -10,29 +10,23 @@ import Foundation
 
 // MARK: ViewModel
 extension TextBlocksViews.Toggle {
-    class BlockViewModel: ObservableObject, Identifiable {
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         fileprivate var blocks: [BlockViewBuilderProtocol] = []
-        fileprivate var block: Block
-        @Published var text: String
-        @Published var toggled: Bool
-        init(block: Block) {
-            self.block = block
-            self.text = "Toggle"
-            self.toggled = false
+        @Published var toggled: Bool = false {
+            willSet {
+                // BUG: Apple Bug.
+                // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
+                // Workaround: Explicit invocation
+                self.objectWillChange.send()
+            }
         }
         func update(blocks: [BlockViewBuilderProtocol]) -> Self {
             self.blocks = blocks
             return self
         }
-        var id: String {
-            return block.id
+        override func buildView() -> AnyView {
+            .init(BlockView(viewModel: self))
         }
-    }
-}
-
-extension TextBlocksViews.Toggle.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Toggle.BlockView(viewModel: self))
     }
 }
 
@@ -83,7 +77,7 @@ extension TextBlocksViews.Toggle {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

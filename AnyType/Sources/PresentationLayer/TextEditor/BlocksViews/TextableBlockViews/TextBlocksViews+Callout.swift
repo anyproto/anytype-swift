@@ -11,28 +11,23 @@ import SwiftUI
 
 // MARK: ViewModel
 extension TextBlocksViews.Callout {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var text: String
-        @Published var style: Style
-        init(block: Block) {
-            self.block = block
-            self.text = "Callout"
-            self.style = .emoji("🥳")
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        @Published var style: Style = .emoji("🥳") {
+            willSet {
+                // BUG: Apple Bug.
+                // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
+                // Workaround: Explicit invocation
+                self.objectWillChange.send()
+            }
         }
         func update(style: Style) -> Self {
             self.style = style
             return self
         }
-       var id: String {
-            return block.id
-        }
-    }
-}
 
-extension TextBlocksViews.Callout.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Callout.BlockView(viewModel: self))
+        override func buildView() -> AnyView {
+            .init(BlockView(viewModel: self))
+        }
     }
 }
 
@@ -51,7 +46,6 @@ extension TextBlocksViews.Callout {
 }
 
 // MARK: - View
-
 extension TextBlocksViews.Callout {
     
     struct MarkedViewModifier: ViewModifier {
@@ -91,7 +85,7 @@ extension TextBlocksViews.Callout {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

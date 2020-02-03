@@ -12,38 +12,21 @@ import SwiftUI
 
 // MARK: - ViewModel
 extension TextBlocksViews.Text {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var text: String
-        
-        init(block: Block) {
-            self.block = block
-            self.text = "Text"
-        }
-        
-        var id: String {
-            return block.id
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        override func buildView() -> AnyView {
+            .init(BlockView(viewModel: self))
         }
     }
 }
-
-
-extension TextBlocksViews.Text.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Text.BlockView(viewModel: self))
-    }
-}
-
 
 // MARK: - View
-
 extension TextBlocksViews.Text {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
             VStack {
                 TextView(text: self.$viewModel.text)
-                    .modifier(DraggbleView(blockId: viewModel.id))
+                    //.modifier(DraggbleView(blockId: viewModel.id))
             }
         }
     }
@@ -56,7 +39,7 @@ extension TextBlocksViews.Text {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

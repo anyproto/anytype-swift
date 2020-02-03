@@ -58,14 +58,10 @@ struct DocumentView: View {
     }
     
     var body: some View {
-        if let builders = viewModel.blocksViewsBuilders {
-            if builders.isEmpty {
-                return AnyView(EmptyDocumentView(title: ""))
-            } else {
-                return AnyView(blocksView(viewBulders: builders))
-            }
-        } else {
-            return AnyView(loading)
+        switch viewModel.state {
+        case .loading: return AnyView(loading)
+        case .empty: return AnyView(EmptyDocumentView(title: ""))
+        case .ready: return AnyView(blocksView(viewBulders: viewModel.builders))
         }
     }
     
@@ -81,68 +77,68 @@ private extension DocumentView {
     func blocksView(viewBulders: [BlockViewBuilderProtocol]) -> some View {
         CustomScrollView {
             ForEach(0..<viewBulders.count, id: \.self) { index in
-                self.makeBlockView(for: index, in: viewBulders)
+                self.makeBlockView(for: index, in: viewBulders).padding(5)
                     .padding(.top, -10) // Workaround: remove spacing
             }
                 .padding(.top, 10) // Workaround: adjust first item after removing spacing
         }
-        .scrollIfAnchorIntersectBoundary(anchor: self.draggingData?.draggingAnchor)
-        .modifier(DraggingView(viewBulders: viewBulders, onStartDragging: {
-            guard let count = self.droppableDividerRect?.count,
-                let idx = self.draggingData?.blockIndex,
-                count >= idx else { return }
-            guard let top = self.droppableDividerRect?[idx], let bottom = self.droppableDividerRect?[idx + 1] else { return }
-            
-            let topDivider = CurrentDropDividers.DividerData(type: .top, idx: idx, rect: top)
-            let bottomDivider = CurrentDropDividers.DividerData(type: .top, idx: idx, rect: bottom)
-            
-            self.currentDroppableData = CurrentDropDividers(topDivider: topDivider, bottomDivider: bottomDivider)
-        }) {
-            defer {
-                self.currentDroppableData = nil
-            }
-            guard let dividerIdx = self.currentDroppableData?.active.idx else { return }
-            guard let draggbleBlockIdx = self.draggingData?.blockIndex else { return }
-            guard dividerIdx != draggbleBlockIdx, (dividerIdx + 1) != draggbleBlockIdx else { return }
-            
-            self.viewModel.moveBlock(fromIndex: draggbleBlockIdx, toIndex: dividerIdx)
-        })
-        .onGeometryPreferenceChange(DraggingViewCoordinatePreferenceKey.self, compute: { proxy, value in // save droppable divider rect
-            if let anchor = value.position, let id = value.id {
-                return DraggingData(draggingRect: proxy[anchor], blockIndex: id, draggingAnchor: value.position)
-            }
-            return nil
-        }, onChange: { (value: DraggingData?) -> Void in
-            self.draggingData = value
-            
-            if let draggingData = self.draggingData, let currentDroppableData = self.currentDroppableData, let droppableDividerRect = self.droppableDividerRect {
-                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableDivider: currentDroppableData, droppableDividerRect: droppableDividerRect)
-            }
-        })
-        .onGeometryPreferenceChange(DividerAnchorPreferenceKey.self, compute: { proxy, value in // save droppable divider rect
-            var rects = [CGRect]()
-            for preference in value {
-                rects.append(proxy[preference.bounds])
-            }
-            return rects
-        }, onChange: { (value:  [CGRect]?) -> Void in
-            self.droppableDividerRect = value
-            
-            // update current droppable area divider
-            guard let topDivider = self.currentDroppableData?.topDivider,
-                let bottomDivider = self.currentDroppableData?.bottomDivider,
-                let droppableDividerRect = self.droppableDividerRect else {
-                    return
-            }
-            
-            self.currentDroppableData?.topDivider.rect = droppableDividerRect[topDivider.idx]
-            self.currentDroppableData?.bottomDivider.rect = droppableDividerRect[bottomDivider.idx]
-            
-            if let draggingData = self.draggingData, let currentDroppableData = self.currentDroppableData, let droppableDividerRect = self.droppableDividerRect {
-                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableDivider: currentDroppableData, droppableDividerRect: droppableDividerRect)
-            }
-        })
-        .environment(\.showViewFrames, true)
+//        .scrollIfAnchorIntersectBoundary(anchor: self.draggingData?.draggingAnchor)
+//        .modifier(DraggingView(viewBulders: viewBulders, onStartDragging: {
+//            guard let count = self.droppableDividerRect?.count,
+//                let idx = self.draggingData?.blockIndex,
+//                count >= idx else { return }
+//            guard let top = self.droppableDividerRect?[idx], let bottom = self.droppableDividerRect?[idx + 1] else { return }
+//
+//            let topDivider = CurrentDropDividers.DividerData(type: .top, idx: idx, rect: top)
+//            let bottomDivider = CurrentDropDividers.DividerData(type: .top, idx: idx, rect: bottom)
+//
+//            self.currentDroppableData = CurrentDropDividers(topDivider: topDivider, bottomDivider: bottomDivider)
+//        }) {
+//            defer {
+//                self.currentDroppableData = nil
+//            }
+//            guard let dividerIdx = self.currentDroppableData?.active.idx else { return }
+//            guard let draggbleBlockIdx = self.draggingData?.blockIndex else { return }
+//            guard dividerIdx != draggbleBlockIdx, (dividerIdx + 1) != draggbleBlockIdx else { return }
+//
+//            self.viewModel.moveBlock(fromIndex: draggbleBlockIdx, toIndex: dividerIdx)
+//        })
+//        .onGeometryPreferenceChange(DraggingViewCoordinatePreferenceKey.self, compute: { proxy, value in // save droppable divider rect
+//            if let anchor = value.position, let id = value.id {
+//                return DraggingData(draggingRect: proxy[anchor], blockIndex: id, draggingAnchor: value.position)
+//            }
+//            return nil
+//        }, onChange: { (value: DraggingData?) -> Void in
+//            self.draggingData = value
+//
+//            if let draggingData = self.draggingData, let currentDroppableData = self.currentDroppableData, let droppableDividerRect = self.droppableDividerRect {
+//                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableDivider: currentDroppableData, droppableDividerRect: droppableDividerRect)
+//            }
+//        })
+//        .onGeometryPreferenceChange(DividerAnchorPreferenceKey.self, compute: { proxy, value in // save droppable divider rect
+//            var rects = [CGRect]()
+//            for preference in value {
+//                rects.append(proxy[preference.bounds])
+//            }
+//            return rects
+//        }, onChange: { (value:  [CGRect]?) -> Void in
+//            self.droppableDividerRect = value
+//
+//            // update current droppable area divider
+//            guard let topDivider = self.currentDroppableData?.topDivider,
+//                let bottomDivider = self.currentDroppableData?.bottomDivider,
+//                let droppableDividerRect = self.droppableDividerRect else {
+//                    return
+//            }
+//
+//            self.currentDroppableData?.topDivider.rect = droppableDividerRect[topDivider.idx]
+//            self.currentDroppableData?.bottomDivider.rect = droppableDividerRect[bottomDivider.idx]
+//
+//            if let draggingData = self.draggingData, let currentDroppableData = self.currentDroppableData, let droppableDividerRect = self.droppableDividerRect {
+//                self.currentDroppableData = self.defineDroppableDivider(draggingData: draggingData, currentDroppableDivider: currentDroppableData, droppableDividerRect: droppableDividerRect)
+//            }
+//        })
+//        .environment(\.showViewFrames, true)
     }
     
     private func defineDroppableDivider(draggingData: DraggingData, currentDroppableDivider: CurrentDropDividers, droppableDividerRect: [CGRect]) -> CurrentDropDividers {

@@ -23,8 +23,10 @@ struct TextView: View {
     @Binding var text: String
     @State var sizeThatFit: CGSize = .init(width: 0.0, height: 31.0)
     
+    weak var delegate: TextViewUserInteractionProtocol?
+    
     var body: some View {
-        InnerTextView(text: self.$text, sizeThatFit: self.$sizeThatFit, wholeTextMarkStyleKeeper: self._wholeTextMarkStyleKeeper)
+        InnerTextView(text: self.$text, sizeThatFit: self.$sizeThatFit, wholeTextMarkStyleKeeper: self._wholeTextMarkStyleKeeper, delegate: self.delegate)
             .frame(height: self.sizeThatFit.height)
     }
     
@@ -34,6 +36,11 @@ struct TextView: View {
         storage = .init()
     }
     
+    init(text: Binding<String>, delegate: TextViewUserInteractionProtocol?) {
+        self.init(text: text)
+        self.delegate = delegate
+    }
+        
     // MARK: Enable updates
     // To jump in the darkest area of mocking, you set storage to keep changes of edited ranges.
     mutating func update(storage: ObservedObject<Storage>) -> Self {

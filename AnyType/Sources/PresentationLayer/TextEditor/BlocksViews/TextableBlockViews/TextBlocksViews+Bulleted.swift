@@ -12,25 +12,12 @@ import SwiftUI
 
 // MARK: - ViewModel
 extension TextBlocksViews.Bulleted {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var text: String
-        init(block: Block) {
-            self.block = block
-            self.text = "Bulleted"
-        }
-        var id: String {
-            return block.id
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        override func buildView() -> AnyView {
+            .init(BlockView(viewModel: self))
         }
     }
 }
-
-extension TextBlocksViews.Bulleted.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Bulleted.BlockView(viewModel: self))
-    }
-}
-
 
 // MARK: - View
 extension TextBlocksViews.Bulleted {
@@ -46,7 +33,7 @@ extension TextBlocksViews.Bulleted {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier()).modifier(DraggbleView(blockId: viewModel.id))
+            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier())//.modifier(DraggbleView(blockId: viewModel.id))
         }
     }
 }
@@ -57,7 +44,7 @@ extension TextBlocksViews.Bulleted {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

@@ -118,6 +118,7 @@
 		0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6823969B030027A4AD /* CompletionAuthView.swift */; };
 		0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */; };
 		0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA854623A80C2200892713 /* events.pb.swift */; };
+		0A879AB923E6D8F300247426 /* DocumentViewModel+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A879AB823E6D8F300247426 /* DocumentViewModel+Updates.swift */; };
 		0AA04DF923C7943B005B37A4 /* TextView+HighlightedToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DF823C7943B005B37A4 /* TextView+HighlightedToolbar.swift */; };
 		0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */; };
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
@@ -143,6 +144,9 @@
 		0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */; };
 		0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781523E5C99A00442690 /* AppearanceService.swift */; };
 		0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781B23E5C9A300442690 /* AssetsReader.swift */; };
+		0ACA782023E5D5AC00442690 /* TextBlocksViews+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */; };
+		0ACA782223E5E36800442690 /* DocumentViewModel+UserInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA782123E5E36800442690 /* DocumentViewModel+UserInteraction.swift */; };
+		0ACA782423E6CD1600442690 /* DocumentViewModel+IndexDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA782323E6CD1500442690 /* DocumentViewModel+IndexDictionary.swift */; };
 		0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */; };
 		465BEE5AFFDFF6AC5900B5DB /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C07365EEBD9F2E018C0FE2EF /* Pods_AnyType.framework */; };
 /* End PBXBuildFile section */
@@ -284,6 +288,7 @@
 		0A69322823911D0200575544 /* ImageBlocksViews+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageBlocksViews+Image.swift"; sourceTree = "<group>"; };
 		0A70816423968410004B04AB /* BlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViews.swift; sourceTree = "<group>"; };
 		0A7081662396C5E3004B04AB /* ImageBlocksViews+PageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageBlocksViews+PageIcon.swift"; sourceTree = "<group>"; };
+		0A879AB823E6D8F300247426 /* DocumentViewModel+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+Updates.swift"; sourceTree = "<group>"; };
 		0AA04DF823C7943B005B37A4 /* TextView+HighlightedToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar.swift"; sourceTree = "<group>"; };
 		0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerCoordinator.swift; sourceTree = "<group>"; };
 		0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerModel.swift; sourceTree = "<group>"; };
@@ -311,6 +316,9 @@
 		0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceServices+Schemes+Domains+Auth.swift"; sourceTree = "<group>"; };
 		0ACA781523E5C99A00442690 /* AppearanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceService.swift; sourceTree = "<group>"; };
 		0ACA781B23E5C9A300442690 /* AssetsReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsReader.swift; sourceTree = "<group>"; };
+		0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Base.swift"; sourceTree = "<group>"; };
+		0ACA782123E5E36800442690 /* DocumentViewModel+UserInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+UserInteraction.swift"; sourceTree = "<group>"; };
+		0ACA782323E6CD1500442690 /* DocumentViewModel+IndexDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+IndexDictionary.swift"; sourceTree = "<group>"; };
 		0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Quote.swift"; sourceTree = "<group>"; };
 		49244431F638A977861A1CC0 /* Pods-AnyType.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.debug.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.debug.xcconfig"; sourceTree = "<group>"; };
 		B8316BA5C441C3F3C890A2C2 /* Pods-AnyType.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.release.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.release.xcconfig"; sourceTree = "<group>"; };
@@ -813,6 +821,7 @@
 				0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */,
 				03B6574E234CEDC70084D9F5 /* TextBlockViewModel.swift */,
 				031B355323465BBA0066DDB8 /* TextBlockView.swift */,
+				0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */,
 			);
 			path = TextableBlockViews;
 			sourceTree = "<group>";
@@ -931,6 +940,9 @@
 				030DF8672333E3DD00FE6DA5 /* DocumentView.swift */,
 				030DF8632333E31100FE6DA5 /* DocumentViewModel.swift */,
 				031B355523465DFF0066DDB8 /* EmptyDocumentView.swift */,
+				0ACA782123E5E36800442690 /* DocumentViewModel+UserInteraction.swift */,
+				0ACA782323E6CD1500442690 /* DocumentViewModel+IndexDictionary.swift */,
+				0A879AB823E6D8F300247426 /* DocumentViewModel+Updates.swift */,
 			);
 			path = DocumentView;
 			sourceTree = "<group>";
@@ -1154,6 +1166,7 @@
 				03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */,
 				0ACA780D23E5C96700442690 /* TextView.swift in Sources */,
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
+				0A879AB923E6D8F300247426 /* DocumentViewModel+Updates.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				031B35592346C5B60066DDB8 /* BlockViewModifieres.swift in Sources */,
 				0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */,
@@ -1194,6 +1207,7 @@
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* ImageLoader.swift in Sources */,
 				030DF86C23354EEE00FE6DA5 /* BlockModel.swift in Sources */,
+				0ACA782023E5D5AC00442690 /* TextBlocksViews+Base.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
 				0A7081672396C5E3004B04AB /* ImageBlocksViews+PageIcon.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
@@ -1254,6 +1268,7 @@
 				0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SecureStoreServiceProtocol.swift in Sources */,
+				0ACA782223E5E36800442690 /* DocumentViewModel+UserInteraction.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
 				03A8011E22F8CAA200F31E01 /* PickerDetailView.swift in Sources */,
@@ -1272,6 +1287,7 @@
 				0ACA780F23E5C96700442690 /* TextView+BlocksAccessoryView.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,
 				0A69321C238C4C8200575544 /* TextBlocksViews.swift in Sources */,
+				0ACA782423E6CD1600442690 /* DocumentViewModel+IndexDictionary.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				0A69321E238C4C8200575544 /* TextBlocksViews+Toggle.swift in Sources */,
 				0ACA77CF23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
@@ -1451,7 +1467,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
-				DEVELOPMENT_TEAM = H63H9V7D82;
+				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1470,7 +1486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.AnyType;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1484,7 +1500,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
-				DEVELOPMENT_TEAM = H63H9V7D82;
+				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1503,7 +1519,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.AnyType;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

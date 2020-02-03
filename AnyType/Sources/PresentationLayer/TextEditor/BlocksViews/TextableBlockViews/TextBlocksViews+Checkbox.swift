@@ -11,25 +11,18 @@ import SwiftUI
 
 // MARK: ViewModel
 extension TextBlocksViews.Checkbox {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var text: String
-        @Published var checked: Bool
-        
-        init(block: Block) {
-            self.block = block
-            self.checked = false
-            self.text = "Checkbox"
+    class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        @Published var checked: Bool = false {
+            willSet {
+                // BUG: Apple Bug.
+                // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
+                // Workaround: Explicit invocation
+                self.objectWillChange.send()
+            }
         }
-        var id: String {
-            return block.id
+        override func buildView() -> AnyView {
+            .init(BlockView(viewModel: self))
         }
-    }
-}
-
-extension TextBlocksViews.Checkbox.BlockViewModel: BlockViewBuilderProtocol {
-    func buildView() -> AnyView {
-        AnyView(TextBlocksViews.Checkbox.BlockView(viewModel: self))
     }
 }
 
@@ -83,7 +76,7 @@ extension TextBlocksViews.Checkbox {
             return Style.from(self.viewModel.checked)
         }
         var body: some View {
-            TextView(text: self.$viewModel.text)
+            TextView(text: self.$viewModel.text, delegate: self.viewModel as TextViewUserInteractionProtocol)
                 .foregroundColor(self.style.foregroundColor())
                 .strikethrough(self.style.strikethrough())
                 .modifier(MarkedViewModifier(checked: self.$viewModel.checked))
@@ -97,7 +90,7 @@ extension TextBlocksViews.Checkbox {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }
