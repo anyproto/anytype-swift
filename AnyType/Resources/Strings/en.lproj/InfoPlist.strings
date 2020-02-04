@@ -6,4 +6,4 @@
   Copyright © 2019 AnyType. All rights reserved.
 */
 
-"NSFaceIDUsageDescription" = "We use face id for bla bla bla";
+"NSFaceIDUsageDescription" = "We use face id for access to keychain";
