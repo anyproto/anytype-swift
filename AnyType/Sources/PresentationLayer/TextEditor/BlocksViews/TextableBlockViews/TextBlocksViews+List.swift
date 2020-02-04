@@ -61,8 +61,10 @@ extension TextBlocksViews.List {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            ForEach(self.viewModel.blocks, id: \.id) { (element) in
-                element.buildView()
+            VStack {
+                ForEach(self.viewModel.blocks, id: \.id) { (element) in
+                    element.buildView()
+                }
             }
         }
     }
