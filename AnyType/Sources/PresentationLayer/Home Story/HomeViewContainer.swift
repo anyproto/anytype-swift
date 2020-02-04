@@ -33,7 +33,10 @@ struct HomeViewContainer: View {
         }
     }
     var body: some View {
-        model.homeView
+        oldBody
+    }
+    var newBody: some View {
+        model.profileView
     }
 }
 
