@@ -25,6 +25,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
         try? FileManager.default.removeItem(atPath: localRepoService.middlewareRepoPath)
         try? storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
         UserDefaultsConfig.usersIdKey = ""
+        UserDefaultsConfig.userName = ""
     }
     
     func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
@@ -69,6 +70,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
                     return
             }
             UserDefaultsConfig.usersIdKey = response.account.id
+            UserDefaultsConfig.userName = response.account.name
             self.replaceDefaultSeed(with: response.account.id, keyChainPassword: .userPresence)
             onCompletion(.success(response.account.id))
         }
