@@ -9,9 +9,17 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    
+    var user: UserModel = .init()
     func documentView(selectedDocumentId: String) -> some View {
         let viewModel = DocumentViewModel(documentId: selectedDocumentId)
         return DocumentView(viewModel: viewModel)
+    }
+}
+
+extension HomeViewModel {
+    class UserModel {
+        var name: String {
+            return UserDefaultsConfig.userName.isEmpty ? "Anytype User" : UserDefaultsConfig.userName
+        }
     }
 }

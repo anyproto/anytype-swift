@@ -22,7 +22,7 @@ struct HomeView: View {
                     }
                     .frame(width: 0, height: 0)
                     
-                    Text("Hi, herr Barulik")
+                    Text("Hi, \(self.viewModel.user.name)")
                         .fontWeight(.bold)
                         .padding()
                         .foregroundColor(.white)
