@@ -11,6 +11,9 @@ import SwiftUI
 
 
 final class ProfileViewModel: ObservableObject {
+    public var theAccountName: String {
+        UserDefaultsConfig.userName
+    }
     private var profileService: ProfileServiceProtocol
     private var authService: AuthServiceProtocol
     
@@ -65,7 +68,9 @@ final class ProfileViewModel: ObservableObject {
     
     func obtainAccountInfo() {
         accountName = profileService.name
-        
+        if accountName.isEmpty {
+            accountName = theAccountName
+        }
         if let avatarURL = URL(string: profileService.avatar) {
             self.accountAvatar = ImageLoaderCache.shared.loaderFor(path: avatarURL).image
         }

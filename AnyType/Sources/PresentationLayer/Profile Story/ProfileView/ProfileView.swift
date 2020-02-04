@@ -21,7 +21,7 @@ struct ProfileView : View {
                     if model.accountAvatar != nil {
                         Image(uiImage: model.accountAvatar!)
                     } else {
-                        Text(String(model.accountName.first ?? "A"))
+                        Text(String(model.theAccountName.first ?? "A"))
                             .padding(.all, 30)
                             .font(.title)
                             .background(Color(model.selectedColor))
@@ -29,7 +29,7 @@ struct ProfileView : View {
                             .clipShape(Circle())
                             .overlay(Circle().stroke(Color.white))
                     }
-                    Text("\(model.accountName)")
+                    Text("\(model.theAccountName)")
                 }
                 .padding()
                 
@@ -77,17 +77,29 @@ struct ProfileView : View {
                             .foregroundColor(Color.black)
                             .padding([.top, .bottom])
                     }
+                    Section {
+                        Button(action: {
+                            self.model.logout()
+                        }) {
+                            Text("Logout")
+                        }
+//                        StandardButton(disabled: false, text: "Log out", style: .white) {
+//                            self.model.logout()
+//                        }
+//                        .offset(y: -40)
+//                        .padding(.horizontal, 20)
+                    }
                 }
                 
-                HStack {
-                    StandardButton(disabled: false, text: "Log out", style: .white) {
-                        self.model.logout()
-                    }
-                    .offset(y: -40)
-                    .padding(.horizontal, 20)
-                    
-                    Spacer()
-                }
+//                HStack {
+//                    StandardButton(disabled: false, text: "Log out", style: .white) {
+//                        self.model.logout()
+//                    }
+//                    .offset(y: -40)
+//                    .padding(.horizontal, 20)
+//                    
+//                    Spacer()
+//                }
             }
             .background(Color("backgroundColor"))
             .navigationBarTitle("", displayMode: .inline)
