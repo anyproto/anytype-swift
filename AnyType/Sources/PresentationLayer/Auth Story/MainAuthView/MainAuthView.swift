@@ -25,17 +25,17 @@ struct MainAuthView: View {
                         .padding(.top, 30)
                     Spacer()
                     VStack {
-                        Text("Organazie everything")
+                        Text("Organize everything")
                             .padding(20)
                             .font(.title)
-                        Text("OrganazieEverythingDescription")
+                        Text("OrganizeEverythingDescription")
                             .padding([.leading, .trailing, .bottom], 20)
                         
                         HStack(spacing: 0) {
                             NavigationLink(destination: viewModel.showCreateProfileView(), isActive: $viewModel.shouldShowCreateProfileView) {
                                 EmptyView()
                             }
-                            StandardButton(disabled: false, text: "Sing up", style: .white) {
+                            StandardButton(disabled: false, text: "Sign up", style: .white) {
                                 self.viewModel.singUp()
                             }
                             .padding(.trailing, 12)
