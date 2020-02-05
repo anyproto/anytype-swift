@@ -46,7 +46,6 @@
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
 		037B91CE23438E77004EBCCD /* HomeViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96602340C203006CE58C /* HomeViewContainer.swift */; };
 		037CC4E523154AF900D5AB62 /* NavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037CC4E423154AF900D5AB62 /* NavigationButtonView.swift */; };
-		037F2D32239D374D008C16BF /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037F2D31239D374D008C16BF /* Lib.framework */; };
 		0388BF7B22F10F9B00B73E39 /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */; };
 		038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A81FC23A0158B00B71388 /* LoginViewModel.swift */; };
 		03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E56230B48B40040CD4B /* ProfileSettingsView.swift */; };
@@ -119,6 +118,7 @@
 		0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */; };
 		0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA854623A80C2200892713 /* events.pb.swift */; };
 		0A879AB923E6D8F300247426 /* DocumentViewModel+Updates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A879AB823E6D8F300247426 /* DocumentViewModel+Updates.swift */; };
+		0A996BA923EB31AA000FDC9C /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A996BA823EB31AA000FDC9C /* Lib.framework */; };
 		0AA04DF923C7943B005B37A4 /* TextView+HighlightedToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DF823C7943B005B37A4 /* TextView+HighlightedToolbar.swift */; };
 		0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */; };
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
@@ -162,7 +162,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0339676E2397D65F000CB7BA /* Embed Frameworks */ = {
+		0A996BA723EB30C6000FDC9C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
@@ -217,7 +217,6 @@
 		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		037CC4E423154AF900D5AB62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
-		037F2D31239D374D008C16BF /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Lib.framework; sourceTree = "<group>"; };
 		037F2D34239D59D9008C16BF /* EventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListener.swift; sourceTree = "<group>"; };
 		037F2D36239DC6DC008C16BF /* MainAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAuthViewModel.swift; sourceTree = "<group>"; };
 		0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
@@ -289,6 +288,7 @@
 		0A70816423968410004B04AB /* BlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViews.swift; sourceTree = "<group>"; };
 		0A7081662396C5E3004B04AB /* ImageBlocksViews+PageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageBlocksViews+PageIcon.swift"; sourceTree = "<group>"; };
 		0A879AB823E6D8F300247426 /* DocumentViewModel+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+Updates.swift"; sourceTree = "<group>"; };
+		0A996BA823EB31AA000FDC9C /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lib.framework; path = Dependencies/Lib.framework; sourceTree = "<group>"; };
 		0AA04DF823C7943B005B37A4 /* TextView+HighlightedToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar.swift"; sourceTree = "<group>"; };
 		0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerCoordinator.swift; sourceTree = "<group>"; };
 		0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerModel.swift; sourceTree = "<group>"; };
@@ -327,8 +327,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				037F2D32239D374D008C16BF /* Lib.framework in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
+				0A996BA923EB31AA000FDC9C /* Lib.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				0AFC462C23EB23AD009F4CB2 /* SwiftProtobuf in Frameworks */,
 			);
@@ -1000,7 +1000,7 @@
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				037F2D31239D374D008C16BF /* Lib.framework */,
+				0A996BA823EB31AA000FDC9C /* Lib.framework */,
 				0318D575230186CA000527B1 /* LocalAuthentication.framework */,
 				03C5C53A22DF785000DD91DE /* Security.framework */,
 			);
@@ -1017,7 +1017,7 @@
 				0303ECF722D8EDAA005C552B /* Sources */,
 				0303ECF822D8EDAA005C552B /* Frameworks */,
 				0303ECF922D8EDAA005C552B /* Resources */,
-				0339676E2397D65F000CB7BA /* Embed Frameworks */,
+				0A996BA723EB30C6000FDC9C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1429,13 +1429,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Dependencies",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Protobuf/Protobuf.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Textile/Textile.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/TextileCore/TextileCore.framework/Headers\"",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1463,13 +1459,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Dependencies",
 				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Protobuf/Protobuf.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Textile/Textile.framework/Headers\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/TextileCore/TextileCore.framework/Headers\"",
-				);
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				LD_RUNPATH_SEARCH_PATHS = (
