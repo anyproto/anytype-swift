@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -148,7 +148,7 @@
 		0ACA782223E5E36800442690 /* DocumentViewModel+UserInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA782123E5E36800442690 /* DocumentViewModel+UserInteraction.swift */; };
 		0ACA782423E6CD1600442690 /* DocumentViewModel+IndexDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA782323E6CD1500442690 /* DocumentViewModel+IndexDictionary.swift */; };
 		0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */; };
-		465BEE5AFFDFF6AC5900B5DB /* Pods_AnyType.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C07365EEBD9F2E018C0FE2EF /* Pods_AnyType.framework */; };
+		0AFC462C23EB23AD009F4CB2 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFC462B23EB23AD009F4CB2 /* SwiftProtobuf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,9 +320,6 @@
 		0ACA782123E5E36800442690 /* DocumentViewModel+UserInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+UserInteraction.swift"; sourceTree = "<group>"; };
 		0ACA782323E6CD1500442690 /* DocumentViewModel+IndexDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+IndexDictionary.swift"; sourceTree = "<group>"; };
 		0AF8308A23A2579300640DAC /* TextBlocksViews+Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Quote.swift"; sourceTree = "<group>"; };
-		49244431F638A977861A1CC0 /* Pods-AnyType.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.debug.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.debug.xcconfig"; sourceTree = "<group>"; };
-		B8316BA5C441C3F3C890A2C2 /* Pods-AnyType.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnyType.release.xcconfig"; path = "Target Support Files/Pods-AnyType/Pods-AnyType.release.xcconfig"; sourceTree = "<group>"; };
-		C07365EEBD9F2E018C0FE2EF /* Pods_AnyType.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnyType.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,7 +330,7 @@
 				037F2D32239D374D008C16BF /* Lib.framework in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
-				465BEE5AFFDFF6AC5900B5DB /* Pods_AnyType.framework in Frameworks */,
+				0AFC462C23EB23AD009F4CB2 /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -996,8 +993,6 @@
 		64830DCB93631F621AD4AF95 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				49244431F638A977861A1CC0 /* Pods-AnyType.debug.xcconfig */,
-				B8316BA5C441C3F3C890A2C2 /* Pods-AnyType.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1008,7 +1003,6 @@
 				037F2D31239D374D008C16BF /* Lib.framework */,
 				0318D575230186CA000527B1 /* LocalAuthentication.framework */,
 				03C5C53A22DF785000DD91DE /* Security.framework */,
-				C07365EEBD9F2E018C0FE2EF /* Pods_AnyType.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1020,18 +1014,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0303ED0F22D8EDAD005C552B /* Build configuration list for PBXNativeTarget "AnyType" */;
 			buildPhases = (
-				503A5E56566CA0D9EEC840A5 /* [CP] Check Pods Manifest.lock */,
 				0303ECF722D8EDAA005C552B /* Sources */,
 				0303ECF822D8EDAA005C552B /* Frameworks */,
 				0303ECF922D8EDAA005C552B /* Resources */,
 				0339676E2397D65F000CB7BA /* Embed Frameworks */,
-				99FE3FD48C5C711AC2CDD212 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = AnyType;
+			packageProductDependencies = (
+				0AFC462B23EB23AD009F4CB2 /* SwiftProtobuf */,
+			);
 			productName = AnyType;
 			productReference = 0303ECFB22D8EDAA005C552B /* AnyType.app */;
 			productType = "com.apple.product-type.application";
@@ -1082,6 +1077,9 @@
 				Base,
 			);
 			mainGroup = 0303ECF222D8EDAA005C552B;
+			packageReferences = (
+				0AFC462A23EB23AD009F4CB2 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1114,48 +1112,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		503A5E56566CA0D9EEC840A5 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AnyType-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		99FE3FD48C5C711AC2CDD212 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AnyType/Pods-AnyType-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AnyType/Pods-AnyType-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AnyType/Pods-AnyType-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0303ECF722D8EDAA005C552B /* Sources */ = {
@@ -1462,7 +1418,6 @@
 		};
 		0303ED1022D8EDAD005C552B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 49244431F638A977861A1CC0 /* Pods-AnyType.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1497,7 +1452,6 @@
 		};
 		0303ED1122D8EDAD005C552B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8316BA5C441C3F3C890A2C2 /* Pods-AnyType.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1599,6 +1553,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0AFC462A23EB23AD009F4CB2 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0AFC462B23EB23AD009F4CB2 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AFC462A23EB23AD009F4CB2 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0303ECF322D8EDAA005C552B /* Project object */;
 }
