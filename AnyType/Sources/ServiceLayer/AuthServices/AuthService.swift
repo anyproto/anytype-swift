@@ -11,15 +11,15 @@ import Combine
 import Lib
 import SwiftUI
 
-
+// rewrite it on top of Middleware services.
 final class AuthService: NSObject, AuthServiceProtocol {
     @Environment(\.localRepoService) private var localRepoService
     private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
-    
+
     func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {
-        
+
     }
-    
+
     func logout(completion: @escaping () -> Void) {
         completion()
         try? FileManager.default.removeItem(atPath: localRepoService.middlewareRepoPath)
@@ -27,121 +27,79 @@ final class AuthService: NSObject, AuthServiceProtocol {
         UserDefaultsConfig.usersIdKey = ""
         UserDefaultsConfig.userName = ""
     }
-    
+
     func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        var walletRequest = Anytype_Rpc.Wallet.Create.Request()
-        walletRequest.rootPath = path
-        
-        let requestData = try? walletRequest.serializedData()
-        
-        if let requestData = requestData {
-            guard
-                let data = Lib.LibWalletCreate(requestData),
-                let response = try? Anytype_Rpc.Wallet.Create.Response(serializedData: data),
-                response.error.code == .null
-                else {
-                    onCompletion(.failure(.createWalletError()))
-                    return
+        _ = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: path).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .finished: break
+            case .failure(_): onCompletion(.failure(.createWalletError()))
             }
-            try? self.storeService.saveSeedForAccount(name: nil, seed: response.mnemonic, keyChainPassword: .none)
+        }) { (value) in
+            try? self.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keyChainPassword: .none)
             onCompletion(.success(()))
         }
     }
-    
+
     func createAccount(profile: AuthModels.CreateAccount.Request, onCompletion: @escaping OnCompletion) {
-        var createAccountRequest = Anytype_Rpc.Account.Create.Request()
-        createAccountRequest.name = profile.name
-        
-        if case ProfileModel.Avatar.color(let color) = profile.avatar {
-            createAccountRequest.avatarColor = color.description
-        } else if case  ProfileModel.Avatar.imagePath(let path) = profile.avatar {
-            createAccountRequest.avatarLocalPath = path
+        func transform(_ avatar: ProfileModel.Avatar) -> Anytype_Rpc.Account.Create.Request.OneOf_Avatar? {
+            switch avatar {
+            case let .color(value): return .avatarColor(value)
+            case let .imagePath(value): return .avatarLocalPath(value)
+                // possible @unknown default ???
+            }
         }
         
-        let requestData = try? createAccountRequest.serializedData()
+        let name = profile.name
+        let avatar = transform(profile.avatar)
         
-        if let requestData = requestData {
-            guard
-                let data = Lib.LibAccountCreate(requestData),
-                let response = try? Anytype_Rpc.Account.Create.Response(serializedData: data),
-                response.error.code == .null
-                else {
-                    onCompletion(.failure(.createAccountError()))
-                    return
+        _ = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .finished: break
+            case .failure(_): onCompletion(.failure(.createAccountError()))
             }
-            UserDefaultsConfig.usersIdKey = response.account.id
-            UserDefaultsConfig.userName = response.account.name
-            self.replaceDefaultSeed(with: response.account.id, keyChainPassword: .userPresence)
-            onCompletion(.success(response.account.id))
+        }) { (value) in
+            UserDefaultsConfig.usersIdKey = value.account.id
+            UserDefaultsConfig.userName = value.account.name
+            self.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
+            onCompletion(.success(value.account.id))
         }
     }
-    
+
     func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        var walletRequest = Anytype_Rpc.Wallet.Recover.Request()
-        walletRequest.rootPath = path
-        walletRequest.mnemonic = mnemonic
-        
         try? self.storeService.saveSeedForAccount(name: nil, seed: mnemonic, keyChainPassword: .none)
-        
-        let requestData = try? walletRequest.serializedData()
-        
-        if let requestData = requestData {
-            guard
-                let data = Lib.LibWalletRecover(requestData),
-                let response = try? Anytype_Rpc.Wallet.Recover.Response(serializedData: data),
-                response.error.code == .null
-                else {
-                    onCompletion(.failure(.recoverWalletError()))
-                    return
+        _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: path, mnemonic: mnemonic).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .finished: break
+            case .failure(_): onCompletion(.failure(.recoverWalletError()))
             }
+        }) { (value) in
             onCompletion(.success(()))
         }
     }
-    
+
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        let accountRecoverRequest = Anytype_Rpc.Account.Recover.Request()
-        
-        let requestData = try? accountRecoverRequest.serializedData()
-        
-        if let requestData = requestData {
-            guard
-                let data = Lib.LibAccountRecover(requestData),
-                let response = try? Anytype_Rpc.Account.Select.Response(serializedData: data),
-                response.error.code == .null
-                else {
-                    onCompletion(.failure(.recoverAccountError()))
-                    return
+        _ = Anytype_Rpc.Account.Recover.Service.invoke().sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .finished: break
+            case .failure(_): onCompletion(.failure(.recoverAccountError()))
             }
+        }) { (value) in
             onCompletion(.success(()))
         }
     }
-    
+
     func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {
-        var selectAccountRequest = Anytype_Rpc.Account.Select.Request()
-        selectAccountRequest.id = id
-        selectAccountRequest.rootPath = path
-        
-        let requestData = try? selectAccountRequest.serializedData()
-        
-        DispatchQueue.global().async {
-            if let requestData = requestData {
-                guard
-                    let data = Lib.LibAccountSelect(requestData),
-                    let response = try? Anytype_Rpc.Account.Select.Response(serializedData: data),
-                    response.error.code == .null
-                    else {
-                        DispatchQueue.main.async {
-                            onCompletion(.failure(.selectAccountError()))
-                        }
-                        return
-                }
-                UserDefaultsConfig.usersIdKey = response.account.id
-                self.replaceDefaultSeed(with: response.account.id, keyChainPassword: .userPresence)
-                
-                DispatchQueue.main.async {
-                    onCompletion(.success(response.account.id))
-                }
+        let theCompletion = { value in DispatchQueue.main.async { onCompletion(value) } }
+        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .finished: break
+            case .failure(_): theCompletion(.failure(.selectAccountError()))
             }
+        }) { (value) in
+            UserDefaultsConfig.usersIdKey = value.account.id
+            UserDefaultsConfig.userName = value.account.name
+            self.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
+            theCompletion(.success(value.account.id))
         }
     }
 }
