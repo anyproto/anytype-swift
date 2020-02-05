@@ -10,14 +10,104 @@ import SwiftProtobuf
 import Combine
 import Lib
 
+internal extension Anytype_Rpc.ExternalDrop.Files {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibExternalDropFiles(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, focusedBlockID: String, localFilePaths: [String]) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, localFilePaths: localFilePaths))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.ExternalDrop.Content {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibExternalDropContent(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, focusedBlockID: String, content: Data) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, content: content))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 internal extension Anytype_Rpc.BlockList.Move {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListMove(data) }
   }
-    
+
   enum Service {
-    public static func invoke(contextID: String, blockIds: [String], dropTargetID: String, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, dropTargetID: dropTargetID, position: position))) }
+    public static func invoke(contextID: String, blockIds: [String], targetContextID: String, dropTargetID: String, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.BlockList.Duplicate {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListDuplicate(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -48,6 +138,126 @@ internal extension Anytype_Rpc.BlockList.Set.Text.Style {
   enum Service {
     public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> Future<Response, Error> {
       .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, style: style))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.BlockList.Set.Text.Color {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextColor(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockIds: [String], color: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, color: color))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextBackgroundColor(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockIds: [String], color: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, color: color))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.BlockList.Set.Fields {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetFields(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockFields: blockFields))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Block.Replace {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockReplace(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, block: block))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -130,44 +340,14 @@ internal extension Anytype_Rpc.Block.Merge {
   }
 }
 
-internal extension Anytype_Rpc.Block.Duplicate {
-  private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { nil }
-  }
-
-  enum Service {
-    public static func invoke(contextID: String, targetID: String, blockID: String, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, targetID: targetID, blockID: blockID, position: position))) }
-    }
-    private static func result(_ request: Request) -> Result<Response, Error> {
-      guard let result = self.invoke(request) else {
-        // get first Not Null (not equal 0) case.
-        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
-      }
-      // get first zero case.
-      if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
-        return .success(result)
-      }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-      Invocation.invoke(try? request.serializedData()).flatMap {
-        try? Response(serializedData: $0)
-      }
-    }
-  }
-}
-
 internal extension Anytype_Rpc.Block.Copy {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCopy(data) }
   }
 
   enum Service {
-    public static func invoke(contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlocks: [String]) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlocks: selectedBlocks))) }
+    public static func invoke(contextID: String, blockIds: [String]) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -200,10 +380,10 @@ internal extension Anytype_Rpc.Block.Paste {
       contextID: String,
       focusedBlockID: String,
       selectedTextRange: Anytype_Model_Range,
-      selectedBlocks: [String],
-      clipboardText: String,
-      clipboardHtml: String,
-      clipboardAny: String
+      selectedBlockIds: [String],
+      textSlot: String,
+      htmlSlot: String,
+      anySlot: [Anytype_Model_Block]
     ) -> Future<Response, Error> {
       .init { completion in
         completion(
@@ -212,10 +392,10 @@ internal extension Anytype_Rpc.Block.Paste {
               contextID: contextID,
               focusedBlockID: focusedBlockID,
               selectedTextRange: selectedTextRange,
-              selectedBlocks: selectedBlocks,
-              clipboardText: clipboardText,
-              clipboardHtml: clipboardHtml,
-              clipboardAny: clipboardAny
+              selectedBlockIds: selectedBlockIds,
+              textSlot: textSlot,
+              htmlSlot: htmlSlot,
+              anySlot: anySlot
             )
           )
         )
@@ -248,8 +428,8 @@ internal extension Anytype_Rpc.Block.Upload {
   }
 
   enum Service {
-    public static func invoke(contextID: String, blockID: String, localPath: String, url: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, localPath: localPath, url: url))) }
+    public static func invoke(contextID: String, blockID: String, filePath: String, url: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, filePath: filePath, url: url))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -400,6 +580,66 @@ internal extension Anytype_Rpc.Block.Set.Text.Text {
   enum Service {
     public static func invoke(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> Future<Response, Error> {
       .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, text: text, marks: marks))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Block.Set.Text.Color {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextColor(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, color: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, color: color))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Block.Set.Text.BackgroundColor {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextBackgroundColor(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, color: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, color: color))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -662,6 +902,36 @@ internal extension Anytype_Rpc.Block.Set.Icon.Name {
   }
 }
 
+internal extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetLinkTargetBlockId(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, targetBlockID: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, targetBlockID: targetBlockID))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 internal extension Anytype_Rpc.Block.Get.Marks {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockGetMarks(data) }
@@ -692,14 +962,44 @@ internal extension Anytype_Rpc.Block.Get.Marks {
   }
 }
 
-internal extension Anytype_Rpc.Block.History.Move {
+internal extension Anytype_Rpc.Block.Undo {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { nil }
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUndo(data) }
   }
 
   enum Service {
-    public static func invoke(contextID: String, blockID: String, moveForward: Bool) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, moveForward: moveForward))) }
+    public static func invoke(contextID: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Block.Redo {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockRedo(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -782,14 +1082,44 @@ internal extension Anytype_Rpc.Block.Create {
   }
 }
 
+internal extension Anytype_Rpc.Block.CreatePage {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreatePage(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, targetID: targetID, block: block, position: position))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 internal extension Anytype_Rpc.Block.Unlink {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUnlink(data) }
   }
 
   enum Service {
-    public static func invoke(contextID: String, targets: [Anytype_Rpc.Block.Unlink.Request.Target]) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, targets: targets))) }
+    public static func invoke(contextID: String, blockIds: [String]) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -908,8 +1238,8 @@ internal extension Anytype_Rpc.Account.Create {
   }
 
   enum Service {
-    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, avatarLocalPath: String, avatarColor: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(name: name, avatar: avatar, avatarLocalPath: avatarLocalPath, avatarColor: avatarColor))) }
+    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?) -> Future<Response, Error> {
+        .init { completion in completion(self.result(.init(name: name, avatar: avatar))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -970,6 +1300,36 @@ internal extension Anytype_Rpc.Account.Select {
   enum Service {
     public static func invoke(id: String, rootPath: String) -> Future<Response, Error> {
       .init { completion in completion(self.result(.init(id: id, rootPath: rootPath))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Account.Stop {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibAccountStop(data) }
+  }
+
+  enum Service {
+    public static func invoke(removeData: Bool) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(removeData: removeData))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1088,8 +1448,8 @@ internal extension Anytype_Rpc.Ipfs.Image.Get.Blob {
   }
 
   enum Service {
-    public static func invoke(id: String, size: Anytype_Model_Image.Size) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(id: id, size: size))) }
+    public static func invoke(hash: String, wantWidth: Int32) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(hash: hash, wantWidth: wantWidth))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1118,8 +1478,8 @@ internal extension Anytype_Rpc.Ipfs.Image.Get.File {
   }
 
   enum Service {
-    public static func invoke(id: String, size: Anytype_Model_Image.Size) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(id: id, size: size))) }
+    public static func invoke(hash: String, wantWidth: Int32) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(hash: hash, wantWidth: wantWidth))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {

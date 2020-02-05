@@ -4,11 +4,17 @@
 //
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
+extension Anytype_Rpc.ExternalDrop.Files.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ExternalDrop.Content.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Move.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Split.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Merge.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Block.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Copy.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Paste.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Upload.Response.Error: Swift.Error {}
@@ -17,6 +23,8 @@ extension Anytype_Rpc.Block.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Restrictions.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.IsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Text.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Text.Color.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Text.BackgroundColor.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Checked.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.File.Name.Response.Error: Swift.Error {}
@@ -25,10 +33,13 @@ extension Anytype_Rpc.Block.Set.Image.Width.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Video.Name.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Video.Width.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Icon.Name.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Get.Marks.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Block.History.Move.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Undo.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Redo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Open.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Create.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.CreatePage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Unlink.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Close.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Create.Response.Error: Swift.Error {}
@@ -36,6 +47,7 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Select.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Account.Stop.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Log.Send.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Version.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ipfs.File.Get.Response.Error: Swift.Error {}

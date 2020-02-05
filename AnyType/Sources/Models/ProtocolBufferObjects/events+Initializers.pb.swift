@@ -17,7 +17,7 @@ extension Anytype_Event {
 }
 
 extension Anytype_Event.Account.Show {
-  init(index: Int64, account: Anytype_Model_Account) {
+  init(index: Int32, account: Anytype_Model_Account) {
     self.index = index
     self.account = account
   }
@@ -65,26 +65,30 @@ extension Anytype_Event.Block.Set.Fields {
 extension Anytype_Event.Block.Set.File {
   init(
     id: String,
-    name: Anytype_Event.Block.Set.File.Name,
+    type: Anytype_Event.Block.Set.File.TypeMessage,
     state: Anytype_Event.Block.Set.File.State,
-    localFilePath: Anytype_Event.Block.Set.File.LocalFilePath,
-    icon: Anytype_Event.Block.Set.File.Icon
+    mime: Anytype_Event.Block.Set.File.Mime,
+    hash: Anytype_Event.Block.Set.File.Hash,
+    name: Anytype_Event.Block.Set.File.Name,
+    size: Anytype_Event.Block.Set.File.Size
   ) {
     self.id = id
-    self.name = name
+    self.type = type
     self.state = state
-    self.localFilePath = localFilePath
-    self.icon = icon
+    self.mime = mime
+    self.hash = hash
+    self.name = name
+    self.size = size
   }
 }
 
-extension Anytype_Event.Block.Set.File.Icon {
+extension Anytype_Event.Block.Set.File.Hash {
   init(value: String) {
     self.value = value
   }
 }
 
-extension Anytype_Event.Block.Set.File.LocalFilePath {
+extension Anytype_Event.Block.Set.File.Mime {
   init(value: String) {
     self.value = value
   }
@@ -96,8 +100,26 @@ extension Anytype_Event.Block.Set.File.Name {
   }
 }
 
+extension Anytype_Event.Block.Set.File.Size {
+  init(value: Int64) {
+    self.value = value
+  }
+}
+
 extension Anytype_Event.Block.Set.File.State {
   init(value: Anytype_Model_Block.Content.File.State) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.File.TypeMessage {
+  init(value: Anytype_Model_Block.Content.File.TypeEnum) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.File.Width {
+  init(value: Int32) {
     self.value = value
   }
 }
@@ -115,58 +137,37 @@ extension Anytype_Event.Block.Set.Icon.Name {
   }
 }
 
-extension Anytype_Event.Block.Set.Image {
-  init(
-    id: String,
-    name: Anytype_Event.Block.Set.Image.Name,
-    width: Anytype_Event.Block.Set.Image.Width,
-    state: Anytype_Event.Block.Set.Image.State,
-    localFilePath: Anytype_Event.Block.Set.Image.LocalFilePath,
-    previewLocalFilePath: Anytype_Event.Block.Set.Image.PreviewLocalFilePath
-  ) {
-    self.id = id
-    self.name = name
-    self.width = width
-    self.state = state
-    self.localFilePath = localFilePath
-    self.previewLocalFilePath = previewLocalFilePath
-  }
-}
-
-extension Anytype_Event.Block.Set.Image.LocalFilePath {
-  init(value: String) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Image.Name {
-  init(value: String) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Image.PreviewLocalFilePath {
-  init(value: String) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Image.State {
-  init(value: Anytype_Model_Block.Content.Image.State) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Image.Width {
-  init(value: Int32) {
-    self.value = value
-  }
-}
-
 extension Anytype_Event.Block.Set.IsArchived {
   init(id: String, isArchived: Bool) {
     self.id = id
     self.isArchived = isArchived
+  }
+}
+
+extension Anytype_Event.Block.Set.Link {
+  init(id: String, targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId, style: Anytype_Event.Block.Set.Link.Style, fields: Anytype_Event.Block.Set.Link.Fields) {
+    self.id = id
+    self.targetBlockID = targetBlockID
+    self.style = style
+    self.fields = fields
+  }
+}
+
+extension Anytype_Event.Block.Set.Link.Fields {
+  init(value: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Link.Style {
+  init(value: Anytype_Model_Block.Content.Link.Style) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Link.TargetBlockId {
+  init(value: String) {
+    self.value = value
   }
 }
 
@@ -178,17 +179,39 @@ extension Anytype_Event.Block.Set.Restrictions {
 }
 
 extension Anytype_Event.Block.Set.Text {
-  init(id: String, text: Anytype_Event.Block.Set.Text.Text, style: Anytype_Event.Block.Set.Text.Style, marks: Anytype_Event.Block.Set.Text.Marks, checked: Anytype_Event.Block.Set.Text.Checked) {
+  init(
+    id: String,
+    text: Anytype_Event.Block.Set.Text.Text,
+    style: Anytype_Event.Block.Set.Text.Style,
+    marks: Anytype_Event.Block.Set.Text.Marks,
+    checked: Anytype_Event.Block.Set.Text.Checked,
+    color: Anytype_Event.Block.Set.Text.Color,
+    backgroundColor: Anytype_Event.Block.Set.Text.BackgroundColor
+  ) {
     self.id = id
     self.text = text
     self.style = style
     self.marks = marks
     self.checked = checked
+    self.color = color
+    self.backgroundColor = backgroundColor
+  }
+}
+
+extension Anytype_Event.Block.Set.Text.BackgroundColor {
+  init(value: String) {
+    self.value = value
   }
 }
 
 extension Anytype_Event.Block.Set.Text.Checked {
   init(value: Bool) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Text.Color {
+  init(value: String) {
     self.value = value
   }
 }
@@ -207,54 +230,6 @@ extension Anytype_Event.Block.Set.Text.Style {
 
 extension Anytype_Event.Block.Set.Text.Text {
   init(value: String) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Video {
-  init(
-    id: String,
-    name: Anytype_Event.Block.Set.Video.Name,
-    width: Anytype_Event.Block.Set.Video.Width,
-    state: Anytype_Event.Block.Set.Video.State,
-    localFilePath: Anytype_Event.Block.Set.Video.LocalFilePath,
-    previewLocalFilePath: Anytype_Event.Block.Set.Video.PreviewLocalFilePath
-  ) {
-    self.id = id
-    self.name = name
-    self.width = width
-    self.state = state
-    self.localFilePath = localFilePath
-    self.previewLocalFilePath = previewLocalFilePath
-  }
-}
-
-extension Anytype_Event.Block.Set.Video.LocalFilePath {
-  init(value: String) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Video.Name {
-  init(value: String) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Video.PreviewLocalFilePath {
-  init(value: String) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Video.State {
-  init(value: Anytype_Model_Block.Content.Video.State) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Video.Width {
-  init(value: Int32) {
     self.value = value
   }
 }

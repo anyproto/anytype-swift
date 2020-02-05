@@ -40,10 +40,13 @@ extension Anytype_Model_Block.Content.Dashboard {
 }
 
 extension Anytype_Model_Block.Content.File {
-  init(localFilePath: String, name: String, icon: String, state: Anytype_Model_Block.Content.File.State) {
-    self.localFilePath = localFilePath
+  init(hash: String, name: String, type: Anytype_Model_Block.Content.File.TypeEnum, mime: String, size: Int64, addedAt: Int64, state: Anytype_Model_Block.Content.File.State) {
+    self.hash = hash
     self.name = name
-    self.icon = icon
+    self.type = type
+    self.mime = mime
+    self.size = size
+    self.addedAt = addedAt
     self.state = state
   }
 }
@@ -51,30 +54,6 @@ extension Anytype_Model_Block.Content.File {
 extension Anytype_Model_Block.Content.Icon {
   init(name: String) {
     self.name = name
-  }
-}
-
-extension Anytype_Model_Block.Content.Image {
-  init(
-    localFilePath: String,
-    previewFilePath: String,
-    state: Anytype_Model_Block.Content.Image.State,
-    type: Anytype_Model_Block.Content.Image.TypeEnum,
-    name: String,
-    size: Int32,
-    addedAt: Int32,
-    width: Int32,
-    widthToHeight: Int32
-  ) {
-    self.localFilePath = localFilePath
-    self.previewFilePath = previewFilePath
-    self.state = state
-    self.type = type
-    self.name = name
-    self.size = size
-    self.addedAt = addedAt
-    self.width = width
-    self.widthToHeight = widthToHeight
   }
 }
 
@@ -100,11 +79,13 @@ extension Anytype_Model_Block.Content.Page {
 }
 
 extension Anytype_Model_Block.Content.Text {
-  init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool) {
+  init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool, color: String, backgroundColor: String) {
     self.text = text
     self.style = style
     self.marks = marks
     self.checked = checked
+    self.color = color
+    self.backgroundColor = backgroundColor
   }
 }
 
@@ -122,16 +103,6 @@ extension Anytype_Model_Block.Content.Text.Marks {
   }
 }
 
-extension Anytype_Model_Block.Content.Video {
-  init(localFilePath: String, name: String, icon: String, width: Int32, state: Anytype_Model_Block.Content.Video.State) {
-    self.localFilePath = localFilePath
-    self.name = name
-    self.icon = icon
-    self.width = width
-    self.state = state
-  }
-}
-
 extension Anytype_Model_Block.Restrictions {
   init(read: Bool, edit: Bool, remove: Bool, drag: Bool, dropOn: Bool) {
     self.read = read
@@ -142,11 +113,11 @@ extension Anytype_Model_Block.Restrictions {
   }
 }
 
-extension Anytype_Model_Image {
-  init(id: String, sizes: [Anytype_Model_Image.Size], style: Anytype_Model_Image.Style) {
+extension Anytype_Model_BlockMetaOnly {
+  init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, isArchived: Bool) {
     self.id = id
-    self.sizes = sizes
-    self.style = style
+    self.fields = fields
+    self.isArchived = isArchived
   }
 }
 
@@ -154,12 +125,5 @@ extension Anytype_Model_Range {
   init(from: Int32, to: Int32) {
     self.from = from
     self.to = to
-  }
-}
-
-extension Anytype_Model_Video {
-  init(id: String, sizes: [Anytype_Model_Video.Size]) {
-    self.id = id
-    self.sizes = sizes
   }
 }
