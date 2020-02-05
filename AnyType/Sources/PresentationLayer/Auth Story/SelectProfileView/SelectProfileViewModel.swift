@@ -96,8 +96,11 @@ class SelectProfileViewModel: ObservableObject {
                 switch account.account.avatar.avatar {
                 case .color(let hexColor):
                     profileViewModel.color = UIColor(hexString: hexColor)
-                case .image(let imageModel):
-                    self?.downloadAvatarImage(imageModel: imageModel, profileViewModel: profileViewModel)
+                case .image(let file):
+                    let defaultWidth: CGFloat = 500
+                    let imageSize = Int32(defaultWidth * UIScreen.main.scale) // we also need device aspect ratio and etc.
+                    // so, it is better here to subscribe or take event from UIWindow and get its data.
+                    self?.downloadAvatarImage(imageSize: imageSize, hash: file.hash, profileViewModel: profileViewModel)
                 default: break
                 }
                 
@@ -106,16 +109,16 @@ class SelectProfileViewModel: ObservableObject {
         }
     }
     
-    private func downloadAvatarImage(imageModel: Anytype_Model_Image, profileViewModel: ProfileNameViewModel) {
-        var imageSize: Anytype_Model_Image.Size = .large
+    private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
+//        var imageSize: Anytype_Model_Image.Size = .large
+//
+//        if imageModel.sizes.contains(.thumb) {
+//            imageSize = .thumb
+//        } else if imageModel.sizes.contains(.small) {
+//            imageSize = .small
+//        }
         
-        if imageModel.sizes.contains(.thumb) {
-            imageSize = .thumb
-        } else if imageModel.sizes.contains(.small) {
-            imageSize = .small
-        }
-        
-        let request = IpfsFilesModel.Image.Download.Request(id: imageModel.id, size: imageSize)
+        let request = IpfsFilesModel.Image.Download.Request(hash: hash, wantWidth: imageSize)
         
         avatarCancellable = ipfsFileService.fetchImage(requestModel: request)
             .receive(on: RunLoop.main)
