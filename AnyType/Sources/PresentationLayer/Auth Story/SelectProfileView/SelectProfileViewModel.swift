@@ -122,8 +122,8 @@ class SelectProfileViewModel: ObservableObject {
         
         avatarCancellable = ipfsFileService.fetchImage(requestModel: request)
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { completion in
-                switch completion {
+            .sink(receiveCompletion: { result in
+                switch result {
                 case .finished:
                     break
                 case .failure(let error):

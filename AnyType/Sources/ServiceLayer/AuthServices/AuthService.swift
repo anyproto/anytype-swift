@@ -21,20 +21,28 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func logout(completion: @escaping () -> Void) {
-        completion()
-        try? FileManager.default.removeItem(atPath: localRepoService.middlewareRepoPath)
-        try? storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
-        UserDefaultsConfig.usersIdKey = ""
-        UserDefaultsConfig.userName = ""
+        DispatchQueue.global(qos: .background).async {
+            _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
+                .receive(on: RunLoop.main)
+                .sink(receiveCompletion: { result in
+                }) { [weak self] _ in
+                    completion()
+                    try? FileManager.default.removeItem(atPath: self?.localRepoService.middlewareRepoPath ?? "")
+                    try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
+                    UserDefaultsConfig.usersIdKey = ""
+                    UserDefaultsConfig.userName = ""
+            }
+        }
     }
 
     func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: path).sink(receiveCompletion: { (completion) in
-            switch completion {
+        _ = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: path).sink(receiveCompletion: { result in
+            switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.createWalletError()))
             }
         }) { (value) in
+            print("seed: \(value.mnemonic)")
             try? self.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keyChainPassword: .none)
             onCompletion(.success(()))
         }
@@ -52,8 +60,8 @@ final class AuthService: NSObject, AuthServiceProtocol {
         let name = profile.name
         let avatar = transform(profile.avatar)
         
-        _ = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar).sink(receiveCompletion: { (completion) in
-            switch completion {
+        _ = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar).sink(receiveCompletion: { result in
+            switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.createAccountError()))
             }
@@ -67,8 +75,8 @@ final class AuthService: NSObject, AuthServiceProtocol {
 
     func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
         try? self.storeService.saveSeedForAccount(name: nil, seed: mnemonic, keyChainPassword: .none)
-        _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: path, mnemonic: mnemonic).sink(receiveCompletion: { (completion) in
-            switch completion {
+        _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: path, mnemonic: mnemonic).sink(receiveCompletion: { result in
+            switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.recoverWalletError()))
             }
@@ -78,8 +86,8 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Account.Recover.Service.invoke().sink(receiveCompletion: { (completion) in
-            switch completion {
+        _ = Anytype_Rpc.Account.Recover.Service.invoke().sink(receiveCompletion: { result in
+            switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.recoverAccountError()))
             }
@@ -90,8 +98,8 @@ final class AuthService: NSObject, AuthServiceProtocol {
 
     func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {
         let theCompletion = { value in DispatchQueue.main.async { onCompletion(value) } }
-        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).sink(receiveCompletion: { (completion) in
-            switch completion {
+        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).sink(receiveCompletion: { result in
+            switch result {
             case .finished: break
             case .failure(_): theCompletion(.failure(.selectAccountError()))
             }
