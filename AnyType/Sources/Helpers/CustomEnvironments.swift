@@ -103,3 +103,18 @@ extension EnvironmentValues {
         }
     }
 }
+
+struct DeveloperOptionsKey: EnvironmentKey {
+    static let defaultValue: DeveloperOptions.Service = .init()
+}
+
+extension EnvironmentValues {
+    var developerOptions: DeveloperOptions.Service {
+        get {
+            return self[DeveloperOptionsKey.self]
+        }
+        set {
+            self[DeveloperOptionsKey.self] = newValue
+        }
+    }
+}
