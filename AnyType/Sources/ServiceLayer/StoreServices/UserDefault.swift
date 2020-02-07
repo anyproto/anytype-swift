@@ -49,3 +49,9 @@ struct UserDefaultsConfig {
     @UserDefault("notificationNewDevice", defaultValue: false)
     static var notificationNewDevice: Bool
 }
+
+// Services handling
+extension UserDefaultsConfig {
+    @UserDefault("App.InstalledAtDate", defaultValue: nil)
+    static var installedAtDate: Date?
+}
