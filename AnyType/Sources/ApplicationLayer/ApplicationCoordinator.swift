@@ -15,29 +15,55 @@ import Combine
 class ApplicationCoordinator {
     @Environment(\.authService) private var authService
     @Environment(\.localRepoService) private var localRepoService
+    @Environment(\.developerOptions) private var developerOptions
     
     private let window: UIWindow
     private let keychainStore = KeychainStoreService()
     private let pageScrollViewLayout = GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout()
+    private var shakeHandler: ShakeHandler?
     // MARK: - Lifecycle
     
     init(window: UIWindow) {
         self.window = window
+        self.shakeHandler = .init(window)
     }
-    
+
     // MARK: - Public methods
     
     func start() {
-        let shouldLogin = true
-        if shouldLogin {
-            login(id: UserDefaultsConfig.usersIdKey)
-        }
-        else {
-            let view = HomeViewContainer()
-            startNewRootView(content: view)
+        self.prepareForStart { [weak self] (completed) in
+            self?.startBegin()
         }
     }
     
+    func startBegin() {
+        if developerOptions.current.workflow.authentication.shouldSkipLogin {
+            let view = HomeViewContainer()
+            self.startNewRootView(content: view)
+        }
+        else {
+            self.login(id: UserDefaultsConfig.usersIdKey)
+        }
+    }
+}
+
+// MARK: Start Preparation.
+extension ApplicationCoordinator {
+    func runAtFirstTime() {
+        if UserDefaultsConfig.installedAtDate == nil {
+            UserDefaultsConfig.installedAtDate = .init()
+            self.developerOptions.runAtFirstTime()
+        }
+    }
+    
+    func prepareForStart(_ completed: @escaping (Bool) -> ()) {
+        self.runAtFirstTime()
+        completed(true)
+    }
+}
+
+// MARK: Login
+extension ApplicationCoordinator {
     func startNewRootView<Content: View>(content: Content) {
         window.rootViewController = UIHostingController(rootView: content.environmentObject(self.pageScrollViewLayout))
         window.makeKeyAndVisible()
@@ -61,5 +87,4 @@ class ApplicationCoordinator {
             }
         }
     }
-    
 }
