@@ -21,17 +21,16 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func logout(completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .background).async {
-            _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
-                .receive(on: RunLoop.main)
-                .sink(receiveCompletion: { result in
-                }) { [weak self] _ in
-                    completion()
-                    try? FileManager.default.removeItem(atPath: self?.localRepoService.middlewareRepoPath ?? "")
-                    try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
-                    UserDefaultsConfig.usersIdKey = ""
-                    UserDefaultsConfig.userName = ""
-            }
+        _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
+            .subscribe(on: DispatchQueue.global(qos: .background))
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { result in
+            }) { [weak self] _ in
+                completion()
+                try? FileManager.default.removeItem(atPath: self?.localRepoService.middlewareRepoPath ?? "")
+                try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
+                UserDefaultsConfig.usersIdKey = ""
+                UserDefaultsConfig.userName = ""
         }
     }
 
