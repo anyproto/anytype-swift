@@ -27,12 +27,12 @@ extension DocumentViewModel {
     // In this situation you have to decrease values (positions) in this indexDictionary that are corresponding to ids of elements, which positions are _after_ last position of deleted elements.
     // But.
     // If you want to add/remove arbitrary IndexSet of elements, you have to find ranges, in which positions of elements should be increased or decreased by amount between [0..count_of_deleted_or_added_elements]
-    class IndexDictionary {
-        typealias Key = Block.ID
+    class IndexDictionary<Key: Hashable> {
+//        typealias Key = Block.ID
         typealias Value = Array<Any>.Index
         private var dictionary: [Key: Value] = [:]
         
-        func update(_ values: [Block.ID]) {
+        func update(_ values: [Key]) {
             var dictionary = [Key: Value].init()
             for (index, value) in values.enumerated() {
                 dictionary[value] = index
@@ -56,30 +56,42 @@ extension DocumentViewModel {
         
         func add(_ key: Key, _ value: Value?) {
             self[key] = value
+            if let value = value {
+                for i in value ..< self.count {
+                    
+                }
+            }
         }
         
         func remove(_ key: Key) {
             self[key] = nil
         }
-        
-        func increase(_ keys: [Key], count: Int) {
-            for key in keys {
-                self[key] = self[key].flatMap{$0.advanced(by: count)}
-            }
+    }
+}
+
+private extension DocumentViewModel.IndexDictionary {
+    var count: Int { self.dictionary.count }
+    var isEmpty: Bool { self.dictionary.isEmpty }
+}
+
+private extension DocumentViewModel.IndexDictionary {
+    func increase(_ keys: [Key], count: Int) {
+        for key in keys {
+            self[key] = self[key].flatMap{$0.advanced(by: count)}
         }
-        
-        func increase(_ key: Key) {
-            self[key] = self[key].flatMap{$0.advanced(by: 1)}
+    }
+    
+    func increase(_ key: Key) {
+        self[key] = self[key].flatMap{$0.advanced(by: 1)}
+    }
+    
+    func decrease(_ keys: [Key], count: Int) {
+        for key in keys {
+            self[key] = self[key].flatMap{$0.advanced(by: count)}.flatMap{$0 < 0 ? nil : $0}
         }
-        
-        func decrease(_ keys: [Key], count: Int) {
-            for key in keys {
-                self[key] = self[key].flatMap{$0.advanced(by: count)}.flatMap{$0 < 0 ? nil : $0}
-            }
-        }
-        
-        func decrease(_ key: Key) {
-            self[key] = self[key].flatMap{$0.advanced(by: -1)}
-        }
+    }
+    
+    func decrease(_ key: Key) {
+        self[key] = self[key].flatMap{$0.advanced(by: -1)}.flatMap{$0 < 0 ? nil : $0}
     }
 }
