@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Settings</key>
+	<dict>
+		<key>debug</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+		</dict>
+		<key>workflow</key>
+		<dict>
+			<key>authentication</key>
+			<dict>
+				<key>shouldSkipLogin</key>
+				<true/>
+			</dict>
+			<key>mainDocumentEditor</key>
+			<dict>
+				<key>useUIKit</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>
