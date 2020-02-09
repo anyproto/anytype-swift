@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class TestDocumentService: DocumentServiceProtocol {
     
@@ -23,7 +24,7 @@ class TestDocumentService: DocumentServiceProtocol {
             return documentsHeadersModel
         }()
         
-        private enum BlocksSet: Int {
+        private enum BlocksSet: String {
             case debug
             case focus
             case presentation
@@ -54,28 +55,30 @@ class TestDocumentService: DocumentServiceProtocol {
             }
             static func focusSet() -> [Block] {
                 [
-//                    .mockText(.quote),
+                    .mockText(.bulleted),
+                    .mockText(.quote),
+                    .mockText(.todo),
 //                    .mockImage(.image)
 //                    .mockText(.toggle)
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
-                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
+//                    .mockText(.text),
                 ]
             }
             static func presentationSet() -> [Block] {
@@ -106,8 +109,11 @@ class TestDocumentService: DocumentServiceProtocol {
             }
         }
         private static func getBlocks(set: BlocksSet) -> [Block] {
-            set.blocks() + set.blocks().dropFirst()
+            set.blocks()
         }
+        
+        @Environment(\.developerOptions) private var developerOptions
+        
         var blocks: [Block] = {
             Self.getBlocks(set: .presentation)
         }()
