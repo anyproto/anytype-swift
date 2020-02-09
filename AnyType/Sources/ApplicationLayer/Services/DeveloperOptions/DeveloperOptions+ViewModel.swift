@@ -9,18 +9,22 @@
 import Foundation
 
 extension DeveloperOptions {
+    
     class ViewModel {
         // to show we need settings at least.
         var service: Service?
         var settings: Settings
         var cells: [Cell] = []
         var updatedCells: [Cell] = []
+        
         init(settings: Settings) {
             self.settings = settings
             let (_, entries) = SettingsSerialization.plaintify(settings: settings)
-            self.cells = entries.map{ (item) in
+            
+            self.cells = entries.map { (item) in
                 var cell = Cell(keypath: item.keypath)
                 cell.title = item.title
+                
                 if let theValue = item.value {
                     switch theValue {
                     case .bool(let value): cell.value = .bool(value)
@@ -42,11 +46,13 @@ extension DeveloperOptions {
 }
 
 extension DeveloperOptions.ViewModel {
+    
     struct Cell {
         enum Value {
             case bool(Bool)
             case int(Int)
             case string(String)
+            
             init?(value: AnyObject) {
                 switch value {
                 case let v as Bool: self = .bool(v)
@@ -64,16 +70,16 @@ extension DeveloperOptions.ViewModel {
 //            }
         }
         
-        mutating func update(value: Value) {
-            self.value = value
-        }
-        
         var title: String?
         var value: Value?
-        
         var keypath: String
+        
         init(keypath: String) {
             self.keypath = keypath
+        }
+        
+        mutating func update(value: Value) {
+            self.value = value
         }
     }
 }

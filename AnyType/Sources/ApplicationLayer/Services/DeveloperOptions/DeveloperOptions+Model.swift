@@ -33,7 +33,12 @@ extension DeveloperOptions.Settings {
             var shouldSkipLogin: Bool
         }
         
+        struct MainDocumentEditor: CodableAndDictionary {
+            var useUIKit: Bool
+        }
+        
         var authentication: Authentication
+        var mainDocumentEditor: MainDocumentEditor
     }
 
 //    struct Services: CodableAndDictionary {

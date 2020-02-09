@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+// TODO: It's looks like service locator. Rename it to other name due to we have "ServiceLayer" that works with backend.
+
 protocol ServicesInfoProtocol {
     var health: Bool {get}
     static var name: String {get}
@@ -96,6 +98,7 @@ extension ServicesManager {
             return type(of: item) === search
             }.first as? T
     }
+    
     func service(name: String) -> BaseService? {
         let service = services.filter {type(of: $0).name == name}.first
         if service == nil {

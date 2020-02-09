@@ -9,12 +9,14 @@
 import Foundation
 
 protocol CodableAndDictionary: Codable {}
+
 extension CodableAndDictionary {
     static func create(dictionary: [String : AnyObject]) throws -> Self {
         let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         return try JSONDecoder().decode(Self.self, from: data)
         //self.init(from: JSONDecoder.self)
     }
+    
     func dictionary() -> [String : AnyObject]? {
         guard let data = try? JSONEncoder().encode(self) else {
             return nil
@@ -35,6 +37,7 @@ extension DeveloperOptions {
                 case bool(Bool)
                 case int(Int)
                 case string(String)
+                
                 init?(value: AnyObject) {
                     switch value {
                     case let v as Bool: self = .bool(v)
@@ -59,6 +62,7 @@ extension DeveloperOptions {
                 case .string(let value): return value as AnyObject
                 }
             }
+            
             init(keypath: String) {
                 self.keypath = keypath
             }
@@ -67,15 +71,16 @@ extension DeveloperOptions {
 }
 
 extension DeveloperOptions {
-    enum F<T> {
+    enum List<T> {
         case empty
-        case x(T)
-        case x_xs(T, ArraySlice<T>)
+        case head(T)
+        case headAndTail(T, ArraySlice<T>)
+        
         init(_ array: ArraySlice<T>) {
             switch array.count {
             case 0: self = .empty
-            case 1: self = .x(array[0])
-            default: self = .x_xs(array[0], array.dropFirst())
+            case 1: self = .head(array[array.startIndex])
+            default: self = .headAndTail(array[array.startIndex], array.dropFirst())
             }
         }
     }
@@ -83,7 +88,8 @@ extension DeveloperOptions {
 
 extension DeveloperOptions.SettingsSerialization {
     typealias Settings = DeveloperOptions.Settings
-    typealias F = DeveloperOptions.F
+    typealias List = DeveloperOptions.List
+    
     class func plaintify(dictionary: [String : AnyObject]) -> [Entry] {
         func plaintify(dictionary: [String : AnyObject], key: String) -> [Entry] {
             func createKeypath(lhs: String, rhs: String) -> String {
@@ -131,16 +137,15 @@ extension DeveloperOptions.SettingsSerialization {
     class func updated(dictionary: [String : AnyObject], keypath: [String], value: AnyObject) -> [String : AnyObject] {
         var dictionary = dictionary
         
-        switch F(ArraySlice(keypath)) {
+        switch List(ArraySlice(keypath)) {
         case .empty: break
-        case let .x(head): dictionary[head] = value
-        case let .x_xs(head, tail):
+        case let .head(head): dictionary[head] = value
+        case let .headAndTail(head, tail):
             if let nestedDictionary = dictionary[head] as? [String : AnyObject] {
                 let value = updated(dictionary: nestedDictionary, keypath: Array(tail), value: value)
                 dictionary[head] = value as AnyObject
             }
         }
-        
         return dictionary
     }
     

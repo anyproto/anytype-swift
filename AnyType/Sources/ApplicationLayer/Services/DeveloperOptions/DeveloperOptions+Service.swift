@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 extension DeveloperOptions {
     class Service: BaseService {}
 }
@@ -33,13 +34,15 @@ extension DeveloperOptions.Service {
 
 extension DeveloperOptions.Service {
     typealias Settings = DeveloperOptions.Settings
+    
     func defaultSettings() -> Settings {
         // read from plist file.
         // Settings are codable.
         // Look at Default plist file.
         let debug = Settings.Debug(enabled: false)
         let authentication = Settings.Workflow.Authentication(shouldSkipLogin: false)
-        let workflow = Settings.Workflow(authentication: authentication)
+        let mainDocumentEditor = Settings.Workflow.MainDocumentEditor(useUIKit: false)
+        let workflow = Settings.Workflow(authentication: authentication, mainDocumentEditor: mainDocumentEditor)
         let result = Settings.init(debug: debug, workflow: workflow)
         return result
     }
