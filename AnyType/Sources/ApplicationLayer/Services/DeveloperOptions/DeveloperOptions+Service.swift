@@ -23,11 +23,39 @@ extension UserDefaultsConfig {
 extension DeveloperOptions.Service {
     class Driver {
         typealias LocalStorage = UserDefaultsConfig
+        
         static func settings() -> [String : AnyObject]? {
             LocalStorage.developerOptions
         }
+        
         static func save(_ settings: [String : AnyObject]?) {
             LocalStorage.developerOptions = settings
+        }
+        
+        class Default {
+            
+            static let encoder: PropertyListEncoder = {
+                let encoder = PropertyListEncoder()
+                encoder.outputFormat = .xml
+                return encoder
+            }()
+            
+            static func settings() -> [String : AnyObject]? {
+                PlistReader.DeveloperOptions.read()?.settings
+            }
+            
+            static func save(_ settings: [String : AnyObject]?) {
+                // We want to save them somewhere.
+                let directory = NSTemporaryDirectory()
+                let temporaryFile = directory.appending("/Settings.plist")
+                
+                print("temporaryFile: \(temporaryFile)")
+                
+                let result = try? settings.flatMap(Settings.create).flatMap{["Settings": $0]}.flatMap(encoder.encode)
+                
+                _ = FileManager.default.createFile(atPath: temporaryFile, contents: result, attributes: nil)
+            }
+            
         }
     }
 }
@@ -39,12 +67,12 @@ extension DeveloperOptions.Service {
         // read from plist file.
         // Settings are codable.
         // Look at Default plist file.
-        let debug = Settings.Debug(enabled: false)
-        let authentication = Settings.Workflow.Authentication(shouldSkipLogin: false)
-        let mainDocumentEditor = Settings.Workflow.MainDocumentEditor(useUIKit: false)
-        let workflow = Settings.Workflow(authentication: authentication, mainDocumentEditor: mainDocumentEditor)
-        let result = Settings.init(debug: debug, workflow: workflow)
-        return result
+//        let debug = Settings.Debug(enabled: false)
+//        let authentication = Settings.Workflow.Authentication(shouldSkipLogin: false)
+//        let mainDocumentEditor = Settings.Workflow.MainDocumentEditor(useUIKit: false)
+//        let workflow = Settings.Workflow(authentication: authentication, mainDocumentEditor: mainDocumentEditor)
+//        let result = Settings.init(debug: debug, workflow: workflow)
+        (try? Driver.Default.settings().flatMap(Settings.create)) ?? .default
     }
     
     var current: Settings {
@@ -52,24 +80,10 @@ extension DeveloperOptions.Service {
     }
     
     fileprivate var currentSettings: Settings {
-        // look at UserDefaults (?)
-        guard let dictionary = Driver.settings() else {
-            return self.defaultSettings()
-        }
+        // Dump if needed.
+//        Driver.Default.save(self.defaultSettings().dictionary())
         
-        guard let settings = try? Settings.create(dictionary: dictionary) else {
-            return self.defaultSettings()
-        }
-        
-//        let directory = NSTemporaryDirectory()
-//        let file = directory.appending("/SettingsList.xml")
-//        let data = try? Data(contentsOf: URL(fileURLWithPath: file))
-//
-//        let decoder = PropertyListDecoder()
-//        let result = try! decoder.decode(Developer.Settings.self, from: data!)
-        
-//        let res = FileManager.default.createFile(atPath: file, contents: result, attributes: nil)
-        return settings
+        return (try? Driver.settings().flatMap(Settings.create)) ?? self.defaultSettings()
     }
     
     // Or restore settings, hah!

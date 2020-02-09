@@ -20,6 +20,11 @@ extension DeveloperOptions {
 //        var style: Style?
         var workflow: Workflow
 //        var services: Services?
+        private init() {
+            self.debug = .init(enabled: false)
+            self.workflow = .init(authentication: .init(shouldSkipLogin: false), mainDocumentEditor: .init(useUIKit: true))
+        }
+        static var `default`: Settings = .init()
     }
 }
 

@@ -127,6 +127,9 @@
 		0A996BB923EDC541000FDC9C /* DeveloperOptions+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BB823EDC541000FDC9C /* DeveloperOptions+ViewController.swift */; };
 		0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BBA23EDD102000FDC9C /* MainWindow.swift */; };
 		0A996BBD23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BBC23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift */; };
+		0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BD023F0342A000FDC9C /* PlistReader.swift */; };
+		0A996BD823F042C4000FDC9C /* DeveloperOptions.Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A996BD623F042C4000FDC9C /* DeveloperOptions.Debug.plist */; };
+		0A996BD923F042C4000FDC9C /* DeveloperOptions.Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A996BD723F042C4000FDC9C /* DeveloperOptions.Release.plist */; };
 		0AA04DF923C7943B005B37A4 /* TextView+HighlightedToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA04DF823C7943B005B37A4 /* TextView+HighlightedToolbar.swift */; };
 		0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */; };
 		0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */; };
@@ -305,6 +308,9 @@
 		0A996BB823EDC541000FDC9C /* DeveloperOptions+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeveloperOptions+ViewController.swift"; sourceTree = "<group>"; };
 		0A996BBA23EDD102000FDC9C /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
 		0A996BBC23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApplicationCoordinator+ShakeHandler.swift"; sourceTree = "<group>"; };
+		0A996BD023F0342A000FDC9C /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
+		0A996BD623F042C4000FDC9C /* DeveloperOptions.Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DeveloperOptions.Debug.plist; sourceTree = "<group>"; };
+		0A996BD723F042C4000FDC9C /* DeveloperOptions.Release.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DeveloperOptions.Release.plist; sourceTree = "<group>"; };
 		0AA04DF823C7943B005B37A4 /* TextView+HighlightedToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar.swift"; sourceTree = "<group>"; };
 		0AAC965E2340C202006CE58C /* HomeViewContainerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerCoordinator.swift; sourceTree = "<group>"; };
 		0AAC965F2340C203006CE58C /* HomeViewContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewContainerModel.swift; sourceTree = "<group>"; };
@@ -632,6 +638,7 @@
 		038FB5C422D8F284002B90B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A996BD323F038CB000FDC9C /* Plists */,
 				0303ED0422D8EDAD005C552B /* Assets.xcassets */,
 				0339382422EF571600589108 /* Strings */,
 				0388BF7822F10D3D00B73E39 /* Fonts */,
@@ -994,6 +1001,15 @@
 			path = DeveloperOptions;
 			sourceTree = "<group>";
 		};
+		0A996BD323F038CB000FDC9C /* Plists */ = {
+			isa = PBXGroup;
+			children = (
+				0A996BD623F042C4000FDC9C /* DeveloperOptions.Debug.plist */,
+				0A996BD723F042C4000FDC9C /* DeveloperOptions.Release.plist */,
+			);
+			path = Plists;
+			sourceTree = "<group>";
+		};
 		0ACA781023E5C99A00442690 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1017,6 +1033,7 @@
 		0ACA781A23E5C9A300442690 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				0A996BD023F0342A000FDC9C /* PlistReader.swift */,
 				0ACA781B23E5C9A300442690 /* AssetsReader.swift */,
 			);
 			path = Utilities;
@@ -1128,6 +1145,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0388BF7B22F10F9B00B73E39 /* RobotoMono-Regular.ttf in Resources */,
+				0A996BD923F042C4000FDC9C /* DeveloperOptions.Release.plist in Resources */,
+				0A996BD823F042C4000FDC9C /* DeveloperOptions.Debug.plist in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */,
@@ -1217,6 +1236,7 @@
 				0A69321F238C4C8200575544 /* TextBlocksViews+Bulleted.swift in Sources */,
 				0AAC96612340C203006CE58C /* HomeViewContainerCoordinator.swift in Sources */,
 				0316497C23E5C223009A3984 /* commands+Initializers.pb.swift in Sources */,
+				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				0A996BB923EDC541000FDC9C /* DeveloperOptions+ViewController.swift in Sources */,
 				037260C123A8E2F90034F9F5 /* DrawableBlocksViews.swift in Sources */,
