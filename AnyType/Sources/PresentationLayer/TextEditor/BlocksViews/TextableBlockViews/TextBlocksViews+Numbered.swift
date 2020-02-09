@@ -12,12 +12,16 @@ import Foundation
 extension TextBlocksViews.Numbered {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         fileprivate var style: Style = .none
+        func styleString() -> String? { self.style.string() }
         func update(style: Style) -> Self {
             self.style = style
             return self
         }
-        override func buildView() -> AnyView {
+        override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
+        }
+        override func getID() -> Block.ID {
+            super.getID() + " " + self.style.string()
         }
     }
 }
@@ -54,7 +58,7 @@ extension TextBlocksViews.Numbered {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier(style: self.viewModel.style))
+            TextView(text: self.$viewModel.text, delegate: self.viewModel as TextViewUserInteractionProtocol).modifier(MarkedViewModifier(style: self.viewModel.style))
         }
     }
 }

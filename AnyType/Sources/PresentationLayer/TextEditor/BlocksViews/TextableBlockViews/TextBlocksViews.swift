@@ -27,13 +27,16 @@ protocol TextBlocksViewsUserInteractionProtocol: class {
     func didReceiveAction(block: Block, id: Block.ID, action: TextView.UserAction)
 }
 
+protocol TextBlocksViewsUserInteractionProtocolHolder: class {
+    func configured(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self?
+}
+
 extension TextBlocksViews {
     enum Supplement {}
 }
 
 
 extension TextBlocksViews.Supplement {
-    
     class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
         
         override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewBuilderProtocol] {
@@ -45,11 +48,10 @@ extension TextBlocksViews.Supplement {
                 case .quote: return blocks.map(TextBlocksViews.Quote.BlockViewModel.init)
                 case .todo: return blocks.map(TextBlocksViews.Checkbox.BlockViewModel.init)
                 case .bulleted: return blocks.map(TextBlocksViews.Bulleted.BlockViewModel.init)
-                case .numbered: return [TextBlocksViews.List.BlockViewModel(blocks:
-                    zip(blocks, blocks.indices).map{
-                        TextBlocksViews.Numbered.BlockViewModel($0.0).update(style: .number($0.1.advanced(by: 1)))
-                    }
-                    )]
+                case .numbered: return zip(blocks, blocks.indices).map{
+                    // determine style somehow?
+                    TextBlocksViews.Numbered.BlockViewModel($0.0).update(style: .number($0.1.advanced(by: 1)))
+                }
                 //                case .toggle: return blocks.map{TextBlocksViews.Toggle.BlockViewModel(block: $0)}}
                 case .toggle: return blocks.map{($0, TextBlocksViews.Toggle.BlockViewModel($0))}.map{$0.1.update(blocks: Array(repeating: $0.0, count: 4).map(TextBlocksViews.Text.BlockViewModel.init))}
                 case .callout: return blocks.map(TextBlocksViews.Callout.BlockViewModel.init)

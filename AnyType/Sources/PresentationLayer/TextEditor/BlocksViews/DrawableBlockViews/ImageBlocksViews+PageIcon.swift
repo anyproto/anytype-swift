@@ -12,23 +12,12 @@ import SwiftUI
 
 // MARK: ViewModel
 extension ImageBlocksViews.PageIcon {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var imageSource: UIImage // Maybe later we need something different
-        init(block: Block) {
-            self.block = block
-            self.imageSource = UIImage(named: "Page/DefaultIcon") ?? .init() // take from asset
+    class BlockViewModel: ImageBlocksViews.Base.BlockViewModel {
+        // Maybe later we need something different
+        @Published var imageSource: UIImage = UIImage(named: "Page/DefaultIcon") ?? .init() // take from asset
+        override func makeSwiftUIView() -> AnyView {
+            .init(ImageBlocksViews.PageIcon.BlockView(viewModel: self))
         }
-        var id: Block.ID {
-            return block.id
-        }
-    }
-}
-
-extension ImageBlocksViews.PageIcon.BlockViewModel: BlockViewBuilderProtocol {
-    
-    func buildView() -> AnyView {
-        AnyView(ImageBlocksViews.PageIcon.BlockView(viewModel: self))
     }
 }
 
@@ -58,7 +47,7 @@ extension ImageBlocksViews.PageIcon {
     struct BlockView__Previews: PreviewProvider {
         static var previews: some View {
             let block = Block.mockImage(.pageIcon)
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

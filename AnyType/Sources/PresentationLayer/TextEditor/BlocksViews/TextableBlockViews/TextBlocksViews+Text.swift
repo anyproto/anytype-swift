@@ -13,7 +13,7 @@ import SwiftUI
 // MARK: - ViewModel
 extension TextBlocksViews.Text {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
-        override func buildView() -> AnyView {
+        override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
         }
     }
@@ -25,7 +25,7 @@ extension TextBlocksViews.Text {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
             VStack {
-                TextView(text: self.$viewModel.text)
+                TextView(text: self.$viewModel.text, delegate: self.viewModel as TextViewUserInteractionProtocol)
                     //.modifier(DraggbleView(blockId: viewModel.id))
             }
         }
