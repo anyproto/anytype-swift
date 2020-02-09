@@ -68,5 +68,10 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>UserDefinedSettings</key>
+	<dict>
+		<key>BuildConfigurationName</key>
+		<string>$(CONFIGURATION)</string>
+	</dict>
 </dict>
 </plist>
