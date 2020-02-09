@@ -244,6 +244,18 @@ extension TextView.InnerTextView.Coordinator: UITextViewDelegate {
         self.publishToOuterWorld(TextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))
         if text == "\n" {
             // we should return false and perform update by ourselves.
+            switch (textView.text, range) {
+            case (_, .init(location: 1, length: 0)): textView.text = ""
+                return false
+            case let (source, at) where source?.count == at.location + at.length:
+                return false
+            case let (source, at):
+                if let source = source, let theRange = Range(at, in: source) {
+                    textView.text = source.replacingCharacters(in: theRange, with: "\n").split(separator: "\n").first.flatMap(String.init)
+                }
+                return false
+            default: return true
+            }
         }
         return true
     }
@@ -266,6 +278,7 @@ extension TextView.InnerTextView.Coordinator: UITextViewDelegate {
             self.outerViewNeedsLayout.needsLayout = ()
             self.parent.text = textView.text
             self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
+            self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.text)))
         }
     }
 }
