@@ -7,48 +7,59 @@
 //
 
 import Foundation
+import UIKit
 
-class PlistReader {
-    typealias Output = [String : AnyObject]
-    var dictionary: Output?
-    
-    required init(_ dictionary: Output?) {
-        self.dictionary = dictionary
-    }
-    
-    class func create() -> Self? {
-        return .init([:])
-    }
-    
-    class func create(filename: String) -> Self? {
-        Bundle(for: self).url(forResource: filename, withExtension: "plist")
-            .flatMap{try? Data(contentsOf: $0)}
-            // Without any options PropertyListSerialization would parse ANY .plist file in ANY available .PropertyListFormat.
+enum PlistReader {
+    class BaseReader {
+        typealias Output = [String : AnyObject]
+        var dictionary: Output?
+        
+        required init(_ dictionary: Output?) {
+            self.dictionary = dictionary
+        }
+        
+        class func read() -> Self? {
+            self.init([:])
+        }
+        
+        class func read(_ url: URL?) -> Self? {
+            url.flatMap{try? Data.init(contentsOf: $0)}
             .flatMap{try? PropertyListSerialization.propertyList(from: $0, options: [], format: nil)}
             .flatMap{$0 as? Output}
             .flatMap(Self.init)
-    }
-    
-    class func createVariant(name: String, configuration: BuildConfiguration.Configuration? = nil) -> Self? {
-        func plistName(_ name: String, _ configuration: BuildConfiguration.Configuration?, _ defaultConfigurationName: String) -> String {
-            let configurationSuffix = (configuration?.rawValue ?? defaultConfigurationName)
-            return name + "." + configurationSuffix
         }
         
-        let newName = plistName(name, configuration, BuildConfiguration.current.buildConfigurationName ?? "")
-        return self.create(filename: newName)
+        class func read(_ name: String) -> Self? {
+            self.read(Bundle(for: self), name)
+        }
+        
+        class func read(_ bundle: Bundle?, _ name: String) -> Self? {
+            bundle.flatMap{$0.url(forResource: name, withExtension: "plist")}.flatMap(self.read)
+        }
+                
+        class func read(_ name: String, _ configuration: String) -> Self? {
+            self.read(Bundle(for: self), name, configuration)
+        }
+        
+        class func read(_ bundle: Bundle?, _ name: String, _ configuration: String) -> Self? {
+            self.read(bundle, name + "." + configuration)
+        }
     }
 }
 
+//MARK: Configuration
 extension PlistReader {
-    class BuildConfiguration: PlistReader {
-        enum Configuration: String {
-            case Debug
-            case Release
-            case PublicBeta
-        }
-        
-        override class func create() -> Self? {
+    enum Configuration: String {
+        case Debug
+        case Release
+        case PublicBeta
+    }
+}
+
+// MARK: Info.plist reader.
+extension PlistReader {
+    class BuildConfiguration: BaseReader {
+        override class func read() -> Self? {
             .init(Bundle.main.infoDictionary as Output?)
         }
         
@@ -69,19 +80,35 @@ extension PlistReader {
     }
 }
 
+// MARK: Variant reader.
+extension PlistReader {
+    class VariantReader: BaseReader {
+        class func readVariant(_ name: String, _ configuration: Configuration) -> Self? {
+            self.read(name, configuration.rawValue)
+        }
+        class func readVariant(_ name: String) -> Self? {
+            // we use build configuration name from plist.
+            // we could create BuildConfiguration from info.plist if needed.
+            // for our needs we could use BuildConfiguration.current
+            BuildConfiguration.current.buildConfiguration.flatMap{self.readVariant(name, $0)}
+        }
+    }
+}
+
+// MARK: DeveloperOptions.${CONFIGURATION}.plist
 extension PlistReader {
     /// DeveloperOptions.
     /// NOTE: We use createVariant, so, we need minimum two variants ( debug and release options ).
     /// Their names are
     /// DeveloperOptions.Debug.plist
     /// DeveloperOptions.Release.plist
-    class DeveloperOptions: PlistReader {
-        override class func create() -> Self? {
-            self.createVariant(name: "DeveloperOptions")
+    class DeveloperOptions: VariantReader {
+        override class func read() -> Self? {
+            self.readVariant("DeveloperOptions")
         }
-    }
 
-    var settings: Output? {
-        self.dictionary?["Settings"] as? Output
+        var settings: Output? {
+            self.dictionary?["Settings"] as? Output
+        }
     }
 }

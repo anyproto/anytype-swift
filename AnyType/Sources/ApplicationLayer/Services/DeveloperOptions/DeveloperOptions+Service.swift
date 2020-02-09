@@ -41,7 +41,7 @@ extension DeveloperOptions.Service {
             }()
             
             static func settings() -> [String : AnyObject]? {
-                PlistReader.DeveloperOptions.create()?.settings
+                PlistReader.DeveloperOptions.read()?.settings
             }
             
             static func save(_ settings: [String : AnyObject]?) {
