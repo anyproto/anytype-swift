@@ -24,9 +24,15 @@ extension TextBlocksViews {
                 self.text = Self.defaultDebugString()
             }
             
+            private convenience init() {
+                self.init(.mockText(.text))
+            }
+            
             func buildView() -> AnyView {
                 return .init(SwiftUI.Text(""))
             }
+
+            static let empty = BlockViewModel.init()
         }
     }
 }
