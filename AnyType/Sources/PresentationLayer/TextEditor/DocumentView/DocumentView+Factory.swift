@@ -11,6 +11,9 @@ import SwiftUI
 import Combine
 
 extension DocumentView {
+    // TODO: Remove later.
+    // It is nice exapmle of using UIViewControllerRepresentable.
+    // Update controller not called. Ha.ha.ha.
     private class Holder {
         static let holder = Holder.init()
         var subscriptions: [AnyCancellable?] = []
@@ -24,10 +27,10 @@ extension DocumentView {
         }
         Holder.holder.add(s)
         if let viewModel = viewModel as? DocumentView.ViewModel {
-            return AnyView(DocumentView.ViewControllerContainer(viewModel: viewModel))
+            return .init(DocumentView.ViewControllerContainer(viewModel: viewModel))
         }
         else {
-            return AnyView(DocumentView(viewModel: viewModel))
+            return .init(DocumentView(viewModel: viewModel))
         }
     }
 }
