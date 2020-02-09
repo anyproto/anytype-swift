@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 class DocumentViewModel: ObservableObject {
     private let documentService: DocumentServiceProtocol = TestDocumentService()
@@ -15,9 +16,22 @@ class DocumentViewModel: ObservableObject {
     // TODO: Probably we don't need it here, remove after midleware integration
     private var document: Document?
     
+    var subscription: AnyCancellable?
     @Published var error: String?
-    @Published var builders: [BlockViewBuilderProtocol] = []
-    var indexDictionary: IndexDictionary = .init()
+    @Published var builders: [BlockViewBuilderProtocol] = [] {
+        //        willSet {
+        //            objectWillChange.send()
+        //        }
+        didSet {
+            // On each update we rebuild indexDictionary.
+            // It is incorrect logic.
+            self.enhance(self.builders)
+            print("remove when indexDictionary will be ready!")
+            print("builders did set \(self.builders)")
+        }
+    }
+    
+    var indexDictionary: IndexDictionary<Block.ID> = .init()
     var internalState: State = .loading
     
     init(documentId: String?) {
@@ -63,6 +77,17 @@ extension DocumentViewModel {
     }
 }
 
+// MARK: Builders Enchantements
+extension DocumentViewModel {
+    func enhance(_ builder: BlockViewBuilderProtocol) {
+        _ = (builder as? TextBlocksViewsUserInteractionProtocolHolder).flatMap{$0.configured(self)}
+    }
+    func enhance(_ builders: [BlockViewBuilderProtocol]) {
+        self.indexDictionary.update(builders.map{$0.id})
+        _ = builders.compactMap(self.enhance)
+    }
+}
+
 // MARK: Obtain Document and Builders.
 extension DocumentViewModel {
     
@@ -93,9 +118,13 @@ extension DocumentViewModel {
     // TODO: Refact when middle will be ready
     private func createblocksViewsBuilders(document: Document) {
         builders = BlocksViews.Supplement.BlocksSerializer.default.resolver(blocks: document.blocks)
-//        builders.flatMap{ self.indexDictionary.update($0.compactMap{$0.id}) }
-        self.indexDictionary.update(builders.map{$0.id})
-        _ = builders.compactMap{$0 as? TextBlocksViews.Base.BlockViewModel}.compactMap{$0.configure(self)}
+//        self.subscription = self.$builders.sink { (value) in
+//            print("value: \(value)")
+//        }
     }
     
+    // MARK: Redraw purposes.
+    func update(builders: [BlockViewBuilderProtocol]) {
+        self.builders = builders
+    }
 }
