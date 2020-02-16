@@ -41,7 +41,7 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
                     case .failure(let error):
                         stronSelf.error = error.localizedDescription
                     case .success:
-                        applicationCoordinator?.startNewRootView(content: CompletionAuthView())
+                        applicationCoordinator?.startNewRootView(content: stronSelf.obtainCompletionView())
                     }
                 }
             }
@@ -49,6 +49,12 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
     }
     
     func showCongratsView() -> some View {
-        CompletionAuthView()
+        obtainCompletionView()
+    }
+    
+    // TODO: Move to coordinator
+    private func obtainCompletionView() -> some View {
+        let completionView = CompletionAuthViewCoordinator()
+        return completionView.start()
     }
 }

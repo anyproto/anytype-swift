@@ -8,7 +8,15 @@
 
 import SwiftUI
 
+protocol CompletionAuthViewDelegate: class {
+    func showDashboardDidTap()
+}
+
 struct CompletionAuthView: View {
+    // TODO: move creating to assembly. Move coordinator to viewModel
+    @State var viewModel: CompletionAuthViewModel
+    weak var delegate: CompletionAuthViewDelegate?
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
@@ -24,7 +32,7 @@ struct CompletionAuthView: View {
                     Text("CongratulationDescription")
                         .padding(.top, 10)
                     StandardButton(disabled: false, text: "Let’s start!", style: .yellow) {
-                        applicationCoordinator?.startNewRootView(content: HomeViewContainer())
+                        self.delegate?.showDashboardDidTap()
                     }
                     .padding(.top, 18)
                 }
@@ -40,6 +48,6 @@ struct CompletionAuthView: View {
 
 struct CompletionAuthView_Previews: PreviewProvider {
     static var previews: some View {
-        CompletionAuthView()
+        CompletionAuthView(viewModel: CompletionAuthViewModel(), delegate: nil)
     }
 }
