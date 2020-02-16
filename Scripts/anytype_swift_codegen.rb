@@ -238,7 +238,7 @@ class Pipeline
 
       # now, extract all required options.
       # we need only these.
-      extracted_options_keys = [:filePath, :transform, :outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
+      extracted_options_keys = [:filePath, :transform, :outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath, :serviceFilePath]
 
       sliced_options = {}
       extracted_options_keys.each {|k|
@@ -281,6 +281,9 @@ class Runner
       def tools_directory
         "#{__dir__}/../Tools/"
       end
+      def templates_directory
+        "#{__dir__}/../Templates/Middleware/"
+      end
       def format_configuration_file_path
         self.tools_directory + "swift-format-configuration.json"
       end
@@ -292,6 +295,9 @@ class Runner
       end
       def comments_header
         "commands+HeaderComments.pb.swift"
+      end
+      def service_file_path
+        "#{__dir__}/../Dependencies/Middleware/protobuf/protos/service.proto"
       end
       def commands
         "commands.pb.swift"
@@ -313,17 +319,25 @@ class Runner
       self.formatConfigFilePath = formatConfigFilePath || self.class.format_configuration_file_path
     end
     def commentsHeaderFilePath
-      self.class.protobuf_directory + self.class.comments_header
+      self.class.templates_directory + self.class.comments_header
+    end
+    def templatesDirectoryPath
+      self.class.templates_directory
+    end
+    def serviceFilePath
+      self.class.service_file_path
     end
     def generate
-      # add commentsHeaderFilePath
       [
         "generate", kind,
         "--toolPath", toolPath,
         "--formatToolPath", formatToolPath,
         "--filePath", filePath,
         "--formatConfigFilePath", formatConfigFilePath,
-        "--commentsHeaderFilePath", commentsHeaderFilePath]
+        "--commentsHeaderFilePath", commentsHeaderFilePath,
+        "--templatesDirectoryPath", templatesDirectoryPath,
+        "--serviceFilePath", serviceFilePath
+      ]
     end
 
     class << self
@@ -360,7 +374,7 @@ class MainWork
   # fixing arguments
   def fix_options(the_options)
     options = the_options
-    [:toolPath, :filePath, :outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath, :formatConfigFilePath, :formatToolPath].each {|v|
+    [:toolPath, :filePath, :outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath, :serviceFilePath, :formatConfigFilePath, :formatToolPath].each {|v|
       unless options[v].nil?
         options[v] = File.expand_path(options[v])
       end
@@ -432,7 +446,7 @@ class MainWork
         end
       end
 
-      def appened_suffix(type, key, inputFilePath)
+      def appended_suffix(type, key, inputFilePath, templatesDirectoryPath = nil)
         # take
         unless inputFilePath.nil?
 
@@ -443,7 +457,8 @@ class MainWork
             components = basename.to_s.split(".")
             the_name = components.first
             the_extname = components.drop(1).join(".")
-            result_name = pathname.dirname.to_s + "/" + the_name + suffix + ".#{the_extname}"
+            directoryPath = templatesDirectoryPath || pathname.dirname.to_s
+            result_name = directoryPath + "/" + the_name + suffix + ".#{the_extname}"
             result_name
           end
         end
@@ -470,9 +485,13 @@ class MainWork
               filePath: options[:filePath],
             }
 
+            options[:templatesDirectoryPath] ||= Pathname.new(options[:filePath]).dirname.to_s
+            options[:templatesDirectoryPath] = File.expand_path(options[:templatesDirectoryPath])
+            puts "options: #{options}"
             keys = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
             for k in keys
-              value = self.appened_suffix(key, k, options[:filePath])
+              directoryPath = k == :outputFilePath ? nil : options[:templatesDirectoryPath]
+              value = self.appended_suffix(key, k, options[:filePath], directoryPath)
               unless value.nil?
                 result[k] = value
               end
@@ -556,6 +575,8 @@ class MainWork
       opts.on('--templateFilePath', '--templateFilePath PATH', 'File with templates which are used in some transforms'){|v| options[:templateFilePath] = v}
       opts.on('--commentsHeaderFilePath', '--commentsHeaderFilePath PATH', 'Header at the top of file'){|v| options[:commentsHeaderFilePath] = v}
       opts.on('--importsFilePath', '--importsFilePath PATH', 'Import statements at the top of file'){|v| options[:importsFilePath] = v}
+      opts.on('--templatesDirectoryPath', '--templatesDirectoryPath PATH', 'Templates directory path'){|v| options[:templatesDirectoryPath] = v}
+      opts.on('--serviceFilePath', '--serviceFilePath PATH', 'Rpc service file that contains Rpc services descriptions in .proto (protobuffers) format.') {|v| options[:serviceFilePath] = v}
 
       opts.on('-d', '--dry_run', 'Dry run to see all options') {|v| options[:dry_run] = v}
       opts.on('-i', '--inspection', 'Inspection of all items, like tests'){|v| options[:inspection] = v}
