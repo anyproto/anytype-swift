@@ -39,6 +39,8 @@
 		03527A0722F7A44B004F0418 /* SaveRecoveryPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */; };
 		037260C023A8E2DB0034F9F5 /* ImageBlocksViews+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322823911D0200575544 /* ImageBlocksViews+Image.swift */; };
 		037260C123A8E2F90034F9F5 /* DrawableBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69322623911B1800575544 /* DrawableBlocksViews.swift */; };
+		0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372922D23F991B60033DFDB /* MiddlewareModels.swift */; };
+		0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372923023F99BD50033DFDB /* InMemoryStore.swift */; };
 		0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */; };
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
 		0372AB4723A136EE008CF5B9 /* IpfsFilesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */; };
@@ -219,6 +221,8 @@
 		0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewPlusCell.swift; sourceTree = "<group>"; };
 		03527A0622F7A44B004F0418 /* SaveRecoveryPhraseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveRecoveryPhraseView.swift; sourceTree = "<group>"; };
 		03652DD7239F5E7B0029E773 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		0372922D23F991B60033DFDB /* MiddlewareModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareModels.swift; sourceTree = "<group>"; };
+		0372923023F99BD50033DFDB /* InMemoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryStore.swift; sourceTree = "<group>"; };
 		0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
 		0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpfsFilesService.swift; sourceTree = "<group>"; };
@@ -492,6 +496,7 @@
 				03C6E84B233BAB35004EB6B6 /* DocumentServiceProtocol.swift */,
 				0327B0B7232BBAD9007DB8A7 /* TestDocumentService.swift */,
 				0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */,
+				0306554C23F9812500803DD0 /* MiddlewareAPIService.swift */,
 			);
 			path = AnyTypeServices;
 			sourceTree = "<group>";
@@ -596,6 +601,22 @@
 				0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */,
 			);
 			path = HomeCollectionView;
+			sourceTree = "<group>";
+		};
+		0372922C23F991660033DFDB /* Middleware */ = {
+			isa = PBXGroup;
+			children = (
+				0372922D23F991B60033DFDB /* MiddlewareModels.swift */,
+			);
+			path = Middleware;
+			sourceTree = "<group>";
+		};
+		0372922F23F99BB80033DFDB /* InMemoryStore */ = {
+			isa = PBXGroup;
+			children = (
+				0372923023F99BD50033DFDB /* InMemoryStore.swift */,
+			);
+			path = InMemoryStore;
 			sourceTree = "<group>";
 		};
 		0372AB4323A09DE1008CF5B9 /* SelectProfileView */ = {
@@ -703,6 +724,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0372922C23F991660033DFDB /* Middleware */,
 				030DF4B12399345C00AD3BC3 /* Auth */,
 				03BC991A2398121C00A4FB92 /* ProtocolBufferObjects */,
 				0327B0B1232BB904007DB8A7 /* Documents */,
@@ -873,6 +895,7 @@
 		03C5C53422DF6C9900DD91DE /* StoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0372922F23F99BB80033DFDB /* InMemoryStore */,
 				030DF4B62399C1DD00AD3BC3 /* LocalStore */,
 				03C5C53522DF6C9900DD91DE /* KeychainStore */,
 			);
@@ -1029,9 +1052,9 @@
 		0ACA781023E5C99A00442690 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				0A996BAD23EDBC09000FDC9C /* DeveloperOptions */,
 				0ACA781123E5C99A00442690 /* Services.swift */,
 				0ACA781223E5C99A00442690 /* Appearance */,
+				0A996BAD23EDBC09000FDC9C /* DeveloperOptions */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1195,6 +1218,7 @@
 				03E2AD5523A93D3800C701CE /* SimpleViews.swift in Sources */,
 				03B65752234D47A90084D9F5 /* BlockViewBuilderProtocol.swift in Sources */,
 				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
+				0306554D23F9812500803DD0 /* MiddlewareAPIService.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,
@@ -1222,6 +1246,7 @@
 				0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */,
 				0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
+				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
@@ -1275,6 +1300,7 @@
 				0ACA780123E5C3A800442690 /* TextView+InnerTextView.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
+				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
 				03B42F2A232910AB000F2BA2 /* HomeView.swift in Sources */,
 				03B6574F234CEDC70084D9F5 /* TextBlockViewModel.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
