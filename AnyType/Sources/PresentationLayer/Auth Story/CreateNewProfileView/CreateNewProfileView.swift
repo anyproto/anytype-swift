@@ -19,7 +19,7 @@ struct CreateNewProfileView: View {
                 .edgesIgnoringSafeArea(.all)
             NewProfileView(viewModel: viewModel)
                 .padding()
-                .offset(y: -keyboardObserver.kInfo.keyboardRect.height).animation(.easeInOut(duration: keyboardObserver.kInfo.duration))
+                .offset(y: -keyboardObserver.keyboardInformation.keyboardRect.height).animation(.easeInOut(duration: keyboardObserver.keyboardInformation.duration))
                 .onDisappear {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }

@@ -1,18 +1,69 @@
 //
-//  TextView+InnerTextView+Coordinator.swift
+//  TextView+UIKitTextView+Coordinator.swift
 //  AnyType
 //
-//  Created by Dmitry Lobanov on 01.02.2020.
+//  Created by Dmitry Lobanov on 13.02.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
 import Foundation
 import UIKit
-import SwiftUI
 import Combine
 
+extension TextView.UIKitTextView {
+    class Coordinator: NSObject {
+        // MARK: Aliases
+        typealias TheTextView = TextView.UIKitTextView
+        typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
+        typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
+
+        // MARK: Variables
+        @Published var text: String = ""
+        private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
+        func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
+            self.userInteractionDelegate = delegate
+            return self
+        }
+        
+        private lazy var highlightedAccessoryView: HighlightedAccessoryView = .init()
+        private var highlightedAccessoryViewHandler: (((NSRange, NSTextStorage)) -> ())?
+        
+        private var highlightedMarkStyleHandler: AnyCancellable?
+        private var wholeMarkStyleHandler: AnyCancellable?
+        
+        private lazy var blocksAccessoryView: BlockToolbarAccesoryView = .init()
+        private var blocksAccessoryViewHandler: AnyCancellable?
+        private var blocksUserActionsHandler: AnyCancellable?
+        
+        private var keyboardObserverHandler: AnyCancellable?
+        private var defaultKeyboardRect: CGRect = .zero
+        
+        // MARK: - Initiazliation
+        override init() {
+            super.init()
+            self.setup()
+        }
+        
+        func setup() {
+            self.configureInnerAccessoryViewHandler()
+            self.configureKeyboardNotificationsListening()
+        }
+    }
+}
+
+extension TextView.UIKitTextView.Coordinator {
+    func configureKeyboardNotificationsListening() {
+        self.keyboardObserverHandler =
+            Publishers.CombineLatest(Just(self), KeyboardObserver.default.$keyboardInformation).filter{$0.0.defaultKeyboardRect == .zero && $0.1.keyboardRect != .zero}.sink { value in
+            let (left, right) = value
+            print(" left: \(left.defaultKeyboardRect) \n right: \(right.keyboardRect)")
+            left.defaultKeyboardRect = right.keyboardRect
+        }
+    }
+}
+
 // MARK: InnerTextView.Coordinator / Publishers
-extension TextView.InnerTextView.Coordinator {
+extension TextView.UIKitTextView.Coordinator {
     // MARK: - Publishers
     // MARK: - Publishers / Outer world
     
@@ -132,12 +183,10 @@ extension TextView.InnerTextView.Coordinator {
                     default: return nil
                     }
                 }))
-                self.setFocus(in: textView, at: range)
                 self.switchInputs(textView, accessoryView: view, inputView: nil)
                 // we should apply selection attributes to indicate place where link will be applied.
 
             case let .link(range, url):
-                self.unsetFocus(in: textView)
                 guard range.length > 0 else { return }
                 _ = modifier.applyStyle(style: .link(url), rangeOrWholeString: .range(range))
                 self.highlightedAccessoryViewHandler?((range, attributedText))
@@ -164,34 +213,7 @@ extension TextView.InnerTextView.Coordinator {
 }
 
 // MARK: InnerTextView.Coordinator / UITextViewDelegate
-extension TextView.InnerTextView.Coordinator: UITextViewDelegate {
-    // MARK: Debug
-    func outputResponderChain(_ responder: UIResponder?) {
-        let chain = sequence(first: responder, next: {$0?.next}).compactMap({$0}).reduce("") { (result, responder) -> String in
-            result + " -> \(String(describing: type(of: responder)))"
-        }
-        print("chain: \(chain)")
-    }
-    // MARK: Selection and Marked Text
-    func setFocus(in textView: UITextView, at range: NSRange) {
-        // set attributes of text or place view around it?
-//        let attributedText = textView.textStorage
-//        let string = attributedText.attributedSubstring(from: range).string
-//        textView.setMarkedText(string, selectedRange: range)
-//        textView.selectedTextRange = textView.markedTextRange
-//        print("setFocus here: \(String(describing: textView.selectedTextRange))")
-//        textView.selectedTextRange = textView.textRange(from: <#T##UITextPosition#>, to: <#T##UITextPosition#>)
-//        textView.textStorage.setAttributes([.markedClauseSegment : 1], range: range)
-    }
-    
-    func unsetFocus(in textView: UITextView) {
-//        let markedTextRange = textView.markedTextRange
-//        textView.unmarkText()
-//        textView.selectedTextRange = markedTextRange
-//        let range = textView.selectedRange
-//        textView.textStorage.removeAttribute(.markedClauseSegment, range: range)//([.textEffect : nil], range: range)
-    }
-    
+extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
     // MARK: Input Switching
     func switchInputs(_ textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
         if let currentView = textView.inputView, let nextView = inputView, type(of: currentView) == type(of: nextView) {
@@ -210,6 +232,7 @@ extension TextView.InnerTextView.Coordinator: UITextViewDelegate {
             textView.reloadInputViews()
         }
     }
+    
     func switchInputs(_ textView: UITextView) {
         func switchInputs(_ length: Int, accessoryView: UIView?, inputView: UIView?) -> (Bool, UIView?, UIView?) {
             switch (length, accessoryView, inputView) {
@@ -254,7 +277,6 @@ extension TextView.InnerTextView.Coordinator: UITextViewDelegate {
                     textView.text = source.replacingCharacters(in: theRange, with: "\n").split(separator: "\n").first.flatMap(String.init)
                 }
                 return false
-            default: return true
             }
         }
         return true
@@ -273,24 +295,21 @@ extension TextView.InnerTextView.Coordinator: UITextViewDelegate {
         
     func textViewDidChange(_ textView: UITextView) {
         DispatchQueue.main.async {
-            // TODO: rethink.
-            // We require this environment object update to notify outer views to call setNeedsLayout to fix sizes.
-            self.outerViewNeedsLayout.needsLayout = ()
-            self.parent.text = textView.text
-            self.parent.sizeThatFit = textView.sizeThatFits(CGSize(width: textView.frame.width, height: CGFloat.greatestFiniteMagnitude))
-            self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.text)))
+            // TODO: Add text (?) publisher
+            self.text = textView.text
+//            self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.text)))
         }
     }
 }
 
 // MARK: - InnerTextView.Coordinator / UIGestureRecognizerDelegate
 
-extension TextView.InnerTextView.Coordinator: UIGestureRecognizerDelegate {
-    
+extension TextView.UIKitTextView.Coordinator: UIGestureRecognizerDelegate {
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    
+
     @objc func tap(_ gestureRecognizer: UILongPressGestureRecognizer) {
         func message(_ state: UIGestureRecognizer.State) -> String {
             switch state {
@@ -312,7 +331,7 @@ extension TextView.InnerTextView.Coordinator: UIGestureRecognizerDelegate {
 }
 
 //MARK: TextViewUserInteractionProtocol
-extension TextView.InnerTextView.Coordinator: TextViewUserInteractionProtocol {
+extension TextView.UIKitTextView.Coordinator: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: TextView.UserAction) {
         print("I receive! \(action)")
     }

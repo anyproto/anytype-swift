@@ -9,10 +9,11 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
+    @Environment(\.developerOptions) private var developerOptions
     var user: UserModel = .init()
+    
     func documentView(selectedDocumentId: String) -> some View {
-        let viewModel = DocumentViewModel(documentId: selectedDocumentId)
-        return DocumentView(viewModel: viewModel)
+        DocumentViewBuilder.documentView(by: .init(id: selectedDocumentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
     }
 }
 

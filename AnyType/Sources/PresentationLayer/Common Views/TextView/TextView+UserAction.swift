@@ -12,8 +12,14 @@ import UIKit
 // MARK: UserActions
 extension TextView {
     public enum UserAction {
+        // TODO: Wrap actions in existential types to hide internal types.
         typealias BlockAction = TextView.BlockToolbar.UnderlyingAction
         
+        // we should eliminate all typealiases at the end.
+//        enum MarksAction {
+//            typealias MarksType = TextView.HighlightedToolbar.UnderlyingAction.MarksType
+//            case changeMark(NSRange, MarksType)
+//        }
         typealias MarksAction = TextView.HighlightedToolbar.UnderlyingAction // it should be what?! I guess it is Action with range, right?!
          
         // Actions with text...
@@ -30,7 +36,6 @@ extension TextView {
                 case deleteWithPayload(String?)
                 case delete
                 static func convert(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Self? {
-                    //
                     // Well...
                     // We should also keep values to the right of the Cursor.
                     // So, enter key should have minimum one value as String on the right as Optional<String>

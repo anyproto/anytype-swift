@@ -10,23 +10,12 @@ import Foundation
 import SwiftUI
 // MARK: ViewModel
 extension ImageBlocksViews.Image {
-    class BlockViewModel: ObservableObject, Identifiable {
-        private var block: Block
-        @Published var imageSource: UIImage // Maybe later we need something different
-        init(block: Block) {
-            self.block = block
-            self.imageSource = UIImage(named: "logo-sign-part-mobile") ?? .init() // take from asset
+    class BlockViewModel: ImageBlocksViews.Base.BlockViewModel {
+        // Maybe later we need something different
+        @Published var imageSource: UIImage = UIImage(named: "logo-sign-part-mobile") ?? .init() // take from asset
+        override func makeSwiftUIView() -> AnyView {
+            .init(ImageBlocksViews.Image.BlockView(viewModel: self))
         }
-        var id: Block.ID {
-            return block.id
-        }
-    }
-}
-
-extension ImageBlocksViews.Image.BlockViewModel: BlockViewBuilderProtocol {
-    
-    func buildView() -> AnyView {
-        AnyView(ImageBlocksViews.Image.BlockView(viewModel: self))
     }
 }
 
@@ -54,7 +43,7 @@ extension ImageBlocksViews.Image {
         static var previews: some View {
             let textType = BlockType.Text(text: "some text", contentType: .todo)
             let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block: block)
+            let viewModel = BlockViewModel(block)
             let view = BlockView(viewModel: viewModel)
             return view
         }

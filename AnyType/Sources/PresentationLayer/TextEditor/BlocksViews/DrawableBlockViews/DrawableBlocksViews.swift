@@ -7,9 +7,22 @@
 //
 
 import Foundation
+import SwiftUI
+
 enum ImageBlocksViews {
     enum Image {} // -> Image.ContentType.image
     enum PageIcon {} // -> Image.ContentType.pageIcon
+}
+
+extension ImageBlocksViews {
+    enum Base {}
+}
+
+extension ImageBlocksViews.Base {
+    class BlockViewModel: BlocksViews.Base.BlockViewModel {
+        @Environment(\.developerOptions) var developerOptions
+        private weak var delegate: TextBlocksViewsUserInteractionProtocol?
+    }
 }
 
 extension ImageBlocksViews {
@@ -22,8 +35,8 @@ extension ImageBlocksViews.Supplement {
             switch block.type {
             case let .image(text):
                 switch text.contentType {
-                case .image: return blocks.map{ImageBlocksViews.Image.BlockViewModel(block: $0)}
-                case .pageIcon: return blocks.map{ImageBlocksViews.PageIcon.BlockViewModel(block: $0)}
+                case .image: return blocks.map(ImageBlocksViews.Image.BlockViewModel.init)
+                case .pageIcon: return blocks.map(ImageBlocksViews.PageIcon.BlockViewModel.init)
                 }
             default: return []
             }

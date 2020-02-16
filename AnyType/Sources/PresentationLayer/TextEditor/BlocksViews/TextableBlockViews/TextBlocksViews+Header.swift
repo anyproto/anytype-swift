@@ -17,7 +17,7 @@ extension TextBlocksViews.Header {
             return self
         }
 
-        override func buildView() -> AnyView {
+        override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
         }
     }

@@ -13,7 +13,7 @@ import SwiftUI
 // MARK: - ViewModel
 extension TextBlocksViews.Bulleted {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
-        override func buildView() -> AnyView {
+        override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
         }
     }
@@ -33,7 +33,7 @@ extension TextBlocksViews.Bulleted {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
-            TextView(text: self.$viewModel.text).modifier(MarkedViewModifier())//.modifier(DraggbleView(blockId: viewModel.id))
+            TextView(text: self.$viewModel.text, delegate: self.viewModel as TextViewUserInteractionProtocol).modifier(MarkedViewModifier())//.modifier(DraggbleView(blockId: viewModel.id))
         }
     }
 }

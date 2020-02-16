@@ -24,6 +24,7 @@ class TextBlockViewModel: ObservableObject, Identifiable {
 extension TextBlockViewModel: BlockViewBuilderProtocol {
 
     func buildView() -> AnyView {
-        AnyView(TextBlockView(viewModel: self))
+        .init(TextBlockView(viewModel: self))
     }
+    func buildUIView() -> UIView { .init() }
 }

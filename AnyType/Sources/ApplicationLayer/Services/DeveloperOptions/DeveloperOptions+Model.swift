@@ -22,7 +22,8 @@ extension DeveloperOptions {
 //        var services: Services?
         private init() {
             self.debug = .init(enabled: false)
-            self.workflow = .init(authentication: .init(shouldSkipLogin: false), mainDocumentEditor: .init(useUIKit: true))
+            self.workflow = .init(authentication: .init(shouldSkipLogin: false),
+                                  mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false)))
         }
         static var `default`: Settings = .init()
     }
@@ -39,7 +40,12 @@ extension DeveloperOptions.Settings {
         }
         
         struct MainDocumentEditor: CodableAndDictionary {
+            struct TextEditor: CodableAndDictionary {
+                var shouldHaveUniqueText: Bool
+                var shouldEmbedSwiftUIIntoCell: Bool
+            }
             var useUIKit: Bool
+            var textEditor: TextEditor
         }
         
         var authentication: Authentication

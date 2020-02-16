@@ -10,16 +10,18 @@ import SwiftUI
 import Combine
 
 
-struct KeyboardInfo {
+struct KeyboardInformation {
     var keyboardRect: CGRect = .zero
     var duration: TimeInterval = 0
     
-    public static var zero = KeyboardInfo()
+    public static var zero: KeyboardInformation = .init()
 }
 
 
 final class KeyboardObserver: ObservableObject {
-    @Published public var kInfo = KeyboardInfo()
+    static let `default`: KeyboardObserver = .init()
+    
+    @Published public var keyboardInformation: KeyboardInformation = .zero
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -41,15 +43,15 @@ final class KeyboardObserver: ObservableObject {
     @objc func keyboardWillShow(notification: Notification) {
         if let rect = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
             let duration =  notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval {
-            kInfo = KeyboardInfo(keyboardRect: rect, duration: duration)
+            self.keyboardInformation = .init(keyboardRect: rect, duration: duration)
         }
     }
     
     @objc func keyboardWillHide(notification: Notification) {
         guard let duration =  notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
-            kInfo = .zero
+            self.keyboardInformation = .zero
             return
         }
-        kInfo = KeyboardInfo(keyboardRect: .zero, duration: duration)
+        self.keyboardInformation = .init(keyboardRect: .zero, duration: duration)
     }
 }

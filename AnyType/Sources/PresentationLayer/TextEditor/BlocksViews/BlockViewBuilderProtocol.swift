@@ -12,5 +12,6 @@ import SwiftUI
 protocol BlockViewBuilderProtocol {
     var id: Block.ID { get }
     
-    func buildView() -> AnyView    
+    func buildView() -> AnyView
+    func buildUIView() -> UIView
 }

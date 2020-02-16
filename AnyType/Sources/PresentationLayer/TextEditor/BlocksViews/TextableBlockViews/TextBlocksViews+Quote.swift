@@ -11,7 +11,7 @@ import Foundation
 // MARK: ViewModel
 extension TextBlocksViews.Quote {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
-        override func buildView() -> AnyView {
+        override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
         }
     }

@@ -8,10 +8,12 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 // MARK: ViewModel
 extension TextBlocksViews.Checkbox {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
+        private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
         @Published var checked: Bool = false {
             willSet {
                 // BUG: Apple Bug.
@@ -20,8 +22,74 @@ extension TextBlocksViews.Checkbox {
                 self.objectWillChange.send()
             }
         }
-        override func buildView() -> AnyView {
+        
+        private var inputSubscriber: AnyCancellable?
+        private var outputSubscriber: AnyCancellable?
+                
+        // MARK: Setup
+        func setup() {
+            _ = self.textViewModel.configured(self)
+            self.setupSubscribers()
+        }
+        func setupSubscribers() {
+            self.outputSubscriber = self.$text.map(TextView.UIKitTextView.ViewModel.Update.text).sink(receiveValue: self.textViewModel.apply(update:))
+            self.inputSubscriber = self.textViewModel.onUpdate.sink(receiveValue: self.apply(update:))
+        }
+        
+        // MARK: Subclassing
+        override init(_ block: Block) {
+            super.init(block)
+            self.setup()
+//            self.updateViewModel()
+        }
+        
+        override func getID() -> Block.ID {
+            super.getID()
+        }
+        
+        override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
+        }
+        
+        override func makeUIView() -> UIView {
+            self.textViewModel.createView()
+        }
+    }
+}
+
+// MARK: ViewModel / Update view
+extension TextBlocksViews.Checkbox.BlockViewModel {
+//    private func updateViewModel() {
+//        // BUG: Apple bug.
+//        // YOU CANNOT USE self.text= here.
+//        // Why? Let me describe a bit.
+//        // @Published property is defined in superclass, so, you must access it via super.text=
+//        // Ha-ha-ha
+//        switch self.getBlock().type {
+//        case let .text(value): super.text = value.text
+//        default: return
+//        }
+//    }
+}
+
+// MARK: ViewModel / Apply to model.
+extension TextBlocksViews.Checkbox.BlockViewModel {
+    private func setModelData(text: String) {
+        super.text = text
+//        self.update { (block) in
+//            switch block.type {
+//                case let .text(value):
+//                    var value = value
+//                    value.text = text
+//                    block.type = .text(value)
+//                default: return
+//            }
+//        }
+    }
+    func apply(update: TextView.UIKitTextView.ViewModel.Update) {
+        switch update {
+        case .unknown: return
+        case let .text(value): self.setModelData(text: value)
         }
     }
 }
@@ -47,7 +115,6 @@ extension TextBlocksViews.Checkbox {
 }
 
 // MARK: - View
-
 extension TextBlocksViews.Checkbox {
     
     struct MarkedViewModifier: ViewModifier {

@@ -11,51 +11,75 @@ import SwiftUI
 
 extension TextBlocksViews {
     enum Base {
-        class BlockViewModel: BlockViewBuilderProtocol {
-            private var block: Block
-            private weak var userInteractionDelegate: TextBlocksViewsUserInteractionProtocol?
-            @Published var text: String
+        class BlockViewModel: BlocksViews.Base.BlockViewModel {
+            @Environment(\.developerOptions) var developerOptions
+            private weak var delegate: TextBlocksViewsUserInteractionProtocol?
+            @Published var text: String {
+                willSet {
+                    self.objectWillChange.send()
+                }
+            }
             
             // TODO: Don't forget to replace by block.id!
-            var id: Block.ID = UUID.init().uuidString
-            
-            init(_ block: Block) {
-                self.block = block
-                self.text = Self.defaultDebugString()
+                        
+            override init(_ block: Block) {
+                self.text = ""
+                super.init(block)
+                self.setup()
             }
             
-            func buildView() -> AnyView {
-                return .init(SwiftUI.Text(""))
+            private func setup() {
+                if self.developerOptions.current.debug.enabled {
+                    self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, getID())
+                    switch getBlock().type {
+                    case let .text(blockType):
+                        self.text = self.text + " >> " + blockType.text
+                    default: return
+                    }
+                }
+                else {
+                    switch getBlock().type {
+                    case let .text(blockType):
+                        self.text = blockType.text
+                    default: return
+                    }
+                }
             }
+            
+            private convenience init() {
+                self.init(.mockText(.text))
+            }
+            
+            static let empty = BlockViewModel.init()
         }
     }
 }
 
-// MARK: Configuration
-extension TextBlocksViews.Base.BlockViewModel {
-    func configure(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self {
-        self.userInteractionDelegate = delegate
+// MARK: TextBlocksViewsUserInteractionProtocolHolder
+extension TextBlocksViews.Base.BlockViewModel: TextBlocksViewsUserInteractionProtocolHolder {
+    func configured(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self? {
+        self.delegate = delegate
         return self
-    }
-}
-
-// MARK: ObservableObject
-extension TextBlocksViews.Base.BlockViewModel: ObservableObject {}
-
-// MARK: Identifiable
-extension TextBlocksViews.Base.BlockViewModel: Identifiable {}
-
-// MARK: Debug
-extension TextBlocksViews.Base.BlockViewModel {
-    // Class scope, actually.
-    class func defaultDebugString() -> String {
-        .init("\(String(reflecting: self))".split(separator: ".").dropLast().last ?? "")
     }
 }
 
 // MARK: TextViewUserInteractionProtocol
 extension TextBlocksViews.Base.BlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: TextView.UserAction) {
-        self.userInteractionDelegate?.didReceiveAction(block: block, id: id, action: action)
+        self.delegate?.didReceiveAction(block: getBlock(), id: getID(), action: action)
+    }
+}
+
+// MARK: Debug
+extension TextBlocksViews.Base.BlockViewModel {
+    // Class scope, actually.
+    class func debugString(_ unique: Bool, _ id: Block.ID) -> String {
+        unique ? self.defaultDebugStringUnique(id) : self.defaultDebugString()
+    }
+    class func defaultDebugStringUnique(_ id: Block.ID) -> String {
+        self.defaultDebugString() + id.prefix(5)
+    }
+    class func defaultDebugString() -> String {
+        .init("\(String(reflecting: self))".split(separator: ".").dropLast().last ?? "")
     }
 }

@@ -8,23 +8,63 @@
 
 import Foundation
 
+// TODO: rethink.
+// We could remove pair of protocols by using DocumentViewModel instead.
 // MARK: ViewModel
 extension TextBlocksViews.List {
-    class BlockViewModel: ObservableObject, Identifiable {
-        fileprivate var blocks: [BlockViewBuilderProtocol]
+    class BlockViewModel {
+        fileprivate weak var delegate: TextBlocksViewsUserInteractionProtocol?
+        fileprivate var blocks: [BlockViewBuilderProtocol] {
+            didSet {
+                _ = self.configured(self.blocks)
+            }
+        }
+        
+        func configured(_ blocks: [BlockViewBuilderProtocol]) -> [BlockViewBuilderProtocol] {
+            _ = blocks.compactMap{$0 as? TextBlocksViewsUserInteractionProtocolHolder}.compactMap{$0.configured(self)}
+            return blocks
+        }
+        
         init(blocks: [BlockViewBuilderProtocol]) {
             self.blocks = blocks
+            _ = self.configured(blocks)
         }
-        var id: String {
-            return "list"
-        }
+        
+        var id: Block.ID = UUID().uuidString
+//        var id: String {
+////            return "list"
+//            // we should return something unique.
+//        }
     }
 }
 
+// MARK: TextBlocksViewsUserInteractionProtocolHolder
+extension TextBlocksViews.List.BlockViewModel: TextBlocksViewsUserInteractionProtocolHolder {
+    func configured(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self? {
+        self.delegate = delegate
+        return self
+    }
+}
+
+// MARK: TextBlocksViewsUserInteractionProtocol
+extension TextBlocksViews.List.BlockViewModel: TextBlocksViewsUserInteractionProtocol {
+    func didReceiveAction(block: Block, id: Block.ID, action: TextView.UserAction) {
+        self.delegate?.didReceiveAction(block: block, id: id, action: action)
+    }
+}
+
+// MARK: ObservableObject
+extension TextBlocksViews.List.BlockViewModel: ObservableObject {}
+
+// MARK: Identifiable
+extension TextBlocksViews.List.BlockViewModel: Identifiable {}
+
+// MARK: BlockViewBuilderProtocol
 extension TextBlocksViews.List.BlockViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView {
         .init(TextBlocksViews.List.BlockView(viewModel: self))
     }
+    func buildUIView() -> UIView { .init() }
 }
 
 // MARK: Style
