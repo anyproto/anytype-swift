@@ -12,6 +12,7 @@
 		0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0422D8EDAD005C552B /* Assets.xcassets */; };
 		0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */; };
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
+		0306554D23F9812500803DD0 /* MiddlewareAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0306554C23F9812500803DD0 /* MiddlewareAPIService.swift */; };
 		03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03074B87239514E2009FA7D0 /* MainAuthView.swift */; };
 		030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B22399346F00AD3BC3 /* AuthModels.swift */; };
 		030DF8642333E31100FE6DA5 /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF8632333E31100FE6DA5 /* DocumentViewModel.swift */; };
@@ -33,6 +34,7 @@
 		03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B6E2306031D00F8FCE7 /* ViewExtension.swift */; };
 		03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */; };
 		034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034CD9BD23F9D9AF00C8E131 /* CompletionAuthViewModel.swift */; };
+		034CD9BF23FA001100C8E131 /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0306554923F9713D00803DD0 /* Lib.framework */; };
 		03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */; };
 		0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E123293CE900E00FB5 /* HomeCollectionView.swift */; };
 		0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */; };
@@ -1553,7 +1555,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1583,7 +1585,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

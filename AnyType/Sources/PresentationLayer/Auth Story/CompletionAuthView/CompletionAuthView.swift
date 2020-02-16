@@ -48,6 +48,7 @@ struct CompletionAuthView: View {
 
 struct CompletionAuthView_Previews: PreviewProvider {
     static var previews: some View {
-        CompletionAuthView(viewModel: CompletionAuthViewModel(), delegate: nil)
+        let completionViewModel = CompletionAuthViewModel(coordinator: CompletionAuthViewCoordinator())
+        return CompletionAuthView(viewModel: completionViewModel, delegate: nil)
     }
 }

@@ -12,29 +12,34 @@ import Combine
 
 /// Service that handles middleware config
 class MiddleConfigService {
+    typealias MiddlwareConfig = MiddlewareModels.MiddlwareConfig
+    
     /// Obtain middleware config
     /// - Parameter completion: called on completion
-    func obtainConfig(completion: @escaping (_ result: Result<Void, Error>) -> Void) {
-        _ = Anytype_Rpc.Config.Get.Service.invoke()
+    func obtainConfig() -> AnyPublisher<MiddlwareConfig, Error> {
+        Anytype_Rpc.Config.Get.Service.invoke()
             .subscribe(on: DispatchQueue.global())
-            .sink(receiveCompletion: { result in
-                switch result {
-                case .finished:
-                    break
-                case .failure(let error):
-                    completion(Result.failure(error))
-                }
-            }) { response in
+            .map { response in
                 let configModel = MiddlewareModels.MiddlwareConfig(homeBlockID: response.homeBlockID, archiveBlockID: response.archiveBlockID, gatewayURL: response.gatewayURL)
                 InMemoryStore.shared.add(service: configModel)
+                
+                return configModel
         }
+        .eraseToAnyPublisher()
     }
 }
 
 /// Dashboard service
 class DashboardService {
-
-    func openDashboard(blockID: String) {
-        Anytype_Rpc.Block.Open.Service.invoke(contextID: "", blockID: "", breadcrumbsIds: [])
+    private let middleConfigService = MiddleConfigService()
+    
+    func openDashboard() -> AnyPublisher<Never, Error> {
+        middleConfigService.obtainConfig()
+            .flatMap { config in
+                Anytype_Rpc.Block.Open.Service.invoke(contextID: config.homeBlockID, blockID: config.homeBlockID, breadcrumbsIds: [])
+                    .subscribe(on: DispatchQueue.global())
+                    .ignoreOutput()
+        }
+        .eraseToAnyPublisher()
     }
 }
