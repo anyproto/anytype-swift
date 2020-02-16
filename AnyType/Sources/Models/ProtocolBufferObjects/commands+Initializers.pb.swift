@@ -173,6 +173,26 @@ extension Anytype_Rpc.Block.CreatePage.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.CutBreadcrumbs.Request {
+  init(breadcrumbsID: String, index: Int32) {
+    self.breadcrumbsID = breadcrumbsID
+    self.index = index
+  }
+}
+
+extension Anytype_Rpc.Block.CutBreadcrumbs.Response {
+  init(error: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error {
+  init(code: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Download.Request {
   init(contextID: String, blockID: String) {
     self.contextID = contextID
@@ -236,9 +256,10 @@ extension Anytype_Rpc.Block.Merge.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Open.Request {
-  init(contextID: String, blockID: String) {
+  init(contextID: String, blockID: String, breadcrumbsIds: [String]) {
     self.contextID = contextID
     self.blockID = blockID
+    self.breadcrumbsIds = breadcrumbsIds
   }
 }
 
@@ -250,6 +271,26 @@ extension Anytype_Rpc.Block.Open.Response {
 
 extension Anytype_Rpc.Block.Open.Response.Error {
   init(code: Anytype_Rpc.Block.Open.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Request {
+  init(contextID: String) {
+    self.contextID = contextID
+  }
+}
+
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Response {
+  init(error: Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error, blockID: String) {
+    self.error = error
+    self.blockID = blockID
+  }
+}
+
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error {
+  init(code: Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

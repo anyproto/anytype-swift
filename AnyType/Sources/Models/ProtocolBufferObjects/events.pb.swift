@@ -381,8 +381,7 @@ struct Anytype_Event {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      /// TODO: repeated string blockIds?
-      var blockID: String = String()
+      var blockIds: [String] = []
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1653,27 +1652,27 @@ extension Anytype_Event.Block.FilesUpload: SwiftProtobuf.Message, SwiftProtobuf.
 extension Anytype_Event.Block.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Anytype_Event.Block.protoMessageName + ".Delete"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "blockId"),
+    1: .same(proto: "blockIds"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.blockID)
+      case 1: try decoder.decodeRepeatedStringField(value: &self.blockIds)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.blockID.isEmpty {
-      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 1)
+    if !self.blockIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Event.Block.Delete, rhs: Anytype_Event.Block.Delete) -> Bool {
-    if lhs.blockID != rhs.blockID {return false}
+    if lhs.blockIds != rhs.blockIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

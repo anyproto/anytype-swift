@@ -39,6 +39,12 @@ extension Anytype_Model_Block.Content.Dashboard {
   }
 }
 
+extension Anytype_Model_Block.Content.Div {
+  init(style: Anytype_Model_Block.Content.Div.Style) {
+    self.style = style
+  }
+}
+
 extension Anytype_Model_Block.Content.File {
   init(hash: String, name: String, type: Anytype_Model_Block.Content.File.TypeEnum, mime: String, size: Int64, addedAt: Int64, state: Anytype_Model_Block.Content.File.State) {
     self.hash = hash

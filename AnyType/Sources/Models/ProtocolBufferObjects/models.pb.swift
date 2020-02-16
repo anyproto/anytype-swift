@@ -183,6 +183,7 @@ struct Anytype_Model_Block {
     case left // = 3
     case right // = 4
     case inner // = 5
+    case replace // = 6
     case UNRECOGNIZED(Int)
 
     init() {
@@ -197,6 +198,7 @@ struct Anytype_Model_Block {
       case 3: self = .left
       case 4: self = .right
       case 5: self = .inner
+      case 6: self = .replace
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -209,6 +211,7 @@ struct Anytype_Model_Block {
       case .left: return 3
       case .right: return 4
       case .inner: return 5
+      case .replace: return 6
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -322,9 +325,10 @@ struct Anytype_Model_Block {
       enum Style: SwiftProtobuf.Enum {
         typealias RawValue = Int
         case page // = 0
+        case dataview // = 1
 
         /// ...
-        case dataview // = 1
+        case dashboard // = 2
         case UNRECOGNIZED(Int)
 
         init() {
@@ -335,6 +339,7 @@ struct Anytype_Model_Block {
           switch rawValue {
           case 0: self = .page
           case 1: self = .dataview
+          case 2: self = .dashboard
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -343,6 +348,7 @@ struct Anytype_Model_Block {
           switch self {
           case .page: return 0
           case .dataview: return 1
+          case .dashboard: return 2
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -361,7 +367,37 @@ struct Anytype_Model_Block {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
+      var style: Anytype_Model_Block.Content.Div.Style = .line
+
       var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      enum Style: SwiftProtobuf.Enum {
+        typealias RawValue = Int
+        case line // = 0
+        case dots // = 1
+        case UNRECOGNIZED(Int)
+
+        init() {
+          self = .line
+        }
+
+        init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .line
+          case 1: self = .dots
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        var rawValue: Int {
+          switch self {
+          case .line: return 0
+          case .dots: return 1
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
 
       init() {}
     }
@@ -759,6 +795,9 @@ struct Anytype_Model_Block {
 
         /// Page, that organize a set of blocks by a specific criterio
         case set // = 2
+
+        /// ...
+        case breadcrumbs // = 3
         case UNRECOGNIZED(Int)
 
         init() {
@@ -770,6 +809,7 @@ struct Anytype_Model_Block {
           case 0: self = .empty
           case 1: self = .task
           case 2: self = .set
+          case 3: self = .breadcrumbs
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -779,6 +819,7 @@ struct Anytype_Model_Block {
           case .empty: return 0
           case .task: return 1
           case .set: return 2
+          case .breadcrumbs: return 3
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -807,6 +848,7 @@ extension Anytype_Model_Block.Position: CaseIterable {
     .left,
     .right,
     .inner,
+    .replace,
   ]
 }
 
@@ -1172,6 +1214,7 @@ extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
     3: .same(proto: "Left"),
     4: .same(proto: "Right"),
     5: .same(proto: "Inner"),
+    6: .same(proto: "Replace"),
   ]
 }
 
@@ -1372,26 +1415,44 @@ extension Anytype_Model_Block.Content.Link.Style: SwiftProtobuf._ProtoNameProvid
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "Page"),
     1: .same(proto: "Dataview"),
+    2: .same(proto: "Dashboard"),
   ]
 }
 
 extension Anytype_Model_Block.Content.Div: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Div"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "style"),
+  ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.style)
+      default: break
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.style != .line {
+      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Model_Block.Content.Div, rhs: Anytype_Model_Block.Content.Div) -> Bool {
+    if lhs.style != rhs.style {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_Block.Content.Div.Style: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Line"),
+    1: .same(proto: "Dots"),
+  ]
 }
 
 extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -1851,6 +1912,7 @@ extension Anytype_Model_Block.Content.Page.Style: SwiftProtobuf._ProtoNameProvid
     0: .same(proto: "Empty"),
     1: .same(proto: "Task"),
     2: .same(proto: "Set"),
+    3: .same(proto: "Breadcrumbs"),
   ]
 }
 

@@ -1028,8 +1028,68 @@ internal extension Anytype_Rpc.Block.Open {
   }
 
   enum Service {
-    public static func invoke(contextID: String, blockID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID))) }
+    public static func invoke(contextID: String, blockID: String, breadcrumbsIds: [String]) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, breadcrumbsIds: breadcrumbsIds))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Block.OpenBreadcrumbs {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockOpenBreadcrumbs(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Block.CutBreadcrumbs {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCutBreadcrumbs(data) }
+  }
+
+  enum Service {
+    public static func invoke(breadcrumbsID: String, index: Int32) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(breadcrumbsID: breadcrumbsID, index: index))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1239,7 +1299,7 @@ internal extension Anytype_Rpc.Account.Create {
 
   enum Service {
     public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?) -> Future<Response, Error> {
-        .init { completion in completion(self.result(.init(name: name, avatar: avatar))) }
+      .init { completion in completion(self.result(.init(name: name, avatar: avatar))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {

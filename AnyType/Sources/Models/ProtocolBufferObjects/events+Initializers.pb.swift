@@ -30,8 +30,8 @@ extension Anytype_Event.Block.Add {
 }
 
 extension Anytype_Event.Block.Delete {
-  init(blockID: String) {
-    self.blockID = blockID
+  init(blockIds: [String]) {
+    self.blockIds = blockIds
   }
 }
 

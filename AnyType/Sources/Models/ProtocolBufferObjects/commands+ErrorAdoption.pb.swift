@@ -38,6 +38,8 @@ extension Anytype_Rpc.Block.Get.Marks.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Undo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Redo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Open.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.CreatePage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Unlink.Response.Error: Swift.Error {}

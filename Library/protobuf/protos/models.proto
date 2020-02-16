@@ -1,0 +1,235 @@
+syntax = "proto3";
+package anytype.model;
+option go_package = "github.com/anytypeio/go-anytype-library/pb/model";
+
+import "google/protobuf/struct.proto";
+
+message Block {
+    string id = 1;
+    google.protobuf.Struct fields = 2;
+    Restrictions restrictions = 3;
+    repeated string childrenIds = 4;
+    bool isArchived = 5;
+
+    oneof content {
+        Content.Dashboard dashboard = 11;
+        Content.Page page = 12;
+        Content.Dataview dataview = 13;
+
+        Content.Text text = 14;
+        Content.File file = 15;
+        Content.Layout layout = 16;
+        Content.Div div = 17;
+        Content.Bookmark bookmark = 18;
+        Content.Icon icon = 19;
+        Content.Link link = 20;
+    }
+
+
+    message Restrictions {
+        bool read = 1;
+        bool edit = 2;
+        bool remove = 3;
+        bool drag = 4;
+        bool dropOn = 5;
+    }
+
+    enum Position {
+        None = 0;
+        Top = 1;
+        Bottom = 2;
+        Left = 3;
+        Right = 4;
+        Inner = 5;
+        Replace = 6;
+    }
+
+    message Content {
+        /*
+        * Layout have no visual representation, but affects on blocks, that it contains.
+        * Row/Column layout blocks creates only automatically, after some of a D&D operations, for example
+        */
+        message Layout {
+            Style style = 1;
+
+            enum Style {
+                Row = 0;
+                Column = 1;
+            }
+        }
+
+        /*
+        * Link: block to link some content from an external sources.
+        */
+        message Link {
+            string targetBlockId = 1; // id of the target block
+            Style style = 2;
+            google.protobuf.Struct fields = 3;
+            bool isArchived = 4;
+
+            enum Style {
+                Page = 0;
+                Dataview = 1;
+                Dashboard = 2;
+                // ...
+            }
+        }
+
+        /*
+        * Divider: block, that contains only one horizontal thin line
+        */
+        message Div {
+            Style style = 1;
+
+            enum Style {
+                Line = 0;
+                Dots = 1;
+            }
+        }
+
+        /*
+        * Bookmark is to keep a web-link and to preview a content.
+        */
+        message Bookmark {
+            // Model.Link.Preview preview = 1;
+        }
+
+        message Icon {
+            string name = 1;
+        }
+
+        /*
+        * Block type to organize pages on the main screen (main purpose)
+        * It also can be mounted on a page.
+        */
+        message Dashboard {
+            enum Style {
+                MainScreen = 0;
+                Archive = 1;
+            }
+
+            Style style = 1;
+        }
+
+        message Dataview {
+        }
+
+        message Text {
+            string text = 1;
+            Style style = 2;
+            Marks marks = 3; // list of marks to apply to the text
+            bool checked = 4;
+            string color = 5;
+            string backgroundColor = 6;
+
+            message Marks {
+                repeated Mark marks = 1;
+            }
+
+            message Mark {
+                Range range = 1; // range of symbols to apply this mark. From(symbol) To(symbol)
+                Type type = 2;
+                string param = 3; // link, color, etc
+
+                enum Type {
+                    Strikethrough = 0;
+                    Keyboard = 1;
+                    Italic = 2;
+                    Bold = 3;
+                    Underscored = 4;
+                    Link = 5;
+                    TextColor = 6;
+                    BackgroundColor = 7;
+                }
+            }
+
+            enum Style {
+                Paragraph = 0;
+                Header1 = 1;
+                Header2 = 2;
+                Header3 = 3;
+                Header4 = 4;
+                Quote = 5;
+                Code = 6;
+                Title = 7;
+                Checkbox = 8;
+                Marked = 9;
+                Numbered = 10;
+                Toggle = 11;
+            }
+        }
+
+        message File {
+            string hash = 1;
+            string name = 2;
+            Type type = 3;
+            string mime = 4;
+            int64 size = 5;
+            int64 addedAt = 6;
+
+            State state = 7;
+
+            enum Type {
+                None = 0;
+                File = 1;
+                Image = 2;
+                Video = 3;
+            }
+
+            enum State {
+                Empty = 0; // There is no file and preview, it's an empty block, that waits files.
+                Uploading = 1; // There is still no file/preview, but file already uploading
+                Done = 2; // File and preview downloaded
+                Error = 3; // Error while uploading
+            }
+        }
+
+        message Page {
+            enum Style {
+                Empty = 0; // Ordinary page, without additional fields
+                Task = 1; // Page with a task fields
+                Set = 2; // Page, that organize a set of blocks by a specific criterio
+                Breadcrumbs = 3;
+                // ...
+            }
+
+            Style style = 1;
+        }
+    }
+}
+
+/*
+* Used to decode block meta only, without the content itself
+*/
+message BlockMetaOnly {
+    string id = 1;
+    google.protobuf.Struct fields = 2;
+    bool isArchived = 5;
+}
+
+/*
+* General purpose structure, uses in Mark.
+*/
+message Range {
+    int32 from = 1;
+    int32 to = 2;
+}
+
+/**
+* Contains basic information about a user account
+*/
+message Account {
+    string id = 1; // User's thread id
+    string name = 2; // User name, that associated with this account
+    Avatar avatar = 3; // Avatar of a user's account
+
+    /**
+    * Avatar of a user's account. It could be an image or color
+    */
+    message Avatar {
+        oneof avatar {
+            Block.Content.File image = 1; // Image of the avatar. Contains the hash to retrieve the image.
+            string color = 2; // Color of the avatar, used if image not set.
+        }
+    }
+}

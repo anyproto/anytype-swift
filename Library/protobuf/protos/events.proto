@@ -1,0 +1,278 @@
+syntax = "proto3";
+package anytype;
+option go_package = "pb";
+
+import "vendor/github.com/anytypeio/go-anytype-library/pb/model/protos/models.proto";
+import "google/protobuf/struct.proto";
+
+/*
+ * Event – type of message, that could be sent from a middleware to the corresponding front-end.
+*/
+message Event {
+    repeated Message messages = 1;
+    string contextId = 2;
+    anytype.model.Account initiator = 3;
+
+    message Message {
+        oneof value {
+            Account.Show accountShow = 1;
+
+            Block.Add blockAdd = 2;
+            Block.Delete blockDelete = 3;
+            Block.FilesUpload filesUpload = 4;
+            Block.MarksInfo marksInfo = 5;
+
+            Block.Set.Fields blockSetFields = 6;
+            Block.Set.ChildrenIds blockSetChildrenIds = 7;
+            Block.Set.Restrictions blockSetRestrictions = 8;
+            Block.Set.IsArchived blockSetIsArchived = 9;
+
+            Block.Set.Text blockSetText = 10;
+            Block.Set.File blockSetFile = 11;
+            Block.Set.Icon blockSetIcon = 12;
+            Block.Set.Link blockSetLink = 13;
+
+            Block.Show blockShow = 20;
+            User.Block.Join userBlockJoin = 21;
+            User.Block.Left userBlockLeft = 22;
+            User.Block.SelectRange userBlockSelectRange = 23;
+            User.Block.TextRange userBlockTextRange = 24;
+
+            Ping ping = 100;
+        }
+    }
+
+    message Account {
+        /**
+        * Message, that will be sent to the front on each account found after an AccountRecoverRequest
+        */
+        message Show {
+            int32 index = 1; // Number of an account in an all found accounts list
+            anytype.model.Account account = 2; // An Account, that has been found for the mnemonic
+        }
+    }
+    message Block {
+        /*
+        * Event to show internal blocks on a client.
+         * Example Scenarios
+         * A. Block Creation
+         * 1. Block A have been created on a client C1
+         * 2. Client C2 receives Event.Block.Add(Block A), Event.Block.Update(Page.children)
+         * B. Partial block load
+         * 1. Client C1 opens Page1, that contains, for example, 133 blocks.
+         * 2. M -> F: ShowFullScreen(Root, blocks1-50)
+         * 3. M -> F: Block.Add(blocks51-100)
+         * 3. M -> F: Block.Add(blocks101-133)
+        */
+        message Add {
+            repeated anytype.model.Block blocks = 1; // id -> block
+        }
+
+        /*
+         * Works with a smart blocks: Page, Dashboard
+         * Dashboard opened, click on a page, Rpc.Block.open, Block.ShowFullscreen(PageBlock)
+        */
+        message Show {
+            string rootId = 1; // Root block id
+            repeated anytype.model.Block blocks = 2; // dependent blocks (descendants)
+        }
+
+        /**
+        * Middleware to front end event message, that will be sent on one of this scenarios:
+        * Precondition: user A opened a block
+        * 1. User A drops a set of files/pictures/videos
+        * 2. User A creates a MediaBlock and drops a single media, that corresponds to its type.
+        */
+        message FilesUpload {
+            string blockId = 1; // if empty => create new blocks
+            repeated string filePath = 2; // filepaths to the files
+
+        }
+
+        /*
+         *
+        */
+        message Delete {
+            repeated string blockIds = 1;
+        }
+
+        message MarksInfo {
+            repeated anytype.model.Block.Content.Text.Mark.Type marksInRange = 1;
+        }
+
+        message Set {
+
+            message Fields {
+                string id = 1;
+                google.protobuf.Struct fields = 2;
+            }
+
+            message ChildrenIds {
+                string id = 1;
+                repeated string childrenIds = 2;
+            }
+
+            message Restrictions {
+                string id = 1;
+                anytype.model.Block.Restrictions restrictions = 2;
+            }
+
+            message IsArchived {
+                string id = 1;
+                bool IsArchived = 2;
+            }
+
+            message Text {
+                string id = 1;
+                Text text = 2;
+                Style style = 3;
+                Marks marks = 4;
+                Checked checked = 5;
+                Color color = 6;
+                BackgroundColor backgroundColor = 7;
+
+                message Text {
+                    string value = 1;
+                }
+
+                message Style {
+                    anytype.model.Block.Content.Text.Style value = 1;
+                }
+
+                message Marks {
+                    anytype.model.Block.Content.Text.Marks value = 1;
+                }
+
+                message Checked {
+                    bool value = 1;
+                }
+
+                message Color {
+                    string value = 1;
+                }
+
+                message BackgroundColor {
+                    string value = 1;
+                }
+            }
+
+            message File {
+                string id = 1;
+                Type type = 2;
+                State state = 3;
+                Mime mime = 4;
+                Hash hash = 5;
+                Name name = 6;
+                Size size = 7;
+
+                message Name {
+                    string value = 1;
+                }
+
+                message Width {
+                    int32 value = 1;
+                }
+
+                message State {
+                    anytype.model.Block.Content.File.State value = 1;
+                }
+
+                message Type {
+                    anytype.model.Block.Content.File.Type value = 1;
+                }
+
+                message Hash {
+                    string value = 1;
+                }
+
+                message Mime {
+                    string value = 1;
+                }
+
+                message Size {
+                    int64 value = 1;
+                }
+            }
+
+            message Icon {
+                string id = 1;
+                Name name = 2;
+
+                message Name {
+                    string value = 1;
+                }
+            }
+
+            message Link {
+                string id = 1;
+                TargetBlockId targetBlockId = 2;
+                Style style = 3;
+                Fields fields = 4;
+
+                message TargetBlockId {
+                    string value = 1;
+                }
+
+                message Style {
+                    anytype.model.Block.Content.Link.Style value = 1;
+                }
+
+                message Fields {
+                    google.protobuf.Struct value = 1;
+                }
+            }
+        }
+    }
+
+    message User {
+        message Block {
+
+            /**
+            *  Middleware to front end event message, that will be sent in this scenario:
+            * Precondition: user A opened a block
+            * 1. User B opens the same block
+            * 2. User A receives a message about p.1
+            */
+            message Join {
+                Account account = 1; // Account of the user, that opened a block
+            }
+
+            /**
+            *  Middleware to front end event message, that will be sent in this scenario:
+            * Precondition: user A and user B opened the same block
+            * 1. User B closes the block
+            * 2. User A receives a message about p.1
+            */
+            message Left {
+                Account account = 1; // Account of the user, that left the block
+            }
+
+            /**
+            * Middleware to front end event message, that will be sent in this scenario:
+            * Precondition: user A and user B opened the same block
+            * 1. User B sets cursor or selects a text region into a text block
+            * 2. User A receives a message about p.1
+            */
+            message TextRange {
+                Account account = 1; // Account of the user, that selected a text
+                string blockId = 2; // Id of the text block, that have a selection
+                anytype.model.Range range = 3; // Range of the selection
+            }
+
+            /**
+            * Middleware to front end event message, that will be sent in this scenario:
+            * Precondition: user A and user B opened the same block
+            * 1. User B selects some inner blocks
+            * 2. User A receives a message about p.1
+            */
+            message SelectRange {
+                Account account = 1; // Account of the user, that selected blocks
+                repeated string blockIdsArray = 2; // Ids of selected blocks.
+            }
+        }
+    }
+
+    message Ping {
+        int32 index = 1;
+    }
+}
