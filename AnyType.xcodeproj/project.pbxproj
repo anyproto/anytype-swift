@@ -12,8 +12,6 @@
 		0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0422D8EDAD005C552B /* Assets.xcassets */; };
 		0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */; };
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
-		0306554A23F9713D00803DD0 /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0306554923F9713D00803DD0 /* Lib.framework */; };
-		0306554B23F9713D00803DD0 /* Lib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0306554923F9713D00803DD0 /* Lib.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03074B87239514E2009FA7D0 /* MainAuthView.swift */; };
 		030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B22399346F00AD3BC3 /* AuthModels.swift */; };
 		030DF8642333E31100FE6DA5 /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF8632333E31100FE6DA5 /* DocumentViewModel.swift */; };
@@ -52,6 +50,7 @@
 		038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A81FC23A0158B00B71388 /* LoginViewModel.swift */; };
 		03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E56230B48B40040CD4B /* ProfileSettingsView.swift */; };
 		03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E58230B5DA90040CD4B /* SelectColorView.swift */; };
+		039672CA23FB1ADA00D21494 /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039672C923FB1ADA00D21494 /* Lib.framework */; };
 		03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0222D8EDAA005C552B /* ProfileView.swift */; };
 		039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039DA2E52305843D0041F95C /* ErrorAlertView.swift */; };
 		039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669823C7FD1D00DBE36A /* GeometryExtension.swift */; };
@@ -183,20 +182,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		0A996BA723EB30C6000FDC9C /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				0306554B23F9713D00803DD0 /* Lib.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		0303ECFB22D8EDAA005C552B /* AnyType.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnyType.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0303ECFE22D8EDAA005C552B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -206,7 +191,6 @@
 		0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0303ED0A22D8EDAD005C552B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0303ED0C22D8EDAD005C552B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0306554923F9713D00803DD0 /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lib.framework; path = Library/Lib.framework; sourceTree = "<group>"; };
 		03074B87239514E2009FA7D0 /* MainAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAuthView.swift; sourceTree = "<group>"; };
 		030DF4B22399346F00AD3BC3 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
 		030DF4B423994F4700AD3BC3 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
@@ -247,6 +231,7 @@
 		038A81FC23A0158B00B71388 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		03913E56230B48B40040CD4B /* ProfileSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		03913E58230B5DA90040CD4B /* SelectColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
+		039672C923FB1ADA00D21494 /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lib.framework; path = Dependencies/Middleware/Lib.framework; sourceTree = "<group>"; };
 		03992F642395D7A10027A4AD /* CreateNewProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileView.swift; sourceTree = "<group>"; };
 		03992F6823969B030027A4AD /* CompletionAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAuthView.swift; sourceTree = "<group>"; };
 		03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileView.swift; sourceTree = "<group>"; };
@@ -317,7 +302,6 @@
 		0A70816423968410004B04AB /* BlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViews.swift; sourceTree = "<group>"; };
 		0A7081662396C5E3004B04AB /* ImageBlocksViews+PageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageBlocksViews+PageIcon.swift"; sourceTree = "<group>"; };
 		0A879AB823E6D8F300247426 /* DocumentViewModel+Updates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+Updates.swift"; sourceTree = "<group>"; };
-		0A996BA823EB31AA000FDC9C /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lib.framework; path = Dependencies/Lib.framework; sourceTree = "<group>"; };
 		0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptions.swift; sourceTree = "<group>"; };
 		0A996BB023EDBCB8000FDC9C /* DeveloperOptions+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeveloperOptions+Model.swift"; sourceTree = "<group>"; };
 		0A996BB223EDBDA5000FDC9C /* DeveloperOptions+CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeveloperOptions+CodableAndDictionary.swift"; sourceTree = "<group>"; };
@@ -372,7 +356,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0306554A23F9713D00803DD0 /* Lib.framework in Frameworks */,
+				039672CA23FB1ADA00D21494 /* Lib.framework in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				0AFC462C23EB23AD009F4CB2 /* SwiftProtobuf in Frameworks */,
@@ -1074,8 +1058,7 @@
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0A996BA823EB31AA000FDC9C /* Lib.framework */,
-				0306554923F9713D00803DD0 /* Lib.framework */,
+				039672C923FB1ADA00D21494 /* Lib.framework */,
 				0318D575230186CA000527B1 /* LocalAuthentication.framework */,
 				03C5C53A22DF785000DD91DE /* Security.framework */,
 			);
@@ -1092,7 +1075,6 @@
 				0303ECF722D8EDAA005C552B /* Sources */,
 				0303ECF822D8EDAA005C552B /* Frameworks */,
 				0303ECF922D8EDAA005C552B /* Resources */,
-				0A996BA723EB30C6000FDC9C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1527,6 +1509,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
+					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";
@@ -1558,6 +1541,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies",
 					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
+					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/AnyType/Supporting files/Info.plist";

@@ -46,11 +46,13 @@ printf "Done\n"
 
 printf "Preparing files\n"
 
-rm -rf Library/
+rm -rf Dependencies/
 
-mkdir -p Library/
-mv /tmp/lib/$MIDDLEWARE_NAME Library/
-mv /tmp/lib/$PROTO_DIR_NAME Library/
+DEPENDENCIES_DIR="Dependencies/Middleware/"
+
+mkdir -p $DEPENDENCIES_DIR
+mv /tmp/lib/$MIDDLEWARE_NAME $DEPENDENCIES_DIR
+mv /tmp/lib/$PROTO_DIR_NAME $DEPENDENCIES_DIR
 
 rm -rf /tmp/lib
 rm -rf $FILE
@@ -61,9 +63,9 @@ rm -rf $LIBSFILE_PATH
 
 printf "Copy proto files\n"
 
-mv Library/$PROTO_DIR_NAME/commands.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
-mv Library/$PROTO_DIR_NAME/events.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
-mv Library/$PROTO_DIR_NAME/models.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
+mv $DEPENDENCIES_DIR/$PROTO_DIR_NAME/commands.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
+mv $DEPENDENCIES_DIR/$PROTO_DIR_NAME/events.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
+mv $DEPENDENCIES_DIR/$PROTO_DIR_NAME/models.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
 
 printf "Generate services from proto file\n"
 
