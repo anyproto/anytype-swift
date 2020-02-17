@@ -542,36 +542,6 @@ internal extension Anytype_Rpc.Block.Set.Restrictions {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.IsArchived {
-  private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetIsArchived(data) }
-  }
-
-  enum Service {
-    public static func invoke(contextID: String, blockID: String, isArchived: Bool) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, isArchived: isArchived))) }
-    }
-    private static func result(_ request: Request) -> Result<Response, Error> {
-      guard let result = self.invoke(request) else {
-        // get first Not Null (not equal 0) case.
-        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
-      }
-      // get first zero case.
-      if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
-        return .success(result)
-      }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-      Invocation.invoke(try? request.serializedData()).flatMap {
-        try? Response(serializedData: $0)
-      }
-    }
-  }
-}
-
 internal extension Anytype_Rpc.Block.Set.Text.Text {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextText(data) }
@@ -1472,69 +1442,9 @@ internal extension Anytype_Rpc.Version.Get {
   }
 }
 
-internal extension Anytype_Rpc.Ipfs.File.Get {
-  private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { nil }
-  }
-
-  enum Service {
-    public static func invoke(id: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(id: id))) }
-    }
-    private static func result(_ request: Request) -> Result<Response, Error> {
-      guard let result = self.invoke(request) else {
-        // get first Not Null (not equal 0) case.
-        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
-      }
-      // get first zero case.
-      if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
-        return .success(result)
-      }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-      Invocation.invoke(try? request.serializedData()).flatMap {
-        try? Response(serializedData: $0)
-      }
-    }
-  }
-}
-
 internal extension Anytype_Rpc.Ipfs.Image.Get.Blob {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibImageGetBlob(data) }
-  }
-
-  enum Service {
-    public static func invoke(hash: String, wantWidth: Int32) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(hash: hash, wantWidth: wantWidth))) }
-    }
-    private static func result(_ request: Request) -> Result<Response, Error> {
-      guard let result = self.invoke(request) else {
-        // get first Not Null (not equal 0) case.
-        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
-      }
-      // get first zero case.
-      if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
-        return .success(result)
-      }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-      Invocation.invoke(try? request.serializedData()).flatMap {
-        try? Response(serializedData: $0)
-      }
-    }
-  }
-}
-
-internal extension Anytype_Rpc.Ipfs.Image.Get.File {
-  private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { nil }
   }
 
   enum Service {

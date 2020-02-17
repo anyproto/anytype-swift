@@ -1,0 +1,75 @@
+syntax = "proto3";
+package anytype;
+option go_package = "lib";
+
+import "pb/protos/commands.proto";
+import "pb/protos/events.proto";
+
+service ClientCommands {
+    rpc WalletCreate (anytype.Rpc.Wallet.Create.Request) returns (anytype.Rpc.Wallet.Create.Response);
+    rpc WalletRecover (anytype.Rpc.Wallet.Recover.Request) returns (anytype.Rpc.Wallet.Recover.Response);
+    rpc AccountRecover (anytype.Rpc.Account.Recover.Request) returns (anytype.Rpc.Account.Recover.Response);
+    rpc AccountCreate (anytype.Rpc.Account.Create.Request) returns (anytype.Rpc.Account.Create.Response);
+    rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
+    rpc AccountStop (anytype.Rpc.Account.Stop.Request) returns (anytype.Rpc.Account.Stop.Response);
+
+    rpc ImageGetBlob (anytype.Rpc.Ipfs.Image.Get.Blob.Request) returns (anytype.Rpc.Ipfs.Image.Get.Blob.Response);
+
+    rpc VersionGet (anytype.Rpc.Version.Get.Request) returns (anytype.Rpc.Version.Get.Response);
+    rpc LogSend (anytype.Rpc.Log.Send.Request) returns (anytype.Rpc.Log.Send.Response);
+    rpc ConfigGet (anytype.Rpc.Config.Get.Request) returns (anytype.Rpc.Config.Get.Response);
+
+    rpc ExternalDropFiles (anytype.Rpc.ExternalDrop.Files.Request) returns (anytype.Rpc.ExternalDrop.Files.Response);
+    rpc ExternalDropContent (anytype.Rpc.ExternalDrop.Content.Request) returns (anytype.Rpc.ExternalDrop.Content.Response);
+
+    rpc BlockUpload (anytype.Rpc.Block.Upload.Request) returns (anytype.Rpc.Block.Upload.Response);
+    rpc BlockReplace (anytype.Rpc.Block.Replace.Request) returns (anytype.Rpc.Block.Replace.Response);
+    rpc BlockOpen (anytype.Rpc.Block.Open.Request) returns (anytype.Rpc.Block.Open.Response);
+    rpc BlockOpenBreadcrumbs (anytype.Rpc.Block.OpenBreadcrumbs.Request) returns (anytype.Rpc.Block.OpenBreadcrumbs.Response);
+    rpc BlockCutBreadcrumbs (anytype.Rpc.Block.CutBreadcrumbs.Request) returns (anytype.Rpc.Block.CutBreadcrumbs.Response);
+    rpc BlockCreate (anytype.Rpc.Block.Create.Request) returns (anytype.Rpc.Block.Create.Response);
+    rpc BlockCreatePage (anytype.Rpc.Block.CreatePage.Request) returns (anytype.Rpc.Block.CreatePage.Response);
+    rpc BlockUnlink (anytype.Rpc.Block.Unlink.Request) returns (anytype.Rpc.Block.Unlink.Response);
+    rpc BlockClose (anytype.Rpc.Block.Close.Request) returns (anytype.Rpc.Block.Close.Response);
+    rpc BlockDownload (anytype.Rpc.Block.Download.Request) returns (anytype.Rpc.Block.Download.Response);
+    rpc BlockGetMarks (anytype.Rpc.Block.Get.Marks.Request) returns (anytype.Rpc.Block.Get.Marks.Response);
+    rpc BlockUndo (anytype.Rpc.Block.Undo.Request) returns (anytype.Rpc.Block.Undo.Response);
+    rpc BlockRedo (anytype.Rpc.Block.Redo.Request) returns (anytype.Rpc.Block.Redo.Response);
+    rpc BlockSetFields (anytype.Rpc.Block.Set.Fields.Request) returns (anytype.Rpc.Block.Set.Fields.Response);
+    rpc BlockSetRestrictions (anytype.Rpc.Block.Set.Restrictions.Request) returns (anytype.Rpc.Block.Set.Restrictions.Response);
+
+    rpc BlockSetPageIsArchived (anytype.Rpc.Block.Set.Page.IsArchived.Request) returns (anytype.Rpc.Block.Set.Page.IsArchived.Response);
+
+    rpc BlockListMove (anytype.Rpc.BlockList.Move.Request) returns (anytype.Rpc.BlockList.Move.Response);
+    rpc BlockListSetFields (anytype.Rpc.BlockList.Set.Fields.Request) returns (anytype.Rpc.BlockList.Set.Fields.Response);
+    rpc BlockListSetTextStyle (anytype.Rpc.BlockList.Set.Text.Style.Request) returns (anytype.Rpc.BlockList.Set.Text.Style.Response);
+    rpc BlockListDuplicate (anytype.Rpc.BlockList.Duplicate.Request) returns (anytype.Rpc.BlockList.Duplicate.Response);
+
+    rpc BlockSetTextText (anytype.Rpc.Block.Set.Text.Text.Request) returns (anytype.Rpc.Block.Set.Text.Text.Response);
+    rpc BlockSetTextColor (anytype.Rpc.Block.Set.Text.Color.Request) returns (anytype.Rpc.Block.Set.Text.Color.Response);
+    rpc BlockListSetTextColor (anytype.Rpc.BlockList.Set.Text.Color.Request) returns (anytype.Rpc.BlockList.Set.Text.Color.Response);
+    rpc BlockSetTextBackgroundColor (anytype.Rpc.Block.Set.Text.BackgroundColor.Request) returns (anytype.Rpc.Block.Set.Text.BackgroundColor.Response);
+    rpc BlockListSetTextBackgroundColor (anytype.Rpc.BlockList.Set.Text.BackgroundColor.Request) returns (anytype.Rpc.BlockList.Set.Text.BackgroundColor.Response);
+    rpc BlockSetTextStyle (anytype.Rpc.Block.Set.Text.Style.Request) returns (anytype.Rpc.Block.Set.Text.Style.Response);
+    rpc BlockSetTextChecked (anytype.Rpc.Block.Set.Text.Checked.Request) returns (anytype.Rpc.Block.Set.Text.Checked.Response);
+
+    rpc BlockSplit (anytype.Rpc.Block.Split.Request) returns (anytype.Rpc.Block.Split.Response);
+    rpc BlockMerge (anytype.Rpc.Block.Merge.Request) returns (anytype.Rpc.Block.Merge.Response);
+
+    rpc BlockCopy (anytype.Rpc.Block.Copy.Request) returns (anytype.Rpc.Block.Copy.Response);
+    rpc BlockPaste (anytype.Rpc.Block.Paste.Request) returns (anytype.Rpc.Block.Paste.Response);
+
+    rpc BlockSetFileName (anytype.Rpc.Block.Set.File.Name.Request) returns (anytype.Rpc.Block.Set.File.Name.Response);
+    rpc BlockSetImageName (anytype.Rpc.Block.Set.Image.Name.Request) returns (anytype.Rpc.Block.Set.Image.Name.Response);
+    rpc BlockSetImageWidth (anytype.Rpc.Block.Set.Image.Width.Request) returns (anytype.Rpc.Block.Set.Image.Width.Response);
+    rpc BlockSetVideoName (anytype.Rpc.Block.Set.Video.Name.Request) returns (anytype.Rpc.Block.Set.Video.Name.Response);
+    rpc BlockSetVideoWidth (anytype.Rpc.Block.Set.Video.Width.Request) returns (anytype.Rpc.Block.Set.Video.Width.Response);
+    rpc BlockSetIconName (anytype.Rpc.Block.Set.Icon.Name.Request) returns (anytype.Rpc.Block.Set.Icon.Name.Response);
+
+    rpc BlockSetLinkTargetBlockId (anytype.Rpc.Block.Set.Link.TargetBlockId.Request) returns (anytype.Rpc.Block.Set.Link.TargetBlockId.Response);
+
+    rpc Ping (anytype.Rpc.Ping.Request) returns (anytype.Rpc.Ping.Response);
+
+    // used only for lib-debug via grpc
+    rpc ListenEvents (anytype.Empty) returns (stream anytype.Event);
+}
