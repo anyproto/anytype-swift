@@ -50,7 +50,6 @@
 		038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A81FC23A0158B00B71388 /* LoginViewModel.swift */; };
 		03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E56230B48B40040CD4B /* ProfileSettingsView.swift */; };
 		03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E58230B5DA90040CD4B /* SelectColorView.swift */; };
-		039672CA23FB1ADA00D21494 /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 039672C923FB1ADA00D21494 /* Lib.framework */; };
 		03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0222D8EDAA005C552B /* ProfileView.swift */; };
 		039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039DA2E52305843D0041F95C /* ErrorAlertView.swift */; };
 		039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669823C7FD1D00DBE36A /* GeometryExtension.swift */; };
@@ -98,6 +97,7 @@
 		03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F7BD1D22F7A50400F47583 /* StandardButton.swift */; };
 		03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B423994F4700AD3BC3 /* ProfileModel.swift */; };
 		03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03652DD7239F5E7B0029E773 /* ScannerViewController.swift */; };
+		0A0AA73123FB25DA003A2935 /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0AA73023FB25DA003A2935 /* Lib.framework */; };
 		0A693219238C4C8200575544 /* TextBlocksViews+Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */; };
 		0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693211238C4C8200575544 /* TextBlocksViews+Text.swift */; };
 		0A69321C238C4C8200575544 /* TextBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A693212238C4C8200575544 /* TextBlocksViews.swift */; };
@@ -231,7 +231,6 @@
 		038A81FC23A0158B00B71388 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		03913E56230B48B40040CD4B /* ProfileSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		03913E58230B5DA90040CD4B /* SelectColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
-		039672C923FB1ADA00D21494 /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lib.framework; path = Dependencies/Middleware/Lib.framework; sourceTree = "<group>"; };
 		03992F642395D7A10027A4AD /* CreateNewProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileView.swift; sourceTree = "<group>"; };
 		03992F6823969B030027A4AD /* CompletionAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAuthView.swift; sourceTree = "<group>"; };
 		03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileView.swift; sourceTree = "<group>"; };
@@ -283,6 +282,7 @@
 		03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		03E2AD5423A93D3800C701CE /* SimpleViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleViews.swift; sourceTree = "<group>"; };
 		03F7BD1D22F7A50400F47583 /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
+		0A0AA73023FB25DA003A2935 /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lib.framework; path = Dependencies/Middleware/Lib.framework; sourceTree = "<group>"; };
 		0A69320F238C4C8200575544 /* TextBlocksViews+Checkbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Checkbox.swift"; sourceTree = "<group>"; };
 		0A693211238C4C8200575544 /* TextBlocksViews+Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Text.swift"; sourceTree = "<group>"; };
 		0A693212238C4C8200575544 /* TextBlocksViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextBlocksViews.swift; sourceTree = "<group>"; };
@@ -356,7 +356,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				039672CA23FB1ADA00D21494 /* Lib.framework in Frameworks */,
+				0A0AA73123FB25DA003A2935 /* Lib.framework in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				0AFC462C23EB23AD009F4CB2 /* SwiftProtobuf in Frameworks */,
@@ -1058,7 +1058,7 @@
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				039672C923FB1ADA00D21494 /* Lib.framework */,
+				0A0AA73023FB25DA003A2935 /* Lib.framework */,
 				0318D575230186CA000527B1 /* LocalAuthentication.framework */,
 				03C5C53A22DF785000DD91DE /* Security.framework */,
 			);
@@ -1507,8 +1507,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Dependencies",
-					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
@@ -1539,8 +1537,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Dependencies",
-					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
