@@ -27,6 +27,21 @@ extension DocumentView {
         
         var modelUpdateSubscription: AnyCancellable?
         var modelAnyFieldUpdateSubscription: AnyCancellable?
+        
+        var cellHeightsStorage: CellsHeightsStorage = .init()
+    }
+}
+
+// MARK: CellsHeightsStorage
+extension DocumentView.ViewController {
+    class CellsHeightsStorage {
+        private var storage: [IndexPath: CGFloat] = [:]
+        func height(at: IndexPath) -> CGFloat {
+            return storage[at] ?? UITableView.automaticDimension
+        }
+        func set(height: CGFloat, at: IndexPath) {
+            storage[at] = height
+        }
     }
 }
 
@@ -76,7 +91,7 @@ extension DocumentView.ViewController {
         let tableView = UITableViewController(style: .grouped)
         
         tableView.tableView.dataSource = self
-//        tableView.tableView.delegate = self
+        tableView.tableView.delegate = self
         if let view = tableView.view {
             self.contentView?.addSubview(view)
         }
@@ -155,8 +170,18 @@ extension DocumentView.ViewController {
 extension DocumentView.ViewController {
     func updateView() {
         DispatchQueue.main.async {
-            self.tableView?.tableView.beginUpdates()
-            self.tableView?.tableView.endUpdates()
+            // WORKAROUND:
+            // In case of jumping rows we should remove animations..
+            // well...
+            // it works...
+            // I guess..
+            // Thanks! https://stackoverflow.com/a/51048044/826614
+            guard let tableView = self.tableView?.tableView else { return }
+            let lastContentOffset = tableView.contentOffset
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            tableView.layer.removeAllAnimations()
+            tableView.setContentOffset(lastContentOffset, animated: false)
         }
     }
     func updateData(_ rows: [ViewModel.Row]) {
@@ -207,6 +232,22 @@ extension DocumentView.ViewController: UITableViewDataSource {
     }
 }
 
+// MARK: UITableViewDelegate
+extension DocumentView.ViewController: UITableViewDelegate {
+    // WORKAROUND:
+    // In case of jumping rows we should also calculate estimated sizes of cells by storing exact sizes of cells.
+    // well...
+    // it works...
+    // I guess..
+    // Thanks! https://stackoverflow.com/a/38729250/826614
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        self.cellHeightsStorage.set(height: cell.frame.size.height, at: indexPath)
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.cellHeightsStorage.height(at: indexPath)
+    }
+}
+
 // MARK: Cell
 extension DocumentView.ViewController {
     class Cell: UITableViewCell {
@@ -238,7 +279,20 @@ extension DocumentView.ViewController.Cell {
         class func createView(_ model: BlockViewBuilderProtocol?, useUIKit: Bool) -> UIView? {
             guard let model = model else { return nil }
             if useUIKit {
-                return model.buildUIView()
+                let view = model.buildUIView()
+                
+                return view
+//                let superview = UIView()
+//                superview.translatesAutoresizingMaskIntoConstraints = false
+//                superview.addSubview(view)
+//
+//                let spacer: CGFloat = 8
+//                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: spacer).isActive = true
+//                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -spacer).isActive = true
+//                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: spacer).isActive = true
+//                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -spacer).isActive = true
+//
+//                return superview
             }
             let controller = UIHostingController(rootView: model.buildView())
             let view = controller.view
@@ -253,10 +307,11 @@ extension DocumentView.ViewController.Cell {
             self.containedView = view
             self.contentView.addSubview(view)
             if let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+                let spacer: CGFloat = 0
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: spacer).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -spacer).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: spacer).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -spacer).isActive = true
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.clipsToBounds = true
             }
