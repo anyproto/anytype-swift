@@ -13,34 +13,14 @@ import Combine
 // MARK: ViewModel
 extension TextBlocksViews.Checkbox {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
-        private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
-        @Published var checked: Bool = false {
-            willSet {
-                // BUG: Apple Bug.
-                // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
-                // Workaround: Explicit invocation
-                self.objectWillChange.send()
-            }
-        }
-        
-        private var inputSubscriber: AnyCancellable?
-        private var outputSubscriber: AnyCancellable?
-                
-        // MARK: Setup
-        func setup() {
-            _ = self.textViewModel.configured(self)
-            self.setupSubscribers()
-        }
-        func setupSubscribers() {
-            self.outputSubscriber = self.$text.map(TextView.UIKitTextView.ViewModel.Update.text).sink(receiveValue: self.textViewModel.apply(update:))
-            self.inputSubscriber = self.textViewModel.onUpdate.sink(receiveValue: self.apply(update:))
-        }
+        // BUG: Apple Bug.
+        // Subclassing ObservableObject requires explicit invocation of self.objectWillChange.send() in willSet hook in @Published property.
+        // Workaround: Explicit invocation
+        @Published var checked: Bool = false { willSet { self.objectWillChange.send() } }
         
         // MARK: Subclassing
         override init(_ block: Block) {
             super.init(block)
-            self.setup()
-//            self.updateViewModel()
         }
         
         override func getID() -> Block.ID {
@@ -52,7 +32,7 @@ extension TextBlocksViews.Checkbox {
         }
         
         override func makeUIView() -> UIView {
-            self.textViewModel.createView()
+            self.getUIKitViewModel().createView()
         }
     }
 }
@@ -70,28 +50,6 @@ extension TextBlocksViews.Checkbox.BlockViewModel {
 //        default: return
 //        }
 //    }
-}
-
-// MARK: ViewModel / Apply to model.
-extension TextBlocksViews.Checkbox.BlockViewModel {
-    private func setModelData(text: String) {
-        super.text = text
-//        self.update { (block) in
-//            switch block.type {
-//                case let .text(value):
-//                    var value = value
-//                    value.text = text
-//                    block.type = .text(value)
-//                default: return
-//            }
-//        }
-    }
-    func apply(update: TextView.UIKitTextView.ViewModel.Update) {
-        switch update {
-        case .unknown: return
-        case let .text(value): self.setModelData(text: value)
-        }
-    }
 }
 
 // MARK: Style

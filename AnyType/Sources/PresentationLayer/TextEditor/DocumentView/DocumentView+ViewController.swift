@@ -96,9 +96,9 @@ extension DocumentView.ViewController {
         if let tableView = self.tableView?.tableView {
             self.dataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>.init(tableView: tableView, cellProvider: { (tableView, indexPath, entry) -> UITableViewCell? in
                 let useUIKit = !self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell
-                
+                let isImage = (entry.builder is ImageBlocksViews.Base.BlockViewModel)
                 if let cell = tableView.dequeueReusableCell(withIdentifier: Cell.cellReuseIdentifier(), for: indexPath) as? Cell {
-                    _ = cell.configured(useUIKit: useUIKit).configured(entry)
+                    _ = cell.configured(useUIKit: useUIKit && !isImage).configured(entry)
                     return cell
                 }
                 return UITableViewCell.init()

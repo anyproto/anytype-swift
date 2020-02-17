@@ -8,26 +8,30 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 extension TextBlocksViews {
     enum Base {
         class BlockViewModel: BlocksViews.Base.BlockViewModel {
             @Environment(\.developerOptions) var developerOptions
             private weak var delegate: TextBlocksViewsUserInteractionProtocol?
-            @Published var text: String {
-                willSet {
-                    self.objectWillChange.send()
-                }
-            }
             
-            // TODO: Don't forget to replace by block.id!
-                        
-            override init(_ block: Block) {
-                self.text = ""
-                super.init(block)
-                self.setup()
-            }
+            private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
             
+            private var inputSubscriber: AnyCancellable?
+            private var outputSubscriber: AnyCancellable?
+            
+            @Published var text: String { willSet { self.objectWillChange.send() } }
+                    
+            // MARK: Setup
+            private func setupTextViewModel() {
+                _ = self.textViewModel.configured(self)
+                self.setupSubscribers()
+            }
+            private func setupSubscribers() {
+                self.outputSubscriber = self.$text.map(TextView.UIKitTextView.ViewModel.Update.text).sink(receiveValue: self.textViewModel.apply(update:))
+                self.inputSubscriber = self.textViewModel.onUpdate.sink(receiveValue: self.apply(update:))
+            }
             private func setup() {
                 if self.developerOptions.current.debug.enabled {
                     self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, getID())
@@ -44,13 +48,53 @@ extension TextBlocksViews {
                     default: return
                     }
                 }
+                self.setupTextViewModel()
+            }
+            
+            // MARK: Subclassing
+            override init(_ block: Block) {
+                self.text = ""
+                super.init(block)
+                self.setup()
             }
             
             private convenience init() {
                 self.init(.mockText(.text))
             }
             
+            // MARK: Subclassing accessors
+            func getUIKitViewModel() -> TextView.UIKitTextView.ViewModel { self.textViewModel }
+            
+            override func makeUIView() -> UIView {
+                self.getUIKitViewModel().createView()
+            }
+            
+            // MARK: Empty
             static let empty = BlockViewModel.init()
+        }
+    }
+}
+
+// MARK: ViewModel / Apply to model.
+extension TextBlocksViews.Base.BlockViewModel {
+    private func setModelData(text: String) {
+        let theText = self.text
+        self.text = theText
+        
+        self.update { (block) in
+            switch block.type {
+                case let .text(value):
+                    var value = value
+                    value.text = text
+                    block.type = .text(value)
+                default: return
+            }
+        }
+    }
+    func apply(update: TextView.UIKitTextView.ViewModel.Update) {
+        switch update {
+        case .unknown: return
+        case let .text(value): self.setModelData(text: value)
         }
     }
 }
