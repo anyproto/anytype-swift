@@ -23,13 +23,23 @@ extension Anytype_Model_Account.Avatar {
 }
 
 extension Anytype_Model_Block {
-  init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], isArchived: Bool, content: OneOf_Content?) {
+  init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], content: OneOf_Content?) {
     self.id = id
     self.fields = fields
     self.restrictions = restrictions
     self.childrenIds = childrenIds
-    self.isArchived = isArchived
     self.content = content
+  }
+}
+
+extension Anytype_Model_Block.Content.Bookmark {
+  init(url: String, title: String, description_p: String, imageHash: String, faviconHash: String, type: Anytype_Model_LinkPreview.TypeEnum) {
+    self.url = url
+    self.title = title
+    self.description_p = description_p
+    self.imageHash = imageHash
+    self.faviconHash = faviconHash
+    self.type = type
   }
 }
 
@@ -70,11 +80,10 @@ extension Anytype_Model_Block.Content.Layout {
 }
 
 extension Anytype_Model_Block.Content.Link {
-  init(targetBlockID: String, style: Anytype_Model_Block.Content.Link.Style, fields: SwiftProtobuf.Google_Protobuf_Struct, isArchived: Bool) {
+  init(targetBlockID: String, style: Anytype_Model_Block.Content.Link.Style, fields: SwiftProtobuf.Google_Protobuf_Struct) {
     self.targetBlockID = targetBlockID
     self.style = style
     self.fields = fields
-    self.isArchived = isArchived
   }
 }
 
@@ -120,10 +129,20 @@ extension Anytype_Model_Block.Restrictions {
 }
 
 extension Anytype_Model_BlockMetaOnly {
-  init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, isArchived: Bool) {
+  init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct) {
     self.id = id
     self.fields = fields
-    self.isArchived = isArchived
+  }
+}
+
+extension Anytype_Model_LinkPreview {
+  init(url: String, title: String, description_p: String, imageURL: String, faviconURL: String, type: Anytype_Model_LinkPreview.TypeEnum) {
+    self.url = url
+    self.title = title
+    self.description_p = description_p
+    self.imageURL = imageURL
+    self.faviconURL = faviconURL
+    self.type = type
   }
 }
 
