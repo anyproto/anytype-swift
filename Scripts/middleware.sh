@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LIBSFILE_PATH="libraryfile.lock"
+LIBSFILE_PATH="Libraryfile.lock"
 MIDDLEWARE_VERSION="middleware.version"
 
 REPO="anytypeio/go-anytype-middleware"
@@ -10,6 +10,8 @@ IOS_MIDDLE_PREFIX_NAME="ios_framework_"
 MIDDLEWARE_NAME="Lib.framework"
 PROTO_DIR_NAME="protobuf"
 
+echo "Traveling to project directory."
+cd $(dirname $(dirname $(realpath $0)))
 
 #echo -n "GitHub auth token: "
 #read -s token
