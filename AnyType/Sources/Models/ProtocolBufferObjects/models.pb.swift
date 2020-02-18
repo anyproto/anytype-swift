@@ -52,11 +52,6 @@ struct Anytype_Model_Block {
     set {_uniqueStorage()._childrenIds = newValue}
   }
 
-  var isArchived: Bool {
-    get {return _storage._isArchived}
-    set {_uniqueStorage()._isArchived = newValue}
-  }
-
   var content: OneOf_Content? {
     get {return _storage._content}
     set {_uniqueStorage()._content = newValue}
@@ -315,20 +310,16 @@ struct Anytype_Model_Block {
       /// Clears the value of `fields`. Subsequent reads from it will return its default value.
       mutating func clearFields() {_uniqueStorage()._fields = nil}
 
-      var isArchived: Bool {
-        get {return _storage._isArchived}
-        set {_uniqueStorage()._isArchived = newValue}
-      }
-
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
       enum Style: SwiftProtobuf.Enum {
         typealias RawValue = Int
         case page // = 0
         case dataview // = 1
+        case dashboard // = 2
 
         /// ...
-        case dashboard // = 2
+        case archive // = 3
         case UNRECOGNIZED(Int)
 
         init() {
@@ -340,6 +331,7 @@ struct Anytype_Model_Block {
           case 0: self = .page
           case 1: self = .dataview
           case 2: self = .dashboard
+          case 3: self = .archive
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -349,6 +341,7 @@ struct Anytype_Model_Block {
           case .page: return 0
           case .dataview: return 1
           case .dashboard: return 2
+          case .archive: return 3
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -408,6 +401,18 @@ struct Anytype_Model_Block {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
+
+      var url: String = String()
+
+      var title: String = String()
+
+      var description_p: String = String()
+
+      var imageHash: String = String()
+
+      var faviconHash: String = String()
+
+      var type: Anytype_Model_LinkPreview.TypeEnum = .unknown
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -875,11 +880,6 @@ struct Anytype_Model_BlockMetaOnly {
   /// Clears the value of `fields`. Subsequent reads from it will return its default value.
   mutating func clearFields() {_uniqueStorage()._fields = nil}
 
-  var isArchived: Bool {
-    get {return _storage._isArchived}
-    set {_uniqueStorage()._isArchived = newValue}
-  }
-
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -993,6 +993,76 @@ struct Anytype_Model_Account {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Anytype_Model_LinkPreview {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var url: String = String()
+
+  var title: String = String()
+
+  var description_p: String = String()
+
+  var imageURL: String = String()
+
+  var faviconURL: String = String()
+
+  var type: Anytype_Model_LinkPreview.TypeEnum = .unknown
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum TypeEnum: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case unknown // = 0
+    case page // = 1
+    case image // = 2
+    case text // = 3
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .unknown
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .unknown
+      case 1: self = .page
+      case 2: self = .image
+      case 3: self = .text
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .unknown: return 0
+      case .page: return 1
+      case .image: return 2
+      case .text: return 3
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_LinkPreview.TypeEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Anytype_Model_LinkPreview.TypeEnum] = [
+    .unknown,
+    .page,
+    .image,
+    .text,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype.model"
@@ -1004,7 +1074,6 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     2: .same(proto: "fields"),
     3: .same(proto: "restrictions"),
     4: .same(proto: "childrenIds"),
-    5: .same(proto: "isArchived"),
     11: .same(proto: "dashboard"),
     12: .same(proto: "page"),
     13: .same(proto: "dataview"),
@@ -1022,7 +1091,6 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
     var _restrictions: Anytype_Model_Block.Restrictions? = nil
     var _childrenIds: [String] = []
-    var _isArchived: Bool = false
     var _content: Anytype_Model_Block.OneOf_Content?
 
     static let defaultInstance = _StorageClass()
@@ -1034,7 +1102,6 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       _fields = source._fields
       _restrictions = source._restrictions
       _childrenIds = source._childrenIds
-      _isArchived = source._isArchived
       _content = source._content
     }
   }
@@ -1055,7 +1122,6 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         case 2: try decoder.decodeSingularMessageField(value: &_storage._fields)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._restrictions)
         case 4: try decoder.decodeRepeatedStringField(value: &_storage._childrenIds)
-        case 5: try decoder.decodeSingularBoolField(value: &_storage._isArchived)
         case 11:
           var v: Anytype_Model_Block.Content.Dashboard?
           if let current = _storage._content {
@@ -1156,9 +1222,6 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       if !_storage._childrenIds.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._childrenIds, fieldNumber: 4)
       }
-      if _storage._isArchived != false {
-        try visitor.visitSingularBoolField(value: _storage._isArchived, fieldNumber: 5)
-      }
       switch _storage._content {
       case .dashboard(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
@@ -1195,7 +1258,6 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         if _storage._fields != rhs_storage._fields {return false}
         if _storage._restrictions != rhs_storage._restrictions {return false}
         if _storage._childrenIds != rhs_storage._childrenIds {return false}
-        if _storage._isArchived != rhs_storage._isArchived {return false}
         if _storage._content != rhs_storage._content {return false}
         return true
       }
@@ -1332,14 +1394,12 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     1: .same(proto: "targetBlockId"),
     2: .same(proto: "style"),
     3: .same(proto: "fields"),
-    4: .same(proto: "isArchived"),
   ]
 
   fileprivate class _StorageClass {
     var _targetBlockID: String = String()
     var _style: Anytype_Model_Block.Content.Link.Style = .page
     var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    var _isArchived: Bool = false
 
     static let defaultInstance = _StorageClass()
 
@@ -1349,7 +1409,6 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
       _targetBlockID = source._targetBlockID
       _style = source._style
       _fields = source._fields
-      _isArchived = source._isArchived
     }
   }
 
@@ -1368,7 +1427,6 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
         case 1: try decoder.decodeSingularStringField(value: &_storage._targetBlockID)
         case 2: try decoder.decodeSingularEnumField(value: &_storage._style)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._fields)
-        case 4: try decoder.decodeSingularBoolField(value: &_storage._isArchived)
         default: break
         }
       }
@@ -1386,9 +1444,6 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
       if let v = _storage._fields {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
-      if _storage._isArchived != false {
-        try visitor.visitSingularBoolField(value: _storage._isArchived, fieldNumber: 4)
-      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1401,7 +1456,6 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
         if _storage._targetBlockID != rhs_storage._targetBlockID {return false}
         if _storage._style != rhs_storage._style {return false}
         if _storage._fields != rhs_storage._fields {return false}
-        if _storage._isArchived != rhs_storage._isArchived {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -1416,6 +1470,7 @@ extension Anytype_Model_Block.Content.Link.Style: SwiftProtobuf._ProtoNameProvid
     0: .same(proto: "Page"),
     1: .same(proto: "Dataview"),
     2: .same(proto: "Dashboard"),
+    3: .same(proto: "Archive"),
   ]
 }
 
@@ -1457,18 +1512,58 @@ extension Anytype_Model_Block.Content.Div.Style: SwiftProtobuf._ProtoNameProvidi
 
 extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Bookmark"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "url"),
+    2: .same(proto: "title"),
+    3: .same(proto: "description"),
+    4: .same(proto: "imageHash"),
+    5: .same(proto: "faviconHash"),
+    6: .same(proto: "type"),
+  ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.url)
+      case 2: try decoder.decodeSingularStringField(value: &self.title)
+      case 3: try decoder.decodeSingularStringField(value: &self.description_p)
+      case 4: try decoder.decodeSingularStringField(value: &self.imageHash)
+      case 5: try decoder.decodeSingularStringField(value: &self.faviconHash)
+      case 6: try decoder.decodeSingularEnumField(value: &self.type)
+      default: break
+      }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
+    }
+    if !self.title.isEmpty {
+      try visitor.visitSingularStringField(value: self.title, fieldNumber: 2)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
+    }
+    if !self.imageHash.isEmpty {
+      try visitor.visitSingularStringField(value: self.imageHash, fieldNumber: 4)
+    }
+    if !self.faviconHash.isEmpty {
+      try visitor.visitSingularStringField(value: self.faviconHash, fieldNumber: 5)
+    }
+    if self.type != .unknown {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Model_Block.Content.Bookmark, rhs: Anytype_Model_Block.Content.Bookmark) -> Bool {
+    if lhs.url != rhs.url {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.imageHash != rhs.imageHash {return false}
+    if lhs.faviconHash != rhs.faviconHash {return false}
+    if lhs.type != rhs.type {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1921,13 +2016,11 @@ extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._Mes
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "fields"),
-    5: .same(proto: "isArchived"),
   ]
 
   fileprivate class _StorageClass {
     var _id: String = String()
     var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
-    var _isArchived: Bool = false
 
     static let defaultInstance = _StorageClass()
 
@@ -1936,7 +2029,6 @@ extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._Mes
     init(copying source: _StorageClass) {
       _id = source._id
       _fields = source._fields
-      _isArchived = source._isArchived
     }
   }
 
@@ -1954,7 +2046,6 @@ extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._Mes
         switch fieldNumber {
         case 1: try decoder.decodeSingularStringField(value: &_storage._id)
         case 2: try decoder.decodeSingularMessageField(value: &_storage._fields)
-        case 5: try decoder.decodeSingularBoolField(value: &_storage._isArchived)
         default: break
         }
       }
@@ -1969,9 +2060,6 @@ extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._Mes
       if let v = _storage._fields {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       }
-      if _storage._isArchived != false {
-        try visitor.visitSingularBoolField(value: _storage._isArchived, fieldNumber: 5)
-      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1983,7 +2071,6 @@ extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._Mes
         let rhs_storage = _args.1
         if _storage._id != rhs_storage._id {return false}
         if _storage._fields != rhs_storage._fields {return false}
-        if _storage._isArchived != rhs_storage._isArchived {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2181,4 +2268,72 @@ extension Anytype_Model_Account.Avatar: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".LinkPreview"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "url"),
+    2: .same(proto: "title"),
+    3: .same(proto: "description"),
+    4: .same(proto: "imageUrl"),
+    5: .same(proto: "faviconUrl"),
+    6: .same(proto: "type"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.url)
+      case 2: try decoder.decodeSingularStringField(value: &self.title)
+      case 3: try decoder.decodeSingularStringField(value: &self.description_p)
+      case 4: try decoder.decodeSingularStringField(value: &self.imageURL)
+      case 5: try decoder.decodeSingularStringField(value: &self.faviconURL)
+      case 6: try decoder.decodeSingularEnumField(value: &self.type)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 1)
+    }
+    if !self.title.isEmpty {
+      try visitor.visitSingularStringField(value: self.title, fieldNumber: 2)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
+    }
+    if !self.imageURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.imageURL, fieldNumber: 4)
+    }
+    if !self.faviconURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.faviconURL, fieldNumber: 5)
+    }
+    if self.type != .unknown {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Model_LinkPreview, rhs: Anytype_Model_LinkPreview) -> Bool {
+    if lhs.url != rhs.url {return false}
+    if lhs.title != rhs.title {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.imageURL != rhs.imageURL {return false}
+    if lhs.faviconURL != rhs.faviconURL {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_LinkPreview.TypeEnum: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Unknown"),
+    1: .same(proto: "Page"),
+    2: .same(proto: "Image"),
+    3: .same(proto: "Text"),
+  ]
 }

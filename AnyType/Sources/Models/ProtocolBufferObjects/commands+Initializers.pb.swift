@@ -84,6 +84,27 @@ extension Anytype_Rpc.Account.Stop.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Bookmark.Fetch.Request {
+  init(contextID: String, blockID: String, url: String) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.Fetch.Response {
+  init(error: Anytype_Rpc.Block.Bookmark.Fetch.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error {
+  init(code: Anytype_Rpc.Block.Bookmark.Fetch.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Close.Request {
   init(contextID: String, blockID: String) {
     self.contextID = contextID
@@ -467,27 +488,6 @@ extension Anytype_Rpc.Block.Set.Image.Width.Response.Error {
   }
 }
 
-extension Anytype_Rpc.Block.Set.IsArchived.Request {
-  init(contextID: String, blockID: String, isArchived: Bool) {
-    self.contextID = contextID
-    self.blockID = blockID
-    self.isArchived = isArchived
-  }
-}
-
-extension Anytype_Rpc.Block.Set.IsArchived.Response {
-  init(error: Anytype_Rpc.Block.Set.IsArchived.Response.Error) {
-    self.error = error
-  }
-}
-
-extension Anytype_Rpc.Block.Set.IsArchived.Response.Error {
-  init(code: Anytype_Rpc.Block.Set.IsArchived.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Request {
   init(contextID: String, blockID: String, targetBlockID: String) {
     self.contextID = contextID
@@ -504,6 +504,27 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response {
 
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error {
   init(code: Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Request {
+  init(contextID: String, blockID: String, isArchived: Bool) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.isArchived = isArchived
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Response {
+  init(error: Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error {
+  init(code: Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -1019,6 +1040,26 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error {
   }
 }
 
+extension Anytype_Rpc.LinkPreview.Request {
+  init(url: String) {
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.LinkPreview.Response {
+  init(error: Anytype_Rpc.LinkPreview.Response.Error, linkPreview: Anytype_Model_LinkPreview) {
+    self.error = error
+    self.linkPreview = linkPreview
+  }
+}
+
+extension Anytype_Rpc.LinkPreview.Response.Error {
+  init(code: Anytype_Rpc.LinkPreview.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Log.Send.Request {
   init(message: String, level: Anytype_Rpc.Log.Send.Request.Level) {
     self.message = message
@@ -1061,9 +1102,10 @@ extension Anytype_Rpc.Ping.Response.Error {
 }
 
 extension Anytype_Rpc.Version.Get.Response {
-  init(error: Anytype_Rpc.Version.Get.Response.Error, version: String) {
+  init(error: Anytype_Rpc.Version.Get.Response.Error, version: String, details: String) {
     self.error = error
     self.version = version
+    self.details = details
   }
 }
 

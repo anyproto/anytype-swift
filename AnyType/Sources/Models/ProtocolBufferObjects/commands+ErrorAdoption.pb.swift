@@ -21,7 +21,7 @@ extension Anytype_Rpc.Block.Upload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Download.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Restrictions.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Block.Set.IsArchived.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Text.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.BackgroundColor.Response.Error: Swift.Error {}
@@ -34,6 +34,7 @@ extension Anytype_Rpc.Block.Set.Video.Name.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Video.Width.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Icon.Name.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Get.Marks.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Undo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Redo.Response.Error: Swift.Error {}
@@ -57,3 +58,4 @@ extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Config.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ping.Response.Error: Swift.Error {}
+extension Anytype_Rpc.LinkPreview.Response.Error: Swift.Error {}

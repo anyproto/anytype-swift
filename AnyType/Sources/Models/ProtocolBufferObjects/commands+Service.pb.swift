@@ -542,6 +542,36 @@ internal extension Anytype_Rpc.Block.Set.Restrictions {
   }
 }
 
+internal extension Anytype_Rpc.Block.Set.Page.IsArchived {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetPageIsArchived(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, isArchived: Bool) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, isArchived: isArchived))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 internal extension Anytype_Rpc.Block.Set.Text.Text {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextText(data) }
@@ -880,6 +910,36 @@ internal extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
   enum Service {
     public static func invoke(contextID: String, blockID: String, targetBlockID: String) -> Future<Response, Error> {
       .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, targetBlockID: targetBlockID))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.Block.Bookmark.Fetch {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockBookmarkFetch(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, url: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, url: url))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1510,6 +1570,36 @@ internal extension Anytype_Rpc.Ping {
   enum Service {
     public static func invoke(index: Int32, numberOfEventsToSend: Int32) -> Future<Response, Error> {
       .init { completion in completion(self.result(.init(index: index, numberOfEventsToSend: numberOfEventsToSend))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        return .failure(result.error)
+      }
+      else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+internal extension Anytype_Rpc.LinkPreview {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibLinkPreview(data) }
+  }
+
+  enum Service {
+    public static func invoke(url: String) -> Future<Response, Error> {
+      .init { completion in completion(self.result(.init(url: url))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {

@@ -121,14 +121,6 @@ struct Anytype_Event {
       set {_uniqueStorage()._value = .blockSetRestrictions(newValue)}
     }
 
-    var blockSetIsArchived: Anytype_Event.Block.Set.IsArchived {
-      get {
-        if case .blockSetIsArchived(let v)? = _storage._value {return v}
-        return Anytype_Event.Block.Set.IsArchived()
-      }
-      set {_uniqueStorage()._value = .blockSetIsArchived(newValue)}
-    }
-
     var blockSetText: Anytype_Event.Block.Set.Text {
       get {
         if case .blockSetText(let v)? = _storage._value {return v}
@@ -159,6 +151,14 @@ struct Anytype_Event {
         return Anytype_Event.Block.Set.Link()
       }
       set {_uniqueStorage()._value = .blockSetLink(newValue)}
+    }
+
+    var blockSetBookmark: Anytype_Event.Block.Set.Bookmark {
+      get {
+        if case .blockSetBookmark(let v)? = _storage._value {return v}
+        return Anytype_Event.Block.Set.Bookmark()
+      }
+      set {_uniqueStorage()._value = .blockSetBookmark(newValue)}
     }
 
     var blockShow: Anytype_Event.Block.Show {
@@ -220,11 +220,11 @@ struct Anytype_Event {
       case blockSetFields(Anytype_Event.Block.Set.Fields)
       case blockSetChildrenIds(Anytype_Event.Block.Set.ChildrenIds)
       case blockSetRestrictions(Anytype_Event.Block.Set.Restrictions)
-      case blockSetIsArchived(Anytype_Event.Block.Set.IsArchived)
       case blockSetText(Anytype_Event.Block.Set.Text)
       case blockSetFile(Anytype_Event.Block.Set.File)
       case blockSetIcon(Anytype_Event.Block.Set.Icon)
       case blockSetLink(Anytype_Event.Block.Set.Link)
+      case blockSetBookmark(Anytype_Event.Block.Set.Bookmark)
       case blockShow(Anytype_Event.Block.Show)
       case userBlockJoin(Anytype_Event.User.Block.Join)
       case userBlockLeft(Anytype_Event.User.Block.Left)
@@ -243,11 +243,11 @@ struct Anytype_Event {
         case (.blockSetFields(let l), .blockSetFields(let r)): return l == r
         case (.blockSetChildrenIds(let l), .blockSetChildrenIds(let r)): return l == r
         case (.blockSetRestrictions(let l), .blockSetRestrictions(let r)): return l == r
-        case (.blockSetIsArchived(let l), .blockSetIsArchived(let r)): return l == r
         case (.blockSetText(let l), .blockSetText(let r)): return l == r
         case (.blockSetFile(let l), .blockSetFile(let r)): return l == r
         case (.blockSetIcon(let l), .blockSetIcon(let r)): return l == r
         case (.blockSetLink(let l), .blockSetLink(let r)): return l == r
+        case (.blockSetBookmark(let l), .blockSetBookmark(let r)): return l == r
         case (.blockShow(let l), .blockShow(let r)): return l == r
         case (.userBlockJoin(let l), .userBlockJoin(let r)): return l == r
         case (.userBlockLeft(let l), .userBlockLeft(let r)): return l == r
@@ -471,20 +471,6 @@ struct Anytype_Event {
         init() {}
 
         fileprivate var _storage = _StorageClass.defaultInstance
-      }
-
-      struct IsArchived {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        var id: String = String()
-
-        var isArchived: Bool = false
-
-        var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        init() {}
       }
 
       struct Text {
@@ -921,6 +907,149 @@ struct Anytype_Event {
         fileprivate var _storage = _StorageClass.defaultInstance
       }
 
+      struct Bookmark {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
+
+        var url: Anytype_Event.Block.Set.Bookmark.Url {
+          get {return _storage._url ?? Anytype_Event.Block.Set.Bookmark.Url()}
+          set {_uniqueStorage()._url = newValue}
+        }
+        /// Returns true if `url` has been explicitly set.
+        var hasURL: Bool {return _storage._url != nil}
+        /// Clears the value of `url`. Subsequent reads from it will return its default value.
+        mutating func clearURL() {_uniqueStorage()._url = nil}
+
+        var title: Anytype_Event.Block.Set.Bookmark.Title {
+          get {return _storage._title ?? Anytype_Event.Block.Set.Bookmark.Title()}
+          set {_uniqueStorage()._title = newValue}
+        }
+        /// Returns true if `title` has been explicitly set.
+        var hasTitle: Bool {return _storage._title != nil}
+        /// Clears the value of `title`. Subsequent reads from it will return its default value.
+        mutating func clearTitle() {_uniqueStorage()._title = nil}
+
+        var description_p: Anytype_Event.Block.Set.Bookmark.Description {
+          get {return _storage._description_p ?? Anytype_Event.Block.Set.Bookmark.Description()}
+          set {_uniqueStorage()._description_p = newValue}
+        }
+        /// Returns true if `description_p` has been explicitly set.
+        var hasDescription_p: Bool {return _storage._description_p != nil}
+        /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
+        mutating func clearDescription_p() {_uniqueStorage()._description_p = nil}
+
+        var imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash {
+          get {return _storage._imageHash ?? Anytype_Event.Block.Set.Bookmark.ImageHash()}
+          set {_uniqueStorage()._imageHash = newValue}
+        }
+        /// Returns true if `imageHash` has been explicitly set.
+        var hasImageHash: Bool {return _storage._imageHash != nil}
+        /// Clears the value of `imageHash`. Subsequent reads from it will return its default value.
+        mutating func clearImageHash() {_uniqueStorage()._imageHash = nil}
+
+        var faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash {
+          get {return _storage._faviconHash ?? Anytype_Event.Block.Set.Bookmark.FaviconHash()}
+          set {_uniqueStorage()._faviconHash = newValue}
+        }
+        /// Returns true if `faviconHash` has been explicitly set.
+        var hasFaviconHash: Bool {return _storage._faviconHash != nil}
+        /// Clears the value of `faviconHash`. Subsequent reads from it will return its default value.
+        mutating func clearFaviconHash() {_uniqueStorage()._faviconHash = nil}
+
+        var type: Anytype_Event.Block.Set.Bookmark.TypeMessage {
+          get {return _storage._type ?? Anytype_Event.Block.Set.Bookmark.TypeMessage()}
+          set {_uniqueStorage()._type = newValue}
+        }
+        /// Returns true if `type` has been explicitly set.
+        var hasType: Bool {return _storage._type != nil}
+        /// Clears the value of `type`. Subsequent reads from it will return its default value.
+        mutating func clearType() {_uniqueStorage()._type = nil}
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Url {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var value: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        struct Title {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var value: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        struct Description {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var value: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        struct ImageHash {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var value: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        struct FaviconHash {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var value: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        struct TypeMessage {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var value: Anytype_Model_LinkPreview.TypeEnum = .unknown
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
+      }
+
       init() {}
     }
 
@@ -1186,11 +1315,11 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     6: .same(proto: "blockSetFields"),
     7: .same(proto: "blockSetChildrenIds"),
     8: .same(proto: "blockSetRestrictions"),
-    9: .same(proto: "blockSetIsArchived"),
     10: .same(proto: "blockSetText"),
     11: .same(proto: "blockSetFile"),
     12: .same(proto: "blockSetIcon"),
     13: .same(proto: "blockSetLink"),
+    14: .same(proto: "blockSetBookmark"),
     20: .same(proto: "blockShow"),
     21: .same(proto: "userBlockJoin"),
     22: .same(proto: "userBlockLeft"),
@@ -1287,14 +1416,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .blockSetRestrictions(v)}
-        case 9:
-          var v: Anytype_Event.Block.Set.IsArchived?
-          if let current = _storage._value {
-            try decoder.handleConflictingOneOf()
-            if case .blockSetIsArchived(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._value = .blockSetIsArchived(v)}
         case 10:
           var v: Anytype_Event.Block.Set.Text?
           if let current = _storage._value {
@@ -1327,6 +1448,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .blockSetLink(v)}
+        case 14:
+          var v: Anytype_Event.Block.Set.Bookmark?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .blockSetBookmark(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .blockSetBookmark(v)}
         case 20:
           var v: Anytype_Event.Block.Show?
           if let current = _storage._value {
@@ -1400,8 +1529,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
       case .blockSetRestrictions(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-      case .blockSetIsArchived(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
       case .blockSetText(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
       case .blockSetFile(let v)?:
@@ -1410,6 +1537,8 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
       case .blockSetLink(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
+      case .blockSetBookmark(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
       case .blockShow(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
       case .userBlockJoin(let v)?:
@@ -1894,41 +2023,6 @@ extension Anytype_Event.Block.Set.Restrictions: SwiftProtobuf.Message, SwiftProt
       }
       if !storagesAreEqual {return false}
     }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.IsArchived: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".IsArchived"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "IsArchived"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.id)
-      case 2: try decoder.decodeSingularBoolField(value: &self.isArchived)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if self.isArchived != false {
-      try visitor.visitSingularBoolField(value: self.isArchived, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Anytype_Event.Block.Set.IsArchived, rhs: Anytype_Event.Block.Set.IsArchived) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.isArchived != rhs.isArchived {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2858,6 +2952,289 @@ extension Anytype_Event.Block.Set.Link.Fields: SwiftProtobuf.Message, SwiftProto
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Bookmark"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "url"),
+    3: .same(proto: "title"),
+    4: .same(proto: "description"),
+    5: .same(proto: "imageHash"),
+    6: .same(proto: "faviconHash"),
+    7: .same(proto: "type"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _url: Anytype_Event.Block.Set.Bookmark.Url? = nil
+    var _title: Anytype_Event.Block.Set.Bookmark.Title? = nil
+    var _description_p: Anytype_Event.Block.Set.Bookmark.Description? = nil
+    var _imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash? = nil
+    var _faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash? = nil
+    var _type: Anytype_Event.Block.Set.Bookmark.TypeMessage? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _url = source._url
+      _title = source._title
+      _description_p = source._description_p
+      _imageHash = source._imageHash
+      _faviconHash = source._faviconHash
+      _type = source._type
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._id)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._url)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._title)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._description_p)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._imageHash)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._faviconHash)
+        case 7: try decoder.decodeSingularMessageField(value: &_storage._type)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if let v = _storage._url {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._title {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if let v = _storage._description_p {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._imageHash {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+      if let v = _storage._faviconHash {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
+      if let v = _storage._type {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Bookmark, rhs: Anytype_Event.Block.Set.Bookmark) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._url != rhs_storage._url {return false}
+        if _storage._title != rhs_storage._title {return false}
+        if _storage._description_p != rhs_storage._description_p {return false}
+        if _storage._imageHash != rhs_storage._imageHash {return false}
+        if _storage._faviconHash != rhs_storage._faviconHash {return false}
+        if _storage._type != rhs_storage._type {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.Url: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".Url"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Bookmark.Url, rhs: Anytype_Event.Block.Set.Bookmark.Url) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.Title: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".Title"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Bookmark.Title, rhs: Anytype_Event.Block.Set.Bookmark.Title) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.Description: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".Description"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Bookmark.Description, rhs: Anytype_Event.Block.Set.Bookmark.Description) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.ImageHash: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".ImageHash"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Bookmark.ImageHash, rhs: Anytype_Event.Block.Set.Bookmark.ImageHash) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.FaviconHash: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".FaviconHash"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Bookmark.FaviconHash, rhs: Anytype_Event.Block.Set.Bookmark.FaviconHash) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.TypeMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".Type"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .unknown {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Bookmark.TypeMessage, rhs: Anytype_Event.Block.Set.Bookmark.TypeMessage) -> Bool {
+    if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

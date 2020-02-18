@@ -48,6 +48,62 @@ extension Anytype_Event.Block.MarksInfo {
   }
 }
 
+extension Anytype_Event.Block.Set.Bookmark {
+  init(
+    id: String,
+    url: Anytype_Event.Block.Set.Bookmark.Url,
+    title: Anytype_Event.Block.Set.Bookmark.Title,
+    description_p: Anytype_Event.Block.Set.Bookmark.Description,
+    imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash,
+    faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash,
+    type: Anytype_Event.Block.Set.Bookmark.TypeMessage
+  ) {
+    self.id = id
+    self.url = url
+    self.title = title
+    self.description_p = description_p
+    self.imageHash = imageHash
+    self.faviconHash = faviconHash
+    self.type = type
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.Description {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.FaviconHash {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.ImageHash {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.Title {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.TypeMessage {
+  init(value: Anytype_Model_LinkPreview.TypeEnum) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.Url {
+  init(value: String) {
+    self.value = value
+  }
+}
+
 extension Anytype_Event.Block.Set.ChildrenIds {
   init(id: String, childrenIds: [String]) {
     self.id = id
@@ -134,13 +190,6 @@ extension Anytype_Event.Block.Set.Icon {
 extension Anytype_Event.Block.Set.Icon.Name {
   init(value: String) {
     self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.IsArchived {
-  init(id: String, isArchived: Bool) {
-    self.id = id
-    self.isArchived = isArchived
   }
 }
 

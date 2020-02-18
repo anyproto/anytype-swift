@@ -22,6 +22,8 @@ service ClientCommands {
     rpc ExternalDropFiles (anytype.Rpc.ExternalDrop.Files.Request) returns (anytype.Rpc.ExternalDrop.Files.Response);
     rpc ExternalDropContent (anytype.Rpc.ExternalDrop.Content.Request) returns (anytype.Rpc.ExternalDrop.Content.Response);
 
+    rpc LinkPreview (anytype.Rpc.LinkPreview.Request) returns (anytype.Rpc.LinkPreview.Response);
+
     rpc BlockUpload (anytype.Rpc.Block.Upload.Request) returns (anytype.Rpc.Block.Upload.Response);
     rpc BlockReplace (anytype.Rpc.Block.Replace.Request) returns (anytype.Rpc.Block.Replace.Response);
     rpc BlockOpen (anytype.Rpc.Block.Open.Request) returns (anytype.Rpc.Block.Open.Response);
@@ -67,6 +69,8 @@ service ClientCommands {
     rpc BlockSetIconName (anytype.Rpc.Block.Set.Icon.Name.Request) returns (anytype.Rpc.Block.Set.Icon.Name.Response);
 
     rpc BlockSetLinkTargetBlockId (anytype.Rpc.Block.Set.Link.TargetBlockId.Request) returns (anytype.Rpc.Block.Set.Link.TargetBlockId.Response);
+
+    rpc BlockBookmarkFetch (anytype.Rpc.Block.Bookmark.Fetch.Request) returns (anytype.Rpc.Block.Bookmark.Fetch.Response);
 
     rpc Ping (anytype.Rpc.Ping.Request) returns (anytype.Rpc.Ping.Response);
 
