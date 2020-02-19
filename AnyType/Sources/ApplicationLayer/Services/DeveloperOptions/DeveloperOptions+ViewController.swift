@@ -89,12 +89,6 @@ extension DeveloperOptions.ViewController {
         super.viewWillAppear(animated)
         self.tableView?.viewWillAppear(animated)
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("view.frame: \(view.frame)")
-        print("contentView.frame: \(String(describing: contentView?.frame))")
-        print("tableView.frame: \(String(describing: tableView?.view.frame))")
-    }
 }
 
 // MARK: Reactions

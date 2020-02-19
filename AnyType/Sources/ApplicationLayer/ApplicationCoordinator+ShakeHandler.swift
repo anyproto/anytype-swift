@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SwiftUI
 import Combine
+import os
 
 // MARK: Shake Handler
 extension ApplicationCoordinator {
@@ -65,20 +66,20 @@ extension ApplicationCoordinator.ShakeHandler {
         
         // asks if root view controller exists.
         guard let rootViewController = self.window?.rootViewController else {
-            print("\(self) no root view controller!")
+            os_log(.error, "%s no root view controller!", "\(self)")
             return
         }
         
         // check that we already has this controller.
         // find top presented controller.
         guard let topMostController = self.topPresentedController(for: rootViewController) else {
-            print("\(self) no top most view controller!")
+            os_log(.error, "%s no top most view controller!", "\(self)")
             return
         }
         
         // next, check that it is not already presented.
         guard !self.isPresented(asTopMost: topMostController, of: DeveloperOptions.ViewController.self) else {
-            print("\(self) developer controller is already presented!")
+            os_log(.error, "%s developer controller is already presented!", "\(self)")
             return
         }
         
