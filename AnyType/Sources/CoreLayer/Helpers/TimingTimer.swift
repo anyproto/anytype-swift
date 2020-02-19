@@ -8,7 +8,7 @@
 
 import Combine
 import Foundation
-
+import os
 
 private var scrollModelInst: Int = 0
 
@@ -35,7 +35,7 @@ class TimingTimer {
                 cancellableTimer = timer.autoconnect().sink { [weak self] _ in
                     self?.fireTimer?()
                 }
-                print("start timer: \(timing)")
+                os_log(.debug, "start timer: %s", "\(timing)")
             }
         }
     }
@@ -43,11 +43,11 @@ class TimingTimer {
     init() {
         scrollModelInst += 1
         numberOfInstance = scrollModelInst
-        print("init \(numberOfInstance)")
+        os_log(.debug, "%s init: %s", "\(self)", "\(numberOfInstance)")
     }
     
     deinit {
-        print("deinit \(numberOfInstance)")
+        os_log(.debug, "%s deinit: %s", "\(self)", "\(numberOfInstance)")
         self.cancellableTimer?.cancel()
         self.cancelTimer?()
     }

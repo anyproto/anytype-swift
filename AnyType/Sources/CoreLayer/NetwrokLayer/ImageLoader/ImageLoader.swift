@@ -62,6 +62,9 @@ final class ImageLoader: ObservableObject {
     
     // MARK: - Private methods
     
+    // NOTE:
+    // Memory leak here.
+    // `.assign` will retain `self`.
     private func loadImage() {
         cancellable = imageService.fetchImage(url: path)
             .receive(on: DispatchQueue.main)

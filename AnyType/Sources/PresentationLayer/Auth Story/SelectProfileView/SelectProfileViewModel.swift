@@ -122,12 +122,12 @@ class SelectProfileViewModel: ObservableObject {
         
         avatarCancellable = ipfsFileService.fetchImage(requestModel: request)
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { result in
+            .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:
                     break
                 case .failure(let error):
-                    self.error = error.localizedDescription
+                    self?.error = error.localizedDescription
                 }
             }) { data in
                 profileViewModel.image = UIImage(data: data)
