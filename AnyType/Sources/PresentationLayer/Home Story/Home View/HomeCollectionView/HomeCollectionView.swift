@@ -12,6 +12,11 @@ enum HomeCollectionViewSection {
     case main
 }
 
+protocol HomeCollectionViewInput {
+    func showPage(with blockId: String)
+}
+
+// MARK: - UIViewRepresentable
 struct HomeCollectionView: UIViewRepresentable {
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
@@ -20,10 +25,9 @@ struct HomeCollectionView: UIViewRepresentable {
     
     let containerSize: CGSize
     
-    // MARK: - UIViewRepresentable
-    
     func makeCoordinator() -> HomeCollectionViewCoordinator {
-        HomeCollectionViewCoordinator(self)
+        viewModel.view = self // TODO: check if there is retain cycle
+        return HomeCollectionViewCoordinator(self)
     }
     
     func makeUIView(context: Context) -> UICollectionView {
@@ -52,6 +56,16 @@ struct HomeCollectionView: UIViewRepresentable {
     }
 }
 
+// MARK: - HomeCollectionViewInput
+extension HomeCollectionView: HomeCollectionViewInput {
+    
+    func showPage(with blockId: String) {
+        showDocument = true
+        selectedDocumentId = blockId
+    }
+}
+
+// MARK: - Private HomeCollectionView
 extension HomeCollectionView {
     
     private func configureCollectionView() -> UICollectionView {
@@ -120,15 +134,6 @@ class HomeCollectionViewCoordinator: NSObject {
 extension HomeCollectionViewCoordinator: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        parent.showDocument = true
-        
-//        guard parent.viewModel.documentsHeaders?.headers.indices.contains(indexPath.row) ?? false,
-//            let documentId = parent.viewModel.documentsHeaders?.headers[indexPath.row].id else { return }
-        
-//        parent.selectedDocumentId = documentId
-        
         parent.viewModel.didSelectPage(with: indexPath)
-        
     }
-    
 }

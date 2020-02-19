@@ -34,9 +34,11 @@ struct HomeViewContainer: View {
     }
     var body: some View {
         oldBody
+//        newBody
     }
     var newBody: some View {
-        model.profileView
+//        model.profileView
+        DocumentViewBuilder.documentView(by: .init(id: "1"))
     }
 }
 
