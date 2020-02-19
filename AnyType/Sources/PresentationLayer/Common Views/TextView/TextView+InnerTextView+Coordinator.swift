@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SwiftUI
 import Combine
+import os
 
 // MARK: InnerTextView.Coordinator / Publishers
 extension TextView.InnerTextView.Coordinator {
@@ -34,7 +35,7 @@ extension TextView.InnerTextView.Coordinator {
     
     // MARK: - Publishers / Blocks Toolbar
     func configureBlocksToolbarHandler(_ view: UITextView) {
-        self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { (value) in
+        self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { [weak self] (value) in
             let (textView, action) = value
             
             guard action.action != .keyboardDismiss else {
@@ -42,7 +43,7 @@ extension TextView.InnerTextView.Coordinator {
                 return
             }
             
-            self.switchInputs(textView, accessoryView: nil, inputView: action.view)
+            self?.switchInputs(textView, accessoryView: nil, inputView: action.view)
         })
         
         // TODO: Add other user interaction publishers.
@@ -96,7 +97,11 @@ extension TextView.InnerTextView.Coordinator {
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { (textView, action) in
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            print("\(action)")
+            
+            
+            let logger = Logging.createLogger(category: .textView)
+            os_log(.debug, log: logger, "%s configureMarkStylePublisher %s", "\(self)", "\(action)")
+            
             switch action {
             case .keyboardDismiss: textView.endEditing(false)
             case let .bold(range):
@@ -165,13 +170,6 @@ extension TextView.InnerTextView.Coordinator {
 
 // MARK: InnerTextView.Coordinator / UITextViewDelegate
 extension TextView.InnerTextView.Coordinator: UITextViewDelegate {
-    // MARK: Debug
-    func outputResponderChain(_ responder: UIResponder?) {
-        let chain = sequence(first: responder, next: {$0?.next}).compactMap({$0}).reduce("") { (result, responder) -> String in
-            result + " -> \(String(describing: type(of: responder)))"
-        }
-        print("chain: \(chain)")
-    }
     // MARK: Selection and Marked Text
     func setFocus(in textView: UITextView, at range: NSRange) {
         // set attributes of text or place view around it?
@@ -307,14 +305,8 @@ extension TextView.InnerTextView.Coordinator: UIGestureRecognizerDelegate {
         case .recognized: gestureRecognizer.view?.becomeFirstResponder()
         default: break
         }
-        print("tap \(message(gestureRecognizer.state))")
+        
+        let logger = Logging.createLogger(category: .textView)
+        os_log(.debug, log: logger, "%s tap: %s", "\(self)", "\(message(gestureRecognizer.state))")
     }
 }
-
-//MARK: TextViewUserInteractionProtocol
-extension TextView.InnerTextView.Coordinator: TextViewUserInteractionProtocol {
-    func didReceiveAction(_ action: TextView.UserAction) {
-        print("I receive! \(action)")
-    }
-}
-

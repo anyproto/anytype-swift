@@ -107,3 +107,7 @@ struct TextView_Previews: PreviewProvider {
         }
     }
 }
+
+extension Logging.Categories {
+    static let textView: Self = "textView"
+}
