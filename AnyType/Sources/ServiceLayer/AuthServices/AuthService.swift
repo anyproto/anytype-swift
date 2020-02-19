@@ -8,8 +8,12 @@
 
 import Foundation
 import Combine
-import Lib
 import SwiftUI
+import os
+
+private extension Logging.Categories {
+    static let servicesAuthService: Self = "Services.AuthService"
+}
 
 // rewrite it on top of Middleware services.
 final class AuthService: NSObject, AuthServiceProtocol {
@@ -40,9 +44,10 @@ final class AuthService: NSObject, AuthServiceProtocol {
             case .finished: break
             case .failure(_): onCompletion(.failure(.createWalletError()))
             }
-        }) { (value) in
-            print("seed: \(value.mnemonic)")
-            try? self.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keyChainPassword: .none)
+        }) { [weak self] (value) in
+            let logger = Logging.createLogger(category: .servicesAuthService)
+            os_log(.debug, log: logger, "seed: %{PRIVATE}@", value.mnemonic)
+            try? self?.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keyChainPassword: .none)
             onCompletion(.success(()))
         }
     }
@@ -64,10 +69,10 @@ final class AuthService: NSObject, AuthServiceProtocol {
             case .finished: break
             case .failure(_): onCompletion(.failure(.createAccountError()))
             }
-        }) { (value) in
+        }) { [weak self] (value) in
             UserDefaultsConfig.usersIdKey = value.account.id
             UserDefaultsConfig.userName = value.account.name
-            self.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
+            self?.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
             onCompletion(.success(value.account.id))
         }
     }
@@ -102,10 +107,10 @@ final class AuthService: NSObject, AuthServiceProtocol {
             case .finished: break
             case .failure(_): theCompletion(.failure(.selectAccountError()))
             }
-        }) { (value) in
+        }) { [weak self] (value) in
             UserDefaultsConfig.usersIdKey = value.account.id
             UserDefaultsConfig.userName = value.account.name
-            self.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
+            self?.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
             theCompletion(.success(value.account.id))
         }
     }

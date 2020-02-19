@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 class TestDocumentService: DocumentServiceProtocol {
-    
+    typealias Model = BlockModels.Block.RealBlock
     private struct TestDocuments {
         var documentsHeaders: DocumentsHeaders = {
             let documentsHeaders = [
@@ -28,7 +28,8 @@ class TestDocumentService: DocumentServiceProtocol {
             case debug
             case focus
             case presentation
-            static func debugSet() -> [Block] {
+            case small
+            static func debugSet() -> [Model] {
                 
                 [
                     .mockText(.text),
@@ -53,35 +54,23 @@ class TestDocumentService: DocumentServiceProtocol {
                     .mockImage(.image)
                 ]
             }
-            static func focusSet() -> [Block] {
+            static func smallSet() -> [Model] {
+                [
+                    .mockText(.bulleted),
+                    .mockText(.numbered),
+                    .mockText(.numbered),
+                    .mockText(.numbered),
+                    .mockText(.bulleted),
+                ]
+            }
+            static func focusSet() -> [Model] {
                 [
                     .mockText(.bulleted),
                     .mockText(.quote),
                     .mockText(.todo),
-//                    .mockImage(.image)
-//                    .mockText(.toggle)
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
-//                    .mockText(.text),
                 ]
             }
-            static func presentationSet() -> [Block] {
+            static func presentationSet() -> [Model] {
                 [
                     .mockImage(.pageIcon),
                     .mockText(.header),
@@ -100,22 +89,23 @@ class TestDocumentService: DocumentServiceProtocol {
                     .mockText(.callout),
                 ]
             }
-            func blocks() -> [Block] {
+            func blocks() -> [Model] {
                 switch self {
                 case .debug: return Self.debugSet()
                 case .focus: return Self.focusSet()
                 case .presentation: return Self.presentationSet()
+                case .small: return Self.smallSet()
                 }
             }
         }
-        private static func getBlocks(set: BlocksSet) -> [Block] {
+        private static func getBlocks(set: BlocksSet) -> [Model] {
             set.blocks()
         }
         
         @Environment(\.developerOptions) private var developerOptions
         
-        var blocks: [Block] = {
-            Self.getBlocks(set: .presentation)
+        var blocks: [Model] = {
+            Self.getBlocks(set: .small)
         }()
 
         
@@ -148,7 +138,7 @@ class TestDocumentService: DocumentServiceProtocol {
     }
     
     func addBlock(content: BlockType, by index: Int, for documentId: String, completion: (Result<Document, Error>) -> Void) {
-        let block = Block(id: "1", childrensIDs: [""], type: content)
+        let block = Model.init(information: .init(id: "1", content: content))
         
         if var document = testDocuments.document(id: documentId) {
             document.blocks.insert(block, at: index)

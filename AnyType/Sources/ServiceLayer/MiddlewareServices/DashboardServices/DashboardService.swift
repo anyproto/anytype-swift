@@ -11,35 +11,22 @@ import Combine
 import SwiftProtobuf
 
 class DashboardService: DashboardServiceProtocol {
-    private let middleConfigService = MiddleConfigService()
-    
+    private let middleConfigService: MiddleConfigService = .init()
+    private let blocksActionsService: BlockActionsService = .init()
+    private var dashboardId: String = ""
     func subscribeDashboardEvents() -> AnyPublisher<Never, Error> {
         middleConfigService.obtainConfig()
-            .flatMap { config in
-                Anytype_Rpc.Block.Open.Service.invoke(contextID: config.homeBlockID, blockID: config.homeBlockID, breadcrumbsIds: [])
-                    .subscribe(on: DispatchQueue.global())
+            .flatMap { [unowned self] config -> AnyPublisher<Never, Error> in
+                self.dashboardId = config.homeBlockID
+                return self.blocksActionsService.open.action(contextID: config.homeBlockID, blockID: config.homeBlockID)
         }
         .ignoreOutput()
         .eraseToAnyPublisher()
     }
     
     func obtainDashboardBlocks() -> AnyPublisher<Anytype_Event.Block.Show, Never> {
-        NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
-        .compactMap { notification in
-            return notification.object as? Anytype_Event
-        }
-        .map { $0.messages }
-        .compactMap {
-            $0.first { message in
-                guard let value = message.value else { return false }
-                
-                if case Anytype_Event.Message.OneOf_Value.blockShow = value {
-                    return true
-                }
-                return false
-            }?.blockShow
-        }
-        .eraseToAnyPublisher()
+        middleConfigService.obtainConfig().ignoreFailure().flatMap({ [unowned self] configuration in
+        self.blocksActionsService.eventListener.receiveRawEvent(contextId: configuration.homeBlockID) }).eraseToAnyPublisher()
     }
     
     func createPage(contextId: String) -> AnyPublisher<Void, Error> {
