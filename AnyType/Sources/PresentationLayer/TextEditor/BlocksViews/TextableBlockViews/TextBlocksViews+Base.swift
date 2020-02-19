@@ -12,7 +12,7 @@ import Combine
 
 extension TextBlocksViews {
     enum Base {
-        class BlockViewModel: BlocksViews.Base.BlockViewModel {
+        class BlockViewModel: BlocksViews.Base.ViewModel {
             @Environment(\.developerOptions) var developerOptions
             private weak var delegate: TextBlocksViewsUserInteractionProtocol?
             
@@ -29,20 +29,20 @@ extension TextBlocksViews {
                 self.setupSubscribers()
             }
             private func setupSubscribers() {
-                self.outputSubscriber = self.$text.map(TextView.UIKitTextView.ViewModel.Update.text).sink(receiveValue: self.textViewModel.apply(update:))
-                self.inputSubscriber = self.textViewModel.onUpdate.sink(receiveValue: self.apply(update:))
+                self.outputSubscriber = self.$text.map(TextView.UIKitTextView.ViewModel.Update.text).sink(receiveValue: {[weak self] value in self?.textViewModel.apply(update: value)})
+                self.inputSubscriber = self.textViewModel.onUpdate.sink(receiveValue: {[weak self] value in self?.apply(update:value)})
             }
             private func setup() {
                 if self.developerOptions.current.debug.enabled {
                     self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, getID())
-                    switch getBlock().type {
+                    switch getRealBlock().information.content {
                     case let .text(blockType):
                         self.text = self.text + " >> " + blockType.text
                     default: return
                     }
                 }
                 else {
-                    switch getBlock().type {
+                    switch getRealBlock().information.content {
                     case let .text(blockType):
                         self.text = blockType.text
                     default: return
@@ -52,14 +52,18 @@ extension TextBlocksViews {
             }
             
             // MARK: Subclassing
-            override init(_ block: Block) {
+            override init(_ block: BlockModel) {
                 self.text = ""
                 super.init(block)
                 self.setup()
             }
             
-            private convenience init() {
-                self.init(.mockText(.text))
+            private static func createEmptyBlock() -> BlockViewModel {
+                let informationValue = Block.mockText(.text)
+                let information = BlockModels.Block.Information.init(id: informationValue.id, content: informationValue.content)
+                let block: BlockModel = .init(indexPath: .init(), blocks: [])
+                block.information = information
+                return BlockViewModel.init(block)
             }
             
             // MARK: Subclassing accessors
@@ -70,7 +74,7 @@ extension TextBlocksViews {
             }
             
             // MARK: Empty
-            static let empty = BlockViewModel.init()
+            static let empty = BlockViewModel.createEmptyBlock()
         }
     }
 }
@@ -82,11 +86,11 @@ extension TextBlocksViews.Base.BlockViewModel {
         self.text = theText
         
         self.update { (block) in
-            switch block.type {
+            switch block.information.content {
                 case let .text(value):
                     var value = value
                     value.text = text
-                    block.type = .text(value)
+                    block.information.content = .text(value)
                 default: return
             }
         }
@@ -110,18 +114,18 @@ extension TextBlocksViews.Base.BlockViewModel: TextBlocksViewsUserInteractionPro
 // MARK: TextViewUserInteractionProtocol
 extension TextBlocksViews.Base.BlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: TextView.UserAction) {
-        self.delegate?.didReceiveAction(block: getBlock(), id: getID(), action: action)
+        self.delegate?.didReceiveAction(block: getRealBlock(), id: getID(), action: action)
     }
 }
 
 // MARK: Debug
 extension TextBlocksViews.Base.BlockViewModel {
     // Class scope, actually.
-    class func debugString(_ unique: Bool, _ id: Block.ID) -> String {
+    class func debugString(_ unique: Bool, _ id: BlockModelID) -> String {
         unique ? self.defaultDebugStringUnique(id) : self.defaultDebugString()
     }
-    class func defaultDebugStringUnique(_ id: Block.ID) -> String {
-        self.defaultDebugString() + id.prefix(5)
+    class func defaultDebugStringUnique(_ id: BlockModelID) -> String {
+        self.defaultDebugString() + id.description.prefix(10)
     }
     class func defaultDebugString() -> String {
         .init("\(String(reflecting: self))".split(separator: ".").dropLast().last ?? "")

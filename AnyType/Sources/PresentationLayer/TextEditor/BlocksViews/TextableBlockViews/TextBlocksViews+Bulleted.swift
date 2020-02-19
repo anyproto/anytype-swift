@@ -37,16 +37,3 @@ extension TextBlocksViews.Bulleted {
         }
     }
 }
-
-// MARK: - View Previews
-extension TextBlocksViews.Bulleted {
-    struct BlockView__Previews: PreviewProvider {
-        static var previews: some View {
-            let textType = BlockType.Text(text: "some text", contentType: .todo)
-            let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block)
-            let view = BlockView(viewModel: viewModel)
-            return view
-        }
-    }
-}

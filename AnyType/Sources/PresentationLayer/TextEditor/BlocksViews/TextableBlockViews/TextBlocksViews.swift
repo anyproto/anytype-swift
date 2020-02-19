@@ -24,7 +24,9 @@ enum TextBlocksViews {
 
 // MARK: UserInteraction
 protocol TextBlocksViewsUserInteractionProtocol: class {
-    func didReceiveAction(block: Block, id: Block.ID, action: TextView.UserAction)
+    typealias Index = BusinessBlock.Index
+    typealias Model = BlockModels.Block.RealBlock
+    func didReceiveAction(block: Model, id: Index, action: TextView.UserAction)
 }
 
 protocol TextBlocksViewsUserInteractionProtocolHolder: class {
@@ -37,10 +39,9 @@ extension TextBlocksViews {
 
 
 extension TextBlocksViews.Supplement {
-    class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
-        
-        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewBuilderProtocol] {
-            switch block.type {
+    class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {        
+        override func sequenceResolver(block: Model, blocks: [Model]) -> [BlockViewBuilderProtocol] {
+            switch block.information.content {
             case let .text(text):
                 switch text.contentType {
                 case .text: return blocks.map(TextBlocksViews.Text.BlockViewModel.init)

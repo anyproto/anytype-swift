@@ -30,7 +30,8 @@ extension TextBlocksViews.List {
             _ = self.configured(blocks)
         }
         
-        var id: Block.ID = UUID().uuidString
+//        var id: BlockID = .init() //UUID().uuidString
+        var id: IndexID = .init()
 //        var id: String {
 ////            return "list"
 //            // we should return something unique.
@@ -48,7 +49,7 @@ extension TextBlocksViews.List.BlockViewModel: TextBlocksViewsUserInteractionPro
 
 // MARK: TextBlocksViewsUserInteractionProtocol
 extension TextBlocksViews.List.BlockViewModel: TextBlocksViewsUserInteractionProtocol {
-    func didReceiveAction(block: Block, id: Block.ID, action: TextView.UserAction) {
+    func didReceiveAction(block: Model, id: Index, action: TextView.UserAction) {
         self.delegate?.didReceiveAction(block: block, id: id, action: action)
     }
 }
@@ -61,6 +62,8 @@ extension TextBlocksViews.List.BlockViewModel: Identifiable {}
 
 // MARK: BlockViewBuilderProtocol
 extension TextBlocksViews.List.BlockViewModel: BlockViewBuilderProtocol {
+    var blockId: BlockID { "list" }
+    
     func buildView() -> AnyView {
         .init(TextBlocksViews.List.BlockView(viewModel: self))
     }
@@ -106,20 +109,6 @@ extension TextBlocksViews.List {
                     element.buildView()
                 }
             }
-        }
-    }
-}
-
-// MARK: View Previews
-extension TextBlocksViews.List {
-    struct BlockView__Previews: PreviewProvider {
-        static var previews: some View {
-            let textType = BlockType.Text(text: "some text", contentType: .todo)
-            let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let model = TextBlocksViews.Checkbox.BlockViewModel(block)
-            let viewModel = BlockViewModel(blocks: [model])
-            let view = BlockView(viewModel: viewModel)
-            return view
         }
     }
 }

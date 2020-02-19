@@ -18,15 +18,7 @@ extension TextBlocksViews.Checkbox {
         // Workaround: Explicit invocation
         @Published var checked: Bool = false { willSet { self.objectWillChange.send() } }
         
-        // MARK: Subclassing
-        override init(_ block: Block) {
-            super.init(block)
-        }
-        
-        override func getID() -> Block.ID {
-            super.getID()
-        }
-        
+        // MARK: Subclassing        
         override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
         }
@@ -105,19 +97,6 @@ extension TextBlocksViews.Checkbox {
                 .foregroundColor(self.style.foregroundColor())
                 .strikethrough(self.style.strikethrough())
                 .modifier(MarkedViewModifier(checked: self.$viewModel.checked))
-        }
-    }
-}
-
-// MARK: View Previews
-extension TextBlocksViews.Checkbox {
-    struct BlockView__Previews: PreviewProvider {
-        static var previews: some View {
-            let textType = BlockType.Text(text: "some text", contentType: .todo)
-            let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block)
-            let view = BlockView(viewModel: viewModel)
-            return view
         }
     }
 }
