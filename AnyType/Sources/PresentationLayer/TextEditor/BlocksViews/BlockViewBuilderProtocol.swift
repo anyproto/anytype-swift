@@ -10,7 +10,12 @@ import SwiftUI
 
 /// Define builder for block view in the block's view list
 protocol BlockViewBuilderProtocol {
-    var id: Block.ID { get }
+    typealias Model = BlockModels.Block.RealBlock
+    typealias IndexID = BusinessBlock.Index
+    typealias BlockID = MiddlewareBlockInformationModel.Id
+    
+    var id: IndexID { get }
+    var blockId: BlockID { get }
     
     func buildView() -> AnyView
     func buildUIView() -> UIView

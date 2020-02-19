@@ -1,23 +1,31 @@
 //
-//  DocumentViewModel+UserInteraction.swift
+//  BlocksViews+Base+Utilities+TreeTextBlocksUserInteractor.swift
 //  AnyType
 //
-//  Created by Dmitry Lobanov on 01.02.2020.
+//  Created by Dmitry Lobanov on 25.02.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
 import Foundation
 
-// MARK: Indices
-extension DocumentViewModel {
-    func index(of id: Block.ID) -> Int? {
-        return self.indexDictionary[id]
+extension BlocksViews.Base.Utilities {
+    // Add AnyUpdater (?) // Do we really need it?
+    class TreeTextBlocksUserInteractor<T: BlocksViewsViewModelHolder> {
+        typealias Index = BusinessBlock.Index
+        typealias Model = BlockModels.Block.RealBlock
+        var updater: TreeUpdater<T>
+        init(_ value: T) {
+            self.updater = TreeUpdater.init(value: value)
+        }
+        init(_ value: TreeUpdater<T>) {
+            self.updater = value
+        }
     }
 }
 
 // MARK: TextBlocksViewsUserInteractionProtocol
-extension DocumentViewModel: TextBlocksViewsUserInteractionProtocol {
-    func didReceiveAction(block: Block, id: Block.ID, action: TextView.UserAction) {
+extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor: TextBlocksViewsUserInteractionProtocol {
+    func didReceiveAction(block: Model, id: Index, action: TextView.UserAction) {
         switch action {
         case let .blockAction(action): self.handlingBlockAction(block, id, action)
         case let .keyboardAction(action): self.handlingKeyboardAction(block, id, action)
@@ -29,66 +37,81 @@ extension DocumentViewModel: TextBlocksViewsUserInteractionProtocol {
 }
 
 // MARK: Handling / KeyboardAction
-private extension DocumentViewModel {
-    func handlingKeyboardAction(_ block: Block, _ id: Block.ID, _ action: TextView.UserAction.KeyboardAction) {
+private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
+    func handlingKeyboardAction(_ block: Model, _ id: Index, _ action: TextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
             switch keyAction {
             case let .enterWithPayload(payload):
-                BlockBuilder.createBlock(for: block, id, action, payload ?? "").flatMap{($0, id)}.flatMap(self.testInsertAfter)
+                BlockBuilder.createBlock(for: block, id, action, payload ?? "").flatMap{($0, block.getFullIndex())}.flatMap(self.updater.insert(block:afterBlock:))
             case .enterAtBeginning: // we should assure ourselves about type of block.
-                switch block.type {
+                switch block.information.content {
                 case let .text(blockType): // nice.
-                    BlockBuilder.createBlock(for: block, id, action, blockType.text).flatMap{($0, id)}.flatMap(self.testInsertAfter)//{self.testInsert(block: $0.0, afterBlock: $0.1)}
+                    BlockBuilder.createBlock(for: block, id, action, blockType.text).flatMap{($0, block.getFullIndex())}.flatMap(self.updater.insert(block:afterBlock:))
                 default: return // do nothing! but it is too strange.
                 }
             case .enter:
-                BlockBuilder.createBlock(for: block, id, action, "").flatMap{($0, id)}.flatMap{self.testInsert(block: $0.0, afterBlock: $0.1)}
+                BlockBuilder.createBlock(for: block, id, action, "").flatMap{($0, block.getFullIndex())}.flatMap{self.updater.insert(block: $0.0, afterBlock: $0.1)}
             case .deleteWithPayload(_): return
-            case .delete: self.testDelete(block: id)
+            case .delete: self.updater.delete(at: block.getFullIndex())
             }
         }
     }
 }
 
 // MARK: BlockBuilder
-private extension DocumentViewModel {
+private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
     struct BlockBuilder {
         static func newBlockId() -> Block.ID { UUID().uuidString }
-        static func createBlock(for outerBlock: Block, _ id: Block.ID, _ action: TextView.UserAction.KeyboardAction, _ textPayload: String) -> Block? {
-            switch outerBlock.type {
+        static func createBlock(for outerBlock: Model, _ id: Index, _ action: TextView.UserAction.KeyboardAction, _ textPayload: String) -> Model? {
+            switch outerBlock.information.content {
+            case .text:
+                return self.createContentType(for: outerBlock, id, action, textPayload).flatMap({(newBlockId(), $0)}).map(BlockModels.Block.Information.init).flatMap({Model.init(information: $0)})
+            default: return nil
+            }
+        }
+        
+        static func createContentType(for outerBlock: Model, _ id: Index, _ action: TextView.UserAction.KeyboardAction, _ textPayload: String) -> BlockType? {
+            switch outerBlock.information.content {
             case let .text(blockType):
                 switch blockType.contentType {
-                case .bulleted: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: textPayload, contentType: .bulleted)))
-                case .todo: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: textPayload, contentType: .todo)))
-                case .numbered: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: textPayload, contentType: .numbered)))
-                default: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: textPayload, contentType: .text)))
+                case .bulleted where blockType.text != "": return .text(.init(text: textPayload, contentType: .bulleted))
+                case .todo where blockType.text != "": return .text(.init(text: textPayload, contentType: .todo))
+                case .numbered where blockType.text != "": return .text(.init(text: textPayload, contentType: .numbered))
+                default: return .text(.init(text: textPayload, contentType: .text))
                 }
             default: return nil
             }
         }
-        static func createBlock(for outerBlock: Block, _ id: Block.ID, _ action: TextView.UserAction.BlockAction) -> Block? {
-//            .init()
+        
+        static func createContentType(for outerBlock: Model, _ id: Index, _ action: TextView.UserAction.BlockAction, _ textPayload: String = "") -> BlockType? {
             switch action {
             case let .addBlock(blockType):
                 switch blockType {
                 case let .text(textType):
                     switch textType {
-                    case .text: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: "", contentType: .text)))
-                    case .h1: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: "", contentType: .header)))
+                    case .text: return .text(.init(text: textPayload, contentType: .text))
+                    case .h1: return .text(.init(text: textPayload, contentType: .header))
                     case .h2: return nil
                     case .h3: return nil
-                    case .highlighted: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: "", contentType: .quote)))
+                    case .highlighted: return .text(.init(text: textPayload, contentType: .quote))
                     }
                 case let .list(listType):
                     switch listType {
-                    case .bulleted: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: "", contentType: .bulleted)))
-                    case .checkbox: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: "", contentType: .todo)))
-                    case .numbered: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: "", contentType: .numbered)))
-                    case .toggle: return Block(id: newBlockId(), childrensIDs: [], type: .text(BlockType.Text.init(text: "", contentType: .toggle)))
+                    case .bulleted: return .text(.init(text: textPayload, contentType: .bulleted))
+                    case .checkbox: return .text(.init(text: textPayload, contentType: .todo))
+                    case .numbered: return .text(.init(text: textPayload, contentType: .numbered))
+                    case .toggle: return .text(.init(text: textPayload, contentType: .toggle))
                     }
                 default: return nil
                 }
+            default: return nil
+            }
+        }
+        
+        static func createBlock(for outerBlock: Model, _ id: Index, _ action: TextView.UserAction.BlockAction) -> Model? {
+            switch action {
+            case .addBlock: return self.createContentType(for: outerBlock, id, action).flatMap({(newBlockId(), $0)}).map(BlockModels.Block.Information.init).flatMap({Model.init(information: $0)})
             default: return nil
             }
         }
@@ -96,41 +119,41 @@ private extension DocumentViewModel {
 }
 
 // MARK: Handling / BlockAction
-private extension DocumentViewModel {
-    func handlingBlockAction(_ block: Block, _ id: Block.ID, _ action: TextView.UserAction.BlockAction) {
+private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
+    func handlingBlockAction(_ block: Model, _ id: Index, _ action: TextView.UserAction.BlockAction) {
         switch action {
         case .addBlock(_):
             // we just create a block next to our block.
             // but for list blocks it is not the same as create block, it is create new entry.
             if let newBlock = BlockBuilder.createBlock(for: block, id, action) {
                 // insert block after block
-                self.testInsert(block: newBlock, afterBlock: id)
+                self.updater.insert(block: newBlock, afterBlock: block.getFullIndex())
             }
-            
+
         // very-very-very complex action.
         // rethink it.
         case let .turnIntoBlock(value):
-            guard !BlockActionComparator.equal(value, block.type) else { return }
+            guard !BlockActionComparator.equal(value, block.information.content) else { return }
             // change type now.
-            var newBlock: Block?
+            var newBlock: Model?
             switch value {
             case let .text(value):
                 switch BlockActionComparator.text(value) {
                 case .quote:
                     newBlock = block
-                    newBlock?.type = .text(.init(text: "New!", contentType: .quote))
+                    newBlock?.information.content = .text(.init(text: "New!", contentType: .quote))
                 default: return
                 }
             default: return
             }
-            
+
             if let turnIntoBlock = newBlock {
-                self.testUpdate(at: id, by: turnIntoBlock)
+                self.updater.update(at: block.getFullIndex(), by: turnIntoBlock)
             }
         case let .editBlock(value):
             switch value {
-            case .delete: self.testDelete(block: id)
-            default: return                
+            case .delete: self.updater.delete(at: block.getFullIndex())
+            default: return
             }
         default: return
         }
@@ -143,12 +166,14 @@ private protocol ComparatorAndConvertor {
     associatedtype R: Equatable
     static func convert(_ type: L) -> R
 }
+
 extension ComparatorAndConvertor {
     static func equal(_ lhs: L, _ rhs: R) -> Bool {
         return convert(lhs) == rhs
     }
 }
-private extension DocumentViewModel {
+
+private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
     struct BlockActionComparator {
         private struct ForText: ComparatorAndConvertor {
             static func convert(_ type: TextView.UserAction.BlockAction.BlockType.Text) -> BlockType.Text.ContentType {
@@ -210,12 +235,12 @@ private extension DocumentViewModel {
                 }
             }
         }
-        
+
         // Maybe it is better to create real text BlockType.Text
         static func text(_ type: TextView.UserAction.BlockAction.BlockType.Text) -> BlockType.Text.ContentType {
             ForText.convert(type)
         }
-        
+
         static func equal(_ lhs: TextView.UserAction.BlockAction.BlockType, _ rhs: BlockType) -> Bool {
             switch (lhs, rhs) {
             case let (.text(left), .text(right)): return ForText.equal(left, right.contentType)
@@ -225,3 +250,4 @@ private extension DocumentViewModel {
         }
     }
 }
+
