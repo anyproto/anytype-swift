@@ -10,25 +10,23 @@ import Foundation
 import Combine
 
 extension DocumentView {
-    class ViewModel: DocumentViewModel {
+    class ViewModel: DocumentViewModelTreeViewModel {
         @Published var buildersRows: [Row] = [] {
             didSet {
                 self.objectWillChange.send()
             }
         }
-        var anyFieldUpdateSubject: PassthroughSubject<String, Never> = .init()
-        var anyFieldUpdateSubscription: AnyCancellable?
-//        var onAnyFieldUpdate: PassthroughSubject<(Block.ID, String), Never> = .init()
+        var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
         var buildersSubscription: AnyCancellable?
         override init(documentId: String?) {
             super.init(documentId: documentId)
-            self.buildersSubscription = self.$builders.sink { value in
-                self.buildersRows = value.compactMap(Row.init)
+            self.buildersSubscription = self.$builders.sink { [weak self] value in
+                self?.buildersRows = value.compactMap(Row.init)
             }
             
-            self.anyFieldUpdateSubscription = self.$builders.map{$0.compactMap{$0 as? TextBlocksViews.Base.BlockViewModel}}.flatMap{
+            self.anyFieldPublisher = self.$builders.map{$0.compactMap{$0 as? TextBlocksViews.Base.BlockViewModel}}.flatMap{
                 Publishers.MergeMany($0.map{$0.$text})
-            }.subscribe(self.anyFieldUpdateSubject)
+            }.eraseToAnyPublisher()
         }
     }
 //    typealias ViewModel = DocumentViewModel
@@ -62,15 +60,21 @@ extension DocumentView.ViewModel: TableViewModelProtocol {
     }
     struct Row {
         var builder: BlockViewBuilderProtocol
+        var indentationLevel: UInt {
+//            return 0
+            (builder as? BlocksViews.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
+        }
     }
 }
 
 extension DocumentView.ViewModel.Section: Hashable {}
 extension DocumentView.ViewModel.Row: Hashable, Equatable {
     static func == (lhs: DocumentView.ViewModel.Row, rhs: DocumentView.ViewModel.Row) -> Bool {
-        lhs.builder.id == rhs.builder.id
+//        lhs.builder.id == rhs.builder.id
+        lhs.builder.blockId == rhs.builder.blockId
     }
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.builder.id)
+//        hasher.combine(self.builder.id)
+        hasher.combine(self.builder.blockId)
     }
 }

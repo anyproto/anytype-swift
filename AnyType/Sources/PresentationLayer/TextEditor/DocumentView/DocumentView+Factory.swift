@@ -9,23 +9,16 @@
 import Foundation
 import SwiftUI
 import Combine
+import os
 
 extension DocumentView {
-    // TODO: Remove later.
+    // EXAMPLE:
+    // Subscribe on viewModel.objectWillChange.
+    // Even if it receive updates, it will not call UIViewControllerRepresentable method .updateController
     // It is nice exapmle of using UIViewControllerRepresentable.
     // Update controller not called. Ha.ha.ha.
-    private class Holder {
-        static let holder = Holder.init()
-        var subscriptions: [AnyCancellable?] = []
-        func add(_ s: AnyCancellable?) {
-            self.subscriptions.append(s)
-        }
-    }
+    
     static func create(viewModel: DocumentViewModel) -> AnyView {
-        let s = viewModel.objectWillChange.sink { (value) in
-            print("value: \(value) updated!")
-        }
-        Holder.holder.add(s)
         if let viewModel = viewModel as? DocumentView.ViewModel {
             return .init(DocumentView.ViewControllerContainer(viewModel: viewModel))
         }

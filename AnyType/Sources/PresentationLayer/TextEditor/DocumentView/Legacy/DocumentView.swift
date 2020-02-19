@@ -286,7 +286,8 @@ private extension DocumentView {
         
         private func buildDraggingView(preference: DraggingViewPreferenceData) -> some View {
             let draggingViewIdx = viewBulders.firstIndex(where: { viewBuilder in
-                viewBuilder.id == preference.id
+                // TODO: Rewrite. id.description is not correct here.
+                viewBuilder.id.description == preference.id
             })
             var draggingView = AnyView(Color.clear)
             

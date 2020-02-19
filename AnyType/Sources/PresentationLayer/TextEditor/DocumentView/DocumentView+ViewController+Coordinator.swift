@@ -11,20 +11,22 @@ import SwiftUI
 
 extension DocumentView {
     struct ViewControllerContainer: UIViewControllerRepresentable {
-        func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentView.ViewControllerContainer>) -> DocumentView.ViewController {
-            DocumentView.ViewController.init().configured(self.viewModel)
+        func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentView.ViewControllerContainer>) -> DocumentViewController {
+            DocumentViewController.init().configured(self.viewModel)
         }
         
-        func updateUIViewController(_ uiViewController: DocumentView.ViewController, context: UIViewControllerRepresentableContext<DocumentView.ViewControllerContainer>) {
+        func updateUIViewController(_ uiViewController: DocumentViewController, context: UIViewControllerRepresentableContext<DocumentView.ViewControllerContainer>) {
             // our model did change?
             // should we do something?
             // well, we should calculate diffs.
             // But not now.
             // later.
-            uiViewController.tableView?.tableView.reloadData()
+            DispatchQueue.main.async {
+                uiViewController.tableView?.tableView.reloadData()
+            }
         }
         
-        typealias UIViewControllerType = DocumentView.ViewController
+        typealias UIViewControllerType = DocumentViewController
         typealias ViewModel = DocumentView.ViewModel
         
         @ObservedObject var viewModel: ViewModel

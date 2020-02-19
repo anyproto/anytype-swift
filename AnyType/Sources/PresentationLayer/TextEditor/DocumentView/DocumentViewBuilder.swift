@@ -14,12 +14,14 @@ enum DocumentViewBuilder {
         var id: String
         var useUIKit: Bool = true
     }
-    static func viewModel(by request: Request) -> DocumentViewModel {
+    
+    private static func viewModel(by request: Request) -> DocumentViewModel {
         if request.useUIKit {
             return DocumentView.ViewModel(documentId: request.id)
         }
         return DocumentViewModel(documentId: request.id)
     }
+    
     static func documentView(by request: Request) -> some View {
         DocumentView.create(viewModel: self.viewModel(by: request))
     }
