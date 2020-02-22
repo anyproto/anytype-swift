@@ -15,7 +15,7 @@ enum TabIdentifer {
 
 struct HomeViewContainer: View {
     @State var selectedTab: TabIdentifer = .home
-    var model = HomeViewContainerModel()
+    var model: HomeViewContainerModel
     
     var oldBody: some View {
         TabView(selection: $selectedTab) {
@@ -43,7 +43,7 @@ struct HomeViewContainer: View {
 #if DEBUG
 struct HomeViewContainer_Previews: PreviewProvider {
     static var previews: some View {
-        HomeViewContainer()
+        HomeViewContainer(model: HomeViewContainerModel())
     }
 }
 #endif

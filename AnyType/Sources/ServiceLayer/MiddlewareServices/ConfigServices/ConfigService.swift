@@ -1,13 +1,12 @@
 //
-//  MiddlewareAPIService.swift
+//  ConfigService.swift
 //  AnyType
 //
-//  Created by Denis Batvinkin on 16.02.2020.
+//  Created by Denis Batvinkin on 18.02.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
 import Foundation
-import Lib
 import Combine
 
 /// Service that handles middleware config
@@ -24,21 +23,6 @@ class MiddleConfigService {
                 InMemoryStore.shared.add(service: configModel)
                 
                 return configModel
-        }
-        .eraseToAnyPublisher()
-    }
-}
-
-/// Dashboard service
-class DashboardService {
-    private let middleConfigService = MiddleConfigService()
-    
-    func openDashboard() -> AnyPublisher<Never, Error> {
-        middleConfigService.obtainConfig()
-            .flatMap { config in
-                Anytype_Rpc.Block.Open.Service.invoke(contextID: config.homeBlockID, blockID: config.homeBlockID, breadcrumbsIds: [])
-                    .subscribe(on: DispatchQueue.global())
-                    .ignoreOutput()
         }
         .eraseToAnyPublisher()
     }

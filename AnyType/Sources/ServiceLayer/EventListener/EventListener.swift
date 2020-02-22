@@ -27,9 +27,11 @@ extension EventListener: LibMessageHandlerProtocol {
     
     func handle(_ b: Data?) {
         guard let rawEvent = b,
-            let event = try? Anytype_Event(serializedData: rawEvent)
-        else { return }
+            let event = try? Anytype_Event(serializedData: rawEvent) else { return }
         
+        print("event: \(event.messages)")
+        
+        // TODO: Add filter by messages here???
         NotificationCenter.default.post(name: .middlewareEvent, object: event)
     }
     

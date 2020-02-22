@@ -12,7 +12,7 @@
 		0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0422D8EDAD005C552B /* Assets.xcassets */; };
 		0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */; };
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
-		0306554D23F9812500803DD0 /* MiddlewareAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0306554C23F9812500803DD0 /* MiddlewareAPIService.swift */; };
+		0306554D23F9812500803DD0 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03074B87239514E2009FA7D0 /* MainAuthView.swift */; };
 		030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B22399346F00AD3BC3 /* AuthModels.swift */; };
 		030DF8642333E31100FE6DA5 /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF8632333E31100FE6DA5 /* DocumentViewModel.swift */; };
@@ -34,7 +34,6 @@
 		03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B6E2306031D00F8FCE7 /* ViewExtension.swift */; };
 		03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */; };
 		034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034CD9BD23F9D9AF00C8E131 /* CompletionAuthViewModel.swift */; };
-		034CD9BF23FA001100C8E131 /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0306554923F9713D00803DD0 /* Lib.framework */; };
 		03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */; };
 		0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E123293CE900E00FB5 /* HomeCollectionView.swift */; };
 		0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */; };
@@ -96,6 +95,10 @@
 		03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0F230C414C003D5DFD /* ImageService.swift */; };
 		03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAB230457FC00701782 /* PinCodeViewModel.swift */; };
 		03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAD2304589E00701782 /* PinCodeValidator.swift */; };
+		03D1515E23FB2B85004027CE /* ConfigServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1515D23FB2B85004027CE /* ConfigServiceProtocol.swift */; };
+		03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1515F23FB4329004027CE /* DashboardServiceProtocol.swift */; };
+		03D1516323FB43A9004027CE /* DashboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1516223FB43A9004027CE /* DashboardService.swift */; };
+		03D1516623FB446A004027CE /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1516523FB446A004027CE /* ConfigService.swift */; };
 		03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD4E23A93CC100C701CE /* CustomTextField.swift */; };
 		03E2AD5123A93D1000C701CE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD5023A93D1000C701CE /* ImagePicker.swift */; };
 		03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */; };
@@ -287,6 +290,10 @@
 		03CB3F0F230C414C003D5DFD /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		03CCADAB230457FC00701782 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
 		03CCADAD2304589E00701782 /* PinCodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeValidator.swift; sourceTree = "<group>"; };
+		03D1515D23FB2B85004027CE /* ConfigServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigServiceProtocol.swift; sourceTree = "<group>"; };
+		03D1515F23FB4329004027CE /* DashboardServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardServiceProtocol.swift; sourceTree = "<group>"; };
+		03D1516223FB43A9004027CE /* DashboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardService.swift; sourceTree = "<group>"; };
+		03D1516523FB446A004027CE /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
 		03E2AD4E23A93CC100C701CE /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		03E2AD5023A93D1000C701CE /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -496,15 +503,16 @@
 			path = Documents;
 			sourceTree = "<group>";
 		};
-		0327B0B4232BBA52007DB8A7 /* AnyTypeServices */ = {
+		0327B0B4232BBA52007DB8A7 /* MiddlewareServices */ = {
 			isa = PBXGroup;
 			children = (
+				03D1516423FB443E004027CE /* ConfigServices */,
+				03D1516123FB437A004027CE /* DashboardServices */,
 				03C6E84B233BAB35004EB6B6 /* DocumentServiceProtocol.swift */,
 				0327B0B7232BBAD9007DB8A7 /* TestDocumentService.swift */,
 				0372AB4623A136EE008CF5B9 /* IpfsFilesService.swift */,
-				0306554C23F9812500803DD0 /* MiddlewareAPIService.swift */,
 			);
-			path = AnyTypeServices;
+			path = MiddlewareServices;
 			sourceTree = "<group>";
 		};
 		0331BBD722E5D8A1002AD179 /* Home Story */ = {
@@ -729,7 +737,7 @@
 			isa = PBXGroup;
 			children = (
 				037F2D33239D59C0008C16BF /* EventListener */,
-				0327B0B4232BBA52007DB8A7 /* AnyTypeServices */,
+				0327B0B4232BBA52007DB8A7 /* MiddlewareServices */,
 				03CB3F00230C104F003D5DFD /* AuthServices */,
 				03CB3EFB230C0F52003D5DFD /* ProfileServices */,
 				03AA488A22FA55E800D756AA /* StoreServices */,
@@ -972,6 +980,24 @@
 				03CB3F0F230C414C003D5DFD /* ImageService.swift */,
 			);
 			path = ImageLoader;
+			sourceTree = "<group>";
+		};
+		03D1516123FB437A004027CE /* DashboardServices */ = {
+			isa = PBXGroup;
+			children = (
+				03D1515F23FB4329004027CE /* DashboardServiceProtocol.swift */,
+				03D1516223FB43A9004027CE /* DashboardService.swift */,
+			);
+			path = DashboardServices;
+			sourceTree = "<group>";
+		};
+		03D1516423FB443E004027CE /* ConfigServices */ = {
+			isa = PBXGroup;
+			children = (
+				03D1515D23FB2B85004027CE /* ConfigServiceProtocol.swift */,
+				03D1516523FB446A004027CE /* ConfigService.swift */,
+			);
+			path = ConfigServices;
 			sourceTree = "<group>";
 		};
 		03DA0FD123A1DBA900C597BD /* SecureStoreService */ = {
@@ -1236,7 +1262,7 @@
 				03B65752234D47A90084D9F5 /* BlockViewBuilderProtocol.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
 				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
-				0306554D23F9812500803DD0 /* MiddlewareAPIService.swift in Sources */,
+				0306554D23F9812500803DD0 /* (null) in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,
@@ -1247,6 +1273,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
+				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				0A996BC923EF0D26000FDC9C /* DocumentView+ViewController+Coordinator.swift in Sources */,
 				030DF8642333E31100FE6DA5 /* DocumentViewModel.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
@@ -1315,6 +1342,7 @@
 				0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				0A6B012623F59390002345D1 /* TextView+UIKitTextView.swift in Sources */,
+				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				0ACA780123E5C3A800442690 /* TextView+InnerTextView.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
@@ -1331,6 +1359,7 @@
 				0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */,
 				0A996BCF23EF19BE000FDC9C /* DocumentViewBuilder.swift in Sources */,
 				0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */,
+				03D1516623FB446A004027CE /* ConfigService.swift in Sources */,
 				0350A2E7232960D900E00FB5 /* HomeCollectionViewPlusCell.swift in Sources */,
 				0327B0B0232BB876007DB8A7 /* HomeViewModel.swift in Sources */,
 				037260C023A8E2DB0034F9F5 /* ImageBlocksViews+Image.swift in Sources */,
@@ -1370,6 +1399,7 @@
 				0A69321E238C4C8200575544 /* TextBlocksViews+Toggle.swift in Sources */,
 				0ACA77CF23E367FF00442690 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				0ACA781723E5C99A00442690 /* AppearanceService+Schemes.swift in Sources */,
+				03D1515E23FB2B85004027CE /* ConfigServiceProtocol.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

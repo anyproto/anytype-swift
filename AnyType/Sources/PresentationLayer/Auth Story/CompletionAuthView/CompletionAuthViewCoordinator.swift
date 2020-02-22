@@ -18,7 +18,8 @@ final class CompletionAuthViewCoordinator {
     // Used as assembly
     func start() -> CompletionAuthView {
         let viewModel = CompletionAuthViewModel(coordinator: self)
-        let view = CompletionAuthView(viewModel: viewModel)
+        var view = CompletionAuthView(viewModel: viewModel)
+        view.delegate = viewModel
         
         return view
     }

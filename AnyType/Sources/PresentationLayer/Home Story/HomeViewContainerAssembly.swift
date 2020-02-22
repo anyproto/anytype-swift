@@ -12,7 +12,7 @@ class HomeViewContainerAssembly {
     
     func createHomeViewContainer() -> HomeViewContainer {
         let viewModel = HomeViewContainerModel()
-        let homeViewContainer = HomeViewContainer()
+        let homeViewContainer = HomeViewContainer(model: viewModel)
         
         return homeViewContainer
     }

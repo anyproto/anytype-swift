@@ -12,6 +12,7 @@ enum MiddlewareModels{}
 
 /// Middleware config
 extension MiddlewareModels {
+    
     struct MiddlwareConfig {
         let homeBlockID: String
         let archiveBlockID: String

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 import SwiftUI
 
 enum HomeCollectionViewCellType: Hashable {
@@ -15,30 +16,37 @@ enum HomeCollectionViewCellType: Hashable {
 }
 
 class HomeCollectionViewModel: ObservableObject {
-    private let documentService = TestDocumentService()
-    var documentsHeaders: DocumentsHeaders?
+    private var cancallable: AnyCancellable?
+    private var cancallableSubscribe: AnyCancellable?
+    private let dashboardService: DashboardServiceProtocol = DashboardService()
     
+    var documentsHeaders: DocumentsHeaders?
     var documentsCell = [HomeCollectionViewCellType]()
     @Published var error: String = ""
     
     init() {
         self.obtainDocuments()
+        self.subscribeDashBoard()
     }
     
-    func obtainDocuments() {
-        documentService.obtainDocuments { [weak self] result in
-            guard let strongSelf = self else { return }
-            
-            switch result {
-            case .success(let documents):
-                strongSelf.documentsHeaders = documents
-                processObtainedDocuments(documents: documents)
-            case .failure(let error):
-                strongSelf.error = error.localizedDescription
-            }
+    private func subscribeDashBoard() {
+        cancallableSubscribe = dashboardService.subscribeDashboardEvents()
+        .receive(on: RunLoop.main)
+        .sink(receiveCompletion: { _ in
+        })
+        { value in
+            print("\(value)")
         }
     }
-
+    
+    private func obtainDocuments() {
+        cancallable = dashboardService.obtainDashboardBlocks()
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { _ in
+            }) { value in
+                print("\(value)")
+        }
+    }
 }
 
 extension HomeCollectionViewModel {
