@@ -9,9 +9,11 @@ GITHUB="api.github.com"
 IOS_MIDDLE_PREFIX_NAME="ios_framework_"
 MIDDLEWARE_NAME="Lib.framework"
 PROTO_DIR_NAME="protobuf"
+DEPENDENCIES_DIR="Dependencies/Middleware"
 
 echo "Traveling to project directory."
-cd $(dirname $(dirname $(realpath $0)))
+cd "$(git rev-parse --show-toplevel)"
+pwd
 
 #echo -n "GitHub auth token: "
 #read -s token
@@ -49,8 +51,6 @@ printf "Done\n"
 printf "Preparing files\n"
 
 rm -rf Dependencies/
-
-DEPENDENCIES_DIR="Dependencies/Middleware/"
 
 mkdir -p $DEPENDENCIES_DIR
 mv /tmp/lib/$MIDDLEWARE_NAME $DEPENDENCIES_DIR
