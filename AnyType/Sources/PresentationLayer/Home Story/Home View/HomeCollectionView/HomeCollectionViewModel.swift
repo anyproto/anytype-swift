@@ -16,10 +16,8 @@ enum HomeCollectionViewCellType: Hashable {
 }
 
 class HomeCollectionViewModel: ObservableObject {
-    private var cancallable: AnyCancellable?
-    private var cancallableSubscribe: AnyCancellable?
     private let dashboardService: DashboardServiceProtocol = DashboardService()
-    
+    private var subscriptions = Set<AnyCancellable>()
     var documentsHeaders: DocumentsHeaders?
     var documentsCell = [HomeCollectionViewCellType]()
     @Published var error: String = ""
@@ -30,22 +28,25 @@ class HomeCollectionViewModel: ObservableObject {
     }
     
     private func subscribeDashBoard() {
-        cancallableSubscribe = dashboardService.subscribeDashboardEvents()
-        .receive(on: RunLoop.main)
-        .sink(receiveCompletion: { _ in
-        })
-        { value in
-            print("\(value)")
-        }
+		dashboardService.subscribeDashboardEvents()
+			.receive(on: RunLoop.main)
+			.sink(receiveCompletion: { _ in
+			})
+			{ value in
+				print("\(value)")
+		}
+		.store(in: &subscriptions)
     }
     
     private func obtainDocuments() {
-        cancallable = dashboardService.obtainDashboardBlocks()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-            }) { value in
-                print("\(value)")
-        }
+		dashboardService.obtainDashboardBlocks()
+			.receive(on: RunLoop.main)
+			.sink(receiveCompletion: { _ in
+			}) { value in
+				print("\(value)")
+
+		}
+		.store(in: &subscriptions)
     }
 }
 
