@@ -9,27 +9,31 @@
 import SwiftUI
 
 struct HomeView: View {
-    private var viewModel = HomeViewModel()
+    private var viewModel: HomeViewModel
     
     @State var showDocument: Bool = false
     @State var selectedDocumentId: String = ""
     
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
         NavigationView {
-                VStack(alignment: .leading) {
-                    NavigationLink(destination: self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId).navigationBarTitle("", displayMode: .inline), isActive: self.$showDocument) {
-                        return EmptyView()
-                    }
-                    .frame(width: 0, height: 0)
-                    
-                    Text("Hi, \(self.viewModel.user.name)")
-                        .fontWeight(.bold)
-                        .padding()
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .padding(.top, 20)
-                    GeometryReader { geometry in
-                    HomeCollectionView(showDocument: self.$showDocument, selectedDocumentId: self.$selectedDocumentId,containerSize: geometry.size)
+            VStack(alignment: .leading) {
+                NavigationLink(destination: self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId).navigationBarTitle("", displayMode: .inline), isActive: self.$showDocument) {
+                    return EmptyView()
+                }
+                .frame(width: 0, height: 0)
+                
+                Text("Hi, \(self.viewModel.user.name)")
+                    .fontWeight(.bold)
+                    .padding()
+                    .foregroundColor(.white)
+                    .font(.title)
+                    .padding(.top, 20)
+                GeometryReader { geometry in
+                    self.viewModel.obtainCollectionView(showDocument: self.$showDocument, selectedDocumentId: self.$selectedDocumentId, containerSize: geometry.size)
                         .padding()
                 }
             }
@@ -38,8 +42,8 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
-    }
-}
+//struct HomeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView()
+//    }
+//}

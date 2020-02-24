@@ -1,0 +1,22 @@
+//
+//  HomeCollectionViewAssembly.swift
+//  AnyType
+//
+//  Created by Denis Batvinkin on 24.02.2020.
+//  Copyright © 2020 AnyType. All rights reserved.
+//
+
+import SwiftUI
+
+class HomeCollectionViewAssembly {
+    
+    // MARK: - Public methods
+    
+    // TODO: workaround - we need inject viewmodel from outer env due to fucking swiftui doesn't update
+    // UIViewRepresentable views when ObservedObject changed
+    func createHomeCollectionView(showDocument: Binding<Bool>, selectedDocumentId: Binding<String>, containerSize: CGSize) -> some View {
+        let homeViewContainer = HomeCollectionView(showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize)
+        
+        return homeViewContainer.environmentObject(HomeCollectionViewModel())
+    }
+}

@@ -12,7 +12,6 @@
 		0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0422D8EDAD005C552B /* Assets.xcassets */; };
 		0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */; };
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
-		0306554D23F9812500803DD0 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03074B87239514E2009FA7D0 /* MainAuthView.swift */; };
 		030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B22399346F00AD3BC3 /* AuthModels.swift */; };
 		030DF8642333E31100FE6DA5 /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF8632333E31100FE6DA5 /* DocumentViewModel.swift */; };
@@ -33,6 +32,8 @@
 		032E00122395D0C400620E1A /* WaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032E00112395D0C300620E1A /* WaitingView.swift */; };
 		03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B6E2306031D00F8FCE7 /* ViewExtension.swift */; };
 		03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */; };
+		034A303D240457A8002599E2 /* HomeCollectionViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A303C240457A8002599E2 /* HomeCollectionViewAssembly.swift */; };
+		034A303F24045B75002599E2 /* HomeViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A303E24045B75002599E2 /* HomeViewAssembly.swift */; };
 		034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034CD9BD23F9D9AF00C8E131 /* CompletionAuthViewModel.swift */; };
 		03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */; };
 		0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0350A2E123293CE900E00FB5 /* HomeCollectionView.swift */; };
@@ -222,6 +223,8 @@
 		0339676F2397DA7E000CB7BA /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		03475B6E2306031D00F8FCE7 /* ViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		03475B712306CFD000F8FCE7 /* OverlayWaitingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayWaitingView.swift; sourceTree = "<group>"; };
+		034A303C240457A8002599E2 /* HomeCollectionViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewAssembly.swift; sourceTree = "<group>"; };
+		034A303E24045B75002599E2 /* HomeViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewAssembly.swift; sourceTree = "<group>"; };
 		034CD9BD23F9D9AF00C8E131 /* CompletionAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAuthViewModel.swift; sourceTree = "<group>"; };
 		03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileViewModel.swift; sourceTree = "<group>"; };
 		0350A2E123293CE900E00FB5 /* HomeCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
@@ -587,6 +590,15 @@
 			path = "Waiting Views";
 			sourceTree = "<group>";
 		};
+		034A303B240448B4002599E2 /* HomeCollectionViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */,
+				0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */,
+			);
+			path = HomeCollectionViewCells;
+			sourceTree = "<group>";
+		};
 		03507433239E72D7001CF477 /* MainAuthView */ = {
 			isa = PBXGroup;
 			children = (
@@ -609,10 +621,10 @@
 		0350A2E323295E0000E00FB5 /* HomeCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				034A303B240448B4002599E2 /* HomeCollectionViewCells */,
+				034A303C240457A8002599E2 /* HomeCollectionViewAssembly.swift */,
 				0327B0BA232BCE2A007DB8A7 /* HomeCollectionViewModel.swift */,
 				0350A2E123293CE900E00FB5 /* HomeCollectionView.swift */,
-				0350A2E423295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift */,
-				0350A2E6232960D900E00FB5 /* HomeCollectionViewPlusCell.swift */,
 			);
 			path = HomeCollectionView;
 			sourceTree = "<group>";
@@ -877,6 +889,7 @@
 				0350A2E323295E0000E00FB5 /* HomeCollectionView */,
 				03B42F29232910AB000F2BA2 /* HomeView.swift */,
 				0327B0AF232BB876007DB8A7 /* HomeViewModel.swift */,
+				034A303E24045B75002599E2 /* HomeViewAssembly.swift */,
 			);
 			path = "Home View";
 			sourceTree = "<group>";
@@ -1252,6 +1265,7 @@
 				0AAC96622340C203006CE58C /* HomeViewContainerModel.swift in Sources */,
 				0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */,
 				037B91CE23438E77004EBCCD /* HomeViewContainer.swift in Sources */,
+				034A303D240457A8002599E2 /* HomeCollectionViewAssembly.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A693220238C4C8200575544 /* TextBlocksViews+Header.swift in Sources */,
 				034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */,
@@ -1262,7 +1276,7 @@
 				03B65752234D47A90084D9F5 /* BlockViewBuilderProtocol.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
 				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
-				0306554D23F9812500803DD0 /* (null) in Sources */,
+				034A303F24045B75002599E2 /* HomeViewAssembly.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,

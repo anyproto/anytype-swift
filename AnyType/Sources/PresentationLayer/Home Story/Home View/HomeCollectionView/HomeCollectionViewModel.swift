@@ -18,16 +18,23 @@ enum HomeCollectionViewCellType: Hashable {
 class HomeCollectionViewModel: ObservableObject {
     private let dashboardService: DashboardServiceProtocol = DashboardService()
     private var subscriptions = Set<AnyCancellable>()
-    var documentsHeaders: DocumentsHeaders?
-    var documentsCell = [HomeCollectionViewCellType]()
+
+    @Published var documentsCell = [HomeCollectionViewCellType]()
     @Published var error: String = ""
+    var dashboardPages = [Anytype_Model_Block]() {
+        didSet {
+            createPagesViewModels(pages: dashboardPages)
+        }
+    }
+    // TODO: Revise this later. Just in case, save rootId - used for filtering events from middle for main dashboard
+    var rootId: String?
     
     init() {
-        self.obtainDocuments()
-        self.subscribeDashBoard()
+        self.receivePages()
+        self.subscribeDashboard()
     }
     
-    private func subscribeDashBoard() {
+    private func subscribeDashboard() {
 		dashboardService.subscribeDashboardEvents()
 			.receive(on: RunLoop.main)
 			.sink(receiveCompletion: { _ in
@@ -38,26 +45,54 @@ class HomeCollectionViewModel: ObservableObject {
 		.store(in: &subscriptions)
     }
     
-    private func obtainDocuments() {
-		dashboardService.obtainDashboardBlocks()
-			.receive(on: RunLoop.main)
-			.sink(receiveCompletion: { _ in
-			}) { value in
-				print("\(value)")
-
-		}
-		.store(in: &subscriptions)
+    private func receivePages() {
+        dashboardService.obtainDashboardBlocks()
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { _ in }) { [weak self] value in
+                self?.rootId = value.rootID
+                self?.dashboardPages = value.blocks
+        }
+        .store(in: &subscriptions)
     }
 }
 
 extension HomeCollectionViewModel {
     
-    private func processObtainedDocuments(documents: DocumentsHeaders) {
-        for document in documents.headers {
-            var documentCellModel = HomeCollectionViewDocumentCellModel(title: document.name)
-            documentCellModel.emojiImage = document.icon
+    private func createPagesViewModels(pages: [Anytype_Model_Block]) {
+        for page in pages {
+            guard case .link(_) = page.content else { continue }
+            
+            // TODO: think about it, fucking protobuf
+            var name = page.link.fields.fields["name"]?.stringValue ?? ""
+            if page.link.style == .archive {
+                name = "Archive"
+            }
+            var documentCellModel = HomeCollectionViewDocumentCellModel(title: name)
+//            documentCellModel.emojiImage = document.icon
             documentsCell.append(.document(documentCellModel))
         }
         documentsCell.append(.plus)
+    }
+}
+
+// MARK: - view events
+
+extension HomeCollectionViewModel {
+    
+    func didSelectPage(with index: IndexPath) {
+        switch documentsCell[index.row] {
+        case .document(let cellModel):
+            break // TODO: open page
+        case .plus:
+            guard let rootId = rootId else { break }
+            dashboardService.createPage(contextId: rootId)
+                .flatMap { _ in // TODO: retain cycle?
+                    self.dashboardService.subscribeDashboardEvents()
+                }
+                .sink(receiveCompletion: { result in
+                    // TODO: handle error
+                }) { _ in }
+                .store(in: &subscriptions)
+        }
     }
 }

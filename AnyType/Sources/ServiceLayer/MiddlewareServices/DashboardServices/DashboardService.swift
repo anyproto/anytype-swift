@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftProtobuf
 
 class DashboardService: DashboardServiceProtocol {
     private let middleConfigService = MiddleConfigService()
@@ -39,5 +40,20 @@ class DashboardService: DashboardServiceProtocol {
             }?.blockShow
         }
         .eraseToAnyPublisher()
+    }
+    
+    func createPage(contextId: String) -> AnyPublisher<Never, Error> {
+        var emptyPageBlock = Anytype_Model_Block()
+        var pageContent = Anytype_Model_Block.Content.Page()
+        pageContent.style = .empty
+        emptyPageBlock.content = Anytype_Model_Block.OneOf_Content.page(pageContent)
+        emptyPageBlock.fields = emptyPageBlock.fields
+        emptyPageBlock.fields.fields = emptyPageBlock.fields.fields
+        emptyPageBlock.fields.fields["icon"] = .init(stringValue: "")
+        emptyPageBlock.fields.fields["name"] = .init(stringValue: "Untitled")
+        
+        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: "", block: emptyPageBlock, position: .bottom)
+            .ignoreOutput()
+            .eraseToAnyPublisher()
     }
 }

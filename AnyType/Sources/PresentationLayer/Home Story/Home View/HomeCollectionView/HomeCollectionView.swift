@@ -13,10 +13,9 @@ enum HomeCollectionViewSection {
 }
 
 struct HomeCollectionView: UIViewRepresentable {
-    @ObservedObject var viewModel = HomeCollectionViewModel()
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
-    
+    @EnvironmentObject var viewModel: HomeCollectionViewModel
     let containerSize: CGSize
     
     // MARK: - UIViewRepresentable
@@ -119,12 +118,15 @@ class HomeCollectionViewCoordinator: NSObject {
 extension HomeCollectionViewCoordinator: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        parent.showDocument = true
+//        parent.showDocument = true
         
-        guard parent.viewModel.documentsHeaders?.headers.indices.contains(indexPath.row) ?? false,
-            let documentId = parent.viewModel.documentsHeaders?.headers[indexPath.row].id else { return }
+//        guard parent.viewModel.documentsHeaders?.headers.indices.contains(indexPath.row) ?? false,
+//            let documentId = parent.viewModel.documentsHeaders?.headers[indexPath.row].id else { return }
         
-        parent.selectedDocumentId = documentId
+//        parent.selectedDocumentId = documentId
+        
+        parent.viewModel.didSelectPage(with: indexPath)
+        
     }
     
 }

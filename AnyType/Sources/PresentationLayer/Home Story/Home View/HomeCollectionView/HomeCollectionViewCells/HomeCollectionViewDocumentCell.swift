@@ -9,6 +9,7 @@
 import UIKit
 
 struct HomeCollectionViewDocumentCellModel: Hashable {
+    let id = UUID()
     let title: String
     let image: UIImage? = nil
     var emojiImage: String? = nil

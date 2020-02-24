@@ -11,12 +11,13 @@ import Combine
 
 class HomeViewContainerModel {
     private var profileCoordinator = ProfileViewCoordinator()
+    private var homeViewAssembly = HomeViewAssembly()
     
     var profileView: ProfileView {
         return profileCoordinator.profileView
     }
     
     var homeView: HomeView {
-        return HomeView()
+        return homeViewAssembly.createHomeView()
     }
 }
