@@ -33,7 +33,11 @@ extension HomeViewModel {
 // MARK: - View events
 
 extension HomeViewModel {
-    func obtainCollectionView(showDocument: Binding<Bool>, selectedDocumentId: Binding<String>, containerSize: CGSize) -> some View {
-        homeCollectionViewAssembly.createHomeCollectionView(showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize)
+    func obtainCollectionView(showDocument: Binding<Bool>,
+                              selectedDocumentId: Binding<String>,
+                              containerSize: CGSize,
+                              homeCollectionViewModel: HomeCollectionViewModel,
+                              cellsModels: Binding<[HomeCollectionViewCellType]>) -> some View {
+        homeCollectionViewAssembly.createHomeCollectionView(showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize, cellsModels: cellsModels).environmentObject(homeCollectionViewModel)
     }
 }

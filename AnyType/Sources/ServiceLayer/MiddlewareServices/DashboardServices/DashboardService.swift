@@ -42,7 +42,7 @@ class DashboardService: DashboardServiceProtocol {
         .eraseToAnyPublisher()
     }
     
-    func createPage(contextId: String) -> AnyPublisher<Never, Error> {
+    func createPage(contextId: String) -> AnyPublisher<Void, Error> {
         var emptyPageBlock = Anytype_Model_Block()
         var pageContent = Anytype_Model_Block.Content.Page()
         pageContent.style = .empty
@@ -53,7 +53,7 @@ class DashboardService: DashboardServiceProtocol {
         emptyPageBlock.fields.fields["name"] = .init(stringValue: "Untitled")
         
         return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: "", block: emptyPageBlock, position: .bottom)
-            .ignoreOutput()
+            .successToVoid()
             .eraseToAnyPublisher()
     }
 }

@@ -16,6 +16,8 @@ struct HomeCollectionView: UIViewRepresentable {
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
     @EnvironmentObject var viewModel: HomeCollectionViewModel
+    @Binding var documentsCell: [HomeCollectionViewCellType]
+    
     let containerSize: CGSize
     
     // MARK: - UIViewRepresentable
@@ -45,7 +47,7 @@ struct HomeCollectionView: UIViewRepresentable {
         var snapshot = NSDiffableDataSourceSnapshot<HomeCollectionViewSection, HomeCollectionViewCellType>()
         snapshot.appendSections([.main])
         
-        snapshot.appendItems(viewModel.documentsCell)
+        snapshot.appendItems(documentsCell)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }

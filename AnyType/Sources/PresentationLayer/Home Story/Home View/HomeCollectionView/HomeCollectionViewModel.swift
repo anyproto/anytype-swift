@@ -59,6 +59,8 @@ class HomeCollectionViewModel: ObservableObject {
 extension HomeCollectionViewModel {
     
     private func createPagesViewModels(pages: [Anytype_Model_Block]) {
+        documentsCell.removeAll()
+        
         for page in pages {
             guard case .link(_) = page.content else { continue }
             
@@ -82,16 +84,17 @@ extension HomeCollectionViewModel {
     func didSelectPage(with index: IndexPath) {
         switch documentsCell[index.row] {
         case .document(let cellModel):
-            break // TODO: open page
+        break // TODO: open page
         case .plus:
             guard let rootId = rootId else { break }
             dashboardService.createPage(contextId: rootId)
-                .flatMap { _ in // TODO: retain cycle?
+                .flatMap { _ -> AnyPublisher<Never, Error> in // TODO: retain cycle?
                     self.dashboardService.subscribeDashboardEvents()
-                }
-                .sink(receiveCompletion: { result in
-                    // TODO: handle error
-                }) { _ in }
+            }
+            .sink(receiveCompletion: { result in
+                print("\(result)")
+                // TODO: handle error
+            }) { _ in }
                 .store(in: &subscriptions)
         }
     }

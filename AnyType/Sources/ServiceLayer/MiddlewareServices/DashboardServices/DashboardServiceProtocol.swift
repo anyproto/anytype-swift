@@ -18,5 +18,5 @@ protocol DashboardServiceProtocol {
     func obtainDashboardBlocks() -> AnyPublisher<Anytype_Event.Block.Show, Never>
     
     /// Create pages
-    func createPage(contextId: String) -> AnyPublisher<Never, Error>
+    func createPage(contextId: String) -> AnyPublisher<Void, Error>
 }
