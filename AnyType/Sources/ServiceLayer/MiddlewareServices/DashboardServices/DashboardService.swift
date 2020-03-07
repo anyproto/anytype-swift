@@ -11,21 +11,27 @@ import Combine
 import SwiftProtobuf
 
 class DashboardService: DashboardServiceProtocol {
-    private let middleConfigService: MiddleConfigService = .init()
+    private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private let blocksActionsService: BlockActionsService = .init()
     private var dashboardId: String = ""
+    
+    private func save(configuration: MiddlewareConfigurationService.MiddlewareConfiguration) -> MiddlewareConfigurationService.MiddlewareConfiguration {
+        self.dashboardId = configuration.homeBlockID
+        return configuration
+    }
+    
+    // TODO: Fix potential memory leak in `.map(self.save(configuration:))`
     func subscribeDashboardEvents() -> AnyPublisher<Never, Error> {
-        middleConfigService.obtainConfig()
-            .flatMap { [unowned self] config -> AnyPublisher<Never, Error> in
-                self.dashboardId = config.homeBlockID
-                return self.blocksActionsService.open.action(contextID: config.homeBlockID, blockID: config.homeBlockID)
+        middlewareConfigurationService.obtainConfiguration().map(self.save(configuration:))
+            .flatMap { [unowned self] cunfiguration -> AnyPublisher<Never, Error> in
+                return self.blocksActionsService.open.action(contextID: cunfiguration.homeBlockID, blockID: cunfiguration.homeBlockID)
         }
         .ignoreOutput()
         .eraseToAnyPublisher()
     }
     
     func obtainDashboardBlocks() -> AnyPublisher<Anytype_Event.Block.Show, Never> {
-        middleConfigService.obtainConfig().ignoreFailure().flatMap({ [unowned self] configuration in
+        middlewareConfigurationService.obtainConfiguration().ignoreFailure().flatMap({ [unowned self] configuration in
         self.blocksActionsService.eventListener.receiveRawEvent(contextId: configuration.homeBlockID) }).eraseToAnyPublisher()
     }
     

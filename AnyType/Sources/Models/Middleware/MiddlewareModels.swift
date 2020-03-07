@@ -10,10 +10,10 @@ import Foundation
 
 enum MiddlewareModels{}
 
-/// Middleware config
+/// Middleware configuration
 extension MiddlewareModels {
     
-    struct MiddlwareConfig {
+    struct MiddlwareConfiguration: Equatable {
         let homeBlockID: String
         let archiveBlockID: String
         let gatewayURL: String
