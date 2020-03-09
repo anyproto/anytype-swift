@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct EmptyDocumentView: View {
+struct Legacy_EmptyDocumentView: View {
     @State var title: String
     
     var body: some View {
@@ -38,7 +38,7 @@ struct EmptyDocumentView: View {
     }
 }
 
-private extension EmptyDocumentView {
+private extension Legacy_EmptyDocumentView {
     
     enum HeaderButtonType {
         case add
@@ -95,6 +95,6 @@ private extension EmptyDocumentView {
 
 struct EmptyDocumentView_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyDocumentView(title: "")
+        Legacy_EmptyDocumentView(title: "")
     }
 }

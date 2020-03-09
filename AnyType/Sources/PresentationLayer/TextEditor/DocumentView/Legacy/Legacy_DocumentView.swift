@@ -10,9 +10,9 @@ import SwiftUI
 import Combine
 
 
-struct DocumentView: View {
+struct Legacy_DocumentView: View {
     struct DraggingData: Equatable {
-        static func == (lhs: DocumentView.DraggingData, rhs: DocumentView.DraggingData) -> Bool {
+        static func == (lhs: Legacy_DocumentView.DraggingData, rhs: Legacy_DocumentView.DraggingData) -> Bool {
             lhs.draggingRect == rhs.draggingRect && lhs.blockIndex == rhs.blockIndex
         }
         
@@ -51,16 +51,16 @@ struct DocumentView: View {
     @State private var droppableDividerRect: [CGRect]?
     @State private var droppableDividerAnchor: [DividerAnchorPreferenceData]?
     
-    @ObservedObject var viewModel: DocumentViewModel
+    @ObservedObject var viewModel: Legacy_DocumentViewModel
     
-    init(viewModel: DocumentViewModel) {
+    init(viewModel: Legacy_DocumentViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         switch viewModel.state {
         case .loading: return AnyView(loading)
-        case .empty: return AnyView(EmptyDocumentView(title: ""))
+        case .empty: return AnyView(Legacy_EmptyDocumentView(title: ""))
         case .ready: return AnyView(blocksView(viewBulders: viewModel.builders))
         }
     }
@@ -72,7 +72,7 @@ struct DocumentView: View {
 }
 
 
-private extension DocumentView {
+private extension Legacy_DocumentView {
     
     func blocksView(viewBulders: [BlockViewBuilderProtocol]) -> some View {
         CustomScrollView {
@@ -209,7 +209,7 @@ private extension DocumentView {
 
 // MARK: - Building dropping area
 
-private extension DocumentView {
+private extension Legacy_DocumentView {
     
     struct DividerAnchorPreferenceData {
         let viewIdx: Int
@@ -247,10 +247,10 @@ private extension DocumentView {
 
 // MARK: - Building dragging view
 
-private extension DocumentView {
+private extension Legacy_DocumentView {
     
     struct DraggingViewCoordinatePreferenceData: Identifiable, Equatable {
-        static func == (lhs: DocumentView.DraggingViewCoordinatePreferenceData, rhs: DocumentView.DraggingViewCoordinatePreferenceData) -> Bool {
+        static func == (lhs: Legacy_DocumentView.DraggingViewCoordinatePreferenceData, rhs: Legacy_DocumentView.DraggingViewCoordinatePreferenceData) -> Bool {
             lhs.id == rhs.id && lhs.translation == rhs.translation
         }
         
@@ -331,9 +331,9 @@ private extension DocumentView {
 
 struct DocumentView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = DocumentViewModel(documentId: "1")
+        let viewModel = Legacy_DocumentViewModel(documentId: "1")
         
-        return DocumentView(viewModel: viewModel)
+        return Legacy_DocumentView(viewModel: viewModel)
     }
     
 }

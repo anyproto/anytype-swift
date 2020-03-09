@@ -16,7 +16,7 @@ extension DocumentViewCells {
             var useUIKit: Bool = true
             var shouldShowIndent: Bool = false
         }
-        typealias Model = DocumentView.ViewModel.Row
+        typealias Model = DocumentViewModel.Row
         
         struct Layout {
             var containedViewInset = 8

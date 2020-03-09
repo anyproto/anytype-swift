@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 extension DataStructures {
     /// GroupBy
     /// Single-function structure.

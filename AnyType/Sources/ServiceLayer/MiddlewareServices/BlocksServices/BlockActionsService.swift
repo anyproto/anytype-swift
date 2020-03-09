@@ -31,7 +31,7 @@ protocol BlockActionsServiceProtocolDelete {
     func action(contextID: String, blockIds: [String]) -> AnyPublisher<Never, Error>
 }
 
-protocol BlockActionsServiceProtocolEventListener {
+protocol BlockEventListener {
     associatedtype Event
     func receive(contextId: String) -> AnyPublisher<Event, Never>
 }
@@ -42,7 +42,8 @@ protocol BlockActionsServiceProtocol {
     associatedtype Add: BlockActionsServiceProtocolAdd
     associatedtype Replace: BlockActionsServiceProtocolReplace
     associatedtype Delete: BlockActionsServiceProtocolDelete
-    associatedtype EventListener: BlockActionsServiceProtocolEventListener
+    associatedtype EventListener: BlockEventListener
+    
     var open: Open {get}
     var close: Close {get}
     var add: Add {get}
@@ -106,8 +107,9 @@ class BlockActionsService: BlockActionsServiceProtocol {
 
 extension BlockActionsService {
     // MARK: Events Processing
-    struct EventListener: BlockActionsServiceProtocolEventListener {
+    struct EventListener: BlockEventListener {
         private static let parser = BlockModels.Parser()
+       
         struct Event {
             var rootId: String
             var blocks: [MiddlewareBlockInformationModel]
@@ -115,9 +117,11 @@ extension BlockActionsService {
                 .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks))
             }
         }
+        
         func receive(contextId: ContextId) -> AnyPublisher<Event, Never> {
             receiveRawEvent(contextId: contextId).map(Event.from(event:)).eraseToAnyPublisher()
         }
+        
         func receiveRawEvent(contextId: ContextId) -> AnyPublisher<Anytype_Event.Block.Show, Never> {
             NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
                 .compactMap { $0.object as? Anytype_Event }

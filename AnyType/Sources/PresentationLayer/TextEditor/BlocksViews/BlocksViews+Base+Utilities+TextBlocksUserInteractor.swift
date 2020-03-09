@@ -14,6 +14,7 @@ extension BlocksViews.Base.Utilities {
         typealias Index = BusinessBlock.Index
         typealias Model = BlockModels.Block.RealBlock
         var updater: SequenceUpdater<T>
+        
         init(_ value: T) {
             self.updater = SequenceUpdater.init(value: value)
         }

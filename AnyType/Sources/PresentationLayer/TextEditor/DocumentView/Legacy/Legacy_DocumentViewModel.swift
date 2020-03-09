@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import os
 
-class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
+class Legacy_DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
     private let documentService: DocumentServiceProtocol = TestDocumentService()
     private var documentHeader: DocumentHeader?
     
@@ -19,9 +19,6 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
     
     @Published var error: String?
     @Published var builders: [BlockViewBuilderProtocol] = [] {
-        //        willSet {
-        //            objectWillChange.send()
-        //        }
         didSet {
             // On each update we rebuild indexDictionary.
             // It is incorrect logic.
@@ -29,15 +26,17 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         }
     }
     
-    var textViewUserInteractor: BlocksViews.Base.Utilities.TextBlocksUserInteractor<DocumentViewModel>?
-    
+    var textViewUserInteractor: BlocksViews.Base.Utilities.TextBlocksUserInteractor<Legacy_DocumentViewModel>?
     var internalState: State = .loading
     
-    func textViewUserInteractionDelegate() -> TextBlocksViewsUserInteractionProtocol? { self.textViewUserInteractor }
     
     init(documentId: String?) {
         self.textViewUserInteractor = .init(self)
-//                obtainDocument(documentId: documentId)
+//        obtainDocument(documentId: documentId)
+    }
+    
+    func textViewUserInteractionDelegate() -> TextBlocksViewsUserInteractionProtocol? {
+        self.textViewUserInteractor
     }
     
     // TODO: Refact when middle will be ready
@@ -81,7 +80,7 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
 }
 
 // MARK:
-extension DocumentViewModel {
+extension Legacy_DocumentViewModel {
     func addBlock(content: BlockType, afterBlock: Int) {
         guard let documentHeader = documentHeader else { return }
         
@@ -107,7 +106,7 @@ extension DocumentViewModel {
 }
 
 // MARK: State
-extension DocumentViewModel {
+extension Legacy_DocumentViewModel {
     enum State {
         case loading
         case empty
@@ -122,10 +121,14 @@ extension DocumentViewModel {
 }
 
 // MARK: Builders Enchantements
-extension DocumentViewModel {
+extension Legacy_DocumentViewModel {
     func enhance(_ builder: BlockViewBuilderProtocol) {
-        _ = (builder as? TextBlocksViewsUserInteractionProtocolHolder).flatMap{$0.configured(self.textViewUserInteractionDelegate())}
+        _ = (builder as? TextBlocksViewsUserInteractionProtocolHolder)
+            .flatMap{
+                $0.configured(self.textViewUserInteractionDelegate())
+            }
     }
+    
     func enhance(_ builders: [BlockViewBuilderProtocol]) {
         _ = builders.compactMap(self.enhance)
     }

@@ -15,14 +15,21 @@ enum DocumentViewBuilder {
         var useUIKit: Bool = true
     }
     
-    private static func viewModel(by request: Request) -> DocumentViewModel {
-        if request.useUIKit {
-            return DocumentView.ViewModel(documentId: request.id)
-        }
-        return DocumentViewModel(documentId: request.id)
+    static func documentView(by request: Request) -> some View {
+        create(by: request)
     }
     
-    static func documentView(by request: Request) -> some View {
-        DocumentView.create(viewModel: self.viewModel(by: request))
+    // EXAMPLE:
+    // Subscribe on viewModel.objectWillChange.
+    // Even if it receive updates, it will not call UIViewControllerRepresentable method .updateController
+    // It is nice exapmle of using UIViewControllerRepresentable.
+    // Update controller not called. Ha.ha.ha.
+    private static func create(by request: Request) -> AnyView {
+        if request.useUIKit {
+            let viewModel = DocumentViewModel(documentId: request.id)
+            return .init(DocumentViewRepresentable(viewModel: viewModel))
+        }
+        let viewModel = Legacy_DocumentViewModel(documentId: request.id)
+        return .init(Legacy_DocumentView(viewModel: viewModel))
     }
 }

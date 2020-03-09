@@ -13,7 +13,7 @@ import Combine
 
 // MARK: - This is view controller that will handle everything for us.
 class DocumentViewController: UIViewController {
-    typealias ViewModel = DocumentView.ViewModel
+    typealias ViewModel = DocumentViewModel
     
     @Environment(\.developerOptions) var developerOptions
     

@@ -85,6 +85,7 @@ extension DeveloperOptions.ViewModel {
 }
 
 // MARK: TableViewModelProtocol
+
 protocol TableViewModelProtocol {
     associatedtype Section
     associatedtype Row
