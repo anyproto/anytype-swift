@@ -148,7 +148,7 @@ extension TextView.UIKitTextView.Coordinator {
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
             let logger = Logging.createLogger(category: .textView)
-            os_log(.debug, log: logger, "configureMarkStylePublisher %s", "\(action)")
+            os_log(.debug, log: logger, "configureMarkStylePublisher %@", "\(action)")
             
             switch action {
             case .keyboardDismiss: textView.endEditing(false)

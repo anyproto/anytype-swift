@@ -254,10 +254,11 @@ extension TextView {
         init(attributedText: NSMutableAttributedString) {
             attributedString = attributedText
         }
-        init(text: String) {
-            attributedString = NSMutableAttributedString(string: text)
-            attributedString.setAttributes([.font : UIFont.preferredFont(forTextStyle: .body)], range: NSRange(location: 0, length: attributedString.length))
-        }
+
+//        init(text: String) {
+//            attributedString = NSMutableAttributedString(string: text)
+//            attributedString.setAttributes([.font : UIFont.preferredFont(forTextStyle: .body)], range: NSRange(location: 0, length: attributedString.length))
+//        }
         
         // MARK: Updating attributes.
         func update(by textView: UITextView) -> Self {

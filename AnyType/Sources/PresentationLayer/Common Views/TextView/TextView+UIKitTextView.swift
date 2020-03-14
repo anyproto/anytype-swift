@@ -17,6 +17,11 @@ extension TextView {
         // MARK: Resources
         struct Resources {}
         
+        // MARK: TODO: Remove
+        var getTextView: UITextView? {
+            return textView
+        }
+        
         // MARK: Outlets
         private var contentView: UIView!
         private var textView: UITextView!
@@ -96,7 +101,20 @@ extension TextView.UIKitTextView {
     func onUpdate(_ update: TextView.UIKitTextView.ViewModel.Update) {
         switch update {
         case .unknown: return
-        case let .text(value): self.textView.textStorage.setAttributedString(NSAttributedString.init(string: value))
+        case let .text(value):
+            // NOTE: Read these cases carefully.
+            // 1. self.textView.textStorage.length == 0.
+            // This case is simple. We should take _typingAttributes_ from textView and configure new attributed string.
+            // 2. self.textView.textStorage.length != 0.
+            // We should _replace_ text in range, however, if we don't check that our string is empty, we will configure incorrect attributes.
+            // There is no way to set attributes for text, becasue it is inherited from attributes that are assigned to first character, that will be replaced.
+            if self.textView.textStorage.length == 0 {
+                let text = NSAttributedString(string: value, attributes: self.textView.typingAttributes)
+                self.textView.textStorage.setAttributedString(text)
+            }
+            else {
+                self.textView.textStorage.replaceCharacters(in: NSRange.init(location: 0, length: self.textView.textStorage.length), with: value)
+            }
         }
     }
 }
