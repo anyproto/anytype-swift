@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import UIKit
 
-// MARK: ViewModel
+// MARK: - ViewModel
 extension TextBlocksViews.Quote {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         override func makeUIView() -> UIView {
@@ -23,7 +23,7 @@ extension TextBlocksViews.Quote {
 }
 
 // MARK: - UIView
-extension TextBlocksViews.Quote {
+private extension TextBlocksViews.Quote {
     class UIKitView: UIView {
         typealias TopView = TextBlocksViews.Base.TopWithChildUIKitView
 
@@ -123,8 +123,8 @@ extension TextBlocksViews.Quote {
 }
 
 
-// MARK: View
-extension TextBlocksViews.Quote {
+// MARK: - View
+private extension TextBlocksViews.Quote {
     struct GeometryReaderModifier: ViewModifier {
         @Binding var sizeThatFit: CGSize
         func body(content: Content) -> some View {

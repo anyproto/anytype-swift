@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 import UIKit
 
+// MARK: - Base / BlockViewModel
 extension TextBlocksViews {
     enum Base {
         class BlockViewModel: BlocksViews.Base.ViewModel {
@@ -80,7 +81,7 @@ extension TextBlocksViews {
     }
 }
 
-// MARK: ViewModel / Apply to model.
+// MARK: - ViewModel / Apply to model.
 extension TextBlocksViews.Base.BlockViewModel {
     private func setModelData(text: String) {
         let theText = self.text
@@ -104,7 +105,7 @@ extension TextBlocksViews.Base.BlockViewModel {
     }
 }
 
-// MARK: TextBlocksViewsUserInteractionProtocolHolder
+// MARK: - TextBlocksViewsUserInteractionProtocolHolder
 extension TextBlocksViews.Base.BlockViewModel: TextBlocksViewsUserInteractionProtocolHolder {
     func configured(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self? {
         self.delegate = delegate
@@ -112,14 +113,14 @@ extension TextBlocksViews.Base.BlockViewModel: TextBlocksViewsUserInteractionPro
     }
 }
 
-// MARK: TextViewUserInteractionProtocol
+// MARK: - TextViewUserInteractionProtocol
 extension TextBlocksViews.Base.BlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: TextView.UserAction) {
         self.delegate?.didReceiveAction(block: getRealBlock(), id: getID(), action: action)
     }
 }
 
-// MARK: Debug
+// MARK: - Debug
 extension TextBlocksViews.Base.BlockViewModel {
     // Class scope, actually.
     class func debugString(_ unique: Bool, _ id: BlockModelID) -> String {
@@ -133,7 +134,7 @@ extension TextBlocksViews.Base.BlockViewModel {
     }
 }
 
-// MARK: UIKit
+// MARK: - UIKitView / TopView
 extension TextBlocksViews.Base {
     class TopUIKitView: UIView {
         // TODO: Refactor
@@ -198,7 +199,7 @@ extension TextBlocksViews.Base {
                         
             self.addSubview(contentView)
         }
-        
+
         // MARK: Layout
         func addLayout() {
             if let view = self.leftView, let superview = view.superview {
@@ -275,6 +276,7 @@ extension TextBlocksViews.Base {
     }
 }
 
+// MARK: - UIKitView / TopWithChild
 extension TextBlocksViews.Base {
     class TopWithChildUIKitView: UIView {
         // TODO: Refactor

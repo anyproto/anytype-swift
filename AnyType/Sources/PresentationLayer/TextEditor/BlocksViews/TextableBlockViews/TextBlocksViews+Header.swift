@@ -7,8 +7,10 @@
 //
 
 import Foundation
+import UIKit
+import SwiftUI
 
-// MARK: ViewModel
+// MARK: - ViewModel
 extension TextBlocksViews.Header {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         fileprivate var style: Style = .heading2
@@ -26,6 +28,63 @@ extension TextBlocksViews.Header {
         }
     }
 }
+
+// MARK: - Style
+extension TextBlocksViews.Header {
+    enum Style {
+        case none
+        case heading1
+        case heading2
+        case heading3
+        case heading4
+        func font() -> Font {
+            switch self {
+            case .none: return .body
+            case .heading1: return .largeTitle
+            case .heading2: return .title
+            case .heading3: return .headline
+            case .heading4: return .subheadline
+            }
+        }
+        func fontStyle() -> UIFont.TextStyle {
+            switch self {
+                case .none: return .body
+                case .heading1: return .largeTitle
+                case .heading2: return .title1
+                case .heading3: return .title2
+                case .heading4: return .title3
+            }
+        }
+        func uiKitFont() -> UIFont {
+            return UIFont.preferredFont(forTextStyle: self.fontStyle())
+        }
+        func fontSize() -> CGFloat {
+            switch self {
+            case .none: return 0
+            default: return self.uiKitFont().pointSize
+            }
+        }
+        func theFont() -> Font {
+            switch self {
+            case .none: return self.font()
+            default: return .system(size: self.fontSize(), weight: self.fontWeight(), design: .default)
+            }
+        }
+        func fontWeight() -> Font.Weight {
+            switch self {
+            case .none: return .regular
+            case .heading1: return .bold
+            case .heading2: return .heavy
+            case .heading3: return .heavy
+            case .heading4: return .heavy
+            }
+        }
+        func foregroundColor() -> UIColor {
+            return .black
+        }
+    }
+}
+
 
 // MARK: - UIView
 extension TextBlocksViews.Header {
@@ -124,65 +183,8 @@ extension TextBlocksViews.Header {
     }
 }
 
-// MARK: Style
-extension TextBlocksViews.Header {
-    enum Style {
-        case none
-        case heading1
-        case heading2
-        case heading3
-        case heading4
-        func font() -> Font {
-            switch self {
-            case .none: return .body
-            case .heading1: return .largeTitle
-            case .heading2: return .title
-            case .heading3: return .headline
-            case .heading4: return .subheadline
-            }
-        }
-        func fontStyle() -> UIFont.TextStyle {
-            switch self {
-                case .none: return .body
-                case .heading1: return .largeTitle
-                case .heading2: return .title1
-                case .heading3: return .title2
-                case .heading4: return .title3
-            }
-        }
-        func uiKitFont() -> UIFont {
-            return UIFont.preferredFont(forTextStyle: self.fontStyle())
-        }
-        func fontSize() -> CGFloat {
-            switch self {
-            case .none: return 0
-            default: return self.uiKitFont().pointSize
-            }
-        }
-        func theFont() -> Font {
-            switch self {
-            case .none: return self.font()
-            default: return .system(size: self.fontSize(), weight: self.fontWeight(), design: .default)
-            }
-        }
-        func fontWeight() -> Font.Weight {
-            switch self {
-            case .none: return .regular
-            case .heading1: return .bold
-            case .heading2: return .heavy
-            case .heading3: return .heavy
-            case .heading4: return .heavy
-            }
-        }
-        func foregroundColor() -> UIColor {
-            return .black
-        }
-    }
-}
-
-// MARK: View
-import SwiftUI
-extension TextBlocksViews.Header {
+// MARK: - View
+private extension TextBlocksViews.Header {
     struct MarkedViewModifier: ViewModifier {
         fileprivate var style: Style
         func body(content: Content) -> some View {

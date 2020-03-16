@@ -20,7 +20,7 @@ extension TextBlocksViews.Text {
 }
 
 // MARK: - View
-extension TextBlocksViews.Text {
+private extension TextBlocksViews.Text {
     struct BlockView: View {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {

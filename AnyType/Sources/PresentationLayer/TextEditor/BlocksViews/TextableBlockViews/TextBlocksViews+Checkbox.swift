@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-// MARK: ViewModel
+// MARK: - ViewModel
 extension TextBlocksViews.Checkbox {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         // BUG: Apple Bug.
@@ -29,8 +29,8 @@ extension TextBlocksViews.Checkbox {
     }
 }
 
-// MARK: ViewModel / Update view
-extension TextBlocksViews.Checkbox.BlockViewModel {
+// MARK: - ViewModel / Update view
+private extension TextBlocksViews.Checkbox.BlockViewModel {
 //    private func updateViewModel() {
 //        // BUG: Apple bug.
 //        // YOU CANNOT USE self.text= here.
@@ -44,7 +44,7 @@ extension TextBlocksViews.Checkbox.BlockViewModel {
 //    }
 }
 
-// MARK: Style
+// MARK: - Style
 private extension TextBlocksViews.Checkbox {
     enum Style {
         case unchecked

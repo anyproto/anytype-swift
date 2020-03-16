@@ -7,8 +7,8 @@
 //
 
 import Foundation
-
-// MARK: ViewModel
+import SwiftUI
+// MARK: - ViewModel
 extension TextBlocksViews.Numbered {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         fileprivate var style: Style = .none
@@ -41,7 +41,7 @@ extension TextBlocksViews.Numbered {
 }
 
 // MARK: - UIView
-extension TextBlocksViews.Numbered {
+private extension TextBlocksViews.Numbered {
     class UIKitView: UIView {
         typealias TopView = TextBlocksViews.Base.TopWithChildUIKitView
         
@@ -132,8 +132,7 @@ extension TextBlocksViews.Numbered {
 }
 
 // MARK: View
-import SwiftUI
-extension TextBlocksViews.Numbered {
+private extension TextBlocksViews.Numbered {
     struct MarkedViewModifier: ViewModifier {
         fileprivate var style: Style
         func accessoryView() -> some View {

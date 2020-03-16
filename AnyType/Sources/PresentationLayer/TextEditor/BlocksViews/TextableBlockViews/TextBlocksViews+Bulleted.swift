@@ -23,7 +23,7 @@ extension TextBlocksViews.Bulleted {
 }
 
 // MARK: - Style
-extension TextBlocksViews.Bulleted {
+private extension TextBlocksViews.Bulleted {
     enum Style {
         // should be Self and ExpressiblyByStringLiteral?
         static var `default`: String = "⊙"
@@ -31,7 +31,7 @@ extension TextBlocksViews.Bulleted {
 }
 
 // MARK: - UIView
-extension TextBlocksViews.Bulleted {
+private extension TextBlocksViews.Bulleted {
     class UIKitView: UIView {
         typealias TopView = TextBlocksViews.Base.TopWithChildUIKitView
         
@@ -125,7 +125,7 @@ extension TextBlocksViews.Bulleted {
 }
 
 // MARK: - View
-extension TextBlocksViews.Bulleted {
+private extension TextBlocksViews.Bulleted {
     struct MarkedViewModifier: ViewModifier {
         func body(content: Content) -> some View {
             HStack(alignment: .top) {
