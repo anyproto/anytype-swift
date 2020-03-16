@@ -12,13 +12,26 @@ class HomeViewModel: ObservableObject {
     var homeCollectionViewAssembly: HomeCollectionViewAssembly
     @Environment(\.developerOptions) private var developerOptions
     var user: UserModel = .init()
-    
+    var cachedDocumentView: AnyView?
+    var documentViewId: String = ""
     init(homeCollectionViewAssembly: HomeCollectionViewAssembly) {
         self.homeCollectionViewAssembly = homeCollectionViewAssembly
     }
     
+    func createDocumentView(documentId: String) -> some View {
+        DocumentViewBuilder.documentView(by: .init(id: documentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
+    }
+    
     func documentView(selectedDocumentId: String) -> some View {
-        DocumentViewBuilder.documentView(by: .init(id: selectedDocumentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
+        if let view = cachedDocumentView, self.documentViewId == selectedDocumentId {
+          return view
+        }
+        
+        let view = AnyView(self.createDocumentView(documentId: selectedDocumentId))
+        self.documentViewId = selectedDocumentId
+        cachedDocumentView = view
+        
+        return view
     }
 }
 

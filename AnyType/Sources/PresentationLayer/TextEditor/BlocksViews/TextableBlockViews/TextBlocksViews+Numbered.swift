@@ -20,9 +20,11 @@ extension TextBlocksViews.Numbered {
         override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
         }
-        override func getID() -> Block.ID {
-            super.getID() + " " + self.style.string()
-        }
+        
+        // not necessary now?!
+//        override func getID() -> Block.ID {
+//            super.getID() + " " + self.style.string()
+//        }
     }
 }
 
@@ -59,19 +61,6 @@ extension TextBlocksViews.Numbered {
         @ObservedObject var viewModel: BlockViewModel
         var body: some View {
             TextView(text: self.$viewModel.text, delegate: self.viewModel as TextViewUserInteractionProtocol).modifier(MarkedViewModifier(style: self.viewModel.style))
-        }
-    }
-}
-
-// MARK: View Previews
-extension TextBlocksViews.Numbered {
-    struct BlockView__Previews: PreviewProvider {
-        static var previews: some View {
-            let textType = BlockType.Text(text: "some text", contentType: .todo)
-            let block = Block(id: "1", childrensIDs: [""], type: .text(textType))
-            let viewModel = BlockViewModel(block)
-            let view = BlockView(viewModel: viewModel)
-            return view
         }
     }
 }

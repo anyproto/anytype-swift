@@ -39,8 +39,6 @@ extension TextView {
                     // Well...
                     // We should also keep values to the right of the Cursor.
                     // So, enter key should have minimum one value as String on the right as Optional<String>
-//                    print("textView: \(textView.text) range: \(range) text: \(text). Text length: \(text.count)")
-//                    print("textViewLength: \(textView.text.count) range: \(range) textLength: \(text.count)")
                     switch (textView.text, range, text) {
                     case (_, .init(location: 1, length: 0), "\n"): return .enterAtBeginning
                     case let (source, at, "\n") where source?.count == at.location + at.length: return .enter

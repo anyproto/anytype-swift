@@ -19,8 +19,7 @@ extension TextView.UIKitTextView {
         @Published var update: Update = .unknown
         
         // For OuterWorld.
-        var onUpdate: PassthroughSubject<Update, Never> = .init()
-        var onUpdateSubscription: AnyCancellable?
+        var onUpdate: AnyPublisher<Update, Never> = .empty()
         private var builder: Builder = .init()
         private var coordinator: Coordinator = .init()
         
@@ -29,7 +28,7 @@ extension TextView.UIKitTextView {
         }
         
         private func setup() {
-            self.onUpdateSubscription = self.coordinator.$text.map(Update.text).subscribe(self.onUpdate)
+            self.onUpdate = self.coordinator.$text.map(Update.text).eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {

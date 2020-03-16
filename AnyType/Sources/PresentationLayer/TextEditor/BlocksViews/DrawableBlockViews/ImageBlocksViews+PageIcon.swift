@@ -41,15 +41,3 @@ extension ImageBlocksViews.PageIcon {
         }
     }
 }
-
-// MARK: View Previews
-extension ImageBlocksViews.PageIcon {
-    struct BlockView__Previews: PreviewProvider {
-        static var previews: some View {
-            let block = Block.mockImage(.pageIcon)
-            let viewModel = BlockViewModel(block)
-            let view = BlockView(viewModel: viewModel)
-            return view
-        }
-    }
-}

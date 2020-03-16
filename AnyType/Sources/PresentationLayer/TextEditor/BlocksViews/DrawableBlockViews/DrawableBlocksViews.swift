@@ -19,7 +19,7 @@ extension ImageBlocksViews {
 }
 
 extension ImageBlocksViews.Base {
-    class BlockViewModel: BlocksViews.Base.BlockViewModel {
+    class BlockViewModel: BlocksViews.Base.ViewModel {
         @Environment(\.developerOptions) var developerOptions
         private weak var delegate: TextBlocksViewsUserInteractionProtocol?
     }
@@ -31,8 +31,8 @@ extension ImageBlocksViews {
 
 extension ImageBlocksViews.Supplement {
     class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
-        override func sequenceResolver(block: Block, blocks: [Block]) -> [BlockViewBuilderProtocol] {
-            switch block.type {
+        override func sequenceResolver(block: Model, blocks: [Model]) -> [BlockViewBuilderProtocol] {
+            switch block.information.content {
             case let .image(text):
                 switch text.contentType {
                 case .image: return blocks.map(ImageBlocksViews.Image.BlockViewModel.init)

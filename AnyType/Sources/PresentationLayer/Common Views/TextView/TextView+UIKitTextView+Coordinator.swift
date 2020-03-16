@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Combine
+import os
 
 extension TextView.UIKitTextView {
     class Coordinator: NSObject {
@@ -53,12 +54,10 @@ extension TextView.UIKitTextView {
 
 extension TextView.UIKitTextView.Coordinator {
     func configureKeyboardNotificationsListening() {
-        self.keyboardObserverHandler =
-            Publishers.CombineLatest(Just(self), KeyboardObserver.default.$keyboardInformation).filter{$0.0.defaultKeyboardRect == .zero && $0.1.keyboardRect != .zero}.sink { value in
-            let (left, right) = value
-            print(" left: \(left.defaultKeyboardRect) \n right: \(right.keyboardRect)")
-            left.defaultKeyboardRect = right.keyboardRect
-        }
+        self.keyboardObserverHandler = KeyboardObserver.default.$keyboardInformation.map(\.keyboardRect).filter({
+            [weak self] value in
+            value != .zero && self?.defaultKeyboardRect == .zero
+        }).sink{ [weak self] value in self?.defaultKeyboardRect = value }
     }
 }
 
@@ -85,7 +84,7 @@ extension TextView.UIKitTextView.Coordinator {
     
     // MARK: - Publishers / Blocks Toolbar
     func configureBlocksToolbarHandler(_ view: UITextView) {
-        self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { (value) in
+        self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { [weak self] (value) in
             let (textView, action) = value
             
             guard action.action != .keyboardDismiss else {
@@ -93,7 +92,7 @@ extension TextView.UIKitTextView.Coordinator {
                 return
             }
             
-            self.switchInputs(textView, accessoryView: nil, inputView: action.view)
+            self?.switchInputs(textView, accessoryView: nil, inputView: action.view)
         })
         
         // TODO: Add other user interaction publishers.
@@ -144,35 +143,38 @@ extension TextView.UIKitTextView.Coordinator {
     }
     
     func configureMarkStylePublisher(_ view: UITextView) {
-        self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { (textView, action) in
+        self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { [weak self] (textView, action) in
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            print("\(action)")
+            
+            let logger = Logging.createLogger(category: .textView)
+            os_log(.debug, log: logger, "configureMarkStylePublisher %s", "\(action)")
+            
             switch action {
             case .keyboardDismiss: textView.endEditing(false)
             case let .bold(range):
                 if let style = modifier.getMarkStyle(style: .bold(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.highlightedAccessoryViewHandler?((range, attributedText))
 
             case let .italic(range):
                 if let style = modifier.getMarkStyle(style: .italic(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.highlightedAccessoryViewHandler?((range, attributedText))
                 
             case let .strikethrough(range):
                 if let style = modifier.getMarkStyle(style: .strikethrough(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.highlightedAccessoryViewHandler?((range, attributedText))
                 
             case let .keyboard(range):
                 if let style = modifier.getMarkStyle(style: .keyboard(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.highlightedAccessoryViewHandler?((range, attributedText))
                 
             case let .linkView(range, builder):
                 let style = modifier.getMarkStyle(style: .link(nil), at: .range(range))
@@ -183,18 +185,18 @@ extension TextView.UIKitTextView.Coordinator {
                     default: return nil
                     }
                 }))
-                self.switchInputs(textView, accessoryView: view, inputView: nil)
+                self?.switchInputs(textView, accessoryView: view, inputView: nil)
                 // we should apply selection attributes to indicate place where link will be applied.
 
             case let .link(range, url):
                 guard range.length > 0 else { return }
                 _ = modifier.applyStyle(style: .link(url), rangeOrWholeString: .range(range))
-                self.highlightedAccessoryViewHandler?((range, attributedText))
-                self.switchInputs(textView)
+                self?.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.switchInputs(textView)
                 textView.becomeFirstResponder()
                 
             case let .changeColorView(_, inputView):
-                self.switchInputs(textView, accessoryView: nil, inputView: inputView)
+                self?.switchInputs(textView, accessoryView: nil, inputView: inputView)
 
             case let .changeColor(range, textColor, backgroundColor):
                 guard range.length > 0 else { return }
@@ -326,14 +328,9 @@ extension TextView.UIKitTextView.Coordinator: UIGestureRecognizerDelegate {
         case .recognized: gestureRecognizer.view?.becomeFirstResponder()
         default: break
         }
-        print("tap \(message(gestureRecognizer.state))")
-    }
-}
-
-//MARK: TextViewUserInteractionProtocol
-extension TextView.UIKitTextView.Coordinator: TextViewUserInteractionProtocol {
-    func didReceiveAction(_ action: TextView.UserAction) {
-        print("I receive! \(action)")
+        
+        let logger = Logging.createLogger(category: .textView)
+        os_log(.debug, log: logger, "%s tap: %s", "\(self)", "\(message(gestureRecognizer.state))")
     }
 }
 

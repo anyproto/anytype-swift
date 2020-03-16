@@ -125,10 +125,10 @@ extension TextView.HighlightedToolbar {
 
         // MARK: Setup
         func setupInteraction() {
-            self.userResponse = self.model.$userResponse.dropFirst().sink { (pair) in
+            self.userResponse = self.model.$userResponse.dropFirst().sink { [weak self] (pair) in
                 let range = pair.range
                 let states = pair.states
-                self.update(range: range, states: states)
+                self?.update(range: range, states: states)
             }
         }
 
@@ -342,12 +342,12 @@ extension TextView.HighlightedToolbar {
                 }
             }
             
-            let linksAndRanges = links.map{[weak self] in (self?.range ?? .init(), $0)}.sink { [weak self] (range, url) in
+            let linksAndRanges = links.map{ [weak self] in (self?.range ?? .init(), $0)}.sink { [weak self] (range, url) in
                 self?.userAction = .link(range, url)
             }
             self.inputLinkViewModelDidChange = linksAndRanges
             
-            let colorsAndRanges = self.changeColorViewModel.$value.map{[weak self] in (self?.range ?? .init(), $0.textColor, $0.backgroundColor)}
+            let colorsAndRanges = self.changeColorViewModel.$value.map{ [weak self] in (self?.range ?? .init(), $0.textColor, $0.backgroundColor)}
                 .map { pair in Action.changeColor(pair.0, pair.1, pair.2) }.sink { [weak self] action in
                 self?.userAction = action
             }

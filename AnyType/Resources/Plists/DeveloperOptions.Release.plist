@@ -26,6 +26,8 @@
 					<false/>
 					<key>shouldEmbedSwiftUIIntoCell</key>
 					<false/>
+					<key>shouldShowCellsIndentation</key>
+					<false/>
 				</dict>
 			</dict>
 		</dict>

@@ -44,7 +44,7 @@ extension TextView {
         
         // MARK: Setup Interactions
         private func setupInteractions() {
-            _ = self.model?.$update.sink(receiveValue: self.onUpdate(_:))
+            _ = self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)})
         }
         
         // MARK: UI Elements

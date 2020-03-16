@@ -222,8 +222,7 @@ extension TextView.BlockToolbar.AddBlock {
         }
         @Published var categoryIndex: Int? = 0
         @Published var typeIndex: Int?
-        var value: PassthroughSubject<BlocksTypes?, Never> = .init()
-        var handler: AnyCancellable?
+        var value: AnyPublisher<BlocksTypes?, Never> = .empty()
         var types: [ChosenType] {
             return self.chosenTypes(category: self.categoryIndex)
         }
@@ -250,12 +249,11 @@ extension TextView.BlockToolbar.AddBlock {
             }
         }
         init() {
-//            self.handler = Publishers.CombineLatest3(self.$categoryIndex, self.$typeIndex, Just(self)).subscribe(self.value)
-            self.handler = Publishers.CombineLatest(Just(self), self.$typeIndex).map { value in
-                let category = value.0.categoryIndex
-                let type = value.1
-                return self.chosenAction(category: category, type: type)
-            }.subscribe(self.value)
+            self.value = self.$typeIndex.map { [weak self] value in
+                let category = self?.categoryIndex
+                let type = value
+                return self?.chosenAction(category: category, type: type)
+            }.eraseToAnyPublisher()
         }
     }
     class InputViewBuilder {

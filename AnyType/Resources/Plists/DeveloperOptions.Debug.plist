@@ -14,7 +14,7 @@
 			<key>authentication</key>
 			<dict>
 				<key>shouldSkipLogin</key>
-				<true/>
+				<false/>
 			</dict>
 			<key>mainDocumentEditor</key>
 			<dict>
@@ -26,6 +26,8 @@
 					<true/>
 					<key>shouldEmbedSwiftUIIntoCell</key>
 					<true/>
+					<key>shouldShowCellsIndentation</key>
+					<false/>
 				</dict>
 			</dict>
 		</dict>

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os
 
 extension DeveloperOptions {
     class Service: BaseService {}
@@ -49,7 +50,7 @@ extension DeveloperOptions.Service {
                 let directory = NSTemporaryDirectory()
                 let temporaryFile = directory.appending("/Settings.plist")
                 
-                print("temporaryFile: \(temporaryFile)")
+                os_log(.info, "temporaryFile: %s", temporaryFile)
                 
                 let result = try? settings.flatMap(Settings.create).flatMap{["Settings": $0]}.flatMap(encoder.encode)
                 

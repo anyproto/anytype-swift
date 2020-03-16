@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import os
 
 extension TextView {
     enum BlockToolbar {}
@@ -102,8 +103,8 @@ extension TextView.BlockToolbar {
         }
 
         func setupInteraction() {
-            self.userResponse = self.model.$userResponse.dropFirst().sink { (state) in
-                self.update(state: state)
+            self.userResponse = self.model.$userResponse.dropFirst().sink { [weak self] (state) in
+                self?.update(state: state)
             }
         }
 
@@ -250,23 +251,24 @@ extension TextView.BlockToolbar {
         func setup() {
             // WARN: Don't call this function outside of `.init()`
             // NOTE: We should drop first notification in case of setup() function in `.init()`
-            let addBlock = self.addBlockViewModel.value.dropFirst().map { value -> UnderlyingAction? in
+            let addBlock = self.addBlockViewModel.value.map { value -> UnderlyingAction? in
                 value.flatMap{.addBlock(UnderlyingAction.BlockType.convert($0))}
             }
-            let turnIntoBlock = self.turnIntoBlockViewModel.value.dropFirst().map { value -> UnderlyingAction? in
+            let turnIntoBlock = self.turnIntoBlockViewModel.value.map { value -> UnderlyingAction? in
                 value.flatMap{.turnIntoBlock(UnderlyingAction.BlockType.convert($0))}
             }
-            let changeColor = self.changeColorViewModel.$value.dropFirst().map { value -> UnderlyingAction? in
+            let changeColor = self.changeColorViewModel.$value.map { value -> UnderlyingAction? in
                 UnderlyingAction.ChangeColor.convert((value.textColor, value.backgroundColor)).flatMap(UnderlyingAction.changeColor)
             }
-            let editBlock = self.editActionsViewModel.$value.dropFirst().map { value -> UnderlyingAction? in
+            let editBlock = self.editActionsViewModel.$value.map { value -> UnderlyingAction? in
                 value.flatMap{.editBlock(UnderlyingAction.EditBlock.convert($0))}
             }
             
             self.allInOneStreamDescription = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).sink { value in
-                print("UnderlyingAction! \(String(describing: value))")
+                let logger = Logging.createLogger(category: .textView)
+                os_log(.debug, log: logger, "underlying action %@", "\(String(describing: value))")
             }
-            self.allInOneStream = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).subscribe(self.allInOnePublisher)
+            self.allInOnePublisher = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).eraseToAnyPublisher()
         }
 
         // MARK: Publishers
@@ -275,8 +277,7 @@ extension TextView.BlockToolbar {
 
         // MARK: Streams
         private var allInOneStreamDescription: AnyCancellable?
-        private var allInOneStream: AnyCancellable?
-        var allInOnePublisher: PassthroughSubject<UnderlyingAction?, Never> = .init()
+        var allInOnePublisher: AnyPublisher<UnderlyingAction?, Never> = .empty()
 
         // MARK: ViewModels
         @ObservedObject private var turnIntoBlockViewModel: TurnIntoBlock.ViewModel

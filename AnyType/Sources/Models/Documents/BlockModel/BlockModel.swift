@@ -166,27 +166,3 @@ extension BlockType {
         var style: Style
     }
 }
-
-/// Block model
-struct Block: Identifiable {
-    var id: String
-    var childrensIDs: [String]
-    var type: BlockType
-    var fields: Dictionary<String, Any> = Dictionary()
-}
-
-// MARK: Mocking
-extension Block {
-    static func mock(_ contentType: BlockType) -> Self {
-        return .init(id: UUID().uuidString, childrensIDs: [""], type: contentType)
-    }
-    static func mockText(_ type: BlockType.Text.ContentType) -> Self {
-        return .mock(.text(.init(text: "", contentType: type)))
-    }
-    static func mockImage(_ type: BlockType.Image.ContentType) -> Self {
-        return .mock(.image(.init(contentType: type)))
-    }
-    static func mockVideo(_ type: BlockType.Video.ContentType) -> Self {
-        return .mock(.video(.init(contentType: type)))
-    }
-}

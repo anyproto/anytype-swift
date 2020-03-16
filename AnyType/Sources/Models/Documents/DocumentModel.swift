@@ -22,6 +22,7 @@ struct DocumentsHeaders {
 
 /// Model for document in workspace
 struct Document {
+    typealias Element = BlockModels.Block.RealBlock
     let header: DocumentHeader
-    var blocks = [Block]()
+    var blocks = [Element]()
 }
