@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-// MARK: ViewModel
+// MARK: - ViewModel
 extension TextBlocksViews.Callout {
     class BlockViewModel: TextBlocksViews.Base.BlockViewModel {
         @Published var style: Style = .emoji("🥳") {
@@ -31,7 +31,7 @@ extension TextBlocksViews.Callout {
     }
 }
 
-// MARK: Style
+// MARK: - Style
 extension TextBlocksViews.Callout {
     enum Style {
         case none
@@ -46,7 +46,7 @@ extension TextBlocksViews.Callout {
 }
 
 // MARK: - View
-extension TextBlocksViews.Callout {
+private extension TextBlocksViews.Callout {
     
     struct MarkedViewModifier: ViewModifier {
         @Binding var style: Style

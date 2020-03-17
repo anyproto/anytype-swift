@@ -96,10 +96,10 @@
 		03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0F230C414C003D5DFD /* ImageService.swift */; };
 		03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAB230457FC00701782 /* PinCodeViewModel.swift */; };
 		03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAD2304589E00701782 /* PinCodeValidator.swift */; };
-		03D1515E23FB2B85004027CE /* ConfigServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1515D23FB2B85004027CE /* ConfigServiceProtocol.swift */; };
+		03D1515E23FB2B85004027CE /* ConfigurationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1515D23FB2B85004027CE /* ConfigurationServiceProtocol.swift */; };
 		03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1515F23FB4329004027CE /* DashboardServiceProtocol.swift */; };
 		03D1516323FB43A9004027CE /* DashboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1516223FB43A9004027CE /* DashboardService.swift */; };
-		03D1516623FB446A004027CE /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1516523FB446A004027CE /* ConfigService.swift */; };
+		03D1516623FB446A004027CE /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1516523FB446A004027CE /* ConfigurationService.swift */; };
 		03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD4E23A93CC100C701CE /* CustomTextField.swift */; };
 		03E2AD5123A93D1000C701CE /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD5023A93D1000C701CE /* ImagePicker.swift */; };
 		03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */; };
@@ -314,10 +314,10 @@
 		03CB3F0F230C414C003D5DFD /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		03CCADAB230457FC00701782 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
 		03CCADAD2304589E00701782 /* PinCodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeValidator.swift; sourceTree = "<group>"; };
-		03D1515D23FB2B85004027CE /* ConfigServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigServiceProtocol.swift; sourceTree = "<group>"; };
+		03D1515D23FB2B85004027CE /* ConfigurationServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationServiceProtocol.swift; sourceTree = "<group>"; };
 		03D1515F23FB4329004027CE /* DashboardServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardServiceProtocol.swift; sourceTree = "<group>"; };
 		03D1516223FB43A9004027CE /* DashboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardService.swift; sourceTree = "<group>"; };
-		03D1516523FB446A004027CE /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
+		03D1516523FB446A004027CE /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
 		03E2AD4E23A93CC100C701CE /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		03E2AD5023A93D1000C701CE /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
@@ -559,7 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				0A66456924085A1E008392AF /* BlocksServices */,
-				03D1516423FB443E004027CE /* ConfigServices */,
+				03D1516423FB443E004027CE /* ConfigurationServices */,
 				03D1516123FB437A004027CE /* DashboardServices */,
 				03C6E84B233BAB35004EB6B6 /* DocumentServiceProtocol.swift */,
 				0327B0B7232BBAD9007DB8A7 /* TestDocumentService.swift */,
@@ -1083,13 +1083,13 @@
 			path = DashboardServices;
 			sourceTree = "<group>";
 		};
-		03D1516423FB443E004027CE /* ConfigServices */ = {
+		03D1516423FB443E004027CE /* ConfigurationServices */ = {
 			isa = PBXGroup;
 			children = (
-				03D1515D23FB2B85004027CE /* ConfigServiceProtocol.swift */,
-				03D1516523FB446A004027CE /* ConfigService.swift */,
+				03D1515D23FB2B85004027CE /* ConfigurationServiceProtocol.swift */,
+				03D1516523FB446A004027CE /* ConfigurationService.swift */,
 			);
-			path = ConfigServices;
+			path = ConfigurationServices;
 			sourceTree = "<group>";
 		};
 		03DA0FD123A1DBA900C597BD /* SecureStoreService */ = {
@@ -1499,7 +1499,7 @@
 				0A0AA74424002362003A2935 /* BlocksViews+Base+Utilities+Updater.swift in Sources */,
 				0A996BCF23EF19BE000FDC9C /* DocumentViewBuilder.swift in Sources */,
 				0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */,
-				03D1516623FB446A004027CE /* ConfigService.swift in Sources */,
+				03D1516623FB446A004027CE /* ConfigurationService.swift in Sources */,
 				0A0AA76524041418003A2935 /* BlockModel+Utilities.swift in Sources */,
 				0A66456B24085B82008392AF /* BlockActionsService.swift in Sources */,
 				0350A2E7232960D900E00FB5 /* HomeCollectionViewPlusCell.swift in Sources */,
@@ -1544,7 +1544,7 @@
 				0A0AA7612402E771003A2935 /* BlockModel+Transformer.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0ACA781723E5C99A00442690 /* AppearanceService+Schemes.swift in Sources */,
-				03D1515E23FB2B85004027CE /* ConfigServiceProtocol.swift in Sources */,
+				03D1515E23FB2B85004027CE /* ConfigurationServiceProtocol.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
