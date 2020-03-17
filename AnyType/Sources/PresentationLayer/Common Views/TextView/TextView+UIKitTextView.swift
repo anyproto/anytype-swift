@@ -54,10 +54,11 @@ extension TextView {
         
         // MARK: UI Elements
         private func setupUIElements() {
+            guard let model = self.model else { return }
             self.translatesAutoresizingMaskIntoConstraints = false
             
             self.textView = {
-                let view = self.model?.createInnerView() ?? .init()
+                let view = model.createInnerView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
