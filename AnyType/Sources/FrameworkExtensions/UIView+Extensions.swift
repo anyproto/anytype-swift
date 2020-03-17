@@ -35,7 +35,7 @@ extension UIView {
     /// ConfiguredView.
     /// You could set any IntrinsicContentSize, because by
     private class ConfiguredView: UIView {
-        var customIntrinsicContentSize: CGSize = .init(width: -1, height: -1)
+        var customIntrinsicContentSize: CGSize = .init(width: UIView.noIntrinsicMetric, height: UIView.noIntrinsicMetric)
         func configured(customIntrinsicContentSize: CGSize) -> Self {
             self.customIntrinsicContentSize = customIntrinsicContentSize
             return self
