@@ -52,6 +52,9 @@ extension TextBlocksViews.List.BlockViewModel: TextBlocksViewsUserInteractionPro
     func didReceiveAction(block: Model, id: Index, action: TextView.UserAction) {
         self.delegate?.didReceiveAction(block: block, id: id, action: action)
     }
+    func didReceiveAction(block: Model, id: Index, generalAction: TextBlocksViews.UserInteraction) {
+        // do nothing.
+    }
 }
 
 // MARK: ObservableObject

@@ -76,8 +76,50 @@ extension Publishers {
     }
 }
 
+// MARK: SafelyUnwrapOptionals
+extension Publishers {
+    /// A publisher that ignores nil values and safely unwrap optionals.
+    public struct SafelyUnwrapOptionals<T, Upstream> : Publisher where Upstream : Publisher, Upstream.Output == Optional<T> {
+        /// The kind of values published by this publisher.
+        public typealias Output = T
+
+        /// The kind of errors this publisher might publish.
+        ///
+        /// Use `Void` if this `Publisher` does not publish errors.
+        public typealias Failure = Upstream.Failure
+
+        /// The publisher from which this publisher receives elements.
+        public let upstream: Upstream
+        private let downstream: FlatMap<AnyPublisher<Output, Failure>, Publishers.Filter<Upstream>>
+        
+        public init(upstream: Upstream) {
+            self.upstream = upstream
+            
+//            self.downstream = upstream.filter{$0 != nil}.flatMap { (value) -> AnyPublisher<Output, Failure> in
+//                guard let value = value else { return .empty() }
+//                return CurrentValueSubject(value).eraseToAnyPublisher()
+//            }
+            
+            self.downstream = upstream.filter{$0 != nil}.flatMap({ $0.flatMap(CurrentValueSubject.init).map{$0.eraseToAnyPublisher()} ?? .empty() })
+        }
+
+        /// This function is called to attach the specified `Subscriber` to this `Publisher` by `subscribe(_:)`
+        ///
+        /// - SeeAlso: `subscribe(_:)`
+        /// - Parameters:
+        ///     - subscriber: The subscriber to attach to this `Publisher`.
+        ///                   once attached it can begin to receive values.
+        public func receive<S>(subscriber: S) where S : Subscriber, S.Failure == Failure, S.Input == Output {
+            self.downstream.receive(subscriber: subscriber)
+        }
+    }
+}
+
 // MARK: Publishers Accessors
 extension Publisher {
+    func safelyUnwrapOptionals<T>() -> Publishers.SafelyUnwrapOptionals<T, Self> {
+        .init(upstream: self)
+    }
     func successToVoid() -> Publishers.SuccessToVoid<Self> {
         .init(upstream: self)
     }
@@ -88,8 +130,8 @@ extension Publisher {
 
 // MARK: AnyPublisher extensions
 extension AnyPublisher {
-    static func empty() -> AnyPublisher<Self.Output, Self.Failure> {
-        Empty<Self.Output, Self.Failure>().eraseToAnyPublisher()
+    static func empty() -> AnyPublisher<Output, Failure> {
+        Empty().eraseToAnyPublisher()
     }
 }
 

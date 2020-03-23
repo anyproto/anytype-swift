@@ -36,6 +36,9 @@ extension BlocksViews.Base.Utilities.TextBlocksUserInteractor: TextBlocksViewsUs
         case let .inputAction(action): return
         }
     }
+    func didReceiveAction(block: Model, id: Index, generalAction: TextBlocksViews.UserInteraction) {
+        // do nothing.
+    }
 }
 
 // MARK: Handling / KeyboardAction

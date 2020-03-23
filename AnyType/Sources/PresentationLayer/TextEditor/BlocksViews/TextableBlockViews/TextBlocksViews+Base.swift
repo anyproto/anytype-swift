@@ -18,6 +18,9 @@ extension TextBlocksViews {
             @Environment(\.developerOptions) var developerOptions
             private weak var delegate: TextBlocksViewsUserInteractionProtocol?
             
+            // for toggle and checkbox
+            var getDelegate: TextBlocksViewsUserInteractionProtocol? { delegate }
+            
             private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
             
             private var inputSubscriber: AnyCancellable?
@@ -83,7 +86,7 @@ extension TextBlocksViews {
 
 // MARK: - ViewModel / Apply to model.
 extension TextBlocksViews.Base.BlockViewModel {
-    private func setModelData(text: String) {
+    private func setModelData(text newText: String) {
         let theText = self.text
         self.text = theText
         
@@ -91,7 +94,7 @@ extension TextBlocksViews.Base.BlockViewModel {
             switch block.information.content {
             case let .text(value):
                 var value = value
-                value.text = text
+                value.text = newText
                 block.information.content = .text(value)
             default: return
             }
@@ -110,6 +113,13 @@ extension TextBlocksViews.Base.BlockViewModel: TextBlocksViewsUserInteractionPro
     func configured(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self? {
         self.delegate = delegate
         return self
+    }
+}
+
+// MARK: - Convenient UserInteraction
+extension TextBlocksViews.Base.BlockViewModel {
+    func didReceiveAction(generalAction action: TextBlocksViews.UserInteraction) {
+        self.delegate?.didReceiveAction(block: getRealBlock(), id: getID(), generalAction: action)
     }
 }
 

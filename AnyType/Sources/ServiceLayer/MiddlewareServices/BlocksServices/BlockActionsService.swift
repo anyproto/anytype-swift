@@ -31,6 +31,10 @@ protocol BlockActionsServiceProtocolDelete {
     func action(contextID: String, blockIds: [String]) -> AnyPublisher<Never, Error>
 }
 
+protocol BlockActionsServiceProtocolMerge {
+    func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Never, Error>
+}
+
 protocol BlockEventListener {
     associatedtype Event
     func receive(contextId: String) -> AnyPublisher<Event, Never>
@@ -42,6 +46,7 @@ protocol BlockActionsServiceProtocol {
     associatedtype Add: BlockActionsServiceProtocolAdd
     associatedtype Replace: BlockActionsServiceProtocolReplace
     associatedtype Delete: BlockActionsServiceProtocolDelete
+    associatedtype Merge: BlockActionsServiceProtocolMerge
     associatedtype EventListener: BlockEventListener
     
     var open: Open {get}
@@ -49,6 +54,7 @@ protocol BlockActionsServiceProtocol {
     var add: Add {get}
     var replace: Replace {get}
     var delete: Delete {get}
+    var merge: Merge {get}
     var eventListener: EventListener {get}
 }
 
@@ -59,6 +65,7 @@ class BlockActionsService: BlockActionsServiceProtocol {
     var add: Add = .init()
     var replace: Replace = .init()
     var delete: Delete = .init()
+    var merge: Merge = .init()
     var eventListener: EventListener = .init()
     
     // MARK: Open / Close
@@ -100,6 +107,16 @@ class BlockActionsService: BlockActionsServiceProtocol {
     struct Delete: BlockActionsServiceProtocolDelete {
         func action(contextID: String, blockIds: [String]) -> AnyPublisher<Never, Error> {
             Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds).ignoreOutput().subscribe(on: DispatchQueue.global())
+                .eraseToAnyPublisher()
+        }
+    }
+    
+    // MARK: Merge
+    struct Merge: BlockActionsServiceProtocolMerge {
+        func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Never, Error> {
+            Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID)
+                .ignoreOutput()
+                .subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }

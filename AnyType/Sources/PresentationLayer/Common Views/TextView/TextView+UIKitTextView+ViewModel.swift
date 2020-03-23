@@ -28,7 +28,12 @@ extension TextView.UIKitTextView {
         }
         
         private func setup() {
-            self.onUpdate = self.coordinator.$text.map(Update.text).eraseToAnyPublisher()
+            // NOTE:
+            // We should skip value `default @Published variable value`.
+            // For that reason we change type of $text to @Published<Optional<String>>.
+            // We create compelled distance between String values (which are coming from UITextView) and "no value". ( default value )
+            // In this case we prefer to filter values rather than blindly `dropFirst` values.
+            self.onUpdate = self.coordinator.$text.safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {

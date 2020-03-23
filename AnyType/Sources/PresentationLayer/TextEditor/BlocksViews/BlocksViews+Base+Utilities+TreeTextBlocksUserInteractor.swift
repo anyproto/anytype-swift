@@ -7,10 +7,19 @@
 //
 
 import Foundation
+import Combine
 
 extension BlocksViews.Base.Utilities {
     // Add AnyUpdater (?) // Do we really need it?
+    // Pass documentId (?)
+    // Or retrieve it from block (?)
+    // If we could retrieve it from block, we could
     class TreeTextBlocksUserInteractor<T: BlocksViewsViewModelHolder> {
+        private var toggleStorage: InMemoryStoreFacade.BlockLocalStore? {
+            return InMemoryStoreFacade.shared.blockLocalStore
+        }
+        private let service: BlockActionsService = .init()
+        private var subscriptions: [AnyCancellable] = []
         typealias Index = BusinessBlock.Index
         typealias Model = BlockModels.Block.RealBlock
         var updater: TreeUpdater<T>
@@ -25,6 +34,14 @@ extension BlocksViews.Base.Utilities {
 
 // MARK: TextBlocksViewsUserInteractionProtocol
 extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor: TextBlocksViewsUserInteractionProtocol {
+    /// Process/Receive actions as TextView.UserAction enumeration.
+    ///
+    /// This proce∆ss 
+    ///
+    /// - Parameters:
+    ///   - block: A block model that sends event.
+    ///   - id: A corresponding identifier of block model.
+    ///   - action: An action that user interaction delegate of TextView sends.
     func didReceiveAction(block: Model, id: Index, action: TextView.UserAction) {
         switch action {
         case let .blockAction(action): self.handlingBlockAction(block, id, action)
@@ -32,6 +49,39 @@ extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor: TextBlocksVie
         
         case let .marksAction(action): return
         case let .inputAction(action): return
+        }
+    }
+    
+    /// Process/Receive actions as TextBlocksViews.UserInteraction enumeration.
+    ///
+    /// You may read about purpose of enum in documentation.
+    ///
+    /// - Parameters:
+    ///   - block: A block model that sends event.
+    ///   - id: A corresponding identifier of block model.
+    ///   - action: An action that user interaction delegate sends.
+    func didReceiveAction(block: Model, id: Index, generalAction action: TextBlocksViews.UserInteraction) {
+        switch action {
+            
+        /// case When we press button in textView if textView.children.isEmpty
+        case let .buttonView(.toggle(.insertFirst(value))):
+            let firstChildIndex = block.createIndex(for: 0)
+            let fullChildIndex = block.getFullIndex() + [firstChildIndex]
+            self.updater.insert(block: .init(information: .init(id: BlockBuilder.newBlockId(), content: .text(.init(text: "", contentType: .text)))), at: fullChildIndex)
+            return // self.updater.insertChild
+            
+        /// case When we press toggle button to fold/unfold children.
+        case let .buttonView(.toggle(.toggled(value))):
+            // TODO: move to someone who could update toggle value(?)
+            var store = self.toggleStorage
+            store?[.init(blockId: block.information.id)] = .init(toggled: value)
+            block.update(forced: true)
+            // we should update value in toggle (?)
+            return // self.updater.update(block)
+            
+        /// case When TextView sends events.
+        case .textView(let value): self.didReceiveAction(block: block, id: id, action: value)
+        default: return
         }
     }
 }
@@ -52,8 +102,10 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
                 }
             case .enter:
                 BlockBuilder.createBlock(for: block, id, action, "").flatMap{($0, block.getFullIndex())}.flatMap{self.updater.insert(block: $0.0, afterBlock: $0.1)}
-            case .deleteWithPayload(_): return
-            case .delete: self.updater.delete(at: block.getFullIndex())
+            case .deleteWithPayload(_):
+                return
+            case .delete:
+                self.updater.delete(at: block.getFullIndex())
             }
         }
     }
@@ -78,6 +130,7 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
                 case .bulleted where blockType.text != "": return .text(.init(text: textPayload, contentType: .bulleted))
                 case .todo where blockType.text != "": return .text(.init(text: textPayload, contentType: .todo))
                 case .numbered where blockType.text != "": return .text(.init(text: textPayload, contentType: .numbered))
+                case .toggle where blockType.text != "": return .text(.init(text: textPayload, contentType: .toggle))
                 default: return .text(.init(text: textPayload, contentType: .text))
                 }
             default: return nil

@@ -74,6 +74,24 @@ extension BlockModels.Block {
     }
 }
 
+// MARK: Force update
+extension BlockModels.Block.Node {
+    /// Populate updates to a root of a tree.
+    ///
+    /// This method is working only with `forced = true` for now.
+    /// Purpose for this method is simple and obvious. Sometimes, we need to update a child of a tree and we want to push updates to a root.
+    ///
+    /// For that we call `.update(forced: true)` and it will populate updates to a parent until it reaches top ( or a root ).
+    ///
+    /// - Parameter forced: Flag indicates that we need to populate updates to a root of a tree.
+    func update(forced: Bool) {
+        if forced {
+            self.objectWillChange.send()
+            self.parent?.objectWillChange.send()
+        }
+    }
+}
+
 // MARK: Indices
 extension BlockModels.Block.Node {
     @inline(__always) func childIndex() -> Index.Index {

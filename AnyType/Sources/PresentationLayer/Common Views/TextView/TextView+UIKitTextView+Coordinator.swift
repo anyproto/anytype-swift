@@ -19,7 +19,7 @@ extension TextView.UIKitTextView {
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
 
         // MARK: Variables
-        @Published var text: String = ""
+        @Published var text: String? = nil
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
         func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
             self.userInteractionDelegate = delegate

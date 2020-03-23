@@ -23,10 +23,46 @@ enum TextBlocksViews {
 }
 
 // MARK: UserInteraction
+extension TextBlocksViews {
+    /// This is Event wrapper enumeration.
+    ///
+    /// Consider following scenario.
+    ///
+    /// You have several delegates that sends events.
+    ///
+    /// `ADelegate` sends `AEvent` and `BDelegate` sends `BEvent`
+    ///
+    /// Let us wrap them into one action.
+    ///
+    /// enum Action {
+    ///  .aAction(AEvent)
+    ///  .bAction(BEvent)
+    /// }
+    ///
+    /// This `UserInteraction` enumeration wrap `TextView.UserAction` and `ButtonView.UserAction` together
+    ///
+    enum UserInteraction {
+        case textView(TextView.UserAction)
+        case buttonView(ButtonView.UserAction)
+    }
+}
+extension TextBlocksViews.UserInteraction {
+    enum ButtonView {
+        enum UserAction {
+            enum Toggle {
+                case toggled(Bool)
+                case insertFirst(Bool)
+            }
+            case toggle(Toggle)
+            case checkbox(Bool)
+        }
+    }
+}
 protocol TextBlocksViewsUserInteractionProtocol: class {
     typealias Index = BusinessBlock.Index
     typealias Model = BlockModels.Block.RealBlock
     func didReceiveAction(block: Model, id: Index, action: TextView.UserAction)
+    func didReceiveAction(block: Model, id: Index, generalAction: TextBlocksViews.UserInteraction)
 }
 
 protocol TextBlocksViewsUserInteractionProtocolHolder: class {
