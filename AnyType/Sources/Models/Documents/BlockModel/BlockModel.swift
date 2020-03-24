@@ -104,6 +104,9 @@ extension BlockType {
         enum ContentType {
             case text
             case header
+            case header2
+            case header3
+            case header4
             case quote
             case todo
             case bulleted

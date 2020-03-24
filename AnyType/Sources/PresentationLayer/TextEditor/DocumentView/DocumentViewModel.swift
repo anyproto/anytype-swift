@@ -73,13 +73,16 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
     // MARK: Lifecycle
     
     init(documentId: String?) {
-        self.textViewUserInteractor = .init(self)
-        
+        // TODO: Add failable init.
+        let logger = Logging.createLogger(category: .treeViewModel)
+        os_log(.debug, log: logger, "Don't forget to change to failable init?() .")
         guard let documentId = documentId else { return }
+        
+        self.textViewUserInteractor = .init(self)
         
         self.blockActionsService.eventListener.receive(contextId: documentId).sink { [weak self] (value) in
             if self?.internalState != .ready {
-                _ = self?.processBlocks(value.rootId, value.blocks)
+                _ = self?.processBlocks(contextId: documentId, rootId: value.rootId, models: value.blocks)
                 self?.internalState = .ready
             }
         }.store(in: &self.subscriptions)
@@ -95,9 +98,9 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         
         // some more
         
-        self.buildersSubscription = self.$builders.sink { [weak self] value in
+        self.$builders.sink { [weak self] value in
             self?.buildersRows = value.compactMap(Row.init)
-        }
+        }.store(in: &self.subscriptions)
         
         self.anyFieldPublisher = self.$builders
             .map {
@@ -131,13 +134,14 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         return result
     }
     
-    private func processBlocks(_ rootId: String? = nil, _ models: [MiddlewareBlockInformationModel]) -> [BlockViewBuilderProtocol] {
+    private func processBlocks(contextId: String? = nil, rootId: String? = nil, models: [MiddlewareBlockInformationModel]) -> [BlockViewBuilderProtocol] {
         // create metablock.
         let baseModel = self.transformer.transform(models.map({BlockModels.Block.Information.init(information: $0)}), rootId: rootId)
         let model = baseModel
         self.rootViewModel = .init(model)
         self.updater = .init(value: model)
         self.treeTextViewUserInteractor = .init(self)
+        self.treeTextViewUserInteractor?.update(documentId: contextId)
         self.rootModel = baseModel
         
         self.rootModel?.objectWillChange.sink { [weak self] (value) in
@@ -145,10 +149,6 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         }.store(in: &self.subscriptions)
         
         return self.builders
-    }
-    
-    private func processBlocks(models: [Document.Element]) -> [BlockViewBuilderProtocol] {
-        processBlocks(nil, models.map{$0.information})
     }
     
     private func obtainDocument(documentId: String?) {

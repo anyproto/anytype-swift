@@ -82,13 +82,16 @@ extension TextBlocksViews.Supplement {
                 switch text.contentType {
                 case .text: return blocks.map(TextBlocksViews.Text.BlockViewModel.init)
                 case .header: return blocks.map(TextBlocksViews.Header.BlockViewModel.init)
+                case .header2: return blocks.map(TextBlocksViews.Header.BlockViewModel.init)
+                case .header3: return blocks.map(TextBlocksViews.Header.BlockViewModel.init)
+                case .header4: return blocks.map(TextBlocksViews.Header.BlockViewModel.init)
                 case .quote: return blocks.map(TextBlocksViews.Quote.BlockViewModel.init)
                 case .todo: return blocks.map(TextBlocksViews.Checkbox.BlockViewModel.init)
                 case .bulleted: return blocks.map(TextBlocksViews.Bulleted.BlockViewModel.init)
                 case .numbered: return zip(blocks, blocks.indices).map{
                     // determine style somehow?
                     TextBlocksViews.Numbered.BlockViewModel($0.0).update(style: .number($0.1.advanced(by: 1)))
-                }
+                    }
                 //                case .toggle: return blocks.map{TextBlocksViews.Toggle.BlockViewModel(block: $0)}}
                 case .toggle: return blocks.map{($0, TextBlocksViews.Toggle.BlockViewModel($0))}.map{$0.1.update(blocks: Array(repeating: $0.0, count: 4).map(TextBlocksViews.Text.BlockViewModel.init))}
                 case .callout: return blocks.map(TextBlocksViews.Callout.BlockViewModel.init)

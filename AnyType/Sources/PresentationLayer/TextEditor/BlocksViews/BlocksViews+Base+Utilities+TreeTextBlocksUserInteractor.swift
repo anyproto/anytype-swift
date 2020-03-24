@@ -8,6 +8,11 @@
 
 import Foundation
 import Combine
+import os
+
+private extension Logging.Categories {
+    static let treeTextBlocksUserInteractor: Self = "textEditor.treeTextBlocksUserInteractor"
+}
 
 extension BlocksViews.Base.Utilities {
     // Add AnyUpdater (?) // Do we really need it?
@@ -15,20 +20,38 @@ extension BlocksViews.Base.Utilities {
     // Or retrieve it from block (?)
     // If we could retrieve it from block, we could
     class TreeTextBlocksUserInteractor<T: BlocksViewsViewModelHolder> {
+        private var documentId: String?
         private var toggleStorage: InMemoryStoreFacade.BlockLocalStore? {
             return InMemoryStoreFacade.shared.blockLocalStore
         }
         private let service: BlockActionsService = .init()
+        private let parser: BlockModels.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
+
         typealias Index = BusinessBlock.Index
         typealias Model = BlockModels.Block.RealBlock
+        
         var updater: TreeUpdater<T>
+
         init(_ value: T) {
             self.updater = TreeUpdater.init(value: value)
         }
+
         init(_ value: TreeUpdater<T>) {
             self.updater = value
         }
+    }
+}
+
+// MARK: Configuration
+extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
+    func update(documentId: String?) {
+        self.documentId = documentId
+    }
+    
+    func configured(documentId: String?) -> Self {
+        self.update(documentId: documentId)
+        return self
     }
 }
 
@@ -103,6 +126,20 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
             case .enter:
                 BlockBuilder.createBlock(for: block, id, action, "").flatMap{($0, block.getFullIndex())}.flatMap{self.updater.insert(block: $0.0, afterBlock: $0.1)}
             case .deleteWithPayload(_):
+                // BUSINESS LOGIC:
+                // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
+                switch block.information.content {
+                case let .text(value) where [.bulleted, .numbered, .todo, .toggle].contains(value.contentType) && value.text == "":
+                    // Turn Into empty text block.
+                    if let newContentType = BlockBuilder.createContentType(for: block, id, action, value.text) {
+                        block.information.content = newContentType
+                        block.update(forced: true)
+                    }
+                default: BlockBuilder.createBlock(for: block, id, action, "")
+                    .flatMap{($0, block.getFullIndex())}
+                    .flatMap(self.updater.insert(block:afterBlock:))
+                }
+            case .deleteWithPayload(_):
                 return
             case .delete:
                 self.updater.delete(at: block.getFullIndex())
@@ -145,8 +182,8 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
                     switch textType {
                     case .text: return .text(.init(text: textPayload, contentType: .text))
                     case .h1: return .text(.init(text: textPayload, contentType: .header))
-                    case .h2: return nil
-                    case .h3: return nil
+                    case .h2: return .text(.init(text: textPayload, contentType: .header2))
+                    case .h3: return .text(.init(text: textPayload, contentType: .header3))                    
                     case .highlighted: return .text(.init(text: textPayload, contentType: .quote))
                     }
                 case let .list(listType):
@@ -180,7 +217,33 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
             // but for list blocks it is not the same as create block, it is create new entry.
             if let newBlock = BlockBuilder.createBlock(for: block, id, action) {
                 // insert block after block
-                self.updater.insert(block: newBlock, afterBlock: block.getFullIndex())
+                // we could catch events and update model.
+                // or we could just update model after sending event.
+                // for now we just update model on success.
+                
+                guard let documentId = self.documentId, let addedBlock = self.parser.convert(information: newBlock.information) else {
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    let documentId = self.documentId
+                    let addedBlock = self.parser.convert(information: newBlock.information)
+                    os_log(.error, log: logger, "documentId: %@ or addedBlock: %@ are nil? ", "\(String(describing: documentId))", "\(String(describing: addedBlock))")
+                    return
+                }
+                
+                let targetId = block.information.id
+                let position: Anytype_Model_Block.Position = .bottom
+                
+                self.service.add.action(contextID: documentId, targetID: targetId, block: addedBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+                    switch value {
+                    case .finished: return
+                    case let .failure(error):
+                        let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                        os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
+                    }
+                }) { [weak self] (value) in
+                    let ourNewBlock = newBlock
+                    ourNewBlock.information.id = value.blockID
+                    self?.updater.insert(block: ourNewBlock, afterBlock: block.getFullIndex())
+                }.store(in: &self.subscriptions)
             }
 
         // very-very-very complex action.

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftProtobuf
 import os
 
 private extension Logging.Categories {
@@ -30,8 +31,11 @@ extension BlockModels.Parser {
         blocks.compactMap(self.convert(block:))
     }
     
+    /// Converting Middleware model -> Our model
+    ///
+    /// - Parameter block: Middleware model
     func convert(block: Anytype_Model_Block) -> MiddlewareBlockInformationModel? {
-        guard let content = block.content, let converter = Converters.convert(from: content) else { return nil }
+        guard let content = block.content, let converter = Converters.convert(middleware: content) else { return nil }
         guard let blockType = converter.blockType(content) else { return nil }
         var information = Information.init(id: block.id, content: blockType)
         
@@ -41,14 +45,42 @@ extension BlockModels.Parser {
         os_log(.debug, log: logger, "Add fields and restrictions into our model.")
         return information.update(childrenIds: block.childrenIds)
     }
+    
+    
+    /// Converting Our model -> Middleware model
+    ///
+    /// - Parameter information: Our model
+    func convert(information: MiddlewareBlockInformationModel) -> Anytype_Model_Block? {
+        let blockType = information.content
+        guard let converter = Converters.convert(block: blockType) else { return nil }
+        guard let content = converter.middleware(blockType) else { return nil }
+        
+        let id = information.id
+        let fields: Google_Protobuf_Struct = .init()
+        let restrictions: Anytype_Model_Block.Restrictions = .init()
+        let childrenIds = information.childrenIds
+                
+        let logger = Logging.createLogger(category: .todo(.improve("")))
+        os_log(.debug, log: logger, "Add fields and restrictions into our model.")
+        return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, content: content)
+    }
 }
 
 // MARK: Converters
-extension BlockModels.Parser {
+private extension BlockModels.Parser {
+    /// It is a Converters Factory, actually.
     enum Converters {
-        static func convert(from middleware: Anytype_Model_Block.OneOf_Content?) -> BaseContentConverter? {
+        static func convert(middleware: Anytype_Model_Block.OneOf_Content?) -> BaseContentConverter? {
             guard let middleware = middleware else { return nil }
             switch middleware {
+            case .page: return ContentPage()
+            case .text: return ContentText()
+            default: return nil
+            }
+        }
+        static func convert(block: BlockType?) -> BaseContentConverter? {
+            guard let block = block else { return nil }
+            switch block {
             case .page: return ContentPage()
             case .text: return ContentText()
             default: return nil
@@ -62,7 +94,7 @@ extension BlockModels.Parser {
 }
 
 // MARK: ContentPage
-extension BlockModels.Parser.Converters {
+private extension BlockModels.Parser.Converters {
     class ContentPage: BaseContentConverter {
         func contentType(_ from: Anytype_Model_Block.Content.Page.Style) -> BlockType.Page.Style? {
             switch from {
@@ -96,16 +128,16 @@ extension BlockModels.Parser.Converters {
 }
 
 // MARK: ContentText
-extension BlockModels.Parser.Converters {
+private extension BlockModels.Parser.Converters {
     class ContentText: BaseContentConverter {
         func contentType(_ from: Anytype_Model_Block.Content.Text.Style) -> BlockType.Text.ContentType? {
             func result(_ from: Anytype_Model_Block.Content.Text.Style) -> BlockType.Text.ContentType? {
                 switch from {
                 case .paragraph: return .text
                 case .header1: return .header
-                case .header2: return nil
-                case .header3: return nil
-                case .header4: return nil
+                case .header2: return .header2
+                case .header3: return .header3
+                case .header4: return .header4
                 case .quote: return .quote
                 case .code: return nil
                 case .title: return nil
@@ -132,6 +164,9 @@ extension BlockModels.Parser.Converters {
             switch from {
             case .text: return .paragraph
             case .header: return .header1
+            case .header2: return .header2
+            case .header3: return .header3
+            case .header4: return .header4
             case .quote: return .quote
             case .todo: return .checkbox
             case .bulleted: return .marked

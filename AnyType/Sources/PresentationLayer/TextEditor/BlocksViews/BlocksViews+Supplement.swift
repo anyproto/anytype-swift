@@ -51,7 +51,10 @@ extension TextBlocksViews.Supplement {
         private func convertInformation(_ model: Model, _ information: MiddlewareBlockInformationModel, _ type: BlockType.Text) -> [BlockViewBuilderProtocol] {
             switch type.contentType {
             case .text: return [TextBlocksViews.Text.BlockViewModel.init(model)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
-            case .header: return [TextBlocksViews.Header.BlockViewModel.init(model)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
+            case .header: return [TextBlocksViews.Header.BlockViewModel.init(model).update(style: .heading1)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
+            case .header2: return [TextBlocksViews.Header.BlockViewModel.init(model).update(style: .heading2)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
+            case .header3: return [TextBlocksViews.Header.BlockViewModel.init(model).update(style: .heading3)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
+            case .header4: return [TextBlocksViews.Header.BlockViewModel.init(model).update(style: .heading4)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
             case .quote: return [TextBlocksViews.Quote.BlockViewModel.init(model)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
             case .todo: return [TextBlocksViews.Checkbox.BlockViewModel.init(model)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
             case .bulleted: return [TextBlocksViews.Bulleted.BlockViewModel.init(model)] + model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
