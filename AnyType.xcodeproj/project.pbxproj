@@ -599,20 +599,20 @@
 		0331BBE122E608AC002AD179 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
-				0316497A23E5B339009A3984 /* CustomScrollView.swift */,
-				03E2AD5423A93D3800C701CE /* SimpleViews.swift */,
-				03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */,
-				03E2AD5023A93D1000C701CE /* ImagePicker.swift */,
 				03E2AD4323A93C8C00C701CE /* TextView */,
-				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
-				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
-				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				039DA2E2230583DC0041F95C /* Alerts */,
 				039DA2E1230583C00041F95C /* Save Recovery Phrase View */,
 				032225DB22F87AB40064E544 /* Detail Picker View */,
 				03F7BD1F22F7A58400F47583 /* PinCodeView */,
 				0339382A22EF717100589108 /* Buttons */,
+				0316497A23E5B339009A3984 /* CustomScrollView.swift */,
+				03E2AD5423A93D3800C701CE /* SimpleViews.swift */,
+				03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */,
+				03E2AD5023A93D1000C701CE /* ImagePicker.swift */,
+				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
+				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
+				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
 			);
 			path = "Common Views";
 			sourceTree = "<group>";
@@ -808,9 +808,9 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0331BBE122E608AC002AD179 /* Common Views */,
 				03074B86239514BF009FA7D0 /* Auth Story */,
 				03A24B8D232152ED00DA7369 /* TextEditor */,
-				0331BBE122E608AC002AD179 /* Common Views */,
 				0331BBD822E5D8AB002AD179 /* Profile Story */,
 				0331BBD722E5D8A1002AD179 /* Home Story */,
 			);

@@ -12,7 +12,7 @@ import SwiftUI
 
 final class ProfileViewModel: ObservableObject {
     public var theAccountName: String {
-        UserDefaultsConfig.userName
+        UserDefaultsConfig.userName.isEmpty ? "Stranger" : UserDefaultsConfig.userName
     }
     private var profileService: ProfileServiceProtocol
     private var authService: AuthServiceProtocol

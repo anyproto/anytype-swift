@@ -47,9 +47,9 @@ struct StandardButton: View {
                 .padding(.all)
                 .foregroundColor(disabled ? Color.gray : style.textColor())
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 7.0).stroke().foregroundColor(style == StandardButtonStyle.white ? Color.gray : style.backgroundColor()))
+                .overlay(RoundedRectangle(cornerRadius: 12.0).stroke().foregroundColor(style == StandardButtonStyle.white ? Color.gray : style.backgroundColor()))
                 .background(style.backgroundColor())
-                .cornerRadius(7.0)
+                .cornerRadius(8.0)
         }
         .disabled(disabled)
     }

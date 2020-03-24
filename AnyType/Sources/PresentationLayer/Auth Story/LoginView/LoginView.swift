@@ -13,7 +13,7 @@ struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
-        return ZStack {
+        ZStack {
             LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
             VStack {
