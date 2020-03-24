@@ -10,12 +10,24 @@ import Foundation
 import Lib
 import Combine
 
-enum EventListenerFilter {
-    case all
-    case account
+
+/// Middleware event handler
+protocol EventHandler: class {
+    associatedtype Event
+    func handleEvent(event: Event)
 }
 
-class EventListener: NSObject {
+/// Middleware events listener
+protocol EventListener {
+    associatedtype Handler: EventHandler
+    typealias ContextID = String
+
+    var handler: Self.Handler? { get }
+    func receive(contextId: ContextID)
+}
+
+/// Recive events from middleware and broadcast throught notification center
+class RawEventListener: NSObject {
     
     override init() {
         super.init()
@@ -23,7 +35,7 @@ class EventListener: NSObject {
     }
 }
 
-extension EventListener: LibMessageHandlerProtocol {
+extension RawEventListener: LibMessageHandlerProtocol {
     
     func handle(_ b: Data?) {
         guard let rawEvent = b,

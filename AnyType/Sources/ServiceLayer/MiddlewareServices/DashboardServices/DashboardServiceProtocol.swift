@@ -14,9 +14,6 @@ protocol DashboardServiceProtocol {
     /// Subscribe to dashboard events
     func subscribeDashboardEvents() -> AnyPublisher<Never, Error>
     
-    /// Obtain document and its blocks
-    func obtainDashboardBlocks() -> AnyPublisher<Anytype_Event.Block.Show, Never>
-    
     /// Create pages
     func createPage(contextId: String) -> AnyPublisher<Void, Error>
 }

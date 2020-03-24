@@ -22,17 +22,12 @@ class DashboardService: DashboardServiceProtocol {
     
     // TODO: Fix potential memory leak in `.map(self.save(configuration:))`
     func subscribeDashboardEvents() -> AnyPublisher<Never, Error> {
-        middlewareConfigurationService.obtainConfiguration().map(self.save(configuration:))
+        middlewareConfigurationService.obtainConfiguration()
             .flatMap { [unowned self] cunfiguration -> AnyPublisher<Never, Error> in
                 return self.blocksActionsService.open.action(contextID: cunfiguration.homeBlockID, blockID: cunfiguration.homeBlockID)
         }
         .ignoreOutput()
         .eraseToAnyPublisher()
-    }
-    
-    func obtainDashboardBlocks() -> AnyPublisher<Anytype_Event.Block.Show, Never> {
-        middlewareConfigurationService.obtainConfiguration().ignoreFailure().flatMap({ [unowned self] configuration in
-        self.blocksActionsService.eventListener.receiveRawEvent(contextId: configuration.homeBlockID) }).eraseToAnyPublisher()
     }
     
     func createPage(contextId: String) -> AnyPublisher<Void, Error> {

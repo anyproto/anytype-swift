@@ -17,7 +17,10 @@ enum HomeCollectionViewCellType: Hashable {
 
 class HomeCollectionViewModel: ObservableObject {
     private let dashboardService: DashboardServiceProtocol = DashboardService()
+    private var middlewareEventsListener: NotificationEventListener<HomeCollectionViewModel>?
+    private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private var subscriptions = Set<AnyCancellable>()
+
     @Published var documentsCell = [HomeCollectionViewCellType]()
     @Published var error: String = ""
     var dashboardPages = [Anytype_Model_Block]() {
@@ -31,43 +34,24 @@ class HomeCollectionViewModel: ObservableObject {
     
     // MARK: - Lifecycle
     init() {
-        self.receivePages()
-        self.subscribeDashboard()
+        self.middlewareEventsListener = NotificationEventListener(handler: self)
+        // obtain configuration -> subscribe to middleware notifiaction -> ask dashboard events
+        middlewareConfigurationService.obtainConfiguration().sink(
+            receiveCompletion: { _ in },
+            receiveValue: { [weak self] configuration in
+                self?.middlewareEventsListener?.receive(contextId: configuration.homeBlockID)
+                self?.subscribeDashboard()
+        })
+        .store(in: &subscriptions)
     }
     
     private func subscribeDashboard() {
         dashboardService.subscribeDashboardEvents()
-			.receive(on: RunLoop.main)
-			.sink(receiveCompletion: { _ in
-			})
-			{ value in
-				print("\(value)")
-		}
-		.store(in: &subscriptions)
-    }
-    
-    // MARK: - Page processing
-    /// Sorting pages according to order in rootPage.childrenIds.
-    /// - Parameters:
-    ///   - rootId: the Id of root page.
-    ///   - pages: [rootPage] + rootPage.pages
-    private func processPages(rootId: String, pages: [Anytype_Model_Block]) -> [Anytype_Model_Block] {
-        guard let rootPage = pages.first(where: {$0.id == rootId}) else { return [] }
-        let indices = rootPage.childrenIds
-        let dictionary = pages.reduce([String : Anytype_Model_Block]()) { (result, block) in
-            var result = result
-            result[block.id] = block
-            return result
-        }
-        return indices.compactMap({dictionary[$0]})
-    }
-    
-    private func receivePages() {
-        dashboardService.obtainDashboardBlocks()
             .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in }) { [weak self] value in
-                self?.rootId = value.rootID
-                self?.dashboardPages = self?.processPages(rootId: value.rootID, pages: value.blocks) ?? []
+            .sink(receiveCompletion: { _ in
+            })
+            { value in
+                print("\(value)")
         }
         .store(in: &subscriptions)
     }
