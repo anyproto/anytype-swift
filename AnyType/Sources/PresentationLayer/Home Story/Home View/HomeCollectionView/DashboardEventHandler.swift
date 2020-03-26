@@ -8,6 +8,11 @@
 
 import Foundation
 import os
+
+private extension Logging.Categories {
+  static let dashboardEventHandler: Self = "Services.DashboardEventHandler"
+}
+
 extension HomeCollectionViewModel: EventHandler {
     typealias Event = Anytype_Event.Message.OneOf_Value
 

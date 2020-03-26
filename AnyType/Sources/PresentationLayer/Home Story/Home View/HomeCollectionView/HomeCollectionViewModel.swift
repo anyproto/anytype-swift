@@ -9,6 +9,11 @@
 import Foundation
 import Combine
 import SwiftUI
+import os
+
+private extension Logging.Categories {
+    static let homeCollectionViewModel: Self = "HomeCollectionViewModel"
+}
 
 enum HomeCollectionViewCellType: Hashable {
     case plus
@@ -36,12 +41,23 @@ class HomeCollectionViewModel: ObservableObject {
     init() {
         self.middlewareEventsListener = NotificationEventListener(handler: self)
         // obtain configuration -> subscribe to middleware notifiaction -> ask dashboard events
-        middlewareConfigurationService.obtainConfiguration().sink(
-            receiveCompletion: { _ in },
-            receiveValue: { [weak self] configuration in
-                self?.middlewareEventsListener?.receive(contextId: configuration.homeBlockID)
-                self?.subscribeDashboard()
-        })
+        middlewareConfigurationService.obtainConfiguration()
+            .first()
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { competion in
+                    switch competion {
+                    case .finished: break
+                    case .failure(_):
+                        let logger = Logging.createLogger(category: .homeCollectionViewModel)
+                        os_log(.error, log: logger, "obtain configuration error on %”@", "\(self)")
+                    }
+            },
+                receiveValue: { [weak self] configuration in
+                    // TODO: rethink it.
+                    self?.middlewareEventsListener?.receive(contextId: configuration.homeBlockID)
+                    self?.subscribeDashboard()
+            })
         .store(in: &subscriptions)
     }
     

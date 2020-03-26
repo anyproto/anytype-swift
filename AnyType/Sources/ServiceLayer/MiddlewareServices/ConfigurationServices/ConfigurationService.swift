@@ -22,7 +22,6 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
     }
 
     /// Obtain middleware configuration
-    // TODO: Fix potential memory leak in `.map(save(configuration:))`
     func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
         let configuration = storage?.get(by: MiddlewareConfiguration.self)
 

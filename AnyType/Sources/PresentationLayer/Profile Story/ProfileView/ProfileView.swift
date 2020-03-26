@@ -112,10 +112,9 @@ struct SettingsSectionView: View {
             SettingsSectionItemView(name: "Wallpaper", icon: "settings/wallpaper", pressed: $wallpaper)
             Divider().foregroundColor(Color("DividerColor"))
             SettingsSectionItemView(name: "Keychain phrase", icon: "settings/key", pressed: $keychain)
-            // TODO: will be in next PR
-//                .sheet(isPresented: $keychain) {
-//                    KeychainPhraseViewView(showKeychainView: self.$keychain)
-//            }
+                .sheet(isPresented: $keychain) {
+                    KeychainPhraseView(viewModel: KeychainPhraseViewModel(), showKeychainView: self.$keychain)
+            }
             Divider().foregroundColor(Color("DividerColor"))
             SettingsSectionItemView(name: "Pin code", icon: "settings/lock", pressed: $pincode)
             Divider().foregroundColor(Color("DividerColor"))
