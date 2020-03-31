@@ -8,6 +8,8 @@
 
 import Foundation
 
+#warning("DeveloperMessages.FileIsDeprecated")
+
 enum DocumentServiceError: Error {
     case documentNotFound
 }

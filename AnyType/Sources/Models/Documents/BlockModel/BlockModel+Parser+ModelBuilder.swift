@@ -8,8 +8,9 @@
 
 import Foundation
 
+// TODO: Rethink or remove.
 // MARK: Checker
-extension BlockModels.Parser {
+private extension BlockModels.Parser {
     class Comparator {
         // MARK: MetaBlockType
         // Brief: BlockType -> String
@@ -46,7 +47,7 @@ extension BlockModels.Parser {
 }
 
 // MARK: Clustering
-extension BlockModels.Parser {
+private extension BlockModels.Parser {
     class ClusteringApplier {
         static public func apply(blocks: [MiddlewareBlockInformationModel]) -> [[MiddlewareBlockInformationModel]] {
             DataStructures.GroupBy.group(blocks, by: Comparator.same)
@@ -55,7 +56,7 @@ extension BlockModels.Parser {
 }
 
 // MARK: Model Builder
-extension BlockModels.Parser {
+private extension BlockModels.Parser {
     class BaseModelBuilder {
         /// - Parameter list: List of blocks that are converted straightforward from Protobuf blocks.
         private func group(_ list: [Block]) -> [[MiddlewareBlockInformationModel]] {
@@ -82,7 +83,7 @@ extension BlockModels.Parser {
 }
 
 // MARK: Compound Model Builder
-extension BlockModels.Parser {
+private extension BlockModels.Parser {
     class CompoundModelBuilder: BaseModelBuilder {
         var textModelBuilder: BaseModelBuilder = TextModelBuilder()
         var imageModelBuilder: BaseModelBuilder = ImageModelBuilder()
@@ -103,7 +104,7 @@ extension BlockModels.Parser {
 
 // MARK: Custom Model Builders
 // MARK: Custom Model Builders / Text
-extension BlockModels.Parser {
+private extension BlockModels.Parser {
     class TextModelBuilder: BaseModelBuilder {
         override func solve(entry: MiddlewareBlockInformationModel, of cluster: [MiddlewareBlockInformationModel]) -> [BlockModels.Parser.Model] {
             switch entry.content {
@@ -119,7 +120,7 @@ extension BlockModels.Parser {
 }
 
 // MARK: Custom Model Builders / Images
-extension BlockModels.Parser {
+private extension BlockModels.Parser {
     class ImageModelBuilder: BaseModelBuilder {
         override func solve(entry: MiddlewareBlockInformationModel, of cluster: [MiddlewareBlockInformationModel]) -> [BlockModels.Parser.Model] {
             switch entry.content {

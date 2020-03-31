@@ -10,13 +10,13 @@ import SwiftUI
 
 
 struct LocalRepoServiceKey: EnvironmentKey {
-    static let defaultValue: LocalRepoService = LocalRepoService()
+    static let defaultValue: LocalRepoService = .init()
 }
 
 extension EnvironmentValues {
     var localRepoService: LocalRepoService {
         get {
-            return self[LocalRepoServiceKey.self]
+            self[LocalRepoServiceKey.self]
         }
         set {
             self[LocalRepoServiceKey.self] = newValue
@@ -26,13 +26,13 @@ extension EnvironmentValues {
 
 
 struct AuthServiceKey: EnvironmentKey {
-    static let defaultValue: AuthService = AuthService()
+    static let defaultValue: AuthService = .init()
 }
 
 extension EnvironmentValues {
     var authService: AuthService {
         get {
-            return self[AuthServiceKey.self]
+            self[AuthServiceKey.self]
         }
         set {
             self[AuthServiceKey.self] = newValue
@@ -42,13 +42,13 @@ extension EnvironmentValues {
 
 
 struct IpfsFilesServiceKey: EnvironmentKey {
-    static let defaultValue: IpfsFilesService = IpfsFilesService()
+    static let defaultValue: IpfsFilesService = .init()
 }
 
 extension EnvironmentValues {
     var ipfsFilesServie: IpfsFilesService {
         get {
-            return self[IpfsFilesServiceKey.self]
+            self[IpfsFilesServiceKey.self]
         }
         set {
             self[IpfsFilesServiceKey.self] = newValue
@@ -64,7 +64,7 @@ struct ShowViewFramesKey: EnvironmentKey {
 extension EnvironmentValues {
     var showViewFrames: Bool {
         get {
-            return self[ShowViewFramesKey.self]
+            self[ShowViewFramesKey.self]
         }
         set {
             self[ShowViewFramesKey.self] = newValue
@@ -80,7 +80,7 @@ struct AddedScrollViewOffsetKey: EnvironmentKey {
 extension EnvironmentValues {
     var addedScrollViewOffset: CGPoint {
         get {
-            return self[AddedScrollViewOffsetKey.self]
+            self[AddedScrollViewOffsetKey.self]
         }
         set {
             self[AddedScrollViewOffsetKey.self] = newValue
@@ -96,7 +96,7 @@ struct TimingTimerKey: EnvironmentKey {
 extension EnvironmentValues {
     var timingTimer: TimingTimer {
         get {
-            return self[TimingTimerKey.self]
+            self[TimingTimerKey.self]
         }
         set {
             self[TimingTimerKey.self] = newValue
@@ -111,7 +111,7 @@ struct DeveloperOptionsKey: EnvironmentKey {
 extension EnvironmentValues {
     var developerOptions: DeveloperOptions.Service {
         get {
-            return self[DeveloperOptionsKey.self]
+            self[DeveloperOptionsKey.self]
         }
         set {
             self[DeveloperOptionsKey.self] = newValue
@@ -126,7 +126,7 @@ struct KeychainStoreServiceKey: EnvironmentKey {
 extension EnvironmentValues {
     var keychainStoreService: KeychainStoreService {
         get {
-            return self[KeychainStoreServiceKey.self]
+            self[KeychainStoreServiceKey.self]
         }
         set {
             self[KeychainStoreServiceKey.self] = newValue

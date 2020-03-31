@@ -48,7 +48,7 @@ extension ApplicationCoordinator.ShakeHandler {
         return topMostPresented is T
     }
     func topPresentedController(for controller: UIViewController) -> UIViewController? {
-        return sequence(first: controller, next: {$0.presentedViewController}).compactMap{$0}.last
+        return sequence(first: controller, next: (\.presentedViewController)).compactMap{$0}.last
     }
 }
 

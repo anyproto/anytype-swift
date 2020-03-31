@@ -99,11 +99,11 @@ extension BlockModels.Transformer {
         
         // MARK: Manual determination of Root.
         func fromList(information: [Information]) -> Model {
-            fromList(information: information, isRoot: {$0.isRoot})
+            fromList(information: information, isRoot: (\.isRoot))
         }
             
         func fromList(_ models: [Model]) -> Model {
-            fromList(models, isRoot: {$0.isRoot})
+            fromList(models, isRoot: (\.isRoot))
         }
         
         // MARK: Target rootId.
@@ -131,10 +131,10 @@ extension BlockModels.Transformer {
             return result
 //            }
         }
-        func toList(_ model: Model) -> [Model] {
+        public func toList(_ model: Model) -> [Model] {
             self.toListRecursively(model)
         }
-        func toList(_ models: [Model]) -> [Model] {
+        public func toList(_ models: [Model]) -> [Model] {
             // wrap in a metablock
             let root: Model = .init(indexPath: BlockModels.Utilities.IndexGenerator.rootID(), blocks: models)
             return toList(root)
@@ -226,7 +226,7 @@ extension BlockModels.Transformer {
         private var fromListToTree = FromListToTreeTransformer()
         private var applyNumberedList = ApplyNumberedListTransformer()
             
-        func transform(_ information: [Information], rootId: MiddlewareBlockInformationModel.Id? = nil) -> Model {
+        public func transform(_ information: [Information], rootId: MiddlewareBlockInformationModel.Id? = nil) -> Model {
             if let rootId = rootId {
                 return applyNumberedList.transform(root: fromListToTree.fromList(information: information, rootId: rootId))
             }

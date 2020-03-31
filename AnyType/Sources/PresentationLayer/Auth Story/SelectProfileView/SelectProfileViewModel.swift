@@ -74,7 +74,7 @@ class SelectProfileViewModel: ObservableObject {
             .compactMap { notification in
                 return notification.object as? Anytype_Event
         }
-        .map { $0.messages }
+        .map(\.messages)
         .map {
             $0.filter { message in
                 guard let value = message.value else { return false }

@@ -143,7 +143,7 @@ extension BlockActionsService {
             NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
                 .compactMap { $0.object as? Anytype_Event }
                 .filter({$0.contextID == contextId})
-                .map { $0.messages }
+                .map(\.messages)
                 .compactMap { $0.first { $0.value == .blockShow($0.blockShow) }?.blockShow }
                 .eraseToAnyPublisher()
         }

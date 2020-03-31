@@ -182,7 +182,7 @@ extension BlockModels.Block.Node {
         return value
     }
     func getFullIndex() -> FullIndex {
-        sequence(first: self, next: { $0.parent }).prefix(getMaxDepth()).compactMap({$0}).map({$0.indexPath}).reversed()
+        sequence(first: self, next: (\.parent)).prefix(getMaxDepth()).compactMap({$0}).map(\.indexPath).reversed()
     }
 }
 
@@ -244,7 +244,7 @@ extension BlockModels.Block.Node {
     static let defaultIndentationLevel: UInt = 0
     @inline(__always) func indentationLevel() -> UInt {
         if self.isRoot {
-            return BlockModels.Block.Node.defaultIndentationLevel
+            return Self.defaultIndentationLevel
         }
         guard let parent = self.parent else { return 0 }
         

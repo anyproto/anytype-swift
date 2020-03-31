@@ -44,7 +44,7 @@ extension BlockModels.Finder {
     /// - Parameters:
     ///   - model: The parent model in which we are looking for child.
     ///   - index: The indexPath which points to a child in ```model``` ( parent ) node.
-    func getModel(_ model: Model?, _ index: Key.Element?) -> Model? {
+    fileprivate func getModel(_ model: Model?, _ index: Key.Element?) -> Model? {
         guard let index = index, let model = model else { return nil }
         if model.indexPath == index {
             return model

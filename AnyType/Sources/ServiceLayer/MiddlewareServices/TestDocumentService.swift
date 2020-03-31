@@ -6,6 +6,8 @@
 //  Copyright © 2019 AnyType. All rights reserved.
 //
 
+#warning("DeveloperMessages.FileIsDeprecated")
+
 import Foundation
 import SwiftUI
 

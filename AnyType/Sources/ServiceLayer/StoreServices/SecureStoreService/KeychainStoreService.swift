@@ -9,7 +9,7 @@
 
 private enum StoreServiceConstants {
     static let serviceName = "com.AnyType.seed"
-    static var defaultName = "defaultAnyTypeSeed"
+    static let defaultName = "defaultAnyTypeSeed"
 }
 
 /// Keychain store serivce
