@@ -21,24 +21,27 @@ extension BlocksViews.Base.Utilities {
     // If we could retrieve it from block, we could
     class TreeTextBlocksUserInteractor<T: BlocksViewsViewModelHolder> {
         private var documentId: String?
-        private var toggleStorage: InMemoryStoreFacade.BlockLocalStore? {
-            return InMemoryStoreFacade.shared.blockLocalStore
-        }
+        private var toggleStorage: InMemoryStoreFacade.BlockLocalStore? { InMemoryStoreFacade.shared.blockLocalStore }
         private let service: BlockActionsService = .init()
         private let parser: BlockModels.Parser = .init()
+        private var finder: BlockModels.Finder<BlockModels.Block.RealBlock>?
         private var subscriptions: [AnyCancellable] = []
-
+        
+        private let ourService: Service<T>
+        
         typealias Index = BusinessBlock.Index
         typealias Model = BlockModels.Block.RealBlock
         
         var updater: TreeUpdater<T>
 
         init(_ value: T) {
-            self.updater = TreeUpdater.init(value: value)
+            self.updater = .init(value: value)
+            self.ourService = .init(value)
         }
 
         init(_ value: TreeUpdater<T>) {
             self.updater = value
+            self.ourService = .init(value)
         }
     }
 }
@@ -49,8 +52,17 @@ extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
         self.documentId = documentId
     }
     
+    func update(finder: BlockModels.Finder<BlockModels.Block.RealBlock>) {
+        self.finder = finder
+    }
+    
     func configured(documentId: String?) -> Self {
         self.update(documentId: documentId)
+        return self
+    }
+    
+    func configured(finder: BlockModels.Finder<BlockModels.Block.RealBlock>) -> Self {
+        self.update(finder: finder)
         return self
     }
 }
@@ -115,17 +127,26 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
         switch action {
         case let .pressKey(keyAction):
             switch keyAction {
-            case let .enterWithPayload(payload):
-                BlockBuilder.createBlock(for: block, id, action, payload ?? "").flatMap{($0, block.getFullIndex())}.flatMap(self.updater.insert(block:afterBlock:))
-            case .enterAtBeginning: // we should assure ourselves about type of block.
-                switch block.information.content {
-                case let .text(blockType): // nice.
-                    BlockBuilder.createBlock(for: block, id, action, blockType.text).flatMap{($0, block.getFullIndex())}.flatMap(self.updater.insert(block:afterBlock:))
-                default: return // do nothing! but it is too strange.
+                // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
+            case let .enterWithPayload(left, payload):
+                if let newBlock = BlockBuilder.createBlock(for: block, id, action, payload ?? "") {
+                    if let oldText = left {
+                        self.ourService.split(documentId: self.documentId, block: block, oldText: oldText, newBlock: newBlock)
+                    }
+                    else {
+                        self.ourService.add(documentId: self.documentId, newBlock: newBlock, afterBlock: block)
+                    }
+                }
+            case let .enterAtBeginning(payload): // we should assure ourselves about type of block.
+                if let newBlock = BlockBuilder.createBlock(for: block, id, action, payload ?? "") {
+                    if let payload = payload {
+                        self.ourService.split(documentId: self.documentId, block: block, oldText: "", newBlock: newBlock)
+                    }
+                    else {
+                        self.ourService.add(documentId: self.documentId, newBlock: newBlock, afterBlock: block)
+                    }
                 }
             case .enter:
-                BlockBuilder.createBlock(for: block, id, action, "").flatMap{($0, block.getFullIndex())}.flatMap{self.updater.insert(block: $0.0, afterBlock: $0.1)}
-            case .deleteWithPayload(_):
                 // BUSINESS LOGIC:
                 // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
                 switch block.information.content {
@@ -135,15 +156,178 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
                         block.information.content = newContentType
                         block.update(forced: true)
                     }
-                default: BlockBuilder.createBlock(for: block, id, action, "")
-                    .flatMap{($0, block.getFullIndex())}
-                    .flatMap(self.updater.insert(block:afterBlock:))
+                default:
+                    if let newBlock = BlockBuilder.createBlock(for: block, id, action, "") {
+                        self.ourService.add(documentId: self.documentId, newBlock: newBlock, afterBlock: block)
+                    }
                 }
             case .deleteWithPayload(_):
-                return
+                // Add get previous block
+                let beforeIndex = BlockModels.IndexWalker().index(beforeModel: block, includeParent: true)
+                guard let finder = self.finder else {
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.debug, log: logger, "finder not set")
+                    return
+                }
+                
+                if let beforeBlock = finder.find(beforeIndex) {
+                    self.ourService.merge(documentId: self.documentId, firstBlock: beforeBlock, secondBlock: block)
+                }
+                else {
+                    // TODO: Add simple delete?
+                    // Maybe we should just delete?
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.debug, log: logger, "blocksActions.service.delete with payload model at index not found %@", "\(beforeIndex)")
+                }
             case .delete:
-                self.updater.delete(at: block.getFullIndex())
+                // We should find previous index of block.
+                let beforeIndex = BlockModels.IndexWalker().index(beforeModel: block, includeParent: true)
+                guard let finder = self.finder else {
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.debug, log: logger, "finder not set")
+                    return
+                }
+                // and next we should set focus on previous element.
+                self.ourService.delete(documentId: self.documentId, block: block)
             }
+        }
+    }
+}
+
+// MARK: ServiceHandler
+private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
+    class Service<T: BlocksViewsViewModelHolder> {
+        typealias TreeUpdater = BlocksViews.Base.Utilities.TreeUpdater
+        typealias Model = BlockModels.Block.RealBlock
+        
+        private let parser: BlockModels.Parser = .init()
+        private var subscriptions: [AnyCancellable] = []
+        private let service: BlockActionsService = .init()
+        private let updater: TreeUpdater<T>
+        
+        init(_ value: T) {
+            self.updater = .init(value: value)
+        }
+
+        init(_ value: TreeUpdater<T>) {
+            self.updater = value
+        }
+        
+        func add(documentId: String?, newBlock: Model, afterBlock: Model, position: Anytype_Model_Block.Position = .bottom) {
+            // insert block after block
+            // we could catch events and update model.
+            // or we could just update model after sending event.
+            // for now we just update model on success.
+            
+            // Shit Swift
+            let documentID = documentId
+            guard let documentId = documentId, let addedBlock = self.parser.convert(information: newBlock.information) else {
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let addedBlock = self.parser.convert(information: newBlock.information)
+                os_log(.error, log: logger, "documentId: %@ or addedBlock: %@ are nil? ", "\(String(describing: documentID))", "\(String(describing: addedBlock))")
+                return
+            }
+            
+            let targetId = afterBlock.information.id
+            let position: Anytype_Model_Block.Position = .bottom
+            
+            self.service.add.action(contextID: documentId, targetID: targetId, block: addedBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
+                }
+            }) { [weak self] (value) in
+                let ourNewBlock = newBlock
+                ourNewBlock.information.id = value.blockID
+                self?.updater.insert(block: ourNewBlock, afterBlock: afterBlock.getFullIndex())
+            }.store(in: &self.subscriptions)
+        }
+        
+        
+        func split(documentId: String?, block: Model, oldText: String, newBlock: Model) {
+            let improve = Logging.createLogger(category: .todo(.improve("Markup")))
+            os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
+            
+            let refactor = Logging.createLogger(category: .todo(.refactor("NewBlock")))
+            os_log(.debug, log: refactor, "You should not pass `newBlock` parameter in this method. However, our middleware doesn't send information about new block in callback except ID. That is so bad.")
+            
+            let documentID = documentId
+            guard let documentId = documentId, let splittedBlockInformation = self.parser.convert(information: block.information) else {
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let splittedBlock = self.parser.convert(information: block.information)
+                os_log(.error, log: logger, "documentId: %@ or deletedBlock: %@ are nil? ", "\(String(describing: documentID))", "\(String(describing: splittedBlock))")
+                return
+            }
+            
+            let position = Int32(oldText.count)
+            self.service.split.action(contextID: documentId, blockID: splittedBlockInformation.id, cursorPosition: position).receive(on: RunLoop.main).sink(receiveCompletion: { [weak self] (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
+            }
+            }, receiveValue: { [weak self] (value) in
+                let ourNewBlock = newBlock
+                ourNewBlock.information.id = value.blockID
+                self?.updater.insert(block: ourNewBlock, afterBlock: block.getFullIndex())
+
+            }).store(in: &self.subscriptions)
+        }
+        
+        func delete(documentId: String?, block: Model) {
+            // Shit Swift
+            let documentID = documentId
+            guard let documentId = documentId, let deletedBlock = self.parser.convert(information: block.information) else {
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let deletedBlock = self.parser.convert(information: block.information)
+                os_log(.error, log: logger, "documentId: %@ or deletedBlock: %@ are nil? ", "\(String(describing: documentID))", "\(String(describing: deletedBlock))")
+                return
+            }
+            
+            self.service.delete.action(contextID: documentId, blockIds: [deletedBlock.id]).receive(on: RunLoop.main).sink(receiveCompletion: { [weak self] (value) in
+                switch value {
+                case .finished: self?.updater.delete(at: block.getFullIndex())
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
+                }
+                }, receiveValue: {_ in }).store(in: &self.subscriptions)
+        }
+        
+        func merge(documentId: String?, firstBlock: Model, secondBlock: Model) {
+            let documentID = documentId
+            let firstBlockInformation = self.parser.convert(information: firstBlock.information)
+            let secondBlockInformation = self.parser.convert(information: secondBlock.information)
+            
+            guard let documentId = documentId, let firstBlockId = firstBlockInformation?.id, let secondBlockId = secondBlockInformation?.id else {
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "documentId: %@ or firstBlock: %@ or secondBlock: %@ are nil? ", "\(String(describing: documentID))", "\(String(describing: firstBlockInformation))", "\(String(describing: secondBlockInformation))")
+                return
+            }
+            
+            //                    if case let (.text(first), .text(second)) = (beforeBlock.information.content, block.information.content) {
+            //                        // we should tell our model that our block is updated.
+            //                    }
+            //                    switch block.information.content, beforeBlock.information {
+            //                    case let .text(value):
+            //                    default: return
+            //                    }
+            //                    var ourNewBlock = beforeBlock
+            //                    ourNewBlock.text = firstBlock.text.text + secondBlock.text.text
+            self.service.merge.action(contextID: documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { [weak self] value in
+                switch value {
+                case .finished:
+                    self?.updater.delete(at: secondBlock.getFullIndex())
+                    // we need to set cursor on correct position?...
+                // Or we just need to set cursor on position of previous block and than we need to append text of deleted block?
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.error, log: logger, "blocksActions.service.delete with payload got error: %@", "\(error)")
+                }
+                }, receiveValue: {_ in}).store(in: &self.subscriptions)
         }
     }
 }
@@ -213,37 +397,8 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
     func handlingBlockAction(_ block: Model, _ id: Index, _ action: TextView.UserAction.BlockAction) {
         switch action {
         case .addBlock(_):
-            // we just create a block next to our block.
-            // but for list blocks it is not the same as create block, it is create new entry.
             if let newBlock = BlockBuilder.createBlock(for: block, id, action) {
-                // insert block after block
-                // we could catch events and update model.
-                // or we could just update model after sending event.
-                // for now we just update model on success.
-                
-                guard let documentId = self.documentId, let addedBlock = self.parser.convert(information: newBlock.information) else {
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    let documentId = self.documentId
-                    let addedBlock = self.parser.convert(information: newBlock.information)
-                    os_log(.error, log: logger, "documentId: %@ or addedBlock: %@ are nil? ", "\(String(describing: documentId))", "\(String(describing: addedBlock))")
-                    return
-                }
-                
-                let targetId = block.information.id
-                let position: Anytype_Model_Block.Position = .bottom
-                
-                self.service.add.action(contextID: documentId, targetID: targetId, block: addedBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-                    switch value {
-                    case .finished: return
-                    case let .failure(error):
-                        let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                        os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
-                    }
-                }) { [weak self] (value) in
-                    let ourNewBlock = newBlock
-                    ourNewBlock.information.id = value.blockID
-                    self?.updater.insert(block: ourNewBlock, afterBlock: block.getFullIndex())
-                }.store(in: &self.subscriptions)
+                self.ourService.add(documentId: self.documentId, newBlock: newBlock, afterBlock: block)
             }
 
         // very-very-very complex action.

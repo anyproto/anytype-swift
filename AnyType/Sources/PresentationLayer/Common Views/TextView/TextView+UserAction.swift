@@ -30,8 +30,8 @@ extension TextView {
         // Actions with input custom keys...
         enum KeyboardAction {
             enum Key {
-                case enterWithPayload(String?)
-                case enterAtBeginning
+                case enterWithPayload(String?, String?)
+                case enterAtBeginning(String?)
                 case enter
                 case deleteWithPayload(String?)
                 case delete
@@ -40,11 +40,13 @@ extension TextView {
                     // We should also keep values to the right of the Cursor.
                     // So, enter key should have minimum one value as String on the right as Optional<String>
                     switch (textView.text, range, text) {
-                    case (_, .init(location: 1, length: 0), "\n"): return .enterAtBeginning
+                    case (_, .init(location: 1, length: 0), "\n"): return .enterAtBeginning(textView.text)
                     case let (source, at, "\n") where source?.count == at.location + at.length: return .enter
                     case let (source, at, "\n"):
                         guard let source = source, let theRange = Range(at, in: source) else { return nil }
-                        return .enterWithPayload(source.replacingCharacters(in: theRange, with: "\n").split(separator: "\n").last.flatMap(String.init))
+                        let separated = source.replacingCharacters(in: theRange, with: "\n").split(separator: "\n")
+                        let (left, right) = (separated.first.flatMap(String.init), separated.last.flatMap(String.init))
+                        return .enterWithPayload(left, right)
                     case ("", .init(location: 0,length: 0), ""): return .delete
                     case let (source, .init(location: 0, length: 0), ""): return .deleteWithPayload(source)
                     default: return nil

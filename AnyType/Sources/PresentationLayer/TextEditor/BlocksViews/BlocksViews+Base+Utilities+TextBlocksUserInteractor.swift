@@ -47,9 +47,9 @@ private extension BlocksViews.Base.Utilities.TextBlocksUserInteractor {
         switch action {
         case let .pressKey(keyAction):
             switch keyAction {
-            case let .enterWithPayload(payload):
+            case let .enterWithPayload(left, payload):
                 BlockBuilder.createBlock(for: block, id, action, payload ?? "").flatMap{($0, id)}.flatMap(self.updater.insert(block:afterBlock:))
-            case .enterAtBeginning: // we should assure ourselves about type of block.
+            case let .enterAtBeginning(payload): // we should assure ourselves about type of block.
                 switch block.information.content {
                 case let .text(blockType): // nice.
                     BlockBuilder.createBlock(for: block, id, action, blockType.text).flatMap{($0, id)}.flatMap(self.updater.insert(block:afterBlock:))

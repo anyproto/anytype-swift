@@ -22,6 +22,11 @@ protocol BlockActionsServiceProtocolAdd {
     func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error>
 }
 
+protocol BlockActionsServiceProtocolSplit {
+    associatedtype Success
+    func action(contextID: String, blockID: String, cursorPosition: Int32) -> AnyPublisher<Success, Error>
+}
+
 protocol BlockActionsServiceProtocolReplace {
     associatedtype Success
     func action(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<Success, Error>
@@ -44,6 +49,7 @@ protocol BlockActionsServiceProtocol {
     associatedtype Open: BlockActionsServiceProtocolOpen
     associatedtype Close: BlockActionsServiceProtocolClose
     associatedtype Add: BlockActionsServiceProtocolAdd
+    associatedtype Split: BlockActionsServiceProtocolSplit
     associatedtype Replace: BlockActionsServiceProtocolReplace
     associatedtype Delete: BlockActionsServiceProtocolDelete
     associatedtype Merge: BlockActionsServiceProtocolMerge
@@ -52,6 +58,7 @@ protocol BlockActionsServiceProtocol {
     var open: Open {get}
     var close: Close {get}
     var add: Add {get}
+    var split: Split {get}
     var replace: Replace {get}
     var delete: Delete {get}
     var merge: Merge {get}
@@ -63,6 +70,7 @@ class BlockActionsService: BlockActionsServiceProtocol {
     var open: Open = .init()
     var close: Close = .init()
     var add: Add = .init()
+    var split: Split = .init()
     var replace: Replace = .init()
     var delete: Delete = .init()
     var merge: Merge = .init()
@@ -91,6 +99,16 @@ class BlockActionsService: BlockActionsServiceProtocol {
         func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position).map({Success.init(blockID: $0.blockID)}).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
+        }
+    }
+    
+    struct Split: BlockActionsServiceProtocolSplit {
+        struct Success {
+            var blockID: String
+        }
+        func action(contextID: String, blockID: String, cursorPosition: Int32) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, cursorPosition: cursorPosition).map({Success.init(blockID: $0.blockID)}).subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
         }
     }
     

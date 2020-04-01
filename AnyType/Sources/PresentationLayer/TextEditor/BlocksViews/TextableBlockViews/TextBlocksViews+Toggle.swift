@@ -67,8 +67,8 @@ private extension TextBlocksViews.Toggle {
         case unfolded
         func imageResource() -> String {
             switch self {
-            case .folded: return "TextEditor/Style/Checkbox/unchecked"
-            case .unfolded: return "TextEditor/Style/Checkbox/checked"
+            case .folded: return "TextEditor/Style/Toggle/folded"
+            case .unfolded: return "TextEditor/Style/Toggle/unfolded"
             }
         }
         func foregroundColor() -> UIColor {
@@ -338,9 +338,8 @@ private extension TextBlocksViews.Toggle {
 private extension TextBlocksViews.Toggle {
     struct MarkedViewModifier: ViewModifier {
         @EnvironmentObject var outerViewNeedsLayout: GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout
-        func image(checked: Bool) -> String {
-            return checked ? "TextEditor/Style/Checkbox/checked"
-                : "TextEditor/Style/Checkbox/checked"
+        func image(unfolded: Bool) -> String {
+            return Style.from(unfolded).imageResource()
         }
         @Binding var toggled: Bool
         func body(content: Content) -> some View {
@@ -349,7 +348,7 @@ private extension TextBlocksViews.Toggle {
                     self.outerViewNeedsLayout.needsLayout = ()
                     self.toggled.toggle()
                 }) {
-                    Image(self.image(checked: self.toggled)).foregroundColor(.orange).rotationEffect(.init(radians: self.toggled ? Double.pi / 2 : 0))
+                    Image(self.image(unfolded: self.toggled))//.foregroundColor(.orange).rotationEffect(.init(radians: self.toggled ? Double.pi / 2 : 0))
                 }
                 content
             }

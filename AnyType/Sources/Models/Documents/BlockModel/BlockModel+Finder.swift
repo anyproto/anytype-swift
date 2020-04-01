@@ -31,7 +31,7 @@ extension BlockModels.Finder {
     ///
     /// Note
     ///
-    /// We could catch a situation where model.indexPath is equal to index.s
+    /// We could catch a situation where model.indexPath is equal to index.
     ///
     /// It CAN happens in case of Root node.
     ///
@@ -40,7 +40,7 @@ extension BlockModels.Finder {
     ///
     /// Later
     ///
-    /// To guard yourself against side effects, add later ```model.isRoot``` check.
+    /// To guard yourself against side effects, add later `model.isRoot` check.
     /// - Parameters:
     ///   - model: The parent model in which we are looking for child.
     ///   - index: The indexPath which points to a child in ```model``` ( parent ) node.

@@ -36,12 +36,10 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
     private var blockActionsService: BlockActionsService = .init()
     private var subscriptions: Set<AnyCancellable> = .init()
     
-    var transformer: BlockModels.Transformer.FinalTransformer = .init()
-    var updater: BlockModels.Updater<RootModel>?
-    var flattener: BlocksViews.Supplement.BlocksFlattener = .init()
+    private var transformer: BlockModels.Transformer.FinalTransformer = .init()
+    private var flattener: BlocksViews.Supplement.BlocksFlattener = .init()
     
-    var treeTextViewUserInteractor: BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor<DocumentViewModel>?
-    var textViewUserInteractor: BlocksViews.Base.Utilities.TextBlocksUserInteractor<DocumentViewModel>?
+    private var treeTextViewUserInteractor: BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor<DocumentViewModel>?
     
     @Published var error: String?
     @Published var rootViewModel: BlocksViews.Base.ViewModel?
@@ -58,17 +56,16 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         }
     }
     
-    var shouldClosePagePublisher: CurrentValueSubject<Bool, Error> = .init(false)
-    var internalState: State = .loading
-    
-    // some mores
+    private var shouldClosePagePublisher: CurrentValueSubject<Bool, Error> = .init(false)
+    private var internalState: State = .loading
+        
     @Published var buildersRows: [Row] = [] {
         didSet {
             self.objectWillChange.send()
         }
     }
+    
     var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
-    var buildersSubscription: AnyCancellable?
     
     // MARK: Lifecycle
     
@@ -76,9 +73,8 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         // TODO: Add failable init.
         let logger = Logging.createLogger(category: .treeViewModel)
         os_log(.debug, log: logger, "Don't forget to change to failable init?() .")
-        guard let documentId = documentId else { return }
         
-        self.textViewUserInteractor = .init(self)
+        guard let documentId = documentId else { return }
         
         self.blockActionsService.eventListener.receive(contextId: documentId).sink { [weak self] (value) in
             if self?.internalState != .ready {
@@ -97,6 +93,10 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         self.obtainDocument(documentId: documentId)
         
         // some more
+        
+        self.rootModel?.objectWillChange.sink { [weak self] (value) in
+            self?.syncBuilders()
+        }.store(in: &self.subscriptions)
         
         self.$builders.sink { [weak self] value in
             self?.buildersRows = value.compactMap(Row.init)
@@ -122,9 +122,9 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         }
     }
     
-    // Redraw purposes.
+    // TODO: Add caching?
     private func update(builders: [BlockViewBuilderProtocol]) {
-        self.textViewUserInteractor?.updater.update(builders: builders)
+        self.builders = builders
     }
     
     private func toList(_ model: RootModel) -> [BlockViewBuilderProtocol] {
@@ -134,21 +134,14 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
         return result
     }
     
-    private func processBlocks(contextId: String? = nil, rootId: String? = nil, models: [MiddlewareBlockInformationModel]) -> [BlockViewBuilderProtocol] {
+    private func processBlocks(contextId: String? = nil, rootId: String? = nil, models: [MiddlewareBlockInformationModel]) {
         // create metablock.
         let baseModel = self.transformer.transform(models.map({BlockModels.Block.Information.init(information: $0)}), rootId: rootId)
         let model = baseModel
         self.rootViewModel = .init(model)
-        self.updater = .init(value: model)
         self.treeTextViewUserInteractor = .init(self)
-        self.treeTextViewUserInteractor?.update(documentId: contextId)
+        _ = self.treeTextViewUserInteractor?.configured(documentId: contextId).configured(finder: BlockModels.Finder(value: model))
         self.rootModel = baseModel
-        
-        self.rootModel?.objectWillChange.sink { [weak self] (value) in
-            self?.syncBuilders()
-        }.store(in: &self.subscriptions)
-        
-        return self.builders
     }
     
     private func obtainDocument(documentId: String?) {
