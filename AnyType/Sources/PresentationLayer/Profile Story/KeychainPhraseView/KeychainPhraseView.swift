@@ -31,7 +31,7 @@ struct KeychainPhraseView: View {
                 .font(.body)
                 .fontWeight(.medium)
                 .padding(.top, 25)
-            SeedPharaseView(phrase: viewModel.recoveryPhrase, copySeedAction: $viewModel.copySeedAction)
+            SeedPhraseView(phrase: $viewModel.recoveryPhrase, copySeedAction: $viewModel.copySeedAction)
                 .padding(.top, 34)
                 .layoutPriority(1) // TODO: remove workaround when fixed by apple
 
@@ -49,8 +49,8 @@ struct KeychainPhraseView: View {
     }
 }
 
-struct SeedPharaseView: View {
-    @State var phrase: String
+struct SeedPhraseView: View {
+    @Binding var phrase: String
     @Binding var copySeedAction: Void
 
     var body: some View {

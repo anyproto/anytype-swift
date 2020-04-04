@@ -47,7 +47,6 @@ struct StandardButton: View {
                 .padding(.all)
                 .foregroundColor(disabled ? Color.gray : style.textColor())
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .overlay(RoundedRectangle(cornerRadius: 12.0).stroke().foregroundColor(style == StandardButtonStyle.white ? Color.gray : style.backgroundColor()))
                 .background(style.backgroundColor())
                 .cornerRadius(8.0)
         }
@@ -58,7 +57,7 @@ struct StandardButton: View {
 #if DEBUG
 struct StandardButton_Previews: PreviewProvider {
     static var previews: some View {
-        StandardButton(disabled: false ,text: "Standard button", style: .yellow, action: {})
+        StandardButton(disabled: false ,text: "Standard button", style: .white, action: {})
     }
 }
 #endif

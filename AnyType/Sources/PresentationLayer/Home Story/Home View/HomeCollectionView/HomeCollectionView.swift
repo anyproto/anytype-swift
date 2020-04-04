@@ -98,19 +98,16 @@ extension HomeCollectionView {
     }
     
     private func createCollectionLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { _, layoutEnvironment in
-            let columns = Int(layoutEnvironment.container.effectiveContentSize.width / 160)
-            
-            let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(160), heightDimension: .fractionalHeight(1.0))
+        let layout = UICollectionViewCompositionalLayout { _,_ in 
+            let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(155), heightDimension: .estimated(112))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(112))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
-            group.interItemSpacing = .fixed(16.0)
-            
+
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(112))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+            group.interItemSpacing = .fixed(10.0)
             
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 16.0
+            section.interGroupSpacing = 10.0
             
             return section
         }
