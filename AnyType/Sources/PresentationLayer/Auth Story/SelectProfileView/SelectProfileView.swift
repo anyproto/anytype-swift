@@ -59,7 +59,7 @@ struct SelectProfileView: View {
         }
         .onAppear {
             self.viewModel.accountRecover()
-        }
+        }.errorToast(isShowing: self.$viewModel.showError, errorText: self.viewModel.error ?? "")
     }
     
     private func contentHeight(proxy: GeometryProxy) -> some View {

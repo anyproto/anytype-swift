@@ -5,10 +5,10 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
 
-import Foundation
-import SwiftProtobuf
 import Combine
+import Foundation
 import Lib
+import SwiftProtobuf
 
 extension Anytype_Rpc.Account.Create.Request {
   init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?) {
@@ -126,17 +126,16 @@ extension Anytype_Rpc.Block.Close.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Copy.Request {
-  init(contextID: String, blockIds: [String]) {
+  init(contextID: String, blocks: [Anytype_Model_Block]) {
     self.contextID = contextID
-    self.blockIds = blockIds
+    self.blocks = blocks
   }
 }
 
 extension Anytype_Rpc.Block.Copy.Response {
-  init(error: Anytype_Rpc.Block.Copy.Response.Error, clipboardText: String, clipboardHtml: String) {
+  init(error: Anytype_Rpc.Block.Copy.Response.Error, html: String) {
     self.error = error
-    self.clipboardText = clipboardText
-    self.clipboardHtml = clipboardHtml
+    self.html = html
   }
 }
 
@@ -171,10 +170,10 @@ extension Anytype_Rpc.Block.Create.Response.Error {
 }
 
 extension Anytype_Rpc.Block.CreatePage.Request {
-  init(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) {
+  init(contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position) {
     self.contextID = contextID
     self.targetID = targetID
-    self.block = block
+    self.details = details
     self.position = position
   }
 }
@@ -189,6 +188,29 @@ extension Anytype_Rpc.Block.CreatePage.Response {
 
 extension Anytype_Rpc.Block.CreatePage.Response.Error {
   init(code: Anytype_Rpc.Block.CreatePage.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Cut.Request {
+  init(contextID: String, blocks: [Anytype_Model_Block]) {
+    self.contextID = contextID
+    self.blocks = blocks
+  }
+}
+
+extension Anytype_Rpc.Block.Cut.Response {
+  init(error: Anytype_Rpc.Block.Cut.Response.Error, textSlot: String, htmlSlot: String, anySlot: [Anytype_Model_Block]) {
+    self.error = error
+    self.textSlot = textSlot
+    self.htmlSlot = htmlSlot
+    self.anySlot = anySlot
+  }
+}
+
+extension Anytype_Rpc.Block.Cut.Response.Error {
+  init(code: Anytype_Rpc.Block.Cut.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -229,6 +251,27 @@ extension Anytype_Rpc.Block.Download.Response {
 
 extension Anytype_Rpc.Block.Download.Response.Error {
   init(code: Anytype_Rpc.Block.Download.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Export.Request {
+  init(contextID: String, blocks: [Anytype_Model_Block]) {
+    self.contextID = contextID
+    self.blocks = blocks
+  }
+}
+
+extension Anytype_Rpc.Block.Export.Response {
+  init(error: Anytype_Rpc.Block.Export.Response.Error, path: String) {
+    self.error = error
+    self.path = path
+  }
+}
+
+extension Anytype_Rpc.Block.Export.Response.Error {
+  init(code: Anytype_Rpc.Block.Export.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -330,8 +373,9 @@ extension Anytype_Rpc.Block.Paste.Request {
 }
 
 extension Anytype_Rpc.Block.Paste.Response {
-  init(error: Anytype_Rpc.Block.Paste.Response.Error) {
+  init(error: Anytype_Rpc.Block.Paste.Response.Error, blockIds: [String]) {
     self.error = error
+    self.blockIds = blockIds
   }
 }
 
@@ -383,6 +427,33 @@ extension Anytype_Rpc.Block.Replace.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Set.Details.Detail {
+  init(key: String, value: SwiftProtobuf.Google_Protobuf_Value) {
+    self.key = key
+    self.value = value
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Details.Request {
+  init(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) {
+    self.contextID = contextID
+    self.details = details
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Details.Response {
+  init(error: Anytype_Rpc.Block.Set.Details.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Details.Response.Error {
+  init(code: Anytype_Rpc.Block.Set.Details.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Set.Fields.Request {
   init(contextID: String, blockID: String, fields: SwiftProtobuf.Google_Protobuf_Struct) {
     self.contextID = contextID
@@ -420,27 +491,6 @@ extension Anytype_Rpc.Block.Set.File.Name.Response {
 
 extension Anytype_Rpc.Block.Set.File.Name.Response.Error {
   init(code: Anytype_Rpc.Block.Set.File.Name.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.Block.Set.Icon.Name.Request {
-  init(contextID: String, blockID: String, name: String) {
-    self.contextID = contextID
-    self.blockID = blockID
-    self.name = name
-  }
-}
-
-extension Anytype_Rpc.Block.Set.Icon.Name.Response {
-  init(error: Anytype_Rpc.Block.Set.Icon.Name.Response.Error) {
-    self.error = error
-  }
-}
-
-extension Anytype_Rpc.Block.Set.Icon.Name.Response.Error {
-  init(code: Anytype_Rpc.Block.Set.Icon.Name.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -546,27 +596,6 @@ extension Anytype_Rpc.Block.Set.Restrictions.Response {
 
 extension Anytype_Rpc.Block.Set.Restrictions.Response.Error {
   init(code: Anytype_Rpc.Block.Set.Restrictions.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.Block.Set.Text.BackgroundColor.Request {
-  init(contextID: String, blockID: String, color: String) {
-    self.contextID = contextID
-    self.blockID = blockID
-    self.color = color
-  }
-}
-
-extension Anytype_Rpc.Block.Set.Text.BackgroundColor.Response {
-  init(error: Anytype_Rpc.Block.Set.Text.BackgroundColor.Response.Error) {
-    self.error = error
-  }
-}
-
-extension Anytype_Rpc.Block.Set.Text.BackgroundColor.Response.Error {
-  init(code: Anytype_Rpc.Block.Set.Text.BackgroundColor.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -700,10 +729,11 @@ extension Anytype_Rpc.Block.Set.Video.Width.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Split.Request {
-  init(contextID: String, blockID: String, cursorPosition: Int32) {
+  init(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) {
     self.contextID = contextID
     self.blockID = blockID
     self.cursorPosition = cursorPosition
+    self.style = style
   }
 }
 
@@ -828,6 +858,72 @@ extension Anytype_Rpc.BlockList.Move.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockList.MoveToNewPage.Request {
+  init(contextID: String, blockIds: [String], block: Anytype_Model_Block, dropTargetID: String, position: Anytype_Model_Block.Position) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.block = block
+    self.dropTargetID = dropTargetID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.BlockList.MoveToNewPage.Response {
+  init(error: Anytype_Rpc.BlockList.MoveToNewPage.Response.Error, linkID: String) {
+    self.error = error
+    self.linkID = linkID
+  }
+}
+
+extension Anytype_Rpc.BlockList.MoveToNewPage.Response.Error {
+  init(code: Anytype_Rpc.BlockList.MoveToNewPage.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Align.Request {
+  init(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.align = align
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Align.Response {
+  init(error: Anytype_Rpc.BlockList.Set.Align.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Align.Response.Error {
+  init(code: Anytype_Rpc.BlockList.Set.Align.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.BackgroundColor.Request {
+  init(contextID: String, blockIds: [String], color: String) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.color = color
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response {
+  init(error: Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error {
+  init(code: Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockList.Set.Fields.Request {
   init(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) {
     self.contextID = contextID
@@ -850,27 +946,6 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response {
 
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error {
   init(code: Anytype_Rpc.BlockList.Set.Fields.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor.Request {
-  init(contextID: String, blockIds: [String], color: String) {
-    self.contextID = contextID
-    self.blockIds = blockIds
-    self.color = color
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor.Response {
-  init(error: Anytype_Rpc.BlockList.Set.Text.BackgroundColor.Response.Error) {
-    self.error = error
-  }
-}
-
-extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor.Response.Error {
-  init(code: Anytype_Rpc.BlockList.Set.Text.BackgroundColor.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -956,9 +1031,10 @@ extension Anytype_Rpc.ExternalDrop.Content.Response.Error {
 }
 
 extension Anytype_Rpc.ExternalDrop.Files.Request {
-  init(contextID: String, focusedBlockID: String, localFilePaths: [String]) {
+  init(contextID: String, dropTargetID: String, position: Anytype_Model_Block.Position, localFilePaths: [String]) {
     self.contextID = contextID
-    self.focusedBlockID = focusedBlockID
+    self.dropTargetID = dropTargetID
+    self.position = position
     self.localFilePaths = localFilePaths
   }
 }
@@ -1096,6 +1172,47 @@ extension Anytype_Rpc.Ping.Response {
 
 extension Anytype_Rpc.Ping.Response.Error {
   init(code: Anytype_Rpc.Ping.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Process.Cancel.Request {
+  init(id: String) {
+    self.id = id
+  }
+}
+
+extension Anytype_Rpc.Process.Cancel.Response {
+  init(error: Anytype_Rpc.Process.Cancel.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Process.Cancel.Response.Error {
+  init(code: Anytype_Rpc.Process.Cancel.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.UploadFile.Request {
+  init(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum) {
+    self.url = url
+    self.localPath = localPath
+    self.type = type
+  }
+}
+
+extension Anytype_Rpc.UploadFile.Response {
+  init(error: Anytype_Rpc.UploadFile.Response.Error, hash: String) {
+    self.error = error
+    self.hash = hash
+  }
+}
+
+extension Anytype_Rpc.UploadFile.Response.Error {
+  init(code: Anytype_Rpc.UploadFile.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

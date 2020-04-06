@@ -90,10 +90,10 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Account.Recover.Service.invoke().sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Account.Recover.Service.invoke().subscribe(on: DispatchQueue.global()).receive(on: RunLoop.main).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
-            case .failure(_): onCompletion(.failure(.recoverAccountError()))
+            case let .failure(error): onCompletion(.failure(.recoverAccountError(message: error.localizedDescription)))
             }
         }) { (value) in
             onCompletion(.success(()))

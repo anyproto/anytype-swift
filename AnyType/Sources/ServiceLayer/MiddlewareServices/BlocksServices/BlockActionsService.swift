@@ -24,7 +24,7 @@ protocol BlockActionsServiceProtocolAdd {
 
 protocol BlockActionsServiceProtocolSplit {
     associatedtype Success
-    func action(contextID: String, blockID: String, cursorPosition: Int32) -> AnyPublisher<Success, Error>
+    func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
 }
 
 protocol BlockActionsServiceProtocolReplace {
@@ -106,8 +106,8 @@ class BlockActionsService: BlockActionsServiceProtocol {
         struct Success {
             var blockID: String
         }
-        func action(contextID: String, blockID: String, cursorPosition: Int32) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, cursorPosition: cursorPosition).map({Success.init(blockID: $0.blockID)}).subscribe(on: DispatchQueue.global())
+        func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, cursorPosition: cursorPosition, style: style).map({Success.init(blockID: $0.blockID)}).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
     }

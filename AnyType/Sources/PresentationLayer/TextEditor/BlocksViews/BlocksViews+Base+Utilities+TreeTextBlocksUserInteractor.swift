@@ -261,8 +261,17 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
                 return
             }
             
+            // We are using old text as a cursor position.
             let position = Int32(oldText.count)
-            self.service.split.action(contextID: documentId, blockID: splittedBlockInformation.id, cursorPosition: position).receive(on: RunLoop.main).sink(receiveCompletion: { [weak self] (value) in
+                 
+            let content = splittedBlockInformation.content
+            guard case let .text(type) = content else {
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
+                return
+            }
+            
+            self.service.split.action(contextID: documentId, blockID: splittedBlockInformation.id, cursorPosition: position, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { [weak self] (value) in
             switch value {
             case .finished: return
             case let .failure(error):

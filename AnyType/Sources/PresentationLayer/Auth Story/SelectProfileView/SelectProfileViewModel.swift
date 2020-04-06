@@ -48,9 +48,8 @@ class SelectProfileViewModel: ObservableObject {
             self.handleAccountShowEvent()
             
             self.authService.accountRecover { [weak self] result in
-                if case .failure(let .recoverWalletError(error)) = result {
+                if case let .failure(.recoverAccountError(error)) = result {
                     self?.error = error
-                    return
                 }
             }
         }

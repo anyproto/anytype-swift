@@ -42,7 +42,7 @@ extension BlockModels.Parser {
         // TODO: Add fields and restrictions.
         // Add parsers for them and model.
         let logger = Logging.createLogger(category: .todo(.improve("")))
-        os_log(.debug, log: logger, "Add fields and restrictions into our model.")
+        os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
         return information.update(childrenIds: block.childrenIds)
     }
     
@@ -59,10 +59,12 @@ extension BlockModels.Parser {
         let fields: Google_Protobuf_Struct = .init()
         let restrictions: Anytype_Model_Block.Restrictions = .init()
         let childrenIds = information.childrenIds
+        let backgroundColor = ""
+        let align: Anytype_Model_Block.Align = .left
                 
         let logger = Logging.createLogger(category: .todo(.improve("")))
-        os_log(.debug, log: logger, "Add fields and restrictions into our model.")
-        return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, content: content)
+        os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
+        return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: align, content: content)
     }
 }
 
@@ -184,7 +186,7 @@ private extension BlockModels.Parser.Converters {
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .text(value): return self.style(value.contentType).flatMap({
-                    .text(.init(text: value.text, style: $0, marks: .init(), checked: false, color: "", backgroundColor: ""))
+                .text(.init(text: value.text, style: $0, marks: .init(), checked: false, color: ""))
                 })
             default: return nil
             }

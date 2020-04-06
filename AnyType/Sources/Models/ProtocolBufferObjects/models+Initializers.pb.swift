@@ -23,11 +23,16 @@ extension Anytype_Model_Account.Avatar {
 }
 
 extension Anytype_Model_Block {
-  init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], content: OneOf_Content?) {
+  init(
+    id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], backgroundColor: String, align: Anytype_Model_Block.Align,
+    content: OneOf_Content?
+  ) {
     self.id = id
     self.fields = fields
     self.restrictions = restrictions
     self.childrenIds = childrenIds
+    self.backgroundColor = backgroundColor
+    self.align = align
     self.content = content
   }
 }
@@ -94,13 +99,12 @@ extension Anytype_Model_Block.Content.Page {
 }
 
 extension Anytype_Model_Block.Content.Text {
-  init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool, color: String, backgroundColor: String) {
+  init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool, color: String) {
     self.text = text
     self.style = style
     self.marks = marks
     self.checked = checked
     self.color = color
-    self.backgroundColor = backgroundColor
   }
 }
 
@@ -150,5 +154,12 @@ extension Anytype_Model_Range {
   init(from: Int32, to: Int32) {
     self.from = from
     self.to = to
+  }
+}
+
+extension Anytype_Model_SmartBlock {
+  init(id: String, type: Anytype_Model_SmartBlock.TypeEnum) {
+    self.id = id
+    self.type = type
   }
 }

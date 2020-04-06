@@ -5,19 +5,23 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
 
-import Foundation
-import SwiftProtobuf
 import Combine
+import Foundation
 import Lib
+import SwiftProtobuf
 
-internal extension Anytype_Rpc.ExternalDrop.Files {
+enum Anytype_Middleware_Error {
+  static let domain: String = "org.anytype.middleware.services"
+}
+
+extension Anytype_Rpc.ExternalDrop.Files {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibExternalDropFiles(data) }
   }
 
   enum Service {
-    public static func invoke(contextID: String, focusedBlockID: String, localFilePaths: [String]) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, localFilePaths: localFilePaths))) }
+    public static func invoke(contextID: String, dropTargetID: String, position: Anytype_Model_Block.Position, localFilePaths: [String]) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -26,9 +30,11 @@ internal extension Anytype_Rpc.ExternalDrop.Files {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -40,14 +46,14 @@ internal extension Anytype_Rpc.ExternalDrop.Files {
   }
 }
 
-internal extension Anytype_Rpc.ExternalDrop.Content {
+extension Anytype_Rpc.ExternalDrop.Content {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibExternalDropContent(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, focusedBlockID: String, content: Data) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, content: content))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, content: content))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -56,9 +62,11 @@ internal extension Anytype_Rpc.ExternalDrop.Content {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -70,14 +78,14 @@ internal extension Anytype_Rpc.ExternalDrop.Content {
   }
 }
 
-internal extension Anytype_Rpc.BlockList.Move {
+extension Anytype_Rpc.BlockList.Move {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListMove(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockIds: [String], targetContextID: String, dropTargetID: String, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -86,9 +94,11 @@ internal extension Anytype_Rpc.BlockList.Move {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -100,14 +110,46 @@ internal extension Anytype_Rpc.BlockList.Move {
   }
 }
 
-internal extension Anytype_Rpc.BlockList.Duplicate {
+extension Anytype_Rpc.BlockList.MoveToNewPage {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListMoveToNewPage(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockIds: [String], block: Anytype_Model_Block, dropTargetID: String, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, block: block, dropTargetID: dropTargetID, position: position))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockList.Duplicate {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListDuplicate(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -116,9 +158,11 @@ internal extension Anytype_Rpc.BlockList.Duplicate {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -130,14 +174,14 @@ internal extension Anytype_Rpc.BlockList.Duplicate {
   }
 }
 
-internal extension Anytype_Rpc.BlockList.Set.Text.Style {
+extension Anytype_Rpc.BlockList.Set.Text.Style {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextStyle(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, style: style))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, style: style))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -146,9 +190,11 @@ internal extension Anytype_Rpc.BlockList.Set.Text.Style {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -160,14 +206,14 @@ internal extension Anytype_Rpc.BlockList.Set.Text.Style {
   }
 }
 
-internal extension Anytype_Rpc.BlockList.Set.Text.Color {
+extension Anytype_Rpc.BlockList.Set.Text.Color {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextColor(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockIds: [String], color: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, color: color))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, color: color))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -176,9 +222,11 @@ internal extension Anytype_Rpc.BlockList.Set.Text.Color {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -190,14 +238,14 @@ internal extension Anytype_Rpc.BlockList.Set.Text.Color {
   }
 }
 
-internal extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor {
+extension Anytype_Rpc.BlockList.Set.BackgroundColor {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextBackgroundColor(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetBackgroundColor(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockIds: [String], color: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds, color: color))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, color: color))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -206,9 +254,11 @@ internal extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -220,14 +270,46 @@ internal extension Anytype_Rpc.BlockList.Set.Text.BackgroundColor {
   }
 }
 
-internal extension Anytype_Rpc.BlockList.Set.Fields {
+extension Anytype_Rpc.BlockList.Set.Align {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetAlign(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, align: align))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Fields {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetFields(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockFields: blockFields))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockFields: blockFields))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -236,9 +318,11 @@ internal extension Anytype_Rpc.BlockList.Set.Fields {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -250,14 +334,14 @@ internal extension Anytype_Rpc.BlockList.Set.Fields {
   }
 }
 
-internal extension Anytype_Rpc.Block.Replace {
+extension Anytype_Rpc.Block.Replace {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockReplace(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, block: block))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, block: block))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -266,9 +350,11 @@ internal extension Anytype_Rpc.Block.Replace {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -280,14 +366,14 @@ internal extension Anytype_Rpc.Block.Replace {
   }
 }
 
-internal extension Anytype_Rpc.Block.Split {
+extension Anytype_Rpc.Block.Split {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSplit(data) }
   }
 
   enum Service {
-    public static func invoke(contextID: String, blockID: String, cursorPosition: Int32) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, cursorPosition: cursorPosition))) }
+    public static func invoke(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, cursorPosition: cursorPosition, style: style))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -296,9 +382,11 @@ internal extension Anytype_Rpc.Block.Split {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -310,14 +398,14 @@ internal extension Anytype_Rpc.Block.Split {
   }
 }
 
-internal extension Anytype_Rpc.Block.Merge {
+extension Anytype_Rpc.Block.Merge {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockMerge(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, firstBlockID: String, secondBlockID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -326,9 +414,11 @@ internal extension Anytype_Rpc.Block.Merge {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -340,14 +430,14 @@ internal extension Anytype_Rpc.Block.Merge {
   }
 }
 
-internal extension Anytype_Rpc.Block.Copy {
+extension Anytype_Rpc.Block.Copy {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCopy(data) }
   }
 
   enum Service {
-    public static func invoke(contextID: String, blockIds: [String]) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds))) }
+    public static func invoke(contextID: String, blocks: [Anytype_Model_Block]) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blocks: blocks))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -356,9 +446,11 @@ internal extension Anytype_Rpc.Block.Copy {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -370,34 +462,20 @@ internal extension Anytype_Rpc.Block.Copy {
   }
 }
 
-internal extension Anytype_Rpc.Block.Paste {
+extension Anytype_Rpc.Block.Paste {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockPaste(data) }
   }
 
   enum Service {
     public static func invoke(
-      contextID: String,
-      focusedBlockID: String,
-      selectedTextRange: Anytype_Model_Range,
-      selectedBlockIds: [String],
-      textSlot: String,
-      htmlSlot: String,
-      anySlot: [Anytype_Model_Block]
+      contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], textSlot: String, htmlSlot: String, anySlot: [Anytype_Model_Block]
     ) -> Future<Response, Error> {
-      .init { completion in
-        completion(
+      .init { promise in
+        promise(
           self.result(
             .init(
-              contextID: contextID,
-              focusedBlockID: focusedBlockID,
-              selectedTextRange: selectedTextRange,
-              selectedBlockIds: selectedBlockIds,
-              textSlot: textSlot,
-              htmlSlot: htmlSlot,
-              anySlot: anySlot
-            )
-          )
+              contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, textSlot: textSlot, htmlSlot: htmlSlot, anySlot: anySlot))
         )
       }
     }
@@ -408,9 +486,11 @@ internal extension Anytype_Rpc.Block.Paste {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -422,14 +502,78 @@ internal extension Anytype_Rpc.Block.Paste {
   }
 }
 
-internal extension Anytype_Rpc.Block.Upload {
+extension Anytype_Rpc.Block.Cut {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCut(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blocks: [Anytype_Model_Block]) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blocks: blocks))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Block.Export {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockExport(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blocks: [Anytype_Model_Block]) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blocks: blocks))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Block.Upload {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUpload(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, filePath: String, url: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, filePath: filePath, url: url))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, filePath: filePath, url: url))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -438,9 +582,11 @@ internal extension Anytype_Rpc.Block.Upload {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -452,14 +598,14 @@ internal extension Anytype_Rpc.Block.Upload {
   }
 }
 
-internal extension Anytype_Rpc.Block.Download {
+extension Anytype_Rpc.Block.Download {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockDownload(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -468,9 +614,11 @@ internal extension Anytype_Rpc.Block.Download {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -482,14 +630,14 @@ internal extension Anytype_Rpc.Block.Download {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Fields {
+extension Anytype_Rpc.Block.Set.Fields {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetFields(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, fields: SwiftProtobuf.Google_Protobuf_Struct) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, fields: fields))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, fields: fields))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -498,9 +646,11 @@ internal extension Anytype_Rpc.Block.Set.Fields {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -512,14 +662,46 @@ internal extension Anytype_Rpc.Block.Set.Fields {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Restrictions {
+extension Anytype_Rpc.Block.Set.Details {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetDetails(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, details: details))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Restrictions {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetRestrictions(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, restrictions: Anytype_Model_Block.Restrictions) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, restrictions: restrictions))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, restrictions: restrictions))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -528,9 +710,11 @@ internal extension Anytype_Rpc.Block.Set.Restrictions {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -542,14 +726,14 @@ internal extension Anytype_Rpc.Block.Set.Restrictions {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Page.IsArchived {
+extension Anytype_Rpc.Block.Set.Page.IsArchived {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetPageIsArchived(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, isArchived: Bool) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, isArchived: isArchived))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, isArchived: isArchived))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -558,9 +742,11 @@ internal extension Anytype_Rpc.Block.Set.Page.IsArchived {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -572,14 +758,14 @@ internal extension Anytype_Rpc.Block.Set.Page.IsArchived {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Text.Text {
+extension Anytype_Rpc.Block.Set.Text.Text {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextText(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, text: text, marks: marks))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, text: text, marks: marks))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -588,9 +774,11 @@ internal extension Anytype_Rpc.Block.Set.Text.Text {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -602,14 +790,14 @@ internal extension Anytype_Rpc.Block.Set.Text.Text {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Text.Color {
+extension Anytype_Rpc.Block.Set.Text.Color {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextColor(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, color: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, color: color))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, color: color))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -618,9 +806,11 @@ internal extension Anytype_Rpc.Block.Set.Text.Color {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -632,44 +822,14 @@ internal extension Anytype_Rpc.Block.Set.Text.Color {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Text.BackgroundColor {
-  private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextBackgroundColor(data) }
-  }
-
-  enum Service {
-    public static func invoke(contextID: String, blockID: String, color: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, color: color))) }
-    }
-    private static func result(_ request: Request) -> Result<Response, Error> {
-      guard let result = self.invoke(request) else {
-        // get first Not Null (not equal 0) case.
-        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
-      }
-      // get first zero case.
-      if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
-        return .success(result)
-      }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-      Invocation.invoke(try? request.serializedData()).flatMap {
-        try? Response(serializedData: $0)
-      }
-    }
-  }
-}
-
-internal extension Anytype_Rpc.Block.Set.Text.Style {
+extension Anytype_Rpc.Block.Set.Text.Style {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextStyle(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, style: style))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, style: style))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -678,9 +838,11 @@ internal extension Anytype_Rpc.Block.Set.Text.Style {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -692,14 +854,14 @@ internal extension Anytype_Rpc.Block.Set.Text.Style {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Text.Checked {
+extension Anytype_Rpc.Block.Set.Text.Checked {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextChecked(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, checked: Bool) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, checked: checked))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, checked: checked))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -708,9 +870,11 @@ internal extension Anytype_Rpc.Block.Set.Text.Checked {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -722,14 +886,14 @@ internal extension Anytype_Rpc.Block.Set.Text.Checked {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.File.Name {
+extension Anytype_Rpc.Block.Set.File.Name {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetFileName(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, name: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, name: name))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, name: name))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -738,9 +902,11 @@ internal extension Anytype_Rpc.Block.Set.File.Name {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -752,14 +918,14 @@ internal extension Anytype_Rpc.Block.Set.File.Name {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Image.Name {
+extension Anytype_Rpc.Block.Set.Image.Name {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetImageName(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, name: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, name: name))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, name: name))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -768,9 +934,11 @@ internal extension Anytype_Rpc.Block.Set.Image.Name {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -782,14 +950,14 @@ internal extension Anytype_Rpc.Block.Set.Image.Name {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Image.Width {
+extension Anytype_Rpc.Block.Set.Image.Width {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetImageWidth(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, width: Int32) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, width: width))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, width: width))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -798,9 +966,11 @@ internal extension Anytype_Rpc.Block.Set.Image.Width {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -812,14 +982,14 @@ internal extension Anytype_Rpc.Block.Set.Image.Width {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Video.Name {
+extension Anytype_Rpc.Block.Set.Video.Name {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetVideoName(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, name: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, name: name))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, name: name))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -828,9 +998,11 @@ internal extension Anytype_Rpc.Block.Set.Video.Name {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -842,14 +1014,14 @@ internal extension Anytype_Rpc.Block.Set.Video.Name {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Video.Width {
+extension Anytype_Rpc.Block.Set.Video.Width {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetVideoWidth(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, width: Int32) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, width: width))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, width: width))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -858,9 +1030,11 @@ internal extension Anytype_Rpc.Block.Set.Video.Width {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -872,44 +1046,14 @@ internal extension Anytype_Rpc.Block.Set.Video.Width {
   }
 }
 
-internal extension Anytype_Rpc.Block.Set.Icon.Name {
-  private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetIconName(data) }
-  }
-
-  enum Service {
-    public static func invoke(contextID: String, blockID: String, name: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, name: name))) }
-    }
-    private static func result(_ request: Request) -> Result<Response, Error> {
-      guard let result = self.invoke(request) else {
-        // get first Not Null (not equal 0) case.
-        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
-      }
-      // get first zero case.
-      if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
-        return .success(result)
-      }
-    }
-    private static func invoke(_ request: Request) -> Response? {
-      Invocation.invoke(try? request.serializedData()).flatMap {
-        try? Response(serializedData: $0)
-      }
-    }
-  }
-}
-
-internal extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
+extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetLinkTargetBlockId(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, targetBlockID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, targetBlockID: targetBlockID))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, targetBlockID: targetBlockID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -918,9 +1062,11 @@ internal extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -932,14 +1078,14 @@ internal extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
   }
 }
 
-internal extension Anytype_Rpc.Block.Bookmark.Fetch {
+extension Anytype_Rpc.Block.Bookmark.Fetch {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockBookmarkFetch(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, url: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, url: url))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, url: url))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -948,9 +1094,11 @@ internal extension Anytype_Rpc.Block.Bookmark.Fetch {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -962,14 +1110,14 @@ internal extension Anytype_Rpc.Block.Bookmark.Fetch {
   }
 }
 
-internal extension Anytype_Rpc.Block.Get.Marks {
+extension Anytype_Rpc.Block.Get.Marks {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockGetMarks(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, range: Anytype_Model_Range) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, range: range))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, range: range))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -978,9 +1126,11 @@ internal extension Anytype_Rpc.Block.Get.Marks {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -992,14 +1142,14 @@ internal extension Anytype_Rpc.Block.Get.Marks {
   }
 }
 
-internal extension Anytype_Rpc.Block.Undo {
+extension Anytype_Rpc.Block.Undo {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUndo(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID))) }
+      .init { promise in promise(self.result(.init(contextID: contextID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1008,9 +1158,11 @@ internal extension Anytype_Rpc.Block.Undo {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1022,14 +1174,14 @@ internal extension Anytype_Rpc.Block.Undo {
   }
 }
 
-internal extension Anytype_Rpc.Block.Redo {
+extension Anytype_Rpc.Block.Redo {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockRedo(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID))) }
+      .init { promise in promise(self.result(.init(contextID: contextID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1038,9 +1190,11 @@ internal extension Anytype_Rpc.Block.Redo {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1052,14 +1206,14 @@ internal extension Anytype_Rpc.Block.Redo {
   }
 }
 
-internal extension Anytype_Rpc.Block.Open {
+extension Anytype_Rpc.Block.Open {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockOpen(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String, breadcrumbsIds: [String]) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID, breadcrumbsIds: breadcrumbsIds))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, breadcrumbsIds: breadcrumbsIds))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1068,9 +1222,11 @@ internal extension Anytype_Rpc.Block.Open {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1082,14 +1238,14 @@ internal extension Anytype_Rpc.Block.Open {
   }
 }
 
-internal extension Anytype_Rpc.Block.OpenBreadcrumbs {
+extension Anytype_Rpc.Block.OpenBreadcrumbs {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockOpenBreadcrumbs(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID))) }
+      .init { promise in promise(self.result(.init(contextID: contextID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1098,9 +1254,11 @@ internal extension Anytype_Rpc.Block.OpenBreadcrumbs {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1112,14 +1270,14 @@ internal extension Anytype_Rpc.Block.OpenBreadcrumbs {
   }
 }
 
-internal extension Anytype_Rpc.Block.CutBreadcrumbs {
+extension Anytype_Rpc.Block.CutBreadcrumbs {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCutBreadcrumbs(data) }
   }
 
   enum Service {
     public static func invoke(breadcrumbsID: String, index: Int32) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(breadcrumbsID: breadcrumbsID, index: index))) }
+      .init { promise in promise(self.result(.init(breadcrumbsID: breadcrumbsID, index: index))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1128,9 +1286,11 @@ internal extension Anytype_Rpc.Block.CutBreadcrumbs {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1142,14 +1302,14 @@ internal extension Anytype_Rpc.Block.CutBreadcrumbs {
   }
 }
 
-internal extension Anytype_Rpc.Block.Create {
+extension Anytype_Rpc.Block.Create {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreate(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, targetID: targetID, block: block, position: position))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, targetID: targetID, block: block, position: position))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1158,9 +1318,11 @@ internal extension Anytype_Rpc.Block.Create {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1172,14 +1334,14 @@ internal extension Anytype_Rpc.Block.Create {
   }
 }
 
-internal extension Anytype_Rpc.Block.CreatePage {
+extension Anytype_Rpc.Block.CreatePage {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreatePage(data) }
   }
 
   enum Service {
-    public static func invoke(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, targetID: targetID, block: block, position: position))) }
+    public static func invoke(contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, targetID: targetID, details: details, position: position))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1188,9 +1350,11 @@ internal extension Anytype_Rpc.Block.CreatePage {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1202,14 +1366,14 @@ internal extension Anytype_Rpc.Block.CreatePage {
   }
 }
 
-internal extension Anytype_Rpc.Block.Unlink {
+extension Anytype_Rpc.Block.Unlink {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUnlink(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockIds: [String]) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockIds: blockIds))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1218,9 +1382,11 @@ internal extension Anytype_Rpc.Block.Unlink {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1232,14 +1398,14 @@ internal extension Anytype_Rpc.Block.Unlink {
   }
 }
 
-internal extension Anytype_Rpc.Block.Close {
+extension Anytype_Rpc.Block.Close {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockClose(data) }
   }
 
   enum Service {
     public static func invoke(contextID: String, blockID: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(contextID: contextID, blockID: blockID))) }
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1248,9 +1414,11 @@ internal extension Anytype_Rpc.Block.Close {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1262,14 +1430,14 @@ internal extension Anytype_Rpc.Block.Close {
   }
 }
 
-internal extension Anytype_Rpc.Wallet.Create {
+extension Anytype_Rpc.Wallet.Create {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibWalletCreate(data) }
   }
 
   enum Service {
     public static func invoke(rootPath: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(rootPath: rootPath))) }
+      .init { promise in promise(self.result(.init(rootPath: rootPath))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1278,9 +1446,11 @@ internal extension Anytype_Rpc.Wallet.Create {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1292,14 +1462,14 @@ internal extension Anytype_Rpc.Wallet.Create {
   }
 }
 
-internal extension Anytype_Rpc.Wallet.Recover {
+extension Anytype_Rpc.Wallet.Recover {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibWalletRecover(data) }
   }
 
   enum Service {
     public static func invoke(rootPath: String, mnemonic: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(rootPath: rootPath, mnemonic: mnemonic))) }
+      .init { promise in promise(self.result(.init(rootPath: rootPath, mnemonic: mnemonic))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1308,9 +1478,11 @@ internal extension Anytype_Rpc.Wallet.Recover {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1322,14 +1494,14 @@ internal extension Anytype_Rpc.Wallet.Recover {
   }
 }
 
-internal extension Anytype_Rpc.Account.Create {
+extension Anytype_Rpc.Account.Create {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibAccountCreate(data) }
   }
 
   enum Service {
     public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(name: name, avatar: avatar))) }
+      .init { promise in promise(self.result(.init(name: name, avatar: avatar))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1338,9 +1510,11 @@ internal extension Anytype_Rpc.Account.Create {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1352,14 +1526,14 @@ internal extension Anytype_Rpc.Account.Create {
   }
 }
 
-internal extension Anytype_Rpc.Account.Recover {
+extension Anytype_Rpc.Account.Recover {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibAccountRecover(data) }
   }
 
   enum Service {
     public static func invoke() -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init())) }
+      .init { promise in promise(self.result(.init())) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1368,9 +1542,11 @@ internal extension Anytype_Rpc.Account.Recover {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1382,14 +1558,14 @@ internal extension Anytype_Rpc.Account.Recover {
   }
 }
 
-internal extension Anytype_Rpc.Account.Select {
+extension Anytype_Rpc.Account.Select {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibAccountSelect(data) }
   }
 
   enum Service {
     public static func invoke(id: String, rootPath: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(id: id, rootPath: rootPath))) }
+      .init { promise in promise(self.result(.init(id: id, rootPath: rootPath))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1398,9 +1574,11 @@ internal extension Anytype_Rpc.Account.Select {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1412,14 +1590,14 @@ internal extension Anytype_Rpc.Account.Select {
   }
 }
 
-internal extension Anytype_Rpc.Account.Stop {
+extension Anytype_Rpc.Account.Stop {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibAccountStop(data) }
   }
 
   enum Service {
     public static func invoke(removeData: Bool) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(removeData: removeData))) }
+      .init { promise in promise(self.result(.init(removeData: removeData))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1428,9 +1606,11 @@ internal extension Anytype_Rpc.Account.Stop {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1442,14 +1622,14 @@ internal extension Anytype_Rpc.Account.Stop {
   }
 }
 
-internal extension Anytype_Rpc.Log.Send {
+extension Anytype_Rpc.Log.Send {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibLogSend(data) }
   }
 
   enum Service {
     public static func invoke(message: String, level: Anytype_Rpc.Log.Send.Request.Level) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(message: message, level: level))) }
+      .init { promise in promise(self.result(.init(message: message, level: level))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1458,9 +1638,11 @@ internal extension Anytype_Rpc.Log.Send {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1472,14 +1654,14 @@ internal extension Anytype_Rpc.Log.Send {
   }
 }
 
-internal extension Anytype_Rpc.Version.Get {
+extension Anytype_Rpc.Version.Get {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibVersionGet(data) }
   }
 
   enum Service {
     public static func invoke() -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init())) }
+      .init { promise in promise(self.result(.init())) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1488,9 +1670,11 @@ internal extension Anytype_Rpc.Version.Get {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1502,14 +1686,14 @@ internal extension Anytype_Rpc.Version.Get {
   }
 }
 
-internal extension Anytype_Rpc.Ipfs.Image.Get.Blob {
+extension Anytype_Rpc.Ipfs.Image.Get.Blob {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibImageGetBlob(data) }
   }
 
   enum Service {
     public static func invoke(hash: String, wantWidth: Int32) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(hash: hash, wantWidth: wantWidth))) }
+      .init { promise in promise(self.result(.init(hash: hash, wantWidth: wantWidth))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1518,9 +1702,11 @@ internal extension Anytype_Rpc.Ipfs.Image.Get.Blob {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1532,14 +1718,14 @@ internal extension Anytype_Rpc.Ipfs.Image.Get.Blob {
   }
 }
 
-internal extension Anytype_Rpc.Config.Get {
+extension Anytype_Rpc.Config.Get {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibConfigGet(data) }
   }
 
   enum Service {
     public static func invoke() -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init())) }
+      .init { promise in promise(self.result(.init())) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1548,9 +1734,11 @@ internal extension Anytype_Rpc.Config.Get {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1562,14 +1750,14 @@ internal extension Anytype_Rpc.Config.Get {
   }
 }
 
-internal extension Anytype_Rpc.Ping {
+extension Anytype_Rpc.Ping {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibPing(data) }
   }
 
   enum Service {
     public static func invoke(index: Int32, numberOfEventsToSend: Int32) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(index: index, numberOfEventsToSend: numberOfEventsToSend))) }
+      .init { promise in promise(self.result(.init(index: index, numberOfEventsToSend: numberOfEventsToSend))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1578,9 +1766,11 @@ internal extension Anytype_Rpc.Ping {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
-      }
-      else {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }
@@ -1592,14 +1782,14 @@ internal extension Anytype_Rpc.Ping {
   }
 }
 
-internal extension Anytype_Rpc.LinkPreview {
+extension Anytype_Rpc.Process.Cancel {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibLinkPreview(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.LibProcessCancel(data) }
   }
 
   enum Service {
-    public static func invoke(url: String) -> Future<Response, Error> {
-      .init { completion in completion(self.result(.init(url: url))) }
+    public static func invoke(id: String) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(id: id))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -1608,9 +1798,75 @@ internal extension Anytype_Rpc.LinkPreview {
       }
       // get first zero case.
       if result.error.code != .null {
-        return .failure(result.error)
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
       }
-      else {
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.LinkPreview {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibLinkPreview(data) }
+  }
+
+  enum Service {
+    public static func invoke(url: String) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(url: url))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.UploadFile {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibUploadFile(data) }
+  }
+
+  enum Service {
+    public static func invoke(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(url: url, localPath: localPath, type: type))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
         return .success(result)
       }
     }

@@ -121,6 +121,14 @@ struct Anytype_Event {
       set {_uniqueStorage()._value = .blockSetRestrictions(newValue)}
     }
 
+    var blockSetBackgroundColor: Anytype_Event.Block.Set.BackgroundColor {
+      get {
+        if case .blockSetBackgroundColor(let v)? = _storage._value {return v}
+        return Anytype_Event.Block.Set.BackgroundColor()
+      }
+      set {_uniqueStorage()._value = .blockSetBackgroundColor(newValue)}
+    }
+
     var blockSetText: Anytype_Event.Block.Set.Text {
       get {
         if case .blockSetText(let v)? = _storage._value {return v}
@@ -137,14 +145,6 @@ struct Anytype_Event {
       set {_uniqueStorage()._value = .blockSetFile(newValue)}
     }
 
-    var blockSetIcon: Anytype_Event.Block.Set.Icon {
-      get {
-        if case .blockSetIcon(let v)? = _storage._value {return v}
-        return Anytype_Event.Block.Set.Icon()
-      }
-      set {_uniqueStorage()._value = .blockSetIcon(newValue)}
-    }
-
     var blockSetLink: Anytype_Event.Block.Set.Link {
       get {
         if case .blockSetLink(let v)? = _storage._value {return v}
@@ -159,6 +159,22 @@ struct Anytype_Event {
         return Anytype_Event.Block.Set.Bookmark()
       }
       set {_uniqueStorage()._value = .blockSetBookmark(newValue)}
+    }
+
+    var blockSetAlign: Anytype_Event.Block.Set.Align {
+      get {
+        if case .blockSetAlign(let v)? = _storage._value {return v}
+        return Anytype_Event.Block.Set.Align()
+      }
+      set {_uniqueStorage()._value = .blockSetAlign(newValue)}
+    }
+
+    var blockSetDetails: Anytype_Event.Block.Set.Details {
+      get {
+        if case .blockSetDetails(let v)? = _storage._value {return v}
+        return Anytype_Event.Block.Set.Details()
+      }
+      set {_uniqueStorage()._value = .blockSetDetails(newValue)}
     }
 
     var blockShow: Anytype_Event.Block.Show {
@@ -209,6 +225,30 @@ struct Anytype_Event {
       set {_uniqueStorage()._value = .ping(newValue)}
     }
 
+    var processNew: Anytype_Event.Process.New {
+      get {
+        if case .processNew(let v)? = _storage._value {return v}
+        return Anytype_Event.Process.New()
+      }
+      set {_uniqueStorage()._value = .processNew(newValue)}
+    }
+
+    var processUpdate: Anytype_Event.Process.Update {
+      get {
+        if case .processUpdate(let v)? = _storage._value {return v}
+        return Anytype_Event.Process.Update()
+      }
+      set {_uniqueStorage()._value = .processUpdate(newValue)}
+    }
+
+    var processDone: Anytype_Event.Process.Done {
+      get {
+        if case .processDone(let v)? = _storage._value {return v}
+        return Anytype_Event.Process.Done()
+      }
+      set {_uniqueStorage()._value = .processDone(newValue)}
+    }
+
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
     enum OneOf_Value: Equatable {
@@ -220,17 +260,22 @@ struct Anytype_Event {
       case blockSetFields(Anytype_Event.Block.Set.Fields)
       case blockSetChildrenIds(Anytype_Event.Block.Set.ChildrenIds)
       case blockSetRestrictions(Anytype_Event.Block.Set.Restrictions)
+      case blockSetBackgroundColor(Anytype_Event.Block.Set.BackgroundColor)
       case blockSetText(Anytype_Event.Block.Set.Text)
       case blockSetFile(Anytype_Event.Block.Set.File)
-      case blockSetIcon(Anytype_Event.Block.Set.Icon)
       case blockSetLink(Anytype_Event.Block.Set.Link)
       case blockSetBookmark(Anytype_Event.Block.Set.Bookmark)
+      case blockSetAlign(Anytype_Event.Block.Set.Align)
+      case blockSetDetails(Anytype_Event.Block.Set.Details)
       case blockShow(Anytype_Event.Block.Show)
       case userBlockJoin(Anytype_Event.User.Block.Join)
       case userBlockLeft(Anytype_Event.User.Block.Left)
       case userBlockSelectRange(Anytype_Event.User.Block.SelectRange)
       case userBlockTextRange(Anytype_Event.User.Block.TextRange)
       case ping(Anytype_Event.Ping)
+      case processNew(Anytype_Event.Process.New)
+      case processUpdate(Anytype_Event.Process.Update)
+      case processDone(Anytype_Event.Process.Done)
 
     #if !swift(>=4.1)
       static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -243,17 +288,22 @@ struct Anytype_Event {
         case (.blockSetFields(let l), .blockSetFields(let r)): return l == r
         case (.blockSetChildrenIds(let l), .blockSetChildrenIds(let r)): return l == r
         case (.blockSetRestrictions(let l), .blockSetRestrictions(let r)): return l == r
+        case (.blockSetBackgroundColor(let l), .blockSetBackgroundColor(let r)): return l == r
         case (.blockSetText(let l), .blockSetText(let r)): return l == r
         case (.blockSetFile(let l), .blockSetFile(let r)): return l == r
-        case (.blockSetIcon(let l), .blockSetIcon(let r)): return l == r
         case (.blockSetLink(let l), .blockSetLink(let r)): return l == r
         case (.blockSetBookmark(let l), .blockSetBookmark(let r)): return l == r
+        case (.blockSetAlign(let l), .blockSetAlign(let r)): return l == r
+        case (.blockSetDetails(let l), .blockSetDetails(let r)): return l == r
         case (.blockShow(let l), .blockShow(let r)): return l == r
         case (.userBlockJoin(let l), .userBlockJoin(let r)): return l == r
         case (.userBlockLeft(let l), .userBlockLeft(let r)): return l == r
         case (.userBlockSelectRange(let l), .userBlockSelectRange(let r)): return l == r
         case (.userBlockTextRange(let l), .userBlockTextRange(let r)): return l == r
         case (.ping(let l), .ping(let r)): return l == r
+        case (.processNew(let l), .processNew(let r)): return l == r
+        case (.processUpdate(let l), .processUpdate(let r)): return l == r
+        case (.processDone(let l), .processDone(let r)): return l == r
         default: return false
         }
       }
@@ -350,6 +400,9 @@ struct Anytype_Event {
       /// dependent blocks (descendants)
       var blocks: [Anytype_Model_Block] = []
 
+      /// details for current and dependent smart blocks
+      var details: [Anytype_Event.Block.Set.Details] = []
+
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
       init() {}
@@ -406,6 +459,32 @@ struct Anytype_Event {
       // methods supported on all messages.
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct Details {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
+
+        var details: SwiftProtobuf.Google_Protobuf_Struct {
+          get {return _storage._details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_uniqueStorage()._details = newValue}
+        }
+        /// Returns true if `details` has been explicitly set.
+        var hasDetails: Bool {return _storage._details != nil}
+        /// Clears the value of `details`. Subsequent reads from it will return its default value.
+        mutating func clearDetails() {_uniqueStorage()._details = nil}
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
+      }
 
       struct Fields {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -473,6 +552,34 @@ struct Anytype_Event {
         fileprivate var _storage = _StorageClass.defaultInstance
       }
 
+      struct BackgroundColor {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var id: String = String()
+
+        var backgroundColor: String = String()
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      struct Align {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var id: String = String()
+
+        var align: Anytype_Model_Block.Align = .left
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
       struct Text {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -527,15 +634,6 @@ struct Anytype_Event {
         var hasColor: Bool {return _storage._color != nil}
         /// Clears the value of `color`. Subsequent reads from it will return its default value.
         mutating func clearColor() {_uniqueStorage()._color = nil}
-
-        var backgroundColor: Anytype_Event.Block.Set.Text.BackgroundColor {
-          get {return _storage._backgroundColor ?? Anytype_Event.Block.Set.Text.BackgroundColor()}
-          set {_uniqueStorage()._backgroundColor = newValue}
-        }
-        /// Returns true if `backgroundColor` has been explicitly set.
-        var hasBackgroundColor: Bool {return _storage._backgroundColor != nil}
-        /// Clears the value of `backgroundColor`. Subsequent reads from it will return its default value.
-        mutating func clearBackgroundColor() {_uniqueStorage()._backgroundColor = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -597,18 +695,6 @@ struct Anytype_Event {
         }
 
         struct Color {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          var value: String = String()
-
-          var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          init() {}
-        }
-
-        struct BackgroundColor {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
@@ -769,44 +855,6 @@ struct Anytype_Event {
           // methods supported on all messages.
 
           var value: Int64 = 0
-
-          var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          init() {}
-        }
-
-        init() {}
-
-        fileprivate var _storage = _StorageClass.defaultInstance
-      }
-
-      struct Icon {
-        // SwiftProtobuf.Message conformance is added in an extension below. See the
-        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-        // methods supported on all messages.
-
-        var id: String {
-          get {return _storage._id}
-          set {_uniqueStorage()._id = newValue}
-        }
-
-        var name: Anytype_Event.Block.Set.Icon.Name {
-          get {return _storage._name ?? Anytype_Event.Block.Set.Icon.Name()}
-          set {_uniqueStorage()._name = newValue}
-        }
-        /// Returns true if `name` has been explicitly set.
-        var hasName: Bool {return _storage._name != nil}
-        /// Clears the value of `name`. Subsequent reads from it will return its default value.
-        mutating func clearName() {_uniqueStorage()._name = nil}
-
-        var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        struct Name {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          var value: String = String()
 
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1218,9 +1266,204 @@ struct Anytype_Event {
     init() {}
   }
 
+  struct Process {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    struct New {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var process: Anytype_Model.Process {
+        get {return _storage._process ?? Anytype_Model.Process()}
+        set {_uniqueStorage()._process = newValue}
+      }
+      /// Returns true if `process` has been explicitly set.
+      var hasProcess: Bool {return _storage._process != nil}
+      /// Clears the value of `process`. Subsequent reads from it will return its default value.
+      mutating func clearProcess() {_uniqueStorage()._process = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+
+      fileprivate var _storage = _StorageClass.defaultInstance
+    }
+
+    struct Update {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var process: Anytype_Model.Process {
+        get {return _storage._process ?? Anytype_Model.Process()}
+        set {_uniqueStorage()._process = newValue}
+      }
+      /// Returns true if `process` has been explicitly set.
+      var hasProcess: Bool {return _storage._process != nil}
+      /// Clears the value of `process`. Subsequent reads from it will return its default value.
+      mutating func clearProcess() {_uniqueStorage()._process = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+
+      fileprivate var _storage = _StorageClass.defaultInstance
+    }
+
+    struct Done {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var process: Anytype_Model.Process {
+        get {return _storage._process ?? Anytype_Model.Process()}
+        set {_uniqueStorage()._process = newValue}
+      }
+      /// Returns true if `process` has been explicitly set.
+      var hasProcess: Bool {return _storage._process != nil}
+      /// Clears the value of `process`. Subsequent reads from it will return its default value.
+      mutating func clearProcess() {_uniqueStorage()._process = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+
+      fileprivate var _storage = _StorageClass.defaultInstance
+    }
+
+    init() {}
+  }
+
   init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Anytype_Model {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  struct Process {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var id: String {
+      get {return _storage._id}
+      set {_uniqueStorage()._id = newValue}
+    }
+
+    var type: Anytype_Model.Process.TypeEnum {
+      get {return _storage._type}
+      set {_uniqueStorage()._type = newValue}
+    }
+
+    var state: Anytype_Model.Process.State {
+      get {return _storage._state}
+      set {_uniqueStorage()._state = newValue}
+    }
+
+    var progress: Anytype_Model.Process.Progress {
+      get {return _storage._progress ?? Anytype_Model.Process.Progress()}
+      set {_uniqueStorage()._progress = newValue}
+    }
+    /// Returns true if `progress` has been explicitly set.
+    var hasProgress: Bool {return _storage._progress != nil}
+    /// Clears the value of `progress`. Subsequent reads from it will return its default value.
+    mutating func clearProgress() {_uniqueStorage()._progress = nil}
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    enum TypeEnum: SwiftProtobuf.Enum {
+      typealias RawValue = Int
+      case dropFiles // = 0
+      case UNRECOGNIZED(Int)
+
+      init() {
+        self = .dropFiles
+      }
+
+      init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .dropFiles
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      var rawValue: Int {
+        switch self {
+        case .dropFiles: return 0
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    enum State: SwiftProtobuf.Enum {
+      typealias RawValue = Int
+      case none // = 0
+      case running // = 1
+      case done // = 2
+      case canceled // = 3
+      case error // = 4
+      case UNRECOGNIZED(Int)
+
+      init() {
+        self = .none
+      }
+
+      init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .none
+        case 1: self = .running
+        case 2: self = .done
+        case 3: self = .canceled
+        case 4: self = .error
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      var rawValue: Int {
+        switch self {
+        case .none: return 0
+        case .running: return 1
+        case .done: return 2
+        case .canceled: return 3
+        case .error: return 4
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    struct Progress {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var total: Int64 = 0
+
+      var done: Int64 = 0
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    init() {}
+
+    fileprivate var _storage = _StorageClass.defaultInstance
+  }
+
+  init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1315,17 +1558,22 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     6: .same(proto: "blockSetFields"),
     7: .same(proto: "blockSetChildrenIds"),
     8: .same(proto: "blockSetRestrictions"),
+    9: .same(proto: "blockSetBackgroundColor"),
     10: .same(proto: "blockSetText"),
     11: .same(proto: "blockSetFile"),
-    12: .same(proto: "blockSetIcon"),
     13: .same(proto: "blockSetLink"),
     14: .same(proto: "blockSetBookmark"),
+    15: .same(proto: "blockSetAlign"),
+    16: .same(proto: "blockSetDetails"),
     20: .same(proto: "blockShow"),
     21: .same(proto: "userBlockJoin"),
     22: .same(proto: "userBlockLeft"),
     23: .same(proto: "userBlockSelectRange"),
     24: .same(proto: "userBlockTextRange"),
     100: .same(proto: "ping"),
+    101: .same(proto: "processNew"),
+    102: .same(proto: "processUpdate"),
+    103: .same(proto: "processDone"),
   ]
 
   fileprivate class _StorageClass {
@@ -1416,6 +1664,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .blockSetRestrictions(v)}
+        case 9:
+          var v: Anytype_Event.Block.Set.BackgroundColor?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .blockSetBackgroundColor(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .blockSetBackgroundColor(v)}
         case 10:
           var v: Anytype_Event.Block.Set.Text?
           if let current = _storage._value {
@@ -1432,14 +1688,6 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .blockSetFile(v)}
-        case 12:
-          var v: Anytype_Event.Block.Set.Icon?
-          if let current = _storage._value {
-            try decoder.handleConflictingOneOf()
-            if case .blockSetIcon(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._value = .blockSetIcon(v)}
         case 13:
           var v: Anytype_Event.Block.Set.Link?
           if let current = _storage._value {
@@ -1456,6 +1704,22 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .blockSetBookmark(v)}
+        case 15:
+          var v: Anytype_Event.Block.Set.Align?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .blockSetAlign(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .blockSetAlign(v)}
+        case 16:
+          var v: Anytype_Event.Block.Set.Details?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .blockSetDetails(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .blockSetDetails(v)}
         case 20:
           var v: Anytype_Event.Block.Show?
           if let current = _storage._value {
@@ -1504,6 +1768,30 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .ping(v)}
+        case 101:
+          var v: Anytype_Event.Process.New?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .processNew(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .processNew(v)}
+        case 102:
+          var v: Anytype_Event.Process.Update?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .processUpdate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .processUpdate(v)}
+        case 103:
+          var v: Anytype_Event.Process.Done?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .processDone(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .processDone(v)}
         default: break
         }
       }
@@ -1529,16 +1817,20 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
       case .blockSetRestrictions(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+      case .blockSetBackgroundColor(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
       case .blockSetText(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 10)
       case .blockSetFile(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-      case .blockSetIcon(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
       case .blockSetLink(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
       case .blockSetBookmark(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
+      case .blockSetAlign(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
+      case .blockSetDetails(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
       case .blockShow(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
       case .userBlockJoin(let v)?:
@@ -1551,6 +1843,12 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
       case .ping(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+      case .processNew(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
+      case .processUpdate(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
+      case .processDone(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
       case nil: break
       }
     }
@@ -1713,6 +2011,7 @@ extension Anytype_Event.Block.Show: SwiftProtobuf.Message, SwiftProtobuf._Messag
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "rootId"),
     2: .same(proto: "blocks"),
+    3: .same(proto: "details"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1720,6 +2019,7 @@ extension Anytype_Event.Block.Show: SwiftProtobuf.Message, SwiftProtobuf._Messag
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.rootID)
       case 2: try decoder.decodeRepeatedMessageField(value: &self.blocks)
+      case 3: try decoder.decodeRepeatedMessageField(value: &self.details)
       default: break
       }
     }
@@ -1732,12 +2032,16 @@ extension Anytype_Event.Block.Show: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.blocks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.blocks, fieldNumber: 2)
     }
+    if !self.details.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.details, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Event.Block.Show, rhs: Anytype_Event.Block.Show) -> Bool {
     if lhs.rootID != rhs.rootID {return false}
     if lhs.blocks != rhs.blocks {return false}
+    if lhs.details != rhs.details {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -1850,6 +2154,75 @@ extension Anytype_Event.Block.Set: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   static func ==(lhs: Anytype_Event.Block.Set, rhs: Anytype_Event.Block.Set) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Details: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Details"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "details"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _details = source._details
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._id)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._details)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if let v = _storage._details {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Details, rhs: Anytype_Event.Block.Set.Details) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._details != rhs_storage._details {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2028,6 +2401,76 @@ extension Anytype_Event.Block.Set.Restrictions: SwiftProtobuf.Message, SwiftProt
   }
 }
 
+extension Anytype_Event.Block.Set.BackgroundColor: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".BackgroundColor"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "backgroundColor"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.id)
+      case 2: try decoder.decodeSingularStringField(value: &self.backgroundColor)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.backgroundColor.isEmpty {
+      try visitor.visitSingularStringField(value: self.backgroundColor, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.BackgroundColor, rhs: Anytype_Event.Block.Set.BackgroundColor) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.backgroundColor != rhs.backgroundColor {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Align: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Align"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "align"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.id)
+      case 2: try decoder.decodeSingularEnumField(value: &self.align)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if self.align != .left {
+      try visitor.visitSingularEnumField(value: self.align, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Align, rhs: Anytype_Event.Block.Set.Align) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.align != rhs.align {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Text"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -2037,7 +2480,6 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
     4: .same(proto: "marks"),
     5: .same(proto: "checked"),
     6: .same(proto: "color"),
-    7: .same(proto: "backgroundColor"),
   ]
 
   fileprivate class _StorageClass {
@@ -2047,7 +2489,6 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
     var _marks: Anytype_Event.Block.Set.Text.Marks? = nil
     var _checked: Anytype_Event.Block.Set.Text.Checked? = nil
     var _color: Anytype_Event.Block.Set.Text.Color? = nil
-    var _backgroundColor: Anytype_Event.Block.Set.Text.BackgroundColor? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -2060,7 +2501,6 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
       _marks = source._marks
       _checked = source._checked
       _color = source._color
-      _backgroundColor = source._backgroundColor
     }
   }
 
@@ -2082,7 +2522,6 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
         case 4: try decoder.decodeSingularMessageField(value: &_storage._marks)
         case 5: try decoder.decodeSingularMessageField(value: &_storage._checked)
         case 6: try decoder.decodeSingularMessageField(value: &_storage._color)
-        case 7: try decoder.decodeSingularMessageField(value: &_storage._backgroundColor)
         default: break
         }
       }
@@ -2109,9 +2548,6 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
       if let v = _storage._color {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
       }
-      if let v = _storage._backgroundColor {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -2127,7 +2563,6 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
         if _storage._marks != rhs_storage._marks {return false}
         if _storage._checked != rhs_storage._checked {return false}
         if _storage._color != rhs_storage._color {return false}
-        if _storage._backgroundColor != rhs_storage._backgroundColor {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2308,35 +2743,6 @@ extension Anytype_Event.Block.Set.Text.Color: SwiftProtobuf.Message, SwiftProtob
   }
 
   static func ==(lhs: Anytype_Event.Block.Set.Text.Color, rhs: Anytype_Event.Block.Set.Text.Color) -> Bool {
-    if lhs.value != rhs.value {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.Text.BackgroundColor: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Event.Block.Set.Text.protoMessageName + ".BackgroundColor"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.value)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.value.isEmpty {
-      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Anytype_Event.Block.Set.Text.BackgroundColor, rhs: Anytype_Event.Block.Set.Text.BackgroundColor) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -2649,104 +3055,6 @@ extension Anytype_Event.Block.Set.File.Size: SwiftProtobuf.Message, SwiftProtobu
   }
 
   static func ==(lhs: Anytype_Event.Block.Set.File.Size, rhs: Anytype_Event.Block.Set.File.Size) -> Bool {
-    if lhs.value != rhs.value {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.Icon: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Icon"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "name"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _id: String = String()
-    var _name: Anytype_Event.Block.Set.Icon.Name? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _id = source._id
-      _name = source._name
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularStringField(value: &_storage._id)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._name)
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if !_storage._id.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
-      }
-      if let v = _storage._name {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Anytype_Event.Block.Set.Icon, rhs: Anytype_Event.Block.Set.Icon) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {return false}
-        if _storage._name != rhs_storage._name {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.Icon.Name: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Event.Block.Set.Icon.protoMessageName + ".Name"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.value)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.value.isEmpty {
-      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Anytype_Event.Block.Set.Icon.Name, rhs: Anytype_Event.Block.Set.Icon.Name) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -3570,6 +3878,363 @@ extension Anytype_Event.Ping: SwiftProtobuf.Message, SwiftProtobuf._MessageImple
 
   static func ==(lhs: Anytype_Event.Ping, rhs: Anytype_Event.Ping) -> Bool {
     if lhs.index != rhs.index {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.protoMessageName + ".Process"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Process, rhs: Anytype_Event.Process) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Process.New: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Process.protoMessageName + ".New"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "process"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _process: Anytype_Model.Process? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _process = source._process
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._process)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._process {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Process.New, rhs: Anytype_Event.Process.New) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._process != rhs_storage._process {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Process.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Process.protoMessageName + ".Update"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "process"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _process: Anytype_Model.Process? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _process = source._process
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._process)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._process {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Process.Update, rhs: Anytype_Event.Process.Update) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._process != rhs_storage._process {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Process.protoMessageName + ".Done"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "process"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _process: Anytype_Model.Process? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _process = source._process
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._process)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._process {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Process.Done, rhs: Anytype_Event.Process.Done) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._process != rhs_storage._process {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Model"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Model, rhs: Anytype_Model) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model.Process: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Model.protoMessageName + ".Process"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "type"),
+    3: .same(proto: "state"),
+    4: .same(proto: "progress"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _type: Anytype_Model.Process.TypeEnum = .dropFiles
+    var _state: Anytype_Model.Process.State = .none
+    var _progress: Anytype_Model.Process.Progress? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _type = source._type
+      _state = source._state
+      _progress = source._progress
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._id)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._type)
+        case 3: try decoder.decodeSingularEnumField(value: &_storage._state)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._progress)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if _storage._type != .dropFiles {
+        try visitor.visitSingularEnumField(value: _storage._type, fieldNumber: 2)
+      }
+      if _storage._state != .none {
+        try visitor.visitSingularEnumField(value: _storage._state, fieldNumber: 3)
+      }
+      if let v = _storage._progress {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Model.Process, rhs: Anytype_Model.Process) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._type != rhs_storage._type {return false}
+        if _storage._state != rhs_storage._state {return false}
+        if _storage._progress != rhs_storage._progress {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model.Process.TypeEnum: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "DropFiles"),
+  ]
+}
+
+extension Anytype_Model.Process.State: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "None"),
+    1: .same(proto: "Running"),
+    2: .same(proto: "Done"),
+    3: .same(proto: "Canceled"),
+    4: .same(proto: "Error"),
+  ]
+}
+
+extension Anytype_Model.Process.Progress: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Model.Process.protoMessageName + ".Progress"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "total"),
+    2: .same(proto: "done"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt64Field(value: &self.total)
+      case 2: try decoder.decodeSingularInt64Field(value: &self.done)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.total != 0 {
+      try visitor.visitSingularInt64Field(value: self.total, fieldNumber: 1)
+    }
+    if self.done != 0 {
+      try visitor.visitSingularInt64Field(value: self.done, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Model.Process.Progress, rhs: Anytype_Model.Process.Progress) -> Bool {
+    if lhs.total != rhs.total {return false}
+    if lhs.done != rhs.done {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

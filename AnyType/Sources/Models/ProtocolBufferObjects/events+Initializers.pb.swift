@@ -48,15 +48,24 @@ extension Anytype_Event.Block.MarksInfo {
   }
 }
 
+extension Anytype_Event.Block.Set.Align {
+  init(id: String, align: Anytype_Model_Block.Align) {
+    self.id = id
+    self.align = align
+  }
+}
+
+extension Anytype_Event.Block.Set.BackgroundColor {
+  init(id: String, backgroundColor: String) {
+    self.id = id
+    self.backgroundColor = backgroundColor
+  }
+}
+
 extension Anytype_Event.Block.Set.Bookmark {
   init(
-    id: String,
-    url: Anytype_Event.Block.Set.Bookmark.Url,
-    title: Anytype_Event.Block.Set.Bookmark.Title,
-    description_p: Anytype_Event.Block.Set.Bookmark.Description,
-    imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash,
-    faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash,
-    type: Anytype_Event.Block.Set.Bookmark.TypeMessage
+    id: String, url: Anytype_Event.Block.Set.Bookmark.Url, title: Anytype_Event.Block.Set.Bookmark.Title, description_p: Anytype_Event.Block.Set.Bookmark.Description,
+    imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash, faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash, type: Anytype_Event.Block.Set.Bookmark.TypeMessage
   ) {
     self.id = id
     self.url = url
@@ -111,6 +120,13 @@ extension Anytype_Event.Block.Set.ChildrenIds {
   }
 }
 
+extension Anytype_Event.Block.Set.Details {
+  init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.id = id
+    self.details = details
+  }
+}
+
 extension Anytype_Event.Block.Set.Fields {
   init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct) {
     self.id = id
@@ -120,13 +136,8 @@ extension Anytype_Event.Block.Set.Fields {
 
 extension Anytype_Event.Block.Set.File {
   init(
-    id: String,
-    type: Anytype_Event.Block.Set.File.TypeMessage,
-    state: Anytype_Event.Block.Set.File.State,
-    mime: Anytype_Event.Block.Set.File.Mime,
-    hash: Anytype_Event.Block.Set.File.Hash,
-    name: Anytype_Event.Block.Set.File.Name,
-    size: Anytype_Event.Block.Set.File.Size
+    id: String, type: Anytype_Event.Block.Set.File.TypeMessage, state: Anytype_Event.Block.Set.File.State, mime: Anytype_Event.Block.Set.File.Mime, hash: Anytype_Event.Block.Set.File.Hash,
+    name: Anytype_Event.Block.Set.File.Name, size: Anytype_Event.Block.Set.File.Size
   ) {
     self.id = id
     self.type = type
@@ -180,19 +191,6 @@ extension Anytype_Event.Block.Set.File.Width {
   }
 }
 
-extension Anytype_Event.Block.Set.Icon {
-  init(id: String, name: Anytype_Event.Block.Set.Icon.Name) {
-    self.id = id
-    self.name = name
-  }
-}
-
-extension Anytype_Event.Block.Set.Icon.Name {
-  init(value: String) {
-    self.value = value
-  }
-}
-
 extension Anytype_Event.Block.Set.Link {
   init(id: String, targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId, style: Anytype_Event.Block.Set.Link.Style, fields: Anytype_Event.Block.Set.Link.Fields) {
     self.id = id
@@ -229,13 +227,8 @@ extension Anytype_Event.Block.Set.Restrictions {
 
 extension Anytype_Event.Block.Set.Text {
   init(
-    id: String,
-    text: Anytype_Event.Block.Set.Text.Text,
-    style: Anytype_Event.Block.Set.Text.Style,
-    marks: Anytype_Event.Block.Set.Text.Marks,
-    checked: Anytype_Event.Block.Set.Text.Checked,
-    color: Anytype_Event.Block.Set.Text.Color,
-    backgroundColor: Anytype_Event.Block.Set.Text.BackgroundColor
+    id: String, text: Anytype_Event.Block.Set.Text.Text, style: Anytype_Event.Block.Set.Text.Style, marks: Anytype_Event.Block.Set.Text.Marks, checked: Anytype_Event.Block.Set.Text.Checked,
+    color: Anytype_Event.Block.Set.Text.Color
   ) {
     self.id = id
     self.text = text
@@ -243,13 +236,6 @@ extension Anytype_Event.Block.Set.Text {
     self.marks = marks
     self.checked = checked
     self.color = color
-    self.backgroundColor = backgroundColor
-  }
-}
-
-extension Anytype_Event.Block.Set.Text.BackgroundColor {
-  init(value: String) {
-    self.value = value
   }
 }
 
@@ -284,9 +270,10 @@ extension Anytype_Event.Block.Set.Text.Text {
 }
 
 extension Anytype_Event.Block.Show {
-  init(rootID: String, blocks: [Anytype_Model_Block]) {
+  init(rootID: String, blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details]) {
     self.rootID = rootID
     self.blocks = blocks
+    self.details = details
   }
 }
 
@@ -299,6 +286,24 @@ extension Anytype_Event.Message {
 extension Anytype_Event.Ping {
   init(index: Int32) {
     self.index = index
+  }
+}
+
+extension Anytype_Event.Process.Done {
+  init(process: Anytype_Model.Process) {
+    self.process = process
+  }
+}
+
+extension Anytype_Event.Process.New {
+  init(process: Anytype_Model.Process) {
+    self.process = process
+  }
+}
+
+extension Anytype_Event.Process.Update {
+  init(process: Anytype_Model.Process) {
+    self.process = process
   }
 }
 
@@ -326,5 +331,21 @@ extension Anytype_Event.User.Block.TextRange {
     self.account = account
     self.blockID = blockID
     self.range = range
+  }
+}
+
+extension Anytype_Model.Process {
+  init(id: String, type: Anytype_Model.Process.TypeEnum, state: Anytype_Model.Process.State, progress: Anytype_Model.Process.Progress) {
+    self.id = id
+    self.type = type
+    self.state = state
+    self.progress = progress
+  }
+}
+
+extension Anytype_Model.Process.Progress {
+  init(total: Int64, done: Int64) {
+    self.total = total
+    self.done = done
   }
 }

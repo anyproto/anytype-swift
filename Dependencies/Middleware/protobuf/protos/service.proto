@@ -24,6 +24,8 @@ service ClientCommands {
 
     rpc LinkPreview (anytype.Rpc.LinkPreview.Request) returns (anytype.Rpc.LinkPreview.Response);
 
+    rpc UploadFile (anytype.Rpc.UploadFile.Request) returns (anytype.Rpc.UploadFile.Response);
+
     rpc BlockUpload (anytype.Rpc.Block.Upload.Request) returns (anytype.Rpc.Block.Upload.Response);
     rpc BlockReplace (anytype.Rpc.Block.Replace.Request) returns (anytype.Rpc.Block.Replace.Response);
     rpc BlockOpen (anytype.Rpc.Block.Open.Request) returns (anytype.Rpc.Block.Open.Response);
@@ -39,19 +41,23 @@ service ClientCommands {
     rpc BlockRedo (anytype.Rpc.Block.Redo.Request) returns (anytype.Rpc.Block.Redo.Response);
     rpc BlockSetFields (anytype.Rpc.Block.Set.Fields.Request) returns (anytype.Rpc.Block.Set.Fields.Response);
     rpc BlockSetRestrictions (anytype.Rpc.Block.Set.Restrictions.Request) returns (anytype.Rpc.Block.Set.Restrictions.Response);
+    rpc BlockSetDetails (anytype.Rpc.Block.Set.Details.Request) returns (anytype.Rpc.Block.Set.Details.Response);
+
 
     rpc BlockSetPageIsArchived (anytype.Rpc.Block.Set.Page.IsArchived.Request) returns (anytype.Rpc.Block.Set.Page.IsArchived.Response);
 
     rpc BlockListMove (anytype.Rpc.BlockList.Move.Request) returns (anytype.Rpc.BlockList.Move.Response);
+    rpc BlockListMoveToNewPage (anytype.Rpc.BlockList.MoveToNewPage.Request) returns (anytype.Rpc.BlockList.MoveToNewPage.Response);
+
     rpc BlockListSetFields (anytype.Rpc.BlockList.Set.Fields.Request) returns (anytype.Rpc.BlockList.Set.Fields.Response);
     rpc BlockListSetTextStyle (anytype.Rpc.BlockList.Set.Text.Style.Request) returns (anytype.Rpc.BlockList.Set.Text.Style.Response);
     rpc BlockListDuplicate (anytype.Rpc.BlockList.Duplicate.Request) returns (anytype.Rpc.BlockList.Duplicate.Response);
+    rpc BlockListSetBackgroundColor (anytype.Rpc.BlockList.Set.BackgroundColor.Request) returns (anytype.Rpc.BlockList.Set.BackgroundColor.Response);
+    rpc BlockListSetAlign (anytype.Rpc.BlockList.Set.Align.Request) returns (anytype.Rpc.BlockList.Set.Align.Response);
 
     rpc BlockSetTextText (anytype.Rpc.Block.Set.Text.Text.Request) returns (anytype.Rpc.Block.Set.Text.Text.Response);
     rpc BlockSetTextColor (anytype.Rpc.Block.Set.Text.Color.Request) returns (anytype.Rpc.Block.Set.Text.Color.Response);
     rpc BlockListSetTextColor (anytype.Rpc.BlockList.Set.Text.Color.Request) returns (anytype.Rpc.BlockList.Set.Text.Color.Response);
-    rpc BlockSetTextBackgroundColor (anytype.Rpc.Block.Set.Text.BackgroundColor.Request) returns (anytype.Rpc.Block.Set.Text.BackgroundColor.Response);
-    rpc BlockListSetTextBackgroundColor (anytype.Rpc.BlockList.Set.Text.BackgroundColor.Request) returns (anytype.Rpc.BlockList.Set.Text.BackgroundColor.Response);
     rpc BlockSetTextStyle (anytype.Rpc.Block.Set.Text.Style.Request) returns (anytype.Rpc.Block.Set.Text.Style.Response);
     rpc BlockSetTextChecked (anytype.Rpc.Block.Set.Text.Checked.Request) returns (anytype.Rpc.Block.Set.Text.Checked.Response);
 
@@ -60,19 +66,25 @@ service ClientCommands {
 
     rpc BlockCopy (anytype.Rpc.Block.Copy.Request) returns (anytype.Rpc.Block.Copy.Response);
     rpc BlockPaste (anytype.Rpc.Block.Paste.Request) returns (anytype.Rpc.Block.Paste.Response);
+//    rpc BlockCreateAndCutTo (anytype.Rpc.Block.CreateAndCutTo.Request) returns (anytype.Rpc.Block.CreateAndCutTo.Response);
+//    rpc BlockCutTo (anytype.Rpc.Block.CutTo.Request) returns (anytype.Rpc.Block.CutTo.Response);
+
+    rpc BlockCut (anytype.Rpc.Block.Cut.Request) returns (anytype.Rpc.Block.Cut.Response);
+    rpc BlockExport (anytype.Rpc.Block.Export.Request) returns (anytype.Rpc.Block.Export.Response);
 
     rpc BlockSetFileName (anytype.Rpc.Block.Set.File.Name.Request) returns (anytype.Rpc.Block.Set.File.Name.Response);
     rpc BlockSetImageName (anytype.Rpc.Block.Set.Image.Name.Request) returns (anytype.Rpc.Block.Set.Image.Name.Response);
     rpc BlockSetImageWidth (anytype.Rpc.Block.Set.Image.Width.Request) returns (anytype.Rpc.Block.Set.Image.Width.Response);
     rpc BlockSetVideoName (anytype.Rpc.Block.Set.Video.Name.Request) returns (anytype.Rpc.Block.Set.Video.Name.Response);
     rpc BlockSetVideoWidth (anytype.Rpc.Block.Set.Video.Width.Request) returns (anytype.Rpc.Block.Set.Video.Width.Response);
-    rpc BlockSetIconName (anytype.Rpc.Block.Set.Icon.Name.Request) returns (anytype.Rpc.Block.Set.Icon.Name.Response);
 
     rpc BlockSetLinkTargetBlockId (anytype.Rpc.Block.Set.Link.TargetBlockId.Request) returns (anytype.Rpc.Block.Set.Link.TargetBlockId.Response);
 
     rpc BlockBookmarkFetch (anytype.Rpc.Block.Bookmark.Fetch.Request) returns (anytype.Rpc.Block.Bookmark.Fetch.Response);
 
     rpc Ping (anytype.Rpc.Ping.Request) returns (anytype.Rpc.Ping.Response);
+
+    rpc ProcessCancel (anytype.Rpc.Process.Cancel.Request) returns (anytype.Rpc.Process.Cancel.Response);
 
     // used only for lib-debug via grpc
     rpc ListenEvents (anytype.Empty) returns (stream anytype.Event);

@@ -5,7 +5,10 @@
             }
             // get first zero case.
             if result.error.code != .null {
-                return .failure(result.error)
+                let domain = Anytype_Middleware_Error.domain
+                let code = result.error.code.rawValue
+                let description = result.error.description_p
+                return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
             }
             else {
                 return .success(result)

@@ -19,6 +19,72 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+struct Anytype_Model_SmartBlock {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var id: String = String()
+
+  var type: Anytype_Model_SmartBlock.TypeEnum = .dashboard
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum TypeEnum: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case dashboard // = 0
+    case page // = 1
+    case archive // = 2
+    case breadcrumbs // = 3
+    case dataview // = 4
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .dashboard
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .dashboard
+      case 1: self = .page
+      case 2: self = .archive
+      case 3: self = .breadcrumbs
+      case 4: self = .dataview
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .dashboard: return 0
+      case .page: return 1
+      case .archive: return 2
+      case .breadcrumbs: return 3
+      case .dataview: return 4
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  init() {}
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_SmartBlock.TypeEnum: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Anytype_Model_SmartBlock.TypeEnum] = [
+    .dashboard,
+    .page,
+    .archive,
+    .breadcrumbs,
+    .dataview,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Anytype_Model_Block {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -50,6 +116,16 @@ struct Anytype_Model_Block {
   var childrenIds: [String] {
     get {return _storage._childrenIds}
     set {_uniqueStorage()._childrenIds = newValue}
+  }
+
+  var backgroundColor: String {
+    get {return _storage._backgroundColor}
+    set {_uniqueStorage()._backgroundColor = newValue}
+  }
+
+  var align: Anytype_Model_Block.Align {
+    get {return _storage._align}
+    set {_uniqueStorage()._align = newValue}
   }
 
   var content: OneOf_Content? {
@@ -207,6 +283,37 @@ struct Anytype_Model_Block {
       case .right: return 4
       case .inner: return 5
       case .replace: return 6
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  enum Align: SwiftProtobuf.Enum {
+    typealias RawValue = Int
+    case left // = 0
+    case center // = 1
+    case right // = 2
+    case UNRECOGNIZED(Int)
+
+    init() {
+      self = .left
+    }
+
+    init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .left
+      case 1: self = .center
+      case 2: self = .right
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    var rawValue: Int {
+      switch self {
+      case .left: return 0
+      case .center: return 1
+      case .right: return 2
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -519,11 +626,6 @@ struct Anytype_Model_Block {
         set {_uniqueStorage()._color = newValue}
       }
 
-      var backgroundColor: String {
-        get {return _storage._backgroundColor}
-        set {_uniqueStorage()._backgroundColor = newValue}
-      }
-
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
       enum Style: SwiftProtobuf.Enum {
@@ -800,9 +902,8 @@ struct Anytype_Model_Block {
 
         /// Page, that organize a set of blocks by a specific criterio
         case set // = 2
-
-        /// ...
-        case breadcrumbs // = 3
+        case profile // = 3
+        case breadcrumbs // = 101
         case UNRECOGNIZED(Int)
 
         init() {
@@ -814,7 +915,8 @@ struct Anytype_Model_Block {
           case 0: self = .empty
           case 1: self = .task
           case 2: self = .set
-          case 3: self = .breadcrumbs
+          case 3: self = .profile
+          case 101: self = .breadcrumbs
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -824,7 +926,8 @@ struct Anytype_Model_Block {
           case .empty: return 0
           case .task: return 1
           case .set: return 2
-          case .breadcrumbs: return 3
+          case .profile: return 3
+          case .breadcrumbs: return 101
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -854,6 +957,15 @@ extension Anytype_Model_Block.Position: CaseIterable {
     .right,
     .inner,
     .replace,
+  ]
+}
+
+extension Anytype_Model_Block.Align: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Anytype_Model_Block.Align] = [
+    .left,
+    .center,
+    .right,
   ]
 }
 
@@ -1067,6 +1179,51 @@ extension Anytype_Model_LinkPreview.TypeEnum: CaseIterable {
 
 fileprivate let _protobuf_package = "anytype.model"
 
+extension Anytype_Model_SmartBlock: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SmartBlock"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "type"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.id)
+      case 2: try decoder.decodeSingularEnumField(value: &self.type)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if self.type != .dashboard {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Model_SmartBlock, rhs: Anytype_Model_SmartBlock) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_SmartBlock.TypeEnum: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Dashboard"),
+    1: .same(proto: "Page"),
+    2: .same(proto: "Archive"),
+    3: .same(proto: "Breadcrumbs"),
+    4: .same(proto: "Dataview"),
+  ]
+}
+
 extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Block"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1074,6 +1231,8 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     2: .same(proto: "fields"),
     3: .same(proto: "restrictions"),
     4: .same(proto: "childrenIds"),
+    5: .same(proto: "backgroundColor"),
+    6: .same(proto: "align"),
     11: .same(proto: "dashboard"),
     12: .same(proto: "page"),
     13: .same(proto: "dataview"),
@@ -1091,6 +1250,8 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _fields: SwiftProtobuf.Google_Protobuf_Struct? = nil
     var _restrictions: Anytype_Model_Block.Restrictions? = nil
     var _childrenIds: [String] = []
+    var _backgroundColor: String = String()
+    var _align: Anytype_Model_Block.Align = .left
     var _content: Anytype_Model_Block.OneOf_Content?
 
     static let defaultInstance = _StorageClass()
@@ -1102,6 +1263,8 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       _fields = source._fields
       _restrictions = source._restrictions
       _childrenIds = source._childrenIds
+      _backgroundColor = source._backgroundColor
+      _align = source._align
       _content = source._content
     }
   }
@@ -1122,6 +1285,8 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         case 2: try decoder.decodeSingularMessageField(value: &_storage._fields)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._restrictions)
         case 4: try decoder.decodeRepeatedStringField(value: &_storage._childrenIds)
+        case 5: try decoder.decodeSingularStringField(value: &_storage._backgroundColor)
+        case 6: try decoder.decodeSingularEnumField(value: &_storage._align)
         case 11:
           var v: Anytype_Model_Block.Content.Dashboard?
           if let current = _storage._content {
@@ -1222,6 +1387,12 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       if !_storage._childrenIds.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._childrenIds, fieldNumber: 4)
       }
+      if !_storage._backgroundColor.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._backgroundColor, fieldNumber: 5)
+      }
+      if _storage._align != .left {
+        try visitor.visitSingularEnumField(value: _storage._align, fieldNumber: 6)
+      }
       switch _storage._content {
       case .dashboard(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
@@ -1258,6 +1429,8 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         if _storage._fields != rhs_storage._fields {return false}
         if _storage._restrictions != rhs_storage._restrictions {return false}
         if _storage._childrenIds != rhs_storage._childrenIds {return false}
+        if _storage._backgroundColor != rhs_storage._backgroundColor {return false}
+        if _storage._align != rhs_storage._align {return false}
         if _storage._content != rhs_storage._content {return false}
         return true
       }
@@ -1277,6 +1450,14 @@ extension Anytype_Model_Block.Position: SwiftProtobuf._ProtoNameProviding {
     4: .same(proto: "Right"),
     5: .same(proto: "Inner"),
     6: .same(proto: "Replace"),
+  ]
+}
+
+extension Anytype_Model_Block.Align: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "AlignLeft"),
+    1: .same(proto: "AlignCenter"),
+    2: .same(proto: "AlignRight"),
   ]
 }
 
@@ -1661,7 +1842,6 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
     3: .same(proto: "marks"),
     4: .same(proto: "checked"),
     5: .same(proto: "color"),
-    6: .same(proto: "backgroundColor"),
   ]
 
   fileprivate class _StorageClass {
@@ -1670,7 +1850,6 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
     var _marks: Anytype_Model_Block.Content.Text.Marks? = nil
     var _checked: Bool = false
     var _color: String = String()
-    var _backgroundColor: String = String()
 
     static let defaultInstance = _StorageClass()
 
@@ -1682,7 +1861,6 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
       _marks = source._marks
       _checked = source._checked
       _color = source._color
-      _backgroundColor = source._backgroundColor
     }
   }
 
@@ -1703,7 +1881,6 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
         case 3: try decoder.decodeSingularMessageField(value: &_storage._marks)
         case 4: try decoder.decodeSingularBoolField(value: &_storage._checked)
         case 5: try decoder.decodeSingularStringField(value: &_storage._color)
-        case 6: try decoder.decodeSingularStringField(value: &_storage._backgroundColor)
         default: break
         }
       }
@@ -1727,9 +1904,6 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
       if !_storage._color.isEmpty {
         try visitor.visitSingularStringField(value: _storage._color, fieldNumber: 5)
       }
-      if !_storage._backgroundColor.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._backgroundColor, fieldNumber: 6)
-      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1744,7 +1918,6 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
         if _storage._marks != rhs_storage._marks {return false}
         if _storage._checked != rhs_storage._checked {return false}
         if _storage._color != rhs_storage._color {return false}
-        if _storage._backgroundColor != rhs_storage._backgroundColor {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -2007,7 +2180,8 @@ extension Anytype_Model_Block.Content.Page.Style: SwiftProtobuf._ProtoNameProvid
     0: .same(proto: "Empty"),
     1: .same(proto: "Task"),
     2: .same(proto: "Set"),
-    3: .same(proto: "Breadcrumbs"),
+    3: .same(proto: "Profile"),
+    101: .same(proto: "Breadcrumbs"),
   ]
 }
 

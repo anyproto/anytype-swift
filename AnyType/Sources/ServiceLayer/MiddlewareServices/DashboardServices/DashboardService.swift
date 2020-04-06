@@ -31,17 +31,23 @@ class DashboardService: DashboardServiceProtocol {
     }
     
     func createPage(contextId: String) -> AnyPublisher<Void, Error> {
-        var emptyPageBlock = Anytype_Model_Block()
-        var pageContent = Anytype_Model_Block.Content.Page()
-        pageContent.style = .empty
-        emptyPageBlock.content = Anytype_Model_Block.OneOf_Content.page(pageContent)
-        emptyPageBlock.fields = emptyPageBlock.fields
-        emptyPageBlock.fields.fields = emptyPageBlock.fields.fields
-        emptyPageBlock.fields.fields["icon"] = .init(stringValue: "")
-        emptyPageBlock.fields.fields["name"] = .init(stringValue: "Untitled")
         
-        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: "", block: emptyPageBlock, position: .bottom)
+        let details: Google_Protobuf_Struct = .init()
+        let position: Anytype_Model_Block.Position = .bottom
+        
+        return Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextId, targetID: "", details: details, position: position)
             .successToVoid()
             .eraseToAnyPublisher()
+        //        var emptyPageBlock = Anytype_Model_Block()
+        //        var pageContent = Anytype_Model_Block.Content.Page()
+        //        pageContent.style = .empty
+        //        emptyPageBlock.content = Anytype_Model_Block.OneOf_Content.page(pageContent)
+        //        emptyPageBlock.fields = emptyPageBlock.fields
+        //        emptyPageBlock.fields.fields = emptyPageBlock.fields.fields
+        //        emptyPageBlock.fields.fields["icon"] = .init(stringValue: "")
+        //        emptyPageBlock.fields.fields["name"] = .init(stringValue: "Untitled")
+        //        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: "", block: emptyPageBlock, position: .bottom)
+//            .successToVoid()
+//            .eraseToAnyPublisher()
     }
 }
