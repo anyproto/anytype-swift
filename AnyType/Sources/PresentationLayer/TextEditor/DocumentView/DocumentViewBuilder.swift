@@ -26,8 +26,8 @@ enum DocumentViewBuilder {
     // Update controller not called. Ha.ha.ha.
     private static func create(by request: Request) -> AnyView {
         if request.useUIKit {
-            let viewModel = DocumentViewModel(documentId: request.id)
-            return .init(DocumentViewRepresentable(viewModel: viewModel))
+            let viewModel = DocumentViewModel(documentId: request.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
+            return .init(DocumentViewRepresentable.create(viewModel: viewModel))
         }
         let viewModel = Legacy_DocumentViewModel(documentId: request.id)
         return .init(Legacy_DocumentView(viewModel: viewModel))

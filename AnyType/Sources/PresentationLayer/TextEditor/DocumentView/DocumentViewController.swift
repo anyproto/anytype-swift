@@ -15,18 +15,37 @@ import Combine
 class DocumentViewController: UIViewController {
     typealias ViewModel = DocumentViewModel
     
-    @Environment(\.developerOptions) var developerOptions
+    /// Environment
+    @Environment(\.developerOptions) private var developerOptions
     
-    var contentView: UIView?
-    var tableView: UITableViewController?
+    /// Views
+    private var contentView: UIView?
+    private var tableView: UITableViewController?
     
-    var dataSource: UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>?
+    /// DataSource
+    private var dataSource: UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>?
     
-    var model: ViewModel?
+    /// Actions
+    private var tableViewTapGestureRecognizer: UITapGestureRecognizer = .init()
     
-    var subscriptions: Set<AnyCancellable> = []
+    /// Decorations of UIKit
+    private var cellHeightsStorage: CellsHeightsStorage = .init()
     
-    var cellHeightsStorage: CellsHeightsStorage = .init()
+    /// Model
+    private var model: ViewModel?
+    
+    /// Combine
+    private var subscriptions: Set<AnyCancellable> = []
+    
+    // MARK: - Initialization
+    init(viewModel: ViewModel) {
+        self.model = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 // MARK: - CellsHeightsStorage
@@ -50,10 +69,9 @@ extension DocumentViewController {
 }
 
 // MARK: - Configuration
-extension DocumentViewController {
-    func configured(_ model: ViewModel) -> Self {
-        self.model = model
-        
+/// Warning! Call these methods only after `viewDidLoad`
+private extension DocumentViewController {
+    func configured() {        
         self.model?.$buildersRows.sink(receiveValue: { [weak self] (value) in
             self?.updateData(value)
         }).store(in: &self.subscriptions)
@@ -61,8 +79,24 @@ extension DocumentViewController {
         self.model?.anyFieldPublisher.sink(receiveValue: { [weak self] (value) in
             self?.updateView()
         }).store(in: &self.subscriptions)
-        
-        return self
+    }
+    
+    func configured(_ options: ViewModel.Options) {
+        if options.shouldCreateEmptyBlockOnTapIfListIsEmpty {
+            self.tableViewTapGestureRecognizer.addTarget(self, action: #selector(createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler))
+            view.addGestureRecognizer(self.tableViewTapGestureRecognizer)
+        }
+        else {
+            self.tableViewTapGestureRecognizer.removeTarget(self, action: #selector(createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler))
+            view.removeGestureRecognizer(self.tableViewTapGestureRecognizer)
+        }
+    }
+}
+
+// MARK: Gesture Recognizer
+extension DocumentViewController {
+    @objc func createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler() {
+        self.model?.handlingTapIfEmpty()
     }
 }
 
@@ -72,14 +106,11 @@ extension DocumentViewController {
         self.setupElements()
         self.setupTableView()
         self.setupDataSource()
-        self.setupNavigation()
         self.addLayout()
+        self.setupUserInteractions()
+        self.setupInteractions()
     }
-    
-    func setupNavigation() {
-        //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(reactOnSaveDidPressed))
-    }
-    
+        
     func setupElements() {
         let contentView = UIView()
         self.contentView = contentView
@@ -139,6 +170,17 @@ extension DocumentViewController {
             view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
             view.translatesAutoresizingMaskIntoConstraints = false
         }
+    }
+    
+    func setupUserInteractions() {
+        self.tableView?.tableView.addGestureRecognizer(self.tableViewTapGestureRecognizer)
+    }
+    
+    func setupInteractions() {
+        self.configured()
+        self.model?.$options.sink(receiveValue: { [weak self] (options) in
+            self?.configured(options)
+        }).store(in: &self.subscriptions)
     }
 }
 

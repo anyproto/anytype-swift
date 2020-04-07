@@ -41,6 +41,18 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
     
     private var treeTextViewUserInteractor: BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor<DocumentViewModel>?
     
+    /// Structure contains `Feature Flags`.
+    ///
+    struct Options {
+        var shouldCreateEmptyBlockOnTapIfListIsEmpty: Bool = false
+    }
+    
+    /// Options property publisher.
+    /// We expect that `ViewController` will listen this property.
+    /// `ViewController` should sink on this property after `viewDidLoad`.
+    ///
+    @Published var options: Options = .init()
+    
     @Published var error: String?
     @Published var rootViewModel: BlocksViews.Base.ViewModel?
     @Published var rootModel: RootModel? {
@@ -69,12 +81,14 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
     
     // MARK: Lifecycle
     
-    init(documentId: String?) {
+    init(documentId: String?, options: Options) {
         // TODO: Add failable init.
         let logger = Logging.createLogger(category: .treeViewModel)
         os_log(.debug, log: logger, "Don't forget to change to failable init?() .")
         
         guard let documentId = documentId else { return }
+        
+        self.options = options
         
         self.blockActionsService.eventListener.receive(contextId: documentId).sink { [weak self] (value) in
             if self?.internalState != .ready {
@@ -187,6 +201,13 @@ private extension DocumentViewModel {
     
     func cleanupSubscriptions() {
         self.subscriptions.cancelAll()
+    }
+}
+
+// MARK: - On Tap Gesture
+extension DocumentViewModel {
+    func handlingTapIfEmpty() {
+        self.treeTextViewUserInteractor?.createEmptyBlock(listIsEmpty: self.state == .empty)
     }
 }
 

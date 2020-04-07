@@ -67,6 +67,32 @@ extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
     }
 }
 
+// MARK: TODO - Move to enum or wrap in another protocol
+extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
+    func createEmptyBlock(listIsEmpty: Bool) {
+        if listIsEmpty {
+            let information: BlockModels.Block.Information = .init(id: "", content: .text(.init(text: "", contentType: .text)))
+            let newBlock: Model = .init(information: information, true)
+            let afterInformation: BlockModels.Block.Information = .init(id: "", content: .text(.init(text: "", contentType: .text)))
+            let afterBlock: Model = .init(information: afterInformation, false)
+            
+            /// You would like to insert object at first position, but this object don't have siblings. It is the only one child. First child.
+            /// Ok, you have to configure rootId of a tree. It is an entry point of the model.
+            /// Next, you create first index for an object at position at 0.
+            /// Final IndexPath would be [1, 0]
+            /// Element at first level with position 0.
+            ///
+            afterBlock.indexPath = BlockModels.Utilities.IndexGenerator.rootID()
+            let desiredIndexPath = afterBlock.createIndex(for: 0)
+            afterBlock.indexPath = desiredIndexPath
+            self.ourService.add(documentId: self.documentId, newBlock: newBlock, afterBlock: afterBlock, position: .top)
+        }
+        else {
+            // Unknown for now.
+        }
+    }
+}
+
 // MARK: TextBlocksViewsUserInteractionProtocol
 extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor: TextBlocksViewsUserInteractionProtocol {
     /// Process/Receive actions as TextView.UserAction enumeration.
@@ -212,7 +238,7 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
         init(_ value: TreeUpdater<T>) {
             self.updater = value
         }
-        
+                
         func add(documentId: String?, newBlock: Model, afterBlock: Model, position: Anytype_Model_Block.Position = .bottom) {
             // insert block after block
             // we could catch events and update model.
@@ -229,7 +255,6 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
             }
             
             let targetId = afterBlock.information.id
-            let position: Anytype_Model_Block.Position = .bottom
             
             self.service.add.action(contextID: documentId, targetID: targetId, block: addedBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
                 switch value {
@@ -241,7 +266,28 @@ private extension BlocksViews.Base.Utilities.TreeTextBlocksUserInteractor {
             }) { [weak self] (value) in
                 let ourNewBlock = newBlock
                 ourNewBlock.information.id = value.blockID
-                self?.updater.insert(block: ourNewBlock, afterBlock: afterBlock.getFullIndex())
+
+                /// Look at this logic.
+                /// else clause is obvious. You want to insert an object `after` some position.
+                /// For exampe, you would like to insert object `after` 0.
+                /// It means that new position will be equal to 1.
+                /// [a]
+                /// [a, b]
+                /// Nice.
+                ///
+                /// Now look at if clause. You want to insert an object `above` some position.
+                /// For example, you would like to insert object `before` 0.
+                /// It means that new position will be equal to 0.
+                /// [b]
+                /// [a, b]
+                ///
+
+                if position == .top {
+                    self?.updater.insert(block: ourNewBlock, at: afterBlock.getFullIndex())
+                }
+                else {
+                    self?.updater.insert(block: ourNewBlock, afterBlock: afterBlock.getFullIndex())
+                }
             }.store(in: &self.subscriptions)
         }
         
