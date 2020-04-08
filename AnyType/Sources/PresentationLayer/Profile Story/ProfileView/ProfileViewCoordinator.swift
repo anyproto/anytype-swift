@@ -9,8 +9,8 @@
 
 final class ProfileViewCoordinator {
     private let profileService = ProfileService()
-    private let textilAuthService = AuthService()
-    private lazy var viewModel = ProfileViewModel(profileService: profileService, authService: textilAuthService)
+    private let authService = AuthService()
+    private lazy var viewModel = ProfileViewModel(profileService: profileService, authService: authService)
     
     var profileView: ProfileView {
         return ProfileView(model: viewModel)

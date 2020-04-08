@@ -140,7 +140,7 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     func showHomeView() {
-        let homeAssembly = HomeViewContainerAssembly()
-        applicationCoordinator?.startNewRootView(content: homeAssembly.createHomeViewContainer())
+        let homeAssembly = HomeViewAssembly()
+        applicationCoordinator?.startNewRootView(content: homeAssembly.createHomeView())
     }
 }

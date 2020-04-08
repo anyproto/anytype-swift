@@ -11,6 +11,10 @@ import UIKit
 import SwiftUI // Required by current ViewModels.
 import Combine
 
+protocol DocumentViewControllerDelegate: class  {
+    func didTapBackButton()
+}
+
 // MARK: - This is view controller that will handle everything for us.
 class DocumentViewController: UIViewController {
     typealias ViewModel = DocumentViewModel
@@ -18,33 +22,138 @@ class DocumentViewController: UIViewController {
     /// Environment
     @Environment(\.developerOptions) private var developerOptions
     
-    /// Views
-    private var contentView: UIView?
-    private var tableView: UITableViewController?
-    
     /// DataSource
     private var dataSource: UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>?
-    
-    /// Actions
-    private var tableViewTapGestureRecognizer: UITapGestureRecognizer = .init()
-    
-    /// Decorations of UIKit
-    private var cellHeightsStorage: CellsHeightsStorage = .init()
-    
+
     /// Model
     private var model: ViewModel?
-    
+
     /// Combine
     private var subscriptions: Set<AnyCancellable> = []
-    
-    // MARK: - Initialization
+
+    /// Decorations of UIKit
+    private var cellHeightsStorage: CellsHeightsStorage = .init()
+
+    /// Delegates
+    weak var delegate: DocumentViewControllerDelegate?
+
+    /// Actions
+    private var tableViewTapGestureRecognizer: UITapGestureRecognizer = .init()
+
+    /// Views
+    private lazy var tableView: UITableView = {
+        var tableView = UITableView()
+        var tableViewController = UITableViewController()
+        tableView = tableViewController.tableView
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+
+        // add tvc to parent vc
+        self.view.addSubview(tableView)
+        self.addChild(tableViewController)
+        tableViewController.didMove(toParent: self)
+
+        return tableView
+    }()
+
+    private lazy var headerView: DocumentViewController.HeaderView = {
+        let headerView = HeaderView { [weak self] in
+            self?.delegate?.didTapBackButton()
+        }
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        return headerView
+    }()
+
+    // Initialization
     init(viewModel: ViewModel) {
         self.model = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - View lifecycle
+extension DocumentViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupUI()
+        // TODO: Redone on top of Combine.
+        // We should fire event, when somebody is subscribed buildersRows.
+        self.updateData(self.model?.buildersRows ?? [])
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+}
+
+// MARK: - Setup
+extension DocumentViewController {
+    private func setupUI() {
+        self.setupElements()
+        self.setupTableView()
+        self.setupDataSource()
+        self.setupLayout()
+        self.setupUserInteractions()
+        self.setupInteractions()
+    }
+
+    private func setupElements() {
+        self.view.addSubview(headerView)
+        self.view.addSubview(tableView)
+    }
+
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.topAnchor.constraint(equalTo: view.topAnchor),
+
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        ])
+    }
+
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.sectionHeaderHeight = 0
+        tableView.separatorStyle = .none
+        tableView.allowsSelection = false
+
+        // register cells.
+        tableView.register(DocumentViewCells.Cell.self, forCellReuseIdentifier: DocumentViewCells.Cell.cellReuseIdentifier())
+    }
+
+    private func setupDataSource() {
+        self.dataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>.init(tableView: tableView, cellProvider: { (tableView, indexPath, entry) -> UITableViewCell? in
+            let useUIKit = !self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell
+            let shouldShowIndent = self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation
+            let isImage = (entry.builder is ImageBlocksViews.Base.BlockViewModel)
+            if let cell = tableView.dequeueReusableCell(withIdentifier: DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath) as? DocumentViewCells.Cell {
+                _ = cell.configured(useUIKit: useUIKit && !isImage).configured(shouldShowIndent: shouldShowIndent).configured(entry)
+                return cell
+            }
+            return UITableViewCell.init()
+        })
+        self.tableView.dataSource = self.dataSource
+    }
+
+    func setupUserInteractions() {
+        self.tableView.addGestureRecognizer(self.tableViewTapGestureRecognizer)
+    }
+
+    func setupInteractions() {
+        self.configured()
+        self.model?.$options.sink(receiveValue: { [weak self] (options) in
+            self?.configured(options)
+        }).store(in: &self.subscriptions)
     }
 }
 
@@ -63,11 +172,6 @@ extension DocumentViewController {
     }
 }
 
-// MARK: - Navigation
-extension DocumentViewController {
-    class NavigationBar: UINavigationBar {}
-}
-
 // MARK: - Configuration
 /// Warning! Call these methods only after `viewDidLoad`
 private extension DocumentViewController {
@@ -80,7 +184,7 @@ private extension DocumentViewController {
             self?.updateView()
         }).store(in: &self.subscriptions)
     }
-    
+
     func configured(_ options: ViewModel.Options) {
         if options.shouldCreateEmptyBlockOnTapIfListIsEmpty {
             self.tableViewTapGestureRecognizer.addTarget(self, action: #selector(createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler))
@@ -100,90 +204,6 @@ extension DocumentViewController {
     }
 }
 
-// MARK: - Setup
-extension DocumentViewController {
-    func setupUI() {
-        self.setupElements()
-        self.setupTableView()
-        self.setupDataSource()
-        self.addLayout()
-        self.setupUserInteractions()
-        self.setupInteractions()
-    }
-        
-    func setupElements() {
-        let contentView = UIView()
-        self.contentView = contentView
-        self.view.addSubview(contentView)
-    }
-    
-    func setupTableView() {
-        let tableView = UITableViewController(style: .grouped)
-        
-        tableView.tableView.dataSource = self
-        tableView.tableView.delegate = self
-        if let view = tableView.view {
-            self.contentView?.addSubview(view)
-        }
-        tableView.tableView.estimatedRowHeight = 60
-        tableView.tableView.rowHeight = UITableView.automaticDimension
-        tableView.tableView.sectionHeaderHeight = 0
-        tableView.tableView.separatorStyle = .none
-        tableView.tableView.allowsSelection = false
-        
-        // register cells.
-        tableView.tableView.register(DocumentViewCells.Cell.self, forCellReuseIdentifier: DocumentViewCells.Cell.cellReuseIdentifier())
-        
-        self.tableView = tableView
-    }
-    
-    func setupDataSource() {
-        if let tableView = self.tableView?.tableView {
-            self.dataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>.init(tableView: tableView, cellProvider: { (tableView, indexPath, entry) -> UITableViewCell? in
-                let useUIKit = !self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell
-                let shouldShowIndent = self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation
-                let isImage = (entry.builder is ImageBlocksViews.Base.BlockViewModel)
-                if let cell = tableView.dequeueReusableCell(withIdentifier: DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath) as? DocumentViewCells.Cell {
-                    _ = cell.configured(useUIKit: useUIKit && !isImage).configured(shouldShowIndent: shouldShowIndent).configured(entry)
-                    return cell
-                }
-                return UITableViewCell.init()
-            })
-            //            self.dataSource?.defaultRowAnimation = .none
-        }
-        
-        self.tableView?.tableView.dataSource = self.dataSource
-    }
-    
-    func addLayout() {
-        if let view = self.contentView, let superview = view.superview {
-            view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-            view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-            view.translatesAutoresizingMaskIntoConstraints = false
-        }
-        if let view = self.tableView?.tableView, let superview = view.superview {
-            view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-            view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-            view.translatesAutoresizingMaskIntoConstraints = false
-        }
-    }
-    
-    func setupUserInteractions() {
-        self.tableView?.tableView.addGestureRecognizer(self.tableViewTapGestureRecognizer)
-    }
-    
-    func setupInteractions() {
-        self.configured()
-        self.model?.$options.sink(receiveValue: { [weak self] (options) in
-            self?.configured(options)
-        }).store(in: &self.subscriptions)
-    }
-}
-
 // MARK: - Initial Update data
 extension DocumentViewController {
     func updateView() {
@@ -194,40 +214,23 @@ extension DocumentViewController {
             // it works...
             // I guess..
             // Thanks! https://stackoverflow.com/a/51048044/826614
-            guard let tableView = self.tableView?.tableView else { return }
-            let lastContentOffset = tableView.contentOffset
-            tableView.beginUpdates()
-            tableView.endUpdates()
-            tableView.layer.removeAllAnimations()
-            tableView.setContentOffset(lastContentOffset, animated: false)
+            let lastContentOffset = self.tableView.contentOffset
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
+            self.tableView.layer.removeAllAnimations()
+            self.tableView.setContentOffset(lastContentOffset, animated: false)
         }
     }
     
     func updateData(_ rows: [ViewModel.Row]) {
         guard let model = self.model, let dataSource = self.dataSource else { return }
-                
+
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
         snapshot.deleteSections([ViewModel.Section.first])
         snapshot.appendSections([ViewModel.Section.first])
         snapshot.appendItems(rows)
         dataSource.apply(snapshot)
-    }
-}
-
-// MARK: - View lifecycle
-extension DocumentViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupUI()
-        // TODO: Redone on top of Combine.
-        // We should fire event, when somebody is subscribed buildersRows.
-        self.updateData(self.model?.buildersRows ?? [])
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tableView?.viewWillAppear(animated)
     }
 }
 

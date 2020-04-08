@@ -100,7 +100,7 @@ class InMemoryStoreFacade: InMemoryStoreStorageHolderWithKeyStringAndValueAnyPro
         self.add(PageToggleStore())
     }
     
-    init() {
+    private init() {
         self.setup()
     }
     

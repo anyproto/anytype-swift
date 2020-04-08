@@ -9,11 +9,12 @@
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    var homeCollectionViewAssembly: HomeCollectionViewAssembly
     @Environment(\.developerOptions) private var developerOptions
+    var homeCollectionViewAssembly: HomeCollectionViewAssembly
     var user: UserModel = .init()
     var cachedDocumentView: AnyView?
     var documentViewId: String = ""
+
     init(homeCollectionViewAssembly: HomeCollectionViewAssembly) {
         self.homeCollectionViewAssembly = homeCollectionViewAssembly
     }

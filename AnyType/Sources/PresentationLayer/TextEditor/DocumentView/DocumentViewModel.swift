@@ -67,7 +67,7 @@ class DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
             self.enhance(self.builders)
         }
     }
-    
+
     private var shouldClosePagePublisher: CurrentValueSubject<Bool, Error> = .init(false)
     private var internalState: State = .loading
         

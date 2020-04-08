@@ -38,8 +38,8 @@ class ApplicationCoordinator {
     
     func startBegin() {
         if developerOptions.current.workflow.authentication.shouldSkipLogin {
-            let homeAssembly = HomeViewContainerAssembly()
-            let view = homeAssembly.createHomeViewContainer()
+            let homeAssembly = HomeViewAssembly()
+            let view = homeAssembly.createHomeView()
             self.startNewRootView(content: view)
         }
         else {
@@ -81,8 +81,8 @@ extension ApplicationCoordinator {
         self.authService.selectAccount(id: id, path: localRepoService.middlewareRepoPath) { [weak self] result in
             switch result {
             case .success:
-                 let homeAssembly = HomeViewContainerAssembly()
-                 let view = homeAssembly.createHomeViewContainer()
+                 let homeAssembly = HomeViewAssembly()
+                 let view = homeAssembly.createHomeView()
                 self?.startNewRootView(content: view)
             case .failure:
                 let view = MainAuthView(viewModel: MainAuthViewModel())

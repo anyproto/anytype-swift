@@ -9,40 +9,28 @@
 import SwiftUI
 
 struct ProfileView: View {
-    private let defautlNavbarImage = UINavigationBar.appearance().backgroundImage(for: .default)
-
     @ObservedObject var model: ProfileViewModel
     
     var body: some View {
         NavigationView {
-            ZStack {
-                LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
-                    .edgesIgnoringSafeArea(.all)
+        ZStack {
+            LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
 
-                VStack(alignment: .leading, spacing: 20) {
-                    ProfileSectionView(model: model)
-                    SettingsSectionView()
-                    StandardButton(disabled: false, text: "Log out", style: .white) {
-                        self.model.logout()
-                    }
-                    .padding(.horizontal, 20)
+            VStack(alignment: .leading, spacing: 20) {
+                ProfileSectionView(model: model)
+                SettingsSectionView()
+                StandardButton(disabled: false, text: "Log out", style: .white) {
+                    self.model.logout()
                 }
-                .padding([.leading, .trailing], 20)
+                .padding(.horizontal, 20)
             }
-            .navigationBarHidden(true)
-            .navigationBarTitle("", displayMode: .inline)
+            .padding([.leading, .trailing], 20)
         }
+        .navigationBarHidden(false)
+        .navigationBarTitle("", displayMode: .inline)
         .errorToast(isShowing: $model.isShowingError, errorText: model.error)
-        .onAppear(perform: onAppear)
-        .onDisappear(perform: onDisappear)
-    }
-    
-    private func onAppear() {
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-    }
-    
-    private func onDisappear() {
-        UINavigationBar.appearance().setBackgroundImage(defautlNavbarImage, for: .default)
+        }.navigationBarHidden(false)
     }
 }
 
