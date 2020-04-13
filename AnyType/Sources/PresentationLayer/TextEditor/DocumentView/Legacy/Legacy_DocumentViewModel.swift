@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import os
 
-class Legacy_DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolder {
+class Legacy_DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolder {
     private let documentService: DocumentServiceProtocol = TestDocumentService()
     private var documentHeader: DocumentHeader?
     
@@ -26,7 +26,7 @@ class Legacy_DocumentViewModel: ObservableObject, BlockViewBuildersProtocolHolde
         }
     }
     
-    var textViewUserInteractor: BlocksViews.Base.Utilities.TextBlocksUserInteractor<Legacy_DocumentViewModel>?
+    var textViewUserInteractor: BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor<Legacy_DocumentViewModel>?
     var internalState: State = .loading
     
     

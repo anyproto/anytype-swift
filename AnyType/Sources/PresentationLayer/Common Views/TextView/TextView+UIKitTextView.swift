@@ -8,9 +8,13 @@
 
 import Foundation
 import UIKit
+import Combine
 
 extension TextView {
     class UIKitTextView: UIView {
+        // MARK: Combine
+        private var subscriptions: Set<AnyCancellable> = []
+        
         // MARK: ViewModel
         weak var model: ViewModel?
         
@@ -49,7 +53,14 @@ extension TextView {
         
         // MARK: Setup Interactions
         private func setupInteractions() {
-            _ = self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)})
+            
+            /// TODO: Fix it.
+            /// It will be correct after we get it right after Marks PR.
+            ///
+            self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)})//.store(in: &self.subscriptions)
+            self.model?.$shouldSetFocus.sink(receiveValue: { [weak self] (value) in
+                self?.onSetFocus(value)
+            }).store(in: &self.subscriptions)
         }
         
         // MARK: UI Elements
@@ -114,8 +125,17 @@ extension TextView.UIKitTextView {
                 self.textView.textStorage.setAttributedString(text)
             }
             else {
-                self.textView.textStorage.replaceCharacters(in: NSRange.init(location: 0, length: self.textView.textStorage.length), with: value)
+                self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
             }
+        }
+    }
+}
+
+// MARK: Focus
+extension TextView.UIKitTextView {
+    func onSetFocus(_ value: Bool) {
+        if value {
+            self.textView.becomeFirstResponder()
         }
     }
 }

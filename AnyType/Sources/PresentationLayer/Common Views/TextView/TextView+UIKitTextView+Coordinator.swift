@@ -270,7 +270,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         if text == "\n" {
             // we should return false and perform update by ourselves.
             switch (textView.text, range) {
-            case (_, .init(location: 1, length: 0)): textView.text = ""
+            case (_, .init(location: 0, length: 0)): textView.text = ""
                 return false
             case let (source, at) where source?.count == at.location + at.length:
                 return false

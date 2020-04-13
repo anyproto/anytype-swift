@@ -108,6 +108,13 @@ extension TextBlocksViews.Base.BlockViewModel {
     }
 }
 
+// MARK: - Focus
+extension TextBlocksViews.Base.BlockViewModel {
+    func set(focus: Bool) {
+        self.textViewModel.shouldSetFocus = focus
+    }
+}
+
 // MARK: - TextBlocksViewsUserInteractionProtocolHolder
 extension TextBlocksViews.Base.BlockViewModel: TextBlocksViewsUserInteractionProtocolHolder {
     func configured(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self? {

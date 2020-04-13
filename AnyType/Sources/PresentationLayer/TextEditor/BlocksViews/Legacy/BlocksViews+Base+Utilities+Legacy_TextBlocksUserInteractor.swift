@@ -1,5 +1,5 @@
 //
-//  BlocksViews+Base+Utilities+TextBlocksUserInteractor.swift
+//  BlocksViews+Base+Utilities+Legacy_TextBlocksUserInteractor.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 18.02.2020.
@@ -7,18 +7,19 @@
 //
 
 import Foundation
+#warning("DeveloperMessages.FileIsDeprecated")
 
 extension BlocksViews.Base.Utilities {
     // Add AnyUpdater (?) // Do we really need it?
-    class TextBlocksUserInteractor<T: BlockViewBuildersProtocolHolder> {
+    class Legacy_TextBlocksUserInteractor<T: Legacy_BlockViewBuildersProtocolHolder> {
         typealias Index = BusinessBlock.Index
         typealias Model = BlockModels.Block.RealBlock
-        var updater: SequenceUpdater<T>
+        var updater: Legacy_SequenceUpdater<T>
         
         init(_ value: T) {
-            self.updater = SequenceUpdater.init(value: value)
+            self.updater = Legacy_SequenceUpdater.init(value: value)
         }
-//        init(_ value: SequenceUpdater<T>) {
+//        init(_ value: Legacy_SequenceUpdater<T>) {
 //            self.updater = value as AnyUpdater<Index, Model>
 //            self.updater = value
 //        }
@@ -26,7 +27,7 @@ extension BlocksViews.Base.Utilities {
 }
 
 // MARK: TextBlocksViewsUserInteractionProtocol
-extension BlocksViews.Base.Utilities.TextBlocksUserInteractor: TextBlocksViewsUserInteractionProtocol {
+extension BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor: TextBlocksViewsUserInteractionProtocol {
     func didReceiveAction(block: Model, id: Index, action: TextView.UserAction) {
         switch action {
         case let .blockAction(action): self.handlingBlockAction(block, id, action)
@@ -42,7 +43,7 @@ extension BlocksViews.Base.Utilities.TextBlocksUserInteractor: TextBlocksViewsUs
 }
 
 // MARK: Handling / KeyboardAction
-private extension BlocksViews.Base.Utilities.TextBlocksUserInteractor {
+private extension BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor {
     func handlingKeyboardAction(_ block: Model, _ id: Index, _ action: TextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
@@ -65,7 +66,7 @@ private extension BlocksViews.Base.Utilities.TextBlocksUserInteractor {
 }
 
 // MARK: BlockBuilder
-private extension BlocksViews.Base.Utilities.TextBlocksUserInteractor {
+private extension BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor {
     struct BlockBuilder {
         static func newBlockId() -> Block.ID { UUID().uuidString }
         static func createBlock(for outerBlock: Model, _ id: Index, _ action: TextView.UserAction.KeyboardAction, _ textPayload: String) -> Model? {
@@ -124,7 +125,7 @@ private extension BlocksViews.Base.Utilities.TextBlocksUserInteractor {
 }
 
 // MARK: Handling / BlockAction
-private extension BlocksViews.Base.Utilities.TextBlocksUserInteractor {
+private extension BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor {
     func handlingBlockAction(_ block: Model, _ id: Index, _ action: TextView.UserAction.BlockAction) {
         switch action {
         case .addBlock(_):
@@ -178,7 +179,7 @@ extension ComparatorAndConvertor {
     }
 }
 
-private extension BlocksViews.Base.Utilities.TextBlocksUserInteractor {
+private extension BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor {
     struct BlockActionComparator {
         private struct ForText: ComparatorAndConvertor {
             static func convert(_ type: TextView.UserAction.BlockAction.BlockType.Text) -> BlockType.Text.ContentType {

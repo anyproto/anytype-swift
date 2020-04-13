@@ -1,5 +1,5 @@
 //
-//  BlocksViews+Base+Utilities+SequenceUpdater.swift
+//  BlocksViews+Base+Utilities+Legacy_SequenceUpdater.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 18.02.2020.
@@ -7,10 +7,11 @@
 //
 
 import Foundation
+#warning("DeveloperMessages.FileIsDeprecated")
 
 // MARK: Updater
 extension BlocksViews.Base.Utilities {
-    class SequenceUpdater<Wrapped: BlockViewBuildersProtocolHolder> {
+    class Legacy_SequenceUpdater<Wrapped: Legacy_BlockViewBuildersProtocolHolder> {
         typealias Model = BlockViewBuilderProtocol.Model
         typealias Key = BlockViewBuilderProtocol.IndexID
         var value: Wrapped
@@ -33,7 +34,7 @@ extension BlocksViews.Base.Utilities {
 }
 
 // MARK: Update builders.
-extension BlocksViews.Base.Utilities.SequenceUpdater {
+extension BlocksViews.Base.Utilities.Legacy_SequenceUpdater {
     private func syncDictionary(_ values: [Key]) {
         self.indexDictionary.update(values)
     }
@@ -44,7 +45,7 @@ extension BlocksViews.Base.Utilities.SequenceUpdater {
 }
 
 // MARK: Updater / Updates
-extension BlocksViews.Base.Utilities.SequenceUpdater: BlocksViewsUtilitiesUpdaterProtocol {
+extension BlocksViews.Base.Utilities.Legacy_SequenceUpdater: BlocksViewsUtilitiesUpdaterProtocol {
     func update(at: Key, by block: Model) {
         guard let index = self.indexDictionary[at] else { return }
         update(at: index, by: block)
@@ -66,7 +67,7 @@ extension BlocksViews.Base.Utilities.SequenceUpdater: BlocksViewsUtilitiesUpdate
     }
 }
 
-extension BlocksViews.Base.Utilities.SequenceUpdater {
+extension BlocksViews.Base.Utilities.Legacy_SequenceUpdater {
         
     private func testInsert(block: Model, at: Int) {
         guard builders.indices.contains(at) else { return }
@@ -81,7 +82,7 @@ extension BlocksViews.Base.Utilities.SequenceUpdater {
 
 }
 
-extension BlocksViews.Base.Utilities.SequenceUpdater {
+extension BlocksViews.Base.Utilities.Legacy_SequenceUpdater {
     
     private func update(at: Int, by block: Model) {
         guard builders.indices.contains(at) else { return }

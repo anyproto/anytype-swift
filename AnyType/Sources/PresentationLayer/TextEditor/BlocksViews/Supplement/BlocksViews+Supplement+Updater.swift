@@ -1,5 +1,5 @@
 //
-//  BlocksViews+Base+Utilities+Updater.swift
+//  BlocksViews+Supplement+Updater.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 21.02.2020.
@@ -9,14 +9,14 @@
 import Foundation
 
 // MARK: Updater
-extension BlocksViews.Base.Utilities {
+extension BlocksViews.Supplement {
     class TreeUpdater<Wrapped: BlocksViewsViewModelHolder> {
         typealias Model = Wrapped.ViewModel.BlockModel
         typealias Key = Wrapped.ViewModel.BlockModel.FullIndex
         var value: Wrapped
         var indexDictionary: DataStructures.IndexDictionary<Key> = .init()
         var updater: BlockModels.Updater<Model>
-        
+
         func configured(_ value: Wrapped) -> Self {
             self.value = value
             self.updater = .init(value: value.ourViewModel.getBlock())
@@ -30,7 +30,7 @@ extension BlocksViews.Base.Utilities {
 }
 
 // MARK: BlockViewUtilitiesUpdaterProtocol
-extension BlocksViews.Base.Utilities.TreeUpdater: BlocksViewsUtilitiesUpdaterProtocol {
+extension BlocksViews.Supplement.TreeUpdater: BlocksViewsUtilitiesUpdaterProtocol {
     // check that we could update?...
     // Or not?
     // Just update, hehe.

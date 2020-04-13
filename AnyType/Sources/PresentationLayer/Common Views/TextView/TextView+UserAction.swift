@@ -40,7 +40,7 @@ extension TextView {
                     // We should also keep values to the right of the Cursor.
                     // So, enter key should have minimum one value as String on the right as Optional<String>
                     switch (textView.text, range, text) {
-                    case (_, .init(location: 1, length: 0), "\n"): return .enterAtBeginning(textView.text)
+                    case (_, .init(location: 0, length: 0), "\n"): return .enterAtBeginning(textView.text)
                     case let (source, at, "\n") where source?.count == at.location + at.length: return .enter
                     case let (source, at, "\n"):
                         guard let source = source, let theRange = Range(at, in: source) else { return nil }

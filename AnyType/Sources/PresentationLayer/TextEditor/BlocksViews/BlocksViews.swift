@@ -9,5 +9,6 @@
 import Foundation
 
 enum BlocksViews {
-    enum Supplement {}
+    enum Base {} // Contains Base.ViewModel
+    enum Supplement {} // Contains Supplement entries that Serve functionality over ViewModels and Views.
 }

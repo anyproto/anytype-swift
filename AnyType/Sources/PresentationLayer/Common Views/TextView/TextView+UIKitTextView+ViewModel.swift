@@ -17,6 +17,7 @@ extension TextView.UIKitTextView {
     class ViewModel {
         // For View
         @Published var update: Update = .unknown
+        @Published var shouldSetFocus: Bool = false
         
         // For OuterWorld.
         var onUpdate: AnyPublisher<Update, Never> = .empty()
@@ -52,6 +53,13 @@ extension TextView.UIKitTextView.ViewModel {
     func apply(update: Update) {
         // publish update?
         self.update = update
+    }
+}
+
+// MARK: Focus
+extension TextView.UIKitTextView.ViewModel {
+    func set(focus: Bool) {
+        self.shouldSetFocus = focus
     }
 }
 
