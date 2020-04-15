@@ -12,8 +12,6 @@ import Foundation
 /// Block type
 enum BlockType {
     case text(Text)
-    case image(Image)
-    case video(Video)
     case dashboard(Dashboard)
     case page(Page)
     case dataview(DataView)
@@ -72,22 +70,25 @@ extension BlockType {
 /// File block
 extension BlockType {
     struct File {
+        enum ContentType {
+            case image
+            case video
+        }
         enum State {
             /// There is no file and preview, it's an empty block, that waits files.
             case empty
             /// There is still no file/preview, but file already uploading
             case uploading
-            /// File exists, preview downloaded, but file is not.
-            case previewDownloaded
-            /// File exists, preview downloaded, but file downloading
-            case downloading
-            /// File and preview downloaded
+            /// File exists, uploading is done
             case done
+            /// Error while uploading
+            case error
         }
-        var localPath: String
+        
         var name: String
-        var icon: String
+        var hash: String
         var state: State
+        var contentType: ContentType
     }
 }
 
@@ -118,30 +119,6 @@ extension BlockType {
         var text: String
         var contentType: ContentType
     }
-}
-
-/// Image block
-extension BlockType {
-    struct Image {
-        enum ContentType {
-            case image
-            case pageIcon
-        }
-        var path: URL?
-        var contentType: ContentType
-    }
-}
-
-/// Video block
-extension BlockType {
-    struct Video {
-        enum ContentType {
-            case video
-        }
-        var path: URL?
-        var contentType: ContentType
-    }
-    
 }
 
 /// Dashboard block

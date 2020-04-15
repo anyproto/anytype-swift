@@ -125,7 +125,8 @@ extension DocumentViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.sectionHeaderHeight = 0
         tableView.separatorStyle = .none
-        tableView.allowsSelection = false
+        // Need for image picker
+        tableView.allowsSelection = true
 
         // register cells.
         tableView.register(DocumentViewCells.Cell.self, forCellReuseIdentifier: DocumentViewCells.Cell.cellReuseIdentifier())
@@ -135,9 +136,8 @@ extension DocumentViewController {
         self.dataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>.init(tableView: tableView, cellProvider: { (tableView, indexPath, entry) -> UITableViewCell? in
             let useUIKit = !self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell
             let shouldShowIndent = self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation
-            let isImage = (entry.builder is ImageBlocksViews.Base.BlockViewModel)
             if let cell = tableView.dequeueReusableCell(withIdentifier: DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath) as? DocumentViewCells.Cell {
-                _ = cell.configured(useUIKit: useUIKit && !isImage).configured(shouldShowIndent: shouldShowIndent).configured(entry)
+                _ = cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
                 return cell
             }
             return UITableViewCell.init()
@@ -146,6 +146,7 @@ extension DocumentViewController {
     }
 
     func setupUserInteractions() {
+        self.tableViewTapGestureRecognizer.cancelsTouchesInView = false
         self.tableView.addGestureRecognizer(self.tableViewTapGestureRecognizer)
     }
 
@@ -181,6 +182,10 @@ private extension DocumentViewController {
         }).store(in: &self.subscriptions)
         
         self.model?.anyFieldPublisher.sink(receiveValue: { [weak self] (value) in
+            self?.updateView()
+        }).store(in: &self.subscriptions)
+        
+        self.model?.fileFieldPublisher.sink(receiveValue: { [weak self] (value) in
             self?.updateView()
         }).store(in: &self.subscriptions)
     }
@@ -269,5 +274,9 @@ extension DocumentViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.cellHeightsStorage.height(at: indexPath)
+    }
+ 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.model?.didSelectBlock(at: indexPath)
     }
 }

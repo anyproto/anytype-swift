@@ -9,34 +9,36 @@
 import Foundation
 import SwiftUI
 
-enum ImageBlocksViews {
+enum FileBlocksViews {
     enum Image {} // -> Image.ContentType.image
-    enum PageIcon {} // -> Image.ContentType.pageIcon
 }
 
-extension ImageBlocksViews {
+extension FileBlocksViews {
     enum Base {}
 }
 
-extension ImageBlocksViews.Base {
+extension FileBlocksViews.Base {
     class BlockViewModel: BlocksViews.Base.ViewModel {
-        @Environment(\.developerOptions) var developerOptions
-        private weak var delegate: TextBlocksViewsUserInteractionProtocol?
+        typealias State = BlockType.File.State
+              
+        @Published var state: State? { willSet { self.objectWillChange.send() } }
     }
 }
 
-extension ImageBlocksViews {
+extension FileBlocksViews {
     enum Supplement {}
 }
 
-extension ImageBlocksViews.Supplement {
+extension FileBlocksViews.Supplement {
     class Matcher: BlocksViews.Supplement.BaseBlocksSeriazlier {
         override func sequenceResolver(block: Model, blocks: [Model]) -> [BlockViewBuilderProtocol] {
             switch block.information.content {
-            case let .image(text):
-                switch text.contentType {
-                case .image: return blocks.map(ImageBlocksViews.Image.BlockViewModel.init)
-                case .pageIcon: return blocks.map(ImageBlocksViews.PageIcon.BlockViewModel.init)
+            case let .file(file):
+                switch file.contentType {
+                case .image: return blocks.map(FileBlocksViews.Image.BlockViewModel.init)
+                case .video:
+                    // Add later
+                    return []
                 }
             default: return []
             }

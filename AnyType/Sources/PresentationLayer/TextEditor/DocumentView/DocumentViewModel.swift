@@ -41,6 +41,14 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     
     private var treeTextViewUserInteractor: BlocksViews.Supplement.TreeTextBlocksUserInteractor<DocumentViewModel>?
     
+    private var imagePicker: ImagePickerUIKit? {
+        didSet {
+            if let picker = imagePicker {
+                self.configureListening(imagePicker: picker)
+            }
+        }
+    }
+    
     /// Structure contains `Feature Flags`.
     ///
     struct Options {
@@ -79,6 +87,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     }
     
     var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
+    var fileFieldPublisher: AnyPublisher<FileBlocksViews.Base.BlockViewModel.State?, Never> = .empty()
     
     // MARK: Lifecycle
     
@@ -117,7 +126,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         }, receiveValue: {_ in }).store(in: &self.subscriptions)
 
         self.obtainDocument(documentId: documentId)
-
+        
         // some more
 
         self.rootModel?.objectWillChange.sink { [weak self] (value) in
@@ -136,6 +145,13 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
             Publishers.MergeMany($0.map{$0.$text})
         }
         .eraseToAnyPublisher()
+        
+        self.fileFieldPublisher = self.$builders
+            .map {
+                $0.compactMap { $0 as? FileBlocksViews.Base.BlockViewModel }
+        }.flatMap {
+            Publishers.MergeMany($0.map{$0.$state})
+        }.eraseToAnyPublisher()
     }
     
     private func textViewUserInteractionDelegate() -> TextBlocksViewsUserInteractionProtocol? {
@@ -200,6 +216,12 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
                 }
             }, receiveValue: {_ in }).store(in: &self.subscriptions)
     }
+    
+    private func openImagePicker(for blockID: String) {
+        //TODO: Need to pass presentationController, blockID, rootID
+        // self.imagePicker = ImagePickerUIKit().present(presentationController: vc, blockID: blockID, rootID: rootID)
+    }
+    
 }
 
 // MARK: Find Block
@@ -338,4 +360,34 @@ extension DocumentViewModel.Row: Hashable, Equatable {
 //        hasher.combine(self.builder.id)
         hasher.combine(self.builder.blockId)
     }
+}
+
+extension DocumentViewModel {
+    
+    func didSelectBlock(at index: IndexPath) {
+        let item = element(at: index)
+        if item.builder is FileBlocksViews.Base.BlockViewModel {
+            openImagePicker(for: item.builder.blockId)
+        }
+    }
+    
+}
+
+extension DocumentViewModel {
+    
+    private func configureListening(imagePicker: ImagePickerUIKit) {
+        imagePicker.$resultInformation.sink { [weak self] (value) in
+            guard let result = value else { return }
+            self?.uploadImage(with: result)
+        }.store(in: &self.subscriptions)
+    }
+    
+    private func uploadImage(with imagePickerResult: ImagePickerUIKit.ResultInformation) {
+        IpfsFilesService().upload(contextID: imagePickerResult.rootID, blockID: imagePickerResult.blockID, filePath: imagePickerResult.imageURL.relativePath)
+        .sink(receiveCompletion: { _ in
+            //TODO: Handle error
+        }) { _ in }
+        .store(in: &self.subscriptions)
+    }
+    
 }

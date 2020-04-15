@@ -25,7 +25,7 @@
 					<key>shouldHaveUniqueText</key>
 					<true/>
 					<key>shouldEmbedSwiftUIIntoCell</key>
-					<true/>
+					<false/>
 					<key>shouldShowCellsIndentation</key>
 					<false/>
 				</dict>

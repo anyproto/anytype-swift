@@ -60,6 +60,7 @@ extension BlocksViews.Supplement {
     /// It chooses correct flattener based on model type.
     class BlocksFlattener: BaseFlattener {
         var textFlattener = TextBlocksViews.Supplement.Flattener()
+        var fileFlattener = FileBlocksViews.Supplement.Flattener()
         
         override func match(_ model: Model) -> BaseFlattener? {
             switch model.kind {
@@ -68,8 +69,7 @@ extension BlocksViews.Supplement {
             case .block:
                 switch MetaBlockType.from(model.information) {
                 case .text: return self.textFlattener
-                case .image: return nil
-                case .video: return nil
+                case .file: return self.fileFlattener
                 }
             }
         }
@@ -82,13 +82,12 @@ extension BlocksViews.Supplement {
 // Maps BlockType ( .text, .image, .video ) to String.
 // This type automatically adopts Hashable and Equatable protocols and can be used as key in dictionaries.
 private enum MetaBlockType: String {
-    case text, image, video
+    case text, file
     
     static func from(_ block: MiddlewareBlockInformationModel) -> Self {
         switch block.content {
         case .text(_): return .text
-        case .image(_): return .image
-        case .video: return .video
+        case .file(_): return .file
             // TODO:
         // add others
         default: return .text
@@ -106,8 +105,7 @@ extension BlocksViews.Supplement {
         private static func sameBlock(lhs: Model, rhs: Model) -> Bool {
             switch (lhs.information.content, rhs.information.content) {
             case let (.text(left), .text(right)): return left.contentType == right.contentType
-            case let (.image(left), .image(right)): return left.contentType == right.contentType
-            case (.video, .video): return true
+            case let (.file(left), .file(right)): return left.contentType == right.contentType
             default: return false
             }
         }
@@ -140,8 +138,7 @@ extension BlocksViews.Supplement {
         private func defaultSerializers() -> [MetaBlockType : BaseBlocksSeriazlier] {
             [
                 .text: TextBlocksViews.Supplement.Matcher(),
-                .image: ImageBlocksViews.Supplement.Matcher(),
-                .video: TextBlocksViews.Supplement.Matcher()
+                .file: FileBlocksViews.Supplement.Matcher()
             ]
         }
         override private init() {}

@@ -51,9 +51,7 @@ class TestDocumentService: DocumentServiceProtocol {
                     .mockText(.numbered),
                     .mockText(.text),
                     .mockText(.toggle),
-                    .mockText(.callout),
-                    .mockImage(.image),
-                    .mockImage(.image)
+                    .mockText(.callout)
                 ]
             }
             static func smallSet() -> [Model] {
@@ -74,7 +72,6 @@ class TestDocumentService: DocumentServiceProtocol {
             }
             static func presentationSet() -> [Model] {
                 [
-                    .mockImage(.pageIcon),
                     .mockText(.header),
                     .mockText(.text),
                     .mockText(.todo),

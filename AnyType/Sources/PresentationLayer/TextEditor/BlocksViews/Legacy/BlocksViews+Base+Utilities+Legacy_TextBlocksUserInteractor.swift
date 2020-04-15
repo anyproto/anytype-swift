@@ -230,7 +230,7 @@ private extension BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor {
                 case .task: return "BlockType.Task.self"
                 }
             }
-            static func equal(_ lhs: TextView.UserAction.BlockAction.BlockType.Tool, _ rhs: BlockType.Image.ContentType) -> Bool {
+            static func equal(_ lhs: TextView.UserAction.BlockAction.BlockType.Tool, _ rhs: BlockType.File.ContentType) -> Bool {
                 false
             }
         }

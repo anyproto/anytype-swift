@@ -18,13 +18,12 @@ private extension BlockModels.Parser {
         // Maps BlockType ( .text, .image, .video ) to String.
         // This type automatically adopts Hashable and Equatable protocols and can be used as key in dictionaries.
         enum MetaBlockType: String {
-            case text, image, video
+            case text, file
             
             static func from(_ block: MiddlewareBlockInformationModel) -> Self {
                 switch block.content {
                 case .text(_): return .text
-                case .image(_): return .image
-                case .video: return .video
+                case .file(_): return .file
                     // TODO:
                 // add others
                 default: return .text
@@ -38,8 +37,7 @@ private extension BlockModels.Parser {
         static func same(_ lhs: MiddlewareBlockInformationModel, _ rhs: MiddlewareBlockInformationModel) -> Bool {
             switch (lhs.content, rhs.content) {
             case let (.text(left), .text(right)): return left.contentType == right.contentType
-            case let (.image(left), .image(right)): return left.contentType == right.contentType
-            case (.video, .video): return true
+            case let (.file(left), .file(right)): return left.contentType == right.contentType
             default: return false
             }
         }
@@ -86,13 +84,12 @@ private extension BlockModels.Parser {
 private extension BlockModels.Parser {
     class CompoundModelBuilder: BaseModelBuilder {
         var textModelBuilder: BaseModelBuilder = TextModelBuilder()
-        var imageModelBuilder: BaseModelBuilder = ImageModelBuilder()
+        var fileModelBuilder: BaseModelBuilder = FileModelBuilder()
         
         func find(by entry: MiddlewareBlockInformationModel) -> BaseModelBuilder? {
             switch Comparator.from(entry) {
             case .text: return self.textModelBuilder
-            case .image: return self.imageModelBuilder
-            default: return nil
+            case .file: return self.fileModelBuilder
             }
         }
         
@@ -119,12 +116,12 @@ private extension BlockModels.Parser {
     }
 }
 
-// MARK: Custom Model Builders / Images
+// MARK: Custom Model Builders / File
 private extension BlockModels.Parser {
-    class ImageModelBuilder: BaseModelBuilder {
+    class FileModelBuilder: BaseModelBuilder {
         override func solve(entry: MiddlewareBlockInformationModel, of cluster: [MiddlewareBlockInformationModel]) -> [BlockModels.Parser.Model] {
             switch entry.content {
-            case .image(_): return cluster.compactMap{BlockModels.Parser.Model.init(information: .init(information: $0))}
+            case .file(_): return cluster.compactMap{BlockModels.Parser.Model.init(information: .init(information: $0))}
             default: return []
             }
         }

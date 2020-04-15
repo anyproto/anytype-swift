@@ -77,6 +77,7 @@ private extension BlockModels.Parser {
             switch middleware {
             case .page: return ContentPage()
             case .text: return ContentText()
+            case .file: return ContentFile()
             default: return nil
             }
         }
@@ -85,6 +86,7 @@ private extension BlockModels.Parser {
             switch block {
             case .page: return ContentPage()
             case .text: return ContentText()
+            case .file: return ContentFile()
             default: return nil
             }
         }
@@ -191,5 +193,75 @@ private extension BlockModels.Parser.Converters {
             default: return nil
             }
         }
+    }
+}
+
+// MARK: ContentFile
+private extension BlockModels.Parser.Converters {
+    class ContentFile: BaseContentConverter {
+        func contentType(_ from: Anytype_Model_Block.Content.File.TypeEnum) -> BlockType.File.ContentType? {
+            
+            func result(_ from: Anytype_Model_Block.Content.File.TypeEnum) -> BlockType.File.ContentType? {
+                
+                // Only image support now
+                switch from {
+                case .image: return .image
+                default: return nil
+                }
+            }
+            
+            func descriptive(_ from: Anytype_Model_Block.Content.File.TypeEnum) -> BlockType.File.ContentType? {
+                let value = result(from)
+                if value == nil {
+                    let logger = Logging.createLogger(category: .todo(.improve("")))
+                    os_log(.debug, log: logger, "Do not forget to add these entries in parser: %@", String(describing: from))
+                }
+                return value
+            }
+                  
+            return descriptive(from)
+        }
+        
+        func state(_ from: BlockType.File.State) -> Anytype_Model_Block.Content.File.State? {
+            switch from {
+                case .empty: return .empty
+                case .uploading: return .uploading
+                case .done: return .done
+                case .error: return .error
+                default: return nil
+            }
+        }
+        
+        func state(_ from: Anytype_Model_Block.Content.File.State) -> BlockType.File.State? {
+            switch from {
+                case .empty: return .empty
+                case .uploading: return .uploading
+                case .done: return .done
+                case .error: return .error
+                default: return nil
+            }
+        }
+    
+        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
+            switch from {
+                case let .file(value):
+                    guard let state = state(value.state) else { return nil }
+                    return self.contentType(value.type).flatMap({BlockType.file(.init(name: value.name, hash: value.hash, state: state, contentType: $0))})
+                default: return nil
+            }
+        }
+        
+        override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
+            switch from {
+                case let .file(value): return self.state(value.state).flatMap({ state in
+                    var file = Anytype_Model_Block.Content.File()
+                    file.type = .image
+                    file.state = state
+                    return Anytype_Model_Block.OneOf_Content.file(file)
+                })
+                default: return nil
+            }
+        }
+      
     }
 }

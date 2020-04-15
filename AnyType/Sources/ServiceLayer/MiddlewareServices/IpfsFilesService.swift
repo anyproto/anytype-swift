@@ -80,4 +80,10 @@ class IpfsFilesService {
             }
         }
     }
+    
+    // Need to make file uploader/downloder class & Listen for callback
+    public func upload(contextID: String, blockID: String, filePath: String) -> AnyPublisher<Void, Error>  {
+        Anytype_Rpc.Block.Upload.Service.invoke(contextID: contextID, blockID: blockID, filePath: filePath, url: "").successToVoid().subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
+    }
 }

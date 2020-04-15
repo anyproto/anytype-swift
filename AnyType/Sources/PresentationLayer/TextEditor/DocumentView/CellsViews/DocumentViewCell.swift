@@ -22,6 +22,7 @@ extension DocumentViewCells {
             var containedViewInset = 8
             var indentationWidth = 8
             var boundaryWidth = 2
+            var zero = 0
         }
         
         var model: Model?
@@ -46,6 +47,7 @@ extension DocumentViewCells {
         
         // MARK: - Setup
         func setup() {
+            self.selectionStyle = .none
             self.translatesAutoresizingMaskIntoConstraints = false
             let containerView: UIView = {
                 let view = UIView()
@@ -151,10 +153,14 @@ extension DocumentViewCells.Cell {
                 self.containedView?.removeFromSuperview()
                 self.containedView = view
                 self.containerView?.addSubview(view)
-                let indentation = CGFloat(viewModel.indentationLevel + 1)
+       
+                //TODO: Need to rething here for all blocks about insets
+                let needFullWidth = model.builder is FileBlocksViews.Base.BlockViewModel
+                
+                let indentation = needFullWidth ? 0.0 : CGFloat(viewModel.indentationLevel + 1)
                 self.indentationConstraint?.constant = indentation * CGFloat(self.layout.indentationWidth)
                 if let superview = view.superview {
-                    let spacer: CGFloat = CGFloat(self.layout.containedViewInset)
+                    let spacer: CGFloat = CGFloat(needFullWidth ? self.layout.zero: self.layout.containedViewInset)
                     NSLayoutConstraint.activate([
                         view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: spacer),
                         view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -spacer),

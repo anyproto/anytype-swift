@@ -515,6 +515,14 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
                     case .numbered: return .text(.init(text: textPayload, contentType: .numbered))
                     case .toggle: return .text(.init(text: textPayload, contentType: .toggle))
                     }
+                case let .media(mediaType):
+                    switch mediaType {
+                    case .picture: return .file(.init(name: "", hash: "", state: .empty, contentType: .image))
+                    case .bookmark: return nil
+                    case .code: return nil
+                    case .file: return nil
+                    case .video: return nil
+                    }
                 case let .tool(value):
                     switch value {
                     case .page: return .link(.init(targetBlockID: "", style: .page, fields: [:]))
@@ -649,7 +657,7 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
                 case .task: return "BlockType.Task.self"
                 }
             }
-            static func equal(_ lhs: TextView.UserAction.BlockAction.BlockType.Tool, _ rhs: BlockType.Image.ContentType) -> Bool {
+            static func equal(_ lhs: TextView.UserAction.BlockAction.BlockType.Tool, _ rhs: BlockType.File.ContentType) -> Bool {
                 false
             }
         }

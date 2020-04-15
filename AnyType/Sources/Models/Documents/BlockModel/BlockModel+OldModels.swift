@@ -104,10 +104,7 @@ extension Block {
     static func mockText(_ type: BlockType.Text.ContentType) -> Self {
         .mock(.text(.init(text: "", contentType: type)))
     }
-    static func mockImage(_ type: BlockType.Image.ContentType) -> Self {
-        .mock(.image(.init(contentType: type)))
-    }
-    static func mockVideo(_ type: BlockType.Video.ContentType) -> Self {
-        .mock(.video(.init(contentType: type)))
+    static func mockFile(_ type: BlockType.File.ContentType) -> Self {
+        .mock(.file(.init(name: "", hash: "", state: .empty, contentType: type)))
     }
 }
