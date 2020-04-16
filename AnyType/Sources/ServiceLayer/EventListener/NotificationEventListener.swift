@@ -31,4 +31,14 @@ class NotificationEventListener<EventHandlerType: EventHandler>: EventListener w
                 eventMessages.compactMap(\.value).forEach(handler.handleEvent(event:))
         }
     }
+    
+    func receive() {
+        cancallableEvents = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
+            .compactMap { $0.object as? Anytype_Event }
+            .map(\.messages)
+            .sink { [weak self] eventMessages in
+                guard let handler = self?.handler else { return }
+                eventMessages.compactMap(\.value).forEach(handler.handleEvent(event:))
+        }
+    }
 }

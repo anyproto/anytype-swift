@@ -117,7 +117,7 @@ extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
 extension BlocksViews.Supplement.TreeTextBlocksUserInteractor: TextBlocksViewsUserInteractionProtocol {
     /// Process/Receive actions as TextView.UserAction enumeration.
     ///
-    /// This proce∆ss
+    /// This process
     ///
     /// - Parameters:
     ///   - block: A block model that sends event.
@@ -438,7 +438,7 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
                 }, receiveValue: {_ in}).store(in: &self.subscriptions)
         }
 
-        func createPage(documentId: String?, block: Model, completion: @escaping (Model) -> () = {_ in}) {
+        func createPage(documentId: String?, newBlock: Model, afterBlock: Model, position: Anytype_Model_Block.Position = .bottom, completion: @escaping (Model) -> () = {_ in}) {
 
             let documentID = documentId
 
@@ -450,7 +450,6 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
 
             let targetId = ""
             let details: Google_Protobuf_Struct = .init()
-            let position: Anytype_Model_Block.Position = .bottom
 
             self.pageService.createPage.action(contextID: documentId, targetID: targetId, details: details, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
                 switch value {
@@ -458,13 +457,19 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
                 case let .failure(error):
                     let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
                     os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
-
                 }
             }) { [weak self] (value) in
                 // we must listen blockShow?
-                let newBlock: Model = .init(information: .init(id: value.blockId, content: .link(.init(targetBlockID: value.targetId, style: .page, fields: [:]))))
-                self?.updater.insert(block: newBlock, afterBlock: block.getFullIndex())
-                completion(newBlock)
+                let ourNewBlock: Model = .init(information: .init(id: value.blockId, content: .link(.init(targetBlockID: value.targetId, style: .page, fields: [:]))))
+                if position == .top {
+                    self?.updater.insert(block: ourNewBlock, at: afterBlock.getFullIndex())
+                    completion(ourNewBlock)
+                }
+                else {
+                    self?.updater.insert(block: ourNewBlock, afterBlock: afterBlock.getFullIndex())
+                    completion(ourNewBlock)
+                }
+
             }.store(in: &self.subscriptions)
         }
     }
@@ -551,7 +556,7 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
             switch value {
             case .tool(.page):
                 if let newBlock = BlockBuilder.createBlock(for: block, id, action) {
-                    self.service.createPage(documentId: self.documentId, block: block) { [weak self] value in
+                    self.service.createPage(documentId: self.documentId, newBlock: newBlock, afterBlock: block) { [weak self] value in
                         let blockId = value.information.id
                         self?.reaction = .shouldOpenPage(.init(payload: .init(blockId: blockId)))
                     }

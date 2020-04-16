@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import os
+
+private extension Logging.Categories {
+  static let blocksFlattener: Self = "Presentation.TextEditor.BlocksViews.Supplement.BlocksFlattener"
+}
 
 extension BlocksViews.Supplement {
     /// Generic interface for classes that provides following transform:
@@ -59,6 +64,7 @@ extension BlocksViews.Supplement {
     /// Blocks flattener is compound flattener.
     /// It chooses correct flattener based on model type.
     class BlocksFlattener: BaseFlattener {
+        var toolsFlattener = ToolsBlocksViews.Supplement.Flattener()
         var textFlattener = TextBlocksViews.Supplement.Flattener()
         var fileFlattener = FileBlocksViews.Supplement.Flattener()
         
@@ -67,15 +73,22 @@ extension BlocksViews.Supplement {
             case .meta where BlockModels.Utilities.Inspector.isNumberedList(model): return self.textFlattener // text
             case .meta: return nil
             case .block:
-                switch MetaBlockType.from(model.information) {
+                let content = model.information.content
+                switch content {
+                case let .link(value) where value.style == .page: return self.toolsFlattener
                 case .text: return self.textFlattener
                 case .file: return self.fileFlattener
+                default:
+                    let logger = Logging.createLogger(category: .blocksFlattener)
+                    os_log(.debug, log: logger, "We handle only content above. This Content (%@) isn't handled.", String(describing: content))
+                    return nil
                 }
             }
         }
     }
 }
 
+// DEPRECATED!
 // MARK: MetaBlockType
 // Brief: BlockType -> String
 // Overview:

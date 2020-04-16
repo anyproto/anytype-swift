@@ -160,6 +160,9 @@
 		0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6823969B030027A4AD /* CompletionAuthView.swift */; };
 		0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */; };
 		0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA854623A80C2200892713 /* events.pb.swift */; };
+		0A8E651F2444FC1100378985 /* ToolsBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E651E2444FC1100378985 /* ToolsBlocksViews.swift */; };
+		0A8E65212444FC9A00378985 /* ToolsBlocksViews+Supplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E65202444FC9A00378985 /* ToolsBlocksViews+Supplement+Flattener.swift */; };
+		0A8E65232444FDEB00378985 /* ToolsBlocksViews+PageLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E65222444FDEB00378985 /* ToolsBlocksViews+PageLink.swift */; };
 		0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */; };
 		0A996BB123EDBCB8000FDC9C /* DeveloperOptions+Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BB023EDBCB8000FDC9C /* DeveloperOptions+Model.swift */; };
 		0A996BB323EDBDA5000FDC9C /* DeveloperOptions+CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BB223EDBDA5000FDC9C /* DeveloperOptions+CodableAndDictionary.swift */; };
@@ -375,6 +378,9 @@
 		0A6B012B23F5F79C002345D1 /* TextView+UIKitTextView+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+ViewModel.swift"; sourceTree = "<group>"; };
 		0A70816423968410004B04AB /* BlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViews.swift; sourceTree = "<group>"; };
 		0A721EE7244068270035A3E4 /* SmartBlockActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartBlockActionsService.swift; sourceTree = "<group>"; };
+		0A8E651E2444FC1100378985 /* ToolsBlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsBlocksViews.swift; sourceTree = "<group>"; };
+		0A8E65202444FC9A00378985 /* ToolsBlocksViews+Supplement+Flattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToolsBlocksViews+Supplement+Flattener.swift"; sourceTree = "<group>"; };
+		0A8E65222444FDEB00378985 /* ToolsBlocksViews+PageLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToolsBlocksViews+PageLink.swift"; sourceTree = "<group>"; };
 		0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptions.swift; sourceTree = "<group>"; };
 		0A996BB023EDBCB8000FDC9C /* DeveloperOptions+Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeveloperOptions+Model.swift"; sourceTree = "<group>"; };
 		0A996BB223EDBDA5000FDC9C /* DeveloperOptions+CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeveloperOptions+CodableAndDictionary.swift"; sourceTree = "<group>"; };
@@ -534,6 +540,7 @@
 				036C83192416990900D65B26 /* Legacy */,
 				03B65750234D474A0084D9F5 /* TextableBlockViews */,
 				0A69322523911AF700575544 /* DrawableBlockViews */,
+				0A8E651D2444F20300378985 /* ToolsBlocksViews */,
 				0A19E2B22444C9430078DFAB /* Base */,
 				0A19E2B12444C8F30078DFAB /* Supplement */,
 				0A70816423968410004B04AB /* BlocksViews.swift */,
@@ -1191,6 +1198,7 @@
 				0A19E2AD2444C8AA0078DFAB /* BlocksViews+Supplement+Flattener.swift */,
 				0A19E2B32444CD160078DFAB /* TextBlocksViews+Supplement+Flattener.swift */,
 				A381196F2445CF860023AFEB /* FileBlocksViews+Supplement+Flattener.swift */,
+				0A8E65202444FC9A00378985 /* ToolsBlocksViews+Supplement+Flattener.swift */,
 				0A19E2AB2444C8AA0078DFAB /* BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift */,
 				0A19E2AC2444C8AA0078DFAB /* BlocksViews+Supplement+Updater.swift */,
 			);
@@ -1228,6 +1236,15 @@
 				0A721EE7244068270035A3E4 /* SmartBlockActionsService.swift */,
 			);
 			path = SmartBlocksServices;
+			sourceTree = "<group>";
+		};
+		0A8E651D2444F20300378985 /* ToolsBlocksViews */ = {
+			isa = PBXGroup;
+			children = (
+				0A8E651E2444FC1100378985 /* ToolsBlocksViews.swift */,
+				0A8E65222444FDEB00378985 /* ToolsBlocksViews+PageLink.swift */,
+			);
+			path = ToolsBlocksViews;
 			sourceTree = "<group>";
 		};
 		0A996BAD23EDBC09000FDC9C /* DeveloperOptions */ = {
@@ -1492,6 +1509,7 @@
 				037CC4E523154AF900D5AB62 /* NavigationButtonView.swift in Sources */,
 				03C6E84C233BAB35004EB6B6 /* DocumentServiceProtocol.swift in Sources */,
 				0A19E2AF2444C8AB0078DFAB /* BlocksViews+Supplement+Updater.swift in Sources */,
+				0A8E651F2444FC1100378985 /* ToolsBlocksViews.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				0A664568240800C7008392AF /* BlockModel+Updater+Relaxing.swift in Sources */,
@@ -1534,10 +1552,12 @@
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				0ACA780123E5C3A800442690 /* TextView+InnerTextView.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
+				0A8E65232444FDEB00378985 /* ToolsBlocksViews+PageLink.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
 				03B42F2A232910AB000F2BA2 /* HomeView.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
+				0A8E65212444FC9A00378985 /* ToolsBlocksViews+Supplement+Flattener.swift in Sources */,
 				0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */,
 				0A0AA73523FC55BC003A2935 /* BlocksViews+Base+Utilities+Legacy_SequenceUpdater.swift in Sources */,
 				0ACA780C23E5C96700442690 /* TextView+HighlightedAccessoryView.swift in Sources */,

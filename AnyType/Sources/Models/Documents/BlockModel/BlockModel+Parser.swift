@@ -76,6 +76,7 @@ private extension BlockModels.Parser {
             guard let middleware = middleware else { return nil }
             switch middleware {
             case .page: return ContentPage()
+            case .link: return ContentLink()
             case .text: return ContentText()
             case .file: return ContentFile()
             default: return nil
@@ -85,6 +86,7 @@ private extension BlockModels.Parser {
             guard let block = block else { return nil }
             switch block {
             case .page: return ContentPage()
+            case .link: return ContentLink()
             case .text: return ContentText()
             case .file: return ContentFile()
             default: return nil
@@ -93,6 +95,55 @@ private extension BlockModels.Parser {
         class BaseContentConverter {
             open func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? { nil }
             open func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? { nil }
+        }
+    }
+}
+
+// MARK: Helper Converters
+private extension BlockModels.Parser.Converters {
+    /// Convert (GoogleProtobufStruct) <-> (Dictionary<String, T>)
+    /// NOTE: You should define `T` generic parameter. `Any` type for that purpose is bad.
+    ///
+    struct GoogleProtobufStructuresConverter {
+        /// THINK: Possible solution - Add converters as function structures.
+        struct AsStructure {
+            
+        }
+        struct AsDictionary {
+            
+        }
+
+        /// NOTE: Don't delete this code.
+        /// You may need it.
+        /// Actually, we don't have now correct conversion from our structure to protobuf.
+        /// Look at `.structure` comments for details.
+        ///
+//        enum AllowedType {
+//            case none
+//            case string(String)
+//            case number(Double)
+//            case structure(AllowedType)
+//            case
+//        }
+        static func dictionary(_ from: Google_Protobuf_Struct) -> [String: Any] {
+            from.fields
+        }
+        static func structure(_ from: [String: Any]) -> Google_Protobuf_Struct {
+            /// NOTE: Not implemented.
+            /// Don't delete this code.
+            /// Read comments below.
+            ///
+//            let fields = from.compactMapValues({ (value) in
+//                Google_Protobuf_Any.init
+//                try? Google_Protobuf_Value.init(unpackingAny: value)
+//            })
+            /// HowTo:
+            /// We should use either our replica of GoogleProtobufStruct or we could use GoogleProtobufStruct directly.
+            /// Look at GoogleProtobufStruct.kind property type. It has indirect cases which are impossible to store without full support of same Struct type.
+            ///
+            let logger = Logging.createLogger(category: .todo(.improve("")))
+            os_log(.debug, log: logger, "Do not forget to add conversion from our model to protobuf sutrcture: %@", String(describing: from))
+            return [:]
         }
     }
 }
@@ -125,6 +176,46 @@ private extension BlockModels.Parser.Converters {
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .page(value): return self.style(value.style).flatMap({.page(.init(style: $0))})
+            default: return nil
+            }
+        }
+    }
+}
+
+// MARK: ContentLink
+private extension BlockModels.Parser.Converters {
+    /// Convert (Anytype_Model_Block.OneOf_Content) <-> (BlockType) for contentType `.link(_)`.
+    class ContentLink: BaseContentConverter {
+        private func contentType(_ from: Anytype_Model_Block.Content.Link.Style) -> BlockType.Link.Style? {
+            switch from {
+            case .page: return .page
+            case .dataview: return .dataview
+            case .dashboard: return nil
+            case .archive: return nil
+            default: return nil
+            }
+        }
+        private func style(_ from: BlockType.Link.Style) -> Anytype_Model_Block.Content.Link.Style? {
+            switch from {
+            case .page: return .page
+            case .dataview: return .dataview
+            }
+        }
+        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
+            switch from {
+            case let .link(value):
+                let fields = GoogleProtobufStructuresConverter.dictionary(value.fields)
+                return self.contentType(value.style)
+                    .flatMap({.link(.init(targetBlockID: value.targetBlockID, style: $0, fields: fields))})
+            default: return nil
+            }
+        }
+        override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
+            switch from {
+            case let .link(value):
+                let fields = GoogleProtobufStructuresConverter.structure(value.fields)
+                return self.style(value.style)
+                    .flatMap({.link(.init(targetBlockID: value.targetBlockID, style: $0, fields: fields))})
             default: return nil
             }
         }
