@@ -159,7 +159,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     
     // TODO: Add caching?
     private func update(builders: [BlockViewBuilderProtocol]) {
-        let difference = self.builders.difference(from: builders) { $0.blockId == $1.blockId }
+        let difference = builders.difference(from: self.builders) { $0.blockId == $1.blockId }
         if let result = self.builders.applying(difference) {
             self.builders = result
         }
