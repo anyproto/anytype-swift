@@ -9,11 +9,16 @@
 import Foundation
 import SwiftUI
 import Combine
+import os
+
+private extension Logging.Categories {
+    static let fileBlocksViewsImage: Self = "TextEditor.BlocksViews.FileBlocksViews.Image"
+}
 
 // MARK: ViewModel
 extension FileBlocksViews.Image {
     class BlockViewModel: FileBlocksViews.Base.BlockViewModel {
-      
+        
         var fileBlock: BlockType.File? {
             didSet {
                 self.state = fileBlock?.state
@@ -44,15 +49,22 @@ extension FileBlocksViews.Image {
             switch event {
             case .didSelectRowInTableView:
                 // we should show image picker
-                self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(self.getRealBlock())))))
+                let blockModel = self.getRealBlock()
+                guard let documentId = blockModel.findRoot()?.information.id else { return }
+                let blockId = blockModel.information.id
+                
+                let model: ImagePickerUIKit.ViewModel = .init(documentId: documentId, blockId: blockId)
+                self.configureListening(imagePickerViewModel: model)
+                // self.getRealBlock()
+                self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(model)))))
             }
         }
         
         private func setup() {
             switch getRealBlock().information.content {
-                case let .file(blockType):
-                    self.fileBlock = blockType
-                default: return
+            case let .file(blockType):
+                self.fileBlock = blockType
+            default: return
             }
             
             handleEvents()
@@ -61,7 +73,7 @@ extension FileBlocksViews.Image {
         func update(to state: BlockType.File.State, hash: String, name: String) {
             self.update { (block) in
                 switch block.information.content {
-                    case let .file(value):
+                case let .file(value):
                     var value = value
                     value.contentType = .image
                     value.hash = hash
@@ -70,7 +82,7 @@ extension FileBlocksViews.Image {
                     
                     block.information.content = .file(value)
                     updateFileBlock(value)
-                    default: return
+                default: return
                 }
             }
         }
@@ -104,7 +116,7 @@ extension FileBlocksViews.Image {
             .sink { [weak self] events in
                 if let event = events.filter({$0.blockSetFile.id == self?.blockId }).first {
                     let block = event.blockSetFile
-                
+                    
                     switch block.state.value {
                     case .done:
                         self?.update(to: .done, hash: block.hash.value, name: block.name.value)
@@ -121,6 +133,24 @@ extension FileBlocksViews.Image {
     }
 }
 
+// MARK: - Image Picker Enhancements
+private extension FileBlocksViews.Image.BlockViewModel {
+    func configureListening(imagePickerViewModel: ImagePickerUIKit.ViewModel) {
+        imagePickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
+            .map(\.documentId, \.blockId, \.filePath)
+            .flatMap(IpfsFilesService().upload(contextID:blockID:filePath:))
+            .sink(receiveCompletion: { value in
+                switch value {
+                case .finished: break
+                case let .failure(value):
+                    let logger = Logging.createLogger(category: .fileBlocksViewsImage)
+                    os_log(.error, log: logger, "uploading image error %”@ on %@", String(describing: value), String(describing: self))
+                }
+            }) { _ in }
+        .store(in: &self.subscriptions)
+    }
+}
+
 // MARK: - UIView
 private extension FileBlocksViews.Image {
     class FileImageBlockView: UIView {
@@ -130,7 +160,7 @@ private extension FileBlocksViews.Image {
             var imageViewTop: CGFloat = 4
             var emptyViewHeight: CGFloat = 52
         }
-               
+        
         var layout: Layout = .init()
         
         // MARK: Views
@@ -149,24 +179,24 @@ private extension FileBlocksViews.Image {
                 handleState()
             }
         }
-
+        
         // MARK: Initialization
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.setup()
         }
-
+        
         required init?(coder: NSCoder) {
             super.init(coder: coder)
             self.setup()
         }
-
+        
         // MARK: Setup
         func setup() {
             self.setupUIElements()
             self.addLayout()
         }
-
+        
         // MARK: UI Elements
         func setupUIElements() {
             // Default behavior
@@ -200,7 +230,7 @@ private extension FileBlocksViews.Image {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
-
+            
             self.addSubview(emptyView)
         }
         
@@ -213,8 +243,8 @@ private extension FileBlocksViews.Image {
             if let view = self.imageContentView, let superview = view.superview {
                 let heightAnchor = view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: self.layout.imageViewHeightMultiplier)
                 let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                    bottomAnchor.priority = UILayoutPriority(750)
-
+                bottomAnchor.priority = UILayoutPriority(750)
+                
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
@@ -223,7 +253,7 @@ private extension FileBlocksViews.Image {
                     heightAnchor
                 ])
             }
-
+            
             if let view = self.imageView, let superview = view.superview {
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
@@ -239,7 +269,7 @@ private extension FileBlocksViews.Image {
                 let heightAnchor = view.heightAnchor.constraint(equalToConstant: self.layout.emptyViewHeight)
                 let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
                 bottomAnchor.priority = UILayoutPriority(750)
-                  
+                
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
@@ -258,7 +288,7 @@ private extension FileBlocksViews.Image {
                 self.emptyView.removeFromSuperview()
             }
         }
-     
+        
         func setupImage() {
             guard let blockHash = block?.hash else { return }
             
@@ -291,9 +321,9 @@ private extension FileBlocksViews.Image {
                 self.addEmptyViewLayout()
                 self.emptyView.setupUploadingView()
             case .done:
-                 self.setupImageView()
-                 self.addImageViewLayout()
-                 self.setupImage()
+                self.setupImageView()
+                self.addImageViewLayout()
+                self.setupImage()
             case .error:
                 self.setupEmptyView()
                 self.addEmptyViewLayout()
@@ -302,7 +332,7 @@ private extension FileBlocksViews.Image {
                 // Nothing to do
             }
         }
-
+        
         // MARK: Configured
         func configured(with block: BlockType.File?) -> Self {
             if let fileBlock = block {
@@ -348,18 +378,18 @@ private extension FileBlocksViews.Image {
             super.init(frame: frame)
             self.setup()
         }
-
+        
         required init?(coder: NSCoder) {
             super.init(coder: coder)
             self.setup()
         }
-
+        
         // MARK: Setup
         func setup() {
             self.setupUIElements()
             self.addLayout()
         }
-
+        
         // MARK: UI Elements
         func setupUIElements() {
             self.setupEmptyView()
@@ -412,13 +442,13 @@ private extension FileBlocksViews.Image {
             self.placeholderLabel.text = resource.errorText
             self.activityIndicator.isHidden = true
         }
-       
+        
         func setupUploadingView() {
             self.placeholderLabel.text = resource.uploadingText
             self.activityIndicator.isHidden = false
             self.activityIndicator.startAnimating()
         }
-    
+        
         // MARK: Layout
         func addLayout() {
             

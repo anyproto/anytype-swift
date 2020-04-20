@@ -19,7 +19,7 @@ extension FileBlocksViews {
 }
 
 extension FileBlocksViews.UserAction {
-    typealias Model = BlockModels.Block.RealBlock
+    typealias Model = ImagePickerUIKit.ViewModel
     enum ImageAction {
         case shouldShowImagePicker(Model)
     }

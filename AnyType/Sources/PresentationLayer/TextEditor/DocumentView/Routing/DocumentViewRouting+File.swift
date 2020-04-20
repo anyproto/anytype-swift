@@ -32,10 +32,15 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
         private func handle(action: FileBlocksViews.UserAction.ImageAction) {
             switch action {
             case let .shouldShowImagePicker(model):
-                guard let documentId = model.findRoot()?.information.id else { return }
-                let blockId = model.information.id
-                let imagePicker: ImagePickerUIKit = .init(model: .init(documentId: documentId, blockId: blockId))
-                self.send(event: .showViewController(imagePicker))
+                /// Look at this code, mister Denis.
+                /// We should either use viewModel (blue) in parameter and we don't care about further setup of callbacks.
+                /// OR
+                /// We should use blockModel (red) and setup everything here.
+                /// See commented code below.
+//                guard let documentId = model.findRoot()?.information.id else { return }
+//                let blockId = model.information.id
+//                let imagePicker: ImagePickerUIKit = .init(model: .init(documentId: documentId, blockId: blockId))
+                self.send(event: .showViewController(ImagePickerUIKit.init(model: model)))
             }
         }
         

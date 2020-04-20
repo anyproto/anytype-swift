@@ -362,23 +362,3 @@ extension DocumentViewModel {
     }
     
 }
-
-// MARK: Configuring Image Picker Listening
-extension DocumentViewModel {
-    private func configureListening(imagePicker: ImagePickerUIKit) {
-        imagePicker.model.$resultInformation.safelyUnwrapOptionals().notableError()
-            .flatMap({IpfsFilesService().upload(contextID: $0.documentId, blockID: $0.blockId, filePath: $0.filePath)})
-            .sink(receiveCompletion: { _ in
-            //TODO: Handle error
-        }) { _ in }
-        .store(in: &self.subscriptions)
-    }
-    
-    private func uploadImage(with imagePickerResult: ImagePickerUIKit.ResultInformation) {
-        IpfsFilesService().upload(contextID: imagePickerResult.documentId, blockID: imagePickerResult.blockId, filePath: imagePickerResult.filePath)
-        .sink(receiveCompletion: { _ in
-            //TODO: Handle error
-        }) { _ in }
-        .store(in: &self.subscriptions)
-    }
-}
