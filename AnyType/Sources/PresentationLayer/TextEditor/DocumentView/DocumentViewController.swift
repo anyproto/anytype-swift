@@ -63,7 +63,7 @@ class DocumentViewController: UIViewController {
         return headerView
     }()
 
-    // Initialization
+    /// Initialization
     init(viewModel: ViewModel) {
         self.model = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -71,6 +71,22 @@ class DocumentViewController: UIViewController {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - Routing
+extension DocumentViewController {
+    private func handleRouting(action: DocumentViewRouting.OutputEvent) {
+        switch action {
+        case let .showViewController(viewController):
+            self.present(viewController, animated: true, completion: {})
+        }
+    }
+    
+    func subscribeOnRouting(_ router: DocumentViewRoutingOutputProtocol) {
+        router.outputEventsPublisher.sink { [weak self] (value) in
+            self?.handleRouting(action: value)
+        }.store(in: &self.subscriptions)
     }
 }
 

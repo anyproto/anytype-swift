@@ -76,6 +76,42 @@ extension Publishers {
     }
 }
 
+// MARK: NotableError
+extension Publishers {
+    /// A publisher that takes attention to failure type and change Publisher.Failure from Never to Error.
+    /// Actually, it is `.mapError(f)` where `f: (Failure) -> (Error)`
+    public struct NotableError<Upstream> : Publisher where Upstream : Publisher, Upstream.Failure == Never {
+        /// Private structure which adopts generic protocol Error. It is required for changing type of error.
+        private struct UnbelievableError: Error {}
+        /// The kind of values published by this publisher.
+        public typealias Output = Upstream.Output
+
+        /// The kind of errors this publisher might publish.
+        ///
+        /// Use `Void` if this `Publisher` does not publish errors.
+        public typealias Failure = Error
+
+        /// The publisher from which this publisher receives elements.
+        public let upstream: Upstream
+        private let downstream: Publishers.MapError<Upstream, Failure>
+        public init(upstream: Upstream) {
+            self.upstream = upstream
+            self.downstream = upstream.mapError({_ in UnbelievableError()})
+        }
+
+        /// This function is called to attach the specified `Subscriber` to this `Publisher` by `subscribe(_:)`
+        ///
+        /// - SeeAlso: `subscribe(_:)`
+        /// - Parameters:
+        ///     - subscriber: The subscriber to attach to this `Publisher`.
+        ///                   once attached it can begin to receive values.
+        public func receive<S>(subscriber: S) where S : Subscriber, S.Failure == Failure, S.Input == Output {
+            self.downstream.receive(subscriber: subscriber)
+        }
+    }
+
+}
+
 // MARK: SafelyUnwrapOptionals
 extension Publishers {
     /// A publisher that ignores nil values and safely unwrap optionals.
@@ -124,6 +160,12 @@ extension Publisher {
         .init(upstream: self)
     }
     func ignoreFailure() -> Publishers.IgnoreFailure<Self> {
+        .init(upstream: self)
+    }
+}
+
+extension Publisher where Self.Failure == Never {
+    func notableError() -> Publishers.NotableError<Self> {
         .init(upstream: self)
     }
 }

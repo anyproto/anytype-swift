@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 extension BlocksViews.Base {
     class ViewModel: ObservableObject {
@@ -20,6 +21,7 @@ extension BlocksViews.Base {
         // MARK: Initialization
         init(_ block: BlockModel) {
             self.block = block
+            self.setupPublishers()
         }
         
         static func generateID() -> BlockModelID {
@@ -47,6 +49,16 @@ extension BlocksViews.Base {
             }
         }
         
+        // MARK: Events
+        @Published private var userAction: BlocksViews.UserAction?
+        
+        // TODO: Rethink.
+        // Do we need to store this publisher or we could rather return it from getter?
+        public var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = .empty()
+        private func setupPublishers() {
+            self.userActionPublisher = self.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
+        }
+        
         // MARK: Indentation
         func indentationLevel() -> UInt {
             self.getBlock().indentationLevel()
@@ -59,6 +71,9 @@ extension BlocksViews.Base {
         // MARK: Subclass / Views
         func makeSwiftUIView() -> AnyView { .init(Text("")) }
         func makeUIView() -> UIView { .init() }
+        
+        // MARK: Subclass / Events
+        func handle(event: BlocksViews.UserEvent) {}
     }
 }
 
@@ -89,6 +104,29 @@ extension BlocksViews.Base.ViewModel: BlockViewBuilderProtocol {
     
     func buildView() -> AnyView { makeSwiftUIView() }
     func buildUIView() -> UIView { makeUIView() }
+}
+
+/// Requirement: `BlocksViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.
+/// We could send events to `userActionPublisher`.
+///
+extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsEmittingProtocol {
+    func send(userAction: BlocksViews.UserAction) {
+        self.userAction = userAction
+    }
+}
+
+/// Requirement: `BlocksViewsUserActionsSubscribingProtocol` is necessary for routing and outer world.
+/// We could subscribe on `userActionPublisher` and react on changes.
+/// 
+extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsSubscribingProtocol {}
+
+/// Requirement: `BlocksViewsUserActionsReceivingProtocol` is necessary for communication from outer space.
+/// We could send events to blocks views to perform actions and get reactions.
+///
+extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsReceivingProtocol {
+    func receive(event: BlocksViews.UserEvent) {
+        self.handle(event: event)
+    }
 }
 
 // MARK: Holder

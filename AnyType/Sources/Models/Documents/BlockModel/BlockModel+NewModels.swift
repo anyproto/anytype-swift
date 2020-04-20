@@ -198,6 +198,13 @@ extension BlockModels.Block.RealBlock {
     }
 }
 
+// MARK: Find Root
+extension BlockModels.Block.RealBlock {
+    func findRoot() -> BlockModels.Block.RealBlock? {
+        sequence(first: self, next: (\.parent)).compactMap({$0 as? BlockModels.Block.RealBlock}).reversed().first
+    }
+}
+
 // MARK: Configuration
 extension BlockModels.Block.Node {
     func with(kind: BlockModels.Utilities.Inspector.BlockKind) -> Self {

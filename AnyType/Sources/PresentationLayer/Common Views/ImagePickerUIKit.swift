@@ -7,47 +7,95 @@
 //
 
 import UIKit
+import CoreServices
 
-//TODO: Better to change class to UIViewController!
-open class ImagePickerUIKit: NSObject {
+// MARK: - ImagePickerUIKit
+open class ImagePickerUIKit: UIViewController {
+    // MARK: Variables
+    var model: ViewModel
     
-    static let `default`: ImagePickerUIKit = .init()
-    
-    struct ResultInformation {
-        var imageURL: URL
-        var blockID: String
-        var rootID: String
+    // MARK: Native ImagePicker
+    private func createPickerController() -> UIImagePickerController {
+        let controller: UIImagePickerController = .init()
+        controller.allowsEditing = false
+        controller.mediaTypes = [kUTTypeImage as String]
+        controller.delegate = self
+        controller.sourceType = .photoLibrary
+        return controller
     }
     
-    @Published var resultInformation: ResultInformation?
-    
-    private let pickerController: UIImagePickerController
-    
-    private var rootID: String?
-    private var blockID: String?
-
-    public override init() {
-        self.pickerController = UIImagePickerController()
-
-        super.init()
-        
-        self.pickerController.allowsEditing = false
-        self.pickerController.mediaTypes = ["public.image"]
-        self.pickerController.delegate = self
+    // MARK: Initialization
+    init(model: ViewModel) {
+        self.model = model
+        super.init(nibName: nil, bundle: nil)
     }
     
-    public func present(presentationController: UIViewController, blockID: String, rootID: String) -> Self {
-        self.blockID = blockID
-        self.rootID = rootID
-        self.pickerController.sourceType = .photoLibrary
-        self.pickerController.delegate = self
-        presentationController.present(self.pickerController, animated: true)
-        
-        return self
+    required public init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
+// MARK: - View Lifecycle
+extension ImagePickerUIKit {
+    private func setupUIElements() {
+        let controller = self.createPickerController()
+        
+        if let view = controller.view {
+            self.view.addSubview(view)
+        }
+        
+        self.addChild(controller)
+        self.addLayout(for: controller)
+        self.didMove(toParent: controller)
+    }
+    
+    private func addLayout(for controller: UIViewController) {
+        if let view = controller.view, let superview = view.superview {
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+    }
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupUIElements()
+    }
+}
+
+// MARK: - ResultInformation
+extension ImagePickerUIKit {
+    struct ResultInformation {
+        var imageURL: URL
+        var blockId: String
+        var documentId: String
+        var filePath: String { self.imageURL.relativePath }
+    }
+}
+
+// MARK: - ViewModel
+extension ImagePickerUIKit {
+    class ViewModel {
+        private var documentId: String
+        private var blockId: String
+        @Published var resultInformation: ResultInformation?
+        
+        init(documentId: String, blockId: String) {
+            self.documentId = documentId
+            self.blockId = blockId
+        }
+        
+        func process(information: [UIImagePickerController.InfoKey: Any]) {
+            guard let imageURL = information[.imageURL] as? URL else { return }
+            self.resultInformation = .init(imageURL: imageURL, blockId: self.blockId, documentId: self.documentId)
+        }
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate
 extension ImagePickerUIKit: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -55,11 +103,7 @@ extension ImagePickerUIKit: UIImagePickerControllerDelegate, UINavigationControl
     }
 
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL , let block = self.blockID , let root = self.rootID else {
-            return picker.dismiss(animated: true, completion: nil)
-        }
-        
-        self.resultInformation = .init(imageURL: imageURL, blockID: block, rootID: root)
+        self.model.process(information: info)
         picker.dismiss(animated: true, completion: nil)
     }
     

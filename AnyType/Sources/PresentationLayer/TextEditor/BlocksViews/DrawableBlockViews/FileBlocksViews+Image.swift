@@ -39,6 +39,15 @@ extension FileBlocksViews.Image {
             self.setup()
         }
         
+        // MARK: Subclassing / Events
+        override func handle(event: BlocksViews.UserEvent) {
+            switch event {
+            case .didSelectRowInTableView:
+                // we should show image picker
+                self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(self.getRealBlock())))))
+            }
+        }
+        
         private func setup() {
             switch getRealBlock().information.content {
                 case let .file(blockType):
