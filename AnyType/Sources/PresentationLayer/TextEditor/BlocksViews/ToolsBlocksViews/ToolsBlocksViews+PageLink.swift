@@ -229,8 +229,12 @@ private extension ToolsBlocksViews.PageLink {
         // MARK: Configured
         func configured(textView: TextView.UIKitTextView?) -> Self {
             _ = self.topView.configured(textView: textView)
-            textView?.getTextView?.text = "Abc"
-            textView?.getTextView?.backgroundColor = .green
+            let text: NSString = "Untitled"
+            let attributedString: NSMutableAttributedString = .init(string: text as String)
+            let attributes: [NSAttributedString.Key : Any] = [.foregroundColor: UIColor.lightGray, .font: UIFont.preferredFont(forTextStyle: .title3)]
+            attributedString.setAttributes(attributes, range: .init(location: 0, length: text.length))
+            textView?.getTextView?.textStorage.setAttributedString(attributedString)
+            textView?.getTextView?.isUserInteractionEnabled = false
             return self
         }
         
