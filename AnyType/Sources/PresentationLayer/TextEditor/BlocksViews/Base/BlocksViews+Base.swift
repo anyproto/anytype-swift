@@ -9,6 +9,11 @@
 import Foundation
 import SwiftUI
 import Combine
+import os
+
+private extension Logging.Categories {
+    static let blocksViewsBase: Self = "TextEditor.BlocksViews.Base"
+}
 
 extension BlocksViews.Base {
     class ViewModel: ObservableObject {
@@ -57,6 +62,7 @@ extension BlocksViews.Base {
         public var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = .empty()
         private func setupPublishers() {
             self.userActionPublisher = self.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
+            
         }
         
         // MARK: Indentation
@@ -112,6 +118,10 @@ extension BlocksViews.Base.ViewModel: BlockViewBuilderProtocol {
 extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsEmittingProtocol {
     func send(userAction: BlocksViews.UserAction) {
         self.userAction = userAction
+        // TODO: Redone on top of PassthroughSubject instead.
+        let logger = Logging.createLogger(category: .blocksViewsBase)
+        os_log(.debug, log: logger, "Do not forget to done it right. We shouldn't use this hack by setting nil to @Published variable. Use PassthroughSubject instead.")
+        self.userAction = nil
     }
 }
 

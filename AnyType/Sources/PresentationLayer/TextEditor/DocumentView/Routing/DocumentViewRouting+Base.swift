@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 import Combine
+import os
+
+private extension Logging.Categories {
+    static let documentViewRoutingBase: Self = "TextEditor.DocumentViewRouting.BaseRouter"
+}
 
 enum DocumentViewRouting {
     /// Base Router.
@@ -61,6 +66,10 @@ extension DocumentViewRouting.BaseRouter: DocumentViewRoutingOutputProtocol {}
 extension DocumentViewRouting.BaseRouter: DocumentViewRoutingSendingOutputProtocol {
     func send(event: DocumentViewRouting.OutputEvent) {
         self.outputEvent = event
+        // TODO: Redone on top of PassthroughSubject instead.
+        let logger = Logging.createLogger(category: .documentViewRoutingBase)
+        os_log(.debug, log: logger, "Do not forget to done it right. We shouldn't use this hack by setting nil to @Published variable. Use PassthroughSubject instead.")
+        self.outputEvent = nil
     }
 }
 
