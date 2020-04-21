@@ -139,13 +139,13 @@ extension DocumentViewRouting {
                 case .file: return self.router(of: FileBlocksViewsRouter.self)
                 default: return nil
                 }
-                
+            case .toolbars: return self.router(of: ToolbarsRouter.self)
             default: return nil
             }
         }
         
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [FileBlocksViewsRouter()]
+            [FileBlocksViewsRouter(), ToolbarsRouter()]
         }
     }
 }

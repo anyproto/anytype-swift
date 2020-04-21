@@ -57,6 +57,11 @@ extension ToolsBlocksViews.PageLink {
                 .configured(stateStream: self.statePublisher)
                 .configured(state: self._state)
         }
+        override func handle(event: BlocksViews.UserEvent) {
+            switch event {
+            case .didSelectRowInTableView: self.send(userAction: .toolbars(.addBlock))
+            }
+        }
     }
 }
 

@@ -17,6 +17,7 @@ extension BlocksViews {
     enum UserAction {
         // when a model is about to update.
         case updated(Model)
+        case toolbars(ToolbarOpenAction)
         case specific(SpecificAction)
     }
 }
@@ -30,5 +31,12 @@ extension BlocksViews.UserAction {
     enum SpecificAction {
         case tool(ToolsBlocksViews.UserAction)
         case file(FileBlocksViews.UserAction)
+    }
+}
+
+// MARK: - ToolbarOpenAction
+extension BlocksViews.UserAction {
+    enum ToolbarOpenAction {
+    case addBlock
     }
 }

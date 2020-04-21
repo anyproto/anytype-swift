@@ -128,6 +128,14 @@
 		0A0AA76B24051345003A2935 /* BlocksViewsUtilitiesUpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA76A24051345003A2935 /* BlocksViewsUtilitiesUpdaterProtocol.swift */; };
 		0A19E2AE2444C8AB0078DFAB /* BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19E2AB2444C8AA0078DFAB /* BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift */; };
 		0A19E2AF2444C8AB0078DFAB /* BlocksViews+Supplement+Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A19E2AC2444C8AA0078DFAB /* BlocksViews+Supplement+Updater.swift */; };
+		0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */; };
+		0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */; };
+		0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */; };
+		0A1DACC9244DEA9B0007BC5D /* BlocksViews+Toolbar+ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC8244DEA9B0007BC5D /* BlocksViews+Toolbar+ListCell.swift */; };
+		0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCA244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift */; };
+		0A1DACCD244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCC244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift */; };
+		0A1DACCF244E28040007BC5D /* DocumentViewRouting+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCE244E28040007BC5D /* DocumentViewRouting+Toolbar.swift */; };
+		0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */; };
 		0A395E142424E40C009C330C /* BlockModel+IndexWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A395E132424E40C009C330C /* BlockModel+IndexWalker.swift */; };
 		0A6645662406B9E3008392AF /* BlockModel+Parser+ModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6645652406B9E3008392AF /* BlockModel+Parser+ModelBuilder.swift */; };
 		0A664568240800C7008392AF /* BlockModel+Updater+Relaxing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A664567240800C6008392AF /* BlockModel+Updater+Relaxing.swift */; };
@@ -363,6 +371,14 @@
 		0A0AA76A24051345003A2935 /* BlocksViewsUtilitiesUpdaterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewsUtilitiesUpdaterProtocol.swift; sourceTree = "<group>"; };
 		0A19E2AB2444C8AA0078DFAB /* BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift"; sourceTree = "<group>"; };
 		0A19E2AC2444C8AA0078DFAB /* BlocksViews+Supplement+Updater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Updater.swift"; sourceTree = "<group>"; };
+		0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar.swift"; sourceTree = "<group>"; };
+		0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+BlocksTypes.swift"; sourceTree = "<group>"; };
+		0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock.swift"; sourceTree = "<group>"; };
+		0A1DACC8244DEA9B0007BC5D /* BlocksViews+Toolbar+ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+ListCell.swift"; sourceTree = "<group>"; };
+		0A1DACCA244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+UnderlyingAction.swift"; sourceTree = "<group>"; };
+		0A1DACCC244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+ViewController.swift"; sourceTree = "<group>"; };
+		0A1DACCE244E28040007BC5D /* DocumentViewRouting+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Toolbar.swift"; sourceTree = "<group>"; };
+		0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A395E132424E40C009C330C /* BlockModel+IndexWalker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+IndexWalker.swift"; sourceTree = "<group>"; };
 		0A6645652406B9E3008392AF /* BlockModel+Parser+ModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+Parser+ModelBuilder.swift"; sourceTree = "<group>"; };
 		0A664567240800C6008392AF /* BlockModel+Updater+Relaxing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+Updater+Relaxing.swift"; sourceTree = "<group>"; };
@@ -557,6 +573,7 @@
 		031B35572346C5650066DDB8 /* BlocksViews */ = {
 			isa = PBXGroup;
 			children = (
+				0A1DACC1244DD34B0007BC5D /* Toolbar */,
 				036C83192416990900D65B26 /* Legacy */,
 				03B65750234D474A0084D9F5 /* TextableBlockViews */,
 				0A69322523911AF700575544 /* DrawableBlockViews */,
@@ -1232,6 +1249,20 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		0A1DACC1244DD34B0007BC5D /* Toolbar */ = {
+			isa = PBXGroup;
+			children = (
+				0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */,
+				0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */,
+				0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */,
+				0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */,
+				0A1DACC8244DEA9B0007BC5D /* BlocksViews+Toolbar+ListCell.swift */,
+				0A1DACCA244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift */,
+				0A1DACCC244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift */,
+			);
+			path = Toolbar;
+			sourceTree = "<group>";
+		};
 		0A66456924085A1E008392AF /* BlocksServices */ = {
 			isa = PBXGroup;
 			children = (
@@ -1295,6 +1326,7 @@
 				0A9D49E2244908F1007F0992 /* DocumentViewRouting+Base.swift */,
 				0A9D49E62449F246007F0992 /* DocumentViewRouting+OutputEvent.swift */,
 				0A9D49E8244A0F83007F0992 /* DocumentViewRouting+File.swift */,
+				0A1DACCE244E28040007BC5D /* DocumentViewRouting+Toolbar.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -1485,6 +1517,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */,
+				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
 				0A9D49E72449F246007F0992 /* DocumentViewRouting+OutputEvent.swift in Sources */,
 				53F186212427EE2500738620 /* DashboardEventHandler.swift in Sources */,
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
@@ -1539,6 +1573,7 @@
 				0A6B012A23F59BFA002345D1 /* TextView+UIKitTextView+Builder.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
 				030DF8682333E3DD00FE6DA5 /* Legacy_DocumentView.swift in Sources */,
+				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */,
 				0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
@@ -1558,6 +1593,7 @@
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */,
+				0A1DACC9244DEA9B0007BC5D /* BlocksViews+Toolbar+ListCell.swift in Sources */,
 				0A693221238C4C8200575544 /* TextBlocksViews+List.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
@@ -1601,6 +1637,7 @@
 				0AF8308B23A2579300640DAC /* TextBlocksViews+Quote.swift in Sources */,
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */,
+				0A1DACCD244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift in Sources */,
 				0A0AA751240185EE003A2935 /* BlockModel+BusinessBlock.swift in Sources */,
 				0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */,
 				0A0AA769240414AF003A2935 /* BlockModel+NewModels.swift in Sources */,
@@ -1609,10 +1646,12 @@
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				0ACA780123E5C3A800442690 /* TextView+InnerTextView.swift in Sources */,
 				0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */,
+				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
 				0A8E65232444FDEB00378985 /* ToolsBlocksViews+PageLink.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
+				0A1DACCF244E28040007BC5D /* DocumentViewRouting+Toolbar.swift in Sources */,
 				03B42F2A232910AB000F2BA2 /* HomeView.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */,
@@ -1627,6 +1666,7 @@
 				0A996BCF23EF19BE000FDC9C /* DocumentViewBuilder.swift in Sources */,
 				0A19E2AE2444C8AB0078DFAB /* BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift in Sources */,
 				0ADE618F24488C5400244E49 /* FileBlocksViews+UserActions.swift in Sources */,
+				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,
 				0A9D49DE244905C0007F0992 /* BlocksViews+UserEvents.swift in Sources */,
 				0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */,
 				03D1516623FB446A004027CE /* ConfigurationService.swift in Sources */,

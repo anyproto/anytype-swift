@@ -40,10 +40,10 @@ extension BlocksViews.Supplement.TreeUpdater: BlocksViewsUtilitiesUpdaterProtoco
     func delete(at: Key) {
         self.updater.delete(at: at)
     }
-    func insert(block: Wrapped.ViewModel.BlockModel, afterBlock: Wrapped.ViewModel.BlockModel.FullIndex) {
+    func insert(block: Model, afterBlock: Key) {
         self.updater.insert(block: block, afterBlock: afterBlock)
     }
-    func insert(block: Wrapped.ViewModel.BlockModel, at: Wrapped.ViewModel.BlockModel.FullIndex) {
+    func insert(block: Model, at: Key) {
         self.updater.insert(block: block, at: at)
     }
 }
