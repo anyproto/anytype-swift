@@ -89,22 +89,29 @@ extension BlocksViews.Toolbar.ViewController {
                 
         // MARK: Models
         @ObservedObject private var addBlockViewModel: Toolbar.AddBlock.ViewModel
+        @ObservedObject private var turnIntoBlockViewModel: Toolbar.TurnIntoBlock.ViewModel
         
         // MARK: Setup
-        private func setup() {
-            let addBlockPublisher = self.addBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
+        private func publisher(style: Style) -> AnyPublisher<UnderlyingAction, Never> {
+            switch style {
+            case .addBlock: return self.addBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
                 UnderlyingAction.addBlock(UnderlyingAction.BlockType.convert(value))
+            }.eraseToAnyPublisher()
+            case .turnIntoBlock: return self.turnIntoBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
+                UnderlyingAction.addBlock(UnderlyingAction.BlockType.convert(value))
+            }.eraseToAnyPublisher()
             }
-            
-            self.action = addBlockPublisher.eraseToAnyPublisher()
+        }
+        private func setup(style: Style) {
+            self.action = self.publisher(style: style)
         }
         
         // MARK: Initialization
         private init(_ style: Style) {
             self.style = style
-            switch style {
-            case .addBlock: self.addBlockViewModel = .init()
-            }
+            self.addBlockViewModel = Toolbar.AddBlock.ViewModelBuilder.create()
+            self.turnIntoBlockViewModel = Toolbar.TurnIntoBlock.ViewModelBuilder.create()
+            self.setup(style: style)
         }
         
         // MARK: Public Create
@@ -116,6 +123,7 @@ extension BlocksViews.Toolbar.ViewController {
         func chosenView() -> StyleAndViewAndPayload {
             switch self.style {
             case .addBlock: return .init(style: self.style, view: Toolbar.AddBlock.InputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
+            case .turnIntoBlock: return .init(style: self.style, view: Toolbar.TurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
             }
         }
     }
@@ -140,6 +148,6 @@ extension BlocksViews.Toolbar.ViewController.ViewModel {
     /// And may be we could add action toolbar here...
     ///
     enum Style {
-    case addBlock//, turnInto
+    case addBlock, turnIntoBlock
     }
 }

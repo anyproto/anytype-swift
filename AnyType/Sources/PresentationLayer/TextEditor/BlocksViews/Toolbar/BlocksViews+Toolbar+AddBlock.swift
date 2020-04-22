@@ -57,7 +57,7 @@ extension BlocksViews.Toolbar.AddBlock {
 }
 
 // MARK: View
-fileprivate extension BlocksViews.Toolbar.AddBlock {
+extension BlocksViews.Toolbar.AddBlock {
     struct InputView: View {
         typealias Types = BlocksViews.Toolbar.BlocksTypes
         typealias TypesColor = Types.Resources.Color

@@ -36,7 +36,11 @@ extension BlocksViews.UserAction {
 
 // MARK: - ToolbarOpenAction
 extension BlocksViews.UserAction {
+    /// Toolbar Open action.
+    /// When you would like to open specific toolbar, you should add new entry in enumeration.
+    /// After that you need to process this entry in specific ToolbarRouter.
+    ///
     enum ToolbarOpenAction {
-    case addBlock
+    case addBlock, turnIntoBlock
     }
 }

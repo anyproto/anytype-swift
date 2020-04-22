@@ -9,6 +9,18 @@
 import Foundation
 import Combine
 
+// MARK: ViewModelBuilder
+extension BlocksViews.Toolbar.AddBlock {
+    enum ViewModelBuilder {
+        static func create() -> ViewModel {
+            let viewModel: ViewModel = .init()
+            viewModel.categories = BlocksTypes.allCases
+            _ = viewModel.configured(title: "Add Block")
+            return viewModel
+        }
+    }
+}
+
 // MARK: ViewModel
 extension BlocksViews.Toolbar.AddBlock {
     /// View model for a whole List with cells.
@@ -31,17 +43,17 @@ extension BlocksViews.Toolbar.AddBlock {
         /// It receives value when user press/choose concrete cell with concrete associated block type.
         ///
         var chosenBlockTypePublisher: AnyPublisher<BlocksTypes?, Never> = .empty()
-        
+
         // MARK: Public / Variables
         var title = "Add Block"
-        
+
         // MARK: Fileprivate / Publishers
         @Published var categoryIndex: Int? = 0
         @Published var typeIndex: Int?
-        
+
         // MARK: Fileprivate / Variables
-        var categories = BlocksTypes.allCases
-        
+        var categories: [BlocksTypes] = []
+
         // MARK: Initialization
         init() {
             self.chosenBlockTypePublisher = self.$typeIndex.map { [weak self] value in
@@ -53,11 +65,37 @@ extension BlocksViews.Toolbar.AddBlock {
     }
 }
 
+// MARK: ViewModel / Configuration
+extension BlocksViews.Toolbar.AddBlock.ViewModel {
+    typealias BlocksTypes = BlocksViews.Toolbar.AddBlock.BlocksTypes
+    func configured(title: String) -> Self {
+        self.title = title
+        return self
+    }
+    private func configuredAsAddBlock() -> Self {
+        self.categories = BlocksTypes.allCases
+        return self.configured(title: "Add Block")
+    }
+    private func configuredAsTurnIntoBlock() -> Self {
+        self.categories = BlocksTypes.allCases.filter {
+            switch $0 {
+            case .text: return true
+            case .list: return true
+            case .page: return true
+            case .media: return false
+            case .tool: return false
+            case .other: return false
+            }
+        }
+        return self.configured(title: "Turn Into")
+    }
+}
+
 // MARK: ViewModel / Internal
 extension BlocksViews.Toolbar.AddBlock.ViewModel {
     typealias Types = BlocksViews.Toolbar.BlocksTypes
     typealias Cell = BlocksViews.Toolbar.AddBlock.Cell
-    
+
     /// Actually, it was ViewData for one Cell.
     /// It is Deprecated.
     ///
@@ -67,11 +105,11 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
         var image: String
         var id: String { title }
     }
-    
+
     var types: [ChosenType] {
         return self.chosenTypes(category: self.categoryIndex)
     }
-    
+
     func chosenTypes(category: Int?) -> [ChosenType] {
         func extractedChosenTypes(_ types: [BlocksViewsToolbarBlocksTypesProtocol]) -> [ChosenType] {
             types.compactMap{($0.title, $0.subtitle, $0.path)}.map(ChosenType.init(title:subtitle:image:))
@@ -86,7 +124,7 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
         case .other: return extractedChosenTypes(Types.Other.allCases)
         }
     }
-    
+
     func chosenAction(category: Int?, type: Int?) -> Types? {
         guard let category = category, let type = type else { return nil }
         switch self.categories[category] {
@@ -98,7 +136,7 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
         case .other: return .other(Types.Other.allCases[type])
         }
     }
-    
+
     func cells(category: Int) -> [Cell.ViewModel] {
         self.chosenTypes(category: category).enumerated()
             .map{(category, $0, $1.title, $1.subtitle, $1.image)}
