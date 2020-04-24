@@ -17,10 +17,25 @@ extension BlocksViews.Toolbar {
         // MARK: Variables
         private var model: ViewModel
         
+        // MARK: Subscriptions
+        private var subscriptions: Set<AnyCancellable> = []
+        
+        // MARK: Setup
+        private func setupSubscriptions() {
+            self.model.dismissControllerPublisher.sink { [weak self] (value) in
+                self?.dismiss(animated: true, completion: nil)
+            }.store(in: &self.subscriptions)
+        }
+        
+        private func setup() {
+            self.setupSubscriptions()
+        }
+        
         // MARK: Initialization
         init(model: ViewModel) {
             self.model = model
             super.init(nibName: nil, bundle: nil)
+            self.setup()
         }
         
         required init?(coder: NSCoder) {
@@ -85,7 +100,11 @@ extension BlocksViews.Toolbar.ViewController {
         
         // MARK: Variables
         var action: AnyPublisher<UnderlyingAction, Never> = .empty()
+        var dismissControllerPublisher: AnyPublisher<Void, Never> = .empty()
         private var style: Style
+        
+        // MARK: Subscriptions
+        private var subscriptions: Set<AnyCancellable> = []
                 
         // MARK: Models
         @ObservedObject private var addBlockViewModel: Toolbar.AddBlock.ViewModel
@@ -104,6 +123,7 @@ extension BlocksViews.Toolbar.ViewController {
         }
         private func setup(style: Style) {
             self.action = self.publisher(style: style)
+            self.dismissControllerPublisher = self.action.successToVoid().eraseToAnyPublisher()
         }
         
         // MARK: Initialization
@@ -129,7 +149,16 @@ extension BlocksViews.Toolbar.ViewController {
     }
 }
 
-// MARK: StyleAndView
+// MARK: Subscriptions
+// TODO: Move this method to protocol.
+// Theoretically each class can get power of this method.
+extension BlocksViews.Toolbar.ViewController.ViewModel {
+    func subscribe<S, T>(subject: S, keyPath: KeyPath<BlocksViews.Toolbar.ViewController.ViewModel, T>) where T: Publisher, S: Subject, T.Output == S.Output, T.Failure == S.Failure {
+        self[keyPath: keyPath].subscribe(subject).store(in: &self.subscriptions)
+    }
+}
+
+// MARK: StyleAndViewAndPayload
 extension BlocksViews.Toolbar.ViewController.ViewModel {
     struct StyleAndViewAndPayload {
         struct Payload {

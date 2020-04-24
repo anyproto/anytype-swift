@@ -17,6 +17,7 @@ extension TextView.UIKitTextView {
         typealias TheTextView = TextView.UIKitTextView
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
+        typealias ActionsToolbarAccessoryView = TextView.ActionsToolbar.AccessoryView
 
         // MARK: Variables
         @Published var text: String? = nil
@@ -35,6 +36,10 @@ extension TextView.UIKitTextView {
         private lazy var blocksAccessoryView: BlockToolbarAccesoryView = .init()
         private var blocksAccessoryViewHandler: AnyCancellable?
         private var blocksUserActionsHandler: AnyCancellable?
+        
+        private lazy var actionsToolbarAccessoryView: ActionsToolbarAccessoryView = .init()
+        private var actionsToolbarAccessoryViewHandler: AnyCancellable?
+        private var actionsToolbarUserActionsHandler: AnyCancellable?
         
         private var keyboardObserverHandler: AnyCancellable?
         private var defaultKeyboardRect: CGRect = .zero
@@ -82,6 +87,34 @@ extension TextView.UIKitTextView.Coordinator {
         action.flatMap(TextView.UserAction.keyboardAction).flatMap(publishToOuterWorld)
     }
     
+    // MARK: - Publishers / Actions Toolbar
+    func configureActionsToolbarHandler(_ view: UITextView) {
+        self.actionsToolbarAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.actionsToolbarAccessoryView.model.$userAction).sink(receiveValue: { [weak self] (value) in
+            let (textView, action) = value
+            
+            guard action.action != .keyboardDismiss else {
+                textView.endEditing(false)
+                return
+            }
+            
+            self?.switchInputs(textView, accessoryView: nil, inputView: action.view)
+        })
+        
+        // TODO: Add other user interaction publishers.
+        // 1. Add hook that will send this data to delegate.
+        // 2. Add delegate that will take UserAction like delegate?.onUserAction(UserAction)
+        // 3. Add another delegate that will "wraps" UserAction with information about block ( first delegate IS a observableModel or even just ObservableObject or @binding... )
+        // 4. Second delegate is a documentViewModel ( so, it needs information about block if available.. )
+        // 5. Add hook to receive user key inputs and context of current text View. ( enter may behave different ).
+        // 6. Add hook that will catch marks styles. ( special convert for links and colors )
+        self.actionsToolbarUserActionsHandler = self.actionsToolbarAccessoryView.model.allInOnePublisher.sink { [weak self] value in
+            // now tell outer world that we are ready to process actions.
+            // ...
+            self?.publishToOuterWorld(value)
+        }
+    }
+    
+    
     // MARK: - Publishers / Blocks Toolbar
     func configureBlocksToolbarHandler(_ view: UITextView) {
         self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { [weak self] (value) in
@@ -102,11 +135,10 @@ extension TextView.UIKitTextView.Coordinator {
         // 4. Second delegate is a documentViewModel ( so, it needs information about block if available.. )
         // 5. Add hook to receive user key inputs and context of current text View. ( enter may behave different ).
         // 6. Add hook that will catch marks styles. ( special convert for links and colors )
-        self.blocksUserActionsHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.allInOnePublisher).sink { [weak self] value in
-            let (_, action) = value
+        self.blocksUserActionsHandler = self.blocksAccessoryView.model.allInOnePublisher.sink { [weak self] value in
             // now tell outer world that we are ready to process actions.
             // ...
-            self?.publishToOuterWorld(action)
+            self?.publishToOuterWorld(value)
         }
     }
     
@@ -239,9 +271,9 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         func switchInputs(_ length: Int, accessoryView: UIView?, inputView: UIView?) -> (Bool, UIView?, UIView?) {
             switch (length, accessoryView, inputView) {
             // Length == 0, => set blocks toolbar and restore default keyboard.
-            case (0, _, _): return (true, self.blocksAccessoryView, nil)
+            case (0, _, _): return (true, self.actionsToolbarAccessoryView, nil)
             // Length != 0 and is BlockToolbarAccessoryView => set highlighted accessory view and restore default keyboard.
-            case (_, is BlockToolbarAccesoryView, _): return (true, self.highlightedAccessoryView, nil)
+            case (_, is ActionsToolbarAccessoryView, _): return (true, self.highlightedAccessoryView, nil)
             // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
             case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return (true, self.highlightedAccessoryView, nil)
             // Otherwise, we need to keep accessory view and keyboard.

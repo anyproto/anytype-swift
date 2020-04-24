@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: - UserAction
 extension BlocksViews {
@@ -40,7 +41,17 @@ extension BlocksViews.UserAction {
     /// When you would like to open specific toolbar, you should add new entry in enumeration.
     /// After that you need to process this entry in specific ToolbarRouter.
     ///
-    enum ToolbarOpenAction {
+    enum ToolbarOpenAction: Equatable {
+        static func == (lhs: BlocksViews.UserAction.ToolbarOpenAction, rhs: BlocksViews.UserAction.ToolbarOpenAction) -> Bool {
+            switch (lhs, rhs) {
+            case (.addBlock, .addBlock): return true
+            case (.turnIntoBlock, .turnIntoBlock): return true
+            case (.addBlockWithPassthroughSubject, .addBlockWithPassthroughSubject): return true
+            default: return false
+            }
+        }
+        
     case addBlock, turnIntoBlock
+    case addBlockWithPassthroughSubject(PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>)
     }
 }

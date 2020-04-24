@@ -134,6 +134,14 @@ extension BlocksViews.Supplement.TreeTextBlocksUserInteractor: TextBlocksViewsUs
         case let .inputAction(value):
             let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
             os_log(.debug, log: logger, "Do not forget to implement: %@", String(describing: value))
+        
+        case let .addBlockAction(value):
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            os_log(.debug, log: logger, "Do not forget to implement: %@", String(describing: value))
+        case let .showMultiActionMenuAction(value):
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            os_log(.debug, log: logger, "Do not forget to implement: %@", String(describing: value))
+
         }
     }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 // MARK: ViewModelBuilder
 extension BlocksViews.Toolbar.AddBlock {
@@ -50,15 +51,18 @@ extension BlocksViews.Toolbar.AddBlock {
         // MARK: Fileprivate / Publishers
         @Published var categoryIndex: Int? = 0
         @Published var typeIndex: Int?
+        
+        @Published var indexPathIndex: IndexPath?
+        
+        private var indexPathIndexSubscribers: Set<AnyCancellable> = []
 
         // MARK: Fileprivate / Variables
         var categories: [BlocksTypes] = []
 
         // MARK: Initialization
         init() {
-            self.chosenBlockTypePublisher = self.$typeIndex.map { [weak self] value in
-                let category = self?.categoryIndex
-                let type = value
+            self.chosenBlockTypePublisher = self.$indexPathIndex.map { [weak self] value in
+                let (category, type) = (value?.section, value?.item)
                 return self?.chosenAction(category: category, type: type)
             }.eraseToAnyPublisher()
         }
@@ -138,9 +142,11 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
     }
 
     func cells(category: Int) -> [Cell.ViewModel] {
-        self.chosenTypes(category: category).enumerated()
+        let cells = self.chosenTypes(category: category).enumerated()
             .map{(category, $0, $1.title, $1.subtitle, $1.image)}
             .map(Cell.ViewModel.init(section:index:title:subtitle:imageResource:))
+        cells.forEach { $0.configured(indexPathStream: self._indexPathIndex) }
+        return cells
     }
 }
 
@@ -154,12 +160,30 @@ extension BlocksViews.Toolbar.AddBlock.Category {
 
 // MARK: Cell
 extension BlocksViews.Toolbar.AddBlock.Cell {
-    struct ViewModel {
+    class ViewModel: ObservableObject {
+        @Published var indexPath: IndexPath?
         let section: Int
         let index: Int
         let title: String
         let subtitle: String
         let imageResource: String // path to image
+        
+        func pressed() {
+            self.indexPath = .init(item: self.index, section: self.section)
+        }
+        
+        func configured(indexPathStream: Published<IndexPath?>) -> Self {
+            self._indexPath = indexPathStream
+            return self
+        }
+                
+        internal init(section: Int, index: Int, title: String, subtitle: String, imageResource: String) {
+            self.section = section
+            self.index = index
+            self.title = title
+            self.subtitle = subtitle
+            self.imageResource = imageResource
+        }
     }
 }
 

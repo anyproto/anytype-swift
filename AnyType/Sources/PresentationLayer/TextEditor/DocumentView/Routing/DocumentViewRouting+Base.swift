@@ -26,12 +26,12 @@ enum DocumentViewRouting {
     class BaseRouter {
         // MARK: UserActions
         private var userActionsStreamSubscription: AnyCancellable?
-        
+
         // MARK: Initialization
         init() {
             self.setupPublishers()
         }
-        
+
         // MARK: Events
         @Published private var outputEvent: OutputEvent?
         public var outputEventsPublisher: AnyPublisher<OutputEvent, Never> = .empty()
@@ -42,7 +42,7 @@ enum DocumentViewRouting {
         // MARK: Subclassing
         /// This is the method that is called from `userActionsStream`.
         /// - Parameter action: An action of BlocksViews.UserAction events that is coming from outer world.
-        /// 
+        ///
         func receive(action: BlocksViews.UserAction) {}
 
         // MARK: Configured
@@ -86,7 +86,7 @@ extension DocumentViewRouting {
     class BaseCompoundRouter: BaseRouter {
         // MARK: Variables
         @Published private var routers: [BaseRouter] = []
-        
+
         // MARK: Find
         /// Find router of concrete type which is subclass of our `BaseRouter`.
         /// - Parameter type: A subclass type of our `BaseRouter`.
@@ -94,40 +94,40 @@ extension DocumentViewRouting {
         func router<T>(of type: T.Type) -> T? where T: BaseRouter {
             self.routers.filter({$0 is T}).first as? T
         }
-        
+
         // MARK: Initialization
         override init() {
             super.init()
             _ = self.configured(routers: self.defaultRouters())
         }
-        
+
         // MARK: Setup
         /// Setup routers by merging their `outputEventsPublisher` properties into one publisher.
         /// - Parameter routers: Routers which publishers will be merged into one publisher.
         private func setup(routers: [BaseRouter]) {
             self.outputEventsPublisher = Publishers.MergeMany(routers.map(\.outputEventsPublisher)).eraseToAnyPublisher()
         }
-        
+
         // MARK: Subclassing
-        
+
         /// Provide default routers.
         /// - Returns: Routers that will be stored in local collection.
         func defaultRouters() -> [BaseRouter] {
             []
         }
-        
+
         /// Find correct custom router for a specific action.
         /// - Parameter action: Action for which we would like to find router.
         /// - Returns: Router that could handle specific action.
         func match(action: BlocksViews.UserAction) -> BaseRouter? { nil }
-        
+
         // MARK: Configuration
         func configured(routers: [BaseRouter]) -> Self {
             self.routers = routers
             self.setup(routers: routers)
             return self
         }
-        
+
         // MARK: Receive
         override func receive(action: BlocksViews.UserAction) {
             self.match(action: action).flatMap({$0.receive(action: action)})
@@ -139,7 +139,7 @@ extension DocumentViewRouting {
 extension DocumentViewRouting {
     /// Compound router which you need to changed
     class CompoundRouter: BaseCompoundRouter {
-        
+
         // MARK: Subclassing
         override func match(action: BlocksViews.UserAction) -> BaseRouter? {
             switch action {
@@ -152,7 +152,7 @@ extension DocumentViewRouting {
             default: return nil
             }
         }
-        
+
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
             [FileBlocksViewsRouter(), ToolbarsRouter()]
         }

@@ -139,17 +139,41 @@ extension BlocksViews.Toolbar.AddBlock {
 }
 
 // MARK: Cell
+extension BlocksViews.Toolbar.AddBlock.Cell {
+    enum ButtonColorScheme {
+        case selected
+        func backgroundColor() -> UIColor {
+            .init(red: 0.165, green: 0.656, blue: 0.933, alpha: 1)
+        }
+    }
+
+    struct SelectedButtonStyle: ButtonStyle {
+        var pressedColor: UIColor
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label.background(configuration.isPressed ? Color(self.pressedColor) : Color.clear)
+                .frame(minWidth: 1.0, idealWidth: nil, maxWidth: nil)
+        }
+    }
+}
+
 extension BlocksViews.Toolbar.AddBlock {
     struct Cell: View {
         var viewModel: ViewModel
-        var body: some View {
+        var view: some View {
             HStack {
-                Image(self.viewModel.imageResource)
+                Image(self.viewModel.imageResource).renderingMode(.original)
                 VStack(alignment: .leading) {
                     Text(self.viewModel.title).font(.init(Style.title.coreTextFont())).foregroundColor(.init(Style.title.foregroundColor()))
                     Spacer(minLength: 5)
                     Text(self.viewModel.subtitle).font(.init(Style.subtitle.coreTextFont())).foregroundColor(.init(Style.subtitle.foregroundColor()))
                 }
+            }
+        }
+        var body: some View {
+            Button(action: {
+                self.viewModel.pressed()
+            }) {
+                self.view
             }
         }
     }

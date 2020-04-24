@@ -35,6 +35,9 @@ extension BlocksViews.Base.Utilities.Legacy_TextBlocksUserInteractor: TextBlocks
         
         case let .marksAction(action): return
         case let .inputAction(action): return
+            
+        case let .addBlockAction(action): return
+        case let .showMultiActionMenuAction(action): return
         }
     }
     func didReceiveAction(block: Model, id: Index, generalAction: TextBlocksViews.UserInteraction) {

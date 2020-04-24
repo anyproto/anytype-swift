@@ -65,6 +65,7 @@ protocol TextBlocksViewsUserInteractionProtocol: class {
     func didReceiveAction(block: Model, id: Index, generalAction: TextBlocksViews.UserInteraction)
 }
 
+@available(*, deprecated, message: "Delegate is deprecated.")
 protocol TextBlocksViewsUserInteractionProtocolHolder: class {
     func configured(_ delegate: TextBlocksViewsUserInteractionProtocol?) -> Self?
 }
