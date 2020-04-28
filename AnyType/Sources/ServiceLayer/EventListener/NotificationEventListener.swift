@@ -21,6 +21,12 @@ class NotificationEventListener<EventHandlerType: EventHandler>: EventListener w
         self.handler = handler
     }
     
+    // TODO: Make it AnyPublisher?
+    func process(messages: [Anytype_Event.Message]) {
+        guard let handler = self.handler else { return }
+        messages.compactMap(\.value).forEach(handler.handleEvent(event:))
+    }
+    
     func receive(contextId: String) {
         cancallableEvents = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
             .compactMap { $0.object as? Anytype_Event }

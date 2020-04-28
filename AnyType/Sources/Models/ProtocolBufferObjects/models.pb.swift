@@ -19,71 +19,40 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-struct Anytype_Model_SmartBlock {
+struct Anytype_Model_SmartBlockSnapshotBase {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: String = String()
+  var blocks: [Anytype_Model_Block] {
+    get {return _storage._blocks}
+    set {_uniqueStorage()._blocks = newValue}
+  }
 
-  var type: Anytype_Model_SmartBlock.TypeEnum = .dashboard
+  var details: SwiftProtobuf.Google_Protobuf_Struct {
+    get {return _storage._details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+    set {_uniqueStorage()._details = newValue}
+  }
+  /// Returns true if `details` has been explicitly set.
+  var hasDetails: Bool {return _storage._details != nil}
+  /// Clears the value of `details`. Subsequent reads from it will return its default value.
+  mutating func clearDetails() {_uniqueStorage()._details = nil}
+
+  var fileKeys: SwiftProtobuf.Google_Protobuf_Struct {
+    get {return _storage._fileKeys ?? SwiftProtobuf.Google_Protobuf_Struct()}
+    set {_uniqueStorage()._fileKeys = newValue}
+  }
+  /// Returns true if `fileKeys` has been explicitly set.
+  var hasFileKeys: Bool {return _storage._fileKeys != nil}
+  /// Clears the value of `fileKeys`. Subsequent reads from it will return its default value.
+  mutating func clearFileKeys() {_uniqueStorage()._fileKeys = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  enum TypeEnum: SwiftProtobuf.Enum {
-    typealias RawValue = Int
-    case dashboard // = 0
-    case page // = 1
-    case archive // = 2
-    case breadcrumbs // = 3
-    case dataview // = 4
-    case UNRECOGNIZED(Int)
-
-    init() {
-      self = .dashboard
-    }
-
-    init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .dashboard
-      case 1: self = .page
-      case 2: self = .archive
-      case 3: self = .breadcrumbs
-      case 4: self = .dataview
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    var rawValue: Int {
-      switch self {
-      case .dashboard: return 0
-      case .page: return 1
-      case .archive: return 2
-      case .breadcrumbs: return 3
-      case .dataview: return 4
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
   init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
-
-#if swift(>=4.2)
-
-extension Anytype_Model_SmartBlock.TypeEnum: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [Anytype_Model_SmartBlock.TypeEnum] = [
-    .dashboard,
-    .page,
-    .archive,
-    .breadcrumbs,
-    .dataview,
-  ]
-}
-
-#endif  // swift(>=4.2)
 
 struct Anytype_Model_Block {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -133,28 +102,12 @@ struct Anytype_Model_Block {
     set {_uniqueStorage()._content = newValue}
   }
 
-  var dashboard: Anytype_Model_Block.Content.Dashboard {
+  var smartblock: Anytype_Model_Block.Content.Smartblock {
     get {
-      if case .dashboard(let v)? = _storage._content {return v}
-      return Anytype_Model_Block.Content.Dashboard()
+      if case .smartblock(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.Smartblock()
     }
-    set {_uniqueStorage()._content = .dashboard(newValue)}
-  }
-
-  var page: Anytype_Model_Block.Content.Page {
-    get {
-      if case .page(let v)? = _storage._content {return v}
-      return Anytype_Model_Block.Content.Page()
-    }
-    set {_uniqueStorage()._content = .page(newValue)}
-  }
-
-  var dataview: Anytype_Model_Block.Content.Dataview {
-    get {
-      if case .dataview(let v)? = _storage._content {return v}
-      return Anytype_Model_Block.Content.Dataview()
-    }
-    set {_uniqueStorage()._content = .dataview(newValue)}
+    set {_uniqueStorage()._content = .smartblock(newValue)}
   }
 
   var text: Anytype_Model_Block.Content.Text {
@@ -213,12 +166,18 @@ struct Anytype_Model_Block {
     set {_uniqueStorage()._content = .link(newValue)}
   }
 
+  var dataview: Anytype_Model_Block.Content.Dataview {
+    get {
+      if case .dataview(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.Dataview()
+    }
+    set {_uniqueStorage()._content = .dataview(newValue)}
+  }
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum OneOf_Content: Equatable {
-    case dashboard(Anytype_Model_Block.Content.Dashboard)
-    case page(Anytype_Model_Block.Content.Page)
-    case dataview(Anytype_Model_Block.Content.Dataview)
+    case smartblock(Anytype_Model_Block.Content.Smartblock)
     case text(Anytype_Model_Block.Content.Text)
     case file(Anytype_Model_Block.Content.File)
     case layout(Anytype_Model_Block.Content.Layout)
@@ -226,13 +185,12 @@ struct Anytype_Model_Block {
     case bookmark(Anytype_Model_Block.Content.Bookmark)
     case icon(Anytype_Model_Block.Content.Icon)
     case link(Anytype_Model_Block.Content.Link)
+    case dataview(Anytype_Model_Block.Content.Dataview)
 
   #if !swift(>=4.1)
     static func ==(lhs: Anytype_Model_Block.OneOf_Content, rhs: Anytype_Model_Block.OneOf_Content) -> Bool {
       switch (lhs, rhs) {
-      case (.dashboard(let l), .dashboard(let r)): return l == r
-      case (.page(let l), .page(let r)): return l == r
-      case (.dataview(let l), .dataview(let r)): return l == r
+      case (.smartblock(let l), .smartblock(let r)): return l == r
       case (.text(let l), .text(let r)): return l == r
       case (.file(let l), .file(let r)): return l == r
       case (.layout(let l), .layout(let r)): return l == r
@@ -240,6 +198,7 @@ struct Anytype_Model_Block {
       case (.bookmark(let l), .bookmark(let r)): return l == r
       case (.icon(let l), .icon(let r)): return l == r
       case (.link(let l), .link(let r)): return l == r
+      case (.dataview(let l), .dataview(let r)): return l == r
       default: return false
       }
     }
@@ -363,6 +322,7 @@ struct Anytype_Model_Block {
         typealias RawValue = Int
         case row // = 0
         case column // = 1
+        case div // = 2
         case UNRECOGNIZED(Int)
 
         init() {
@@ -373,6 +333,7 @@ struct Anytype_Model_Block {
           switch rawValue {
           case 0: self = .row
           case 1: self = .column
+          case 2: self = .div
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -381,6 +342,7 @@ struct Anytype_Model_Block {
           switch self {
           case .row: return 0
           case .column: return 1
+          case .div: return 2
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -532,59 +494,6 @@ struct Anytype_Model_Block {
       // methods supported on all messages.
 
       var name: String = String()
-
-      var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      init() {}
-    }
-
-    ///
-    /// Block type to organize pages on the main screen (main purpose)
-    /// It also can be mounted on a page.
-    struct Dashboard {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
-
-      var style: Anytype_Model_Block.Content.Dashboard.Style = .mainScreen
-
-      var unknownFields = SwiftProtobuf.UnknownStorage()
-
-      enum Style: SwiftProtobuf.Enum {
-        typealias RawValue = Int
-        case mainScreen // = 0
-        case archive // = 1
-        case UNRECOGNIZED(Int)
-
-        init() {
-          self = .mainScreen
-        }
-
-        init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .mainScreen
-          case 1: self = .archive
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        var rawValue: Int {
-          switch self {
-          case .mainScreen: return 0
-          case .archive: return 1
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-      }
-
-      init() {}
-    }
-
-    struct Dataview {
-      // SwiftProtobuf.Message conformance is added in an extension below. See the
-      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-      // methods supported on all messages.
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -882,57 +791,24 @@ struct Anytype_Model_Block {
       init() {}
     }
 
-    struct Page {
+    struct Smartblock {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      var style: Anytype_Model_Block.Content.Page.Style = .empty
-
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      enum Style: SwiftProtobuf.Enum {
-        typealias RawValue = Int
+      init() {}
+    }
 
-        /// Ordinary page, without additional fields
-        case empty // = 0
+    struct Dataview {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
 
-        /// Page with a task fields
-        case task // = 1
+      var databaseID: String = String()
 
-        /// Page, that organize a set of blocks by a specific criterio
-        case set // = 2
-        case profile // = 3
-        case breadcrumbs // = 101
-        case UNRECOGNIZED(Int)
-
-        init() {
-          self = .empty
-        }
-
-        init?(rawValue: Int) {
-          switch rawValue {
-          case 0: self = .empty
-          case 1: self = .task
-          case 2: self = .set
-          case 3: self = .profile
-          case 101: self = .breadcrumbs
-          default: self = .UNRECOGNIZED(rawValue)
-          }
-        }
-
-        var rawValue: Int {
-          switch self {
-          case .empty: return 0
-          case .task: return 1
-          case .set: return 2
-          case .profile: return 3
-          case .breadcrumbs: return 101
-          case .UNRECOGNIZED(let i): return i
-          }
-        }
-
-      }
+      var unknownFields = SwiftProtobuf.UnknownStorage()
 
       init() {}
     }
@@ -1179,49 +1055,81 @@ extension Anytype_Model_LinkPreview.TypeEnum: CaseIterable {
 
 fileprivate let _protobuf_package = "anytype.model"
 
-extension Anytype_Model_SmartBlock: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".SmartBlock"
+extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SmartBlockSnapshotBase"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "type"),
+    1: .same(proto: "blocks"),
+    2: .same(proto: "details"),
+    3: .same(proto: "fileKeys"),
   ]
 
+  fileprivate class _StorageClass {
+    var _blocks: [Anytype_Model_Block] = []
+    var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+    var _fileKeys: SwiftProtobuf.Google_Protobuf_Struct? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _blocks = source._blocks
+      _details = source._details
+      _fileKeys = source._fileKeys
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.id)
-      case 2: try decoder.decodeSingularEnumField(value: &self.type)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeRepeatedMessageField(value: &_storage._blocks)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._details)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._fileKeys)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if self.type != .dashboard {
-      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._blocks.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._blocks, fieldNumber: 1)
+      }
+      if let v = _storage._details {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if let v = _storage._fileKeys {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Model_SmartBlock, rhs: Anytype_Model_SmartBlock) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.type != rhs.type {return false}
+  static func ==(lhs: Anytype_Model_SmartBlockSnapshotBase, rhs: Anytype_Model_SmartBlockSnapshotBase) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._blocks != rhs_storage._blocks {return false}
+        if _storage._details != rhs_storage._details {return false}
+        if _storage._fileKeys != rhs_storage._fileKeys {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension Anytype_Model_SmartBlock.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Dashboard"),
-    1: .same(proto: "Page"),
-    2: .same(proto: "Archive"),
-    3: .same(proto: "Breadcrumbs"),
-    4: .same(proto: "Dataview"),
-  ]
 }
 
 extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -1233,9 +1141,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     4: .same(proto: "childrenIds"),
     5: .same(proto: "backgroundColor"),
     6: .same(proto: "align"),
-    11: .same(proto: "dashboard"),
-    12: .same(proto: "page"),
-    13: .same(proto: "dataview"),
+    11: .same(proto: "smartblock"),
     14: .same(proto: "text"),
     15: .same(proto: "file"),
     16: .same(proto: "layout"),
@@ -1243,6 +1149,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     18: .same(proto: "bookmark"),
     19: .same(proto: "icon"),
     20: .same(proto: "link"),
+    21: .same(proto: "dataview"),
   ]
 
   fileprivate class _StorageClass {
@@ -1288,29 +1195,13 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         case 5: try decoder.decodeSingularStringField(value: &_storage._backgroundColor)
         case 6: try decoder.decodeSingularEnumField(value: &_storage._align)
         case 11:
-          var v: Anytype_Model_Block.Content.Dashboard?
+          var v: Anytype_Model_Block.Content.Smartblock?
           if let current = _storage._content {
             try decoder.handleConflictingOneOf()
-            if case .dashboard(let m) = current {v = m}
+            if case .smartblock(let m) = current {v = m}
           }
           try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._content = .dashboard(v)}
-        case 12:
-          var v: Anytype_Model_Block.Content.Page?
-          if let current = _storage._content {
-            try decoder.handleConflictingOneOf()
-            if case .page(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._content = .page(v)}
-        case 13:
-          var v: Anytype_Model_Block.Content.Dataview?
-          if let current = _storage._content {
-            try decoder.handleConflictingOneOf()
-            if case .dataview(let m) = current {v = m}
-          }
-          try decoder.decodeSingularMessageField(value: &v)
-          if let v = v {_storage._content = .dataview(v)}
+          if let v = v {_storage._content = .smartblock(v)}
         case 14:
           var v: Anytype_Model_Block.Content.Text?
           if let current = _storage._content {
@@ -1367,6 +1258,14 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._content = .link(v)}
+        case 21:
+          var v: Anytype_Model_Block.Content.Dataview?
+          if let current = _storage._content {
+            try decoder.handleConflictingOneOf()
+            if case .dataview(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._content = .dataview(v)}
         default: break
         }
       }
@@ -1394,12 +1293,8 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         try visitor.visitSingularEnumField(value: _storage._align, fieldNumber: 6)
       }
       switch _storage._content {
-      case .dashboard(let v)?:
+      case .smartblock(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
-      case .page(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 12)
-      case .dataview(let v)?:
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 13)
       case .text(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 14)
       case .file(let v)?:
@@ -1414,6 +1309,8 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         try visitor.visitSingularMessageField(value: v, fieldNumber: 19)
       case .link(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
+      case .dataview(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 21)
       case nil: break
       }
     }
@@ -1566,6 +1463,7 @@ extension Anytype_Model_Block.Content.Layout.Style: SwiftProtobuf._ProtoNameProv
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "Row"),
     1: .same(proto: "Column"),
+    2: .same(proto: "Div"),
   ]
 }
 
@@ -1774,61 +1672,6 @@ extension Anytype_Model_Block.Content.Icon: SwiftProtobuf.Message, SwiftProtobuf
 
   static func ==(lhs: Anytype_Model_Block.Content.Icon, rhs: Anytype_Model_Block.Content.Icon) -> Bool {
     if lhs.name != rhs.name {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Model_Block.Content.Dashboard: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Dashboard"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "style"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.style)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.style != .mainScreen {
-      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Anytype_Model_Block.Content.Dashboard, rhs: Anytype_Model_Block.Content.Dashboard) -> Bool {
-    if lhs.style != rhs.style {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Model_Block.Content.Dashboard.Style: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "MainScreen"),
-    1: .same(proto: "Archive"),
-  ]
-}
-
-extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Dataview"
-  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Anytype_Model_Block.Content.Dataview, rhs: Anytype_Model_Block.Content.Dataview) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2146,43 +1989,52 @@ extension Anytype_Model_Block.Content.File.State: SwiftProtobuf._ProtoNameProvid
   ]
 }
 
-extension Anytype_Model_Block.Content.Page: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Page"
+extension Anytype_Model_Block.Content.Smartblock: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Smartblock"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Model_Block.Content.Smartblock, rhs: Anytype_Model_Block.Content.Smartblock) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Dataview"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "style"),
+    1: .same(proto: "databaseId"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.style)
+      case 1: try decoder.decodeSingularStringField(value: &self.databaseID)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.style != .empty {
-      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 1)
+    if !self.databaseID.isEmpty {
+      try visitor.visitSingularStringField(value: self.databaseID, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Model_Block.Content.Page, rhs: Anytype_Model_Block.Content.Page) -> Bool {
-    if lhs.style != rhs.style {return false}
+  static func ==(lhs: Anytype_Model_Block.Content.Dataview, rhs: Anytype_Model_Block.Content.Dataview) -> Bool {
+    if lhs.databaseID != rhs.databaseID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension Anytype_Model_Block.Content.Page.Style: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Empty"),
-    1: .same(proto: "Task"),
-    2: .same(proto: "Set"),
-    3: .same(proto: "Profile"),
-    101: .same(proto: "Breadcrumbs"),
-  ]
 }
 
 extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

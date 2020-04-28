@@ -48,9 +48,9 @@ extension Anytype_Model_Block.Content.Bookmark {
   }
 }
 
-extension Anytype_Model_Block.Content.Dashboard {
-  init(style: Anytype_Model_Block.Content.Dashboard.Style) {
-    self.style = style
+extension Anytype_Model_Block.Content.Dataview {
+  init(databaseID: String) {
+    self.databaseID = databaseID
   }
 }
 
@@ -89,12 +89,6 @@ extension Anytype_Model_Block.Content.Link {
     self.targetBlockID = targetBlockID
     self.style = style
     self.fields = fields
-  }
-}
-
-extension Anytype_Model_Block.Content.Page {
-  init(style: Anytype_Model_Block.Content.Page.Style) {
-    self.style = style
   }
 }
 
@@ -157,9 +151,10 @@ extension Anytype_Model_Range {
   }
 }
 
-extension Anytype_Model_SmartBlock {
-  init(id: String, type: Anytype_Model_SmartBlock.TypeEnum) {
-    self.id = id
-    self.type = type
+extension Anytype_Model_SmartBlockSnapshotBase {
+  init(blocks: [Anytype_Model_Block], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.blocks = blocks
+    self.details = details
+    self.fileKeys = fileKeys
   }
 }

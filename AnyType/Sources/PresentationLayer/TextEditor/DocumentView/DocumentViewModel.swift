@@ -58,6 +58,11 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     @Published var rootModel: RootModel? {
         didSet {
             self.syncBuilders()
+            if let model = self.rootModel {
+                model.objectWillChange.sink { [weak self] (value) in
+                    self?.syncBuilders()
+                }.store(in: &self.subscriptions)
+            }
         }
     }
     
@@ -83,8 +88,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     // put into protocol?
     // var userActionsPublisher: AnyPublisher<UserAction>
     
-    // MARK: Lifecycle
-    
+    // MARK: Initialization
     init(documentId: String?, options: Options) {
         // TODO: Add failable init.
         let logger = Logging.createLogger(category: .treeViewModel)
@@ -120,13 +124,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         }, receiveValue: {_ in }).store(in: &self.subscriptions)
 
         self.obtainDocument(documentId: documentId)
-        
-        // some more
-
-        self.rootModel?.objectWillChange.sink { [weak self] (value) in
-            self?.syncBuilders()
-        }.store(in: &self.subscriptions)
-
+                
         self.$builders.sink { [weak self] value in
             self?.buildersRows = value.compactMap(Row.init)
         }.store(in: &self.subscriptions)
@@ -147,6 +145,8 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
             Publishers.MergeMany($0.map{$0.$state})
         }.eraseToAnyPublisher()
     }
+        
+    // MARK: Private methods
     
     private func textViewUserInteractionDelegate() -> TextBlocksViewsUserInteractionProtocol? {
         self.treeTextViewUserInteractor
@@ -154,7 +154,9 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     
     /// Update @Published $builders.
     private func syncBuilders() {
-        self.rootModel.flatMap(toList(_:)).flatMap(update(builders:))
+        DispatchQueue.main.async {
+            self.rootModel.flatMap(self.toList(_:)).flatMap(self.update(builders:))
+        }
     }
     
     // TODO: Add caching?
@@ -195,12 +197,28 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         self.rootModel = baseModel
     }
     
+    private func internalProcessBlocks(contextId: String? = nil, rootId: String? = nil, models: [MiddlewareBlockInformationModel]) {
+        if self.internalState != .ready {
+            self.processBlocks(contextId: contextId, rootId: rootId, models: models)
+            self.internalState = .ready
+        }
+    }
+    
+    private func processMiddlewareEvents(contextId: String, messages: [Anytype_Event.Message]) {
+        messages.filter({$0.value == .blockShow($0.blockShow)}).compactMap({ [weak self] value in
+            self?.blockActionsService.eventListener.createFrom(event: value.blockShow)
+        }).forEach({[weak self] value in
+            self?.internalProcessBlocks(contextId: contextId, rootId: value.rootId, models: value.blocks)
+        })
+    }
+    
     private func obtainDocument(documentId: String?) {
         guard let documentId = documentId else { return }
         self.internalState = .loading
         
         self.blockActionsService.open.action(contextID: documentId, blockID: documentId)
             .print()
+            .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] (value) in
                 switch value {
                 case .finished: break
@@ -208,7 +226,9 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
                     self?.internalState = .empty
                     self?.error = error.localizedDescription
                 }
-            }, receiveValue: {_ in }).store(in: &self.subscriptions)
+            }, receiveValue: { [weak self] value in
+                self?.processMiddlewareEvents(contextId: value.contextID, messages: value.messages)
+            }).store(in: &self.subscriptions)
     }
 }
 

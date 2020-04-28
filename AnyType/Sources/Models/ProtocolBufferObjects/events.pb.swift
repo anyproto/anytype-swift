@@ -19,6 +19,58 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+enum Anytype_SmartBlockType: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case page // = 0
+  case home // = 1
+  case profilePage // = 2
+  case archive // = 3
+  case breadcrumbs // = 4
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .page
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .page
+    case 1: self = .home
+    case 2: self = .profilePage
+    case 3: self = .archive
+    case 4: self = .breadcrumbs
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .page: return 0
+    case .home: return 1
+    case .profilePage: return 2
+    case .archive: return 3
+    case .breadcrumbs: return 4
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_SmartBlockType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Anytype_SmartBlockType] = [
+    .page,
+    .home,
+    .profilePage,
+    .archive,
+    .breadcrumbs,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 ///
 /// Event – type of message, that could be sent from a middleware to the corresponding front-end.
 struct Anytype_Event {
@@ -63,6 +115,14 @@ struct Anytype_Event {
         return Anytype_Event.Account.Show()
       }
       set {_uniqueStorage()._value = .accountShow(newValue)}
+    }
+
+    var accountDetails: Anytype_Event.Account.Details {
+      get {
+        if case .accountDetails(let v)? = _storage._value {return v}
+        return Anytype_Event.Account.Details()
+      }
+      set {_uniqueStorage()._value = .accountDetails(newValue)}
     }
 
     var blockAdd: Anytype_Event.Block.Add {
@@ -177,6 +237,14 @@ struct Anytype_Event {
       set {_uniqueStorage()._value = .blockSetDetails(newValue)}
     }
 
+    var blockSetDiv: Anytype_Event.Block.Set.Div {
+      get {
+        if case .blockSetDiv(let v)? = _storage._value {return v}
+        return Anytype_Event.Block.Set.Div()
+      }
+      set {_uniqueStorage()._value = .blockSetDiv(newValue)}
+    }
+
     var blockShow: Anytype_Event.Block.Show {
       get {
         if case .blockShow(let v)? = _storage._value {return v}
@@ -253,6 +321,7 @@ struct Anytype_Event {
 
     enum OneOf_Value: Equatable {
       case accountShow(Anytype_Event.Account.Show)
+      case accountDetails(Anytype_Event.Account.Details)
       case blockAdd(Anytype_Event.Block.Add)
       case blockDelete(Anytype_Event.Block.Delete)
       case filesUpload(Anytype_Event.Block.FilesUpload)
@@ -267,6 +336,7 @@ struct Anytype_Event {
       case blockSetBookmark(Anytype_Event.Block.Set.Bookmark)
       case blockSetAlign(Anytype_Event.Block.Set.Align)
       case blockSetDetails(Anytype_Event.Block.Set.Details)
+      case blockSetDiv(Anytype_Event.Block.Set.Div)
       case blockShow(Anytype_Event.Block.Show)
       case userBlockJoin(Anytype_Event.User.Block.Join)
       case userBlockLeft(Anytype_Event.User.Block.Left)
@@ -281,6 +351,7 @@ struct Anytype_Event {
       static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
         switch (lhs, rhs) {
         case (.accountShow(let l), .accountShow(let r)): return l == r
+        case (.accountDetails(let l), .accountDetails(let r)): return l == r
         case (.blockAdd(let l), .blockAdd(let r)): return l == r
         case (.blockDelete(let l), .blockDelete(let r)): return l == r
         case (.filesUpload(let l), .filesUpload(let r)): return l == r
@@ -295,6 +366,7 @@ struct Anytype_Event {
         case (.blockSetBookmark(let l), .blockSetBookmark(let r)): return l == r
         case (.blockSetAlign(let l), .blockSetAlign(let r)): return l == r
         case (.blockSetDetails(let l), .blockSetDetails(let r)): return l == r
+        case (.blockSetDiv(let l), .blockSetDiv(let r)): return l == r
         case (.blockShow(let l), .blockShow(let r)): return l == r
         case (.userBlockJoin(let l), .userBlockJoin(let r)): return l == r
         case (.userBlockLeft(let l), .userBlockLeft(let r)): return l == r
@@ -344,6 +416,32 @@ struct Anytype_Event {
       var hasAccount: Bool {return _storage._account != nil}
       /// Clears the value of `account`. Subsequent reads from it will return its default value.
       mutating func clearAccount() {_uniqueStorage()._account = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+
+      fileprivate var _storage = _StorageClass.defaultInstance
+    }
+
+    struct Details {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var profileID: String {
+        get {return _storage._profileID}
+        set {_uniqueStorage()._profileID = newValue}
+      }
+
+      var details: SwiftProtobuf.Google_Protobuf_Struct {
+        get {return _storage._details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+        set {_uniqueStorage()._details = newValue}
+      }
+      /// Returns true if `details` has been explicitly set.
+      var hasDetails: Bool {return _storage._details != nil}
+      /// Clears the value of `details`. Subsequent reads from it will return its default value.
+      mutating func clearDetails() {_uniqueStorage()._details = nil}
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -402,6 +500,8 @@ struct Anytype_Event {
 
       /// details for current and dependent smart blocks
       var details: [Anytype_Event.Block.Set.Details] = []
+
+      var type: Anytype_SmartBlockType = .page
 
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -700,6 +800,44 @@ struct Anytype_Event {
           // methods supported on all messages.
 
           var value: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
+      }
+
+      struct Div {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var id: String {
+          get {return _storage._id}
+          set {_uniqueStorage()._id = newValue}
+        }
+
+        var style: Anytype_Event.Block.Set.Div.Style {
+          get {return _storage._style ?? Anytype_Event.Block.Set.Div.Style()}
+          set {_uniqueStorage()._style = newValue}
+        }
+        /// Returns true if `style` has been explicitly set.
+        var hasStyle: Bool {return _storage._style != nil}
+        /// Clears the value of `style`. Subsequent reads from it will return its default value.
+        mutating func clearStyle() {_uniqueStorage()._style = nil}
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Style {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var value: Anytype_Model_Block.Content.Div.Style = .line
 
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1344,6 +1482,20 @@ struct Anytype_Event {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct Anytype_ResponseEvent {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var messages: [Anytype_Event.Message] = []
+
+  var contextID: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 struct Anytype_Model {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1470,6 +1622,16 @@ struct Anytype_Model {
 
 fileprivate let _protobuf_package = "anytype"
 
+extension Anytype_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Page"),
+    1: .same(proto: "Home"),
+    2: .same(proto: "ProfilePage"),
+    3: .same(proto: "Archive"),
+    4: .same(proto: "Breadcrumbs"),
+  ]
+}
+
 extension Anytype_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Event"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1551,6 +1713,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   static let protoMessageName: String = Anytype_Event.protoMessageName + ".Message"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "accountShow"),
+    201: .same(proto: "accountDetails"),
     2: .same(proto: "blockAdd"),
     3: .same(proto: "blockDelete"),
     4: .same(proto: "filesUpload"),
@@ -1565,6 +1728,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     14: .same(proto: "blockSetBookmark"),
     15: .same(proto: "blockSetAlign"),
     16: .same(proto: "blockSetDetails"),
+    17: .same(proto: "blockSetDiv"),
     20: .same(proto: "blockShow"),
     21: .same(proto: "userBlockJoin"),
     22: .same(proto: "userBlockLeft"),
@@ -1720,6 +1884,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .blockSetDetails(v)}
+        case 17:
+          var v: Anytype_Event.Block.Set.Div?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .blockSetDiv(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .blockSetDiv(v)}
         case 20:
           var v: Anytype_Event.Block.Show?
           if let current = _storage._value {
@@ -1792,6 +1964,14 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._value = .processDone(v)}
+        case 201:
+          var v: Anytype_Event.Account.Details?
+          if let current = _storage._value {
+            try decoder.handleConflictingOneOf()
+            if case .accountDetails(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._value = .accountDetails(v)}
         default: break
         }
       }
@@ -1831,6 +2011,8 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularMessageField(value: v, fieldNumber: 15)
       case .blockSetDetails(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 16)
+      case .blockSetDiv(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 17)
       case .blockShow(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
       case .userBlockJoin(let v)?:
@@ -1849,6 +2031,8 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
       case .processDone(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
+      case .accountDetails(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 201)
       case nil: break
       }
     }
@@ -1958,6 +2142,75 @@ extension Anytype_Event.Account.Show: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 }
 
+extension Anytype_Event.Account.Details: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".Details"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "profileId"),
+    2: .same(proto: "details"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _profileID: String = String()
+    var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _profileID = source._profileID
+      _details = source._details
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._profileID)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._details)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._profileID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._profileID, fieldNumber: 1)
+      }
+      if let v = _storage._details {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Account.Details, rhs: Anytype_Event.Account.Details) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._profileID != rhs_storage._profileID {return false}
+        if _storage._details != rhs_storage._details {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Event.Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Anytype_Event.protoMessageName + ".Block"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -2012,6 +2265,7 @@ extension Anytype_Event.Block.Show: SwiftProtobuf.Message, SwiftProtobuf._Messag
     1: .same(proto: "rootId"),
     2: .same(proto: "blocks"),
     3: .same(proto: "details"),
+    4: .same(proto: "type"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2020,6 +2274,7 @@ extension Anytype_Event.Block.Show: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 1: try decoder.decodeSingularStringField(value: &self.rootID)
       case 2: try decoder.decodeRepeatedMessageField(value: &self.blocks)
       case 3: try decoder.decodeRepeatedMessageField(value: &self.details)
+      case 4: try decoder.decodeSingularEnumField(value: &self.type)
       default: break
       }
     }
@@ -2035,6 +2290,9 @@ extension Anytype_Event.Block.Show: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.details.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.details, fieldNumber: 3)
     }
+    if self.type != .page {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -2042,6 +2300,7 @@ extension Anytype_Event.Block.Show: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.rootID != rhs.rootID {return false}
     if lhs.blocks != rhs.blocks {return false}
     if lhs.details != rhs.details {return false}
+    if lhs.type != rhs.type {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2743,6 +3002,104 @@ extension Anytype_Event.Block.Set.Text.Color: SwiftProtobuf.Message, SwiftProtob
   }
 
   static func ==(lhs: Anytype_Event.Block.Set.Text.Color, rhs: Anytype_Event.Block.Set.Text.Color) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Div: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".Div"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "style"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _style: Anytype_Event.Block.Set.Div.Style? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _style = source._style
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._id)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._style)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if let v = _storage._style {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Div, rhs: Anytype_Event.Block.Set.Div) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._style != rhs_storage._style {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Div.Style: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Block.Set.Div.protoMessageName + ".Style"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.value)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .line {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Block.Set.Div.Style, rhs: Anytype_Event.Block.Set.Div.Style) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -4080,6 +4437,41 @@ extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._Mess
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_ResponseEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ResponseEvent"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "messages"),
+    2: .same(proto: "contextId"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.messages)
+      case 2: try decoder.decodeSingularStringField(value: &self.contextID)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.messages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.messages, fieldNumber: 1)
+    }
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_ResponseEvent, rhs: Anytype_ResponseEvent) -> Bool {
+    if lhs.messages != rhs.messages {return false}
+    if lhs.contextID != rhs.contextID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

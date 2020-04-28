@@ -16,6 +16,13 @@ extension Anytype_Event {
   }
 }
 
+extension Anytype_Event.Account.Details {
+  init(profileID: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.profileID = profileID
+    self.details = details
+  }
+}
+
 extension Anytype_Event.Account.Show {
   init(index: Int32, account: Anytype_Model_Account) {
     self.index = index
@@ -124,6 +131,19 @@ extension Anytype_Event.Block.Set.Details {
   init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
     self.id = id
     self.details = details
+  }
+}
+
+extension Anytype_Event.Block.Set.Div {
+  init(id: String, style: Anytype_Event.Block.Set.Div.Style) {
+    self.id = id
+    self.style = style
+  }
+}
+
+extension Anytype_Event.Block.Set.Div.Style {
+  init(value: Anytype_Model_Block.Content.Div.Style) {
+    self.value = value
   }
 }
 
@@ -270,10 +290,11 @@ extension Anytype_Event.Block.Set.Text.Text {
 }
 
 extension Anytype_Event.Block.Show {
-  init(rootID: String, blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details]) {
+  init(rootID: String, blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details], type: Anytype_SmartBlockType) {
     self.rootID = rootID
     self.blocks = blocks
     self.details = details
+    self.type = type
   }
 }
 
@@ -347,5 +368,12 @@ extension Anytype_Model.Process.Progress {
   init(total: Int64, done: Int64) {
     self.total = total
     self.done = done
+  }
+}
+
+extension Anytype_ResponseEvent {
+  init(messages: [Anytype_Event.Message], contextID: String) {
+    self.messages = messages
+    self.contextID = contextID
   }
 }

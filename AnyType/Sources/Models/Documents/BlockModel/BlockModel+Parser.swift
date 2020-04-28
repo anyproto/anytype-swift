@@ -75,7 +75,7 @@ private extension BlockModels.Parser {
         static func convert(middleware: Anytype_Model_Block.OneOf_Content?) -> BaseContentConverter? {
             guard let middleware = middleware else { return nil }
             switch middleware {
-            case .page: return ContentPage()
+            case .smartblock: return ContentSmartBlockAsEmptyPage()
             case .link: return ContentLink()
             case .text: return ContentText()
             case .file: return ContentFile()
@@ -85,7 +85,7 @@ private extension BlockModels.Parser {
         static func convert(block: BlockType?) -> BaseContentConverter? {
             guard let block = block else { return nil }
             switch block {
-            case .page: return ContentPage()
+            case .page: return ContentSmartBlockAsEmptyPage()
             case .link: return ContentLink()
             case .text: return ContentText()
             case .file: return ContentFile()
@@ -148,39 +148,75 @@ private extension BlockModels.Parser.Converters {
     }
 }
 
-// MARK: ContentPage
+/// TODO: Rethink parsing.
+/// We should process Smartblocks correctly.
+/// For now we are mapping them to our content type `.page` with style `.empty`
+// MARK: ContentSmartBlock
 private extension BlockModels.Parser.Converters {
-    class ContentPage: BaseContentConverter {
-        func contentType(_ from: Anytype_Model_Block.Content.Page.Style) -> BlockType.Page.Style? {
-            switch from {
-            case .empty: return .empty
-            case .task: return .task
-            case .set: return .set
-            case .breadcrumbs: return nil
-            default: return nil
-            }
+    class ContentSmartBlockAsEmptyPage: BaseContentConverter {
+        func contentType(_ from: Anytype_Model_Block.Content.Smartblock) -> BlockType.Page.Style? {
+            .empty
         }
-        func style(_ from: BlockType.Page.Style) -> Anytype_Model_Block.Content.Page.Style? {
+        func style(_ from: BlockType.Page.Style) -> Anytype_Model_Block.Content.Smartblock? {
             switch from {
-            case .empty: return .empty
-            case .task: return .task
-            case .set: return .set
+            case .empty: return .init()
+            case .task: return .init()
+            case .set: return .init()
             }
         }
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .page(value): return self.contentType(value.style).flatMap({BlockType.page(.init(style: $0))})
+            case let .smartblock(value): return self.contentType(value).flatMap({.page(.init(style: $0))})
             default: return nil
             }
         }
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
-            case let .page(value): return self.style(value.style).flatMap({.page(.init(style: $0))})
+            case let .page(value): return self.style(value.style).flatMap(Anytype_Model_Block.OneOf_Content.smartblock)
             default: return nil
             }
         }
     }
 }
+
+
+/// NOTE: Do not delete it before integration with new middleware and SetDetails refactoring.
+/// Set Details task also contains some refactoring against current algorithm for parsing events.
+/// Please, do not delete commented code.
+
+//// MARK: ContentPage
+//private extension BlockModels.Parser.Converters {
+//    class ContentPage: BaseContentConverter {
+//        func contentType(_ from: Anytype_Model_Block.Content.Page.Style) -> BlockType.Page.Style? {
+//            switch from {
+//            case .empty: return .empty
+//            case .task: return .task
+//            case .set: return .set
+//            case .breadcrumbs: return nil
+//            default: return nil
+//            }
+//        }
+//        func style(_ from: BlockType.Page.Style) -> Anytype_Model_Block.Content.Page.Style? {
+//            switch from {
+//            case .empty: return .empty
+//            case .task: return .task
+//            case .set: return .set
+//            }
+//        }
+//        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
+//            switch from {
+//            case let .page(value): return self.contentType(value.style).flatMap({BlockType.page(.init(style: $0))})
+//            default: return nil
+//            }
+//        }
+//        override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
+//            switch from {
+//            case let .page(value): return self.style(value.style).flatMap({.page(.init(style: $0))})
+//            default: return nil
+//            }
+//        }
+//    }
+//}
 
 // MARK: ContentLink
 private extension BlockModels.Parser.Converters {
@@ -272,7 +308,7 @@ private extension BlockModels.Parser.Converters {
         }
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .text(value): return self.contentType(value.style).flatMap({BlockType.text(.init(text: value.text, contentType: $0))})
+            case let .text(value): return self.contentType(value.style).flatMap({.text(.init(text: value.text, contentType: $0))})
             default: return nil
             }
         }
@@ -337,7 +373,7 @@ private extension BlockModels.Parser.Converters {
             switch from {
                 case let .file(value):
                     guard let state = state(value.state) else { return nil }
-                    return self.contentType(value.type).flatMap({BlockType.file(.init(name: value.name, hash: value.hash, state: state, contentType: $0))})
+                    return self.contentType(value.type).flatMap({.file(.init(name: value.name, hash: value.hash, state: state, contentType: $0))})
                 default: return nil
             }
         }

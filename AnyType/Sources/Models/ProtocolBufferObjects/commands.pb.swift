@@ -77,6 +77,15 @@ struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -240,6 +249,103 @@ struct Anytype_Rpc {
 
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
+    struct ConvertChildrenToPages {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var contextID: String = String()
+
+        var blockIds: [String] = []
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var error: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error {
+          get {return _storage._error ?? Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error()}
+          set {_uniqueStorage()._error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        var hasError: Bool {return _storage._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var linkIds: [String] {
+          get {return _storage._linkIds}
+          set {_uniqueStorage()._linkIds = newValue}
+        }
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var code: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error.Code = .null
+
+          var description_p: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          enum Code: SwiftProtobuf.Enum {
+            typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            init() {
+              self = .null
+            }
+
+            init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          init() {}
+        }
+
+        init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
+      }
+
+      init() {}
+    }
+
     struct Move {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -280,6 +386,15 @@ struct Anytype_Rpc {
         var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -360,16 +475,16 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._blockIds = newValue}
         }
 
-        var block: Anytype_Model_Block {
-          get {return _storage._block ?? Anytype_Model_Block()}
-          set {_uniqueStorage()._block = newValue}
+        /// page details
+        var details: SwiftProtobuf.Google_Protobuf_Struct {
+          get {return _storage._details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+          set {_uniqueStorage()._details = newValue}
         }
-        /// Returns true if `block` has been explicitly set.
-        var hasBlock: Bool {return _storage._block != nil}
-        /// Clears the value of `block`. Subsequent reads from it will return its default value.
-        mutating func clearBlock() {_uniqueStorage()._block = nil}
+        /// Returns true if `details` has been explicitly set.
+        var hasDetails: Bool {return _storage._details != nil}
+        /// Clears the value of `details`. Subsequent reads from it will return its default value.
+        mutating func clearDetails() {_uniqueStorage()._details = nil}
 
-        /// id of the block in Page(contextId) to create a link near that block
         var dropTargetID: String {
           get {return _storage._dropTargetID}
           set {_uniqueStorage()._dropTargetID = newValue}
@@ -405,6 +520,15 @@ struct Anytype_Rpc {
           get {return _storage._linkID}
           set {_uniqueStorage()._linkID = newValue}
         }
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -511,6 +635,15 @@ struct Anytype_Rpc {
           get {return _storage._blockIds}
           set {_uniqueStorage()._blockIds = newValue}
         }
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -620,6 +753,15 @@ struct Anytype_Rpc {
             /// Clears the value of `error`. Subsequent reads from it will return its default value.
             mutating func clearError() {_uniqueStorage()._error = nil}
 
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
+
             var unknownFields = SwiftProtobuf.UnknownStorage()
 
             struct Error {
@@ -713,6 +855,15 @@ struct Anytype_Rpc {
             var hasError: Bool {return _storage._error != nil}
             /// Clears the value of `error`. Subsequent reads from it will return its default value.
             mutating func clearError() {_uniqueStorage()._error = nil}
+
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
 
             var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -811,6 +962,15 @@ struct Anytype_Rpc {
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           mutating func clearError() {_uniqueStorage()._error = nil}
 
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
+
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
           struct Error {
@@ -904,6 +1064,15 @@ struct Anytype_Rpc {
           var hasError: Bool {return _storage._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           mutating func clearError() {_uniqueStorage()._error = nil}
+
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
 
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1023,6 +1192,15 @@ struct Anytype_Rpc {
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           mutating func clearError() {_uniqueStorage()._error = nil}
 
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
+
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
           struct Error {
@@ -1075,6 +1253,119 @@ struct Anytype_Rpc {
           init() {}
 
           fileprivate var _storage = _StorageClass.defaultInstance
+        }
+
+        init() {}
+      }
+
+      struct Div {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Style {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          struct Request {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            var contextID: String = String()
+
+            var blockIds: [String] = []
+
+            var style: Anytype_Model_Block.Content.Div.Style = .line
+
+            var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            init() {}
+          }
+
+          struct Response {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            var error: Anytype_Rpc.BlockList.Set.Div.Style.Response.Error {
+              get {return _storage._error ?? Anytype_Rpc.BlockList.Set.Div.Style.Response.Error()}
+              set {_uniqueStorage()._error = newValue}
+            }
+            /// Returns true if `error` has been explicitly set.
+            var hasError: Bool {return _storage._error != nil}
+            /// Clears the value of `error`. Subsequent reads from it will return its default value.
+            mutating func clearError() {_uniqueStorage()._error = nil}
+
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
+
+            var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            struct Error {
+              // SwiftProtobuf.Message conformance is added in an extension below. See the
+              // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+              // methods supported on all messages.
+
+              var code: Anytype_Rpc.BlockList.Set.Div.Style.Response.Error.Code = .null
+
+              var description_p: String = String()
+
+              var unknownFields = SwiftProtobuf.UnknownStorage()
+
+              enum Code: SwiftProtobuf.Enum {
+                typealias RawValue = Int
+                case null // = 0
+                case unknownError // = 1
+
+                /// ...
+                case badInput // = 2
+                case UNRECOGNIZED(Int)
+
+                init() {
+                  self = .null
+                }
+
+                init?(rawValue: Int) {
+                  switch rawValue {
+                  case 0: self = .null
+                  case 1: self = .unknownError
+                  case 2: self = .badInput
+                  default: self = .UNRECOGNIZED(rawValue)
+                  }
+                }
+
+                var rawValue: Int {
+                  switch self {
+                  case .null: return 0
+                  case .unknownError: return 1
+                  case .badInput: return 2
+                  case .UNRECOGNIZED(let i): return i
+                  }
+                }
+
+              }
+
+              init() {}
+            }
+
+            init() {}
+
+            fileprivate var _storage = _StorageClass.defaultInstance
+          }
+
+          init() {}
         }
 
         init() {}
@@ -1152,6 +1443,15 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._blockID = newValue}
         }
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -1221,17 +1521,35 @@ struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        var contextID: String = String()
+        var contextID: String {
+          get {return _storage._contextID}
+          set {_uniqueStorage()._contextID = newValue}
+        }
 
-        var blockID: String = String()
+        var blockID: String {
+          get {return _storage._blockID}
+          set {_uniqueStorage()._blockID = newValue}
+        }
 
-        var cursorPosition: Int32 = 0
+        var range: Anytype_Model_Range {
+          get {return _storage._range ?? Anytype_Model_Range()}
+          set {_uniqueStorage()._range = newValue}
+        }
+        /// Returns true if `range` has been explicitly set.
+        var hasRange: Bool {return _storage._range != nil}
+        /// Clears the value of `range`. Subsequent reads from it will return its default value.
+        mutating func clearRange() {_uniqueStorage()._range = nil}
 
-        var style: Anytype_Model_Block.Content.Text.Style = .paragraph
+        var style: Anytype_Model_Block.Content.Text.Style {
+          get {return _storage._style}
+          set {_uniqueStorage()._style = newValue}
+        }
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       struct Response {
@@ -1252,6 +1570,15 @@ struct Anytype_Rpc {
           get {return _storage._blockID}
           set {_uniqueStorage()._blockID = newValue}
         }
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1346,6 +1673,15 @@ struct Anytype_Rpc {
         var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1537,6 +1873,15 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._selectedBlockIds = newValue}
         }
 
+        var copyTextRange: Anytype_Model_Range {
+          get {return _storage._copyTextRange ?? Anytype_Model_Range()}
+          set {_uniqueStorage()._copyTextRange = newValue}
+        }
+        /// Returns true if `copyTextRange` has been explicitly set.
+        var hasCopyTextRange: Bool {return _storage._copyTextRange != nil}
+        /// Clears the value of `copyTextRange`. Subsequent reads from it will return its default value.
+        mutating func clearCopyTextRange() {_uniqueStorage()._copyTextRange = nil}
+
         var textSlot: String {
           get {return _storage._textSlot}
           set {_uniqueStorage()._textSlot = newValue}
@@ -1577,6 +1922,20 @@ struct Anytype_Rpc {
           get {return _storage._blockIds}
           set {_uniqueStorage()._blockIds = newValue}
         }
+
+        var caretPosition: Int32 {
+          get {return _storage._caretPosition}
+          set {_uniqueStorage()._caretPosition = newValue}
+        }
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1647,13 +2006,30 @@ struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        var contextID: String = String()
+        var contextID: String {
+          get {return _storage._contextID}
+          set {_uniqueStorage()._contextID = newValue}
+        }
 
-        var blocks: [Anytype_Model_Block] = []
+        var blocks: [Anytype_Model_Block] {
+          get {return _storage._blocks}
+          set {_uniqueStorage()._blocks = newValue}
+        }
+
+        var selectedTextRange: Anytype_Model_Range {
+          get {return _storage._selectedTextRange ?? Anytype_Model_Range()}
+          set {_uniqueStorage()._selectedTextRange = newValue}
+        }
+        /// Returns true if `selectedTextRange` has been explicitly set.
+        var hasSelectedTextRange: Bool {return _storage._selectedTextRange != nil}
+        /// Clears the value of `selectedTextRange`. Subsequent reads from it will return its default value.
+        mutating func clearSelectedTextRange() {_uniqueStorage()._selectedTextRange = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
       }
 
       struct Response {
@@ -1684,6 +2060,15 @@ struct Anytype_Rpc {
           get {return _storage._anySlot}
           set {_uniqueStorage()._anySlot = newValue}
         }
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1782,6 +2167,15 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._path = newValue}
         }
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -1878,6 +2272,15 @@ struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -1969,6 +2372,15 @@ struct Anytype_Rpc {
         var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2085,6 +2497,15 @@ struct Anytype_Rpc {
           var hasError: Bool {return _storage._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           mutating func clearError() {_uniqueStorage()._error = nil}
+
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
 
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2313,6 +2734,15 @@ struct Anytype_Rpc {
           var hasError: Bool {return _storage._error != nil}
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           mutating func clearError() {_uniqueStorage()._error = nil}
+
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
 
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2633,6 +3063,15 @@ struct Anytype_Rpc {
             /// Clears the value of `error`. Subsequent reads from it will return its default value.
             mutating func clearError() {_uniqueStorage()._error = nil}
 
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
+
             var unknownFields = SwiftProtobuf.UnknownStorage()
 
             struct Error {
@@ -2727,6 +3166,15 @@ struct Anytype_Rpc {
             /// Clears the value of `error`. Subsequent reads from it will return its default value.
             mutating func clearError() {_uniqueStorage()._error = nil}
 
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
+
             var unknownFields = SwiftProtobuf.UnknownStorage()
 
             struct Error {
@@ -2820,6 +3268,15 @@ struct Anytype_Rpc {
             var hasError: Bool {return _storage._error != nil}
             /// Clears the value of `error`. Subsequent reads from it will return its default value.
             mutating func clearError() {_uniqueStorage()._error = nil}
+
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
 
             var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2924,6 +3381,15 @@ struct Anytype_Rpc {
             var hasError: Bool {return _storage._error != nil}
             /// Clears the value of `error`. Subsequent reads from it will return its default value.
             mutating func clearError() {_uniqueStorage()._error = nil}
+
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
 
             var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3425,6 +3891,15 @@ struct Anytype_Rpc {
             /// Clears the value of `error`. Subsequent reads from it will return its default value.
             mutating func clearError() {_uniqueStorage()._error = nil}
 
+            var event: Anytype_ResponseEvent {
+              get {return _storage._event ?? Anytype_ResponseEvent()}
+              set {_uniqueStorage()._event = newValue}
+            }
+            /// Returns true if `event` has been explicitly set.
+            var hasEvent: Bool {return _storage._event != nil}
+            /// Clears the value of `event`. Subsequent reads from it will return its default value.
+            mutating func clearEvent() {_uniqueStorage()._event = nil}
+
             var unknownFields = SwiftProtobuf.UnknownStorage()
 
             struct Error {
@@ -3532,6 +4007,15 @@ struct Anytype_Rpc {
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           mutating func clearError() {_uniqueStorage()._error = nil}
 
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
+
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
           struct Error {
@@ -3540,6 +4024,236 @@ struct Anytype_Rpc {
             // methods supported on all messages.
 
             var code: Anytype_Rpc.Block.Bookmark.Fetch.Response.Error.Code = .null
+
+            var description_p: String = String()
+
+            var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            enum Code: SwiftProtobuf.Enum {
+              typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              init() {
+                self = .null
+              }
+
+              init?(rawValue: Int) {
+                switch rawValue {
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              var rawValue: Int {
+                switch self {
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
+                }
+              }
+
+            }
+
+            init() {}
+          }
+
+          init() {}
+
+          fileprivate var _storage = _StorageClass.defaultInstance
+        }
+
+        init() {}
+      }
+
+      struct CreateAndFetch {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var contextID: String = String()
+
+          var targetID: String = String()
+
+          var position: Anytype_Model_Block.Position = .none
+
+          var url: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var error: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error {
+            get {return _storage._error ?? Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error()}
+            set {_uniqueStorage()._error = newValue}
+          }
+          /// Returns true if `error` has been explicitly set.
+          var hasError: Bool {return _storage._error != nil}
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          mutating func clearError() {_uniqueStorage()._error = nil}
+
+          var blockID: String {
+            get {return _storage._blockID}
+            set {_uniqueStorage()._blockID = newValue}
+          }
+
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            var code: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error.Code = .null
+
+            var description_p: String = String()
+
+            var unknownFields = SwiftProtobuf.UnknownStorage()
+
+            enum Code: SwiftProtobuf.Enum {
+              typealias RawValue = Int
+              case null // = 0
+              case unknownError // = 1
+              case badInput // = 2
+              case UNRECOGNIZED(Int)
+
+              init() {
+                self = .null
+              }
+
+              init?(rawValue: Int) {
+                switch rawValue {
+                case 0: self = .null
+                case 1: self = .unknownError
+                case 2: self = .badInput
+                default: self = .UNRECOGNIZED(rawValue)
+                }
+              }
+
+              var rawValue: Int {
+                switch self {
+                case .null: return 0
+                case .unknownError: return 1
+                case .badInput: return 2
+                case .UNRECOGNIZED(let i): return i
+                }
+              }
+
+            }
+
+            init() {}
+          }
+
+          init() {}
+
+          fileprivate var _storage = _StorageClass.defaultInstance
+        }
+
+        init() {}
+      }
+
+      init() {}
+    }
+
+    struct File {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct CreateAndUpload {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Request {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var contextID: String = String()
+
+          var targetID: String = String()
+
+          var position: Anytype_Model_Block.Position = .none
+
+          var url: String = String()
+
+          var localPath: String = String()
+
+          var fileType: Anytype_Model_Block.Content.File.TypeEnum = .none
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        struct Response {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var error: Anytype_Rpc.Block.File.CreateAndUpload.Response.Error {
+            get {return _storage._error ?? Anytype_Rpc.Block.File.CreateAndUpload.Response.Error()}
+            set {_uniqueStorage()._error = newValue}
+          }
+          /// Returns true if `error` has been explicitly set.
+          var hasError: Bool {return _storage._error != nil}
+          /// Clears the value of `error`. Subsequent reads from it will return its default value.
+          mutating func clearError() {_uniqueStorage()._error = nil}
+
+          var blockID: String {
+            get {return _storage._blockID}
+            set {_uniqueStorage()._blockID = newValue}
+          }
+
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          struct Error {
+            // SwiftProtobuf.Message conformance is added in an extension below. See the
+            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+            // methods supported on all messages.
+
+            var code: Anytype_Rpc.Block.File.CreateAndUpload.Response.Error.Code = .null
 
             var description_p: String = String()
 
@@ -3651,6 +4365,15 @@ struct Anytype_Rpc {
           /// Clears the value of `error`. Subsequent reads from it will return its default value.
           mutating func clearError() {_uniqueStorage()._error = nil}
 
+          var event: Anytype_ResponseEvent {
+            get {return _storage._event ?? Anytype_ResponseEvent()}
+            set {_uniqueStorage()._event = newValue}
+          }
+          /// Returns true if `event` has been explicitly set.
+          var hasEvent: Bool {return _storage._event != nil}
+          /// Clears the value of `event`. Subsequent reads from it will return its default value.
+          mutating func clearEvent() {_uniqueStorage()._event = nil}
+
           var unknownFields = SwiftProtobuf.UnknownStorage()
 
           struct Error {
@@ -3744,6 +4467,15 @@ struct Anytype_Rpc {
         var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3839,6 +4571,15 @@ struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -3932,9 +4673,6 @@ struct Anytype_Rpc {
 
         var blockID: String = String()
 
-        /// optional ids of breadcrubms blocks
-        var breadcrumbsIds: [String] = []
-
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         init() {}
@@ -3954,6 +4692,15 @@ struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -3962,6 +4709,101 @@ struct Anytype_Rpc {
           // methods supported on all messages.
 
           var code: Anytype_Rpc.Block.Open.Response.Error.Code = .null
+
+          var description_p: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          enum Code: SwiftProtobuf.Enum {
+            typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            init() {
+              self = .null
+            }
+
+            init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          init() {}
+        }
+
+        init() {}
+
+        fileprivate var _storage = _StorageClass.defaultInstance
+      }
+
+      init() {}
+    }
+
+    struct GetPublicWebURL {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var blockID: String = String()
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var error: Anytype_Rpc.Block.GetPublicWebURL.Response.Error {
+          get {return _storage._error ?? Anytype_Rpc.Block.GetPublicWebURL.Response.Error()}
+          set {_uniqueStorage()._error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        var hasError: Bool {return _storage._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var url: String {
+          get {return _storage._url}
+          set {_uniqueStorage()._url = newValue}
+        }
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var code: Anytype_Rpc.Block.GetPublicWebURL.Response.Error.Code = .null
 
           var description_p: String = String()
 
@@ -4050,6 +4892,15 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._blockID = newValue}
         }
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -4107,7 +4958,7 @@ struct Anytype_Rpc {
       init() {}
     }
 
-    struct CutBreadcrumbs {
+    struct SetBreadcrumbs {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -4121,8 +4972,8 @@ struct Anytype_Rpc {
 
         var breadcrumbsID: String = String()
 
-        /// 0 - for full reset
-        var index: Int32 = 0
+        /// page ids
+        var ids: [String] = []
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4134,14 +4985,23 @@ struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        var error: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error {
-          get {return _storage._error ?? Anytype_Rpc.Block.CutBreadcrumbs.Response.Error()}
+        var error: Anytype_Rpc.Block.SetBreadcrumbs.Response.Error {
+          get {return _storage._error ?? Anytype_Rpc.Block.SetBreadcrumbs.Response.Error()}
           set {_uniqueStorage()._error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
         var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4150,7 +5010,7 @@ struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          var code: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error.Code = .null
+          var code: Anytype_Rpc.Block.SetBreadcrumbs.Response.Error.Code = .null
 
           var description_p: String = String()
 
@@ -4277,6 +5137,15 @@ struct Anytype_Rpc {
           get {return _storage._blockID}
           set {_uniqueStorage()._blockID = newValue}
         }
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4405,6 +5274,15 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._targetID = newValue}
         }
 
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         struct Error {
@@ -4500,6 +5378,15 @@ struct Anytype_Rpc {
         var hasError: Bool {return _storage._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {_uniqueStorage()._error = nil}
+
+        var event: Anytype_ResponseEvent {
+          get {return _storage._event ?? Anytype_ResponseEvent()}
+          set {_uniqueStorage()._event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return _storage._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {_uniqueStorage()._event = nil}
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -4931,6 +5818,8 @@ struct Anytype_Rpc {
           set {avatar = .avatarColor(newValue)}
         }
 
+        var alphaInviteCode: String = String()
+
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
         enum OneOf_Avatar: Equatable {
@@ -5008,6 +5897,7 @@ struct Anytype_Rpc {
             case accountCreatedButFailedToSetName // = 102
             case accountCreatedButFailedToSetAvatar // = 103
             case failedToStopRunningNode // = 104
+            case badInviteCode // = 900
             case UNRECOGNIZED(Int)
 
             init() {
@@ -5023,6 +5913,7 @@ struct Anytype_Rpc {
               case 102: self = .accountCreatedButFailedToSetName
               case 103: self = .accountCreatedButFailedToSetAvatar
               case 104: self = .failedToStopRunningNode
+              case 900: self = .badInviteCode
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -5036,6 +5927,7 @@ struct Anytype_Rpc {
               case .accountCreatedButFailedToSetName: return 102
               case .accountCreatedButFailedToSetAvatar: return 103
               case .failedToStopRunningNode: return 104
+              case .badInviteCode: return 900
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -6049,6 +6941,95 @@ struct Anytype_Rpc {
     init() {}
   }
 
+  struct Shutdown {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    struct Request {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      init() {}
+    }
+
+    struct Response {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var error: Anytype_Rpc.Shutdown.Response.Error {
+        get {return _storage._error ?? Anytype_Rpc.Shutdown.Response.Error()}
+        set {_uniqueStorage()._error = newValue}
+      }
+      /// Returns true if `error` has been explicitly set.
+      var hasError: Bool {return _storage._error != nil}
+      /// Clears the value of `error`. Subsequent reads from it will return its default value.
+      mutating func clearError() {_uniqueStorage()._error = nil}
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct Error {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var code: Anytype_Rpc.Shutdown.Response.Error.Code = .null
+
+        var description_p: String = String()
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        enum Code: SwiftProtobuf.Enum {
+          typealias RawValue = Int
+          case null // = 0
+          case unknownError // = 1
+          case badInput // = 2
+          case nodeNotStarted // = 101
+          case UNRECOGNIZED(Int)
+
+          init() {
+            self = .null
+          }
+
+          init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .null
+            case 1: self = .unknownError
+            case 2: self = .badInput
+            case 101: self = .nodeNotStarted
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          var rawValue: Int {
+            switch self {
+            case .null: return 0
+            case .unknownError: return 1
+            case .badInput: return 2
+            case .nodeNotStarted: return 101
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+        }
+
+        init() {}
+      }
+
+      init() {}
+
+      fileprivate var _storage = _StorageClass.defaultInstance
+    }
+
+    init() {}
+  }
+
   struct Config {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -6093,10 +7074,16 @@ struct Anytype_Rpc {
           set {_uniqueStorage()._homeBlockID = newValue}
         }
 
-        /// home dashboard block id
+        /// archive block id
         var archiveBlockID: String {
           get {return _storage._archiveBlockID}
           set {_uniqueStorage()._archiveBlockID = newValue}
+        }
+
+        /// profile block id
+        var profileBlockID: String {
+          get {return _storage._profileBlockID}
+          set {_uniqueStorage()._profileBlockID = newValue}
         }
 
         /// gateway url for fetching static files
@@ -6474,6 +7461,8 @@ struct Anytype_Rpc {
 
       var type: Anytype_Model_Block.Content.File.TypeEnum = .none
 
+      var disableEncryption: Bool = false
+
       var unknownFields = SwiftProtobuf.UnknownStorage()
 
       init() {}
@@ -6678,10 +7667,12 @@ extension Anytype_Rpc.ExternalDrop.Files.Response: SwiftProtobuf.Message, SwiftP
   static let protoMessageName: String = Anytype_Rpc.ExternalDrop.Files.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.ExternalDrop.Files.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -6689,6 +7680,7 @@ extension Anytype_Rpc.ExternalDrop.Files.Response: SwiftProtobuf.Message, SwiftP
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -6705,6 +7697,7 @@ extension Anytype_Rpc.ExternalDrop.Files.Response: SwiftProtobuf.Message, SwiftP
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -6716,6 +7709,9 @@ extension Anytype_Rpc.ExternalDrop.Files.Response: SwiftProtobuf.Message, SwiftP
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -6726,6 +7722,7 @@ extension Anytype_Rpc.ExternalDrop.Files.Response: SwiftProtobuf.Message, SwiftP
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -6961,6 +7958,172 @@ extension Anytype_Rpc.BlockList: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   }
 }
 
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.protoMessageName + ".ConvertChildrenToPages"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.ConvertChildrenToPages, rhs: Anytype_Rpc.BlockList.ConvertChildrenToPages) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.ConvertChildrenToPages.protoMessageName + ".Request"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "blockIds"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.contextID)
+      case 2: try decoder.decodeRepeatedStringField(value: &self.blockIds)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.blockIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.ConvertChildrenToPages.Request, rhs: Anytype_Rpc.BlockList.ConvertChildrenToPages.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockIds != rhs.blockIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.ConvertChildrenToPages.protoMessageName + ".Response"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "linkIds"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error? = nil
+    var _linkIds: [String] = []
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+      _linkIds = source._linkIds
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeRepeatedStringField(value: &_storage._linkIds)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._linkIds.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._linkIds, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response, rhs: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {return false}
+        if _storage._linkIds != rhs_storage._linkIds {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.protoMessageName + ".Error"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.code)
+      case 2: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error, rhs: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
 extension Anytype_Rpc.BlockList.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Anytype_Rpc.BlockList.protoMessageName + ".Move"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -7037,10 +8200,12 @@ extension Anytype_Rpc.BlockList.Move.Response: SwiftProtobuf.Message, SwiftProto
   static let protoMessageName: String = Anytype_Rpc.BlockList.Move.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.Move.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -7048,6 +8213,7 @@ extension Anytype_Rpc.BlockList.Move.Response: SwiftProtobuf.Message, SwiftProto
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -7064,6 +8230,7 @@ extension Anytype_Rpc.BlockList.Move.Response: SwiftProtobuf.Message, SwiftProto
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -7075,6 +8242,9 @@ extension Anytype_Rpc.BlockList.Move.Response: SwiftProtobuf.Message, SwiftProto
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -7085,6 +8255,7 @@ extension Anytype_Rpc.BlockList.Move.Response: SwiftProtobuf.Message, SwiftProto
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -7161,7 +8332,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Request: SwiftProtobuf.Message, Sw
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockIds"),
-    3: .same(proto: "block"),
+    3: .same(proto: "details"),
     4: .same(proto: "dropTargetId"),
     5: .same(proto: "position"),
   ]
@@ -7169,7 +8340,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Request: SwiftProtobuf.Message, Sw
   fileprivate class _StorageClass {
     var _contextID: String = String()
     var _blockIds: [String] = []
-    var _block: Anytype_Model_Block? = nil
+    var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
     var _dropTargetID: String = String()
     var _position: Anytype_Model_Block.Position = .none
 
@@ -7180,7 +8351,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Request: SwiftProtobuf.Message, Sw
     init(copying source: _StorageClass) {
       _contextID = source._contextID
       _blockIds = source._blockIds
-      _block = source._block
+      _details = source._details
       _dropTargetID = source._dropTargetID
       _position = source._position
     }
@@ -7200,7 +8371,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Request: SwiftProtobuf.Message, Sw
         switch fieldNumber {
         case 1: try decoder.decodeSingularStringField(value: &_storage._contextID)
         case 2: try decoder.decodeRepeatedStringField(value: &_storage._blockIds)
-        case 3: try decoder.decodeSingularMessageField(value: &_storage._block)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._details)
         case 4: try decoder.decodeSingularStringField(value: &_storage._dropTargetID)
         case 5: try decoder.decodeSingularEnumField(value: &_storage._position)
         default: break
@@ -7217,7 +8388,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Request: SwiftProtobuf.Message, Sw
       if !_storage._blockIds.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._blockIds, fieldNumber: 2)
       }
-      if let v = _storage._block {
+      if let v = _storage._details {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
       if !_storage._dropTargetID.isEmpty {
@@ -7237,7 +8408,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Request: SwiftProtobuf.Message, Sw
         let rhs_storage = _args.1
         if _storage._contextID != rhs_storage._contextID {return false}
         if _storage._blockIds != rhs_storage._blockIds {return false}
-        if _storage._block != rhs_storage._block {return false}
+        if _storage._details != rhs_storage._details {return false}
         if _storage._dropTargetID != rhs_storage._dropTargetID {return false}
         if _storage._position != rhs_storage._position {return false}
         return true
@@ -7254,11 +8425,13 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Response: SwiftProtobuf.Message, S
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "linkId"),
+    3: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.MoveToNewPage.Response.Error? = nil
     var _linkID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -7267,6 +8440,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Response: SwiftProtobuf.Message, S
     init(copying source: _StorageClass) {
       _error = source._error
       _linkID = source._linkID
+      _event = source._event
     }
   }
 
@@ -7284,6 +8458,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Response: SwiftProtobuf.Message, S
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._linkID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -7298,6 +8473,9 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Response: SwiftProtobuf.Message, S
       if !_storage._linkID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._linkID, fieldNumber: 2)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -7309,6 +8487,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage.Response: SwiftProtobuf.Message, S
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._linkID != rhs_storage._linkID {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -7432,11 +8611,13 @@ extension Anytype_Rpc.BlockList.Duplicate.Response: SwiftProtobuf.Message, Swift
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "blockIds"),
+    3: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.Duplicate.Response.Error? = nil
     var _blockIds: [String] = []
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -7445,6 +8626,7 @@ extension Anytype_Rpc.BlockList.Duplicate.Response: SwiftProtobuf.Message, Swift
     init(copying source: _StorageClass) {
       _error = source._error
       _blockIds = source._blockIds
+      _event = source._event
     }
   }
 
@@ -7462,6 +8644,7 @@ extension Anytype_Rpc.BlockList.Duplicate.Response: SwiftProtobuf.Message, Swift
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeRepeatedStringField(value: &_storage._blockIds)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -7476,6 +8659,9 @@ extension Anytype_Rpc.BlockList.Duplicate.Response: SwiftProtobuf.Message, Swift
       if !_storage._blockIds.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._blockIds, fieldNumber: 2)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -7487,6 +8673,7 @@ extension Anytype_Rpc.BlockList.Duplicate.Response: SwiftProtobuf.Message, Swift
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._blockIds != rhs_storage._blockIds {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -7641,10 +8828,12 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Response: SwiftProtobuf.Message, 
   static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Text.Style.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.Set.Text.Style.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -7652,6 +8841,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Response: SwiftProtobuf.Message, 
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -7668,6 +8858,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Response: SwiftProtobuf.Message, 
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -7679,6 +8870,9 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Response: SwiftProtobuf.Message, 
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -7689,6 +8883,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Response: SwiftProtobuf.Message, 
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -7805,10 +9000,12 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Response: SwiftProtobuf.Message, 
   static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Text.Color.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.Set.Text.Color.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -7816,6 +9013,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Response: SwiftProtobuf.Message, 
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -7832,6 +9030,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Response: SwiftProtobuf.Message, 
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -7843,6 +9042,9 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Response: SwiftProtobuf.Message, 
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -7853,6 +9055,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Response: SwiftProtobuf.Message, 
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -7969,10 +9172,12 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response: SwiftProtobuf.Mess
   static let protoMessageName: String = Anytype_Rpc.BlockList.Set.BackgroundColor.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -7980,6 +9185,7 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response: SwiftProtobuf.Mess
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -7996,6 +9202,7 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response: SwiftProtobuf.Mess
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -8007,6 +9214,9 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response: SwiftProtobuf.Mess
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -8017,6 +9227,7 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response: SwiftProtobuf.Mess
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -8133,10 +9344,12 @@ extension Anytype_Rpc.BlockList.Set.Align.Response: SwiftProtobuf.Message, Swift
   static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Align.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.Set.Align.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -8144,6 +9357,7 @@ extension Anytype_Rpc.BlockList.Set.Align.Response: SwiftProtobuf.Message, Swift
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -8160,6 +9374,7 @@ extension Anytype_Rpc.BlockList.Set.Align.Response: SwiftProtobuf.Message, Swift
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -8171,6 +9386,9 @@ extension Anytype_Rpc.BlockList.Set.Align.Response: SwiftProtobuf.Message, Swift
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -8181,6 +9399,7 @@ extension Anytype_Rpc.BlockList.Set.Align.Response: SwiftProtobuf.Message, Swift
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -8360,10 +9579,12 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response: SwiftProtobuf.Message, Swif
   static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Fields.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.BlockList.Set.Fields.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -8371,6 +9592,7 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response: SwiftProtobuf.Message, Swif
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -8387,6 +9609,7 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response: SwiftProtobuf.Message, Swif
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -8398,6 +9621,9 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response: SwiftProtobuf.Message, Swif
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -8408,6 +9634,7 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response: SwiftProtobuf.Message, Swif
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -8453,6 +9680,197 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: SwiftProtobuf.Message
 }
 
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.BlockList.Set.Div: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.Set.protoMessageName + ".Div"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.Set.Div, rhs: Anytype_Rpc.BlockList.Set.Div) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Div.protoMessageName + ".Style"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.Set.Div.Style, rhs: Anytype_Rpc.BlockList.Set.Div.Style) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Div.Style.protoMessageName + ".Request"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "blockIds"),
+    3: .same(proto: "style"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.contextID)
+      case 2: try decoder.decodeRepeatedStringField(value: &self.blockIds)
+      case 3: try decoder.decodeSingularEnumField(value: &self.style)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.blockIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
+    }
+    if self.style != .line {
+      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.Set.Div.Style.Request, rhs: Anytype_Rpc.BlockList.Set.Div.Style.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.blockIds != rhs.blockIds {return false}
+    if lhs.style != rhs.style {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Div.Style.protoMessageName + ".Response"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "event"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.BlockList.Set.Div.Style.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+      _event = source._event
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.Set.Div.Style.Response, rhs: Anytype_Rpc.BlockList.Set.Div.Style.Response) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.BlockList.Set.Div.Style.Response.protoMessageName + ".Error"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.code)
+      case 2: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.BlockList.Set.Div.Style.Response.Error, rhs: Anytype_Rpc.BlockList.Set.Div.Style.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -8580,11 +9998,13 @@ extension Anytype_Rpc.Block.Replace.Response: SwiftProtobuf.Message, SwiftProtob
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "blockId"),
+    3: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Replace.Response.Error? = nil
     var _blockID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -8593,6 +10013,7 @@ extension Anytype_Rpc.Block.Replace.Response: SwiftProtobuf.Message, SwiftProtob
     init(copying source: _StorageClass) {
       _error = source._error
       _blockID = source._blockID
+      _event = source._event
     }
   }
 
@@ -8610,6 +10031,7 @@ extension Anytype_Rpc.Block.Replace.Response: SwiftProtobuf.Message, SwiftProtob
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -8624,6 +10046,9 @@ extension Anytype_Rpc.Block.Replace.Response: SwiftProtobuf.Message, SwiftProtob
       if !_storage._blockID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -8635,6 +10060,7 @@ extension Anytype_Rpc.Block.Replace.Response: SwiftProtobuf.Message, SwiftProtob
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._blockID != rhs_storage._blockID {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -8711,43 +10137,81 @@ extension Anytype_Rpc.Block.Split.Request: SwiftProtobuf.Message, SwiftProtobuf.
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
-    3: .same(proto: "cursorPosition"),
+    3: .same(proto: "range"),
     4: .same(proto: "style"),
   ]
 
+  fileprivate class _StorageClass {
+    var _contextID: String = String()
+    var _blockID: String = String()
+    var _range: Anytype_Model_Range? = nil
+    var _style: Anytype_Model_Block.Content.Text.Style = .paragraph
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _contextID = source._contextID
+      _blockID = source._blockID
+      _range = source._range
+      _style = source._style
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.contextID)
-      case 2: try decoder.decodeSingularStringField(value: &self.blockID)
-      case 3: try decoder.decodeSingularInt32Field(value: &self.cursorPosition)
-      case 4: try decoder.decodeSingularEnumField(value: &self.style)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._contextID)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._range)
+        case 4: try decoder.decodeSingularEnumField(value: &_storage._style)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
-    }
-    if !self.blockID.isEmpty {
-      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
-    }
-    if self.cursorPosition != 0 {
-      try visitor.visitSingularInt32Field(value: self.cursorPosition, fieldNumber: 3)
-    }
-    if self.style != .paragraph {
-      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 4)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._contextID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._contextID, fieldNumber: 1)
+      }
+      if !_storage._blockID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
+      }
+      if let v = _storage._range {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if _storage._style != .paragraph {
+        try visitor.visitSingularEnumField(value: _storage._style, fieldNumber: 4)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Rpc.Block.Split.Request, rhs: Anytype_Rpc.Block.Split.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.blockID != rhs.blockID {return false}
-    if lhs.cursorPosition != rhs.cursorPosition {return false}
-    if lhs.style != rhs.style {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._contextID != rhs_storage._contextID {return false}
+        if _storage._blockID != rhs_storage._blockID {return false}
+        if _storage._range != rhs_storage._range {return false}
+        if _storage._style != rhs_storage._style {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -8758,11 +10222,13 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "blockId"),
+    3: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Split.Response.Error? = nil
     var _blockID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -8771,6 +10237,7 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
     init(copying source: _StorageClass) {
       _error = source._error
       _blockID = source._blockID
+      _event = source._event
     }
   }
 
@@ -8788,6 +10255,7 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -8802,6 +10270,9 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
       if !_storage._blockID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -8813,6 +10284,7 @@ extension Anytype_Rpc.Block.Split.Response: SwiftProtobuf.Message, SwiftProtobuf
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._blockID != rhs_storage._blockID {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -8929,10 +10401,12 @@ extension Anytype_Rpc.Block.Merge.Response: SwiftProtobuf.Message, SwiftProtobuf
   static let protoMessageName: String = Anytype_Rpc.Block.Merge.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Merge.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -8940,6 +10414,7 @@ extension Anytype_Rpc.Block.Merge.Response: SwiftProtobuf.Message, SwiftProtobuf
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -8956,6 +10431,7 @@ extension Anytype_Rpc.Block.Merge.Response: SwiftProtobuf.Message, SwiftProtobuf
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -8967,6 +10443,9 @@ extension Anytype_Rpc.Block.Merge.Response: SwiftProtobuf.Message, SwiftProtobuf
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -8977,6 +10456,7 @@ extension Anytype_Rpc.Block.Merge.Response: SwiftProtobuf.Message, SwiftProtobuf
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -9221,9 +10701,10 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
     2: .same(proto: "focusedBlockId"),
     3: .same(proto: "selectedTextRange"),
     4: .same(proto: "selectedBlockIds"),
-    5: .same(proto: "textSlot"),
-    6: .same(proto: "htmlSlot"),
-    7: .same(proto: "anySlot"),
+    5: .same(proto: "copyTextRange"),
+    6: .same(proto: "textSlot"),
+    7: .same(proto: "htmlSlot"),
+    8: .same(proto: "anySlot"),
   ]
 
   fileprivate class _StorageClass {
@@ -9231,6 +10712,7 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
     var _focusedBlockID: String = String()
     var _selectedTextRange: Anytype_Model_Range? = nil
     var _selectedBlockIds: [String] = []
+    var _copyTextRange: Anytype_Model_Range? = nil
     var _textSlot: String = String()
     var _htmlSlot: String = String()
     var _anySlot: [Anytype_Model_Block] = []
@@ -9244,6 +10726,7 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
       _focusedBlockID = source._focusedBlockID
       _selectedTextRange = source._selectedTextRange
       _selectedBlockIds = source._selectedBlockIds
+      _copyTextRange = source._copyTextRange
       _textSlot = source._textSlot
       _htmlSlot = source._htmlSlot
       _anySlot = source._anySlot
@@ -9266,9 +10749,10 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
         case 2: try decoder.decodeSingularStringField(value: &_storage._focusedBlockID)
         case 3: try decoder.decodeSingularMessageField(value: &_storage._selectedTextRange)
         case 4: try decoder.decodeRepeatedStringField(value: &_storage._selectedBlockIds)
-        case 5: try decoder.decodeSingularStringField(value: &_storage._textSlot)
-        case 6: try decoder.decodeSingularStringField(value: &_storage._htmlSlot)
-        case 7: try decoder.decodeRepeatedMessageField(value: &_storage._anySlot)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._copyTextRange)
+        case 6: try decoder.decodeSingularStringField(value: &_storage._textSlot)
+        case 7: try decoder.decodeSingularStringField(value: &_storage._htmlSlot)
+        case 8: try decoder.decodeRepeatedMessageField(value: &_storage._anySlot)
         default: break
         }
       }
@@ -9289,14 +10773,17 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
       if !_storage._selectedBlockIds.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._selectedBlockIds, fieldNumber: 4)
       }
+      if let v = _storage._copyTextRange {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
       if !_storage._textSlot.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._textSlot, fieldNumber: 5)
+        try visitor.visitSingularStringField(value: _storage._textSlot, fieldNumber: 6)
       }
       if !_storage._htmlSlot.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._htmlSlot, fieldNumber: 6)
+        try visitor.visitSingularStringField(value: _storage._htmlSlot, fieldNumber: 7)
       }
       if !_storage._anySlot.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._anySlot, fieldNumber: 7)
+        try visitor.visitRepeatedMessageField(value: _storage._anySlot, fieldNumber: 8)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -9311,6 +10798,7 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
         if _storage._focusedBlockID != rhs_storage._focusedBlockID {return false}
         if _storage._selectedTextRange != rhs_storage._selectedTextRange {return false}
         if _storage._selectedBlockIds != rhs_storage._selectedBlockIds {return false}
+        if _storage._copyTextRange != rhs_storage._copyTextRange {return false}
         if _storage._textSlot != rhs_storage._textSlot {return false}
         if _storage._htmlSlot != rhs_storage._htmlSlot {return false}
         if _storage._anySlot != rhs_storage._anySlot {return false}
@@ -9328,11 +10816,15 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "blockIds"),
+    3: .same(proto: "caretPosition"),
+    4: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Paste.Response.Error? = nil
     var _blockIds: [String] = []
+    var _caretPosition: Int32 = 0
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -9341,6 +10833,8 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
     init(copying source: _StorageClass) {
       _error = source._error
       _blockIds = source._blockIds
+      _caretPosition = source._caretPosition
+      _event = source._event
     }
   }
 
@@ -9358,6 +10852,8 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeRepeatedStringField(value: &_storage._blockIds)
+        case 3: try decoder.decodeSingularInt32Field(value: &_storage._caretPosition)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -9372,6 +10868,12 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
       if !_storage._blockIds.isEmpty {
         try visitor.visitRepeatedStringField(value: _storage._blockIds, fieldNumber: 2)
       }
+      if _storage._caretPosition != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._caretPosition, fieldNumber: 3)
+      }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -9383,6 +10885,8 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._blockIds != rhs_storage._blockIds {return false}
+        if _storage._caretPosition != rhs_storage._caretPosition {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -9459,31 +10963,73 @@ extension Anytype_Rpc.Block.Cut.Request: SwiftProtobuf.Message, SwiftProtobuf._M
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blocks"),
+    3: .same(proto: "selectedTextRange"),
   ]
 
+  fileprivate class _StorageClass {
+    var _contextID: String = String()
+    var _blocks: [Anytype_Model_Block] = []
+    var _selectedTextRange: Anytype_Model_Range? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _contextID = source._contextID
+      _blocks = source._blocks
+      _selectedTextRange = source._selectedTextRange
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.contextID)
-      case 2: try decoder.decodeRepeatedMessageField(value: &self.blocks)
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularStringField(value: &_storage._contextID)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._blocks)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._selectedTextRange)
+        default: break
+        }
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.contextID.isEmpty {
-      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
-    }
-    if !self.blocks.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.blocks, fieldNumber: 2)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._contextID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._contextID, fieldNumber: 1)
+      }
+      if !_storage._blocks.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._blocks, fieldNumber: 2)
+      }
+      if let v = _storage._selectedTextRange {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Rpc.Block.Cut.Request, rhs: Anytype_Rpc.Block.Cut.Request) -> Bool {
-    if lhs.contextID != rhs.contextID {return false}
-    if lhs.blocks != rhs.blocks {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._contextID != rhs_storage._contextID {return false}
+        if _storage._blocks != rhs_storage._blocks {return false}
+        if _storage._selectedTextRange != rhs_storage._selectedTextRange {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9496,6 +11042,7 @@ extension Anytype_Rpc.Block.Cut.Response: SwiftProtobuf.Message, SwiftProtobuf._
     2: .same(proto: "textSlot"),
     3: .same(proto: "htmlSlot"),
     4: .same(proto: "anySlot"),
+    5: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
@@ -9503,6 +11050,7 @@ extension Anytype_Rpc.Block.Cut.Response: SwiftProtobuf.Message, SwiftProtobuf._
     var _textSlot: String = String()
     var _htmlSlot: String = String()
     var _anySlot: [Anytype_Model_Block] = []
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -9513,6 +11061,7 @@ extension Anytype_Rpc.Block.Cut.Response: SwiftProtobuf.Message, SwiftProtobuf._
       _textSlot = source._textSlot
       _htmlSlot = source._htmlSlot
       _anySlot = source._anySlot
+      _event = source._event
     }
   }
 
@@ -9532,6 +11081,7 @@ extension Anytype_Rpc.Block.Cut.Response: SwiftProtobuf.Message, SwiftProtobuf._
         case 2: try decoder.decodeSingularStringField(value: &_storage._textSlot)
         case 3: try decoder.decodeSingularStringField(value: &_storage._htmlSlot)
         case 4: try decoder.decodeRepeatedMessageField(value: &_storage._anySlot)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -9552,6 +11102,9 @@ extension Anytype_Rpc.Block.Cut.Response: SwiftProtobuf.Message, SwiftProtobuf._
       if !_storage._anySlot.isEmpty {
         try visitor.visitRepeatedMessageField(value: _storage._anySlot, fieldNumber: 4)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -9565,6 +11118,7 @@ extension Anytype_Rpc.Block.Cut.Response: SwiftProtobuf.Message, SwiftProtobuf._
         if _storage._textSlot != rhs_storage._textSlot {return false}
         if _storage._htmlSlot != rhs_storage._htmlSlot {return false}
         if _storage._anySlot != rhs_storage._anySlot {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -9676,11 +11230,13 @@ extension Anytype_Rpc.Block.Export.Response: SwiftProtobuf.Message, SwiftProtobu
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "path"),
+    3: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Export.Response.Error? = nil
     var _path: String = String()
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -9689,6 +11245,7 @@ extension Anytype_Rpc.Block.Export.Response: SwiftProtobuf.Message, SwiftProtobu
     init(copying source: _StorageClass) {
       _error = source._error
       _path = source._path
+      _event = source._event
     }
   }
 
@@ -9706,6 +11263,7 @@ extension Anytype_Rpc.Block.Export.Response: SwiftProtobuf.Message, SwiftProtobu
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._path)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -9720,6 +11278,9 @@ extension Anytype_Rpc.Block.Export.Response: SwiftProtobuf.Message, SwiftProtobu
       if !_storage._path.isEmpty {
         try visitor.visitSingularStringField(value: _storage._path, fieldNumber: 2)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -9731,6 +11292,7 @@ extension Anytype_Rpc.Block.Export.Response: SwiftProtobuf.Message, SwiftProtobu
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._path != rhs_storage._path {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -9853,10 +11415,12 @@ extension Anytype_Rpc.Block.Upload.Response: SwiftProtobuf.Message, SwiftProtobu
   static let protoMessageName: String = Anytype_Rpc.Block.Upload.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Upload.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -9864,6 +11428,7 @@ extension Anytype_Rpc.Block.Upload.Response: SwiftProtobuf.Message, SwiftProtobu
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -9880,6 +11445,7 @@ extension Anytype_Rpc.Block.Upload.Response: SwiftProtobuf.Message, SwiftProtobu
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -9891,6 +11457,9 @@ extension Anytype_Rpc.Block.Upload.Response: SwiftProtobuf.Message, SwiftProtobu
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -9901,6 +11470,7 @@ extension Anytype_Rpc.Block.Upload.Response: SwiftProtobuf.Message, SwiftProtobu
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -10011,10 +11581,12 @@ extension Anytype_Rpc.Block.Download.Response: SwiftProtobuf.Message, SwiftProto
   static let protoMessageName: String = Anytype_Rpc.Block.Download.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Download.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -10022,6 +11594,7 @@ extension Anytype_Rpc.Block.Download.Response: SwiftProtobuf.Message, SwiftProto
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -10038,6 +11611,7 @@ extension Anytype_Rpc.Block.Download.Response: SwiftProtobuf.Message, SwiftProto
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -10049,6 +11623,9 @@ extension Anytype_Rpc.Block.Download.Response: SwiftProtobuf.Message, SwiftProto
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -10059,6 +11636,7 @@ extension Anytype_Rpc.Block.Download.Response: SwiftProtobuf.Message, SwiftProto
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -10230,10 +11808,12 @@ extension Anytype_Rpc.Block.Set.Fields.Response: SwiftProtobuf.Message, SwiftPro
   static let protoMessageName: String = Anytype_Rpc.Block.Set.Fields.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Set.Fields.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -10241,6 +11821,7 @@ extension Anytype_Rpc.Block.Set.Fields.Response: SwiftProtobuf.Message, SwiftPro
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -10257,6 +11838,7 @@ extension Anytype_Rpc.Block.Set.Fields.Response: SwiftProtobuf.Message, SwiftPro
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -10268,6 +11850,9 @@ extension Anytype_Rpc.Block.Set.Fields.Response: SwiftProtobuf.Message, SwiftPro
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -10278,6 +11863,7 @@ extension Anytype_Rpc.Block.Set.Fields.Response: SwiftProtobuf.Message, SwiftPro
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -10657,10 +12243,12 @@ extension Anytype_Rpc.Block.Set.Restrictions.Response: SwiftProtobuf.Message, Sw
   static let protoMessageName: String = Anytype_Rpc.Block.Set.Restrictions.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Set.Restrictions.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -10668,6 +12256,7 @@ extension Anytype_Rpc.Block.Set.Restrictions.Response: SwiftProtobuf.Message, Sw
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -10684,6 +12273,7 @@ extension Anytype_Rpc.Block.Set.Restrictions.Response: SwiftProtobuf.Message, Sw
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -10695,6 +12285,9 @@ extension Anytype_Rpc.Block.Set.Restrictions.Response: SwiftProtobuf.Message, Sw
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -10705,6 +12298,7 @@ extension Anytype_Rpc.Block.Set.Restrictions.Response: SwiftProtobuf.Message, Sw
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -11231,10 +12825,12 @@ extension Anytype_Rpc.Block.Set.Text.Color.Response: SwiftProtobuf.Message, Swif
   static let protoMessageName: String = Anytype_Rpc.Block.Set.Text.Color.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Set.Text.Color.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -11242,6 +12838,7 @@ extension Anytype_Rpc.Block.Set.Text.Color.Response: SwiftProtobuf.Message, Swif
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -11258,6 +12855,7 @@ extension Anytype_Rpc.Block.Set.Text.Color.Response: SwiftProtobuf.Message, Swif
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -11269,6 +12867,9 @@ extension Anytype_Rpc.Block.Set.Text.Color.Response: SwiftProtobuf.Message, Swif
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -11279,6 +12880,7 @@ extension Anytype_Rpc.Block.Set.Text.Color.Response: SwiftProtobuf.Message, Swif
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -11395,10 +12997,12 @@ extension Anytype_Rpc.Block.Set.Text.Style.Response: SwiftProtobuf.Message, Swif
   static let protoMessageName: String = Anytype_Rpc.Block.Set.Text.Style.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Set.Text.Style.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -11406,6 +13010,7 @@ extension Anytype_Rpc.Block.Set.Text.Style.Response: SwiftProtobuf.Message, Swif
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -11422,6 +13027,7 @@ extension Anytype_Rpc.Block.Set.Text.Style.Response: SwiftProtobuf.Message, Swif
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -11433,6 +13039,9 @@ extension Anytype_Rpc.Block.Set.Text.Style.Response: SwiftProtobuf.Message, Swif
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -11443,6 +13052,7 @@ extension Anytype_Rpc.Block.Set.Text.Style.Response: SwiftProtobuf.Message, Swif
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -11559,10 +13169,12 @@ extension Anytype_Rpc.Block.Set.Text.Checked.Response: SwiftProtobuf.Message, Sw
   static let protoMessageName: String = Anytype_Rpc.Block.Set.Text.Checked.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Set.Text.Checked.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -11570,6 +13182,7 @@ extension Anytype_Rpc.Block.Set.Text.Checked.Response: SwiftProtobuf.Message, Sw
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -11586,6 +13199,7 @@ extension Anytype_Rpc.Block.Set.Text.Checked.Response: SwiftProtobuf.Message, Sw
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -11597,6 +13211,9 @@ extension Anytype_Rpc.Block.Set.Text.Checked.Response: SwiftProtobuf.Message, Sw
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -11607,6 +13224,7 @@ extension Anytype_Rpc.Block.Set.Text.Checked.Response: SwiftProtobuf.Message, Sw
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -11742,10 +13360,12 @@ extension Anytype_Rpc.Block.Set.File.Name.Response: SwiftProtobuf.Message, Swift
   static let protoMessageName: String = Anytype_Rpc.Block.Set.File.Name.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Set.File.Name.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -11753,6 +13373,7 @@ extension Anytype_Rpc.Block.Set.File.Name.Response: SwiftProtobuf.Message, Swift
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -11769,6 +13390,7 @@ extension Anytype_Rpc.Block.Set.File.Name.Response: SwiftProtobuf.Message, Swift
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -11780,6 +13402,9 @@ extension Anytype_Rpc.Block.Set.File.Name.Response: SwiftProtobuf.Message, Swift
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -11790,6 +13415,7 @@ extension Anytype_Rpc.Block.Set.File.Name.Response: SwiftProtobuf.Message, Swift
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -12619,10 +14245,12 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response: SwiftProtobuf.Messa
   static let protoMessageName: String = Anytype_Rpc.Block.Set.Link.TargetBlockId.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -12630,6 +14258,7 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response: SwiftProtobuf.Messa
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -12646,6 +14275,7 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response: SwiftProtobuf.Messa
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -12657,6 +14287,9 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response: SwiftProtobuf.Messa
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -12667,6 +14300,7 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response: SwiftProtobuf.Messa
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -12802,10 +14436,12 @@ extension Anytype_Rpc.Block.Bookmark.Fetch.Response: SwiftProtobuf.Message, Swif
   static let protoMessageName: String = Anytype_Rpc.Block.Bookmark.Fetch.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Bookmark.Fetch.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -12813,6 +14449,7 @@ extension Anytype_Rpc.Block.Bookmark.Fetch.Response: SwiftProtobuf.Message, Swif
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -12829,6 +14466,7 @@ extension Anytype_Rpc.Block.Bookmark.Fetch.Response: SwiftProtobuf.Message, Swif
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -12840,6 +14478,9 @@ extension Anytype_Rpc.Block.Bookmark.Fetch.Response: SwiftProtobuf.Message, Swif
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -12850,6 +14491,7 @@ extension Anytype_Rpc.Block.Bookmark.Fetch.Response: SwiftProtobuf.Message, Swif
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -12895,6 +14537,409 @@ extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error: SwiftProtobuf.Message
 }
 
 extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.Bookmark.protoMessageName + ".CreateAndFetch"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch, rhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.Bookmark.CreateAndFetch.protoMessageName + ".Request"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "targetId"),
+    3: .same(proto: "position"),
+    4: .same(proto: "url"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.contextID)
+      case 2: try decoder.decodeSingularStringField(value: &self.targetID)
+      case 3: try decoder.decodeSingularEnumField(value: &self.position)
+      case 4: try decoder.decodeSingularStringField(value: &self.url)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.targetID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 2)
+    }
+    if self.position != .none {
+      try visitor.visitSingularEnumField(value: self.position, fieldNumber: 3)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Request, rhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.targetID != rhs.targetID {return false}
+    if lhs.position != rhs.position {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.Bookmark.CreateAndFetch.protoMessageName + ".Response"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "blockId"),
+    3: .same(proto: "event"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error? = nil
+    var _blockID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+      _blockID = source._blockID
+      _event = source._event
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._blockID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
+      }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response, rhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {return false}
+        if _storage._blockID != rhs_storage._blockID {return false}
+        if _storage._event != rhs_storage._event {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.protoMessageName + ".Error"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.code)
+      case 2: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error, rhs: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.Block.File: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".File"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.File, rhs: Anytype_Rpc.Block.File) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.File.protoMessageName + ".CreateAndUpload"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.File.CreateAndUpload, rhs: Anytype_Rpc.Block.File.CreateAndUpload) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.File.CreateAndUpload.protoMessageName + ".Request"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "targetId"),
+    3: .same(proto: "position"),
+    4: .same(proto: "url"),
+    5: .same(proto: "localPath"),
+    6: .same(proto: "fileType"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.contextID)
+      case 2: try decoder.decodeSingularStringField(value: &self.targetID)
+      case 3: try decoder.decodeSingularEnumField(value: &self.position)
+      case 4: try decoder.decodeSingularStringField(value: &self.url)
+      case 5: try decoder.decodeSingularStringField(value: &self.localPath)
+      case 6: try decoder.decodeSingularEnumField(value: &self.fileType)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.targetID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 2)
+    }
+    if self.position != .none {
+      try visitor.visitSingularEnumField(value: self.position, fieldNumber: 3)
+    }
+    if !self.url.isEmpty {
+      try visitor.visitSingularStringField(value: self.url, fieldNumber: 4)
+    }
+    if !self.localPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.localPath, fieldNumber: 5)
+    }
+    if self.fileType != .none {
+      try visitor.visitSingularEnumField(value: self.fileType, fieldNumber: 6)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.File.CreateAndUpload.Request, rhs: Anytype_Rpc.Block.File.CreateAndUpload.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.targetID != rhs.targetID {return false}
+    if lhs.position != rhs.position {return false}
+    if lhs.url != rhs.url {return false}
+    if lhs.localPath != rhs.localPath {return false}
+    if lhs.fileType != rhs.fileType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.File.CreateAndUpload.protoMessageName + ".Response"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "blockId"),
+    3: .same(proto: "event"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.Block.File.CreateAndUpload.Response.Error? = nil
+    var _blockID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+      _blockID = source._blockID
+      _event = source._event
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._blockID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
+      }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.File.CreateAndUpload.Response, rhs: Anytype_Rpc.Block.File.CreateAndUpload.Response) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {return false}
+        if _storage._blockID != rhs_storage._blockID {return false}
+        if _storage._event != rhs_storage._event {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.File.CreateAndUpload.Response.protoMessageName + ".Error"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.code)
+      case 2: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.File.CreateAndUpload.Response.Error, rhs: Anytype_Rpc.Block.File.CreateAndUpload.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -13021,10 +15066,12 @@ extension Anytype_Rpc.Block.Get.Marks.Response: SwiftProtobuf.Message, SwiftProt
   static let protoMessageName: String = Anytype_Rpc.Block.Get.Marks.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Get.Marks.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -13032,6 +15079,7 @@ extension Anytype_Rpc.Block.Get.Marks.Response: SwiftProtobuf.Message, SwiftProt
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -13048,6 +15096,7 @@ extension Anytype_Rpc.Block.Get.Marks.Response: SwiftProtobuf.Message, SwiftProt
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -13059,6 +15108,9 @@ extension Anytype_Rpc.Block.Get.Marks.Response: SwiftProtobuf.Message, SwiftProt
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -13069,6 +15121,7 @@ extension Anytype_Rpc.Block.Get.Marks.Response: SwiftProtobuf.Message, SwiftProt
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -13173,10 +15226,12 @@ extension Anytype_Rpc.Block.Undo.Response: SwiftProtobuf.Message, SwiftProtobuf.
   static let protoMessageName: String = Anytype_Rpc.Block.Undo.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Undo.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -13184,6 +15239,7 @@ extension Anytype_Rpc.Block.Undo.Response: SwiftProtobuf.Message, SwiftProtobuf.
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -13200,6 +15256,7 @@ extension Anytype_Rpc.Block.Undo.Response: SwiftProtobuf.Message, SwiftProtobuf.
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -13211,6 +15268,9 @@ extension Anytype_Rpc.Block.Undo.Response: SwiftProtobuf.Message, SwiftProtobuf.
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -13221,6 +15281,7 @@ extension Anytype_Rpc.Block.Undo.Response: SwiftProtobuf.Message, SwiftProtobuf.
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -13326,10 +15387,12 @@ extension Anytype_Rpc.Block.Redo.Response: SwiftProtobuf.Message, SwiftProtobuf.
   static let protoMessageName: String = Anytype_Rpc.Block.Redo.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Redo.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -13337,6 +15400,7 @@ extension Anytype_Rpc.Block.Redo.Response: SwiftProtobuf.Message, SwiftProtobuf.
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -13353,6 +15417,7 @@ extension Anytype_Rpc.Block.Redo.Response: SwiftProtobuf.Message, SwiftProtobuf.
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -13364,6 +15429,9 @@ extension Anytype_Rpc.Block.Redo.Response: SwiftProtobuf.Message, SwiftProtobuf.
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -13374,6 +15442,7 @@ extension Anytype_Rpc.Block.Redo.Response: SwiftProtobuf.Message, SwiftProtobuf.
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -13451,7 +15520,6 @@ extension Anytype_Rpc.Block.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
-    3: .same(proto: "breadcrumbsIds"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -13459,7 +15527,6 @@ extension Anytype_Rpc.Block.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.contextID)
       case 2: try decoder.decodeSingularStringField(value: &self.blockID)
-      case 3: try decoder.decodeRepeatedStringField(value: &self.breadcrumbsIds)
       default: break
       }
     }
@@ -13472,16 +15539,12 @@ extension Anytype_Rpc.Block.Open.Request: SwiftProtobuf.Message, SwiftProtobuf._
     if !self.blockID.isEmpty {
       try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
     }
-    if !self.breadcrumbsIds.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.breadcrumbsIds, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Rpc.Block.Open.Request, rhs: Anytype_Rpc.Block.Open.Request) -> Bool {
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
-    if lhs.breadcrumbsIds != rhs.breadcrumbsIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -13491,10 +15554,12 @@ extension Anytype_Rpc.Block.Open.Response: SwiftProtobuf.Message, SwiftProtobuf.
   static let protoMessageName: String = Anytype_Rpc.Block.Open.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Open.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -13502,6 +15567,7 @@ extension Anytype_Rpc.Block.Open.Response: SwiftProtobuf.Message, SwiftProtobuf.
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -13518,6 +15584,7 @@ extension Anytype_Rpc.Block.Open.Response: SwiftProtobuf.Message, SwiftProtobuf.
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -13529,6 +15596,9 @@ extension Anytype_Rpc.Block.Open.Response: SwiftProtobuf.Message, SwiftProtobuf.
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -13539,6 +15609,7 @@ extension Anytype_Rpc.Block.Open.Response: SwiftProtobuf.Message, SwiftProtobuf.
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -13584,6 +15655,166 @@ extension Anytype_Rpc.Block.Open.Response.Error: SwiftProtobuf.Message, SwiftPro
 }
 
 extension Anytype_Rpc.Block.Open.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".GetPublicWebURL"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.GetPublicWebURL, rhs: Anytype_Rpc.Block.GetPublicWebURL) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.GetPublicWebURL.protoMessageName + ".Request"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "blockId"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.blockID)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.GetPublicWebURL.Request, rhs: Anytype_Rpc.Block.GetPublicWebURL.Request) -> Bool {
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.GetPublicWebURL.protoMessageName + ".Response"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "url"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.Block.GetPublicWebURL.Response.Error? = nil
+    var _url: String = String()
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+      _url = source._url
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._url)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if !_storage._url.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._url, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.GetPublicWebURL.Response, rhs: Anytype_Rpc.Block.GetPublicWebURL.Response) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {return false}
+        if _storage._url != rhs_storage._url {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.GetPublicWebURL.Response.protoMessageName + ".Error"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.code)
+      case 2: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.GetPublicWebURL.Response.Error, rhs: Anytype_Rpc.Block.GetPublicWebURL.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -13644,11 +15875,13 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response: SwiftProtobuf.Message, Swi
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "blockId"),
+    3: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error? = nil
     var _blockID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -13657,6 +15890,7 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response: SwiftProtobuf.Message, Swi
     init(copying source: _StorageClass) {
       _error = source._error
       _blockID = source._blockID
+      _event = source._event
     }
   }
 
@@ -13674,6 +15908,7 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response: SwiftProtobuf.Message, Swi
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -13688,6 +15923,9 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response: SwiftProtobuf.Message, Swi
       if !_storage._blockID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -13699,6 +15937,7 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response: SwiftProtobuf.Message, Swi
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._blockID != rhs_storage._blockID {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -13751,8 +15990,8 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error.Code: SwiftProtobuf._
   ]
 }
 
-extension Anytype_Rpc.Block.CutBreadcrumbs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".CutBreadcrumbs"
+extension Anytype_Rpc.Block.SetBreadcrumbs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".SetBreadcrumbs"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -13764,24 +16003,24 @@ extension Anytype_Rpc.Block.CutBreadcrumbs: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Rpc.Block.CutBreadcrumbs, rhs: Anytype_Rpc.Block.CutBreadcrumbs) -> Bool {
+  static func ==(lhs: Anytype_Rpc.Block.SetBreadcrumbs, rhs: Anytype_Rpc.Block.SetBreadcrumbs) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Block.CutBreadcrumbs.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Rpc.Block.CutBreadcrumbs.protoMessageName + ".Request"
+extension Anytype_Rpc.Block.SetBreadcrumbs.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.SetBreadcrumbs.protoMessageName + ".Request"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "breadcrumbsId"),
-    2: .same(proto: "index"),
+    2: .same(proto: "ids"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.breadcrumbsID)
-      case 2: try decoder.decodeSingularInt32Field(value: &self.index)
+      case 2: try decoder.decodeRepeatedStringField(value: &self.ids)
       default: break
       }
     }
@@ -13791,28 +16030,30 @@ extension Anytype_Rpc.Block.CutBreadcrumbs.Request: SwiftProtobuf.Message, Swift
     if !self.breadcrumbsID.isEmpty {
       try visitor.visitSingularStringField(value: self.breadcrumbsID, fieldNumber: 1)
     }
-    if self.index != 0 {
-      try visitor.visitSingularInt32Field(value: self.index, fieldNumber: 2)
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Rpc.Block.CutBreadcrumbs.Request, rhs: Anytype_Rpc.Block.CutBreadcrumbs.Request) -> Bool {
+  static func ==(lhs: Anytype_Rpc.Block.SetBreadcrumbs.Request, rhs: Anytype_Rpc.Block.SetBreadcrumbs.Request) -> Bool {
     if lhs.breadcrumbsID != rhs.breadcrumbsID {return false}
-    if lhs.index != rhs.index {return false}
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Block.CutBreadcrumbs.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Rpc.Block.CutBreadcrumbs.protoMessageName + ".Response"
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.SetBreadcrumbs.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
-    var _error: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error? = nil
+    var _error: Anytype_Rpc.Block.SetBreadcrumbs.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -13820,6 +16061,7 @@ extension Anytype_Rpc.Block.CutBreadcrumbs.Response: SwiftProtobuf.Message, Swif
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -13836,6 +16078,7 @@ extension Anytype_Rpc.Block.CutBreadcrumbs.Response: SwiftProtobuf.Message, Swif
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -13847,16 +16090,20 @@ extension Anytype_Rpc.Block.CutBreadcrumbs.Response: SwiftProtobuf.Message, Swif
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Rpc.Block.CutBreadcrumbs.Response, rhs: Anytype_Rpc.Block.CutBreadcrumbs.Response) -> Bool {
+  static func ==(lhs: Anytype_Rpc.Block.SetBreadcrumbs.Response, rhs: Anytype_Rpc.Block.SetBreadcrumbs.Response) -> Bool {
     if lhs._storage !== rhs._storage {
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -13866,8 +16113,8 @@ extension Anytype_Rpc.Block.CutBreadcrumbs.Response: SwiftProtobuf.Message, Swif
   }
 }
 
-extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Rpc.Block.CutBreadcrumbs.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.SetBreadcrumbs.Response.protoMessageName + ".Error"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -13893,7 +16140,7 @@ extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error, rhs: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error) -> Bool {
+  static func ==(lhs: Anytype_Rpc.Block.SetBreadcrumbs.Response.Error, rhs: Anytype_Rpc.Block.SetBreadcrumbs.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -13901,7 +16148,7 @@ extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error: SwiftProtobuf.Message
   }
 }
 
-extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -14018,11 +16265,13 @@ extension Anytype_Rpc.Block.Create.Response: SwiftProtobuf.Message, SwiftProtobu
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "blockId"),
+    3: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Create.Response.Error? = nil
     var _blockID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -14031,6 +16280,7 @@ extension Anytype_Rpc.Block.Create.Response: SwiftProtobuf.Message, SwiftProtobu
     init(copying source: _StorageClass) {
       _error = source._error
       _blockID = source._blockID
+      _event = source._event
     }
   }
 
@@ -14048,6 +16298,7 @@ extension Anytype_Rpc.Block.Create.Response: SwiftProtobuf.Message, SwiftProtobu
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -14062,6 +16313,9 @@ extension Anytype_Rpc.Block.Create.Response: SwiftProtobuf.Message, SwiftProtobu
       if !_storage._blockID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._blockID, fieldNumber: 2)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -14073,6 +16327,7 @@ extension Anytype_Rpc.Block.Create.Response: SwiftProtobuf.Message, SwiftProtobu
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
         if _storage._blockID != rhs_storage._blockID {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -14235,12 +16490,14 @@ extension Anytype_Rpc.Block.CreatePage.Response: SwiftProtobuf.Message, SwiftPro
     1: .same(proto: "error"),
     2: .same(proto: "blockId"),
     3: .same(proto: "targetId"),
+    4: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.CreatePage.Response.Error? = nil
     var _blockID: String = String()
     var _targetID: String = String()
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -14250,6 +16507,7 @@ extension Anytype_Rpc.Block.CreatePage.Response: SwiftProtobuf.Message, SwiftPro
       _error = source._error
       _blockID = source._blockID
       _targetID = source._targetID
+      _event = source._event
     }
   }
 
@@ -14268,6 +16526,7 @@ extension Anytype_Rpc.Block.CreatePage.Response: SwiftProtobuf.Message, SwiftPro
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._blockID)
         case 3: try decoder.decodeSingularStringField(value: &_storage._targetID)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -14285,6 +16544,9 @@ extension Anytype_Rpc.Block.CreatePage.Response: SwiftProtobuf.Message, SwiftPro
       if !_storage._targetID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._targetID, fieldNumber: 3)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -14297,6 +16559,7 @@ extension Anytype_Rpc.Block.CreatePage.Response: SwiftProtobuf.Message, SwiftPro
         if _storage._error != rhs_storage._error {return false}
         if _storage._blockID != rhs_storage._blockID {return false}
         if _storage._targetID != rhs_storage._targetID {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -14407,10 +16670,12 @@ extension Anytype_Rpc.Block.Unlink.Response: SwiftProtobuf.Message, SwiftProtobu
   static let protoMessageName: String = Anytype_Rpc.Block.Unlink.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
+    2: .same(proto: "event"),
   ]
 
   fileprivate class _StorageClass {
     var _error: Anytype_Rpc.Block.Unlink.Response.Error? = nil
+    var _event: Anytype_ResponseEvent? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -14418,6 +16683,7 @@ extension Anytype_Rpc.Block.Unlink.Response: SwiftProtobuf.Message, SwiftProtobu
 
     init(copying source: _StorageClass) {
       _error = source._error
+      _event = source._event
     }
   }
 
@@ -14434,6 +16700,7 @@ extension Anytype_Rpc.Block.Unlink.Response: SwiftProtobuf.Message, SwiftProtobu
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._event)
         default: break
         }
       }
@@ -14445,6 +16712,9 @@ extension Anytype_Rpc.Block.Unlink.Response: SwiftProtobuf.Message, SwiftProtobu
       if let v = _storage._error {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._event {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -14455,6 +16725,7 @@ extension Anytype_Rpc.Block.Unlink.Response: SwiftProtobuf.Message, SwiftProtobu
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._error != rhs_storage._error {return false}
+        if _storage._event != rhs_storage._event {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -15048,6 +17319,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     1: .same(proto: "name"),
     2: .same(proto: "avatarLocalPath"),
     3: .same(proto: "avatarColor"),
+    20: .same(proto: "alphaInviteCode"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -15064,6 +17336,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
         var v: String?
         try decoder.decodeSingularStringField(value: &v)
         if let v = v {self.avatar = .avatarColor(v)}
+      case 20: try decoder.decodeSingularStringField(value: &self.alphaInviteCode)
       default: break
       }
     }
@@ -15080,12 +17353,16 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
       try visitor.visitSingularStringField(value: v, fieldNumber: 3)
     case nil: break
     }
+    if !self.alphaInviteCode.isEmpty {
+      try visitor.visitSingularStringField(value: self.alphaInviteCode, fieldNumber: 20)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Rpc.Account.Create.Request, rhs: Anytype_Rpc.Account.Create.Request) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.avatar != rhs.avatar {return false}
+    if lhs.alphaInviteCode != rhs.alphaInviteCode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -15204,6 +17481,7 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: SwiftProtobuf._ProtoNa
     102: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_NAME"),
     103: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_AVATAR"),
     104: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
+    900: .same(proto: "BAD_INVITE_CODE"),
   ]
 }
 
@@ -16646,6 +18924,149 @@ extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error.Code: SwiftProtobuf._Pr
   ]
 }
 
+extension Anytype_Rpc.Shutdown: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Shutdown"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Shutdown, rhs: Anytype_Rpc.Shutdown) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Shutdown.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Shutdown.protoMessageName + ".Request"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Shutdown.Request, rhs: Anytype_Rpc.Shutdown.Request) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Shutdown.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Shutdown.protoMessageName + ".Response"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _error: Anytype_Rpc.Shutdown.Response.Error? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _error = source._error
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._error {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Shutdown.Response, rhs: Anytype_Rpc.Shutdown.Response) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._error != rhs_storage._error {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Shutdown.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Shutdown.Response.protoMessageName + ".Error"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.code)
+      case 2: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Shutdown.Response.Error, rhs: Anytype_Rpc.Shutdown.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Shutdown.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    101: .same(proto: "NODE_NOT_STARTED"),
+  ]
+}
+
 extension Anytype_Rpc.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = Anytype_Rpc.protoMessageName + ".Config"
   static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -16709,6 +19130,7 @@ extension Anytype_Rpc.Config.Get.Response: SwiftProtobuf.Message, SwiftProtobuf.
     1: .same(proto: "error"),
     2: .same(proto: "homeBlockId"),
     3: .same(proto: "archiveBlockId"),
+    4: .same(proto: "profileBlockId"),
     101: .same(proto: "gatewayUrl"),
   ]
 
@@ -16716,6 +19138,7 @@ extension Anytype_Rpc.Config.Get.Response: SwiftProtobuf.Message, SwiftProtobuf.
     var _error: Anytype_Rpc.Config.Get.Response.Error? = nil
     var _homeBlockID: String = String()
     var _archiveBlockID: String = String()
+    var _profileBlockID: String = String()
     var _gatewayURL: String = String()
 
     static let defaultInstance = _StorageClass()
@@ -16726,6 +19149,7 @@ extension Anytype_Rpc.Config.Get.Response: SwiftProtobuf.Message, SwiftProtobuf.
       _error = source._error
       _homeBlockID = source._homeBlockID
       _archiveBlockID = source._archiveBlockID
+      _profileBlockID = source._profileBlockID
       _gatewayURL = source._gatewayURL
     }
   }
@@ -16745,6 +19169,7 @@ extension Anytype_Rpc.Config.Get.Response: SwiftProtobuf.Message, SwiftProtobuf.
         case 1: try decoder.decodeSingularMessageField(value: &_storage._error)
         case 2: try decoder.decodeSingularStringField(value: &_storage._homeBlockID)
         case 3: try decoder.decodeSingularStringField(value: &_storage._archiveBlockID)
+        case 4: try decoder.decodeSingularStringField(value: &_storage._profileBlockID)
         case 101: try decoder.decodeSingularStringField(value: &_storage._gatewayURL)
         default: break
         }
@@ -16763,6 +19188,9 @@ extension Anytype_Rpc.Config.Get.Response: SwiftProtobuf.Message, SwiftProtobuf.
       if !_storage._archiveBlockID.isEmpty {
         try visitor.visitSingularStringField(value: _storage._archiveBlockID, fieldNumber: 3)
       }
+      if !_storage._profileBlockID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._profileBlockID, fieldNumber: 4)
+      }
       if !_storage._gatewayURL.isEmpty {
         try visitor.visitSingularStringField(value: _storage._gatewayURL, fieldNumber: 101)
       }
@@ -16778,6 +19206,7 @@ extension Anytype_Rpc.Config.Get.Response: SwiftProtobuf.Message, SwiftProtobuf.
         if _storage._error != rhs_storage._error {return false}
         if _storage._homeBlockID != rhs_storage._homeBlockID {return false}
         if _storage._archiveBlockID != rhs_storage._archiveBlockID {return false}
+        if _storage._profileBlockID != rhs_storage._profileBlockID {return false}
         if _storage._gatewayURL != rhs_storage._gatewayURL {return false}
         return true
       }
@@ -17354,6 +19783,7 @@ extension Anytype_Rpc.UploadFile.Request: SwiftProtobuf.Message, SwiftProtobuf._
     1: .same(proto: "url"),
     2: .same(proto: "localPath"),
     3: .same(proto: "type"),
+    4: .same(proto: "disableEncryption"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -17362,6 +19792,7 @@ extension Anytype_Rpc.UploadFile.Request: SwiftProtobuf.Message, SwiftProtobuf._
       case 1: try decoder.decodeSingularStringField(value: &self.url)
       case 2: try decoder.decodeSingularStringField(value: &self.localPath)
       case 3: try decoder.decodeSingularEnumField(value: &self.type)
+      case 4: try decoder.decodeSingularBoolField(value: &self.disableEncryption)
       default: break
       }
     }
@@ -17377,6 +19808,9 @@ extension Anytype_Rpc.UploadFile.Request: SwiftProtobuf.Message, SwiftProtobuf._
     if self.type != .none {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 3)
     }
+    if self.disableEncryption != false {
+      try visitor.visitSingularBoolField(value: self.disableEncryption, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -17384,6 +19818,7 @@ extension Anytype_Rpc.UploadFile.Request: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.url != rhs.url {return false}
     if lhs.localPath != rhs.localPath {return false}
     if lhs.type != rhs.type {return false}
+    if lhs.disableEncryption != rhs.disableEncryption {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

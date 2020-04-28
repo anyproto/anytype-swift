@@ -11,9 +11,10 @@ import Lib
 import SwiftProtobuf
 
 extension Anytype_Rpc.Account.Create.Request {
-  init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?) {
+  init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String) {
     self.name = name
     self.avatar = avatar
+    self.alphaInviteCode = alphaInviteCode
   }
 }
 
@@ -84,6 +85,30 @@ extension Anytype_Rpc.Account.Stop.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Request {
+  init(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.position = position
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response {
+  init(error: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.blockID = blockID
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error {
+  init(code: Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Bookmark.Fetch.Request {
   init(contextID: String, blockID: String, url: String) {
     self.contextID = contextID
@@ -93,8 +118,9 @@ extension Anytype_Rpc.Block.Bookmark.Fetch.Request {
 }
 
 extension Anytype_Rpc.Block.Bookmark.Fetch.Response {
-  init(error: Anytype_Rpc.Block.Bookmark.Fetch.Response.Error) {
+  init(error: Anytype_Rpc.Block.Bookmark.Fetch.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -156,9 +182,10 @@ extension Anytype_Rpc.Block.Create.Request {
 }
 
 extension Anytype_Rpc.Block.Create.Response {
-  init(error: Anytype_Rpc.Block.Create.Response.Error, blockID: String) {
+  init(error: Anytype_Rpc.Block.Create.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
     self.error = error
     self.blockID = blockID
+    self.event = event
   }
 }
 
@@ -179,10 +206,11 @@ extension Anytype_Rpc.Block.CreatePage.Request {
 }
 
 extension Anytype_Rpc.Block.CreatePage.Response {
-  init(error: Anytype_Rpc.Block.CreatePage.Response.Error, blockID: String, targetID: String) {
+  init(error: Anytype_Rpc.Block.CreatePage.Response.Error, blockID: String, targetID: String, event: Anytype_ResponseEvent) {
     self.error = error
     self.blockID = blockID
     self.targetID = targetID
+    self.event = event
   }
 }
 
@@ -194,43 +222,25 @@ extension Anytype_Rpc.Block.CreatePage.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Cut.Request {
-  init(contextID: String, blocks: [Anytype_Model_Block]) {
+  init(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) {
     self.contextID = contextID
     self.blocks = blocks
+    self.selectedTextRange = selectedTextRange
   }
 }
 
 extension Anytype_Rpc.Block.Cut.Response {
-  init(error: Anytype_Rpc.Block.Cut.Response.Error, textSlot: String, htmlSlot: String, anySlot: [Anytype_Model_Block]) {
+  init(error: Anytype_Rpc.Block.Cut.Response.Error, textSlot: String, htmlSlot: String, anySlot: [Anytype_Model_Block], event: Anytype_ResponseEvent) {
     self.error = error
     self.textSlot = textSlot
     self.htmlSlot = htmlSlot
     self.anySlot = anySlot
+    self.event = event
   }
 }
 
 extension Anytype_Rpc.Block.Cut.Response.Error {
   init(code: Anytype_Rpc.Block.Cut.Response.Error.Code, description_p: String) {
-    self.code = code
-    self.description_p = description_p
-  }
-}
-
-extension Anytype_Rpc.Block.CutBreadcrumbs.Request {
-  init(breadcrumbsID: String, index: Int32) {
-    self.breadcrumbsID = breadcrumbsID
-    self.index = index
-  }
-}
-
-extension Anytype_Rpc.Block.CutBreadcrumbs.Response {
-  init(error: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error) {
-    self.error = error
-  }
-}
-
-extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error {
-  init(code: Anytype_Rpc.Block.CutBreadcrumbs.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -244,8 +254,9 @@ extension Anytype_Rpc.Block.Download.Request {
 }
 
 extension Anytype_Rpc.Block.Download.Response {
-  init(error: Anytype_Rpc.Block.Download.Response.Error) {
+  init(error: Anytype_Rpc.Block.Download.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -264,14 +275,41 @@ extension Anytype_Rpc.Block.Export.Request {
 }
 
 extension Anytype_Rpc.Block.Export.Response {
-  init(error: Anytype_Rpc.Block.Export.Response.Error, path: String) {
+  init(error: Anytype_Rpc.Block.Export.Response.Error, path: String, event: Anytype_ResponseEvent) {
     self.error = error
     self.path = path
+    self.event = event
   }
 }
 
 extension Anytype_Rpc.Block.Export.Response.Error {
   init(code: Anytype_Rpc.Block.Export.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload.Request {
+  init(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String, localPath: String, fileType: Anytype_Model_Block.Content.File.TypeEnum) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.position = position
+    self.url = url
+    self.localPath = localPath
+    self.fileType = fileType
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response {
+  init(error: Anytype_Rpc.Block.File.CreateAndUpload.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.blockID = blockID
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error {
+  init(code: Anytype_Rpc.Block.File.CreateAndUpload.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -286,13 +324,34 @@ extension Anytype_Rpc.Block.Get.Marks.Request {
 }
 
 extension Anytype_Rpc.Block.Get.Marks.Response {
-  init(error: Anytype_Rpc.Block.Get.Marks.Response.Error) {
+  init(error: Anytype_Rpc.Block.Get.Marks.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
 extension Anytype_Rpc.Block.Get.Marks.Response.Error {
   init(code: Anytype_Rpc.Block.Get.Marks.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL.Request {
+  init(blockID: String) {
+    self.blockID = blockID
+  }
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL.Response {
+  init(error: Anytype_Rpc.Block.GetPublicWebURL.Response.Error, url: String) {
+    self.error = error
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error {
+  init(code: Anytype_Rpc.Block.GetPublicWebURL.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -307,8 +366,9 @@ extension Anytype_Rpc.Block.Merge.Request {
 }
 
 extension Anytype_Rpc.Block.Merge.Response {
-  init(error: Anytype_Rpc.Block.Merge.Response.Error) {
+  init(error: Anytype_Rpc.Block.Merge.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -320,16 +380,16 @@ extension Anytype_Rpc.Block.Merge.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Open.Request {
-  init(contextID: String, blockID: String, breadcrumbsIds: [String]) {
+  init(contextID: String, blockID: String) {
     self.contextID = contextID
     self.blockID = blockID
-    self.breadcrumbsIds = breadcrumbsIds
   }
 }
 
 extension Anytype_Rpc.Block.Open.Response {
-  init(error: Anytype_Rpc.Block.Open.Response.Error) {
+  init(error: Anytype_Rpc.Block.Open.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -347,9 +407,10 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Request {
 }
 
 extension Anytype_Rpc.Block.OpenBreadcrumbs.Response {
-  init(error: Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error, blockID: String) {
+  init(error: Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
     self.error = error
     self.blockID = blockID
+    self.event = event
   }
 }
 
@@ -361,11 +422,15 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Paste.Request {
-  init(contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], textSlot: String, htmlSlot: String, anySlot: [Anytype_Model_Block]) {
+  init(
+    contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], copyTextRange: Anytype_Model_Range, textSlot: String, htmlSlot: String,
+    anySlot: [Anytype_Model_Block]
+  ) {
     self.contextID = contextID
     self.focusedBlockID = focusedBlockID
     self.selectedTextRange = selectedTextRange
     self.selectedBlockIds = selectedBlockIds
+    self.copyTextRange = copyTextRange
     self.textSlot = textSlot
     self.htmlSlot = htmlSlot
     self.anySlot = anySlot
@@ -373,9 +438,11 @@ extension Anytype_Rpc.Block.Paste.Request {
 }
 
 extension Anytype_Rpc.Block.Paste.Response {
-  init(error: Anytype_Rpc.Block.Paste.Response.Error, blockIds: [String]) {
+  init(error: Anytype_Rpc.Block.Paste.Response.Error, blockIds: [String], caretPosition: Int32, event: Anytype_ResponseEvent) {
     self.error = error
     self.blockIds = blockIds
+    self.caretPosition = caretPosition
+    self.event = event
   }
 }
 
@@ -393,8 +460,9 @@ extension Anytype_Rpc.Block.Redo.Request {
 }
 
 extension Anytype_Rpc.Block.Redo.Response {
-  init(error: Anytype_Rpc.Block.Redo.Response.Error) {
+  init(error: Anytype_Rpc.Block.Redo.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -414,9 +482,10 @@ extension Anytype_Rpc.Block.Replace.Request {
 }
 
 extension Anytype_Rpc.Block.Replace.Response {
-  init(error: Anytype_Rpc.Block.Replace.Response.Error, blockID: String) {
+  init(error: Anytype_Rpc.Block.Replace.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
     self.error = error
     self.blockID = blockID
+    self.event = event
   }
 }
 
@@ -463,8 +532,9 @@ extension Anytype_Rpc.Block.Set.Fields.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Fields.Response {
-  init(error: Anytype_Rpc.Block.Set.Fields.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Fields.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -484,8 +554,9 @@ extension Anytype_Rpc.Block.Set.File.Name.Request {
 }
 
 extension Anytype_Rpc.Block.Set.File.Name.Response {
-  init(error: Anytype_Rpc.Block.Set.File.Name.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.File.Name.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -547,8 +618,9 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response {
-  init(error: Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -589,8 +661,9 @@ extension Anytype_Rpc.Block.Set.Restrictions.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Restrictions.Response {
-  init(error: Anytype_Rpc.Block.Set.Restrictions.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Restrictions.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -610,8 +683,9 @@ extension Anytype_Rpc.Block.Set.Text.Checked.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Text.Checked.Response {
-  init(error: Anytype_Rpc.Block.Set.Text.Checked.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Text.Checked.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -631,8 +705,9 @@ extension Anytype_Rpc.Block.Set.Text.Color.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Text.Color.Response {
-  init(error: Anytype_Rpc.Block.Set.Text.Color.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Text.Color.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -652,8 +727,9 @@ extension Anytype_Rpc.Block.Set.Text.Style.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Text.Style.Response {
-  init(error: Anytype_Rpc.Block.Set.Text.Style.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Text.Style.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -728,19 +804,41 @@ extension Anytype_Rpc.Block.Set.Video.Width.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.SetBreadcrumbs.Request {
+  init(breadcrumbsID: String, ids: [String]) {
+    self.breadcrumbsID = breadcrumbsID
+    self.ids = ids
+  }
+}
+
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response {
+  init(error: Anytype_Rpc.Block.SetBreadcrumbs.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error {
+  init(code: Anytype_Rpc.Block.SetBreadcrumbs.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Split.Request {
-  init(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) {
+  init(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style) {
     self.contextID = contextID
     self.blockID = blockID
-    self.cursorPosition = cursorPosition
+    self.range = range
     self.style = style
   }
 }
 
 extension Anytype_Rpc.Block.Split.Response {
-  init(error: Anytype_Rpc.Block.Split.Response.Error, blockID: String) {
+  init(error: Anytype_Rpc.Block.Split.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
     self.error = error
     self.blockID = blockID
+    self.event = event
   }
 }
 
@@ -758,8 +856,9 @@ extension Anytype_Rpc.Block.Undo.Request {
 }
 
 extension Anytype_Rpc.Block.Undo.Response {
-  init(error: Anytype_Rpc.Block.Undo.Response.Error) {
+  init(error: Anytype_Rpc.Block.Undo.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -778,8 +877,9 @@ extension Anytype_Rpc.Block.Unlink.Request {
 }
 
 extension Anytype_Rpc.Block.Unlink.Response {
-  init(error: Anytype_Rpc.Block.Unlink.Response.Error) {
+  init(error: Anytype_Rpc.Block.Unlink.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -800,13 +900,35 @@ extension Anytype_Rpc.Block.Upload.Request {
 }
 
 extension Anytype_Rpc.Block.Upload.Response {
-  init(error: Anytype_Rpc.Block.Upload.Response.Error) {
+  init(error: Anytype_Rpc.Block.Upload.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
 extension Anytype_Rpc.Block.Upload.Response.Error {
   init(code: Anytype_Rpc.Block.Upload.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Request {
+  init(contextID: String, blockIds: [String]) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+  }
+}
+
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response {
+  init(error: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error, linkIds: [String]) {
+    self.error = error
+    self.linkIds = linkIds
+  }
+}
+
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error {
+  init(code: Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -822,9 +944,10 @@ extension Anytype_Rpc.BlockList.Duplicate.Request {
 }
 
 extension Anytype_Rpc.BlockList.Duplicate.Response {
-  init(error: Anytype_Rpc.BlockList.Duplicate.Response.Error, blockIds: [String]) {
+  init(error: Anytype_Rpc.BlockList.Duplicate.Response.Error, blockIds: [String], event: Anytype_ResponseEvent) {
     self.error = error
     self.blockIds = blockIds
+    self.event = event
   }
 }
 
@@ -846,8 +969,9 @@ extension Anytype_Rpc.BlockList.Move.Request {
 }
 
 extension Anytype_Rpc.BlockList.Move.Response {
-  init(error: Anytype_Rpc.BlockList.Move.Response.Error) {
+  init(error: Anytype_Rpc.BlockList.Move.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -859,19 +983,20 @@ extension Anytype_Rpc.BlockList.Move.Response.Error {
 }
 
 extension Anytype_Rpc.BlockList.MoveToNewPage.Request {
-  init(contextID: String, blockIds: [String], block: Anytype_Model_Block, dropTargetID: String, position: Anytype_Model_Block.Position) {
+  init(contextID: String, blockIds: [String], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String, position: Anytype_Model_Block.Position) {
     self.contextID = contextID
     self.blockIds = blockIds
-    self.block = block
+    self.details = details
     self.dropTargetID = dropTargetID
     self.position = position
   }
 }
 
 extension Anytype_Rpc.BlockList.MoveToNewPage.Response {
-  init(error: Anytype_Rpc.BlockList.MoveToNewPage.Response.Error, linkID: String) {
+  init(error: Anytype_Rpc.BlockList.MoveToNewPage.Response.Error, linkID: String, event: Anytype_ResponseEvent) {
     self.error = error
     self.linkID = linkID
+    self.event = event
   }
 }
 
@@ -891,8 +1016,9 @@ extension Anytype_Rpc.BlockList.Set.Align.Request {
 }
 
 extension Anytype_Rpc.BlockList.Set.Align.Response {
-  init(error: Anytype_Rpc.BlockList.Set.Align.Response.Error) {
+  init(error: Anytype_Rpc.BlockList.Set.Align.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -912,13 +1038,36 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Request {
 }
 
 extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response {
-  init(error: Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error) {
+  init(error: Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
 extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error {
   init(code: Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style.Request {
+  init(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.style = style
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response {
+  init(error: Anytype_Rpc.BlockList.Set.Div.Style.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error {
+  init(code: Anytype_Rpc.BlockList.Set.Div.Style.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -939,8 +1088,9 @@ extension Anytype_Rpc.BlockList.Set.Fields.Request.BlockField {
 }
 
 extension Anytype_Rpc.BlockList.Set.Fields.Response {
-  init(error: Anytype_Rpc.BlockList.Set.Fields.Response.Error) {
+  init(error: Anytype_Rpc.BlockList.Set.Fields.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -960,8 +1110,9 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Request {
 }
 
 extension Anytype_Rpc.BlockList.Set.Text.Color.Response {
-  init(error: Anytype_Rpc.BlockList.Set.Text.Color.Response.Error) {
+  init(error: Anytype_Rpc.BlockList.Set.Text.Color.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -981,8 +1132,9 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Request {
 }
 
 extension Anytype_Rpc.BlockList.Set.Text.Style.Response {
-  init(error: Anytype_Rpc.BlockList.Set.Text.Style.Response.Error) {
+  init(error: Anytype_Rpc.BlockList.Set.Text.Style.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -994,10 +1146,11 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error {
 }
 
 extension Anytype_Rpc.Config.Get.Response {
-  init(error: Anytype_Rpc.Config.Get.Response.Error, homeBlockID: String, archiveBlockID: String, gatewayURL: String) {
+  init(error: Anytype_Rpc.Config.Get.Response.Error, homeBlockID: String, archiveBlockID: String, profileBlockID: String, gatewayURL: String) {
     self.error = error
     self.homeBlockID = homeBlockID
     self.archiveBlockID = archiveBlockID
+    self.profileBlockID = profileBlockID
     self.gatewayURL = gatewayURL
   }
 }
@@ -1040,8 +1193,9 @@ extension Anytype_Rpc.ExternalDrop.Files.Request {
 }
 
 extension Anytype_Rpc.ExternalDrop.Files.Response {
-  init(error: Anytype_Rpc.ExternalDrop.Files.Response.Error) {
+  init(error: Anytype_Rpc.ExternalDrop.Files.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -1196,11 +1350,25 @@ extension Anytype_Rpc.Process.Cancel.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Shutdown.Response {
+  init(error: Anytype_Rpc.Shutdown.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Shutdown.Response.Error {
+  init(code: Anytype_Rpc.Shutdown.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.UploadFile.Request {
-  init(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum) {
+  init(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool) {
     self.url = url
     self.localPath = localPath
     self.type = type
+    self.disableEncryption = disableEncryption
   }
 }
 

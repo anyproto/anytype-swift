@@ -22,11 +22,11 @@ enum HomeCollectionViewCellType: Hashable {
 
 class HomeCollectionViewModel: ObservableObject {
     private let dashboardService: DashboardServiceProtocol = DashboardService()
-    private var middlewareEventsListener: NotificationEventListener<HomeCollectionViewModel>?
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
-    private var subscriptions = Set<AnyCancellable>()
+    private var eventListener: NotificationEventListener<HomeCollectionViewModel>?
+    private var subscriptions: Set<AnyCancellable> = []
 
-    @Published var documentsCell = [HomeCollectionViewCellType]()
+    @Published var documentsCell: [HomeCollectionViewCellType] = []
     @Published var error: String = ""
     var dashboardPages = [Anytype_Model_Block]() {
         didSet {
@@ -39,37 +39,33 @@ class HomeCollectionViewModel: ObservableObject {
     
     // MARK: - Lifecycle
     init() {
-        self.middlewareEventsListener = NotificationEventListener(handler: self)
-        // obtain configuration -> subscribe to middleware notifiaction -> ask dashboard events
-        middlewareConfigurationService.obtainConfiguration()
-            .first()
-            .receive(on: RunLoop.main)
-            .sink(
-                receiveCompletion: { competion in
-                    switch competion {
-                    case .finished: break
-                    case .failure(_):
-                        let logger = Logging.createLogger(category: .homeCollectionViewModel)
-                        os_log(.error, log: logger, "obtain configuration error on %”@", "\(self)")
-                    }
-            },
-                receiveValue: { [weak self] configuration in
-                    // TODO: rethink it.
-                    self?.middlewareEventsListener?.receive(contextId: configuration.homeBlockID)
-                    self?.subscribeDashboard()
-            })
-        .store(in: &subscriptions)
-    }
-    
-    private func subscribeDashboard() {
-        dashboardService.subscribeDashboardEvents()
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-            })
-            { value in
-                print("\(value)")
-        }
-        .store(in: &subscriptions)
+        self.eventListener = NotificationEventListener(handler: self)
+        
+        /// NOTE: Look at it carefully.
+        /// We obtain configuration and setup eventListener to `.receive` values from all events with `(contextID: configuration.homeBlockID)`
+        ///
+        self.middlewareConfigurationService.obtainConfiguration().sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: break
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .homeCollectionViewModel)
+                os_log(.error, log: logger, "Obtain configuration error %@", String(describing: error))
+            }
+        }, receiveValue: { [weak self] value in
+            self?.eventListener?.receive(contextId: value.homeBlockID)
+        }).store(in: &self.subscriptions)
+        
+        let listener = NotificationEventListener(handler: self)
+        self.dashboardService.subscribeDashboardEvents().receive(on: RunLoop.main)
+            .map(listener.process(messages:))
+            .sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .homeCollectionViewModel)
+                    os_log(.error, log: logger, "Subscribe dashboard events error %@", String(describing: error))
+                }
+            }) { }.store(in: &self.subscriptions)
     }
 }
 
@@ -79,18 +75,26 @@ extension HomeCollectionViewModel {
     private func createPagesViewModels(pages: [Anytype_Model_Block]) {
         documentsCell.removeAll()
         
-        for page in pages {
-            guard case .link(_) = page.content else { continue }
+        let links = pages.filter({
+            switch $0.content {
+            case .link: return true
+            default: return false
+            }})
             
-            // TODO: think about it, fucking protobuf
-            var name = page.link.fields.fields["name"]?.stringValue ?? ""
-            if page.link.style == .archive {
-                name = "Archive"
-            }
-            var documentCellModel = HomeCollectionViewDocumentCellModel(title: name)
-//            documentCellModel.emojiImage = document.icon
-            documentsCell.append(.document(documentCellModel))
-        }
+            // Only title for now.
+            .map({ value -> String in
+                if value.link.style == .archive {
+                    return "Archive"
+                }
+                else {
+                    return value.link.fields.fields["name"]?.stringValue ?? ""
+                }
+            })
+            .map({HomeCollectionViewDocumentCellModel.init(title:$0)})
+            .map(HomeCollectionViewCellType.document)
+        
+        documentsCell.append(contentsOf: links)
+        
         documentsCell.append(.plus)
     }
 }
@@ -112,9 +116,14 @@ extension HomeCollectionViewModel {
             
         case .plus:
             guard let rootId = rootId else { break }
-            dashboardService.createPage(contextId: rootId).sink(receiveCompletion: { result in
-                print("\(result)")
-                // TODO: handle error
+            let listener = NotificationEventListener(handler: self)
+            dashboardService.createPage(contextId: rootId).map(listener.process(messages:)).sink(receiveCompletion: { result in
+                switch result {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .homeCollectionViewModel)
+                    os_log(.error, log: logger, "Create page error %@", String(describing: error))
+                }
             }) { _ in }
                 .store(in: &subscriptions)
         }

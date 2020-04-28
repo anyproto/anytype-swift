@@ -6,6 +6,7 @@
 //   https://github.com/anytypeio/anytype-swift-codegen
 extension Anytype_Rpc.ExternalDrop.Files.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExternalDrop.Content.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Move.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.MoveToNewPage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Duplicate.Response.Error: Swift.Error {}
@@ -14,6 +15,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Align.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Split.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Merge.Response.Error: Swift.Error {}
@@ -38,12 +40,15 @@ extension Anytype_Rpc.Block.Set.Video.Name.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Video.Width.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Get.Marks.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Undo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Redo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Open.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error: Swift.Error {}
-extension Anytype_Rpc.Block.CutBreadcrumbs.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.CreatePage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Unlink.Response.Error: Swift.Error {}
@@ -59,6 +64,7 @@ extension Anytype_Rpc.Version.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ipfs.File.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ipfs.Image.Get.Blob.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ipfs.Image.Get.File.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Shutdown.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Config.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ping.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Process.Cancel.Response.Error: Swift.Error {}

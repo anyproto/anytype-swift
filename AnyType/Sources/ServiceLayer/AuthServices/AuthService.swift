@@ -63,8 +63,14 @@ final class AuthService: NSObject, AuthServiceProtocol {
         
         let name = profile.name
         let avatar = transform(profile.avatar)
-        
-        _ = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar).sink(receiveCompletion: { result in
+
+        // TODO: Add screen to set AlphaInviteCode.
+        let alphaInviteCode = "" // tell that we should set alphaInviteCode first.
+        let logger = Logging.createLogger(category: .servicesAuthService)
+        os_log(.debug, log: logger , "You should set alphaInviteCode first! Add screen for it.")
+        return
+
+        _ = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.createAccountError()))

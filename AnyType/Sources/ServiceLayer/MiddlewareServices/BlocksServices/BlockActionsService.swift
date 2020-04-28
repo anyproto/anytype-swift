@@ -10,7 +10,8 @@ import Foundation
 import Combine
 
 protocol BlockActionsServiceProtocolOpen {
-    func action(contextID: String, blockID: String, breadcrumbsIds: [String]) -> AnyPublisher<Never, Error>
+    associatedtype Success
+    func action(contextID: String, blockID: String) -> AnyPublisher<Success, Error>
 }
 
 protocol BlockActionsServiceProtocolClose {
@@ -78,8 +79,12 @@ class BlockActionsService: BlockActionsServiceProtocol {
     
     // MARK: Open / Close
     struct Open: BlockActionsServiceProtocolOpen {
-        func action(contextID: String, blockID: String, breadcrumbsIds: [String] = []) -> AnyPublisher<Never, Error> {
-            Anytype_Rpc.Block.Open.Service.invoke(contextID: contextID, blockID: blockID, breadcrumbsIds: breadcrumbsIds).ignoreOutput().subscribe(on: DispatchQueue.global())
+        struct Success {
+            var contextID: String
+            var messages: [Anytype_Event.Message]
+        }
+        func action(contextID: String, blockID: String) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Open.Service.invoke(contextID: contextID, blockID: blockID).map({Success.init(contextID: $0.event.contextID, messages: $0.event.messages)}).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }
@@ -107,7 +112,7 @@ class BlockActionsService: BlockActionsServiceProtocol {
             var blockID: String
         }
         func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, cursorPosition: cursorPosition, style: style).map({Success.init(blockID: $0.blockID)}).subscribe(on: DispatchQueue.global())
+            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: .init(from: cursorPosition, to: cursorPosition), style: style).map({Success.init(blockID: $0.blockID)}).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
     }
@@ -151,6 +156,13 @@ extension BlockActionsService {
             static func from(event: Anytype_Event.Block.Show) -> Self {
                 .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks))
             }
+            static func from(rootID: String, blocks: [Anytype_Model_Block]) -> Self {
+                .init(rootId: rootID, blocks: parser.parse(blocks: blocks))
+            }
+        }
+        
+        func createFrom(event: Anytype_Event.Block.Show) -> Event {
+            .from(event: event)
         }
         
         func receive(contextId: ContextId) -> AnyPublisher<Event, Never> {

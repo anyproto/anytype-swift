@@ -12,8 +12,8 @@ import Combine
 /// Dashboard service
 protocol DashboardServiceProtocol {
     /// Subscribe to dashboard events
-    func subscribeDashboardEvents() -> AnyPublisher<Never, Error>
+    func subscribeDashboardEvents() -> AnyPublisher<[Anytype_Event.Message], Error>
     
     /// Create pages
-    func createPage(contextId: String) -> AnyPublisher<Void, Error>
+    func createPage(contextId: String) -> AnyPublisher<[Anytype_Event.Message], Error>
 }
