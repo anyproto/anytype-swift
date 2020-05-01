@@ -48,7 +48,14 @@ extension FileBlocksViews.Image {
         override func handle(event: BlocksViews.UserEvent) {
             switch event {
             case .didSelectRowInTableView:
-                // we should show image picker
+                // we should show image picker only for empty state
+                // TODO: Need to think about error state, reload or something
+                if self.state != .empty {
+                    let logger = Logging.createLogger(category: .fileBlocksViewsImage)
+                    os_log(.info, log: logger, "User pressed on FileBlocksViews when our state is not empty.")
+                    return
+                }
+                
                 let blockModel = self.getRealBlock()
                 guard let documentId = blockModel.findRoot()?.information.id else { return }
                 let blockId = blockModel.information.id
@@ -156,7 +163,7 @@ private extension FileBlocksViews.Image {
     class FileImageBlockView: UIView {
         
         struct Layout {
-            var imageViewHeightMultiplier: CGFloat = 0.6
+            var imageContentViewDefaultHeight: CGFloat = 250
             var imageViewTop: CGFloat = 4
             var emptyViewHeight: CGFloat = 52
         }
@@ -165,6 +172,7 @@ private extension FileBlocksViews.Image {
         
         // MARK: Views
         var imageContentView: UIView!
+        var imageContentViewHeight: NSLayoutConstraint?
         var imageView: UIImageView!
         
         var emptyView: EmptyView!
@@ -241,16 +249,16 @@ private extension FileBlocksViews.Image {
         
         func addImageViewLayout() {
             if let view = self.imageContentView, let superview = view.superview {
-                let heightAnchor = view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: self.layout.imageViewHeightMultiplier)
-                let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                bottomAnchor.priority = UILayoutPriority(750)
-                
+                imageContentViewHeight = view.heightAnchor.constraint(equalToConstant: self.layout.imageContentViewDefaultHeight)
+                // We need priotity here cause cell self size constraint will conflict with ours
+                imageContentViewHeight?.priority = .init(750)
+                imageContentViewHeight?.isActive = true
+            
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                     view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    bottomAnchor,
-                    heightAnchor
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
                 ])
             }
             
@@ -268,7 +276,8 @@ private extension FileBlocksViews.Image {
             if let view = self.emptyView, let superview = view.superview {
                 let heightAnchor = view.heightAnchor.constraint(equalToConstant: self.layout.emptyViewHeight)
                 let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                bottomAnchor.priority = UILayoutPriority(750)
+                // We need priotity here cause cell self size constraint will conflict with ours
+                bottomAnchor.priority = .init(750)
                 
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
@@ -302,11 +311,24 @@ private extension FileBlocksViews.Image {
                         DispatchQueue.main.async {
                             if let imageView = self.imageView {
                                 imageView.image = UIImage(data: data)
+                                self.updateImageConstraints()
                             }
                         }
                     }
                 }
             })
+        }
+        // TODO: Will work dynamic when finish granual reload of parent tableView
+        private func updateImageConstraints()  {
+            if let image = self.imageView.image, image.size.width > 0 {
+                let width = image.size.width
+                let height = image.size.height
+                let viewWidth = self.imageView.frame.width
+                let ratio = viewWidth / width
+                let scaledHeight = height * ratio
+                
+                self.imageContentViewHeight?.constant = scaledHeight
+            }
         }
         
         private func handleState() {

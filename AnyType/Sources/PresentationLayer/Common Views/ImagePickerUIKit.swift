@@ -13,7 +13,8 @@ import CoreServices
 open class ImagePickerUIKit: UIViewController {
     // MARK: Variables
     var model: ViewModel
-    
+    var barTintColor: UIColor?
+
     // MARK: Native ImagePicker
     private func createPickerController() -> UIImagePickerController {
         let controller: UIImagePickerController = .init()
@@ -63,6 +64,28 @@ extension ImagePickerUIKit {
     open override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUIElements()
+        self.applyAppearanceForNavigationBar()
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.resetAppearanceForNavigationBar()
+    }
+
+}
+
+// MARK: - Appearance
+// We need this to change appearance for UINavigationBar in UIImagePickerController
+// This class is intended to be used as-is and does not support subclassing. The view hierarchy for this class is private and must not be modified
+extension ImagePickerUIKit {
+    private func applyAppearanceForNavigationBar() {
+        // Save color to reset it back later
+        self.barTintColor = UINavigationBar.appearance().tintColor
+        
+        UINavigationBar.appearance().tintColor = nil
+    }
+    private func resetAppearanceForNavigationBar() {
+        UINavigationBar.appearance().tintColor = self.barTintColor
     }
 }
 
