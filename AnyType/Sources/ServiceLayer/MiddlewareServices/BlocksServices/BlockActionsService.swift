@@ -154,10 +154,7 @@ extension BlockActionsService {
             var rootId: String
             var blocks: [MiddlewareBlockInformationModel]
             static func from(event: Anytype_Event.Block.Show) -> Self {
-                .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks))
-            }
-            static func from(rootID: String, blocks: [Anytype_Model_Block]) -> Self {
-                .init(rootId: rootID, blocks: parser.parse(blocks: blocks))
+                .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks, details: event.details, smartblockType: event.type))
             }
         }
         

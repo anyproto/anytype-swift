@@ -11,33 +11,45 @@ import SwiftUI
 import Combine
 import os
 
-struct DocumentViewRepresentable: UIViewControllerRepresentable {
-    @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: DocumentViewModel
-    private var router: DocumentViewRouting.CompoundRouter = .init()
-    func makeCoordinator() -> Coordinator {
-        DocumentViewRepresentable.Coordinator(self)
-    }
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentViewRepresentable>) -> DocumentViewController {
-        let view = DocumentViewController(viewModel: self.viewModel)
-        
+// MARK: - Publishers
+extension DocumentViewRepresentable {
+    func userActionPublisher() -> AnyPublisher<BlocksViews.UserAction, Never> {
         /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
-        let userActionPublisher = self.viewModel.$builders.map {
+
+        self.viewModel.$builders.map {
             $0.compactMap { $0 as? BlocksViews.Base.ViewModel }
         }
         .flatMap {
             Publishers.MergeMany($0.map{$0.userActionPublisher})
         }
         .eraseToAnyPublisher()
-                
-        _ = self.router.configured(userActionsStream: userActionPublisher)
+    }
+}
+
+// MARK: - DocumentViewRepresentable
+struct DocumentViewRepresentable: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var viewModel: DocumentViewModel
+    func makeCoordinator() -> Coordinator {
+        DocumentViewRepresentable.Coordinator(self)
+    }
+    
+    func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentViewRepresentable>) -> DocumentViewController {
+        let view = DocumentViewController(viewModel: self.viewModel)
+        
+        /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
+        let userActionPublisher = self.userActionPublisher()
+        
+        let router = context.coordinator.router
+        _ = router.configured(userActionsStream: userActionPublisher)
         
         /// Subscribe `view controller` on events from `router`.
-        view.subscribeOnRouting(self.router)
-
-        view.delegate = context.coordinator
-
+        view.subscribeOnRouting(router)
+        
+        /// Subscribe `coordinator` on events from `view.headerView`.
+        _ = context.coordinator.configured(headerViewModelPublisher: view.headerViewModelPublisher)
+        
         return view
     }
     
@@ -61,15 +73,28 @@ struct DocumentViewRepresentable: UIViewControllerRepresentable {
 }
 
 extension DocumentViewRepresentable {
-    class Coordinator: DocumentViewControllerDelegate {
+    class Coordinator {
+        // MARK: Variables
         private var parent: DocumentViewRepresentable
+        private(set) var router: DocumentViewRouting.CompoundRouter = .init()
+        private var subscriptions: Set<AnyCancellable> = .init()
 
+        // MARK: Initialization
         init(_ parent: DocumentViewRepresentable) {
             self.parent = parent
         }
 
-        func didTapBackButton() {
+        // MARK: Actions
+        func processBackButtonPressed() {
             parent.presentationMode.wrappedValue.dismiss()
+        }
+        
+        // MARK: Configuration
+        func configured(headerViewModelPublisher: AnyPublisher<DocumentViewController.HeaderView.UserAction, Never>) -> Self {
+            headerViewModelPublisher.sink { [weak self] (value) in
+                self?.processBackButtonPressed()
+            }.store(in: &self.subscriptions)
+            return self
         }
     }
 }

@@ -30,6 +30,22 @@ extension DocumentViewModel {
     }
 }
 
+// MARK: Events
+extension DocumentViewModel {
+    enum UserEvent {
+        case pageDetailsViewModelsDidSet
+    }
+}
+
+// MARK: - Options
+extension DocumentViewModel {
+    /// Structure contains `Feature Flags`.
+    ///
+    struct Options {
+        var shouldCreateEmptyBlockOnTapIfListIsEmpty: Bool = false
+    }
+}
+
 class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolder {
     typealias RootModel = BlockModels.Block.RealBlock
     
@@ -40,13 +56,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     private var flattener: BlocksViews.Supplement.BlocksFlattener = .init()
     
     private var treeTextViewUserInteractor: BlocksViews.Supplement.TreeTextBlocksUserInteractor<DocumentViewModel>?
-    
-    /// Structure contains `Feature Flags`.
-    ///
-    struct Options {
-        var shouldCreateEmptyBlockOnTapIfListIsEmpty: Bool = false
-    }
-    
+        
     /// Options property publisher.
     /// We expect that `ViewController` will listen this property.
     /// `ViewController` should sink on this property after `viewDidLoad`.
@@ -58,6 +68,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     @Published var rootModel: RootModel? {
         didSet {
             self.syncBuilders()
+            self.configurePageDetails(for: self.rootModel)
             if let model = self.rootModel {
                 model.objectWillChange.sink { [weak self] (value) in
                     self?.syncBuilders()
@@ -66,6 +77,23 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         }
     }
     
+    // MARK: - Events
+    @Published var userEvent: UserEvent?
+    
+    // MARK: - Page View Models
+    /// PageDetailsViewModel
+    /// We use this model in BlocksViews for Title, Image.
+    /// These models should subscribe on publishers of this model.
+    /// Next, if we receive new data, we should pass this data directly to this model.
+    /// All other models we handle in special
+    @Published var wholePageDetailsViewModel: PageDetailsViewModel = .init()
+    var pageDetailsViewModels: [BlockModels.Block.Information.Details.Kind : BlockViewBuilderProtocol] = [:] {
+        didSet {
+            self.userEvent = .pageDetailsViewModelsDidSet
+        }
+    }
+    
+    // MARK: - Builders
     @Published var builders: [BlockViewBuilderProtocol] = [] {
         didSet {
             // On each update we rebuild indexDictionary.
@@ -92,12 +120,17 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     init(documentId: String?, options: Options) {
         // TODO: Add failable init.
         let logger = Logging.createLogger(category: .treeViewModel)
-        os_log(.debug, log: logger, "Don't forget to change to failable init?() .")
+        os_log(.debug, log: logger, "Don't forget to change to failable init?()")
         
-        guard let documentId = documentId else { return }
+        guard let documentId = documentId else {
+            let logger = Logging.createLogger(category: .treeViewModel)
+            os_log(.debug, log: logger, "Don't pass nil documentId to DocumentViewModel.init()")
+            return
+        }
         
         self.options = options
-
+        _ = self.wholePageDetailsViewModel.configured(documentId: documentId)
+        
         // Publishers
         
         self.treeTextViewUserInteractor?.$reaction.filter({ (value) in
@@ -110,12 +143,9 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         }).store(in: &self.subscriptions)
 
         self.blockActionsService.eventListener.receive(contextId: documentId).sink { [weak self] (value) in
-            if self?.internalState != .ready {
-                self?.processBlocks(contextId: documentId, rootId: value.rootId, models: value.blocks)
-                self?.internalState = .ready
-            }
+            self?.internalProcessBlocks(contextId: documentId, rootId: value.rootId, models: value.blocks)
         }.store(in: &self.subscriptions)
-//
+
         // We are waiting for value "true" to send `.blockClose()` with parameters "contextID: documentId, blockID: documentId"
         self.shouldClosePagePublisher.drop(while: {$0 == false}).flatMap { [weak self] (value) in
             self?.blockActionsService.close.action(contextID: documentId, blockID: documentId) ?? .empty()
@@ -266,6 +296,41 @@ private extension DocumentViewModel {
         default:
             return
         }
+    }
+}
+
+// MARK: - PageDetails
+private extension DocumentViewModel {
+    func configurePageDetails(for rootModel: RootModel?) {
+        guard let model = rootModel else { return }
+        /// take rootViewModel and configure pageDetails from this model.
+        /// use special flattener for this.
+        /// extract details and try to build view model for each detail.
+        
+        /// Do not delete this code.
+        /// We may need it later when we determine what details are.
+        //            let information = value.information
+        //            let converter = BlockModels.Block.Information.DetailsAsBlockConverter(information: value.information)
+        //            let blocks = information.details.toList().map(converter.callAsFunction(_:))
+        
+        /// sort details if you want, but for now we only have one detail: title.
+        ///
+        
+        /// And create correct viewModels.
+        ///
+        
+        // TODO: Refactor later.
+        let information = model.information
+        let title = information.details.title
+        let titleBlock = BlockModels.Block.Information.DetailsAsBlockConverter(information: information)(.title(title ?? .init(text: "")))
+        let titleBlockModel = PageBlocksViews.Title.BlockViewModel.init(titleBlock).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
+        
+        // Now we have correct blockViewModels
+        self.pageDetailsViewModels[.title] = titleBlockModel
+        
+        // Send event that we are ready.
+        
+        return
     }
 }
 

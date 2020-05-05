@@ -27,10 +27,7 @@ extension BlocksViews.Supplement {
         /// - Returns: List of ViewModels.
         ///
         public func toList(_ model: Model) -> [BlockViewBuilderProtocol] {
-            switch model.kind {
-            case .meta where !BlockModels.Utilities.Inspector.isNumberedList(model): return model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
-            default: return self.convert(model: model)
-            }
+            self.convert(model: model)
         }
         
         /// Find correct flattener for current model.
@@ -64,14 +61,17 @@ extension BlocksViews.Supplement {
     /// Blocks flattener is compound flattener.
     /// It chooses correct flattener based on model type.
     class BlocksFlattener: BaseFlattener {
-        var toolsFlattener = ToolsBlocksViews.Supplement.Flattener()
-        var textFlattener = TextBlocksViews.Supplement.Flattener()
-        var fileFlattener = FileBlocksViews.Supplement.Flattener()
+        /// WARNING! Prevents Inheritance cyclic initialization.
+        /// Do not remove `lazy`.
+        lazy var pageBlocksFlattener: PageBlocksFlattener = .init()
+        var toolsFlattener: ToolsBlocksViews.Supplement.Flattener = .init()
+        var textFlattener: TextBlocksViews.Supplement.Flattener = .init()
+        var fileFlattener: FileBlocksViews.Supplement.Flattener = .init()
         
         override func match(_ model: Model) -> BaseFlattener? {
             switch model.kind {
             case .meta where BlockModels.Utilities.Inspector.isNumberedList(model): return self.textFlattener // text
-            case .meta: return nil
+            case .meta: return self.pageBlocksFlattener
             case .block:
                 let content = model.information.content
                 switch content {
@@ -83,6 +83,19 @@ extension BlocksViews.Supplement {
                     os_log(.debug, log: logger, "We handle only content above. This Content (%@) isn't handled.", String(describing: content))
                     return nil
                 }
+            }
+        }
+    }
+}
+
+// MARK: PageBlocksFlattener
+extension BlocksViews.Supplement {
+    // Could also parse meta blocks.
+    class PageBlocksFlattener: BlocksFlattener {
+        override func convert(model: BlocksViews.Supplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
+            switch model.kind {
+            case .meta: return model.blocks.compactMap({$0 as? Model}).flatMap(self.toList)
+            default: return super.convert(model: model)
             }
         }
     }

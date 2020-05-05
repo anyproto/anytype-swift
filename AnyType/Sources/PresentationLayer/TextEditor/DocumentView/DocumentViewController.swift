@@ -11,10 +11,6 @@ import UIKit
 import SwiftUI // Required by current ViewModels.
 import Combine
 
-protocol DocumentViewControllerDelegate: class  {
-    func didTapBackButton()
-}
-
 // MARK: - This is view controller that will handle everything for us.
 class DocumentViewController: UIViewController {
     typealias ViewModel = DocumentViewModel
@@ -26,16 +22,17 @@ class DocumentViewController: UIViewController {
     private var dataSource: UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>?
 
     /// Model
-    private var model: ViewModel?
+    private var viewModel: ViewModel
+    private var headerViewModel: HeaderView.ViewModel = .init()
+    lazy var headerViewModelPublisher: AnyPublisher<HeaderView.UserAction, Never> = {
+        self.headerViewModel.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
+    }()
 
     /// Combine
     private var subscriptions: Set<AnyCancellable> = []
 
     /// Decorations of UIKit
     private var cellHeightsStorage: CellsHeightsStorage = .init()
-
-    /// Delegates
-    weak var delegate: DocumentViewControllerDelegate?
 
     /// Actions
     private var tableViewTapGestureRecognizer: UITapGestureRecognizer = .init()
@@ -56,21 +53,35 @@ class DocumentViewController: UIViewController {
     }()
 
     private lazy var headerView: DocumentViewController.HeaderView = {
-        let headerView = HeaderView { [weak self] in
-            self?.delegate?.didTapBackButton()
-        }
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        return headerView
+        .init(viewModel: self.headerViewModel)
     }()
 
     /// Initialization
     init(viewModel: ViewModel) {
-        self.model = viewModel
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+// MARK: - HeaderView PageDetails
+extension DocumentViewController {
+    private func process(event: DocumentViewModel.UserEvent) {
+        switch event {
+        case .pageDetailsViewModelsDidSet:
+            let viewModels = [self.viewModel.pageDetailsViewModels[.title]].compactMap({$0})
+            _ = self.headerViewModel.configured(pageDetailsViewModels: viewModels)
+        }
+    }
+    
+    private func setupHeaderPageDetailsEvents() {
+        self.viewModel.$userEvent.safelyUnwrapOptionals().sink { [weak self] (value) in
+            self?.process(event: value)
+        }.store(in: &self.subscriptions)
     }
 }
 
@@ -97,7 +108,7 @@ extension DocumentViewController {
         self.setupUI()
         // TODO: Redone on top of Combine.
         // We should fire event, when somebody is subscribed buildersRows.
-        self.updateData(self.model?.buildersRows ?? [])
+        self.updateData(self.viewModel.buildersRows)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +125,7 @@ extension DocumentViewController {
         self.setupLayout()
         self.setupUserInteractions()
         self.setupInteractions()
+        self.setupHeaderPageDetailsEvents()
     }
 
     private func setupElements() {
@@ -168,7 +180,7 @@ extension DocumentViewController {
 
     func setupInteractions() {
         self.configured()
-        self.model?.$options.sink(receiveValue: { [weak self] (options) in
+        self.viewModel.$options.sink(receiveValue: { [weak self] (options) in
             self?.configured(options)
         }).store(in: &self.subscriptions)
     }
@@ -193,15 +205,15 @@ extension DocumentViewController {
 /// Warning! Call these methods only after `viewDidLoad`
 private extension DocumentViewController {
     func configured() {        
-        self.model?.$buildersRows.sink(receiveValue: { [weak self] (value) in
+        self.viewModel.$buildersRows.sink(receiveValue: { [weak self] (value) in
             self?.updateData(value)
         }).store(in: &self.subscriptions)
         
-        self.model?.anyFieldPublisher.sink(receiveValue: { [weak self] (value) in
+        self.viewModel.anyFieldPublisher.sink(receiveValue: { [weak self] (value) in
             self?.updateView()
         }).store(in: &self.subscriptions)
         
-        self.model?.fileFieldPublisher.sink(receiveValue: { [weak self] (value) in
+        self.viewModel.fileFieldPublisher.sink(receiveValue: { [weak self] (value) in
             self?.updateView()
         }).store(in: &self.subscriptions)
     }
@@ -221,7 +233,7 @@ private extension DocumentViewController {
 // MARK: Gesture Recognizer
 extension DocumentViewController {
     @objc func createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler() {
-        self.model?.handlingTapIfEmpty()
+        self.viewModel.handlingTapIfEmpty()
     }
 }
 
@@ -244,8 +256,8 @@ extension DocumentViewController {
     }
     
     func updateData(_ rows: [ViewModel.Row]) {
-        guard let model = self.model, let dataSource = self.dataSource else { return }
-
+        guard let dataSource = self.dataSource else { return }
+        
         var snapshot = dataSource.snapshot()
         snapshot.deleteAllItems()
         snapshot.deleteSections([ViewModel.Section.first])
@@ -262,15 +274,15 @@ extension DocumentViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model?.countOfElements(at: section) ?? 0
+        return self.viewModel.countOfElements(at: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let item = self.model?.element(at: indexPath) {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath) as? DocumentViewCells.Cell {
-                cell.configured(item)
-                return cell
-            }
+        let item = self.viewModel.element(at: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath)
+        if let cell = cell as? DocumentViewCells.Cell {
+            _ = cell.configured(item)
+            return cell
         }
         return .init()
     }
@@ -293,6 +305,6 @@ extension DocumentViewController: UITableViewDelegate {
     }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.model?.didSelectBlock(at: indexPath)
+        self.viewModel.didSelectBlock(at: indexPath)
     }
 }

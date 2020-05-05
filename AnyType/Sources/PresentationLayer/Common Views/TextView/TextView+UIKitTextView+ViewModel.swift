@@ -69,6 +69,9 @@ extension TextView.UIKitTextView.ViewModel {
     func createView() -> UIKitView {
         UIKitView.init().configured(self)
     }
+    func createView(_ options: UIKitView.Options) -> UIKitView {
+        UIKitView.init().configured(options).configured(self)
+    }
     func createInnerView() -> UITextView {
         self.builder.makeUIView(coordinator: self.coordinator)
     }

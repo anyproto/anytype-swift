@@ -11,7 +11,7 @@ import SwiftProtobuf
 import os
 
 private extension Logging.Categories {
-    static let blockModelsParser = "models.BlockModels.Parser"
+    static let blockModelsParser: Self = "Models.BlockModels.Parser"
 }
 
 // MARK: Parser
@@ -23,13 +23,113 @@ extension BlockModels.Parser {
     typealias Information = BlockModels.Block.Information
     typealias Model = BlockModels.Block.RealBlock
     
-    // Also add methods that convert intrenal models to our models.
-    // We should provide operations in Updater which rely on block.id.
-    // This allows us to build a tree and later insert subtree in our tree.
+    /// Also add methods that convert intrenal models to our models.
+    /// We should provide operations in Updater which rely on block.id.
+    /// This allows us to build a tree and later insert subtree in our tree.
+    ///
     func parse(blocks: [Anytype_Model_Block]) -> [MiddlewareBlockInformationModel] {
         // parse into middleware block information model.
         blocks.compactMap(self.convert(block:))
     }
+    
+    /// New cool parsing that takes into account details and smartblock type.
+    ///
+    /// Discussion.
+    ///
+    /// Our parsing happens, of course, from some events.
+    /// Most of our events will send common data as `contextID`.
+    /// Also, blocks can't be delivered to us without some `context` of `Outer block`.
+    /// This `Outer block` is named as `Smartblock` in middleware model.
+    ///
+    /// * This block could contain `details`. It is a structure ( or a dictionary ) with predefined fields.
+    /// * This block also has type `smartblockType`. It is a `.case` from enumeration.
+    ///
+    func parse(blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details], smartblockType: Anytype_SmartBlockType) -> [MiddlewareBlockInformationModel] {
+        ///
+        /// Here we have an assumption.
+        ///
+        /// We have only one `smartblock`.
+        /// And it is stored in all blocks.
+        /// This `smartblock` has type `smartblockType`.
+        ///
+        /// `BUT!` `.Smartblock` structure `doesn't` store `ANY` field.
+        ///
+        /// So, we must find first field and parse it. Set details to it and put in result array.
+        ///
+        
+        /// NOTE: WHAT WE HAVE MISSED.
+        /// We don't parse details for other blocks.
+        /// It is next task.
+        /// 
+        
+        /// Find smartblock.        
+        /// 1. Group by .smartblock content.
+        let splitted = DataStructures.GroupBy.group(blocks) { (lhs, rhs) -> Bool in
+            switch (lhs.content, rhs.content) {
+            case (.smartblock, .smartblock): return true
+            case (.smartblock, _): return false
+            case (_, .smartblock): return false
+            default: return true
+            }
+        }
+        
+        /// We only care about two arrays.
+        /// We assume that we have `only one` `smartblock`.
+        /// Actually, we could have `smartblock` in the middle of split.
+        /// But
+        /// We assume that this is first block or last block and we have only 2 groups.
+        ///
+        /// TODO: Take into account 3 groups.
+        ///
+                
+        /// 2. Find which is which and take it.
+        
+        let processBlock: ((Anytype_Model_Block?, [Anytype_Model_Block])) -> [MiddlewareBlockInformationModel] = { value  in
+            let others = value.1
+            if let block = value.0 {
+                let result = [block].map(self.convert(block:)).compactMap { (value) -> MiddlewareBlockInformationModel? in
+                    /// TODO: Refactor later. Read about details.
+                    ///
+                    
+                    var information = (value as? BlockModels.Block.Information)
+                    if let ourDetails = details.first(where: {$0.id == value?.id}) {
+                        let correctedDetails = BlockModels.Parser.Converters.EventDetailsAndSetDetailsConverter.convert(event: ourDetails)
+                        let informationDetails = Details.Converter.asModel(details: correctedDetails)
+                        information?.details = .init(informationDetails)
+                    }
+                    //                information?.details = Details.Converter.asModel(details: details)
+                    return information
+                }
+                return result + self.parse(blocks: others)
+            }
+            else {
+                return []
+            }
+        }
+        
+        
+        let smartblockAtBeginning = processBlock((splitted.first?.first, Array(splitted.dropFirst()).flatMap({$0})))
+        if !smartblockAtBeginning.isEmpty {
+            return smartblockAtBeginning
+        }
+        
+        let smartblockAtEnd = processBlock((splitted.last?.first, Array(splitted.dropLast()).flatMap({$0})))
+        if !smartblockAtEnd.isEmpty {
+            return smartblockAtEnd
+        }
+        
+        /// 3. Check that we have 3 groups.
+        if splitted.count >= 3 {
+            let logger = Logging.createLogger(category: .blockModelsParser)
+            os_log(.debug, log: logger, "Our splitting has 3 or more parts. That means that we either have smartblocks in the middle of the array of blocks OR we have several smartblocks that ARE NOT in one group (or there is a block between them).")
+        }
+        
+        let logger = Logging.createLogger(category: .blockModelsParser)
+        os_log(.debug, log: logger, "In our parsing we can't find smartblock. It is unacceptable. Tell middleware about it.")
+        return []
+    }
+    
+    ///
     
     /// Converting Middleware model -> Our model
     ///
@@ -99,7 +199,7 @@ private extension BlockModels.Parser {
     }
 }
 
-// MARK: Helper Converters
+// MARK: Helper Converters / GoogleProtobufStructuresConverter
 private extension BlockModels.Parser.Converters {
     /// Convert (GoogleProtobufStruct) <-> (Dictionary<String, T>)
     /// NOTE: You should define `T` generic parameter. `Any` type for that purpose is bad.
@@ -144,6 +244,18 @@ private extension BlockModels.Parser.Converters {
             let logger = Logging.createLogger(category: .todo(.improve("")))
             os_log(.debug, log: logger, "Do not forget to add conversion from our model to protobuf sutrcture: %@", String(describing: from))
             return [:]
+        }
+    }
+}
+
+// MARK: Helper Converters / Details Converter
+private extension BlockModels.Parser.Converters {
+    /// It seems that Middleware can't provide good model.
+    /// So, we need to convert this models by ourselves.
+    ///
+    struct EventDetailsAndSetDetailsConverter {
+        static func convert(event: Anytype_Event.Block.Set.Details) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+            event.details.fields.map(Anytype_Rpc.Block.Set.Details.Detail.init(key:value:))
         }
     }
 }

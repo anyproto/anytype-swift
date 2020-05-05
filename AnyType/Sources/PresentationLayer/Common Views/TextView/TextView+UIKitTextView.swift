@@ -15,6 +15,15 @@ extension TextView {
         // MARK: Combine
         private var subscriptions: Set<AnyCancellable> = []
         
+        // MARK: Options ( From Developers To Managers ONLY )
+        struct Options {
+            /// Well, we still don't have correct handling of input data.
+            /// We should assure ourselves, that our data will be handled correctly.
+            /// Read about usage of this flag below.
+            var liveUpdateAvailable: Bool
+        }
+        private var options: Options = .init(liveUpdateAvailable: false)
+        
         // MARK: ViewModel
         weak var model: ViewModel?
         
@@ -24,6 +33,13 @@ extension TextView {
         // MARK: TODO: Remove
         var getTextView: UITextView? {
             return textView
+        }
+                
+        func update(placeholder: Placeholder) {
+            // set placeholder to view.
+            if let view = self.textView as? TextViewWithPlaceholder {
+                view.update(placeholder: placeholder.placeholder)
+            }
         }
         
         // MARK: Outlets
@@ -57,7 +73,16 @@ extension TextView {
             /// TODO: Fix it.
             /// It will be correct after we get it right after Marks PR.
             ///
-            self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)})//.store(in: &self.subscriptions)
+            /// We could store this into subscription `IF ONLY` we assure ourselves, that text in this field will be handled correctly.
+            ///
+            if self.options.liveUpdateAvailable {
+                self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)}).store(in: &self.subscriptions)
+            }
+            else {
+                /// We don't store this subscription _intentionally_.
+                _ = self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)})
+            }
+            
             self.model?.$shouldSetFocus.sink(receiveValue: { [weak self] (value) in
                 self?.onSetFocus(value)
             }).store(in: &self.subscriptions)
@@ -142,10 +167,53 @@ extension TextView.UIKitTextView {
 
 // MARK: Configuration
 extension TextView.UIKitTextView {
+    func configured(_ options: Options) -> Self {
+        self.options = options
+        return self
+    }
+    
     func configured(_ model: ViewModel?) -> Self {
         self.model = model
         self.setup()
         
         return self
+    }
+    
+    func configured(placeholder: Placeholder) -> Self {
+        self.update(placeholder: placeholder)
+        return self
+    }
+}
+
+// MARK: Placeholder
+extension TextView.UIKitTextView {
+    struct Placeholder {
+        var text: String?
+        var attributedText: NSAttributedString?
+        var attributes: [NSAttributedString.Key: Any] = [:]
+        
+        fileprivate var placeholder: NSAttributedString {
+            if let result = attributedText {
+                return result
+            }
+            else {
+                return NSMutableAttributedString.init(string: self.text ?? "", attributes: attributes)
+            }
+        }
+        
+        mutating func configured(text: String?) -> Self {
+            self.text = text
+            return self
+        }
+        
+        mutating func configured(attributedText: NSAttributedString?) -> Self {
+            self.attributedText = attributedText
+            return self
+        }
+        
+        mutating func configured(attributes: [NSAttributedString.Key: Any] = [:]) -> Self {
+            self.attributes = attributes
+            return self
+        }
     }
 }

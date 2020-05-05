@@ -18,8 +18,7 @@ extension TextView.UIKitTextView {
 extension TextView.UIKitTextView.Builder {
     typealias Coordinator = TextView.UIKitTextView.Coordinator
     private func createTextView() -> UITextView {
-        let textView = UITextView()
-        return textView
+        TextView.UIKitTextView.TextViewWithPlaceholder.init()
     }
     
     func defaultConfiguration(_ textView: UITextView) -> UITextView {

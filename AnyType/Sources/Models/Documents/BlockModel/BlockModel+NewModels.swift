@@ -21,36 +21,6 @@ extension BlockModels {
     }
 }
 
-// MARK: Information
-extension BlockModels.Block {
-    struct Information: MiddlewareBlockInformationModel {
-        static func defaultValue() -> BlockModels.Block.Information { .default }
-        
-        var id: String
-        var content: BlockType
-        var childrenIds: [String] = []
-        var fields: [String: Any] = .init()
-        var restrictions: [String] = []
-        
-        init(id: String, content: BlockType) {
-            self.id = id
-            self.content = content
-        }
-        
-        init(information: MiddlewareBlockInformationModel) {
-            self.id = information.id
-            self.content = information.content
-            self.childrenIds = information.childrenIds
-            self.fields = information.fields
-            self.restrictions = information.restrictions
-        }
-        
-        static let `defaultId`: String = "DefaultIdentifier"
-        static let `defaultBlockType`: BlockType = .text(.init(text: "DefaultText", contentType: .text))
-        static let `default`: Information = .init(id: Self.defaultId, content: Self.defaultBlockType)
-    }
-}
-
 // MARK: Node
 extension BlockModels.Block {
     class Node: ObservableObject {
