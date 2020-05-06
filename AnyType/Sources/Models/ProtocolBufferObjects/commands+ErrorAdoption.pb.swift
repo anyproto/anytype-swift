@@ -10,12 +10,14 @@ extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error: Swift.Err
 extension Anytype_Rpc.BlockList.Move.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.MoveToNewPage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Duplicate.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Align.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Delete.Page.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Split.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Merge.Response.Error: Swift.Error {}
@@ -70,3 +72,5 @@ extension Anytype_Rpc.Ping.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Process.Cancel.Response.Error: Swift.Error {}
 extension Anytype_Rpc.LinkPreview.Response.Error: Swift.Error {}
 extension Anytype_Rpc.UploadFile.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Navigation.ListPages.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Navigation.GetPageInfoWithLinks.Response.Error: Swift.Error {}

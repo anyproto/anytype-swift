@@ -208,6 +208,38 @@ extension Anytype_Rpc.BlockList.Duplicate {
   }
 }
 
+extension Anytype_Rpc.BlockList.Set.Page.IsArchived {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetPageIsArchived(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockIds: [String], isArchived: Bool) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, isArchived: isArchived))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.BlockList.Set.Text.Style {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextStyle(data) }
@@ -400,6 +432,38 @@ extension Anytype_Rpc.BlockList.Set.Div.Style {
   }
 }
 
+extension Anytype_Rpc.BlockList.Delete.Page {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListDeletePage(data) }
+  }
+
+  enum Service {
+    public static func invoke(blockIds: [String]) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(blockIds: blockIds))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.Replace {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockReplace(data) }
@@ -502,8 +566,8 @@ extension Anytype_Rpc.Block.Copy {
   }
 
   enum Service {
-    public static func invoke(contextID: String, blocks: [Anytype_Model_Block]) -> Future<Response, Error> {
-      .init { promise in promise(self.result(.init(contextID: contextID, blocks: blocks))) }
+    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
@@ -2051,6 +2115,70 @@ extension Anytype_Rpc.UploadFile {
   enum Service {
     public static func invoke(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool) -> Future<Response, Error> {
       .init { promise in promise(self.result(.init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Navigation.ListPages {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibNavigationListPages(data) }
+  }
+
+  enum Service {
+    public static func invoke() -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init())) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Navigation.GetPageInfoWithLinks {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibNavigationGetPageInfoWithLinks(data) }
+  }
+
+  enum Service {
+    public static func invoke(pageID: String) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(pageID: pageID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {

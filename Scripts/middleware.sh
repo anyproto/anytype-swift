@@ -68,6 +68,7 @@ printf "Copy proto files\n"
 mv $DEPENDENCIES_DIR/$PROTO_DIR_NAME/commands.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
 mv $DEPENDENCIES_DIR/$PROTO_DIR_NAME/events.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
 mv $DEPENDENCIES_DIR/$PROTO_DIR_NAME/models.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
+mv $DEPENDENCIES_DIR/$PROTO_DIR_NAME/localstore.pb.swift AnyType/Sources/Models/ProtocolBufferObjects/
 
 printf "Generate services from proto file\n"
 

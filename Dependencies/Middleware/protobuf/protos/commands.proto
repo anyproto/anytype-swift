@@ -3,6 +3,8 @@ package anytype;
 option go_package = "pb";
 
 import "vendor/github.com/anytypeio/go-anytype-library/pb/model/protos/models.proto";
+import "vendor/github.com/anytypeio/go-anytype-library/pb/model/protos/localstore.proto";
+
 import "pb/protos/events.proto";
 import "google/protobuf/struct.proto";
 
@@ -177,6 +179,32 @@ message Rpc {
         }
 
         message Set {
+            message Page {
+                message IsArchived {
+                    message Request {
+                        string contextId = 1;
+                        repeated string blockIds = 2;
+                        bool isArchived = 3;
+                    }
+
+                    message Response {
+                        Error error = 1;
+
+                        message Error {
+                            Code code = 1;
+                            string description = 2;
+
+                            enum Code {
+                                NULL = 0;
+                                UNKNOWN_ERROR = 1;
+                                BAD_INPUT = 2;
+                                // ...
+                            }
+                        }
+                    }
+                }
+            }
+
             message Text {
                 message Style {
                     message Request {
@@ -331,6 +359,32 @@ message Rpc {
             }
 
         }
+
+        message Delete {
+            // Deletes the page, keys and all records from the local store and unsubscribe from remote changes
+            message Page {
+                message Request {
+                    repeated string blockIds = 1; // pages to remove
+                }
+
+                message Response {
+                    Error error = 1;
+                    ResponseEvent event = 2;
+
+                    message Error {
+                        Code code = 1;
+                        string description = 2;
+
+                        enum Code {
+                            NULL = 0;
+                            UNKNOWN_ERROR = 1;
+                            BAD_INPUT = 2;
+                            // ...
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /*
@@ -420,6 +474,7 @@ message Rpc {
             message Request {
                 string contextId = 1;
                 repeated anytype.model.Block blocks = 2;
+                anytype.model.Range selectedTextRange = 3;
             }
 
             message Response {
@@ -1277,9 +1332,10 @@ message Rpc {
                 }
             }
         }
-        /*
-         * Remove blocks from the childrenIds of its parents
-        */
+
+    /*
+     * Remove blocks from the childrenIds of its parents
+    */
         message Unlink {
             message Request {
                 string contextId = 1; // id of the context block
@@ -1854,6 +1910,55 @@ message Rpc {
         }
     }
 
+    message Navigation {
+        message ListPages {
+            message Request {
+            }
+
+            message Response {
+                Error error = 1;
+                repeated anytype.model.PageInfo pages = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        /*
+          * Get the info for page alongside with info for all inbound and outbound links from/to this page
+        */
+        message GetPageInfoWithLinks {
+            message Request {
+                string pageId = 1;
+            }
+
+            message Response {
+                Error error = 1;
+                anytype.model.PageInfoWithLinks page = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+    }
 }
 
 message Empty {

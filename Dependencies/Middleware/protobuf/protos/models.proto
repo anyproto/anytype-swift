@@ -5,7 +5,7 @@ option go_package = "github.com/anytypeio/go-anytype-library/pb/model";
 import "google/protobuf/struct.proto";
 
 message SmartBlockSnapshotBase {
-    repeated anytype.model.Block blocks = 1;
+    repeated Block blocks = 1;
     google.protobuf.Struct details = 2;
     google.protobuf.Struct fileKeys = 3;
 }

@@ -152,9 +152,10 @@ extension Anytype_Rpc.Block.Close.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Copy.Request {
-  init(contextID: String, blocks: [Anytype_Model_Block]) {
+  init(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) {
     self.contextID = contextID
     self.blocks = blocks
+    self.selectedTextRange = selectedTextRange
   }
 }
 
@@ -934,6 +935,26 @@ extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockList.Delete.Page.Request {
+  init(blockIds: [String]) {
+    self.blockIds = blockIds
+  }
+}
+
+extension Anytype_Rpc.BlockList.Delete.Page.Response {
+  init(error: Anytype_Rpc.BlockList.Delete.Page.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockList.Delete.Page.Response.Error {
+  init(code: Anytype_Rpc.BlockList.Delete.Page.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockList.Duplicate.Request {
   init(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) {
     self.contextID = contextID
@@ -1096,6 +1117,27 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response {
 
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error {
   init(code: Anytype_Rpc.BlockList.Set.Fields.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Request {
+  init(contextID: String, blockIds: [String], isArchived: Bool) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.isArchived = isArchived
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response {
+  init(error: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error {
+  init(code: Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -1305,6 +1347,40 @@ extension Anytype_Rpc.Log.Send.Response {
 
 extension Anytype_Rpc.Log.Send.Response.Error {
   init(code: Anytype_Rpc.Log.Send.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Navigation.GetPageInfoWithLinks.Request {
+  init(pageID: String) {
+    self.pageID = pageID
+  }
+}
+
+extension Anytype_Rpc.Navigation.GetPageInfoWithLinks.Response {
+  init(error: Anytype_Rpc.Navigation.GetPageInfoWithLinks.Response.Error, page: Anytype_Model_PageInfoWithLinks) {
+    self.error = error
+    self.page = page
+  }
+}
+
+extension Anytype_Rpc.Navigation.GetPageInfoWithLinks.Response.Error {
+  init(code: Anytype_Rpc.Navigation.GetPageInfoWithLinks.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Navigation.ListPages.Response {
+  init(error: Anytype_Rpc.Navigation.ListPages.Response.Error, pages: [Anytype_Model_PageInfo]) {
+    self.error = error
+    self.pages = pages
+  }
+}
+
+extension Anytype_Rpc.Navigation.ListPages.Response.Error {
+  init(code: Anytype_Rpc.Navigation.ListPages.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

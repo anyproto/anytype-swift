@@ -17,7 +17,7 @@ extension Anytype_Model_Account {
 }
 
 extension Anytype_Model_Account.Avatar {
-  init(avatar: OneOf_Avatar?) {
+  init(avatar: Anytype_Model_Account.Avatar.OneOf_Avatar?) {
     self.avatar = avatar
   }
 }
@@ -25,7 +25,7 @@ extension Anytype_Model_Account.Avatar {
 extension Anytype_Model_Block {
   init(
     id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], backgroundColor: String, align: Anytype_Model_Block.Align,
-    content: OneOf_Content?
+    content: Anytype_Model_Block.OneOf_Content?
   ) {
     self.id = id
     self.fields = fields
