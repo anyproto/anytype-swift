@@ -10,6 +10,11 @@ import Foundation
 import UIKit
 import SwiftUI // Required by current ViewModels.
 import Combine
+import os
+
+private extension Logging.Categories {
+    static let documentViewController: Self = "TextEditor.DocumentViewController"
+}
 
 // MARK: - This is view controller that will handle everything for us.
 class DocumentViewController: UIViewController {
@@ -27,6 +32,10 @@ class DocumentViewController: UIViewController {
     lazy var headerViewModelPublisher: AnyPublisher<HeaderView.UserAction, Never> = {
         self.headerViewModel.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
     }()
+    
+    /// Routing
+    /// TODO: Remove it later.
+    private var router: DocumentViewRoutingOutputProtocol?
 
     /// Combine
     private var subscriptions: Set<AnyCancellable> = []
@@ -94,7 +103,13 @@ extension DocumentViewController {
         }
     }
     
+    /// WARNING!
+    /// This method also retain router.
+    /// Refactor it later.
     func subscribeOnRouting(_ router: DocumentViewRoutingOutputProtocol) {
+        let logger = Logging.createLogger(category: .documentViewController)
+        os_log(.debug, log: logger, "We should remove router from view controller later.")
+        self.router = router
         router.outputEventsPublisher.sink { [weak self] (value) in
             self?.handleRouting(action: value)
         }.store(in: &self.subscriptions)
@@ -175,6 +190,7 @@ extension DocumentViewController {
 
     func setupUserInteractions() {
         self.tableViewTapGestureRecognizer.cancelsTouchesInView = false
+        // We should skip gestures for all touches in tableView.headerView
         self.tableView.addGestureRecognizer(self.tableViewTapGestureRecognizer)
     }
 

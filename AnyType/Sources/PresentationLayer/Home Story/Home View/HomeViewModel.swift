@@ -20,7 +20,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func createDocumentView(documentId: String) -> some View {
-        DocumentViewBuilder.documentView(by: .init(id: documentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
+        DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
     }
     
     func documentView(selectedDocumentId: String) -> some View {

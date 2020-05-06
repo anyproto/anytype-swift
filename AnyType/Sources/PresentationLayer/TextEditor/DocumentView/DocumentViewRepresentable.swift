@@ -11,42 +11,19 @@ import SwiftUI
 import Combine
 import os
 
-
-// MARK: - Publishers
-extension DocumentViewRepresentable {
-    func userActionPublisher() -> AnyPublisher<BlocksViews.UserAction, Never> {
-        /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
-
-        self.viewModel.$builders.map {
-            $0.compactMap { $0 as? BlocksViews.Base.ViewModel }
-        }
-        .flatMap {
-            Publishers.MergeMany($0.map{$0.userActionPublisher})
-        }
-        .eraseToAnyPublisher()
-    }
-}
-
 // MARK: - DocumentViewRepresentable
 struct DocumentViewRepresentable: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject var viewModel: DocumentViewModel
+    private(set) var documentId: String
+    
     func makeCoordinator() -> Coordinator {
         DocumentViewRepresentable.Coordinator(self)
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<DocumentViewRepresentable>) -> DocumentViewController {
-        let view = DocumentViewController(viewModel: self.viewModel)
-        
-        /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
-        let userActionPublisher = self.userActionPublisher()
-        
-        let router = context.coordinator.router
-        _ = router.configured(userActionsStream: userActionPublisher)
-        
-        /// Subscribe `view controller` on events from `router`.
-        view.subscribeOnRouting(router)
-        
+        /// Configure document view builder.
+        let view = DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: self.documentId, useUIKit: true))
+                
         /// Subscribe `coordinator` on events from `view.headerView`.
         _ = context.coordinator.configured(headerViewModelPublisher: view.headerViewModelPublisher)
         
@@ -67,8 +44,8 @@ struct DocumentViewRepresentable: UIViewControllerRepresentable {
         //        }
     }
 
-    static func create(viewModel: DocumentViewModel) -> some View {
-        DocumentViewRepresentable.init(viewModel: viewModel)
+    static func create(documentId: String) -> some View {
+        DocumentViewRepresentable.init(documentId: documentId)
     }
 }
 
