@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+MIDDLEWARE_VERSION_BY_TAG_NAME="v0.9.0"
 
 LIBSFILE_PATH="Libraryfile.lock"
 MIDDLEWARE_VERSION="middleware.version"
@@ -26,7 +27,7 @@ if [ "$token" = "" ]; then
   exit 1
 fi;
 
-version=`curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" -sL https://$GITHUB/repos/$REPO/releases | jq ".[0]"`
+version=`curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" -sL https://$GITHUB/repos/$REPO/releases | jq ".[] | select(.tag_name == \"$MIDDLEWARE_VERSION_BY_TAG_NAME\")"`
 tag=`echo $version | jq ".tag_name"`
 asset_id=`echo $version | jq ".assets | map(select(.name | match(\"$IOS_MIDDLE_PREFIX_NAME\";\"i\")))[0].id"`
 
