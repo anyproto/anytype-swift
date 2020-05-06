@@ -32,7 +32,16 @@ extension PageBlocksViews.Title {
         /// For example, if user set value, it is going to `toModelTitle`.
         /// If value came from model, you set it to `toViewTitle`.
         @Published private var toViewTitle: String = "" // Maybe we should set here default value as "Untitled"
-        @Published private var toModelTitle: String = ""
+
+        /// Don't delete commented code.
+        /// It is necessary to see what is wrong with it.
+        /// We can't use `@Published` property, because its default value is `String.empty`.
+        /// So, it will send value `String.empty` on new subscription. This is incorrect behaviour.
+        /// It is better to `Passthrough` all data before user could change it.
+        /// User could change data only when `View` has appeared.
+        ///
+        //        @Published private var toModelTitle: String = ""
+        private var toModelTitleSubject: PassthroughSubject<String, Never> = .init()
         
         // MARK: - Placeholder
         lazy private var placeholder: NSAttributedString = {
@@ -54,11 +63,11 @@ extension PageBlocksViews.Title {
             // send value back to middleware
             self.textViewModel.onUpdate.sink { [weak self] (value) in
                 switch value {
-                case let .text(value): self?.toModelTitle = value
+                case let .text(value): self?.toModelTitleSubject.send(value)
                 default: return
                 }
             }.store(in: &self.subscriptions)
-            
+                        
             self.$toViewTitle.sink { [weak self] (value) in
                 self?.textViewModel.apply(update: .text(value))
             }.store(in: &self.subscriptions)
@@ -79,7 +88,7 @@ extension PageBlocksViews.Title {
                     value.flatMap({self?.toViewTitle = $0.text})
                 }).store(in: &self.subscriptions)
 
-                self.$toModelTitle.notableError().flatMap({ [weak self] value in
+                self.toModelTitleSubject.notableError().flatMap({ [weak self] value in
                     self?.pageDetailsViewModel?.update(details: .title(.init(text: value))) ?? .empty()
                 }).sink(receiveCompletion: { (value) in
                     switch value {

@@ -328,9 +328,8 @@ private extension DocumentViewModel {
         // Now we have correct blockViewModels
         self.pageDetailsViewModels[.title] = titleBlockModel
         
-        // Send event that we are ready.
-        
-        return
+        self.wholePageDetailsViewModel.receive(details: information.details)
+        // Send event that we are ready.        
     }
 }
 

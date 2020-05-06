@@ -39,6 +39,10 @@ extension BlockModels.Block {
             self.childrenIds = information.childrenIds
             self.fields = information.fields
             self.restrictions = information.restrictions
+            
+            if let concreteInformation = information as? Self {
+                self.details = concreteInformation.details
+            }
         }
         
         static let `defaultId`: String = "DefaultIdentifier"

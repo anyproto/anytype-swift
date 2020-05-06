@@ -51,24 +51,15 @@ extension TextView.UIKitTextView {
         func setup() {
             self.setupUIElements()
             self.updatePlaceholderLayout()
-            self.setupSubscriptions()
         }
         
         func setupUIElements() {
+            self.textStorage.delegate = self
             if let view = self.placeholderLabel {
                 self.addSubview(view)
             }
         }
-        
-        func setupSubscriptions() {
-            // Do not delete it.
-            // Well, we could use publisher here?
-            NotificationCenter.Publisher.init(center: .default, name: UITextView.textDidChangeNotification).sink { [weak self] (value) in
-                // do stuff if we need it to adjust to updates of TextView.
-                self?.syncPlaceholder()
-            }.store(in: &self.subscriptions)
-        }
-        
+                
         // MARK: Add Layout
         func updatePlaceholderLayout() {
             if let view = self.placeholderLabel, let superview = view.superview {
@@ -92,8 +83,18 @@ extension TextView.UIKitTextView {
     }
 }
 
+// MARK: - NSTextStorageDelegate
+/// As soon as we use `textStorage.setAttributedString`, we couldn't catch event via `.textDidChange`.
+/// We could do it only by `textStorage.delegate` methods ( or textStorage notifications ).
+///
+extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate {
+    func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
+        self.syncPlaceholder()
+    }
+}
+
+// MARK: - Placeholder
 extension TextView.UIKitTextView.TextViewWithPlaceholder {
-    // MARK: Update Placeholder
     fileprivate func syncPlaceholder() {
         self.placeholderLabel?.isHidden = !self.text.isEmpty
     }

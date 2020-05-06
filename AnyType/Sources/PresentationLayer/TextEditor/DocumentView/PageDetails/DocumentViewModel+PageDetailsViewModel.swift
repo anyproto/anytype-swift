@@ -43,6 +43,7 @@ extension DocumentViewModel {
 extension DocumentViewModel.PageDetailsViewModel {
     func configured(documentId: String) -> Self {
         self.documentId = documentId
+        self.setup()
         return self
     }
 }
@@ -65,6 +66,10 @@ extension DocumentViewModel.PageDetailsViewModel {
 extension DocumentViewModel.PageDetailsViewModel {
     func receive(details: [Anytype_Rpc.Block.Set.Details.Detail]) {
         let modelDetails = BlockModels.Parser.Details.Converter.asModel(details: details)
-        self.wholeDetails = .init(modelDetails)
+        self.receive(details: .init(modelDetails))
+    }
+    
+    func receive(details: PageDetails?) {
+        self.wholeDetails = details
     }
 }
