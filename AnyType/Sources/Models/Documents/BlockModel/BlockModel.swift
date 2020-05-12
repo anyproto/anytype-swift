@@ -116,6 +116,7 @@ extension BlockType {
             case callout
         }
         
+        var attributedText: NSAttributedString = .init()
         var text: String
         var contentType: ContentType
     }

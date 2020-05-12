@@ -21,6 +21,7 @@ extension TextView.UIKitTextView {
 
         // MARK: Variables
         @Published var text: String? = nil
+        @Published var attributedText: NSAttributedString? = nil
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
         func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
             self.userInteractionDelegate = delegate
@@ -331,6 +332,11 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         DispatchQueue.main.async {
             // TODO: Add text (?) publisher
             self.text = textView.text
+            self.attributedText = textView.attributedText
+            
+            /// Don't delete this code until we have stable solution for textView attributedText updates.
+            /// Maybe we will discard current `@Publsihed` solution.
+            ///
 //            self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.text)))
         }
     }
