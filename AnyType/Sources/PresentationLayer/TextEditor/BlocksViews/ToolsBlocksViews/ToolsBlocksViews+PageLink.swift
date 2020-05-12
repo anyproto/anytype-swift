@@ -14,6 +14,7 @@ import os
 // MARK: - ViewModel
 extension ToolsBlocksViews.PageLink {
     /// ViewModel for type `.link()` with style `.page`
+    /// Should we move it to PageBlocksViews? (?)
     ///
     class BlockViewModel: ToolsBlocksViews.Base.BlockViewModel {
         // Maybe we need also input and output subscribers.
@@ -27,6 +28,15 @@ extension ToolsBlocksViews.PageLink {
         private var eventListener: EventListener = .init()
         private var eventPublisher: NotificationEventListener<EventListener>?
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
+        private var wholeDetailsViewModel: DocumentViewModel.PageDetailsViewModel = .init()
+        
+        lazy private var placeholder: NSAttributedString = {
+            let text: NSString = "Untitled"
+            let attributedString: NSMutableAttributedString = .init(string: text as String)
+            let attributes: [NSAttributedString.Key : Any] = [.foregroundColor: UIColor.lightGray, .font: UIFont.preferredFont(forTextStyle: .title3)]
+            attributedString.setAttributes(attributes, range: .init(location: 0, length: text.length))
+            return attributedString
+        }()
         
         override init(_ block: BlocksViews.Base.ViewModel.BlockModel) {
             super.init(block)
@@ -40,12 +50,27 @@ extension ToolsBlocksViews.PageLink {
                 switch value.style {
                 case .page:
                     let pageId = value.targetBlockID // do we need it?
+                    _ = self.wholeDetailsViewModel.configured(documentId: pageId)
+                    
                     self.eventPublisher = NotificationEventListener(handler: self.eventListener)
-                    self.statePublisher = self.eventListener.$state.safelyUnwrapOptionals().eraseToAnyPublisher()
+                    
+                    self.eventListener.$state.sink { [weak self] (value) in
+                        self?.wholeDetailsViewModel.receive(details: value)
+                    }.store(in: &self.subscriptions)
+                    
+                    self.statePublisher = self.wholeDetailsViewModel.wholeDetailsPublisher.map({
+                        State.init(archived: false, hasContent: false, title: $0.title?.text, emoji: nil)
+                    }).eraseToAnyPublisher()
+                    
                     self.statePublisher.sink { [weak self] (value) in
                         self?.state = value
                     }.store(in: &self.subscriptions)
                     
+                    self.wholeDetailsViewModel.receive(details: information.details)
+                    
+                    self.$state.map(\.title).safelyUnwrapOptionals().sink { [weak self] (value) in
+                        self?.textViewModel.update = .text(value)
+                    }.store(in: &self.subscriptions)
                 default: return
                 }
             default: return
@@ -53,13 +78,18 @@ extension ToolsBlocksViews.PageLink {
         }
         
         override func makeUIView() -> UIView {
-            UIKitView.init().configured(textView: self.textViewModel.createView())
+            UIKitView.init().configured(textView: self.textViewModel.createView(.init(liveUpdateAvailable: true)).configured(placeholder: .init(text: nil, attributedText: self.placeholder, attributes: [:])))
                 .configured(stateStream: self.statePublisher)
                 .configured(state: self._state)
         }
         override func handle(event: BlocksViews.UserEvent) {
             switch event {
-            case .didSelectRowInTableView: self.send(userAction: .toolbars(.addBlock))
+            case .didSelectRowInTableView:
+                switch getRealBlock().information.content {
+                case let .link(value):
+                    self.send(userAction: .specific(.tool(.pageLink(.shouldShowPage(value.targetBlockID)))))
+                default: return
+                }
             }
         }
     }
@@ -78,19 +108,20 @@ private extension ToolsBlocksViews.PageLink {
     ///
     class EventListener: EventHandler {
         typealias Event = Anytype_Event.Message.OneOf_Value
-
-        @Published var state: State?
+        typealias PageDetails = BlockModels.Block.Information.PageDetails
+        @Published var state: PageDetails?
         
         func handleEvent(event: Event) {
             switch event {
-//            case let .blockSetDetails(value):
-            case let .blockShow(value):
+            case let .blockSetDetails(value):
                 // take from details and publish them.
                 // get values and put them into page.
-//
-                break
-//            case let .blockSetLink(value):
-//                break
+                // tell someone that you have new details.
+                let details = BlockModels.Parser.PublicConverters.EventsDetails.convert(event: value)
+                // we should receive them via, for example, our pageDetailsViewModel?
+                let ourDetails = BlockModels.Parser.Details.Converter.asModel(details: details)
+                let pageDetails: BlockModels.Block.Information.PageDetails = .init(ourDetails)
+                self.state = pageDetails
             default:
               let logger = Logging.createLogger(category: .eventHandler)
               os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))
@@ -233,12 +264,16 @@ private extension ToolsBlocksViews.PageLink {
                         
         // MARK: Configured
         func configured(textView: TextView.UIKitTextView?) -> Self {
+            if let attributes = textView?.getTextView?.typingAttributes {
+                var correctedAttributes = attributes
+                correctedAttributes[.font] = UIFont.preferredFont(forTextStyle: .title3)
+                textView?.getTextView?.typingAttributes = correctedAttributes
+                
+                let text = textView?.getTextView?.text ?? ""
+                let attributedString: NSMutableAttributedString = .init(string: text, attributes: correctedAttributes)
+                textView?.getTextView?.textStorage.setAttributedString(attributedString)
+            }
             _ = self.topView.configured(textView: textView)
-            let text: NSString = "Untitled"
-            let attributedString: NSMutableAttributedString = .init(string: text as String)
-            let attributes: [NSAttributedString.Key : Any] = [.foregroundColor: UIColor.lightGray, .font: UIFont.preferredFont(forTextStyle: .title3)]
-            attributedString.setAttributes(attributes, range: .init(location: 0, length: text.length))
-            textView?.getTextView?.textStorage.setAttributedString(attributedString)
             textView?.getTextView?.isUserInteractionEnabled = false
             return self
         }

@@ -10,7 +10,7 @@ import Foundation
 
 extension ToolsBlocksViews {
     enum UserAction {
-        case pageLink
+        case pageLink(PageLink)
     }
 }
 

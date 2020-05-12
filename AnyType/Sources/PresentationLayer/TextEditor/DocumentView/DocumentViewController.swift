@@ -100,6 +100,8 @@ extension DocumentViewController {
         switch action {
         case let .showViewController(viewController):
             self.present(viewController, animated: true, completion: {})
+        case let .pushViewController(viewController):
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
     

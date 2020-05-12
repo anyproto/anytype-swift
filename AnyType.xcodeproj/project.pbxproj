@@ -152,6 +152,7 @@
 		0A5454782459E6C6004481AA /* PageBlocksViews+Supplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5454772459E6C6004481AA /* PageBlocksViews+Supplement+Flattener.swift */; };
 		0A63ADE12461B34300F092C8 /* TextView+UIKitTextView+TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63ADE02461B34300F092C8 /* TextView+UIKitTextView+TextView.swift */; };
 		0A63ADE32462053D00F092C8 /* localstore.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63ADE22462053D00F092C8 /* localstore.pb.swift */; };
+		0A63ADE52462DFD900F092C8 /* DocumentViewRouting+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */; };
 		0A6645662406B9E3008392AF /* BlockModel+Parser+ModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6645652406B9E3008392AF /* BlockModel+Parser+ModelBuilder.swift */; };
 		0A664568240800C7008392AF /* BlockModel+Updater+Relaxing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A664567240800C6008392AF /* BlockModel+Updater+Relaxing.swift */; };
 		0A66456B24085B82008392AF /* BlockActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A66456A24085B82008392AF /* BlockActionsService.swift */; };
@@ -410,6 +411,7 @@
 		0A5454772459E6C6004481AA /* PageBlocksViews+Supplement+Flattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageBlocksViews+Supplement+Flattener.swift"; sourceTree = "<group>"; };
 		0A63ADE02461B34300F092C8 /* TextView+UIKitTextView+TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+TextView.swift"; sourceTree = "<group>"; };
 		0A63ADE22462053D00F092C8 /* localstore.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = localstore.pb.swift; sourceTree = "<group>"; };
+		0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Tools.swift"; sourceTree = "<group>"; };
 		0A6645652406B9E3008392AF /* BlockModel+Parser+ModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+Parser+ModelBuilder.swift"; sourceTree = "<group>"; };
 		0A664567240800C6008392AF /* BlockModel+Updater+Relaxing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+Updater+Relaxing.swift"; sourceTree = "<group>"; };
 		0A66456A24085B82008392AF /* BlockActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsService.swift; sourceTree = "<group>"; };
@@ -1386,6 +1388,7 @@
 				0A9D49E62449F246007F0992 /* DocumentViewRouting+OutputEvent.swift */,
 				0A9D49E8244A0F83007F0992 /* DocumentViewRouting+File.swift */,
 				0A1DACCE244E28040007BC5D /* DocumentViewRouting+Toolbar.swift */,
+				0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -1729,6 +1732,7 @@
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,
 				0A0AA753240185EE003A2935 /* BlockModel.swift in Sources */,
 				A38119722445D3DB0023AFEB /* ImagePickerUIKit.swift in Sources */,
+				0A63ADE52462DFD900F092C8 /* DocumentViewRouting+Tools.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
 				0327B0BB232BCE2A007DB8A7 /* HomeCollectionViewModel.swift in Sources */,
 				0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */,

@@ -87,26 +87,37 @@ extension BlockModels.Parser {
         let processBlock: ((Anytype_Model_Block?, [Anytype_Model_Block])) -> [MiddlewareBlockInformationModel] = { value  in
             let others = value.1
             if let block = value.0 {
-                let result = [block].map(self.convert(block:)).compactMap { (value) -> MiddlewareBlockInformationModel? in
-                    /// TODO: Refactor later. Read about details.
-                    ///
-                    
-                    var information = (value as? BlockModels.Block.Information)
-                    if let ourDetails = details.first(where: {$0.id == value?.id}) {
-                        let correctedDetails = BlockModels.Parser.Converters.EventDetailsAndSetDetailsConverter.convert(event: ourDetails)
-                        let informationDetails = Details.Converter.asModel(details: correctedDetails)
-                        information?.details = .init(informationDetails)
+                
+                /// 1. Parse all blocks
+                let result = self.parse(blocks: [block] + others)
+                
+                /// 2. Create a dictionary ( id -> information model )
+                var idsAndInformation = Dictionary<String, MiddlewareBlockInformationModel>.init(uniqueKeysWithValues: result.compactMap({ value -> (String, MiddlewareBlockInformationModel) in
+                    switch value.content {
+                    case let .link(link): return (link.targetBlockID, value)
+                    default: return (value.id, value)
                     }
-                    //                information?.details = Details.Converter.asModel(details: details)
-                    return information
+                }))
+                
+                /// 3. Assign details to their links.
+                details.forEach { (value) in
+                    let correctedDetails = Converters.EventDetailsAndSetDetailsConverter.convert(event: value)
+                    let informationDetails = Details.Converter.asModel(details: correctedDetails)
+                    var correctInformation = (idsAndInformation[value.id] as? Information)
+                    correctInformation?.details = .init(informationDetails)
+                    
+                    /// Don't forget that our information is a `struct`.
+                    idsAndInformation[value.id] = correctInformation
                 }
-                return result + self.parse(blocks: others)
+                
+                return Array(idsAndInformation.values)
             }
             else {
                 return []
             }
         }
         
+        /// Another step: Go through all details and assign details to blocks.
         
         let smartblockAtBeginning = processBlock((splitted.first?.first, Array(splitted.dropFirst()).flatMap({$0})))
         if !smartblockAtBeginning.isEmpty {
@@ -165,6 +176,17 @@ extension BlockModels.Parser {
         let logger = Logging.createLogger(category: .todo(.improve("")))
         os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
         return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: align, content: content)
+    }
+}
+
+// MARK: Public
+extension BlockModels.Parser {
+    enum PublicConverters {
+        enum EventsDetails {
+            static func convert(event: Anytype_Event.Block.Set.Details) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+                Converters.EventDetailsAndSetDetailsConverter.convert(event: event)
+            }
+        }
     }
 }
 

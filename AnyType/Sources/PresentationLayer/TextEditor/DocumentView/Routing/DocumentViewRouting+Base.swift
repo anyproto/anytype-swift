@@ -145,6 +145,7 @@ extension DocumentViewRouting {
             switch action {
             case let .specific(value):
                 switch value {
+                case .tool: return self.router(of: ToolsBlocksViewsRouter.self)
                 case .file: return self.router(of: FileBlocksViewsRouter.self)
                 default: return nil
                 }
@@ -154,7 +155,7 @@ extension DocumentViewRouting {
         }
 
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [FileBlocksViewsRouter(), ToolbarsRouter()]
+            [ToolsBlocksViewsRouter(), FileBlocksViewsRouter(), ToolbarsRouter()]
         }
     }
 }

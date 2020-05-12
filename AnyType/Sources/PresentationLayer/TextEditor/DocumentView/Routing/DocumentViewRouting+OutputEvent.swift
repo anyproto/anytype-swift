@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 extension DocumentViewRouting {
+    /// Segue, yes, kind of.
     enum OutputEvent {
         case showViewController(UIViewController)
+        case pushViewController(UIViewController)
     }
 }
