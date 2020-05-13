@@ -61,7 +61,7 @@ extension PageBlocksViews.Title {
         // MARK: - Setup
         private func setupSubscribers() {
             // send value back to middleware
-            self.textViewModel.onUpdate.sink { [weak self] (value) in
+            self.textViewModel.updatePublisher.sink { [weak self] (value) in
                 switch value {
                 case let .text(value): self?.toModelTitleSubject.send(value)
                 default: return

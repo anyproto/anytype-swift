@@ -116,9 +116,31 @@ extension BlockType {
             case callout
         }
         
-        var attributedText: NSAttributedString = .init()
-        var text: String
+        var attributedText: NSAttributedString
+        var text: String {
+            self.attributedText.string
+        }
         var contentType: ContentType
+        
+        // MARK: - Initialization
+        internal init(attributedText: NSAttributedString, contentType: ContentType) {
+            self.attributedText = attributedText
+            self.contentType = contentType
+        }
+        
+        /// Deprecated: It is deprecated, however, lets keep it for a while.
+        /// 
+        internal init(text: String, contentType: ContentType) {
+            self.init(attributedText: .init(string: text), contentType: contentType)
+        }
+        
+        // MARK: - Create
+        static func empty() -> Self {
+            self.createDefault(text: "")
+        }
+        static func createDefault(text: String) -> Self {
+            .init(attributedText: .init(string: text), contentType: .text)
+        }
     }
 }
 

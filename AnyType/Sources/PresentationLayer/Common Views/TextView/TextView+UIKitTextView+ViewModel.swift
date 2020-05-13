@@ -20,7 +20,13 @@ extension TextView.UIKitTextView {
         @Published var shouldSetFocus: Bool = false
         
         // For OuterWorld.
-        var onUpdate: AnyPublisher<Update, Never> = .empty()
+        /// First publisher which manipulates plain old string, text.
+        var updatePublisher: AnyPublisher<Update, Never> = .empty()
+        
+        /// Second publisher which manipulates rich string, attributed string.
+        var richUpdatePublsiher: AnyPublisher<Update, Never> = .empty()
+        
+        
         private var builder: Builder = .init()
         private var coordinator: Coordinator = .init()
         
@@ -29,12 +35,22 @@ extension TextView.UIKitTextView {
         }
         
         private func setup() {
-            // NOTE:
-            // We should skip value `default @Published variable value`.
-            // For that reason we change type of $text to @Published<Optional<String>>.
-            // We create compelled distance between String values (which are coming from UITextView) and "no value". ( default value )
-            // In this case we prefer to filter values rather than blindly `dropFirst` values.
-            self.onUpdate = self.coordinator.$text.safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
+            /// NOTE:
+            /// We should skip value `default @Published variable value`.
+            /// For that reason we change type of $text to @Published<Optional<String>>.
+            /// We create compelled distance between String values (which are coming from UITextView) and "no value". ( default value )
+            /// In this case we prefer to filter values rather than blindly `dropFirst` values.
+            ///
+            
+            /// We add `removeDuplicates()` filtering, because...
+            /// Because
+            /// 1. we are setting attributes programmatically.
+            /// 2. we are also listening textStorageDelegate for that.
+            /// 3. we also use `setAttributedString` of textStorage.
+            /// In this circumstances, it is better to remove duplicates of attributedString...
+            /// You could build a cycle of events in these circumstances, it is very bad.
+            self.updatePublisher = self.coordinator.$text.safelyUnwrapOptionals().removeDuplicates().map(Update.text).eraseToAnyPublisher()
+            self.richUpdatePublsiher = self.coordinator.$attributedText.safelyUnwrapOptionals().removeDuplicates().map(Update.attributedText).eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {
@@ -49,6 +65,7 @@ extension TextView.UIKitTextView.ViewModel {
     enum Update {
         case unknown
         case text(String)
+        case attributedText(NSAttributedString)
     }
     func apply(update: Update) {
         // publish update?

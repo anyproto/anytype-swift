@@ -19,15 +19,24 @@ extension BlockModels.Parser.Text.AttributedText {
         }
         
         static func asModel(text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> NSAttributedString {
-            // Map attributes to our internal format.
+            /// Map attributes to our internal format.
             let attributes = marks.marks.map({ value in
                 (RangeConverter.asModel(value.range), AttributeConverter.asModel(.init(attribute: value.type, value: value.param)))
             })
             
-            // Create modifier of an attributed string.
+            /// Create modifier of an attributed string.
             let modifier = MarkStyleModifier.init(attributedText: .init(string: text))
             
-            // Apply attributes
+            /// We have to set some font, because all styles `change` font attribute.
+            /// Not the best place to set attribute, however, we don't have best place...
+            ///
+            /// Too bad :/
+            ///
+            let defaultFont: UIFont = .preferredFont(forTextStyle: .body)
+            let range: NSRange = .init(location: 0, length: modifier.attributedString.length)
+            modifier.attributedString.addAttribute(.font, value: defaultFont, range: range)
+            
+            /// Apply attributes
             attributes.forEach { value in
                 if let attribute = value.1?.attribute {
                     _ = modifier.applyStyle(style: attribute, rangeOrWholeString: .range(value.0))
@@ -84,8 +93,13 @@ extension BlockModels.Parser.Text.AttributedText {
                     }
                 }
             }
-                                    
-            let middlewareMarks = marksStyles.flatMap { (tuple) -> [Anytype_Model_Block.Content.Text.Mark] in
+            
+            // Filter out all cases that are "empty".
+            let filteredMarkStyles = marksStyles.filter {
+                !MarkStyle.emptyCases.contains($0.0.markStyle)
+            }
+            
+            let middlewareMarks = filteredMarkStyles.flatMap { (tuple) -> [Anytype_Model_Block.Content.Text.Mark] in
                 let (key, value) = tuple
                 let type = AttributeConverter.asMiddleware(.init(attribute: key.markStyle))
                 let indexSet: IndexSet = value as IndexSet
@@ -103,6 +117,18 @@ extension BlockModels.Parser.Text.AttributedText {
 private extension BlockModels.Parser.Text.AttributedText.MarkStyle {
     struct HashableKey: Hashable {
         var markStyle: BlockModels.Parser.Text.AttributedText.MarkStyle
+        private func string(mark: BlockModels.Parser.Text.AttributedText.MarkStyle) -> String {
+            switch mark {
+            case let .bold(value): return "bold - " + String(describing: value)
+            case let .italic(value): return "italic - " + String(describing: value)
+            case let .keyboard(value): return "keyboard - " + String(describing: value)
+            case let .strikethrough(value): return "strikethrough - " + String(describing: value)
+            case let .underscored(value): return "underscored - " + String(describing: value)
+            case let .textColor(value): return "textColor - " + String(describing: value)
+            case let .backgroundColor(value): return "backgroundColor - " + String(describing: value)
+            case let .link(value): return "link - " + String(describing: value)
+            }
+        }
         func hash(into hasher: inout Hasher) {
             hasher.combine(String(describing: markStyle))
         }
@@ -111,11 +137,27 @@ private extension BlockModels.Parser.Text.AttributedText.MarkStyle {
 
 private extension BlockModels.Parser.Text.AttributedText {
     enum RangeConverter {
+        /// We have to map correctly range from middleware and our range.
+        /// For example, our range equals:
+        ///
+        /// | Middleware | NSRange |  Description   |
+        /// |   (5, 5)   |  (5, 0) | At position 5 and length equal 0 |
+        /// |   (0, 1)   |  (0, 1) | At position 0 and length equal 1 |
+        /// |   (3, 2)   |  (3, ?) | Invalid case |
+        ///
+        /// Middleware: (NSRange.from, NSRange.from + NSRange.length )
+        ///
+        /// NSRange: ( Middleware.from, Middleware.to - Middleware.from )
+        ///
         static func asModel(_ range: Anytype_Model_Range) -> NSRange {
-            .init(range.from ... range.to)
+            .init(location: Int(range.from), length: Int(range.to) - Int(range.from))
         }
+        
+        /// As soon as upperBound is equal to ( range.length + range.lowerBound ),
+        /// We could safely set
+        ///
         static func asMiddleware(_ range: NSRange) -> Anytype_Model_Range {
-            .init(from: Int32(range.lowerBound), to: Int32(range.upperBound))
+            .init(from: Int32(range.lowerBound), to: Int32(range.lowerBound + range.length))
         }
     }
 }

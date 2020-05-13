@@ -72,7 +72,7 @@ struct Block: Identifiable, BusinessBlock, MiddlewareBlockInformationModel {
     }
     
     static let `defaultId`: String = "DefaultIdentifier"
-    static let `defaultBlockType`: BlockType = .text(.init(text: "DefaultText", contentType: .text))
+    static let `defaultBlockType`: BlockType = .text(.createDefault(text: "DefaultText"))
     static let `default`: Block = .init(id: Self.defaultId, content: Self.defaultBlockType)
 
     
@@ -102,7 +102,7 @@ extension Block {
         .init(id: UUID().uuidString, content: contentType)
     }
     static func mockText(_ type: BlockType.Text.ContentType) -> Self {
-        .mock(.text(.init(text: "", contentType: type)))
+        .mock(.text(.init(attributedText: .init(string: ""), contentType: type)))
     }
     static func mockFile(_ type: BlockType.File.ContentType) -> Self {
         .mock(.file(.init(name: "", hash: "", state: .empty, contentType: type)))

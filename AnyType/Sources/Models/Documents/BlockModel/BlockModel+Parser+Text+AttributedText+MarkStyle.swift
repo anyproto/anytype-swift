@@ -52,6 +52,10 @@ extension BlockModels.Parser.Text.AttributedText {
             ]
         }
         
+        static var emptyCases: [MarkStyle] {
+            allCases
+        }
+        
         // change font to bold
         // turn on, turn off
         // NSAttributedString.Key.font

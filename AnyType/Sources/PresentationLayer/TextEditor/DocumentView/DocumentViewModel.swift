@@ -164,7 +164,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
                 $0.compactMap { $0 as? TextBlocksViews.Base.BlockViewModel }
         }
         .flatMap {
-            Publishers.MergeMany($0.map{$0.$text})
+            Publishers.MergeMany($0.map{$0.textDidChangePublisher.map(\.string)})
         }
         .eraseToAnyPublisher()
         

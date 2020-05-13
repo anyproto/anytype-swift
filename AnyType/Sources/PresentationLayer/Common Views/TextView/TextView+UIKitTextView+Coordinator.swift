@@ -28,6 +28,8 @@ extension TextView.UIKitTextView {
             return self
         }
         
+        private var textStorageSubscription: AnyCancellable?
+        
         private lazy var highlightedAccessoryView: HighlightedAccessoryView = .init()
         private var highlightedAccessoryViewHandler: (((NSRange, NSTextStorage)) -> ())?
         
@@ -339,6 +341,33 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
             ///
 //            self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.text)))
         }
+    }
+}
+
+// MARK: - Update Text
+extension TextView.UIKitTextView.Coordinator {
+    /// NOTE:
+    /// As soon as we notify ourselves about all updates in textStorage, we have side effects.
+    /// For example,
+    /// When you invoke `textStorage.setAttributedString` somewhere, this publisher gets notification about change.
+    /// That means, `notifySubscribers` will invoke and we get notification about change in outerWorld.
+    ///
+    /// Nothing is wrogn here, but...
+    /// When you set `NSAttributedString` at first time, you get additional call to middleware.
+    ///
+    /// We could add additional check if `attributedText is nil` and catch "setupAtFirstTime" event.
+    ///
+    func configured(textStorageStream: AnyPublisher<TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent, Never>) -> Self {
+        self.textStorageSubscription = textStorageStream.sink(receiveValue: { [weak self] (value) in
+            switch value {
+            case .willProcessEditing(_): return
+            case let .didProcessEditing(text): self?.notifySubscribers(attributedText: text)
+            }
+        })
+        return self
+    }
+    private func notifySubscribers(attributedText: NSAttributedString) {
+        self.attributedText = attributedText
     }
 }
 

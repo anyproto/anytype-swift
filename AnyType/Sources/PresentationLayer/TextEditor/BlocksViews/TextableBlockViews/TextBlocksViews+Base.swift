@@ -27,26 +27,105 @@ extension TextBlocksViews {
             var getDelegate: TextBlocksViewsUserInteractionProtocol? { delegate }
 
             private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
+            
+            // MARK: - Publishers
+            /// As always, lets keep an eye on these properties a little bit.
+            /// `toViewText` `@Published` variable keep state of new coming value from a model.
+            /// However, we should skip additional cycle for `toModelText`
+            /// That means, that we need `toModelTextSubject`.
+            /// We shouldn't take care about a value, because user initiates events.
+            /// So, we need only to listen his typing.
+            ///
+            @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
+            private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
+            
+            private var eventListener: EventListener = .init()
+            private var eventPublisher: NotificationEventListener<EventListener>?
+            
+            /// For OuterWorld.
+            /// We should notify about user input.
+            /// And here we have this publisher.
+            ///
+            var textDidChangePublisher: AnyPublisher<NSAttributedString, Never> = .empty()
+            
+            private var subscriptions: Set<AnyCancellable> = []
 
-            private var inputSubscriber: AnyCancellable?
-            private var outputSubscriber: AnyCancellable?
-
-            private var toolbarSubscriber: AnyCancellable?
-
-            @Published var text: String { willSet { self.objectWillChange.send() } }
+            // MARK: - Services
+            private var service: TextBlockActionsService = .init()
+            
+            // MARK: - Convenient accessors.
+            var text: String {
+                set {
+                    if self.toViewText != nil {
+                        self.toViewText = .init(string: newValue)
+                    }
+                }
+                get {
+                    self.toViewText?.string ?? ""
+                }
+            }
 
             // MARK: Setup
             private func setupTextViewModel() {
                 _ = self.textViewModel.configured(self)
-                self.setupSubscribers()
             }
+
             private func setupSubscribers() {
-                self.outputSubscriber = self.$text.map(TextView.UIKitTextView.ViewModel.Update.text).sink(receiveValue: {[weak self] value in self?.textViewModel.apply(update: value)})
-                self.inputSubscriber = self.textViewModel.onUpdate.sink(receiveValue: {[weak self] value in self?.apply(update:value)})
-                self.toolbarSubscriber = self.toolbarPassthroughSubject.sink { [weak self] (value) in
+                
+                /// FromView
+                self.textViewModel.richUpdatePublsiher.sink { [weak self] (value) in
+                    switch value {
+                    case let .attributedText(text): self?.toModelTextSubject.send(text)
+                    default: return
+                    }
+                }.store(in: &self.subscriptions)
+                
+                /// ToView
+                self.$toViewText.safelyUnwrapOptionals().map(TextView.UIKitTextView.ViewModel.Update.attributedText).sink { [weak self] (value) in
+                    self?.textViewModel.update = value
+                }.store(in: &self.subscriptions)
+                
+                /// FromModel
+                /// ???
+                /// Actually, when we open page, we get BlockShow event.
+                /// This event contains actual state of all blocks.
+                
+                /// ToModel
+                self.toModelTextSubject.notableError().flatMap({ [weak self] (value) in
+                    self?.apply(attributedText: value) ?? .empty()
+                }).sink(receiveCompletion: { (value) in
+                    switch value {
+                    case .finished: return
+                    case let .failure(error):
+                        let logger = Logging.createLogger(category: .textBlocksViewsBase)
+                        os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@", String(describing: error))
+                    }
+                }, receiveValue: { _ in }).store(in: &self.subscriptions)
+                
+                /// Toolbar handling
+                self.toolbarPassthroughSubject.sink { [weak self] (value) in
                     self?.process(toolbarAction: value)
-                }
+                }.store(in: &self.subscriptions)
+                
+                /// TextDidChange For OuterWorld
+                self.textDidChangePublisher = self.textViewModel.richUpdatePublsiher.map{ value -> NSAttributedString? in
+                    switch value {
+                    case let .attributedText(text): return text
+                    default: return nil
+                    }
+                }.safelyUnwrapOptionals().eraseToAnyPublisher()
             }
+            
+            // MARK: - Events
+            /// Setup function for events that are coming from middleware.
+            /// It has distinct responsibility.
+            private func setupEventListeners() {
+                self.eventPublisher = NotificationEventListener(handler: self.eventListener)
+                self.eventListener.subject.sink { [weak self] (value) in
+                    self?.toViewText = value
+                }.store(in: &self.subscriptions)
+            }
+            
             private func setup() {
                 if self.developerOptions.current.debug.enabled {
                     self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, getID())
@@ -59,11 +138,13 @@ extension TextBlocksViews {
                 else {
                     switch getRealBlock().information.content {
                     case let .text(blockType):
-                        self.text = blockType.text
+                        self.toViewText = blockType.attributedText
                     default: return
                     }
                 }
                 self.setupTextViewModel()
+                self.setupSubscribers()
+                self.setupEventListeners()
             }
 
             // MARK: Events
@@ -75,17 +156,8 @@ extension TextBlocksViews {
 
             // MARK: Subclassing
             override init(_ block: BlockModel) {
-                self.text = ""
                 super.init(block)
                 self.setup()
-            }
-
-            private static func createEmptyBlock() -> BlockViewModel {
-                let informationValue = Block.mockText(.text)
-                let information = BlockModels.Block.Information.init(id: informationValue.id, content: informationValue.content)
-                let block: BlockModel = .init(indexPath: .init(), blocks: [])
-                block.information = information
-                return BlockViewModel.init(block)
             }
 
             // MARK: Subclassing accessors
@@ -98,6 +170,40 @@ extension TextBlocksViews {
             // MARK: Empty
             static let empty = BlockViewModel.createEmptyBlock()
         }
+    }
+}
+
+// MARK: - Events
+private extension TextBlocksViews.Base.BlockViewModel {
+    class EventListener: EventHandler {
+        typealias Event = Anytype_Event.Message.OneOf_Value
+        var subject: PassthroughSubject<NSAttributedString, Never> = .init()
+        
+        func handleEvent(event: Event) {
+            switch event {
+            case let .blockSetText(value):
+                let attributedString = BlockModels.Parser.Text.AttributedText.Converter.asModel(text: value.text.value, marks: value.marks.value)
+                // take from details and publish them.
+                // get values and put them into page.
+                // tell someone that you have new details.
+                self.subject.send(attributedString)
+            default:
+              let logger = Logging.createLogger(category: .textBlocksViewsBase)
+              os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))
+                return
+            }
+        }
+    }
+}
+
+// MARK: - Convenient emptyBlock
+private extension TextBlocksViews.Base.BlockViewModel {
+    static func createEmptyBlock() -> TextBlocksViews.Base.BlockViewModel {
+        let informationValue = Block.mockText(.text)
+        let information = BlockModels.Block.Information.init(id: informationValue.id, content: informationValue.content)
+        let block: BlockModel = .init(indexPath: .init(), blocks: [])
+        block.information = information
+        return .init(block)
     }
 }
 
@@ -160,25 +266,49 @@ private extension TextBlocksViews.Base.BlockViewModel {
 }
 
 // MARK: - ViewModel / Apply to model.
-extension TextBlocksViews.Base.BlockViewModel {
+private extension TextBlocksViews.Base.BlockViewModel {
     private func setModelData(text newText: String) {
         let theText = self.text
         self.text = theText
 
+        return
         self.update { (block) in
             switch block.information.content {
             case let .text(value):
                 var value = value
-                value.text = newText
+//                value.text = newText
                 block.information.content = .text(value)
             default: return
             }
         }
     }
+    func setModelData(attributedText: NSAttributedString) {
+        
+        // Update model.
+        // Do we need to update model?
+        self.update { (block) in
+            switch block.information.content {
+            case let .text(value):
+                var value = value
+                value.attributedText = attributedText
+                block.information.content = .text(value)
+            default: return
+            }
+        }
+    }
+    func apply(attributedText: NSAttributedString) -> AnyPublisher<Never, Error>? {
+        /// Do we need to update model?
+        /// It will be updated on every blockShow event. ( BlockOpen command ).
+        ///
+        let block = self.getRealBlock()
+        guard let contextID = block.findRoot()?.information.id, case let .text(value) = block.information.content else { return nil }
+        return self.service.setText.action(contextID: contextID, blockID: self.blockId, attributedString: attributedText)
+    }
     func apply(update: TextView.UIKitTextView.ViewModel.Update) {
         switch update {
         case .unknown: return
         case let .text(value): self.setModelData(text: value)
+        case let .attributedText(value): return self.setModelData(attributedText: value)
         }
     }
 }

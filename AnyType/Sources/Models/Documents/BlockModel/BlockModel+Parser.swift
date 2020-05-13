@@ -442,14 +442,14 @@ private extension BlockModels.Parser.Converters {
         }
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .text(value): return self.contentType(value.style).flatMap({.text(.init(text: value.text, contentType: $0))})
+            case let .text(value): return self.contentType(value.style).flatMap({.text(.init(attributedText: BlockModels.Parser.Text.AttributedText.Converter.asModel(text: value.text, marks: value.marks), contentType: $0))})
             default: return nil
             }
         }
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .text(value): return self.style(value.contentType).flatMap({
-                .text(.init(text: value.text, style: $0, marks: .init(), checked: false, color: ""))
+                .text(.init(text: value.text, style: $0, marks: BlockModels.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: value.attributedText).marks, checked: false, color: ""))
                 })
             default: return nil
             }

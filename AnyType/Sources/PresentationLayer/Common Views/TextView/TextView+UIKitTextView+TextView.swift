@@ -13,8 +13,16 @@ import Combine
 extension TextView.UIKitTextView {
     class TextViewWithPlaceholder: UITextView {
         
+        // MARK: Publishers
+        enum TextStorageEvent {
+            case willProcessEditing(NSAttributedString)
+            case didProcessEditing(NSAttributedString)
+        }
+        
+        var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
+        
         // MARK: Variables
-        var subscriptions: Set<AnyCancellable> = []
+        private var subscriptions: Set<AnyCancellable> = []
         
         // MARK: Views
         private lazy var placeholderLabel: UILabel? = {
@@ -27,7 +35,7 @@ extension TextView.UIKitTextView {
             return label
         }()
         
-        var placeholderConstraints: [NSLayoutConstraint] = []
+        private var placeholderConstraints: [NSLayoutConstraint] = []
         
         
         override var textContainerInset: UIEdgeInsets {
@@ -90,6 +98,7 @@ extension TextView.UIKitTextView {
 extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate {
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
         self.syncPlaceholder()
+        self.textStorageEventsSubject.send(.didProcessEditing(textStorage))
     }
 }
 

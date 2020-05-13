@@ -152,6 +152,33 @@ extension TextView.UIKitTextView {
             else {
                 self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
             }
+        case let .attributedText(value):
+            let text = NSMutableAttributedString.init(attributedString: value)
+
+            /// TODO: Poem "Do we need to add font?"
+            ///
+            /// Hm...
+            /// Actually, don't know. Should think about this problem ( when and where ) we should set font of attributed string.
+            ///
+            /// The main problem is that we should use `.font` to apply attributes to `NSAttributedString`.
+            ///
+            /// Example code below.
+            ///
+            /// let font: UIFont = self.textView.typingAttributes[.foregroundColor] as? UIFont ?? UIFont.preferredFont(forTextStyle: .body)
+            /// text.addAttributes([.font : font], range: .init(location: 0, length: text.length))
+            ///
+            if self.textView.textStorage.length == 0 {
+                self.textView.textStorage.setAttributedString(text)
+            }
+            else {
+                /// Actually, we should add more logic here.
+                /// If it is happenning, that means, that some event occurs when user typing or when page is already open.
+                /// It may be a blockSetText event from external user.
+                /// Lets keep it simple for now.
+                ///
+                self.textView.textStorage.setAttributedString(text)
+                // self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
+            }
         }
     }
 }
