@@ -13,7 +13,16 @@ extension DocumentViewController {
 
     /// Header view with navigation controls
     class HeaderView: UIView {
-                
+
+        enum Style {
+            case presentation
+            func backgroundColor() -> UIColor {
+                switch self {
+                case .presentation: return .white
+                }
+            }
+        }
+        
         // MARK: Variables
         private var layout: Layout = .init()
         private var viewModel: ViewModel
@@ -43,6 +52,7 @@ extension DocumentViewController {
         private lazy var contentView: UIView = {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = Style.presentation.backgroundColor()
             return view
         }()
         

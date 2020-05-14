@@ -53,8 +53,9 @@ extension ToolsBlocksViews.PageLink {
                     _ = self.wholeDetailsViewModel.configured(documentId: pageId)
                     
                     self.eventPublisher = NotificationEventListener(handler: self.eventListener)
+                    self.eventPublisher?.receive(contextId: pageId)
                     
-                    self.eventListener.$state.sink { [weak self] (value) in
+                    self.eventListener.$state.receive(on: RunLoop.main).sink { [weak self] (value) in
                         self?.wholeDetailsViewModel.receive(details: value)
                     }.store(in: &self.subscriptions)
                     

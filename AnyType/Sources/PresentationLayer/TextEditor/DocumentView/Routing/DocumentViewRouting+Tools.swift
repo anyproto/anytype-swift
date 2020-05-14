@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 // MARK: ToolsBlocksViewsRouter
 extension DocumentViewRouting {
@@ -33,10 +34,18 @@ extension DocumentViewRouting {
 extension DocumentViewRouting.ToolsBlocksViewsRouter {
     typealias BaseRouter = DocumentViewRouting.BaseRouter
     class PageLinkToolsBlocksViewsRouter: BaseRouter {
+        private var subscription: AnyCancellable?
         private func handle(action: ToolsBlocksViews.UserAction.PageLink) {
             switch action {
             case let .shouldShowPage(value):
                 let viewController = DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value, useUIKit: true))
+                
+                /// Actually, we have only one subscription.
+                /// Our router is created and stored in viewController for now.
+                self.subscription = viewController.headerViewModelPublisher.sink { [weak viewController] (value) in
+                    viewController?.navigationController?.popViewController(animated: true)
+                }
+                
                 self.send(event: .pushViewController(viewController))
             }
         }
