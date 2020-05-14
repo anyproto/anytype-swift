@@ -28,18 +28,22 @@ extension TextView.UIKitTextView {
             return self
         }
         
+        /// TextStorage Subscription
         private var textStorageSubscription: AnyCancellable?
         
+        /// HighlightedAccessoryView
         private lazy var highlightedAccessoryView: HighlightedAccessoryView = .init()
-        private var highlightedAccessoryViewHandler: (((NSRange, NSTextStorage)) -> ())?
-        
         private var highlightedMarkStyleHandler: AnyCancellable?
+        
+        /// Whole mark style handler
         private var wholeMarkStyleHandler: AnyCancellable?
         
+        /// BlocksAccessoryView
         private lazy var blocksAccessoryView: BlockToolbarAccesoryView = .init()
         private var blocksAccessoryViewHandler: AnyCancellable?
         private var blocksUserActionsHandler: AnyCancellable?
         
+        /// ActionsAccessoryView
         private lazy var actionsToolbarAccessoryView: ActionsToolbarAccessoryView = .init()
         private var actionsToolbarAccessoryViewHandler: AnyCancellable?
         private var actionsToolbarUserActionsHandler: AnyCancellable?
@@ -54,7 +58,6 @@ extension TextView.UIKitTextView {
         }
         
         func setup() {
-            self.configureInnerAccessoryViewHandler()
             self.configureKeyboardNotificationsListening()
         }
     }
@@ -169,14 +172,7 @@ extension TextView.UIKitTextView.Coordinator {
             }
         }
     }
-    
-    func configureInnerAccessoryViewHandler() {
-        self.highlightedAccessoryViewHandler = { [weak self] (pair) in
-            let (range, text) = pair
-            self?.highlightedAccessoryView.model.update(range: range, attributedText: text)
-        }
-    }
-    
+        
     func configureMarkStylePublisher(_ view: UITextView) {
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { [weak self] (textView, action) in
             let attributedText = textView.textStorage
@@ -191,25 +187,25 @@ extension TextView.UIKitTextView.Coordinator {
                 if let style = modifier.getMarkStyle(style: .bold(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self?.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.updateHighlightedAccessoryView((range, attributedText))
 
             case let .italic(range):
                 if let style = modifier.getMarkStyle(style: .italic(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self?.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.updateHighlightedAccessoryView((range, attributedText))
                 
             case let .strikethrough(range):
                 if let style = modifier.getMarkStyle(style: .strikethrough(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self?.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.updateHighlightedAccessoryView((range, attributedText))
                 
             case let .keyboard(range):
                 if let style = modifier.getMarkStyle(style: .keyboard(false), at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
-                self?.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.updateHighlightedAccessoryView((range, attributedText))
                 
             case let .linkView(range, builder):
                 let style = modifier.getMarkStyle(style: .link(nil), at: .range(range))
@@ -226,7 +222,7 @@ extension TextView.UIKitTextView.Coordinator {
             case let .link(range, url):
                 guard range.length > 0 else { return }
                 _ = modifier.applyStyle(style: .link(url), rangeOrWholeString: .range(range))
-                self?.highlightedAccessoryViewHandler?((range, attributedText))
+                self?.updateHighlightedAccessoryView((range, attributedText))
                 self?.switchInputs(textView)
                 textView.becomeFirstResponder()
                 
@@ -247,6 +243,14 @@ extension TextView.UIKitTextView.Coordinator {
         }
     }
 
+}
+
+// MARK: Highlighted Accessory view handling
+extension TextView.UIKitTextView.Coordinator {
+    func updateHighlightedAccessoryView(_ tuple: (NSRange, NSTextStorage)) {
+        let (range, storage) = tuple
+        self.highlightedAccessoryView.model.update(range: range, attributedText: storage)
+    }
 }
 
 // MARK: InnerTextView.Coordinator / UITextViewDelegate
@@ -295,7 +299,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         if (textView.inputAccessoryView is HighlightedAccessoryView) {
             let range = textView.selectedRange
             let attributedText = textView.textStorage
-            self.highlightedAccessoryViewHandler?((range, attributedText))
+            self.updateHighlightedAccessoryView((range, attributedText))
         }
     }
     

@@ -24,7 +24,7 @@ extension TextView.UIKitTextView {
         var updatePublisher: AnyPublisher<Update, Never> = .empty()
         
         /// Second publisher which manipulates rich string, attributed string.
-        var richUpdatePublsiher: AnyPublisher<Update, Never> = .empty()
+        var richUpdatePublisher: AnyPublisher<Update, Never> = .empty()
         
         
         private var builder: Builder = .init()
@@ -49,8 +49,8 @@ extension TextView.UIKitTextView {
             /// 3. we also use `setAttributedString` of textStorage.
             /// In this circumstances, it is better to remove duplicates of attributedString...
             /// You could build a cycle of events in these circumstances, it is very bad.
-            self.updatePublisher = self.coordinator.$text.safelyUnwrapOptionals().removeDuplicates().map(Update.text).eraseToAnyPublisher()
-            self.richUpdatePublsiher = self.coordinator.$attributedText.safelyUnwrapOptionals().removeDuplicates().map(Update.attributedText).eraseToAnyPublisher()
+            self.updatePublisher = self.coordinator.$text.safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
+            self.richUpdatePublisher = self.coordinator.$attributedText.safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {

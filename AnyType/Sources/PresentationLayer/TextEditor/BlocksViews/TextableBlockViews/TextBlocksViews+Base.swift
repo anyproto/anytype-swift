@@ -73,7 +73,7 @@ extension TextBlocksViews {
             private func setupSubscribers() {
                 
                 /// FromView
-                self.textViewModel.richUpdatePublsiher.sink { [weak self] (value) in
+                self.textViewModel.richUpdatePublisher.sink { [weak self] (value) in
                     switch value {
                     case let .attributedText(text): self?.toModelTextSubject.send(text)
                     default: return
@@ -108,7 +108,7 @@ extension TextBlocksViews {
                 }.store(in: &self.subscriptions)
                 
                 /// TextDidChange For OuterWorld
-                self.textDidChangePublisher = self.textViewModel.richUpdatePublsiher.map{ value -> NSAttributedString? in
+                self.textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
                     switch value {
                     case let .attributedText(text): return text
                     default: return nil
