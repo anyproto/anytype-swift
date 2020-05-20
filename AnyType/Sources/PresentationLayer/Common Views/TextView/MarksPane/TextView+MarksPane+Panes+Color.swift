@@ -182,7 +182,6 @@ extension TextView.MarksPane.Panes.Color {
 extension TextView.MarksPane.Panes.Color {
     class ViewModel: ObservableObject {
         // MARK: Variables
-        private var range: NSRange = .init()
         private var background: Bool = false
         
         // MARK: Initialization
@@ -248,7 +247,7 @@ extension TextView.MarksPane.Panes.Color {
         }
         
         func sectionsCount() -> Int {
-            return ListDataSource.sectionsCount()
+            ListDataSource.sectionsCount()
         }
     }
 }
