@@ -24,13 +24,15 @@ extension ApplicationCoordinator {
             }
             // TODO: Integrate Appearance!
             DispatchQueue.main.async {
-                DeveloperOptions.ViewController.NavigationBar.appearance().isTranslucent = false
+                let appearance = DeveloperOptions.ViewController.NavigationBar.appearance()
+                appearance.tintColor = .black
+                appearance.backgroundColor = .white
+                appearance.isTranslucent = false
             }
             return self
         }
         init(_ window: UIWindow?) {
             self.window = window
-            
             _ = self.configured()
         }
     }

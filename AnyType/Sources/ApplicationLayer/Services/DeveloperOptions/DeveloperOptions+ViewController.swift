@@ -32,7 +32,8 @@ extension DeveloperOptions.ViewController {
     }
     
     func setupNavigation() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(reactOnSaveDidPressed))
+        self.navigationItem.leftBarButtonItem = .init(title: "Reset To Defaults", style: .plain, target: self, action: #selector(reactOnResetToDefaultsDidPressed))
+        self.navigationItem.rightBarButtonItem = .init(title: "Save", style: .plain, target: self, action: #selector(reactOnSaveDidPressed))
     }
     
     func setupElements() {
@@ -95,6 +96,9 @@ extension DeveloperOptions.ViewController {
 extension DeveloperOptions.ViewController {
     @objc func reactOnSaveDidPressed() {
         self.model?.save()
+    }
+    @objc func reactOnResetToDefaultsDidPressed() {
+        self.model?.resetToDefaults()
     }
 }
 
@@ -303,19 +307,24 @@ extension DeveloperOptions.ViewController {
             return self.accessoryView as? UITextField
         }
         override func setup() {
-            self.accessoryView = UITextField()
-            self.textField?.delegate = self
-            self.textField?.textColor = UIColor.white
+            let textField: UITextField = .init()
+            textField.placeholder = "Empty"
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            textField.sizeToFit()
+            textField.delegate = self
+            self.accessoryView = textField
         }
         override func layoutSubviews() {
             super.layoutSubviews()
-            _ = self.textField?.invalidateIntrinsicContentSize()
+//            self.textField?.sizeToFit()
+//            self.textField?.invalidateIntrinsicContentSize()
+//            self.textField?.layoutIfNeeded()
         }
         func updateTextField(text: String?) {
             self.textField?.text = text
-            self.textField?.sizeToFit()
-            self.textField?.invalidateIntrinsicContentSize()
-            self.textField?.layoutIfNeeded()
+//            self.textField?.sizeToFit()
+//            self.textField?.invalidateIntrinsicContentSize()
+//            self.textField?.layoutIfNeeded()
         }
         
         func reactOnValueDidChanged() {

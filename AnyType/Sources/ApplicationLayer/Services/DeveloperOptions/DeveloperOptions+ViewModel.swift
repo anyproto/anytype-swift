@@ -180,6 +180,9 @@ extension DeveloperOptions.ViewModel {
         let settings = SettingsSerialization.immerse(entries: entries, into: self.settings)
         self.service?.update(settings: settings)
     }
+    func resetToDefaults() {
+        self.service?.resetToDefaults()
+    }
 }
 
 // MARK: Configuration

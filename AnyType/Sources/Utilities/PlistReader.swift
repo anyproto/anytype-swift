@@ -90,7 +90,13 @@ extension PlistReader {
             // we use build configuration name from plist.
             // we could create BuildConfiguration from info.plist if needed.
             // for our needs we could use BuildConfiguration.current
-            BuildConfiguration.current.buildConfiguration.flatMap{self.readVariant(name, $0)}
+            self.currentConfiguration().flatMap{self.readVariant(name, $0)}
+        }
+        class func currentConfiguration() -> Configuration? {
+            BuildConfiguration.current.buildConfiguration
+        }
+        class func isRelease() -> Bool {
+            self.currentConfiguration() == .Release
         }
     }
 }

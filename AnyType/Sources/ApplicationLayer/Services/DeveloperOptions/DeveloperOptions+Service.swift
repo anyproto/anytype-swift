@@ -68,16 +68,19 @@ extension DeveloperOptions.Service {
         // read from plist file.
         // Settings are codable.
         // Look at Default plist file.
-//        let debug = Settings.Debug(enabled: false)
-//        let authentication = Settings.Workflow.Authentication(shouldSkipLogin: false)
-//        let mainDocumentEditor = Settings.Workflow.MainDocumentEditor(useUIKit: false)
-//        let workflow = Settings.Workflow(authentication: authentication, mainDocumentEditor: mainDocumentEditor)
-//        let result = Settings.init(debug: debug, workflow: workflow)
         (try? Driver.Default.settings().flatMap(Settings.create)) ?? .default
     }
     
+    func assertAlphaInviteCodeIsEmptyInRelease() {
+        if !self.currentSettings.workflow.authentication.alphaInvitePasscode.isEmpty && PlistReader.DeveloperOptions.isRelease() {
+            os_log(.error, "alpha invite passcode should be empty in release build")
+        }
+    }
+    
     var current: Settings {
-        currentSettings
+        // TODO: Remove later.
+        self.assertAlphaInviteCodeIsEmptyInRelease()
+        return currentSettings
     }
     
     fileprivate var currentSettings: Settings {
@@ -90,13 +93,17 @@ extension DeveloperOptions.Service {
     // Or restore settings, hah!
     override func runAtFirstTime() {
         // create developer settings first.
-        self.update(settings: self.defaultSettings())
+        self.resetToDefaults()
     }
 }
 
+// MARK: Update
 extension DeveloperOptions.Service {
     func update(settings: Settings?) {
         guard let settings = settings, let dictionary = settings.dictionary() else { return }
         Driver.save(dictionary)
+    }
+    func resetToDefaults() {
+        self.update(settings: self.defaultSettings())
     }
 }

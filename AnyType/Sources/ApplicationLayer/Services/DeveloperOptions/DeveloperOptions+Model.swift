@@ -22,7 +22,7 @@ extension DeveloperOptions {
 //        var services: Services?
         private init() {
             self.debug = .init(enabled: false)
-            self.workflow = .init(authentication: .init(shouldSkipLogin: false),
+            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: ""),
                                   mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
         }
         static var `default`: Settings = .init()
@@ -37,6 +37,7 @@ extension DeveloperOptions.Settings {
     struct Workflow: CodableAndDictionary {
         struct Authentication: CodableAndDictionary {
             var shouldSkipLogin: Bool
+            var alphaInvitePasscode: String
         }
         
         struct MainDocumentEditor: CodableAndDictionary {

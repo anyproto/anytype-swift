@@ -10,11 +10,15 @@ import SwiftUI
 
 
 class WaitingViewOnCreatAccountModel: ObservableObject {
+    @Environment(\.developerOptions) var developerOptions
     private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
     private var authService = AuthService()
     private var diskStorage = DiskStorage()
     var userName: String
     var image: UIImage?
+    var alphaInviteCode: String {
+        self.developerOptions.current.workflow.authentication.alphaInvitePasscode
+    }
     
     @Published var error: String?
     
@@ -35,7 +39,8 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
             }
             let request = AuthModels.CreateAccount.Request(name: stronSelf.userName, avatar: avatar)
             
-            stronSelf.authService.createAccount(profile: request) { result in
+            let alphaInviteCode = self?.alphaInviteCode ?? ""
+            stronSelf.authService.createAccount(profile: request, alphaInviteCode: alphaInviteCode) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .failure(let error):
