@@ -71,6 +71,12 @@ extension TextView.MarksPane.Main {
             return self.range == Self.zero.range && self.states.count == Self.zero.states.count
         }
     }
+    
+    struct RawUserResponse {
+        var attributedString: NSAttributedString = .init(string: "")
+        var textColor: UIColor = .clear
+        var backgroundColor: UIColor = .clear
+    }
 
     /// `Action` is an action from User, when he pressed current cell in this pane.
     /// This pane is set of panes, so, whenever user pressed a cell in child pane, update will deliver to OuterWorld.
@@ -159,6 +165,7 @@ extension TextView.MarksPane.Main {
         }
         
         // MARK: Public Setters
+        /// Update at Range.
         func update(range: NSRange, attributedText: NSMutableAttributedString) {
             self.range = range
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
@@ -167,7 +174,27 @@ extension TextView.MarksPane.Main {
             
             self.dispatch(attributes: states)
         }
-
+        
+        /// Update at whole string.
+        /// It takes attributes from whole string ( bold, italic etc. ) and convert them to styles.
+        ///
+        func update(attributedText: NSMutableAttributedString, textColor: UIColor, backgroundColor: UIColor) {
+            let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
+            let styles = modifier.getMarkStyles(at: .whole(true))
+            let states = Converter.states(styles)
+            
+            self.dispatch(attribute: .textColor(.setColor(textColor)))
+            self.dispatch(attribute: .backgroundColor(.setColor(backgroundColor)))
+            
+            let styleAttributes = states.compactMap({ value -> Panes.StylePane.Attribute? in
+                switch value {
+                case let .style(value): return value
+                default: return nil
+                }
+            })
+            self.styleModel.deliver(response: styleAttributes)
+        }
+        
         func update(category: Section.Category) {
             self.sectionViewModel.chosenCategory = category
         }

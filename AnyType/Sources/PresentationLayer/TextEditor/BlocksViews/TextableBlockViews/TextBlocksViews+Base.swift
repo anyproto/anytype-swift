@@ -104,7 +104,7 @@ extension TextBlocksViews {
                 
                 /// Toolbar handling
                 self.toolbarPassthroughSubject.sink { [weak self] (value) in
-                    self?.process(toolbarAction: value)
+                    self?.handle(toolbarAction: value)
                 }.store(in: &self.subscriptions)
                 
                 /// TextDidChange For OuterWorld
@@ -149,7 +149,7 @@ extension TextBlocksViews {
 
             // MARK: Events
             private var toolbarPassthroughSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
-            private func process(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
+            private func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
                 let oldEvent = Converter.convert(newState: toolbarAction)
                 self.didReceiveAction(generalAction: .textView(oldEvent))
             }
@@ -165,6 +165,38 @@ extension TextBlocksViews {
 
             override func makeUIView() -> UIView {
                 self.getUIKitViewModel().createView()
+            }
+            
+            // MARK: Contextual Menu
+            override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+                .init(title: "", children: [
+                    .create(action: .specific(.text(.turnInto))),
+                    .create(action: .general(.delete)),
+                    .create(action: .general(.duplicate)),
+                    .create(action: .general(.moveTo)),
+                    .create(action: .specific(.text(.style))),
+                    .create(action: .specific(.text(.color))),
+                    .create(action: .specific(.text(.backgroundColor))),
+                ])
+            }
+            
+            override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
+                switch contextualMenuAction {
+                case let .general(value):
+                    switch value {
+                    case .delete: self.toolbarPassthroughSubject.send(.editBlock(.delete))
+                    case .duplicate: self.toolbarPassthroughSubject.send(.editBlock(.duplicate))
+                    case .moveTo: break
+                    }
+                case let .specific(.text(value)):
+                    switch value {
+                    case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(self.toolbarPassthroughSubject)))
+                    case .style: break
+                    case .color: self.send(userAction: .toolbars(.setTextColor(self.toolbarPassthroughSubject)))
+                    case .backgroundColor: self.send(userAction: .toolbars(.setBackgroundColor(self.toolbarPassthroughSubject)))
+                    }
+                default: return
+                }
             }
 
             // MARK: Empty
@@ -260,6 +292,16 @@ private extension TextBlocksViews.Base.BlockViewModel {
             switch newState {
             case let .addBlock(value): return .blockAction(.addBlock(convert(newState: value)))
             case let .turnIntoBlock(value): return .blockAction(.turnIntoBlock(convert(newState: value)))
+            case let .changeColor(value):
+                switch value {
+                case let .textColor(value): return .blockAction(.changeColor(.textColor(value)))
+                case let .backgroundColor(value): return .blockAction(.changeColor(.backgroundColor(value)))
+                }
+            case let .editBlock(value):
+                switch value {
+                case .delete: return .blockAction(.editBlock(.delete))
+                case .duplicate: return .blockAction(.editBlock(.duplicate))
+                }
             }
         }
     }
@@ -342,7 +384,7 @@ extension TextBlocksViews.Base.BlockViewModel: TextViewUserInteractionProtocol {
         switch action {
         case let .addBlockAction(value):
             switch value {
-            case .addBlock: self.send(userAction: .toolbars(.addBlockWithPassthroughSubject(self.toolbarPassthroughSubject)))
+            case .addBlock: self.send(userAction: .toolbars(.addBlock(self.toolbarPassthroughSubject)))
             }
         default: self.delegate?.didReceiveAction(block: getRealBlock(), id: getID(), action: action)
         }

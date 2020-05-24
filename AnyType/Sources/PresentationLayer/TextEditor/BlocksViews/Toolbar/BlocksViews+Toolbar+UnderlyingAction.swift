@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 // MARK: These actions are only blueprints.
 // Supposeedly, that we have to move them somewhere on domain level.
 // So, now we have to move it somewhere.
@@ -34,6 +35,16 @@ extension BlocksViews.Toolbar {
                 }
             }
         }
+        
+        enum ChangeColor {
+            case textColor(UIColor)
+            case backgroundColor(UIColor)
+        }
+        
+        enum EditAction {
+            case delete, duplicate
+        }
+
         /// Do not delete this commented code.
         /// It may be needed later.
 //        enum EditBlock {
@@ -64,8 +75,8 @@ extension BlocksViews.Toolbar {
 //                return nil
 //            }
 //        }
-        case addBlock(BlockType), turnIntoBlock(BlockType)
-//        , changeColor(ChangeColor), editBlock(EditBlock)
+        
+        case addBlock(BlockType), turnIntoBlock(BlockType), changeColor(ChangeColor), editBlock(EditAction)
     }
 }
 

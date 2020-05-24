@@ -58,6 +58,12 @@ extension TextView.MarksPane.Panes.Color {
         }
     }
     
+    /// Well, we have Exclusive attriubtes.
+    /// So, we have only one attribute.
+    /// It is a convenient typealias to an `Attribute`.
+    ///
+    typealias UserResponse = Attribute
+    
     /// `Action` is an action from User, when he pressed current cell in this pane.
     /// It refers to outgoing ( or `to OuterWorld` ) publisher.
     ///

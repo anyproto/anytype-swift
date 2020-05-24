@@ -105,11 +105,6 @@ extension PageBlocksViews.Title {
         override func makeUIView() -> UIView {
             UIKitView.init().configured(textView: self.textViewModel.createView(.init(liveUpdateAvailable: true)).configured(placeholder: .init(text: nil, attributedText: self.placeholder, attributes: [:])))
         }
-        override func handle(event: BlocksViews.UserEvent) {
-            switch event {
-            case .didSelectRowInTableView: self.send(userAction: .toolbars(.addBlock))
-            }
-        }
     }
 }
 

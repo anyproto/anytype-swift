@@ -47,12 +47,66 @@ extension BlocksViews.UserAction {
             switch (lhs, rhs) {
             case (.addBlock, .addBlock): return true
             case (.turnIntoBlock, .turnIntoBlock): return true
-            case (.addBlockWithPassthroughSubject, .addBlockWithPassthroughSubject): return true
             default: return false
             }
         }
         
-    case addBlock, turnIntoBlock
-    case addBlockWithPassthroughSubject(PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>)
+        case addBlock(AddBlock)
+        case turnIntoBlock(TurnIntoBlock)
+        case marksPane(MarksPane)
+    }
+}
+
+extension BlocksViews.UserAction.ToolbarOpenAction {
+    struct AddBlock {
+        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        typealias Input = Void
+        var output: Output
+    }
+    
+    struct TurnIntoBlock {
+        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        var output: Output
+    }
+}
+
+extension BlocksViews.UserAction.ToolbarOpenAction {
+    enum MarksPane {
+        case setTextColor(TextColor)
+        case setBackgroundColor(BackgroundColor)
+        case setStyle(Style)
+        case mainPane(MainPane)
+    }
+}
+
+extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
+    struct MainPane {
+        typealias Output = PassthroughSubject<TextView.MarksPane.Main.Action, Never>
+        typealias Input = TextView.MarksPane.Main.RawUserResponse
+        var output: Output
+        var input: Input?
+    }
+}
+
+extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
+    struct TextColor {
+        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        typealias Input = TextView.MarksPane.Panes.Color.UserResponse
+        var output: Output
+        var input: Input?
+    }
+    
+    struct BackgroundColor {
+        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        typealias Input = TextView.MarksPane.Panes.Color.UserResponse
+        var output: Output
+        var input: Input?
+    }
+    
+    struct Style {
+        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        typealias Input = TextView.MarksPane.Panes.StylePane.UserResponse
+        var output: Output
+        var input: Input?
     }
 }
