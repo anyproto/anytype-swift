@@ -13,116 +13,15 @@
 require 'optparse'
 require 'shellwords'
 require 'pathname'
-class ShellExecutor
-  @@dry_run = false
-  class << self
-    # setup
-    def setup (dry_run = false)
-      @@dry_run = dry_run
-    end
 
-    def dry?
-      @@dry_run
-    end
-
-    def run_command_line(line)
-      # puts "#{line}"
-      if dry?
-        puts "#{line} -> Skip. Dry run."
-      else
-        # if run
-        result = %x(#{line})
-        # puts "result is " + result.to_s
-        if $?.to_i != 0
-          puts "Failing < #{result} > \n because of < #{$?} >"
-          exit($?.to_i)
-        end
-        result
-      end
-    end
-  end
-end
-
-class Voice
-  class << self
-    def say(messages)
-      if ENV["SIRI_VOICE"] == "1"
-        # not sure where it is defined.
-        output = messages.is_a?(Array) ? messages : [messages]
-        # puts "result: #{output}"
-        puts "#{output}"
-        # Fastlane::Actions::SayAction.run text: result_to_output
-        %x(say #{output})
-        nil
-      else
-        write messages
-      end
-    end
-    def write(messages)
-      puts messages
-    end
-  end
-end
-
-class Worker
-  attr_reader :executor
-  def executor
-    @executor || ShellExecutor
-  end
-
-  def tool
-    ''
-  end
-
-  def is_valid?
-    %x(which tool) != ""
-  end
-
-  def can_run?
-    is_valid? || executor.dry?
-  end
-
-  def action
-    ''
-  end
-
-  def work
-    unless can_run?
-      puts "Tool #{tool} not exists. Please, install it or select alternatives."
-      exit(0)
-    end
-    perform_work
-  end
-
-  def perform_work
-    executor.run_command_line action
-  end
-end
-
-class TravelerWorker < Worker
-  attr_accessor :path
-  def initialize(path)
-    self.path = path
-  end
-
-  def tool
-    "Ruby::Dir.chdir"
-  end
-
-  def is_valid?
-    # check that tool is valid by following.
-    # 1. file path exists.
-    # 2. it is a directory.
-    puts "Path is: #{path}"
-    File.exists?(path) && Dir.exists?(path)
-  end
-  def perform_work
-    Dir.chdir path
-  end
-end
+require_relative 'library/shell_executor'
+require_relative 'library/voice'
+require_relative 'library/workers'
 
 module AnytypeSwiftCodegen
-  class BaseWorker < Worker
+  class TravelerWorker < Workers::TravelerWorker
+  end
+  class BaseWorker < Workers::BasicWorker
     class << self
       def repository_based_tool
         "swift run anytype-swift-codegen"
@@ -212,7 +111,7 @@ class Pipeline
       say "You have options: #{options}"
 
       if Dir.exists? options[:toolPath]
-        TravelerWorker.new(options[:toolPath]).work
+        AnytypeSwiftCodegen::TravelerWorker.new(options[:toolPath]).work
       end
 
       if options[:list_transforms]
