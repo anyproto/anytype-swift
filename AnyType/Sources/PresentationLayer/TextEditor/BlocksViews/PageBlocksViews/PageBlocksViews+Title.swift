@@ -68,7 +68,7 @@ extension PageBlocksViews.Title {
                 }
             }.store(in: &self.subscriptions)
                         
-            self.$toViewTitle.sink { [weak self] (value) in
+            self.$toViewTitle.receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.textViewModel.apply(update: .text(value))
             }.store(in: &self.subscriptions)
         }

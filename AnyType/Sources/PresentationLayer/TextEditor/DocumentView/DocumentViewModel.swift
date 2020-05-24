@@ -87,7 +87,9 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     /// Next, if we receive new data, we should pass this data directly to this model.
     /// All other models we handle in special
     @Published var wholePageDetailsViewModel: PageDetailsViewModel = .init()
-    var pageDetailsViewModels: [BlockModels.Block.Information.Details.Kind : BlockViewBuilderProtocol] = [:] {
+    
+    /// We  need this model to be Published cause need handle actions from IconEmojiBlock
+    @Published var pageDetailsViewModels: [BlockModels.Block.Information.Details.Kind : BlockViewBuilderProtocol] = [:] {
         didSet {
             self.userEvent = .pageDetailsViewModelsDidSet
         }
@@ -322,12 +324,23 @@ private extension DocumentViewModel {
         // TODO: Refactor later.
         let information = model.information
         let title = information.details.title
+        let emoji = information.details.iconEmoji
+            
+        /// Title Model
         let titleBlock = BlockModels.Block.Information.DetailsAsBlockConverter(information: information)(.title(title ?? .init(text: "")))
         let titleBlockModel = PageBlocksViews.Title.BlockViewModel.init(titleBlock).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
         
-        // Now we have correct blockViewModels
-        self.pageDetailsViewModels[.title] = titleBlockModel
+        /// Emoji Model
+        let emojiBlock = BlockModels.Block.Information.DetailsAsBlockConverter(information: information)(.iconEmoji(emoji ?? .init(text: "")))
+
+        let emojiBlockModel = PageBlocksViews.IconEmoji.BlockViewModel.init(emojiBlock).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
+      
         
+        // Now we have correct blockViewModels
+        let models = [BlockModels.Block.Information.Details.Kind.iconEmoji : emojiBlockModel, BlockModels.Block.Information.Details.Kind.title : titleBlockModel]
+        
+        self.pageDetailsViewModels = models
+   
         self.wholePageDetailsViewModel.receive(details: information.details)
         // Send event that we are ready.        
     }

@@ -255,7 +255,17 @@
 		53D7DB6D244E46DD00ADAD61 /* BlocksViews+Supplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D7DB69244E46DD00ADAD61 /* BlocksViews+Supplement+Flattener.swift */; };
 		53F1861F2427E4B200738620 /* NotificationEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F1861E2427E4B200738620 /* NotificationEventListener.swift */; };
 		53F186212427EE2500738620 /* DashboardEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F186202427EE2500738620 /* DashboardEventHandler.swift */; };
+		A31F979924728A93007D4FC5 /* PageBlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* PageBlocksViews+UserActions.swift */; };
+		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
+		A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */; };
 		A38119722445D3DB0023AFEB /* ImagePickerUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38119712445D3DB0023AFEB /* ImagePickerUIKit.swift */; };
+		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
+		A3940BB7245AB47700CD6F37 /* EmojiPicker+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB3245AB47600CD6F37 /* EmojiPicker+ViewController.swift */; };
+		A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB4245AB47700CD6F37 /* EmojiPicker+ViewModel.swift */; };
+		A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */; };
+		A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */; };
+		A3D65597246D47C200292F10 /* DocumentViewRouting+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D65596246D47C200292F10 /* DocumentViewRouting+Page.swift */; };
+		A3D65599246D80EB00292F10 /* PageBlocksViews+IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D65598246D80EB00292F10 /* PageBlocksViews+IconEmoji.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -520,7 +530,17 @@
 		53D7DB69244E46DD00ADAD61 /* BlocksViews+Supplement+Flattener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener.swift"; sourceTree = "<group>"; };
 		53F1861E2427E4B200738620 /* NotificationEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventListener.swift; sourceTree = "<group>"; };
 		53F186202427EE2500738620 /* DashboardEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardEventHandler.swift; sourceTree = "<group>"; };
+		A31F979824728A93007D4FC5 /* PageBlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageBlocksViews+UserActions.swift"; sourceTree = "<group>"; };
+		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
+		A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Manager.swift"; sourceTree = "<group>"; };
 		A38119712445D3DB0023AFEB /* ImagePickerUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerUIKit.swift; sourceTree = "<group>"; };
+		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
+		A3940BB3245AB47600CD6F37 /* EmojiPicker+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController.swift"; sourceTree = "<group>"; };
+		A3940BB4245AB47700CD6F37 /* EmojiPicker+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewModel.swift"; sourceTree = "<group>"; };
+		A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Cell.swift"; sourceTree = "<group>"; };
+		A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+HeaderCollectionReusableView.swift"; sourceTree = "<group>"; };
+		A3D65596246D47C200292F10 /* DocumentViewRouting+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Page.swift"; sourceTree = "<group>"; };
+		A3D65598246D80EB00292F10 /* PageBlocksViews+IconEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageBlocksViews+IconEmoji.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -714,6 +734,7 @@
 				03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */,
 				03E2AD5023A93D1000C701CE /* ImagePicker.swift */,
 				A38119712445D3DB0023AFEB /* ImagePickerUIKit.swift */,
+				A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
@@ -1053,6 +1074,7 @@
 		03A24B8D232152ED00DA7369 /* TextEditor */ = {
 			isa = PBXGroup;
 			children = (
+				A3940BB2245AB46600CD6F37 /* EmojiView */,
 				03F7793423B00A6800B03CF9 /* DocumentView */,
 				031B35572346C5650066DDB8 /* BlocksViews */,
 			);
@@ -1318,6 +1340,7 @@
 			children = (
 				0A0C186F24579059003EDE7C /* PageBlocksViews.swift */,
 				0A0C1871245790DE003EDE7C /* PageBlocksViews+Title.swift */,
+				A3D65598246D80EB00292F10 /* PageBlocksViews+IconEmoji.swift */,
 			);
 			path = PageBlocksViews;
 			sourceTree = "<group>";
@@ -1436,6 +1459,7 @@
 				0A9D49E8244A0F83007F0992 /* DocumentViewRouting+File.swift */,
 				0A1DACCE244E28040007BC5D /* DocumentViewRouting+Toolbar.swift */,
 				0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */,
+				A3D65596246D47C200292F10 /* DocumentViewRouting+Page.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -1478,6 +1502,7 @@
 				0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */,
 				0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */,
 				0ADE618E24488C5400244E49 /* FileBlocksViews+UserActions.swift */,
+				A31F979824728A93007D4FC5 /* PageBlocksViews+UserActions.swift */,
 				0ADE619024488C6600244E49 /* ToolsBlocksViews+UserActions.swift */,
 				0A9D49DF244905F2007F0992 /* BlocksViews+UserEvents+Protocol.swift */,
 				0A9D49DD244905C0007F0992 /* BlocksViews+UserEvents.swift */,
@@ -1504,6 +1529,35 @@
 				53D7DB69244E46DD00ADAD61 /* BlocksViews+Supplement+Flattener.swift */,
 			);
 			path = Flattener;
+			sourceTree = "<group>";
+		};
+		A3940BB2245AB46600CD6F37 /* EmojiView */ = {
+			isa = PBXGroup;
+			children = (
+				A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */,
+				A3940BBC245AB71100CD6F37 /* Views */,
+				A3940BB5245AB47700CD6F37 /* Cells */,
+				A3940BB3245AB47600CD6F37 /* EmojiPicker+ViewController.swift */,
+				A3940BB4245AB47700CD6F37 /* EmojiPicker+ViewModel.swift */,
+			);
+			path = EmojiView;
+			sourceTree = "<group>";
+		};
+		A3940BB5245AB47700CD6F37 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		A3940BBC245AB71100CD6F37 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */,
+				A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
@@ -1645,10 +1699,12 @@
 				0A0C186D24572656003EDE7C /* DocumentViewModel+PageDetailsViewModel.swift in Sources */,
 				0A0AA75B24018890003A2935 /* BlockModel+Finder.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
+				A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */,
 				031B35592346C5B60066DDB8 /* BlockViewModifieres.swift in Sources */,
 				0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */,
 				0380128D240DAB730098244D /* DocumentViewCell.swift in Sources */,
 				0A0AA75524018604003A2935 /* BlockModel+Updater.swift in Sources */,
+				A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */,
 				034A303D240457A8002599E2 /* HomeCollectionViewAssembly.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A2C0D59247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift in Sources */,
@@ -1695,6 +1751,7 @@
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
 				030DF8682333E3DD00FE6DA5 /* Legacy_DocumentView.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
+				A3D65597246D47C200292F10 /* DocumentViewRouting+Page.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */,
 				0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
@@ -1734,6 +1791,7 @@
 				0A63ADED2464A54300F092C8 /* BlockModel+Parser+Text+AttributedText.swift in Sources */,
 				0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
+				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
 				0A0AA73923FC5799003A2935 /* BlocksViews+Base+Utilities+Legacy_TextBlocksUserInteractor.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
 				0A69321F238C4C8200575544 /* TextBlocksViews+Bulleted.swift in Sources */,
@@ -1745,10 +1803,12 @@
 				037260C123A8E2F90034F9F5 /* FileBlocksViews.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0A69321D238C4C8200575544 /* TextBlocksViews+Numbered.swift in Sources */,
+				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,
 				0A693222238C4C8200575544 /* TextBlocksViews+Callout.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
 				03AA854A23A80C2300892713 /* commands.pb.swift in Sources */,
+				A3940BB7245AB47700CD6F37 /* EmojiPicker+ViewController.swift in Sources */,
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				0A693219238C4C8200575544 /* TextBlocksViews+Checkbox.swift in Sources */,
 				0A2C0D432471449E008ADD86 /* TextView+MarksPane.swift in Sources */,
@@ -1771,6 +1831,7 @@
 				0A0AA751240185EE003A2935 /* BlockModel+BusinessBlock.swift in Sources */,
 				0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */,
 				0A0AA769240414AF003A2935 /* BlockModel+NewModels.swift in Sources */,
+				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				0A2C0D69247145BD008ADD86 /* TextView+ActionsToolbar.swift in Sources */,
 				0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */,
@@ -1797,9 +1858,11 @@
 				A38119722445D3DB0023AFEB /* ImagePickerUIKit.swift in Sources */,
 				0A63ADE52462DFD900F092C8 /* DocumentViewRouting+Tools.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
+				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
 				0327B0BB232BCE2A007DB8A7 /* HomeCollectionViewModel.swift in Sources */,
 				0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */,
 				0A996BCF23EF19BE000FDC9C /* DocumentViewBuilder.swift in Sources */,
+				A31F979924728A93007D4FC5 /* PageBlocksViews+UserActions.swift in Sources */,
 				0A19E2AE2444C8AB0078DFAB /* BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift in Sources */,
 				0ADE618F24488C5400244E49 /* FileBlocksViews+UserActions.swift in Sources */,
 				0A2C0D6A247145BD008ADD86 /* TextView+ActionsAccessoryView.swift in Sources */,
@@ -1843,6 +1906,9 @@
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				0A996BBD23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift in Sources */,
 				0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */,
+				A3D65599246D80EB00292F10 /* PageBlocksViews+IconEmoji.swift in Sources */,
+				0A6B012823F5943B002345D1 /* TextView+UIKitTextView+Coordinator.swift in Sources */,
+				0ACA780B23E5C96700442690 /* TextView+BlocksToolbar.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				0327B0B8232BBAD9007DB8A7 /* TestDocumentService.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */,

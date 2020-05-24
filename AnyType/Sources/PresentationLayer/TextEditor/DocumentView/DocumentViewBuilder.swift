@@ -51,6 +51,14 @@ extension DocumentViewBuilder {
             }.eraseToAnyPublisher()
         }
         
+        private static func detailsActionPublisher(viewModel: DocumentViewModel) -> AnyPublisher<BlocksViews.UserAction, Never> {
+            viewModel.$pageDetailsViewModels.map({$0.values.compactMap({$0 as? BlocksViews.Base.ViewModel})})
+            .flatMap {
+                Publishers.MergeMany($0.map{$0.userActionPublisher})
+            }.eraseToAnyPublisher()
+                                    
+        }
+        
         static func documentView(by request: Request) -> DocumentViewController {
             if request.useUIKit {
                 let viewModel: DocumentViewModel = .init(documentId: request.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
@@ -59,9 +67,12 @@ extension DocumentViewBuilder {
                 
                 /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
                 let userActionPublisher = self.userActionPublisher(viewModel: viewModel)
-                
+                let detailActionPublisher = self.detailsActionPublisher(viewModel: viewModel)
+            
+                let mergedActionPublisher = Publishers.Merge(userActionPublisher, detailActionPublisher).eraseToAnyPublisher()
+    
                 let router: DocumentViewRouting.CompoundRouter = .init()
-                _ = router.configured(userActionsStream: userActionPublisher)
+                _ = router.configured(userActionsStream: mergedActionPublisher)
                 
                 /// Subscribe `view controller` on events from `router`.
                 view.subscribeOnRouting(router)

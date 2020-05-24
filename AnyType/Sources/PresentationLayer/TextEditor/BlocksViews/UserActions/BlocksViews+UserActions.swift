@@ -32,6 +32,7 @@ extension BlocksViews.UserAction {
     enum SpecificAction {
         case tool(ToolsBlocksViews.UserAction)
         case file(FileBlocksViews.UserAction)
+        case page(PageBlocksViews.UserAction)
     }
 }
 

@@ -29,6 +29,13 @@ extension BlockModels.Block.Information {
             }
             return nil
         }
+        
+        var iconEmoji: Details.Emoji? {
+            if case let .iconEmoji(emoji) = details[Details.Emoji.id] {
+                return emoji
+            }
+            return nil
+        }
 
         // MARK: - ToList
         func toList() -> [Details] {
@@ -67,7 +74,7 @@ extension BlockModels.Block.Information {
 
     enum Details {
         case title(Title)
-        case icon
+        case iconEmoji(Emoji)
         
         /// This function returns an id for a `case`.
         /// This key we use for middleware details keys and also we use it to store our details in `[String : Details]` above in PageDetails.
@@ -77,6 +84,7 @@ extension BlockModels.Block.Information {
         func id() -> String {
             switch self {
             case .title: return Title.id
+            case .iconEmoji: return Emoji.id
             default:
                 let logger = Logging.createLogger(category: .pageDetails)
                 os_log(.debug, log: logger, "Don't forget to implement other details.")
@@ -90,7 +98,7 @@ extension BlockModels.Block.Information {
         func kind() -> Kind {
             switch self {
             case .title: return .title
-            case .icon: return .icon
+            case .iconEmoji: return .iconEmoji
             }
         }
     }
@@ -102,7 +110,7 @@ extension BlockModels.Block.Information.Details {
     /// Actually, we could done this in the same way as EnvironemntKey and EnvironmentValues.
     enum Kind {
         case title
-        case icon
+        case iconEmoji
     }
 }
 
@@ -137,4 +145,18 @@ extension BlockModels.Block.Information.Details {
 // MARK: Details / Title / Key
 extension BlockModels.Block.Information.Details.Title: DetailsEntryIdentifiable {
     static var id: String = "name"
+}
+
+// MARK: Details / IconEmoji
+extension BlockModels.Block.Information.Details {
+    
+    struct Emoji {
+        private(set) var text: String = ""
+        private(set) var id: String = Self.id
+    }
+}
+
+// MARK: Details / IconEmoji / Key
+extension BlockModels.Block.Information.Details.Emoji: DetailsEntryIdentifiable {
+    static var id: String = "iconEmoji"
 }

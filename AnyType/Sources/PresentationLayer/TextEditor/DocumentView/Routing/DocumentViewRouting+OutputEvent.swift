@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 extension DocumentViewRouting {
     /// Segue, yes, kind of.
+    /// For now we can pass controllers without additional dismissal actions and they will be dismissed by theirselves
     enum OutputEvent {
         case showViewController(UIViewController)
         case pushViewController(UIViewController)

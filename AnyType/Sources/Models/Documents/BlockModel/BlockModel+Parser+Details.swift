@@ -45,7 +45,7 @@ extension BlockModels.Parser.Details {
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             switch model {
             case let .title(title): return Model.Title.Converter.asMiddleware(model: title)
-            case .icon: return nil
+            case let .iconEmoji(emoji): return Model.Emoji.Converter.asMiddleware(model: emoji)
             }
         }
 
@@ -53,6 +53,7 @@ extension BlockModels.Parser.Details {
         static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
             switch detail.key {
             case Model.Title.id: return Model.Title.Converter.asModel(detail: detail).flatMap(Model.title)
+            case Model.Emoji.id: return Model.Emoji.Converter.asModel(detail: detail).flatMap(Model.iconEmoji)
             default:
                 let logger = Logging.createLogger(category: .blockModelParserDetails)
                 os_log(.debug, log: logger, "Add converters for this type: (%@) ", detail.key)
@@ -93,4 +94,32 @@ private extension BlockModels.Block.Information.Details.Title {
     }
 }
 
+// MARK: Details / Emoji / Converter
+private extension BlockModels.Block.Information.Details.Emoji {
+    enum Converter: BlockModelsParserDetailsConverterProtocol {
+        typealias Model = BlockModels.Block.Information.Details.Emoji
+        static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
+            .init(key: model.key(), value: model.value())
+        }
+        static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
+            guard detail.key == Model.id else {
+                let logger = Logging.createLogger(category: .blockModelParserDetails)
+                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                return nil
+            }
+            switch detail.value.kind {
+                case let .stringValue(string): return .init(text: string)
+                default:
+                    let logger = Logging.createLogger(category: .blockModelParserDetails)
+                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    return nil
+            }
+        }
+    }
+}
 
+// MARK: Details / Emoji / Accessors
+private extension BlockModels.Block.Information.Details.Emoji {
+    func key() -> String { id }
+    func value() -> Google_Protobuf_Value { .init(stringValue: text) }
+}

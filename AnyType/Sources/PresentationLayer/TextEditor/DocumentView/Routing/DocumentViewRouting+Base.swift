@@ -50,6 +50,7 @@ enum DocumentViewRouting {
             self.userActionsStreamSubscription = userActionsStream.sink { [weak self] (value) in
                 self?.receive(action: value)
             }
+            
             return self
         }
     }
@@ -147,6 +148,7 @@ extension DocumentViewRouting {
                 switch value {
                 case .tool: return self.router(of: ToolsBlocksViewsRouter.self)
                 case .file: return self.router(of: FileBlocksViewsRouter.self)
+                case .page: return  self.router(of: PageBlocksViewsRouter.self)
                 default: return nil
                 }
             case .toolbars: return self.router(of: ToolbarsRouter.self)
@@ -155,7 +157,7 @@ extension DocumentViewRouting {
         }
 
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [ToolsBlocksViewsRouter(), FileBlocksViewsRouter(), ToolbarsRouter()]
+            [ToolsBlocksViewsRouter(), FileBlocksViewsRouter(), ToolbarsRouter(), PageBlocksViewsRouter()]
         }
     }
 }

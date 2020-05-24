@@ -71,7 +71,7 @@ extension DocumentViewController {
             stackView.alignment = .fill
             stackView.isLayoutMarginsRelativeArrangement = true
             stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.directionalLayoutMargins = self.layout.directionalEdgeInstets
+            stackView.directionalLayoutMargins = self.layout.backButtonEdgeInsets
 
             return stackView
         }()
@@ -84,7 +84,7 @@ extension DocumentViewController {
             stackView.alignment = .fill
             stackView.isLayoutMarginsRelativeArrangement = true
             stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.directionalLayoutMargins = self.layout.directionalEdgeInstets
+            stackView.directionalLayoutMargins = self.layout.directionalEdgeInsets
             
             return stackView
         }()
@@ -160,7 +160,8 @@ extension DocumentViewController {
 // MARK: Layout
 private extension DocumentViewController.HeaderView {
     struct Layout {
-        var directionalEdgeInstets: NSDirectionalEdgeInsets = .init(top: 12, leading: 16, bottom: 12, trailing: 16)
+        var directionalEdgeInsets: NSDirectionalEdgeInsets = .init(top: 12, leading: 20, bottom: 12, trailing: 20)
+        var backButtonEdgeInsets: NSDirectionalEdgeInsets = .init(top: 12, leading: 0, bottom: 12, trailing: 0)
     }
 }
 

@@ -17,7 +17,7 @@ import SwiftUI
 ///
 enum PageBlocksViews {
     enum Title {}
-    enum Icon {}
+    enum IconEmoji {}
 }
 
 extension PageBlocksViews {
