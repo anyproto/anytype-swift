@@ -18,6 +18,7 @@ extension TextView.UIKitTextView {
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
         typealias ActionsToolbarAccessoryView = TextView.ActionsToolbar.AccessoryView
+        typealias MarksToolbarInputView = TextView.MarksPane.Main.ViewModelHolder
 
         // MARK: Variables
         @Published var text: String? = nil
@@ -30,6 +31,9 @@ extension TextView.UIKitTextView {
         
         /// TextStorage Subscription
         private var textStorageSubscription: AnyCancellable?
+        
+        /// ContextualMenu Subscription
+        private var contextualMenuSubscription: AnyCancellable?
         
         /// HighlightedAccessoryView
         private lazy var highlightedAccessoryView: HighlightedAccessoryView = .init()
@@ -47,6 +51,14 @@ extension TextView.UIKitTextView {
         private lazy var actionsToolbarAccessoryView: ActionsToolbarAccessoryView = .init()
         private var actionsToolbarAccessoryViewHandler: AnyCancellable?
         private var actionsToolbarUserActionsHandler: AnyCancellable?
+        
+        /// MarksInputView
+        private lazy var marksToolbarInputView: MarksToolbarInputView = .init()
+        private var marksToolbarHandler: AnyCancellable? // Hm... we need what?
+        /// We need handler which connects contextual menu action and will handle "changing" of value in marksToolbar and also trigger it appearance.
+        /// Also, we need handler which connects marks processing.
+        /// And also, we need a handler which updates current state of marks ( like updateHighlightingMenu )
+        
         
         private var keyboardObserverHandler: AnyCancellable?
         private var defaultKeyboardRect: CGRect = .zero
@@ -242,7 +254,92 @@ extension TextView.UIKitTextView.Coordinator {
             }
         }
     }
+    
+    func configureMarksPanePublisher(_ view: UITextView) {
+        func emptyMark(from attribute: TextView.MarksPane.Main.Panes.StylePane.Action) -> TextView.MarkStyle {
+            switch attribute {
+            case .bold: return .bold(false)
+            case .italic: return .italic(false)
+            case .strikethrough: return .strikethrough(false)
+            case .keyboard: return .keyboard(false)
+            }
+        }
+        
+        self.marksToolbarHandler = Publishers.CombineLatest(Just(view), self.marksToolbarInputView.viewModel.userAction).sink { [weak self] (value) in
+            let (textView, action) = value
+            let attributedText = textView.textStorage
+            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
+            
+            let logger = Logging.createLogger(category: .textView)
+            os_log(.debug, log: logger, "MarksPane action %@", "\(action)")
+            
+            switch action {
+            case let .style(range, attribute):
+                guard range.length > 0 else { return }
+                let style = emptyMark(from: attribute)
+                if let style = modifier.getMarkStyle(style: style, at: .range(range)) {
+                    _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
+                }
+                self?.updateMarksInputView((range, attributedText))
+                
+            case let .textColor(range, attribute):
+                guard range.length > 0 else { return }
+                
+                switch attribute {
+                case let .setColor(color):
+                    _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .range(range))
+                    self?.updateMarksInputView((range, attributedText))
+                }
+                
+            case let .backgroundColor(range, attribute):
+                guard range.length > 0 else { return }
+                
+                switch attribute {
+                case let .setColor(color):
+                    _ = modifier.applyStyle(style: .backgroundColor(color), rangeOrWholeString: .range(range))
+                    self?.updateMarksInputView((range, attributedText))
+                }
+            }
+        }
+    }
+}
 
+// MARK: ContextualMenuHandling
+extension TextView.UIKitTextView.Coordinator {
+    // TODO: Put textView into it.
+    func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<TextView.UIKitTextView.ContextualMenu.Action, Never>) -> Self {
+        self.contextualMenuSubscription = Publishers.CombineLatest(Just(view), contextualMenuStream).sink { [weak self] (tuple) in
+            let (view, action) = tuple
+            let range = view.selectedRange
+            let attributedText = view.textStorage
+            self?.updateMarksInputView((range, attributedText, action))
+            self?.switchInputs(view)
+        }
+        return self
+    }
+}
+
+// MARK: Marks Input View handling
+extension TextView.UIKitTextView.Coordinator {
+    private enum ActionToCategoryConverter {
+        typealias ContextualMenuAction = TextView.UIKitTextView.ContextualMenu.Action
+        typealias Category = TextView.MarksPane.Main.Section.Category
+        static func asCategory(_ action: ContextualMenuAction) -> Category {
+            switch action {
+            case .style: return .style
+            case .color: return .textColor
+            case .background: return .backgroundColor
+            }
+        }
+    }
+    func updateMarksInputView(_ tuple: (NSRange, NSTextStorage)) {
+        let (range, storage) = tuple
+        self.marksToolbarInputView.viewModel.update(range: range, attributedText: storage)
+    }
+    func updateMarksInputView(_ triple: (NSRange, NSTextStorage, TextView.UIKitTextView.ContextualMenu.Action)) {
+        self.updateMarksInputView((triple.0, triple.1))
+        self.marksToolbarInputView.viewModel.update(category: ActionToCategoryConverter.asCategory(triple.2))
+    }
 }
 
 // MARK: Highlighted Accessory view handling
@@ -253,56 +350,186 @@ extension TextView.UIKitTextView.Coordinator {
     }
 }
 
-// MARK: InnerTextView.Coordinator / UITextViewDelegate
-extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
-    // MARK: Input Switching
-    func switchInputs(_ textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
-        if let currentView = textView.inputView, let nextView = inputView, type(of: currentView) == type(of: nextView) {
-            textView.inputView = nil
-            textView.reloadInputViews()
-            return
+// MARK: Input Switcher
+private extension TextView.UIKitTextView.Coordinator {
+    class InputSwitcher {
+        struct Triplet {
+            var shouldAnimate: Bool
+            var accessoryView: UIView?
+            var inputView: UIView?
         }
-        else {
-            inputView?.frame = .init(x: 0, y: 0, width: self.defaultKeyboardRect.size.width, height: self.defaultKeyboardRect.size.height)
-            textView.inputView = inputView
-            textView.reloadInputViews()
+        typealias Coordinator = TextView.UIKitTextView.Coordinator
+        
+        /// Switch inputs based on textView, accessoryView and inputView.
+        /// Do not override this method until you rewrite everything on top of one input view and one accessory view.
+        ///
+        /// - Parameters:
+        ///   - inputViewKeyboardSize: Size of keyboard input view. ( actually, default keyboard size ).
+        ///   - textView: textView which would reload input views.
+        ///   - accessoryView: accessory view which will be taken in account in switching
+        ///   - inputView: input view which will be taken in account in switching
+        class func switchInputs(_ inputViewKeyboardSize: CGSize, textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
+            if let currentView = textView.inputView, let nextView = inputView, type(of: currentView) == type(of: nextView) {
+                textView.inputView = nil
+                textView.reloadInputViews()
+                return
+            }
+            else {
+                let size = inputViewKeyboardSize
+                inputView?.frame = .init(x: 0, y: 0, width: size.width, height: size.height)
+                textView.inputView = inputView
+                textView.reloadInputViews()
+            }
+            
+            if let accessoryView = accessoryView {
+                textView.inputAccessoryView = accessoryView
+                textView.reloadInputViews()
+            }
         }
         
-        if let accessoryView = accessoryView {
-            textView.inputAccessoryView = accessoryView
-            textView.reloadInputViews()
+        // MARK: Subclassing
+        /// Choose which keyboard you need to show.
+        /// - Parameters:
+        ///   - coordinator: current coordinator
+        ///   - textView: current text view
+        ///   - selectionLength: length of selection
+        ///   - accessoryView: current accessory view.
+        ///   - inputView: current input view.
+        /// - Returns: A triplet of flag, accessory view and input view. Flag equal `shouldAnimate` and indicates if we need animation in switching.
+        class func variantsFromState(_ coordinator: Coordinator, textView: UITextView, selectionLength: Int, accessoryView: UIView?, inputView: UIView?) -> Triplet {
+            .init(shouldAnimate: false, accessoryView: nil, inputView: nil)
         }
+        
+        /// Actually, switch input views.
+        /// - Parameters:
+        ///   - coordinator: Coordinator which will provide data to correct views.
+        ///   - textView: textView which will handle input views.
+        class func switchInputs(_ coordinator: Coordinator, textView: UITextView) {
+            let triplet = self.variantsFromState(coordinator, textView: textView, selectionLength: textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView)
+            
+            let (shouldAnimate, accessoryView, inputView) = (triplet.shouldAnimate, triplet.accessoryView, triplet.inputView)
+            
+            if shouldAnimate {
+                textView.inputAccessoryView = accessoryView
+                textView.inputView = inputView
+                textView.reloadInputViews()
+            }
+            
+            self.didSwitchViews(coordinator, textView: textView)
+        }
+        
+        /// When we switch views, we could prepare our views.
+        /// - Parameters:
+        ///   - coordinator: current coordinator
+        ///   - textView: text view that switch views.
+        class func didSwitchViews(_ coordinator: Coordinator, textView: UITextView) {}
+    }
+    
+    // MARK: Old switcher
+    class BlocksAndHighlightingInputSwitcher: InputSwitcher {
+        override class func variantsFromState(_ coordinator: Coordinator, textView: UITextView, selectionLength: Int, accessoryView: UIView?, inputView: UIView?) -> Triplet {
+            switch (selectionLength, accessoryView, inputView) {
+            // Length == 0, => set blocks toolbar and restore default keyboard.
+            case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.blocksAccessoryView, inputView: nil)
+            // Length != 0 and is BlockToolbarAccessoryView => set highlighted accessory view and restore default keyboard.
+            case (_, is Coordinator.BlockToolbarAccesoryView, _): return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+            // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
+            case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+            // Otherwise, we need to keep accessory view and keyboard.
+            default: return .init(shouldAnimate: false, accessoryView: accessoryView, inputView: inputView)
+            }
+        }
+        override class func didSwitchViews(_ coordinator: TextView.UIKitTextView.Coordinator.InputSwitcher.Coordinator, textView: UITextView) {
+            if (textView.inputAccessoryView is Coordinator.HighlightedAccessoryView) {
+                let range = textView.selectedRange
+                let attributedText = textView.textStorage
+                coordinator.updateHighlightedAccessoryView((range, attributedText))
+            }
+        }
+    }
+    
+    // MARK: Actions and Highlighting switcher
+    class ActionsAndHighlightingInputSwitcher: BlocksAndHighlightingInputSwitcher {
+        override class func variantsFromState(_ coordinator: Coordinator, textView: UITextView, selectionLength: Int, accessoryView: UIView?, inputView: UIView?) -> Triplet {
+            switch (selectionLength, accessoryView, inputView) {
+            // Length == 0, => set actions toolbar and restore default keyboard.
+            case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.actionsToolbarAccessoryView, inputView: nil)
+            // Length != 0 and is ActionsToolbarAccessoryView => set highlighted accessory view and restore default keyboard.
+            case (_, is Coordinator.ActionsToolbarAccessoryView, _): return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+            // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
+            case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+            // Otherwise, we need to keep accessory view and keyboard.
+            default: return .init(shouldAnimate: false, accessoryView: accessoryView, inputView: inputView)
+            }
+        }
+    }
+    
+    // MARK: Actions and MarksPane switcher
+    class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
+        override class func switchInputs(_ inputViewKeyboardSize: CGSize, textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
+            if let currentView = textView.inputView, let nextView = inputView, type(of: currentView) == type(of: nextView) {
+                return
+            }
+            else {
+                let size = inputViewKeyboardSize
+                inputView?.frame = .init(x: 0, y: 0, width: size.width, height: size.height)
+                textView.inputView = inputView
+                textView.reloadInputViews()
+            }
+            
+            if let accessoryView = accessoryView {
+                textView.inputAccessoryView = accessoryView
+                textView.reloadInputViews()
+            }
+        }
+
+        override class func variantsFromState(_ coordinator: Coordinator, textView: UITextView, selectionLength: Int, accessoryView: UIView?, inputView: UIView?) -> Triplet {
+            switch (selectionLength, accessoryView, inputView) {
+            // Length == 0, => set actions toolbar and restore default keyboard.
+            case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.actionsToolbarAccessoryView, inputView: nil)
+            // Length != 0 and is ActionsToolbarAccessoryView => set marks pane input view and restore default accessory view (?).
+            case (_, is Coordinator.ActionsToolbarAccessoryView, _): return .init(shouldAnimate: true, accessoryView: nil, inputView: coordinator.marksToolbarInputView.view)
+            // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
+            case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+            // Otherwise, we need to keep accessory view and keyboard.
+            default: return .init(shouldAnimate: false, accessoryView: accessoryView, inputView: inputView)
+            }
+        }
+        override class func didSwitchViews(_ coordinator: TextView.UIKitTextView.Coordinator.InputSwitcher.Coordinator, textView: UITextView) {
+            if (textView.inputView == coordinator.marksToolbarInputView.view) {
+                let range = textView.selectedRange
+                let attributedText = textView.textStorage
+                coordinator.updateMarksInputView((range, attributedText))
+            }
+        }
+        
+        override class func switchInputs(_ coordinator: TextView.UIKitTextView.Coordinator.InputSwitcher.Coordinator, textView: UITextView) {
+            let triplet = self.variantsFromState(coordinator, textView: textView, selectionLength: textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView)
+            
+            let (_, accessoryView, inputView) = (triplet.shouldAnimate, triplet.accessoryView, triplet.inputView)
+            
+            self.switchInputs(coordinator.defaultKeyboardRect.size, textView: textView, accessoryView: accessoryView, inputView: inputView)
+            
+            self.didSwitchViews(coordinator, textView: textView)
+
+        }
+    }
+}
+
+// MARK: Input Switching
+extension TextView.UIKitTextView.Coordinator {
+    private typealias Switcher = ActionsAndMarksPaneInputSwitcher
+    func switchInputs(_ textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
+        Switcher.switchInputs(self.defaultKeyboardRect.size, textView: textView, accessoryView: accessoryView, inputView: inputView)
     }
     
     func switchInputs(_ textView: UITextView) {
-        func switchInputs(_ length: Int, accessoryView: UIView?, inputView: UIView?) -> (Bool, UIView?, UIView?) {
-            switch (length, accessoryView, inputView) {
-            // Length == 0, => set blocks toolbar and restore default keyboard.
-            case (0, _, _): return (true, self.actionsToolbarAccessoryView, nil)
-            // Length != 0 and is BlockToolbarAccessoryView => set highlighted accessory view and restore default keyboard.
-            case (_, is ActionsToolbarAccessoryView, _): return (true, self.highlightedAccessoryView, nil)
-            // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
-            case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return (true, self.highlightedAccessoryView, nil)
-            // Otherwise, we need to keep accessory view and keyboard.
-            default: return (false, accessoryView, inputView)
-            }
-        }
-                
-        let (shouldAnimate, accessoryView, inputView) = switchInputs(textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView)
-        
-        if shouldAnimate {
-            textView.inputAccessoryView = accessoryView
-            textView.inputView = inputView
-            textView.reloadInputViews()
-        }
-        
-        if (textView.inputAccessoryView is HighlightedAccessoryView) {
-            let range = textView.selectedRange
-            let attributedText = textView.textStorage
-            self.updateHighlightedAccessoryView((range, attributedText))
-        }
+        Switcher.switchInputs(self, textView: textView)
     }
-    
+}
+
+// MARK: InnerTextView.Coordinator / UITextViewDelegate
+extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
     // MARK: - UITextViewDelegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         self.publishToOuterWorld(TextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))

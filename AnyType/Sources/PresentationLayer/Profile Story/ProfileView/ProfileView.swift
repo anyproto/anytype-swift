@@ -168,7 +168,7 @@ struct ProfileView_Previews : PreviewProvider {
     private struct AuthService: AuthServiceProtocol {
         func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {}
         func logout(completion: @escaping () -> Void) {}
-        func createAccount(profile: AuthModels.CreateAccount.Request, onCompletion: @escaping OnCompletion) {}
+        func createAccount(profile: AuthModels.CreateAccount.Request, alphaInviteCode: String, onCompletion: @escaping OnCompletion) {}
         func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {}
         func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {}
         func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {}

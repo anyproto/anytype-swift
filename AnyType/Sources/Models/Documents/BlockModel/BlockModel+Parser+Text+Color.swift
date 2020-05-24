@@ -60,7 +60,7 @@ extension BlockModels.Parser.Text.Color {
                 case .magenta: return "magenta"
                 case .purple: return "purple"
                 case .ultramarine: return "ultramarine"
-                case .lightBlue: return "lightBlue"
+                case .lightBlue: return "ice"
                 case .teal: return "teal"
                 case .green: return "green"
                 }

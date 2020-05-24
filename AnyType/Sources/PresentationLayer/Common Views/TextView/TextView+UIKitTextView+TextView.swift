@@ -11,6 +11,29 @@ import UIKit
 import Combine
 
 extension TextView.UIKitTextView {
+    enum ContextualMenu {}
+}
+
+extension TextView.UIKitTextView.ContextualMenu {
+    enum Action {
+        case style
+        case color
+        case background
+    }
+    enum Resources {
+        enum Title {
+            static func title(for action: Action) -> String {
+                switch action {
+                case .style: return "Style"
+                case .color: return "Color"
+                case .background: return "Background"
+                }
+            }
+        }
+    }
+}
+
+extension TextView.UIKitTextView {
     class TextViewWithPlaceholder: UITextView {
         
         // MARK: Publishers
@@ -20,6 +43,7 @@ extension TextView.UIKitTextView {
         }
         
         var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
+        var contextualMenuSubject: PassthroughSubject<ContextualMenu.Action, Never> = .init()
         
         // MARK: Variables
         private var subscriptions: Set<AnyCancellable> = []
@@ -56,12 +80,13 @@ extension TextView.UIKitTextView {
         }
         
         // MARK: Setup
-        func setup() {
+        private func setup() {
             self.setupUIElements()
             self.updatePlaceholderLayout()
+            self.setupMenu()
         }
         
-        func setupUIElements() {
+        private func setupUIElements() {
             self.textStorage.delegate = self
             if let view = self.placeholderLabel {
                 self.addSubview(view)
@@ -69,7 +94,7 @@ extension TextView.UIKitTextView {
         }
                 
         // MARK: Add Layout
-        func updatePlaceholderLayout() {
+        private func updatePlaceholderLayout() {
             if let view = self.placeholderLabel, let superview = view.superview {
                 let insets = self.textContainerInset
                 let lineFragmentPadding = self.textContainer.lineFragmentPadding
@@ -88,6 +113,37 @@ extension TextView.UIKitTextView {
                 NSLayoutConstraint.activate(self.placeholderConstraints)
             }
         }
+    }
+}
+
+// MARK: Contextual Menu
+extension TextView.UIKitTextView.TextViewWithPlaceholder {
+    private class ContextualMenuItem: UIMenuItem {
+        var payload: TextView.UIKitTextView.ContextualMenu.Action
+        init(title: String, action: Selector, payload: TextView.UIKitTextView.ContextualMenu.Action) {
+            self.payload = payload
+            super.init(title: title, action: action)
+        }
+        convenience init(action: Selector, payload: TextView.UIKitTextView.ContextualMenu.Action) {
+            self.init(title: TextView.UIKitTextView.ContextualMenu.Resources.Title.title(for: payload), action: action, payload: payload)
+        }
+    }
+    @objc private func contextualMenuItemDidSelectedForStyle() {
+        self.contextualMenuSubject.send(.style)
+    }
+    @objc private func contextualMenuItemDidSelectedForColor() {
+        self.contextualMenuSubject.send(.color)
+    }
+    @objc private func contextualMenuItemDidSelectedForBackground() {
+        self.contextualMenuSubject.send(.background)
+    }
+    fileprivate func setupMenu() {
+        let menu = UIMenuController.shared
+        menu.menuItems = [ContextualMenuItem].init([
+            .init(action: #selector(contextualMenuItemDidSelectedForStyle), payload: .style),
+            .init(action: #selector(contextualMenuItemDidSelectedForColor), payload: .color),
+            .init(action: #selector(contextualMenuItemDidSelectedForBackground), payload: .background)
+        ])
     }
 }
 

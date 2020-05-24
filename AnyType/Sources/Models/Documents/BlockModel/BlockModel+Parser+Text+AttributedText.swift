@@ -196,7 +196,7 @@ private extension BlockModels.Parser.Text.AttributedText {
             case .underscored: return .init(attribute: .underscored, value: "")
             // Add color converter.
             case let .textColor(value): return .init(attribute: .textColor, value: ColorConverter.textColor.asMiddleware(value))
-            case let .backgroundColor(value): return .init(attribute: .backgroundColor, value: ColorConverter.textColor.asMiddleware(value))
+            case let .backgroundColor(value): return .init(attribute: .backgroundColor, value: ColorConverter.backgroundColor.asMiddleware(value))
             
             case let .link(value): return .init(attribute: .link, value: URLConverter.asMiddleware(value))
             }
