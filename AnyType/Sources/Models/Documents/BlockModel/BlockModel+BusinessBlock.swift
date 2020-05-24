@@ -16,6 +16,7 @@ protocol MiddlewareBlockInformationModel {
     var content: BlockType {get set}
     var fields: [String: Any] {get set}
     var restrictions: [String] {get set}
+    var backgroundColor: String {get set}
     static func defaultValue() -> Self
     init(id: Id, content: BlockType)
     init(information: MiddlewareBlockInformationModel)
@@ -40,6 +41,10 @@ extension MiddlewareBlockInformationModel {
     }
     mutating func update(restrictions: [String]) -> Self {
         self.restrictions = restrictions
+        return self
+    }
+    mutating func update(backgroundColor: String) -> Self {
+        self.backgroundColor = backgroundColor
         return self
     }
 }

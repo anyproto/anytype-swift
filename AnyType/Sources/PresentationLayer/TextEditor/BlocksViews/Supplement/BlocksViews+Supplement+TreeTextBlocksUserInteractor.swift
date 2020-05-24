@@ -91,9 +91,9 @@ extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
 extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
     func createEmptyBlock(listIsEmpty: Bool) {
         if listIsEmpty {
-            let information: BlockModels.Block.Information = .init(id: "", content: .text(.init(text: "", contentType: .text)))
+            let information: BlockModels.Block.Information = .init(id: "", content: .text(.empty()))
             let newBlock: Model = .init(information: information, true)
-            let afterInformation: BlockModels.Block.Information = .init(id: "", content: .text(.init(text: "", contentType: .text)))
+            let afterInformation: BlockModels.Block.Information = .init(id: "", content: .text(.empty()))
             let afterBlock: Model = .init(information: afterInformation, false)
 
             /// You would like to insert object at first position, but this object don't have siblings. It is the only one child. First child.
@@ -160,7 +160,7 @@ extension BlocksViews.Supplement.TreeTextBlocksUserInteractor: TextBlocksViewsUs
         case .buttonView(.toggle(.insertFirst(_))):
             let firstChildIndex = block.createIndex(for: 0)
             let fullChildIndex = block.getFullIndex() + [firstChildIndex]
-            self.updater.insert(block: .init(information: .init(id: BlockBuilder.newBlockId(), content: .text(.init(text: "", contentType: .text)))), at: fullChildIndex)
+            self.updater.insert(block: .init(information: .init(id: BlockBuilder.newBlockId(), content: .text(.empty()))), at: fullChildIndex)
             return // self.updater.insertChild
 
         /// case When we press toggle button to fold/unfold children.

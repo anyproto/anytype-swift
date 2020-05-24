@@ -120,12 +120,23 @@ extension BlockType {
         var text: String {
             self.attributedText.string
         }
+                
+        /// Color of whole block.
+        /// Actually, a foreground color.
+        ///
+        var color: String = ""
+        
         var contentType: ContentType
         
         // MARK: - Initialization
         internal init(attributedText: NSAttributedString, contentType: ContentType) {
             self.attributedText = attributedText
             self.contentType = contentType
+        }
+        
+        internal init(attributedText: NSAttributedString, contentType: ContentType, color: String) {
+            self.init(attributedText: attributedText, contentType: contentType)
+            self.color = color
         }
         
         /// Deprecated: It is deprecated, however, lets keep it for a while.

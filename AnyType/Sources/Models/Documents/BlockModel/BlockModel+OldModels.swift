@@ -58,6 +58,8 @@ struct Block: Identifiable, BusinessBlock, MiddlewareBlockInformationModel {
     var fields: [String: Any] = .init()
     var restrictions: [String] = []
     
+    var backgroundColor: String = ""
+    
     init(id: String, content: BlockType) {
         self.id = id
         self.content = content

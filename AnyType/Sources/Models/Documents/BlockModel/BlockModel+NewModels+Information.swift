@@ -19,6 +19,9 @@ extension BlockModels.Block {
         var fields: [String: Any] = .init()
         var restrictions: [String] = []
         
+        /// TODO: Add later to Protocol.
+        var backgroundColor: String = ""
+        
         /// TODO: Extract it and refactor later.
         ///
         /// Discussion
@@ -31,6 +34,7 @@ extension BlockModels.Block {
         init(id: String, content: BlockType) {
             self.id = id
             self.content = content
+            self.backgroundColor = ""
         }
         
         init(information: MiddlewareBlockInformationModel) {
@@ -39,6 +43,7 @@ extension BlockModels.Block {
             self.childrenIds = information.childrenIds
             self.fields = information.fields
             self.restrictions = information.restrictions
+            self.backgroundColor = information.backgroundColor
             
             if let concreteInformation = information as? Self {
                 self.details = concreteInformation.details
@@ -66,7 +71,7 @@ extension BlockModels.Block.Information {
             
             /// Actually, we don't care about block type.
             /// We only take care about "distinct" block model.
-            let blockType: BlockType = .text(.init(text: "", contentType: .text))
+            let blockType: BlockType = .text(.empty())
             return .init(id: id, content: blockType)
         }
         
