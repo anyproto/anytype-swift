@@ -389,6 +389,44 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
 
             }).store(in: &self.subscriptions)
         }
+        
+        func duplicate(documentId: String?, block: Model) {
+            let documentID = documentId
+            guard let documentId = documentId else {
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "documentId: %@ is nil? ", "\(String(describing: documentID))")
+                return
+            }
+            
+            let targetId = block.information.id
+            let blockIds: [String] = [targetId]
+            let position: Anytype_Model_Block.Position = .bottom
+            self.service.duplicate.action(contextID: documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.error, log: logger, "blocksActions.service.duplicate got error: %@", "\(error)")
+                }
+            }) { [weak self] (value) in
+                let blockIds = value.blockIds
+                guard !blockIds.isEmpty else {
+                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                    os_log(.error, log: logger, "blocksActions.service.duplicate empty block ids!")
+                    return
+                }
+                // TODO: Add processing for many blocks.
+                // Not reachable for UI for now.
+                
+                let ourNewBlock: Model = .init(information: .init(information: block.information))
+                let id = blockIds[0]
+                ourNewBlock.information.id = id
+                
+                let afterBlock = block
+                
+                self?.updater.insert(block: ourNewBlock, afterBlock: afterBlock.getFullIndex())                
+            }.store(in: &self.subscriptions)
+        }
 
         func delete(documentId: String?, block: Model, completion: @escaping () -> () = { }) {
             // Shit Swift
@@ -598,7 +636,8 @@ private extension BlocksViews.Supplement.TreeTextBlocksUserInteractor {
             }
         case let .editBlock(value):
             switch value {
-            case .delete: self.updater.delete(at: block.getFullIndex())
+            case .delete: self.didReceiveAction(block: block, id: id, action: .keyboardAction(.pressKey(.delete)))
+            case .duplicate: self.service.duplicate(documentId: self.documentId, block: block)
             default: return
             }
         default: return

@@ -41,6 +41,11 @@ protocol BlockActionsServiceProtocolMerge {
     func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Never, Error>
 }
 
+protocol BlockListActionsServiceProtocolDuplicate {
+    associatedtype Success
+    func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error>
+}
+
 protocol BlockEventListener {
     associatedtype Event
     func receive(contextId: String) -> AnyPublisher<Event, Never>
@@ -54,6 +59,7 @@ protocol BlockActionsServiceProtocol {
     associatedtype Replace: BlockActionsServiceProtocolReplace
     associatedtype Delete: BlockActionsServiceProtocolDelete
     associatedtype Merge: BlockActionsServiceProtocolMerge
+    associatedtype Duplicate: BlockListActionsServiceProtocolDuplicate
     associatedtype EventListener: BlockEventListener
     
     var open: Open {get}
@@ -63,18 +69,20 @@ protocol BlockActionsServiceProtocol {
     var replace: Replace {get}
     var delete: Delete {get}
     var merge: Merge {get}
+    var duplicate: Duplicate {get}
     var eventListener: EventListener {get}
 }
 
 class BlockActionsService: BlockActionsServiceProtocol {
     typealias ContextId = String
-    var open: Open = .init()
-    var close: Close = .init()
+    var open: Open = .init() // SmartBlock only for now?
+    var close: Close = .init() // SmartBlock only for now?
     var add: Add = .init()
-    var split: Split = .init()
+    var split: Split = .init() // Remove Split and Merge to TextBlocks only.
     var replace: Replace = .init()
     var delete: Delete = .init()
-    var merge: Merge = .init()
+    var merge: Merge = .init() // Remove Split and Merge to TextBlocks only.
+    var duplicate: Duplicate = .init() // BlockList?
     var eventListener: EventListener = .init()
     
     // MARK: Open / Close
@@ -141,6 +149,18 @@ class BlockActionsService: BlockActionsServiceProtocol {
                 .ignoreOutput()
                 .subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
+        }
+    }
+    
+    // MARK: Duplicate
+    // Actually, should be used for BlockList
+    struct Duplicate: BlockListActionsServiceProtocolDuplicate {
+        struct Success {
+            var blockIds: [String]
+        }
+        func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map({Success.init(blockIds: $0.blockIds)}).subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
         }
     }
 }
