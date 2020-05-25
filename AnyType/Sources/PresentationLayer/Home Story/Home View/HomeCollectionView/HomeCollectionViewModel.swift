@@ -20,7 +20,23 @@ enum HomeCollectionViewCellType: Hashable {
     case document(HomeCollectionViewDocumentCellModel)
 }
 
-class HomeCollectionViewModel: ObservableObject {
+extension HomeCollectionViewModel {
+    struct DashboardPage {
+        var id: String
+        var targetBlockId: String
+        var title: String?
+        func publicTitle() -> String {
+            if self.style?.style == .archive {
+                return "Archive"
+            }
+            return self.title ?? ""
+        }
+        var iconEmoji: String?
+        var style: Anytype_Model_Block.Content.Link?
+    }
+}
+
+class HomeCollectionViewModel: ObservableObject {    
     private let dashboardService: DashboardServiceProtocol = DashboardService()
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private var eventListener: NotificationEventListener<HomeCollectionViewModel>?
@@ -28,11 +44,15 @@ class HomeCollectionViewModel: ObservableObject {
 
     @Published var documentsCell: [HomeCollectionViewCellType] = []
     @Published var error: String = ""
-    var dashboardPages = [Anytype_Model_Block]() {
+    var dashboardPages = [DashboardPage]() {
         didSet {
-            createPagesViewModels(pages: dashboardPages)
+            createViewModels(from: dashboardPages)
         }
     }
+    
+//    func update(pages: Anytype_Model_Block, details: []) {
+//        
+//    }
     // TODO: Revise this later. Just in case, save rootId - used for filtering events from middle for main dashboard
     var rootId: String?
     var view: HomeCollectionViewInput?
@@ -72,6 +92,17 @@ class HomeCollectionViewModel: ObservableObject {
 // MARK: - Private
 extension HomeCollectionViewModel {
     
+    private func createViewModels(from pages: [DashboardPage]) {
+        documentsCell.removeAll()
+        
+        // It is already filtered by type .link
+        let links = pages.map({ value in
+            HomeCollectionViewDocumentCellModel.init(title: value.publicTitle(), emojiImage: value.iconEmoji)
+            }).map(HomeCollectionViewCellType.document)
+        documentsCell.append(contentsOf: links)
+        documentsCell.append(.plus)
+    }
+    
     private func createPagesViewModels(pages: [Anytype_Model_Block]) {
         documentsCell.removeAll()
         
@@ -109,8 +140,9 @@ extension HomeCollectionViewModel {
             let object = dashboardPages[index.row]
             
             // we assume that every page is a link.
-            guard case let .link(value) = object.content else { return }
-            let blockId = value.targetBlockID
+            
+//            guard case let .link(value) = object.content else { return }
+            let blockId = object.targetBlockId
             view?.showPage(with: blockId)            
             break // TODO: open page
             

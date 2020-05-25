@@ -59,9 +59,7 @@ extension ToolsBlocksViews.PageLink {
                         self?.wholeDetailsViewModel.receive(details: value)
                     }.store(in: &self.subscriptions)
                     
-                    self.statePublisher = self.wholeDetailsViewModel.wholeDetailsPublisher.map({
-                        State.init(archived: false, hasContent: false, title: $0.title?.text, emoji: nil)
-                    }).eraseToAnyPublisher()
+                    self.statePublisher = self.wholeDetailsViewModel.wholeDetailsPublisher.map(State.Converter.from).eraseToAnyPublisher()
                     
                     self.statePublisher.sink { [weak self] (value) in
                         self?.state = value
@@ -128,6 +126,20 @@ private extension ToolsBlocksViews.PageLink {
               os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))
                 return
             }
+        }
+    }
+}
+
+// MARK: - Converter PageDetails to State
+extension ToolsBlocksViews.PageLink.State {
+    enum Converter {
+        static func from(_ pageDetails: BlockModels.Block.Information.PageDetails) -> ToolsBlocksViews.PageLink.State {
+            let archived = false
+            let hasContent = false
+            let title = pageDetails.title?.text
+            let emoji = pageDetails.iconEmoji?.text
+            let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
+            return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)
         }
     }
 }

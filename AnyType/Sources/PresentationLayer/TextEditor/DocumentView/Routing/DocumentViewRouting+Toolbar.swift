@@ -42,10 +42,12 @@ extension DocumentViewRouting.ToolbarsRouter {
 
         private func handle(action: BlocksViews.UserAction.ToolbarOpenAction) {
             switch action {
-            case let .turnIntoBlock(subject):
+            case let .turnIntoBlock(payload):
                 let viewModel: BlocksViews.Toolbar.ViewController.ViewModel = .create(.turnIntoBlock)
                 let controller = BlocksViews.Toolbar.ViewController.init(model: viewModel)
 
+                let subject = payload.output
+                
                 /// NOTE: Tough point.
                 /// We have a view model here.
                 /// It could publish action, suppose, it is `.$action` publisher.
@@ -96,9 +98,11 @@ extension DocumentViewRouting.ToolbarsRouter {
                 
         private func handle(action: BlocksViews.UserAction.ToolbarOpenAction) {
             switch action {
-            case let .addBlock(subject):
+            case let .addBlock(payload):
                 let viewModel: BlocksViews.Toolbar.ViewController.ViewModel = .create(.addBlock)
                 let controller = BlocksViews.Toolbar.ViewController.init(model: viewModel)
+                
+                let subject = payload.output
                 
                 /// NOTE: Tough point.
                 /// We have a view model here.

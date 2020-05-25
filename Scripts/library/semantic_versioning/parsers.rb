@@ -8,14 +8,15 @@ end
 
 module SemanticVersioning::Parsers
   class VersionRange
+    include SemanticVersioning::Rules::Operators
     attr_accessor :rule, :version
     def is_allowed?(new_version)
       case rule
-      when SemanticVersioning::Rules::Operators::Greater then new_version > version
-      when SemanticVersioning::Rules::Operators::GreaterOrEqual then new_version >= version
-      when SemanticVersioning::Rules::Operators::Less then new_version < version
-      when SemanticVersioning::Rules::Operators::LessThanOrEqual then new_version <= version
-      when SemanticVersioning::Rules::Operators::Optimistic then (new_version >= version) && (new_version < version.nextBig)
+      when Greater then new_version > version
+      when GreaterOrEqual then new_version >= version
+      when Less then new_version < version
+      when LessThanOrEqual then new_version <= version
+      when Optimistic then (new_version >= version) && (new_version < version.nextBig)
       else
         # Unknown rule
         false

@@ -190,10 +190,10 @@ extension TextBlocksViews {
                     }
                 case let .specific(.text(value)):
                     switch value {
-                    case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(self.toolbarPassthroughSubject)))
+                    case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarPassthroughSubject))))
                     case .style: break
-                    case .color: self.send(userAction: .toolbars(.setTextColor(self.toolbarPassthroughSubject)))
-                    case .backgroundColor: self.send(userAction: .toolbars(.setBackgroundColor(self.toolbarPassthroughSubject)))
+                    case .color: self.send(userAction: .toolbars(.marksPane(.setTextColor(.init(output: self.toolbarPassthroughSubject, input: nil)))))
+                    case .backgroundColor: self.send(userAction: .toolbars(.marksPane(.setBackgroundColor(.init(output: self.toolbarPassthroughSubject, input: nil)))))
                     }
                 default: return
                 }
@@ -384,7 +384,7 @@ extension TextBlocksViews.Base.BlockViewModel: TextViewUserInteractionProtocol {
         switch action {
         case let .addBlockAction(value):
             switch value {
-            case .addBlock: self.send(userAction: .toolbars(.addBlock(self.toolbarPassthroughSubject)))
+            case .addBlock: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarPassthroughSubject))))
             }
         default: self.delegate?.didReceiveAction(block: getRealBlock(), id: getID(), action: action)
         }

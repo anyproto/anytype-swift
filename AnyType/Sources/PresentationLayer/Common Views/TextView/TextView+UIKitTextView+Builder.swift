@@ -60,7 +60,6 @@ extension TextView.UIKitTextView.Builder {
     
     func makeUIView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
         let textView = configuredTextView(textView, coordinator: coordinator)
-        coordinator.configureMarkStylePublisher(textView)
         coordinator.configureActionsToolbarHandler(textView)
         if let smartTextView = textView as? TextView.UIKitTextView.TextViewWithPlaceholder {
             _ = coordinator.configured(textStorageStream: smartTextView.textStorageEventsSubject.eraseToAnyPublisher())

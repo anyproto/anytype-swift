@@ -224,6 +224,7 @@
 		0A9D49E52449F1AD007F0992 /* DocumentViewRouting+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D49E42449F1AD007F0992 /* DocumentViewRouting+Protocols.swift */; };
 		0A9D49E72449F246007F0992 /* DocumentViewRouting+OutputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D49E62449F246007F0992 /* DocumentViewRouting+OutputEvent.swift */; };
 		0A9D49E9244A0F83007F0992 /* DocumentViewRouting+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D49E8244A0F83007F0992 /* DocumentViewRouting+File.swift */; };
+		0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */; };
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
 		0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D023E4481700442690 /* commands+Service.pb.swift */; };
@@ -499,6 +500,7 @@
 		0A9D49E42449F1AD007F0992 /* DocumentViewRouting+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Protocols.swift"; sourceTree = "<group>"; };
 		0A9D49E62449F246007F0992 /* DocumentViewRouting+OutputEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+OutputEvent.swift"; sourceTree = "<group>"; };
 		0A9D49E8244A0F83007F0992 /* DocumentViewRouting+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+File.swift"; sourceTree = "<group>"; };
+		0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+ContextualMenuActions.swift"; sourceTree = "<group>"; };
 		0AAC96642340C229006CE58C /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0ACA77D023E4481700442690 /* commands+Service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Service.pb.swift"; sourceTree = "<group>"; };
@@ -1499,6 +1501,7 @@
 		0ADE618B2448877300244E49 /* UserActions */ = {
 			isa = PBXGroup;
 			children = (
+				0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */,
 				0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */,
 				0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */,
 				0ADE618E24488C5400244E49 /* FileBlocksViews+UserActions.swift */,
@@ -1756,6 +1759,7 @@
 				0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
+				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
@@ -1907,8 +1911,6 @@
 				0A996BBD23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift in Sources */,
 				0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */,
 				A3D65599246D80EB00292F10 /* PageBlocksViews+IconEmoji.swift in Sources */,
-				0A6B012823F5943B002345D1 /* TextView+UIKitTextView+Coordinator.swift in Sources */,
-				0ACA780B23E5C96700442690 /* TextView+BlocksToolbar.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				0327B0B8232BBAD9007DB8A7 /* TestDocumentService.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */,

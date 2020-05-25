@@ -82,7 +82,12 @@ extension DocumentViewController {
     private func process(event: DocumentViewModel.UserEvent) {
         switch event {
         case .pageDetailsViewModelsDidSet:
-            let viewModels = self.viewModel.pageDetailsViewModels.filter({[.iconEmoji, .title].contains($0.key)}).compactMap({$0.value})
+            let viewModels = self.viewModel.pageDetailsViewModels.filter({[.iconEmoji, .title].contains($0.key)})
+                .map({$0})
+                .reordered(by: [.iconEmoji, .title], findInCollection: { (value, collection) in
+                    collection.firstIndex(of: value.key)
+                })
+                .compactMap({$0.value})
             _ = self.headerViewModel.configured(pageDetailsViewModels: viewModels)
         }
     }

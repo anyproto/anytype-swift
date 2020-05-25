@@ -256,15 +256,6 @@ extension TextView.UIKitTextView.Coordinator {
     }
     
     func configureMarksPanePublisher(_ view: UITextView) {
-        func emptyMark(from attribute: TextView.MarksPane.Main.Panes.StylePane.Action) -> TextView.MarkStyle {
-            switch attribute {
-            case .bold: return .bold(false)
-            case .italic: return .italic(false)
-            case .strikethrough: return .strikethrough(false)
-            case .keyboard: return .keyboard(false)
-            }
-        }
-        
         self.marksToolbarHandler = Publishers.CombineLatest(Just(view), self.marksToolbarInputView.viewModel.userAction).sink { [weak self] (value) in
             let (textView, action) = value
             let attributedText = textView.textStorage
@@ -276,8 +267,8 @@ extension TextView.UIKitTextView.Coordinator {
             switch action {
             case let .style(range, attribute):
                 guard range.length > 0 else { return }
-                let style = emptyMark(from: attribute)
-                if let style = modifier.getMarkStyle(style: style, at: .range(range)) {
+                let theMark = AttributesToMarkStyleConverter.emptyMark(from: attribute)
+                if let style = modifier.getMarkStyle(style: theMark, at: .range(range)) {
                     _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
                 }
                 self?.updateMarksInputView((range, attributedText))
@@ -303,6 +294,21 @@ extension TextView.UIKitTextView.Coordinator {
         }
     }
 }
+
+// MARK: Attributes and MarkStyles Converter (Move it to MarksPane)
+extension TextView.UIKitTextView.Coordinator {
+    enum AttributesToMarkStyleConverter {
+        static func emptyMark(from attribute: TextView.MarksPane.Main.Panes.StylePane.Action) -> TextView.MarkStyle {
+            switch attribute {
+            case .bold: return .bold(false)
+            case .italic: return .italic(false)
+            case .strikethrough: return .strikethrough(false)
+            case .keyboard: return .keyboard(false)
+            }
+        }
+    }
+}
+
 
 // MARK: ContextualMenuHandling
 extension TextView.UIKitTextView.Coordinator {
