@@ -40,31 +40,48 @@ extension HomeCollectionViewModel {
     private func parser() -> BlockModels.Parser {
         .init()
     }
+    private func update(page: DashboardPage?, details: Anytype_Event.Block.Set.Details?) -> DashboardPage? {
+        guard let page = page else { return nil }
+        
+        var title: String? = nil
+        var iconEmoji: String? = nil
+        if let details = details {
+            let convertedDetails = BlockModels.Parser.PublicConverters.EventsDetails.convert(event: details)
+            let correctedDetails = BlockModels.Parser.Details.Converter.asModel(details: convertedDetails)
+            let ourDetails = BlockModels.Block.Information.PageDetails.init(correctedDetails)
+            title = ourDetails.title?.text
+            iconEmoji = ourDetails.iconEmoji?.text
+        }
+        
+        return .init(id: page.id, targetBlockId: page.targetBlockId, title: title, iconEmoji: iconEmoji, style: page.style)
+    }
     private func convert(page: Anytype_Model_Block?, details: Anytype_Event.Block.Set.Details?) -> DashboardPage? {
-        guard let page = page, case let .link(value) = page.content, let details = details else {
+        guard let page = page, case let .link(value) = page.content else {
             return nil
         }
-        let convertedDetails = BlockModels.Parser.PublicConverters.EventsDetails.convert(event: details)
-        let correctedDetails = BlockModels.Parser.Details.Converter.asModel(details: convertedDetails)
-        let ourDetails = BlockModels.Block.Information.PageDetails.init(correctedDetails)
-        return .init(id: page.id, targetBlockId: value.targetBlockID, title: ourDetails.title?.text, iconEmoji: ourDetails.iconEmoji?.text, style: value)
+        var title: String? = nil
+        var iconEmoji: String? = nil
+        if let details = details {
+            let convertedDetails = BlockModels.Parser.PublicConverters.EventsDetails.convert(event: details)
+            let correctedDetails = BlockModels.Parser.Details.Converter.asModel(details: convertedDetails)
+            let ourDetails = BlockModels.Block.Information.PageDetails.init(correctedDetails)
+            title = ourDetails.title?.text
+            iconEmoji = ourDetails.iconEmoji?.text
+        }
+        return .init(id: page.id, targetBlockId: value.targetBlockID, title: title, iconEmoji: iconEmoji, style: value)
     }
     private func convert(pages: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details]) -> [DashboardPage] {
-        let dictionary: [String: Anytype_Model_Block] = .init(uniqueKeysWithValues: pages.map({ value in
+        let dictionary: [String: DashboardPage?] = .init(uniqueKeysWithValues: pages.map({ value in
             switch value.content {
-            case let .link(link): return (link.targetBlockID, value)
-            default: return (value.id, value)
+            case let .link(link): return (link.targetBlockID, self.convert(page: value, details: nil))
+            default: return (value.id, self.convert(page: value, details: nil))
             }
         }))
-        let result = details.reduce([DashboardPage]()) { (result, value) in
-            let structure = dictionary[value.id]
-            var result = result
-            if let page = self.convert(page: structure, details: value) {
-                result.append(page)
-            }
-            return result
+        var newDictionary = dictionary.compactMapValues({$0})
+        details.forEach { (value) in
+            newDictionary[value.id] = self.update(page: newDictionary[value.id], details: value)
         }
-        return result
+        return newDictionary.compactMap({$0.value})
     }
     
     // MARK: - Page processing

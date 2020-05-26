@@ -118,6 +118,11 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     // put into protocol?
     // var userActionsPublisher: AnyPublisher<UserAction>
     
+    // MARK: Deinitialization
+    deinit {
+        self.close()
+    }
+    
     // MARK: Initialization
     init(documentId: String?, options: Options) {
         // TODO: Add failable init.
@@ -149,10 +154,11 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         }.store(in: &self.subscriptions)
 
         // We are waiting for value "true" to send `.blockClose()` with parameters "contextID: documentId, blockID: documentId"
-        self.shouldClosePagePublisher.drop(while: {$0 == false}).flatMap { [weak self] (value) in
-            self?.blockActionsService.close.action(contextID: documentId, blockID: documentId) ?? .empty()
-        }.sink(receiveCompletion: { [weak self] (value) in
+        self.shouldClosePagePublisher.drop(while: {$0 == false}).flatMap { [weak self] (value) -> AnyPublisher<Never, Error> in
             self?.cleanupSubscriptions()
+            return BlockActionsService.Close().action(contextID: documentId, blockID: documentId).eraseToAnyPublisher()
+        }.sink(receiveCompletion: { [weak self] (value) in
+//            self?.cleanupSubscriptions()
         }, receiveValue: {_ in }).store(in: &self.subscriptions)
 
         self.obtainDocument(documentId: documentId)
@@ -268,7 +274,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
 private extension DocumentViewModel {
     func find(by blockId: String) -> BlocksViews.Base.ViewModel? {
         self.buildersRows.first { (row) in
-            row.builder.blockId == blockId
+            row.builder?.blockId == blockId
         }.map(\.builder).flatMap{$0 as? BlocksViews.Base.ViewModel}
     }
 }
@@ -422,7 +428,7 @@ extension DocumentViewModel: TableViewModelProtocol {
     }
     
     struct Row {
-        var builder: BlockViewBuilderProtocol
+        weak var builder: BlockViewBuilderProtocol?
         var indentationLevel: UInt {
 //            return 0
             (builder as? BlocksViews.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
@@ -438,12 +444,12 @@ extension DocumentViewModel.Row: Hashable, Equatable {
     
     static func == (lhs: DocumentViewModel.Row, rhs: DocumentViewModel.Row) -> Bool {
 //        lhs.builder.id == rhs.builder.id
-        lhs.builder.blockId == rhs.builder.blockId
+        lhs.builder?.blockId == rhs.builder?.blockId
     }
     
     func hash(into hasher: inout Hasher) {
 //        hasher.combine(self.builder.id)
-        hasher.combine(self.builder.blockId)
+        hasher.combine(self.builder?.blockId)
     }
 }
 

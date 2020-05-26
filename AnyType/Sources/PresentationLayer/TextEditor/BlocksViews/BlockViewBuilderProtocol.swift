@@ -9,7 +9,7 @@
 import SwiftUI
 
 /// Define builder for block view in the block's view list
-protocol BlockViewBuilderProtocol {
+protocol BlockViewBuilderProtocol: class {
     typealias Model = BlockModels.Block.RealBlock
     typealias IndexID = BusinessBlock.Index
     typealias BlockID = MiddlewareBlockInformationModel.Id

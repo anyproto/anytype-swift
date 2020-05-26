@@ -202,7 +202,7 @@ extension TextView.MarksPane.Panes.Color {
         fileprivate var userResponsePublisher: AnyPublisher<IndexPath?, Never> = .empty()
         
         /// To OuterWorld, Public
-        var userAction: PassthroughSubject<Action, Never> = .init()
+        var userAction: AnyPublisher<Action, Never> = .empty()
         
         /// From Colors ViewModels
         @Published fileprivate var indexPath: IndexPath?
@@ -212,9 +212,10 @@ extension TextView.MarksPane.Panes.Color {
         // MARK: Subscriptions
         private func setupSubscriptions(background: Bool) {
             // To OuterWorld
+            self.userAction =
             self.$indexPath.safelyUnwrapOptionals().map { [weak self] (value) in
                 self.flatMap({ListDataSource.color(at: value).color(background: $0.background)})
-            }.safelyUnwrapOptionals().map(Action.setColor).subscribe(self.userAction).store(in: &self.subscriptions)
+            }.safelyUnwrapOptionals().map(Action.setColor).eraseToAnyPublisher()
             
             // From OuterWorld
             /// Actually, we have to do the following:

@@ -210,7 +210,7 @@ private extension PageBlocksViews.IconEmoji {
         
         var addIconButton: UIButton!
     
-        var viewModel: BlockViewModel? {
+        weak var viewModel: BlockViewModel? {
             didSet {
                 self.viewModel?.$toViewEmoji.receive(on: RunLoop.main).sink(receiveValue: { (value) in
                     self.text = value

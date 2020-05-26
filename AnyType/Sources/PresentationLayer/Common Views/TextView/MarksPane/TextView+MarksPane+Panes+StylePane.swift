@@ -221,7 +221,7 @@ extension TextView.MarksPane.Panes.StylePane {
         @Published fileprivate var userResponse: UserResponse = []
 
         /// To OuterWorld, Public
-        var userAction: PassthroughSubject<Action, Never> = .init()
+        var userAction: AnyPublisher<Action, Never> = .empty()
 
         /// From Cells ViewModels
         @Published var indexPath: IndexPath?
@@ -232,10 +232,8 @@ extension TextView.MarksPane.Panes.StylePane {
         // MARK: Subscriptions
         func setupSubscriptions() {
             /// To OuterWorld
-            self.$indexPath.safelyUnwrapOptionals()
-                .map(ListDataSource.attribute(at:))
-                .map(Action.from(attribute:))
-                .subscribe(self.userAction).store(in: &self.subscriptions)
+            self.userAction = self.$indexPath.safelyUnwrapOptionals()
+                .map(ListDataSource.attribute(at:)).map(Action.from(attribute:)).eraseToAnyPublisher()
         }
 
         // MARK: Public Setters

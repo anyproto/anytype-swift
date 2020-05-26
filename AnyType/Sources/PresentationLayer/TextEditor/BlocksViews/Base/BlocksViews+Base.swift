@@ -23,11 +23,19 @@ extension BlocksViews.Base {
         
         private var block: BlockModel
         
+        // MARK: Deinitialization
+        deinit {
+            let logger = Logging.createLogger(category: .blocksViewsBase)
+            os_log(.debug, log: logger, "%@ has been deinitialized: %@", "\(String(describing: self))", "-> \(self.block.information.id)")
+        }
+        
         // MARK: Initialization
         init(_ block: BlockModel) {
             self.block = block
             self.setupPublishers()
             self.setupSubscriptions()
+            let logger = Logging.createLogger(category: .blocksViewsBase)
+            os_log(.debug, log: logger, "%@ has been initialized: %@", "\(String(describing: self))", "-> \(self.block.information.id)")
         }
         
         static func generateID() -> BlockModelID {

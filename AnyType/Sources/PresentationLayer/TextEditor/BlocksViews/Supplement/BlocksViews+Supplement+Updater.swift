@@ -13,17 +13,14 @@ extension BlocksViews.Supplement {
     class TreeUpdater<Wrapped: BlocksViewsViewModelHolder> {
         typealias Model = Wrapped.ViewModel.BlockModel
         typealias Key = Wrapped.ViewModel.BlockModel.FullIndex
-        var value: Wrapped
         var indexDictionary: DataStructures.IndexDictionary<Key> = .init()
         var updater: BlockModels.Updater<Model>
 
         func configured(_ value: Wrapped) -> Self {
-            self.value = value
             self.updater = .init(value: value.ourViewModel.getBlock())
             return self
         }
         init(value: Wrapped) {
-            self.value = value
             self.updater = .init(value: value.ourViewModel.getBlock())
         }
     }

@@ -106,7 +106,7 @@ extension TextView.MarksPane.Main {
         @Published fileprivate var userResponse: UserResponse?
 
         /// To OuterWorld, Public
-        var userAction: PassthroughSubject<Action, Never> = .init()
+        var userAction: AnyPublisher<Action, Never> = .empty()
         
         // MARK: Subscriptions
         var subscriptions: Set<AnyCancellable> = []
@@ -136,9 +136,9 @@ extension TextView.MarksPane.Main {
             let color = self.textColorModel.userAction.map({Action.textColor(.init(), $0)}).eraseToAnyPublisher()
             let backgroundColor = self.backgroundColorModel.userAction.map({Action.backgroundColor(.init(), $0)}).eraseToAnyPublisher()
             
-            Publishers.Merge3(style, color, backgroundColor).map({ [weak self] value in
+            self.userAction = Publishers.Merge3(style, color, backgroundColor).map({ [weak self] value in
                 self?.enhance(value)
-            }).safelyUnwrapOptionals().subscribe(self.userAction).store(in: &self.subscriptions)
+            }).safelyUnwrapOptionals().eraseToAnyPublisher()
         }
         
         // MARK: Delivery and Dispatching

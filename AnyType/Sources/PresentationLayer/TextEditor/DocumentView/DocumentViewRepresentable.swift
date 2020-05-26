@@ -53,7 +53,6 @@ extension DocumentViewRepresentable {
     class Coordinator {
         // MARK: Variables
         private var parent: DocumentViewRepresentable
-        private(set) var router: DocumentViewRouting.CompoundRouter = .init()
         private var subscriptions: Set<AnyCancellable> = .init()
 
         // MARK: Initialization
