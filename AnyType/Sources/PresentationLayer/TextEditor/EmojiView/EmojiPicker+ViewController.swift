@@ -113,11 +113,13 @@ enum EmojiPicker {
 // MARK: Layout
 private extension EmojiPicker.ViewController {
     struct Layout {
-        var itemSize = CGSize(width: 54, height: 44)
+        var itemSize = CGSize(width: 54, height: 40)
         var sectionInsets = UIEdgeInsets(top: 13, left: 16, bottom: 15, right: 16)
         var contentInsets = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
         var sectionHeaderHeight: CGFloat = 20
-        
+        var minimumLineSpacing: CGFloat = 12
+        var minimumInteritemSpacing: CGFloat = 0
+   
         var topLineSize = CGSize(width: 48, height: 4)
         var topLineTopPadding: CGFloat = 6
         
@@ -190,6 +192,8 @@ extension EmojiPicker.ViewController {
         layout.scrollDirection = .vertical
         layout.itemSize = .init(width: self.layout.itemSize.width, height: self.layout.itemSize.height)
         layout.sectionInset = self.layout.sectionInsets
+        layout.minimumLineSpacing = self.layout.minimumLineSpacing
+        layout.minimumInteritemSpacing = self.layout.minimumInteritemSpacing
         collectionView.collectionViewLayout = layout
 
         collectionView.contentInset = self.layout.contentInsets

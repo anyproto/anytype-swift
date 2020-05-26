@@ -19,6 +19,7 @@ extension EmojiPicker {
         lazy var emojiLabel: UILabel = {
             let label = UILabel()
             label.font = self.style.font()
+            label.textAlignment = .center
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()

@@ -12,7 +12,8 @@ extension EmojiPicker {
 
     public class Manager: NSObject {
         
-        public enum Category: String, CaseIterable {
+        public enum Category: String, CaseIterable, Comparable {
+         
             case smileys = "Smileys & People" /// 😃
             case animals = "Animals & Nature" /// 🐻
             case food = "Food & Drink" /// 🍔
@@ -22,6 +23,14 @@ extension EmojiPicker {
             case symbols = "Symbols" /// 🔣
             case flags = "Flags" /// 🎌
             case ufo = "🛸 UFO 🛸" /// 🛸
+            
+            func order() -> Int {
+                Category.allCases.firstIndex(of: self) ?? -1
+            }
+
+            public static func < (lhs: EmojiPicker.Manager.Category, rhs: EmojiPicker.Manager.Category) -> Bool {
+                return lhs.order() > rhs.order()
+            }
         }
 
         public struct Emoji {

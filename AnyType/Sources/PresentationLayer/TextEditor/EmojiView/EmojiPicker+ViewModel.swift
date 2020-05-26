@@ -26,10 +26,10 @@ extension EmojiPicker  {
         @Published var selectedEmoji: Emoji?
         
         var userEventSubject: PassthroughSubject<UserEvent, Never> = .init()
+
+        public var emojisSorted: [[Category: [Emoji]]]  = .init()
         
-        public var emojisGrouped: [Category: [Emoji]] = [:]
-        
-        private let emojiManager =  EmojiPicker.Manager()
+        private let emojiManager = EmojiPicker.Manager()
         
         init() {
             self.setupDefaultGroup()
@@ -42,7 +42,7 @@ extension EmojiPicker  {
         }
         
         private func updateGroup(with list: [Emoji]) {
-            emojisGrouped = .init(grouping: list, by: { $0.category })
+            emojisSorted = Dictionary(grouping: list, by: { $0.category }).sorted(by: {$0.key < $1.key}).reversed().map{([$0.key: $0.value])}
         }
         
         public func filterEmojies(with keyword: String) {
@@ -54,7 +54,7 @@ extension EmojiPicker  {
                 updateGroup(with: list)
             }
             
-            searchResult = .init(notFound: emojisGrouped.isEmpty, keyword: keyword)
+            searchResult = .init(notFound: emojisSorted.isEmpty, keyword: keyword)
         }
         
     }
@@ -65,23 +65,27 @@ extension EmojiPicker  {
 extension EmojiPicker.ViewModel {
     
     func numberOfSections() -> Int {
-        emojisGrouped.count
+        emojisSorted.count
     }
 
     func countOfElements(at: Int) -> Int {
-        let category = Category.allCases[at]
-        return emojisGrouped[category]?.count ?? 0
+        emojisSorted[at].first?.value.count ?? 0
     }
 
     func element(at: IndexPath) -> Emoji? {
-        let category = Category.allCases[at.section]
-        let emojies = emojisGrouped[category]
-        return emojies?[at.row]
+        emojisSorted[at.section].first?.value[at.row]
     }
     
     func sectionTitle(at: IndexPath) -> String {
-        let category = Category.allCases[at.section]
+        let category = self.getCategory(at: at.section)
         return category.rawValue
+    }
+    
+    func getCategory(at: Int) -> Category {
+        guard let category = emojisSorted[at].first?.key else {
+            return .ufo
+        }
+        return category
     }
 
 }

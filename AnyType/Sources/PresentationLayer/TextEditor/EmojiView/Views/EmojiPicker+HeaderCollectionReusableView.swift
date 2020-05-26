@@ -61,7 +61,7 @@ extension EmojiPicker.HeaderCollectionReusableView {
         case presentation
         
         func font() -> UIFont {
-            .boldSystemFont(ofSize: 14)
+            .boldSystemFont(ofSize: 13)
         }
         
         func textColor() -> UIColor {
