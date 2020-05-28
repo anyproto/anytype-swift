@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+Panes.swift
+//  MarksPane+Panes.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 13.05.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension TextView.MarksPane {
+extension MarksPane {
     enum Panes {}
 }
 

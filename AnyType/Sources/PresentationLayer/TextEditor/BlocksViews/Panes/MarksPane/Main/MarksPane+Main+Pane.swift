@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+ViewModel.swift
+//  MarksPane+ViewModel.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 14.05.2020.
@@ -11,7 +11,7 @@ import SwiftUI
 import Combine
 
 // MARK: States and Actions
-extension TextView.MarksPane.Main {
+extension MarksPane.Main {
     /// An `Attribute` from UserResponse.
     /// When user press something in related UI component, you should update state of this UI component.
     /// For us, it is a selection of UITextView.
@@ -113,7 +113,7 @@ extension TextView.MarksPane.Main {
 }
 
 // MARK: ViewModel
-extension TextView.MarksPane.Main {
+extension MarksPane.Main {
     class ViewModel: ObservableObject {
         // MARK: Variables
         /// Selected range, actually.
@@ -251,7 +251,7 @@ extension TextView.MarksPane.Main {
 }
 
 // MARK: ViewModelHolder
-extension TextView.MarksPane.Main {
+extension MarksPane.Main {
     /// We have to add this creature...
     /// Well, as soon as we embed SwiftUI into UIKit, we have to deliver UIView to our host.
     /// But, UIView doesn't hold view model :/
@@ -269,7 +269,7 @@ extension TextView.MarksPane.Main {
 }
 
 // MARK: - Pane View
-extension TextView.MarksPane.Main {
+extension MarksPane.Main {
     /// Builder that builds View from ViewModel.
     ///
     /// The only one way to build view from its viewModel.
@@ -284,7 +284,7 @@ extension TextView.MarksPane.Main {
 }
 
 // MARK: - View
-extension TextView.MarksPane.Main {
+extension MarksPane.Main {
     struct InputView: View {
         @ObservedObject var viewModel: ViewModel
         
@@ -317,7 +317,7 @@ extension TextView.MarksPane.Main {
 }
 
 // MARK: - View / Layout
-extension TextView.MarksPane.Main.InputView {
+extension MarksPane.Main.InputView {
     struct Layout {
         var dividerHeight: CGFloat = 1
         var topSpacing: CGFloat = 15
@@ -327,7 +327,7 @@ extension TextView.MarksPane.Main.InputView {
 }
 
 // MARK: - View / Style
-extension TextView.MarksPane.Main.InputView {
+extension MarksPane.Main.InputView {
     enum Style {
         case presentation
         func separatorColor() -> UIColor {

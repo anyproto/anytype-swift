@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+Panes+StylePane+FontStyle.swift
+//  MarksPane+Panes+StylePane+FontStyleModel.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 27.05.2020.
@@ -12,7 +12,7 @@ import Combine
 import SwiftUI
 
 // MARK: Style Pane / Font Style
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     enum FontStyle {}
 }
 
@@ -23,7 +23,7 @@ extension TextView.MarksPane.Panes.StylePane {
 /// `UserResponse` := (`Optional<Attribute>`, `Attribute`) | (`[Attribute]`)
 /// `UserResponse` is `exclusive` ( `Optional<Attribute> | Attribute` ) or `inclusive` (`[Attribute]`).
 ///
-extension TextView.MarksPane.Panes.StylePane.FontStyle {
+extension MarksPane.Panes.StylePane.FontStyle {
     /// An `Attribute` from UserResponse.
     /// When user press something in related UI component, you should update state of this UI component.
     /// For us, it is a selection of UITextView.
@@ -126,7 +126,7 @@ extension TextView.MarksPane.Panes.StylePane.FontStyle {
 }
 
 // MARK: ListDataSource
-extension TextView.MarksPane.Panes.StylePane.FontStyle {
+extension MarksPane.Panes.StylePane.FontStyle {
     /// `ListDataSource` is intended to manipulate with data at index paths.
     /// Also, it knows about the count of entries in a row at section.
     ///
@@ -204,7 +204,7 @@ extension TextView.MarksPane.Panes.StylePane.FontStyle {
 }
 
 // MARK: ViewModelBuilder
-extension TextView.MarksPane.Panes.StylePane.FontStyle {
+extension MarksPane.Panes.StylePane.FontStyle {
     /// DataBuilder creates data for cell which will be rendered.
     /// Actually, it is not a viewModel, it is a `DataModel` or `CellData`.
     ///

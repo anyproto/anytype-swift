@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+Panes+Color.swift
+//  MarksPane+Panes+ColorPane.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 13.05.2020.
@@ -11,18 +11,18 @@ import UIKit
 import Combine
 import SwiftUI
 
-extension TextView.MarksPane.Panes {
+extension MarksPane.Panes {
     enum Color {}
 }
 
 // MARK: Colors
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     typealias Colors = BlockModels.Parser.Text.Color.Converter.Colors
     typealias ColorsConverter = BlockModels.Parser.Text.Color.Converter
 }
 
 // MARK: States and Actions
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     /// An `Attribute` from UserResponse.
     /// When user press something in related UI component, you should update state of this UI component.
     /// For us, it is a selection of UITextView.
@@ -74,7 +74,7 @@ extension TextView.MarksPane.Panes.Color {
 }
 
 // MARK: ListDataSource
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     /// `ListDataSource` is intended to manipulate with data at index paths.
     /// Also, it knows about the count of entries in a row at section.
     ///
@@ -168,7 +168,7 @@ extension TextView.MarksPane.Panes.Color {
 }
 
 // MARK: ViewModelBuilder
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     enum CellViewModelBuilder {
         static func item(_ color: Colors, background: Bool) -> Cell.ViewModel {
             let indexPath = ListDataSource.indexPath(color)
@@ -185,7 +185,7 @@ extension TextView.MarksPane.Panes.Color {
 
 
 // MARK: ViewModel
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     class ViewModel: ObservableObject {
         // MARK: Variables
         private var background: Bool = false
@@ -260,7 +260,7 @@ extension TextView.MarksPane.Panes.Color {
 }
 
 // MARK: - Pane View
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     /// Builder that builds View from ViewModel.
     ///
     /// The only one way to build view from its viewModel.
@@ -274,7 +274,7 @@ extension TextView.MarksPane.Panes.Color {
     }
 }
 
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     /// The `InputView` is a `View` of current namespace.
     /// Here it is a `View` of `Panes.Color`.
     ///
@@ -299,14 +299,14 @@ extension TextView.MarksPane.Panes.Color {
     }
 }
 
-extension TextView.MarksPane.Panes.Color.InputView {
+extension MarksPane.Panes.Color.InputView {
     struct Layout {
         var verticalSpacing: CGFloat = 5
     }
 }
 
 // MARK: - Category
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     /// `Category` is a `View` that represents a Row in a Pane.
     /// But pane is horizontal, so, it represents a `Section`.
     ///
@@ -326,13 +326,13 @@ extension TextView.MarksPane.Panes.Color {
     }
 }
 
-extension TextView.MarksPane.Panes.Color.Category {
+extension MarksPane.Panes.Color.Category {
     struct Layout {
         var horizontalSpacing: CGFloat = 8
     }
 }
 
-extension TextView.MarksPane.Panes.Color.Category {
+extension MarksPane.Panes.Color.Category {
     /// I am not quite sure about Category ViewModel.
     /// Maybe we require it...
     /// So, don't remove it for some time.
@@ -341,7 +341,7 @@ extension TextView.MarksPane.Panes.Color.Category {
 }
 
 // MARK: - Cell
-extension TextView.MarksPane.Panes.Color {
+extension MarksPane.Panes.Color {
     struct Cell: View {
         @ObservedObject var viewModel: ViewModel
         var layout: Layout = .init()
@@ -366,7 +366,7 @@ extension TextView.MarksPane.Panes.Color {
 }
 
 // MARK: - Cell Layout
-extension TextView.MarksPane.Panes.Color.Cell {
+extension MarksPane.Panes.Color.Cell {
     struct Layout {
         var size: CGFloat = 48
         
@@ -380,7 +380,7 @@ extension TextView.MarksPane.Panes.Color.Cell {
 }
 
 // MARK: - Cell Style
-extension TextView.MarksPane.Panes.Color.Cell {
+extension MarksPane.Panes.Color.Cell {
     enum Style {
         case presentation
         func borderColor() -> UIColor {
@@ -391,7 +391,7 @@ extension TextView.MarksPane.Panes.Color.Cell {
     }
 }
 
-extension TextView.MarksPane.Panes.Color.Cell {
+extension MarksPane.Panes.Color.Cell {
     class ViewModel: ObservableObject {
         /// Connection between view and viewModel
         @Published var state: Bool = false

@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane.swift
+//  MarksPane.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 13.05.2020.
@@ -17,12 +17,10 @@ import UIKit
 /// This view is used as InputView and also it gets values from selected text.
 ///
 
-extension TextView {
-    enum MarksPane {}
-}
+enum MarksPane {}
 
 // MARK: Style
-extension TextView.MarksPane {
+extension MarksPane {
     enum Style {
         static let `default`: Self = .presentation
         case presentation

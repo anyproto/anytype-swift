@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+Panes+StylePane.swift
+//  MarksPane+Panes+StylePane.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 13.05.2020.
@@ -12,7 +12,7 @@ import Combine
 import SwiftUI
 
 // MARK: Style pane
-extension TextView.MarksPane.Panes {
+extension MarksPane.Panes {
     enum StylePane {}
 }
 
@@ -23,7 +23,7 @@ extension TextView.MarksPane.Panes {
 /// `UserResponse` := (`Optional<Attribute>`, `Attribute`) | (`[Attribute]`)
 /// `UserResponse` is `exclusive` ( `Optional<Attribute> | Attribute` ) or `inclusive` (`[Attribute]`).
 ///
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     /// An `Attribute` from UserResponse.
     /// When user press something in related UI component, you should update state of this UI component.
     /// For us, it is a selection of UITextView.
@@ -45,6 +45,17 @@ extension TextView.MarksPane.Panes.StylePane {
     /// Parameter name `alignment` refers to `NSTextAlignment`
     ///
     enum Converter {
+        typealias Output = Attribute
+        enum Input {
+            case markStyle(TextView.MarkStyle)
+            case textAlignment(NSTextAlignment)
+        }
+        static func convert(_ input: Input) -> Output? {
+            switch input {
+            case let .markStyle(style): return FontStyle.Converter.state(style).flatMap(Attribute.fontStyle)
+            case let .textAlignment(alignment): return Alignment.Converter.state(alignment).flatMap(Attribute.alignment)
+            }
+        }
         /// All functions have name `state`.
         /// It is better to rename it to `convert` ot `attribute`.
         ///
@@ -101,7 +112,7 @@ extension TextView.MarksPane.Panes.StylePane {
 }
 
 // MARK: ListDataSource
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     /// `ListDataSource` is intended to manipulate with data at index paths.
     /// Also, it knows about the count of entries in a row at section.
     ///
@@ -175,7 +186,7 @@ extension TextView.MarksPane.Panes.StylePane {
 }
 
 // MARK: ViewModelBuilder
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     /// Creates `Cell.ViewModel`
     enum CellViewModelBuilder {
         /// Creates a `Data` or `CellData`.
@@ -196,7 +207,7 @@ extension TextView.MarksPane.Panes.StylePane {
 }
 
 // MARK: ViewModel
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     class ViewModel: ObservableObject {
         // MARK: Initialization
         init() {
@@ -274,7 +285,7 @@ extension TextView.MarksPane.Panes.StylePane {
 }
 
 // MARK: - Pane View
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     /// Builder that builds View from ViewModel.
     ///
     /// The only one way to build view from its viewModel.
@@ -288,7 +299,7 @@ extension TextView.MarksPane.Panes.StylePane {
     }
 }
 
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     /// The `InputView` is a `View` of current namespace.
     /// Here it is a `View` of `Panes.Style`.
     ///
@@ -315,14 +326,14 @@ extension TextView.MarksPane.Panes.StylePane {
     }
 }
 
-extension TextView.MarksPane.Panes.StylePane.InputView {
+extension MarksPane.Panes.StylePane.InputView {
     struct Layout {
         var verticalSpacing: CGFloat = 8
     }
 }
 
 // MARK: - Category
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     /// `Category` is a `View` that represents a Row in a Pane.
     /// But pane is horizontal, so, it represents a `Section`.
     ///
@@ -334,14 +345,9 @@ extension TextView.MarksPane.Panes.StylePane {
             HStack(alignment: .center, spacing: 0) {
                 Spacer().frame(width: self.layout.leadingSpacing)
                 ForEach(self.cells.indices) { i in
-                    if (i + 1) == self.cells.indices.upperBound {
-                        HStack(spacing: 0) {
-                            Cell(viewModel: self.cells[i])
-                        }
-                    }
-                    else {
-                        HStack(spacing: 0) {
-                            Cell(viewModel: self.cells[i])
+                    HStack(spacing: 0){
+                        Cell(viewModel: self.cells[i])
+                        if (i + 1) != self.cells.indices.upperBound {
                             Divider().background(Color(self.style.borderColor())).frame(width: self.layout.dividerWidth)
                         }
                     }
@@ -360,7 +366,7 @@ extension TextView.MarksPane.Panes.StylePane {
     }
 }
 
-extension TextView.MarksPane.Panes.StylePane.Category {
+extension MarksPane.Panes.StylePane.Category {
     /// I am not quite sure about Category ViewModel.
     /// Maybe we require it...
     /// So, don't remove it for some time.
@@ -368,7 +374,7 @@ extension TextView.MarksPane.Panes.StylePane.Category {
     //    class ViewModel {}
 }
 
-extension TextView.MarksPane.Panes.StylePane.Category {
+extension MarksPane.Panes.StylePane.Category {
     struct Layout {
         struct Border {
             var cornerRadius: CGFloat = 8
@@ -387,7 +393,7 @@ extension TextView.MarksPane.Panes.StylePane.Category {
     }
 }
 
-extension TextView.MarksPane.Panes.StylePane.Category {
+extension MarksPane.Panes.StylePane.Category {
     enum Style {
         case presentation
         func borderColor() -> UIColor {
@@ -399,7 +405,7 @@ extension TextView.MarksPane.Panes.StylePane.Category {
 }
 
 // MARK: Cell
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     struct Cell: View {
         @ObservedObject var viewModel: ViewModel
         var layout: Layout = .init()
@@ -425,7 +431,7 @@ extension TextView.MarksPane.Panes.StylePane {
 }
 
 // MARK: - Cell/Layout
-extension TextView.MarksPane.Panes.StylePane.Cell {
+extension MarksPane.Panes.StylePane.Cell {
     struct Layout {
         var width: CGFloat = 60
         var height: CGFloat = 48
@@ -433,7 +439,7 @@ extension TextView.MarksPane.Panes.StylePane.Cell {
 }
 
 // MARK: - Cell/Style
-extension TextView.MarksPane.Panes.StylePane.Cell {
+extension MarksPane.Panes.StylePane.Cell {
     enum Style {
         case presentation
         func foregroundColor() -> UIColor {
@@ -460,7 +466,7 @@ extension TextView.MarksPane.Panes.StylePane.Cell {
 }
 
 // MARK: Cell/ViewModel
-extension TextView.MarksPane.Panes.StylePane.Cell {
+extension MarksPane.Panes.StylePane.Cell {
     class ViewModel: ObservableObject {
         /// Connection between view and viewModel
         @Published var state: Bool = false

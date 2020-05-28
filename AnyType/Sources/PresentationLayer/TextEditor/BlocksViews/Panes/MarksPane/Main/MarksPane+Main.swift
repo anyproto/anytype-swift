@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+Main.swift
+//  MarksPane+Main.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 17.05.2020.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension TextView.MarksPane {
+extension MarksPane {
     enum Main {}
 }
 
-extension TextView.MarksPane.Main {
-    typealias Panes = TextView.MarksPane.Panes
+extension MarksPane.Main {
+    typealias Panes = MarksPane.Panes
 }

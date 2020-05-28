@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+Panes+StylePane+Alignment.swift
+//  MarksPane+Panes+StylePane+AlignmentModel.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 27.05.2020.
@@ -13,11 +13,11 @@ import SwiftUI
 import os
 
 private extension Logging.Categories {
-    static let textViewMarksPanePanesStylePaneAlignment: Self = "TextView.MarksPane.Panes.StylePane"
+    static let textViewMarksPanePanesStylePaneAlignment: Self = "MarksPane.Panes.StylePane"
 }
 
 // MARK: StylePane / Alignment
-extension TextView.MarksPane.Panes.StylePane {
+extension MarksPane.Panes.StylePane {
     enum Alignment {}
 }
 
@@ -28,7 +28,7 @@ extension TextView.MarksPane.Panes.StylePane {
 /// `UserResponse` := (`Optional<Attribute>`, `Attribute`) | (`[Attribute]`)
 /// `UserResponse` is `exclusive` ( `Optional<Attribute> | Attribute` ) or `inclusive` (`[Attribute]`).
 ///
-extension TextView.MarksPane.Panes.StylePane.Alignment {
+extension MarksPane.Panes.StylePane.Alignment {
     /// An `Attribute` from UserResponse.
     /// When user press something in related UI component, you should update state of this UI component.
     /// For us, it is a selection of UITextView.
@@ -109,7 +109,7 @@ extension TextView.MarksPane.Panes.StylePane.Alignment {
 }
 
 // MARK: ListDataSource
-extension TextView.MarksPane.Panes.StylePane.Alignment {
+extension MarksPane.Panes.StylePane.Alignment {
     /// `ListDataSource` is intended to manipulate with data at index paths.
     /// Also, it knows about the count of entries in a row at section.
     ///
@@ -176,7 +176,7 @@ extension TextView.MarksPane.Panes.StylePane.Alignment {
 }
 
 // MARK: CellDataBuilder
-extension TextView.MarksPane.Panes.StylePane.Alignment {
+extension MarksPane.Panes.StylePane.Alignment {
     /// DataBuilder creates data for cell which will be rendered.
     /// Actually, it is not a viewModel, it is a `DataModel` or `CellData`.
     ///

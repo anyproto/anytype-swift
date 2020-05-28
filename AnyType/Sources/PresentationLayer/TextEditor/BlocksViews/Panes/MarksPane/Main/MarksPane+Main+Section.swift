@@ -1,5 +1,5 @@
 //
-//  TextView+MarksPane+Main+Section.swift
+//  MarksPane+Main+Section.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 17.05.2020.
@@ -11,12 +11,12 @@ import SwiftUI
 import Combine
 
 // MARK: Section
-extension TextView.MarksPane.Main {
+extension MarksPane.Main {
     enum Section {}
 }
 
 // MARK: Section / Category
-extension TextView.MarksPane.Main.Section {
+extension MarksPane.Main.Section {
     enum Category {
         case style
         case textColor
@@ -38,7 +38,7 @@ extension TextView.MarksPane.Main.Section {
 }
 
 // MARK: Section / ViewModel
-extension TextView.MarksPane.Main.Section {
+extension MarksPane.Main.Section {
     class ViewModel: ObservableObject {
         var chosenCategory: Category {
             get {
@@ -54,7 +54,7 @@ extension TextView.MarksPane.Main.Section {
 }
 
 // MARK: Section / ViewModelBuilder
-extension TextView.MarksPane.Main.Section {
+extension MarksPane.Main.Section {
     enum InputViewBuilder {
         static func createView(_ viewModel: ObservedObject<ViewModel>) -> some View {
             InputView.init(chosenIndex: viewModel.projectedValue.chosenIndex, categories: viewModel.wrappedValue.availableCategories, viewModel: viewModel.wrappedValue)
@@ -63,7 +63,7 @@ extension TextView.MarksPane.Main.Section {
 }
 
 // MARK: Section / View
-extension TextView.MarksPane.Main.Section {
+extension MarksPane.Main.Section {
     struct InputView: View {
         @Binding var chosenIndex: Int
         var categories: [Category]
@@ -95,7 +95,7 @@ extension TextView.MarksPane.Main.Section {
     }
 }
 
-extension TextView.MarksPane.Main.Section.InputView {
+extension MarksPane.Main.Section.InputView {
     struct Layout {
         struct Button {
             var verticalPadding: CGFloat = 5
@@ -108,7 +108,7 @@ extension TextView.MarksPane.Main.Section.InputView {
     }
 }
 
-extension TextView.MarksPane.Main.Section.InputView {
+extension MarksPane.Main.Section.InputView {
     enum Style {
         case presentation
         func foregroundColor(chosen: Bool) -> UIColor {
