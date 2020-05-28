@@ -227,6 +227,9 @@
 		0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */; };
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
+		0AACE20C247D944E00ADCD19 /* BlockModel+Parser+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACE20B247D944E00ADCD19 /* BlockModel+Parser+Common.swift */; };
+		0ABB2A16247EC2D900A7144A /* TextView+MarksPane+Panes+StylePane+FontStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A15247EC2D900A7144A /* TextView+MarksPane+Panes+StylePane+FontStyle.swift */; };
+		0ABB2A18247EC2E900A7144A /* TextView+MarksPane+Panes+StylePane+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A17247EC2E900A7144A /* TextView+MarksPane+Panes+StylePane+Alignment.swift */; };
 		0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D023E4481700442690 /* commands+Service.pb.swift */; };
 		0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D123E4481700442690 /* events+Initializers.pb.swift */; };
 		0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D323E4481800442690 /* models+Initializers.pb.swift */; };
@@ -503,6 +506,9 @@
 		0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+ContextualMenuActions.swift"; sourceTree = "<group>"; };
 		0AAC96642340C229006CE58C /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0AACE20B247D944E00ADCD19 /* BlockModel+Parser+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+Parser+Common.swift"; sourceTree = "<group>"; };
+		0ABB2A15247EC2D900A7144A /* TextView+MarksPane+Panes+StylePane+FontStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+MarksPane+Panes+StylePane+FontStyle.swift"; sourceTree = "<group>"; };
+		0ABB2A17247EC2E900A7144A /* TextView+MarksPane+Panes+StylePane+Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+MarksPane+Panes+StylePane+Alignment.swift"; sourceTree = "<group>"; };
 		0ACA77D023E4481700442690 /* commands+Service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Service.pb.swift"; sourceTree = "<group>"; };
 		0ACA77D123E4481700442690 /* events+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "events+Initializers.pb.swift"; sourceTree = "<group>"; };
 		0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Initializers.pb.swift"; sourceTree = "<group>"; };
@@ -1312,6 +1318,7 @@
 				0A63ADEC2464A54300F092C8 /* BlockModel+Parser+Text+AttributedText.swift */,
 				0A63ADEA2464A34E00F092C8 /* BlockModel+Parser+Text+AttributedText+MarkStyle.swift */,
 				0A63ADEE2464A58500F092C8 /* BlockModel+Parser+Text+AttributedText+MarkStyleModifier.swift */,
+				0AACE20B247D944E00ADCD19 /* BlockModel+Parser+Common.swift */,
 				0A0C18732459CB74003EDE7C /* BlockModel+Parser+Details.swift */,
 				0A6645652406B9E3008392AF /* BlockModel+Parser+ModelBuilder.swift */,
 				0A0AA7602402E771003A2935 /* BlockModel+Transformer.swift */,
@@ -1391,6 +1398,8 @@
 				0A2C0D272471449E008ADD86 /* TextView+MarksPane+Panes+Color.swift */,
 				0A2C0D2B2471449E008ADD86 /* TextView+MarksPane+Panes.swift */,
 				0A2C0D2C2471449E008ADD86 /* TextView+MarksPane+Panes+StylePane.swift */,
+				0ABB2A15247EC2D900A7144A /* TextView+MarksPane+Panes+StylePane+FontStyle.swift */,
+				0ABB2A17247EC2E900A7144A /* TextView+MarksPane+Panes+StylePane+Alignment.swift */,
 			);
 			path = MarksPane;
 			sourceTree = "<group>";
@@ -1686,6 +1695,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */,
+				0ABB2A18247EC2E900A7144A /* TextView+MarksPane+Panes+StylePane+Alignment.swift in Sources */,
 				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
 				0A2C0D67247145BD008ADD86 /* TextView+InnerTextView.swift in Sources */,
 				0A9D49E72449F246007F0992 /* DocumentViewRouting+OutputEvent.swift in Sources */,
@@ -1727,6 +1737,7 @@
 				0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,
 				0ACA781623E5C99A00442690 /* Services.swift in Sources */,
+				0AACE20C247D944E00ADCD19 /* BlockModel+Parser+Common.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				0A6B012423F58AED002345D1 /* BlocksViews+Base.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
@@ -1819,6 +1830,7 @@
 				53D7DB6B244E46DD00ADAD61 /* FileBlocksViews+Supplement+Flattener.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
+				0ABB2A16247EC2D900A7144A /* TextView+MarksPane+Panes+StylePane+FontStyle.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */,
 				0ACA780E23E5C96700442690 /* TextView+BaseToolbarView.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,

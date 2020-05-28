@@ -179,6 +179,13 @@ extension TextView.UIKitTextView {
                 self.textView.textStorage.setAttributedString(text)
                 // self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
             }
+        case let .auxiliary(value):
+            let textAlignment = value.textAlignment
+            self.textView.textAlignment = textAlignment
+            
+        case let .payload(value):
+            self.onUpdate(.auxiliary(value.auxiliary))
+            self.onUpdate(.attributedText(value.attributedString))
         }
     }
 }

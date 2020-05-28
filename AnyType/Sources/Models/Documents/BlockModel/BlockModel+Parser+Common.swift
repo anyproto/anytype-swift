@@ -9,7 +9,10 @@
 import Foundation
 import UIKit
 
+// MARK: - Common
 extension BlockModels.Parser {
+    /// It is a namespace of common models.
+    /// It contains parsers and converters which related to conversion between middleware and our model.
     enum Common {
         enum Alignment {}
         enum Position {}
@@ -18,6 +21,7 @@ extension BlockModels.Parser {
 
 // MARK: - Common / Alignment
 extension BlockModels.Parser.Common.Alignment {
+    /// Alignment: Conversion between model between middleware and our model.
     enum Converter {
         typealias Model = BlockModels.Block.Information.Alignment
         typealias MiddlewareModel = Anytype_Model_Block.Align
@@ -38,6 +42,9 @@ extension BlockModels.Parser.Common.Alignment {
             }
         }
     }
+    
+    /// Alignment: Conversion between our model and UIKit textAlignment.
+    /// Later it will be separated into textAlignment and contentMode.
     enum UIKitConverter {
         typealias Model = BlockModels.Block.Information.Alignment
         typealias UIKitModel = NSTextAlignment
@@ -73,6 +80,7 @@ extension BlockModels.Parser.Common.Position {
 }
 
 extension BlockModels.Parser.Common.Position {
+    /// Position: Conversion between our model and middleware model.
     enum Converter {
         typealias Model = Position
         typealias MiddlewareModel = Anytype_Model_Block.Position

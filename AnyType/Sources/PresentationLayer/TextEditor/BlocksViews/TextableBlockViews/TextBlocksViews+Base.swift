@@ -38,6 +38,7 @@ extension TextBlocksViews {
             ///
             @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
             private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
+            private var toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
             
             private var eventListener: EventListener = .init()
             private var eventPublisher: NotificationEventListener<EventListener>?
@@ -80,10 +81,21 @@ extension TextBlocksViews {
                     }
                 }.store(in: &self.subscriptions)
                 
+                self.textViewModel.auxiliaryPublisher.sink { [weak self] (value) in
+                    switch value {
+                    case let .auxiliary(value): self?.toModelAlignmentSubject.send(value.textAlignment)
+                    default: return
+                    }
+                }.store(in: &self.subscriptions)
+                
                 /// ToView
                 self.$toViewText.safelyUnwrapOptionals().map(TextView.UIKitTextView.ViewModel.Update.attributedText).sink { [weak self] (value) in
                     self?.textViewModel.update = value
                 }.store(in: &self.subscriptions)
+                
+//                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
+//
+//                }.store(in: &self.subscriptions)
                 
                 /// FromModel
                 /// ???
@@ -99,6 +111,17 @@ extension TextBlocksViews {
                     case let .failure(error):
                         let logger = Logging.createLogger(category: .textBlocksViewsBase)
                         os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@", String(describing: error))
+                    }
+                }, receiveValue: { _ in }).store(in: &self.subscriptions)
+                
+                self.toModelAlignmentSubject.notableError().flatMap({ [weak self] (value) in
+                    self?.apply(alignment: value) ?? .empty()
+                }).sink(receiveCompletion: { (value) in
+                    switch value {
+                    case .finished: return
+                    case let .failure(error):
+                        let logger = Logging.createLogger(category: .textBlocksViewsBase)
+                        os_log(.debug, log: logger, "TextBlocksViews setAlignment error has occured. %@", String(describing: error))
                     }
                 }, receiveValue: { _ in }).store(in: &self.subscriptions)
                 
@@ -240,6 +263,13 @@ private extension TextBlocksViews.Base.BlockViewModel {
 }
 
 // MARK: - Converter ( To Delete )
+extension TextBlocksViews.Base.BlockViewModel {
+    enum PublicConverter {
+        static func convert(newState: BlocksViews.Toolbar.UnderlyingAction) -> TextView.UserAction {
+            TextBlocksViews.Base.BlockViewModel.Converter.convert(newState: newState)
+        }
+    }
+}
 private extension TextBlocksViews.Base.BlockViewModel {
     enum Converter {
         private static func convert(newState: BlocksViews.Toolbar.UnderlyingAction.BlockType) -> TextView.UserAction.BlockAction.BlockType {
@@ -338,6 +368,12 @@ private extension TextBlocksViews.Base.BlockViewModel {
             }
         }
     }
+    func apply(alignment: NSTextAlignment) -> AnyPublisher<Never, Error>? {
+        
+        let block = self.getRealBlock()
+        guard let contextID = block.findRoot()?.information.id, case let .text(value) = block.information.content else { return nil }
+        return self.service.setAlignment.action(contextID: contextID, blockIds: [self.blockId], alignment: alignment)
+    }
     func apply(attributedText: NSAttributedString) -> AnyPublisher<Never, Error>? {
         /// Do we need to update model?
         /// It will be updated on every blockShow event. ( BlockOpen command ).
@@ -351,6 +387,8 @@ private extension TextBlocksViews.Base.BlockViewModel {
         case .unknown: return
         case let .text(value): self.setModelData(text: value)
         case let .attributedText(value): return self.setModelData(attributedText: value)
+        case .auxiliary: return
+        case .payload: return
         }
     }
 }

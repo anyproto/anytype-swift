@@ -25,7 +25,7 @@ extension TextView.UIKitTextView {
         
         /// Second publisher which manipulates rich string, attributed string.
         var richUpdatePublisher: AnyPublisher<Update, Never> = .empty()
-        
+        var auxiliaryPublisher: AnyPublisher<Update, Never> = .empty()
         
         private var builder: Builder = .init()
         private var coordinator: Coordinator = .init()
@@ -51,6 +51,7 @@ extension TextView.UIKitTextView {
             /// You could build a cycle of events in these circumstances, it is very bad.
             self.updatePublisher = self.coordinator.$text.safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
             self.richUpdatePublisher = self.coordinator.$attributedText.safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
+            self.auxiliaryPublisher = self.coordinator.$textAlignment.safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {
@@ -63,9 +64,18 @@ extension TextView.UIKitTextView {
 // MARK: State
 extension TextView.UIKitTextView.ViewModel {
     enum Update {
+        struct Payload {
+            var attributedString: NSAttributedString
+            var auxiliary: Auxiliary
+        }
+        struct Auxiliary {
+            var textAlignment: NSTextAlignment
+        }
         case unknown
         case text(String)
         case attributedText(NSAttributedString)
+        case payload(Payload)
+        case auxiliary(Auxiliary)
     }
     func apply(update: Update) {
         // publish update?

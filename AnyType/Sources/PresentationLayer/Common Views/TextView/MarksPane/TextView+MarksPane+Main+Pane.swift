@@ -30,8 +30,14 @@ extension TextView.MarksPane.Main {
     }
 
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
+    /// Most functions have the same name and they are dispatching by a type of argument.
+    /// Parameter name `style` refers to `TextView.MarkStyle`
+    /// Parameter name `alignment` refers to `NSTextAlignment`
     ///
     enum Converter {
+        /// All functions have name `state`.
+        /// It is better to rename it to `convert` or `attribute`.
+        ///
         private static func state(_ style: TextView.MarkStyle) -> Attribute? {
             switch style {
             case .bold: return Panes.StylePane.Converter.state(style).flatMap(Attribute.style)
@@ -46,13 +52,29 @@ extension TextView.MarksPane.Main {
             case .link: return nil
             }
         }
+        
+        private static func state(_ alignment: NSTextAlignment) -> Attribute? {
+            Panes.StylePane.Converter.state(alignment).flatMap(Attribute.style)
+        }
 
         static func state(_ style: TextView.MarkStyle?) -> Attribute? {
             style.flatMap(state)
         }
+        
+        static func state(_ alignment: NSTextAlignment?) -> Attribute? {
+            alignment.flatMap(state)
+        }
+        
+        static func state(_ alignments: [NSTextAlignment]) -> [Attribute] {
+            alignments.compactMap(state)
+        }
 
         static func states(_ styles: [TextView.MarkStyle]) -> [Attribute] {
             styles.compactMap(state)
+        }
+        
+        static func states(_ styles: [TextView.MarkStyle], _ alignments: [NSTextAlignment]) -> [Attribute] {
+            styles.compactMap(state) + alignments.compactMap(state)
         }
     }
 
@@ -74,6 +96,7 @@ extension TextView.MarksPane.Main {
     
     struct RawUserResponse {
         var attributedString: NSAttributedString = .init(string: "")
+        var textAlignment: NSTextAlignment
         var textColor: UIColor = .clear
         var backgroundColor: UIColor = .clear
     }
@@ -160,17 +183,24 @@ extension TextView.MarksPane.Main {
                 }
             })
             
-            self.styleModel.deliver(response: styleAttributes)
+            let styleUserResponse = styleAttributes.map { (value) -> Panes.StylePane.UserResponse in
+                switch value {
+                case let .fontStyle(value): return .fontStyle([value])
+                case let .alignment(value): return .alignment(value)
+                }
+            }
+            styleUserResponse.forEach(self.styleModel.deliver(response:))
+            
             _ = attributes.compactMap(self.dispatch)
         }
         
         // MARK: Public Setters
         /// Update at Range.
-        func update(range: NSRange, attributedText: NSMutableAttributedString) {
+        func update(range: NSRange, attributedText: NSMutableAttributedString, alignment: NSTextAlignment = .left) {
             self.range = range
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
             let styles = modifier.getMarkStyles(at: .range(range))
-            let states = Converter.states(styles)
+            let states = Converter.states(styles, [alignment])
             
             self.dispatch(attributes: states)
         }
@@ -178,13 +208,15 @@ extension TextView.MarksPane.Main {
         /// Update at whole string.
         /// It takes attributes from whole string ( bold, italic etc. ) and convert them to styles.
         ///
-        func update(attributedText: NSMutableAttributedString, textColor: UIColor, backgroundColor: UIColor) {
+        func update(_ userResponse: RawUserResponse) {
+            let attributedText: NSMutableAttributedString = .init(attributedString: userResponse.attributedString)
+            
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
             let styles = modifier.getMarkStyles(at: .whole(true))
-            let states = Converter.states(styles)
+            let states = Converter.states(styles, [userResponse.textAlignment])
             
-            self.dispatch(attribute: .textColor(.setColor(textColor)))
-            self.dispatch(attribute: .backgroundColor(.setColor(backgroundColor)))
+            self.dispatch(attribute: .textColor(.setColor(userResponse.textColor)))
+            self.dispatch(attribute: .backgroundColor(.setColor(userResponse.backgroundColor)))
             
             let styleAttributes = states.compactMap({ value -> Panes.StylePane.Attribute? in
                 switch value {
@@ -192,7 +224,15 @@ extension TextView.MarksPane.Main {
                 default: return nil
                 }
             })
-            self.styleModel.deliver(response: styleAttributes)
+            
+            let styleUserResponse = styleAttributes.map { (value) -> Panes.StylePane.UserResponse in
+                switch value {
+                case let .fontStyle(value): return .fontStyle([value])
+                case let .alignment(value): return .alignment(value)
+                }
+            }
+            
+            styleUserResponse.forEach(self.styleModel.deliver(response:))
         }
         
         func update(category: Section.Category) {

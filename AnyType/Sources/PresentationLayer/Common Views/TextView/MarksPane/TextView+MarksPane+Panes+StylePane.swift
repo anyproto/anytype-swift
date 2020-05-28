@@ -17,6 +17,12 @@ extension TextView.MarksPane.Panes {
 }
 
 // MARK: States and Actions
+/// A set of Input(`Attribute`, `UserResponse`) and Output(`Action`) types.
+/// `Attribute` refers to possible values of Input.
+/// `UserResponse` refers to a set of possible values of Input.
+/// `UserResponse` := (`Optional<Attribute>`, `Attribute`) | (`[Attribute]`)
+/// `UserResponse` is `exclusive` ( `Optional<Attribute> | Attribute` ) or `inclusive` (`[Attribute]`).
+///
 extension TextView.MarksPane.Panes.StylePane {
     /// An `Attribute` from UserResponse.
     /// When user press something in related UI component, you should update state of this UI component.
@@ -28,92 +34,67 @@ extension TextView.MarksPane.Panes.StylePane {
     ///
     /// That is why you have `Converter` from `TextView.MarkStyle`
     ///
-    enum Attribute: CaseIterable {
-        case bold(Bool)
-        case italic(Bool)
-        case strikethrough(Bool)
-        case keyboard(Bool)
-
-        /// As soon as we have Inclusive `Attribute` ( a `Set` of attributes )
-        /// We should be able to find attributes of the same kind.
-        /// For that reason we have `allCases` with empty state.
-        ///
-        static var allCases: [Attribute] = [ .bold(false), .italic(false), .strikethrough(false), .keyboard(false) ]
-
-        var boolValue: Bool {
-            switch self {
-            case let .bold(value): return value
-            case let .italic(value): return value
-            case let .strikethrough(value): return value
-            case let .keyboard(value): return value
-            }
-        }
-
-        /// This is a Kind of attribute.
-        /// Actually, we have a Set of `Attributes`.
-        /// For that reason, we should find an attribute of the same `kind`.
-        /// This is helper struct for this.
-        ///
-        struct Kind {
-            var attribute: Attribute
-            func sameKind(_ value: Attribute) -> Bool {
-                Self.same(self.attribute, value)
-            }
-            static func same(_ lhs: Attribute, _ rhs: Attribute) -> Bool {
-                switch (lhs, rhs) {
-                case (.bold, .bold): return true
-                case (.italic, .italic): return true
-                case (.strikethrough, .strikethrough): return true
-                case (.keyboard, .keyboard): return true
-                default: return false
-                }
-            }
-        }
+    enum Attribute {
+        case fontStyle(FontStyle.Attribute)
+        case alignment(Alignment.Attribute)
     }
 
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
+    /// Most functions have the same name and they are dispatching by a type of argument.
+    /// Parameter name `style` refers to `TextView.MarkStyle`
+    /// Parameter name `alignment` refers to `NSTextAlignment`
     ///
     enum Converter {
-        private static func state(_ style: TextView.MarkStyle) -> Attribute? {
-            switch style {
-            case let .bold(value): return .bold(value)
-            case let .italic(value): return .italic(value)
-            case let .strikethrough(value): return .strikethrough(value)
-            case let .keyboard(value): return .keyboard(value)
-            default: return nil
-            }
-        }
+        /// All functions have name `state`.
+        /// It is better to rename it to `convert` ot `attribute`.
+        ///
 
+        private static func state(_ style: TextView.MarkStyle) -> Attribute? {
+            FontStyle.Converter.state(style).flatMap(Attribute.fontStyle)
+        }
+        
+        private static func state(_ alignment: NSTextAlignment) -> Attribute? {
+            Alignment.Converter.state(alignment).flatMap(Attribute.alignment)
+        }
+        
+        static func state(_ alignment: NSTextAlignment?) -> Attribute? {
+            alignment.flatMap(state)
+        }
+        
         static func state(_ style: TextView.MarkStyle?) -> Attribute? {
             style.flatMap(state)
         }
-
-        static func states(_ styles: [TextView.MarkStyle]) -> [Attribute] {
+        
+        static func state(_ styles: [NSTextAlignment]) -> [Attribute] {
             styles.compactMap(state)
         }
+        
+        static func states(_ styles: [TextView.MarkStyle], _ alignment: [NSTextAlignment] = []) -> [Attribute] {
+            styles.compactMap(state) + alignment.compactMap(state)
+        }
     }
-
-    /// Well, we have Inclusive attriubtes.
-    /// So, we have not only one attribute, we have a set of attributes.
-    /// It is a convenient typealias to a `Set` of `Attribute`.
-    typealias UserResponse = [Attribute]
-
+    
+    /// `UserResponse` is a structure that is delivering updates from OuterWorld.
+    /// So, when user want to refresh UI of this component, he needs to `select` text.
+    /// Next, appropriate method will update current value of `UserResponse` in this pane.
+    ///
+    enum UserResponse {
+        case fontStyle(FontStyle.UserResponse)
+        case alignment(Alignment.UserResponse)
+    }
+        
     /// `Action` is an action from User, when he pressed current cell in this pane.
+    /// This pane is set of panes, so, whenever user pressed a cell in child pane, update will deliver to OuterWorld.
     /// It refers to outgoing ( or `to OuterWorld` ) publisher.
     ///
     enum Action {
-        // styles
-        case bold
-        case italic
-        case strikethrough
-        case keyboard
-
-        static func from(attribute: Attribute) -> Self {
+        case fontStyle(FontStyle.Action)
+        case alignment(Alignment.Action)
+        
+        static func from(_ attribute: Attribute) -> Self {
             switch attribute {
-            case .bold: return .bold
-            case .italic: return .italic
-            case .strikethrough: return .strikethrough
-            case .keyboard: return .keyboard
+            case let .fontStyle(value): return .fontStyle(.from(attribute: value))
+            case let .alignment(value): return .alignment(.from(attribute: value))
             }
         }
     }
@@ -123,6 +104,11 @@ extension TextView.MarksPane.Panes.StylePane {
 extension TextView.MarksPane.Panes.StylePane {
     /// `ListDataSource` is intended to manipulate with data at index paths.
     /// Also, it knows about the count of entries in a row at section.
+    ///
+    /// Responsibilities:
+    /// - Get sections count and count of items in section.
+    /// - Conversion between `IndexPath` and `Attribute`.
+    /// - Resources for items at `IndexPath` or for `Attribute`.
     ///
     enum ListDataSource {
 
@@ -142,7 +128,8 @@ extension TextView.MarksPane.Panes.StylePane {
         ///
         static func itemsCount(section: Int) -> Int {
             switch section {
-            case 0: return Attribute.allCases.count
+            case 0: return FontStyle.ListDataSource.itemsCount(section: 0)
+            case 1: return Alignment.ListDataSource.itemsCount(section: 0)
             default: return 0
             }
         }
@@ -152,10 +139,12 @@ extension TextView.MarksPane.Panes.StylePane {
         /// Here we do it.
         static func indexPath(attribute: Attribute) -> IndexPath {
             switch attribute {
-            case .bold: return .init(item: 0, section: 0)
-            case .italic: return .init(item: 1, section: 0)
-            case .strikethrough: return .init(item: 2, section: 0)
-            case .keyboard: return .init(item: 3, section: 0)
+            case let .fontStyle(value): return FontStyle.ListDataSource.indexPath(attribute: value)
+            case let .alignment(value):
+                let section = 1
+                var item = Alignment.ListDataSource.indexPath(attribute: value)
+                item.section = section
+                return item
             }
         }
 
@@ -168,42 +157,40 @@ extension TextView.MarksPane.Panes.StylePane {
         /// It `does not` reset `indexPath.item` to a `zero` in `new` section.
         ///
         static func attribute(at indexPath: IndexPath) -> Attribute {
-            Attribute.allCases[indexPath.item]
+            switch indexPath.section {
+            case 0: return .fontStyle(FontStyle.ListDataSource.attribute(at: indexPath))
+            case 1: return .alignment(Alignment.ListDataSource.attribute(at: .init(item: indexPath.item, section: 0)))
+            default: return .alignment(.left) // Actually, unreachable.
+            }
         }
 
         // MARK: Conversion: String and Attribute
         static func imageResource(attribute: Attribute) -> String {
             switch attribute {
-            case .bold: return "TextEditor/Toolbar/Marks/Bold"
-            case .italic: return "TextEditor/Toolbar/Marks/Italic"
-            case .strikethrough: return "TextEditor/Toolbar/Marks/Strikethrough"
-            case .keyboard: return "TextEditor/Toolbar/Marks/Code"
+            case let .fontStyle(value): return FontStyle.ListDataSource.imageResource(attribute: value)
+            case let .alignment(value): return Alignment.ListDataSource.imageResource(attribute: value)
             }
-        }
-
-        // MARK: Stream
-        /// We have inclusive attributes (a Set of Attributes).
-        /// In this case we should provide a stream ( input stream ) to update current state of specified attribute.
-        static func stream(attribute: Attribute, stream: AnyPublisher<UserResponse, Never>) -> AnyPublisher<Bool, Never> {
-            stream.map{ value -> Attribute? in
-                return value.first(where: Attribute.Kind(attribute: attribute).sameKind)
-            }.safelyUnwrapOptionals().map(\.boolValue).eraseToAnyPublisher()
         }
     }
 }
 
 // MARK: ViewModelBuilder
 extension TextView.MarksPane.Panes.StylePane {
+    /// Creates `Cell.ViewModel`
     enum CellViewModelBuilder {
-        /// MARK: 
+        /// Creates a `Data` or `CellData`.
+        /// - Parameter attribute: An Attribute for which we will create `Data` or `CellData`.
+        /// - Returns: Configured `Data`or `CellData`.
         static func item(attribute: Attribute) -> Cell.ViewModel {
             let indexPath = ListDataSource.indexPath(attribute: attribute)
             let imageResource = ListDataSource.imageResource(attribute: attribute)
 
             return .init(section: indexPath.section, index: indexPath.item, imageResource: imageResource)
         }
-        static func cell(attribute: Attribute, stream: AnyPublisher<UserResponse, Never>) -> Cell.ViewModel {
-            self.item(attribute: attribute).configured(stateStream: ListDataSource.stream(attribute: attribute, stream: stream))
+        
+        /// Alias to `self.item(attribute:)`
+        static func cell(attribute: Attribute) -> Cell.ViewModel {
+            item(attribute: attribute)
         }
     }
 }
@@ -218,13 +205,17 @@ extension TextView.MarksPane.Panes.StylePane {
 
         // MARK: Publishers
         /// From OuterWorld
-        @Published fileprivate var userResponse: UserResponse = []
-
+        @Published fileprivate var userResponse: UserResponse?
+        
+        
         /// To OuterWorld, Public
         var userAction: AnyPublisher<Action, Never> = .empty()
-
+        var fontStyleUserResponsePublisher: AnyPublisher<FontStyle.UserResponse, Never> = .empty()
+        var alignmentUserResponsePublisher: AnyPublisher<IndexPath?, Never> = .empty()
+        
         /// From Cells ViewModels
-        @Published var indexPath: IndexPath?
+        @Published var fontStyleIndexPath: IndexPath?
+        @Published var alignmentIndexPath: IndexPath?
         
         /// Subscriptions
         var subscriptions: Set<AnyCancellable> = []
@@ -232,8 +223,24 @@ extension TextView.MarksPane.Panes.StylePane {
         // MARK: Subscriptions
         func setupSubscriptions() {
             /// To OuterWorld
-            self.userAction = self.$indexPath.safelyUnwrapOptionals()
-                .map(ListDataSource.attribute(at:)).map(Action.from(attribute:)).eraseToAnyPublisher()
+            let fontStyleAction = self.$fontStyleIndexPath.safelyUnwrapOptionals().map(ListDataSource.attribute(at:)).map(Action.from(_:)).eraseToAnyPublisher()
+            let alignmentAction = self.$alignmentIndexPath.safelyUnwrapOptionals().map(ListDataSource.attribute(at:)).map(Action.from(_:)).eraseToAnyPublisher()
+            self.userAction = Publishers.Merge(fontStyleAction, alignmentAction).eraseToAnyPublisher()
+            
+            /// From OuterWorld
+            self.fontStyleUserResponsePublisher = self.$userResponse.safelyUnwrapOptionals().map({ value -> FontStyle.UserResponse? in
+                switch value {
+                case let .fontStyle(value): return value
+                default: return nil
+                }
+            }).safelyUnwrapOptionals().eraseToAnyPublisher()
+            
+            self.alignmentUserResponsePublisher = self.$userResponse.safelyUnwrapOptionals().map({ value -> Alignment.UserResponse? in
+                switch value {
+                case let .alignment(value): return value
+                default: return nil
+                }
+            }).safelyUnwrapOptionals().map(Attribute.alignment).map(ListDataSource.indexPath(attribute:)).eraseToAnyPublisher()
         }
 
         // MARK: Public Setters
@@ -248,8 +255,19 @@ extension TextView.MarksPane.Panes.StylePane {
 
         func cells(section: Int) -> [Cell.ViewModel] {
             switch section {
-            case 0: return Attribute.allCases.map({CellViewModelBuilder.cell(attribute: $0, stream: self.$userResponse.eraseToAnyPublisher())}).map({$0.configured(indexPathStream: self._indexPath)})
-            default: return self.cells(section: 0)
+            case 0:
+                let cells = FontStyle.Attribute.allCases
+                    .map({($0, FontStyle.ListDataSource.stream(attribute: $0, stream: self.fontStyleUserResponsePublisher))})
+                    .map({(Attribute.fontStyle($0.0), $0.1)})
+                    .map({CellViewModelBuilder.cell(attribute: $0.0).configured(stateStream: $0.1)})
+                _ = cells.map({$0.configured(indexPathPublished: self._fontStyleIndexPath)})
+                return cells
+            case 1:
+                let cells = Alignment.Attribute.allCases.map(Attribute.alignment).map({CellViewModelBuilder.cell(attribute: $0)})
+                _ = cells.map({$0.configured(indexPathPublished: self._alignmentIndexPath)})
+                _ = cells.map({$0.configured(indexPathStream: self.alignmentUserResponsePublisher)})
+                return cells
+            default: return []
             }
         }
     }
@@ -285,7 +303,7 @@ extension TextView.MarksPane.Panes.StylePane {
         /// Second list view contains alignments.
 
         var view: some View {
-            VStack(alignment: .leading, spacing: self.layout.verticalSpacing) {
+            VStack(alignment: .center, spacing: self.layout.verticalSpacing) {
                 ForEach(0..<self.viewModel.sectionsCount()) { section in
                     Category.init(cells: self.viewModel.cells(section: section))
                 }
@@ -460,8 +478,8 @@ extension TextView.MarksPane.Panes.StylePane.Cell {
         let imageResource: String
 
         /// Output Stream ( from this ViewModel to OuterWorld. )
-        func configured(indexPathStream: Published<IndexPath?>) -> Self {
-            self._indexPath = indexPathStream
+        func configured(indexPathPublished: Published<IndexPath?>) -> Self {
+            self._indexPath = indexPathPublished
             return self
         }
 
@@ -469,6 +487,13 @@ extension TextView.MarksPane.Panes.StylePane.Cell {
         func configured(stateStream: AnyPublisher<Bool, Never>) -> Self {
             self.subscription = stateStream.sink { [weak self] value in
                 self?.state = value
+            }
+            return self
+        }
+        
+        func configured(indexPathStream: AnyPublisher<IndexPath?, Never>) -> Self {
+            self.subscription = indexPathStream.safelyUnwrapOptionals().sink { [weak self] value in
+                self?.state = (value.section == self?.section) && (value.item == self?.index)
             }
             return self
         }

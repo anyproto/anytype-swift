@@ -23,6 +23,8 @@ extension TextView.UIKitTextView {
         // MARK: Variables
         @Published var text: String? = nil
         @Published var attributedText: NSAttributedString? = nil
+        @Published var textAlignment: NSTextAlignment? = nil
+        
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
         func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
             self.userInteractionDelegate = delegate
@@ -267,11 +269,16 @@ extension TextView.UIKitTextView.Coordinator {
             switch action {
             case let .style(range, attribute):
                 guard range.length > 0 else { return }
-                let theMark = AttributesToMarkStyleConverter.emptyMark(from: attribute)
-                if let style = modifier.getMarkStyle(style: theMark, at: .range(range)) {
-                    _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
+                switch attribute {
+                case let .fontStyle(attribute):
+                    let theMark = ActionsToMarkStyleConverter.emptyMark(from: attribute)
+                    if let style = modifier.getMarkStyle(style: theMark, at: .range(range)) {
+                        _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
+                    }
+                case let .alignment(attribute):
+                    textView.textAlignment = ActionsToMarkStyleConverter.textAlignment(from: attribute)
                 }
-                self?.updateMarksInputView((range, attributedText))
+                self?.updateMarksInputView((range, attributedText, textView))
                 
             case let .textColor(range, attribute):
                 guard range.length > 0 else { return }
@@ -297,13 +304,20 @@ extension TextView.UIKitTextView.Coordinator {
 
 // MARK: Attributes and MarkStyles Converter (Move it to MarksPane)
 extension TextView.UIKitTextView.Coordinator {
-    enum AttributesToMarkStyleConverter {
-        static func emptyMark(from attribute: TextView.MarksPane.Main.Panes.StylePane.Action) -> TextView.MarkStyle {
-            switch attribute {
+    enum ActionsToMarkStyleConverter {
+        static func emptyMark(from action: TextView.MarksPane.Main.Panes.StylePane.FontStyle.Action) -> TextView.MarkStyle {
+            switch action {
             case .bold: return .bold(false)
             case .italic: return .italic(false)
             case .strikethrough: return .strikethrough(false)
             case .keyboard: return .keyboard(false)
+            }
+        }
+        static func textAlignment(from action: TextView.MarksPane.Main.Panes.StylePane.Alignment.Action) -> NSTextAlignment {
+            switch action {
+            case .left: return .left
+            case .center: return .center
+            case .right: return .right
             }
         }
     }
@@ -318,7 +332,7 @@ extension TextView.UIKitTextView.Coordinator {
             let (view, action) = tuple
             let range = view.selectedRange
             let attributedText = view.textStorage
-            self?.updateMarksInputView((range, attributedText, action))
+            self?.updateMarksInputView((range, attributedText, view, action))
             self?.switchInputs(view)
         }
         return self
@@ -342,9 +356,12 @@ extension TextView.UIKitTextView.Coordinator {
         let (range, storage) = tuple
         self.marksToolbarInputView.viewModel.update(range: range, attributedText: storage)
     }
-    func updateMarksInputView(_ triple: (NSRange, NSTextStorage, TextView.UIKitTextView.ContextualMenu.Action)) {
-        self.updateMarksInputView((triple.0, triple.1))
-        self.marksToolbarInputView.viewModel.update(category: ActionToCategoryConverter.asCategory(triple.2))
+    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, TextView.UIKitTextView.ContextualMenu.Action)) {
+        self.updateMarksInputView((quadruple.0, quadruple.1, quadruple.2))
+        self.marksToolbarInputView.viewModel.update(category: ActionToCategoryConverter.asCategory(quadruple.3))
+    }
+    func updateMarksInputView(_ triple: (NSRange, NSTextStorage, UITextView)) {
+        self.marksToolbarInputView.viewModel.update(range: triple.0, attributedText: triple.1, alignment: triple.2.textAlignment)
     }
 }
 
@@ -505,7 +522,7 @@ private extension TextView.UIKitTextView.Coordinator {
             if (textView.inputView == coordinator.marksToolbarInputView.view) {
                 let range = textView.selectedRange
                 let attributedText = textView.textStorage
-                coordinator.updateMarksInputView((range, attributedText))
+                coordinator.updateMarksInputView((range, attributedText, textView))
             }
         }
         
@@ -598,13 +615,14 @@ extension TextView.UIKitTextView.Coordinator {
         self.textStorageSubscription = textStorageStream.sink(receiveValue: { [weak self] (value) in
             switch value {
             case .willProcessEditing(_): return
-            case let .didProcessEditing(text): self?.notifySubscribers(attributedText: text)
+            case let .didProcessEditing(payload): self?.notifySubscribers(payload)
             }
         })
         return self
     }
-    private func notifySubscribers(attributedText: NSAttributedString) {
-        self.attributedText = attributedText
+    private func notifySubscribers(_ payload: TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent.Payload) {
+        self.attributedText = payload.attributedText
+        self.textAlignment = payload.textAlignment
     }
 }
 

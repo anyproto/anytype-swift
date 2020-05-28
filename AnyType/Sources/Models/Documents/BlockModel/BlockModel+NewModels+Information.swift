@@ -19,6 +19,11 @@ extension BlockModels.Block {
         var fields: [String: Any] = .init()
         var restrictions: [String] = []
         
+        /// TODO: Add later to Protocol.
+        /// It is an alignment of view.
+        /// Actually, we should adopt it later to all views, but for now it is adopted only by textView.
+        /// For textView it is simple: it is a text alignment.
+        /// For other views it is alignment of content or ContentMode.
         var alignment: Alignment = .left
         
         /// TODO: Add later to Protocol.

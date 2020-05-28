@@ -38,8 +38,12 @@ extension TextView.UIKitTextView {
         
         // MARK: Publishers
         enum TextStorageEvent {
-            case willProcessEditing(NSAttributedString)
-            case didProcessEditing(NSAttributedString)
+            struct Payload {
+                var attributedText: NSAttributedString
+                var textAlignment: NSTextAlignment
+            }
+            case willProcessEditing(Payload)
+            case didProcessEditing(Payload)
         }
         
         var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
@@ -154,7 +158,7 @@ extension TextView.UIKitTextView.TextViewWithPlaceholder {
 extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate {
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
         self.syncPlaceholder()
-        self.textStorageEventsSubject.send(.didProcessEditing(textStorage))
+        self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: self.textAlignment)))
     }
 }
 

@@ -15,13 +15,38 @@ private extension Logging.Categories {
     static let blocksViewsBase: Self = "TextEditor.BlocksViews.Base"
 }
 
+// MARK: Options
+extension BlocksViews.Base.ViewModel {
+    /// Actually, `feature flags`.
+    struct Options {
+        var shouldAddContextualMenu: Bool = true
+    }
+}
+
 extension BlocksViews.Base {
     class ViewModel: ObservableObject {
         typealias BlockModel = BlockModels.Block.RealBlock
         typealias BlockModelReal = BlockModels.Block.RealBlock // has type .block
         typealias BlockModelID = BlockModels.Block.RealBlock.Index
         
-        private var block: BlockModel
+        // MARK: Variables
+        /// our Block
+        /// Maybe we should made it Observable?.. Let think a bit about it.
+        private var block: BlockModel {
+            didSet {
+                self.blockUpdatesSubject.send(self.block)
+            }
+        }
+        
+        /// Options that handle a behavior of view model.
+        private var options: Options = .init()
+        
+        /// Updates of block.
+        /// Necessary to handle
+        private var blockUpdatesSubject: PassthroughSubject<BlockModel, Never> = .init()
+        lazy var blockUpdatesPublisher: AnyPublisher<BlockModel, Never> = {
+            self.blockUpdatesSubject.eraseToAnyPublisher()
+        }()
         
         // MARK: Deinitialization
         deinit {
@@ -60,6 +85,7 @@ extension BlocksViews.Base {
         func update(block: (inout BlockModelReal) -> ()) {
             if isRealBlock() {
                 self.block = update(getRealBlock(), body: block)
+//                self.blockUpdatesSubject.send(self.block)
             }
         }
         
@@ -70,9 +96,6 @@ extension BlocksViews.Base {
         public var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = .empty()
         private func setupPublishers() {
             self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
-            self.userActionPublisher.sink { (value) in
-                print("I send value! \(value)")
-            }.store(in: &self.subscriptions)
         }
         
         // MARK: Contextual Menu
@@ -106,6 +129,14 @@ extension BlocksViews.Base {
         // MARK: Subclass / ContextualMenu
         func makeContextualMenu() -> BlocksViews.ContextualMenu { .init() }
         func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {}
+    }
+}
+
+// MARK: Options
+extension BlocksViews.Base.ViewModel {
+    func configured(_ options: Options) -> Self {
+        self.options = options
+        return self
     }
 }
 
@@ -190,7 +221,7 @@ extension BlocksViews.Base.ViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView { makeSwiftUIView() }
     func buildUIView() -> UIView {
         let view = makeUIView()
-        if let delegate = self.contextualMenuDelegate {
+        if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
             let interaction = UIContextMenuInteraction.init(delegate: delegate)
             view.addInteraction(interaction)
         }

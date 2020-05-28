@@ -243,6 +243,10 @@ extension TextView.MarksPane.Panes.Color {
         }
         
         // MARK: Cell
+        func sectionsCount() -> Int {
+            ListDataSource.sectionsCount()
+        }
+
         func cells(section: Int) -> [Cell.ViewModel] {
             /// we have two sections
             let colors = Colors.allCases.enumerated().filter({ListDataSource.indexPath($0.offset).section == section}).compactMap { value in
@@ -251,10 +255,6 @@ extension TextView.MarksPane.Panes.Color {
             _ = colors.map({$0.configured(indexPathStream: self._indexPath)})
             _ = colors.map({$0.configured(indexPathPublisher: self.userResponsePublisher)})
             return colors
-        }
-        
-        func sectionsCount() -> Int {
-            ListDataSource.sectionsCount()
         }
     }
 }
