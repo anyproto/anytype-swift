@@ -60,7 +60,7 @@ struct Anytype_Model_PageInfo {
 
   var lastOpened: Int64 = 0
 
-  var inboundLinksCount: UInt32 = 0
+  var hasInboundLinks_p: Bool = false
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -273,7 +273,7 @@ extension Anytype_Model_PageInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     3: .same(proto: "snippet"),
     4: .same(proto: "state"),
     5: .same(proto: "lastOpened"),
-    6: .same(proto: "inboundLinksCount"),
+    6: .same(proto: "hasInboundLinks"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -284,7 +284,7 @@ extension Anytype_Model_PageInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       case 3: try decoder.decodeSingularStringField(value: &self.snippet)
       case 4: try decoder.decodeSingularMessageField(value: &self._state)
       case 5: try decoder.decodeSingularInt64Field(value: &self.lastOpened)
-      case 6: try decoder.decodeSingularUInt32Field(value: &self.inboundLinksCount)
+      case 6: try decoder.decodeSingularBoolField(value: &self.hasInboundLinks_p)
       default: break
       }
     }
@@ -306,8 +306,8 @@ extension Anytype_Model_PageInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if self.lastOpened != 0 {
       try visitor.visitSingularInt64Field(value: self.lastOpened, fieldNumber: 5)
     }
-    if self.inboundLinksCount != 0 {
-      try visitor.visitSingularUInt32Field(value: self.inboundLinksCount, fieldNumber: 6)
+    if self.hasInboundLinks_p != false {
+      try visitor.visitSingularBoolField(value: self.hasInboundLinks_p, fieldNumber: 6)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -318,7 +318,7 @@ extension Anytype_Model_PageInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.snippet != rhs.snippet {return false}
     if lhs._state != rhs._state {return false}
     if lhs.lastOpened != rhs.lastOpened {return false}
-    if lhs.inboundLinksCount != rhs.inboundLinksCount {return false}
+    if lhs.hasInboundLinks_p != rhs.hasInboundLinks_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

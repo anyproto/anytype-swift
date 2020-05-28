@@ -599,14 +599,14 @@ extension Anytype_Rpc.Block.Paste {
 
   enum Service {
     public static func invoke(
-      contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], copyTextRange: Anytype_Model_Range, textSlot: String, htmlSlot: String,
+      contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], isPartOfBlock: Bool, textSlot: String, htmlSlot: String,
       anySlot: [Anytype_Model_Block]
     ) -> Future<Response, Error> {
       .init { promise in
         promise(
           self.result(
             .init(
-              contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, copyTextRange: copyTextRange, textSlot: textSlot,
+              contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
               htmlSlot: htmlSlot, anySlot: anySlot)))
       }
     }
@@ -641,6 +641,38 @@ extension Anytype_Rpc.Block.Cut {
   enum Service {
     public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) -> Future<Response, Error> {
       .init { promise in promise(self.result(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockImportMarkdown(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, importPath: String) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, importPath: importPath))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {

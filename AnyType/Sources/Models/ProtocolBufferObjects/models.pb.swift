@@ -604,6 +604,7 @@ struct Anytype_Model_Block {
           case link // = 5
           case textColor // = 6
           case backgroundColor // = 7
+          case mention // = 8
           case UNRECOGNIZED(Int)
 
           init() {
@@ -620,6 +621,7 @@ struct Anytype_Model_Block {
             case 5: self = .link
             case 6: self = .textColor
             case 7: self = .backgroundColor
+            case 8: self = .mention
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -634,6 +636,7 @@ struct Anytype_Model_Block {
             case .link: return 5
             case .textColor: return 6
             case .backgroundColor: return 7
+            case .mention: return 8
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -861,6 +864,7 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
     .link,
     .textColor,
     .backgroundColor,
+    .mention,
   ]
 }
 
@@ -1736,6 +1740,7 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: SwiftProtobuf._ProtoNa
     5: .same(proto: "Link"),
     6: .same(proto: "TextColor"),
     7: .same(proto: "BackgroundColor"),
+    8: .same(proto: "Mention"),
   ]
 }
 

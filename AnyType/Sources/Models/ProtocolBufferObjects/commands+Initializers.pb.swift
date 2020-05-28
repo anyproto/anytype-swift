@@ -160,9 +160,11 @@ extension Anytype_Rpc.Block.Copy.Request {
 }
 
 extension Anytype_Rpc.Block.Copy.Response {
-  init(error: Anytype_Rpc.Block.Copy.Response.Error, html: String) {
+  init(error: Anytype_Rpc.Block.Copy.Response.Error, textSlot: String, htmlSlot: String, anySlot: [Anytype_Model_Block]) {
     self.error = error
-    self.html = html
+    self.textSlot = textSlot
+    self.htmlSlot = htmlSlot
+    self.anySlot = anySlot
   }
 }
 
@@ -358,6 +360,28 @@ extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.ImportMarkdown.Request {
+  init(contextID: String, importPath: String) {
+    self.contextID = contextID
+    self.importPath = importPath
+  }
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown.Response {
+  init(error: Anytype_Rpc.Block.ImportMarkdown.Response.Error, rootLinkIds: [String], event: Anytype_ResponseEvent) {
+    self.error = error
+    self.rootLinkIds = rootLinkIds
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown.Response.Error {
+  init(code: Anytype_Rpc.Block.ImportMarkdown.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Merge.Request {
   init(contextID: String, firstBlockID: String, secondBlockID: String) {
     self.contextID = contextID
@@ -424,14 +448,14 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error {
 
 extension Anytype_Rpc.Block.Paste.Request {
   init(
-    contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], copyTextRange: Anytype_Model_Range, textSlot: String, htmlSlot: String,
+    contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], isPartOfBlock: Bool, textSlot: String, htmlSlot: String,
     anySlot: [Anytype_Model_Block]
   ) {
     self.contextID = contextID
     self.focusedBlockID = focusedBlockID
     self.selectedTextRange = selectedTextRange
     self.selectedBlockIds = selectedBlockIds
-    self.copyTextRange = copyTextRange
+    self.isPartOfBlock = isPartOfBlock
     self.textSlot = textSlot
     self.htmlSlot = htmlSlot
     self.anySlot = anySlot
@@ -439,10 +463,11 @@ extension Anytype_Rpc.Block.Paste.Request {
 }
 
 extension Anytype_Rpc.Block.Paste.Response {
-  init(error: Anytype_Rpc.Block.Paste.Response.Error, blockIds: [String], caretPosition: Int32, event: Anytype_ResponseEvent) {
+  init(error: Anytype_Rpc.Block.Paste.Response.Error, blockIds: [String], caretPosition: Int32, isSameBlockCaret: Bool, event: Anytype_ResponseEvent) {
     self.error = error
     self.blockIds = blockIds
     self.caretPosition = caretPosition
+    self.isSameBlockCaret = isSameBlockCaret
     self.event = event
   }
 }

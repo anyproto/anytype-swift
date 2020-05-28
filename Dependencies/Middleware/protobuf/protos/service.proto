@@ -74,6 +74,7 @@ service ClientCommands {
 
     rpc BlockCut (anytype.Rpc.Block.Cut.Request) returns (anytype.Rpc.Block.Cut.Response);
     rpc BlockExport (anytype.Rpc.Block.Export.Request) returns (anytype.Rpc.Block.Export.Response);
+    rpc BlockImportMarkdown (anytype.Rpc.Block.ImportMarkdown.Request) returns (anytype.Rpc.Block.ImportMarkdown.Response);
 
     rpc BlockSetFileName (anytype.Rpc.Block.Set.File.Name.Request) returns (anytype.Rpc.Block.Set.File.Name.Response);
     rpc BlockSetImageName (anytype.Rpc.Block.Set.Image.Name.Request) returns (anytype.Rpc.Block.Set.Image.Name.Response);

@@ -24,6 +24,7 @@ extension Anytype_Rpc.Block.Merge.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Copy.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Paste.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Cut.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.ImportMarkdown.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Export.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Upload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Download.Response.Error: Swift.Error {}

@@ -1970,7 +1970,11 @@ struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         mutating func clearError() {self._error = nil}
 
-        var html: String = String()
+        var textSlot: String = String()
+
+        var htmlSlot: String = String()
+
+        var anySlot: [Anytype_Model_Block] = []
 
         var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2056,14 +2060,7 @@ struct Anytype_Rpc {
 
         var selectedBlockIds: [String] = []
 
-        var copyTextRange: Anytype_Model_Range {
-          get {return _copyTextRange ?? Anytype_Model_Range()}
-          set {_copyTextRange = newValue}
-        }
-        /// Returns true if `copyTextRange` has been explicitly set.
-        var hasCopyTextRange: Bool {return self._copyTextRange != nil}
-        /// Clears the value of `copyTextRange`. Subsequent reads from it will return its default value.
-        mutating func clearCopyTextRange() {self._copyTextRange = nil}
+        var isPartOfBlock: Bool = false
 
         var textSlot: String = String()
 
@@ -2076,7 +2073,6 @@ struct Anytype_Rpc {
         init() {}
 
         fileprivate var _selectedTextRange: Anytype_Model_Range? = nil
-        fileprivate var _copyTextRange: Anytype_Model_Range? = nil
       }
 
       struct Response {
@@ -2096,6 +2092,8 @@ struct Anytype_Rpc {
         var blockIds: [String] = []
 
         var caretPosition: Int32 = 0
+
+        var isSameBlockCaret: Bool = false
 
         var event: Anytype_ResponseEvent {
           get {return _event ?? Anytype_ResponseEvent()}
@@ -2277,6 +2275,110 @@ struct Anytype_Rpc {
         init() {}
 
         fileprivate var _error: Anytype_Rpc.Block.Cut.Response.Error? = nil
+        fileprivate var _event: Anytype_ResponseEvent? = nil
+      }
+
+      init() {}
+    }
+
+    struct ImportMarkdown {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var contextID: String = String()
+
+        var importPath: String = String()
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var error: Anytype_Rpc.Block.ImportMarkdown.Response.Error {
+          get {return _error ?? Anytype_Rpc.Block.ImportMarkdown.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        mutating func clearError() {self._error = nil}
+
+        var rootLinkIds: [String] = []
+
+        var event: Anytype_ResponseEvent {
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        var hasEvent: Bool {return self._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        mutating func clearEvent() {self._event = nil}
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var code: Anytype_Rpc.Block.ImportMarkdown.Response.Error.Code = .null
+
+          var description_p: String = String()
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          enum Code: SwiftProtobuf.Enum {
+            typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            init() {
+              self = .null
+            }
+
+            init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          init() {}
+        }
+
+        init() {}
+
+        fileprivate var _error: Anytype_Rpc.Block.ImportMarkdown.Response.Error? = nil
         fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
@@ -7996,6 +8098,15 @@ extension Anytype_Rpc.Block.Cut.Response.Error.Code: CaseIterable {
   ]
 }
 
+extension Anytype_Rpc.Block.ImportMarkdown.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Anytype_Rpc.Block.ImportMarkdown.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
 extension Anytype_Rpc.Block.Export.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Anytype_Rpc.Block.Export.Response.Error.Code] = [
@@ -11161,14 +11272,18 @@ extension Anytype_Rpc.Block.Copy.Response: SwiftProtobuf.Message, SwiftProtobuf.
   static let protoMessageName: String = Anytype_Rpc.Block.Copy.protoMessageName + ".Response"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "html"),
+    2: .same(proto: "textSlot"),
+    3: .same(proto: "htmlSlot"),
+    4: .same(proto: "anySlot"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularMessageField(value: &self._error)
-      case 2: try decoder.decodeSingularStringField(value: &self.html)
+      case 2: try decoder.decodeSingularStringField(value: &self.textSlot)
+      case 3: try decoder.decodeSingularStringField(value: &self.htmlSlot)
+      case 4: try decoder.decodeRepeatedMessageField(value: &self.anySlot)
       default: break
       }
     }
@@ -11178,15 +11293,23 @@ extension Anytype_Rpc.Block.Copy.Response: SwiftProtobuf.Message, SwiftProtobuf.
     if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     }
-    if !self.html.isEmpty {
-      try visitor.visitSingularStringField(value: self.html, fieldNumber: 2)
+    if !self.textSlot.isEmpty {
+      try visitor.visitSingularStringField(value: self.textSlot, fieldNumber: 2)
+    }
+    if !self.htmlSlot.isEmpty {
+      try visitor.visitSingularStringField(value: self.htmlSlot, fieldNumber: 3)
+    }
+    if !self.anySlot.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.anySlot, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Anytype_Rpc.Block.Copy.Response, rhs: Anytype_Rpc.Block.Copy.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.html != rhs.html {return false}
+    if lhs.textSlot != rhs.textSlot {return false}
+    if lhs.htmlSlot != rhs.htmlSlot {return false}
+    if lhs.anySlot != rhs.anySlot {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -11261,7 +11384,7 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
     2: .same(proto: "focusedBlockId"),
     3: .same(proto: "selectedTextRange"),
     4: .same(proto: "selectedBlockIds"),
-    5: .same(proto: "copyTextRange"),
+    5: .same(proto: "isPartOfBlock"),
     6: .same(proto: "textSlot"),
     7: .same(proto: "htmlSlot"),
     8: .same(proto: "anySlot"),
@@ -11274,7 +11397,7 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 2: try decoder.decodeSingularStringField(value: &self.focusedBlockID)
       case 3: try decoder.decodeSingularMessageField(value: &self._selectedTextRange)
       case 4: try decoder.decodeRepeatedStringField(value: &self.selectedBlockIds)
-      case 5: try decoder.decodeSingularMessageField(value: &self._copyTextRange)
+      case 5: try decoder.decodeSingularBoolField(value: &self.isPartOfBlock)
       case 6: try decoder.decodeSingularStringField(value: &self.textSlot)
       case 7: try decoder.decodeSingularStringField(value: &self.htmlSlot)
       case 8: try decoder.decodeRepeatedMessageField(value: &self.anySlot)
@@ -11296,8 +11419,8 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.selectedBlockIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.selectedBlockIds, fieldNumber: 4)
     }
-    if let v = self._copyTextRange {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    if self.isPartOfBlock != false {
+      try visitor.visitSingularBoolField(value: self.isPartOfBlock, fieldNumber: 5)
     }
     if !self.textSlot.isEmpty {
       try visitor.visitSingularStringField(value: self.textSlot, fieldNumber: 6)
@@ -11316,7 +11439,7 @@ extension Anytype_Rpc.Block.Paste.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.focusedBlockID != rhs.focusedBlockID {return false}
     if lhs._selectedTextRange != rhs._selectedTextRange {return false}
     if lhs.selectedBlockIds != rhs.selectedBlockIds {return false}
-    if lhs._copyTextRange != rhs._copyTextRange {return false}
+    if lhs.isPartOfBlock != rhs.isPartOfBlock {return false}
     if lhs.textSlot != rhs.textSlot {return false}
     if lhs.htmlSlot != rhs.htmlSlot {return false}
     if lhs.anySlot != rhs.anySlot {return false}
@@ -11331,7 +11454,8 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
     1: .same(proto: "error"),
     2: .same(proto: "blockIds"),
     3: .same(proto: "caretPosition"),
-    4: .same(proto: "event"),
+    4: .same(proto: "isSameBlockCaret"),
+    5: .same(proto: "event"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -11340,7 +11464,8 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
       case 1: try decoder.decodeSingularMessageField(value: &self._error)
       case 2: try decoder.decodeRepeatedStringField(value: &self.blockIds)
       case 3: try decoder.decodeSingularInt32Field(value: &self.caretPosition)
-      case 4: try decoder.decodeSingularMessageField(value: &self._event)
+      case 4: try decoder.decodeSingularBoolField(value: &self.isSameBlockCaret)
+      case 5: try decoder.decodeSingularMessageField(value: &self._event)
       default: break
       }
     }
@@ -11356,8 +11481,11 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
     if self.caretPosition != 0 {
       try visitor.visitSingularInt32Field(value: self.caretPosition, fieldNumber: 3)
     }
+    if self.isSameBlockCaret != false {
+      try visitor.visitSingularBoolField(value: self.isSameBlockCaret, fieldNumber: 4)
+    }
     if let v = self._event {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -11366,6 +11494,7 @@ extension Anytype_Rpc.Block.Paste.Response: SwiftProtobuf.Message, SwiftProtobuf
     if lhs._error != rhs._error {return false}
     if lhs.blockIds != rhs.blockIds {return false}
     if lhs.caretPosition != rhs.caretPosition {return false}
+    if lhs.isSameBlockCaret != rhs.isSameBlockCaret {return false}
     if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -11564,6 +11693,144 @@ extension Anytype_Rpc.Block.Cut.Response.Error: SwiftProtobuf.Message, SwiftProt
 }
 
 extension Anytype_Rpc.Block.Cut.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.protoMessageName + ".ImportMarkdown"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.ImportMarkdown, rhs: Anytype_Rpc.Block.ImportMarkdown) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.ImportMarkdown.protoMessageName + ".Request"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "contextId"),
+    2: .same(proto: "importPath"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.contextID)
+      case 2: try decoder.decodeSingularStringField(value: &self.importPath)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.contextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.contextID, fieldNumber: 1)
+    }
+    if !self.importPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.importPath, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.ImportMarkdown.Request, rhs: Anytype_Rpc.Block.ImportMarkdown.Request) -> Bool {
+    if lhs.contextID != rhs.contextID {return false}
+    if lhs.importPath != rhs.importPath {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.ImportMarkdown.protoMessageName + ".Response"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "rootLinkIds"),
+    3: .same(proto: "event"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularMessageField(value: &self._error)
+      case 2: try decoder.decodeRepeatedStringField(value: &self.rootLinkIds)
+      case 3: try decoder.decodeSingularMessageField(value: &self._event)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if !self.rootLinkIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.rootLinkIds, fieldNumber: 2)
+    }
+    if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.ImportMarkdown.Response, rhs: Anytype_Rpc.Block.ImportMarkdown.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.rootLinkIds != rhs.rootLinkIds {return false}
+    if lhs._event != rhs._event {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Rpc.Block.ImportMarkdown.Response.protoMessageName + ".Error"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.code)
+      case 2: try decoder.decodeSingularStringField(value: &self.description_p)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Rpc.Block.ImportMarkdown.Response.Error, rhs: Anytype_Rpc.Block.ImportMarkdown.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Block.ImportMarkdown.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
