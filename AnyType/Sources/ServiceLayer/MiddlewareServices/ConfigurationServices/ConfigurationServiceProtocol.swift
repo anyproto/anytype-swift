@@ -11,8 +11,12 @@ import Combine
 
 /// Service that handles middleware config
 protocol ConfigurationServiceProtocol {
-    typealias MiddlewareConfiguration = MiddlewareModels.MiddlwareConfiguration
+    typealias MiddlewareConfiguration = MiddlewareModels.Configuration
+    typealias MiddlewareVersion = MiddlewareModels.Version
     
     /// Obtain middleware configuration
     func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error>
+
+    
+    func obtainLibraryVersion() -> AnyPublisher<MiddlewareVersion, Error>
 }

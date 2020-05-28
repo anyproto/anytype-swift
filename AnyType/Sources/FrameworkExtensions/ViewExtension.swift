@@ -98,3 +98,10 @@ private struct SaveBoundsPrefKey: PreferenceKey {
         value.append(contentsOf: nextValue())
     }
 }
+
+// MARK: AnyView
+extension View {
+    func eraseToAnyView() -> AnyView {
+        .init(self)
+    }
+}

@@ -13,9 +13,12 @@ enum MiddlewareModels{}
 /// Middleware configuration
 extension MiddlewareModels {
     
-    struct MiddlwareConfiguration: Equatable {
+    struct Configuration: Equatable {
         let homeBlockID: String
         let archiveBlockID: String
         let gatewayURL: String
+    }
+    struct Version {
+        let version: String
     }
 }

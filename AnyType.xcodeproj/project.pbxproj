@@ -230,6 +230,7 @@
 		0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2C24801D9000A7144A /* MarksPane+Main+Pane.swift */; };
 		0ABB2A3B24801D9000A7144A /* MarksPane+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2D24801D9000A7144A /* MarksPane+Main.swift */; };
 		0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2E24801D9000A7144A /* MarksPane.swift */; };
+		0ABB2A1A247FEFE700A7144A /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */; };
 		0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D023E4481700442690 /* commands+Service.pb.swift */; };
 		0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D123E4481700442690 /* events+Initializers.pb.swift */; };
 		0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D323E4481800442690 /* models+Initializers.pb.swift */; };
@@ -509,6 +510,7 @@
 		0ABB2A2C24801D9000A7144A /* MarksPane+Main+Pane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Main+Pane.swift"; sourceTree = "<group>"; };
 		0ABB2A2D24801D9000A7144A /* MarksPane+Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Main.swift"; sourceTree = "<group>"; };
 		0ABB2A2E24801D9000A7144A /* MarksPane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarksPane.swift; sourceTree = "<group>"; };
+		0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProfileStory+AboutView.swift"; path = "AnyType/Sources/PresentationLayer/Common Views/TextView/MarksPane/ProfileStory+AboutView.swift"; sourceTree = SOURCE_ROOT; };
 		0ACA77D023E4481700442690 /* commands+Service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Service.pb.swift"; sourceTree = "<group>"; };
 		0ACA77D123E4481700442690 /* events+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "events+Initializers.pb.swift"; sourceTree = "<group>"; };
 		0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Initializers.pb.swift"; sourceTree = "<group>"; };
@@ -1053,6 +1055,7 @@
 		03913E55230B48780040CD4B /* About */ = {
 			isa = PBXGroup;
 			children = (
+				0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -1876,6 +1879,7 @@
 				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
 				0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */,
+				0ABB2A1A247FEFE700A7144A /* ProfileStory+AboutView.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
 				0A8E65232444FDEB00378985 /* ToolsBlocksViews+PageLink.swift in Sources */,

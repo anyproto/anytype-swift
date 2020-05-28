@@ -89,27 +89,22 @@ struct ProfileSectionView: View {
 }
 
 struct SettingsSectionView: View {
-    @State var wallpaper: Bool = false
-    @State var keychain: Bool = false
-    @State var pincode: Bool = false
-    @State var updates: Bool = false
-    @State var invites: Bool = false
+    @ObservedObject var viewModel: ViewModel = .init()
 
     var body: some View {
         VStack(spacing: 12) {
-            SettingsSectionItemView(name: "Wallpaper", icon: "settings/wallpaper", pressed: $wallpaper)
-            Divider().foregroundColor(Color("DividerColor"))
-            SettingsSectionItemView(name: "Keychain phrase", icon: "settings/key", pressed: $keychain)
-                .sheet(isPresented: $keychain) {
-                    KeychainPhraseView(viewModel: KeychainPhraseViewModel(), showKeychainView: self.$keychain)
+            SettingsSectionItemView(name: "Wallpaper", icon: "settings/wallpaper", pressed: self.$viewModel.wallpaper).modifier(DividerModifier())
+            SettingsSectionItemView(name: "Keychain phrase", icon: "settings/key", pressed: self.$viewModel.keychain).modifier(DividerModifier())
+                .sheet(isPresented: self.$viewModel.keychain) {
+                    KeychainPhraseView(viewModel: .init(), showKeychainView: self.$viewModel.keychain)
             }
-            Divider().foregroundColor(Color("DividerColor"))
-            SettingsSectionItemView(name: "Pin code", icon: "settings/lock", pressed: $pincode)
-            Divider().foregroundColor(Color("DividerColor"))
-            SettingsSectionToggleItemView(name: "Updatess", icon: "settings/updates", switched: $updates)
-            Divider().foregroundColor(Color("DividerColor"))
-            SettingsSectionToggleItemView(name: "Invites", icon: "settings/invites", switched: $invites)
-            Divider().foregroundColor(Color("DividerColor"))
+            SettingsSectionItemView(name: "Pin code", icon: "settings/lock", pressed: self.$viewModel.pincode).modifier(DividerModifier())
+            SettingsSectionToggleItemView(name: "Updatess", icon: "settings/updates", switched: self.$viewModel.updates).modifier(DividerModifier())
+            SettingsSectionToggleItemView(name: "Invites", icon: "settings/invites", switched: self.$viewModel.invites).modifier(DividerModifier())
+            SettingsSectionItemView(name: "About application", icon: "", pressed: self.$viewModel.about).modifier(DividerModifier())
+                .sheet(isPresented: self.$viewModel.about) {
+                    ProfileView.AboutView(viewModel: .init())
+            }
         }
         .padding([.leading, .trailing], 20)
         .padding([.bottom, .top], 20)
@@ -118,6 +113,31 @@ struct SettingsSectionView: View {
     }
 }
 
+// MARK: - SettingsSectionView / ViewModel
+extension SettingsSectionView {
+    class ViewModel: ObservableObject {
+        @Published var wallpaper: Bool = false
+        @Published var keychain: Bool = false
+        @Published var pincode: Bool = false
+        @Published var updates: Bool = false
+        @Published var invites: Bool = false
+        @Published var about: Bool = false
+    }
+}
+
+// MARK: - SettingsSectionView / DividerModifier
+extension SettingsSectionView {
+    struct DividerModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            VStack {
+                content
+                Divider().foregroundColor(Color("DividerColor"))
+            }
+        }
+    }
+}
+
+// MARK: - SettingsSectionItemView
 struct SettingsSectionItemView: View {
     @State var name: String
     @State var icon: String
@@ -140,6 +160,7 @@ struct SettingsSectionItemView: View {
     }
 }
 
+// MARK: - SettingsSectionToggleItemView
 struct SettingsSectionToggleItemView: View {
     @State var name: String
     @State var icon: String

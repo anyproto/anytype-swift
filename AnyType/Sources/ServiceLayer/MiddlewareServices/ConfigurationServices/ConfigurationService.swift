@@ -11,8 +11,6 @@ import Combine
 
 /// Service that handles middleware config
 class MiddlewareConfigurationService: ConfigurationServiceProtocol {
-    typealias MiddlewareConfiguration = MiddlewareConfigurationService.MiddlewareConfiguration
-
     private let storage = InMemoryStoreFacade.shared.middlewareConfigurationStore
 
     // TODO: Rethink result type.
@@ -39,6 +37,14 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
                 self?.storage?.add(configuration)
                 return configuration
             }
+            .eraseToAnyPublisher()
+    }
+    
+    func obtainLibraryVersion() -> AnyPublisher<MiddlewareVersion, Error> {
+        Anytype_Rpc.Version.Get.Service.invoke()
+            .map(\.details)
+            .map(MiddlewareVersion.init(version:))
+            .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
 }
