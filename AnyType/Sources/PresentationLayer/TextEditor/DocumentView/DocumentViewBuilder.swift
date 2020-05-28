@@ -40,25 +40,6 @@ extension DocumentViewBuilder {
 
 extension DocumentViewBuilder {
     enum UIKitBuilder {
-        private static func userActionPublisher(viewModel: DocumentViewModel) -> AnyPublisher<BlocksViews.UserAction, Never> {
-            /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
-            
-            viewModel.$builders.map {
-                $0.compactMap { $0 as? BlocksViews.Base.ViewModel }
-            }
-            .flatMap {
-                Publishers.MergeMany($0.map{$0.userActionPublisher})
-            }.eraseToAnyPublisher()
-        }
-        
-        private static func detailsActionPublisher(viewModel: DocumentViewModel) -> AnyPublisher<BlocksViews.UserAction, Never> {
-            viewModel.$pageDetailsViewModels.map({$0.values.compactMap({$0 as? BlocksViews.Base.ViewModel})})
-            .flatMap {
-                Publishers.MergeMany($0.map{$0.userActionPublisher})
-            }.eraseToAnyPublisher()
-                                    
-        }
-        
         static func documentView(by request: Request) -> DocumentViewController {
             if request.useUIKit {
                 let viewModel: DocumentViewModel = .init(documentId: request.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
@@ -66,13 +47,10 @@ extension DocumentViewBuilder {
                 let view: DocumentViewController = .init(viewModel: viewModel)
                 
                 /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
-                let userActionPublisher = self.userActionPublisher(viewModel: viewModel)
-                let detailActionPublisher = self.detailsActionPublisher(viewModel: viewModel)
-            
-                let mergedActionPublisher = Publishers.Merge(userActionPublisher, detailActionPublisher).eraseToAnyPublisher()
     
                 let router: DocumentViewRouting.CompoundRouter = .init()
-                _ = router.configured(userActionsStream: mergedActionPublisher)
+                let publisher = viewModel.userActionPublisher
+                _ = router.configured(userActionsStreamStream: publisher)
                 
                 /// Subscribe `view controller` on events from `router`.
                 view.subscribeOnRouting(router)

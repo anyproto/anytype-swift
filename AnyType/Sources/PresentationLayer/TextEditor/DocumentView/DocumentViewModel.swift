@@ -48,14 +48,26 @@ extension DocumentViewModel {
 
 class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolder {
     typealias RootModel = BlockModels.Block.RealBlock
-    
+
+    /// Service
     private var blockActionsService: BlockActionsService = .init()
-    private var subscriptions: Set<AnyCancellable> = .init()
     
+    /// Data Transformers
     private var transformer: BlockModels.Transformer.FinalTransformer = .init()
     private var flattener: BlocksViews.Supplement.BlocksFlattener = .init()
     
+    /// User Interaction Processor
     private var treeTextViewUserInteractor: BlocksViews.Supplement.TreeTextBlocksUserInteractor<DocumentViewModel>?
+    
+    /// Combine Subscriptions
+    private var subscriptions: Set<AnyCancellable> = .init()
+
+    /// Builders Publisher
+    private lazy var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksViews.UserAction, Never>, Never> = .init()
+    private lazy var detailsPublisherSubject: PassthroughSubject<AnyPublisher<BlocksViews.UserAction, Never>, Never> = .init()
+    lazy var userActionPublisher: AnyPublisher<AnyPublisher<BlocksViews.UserAction, Never>, Never> = {
+        Publishers.Merge(self.buildersPublisherSubject, self.detailsPublisherSubject).eraseToAnyPublisher()
+    }()
         
     /// Options property publisher.
     /// We expect that `ViewController` will listen this property.
@@ -89,9 +101,11 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     @Published var wholePageDetailsViewModel: PageDetailsViewModel = .init()
     
     /// We  need this model to be Published cause need handle actions from IconEmojiBlock
-    @Published var pageDetailsViewModels: [BlockModels.Block.Information.Details.Kind : BlockViewBuilderProtocol] = [:] {
+    var pageDetailsViewModels: [BlockModels.Block.Information.Details.Kind : BlockViewBuilderProtocol] = [:] {
         didSet {
             self.userEvent = .pageDetailsViewModelsDidSet
+            let values = self.pageDetailsViewModels.values.compactMap({$0 as? BlocksViews.Base.ViewModel}).map(\.userActionPublisher)
+            self.detailsPublisherSubject.send(Publishers.MergeMany(values).eraseToAnyPublisher())
         }
     }
     
@@ -110,11 +124,20 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     @Published var buildersRows: [Row] = [] {
         didSet {
             self.objectWillChange.send()
+            
+            let value = self.$buildersRows.map {
+                $0.compactMap({$0.builder as? BlocksViews.Base.ViewModel})
+            }
+            .flatMap({
+                Publishers.MergeMany($0.map(\.userActionPublisher))
+            }).eraseToAnyPublisher()
+            self.buildersPublisherSubject.send(value)
         }
     }
     
     var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
     var fileFieldPublisher: AnyPublisher<FileBlocksViews.Base.BlockViewModel.State?, Never> = .empty()
+
     // put into protocol?
     // var userActionsPublisher: AnyPublisher<UserAction>
     

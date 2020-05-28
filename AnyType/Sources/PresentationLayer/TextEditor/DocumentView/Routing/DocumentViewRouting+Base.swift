@@ -26,17 +26,18 @@ enum DocumentViewRouting {
     class BaseRouter {
         // MARK: UserActions
         private var userActionsStreamSubscription: AnyCancellable?
-
+        private var combinedUserActionsStreamSubscription: AnyCancellable?
+        
         // MARK: Initialization
         init() {
             self.setupPublishers()
         }
 
         // MARK: Events
-        @Published private var outputEvent: OutputEvent?
+        private var outputEventSubject: PassthroughSubject<OutputEvent, Never> = .init()
         public var outputEventsPublisher: AnyPublisher<OutputEvent, Never> = .empty()
         private func setupPublishers() {
-            self.outputEventsPublisher = self.$outputEvent.safelyUnwrapOptionals().eraseToAnyPublisher()
+            self.outputEventsPublisher = self.outputEventSubject.eraseToAnyPublisher()
         }
 
         // MARK: Subclassing
@@ -44,9 +45,49 @@ enum DocumentViewRouting {
         /// - Parameter action: An action of BlocksViews.UserAction events that is coming from outer world.
         ///
         func receive(action: BlocksViews.UserAction) {}
-
+        
         // MARK: Configured
+        /// Well, long story to tell.
+        ///
+        /// If you change an array or a variable that define @Published subscription, you should resubscribe.
+        ///
+        /// This stream has a purpose to resubscribe to new stream.
+        ///
+        /// You just subscribe on a stream of streams and sink their new value.
+        ///
+        /// In setter of observed property you should call, for example, `PassthroughSubject` that will deliver new stream to a Stream of Stream.
+        ///
+        /// // In Model
+        ///
+        /// private var subject: PassthroughSubject<AnyPublisher<Value, Never>, Never> = .init()
+        ///
+        /// /// Value = [Row]
+        /// @Published var buildersRows: [Row] = [] {
+        ///     didSet {
+        ///         self.objectWillChange.send()
+        ///
+        ///         let value = self.$buildersRows.map {
+        ///             $0.compactMap({$0.builder as? BlocksViews.Base.ViewModel})
+        ///         }
+        ///         .flatMap({
+        ///             Publishers.MergeMany($0.map(\.userActionPublisher))
+        ///         }).eraseToAnyPublisher()
+        ///         self.buildersPublisherSubject.send(value)
+        ///     }
+        /// }
+        ///
+        /// - Parameter userActionsStreamStream: A stream of streams that will deliver new correct stream in its value.
+        /// - Returns: A Self for convenient usage.
+        func configured(userActionsStreamStream: AnyPublisher<AnyPublisher<BlocksViews.UserAction, Never>, Never>) -> Self {
+            self.combinedUserActionsStreamSubscription = userActionsStreamStream.sink(receiveValue: { [weak self] (value) in
+                _ = self?.configured(userActionsStream: value)
+            })
+            return self
+        }
+
         func configured(userActionsStream: AnyPublisher<BlocksViews.UserAction, Never>) -> Self {
+            self.userActionsStreamSubscription?.cancel()
+            self.userActionsStreamSubscription = nil
             self.userActionsStreamSubscription = userActionsStream.sink { [weak self] (value) in
                 self?.receive(action: value)
             }
@@ -66,11 +107,7 @@ extension DocumentViewRouting.BaseRouter: DocumentViewRoutingOutputProtocol {}
 ///
 extension DocumentViewRouting.BaseRouter: DocumentViewRoutingSendingOutputProtocol {
     func send(event: DocumentViewRouting.OutputEvent) {
-        self.outputEvent = event
-        // TODO: Redone on top of PassthroughSubject instead.
-        let logger = Logging.createLogger(category: .documentViewRoutingBase)
-        os_log(.debug, log: logger, "Do not forget to done it right. We shouldn't use this hack by setting nil to @Published variable. Use PassthroughSubject instead.")
-        self.outputEvent = nil
+        self.outputEventSubject.send(event)
     }
 }
 
@@ -148,7 +185,7 @@ extension DocumentViewRouting {
                 switch value {
                 case .tool: return self.router(of: ToolsBlocksViewsRouter.self)
                 case .file: return self.router(of: FileBlocksViewsRouter.self)
-                case .page: return  self.router(of: PageBlocksViewsRouter.self)
+                case .page: return self.router(of: PageBlocksViewsRouter.self)
                 default: return nil
                 }
             case .toolbars: return self.router(of: ToolbarsRouter.self)
