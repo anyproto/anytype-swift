@@ -19,6 +19,8 @@ extension BlockModels.Block {
         var fields: [String: Any] = .init()
         var restrictions: [String] = []
         
+        var alignment: Alignment = .left
+        
         /// TODO: Add later to Protocol.
         var backgroundColor: String = ""
         
@@ -46,6 +48,7 @@ extension BlockModels.Block {
             self.backgroundColor = information.backgroundColor
             
             if let concreteInformation = information as? Self {
+                self.alignment = concreteInformation.alignment
                 self.details = concreteInformation.details
             }
         }
@@ -53,6 +56,13 @@ extension BlockModels.Block {
         static let `defaultId`: String = "DefaultIdentifier"
         static let `defaultBlockType`: BlockType = .text(.init(text: "DefaultText", contentType: .text))
         static let `default`: Information = .init(id: Self.defaultId, content: Self.defaultBlockType)
+    }
+}
+
+// MARK: Alignment
+extension BlockModels.Block.Information {
+    enum Alignment {
+        case left, center, right
     }
 }
 

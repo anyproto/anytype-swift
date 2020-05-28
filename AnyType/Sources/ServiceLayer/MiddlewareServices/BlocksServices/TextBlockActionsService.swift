@@ -50,21 +50,31 @@ protocol TextBlockActionsServiceProtocolSetForegroundColor {
     func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Never, Error>
 }
 
+/// Protocol for `SetAlignment` for text block. Actually, not only for text block.
+/// When you would like to set alignment of a block ( text block or not text block ), you should call method of this protocol.
+protocol TextBlockActionsServiceProtocolSetAlignment {
+    func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Never, Error>
+    func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Never, Error>
+}
+
 /// Protocol for TextBlockActions service.
 protocol TextBlockActionsServiceProtocol {
     associatedtype SetText: TextBlockActionsServiceProtocolSetText
     associatedtype SetStyle: TextBlockActionsServiceProtocolSetStyle
     associatedtype SetForegroundColor: TextBlockActionsServiceProtocolSetForegroundColor
+    associatedtype SetAlignment: TextBlockActionsServiceProtocolSetAlignment
     
     var setText: SetText {get}
     var setStyle: SetStyle {get}
     var setForegroundColor: SetForegroundColor {get}
+    var setAlignment: SetAlignment {get}
 }
 
 class TextBlockActionsService: TextBlockActionsServiceProtocol {
     var setText: SetText = .init()
     var setStyle: SetStyle = .init()
     var setForegroundColor: SetForegroundColor = .init()
+    var setAlignment: SetAlignment = .init()
     
     // MARK: SetText
     struct SetText: TextBlockActionsServiceProtocolSetText {
@@ -98,6 +108,22 @@ class TextBlockActionsService: TextBlockActionsServiceProtocol {
             Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextID, blockID: blockID, color: color)
                 .ignoreOutput().subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
+        }
+    }
+    
+    // MARK: SetAlignment
+    struct SetAlignment: TextBlockActionsServiceProtocolSetAlignment {
+        func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Never, Error> {
+            let ourAlignment = BlockModels.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
+            let middlewareAlignment = ourAlignment.flatMap(BlockModels.Parser.Common.Alignment.Converter.asMiddleware)
+            
+            if let middlewareAlignment = middlewareAlignment {
+                return self.action(contextID: contextID, blockIds: blockIds, align: middlewareAlignment)
+            }
+            return .empty()
+        }
+        func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Never, Error> {
+            Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).ignoreOutput().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
 }
