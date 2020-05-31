@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 import Combine
+import os
+
+private extension Logging.Categories {
+    static let textViewUIKitTextView: Self = "TextView.UIKitTextView"
+}
 
 extension TextView.UIKitTextView {
     enum ContextualMenu {}
@@ -158,7 +163,49 @@ extension TextView.UIKitTextView.TextViewWithPlaceholder {
 extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate {
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
         self.syncPlaceholder()
-        self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: self.textAlignment)))
+        
+        var textAlignment: NSTextAlignment = self.textAlignment
+        if textStorage.length != 0 {
+            let logger = Logging.createLogger(category: .textViewUIKitTextView)
+                        
+            let range: NSRange = .init(location: 0, length: textStorage.length)
+            let attributes = textStorage.attributes(at: 0, longestEffectiveRange: nil, in: range)
+            let paragraph = attributes[.paragraphStyle] as? NSParagraphStyle
+            
+            let paragraphAlignment = paragraph?.alignment
+            os_log(.debug, log: logger, "textAlignment: %@", String(describing: NSTextAlignment.Printer.print(self.textAlignment)))
+            os_log(.debug, log: logger, "paragraph style alignment: %@", NSTextAlignment.Printer.print(paragraphAlignment))
+            
+            textAlignment = paragraphAlignment ?? textAlignment
+        }
+        
+        /// TODO: We must embed textAlignment into our MarksStyle.
+        /// But for now, it is ok to do the following trick.
+        /// self.textAlignment is out of sync with paragraph style ( which has actual alignment )
+        /// For example, if you set `textView.textAlignment` it may have previous value ( was .center ).
+        /// But first letter of attributes ( `NSParagraphStyle.alignment` ) has right alignment ( now .right )
+        ///
+        self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: textAlignment)))
+    }
+}
+
+/// TODO: Remove this printer when you are move textAlignment to MarksStyle.
+/// Actually, we should extract textAlignment from MarksStyle.
+/// In this case we even don't need correct order of applying alignment.
+///
+extension NSTextAlignment {
+    enum Printer {
+        static func print(_ alignment: NSTextAlignment?) -> String {
+            guard let alignment = alignment else { return "" }
+            switch alignment {
+            case .left: return "left"
+            case .center: return "center"
+            case .right: return "right"
+            case .justified: return "justified"
+            case .natural: return "natural"
+            @unknown default: return "default"
+            }
+        }
     }
 }
 

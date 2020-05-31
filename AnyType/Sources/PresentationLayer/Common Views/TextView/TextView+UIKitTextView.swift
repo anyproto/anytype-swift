@@ -184,8 +184,13 @@ extension TextView.UIKitTextView {
             self.textView.textAlignment = textAlignment
             
         case let .payload(value):
-            self.onUpdate(.auxiliary(value.auxiliary))
             self.onUpdate(.attributedText(value.attributedString))
+            
+            /// We changed order, because textAlignment is a part of NSAttributedString.
+            /// That means, we have to move processing of textAlignment to MarksStyle.
+            /// It is a part of NSAttributedString attributes ( `NSParagraphStyle.alignment` ).
+            ///
+            self.onUpdate(.auxiliary(value.auxiliary))
         }
     }
 }

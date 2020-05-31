@@ -37,6 +37,9 @@ extension TextBlocksViews {
             /// So, we need only to listen his typing.
             ///
             @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
+            @Published private var toViewTextAlignment: NSTextAlignment? { willSet { self.objectWillChange.send() } }
+            private var toViewUpdates: AnyPublisher<TextView.UIKitTextView.ViewModel.Update, Never> = .empty()
+            
             private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
             private var toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
             
@@ -89,10 +92,15 @@ extension TextBlocksViews {
                 }.store(in: &self.subscriptions)
                 
                 /// ToView
-                self.$toViewText.safelyUnwrapOptionals().map(TextView.UIKitTextView.ViewModel.Update.attributedText).sink { [weak self] (value) in
+                self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), self.$toViewTextAlignment.safelyUnwrapOptionals()).map({ value -> TextView.UIKitTextView.ViewModel.Update in
+                    let (text, alignment) = value
+                    return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
+                }).eraseToAnyPublisher()
+                
+                self.toViewUpdates.sink { [weak self] (value) in
                     self?.textViewModel.update = value
                 }.store(in: &self.subscriptions)
-                
+
 //                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
 //
 //                }.store(in: &self.subscriptions)
@@ -154,9 +162,11 @@ extension TextBlocksViews {
                     }
                 }
                 else {
+                    let block = getRealBlock()
                     switch getRealBlock().information.content {
                     case let .text(blockType):
                         self.toViewText = blockType.attributedText
+                        self.toViewTextAlignment = BlockModels.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.information.alignment)
                     default: return
                     }
                 }
