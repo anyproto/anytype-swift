@@ -90,19 +90,75 @@ extension BlocksViews.Base {
         }
         
         // MARK: Events
+        // MARK: - User Action Publisher
+        /// This publisher sends actions to, in most cases, routing.
+        /// If you would like to show controllers or action panes, you should listen events from this publisher.
+        ///
         private var userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
-        // TODO: Rethink.
-        // Do we need to store this publisher or we could rather return it from getter?
         public var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = .empty()
-        private func setupPublishers() {
-            self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
+        
+        // MARK: - Toolbar Action Publisher
+        /// This Pair ( Publisher and Subject ) can manipulate with `ActionsPayload.Toolbar.Action`.
+        /// For example, if you would like to show AddBlock toolbar, you will do these steps:
+        ///
+        /// 1. Create an action that will show desired Toolbar ( AddBlock in our case. )
+        /// 2. Set Output to `toolbarActionSubject` for this AddBlock Toolbar.
+        /// 3. Send `showEvent` to `userActionSubject` with desired configured action ( show(AddBlockToolbar(action(output)))
+        /// 4. Listen `toolbarActionPublisher` for incoming events from user.
+        ///
+        /// If user press something, then AddBlockToolbar will send user action to `PassthroughSubject` ( or `toolbarActionSubject` in our case ).
+        ///
+        public private(set) var toolbarActionSubject: PassthroughSubject<ActionsPayload.Toolbar.Action, Never> = .init()
+        public var toolbarActionPublisher: AnyPublisher<ActionsPayload.Toolbar.Action, Never> = .empty()
+        
+        // MARK: - Marks Pane Publisher
+        /// This Pair ( Publisher and Subject ) can manipuate with `MarksPane.Main.Action`.
+        /// If you would like to show `MarksPane`, you will need to configure specific action.
+        ///
+        /// These steps are necessary.
+        ///
+        /// 1. Create and action that will show desired MarksPane ( our MarksPane ).
+        /// 2. Set Output to `marksPaneActionSubject` for this MarksPane.
+        /// 3. Send `showEvent` to `userActionSubject` with desired configured action ( show(MarksPaneToolbar(action(output))) )
+        /// 4. Also, if you would like configuration, you could set input as init-parameters. Look at apropriate `Input`.
+        /// 5. Listen `marksPaneActionPublisher` for incoming events from user.
+        ///
+        /// If user press something, then MarksPane will send user action to `PassthroughSubject` ( or `marksPaneActionSubject` in our case )
+        ///
+        public private(set) var marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never> = .init()
+        public var marksPaneActionPublisher: AnyPublisher<MarksPane.Main.Action, Never> = .empty()
+
+        
+        // MARK: - Actions Payload Publisher
+        /// This solo Publisher `actionsPayloadPublisher` merges all actions into meta `ActionsPayload` action.
+        /// If you need to process whole user input for specific BlocksViewModel, you need to listen this publisher.
+        ///
+        public var actionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = .empty()
+        
+        // MARK: - Handle events
+        func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
+            // Do nothing? Just let somebody else to do stuff for you?
         }
         
-        // MARK: Contextual Menu
-        private var subscriptions: Set<AnyCancellable> = []
-        private var contextualMenuInteractor: ContextualMenuInteractor = .init()
-        weak var contextualMenuDelegate: UIContextMenuInteractionDelegate? { self.contextualMenuInteractor }
+        func handle(marksPaneAction: MarksPane.Main.Action) {
+            // Do nothing? We need external custom processors?
+            switch marksPaneAction {
+            case let .style(range, action): return
+            case let .textColor(range, action): return
+            case let .backgroundColor(range, action): return // set background color of view and send sets background color.
+            }
+        }
         
+        // MARK: - Setup / Publishers
+        private func setupPublishers() {
+            self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
+            self.toolbarActionPublisher = self.toolbarActionSubject.eraseToAnyPublisher()
+            self.marksPaneActionPublisher = self.marksPaneActionSubject.eraseToAnyPublisher()
+            
+            self.actionsPayloadPublisher = self.toolbarActionPublisher.map({ActionsPayload.toolbar(.init(model: self.block, action: $0))}).eraseToAnyPublisher()
+        }
+        
+        // MARK: - Setup / Subscriptions
         private func setupSubscriptions() {
             self.contextualMenuInteractor.provider = self
             self.contextualMenuInteractor.actionSubject.sink { [weak self] (value) in
@@ -110,6 +166,11 @@ extension BlocksViews.Base {
             }.store(in: &self.subscriptions)
         }
         
+        // MARK: Contextual Menu
+        private var subscriptions: Set<AnyCancellable> = []
+        private var contextualMenuInteractor: ContextualMenuInteractor = .init()
+        weak var contextualMenuDelegate: UIContextMenuInteractionDelegate? { self.contextualMenuInteractor }
+                        
         // MARK: Indentation
         func indentationLevel() -> UInt {
             self.getBlock().indentationLevel()
@@ -120,7 +181,7 @@ extension BlocksViews.Base {
         var information: MiddlewareBlockInformationModel { block.information }
         
         // MARK: Subclass / Views
-        func makeSwiftUIView() -> AnyView { .init(Text("")) }
+        func makeSwiftUIView() -> AnyView { .init(EmptyView()) }
         func makeUIView() -> UIView { .init() }
         
         // MARK: Subclass / Events
@@ -128,7 +189,53 @@ extension BlocksViews.Base {
         
         // MARK: Subclass / ContextualMenu
         func makeContextualMenu() -> BlocksViews.ContextualMenu { .init() }
-        func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {}
+        func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
+            switch contextualMenuAction {
+            case let .general(value):
+                switch value {
+                case .delete: self.toolbarActionSubject.send(.editBlock(.delete))
+                case .duplicate: self.toolbarActionSubject.send(.editBlock(.duplicate))
+                case .moveTo: break
+                }
+            case let .specific(value):
+                switch value {
+                case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject))))
+                case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: nil)))))
+                case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: nil)))))
+                case .backgroundColor: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: nil)))))
+                default: return
+                }
+            default: return
+            }
+        }
+    }
+}
+
+// MARK: OuterWorld Publishers and Subjects
+extension BlocksViews.Base.ViewModel {
+    /// This AactionsPayload describes all actions that user can do with BlocksViewsModels.
+    /// For example, user can press long-tap and active toolbar.
+    /// Or user could interact with text view.
+    /// Possibly, that we need to separate text view actions.
+    ///
+    enum ActionsPayload {
+        struct Toolbar {
+            typealias Model = BlockModel
+            typealias Action = BlocksViews.Toolbar.UnderlyingAction
+            var model: Model
+            var action: Action
+        }
+        
+        /// For backward compatibility.
+        struct TextBlocksViewsUserInteraction {
+            typealias Model = BlockModel
+            typealias Action = TextBlocksViews.UserInteraction
+            var model: Model
+            var action: TextBlocksViews.UserInteraction
+        }
+        
+        case toolbar(Toolbar)
+        case textView(TextBlocksViewsUserInteraction)
     }
 }
 

@@ -13,9 +13,9 @@ import UIKit
 extension TextView {
     public enum UserAction {
         case
-        blockAction(BlockAction),
-        marksAction(MarksAction),
-        inputAction(InputAction),
+        blockAction(BlockAction), // Deprecated
+        marksAction(MarksAction), // Deprecated
+        inputAction(InputAction), // Deprecated
         keyboardAction(KeyboardAction),
         addBlockAction(AddBlockAction),
         showMultiActionMenuAction(ShowMultiActionMenuAction)

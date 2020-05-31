@@ -21,10 +21,14 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case .general(.moveTo): return "Move To"
                 case let .specific(value):
                     switch value {
-                    case .text(.turnInto): return "Turn Into"
-                    case .text(.style): return "Style"
-                    case .text(.color): return "Color"
-                    case .text(.backgroundColor): return "BackgroundColor"
+                    case .turnInto: return "Turn Into"
+                    case .style: return "Style"
+                    case .color: return "Color"
+                    case .backgroundColor: return "Background"
+                    case .download: return "Download"
+                    case .replace: return "Replace"
+                    case .addCaption: return "Add Caption"
+                    case .rename: return "Rename"
                     }
                 }
             }
@@ -37,25 +41,33 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case .general(.moveTo): return "TextEditor/ContextMenu/General/moveTo"
                 case let .specific(value):
                     switch value {
-                    case .text(.turnInto): return "TextEditor/ContextMenu/Specific/turnInto"
-                    case .text(.style): return "TextEditor/ContextMenu/Specific/style"
-                    case .text(.color): return ""
-                    case .text(.backgroundColor): return ""
+                    case .turnInto: return "TextEditor/ContextMenu/Specific/turnInto"
+                    case .style: return "TextEditor/ContextMenu/Specific/style"
+                    case .color: return ""
+                    case .backgroundColor: return ""
+                    case .download: return "TextEditor/ContextMenu/Specific/download"
+                    case .replace: return "TextEditor/ContextMenu/Specific/replace"
+                    case .addCaption: return "TextEditor/ContextMenu/Specific/addCaption"
+                    case .rename: return "TextEditor/ContextMenu/Specific/rename"
                     }
                 }
             }
         }
         struct IdentifierBuilder {
             typealias Identifier = String
-            static let identifiersAndActions: [String: Action] = [
-                ".general(.delete)": .general(.delete),
-                ".general(.duplicate)": .general(.duplicate),
-                ".general(.moveTo)": .general(.moveTo),
-                ".specific(.text(.turnInto))": .specific(.text(.turnInto)),
-                ".specific(.text(.style))": .specific(.text(.style)),
-                ".specific(.text(.color))": .specific(.text(.color)),
-                ".specific(.text(.backgroundColor))": .specific(.text(.backgroundColor))
-            ]
+            static var identifiersAndActions: [String: Action] = .init(uniqueKeysWithValues: [
+                .general(.delete),
+                .general(.duplicate),
+                .general(.moveTo),
+                .specific(.turnInto),
+                .specific(.style),
+                .specific(.color),
+                .specific(.backgroundColor),
+                .specific(.download),
+                .specific(.replace),
+                .specific(.addCaption),
+                .specific(.rename)
+            ].map({(Self.identifier(for: $0), $0)}))
             
             static func identifier(for action: Action) -> Identifier {
                 switch action {
@@ -64,10 +76,14 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case .general(.moveTo): return ".general(.moveTo)"
                 case let .specific(value):
                     switch value {
-                    case .text(.turnInto): return ".specific(.text(.turnInto))"
-                    case .text(.style): return ".specific(.text(.style))"
-                    case .text(.color): return ".specific(.text(.color))"
-                    case .text(.backgroundColor): return ".specific(.text(.backgroundColor))"
+                    case .turnInto: return ".specific(.turnInto)"
+                    case .style: return ".specific(.style)"
+                    case .color: return ".specific(.color)"
+                    case .backgroundColor: return ".specific(.backgroundColor)"
+                    case .download: return ".specifc(.download)"
+                    case .replace: return ".specific(.replace)"
+                    case .addCaption: return ".specific(.addCaption)"
+                    case .rename: return ".specific(.rename)"
                     }
                 }
             }
@@ -144,15 +160,20 @@ extension BlocksViews.ContextualMenu.MenuAction.Action {
 // MARK:
 extension BlocksViews.ContextualMenu.MenuAction.Action {
     enum SpecificAction {
-        case text(TextAction)
-    }
-}
-
-extension BlocksViews.ContextualMenu.MenuAction.Action.SpecificAction {
-    enum TextAction {
         case turnInto
+        /// Text
         case style
         case color
         case backgroundColor
+        
+        /// Files
+        case download
+        case replace
+        
+        /// Image
+        case addCaption
+        
+        /// Page
+        case rename
     }
 }

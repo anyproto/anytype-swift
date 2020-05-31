@@ -137,6 +137,19 @@ extension FileBlocksViews.Image {
                 }
             }
         }
+        
+        // MARK: Contextual Menu
+        override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+            .init(title: "", children: [
+                .create(action: .general(.delete)),
+                .create(action: .general(.duplicate)),
+                .create(action: .specific(.download)),
+                .create(action: .specific(.replace)),
+                .create(action: .general(.moveTo)),
+                .create(action: .specific(.addCaption)),
+                .create(action: .specific(.backgroundColor)),
+            ])
+        }
     }
 }
 

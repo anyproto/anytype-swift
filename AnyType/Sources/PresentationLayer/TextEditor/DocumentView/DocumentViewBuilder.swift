@@ -32,8 +32,11 @@ extension DocumentViewBuilder {
             if request.useUIKit {
                 return .init(DocumentViewRepresentable.create(documentId: request.id))
             }
-            let viewModel = Legacy_DocumentViewModel(documentId: request.id)
-            return .init(Legacy_DocumentView(viewModel: viewModel))
+            return .init(EmptyView())
+            /// Do not remove commented code until you completely remove `useUIKit` flag.
+            /// It is necessary to know which views are used in `SwiftUI`.
+//            let viewModel = Legacy_DocumentViewModel(documentId: request.id)
+//            return .init(Legacy_DocumentView(viewModel: viewModel))
         }
     }
 }

@@ -125,11 +125,6 @@ extension TextBlocksViews {
                     }
                 }, receiveValue: { _ in }).store(in: &self.subscriptions)
                 
-                /// Toolbar handling
-                self.toolbarPassthroughSubject.sink { [weak self] (value) in
-                    self?.handle(toolbarAction: value)
-                }.store(in: &self.subscriptions)
-                
                 /// TextDidChange For OuterWorld
                 self.textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
                     switch value {
@@ -169,14 +164,7 @@ extension TextBlocksViews {
                 self.setupSubscribers()
                 self.setupEventListeners()
             }
-
-            // MARK: Events
-            private var toolbarPassthroughSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
-            private func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
-                let oldEvent = Converter.convert(newState: toolbarAction)
-                self.didReceiveAction(generalAction: .textView(oldEvent))
-            }
-
+            
             // MARK: Subclassing
             override init(_ block: BlockModel) {
                 super.init(block)
@@ -193,35 +181,16 @@ extension TextBlocksViews {
             // MARK: Contextual Menu
             override func makeContextualMenu() -> BlocksViews.ContextualMenu {
                 .init(title: "", children: [
-                    .create(action: .specific(.text(.turnInto))),
+                    .create(action: .specific(.turnInto)),
                     .create(action: .general(.delete)),
                     .create(action: .general(.duplicate)),
                     .create(action: .general(.moveTo)),
-                    .create(action: .specific(.text(.style))),
-                    .create(action: .specific(.text(.color))),
-                    .create(action: .specific(.text(.backgroundColor))),
+                    .create(action: .specific(.style)),
+                    .create(action: .specific(.color)),
+                    .create(action: .specific(.backgroundColor)),
                 ])
             }
             
-            override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
-                switch contextualMenuAction {
-                case let .general(value):
-                    switch value {
-                    case .delete: self.toolbarPassthroughSubject.send(.editBlock(.delete))
-                    case .duplicate: self.toolbarPassthroughSubject.send(.editBlock(.duplicate))
-                    case .moveTo: break
-                    }
-                case let .specific(.text(value)):
-                    switch value {
-                    case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarPassthroughSubject))))
-                    case .style: break
-                    case .color: self.send(userAction: .toolbars(.marksPane(.setTextColor(.init(output: self.toolbarPassthroughSubject, input: nil)))))
-                    case .backgroundColor: self.send(userAction: .toolbars(.marksPane(.setBackgroundColor(.init(output: self.toolbarPassthroughSubject, input: nil)))))
-                    }
-                default: return
-                }
-            }
-
             // MARK: Empty
             static let empty = BlockViewModel.createEmptyBlock()
         }
@@ -259,81 +228,6 @@ private extension TextBlocksViews.Base.BlockViewModel {
         let block: BlockModel = .init(indexPath: .init(), blocks: [])
         block.information = information
         return .init(block)
-    }
-}
-
-// MARK: - Converter ( To Delete )
-extension TextBlocksViews.Base.BlockViewModel {
-    enum PublicConverter {
-        static func convert(newState: BlocksViews.Toolbar.UnderlyingAction) -> TextView.UserAction {
-            TextBlocksViews.Base.BlockViewModel.Converter.convert(newState: newState)
-        }
-    }
-}
-private extension TextBlocksViews.Base.BlockViewModel {
-    enum Converter {
-        private static func convert(newState: BlocksViews.Toolbar.UnderlyingAction.BlockType) -> TextView.UserAction.BlockAction.BlockType {
-            let logger = Logging.createLogger(category: .textBlocksViewsBase)
-            os_log(.debug, log: logger, "Do not use this method later. It is deprecated. Remove it when you are ready.")
-            switch newState {
-            case let .text(value):
-                switch value {
-                case .text: return .text(.text)
-                case .h1: return .text(.h1)
-                case .h2: return .text(.h2)
-                case .h3: return .text(.h3)
-                case .highlighted: return .text(.highlighted)
-                }
-            case let .list(value):
-                switch value {
-                case .bulleted: return .list(.bulleted)
-                case .checkbox: return .list(.checkbox)
-                case .numbered: return .list(.numbered)
-                case .toggle: return .list(.toggle)
-                }
-            case let .page(value):
-                switch value {
-                case .page: return .tool(.page)
-                case .existingPage: return .tool(.existingTool)
-                }
-            case let .media(value):
-                switch value {
-                case .file: return .media(.file)
-                case .picture: return .media(.picture)
-                case .video: return .media(.video)
-                case .bookmark: return .media(.bookmark)
-                case .code: return .media(.code)
-                }
-            case let .tool(value):
-                switch value {
-                case .contact: return .tool(.contact)
-                case .database: return .tool(.database)
-                case .set: return .tool(.set)
-                case .task: return .tool(.task)
-                }
-            case let .other(value):
-                switch value {
-                case .divider: return .other(.divider)
-                case .dots: return .other(.divider)
-                }
-            }
-        }
-        static func convert(newState: BlocksViews.Toolbar.UnderlyingAction) -> TextView.UserAction {
-            switch newState {
-            case let .addBlock(value): return .blockAction(.addBlock(convert(newState: value)))
-            case let .turnIntoBlock(value): return .blockAction(.turnIntoBlock(convert(newState: value)))
-            case let .changeColor(value):
-                switch value {
-                case let .textColor(value): return .blockAction(.changeColor(.textColor(value)))
-                case let .backgroundColor(value): return .blockAction(.changeColor(.backgroundColor(value)))
-                }
-            case let .editBlock(value):
-                switch value {
-                case .delete: return .blockAction(.editBlock(.delete))
-                case .duplicate: return .blockAction(.editBlock(.duplicate))
-                }
-            }
-        }
     }
 }
 
@@ -422,7 +316,7 @@ extension TextBlocksViews.Base.BlockViewModel: TextViewUserInteractionProtocol {
         switch action {
         case let .addBlockAction(value):
             switch value {
-            case .addBlock: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarPassthroughSubject))))
+            case .addBlock: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
             }
         default: self.delegate?.didReceiveAction(block: getRealBlock(), id: getID(), action: action)
         }

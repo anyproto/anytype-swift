@@ -21,7 +21,13 @@ extension BlocksViews.Supplement {
         private var toggleStorage: InMemoryStoreFacade.BlockLocalStore? { InMemoryStoreFacade.shared.blockLocalStore }
         private var finder: BlockModels.Finder<BlockModels.Block.RealBlock>?
         private var subscriptions: [AnyCancellable] = []
-
+        
+        lazy private var eventsTranslator: EventsTranslator = {
+            let translator: EventsTranslator = .init()
+            _ = translator.configured(self)
+            return translator
+        }()
+        
         private let service: Service<T>
 
         typealias Index = BusinessBlock.Index
@@ -39,6 +45,11 @@ extension BlocksViews.Supplement {
         init(_ value: TreeUpdater<T>) {
             self.updater = value
             self.service = .init(value)
+        }
+        
+        func configured(_ publisher: AnyPublisher<BlocksViews.Base.ViewModel.ActionsPayload, Never>) -> Self {
+            _ = self.eventsTranslator.configured(publisher)
+            return self
         }
     }
 }

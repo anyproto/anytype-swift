@@ -91,6 +91,19 @@ extension ToolsBlocksViews.PageLink {
                 }
             }
         }
+
+        // MARK: Contextual Menu
+        override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+            .init(title: "", children: [
+                .create(action: .specific(.turnInto)),
+                .create(action: .general(.delete)),
+                .create(action: .general(.duplicate)),
+                .create(action: .specific(.rename)),
+                .create(action: .general(.moveTo)),
+                .create(action: .specific(.color)),
+                .create(action: .specific(.backgroundColor)),
+            ])
+        }
     }
 }
 

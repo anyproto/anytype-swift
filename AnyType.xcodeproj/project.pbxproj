@@ -14,14 +14,10 @@
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
 		03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03074B87239514E2009FA7D0 /* MainAuthView.swift */; };
 		030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B22399346F00AD3BC3 /* AuthModels.swift */; };
-		030DF8642333E31100FE6DA5 /* Legacy_DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF8632333E31100FE6DA5 /* Legacy_DocumentViewModel.swift */; };
-		030DF8682333E3DD00FE6DA5 /* Legacy_DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF8672333E3DD00FE6DA5 /* Legacy_DocumentView.swift */; };
 		0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311612D22DE0D1700885211 /* ProfileViewModel.swift */; };
 		0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0316497A23E5B339009A3984 /* CustomScrollView.swift */; };
 		0316497C23E5C223009A3984 /* commands+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */; };
 		0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D575230186CA000527B1 /* LocalAuthentication.framework */; };
-		031B355623465DFF0066DDB8 /* Legacy_EmptyDocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031B355523465DFF0066DDB8 /* Legacy_EmptyDocumentView.swift */; };
-		031B35592346C5B60066DDB8 /* BlockViewModifieres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031B35582346C5B60066DDB8 /* BlockViewModifieres.swift */; };
 		032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032225D922F87AAB0064E544 /* DetailedPickerView.swift */; };
 		0327B0B0232BB876007DB8A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0327B0AF232BB876007DB8A7 /* HomeViewModel.swift */; };
 		0327B0B3232BB994007DB8A7 /* DocumentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0327B0B2232BB994007DB8A7 /* DocumentModel.swift */; };
@@ -107,9 +103,6 @@
 		03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B423994F4700AD3BC3 /* ProfileModel.swift */; };
 		03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03652DD7239F5E7B0029E773 /* ScannerViewController.swift */; };
 		0A0AA73123FB25DA003A2935 /* Lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0AA73023FB25DA003A2935 /* Lib.framework */; };
-		0A0AA73323FC50A1003A2935 /* Legacy_BlockViewBuildersProtocolHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA73223FC50A1003A2935 /* Legacy_BlockViewBuildersProtocolHolder.swift */; };
-		0A0AA73523FC55BC003A2935 /* BlocksViews+Base+Utilities+Legacy_SequenceUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA73423FC55BC003A2935 /* BlocksViews+Base+Utilities+Legacy_SequenceUpdater.swift */; };
-		0A0AA73923FC5799003A2935 /* BlocksViews+Base+Utilities+Legacy_TextBlocksUserInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA73823FC5799003A2935 /* BlocksViews+Base+Utilities+Legacy_TextBlocksUserInteractor.swift */; };
 		0A0AA73E23FD8446003A2935 /* BlockModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA73D23FD8446003A2935 /* BlockModelTests.swift */; };
 		0A0AA74023FD8A15003A2935 /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA73F23FD8A15003A2935 /* DocumentViewModel.swift */; };
 		0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA749240146B5003A2935 /* UIView+Extensions.swift */; };
@@ -221,6 +214,7 @@
 		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
 		0AACE20C247D944E00ADCD19 /* BlockModel+Parser+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACE20B247D944E00ADCD19 /* BlockModel+Parser+Common.swift */; };
+		0ABB2A1A247FEFE700A7144A /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */; };
 		0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */; };
 		0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */; };
 		0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */; };
@@ -230,7 +224,10 @@
 		0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2C24801D9000A7144A /* MarksPane+Main+Pane.swift */; };
 		0ABB2A3B24801D9000A7144A /* MarksPane+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2D24801D9000A7144A /* MarksPane+Main.swift */; };
 		0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2E24801D9000A7144A /* MarksPane.swift */; };
-		0ABB2A1A247FEFE700A7144A /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */; };
+		0ABB2A432480205F00A7144A /* MarksPane+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A422480205F00A7144A /* MarksPane+ViewController.swift */; };
+		0ABB2A452481352000A7144A /* MarksPane+ViewController+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A442481352000A7144A /* MarksPane+ViewController+Presentation.swift */; };
+		0ABB2A4624814F8800A7144A /* Legacy_BlockViewBuildersProtocolHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA73223FC50A1003A2935 /* Legacy_BlockViewBuildersProtocolHolder.swift */; };
+		0ABB2A492481579900A7144A /* BlocksViews+Supplement+TreeTextBlocksUserInteractor+EventsTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A482481579900A7144A /* BlocksViews+Supplement+TreeTextBlocksUserInteractor+EventsTranslator.swift */; };
 		0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D023E4481700442690 /* commands+Service.pb.swift */; };
 		0ACA77D523E4481800442690 /* events+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D123E4481700442690 /* events+Initializers.pb.swift */; };
 		0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77D323E4481800442690 /* models+Initializers.pb.swift */; };
@@ -501,6 +498,7 @@
 		0AAC96642340C229006CE58C /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0AACE20B247D944E00ADCD19 /* BlockModel+Parser+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+Parser+Common.swift"; sourceTree = "<group>"; };
+		0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProfileStory+AboutView.swift"; path = "AnyType/Sources/PresentationLayer/Common Views/TextView/MarksPane/ProfileStory+AboutView.swift"; sourceTree = SOURCE_ROOT; };
 		0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+AlignmentModel.swift"; sourceTree = "<group>"; };
 		0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+FontStyleModel.swift"; sourceTree = "<group>"; };
 		0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes.swift"; sourceTree = "<group>"; };
@@ -510,7 +508,9 @@
 		0ABB2A2C24801D9000A7144A /* MarksPane+Main+Pane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Main+Pane.swift"; sourceTree = "<group>"; };
 		0ABB2A2D24801D9000A7144A /* MarksPane+Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Main.swift"; sourceTree = "<group>"; };
 		0ABB2A2E24801D9000A7144A /* MarksPane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarksPane.swift; sourceTree = "<group>"; };
-		0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProfileStory+AboutView.swift"; path = "AnyType/Sources/PresentationLayer/Common Views/TextView/MarksPane/ProfileStory+AboutView.swift"; sourceTree = SOURCE_ROOT; };
+		0ABB2A422480205F00A7144A /* MarksPane+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController.swift"; sourceTree = "<group>"; };
+		0ABB2A442481352000A7144A /* MarksPane+ViewController+Presentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController+Presentation.swift"; sourceTree = "<group>"; };
+		0ABB2A482481579900A7144A /* BlocksViews+Supplement+TreeTextBlocksUserInteractor+EventsTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+TreeTextBlocksUserInteractor+EventsTranslator.swift"; sourceTree = "<group>"; };
 		0ACA77D023E4481700442690 /* commands+Service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Service.pb.swift"; sourceTree = "<group>"; };
 		0ACA77D123E4481700442690 /* events+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "events+Initializers.pb.swift"; sourceTree = "<group>"; };
 		0ACA77D223E4481800442690 /* commands+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Initializers.pb.swift"; sourceTree = "<group>"; };
@@ -1363,6 +1363,7 @@
 				53D7DB65244E46DD00ADAD61 /* Flattener */,
 				0A19E2AB2444C8AA0078DFAB /* BlocksViews+Supplement+TreeTextBlocksUserInteractor.swift */,
 				0A19E2AC2444C8AA0078DFAB /* BlocksViews+Supplement+Updater.swift */,
+				0ABB2A482481579900A7144A /* BlocksViews+Supplement+TreeTextBlocksUserInteractor+EventsTranslator.swift */,
 			);
 			path = Supplement;
 			sourceTree = "<group>";
@@ -1473,6 +1474,7 @@
 		0ABB2A2324801D9000A7144A /* MarksPane */ = {
 			isa = PBXGroup;
 			children = (
+				0ABB2A4124801FF900A7144A /* ViewController */,
 				0ABB2A2424801D9000A7144A /* Panes */,
 				0ABB2A2A24801D9000A7144A /* Main */,
 				0ABB2A2E24801D9000A7144A /* MarksPane.swift */,
@@ -1500,6 +1502,15 @@
 				0ABB2A2B24801D9000A7144A /* MarksPane+Main+Section.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		0ABB2A4124801FF900A7144A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				0ABB2A422480205F00A7144A /* MarksPane+ViewController.swift */,
+				0ABB2A442481352000A7144A /* MarksPane+ViewController+Presentation.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		0ACA781023E5C99A00442690 /* Services */ = {
@@ -1731,7 +1742,6 @@
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				0ACA780D23E5C96700442690 /* TextView.swift in Sources */,
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
-				0A0AA73323FC50A1003A2935 /* Legacy_BlockViewBuildersProtocolHolder.swift in Sources */,
 				037DBBB8240DB07300ED9C3D /* DocumentViewCells.swift in Sources */,
 				53F1861F2427E4B200738620 /* NotificationEventListener.swift in Sources */,
 				0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */,
@@ -1739,7 +1749,6 @@
 				0A0AA75B24018890003A2935 /* BlockModel+Finder.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */,
-				031B35592346C5B60066DDB8 /* BlockViewModifieres.swift in Sources */,
 				0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */,
 				0380128D240DAB730098244D /* DocumentViewCell.swift in Sources */,
 				0A0AA75524018604003A2935 /* BlockModel+Updater.swift in Sources */,
@@ -1774,7 +1783,6 @@
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
 				0A996BC923EF0D26000FDC9C /* DocumentViewRepresentable.swift in Sources */,
-				030DF8642333E31100FE6DA5 /* Legacy_DocumentViewModel.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
@@ -1788,7 +1796,6 @@
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
-				030DF8682333E3DD00FE6DA5 /* Legacy_DocumentView.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
 				A3D65597246D47C200292F10 /* DocumentViewRouting+Page.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */,
@@ -1800,6 +1807,7 @@
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
+				0ABB2A432480205F00A7144A /* MarksPane+ViewController.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				53D7DB6C244E46DD00ADAD61 /* TextBlocksViews+Supplement+Flattener.swift in Sources */,
 				0A0AA76724041465003A2935 /* BlockModel+OldModels.swift in Sources */,
@@ -1833,7 +1841,6 @@
 				0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
-				0A0AA73923FC5799003A2935 /* BlocksViews+Base+Utilities+Legacy_TextBlocksUserInteractor.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
 				0A69321F238C4C8200575544 /* TextBlocksViews+Bulleted.swift in Sources */,
 				0316497C23E5C223009A3984 /* commands+Initializers.pb.swift in Sources */,
@@ -1894,7 +1901,6 @@
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A0C1872245790DE003EDE7C /* PageBlocksViews+Title.swift in Sources */,
 				0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */,
-				0A0AA73523FC55BC003A2935 /* BlocksViews+Base+Utilities+Legacy_SequenceUpdater.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,
 				0A0AA753240185EE003A2935 /* BlockModel.swift in Sources */,
 				A38119722445D3DB0023AFEB /* ImagePickerUIKit.swift in Sources */,
@@ -1923,8 +1929,10 @@
 				0327B0B3232BB994007DB8A7 /* DocumentModel.swift in Sources */,
 				0372AB4723A136EE008CF5B9 /* IpfsFilesService.swift in Sources */,
 				0A721EE8244068270035A3E4 /* SmartBlockActionsService.swift in Sources */,
+				0ABB2A4624814F8800A7144A /* Legacy_BlockViewBuildersProtocolHolder.swift in Sources */,
 				03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */,
 				0AAC96652340C229006CE58C /* FontExtension.swift in Sources */,
+				0ABB2A452481352000A7144A /* MarksPane+ViewController+Presentation.swift in Sources */,
 				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
 				0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
@@ -1936,6 +1944,7 @@
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
 				0A9D49E0244905F2007F0992 /* BlocksViews+UserEvents+Protocol.swift in Sources */,
 				03A8011E22F8CAA200F31E01 /* PickerDetailView.swift in Sources */,
+				0ABB2A492481579900A7144A /* BlocksViews+Supplement+TreeTextBlocksUserInteractor+EventsTranslator.swift in Sources */,
 				0A9D49E3244908F1007F0992 /* DocumentViewRouting+Base.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
@@ -1945,7 +1954,6 @@
 				0A0AA752240185EE003A2935 /* BlockModel+Parser.swift in Sources */,
 				0ADE619124488C6600244E49 /* ToolsBlocksViews+UserActions.swift in Sources */,
 				0ACA77D923E4482000442690 /* commands+ErrorAdoption.pb.swift in Sources */,
-				031B355623465DFF0066DDB8 /* Legacy_EmptyDocumentView.swift in Sources */,
 				0A996BB123EDBCB8000FDC9C /* DeveloperOptions+Model.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				0A996BBD23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift in Sources */,

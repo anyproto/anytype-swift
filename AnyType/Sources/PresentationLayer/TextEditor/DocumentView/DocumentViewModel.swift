@@ -68,6 +68,11 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
     lazy var userActionPublisher: AnyPublisher<AnyPublisher<BlocksViews.UserAction, Never>, Never> = {
         Publishers.Merge(self.buildersPublisherSubject, self.detailsPublisherSubject).eraseToAnyPublisher()
     }()
+    private lazy var buildersActionsPayloadsSubject: PassthroughSubject<AnyPublisher<BlocksViews.Base.ViewModel.ActionsPayload, Never>, Never> = .init()
+    private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViews.Base.ViewModel.ActionsPayload, Never>, Never> = {
+        self.buildersActionsPayloadsSubject.eraseToAnyPublisher()
+    }()
+    private var buildersActionsPayloadsPublisherSubscription: AnyCancellable?
         
     /// Options property publisher.
     /// We expect that `ViewController` will listen this property.
@@ -125,13 +130,20 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         didSet {
             self.objectWillChange.send()
             
-            let value = self.$buildersRows.map {
+            let buildersModels = self.$buildersRows.map {
                 $0.compactMap({$0.builder as? BlocksViews.Base.ViewModel})
             }
-            .flatMap({
+                
+            let buildersUserActionPublisher = buildersModels.flatMap({
                 Publishers.MergeMany($0.map(\.userActionPublisher))
             }).eraseToAnyPublisher()
-            self.buildersPublisherSubject.send(value)
+            self.buildersPublisherSubject.send(buildersUserActionPublisher)
+            
+            let buildersActionsPayloadsPublisher = buildersModels.flatMap({
+                Publishers.MergeMany($0.map(\.actionsPayloadPublisher))
+            }).eraseToAnyPublisher()
+            self.buildersActionsPayloadsSubject.send(buildersActionsPayloadsPublisher)
+            
         }
     }
     
@@ -146,6 +158,12 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
         self.close()
     }
     
+    func setupSubscriptions() {
+        self.buildersActionsPayloadsPublisherSubscription = self.buildersActionsPayloadsPublisher.sink { [weak self] (value) in
+            _ = self?.treeTextViewUserInteractor?.configured(value)
+        }
+    }
+    
     // MARK: Initialization
     init(documentId: String?, options: Options) {
         // TODO: Add failable init.
@@ -158,6 +176,7 @@ class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolde
             return
         }
         
+        self.setupSubscriptions()
         self.options = options
         _ = self.wholePageDetailsViewModel.configured(documentId: documentId)
         
