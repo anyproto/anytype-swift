@@ -81,8 +81,8 @@ extension BlocksViews.UserAction.ToolbarOpenAction {
 
 extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
     struct MainPane {
-        typealias Output = PassthroughSubject<TextView.MarksPane.Main.Action, Never>
-        typealias Input = TextView.MarksPane.Main.RawUserResponse
+        typealias Output = PassthroughSubject<MarksPane.Main.Action, Never>
+        typealias Input = MarksPane.Main.RawUserResponse
         var output: Output
         var input: Input?
     }
@@ -91,21 +91,21 @@ extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
 extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
     struct TextColor {
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = TextView.MarksPane.Panes.Color.UserResponse
+        typealias Input = MarksPane.Panes.Color.UserResponse
         var output: Output
         var input: Input?
     }
     
     struct BackgroundColor {
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = TextView.MarksPane.Panes.Color.UserResponse
+        typealias Input = MarksPane.Panes.Color.UserResponse
         var output: Output
         var input: Input?
     }
     
     struct Style {
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = TextView.MarksPane.Panes.StylePane.UserResponse
+        typealias Input = MarksPane.Panes.StylePane.UserResponse
         var output: Output
         var input: Input?
     }

@@ -18,7 +18,7 @@ extension TextView.UIKitTextView {
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
         typealias ActionsToolbarAccessoryView = TextView.ActionsToolbar.AccessoryView
-        typealias MarksToolbarInputView = TextView.MarksPane.Main.ViewModelHolder
+        typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
 
         // MARK: Variables
         @Published var text: String? = nil
@@ -305,7 +305,7 @@ extension TextView.UIKitTextView.Coordinator {
 // MARK: Attributes and MarkStyles Converter (Move it to MarksPane)
 extension TextView.UIKitTextView.Coordinator {
     enum ActionsToMarkStyleConverter {
-        static func emptyMark(from action: TextView.MarksPane.Main.Panes.StylePane.FontStyle.Action) -> TextView.MarkStyle {
+        static func emptyMark(from action: MarksPane.Main.Panes.StylePane.FontStyle.Action) -> TextView.MarkStyle {
             switch action {
             case .bold: return .bold(false)
             case .italic: return .italic(false)
@@ -313,7 +313,7 @@ extension TextView.UIKitTextView.Coordinator {
             case .keyboard: return .keyboard(false)
             }
         }
-        static func textAlignment(from action: TextView.MarksPane.Main.Panes.StylePane.Alignment.Action) -> NSTextAlignment {
+        static func textAlignment(from action: MarksPane.Main.Panes.StylePane.Alignment.Action) -> NSTextAlignment {
             switch action {
             case .left: return .left
             case .center: return .center
@@ -343,7 +343,7 @@ extension TextView.UIKitTextView.Coordinator {
 extension TextView.UIKitTextView.Coordinator {
     private enum ActionToCategoryConverter {
         typealias ContextualMenuAction = TextView.UIKitTextView.ContextualMenu.Action
-        typealias Category = TextView.MarksPane.Main.Section.Category
+        typealias Category = MarksPane.Main.Section.Category
         static func asCategory(_ action: ContextualMenuAction) -> Category {
             switch action {
             case .style: return .style
