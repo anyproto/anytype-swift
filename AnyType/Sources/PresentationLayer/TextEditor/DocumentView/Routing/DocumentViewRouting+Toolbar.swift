@@ -22,11 +22,12 @@ extension DocumentViewRouting {
             switch action {
             case .toolbars(.addBlock): return self.router(of: AddBlockToolbarRouter.self)
             case .toolbars(.turnIntoBlock): return self.router(of: TurnIntoToolbarRouter.self)
+            case .toolbars(.marksPane): return self.router(of: MarksPaneToolbarRouter.self)
             default: return nil
             }
         }
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [AddBlockToolbarRouter(), TurnIntoToolbarRouter()]
+            [AddBlockToolbarRouter(), TurnIntoToolbarRouter(), MarksPaneToolbarRouter()]
         }
     }
 }
@@ -135,6 +136,62 @@ extension DocumentViewRouting.ToolbarsRouter {
             case let .toolbars(value):
                 switch value {
                 case .addBlock: self.handle(action: value)
+                default: return
+                }
+            default: return
+            }
+        }
+    }
+}
+
+// MARK: ToolbarsRouter / MarksPaneRouter
+extension DocumentViewRouting.ToolbarsRouter {
+    /// It is processing AddBlock toolbar appearing.
+    ///
+    class MarksPaneToolbarRouter: BaseRouter {
+        /// Custom UINavigationBar for AddBlock toolbar.
+        ///
+        private class NavigationBar: UINavigationBar {}
+                
+        private func handle(action: BlocksViews.UserAction.ToolbarOpenAction) {
+            switch action {
+            case let .marksPane(.mainPane(payload)):
+                let viewModel: MarksPane.ViewController.ViewModel = .create(.color)
+                let controller: MarksPane.ViewController = .init(model: viewModel)
+                
+                let subject = payload.output
+                
+                /// NOTE: Tough point.
+                /// We have a view model here.
+                /// It could publish action, suppose, it is `.$action` publisher.
+                /// Next, we would like to send events to a subject that is coming in associated value.
+                /// Again, somebody need to keep this subscription.
+                /// In our case, we choose viewModel.
+                ///
+                /// ViewModel.action -> Publish Action.
+                /// Subject <- Published Action.
+                /// ViewModel.subscription = subject.send(ViewModel.action.publishedValue)
+                viewModel.subscribe(subject: subject, keyPath: \.action)
+                
+                // TODO: Rethink.
+                // Should we configure appearance of controller here?
+                let appearance = NavigationBar.appearance()
+                appearance.tintColor = .black
+                appearance.backgroundColor = .white
+                appearance.isTranslucent = false
+                let viewController = UINavigationController.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
+                viewController.viewControllers = [controller]
+                self.send(event: .showViewController(viewController))
+            default: return
+            }
+        }
+        
+        // MARK: Subclassing
+        override func receive(action: BlocksViews.UserAction) {
+            switch action {
+            case let .toolbars(value):
+                switch value {
+                case .marksPane: self.handle(action: value)
                 default: return
                 }
             default: return
