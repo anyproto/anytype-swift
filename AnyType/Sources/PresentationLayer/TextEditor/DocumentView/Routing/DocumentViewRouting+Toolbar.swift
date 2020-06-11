@@ -173,14 +173,8 @@ extension DocumentViewRouting.ToolbarsRouter {
                 /// ViewModel.subscription = subject.send(ViewModel.action.publishedValue)
                 viewModel.subscribe(subject: subject, keyPath: \.action)
                 
-                // TODO: Rethink.
-                // Should we configure appearance of controller here?
-                let appearance = NavigationBar.appearance()
-                appearance.tintColor = .black
-                appearance.backgroundColor = .white
-                appearance.isTranslucent = false
-                let viewController = UINavigationController.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
-                viewController.viewControllers = [controller]
+                // TODO: Move to MarksPane.ViewControllerBuilder or MarksPane.ViewBuilder
+                let viewController = MarksPane.ViewController.configured(controller)
                 self.send(event: .showViewController(viewController))
             default: return
             }
