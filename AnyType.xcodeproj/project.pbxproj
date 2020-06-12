@@ -259,6 +259,7 @@
 		0AACE20C247D944E00ADCD19 /* BlockModel+Parser+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AACE20B247D944E00ADCD19 /* BlockModel+Parser+Common.swift */; };
 		0AAF8C2C2492355100C18D09 /* MarksPane+ViewController+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2A2492355100C18D09 /* MarksPane+ViewController+Presentation.swift */; };
 		0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2B2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift */; };
+		0AAF8C302493827200C18D09 /* DocumentViewCell+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2F2493827200C18D09 /* DocumentViewCell+New.swift */; };
 		0ABB2A1A247FEFE700A7144A /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */; };
 		0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */; };
 		0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */; };
@@ -587,6 +588,7 @@
 		0AACE20B247D944E00ADCD19 /* BlockModel+Parser+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockModel+Parser+Common.swift"; sourceTree = "<group>"; };
 		0AAF8C2A2492355100C18D09 /* MarksPane+ViewController+Presentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController+Presentation.swift"; sourceTree = "<group>"; };
 		0AAF8C2B2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController+Presentation+Transition.swift"; sourceTree = "<group>"; };
+		0AAF8C2F2493827200C18D09 /* DocumentViewCell+New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewCell+New.swift"; sourceTree = "<group>"; };
 		0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProfileStory+AboutView.swift"; path = "AnyType/Sources/PresentationLayer/Common Views/TextView/MarksPane/ProfileStory+AboutView.swift"; sourceTree = SOURCE_ROOT; };
 		0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+AlignmentModel.swift"; sourceTree = "<group>"; };
 		0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+FontStyleModel.swift"; sourceTree = "<group>"; };
@@ -980,6 +982,7 @@
 		0380128B240DA8C10098244D /* CellsViews */ = {
 			isa = PBXGroup;
 			children = (
+				0AAF8C2F2493827200C18D09 /* DocumentViewCell+New.swift */,
 				037DBBB7240DB07300ED9C3D /* DocumentViewCells.swift */,
 				0380128C240DAB730098244D /* DocumentViewCell.swift */,
 			);
@@ -2016,6 +2019,7 @@
 				0ACA77D723E4481800442690 /* models+Initializers.pb.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
+				0AAF8C302493827200C18D09 /* DocumentViewCell+New.swift in Sources */,
 				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
 				0A10CC86248ED549000FF498 /* BlocksViews+New+Page+IconEmoji.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
