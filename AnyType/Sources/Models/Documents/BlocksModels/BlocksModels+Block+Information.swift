@@ -34,11 +34,12 @@ protocol BlocksModelsInformationModelProtocol {
     init(information: BlocksModelsInformationModelProtocol)
 }
 
+fileprivate typealias Namespace = BlocksModels.Block.Information
 extension BlocksModels.Block {
     enum Information {}
 }
 
-extension BlocksModels.Block.Information {
+extension Namespace {
     struct InformationModel: BlocksModelsInformationModelProtocol {
         var id: BlockId
         var childrenIds: ChildrenIds = []
@@ -52,7 +53,7 @@ extension BlocksModels.Block.Information {
         
         var pageDetails: PageDetails = .empty
         
-        static func defaultValue() -> BlocksModels.Block.Information.InformationModel { .default }
+        static func defaultValue() -> Self { .default }
         
         init(id: BlockId, content: Content) {
             self.id = id
@@ -80,7 +81,7 @@ extension BlocksModels.Block.Information {
 }
 
 // MARK: Alignment
-extension BlocksModels.Block.Information {
+extension Namespace {
     enum Alignment {
         case left, center, right
     }

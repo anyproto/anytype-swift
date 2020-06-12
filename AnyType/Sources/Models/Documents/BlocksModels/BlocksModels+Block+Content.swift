@@ -8,12 +8,13 @@
 
 import Foundation
 
+fileprivate typealias Namespace = BlocksModels.Block.Content
 extension BlocksModels.Block {
     enum Content {}
 }
 
 ///
-extension BlocksModels.Block.Content {
+extension Namespace {
     enum ContentType {
         case text(Text)
         case smartblock(Smartblock)
@@ -21,10 +22,41 @@ extension BlocksModels.Block.Content {
         case div(Div)
         case bookmark(Bookmark)
         case link(Link)
+        
+        var kind: Kind { .init(attribute: self) }
     }
 }
 
-extension BlocksModels.Block.Content.ContentType {
+extension Namespace.ContentType {
+    struct Kind: Equatable {
+        static func == (lhs: BlocksModels.Block.Content.ContentType.Kind, rhs: BlocksModels.Block.Content.ContentType.Kind) -> Bool {
+            lhs.sameKind(rhs)
+        }
+        
+        typealias Element = BlocksModels.Block.Content.ContentType
+        var attribute: Element
+        func sameKind(_ value: Element) -> Bool {
+            Self.same(self.attribute, value)
+        }
+        func sameKind(_ value: Kind) -> Bool {
+            Self.same(self.attribute, value.attribute)
+        }
+        static func same(_ lhs: Element, _ rhs: Element) -> Bool {
+            switch (lhs, rhs) {
+            case (.text, .text): return true
+            case (.smartblock, .smartblock): return true
+            case (.file, .file): return true
+            case (.div, .div): return true
+            case (.bookmark, .bookmark): return true
+            case (.link, .link): return true
+            default: return false
+            }
+        }
+        
+    }
+}
+
+extension Namespace.ContentType {
     struct Text {
         enum ContentType {
             case text
@@ -33,7 +65,7 @@ extension BlocksModels.Block.Content.ContentType {
             case header3
             case header4
             case quote
-            case todo
+            case checkbox
             case bulleted
             case numbered
             case toggle

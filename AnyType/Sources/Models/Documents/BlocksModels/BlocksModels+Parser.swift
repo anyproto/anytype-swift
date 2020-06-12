@@ -419,7 +419,7 @@ private extension BlocksModels.Parser.Converters {
                 case .quote: return .quote
                 case .code: return nil
                 case .title: return nil
-                case .checkbox: return .todo
+                case .checkbox: return .checkbox
                 case .marked: return .bulleted
                 case .numbered: return .numbered
                 case .toggle: return .toggle
@@ -446,7 +446,7 @@ private extension BlocksModels.Parser.Converters {
             case .header3: return .header3
             case .header4: return .header4
             case .quote: return .quote
-            case .todo: return .checkbox
+            case .checkbox: return .checkbox
             case .bulleted: return .marked
             case .numbered: return .numbered
             case .toggle: return .toggle
