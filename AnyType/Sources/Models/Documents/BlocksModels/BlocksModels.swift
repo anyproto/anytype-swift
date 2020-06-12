@@ -20,7 +20,7 @@ extension BlocksModels {
         typealias BackgroundColor = String
         typealias Alignment = BlocksModels.Block.Information.Alignment
         typealias PageDetails = BlocksModels.Block.Information.PageDetails
-        
         typealias BlockKind = BlocksModels.Block.Kind
+        typealias Information = BlocksModels.Block.Information
     }
 }

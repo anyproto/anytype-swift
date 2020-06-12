@@ -123,8 +123,29 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
         blockModel.parent = block.parent
         self._add(blockModel)
     }
+    // MARK: - Children / Append
+    func append(childId: BlockId, parentId: BlockId) {
+        guard let child = self.choose(by: childId) else {
+            let logger = Logging.createLogger(category: .blocksModelsBlock)
+            os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+            return
+        }
+        guard let parent = self.choose(by: parentId) else {
+            let logger = Logging.createLogger(category: .blocksModelsBlock)
+            os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+            return
+        }
+        
+        var childModel = child.blockModel
+        childModel.information.id = parentId
+        
+        var parentModel = parent.blockModel
+        var childrenIds = parentModel.information.childrenIds
+        childrenIds.append(childId)
+        parentModel.information.childrenIds = childrenIds
+    }
     // MARK: - Children / Add Before
-    private func add(childId: BlockId, parentId: BlockId, at index: Int) {
+    private func insert(childId: BlockId, parentId: BlockId, at index: Int) {
         guard let parentModel = self.choose(by: parentId) else {
             let logger = Logging.createLogger(category: .blocksModelsBlock)
             os_log(.debug, log: logger, "I can't find parent with id: %@", parentId)
@@ -155,7 +176,7 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
         
         let parentId = parent.blockModel.information.id
         
-        self.add(childId: child, parentId: parentId, at: index)
+        self.insert(childId: child, parentId: parentId, at: index)
     }
     // MARK: - Children / Add
     func add(child: BlockId, afterChild: BlockId) {
@@ -169,7 +190,7 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
         let parentId = parent.blockModel.information.id
         
         let newIndex = index.advanced(by: 1)
-        self.add(childId: child, parentId: parentId, at: newIndex)
+        self.insert(childId: child, parentId: parentId, at: newIndex)
     }
     
     // MARK: - UserSession
@@ -183,15 +204,15 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
 extension BlocksModels.Block {
     final class ChosenBlock {
         typealias BlockId = BlocksModels.Aliases.BlockId
-        private var container: Container
-        private var chosenBlock: BlockModel
+        private var _container: Container
+        private var _chosenBlock: BlockModel
         init(container: Container, chosenBlock: BlockModel) {
-            self.container = container
-            self.chosenBlock = chosenBlock
+            self._container = container
+            self._chosenBlock = chosenBlock
         }
         required init(_ chosen: ChosenBlock) {
-            self.container = chosen.container
-            self.chosenBlock = chosen.chosenBlock
+            self._container = chosen._container
+            self._chosenBlock = chosen._chosenBlock
         }
         class func create(_ chosen: ChosenBlock) -> Self {
             .init(chosen)
@@ -200,8 +221,12 @@ extension BlocksModels.Block {
 }
 
 extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
+    var container: BlocksModelsContainerModelProtocol {
+        self._container
+    }
+    
     var blockModel: BlocksModelsBlockModelProtocol {
-        self.chosenBlock
+        self._chosenBlock
     }
     
     static var defaultIndentationLevel: Int { 0 }
@@ -210,16 +235,16 @@ extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
             return Self.defaultIndentationLevel
         }
 
-        guard let parentId = self.chosenBlock.parent else { return Self.defaultIndentationLevel }
-        guard let parent = self.container._choose(by: parentId) else { return Self.defaultIndentationLevel }
-        switch self.chosenBlock.kind {
+        guard let parentId = self._chosenBlock.parent else { return Self.defaultIndentationLevel }
+        guard let parent = self._container._choose(by: parentId) else { return Self.defaultIndentationLevel }
+        switch self._chosenBlock.kind {
         case .meta: return parent.indentationLevel
         case .block: return parent.indentationLevel + 1
         }
     }
     
     var isRoot: Bool {
-        self.chosenBlock.parent == nil
+        self._chosenBlock.parent == nil
     }
     
     func findParent() -> Self? {
@@ -227,8 +252,8 @@ extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
             return nil
         }
 
-        guard let parentId = self.chosenBlock.parent else { return nil }
-        guard let parent = self.container._choose(by: parentId) else { return nil }
+        guard let parentId = self._chosenBlock.parent else { return nil }
+        guard let parent = self._container._choose(by: parentId) else { return nil }
         return Self.init(parent)
     }
     
@@ -241,25 +266,25 @@ extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
     }
     
     func findChild(by id: BlockId) -> Self? {
-        guard let child = self.container._choose(by: id) else { return nil }
+        guard let child = self._container._choose(by: id) else { return nil }
         return Self.init(child)
     }
     
     var isFirstResponder: Bool {
         get {
-            self.container.userSession.isFirstResponder(by: self.chosenBlock.information.id)
+            self.container.userSession.isFirstResponder(by: self._chosenBlock.information.id)
         }
         set {
-            self.container.userSession.setFirstResponder(by: self.chosenBlock.information.id)
+            self.container.userSession.setFirstResponder(by: self._chosenBlock.information.id)
         }
     }
     
     var isToggled: Bool {
         get {
-            self.container.userSession.isToggled(by: self.chosenBlock.information.id)
+            self.container.userSession.isToggled(by: self._chosenBlock.information.id)
         }
         set {
-            self.container.userSession.setToggled(by: self.chosenBlock.information.id, value: newValue)
+            self.container.userSession.setToggled(by: self._chosenBlock.information.id, value: newValue)
         }
     }
 }
@@ -310,6 +335,8 @@ protocol BlocksModelsContainerModelProtocol: BlocksModelsHasRootIdProtocol, Bloc
     func remove(_ id: BlockId)
     // MARK: - Operations / Add
     func add(_ block: BlocksModelsBlockModelProtocol)
+    // MARK: - Children / Append
+    func append(childId: BlockId, parentId: BlockId)
     // MARK: - Children / Add Before
     func add(child: BlockId, beforeChild: BlockId)
     // MARK: - Children / Add
@@ -317,7 +344,12 @@ protocol BlocksModelsContainerModelProtocol: BlocksModelsHasRootIdProtocol, Bloc
 }
 
 // MARK: - ChosenBlock
-protocol BlocksModelsChosenBlockModelProtocol: BlocksModelsHasBlockModelProtocol, BlocksModelsHasIndentationLevelProtocol, BlocksModelsCanBeRootProtocol, BlocksModelsFindParentAndRootProtocol, BlocksModelsFindChildProtocol, BlocksModelsCanBeFirstResponserProtocol, BlocksModelsCanBeToggledProtocol {}
+protocol BlocksModelsChosenBlockModelProtocol: BlocksModelsHasContainerProtocol, BlocksModelsHasBlockModelProtocol, BlocksModelsHasIndentationLevelProtocol, BlocksModelsCanBeRootProtocol, BlocksModelsFindParentAndRootProtocol, BlocksModelsFindChildProtocol, BlocksModelsCanBeFirstResponserProtocol, BlocksModelsCanBeToggledProtocol {}
+
+// MARK: - ChosenBlock / BlockModel
+protocol BlocksModelsHasContainerProtocol {
+    var container: BlocksModelsContainerModelProtocol {get}
+}
 
 // MARK: - ChosenBlock / BlockModel
 protocol BlocksModelsHasBlockModelProtocol {

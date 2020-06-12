@@ -39,8 +39,10 @@ extension BlocksViews.New.Text {
     /// This `UserInteraction` enumeration wrap `TextView.UserAction` and `ButtonView.UserAction` together
     ///
     enum UserInteraction {
-        case textView(TextView.UserAction)
-        case buttonView(ButtonView.UserAction)
+        typealias TextViewUserAction = TextView.UserAction
+        typealias ButtonViewUserAction = ButtonView.UserAction
+        case textView(TextViewUserAction)
+        case buttonView(ButtonViewUserAction)
     }
 }
 

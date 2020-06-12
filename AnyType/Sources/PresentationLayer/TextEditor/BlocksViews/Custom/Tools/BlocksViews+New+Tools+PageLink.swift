@@ -17,6 +17,7 @@ extension BlocksViews.New.Tools.PageLink {
     /// Should we move it to PageBlocksViews? (?)
     ///
     class ViewModel: BlocksViews.New.Tools.Base.ViewModel {
+        typealias PageDetailsViewModel = DocumentModule.DocumentViewModel.PageDetailsViewModel
         // Maybe we need also input and output subscribers.
         // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
         // We can't edit name of the block.
@@ -28,7 +29,7 @@ extension BlocksViews.New.Tools.PageLink {
         private var eventListener: EventListener = .init()
         private var eventPublisher: NotificationEventListener<EventListener>?
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
-        private var wholeDetailsViewModel: DocumentViewModel.PageDetailsViewModel = .init()
+        private var wholeDetailsViewModel: PageDetailsViewModel = .init()
         
         lazy private var placeholder: NSAttributedString = {
             let text: NSString = "Untitled"
@@ -58,14 +59,15 @@ extension BlocksViews.New.Tools.PageLink {
                     self.eventListener.$state.receive(on: RunLoop.main).sink { [weak self] (value) in
                         self?.wholeDetailsViewModel.receive(details: value)
                     }.store(in: &self.subscriptions)
-                    
+
                     self.statePublisher = self.wholeDetailsViewModel.wholeDetailsPublisher.map(State.Converter.from).eraseToAnyPublisher()
-                    
+
                     self.statePublisher.sink { [weak self] (value) in
                         self?.state = value
                     }.store(in: &self.subscriptions)
+
                     
-                    self.wholeDetailsViewModel.receive(details: information.details)
+                    self.wholeDetailsViewModel.receive(details: information.pageDetails)
                     
                     self.$state.map(\.title).safelyUnwrapOptionals().sink { [weak self] (value) in
                         self?.textViewModel.update = .text(value)
@@ -146,7 +148,7 @@ private extension BlocksViews.New.Tools.PageLink {
 // MARK: - Converter PageDetails to State
 extension BlocksViews.New.Tools.PageLink.State {
     enum Converter {
-        static func from(_ pageDetails: BlockModels.Block.Information.PageDetails) -> ToolsBlocksViews.PageLink.State {
+        static func from(_ pageDetails: BlocksModels.Block.Information.PageDetails) -> BlocksViews.New.Tools.PageLink.State {
             let archived = false
             let hasContent = false
             let title = pageDetails.title?.text

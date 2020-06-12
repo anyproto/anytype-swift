@@ -86,3 +86,53 @@ extension Namespace {
         case left, center, right
     }
 }
+
+// MARK: Details as Information
+extension Namespace {
+    /// What happens here?
+    /// We convert details ( PageDetails ) to ready-to-use information.
+    struct DetailsAsInformationConverter {
+        typealias Information = BlocksModelsInformationModelProtocol
+        typealias Content = BlocksModels.Aliases.BlockContent
+        var information: Information
+        
+        private func detailsAsInformation(_ information: Information, _ details: PageDetails.Details) -> Information {
+            /// Our ID is <ID>-<Details.key>
+            let id = information.id + "-" + details.id()
+            
+            /// Actually, we don't care about block type.
+            /// We only take care about "distinct" block model.
+            let content: Content = .text(.empty())
+            return InformationModel.init(id: id, content: content)
+        }
+        
+        func callAsFunction(_ details: PageDetails.Details) -> BlocksModelsInformationModelProtocol {
+            detailsAsInformation(self.information, details)
+        }
+    }
+}
+
+// MARK: Details as Block
+extension Namespace {
+    /// We need this converter to convert our details into a block.
+    /// First, we convert them to an Information structure.
+    /// Then, we convert it to block.
+    ///
+    /// Why do we need it?
+    /// We need it to get block and later configure blocks views with this block and then render them.
+    ///
+    struct DetailsAsBlockConverter {
+        typealias Information = BlocksModelsInformationModelProtocol
+        typealias Block = BlocksModels.Block.BlockModel
+
+        var information: Information
+        
+        private func detailsAsBlock(_ details: PageDetails.Details) -> Block {
+            .init(information: DetailsAsInformationConverter(information: self.information)(details))
+        }
+        
+        func callAsFunction(_ details: PageDetails.Details) -> BlocksModelsBlockModelProtocol {
+            detailsAsBlock(details)
+        }
+    }
+}

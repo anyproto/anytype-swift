@@ -90,6 +90,10 @@ extension Namespace.ContentType {
             self.contentType = contentType
             self.color = color
         }
+        
+        internal init(contentType: ContentType) {
+            self.init(attributedText: .init(), contentType: contentType)
+        }
                 
         // MARK: - Create
         static func empty() -> Self {

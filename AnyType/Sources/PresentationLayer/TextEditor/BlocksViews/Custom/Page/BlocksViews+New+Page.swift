@@ -29,9 +29,10 @@ extension BlocksViews.New.Page.Base {
     /// Add common behavior to this class.
     ///
     class ViewModel: BlocksViews.New.Base.ViewModel {
+        typealias PageDetailsViewModel = DocumentModule.DocumentViewModel.PageDetailsViewModel
         @Environment(\.developerOptions) var developerOptions
         private weak var delegate: TextBlocksViewsUserInteractionProtocol? // Do we need it?
-        private(set) var pageDetailsViewModel: DocumentViewModel.PageDetailsViewModel?
+        private(set) var pageDetailsViewModel: PageDetailsViewModel?
         
         // MARK: Subclassing
         func onIncoming(event: Events) {}
@@ -45,7 +46,7 @@ extension BlocksViews.New.Page.Base {
 }
 
 extension BlocksViews.New.Page.Base.ViewModel {
-    func configured(pageDetailsViewModel: DocumentViewModel.PageDetailsViewModel?) -> Self {
+    func configured(pageDetailsViewModel: PageDetailsViewModel?) -> Self {
         self.pageDetailsViewModel = pageDetailsViewModel
         self.onIncoming(event: .pageDetailsViewModelDidSet)
         return self

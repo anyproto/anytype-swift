@@ -13,8 +13,10 @@ private extension Logging.Categories {
     static let pageDetails: Self = "BlocksModels.Block.Information.PageDetails"
 }
 
+fileprivate typealias Namespace = BlocksModels.Block.Information
+
 // MARK: Details
-extension BlocksModels.Block.Information {
+extension Namespace {
     struct PageDetails {
         // MARK: Properties
         /// By default, we use `Details.id()` as a `Key` in this dictionary.
@@ -56,9 +58,7 @@ extension BlocksModels.Block.Information {
         /// - Parameter list: A list of details that we are converting to a `dictionary` and using `.id()` function as a `key`.
         init(_ list: [Details]) {
             let keys = list.compactMap({($0.id(), $0)})
-            self.details = .init(keys, uniquingKeysWith: { (lhs, rhs) -> BlocksModels.Block.Information.Details in
-                return rhs
-            })
+            self.details = .init(keys, uniquingKeysWith: {(_, rhs) in rhs})
         }
         
         /// Create empty page details.
@@ -69,9 +69,11 @@ extension BlocksModels.Block.Information {
             self.init([:])
         }
         
-        static var empty: PageDetails = .init()
+        static var empty: Self = .init()
     }
+}
 
+extension Namespace.PageDetails {
     enum Details {
         case title(Title)
         case iconEmoji(Emoji)
@@ -106,7 +108,7 @@ extension BlocksModels.Block.Information {
 
 // MARK: DetailsMatching
 // TODO: Rethink later. It should be done via Keys.
-extension BlocksModels.Block.Information.Details {
+extension Namespace.PageDetails.Details {
     /// Actually, we could done this in the same way as EnvironemntKey and EnvironmentValues.
     enum Kind {
         case title
@@ -121,7 +123,7 @@ private protocol DetailsEntryIdentifiable {
 }
 
 // MARK: Details / Title
-extension BlocksModels.Block.Information.Details {
+extension Namespace.PageDetails.Details {
     /// It is a custom detail.
     /// This detail refers to a `Title` that is coming in middleware `details`.
     /// Its id has value "name".
@@ -143,12 +145,12 @@ extension BlocksModels.Block.Information.Details {
 }
 
 // MARK: Details / Title / Key
-extension BlocksModels.Block.Information.Details.Title: DetailsEntryIdentifiable {
+extension Namespace.PageDetails.Details.Title: DetailsEntryIdentifiable {
     static var id: String = "name"
 }
 
 // MARK: Details / IconEmoji
-extension BlocksModels.Block.Information.Details {
+extension Namespace.PageDetails.Details {
     
     struct Emoji {
         private(set) var text: String = ""
@@ -157,6 +159,6 @@ extension BlocksModels.Block.Information.Details {
 }
 
 // MARK: Details / IconEmoji / Key
-extension BlocksModels.Block.Information.Details.Emoji: DetailsEntryIdentifiable {
+extension Namespace.PageDetails.Details.Emoji: DetailsEntryIdentifiable {
     static var id: String = "iconEmoji"
 }

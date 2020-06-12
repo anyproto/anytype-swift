@@ -84,6 +84,7 @@ class BlockActionsService: BlockActionsServiceProtocol {
     var merge: Merge = .init() // Remove Split and Merge to TextBlocks only.
     var duplicate: Duplicate = .init() // BlockList?
     var eventListener: EventListener = .init()
+    var newEventListener: NewEventListener = .init()
     
     // MARK: Open / Close
     struct Open: BlockActionsServiceProtocolOpen {
@@ -194,5 +195,36 @@ extension BlockActionsService {
                 .compactMap { $0.first { $0.value == .blockShow($0.blockShow) }?.blockShow }
                 .eraseToAnyPublisher()
         }
+    }
+    
+    // MARK: It is new Listener, so, you should replace old listener.
+    struct NewEventListener: BlockEventListener {
+        private static let parser: BlocksModels.Parser = .init()
+        
+         struct Event {
+             var rootId: String
+             var blocks: [BlocksModelsInformationModelProtocol]
+             static func from(event: Anytype_Event.Block.Show) -> Self {
+                 .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks, details: event.details, smartblockType: event.type))
+             }
+         }
+         
+         func createFrom(event: Anytype_Event.Block.Show) -> Event {
+             .from(event: event)
+         }
+         
+         func receive(contextId: ContextId) -> AnyPublisher<Event, Never> {
+             receiveRawEvent(contextId: contextId).map(Event.from(event:)).eraseToAnyPublisher()
+         }
+         
+         func receiveRawEvent(contextId: ContextId) -> AnyPublisher<Anytype_Event.Block.Show, Never> {
+             NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
+                 .compactMap { $0.object as? Anytype_Event }
+                 .filter({$0.contextID == contextId})
+                 .map(\.messages)
+                 .compactMap { $0.first { $0.value == .blockShow($0.blockShow) }?.blockShow }
+                 .eraseToAnyPublisher()
+         }
+
     }
 }

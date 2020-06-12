@@ -42,7 +42,7 @@ extension BlocksModels.Parser.Details {
     ///
     enum Converter: BlocksModelsParserDetailsConverterProtocol {
         
-        typealias Model = BlocksModels.Block.Information.Details
+        typealias Model = BlocksModels.Aliases.PageDetails.Details
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             switch model {
             case let .title(title): return Model.Title.Converter.asMiddleware(model: title)
@@ -66,39 +66,15 @@ extension BlocksModels.Parser.Details {
 }
 
 // MARK: Details / Title / Accessors
-private extension BlocksModels.Block.Information.Details.Title {
+private extension BlocksModels.Aliases.PageDetails.Details.Title {
     func key() -> String { id }
     func value() -> Google_Protobuf_Value { .init(stringValue: text) }
 }
 
 // MARK: Details / Title / Converter
-private extension BlocksModels.Block.Information.Details.Title {
+private extension BlocksModels.Aliases.PageDetails.Details.Title {
     enum Converter: BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = BlocksModels.Block.Information.Details.Title
-        static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
-            .init(key: model.key(), value: model.value())
-        }
-        static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
-            guard detail.key == Model.id else {
-                let logger = Logging.createLogger(category: .blocksModelParserDetails)
-                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
-                return nil
-            }
-            switch detail.value.kind {
-                case let .stringValue(string): return .init(text: string)
-                default:
-                    let logger = Logging.createLogger(category: .blocksModelParserDetails)
-                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
-                    return nil
-            }
-        }
-    }
-}
-
-// MARK: Details / Emoji / Converter
-private extension BlocksModels.Block.Information.Details.Emoji {
-    enum Converter: BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = BlocksModels.Block.Information.Details.Emoji
+        typealias Model = BlocksModels.Aliases.PageDetails.Details.Title
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             .init(key: model.key(), value: model.value())
         }
@@ -120,7 +96,31 @@ private extension BlocksModels.Block.Information.Details.Emoji {
 }
 
 // MARK: Details / Emoji / Accessors
-private extension BlocksModels.Block.Information.Details.Emoji {
+private extension BlocksModels.Aliases.PageDetails.Details.Emoji {
     func key() -> String { id }
     func value() -> Google_Protobuf_Value { .init(stringValue: text) }
+}
+
+// MARK: Details / Emoji / Converter
+private extension BlocksModels.Aliases.PageDetails.Details.Emoji {
+    enum Converter: BlocksModelsParserDetailsConverterProtocol {
+        typealias Model = BlocksModels.Aliases.PageDetails.Details.Emoji
+        static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
+            .init(key: model.key(), value: model.value())
+        }
+        static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
+            guard detail.key == Model.id else {
+                let logger = Logging.createLogger(category: .blocksModelParserDetails)
+                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                return nil
+            }
+            switch detail.value.kind {
+                case let .stringValue(string): return .init(text: string)
+                default:
+                    let logger = Logging.createLogger(category: .blocksModelParserDetails)
+                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    return nil
+            }
+        }
+    }
 }
