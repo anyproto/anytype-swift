@@ -56,7 +56,7 @@ extension Namespace.DocumentViewRepresentable: UIViewControllerRepresentable {
     }
 
     static func create(documentId: String) -> some View {
-        DocumentViewRepresentable.init(documentId: documentId)
+        Me.init(documentId: documentId)
     }
 }
 

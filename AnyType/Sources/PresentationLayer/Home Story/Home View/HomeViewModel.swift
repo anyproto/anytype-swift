@@ -20,7 +20,11 @@ class HomeViewModel: ObservableObject {
     }
     
     func createDocumentView(documentId: String) -> some View {
-        DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
+        DocumentModule.DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
+        /// TODO: Remove when you can.
+        /// It is old DocumentViewBuilder.
+        /// Lets keep it until we remove it from project.
+//        DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
     }
     
     func documentView(selectedDocumentId: String) -> some View {

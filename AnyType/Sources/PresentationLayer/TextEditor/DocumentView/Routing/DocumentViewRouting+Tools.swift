@@ -75,7 +75,11 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
                     os_log(.debug, log: logger, "Surely, It should be fixed in another way, but, it is ok for now.")
                     return
                 }
-                let viewController = DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value, useUIKit: true))
+                /// TODO: Remove when you can.
+                /// It is old DocumentViewBuilder.
+                /// Lets keep it until we remove it from project.
+//                let viewController = DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value, useUIKit: true))
+                let viewController = DocumentModule.DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value))
                 
                 /// Actually, we have only one subscription.
                 /// Our router is created and stored in viewController for now.

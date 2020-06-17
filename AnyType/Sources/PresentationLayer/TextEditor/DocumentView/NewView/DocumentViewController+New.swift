@@ -26,7 +26,7 @@ extension Namespace.DocumentViewController {
 // MARK: - This is view controller that will handle everything for us.
 extension Namespace {
     class DocumentViewController: UIViewController {
-        typealias ViewModel = DocumentViewModel
+        typealias ViewModel = DocumentModule.DocumentViewModel
         
         /// Environment
         @Environment(\.developerOptions) private var developerOptions
@@ -183,7 +183,7 @@ extension Namespace.DocumentViewController {
         tableView.allowsSelection = true
 
         // register cells.
-        tableView.register(DocumentViewCells.Cell.self, forCellReuseIdentifier: DocumentViewCells.Cell.cellReuseIdentifier())
+        tableView.register(Namespace.DocumentViewCells.Cell.self, forCellReuseIdentifier: Namespace.DocumentViewCells.Cell.cellReuseIdentifier())
     }
 
     private func setupDataSource() {

@@ -33,7 +33,7 @@ extension Namespace.DocumentViewBuilder {
         // It is nice exapmle of using UIViewControllerRepresentable.
         // Update controller not called. Ha.ha.ha.
         private static func create(by request: Request) -> AnyView {
-            .init(DocumentViewRepresentable.create(documentId: request.id))
+            .init(Namespace.DocumentViewRepresentable.create(documentId: request.id))
         }
     }
 }

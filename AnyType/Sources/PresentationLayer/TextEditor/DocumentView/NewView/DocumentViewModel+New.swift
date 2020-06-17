@@ -485,7 +485,7 @@ extension Namespace.DocumentViewModel {
     func didSelectBlock(at index: IndexPath) {
         let item = element(at: index)
         // dispatch event
-        if let builder = item.builder as? BlocksViews.Base.ViewModel {
+        if let builder = item.builder as? BlocksViews.New.Base.ViewModel {
             builder.receive(event: .didSelectRowInTableView)
         }
     }
