@@ -16,11 +16,13 @@ protocol BlocksModelsInformationModelProtocol {
     typealias Alignment = BlocksModels.Aliases.Alignment
     typealias PageDetails = BlocksModels.Aliases.PageDetails
     
+    typealias Diffable = AnyHashable
+    
     var id: BlockId {get set}
     var childrenIds: ChildrenIds {get set}
     var content: Content {get set}
     
-    var fields: [String: Any] {get set}
+    var fields: [String: AnyHashable] {get set}
     var restrictions: [String] {get set}
     
     var backgroundColor: BackgroundColor {get set}
@@ -30,9 +32,13 @@ protocol BlocksModelsInformationModelProtocol {
     
     static func defaultValue() -> Self
     
+    func diffable() -> Diffable
+    
     init(id: BlockId, content: Content)
     init(information: BlocksModelsInformationModelProtocol)
 }
+
+protocol BlocksModelsInformationModelProtocolWithHashable: BlocksModelsInformationModelProtocol, Hashable {}
 
 fileprivate typealias Namespace = BlocksModels.Block.Information
 extension BlocksModels.Block {
@@ -41,11 +47,15 @@ extension BlocksModels.Block {
 
 extension Namespace {
     struct InformationModel: BlocksModelsInformationModelProtocol {
+        func diffable() -> Diffable {
+            .init(self)
+        }
+        
         var id: BlockId
         var childrenIds: ChildrenIds = []
         var content: Content
         
-        var fields: [String : Any] = [:]
+        var fields: [String : AnyHashable] = [:]
         var restrictions: [String] = []
         
         var backgroundColor: BackgroundColor = ""
@@ -79,6 +89,10 @@ extension Namespace {
         private static let `default`: Self = .init(id: Self.defaultId, content: Self.defaultBlockType)
     }
 }
+
+// MARK: Hashable
+extension Namespace.InformationModel: Hashable {}
+extension Namespace.Alignment: Hashable {}
 
 // MARK: Alignment
 extension Namespace {

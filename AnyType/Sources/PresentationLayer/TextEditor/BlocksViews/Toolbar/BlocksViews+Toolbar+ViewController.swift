@@ -116,8 +116,8 @@ extension BlocksViews.Toolbar.ViewController {
             case .addBlock: return self.addBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
                 UnderlyingAction.addBlock(UnderlyingAction.BlockType.convert(value))
             }.eraseToAnyPublisher()
-            case .turnIntoBlock: return self.turnIntoBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
-                UnderlyingAction.addBlock(UnderlyingAction.BlockType.convert(value))
+            case .turnIntoBlock: return self.turnIntoBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in            
+                UnderlyingAction.turnIntoBlock(UnderlyingAction.BlockType.convert(value))
             }.eraseToAnyPublisher()
             }
         }

@@ -68,3 +68,14 @@ extension Namespace.SmartBlockActionsService {
         }
     }
 }
+
+// MARK: - Children to page.
+// TODO: Add later.
+extension Namespace.SmartBlockActionsService {
+    struct ConvertChildrenToPages {
+        func action(contextID: String, blockIds: [String]) {
+//            Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blockIds).filter { (value) -> Bool in
+//            }
+        }
+    }
+}

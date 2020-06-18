@@ -23,6 +23,7 @@ extension BlocksViews.New.Text {
 // MARK: - Base / ViewModel
 extension BlocksViews.New.Text.Base {
     class ViewModel: BlocksViews.New.Base.ViewModel {
+        typealias BlocksModelsUpdater = BlocksModels.Updater
         typealias BlockModelId = BlocksModels.Aliases.BlockId
         @Environment(\.developerOptions) var developerOptions
         
@@ -266,8 +267,21 @@ private extension BlocksViews.New.Text.Base.ViewModel {
             }
         }
     }
+    
+    /// TODO: Move to appropriate event in event handler.
+    /// We have event .blockSetAlignment, which must update model property alignment.
+    ///
+    func setModelData(alignment: NSTextAlignment) {
+        self.update { (block) in
+            if let alignment = BlocksModels.Parser.Common.Alignment.UIKitConverter.asModel(alignment) {
+                var blockModel = block.blockModel
+                blockModel.information.alignment = alignment
+            }
+        }
+    }
+    
     func apply(alignment: NSTextAlignment) -> AnyPublisher<Never, Error>? {
-        
+        self.setModelData(alignment: alignment)
         let block = self.getBlock()
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
         return self.service.setAlignment.action(contextID: contextID, blockIds: [self.blockId], alignment: alignment)
@@ -276,7 +290,10 @@ private extension BlocksViews.New.Text.Base.ViewModel {
         /// Do we need to update model?
         /// It will be updated on every blockShow event. ( BlockOpen command ).
         ///
+        self.setModelData(attributedText: attributedText)
+        
         let block = self.getBlock()
+        
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
         return self.service.setText.action(contextID: contextID, blockID: self.blockId, attributedString: attributedText)
     }

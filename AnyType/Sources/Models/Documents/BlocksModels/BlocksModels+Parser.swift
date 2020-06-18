@@ -10,187 +10,210 @@ import Foundation
 import SwiftProtobuf
 import os
 
+fileprivate typealias Namespace = BlocksModels
+
 private extension Logging.Categories {
-    static let blockModelsParser: Self = "Models.BlockModels.Parser"
+    static let blockModelsParser: Self = "BlocksModels.Parser"
 }
 
 // MARK: - Parser
-extension BlocksModels {
+extension Namespace {
     class Parser {
         typealias Information = BlocksModelsInformationModelProtocol
         typealias ConcreteInformation = BlocksModels.Block.Information.InformationModel
         typealias Model = BlocksModelsBlockModelProtocol
-        
-        /// Also add methods that convert intrenal models to our models.
-        /// We should provide operations in Updater which rely on block.id.
-        /// This allows us to build a tree and later insert subtree in our tree.
+        typealias OurContent = BlocksModels.Aliases.BlockContent
+    }
+}
+
+// MARK: - Parser / Parse
+extension Namespace.Parser {
+    /// Also add methods that convert intrenal models to our models.
+    /// We should provide operations in Updater which rely on block.id.
+    /// This allows us to build a tree and later insert subtree in our tree.
+    ///
+    func parse(blocks: [Anytype_Model_Block]) -> [Information] {
+        // parse into middleware block information model.
+        blocks.compactMap(self.convert(block:))
+    }
+    
+    /// New cool parsing that takes into account details and smartblock type.
+    ///
+    /// Discussion.
+    ///
+    /// Our parsing happens, of course, from some events.
+    /// Most of our events will send common data as `contextID`.
+    /// Also, blocks can't be delivered to us without some `context` of `Outer block`.
+    /// This `Outer block` is named as `Smartblock` in middleware model.
+    ///
+    /// * This block could contain `details`. It is a structure ( or a dictionary ) with predefined fields.
+    /// * This block also has type `smartblockType`. It is a `.case` from enumeration.
+    ///
+    func parse(blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details], smartblockType: Anytype_SmartBlockType) -> [Information] {
         ///
-        func parse(blocks: [Anytype_Model_Block]) -> [Information] {
-            // parse into middleware block information model.
-            blocks.compactMap(self.convert(block:))
+        /// Here we have an assumption.
+        ///
+        /// We have only one `smartblock`.
+        /// And it is stored in all blocks.
+        /// This `smartblock` has type `smartblockType`.
+        ///
+        /// `BUT!` `.Smartblock` structure `doesn't` store `ANY` field.
+        ///
+        /// So, we must find first field and parse it. Set details to it and put in result array.
+        ///
+        
+        /// NOTE: WHAT WE HAVE MISSED.
+        /// We don't parse details for other blocks.
+        /// It is next task.
+        ///
+        
+        /// Find smartblock.
+        /// 1. Group by .smartblock content.
+        let splitted = DataStructures.GroupBy.group(blocks) { (lhs, rhs) -> Bool in
+            switch (lhs.content, rhs.content) {
+            case (.smartblock, .smartblock): return true
+            case (.smartblock, _): return false
+            case (_, .smartblock): return false
+            default: return true
+            }
         }
         
-        /// New cool parsing that takes into account details and smartblock type.
+        /// We only care about two arrays.
+        /// We assume that we have `only one` `smartblock`.
+        /// Actually, we could have `smartblock` in the middle of split.
+        /// But
+        /// We assume that this is first block or last block and we have only 2 groups.
         ///
-        /// Discussion.
+        /// TODO: Take into account 3 groups.
         ///
-        /// Our parsing happens, of course, from some events.
-        /// Most of our events will send common data as `contextID`.
-        /// Also, blocks can't be delivered to us without some `context` of `Outer block`.
-        /// This `Outer block` is named as `Smartblock` in middleware model.
-        ///
-        /// * This block could contain `details`. It is a structure ( or a dictionary ) with predefined fields.
-        /// * This block also has type `smartblockType`. It is a `.case` from enumeration.
-        ///
-        func parse(blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details], smartblockType: Anytype_SmartBlockType) -> [Information] {
-            ///
-            /// Here we have an assumption.
-            ///
-            /// We have only one `smartblock`.
-            /// And it is stored in all blocks.
-            /// This `smartblock` has type `smartblockType`.
-            ///
-            /// `BUT!` `.Smartblock` structure `doesn't` store `ANY` field.
-            ///
-            /// So, we must find first field and parse it. Set details to it and put in result array.
-            ///
-            
-            /// NOTE: WHAT WE HAVE MISSED.
-            /// We don't parse details for other blocks.
-            /// It is next task.
-            ///
-            
-            /// Find smartblock.
-            /// 1. Group by .smartblock content.
-            let splitted = DataStructures.GroupBy.group(blocks) { (lhs, rhs) -> Bool in
-                switch (lhs.content, rhs.content) {
-                case (.smartblock, .smartblock): return true
-                case (.smartblock, _): return false
-                case (_, .smartblock): return false
-                default: return true
-                }
-            }
-            
-            /// We only care about two arrays.
-            /// We assume that we have `only one` `smartblock`.
-            /// Actually, we could have `smartblock` in the middle of split.
-            /// But
-            /// We assume that this is first block or last block and we have only 2 groups.
-            ///
-            /// TODO: Take into account 3 groups.
-            ///
-                    
-            /// 2. Find which is which and take it.
-            
-            let processBlock: ((Anytype_Model_Block?, [Anytype_Model_Block])) -> [Information] = { value  in
-                let others = value.1
-                if let block = value.0 {
-                    
-                    /// 1. Parse all blocks
-                    let result = self.parse(blocks: [block] + others)
-                    
-                    /// 2. Create a dictionary ( id -> information model )
-                    var idsAndInformation = Dictionary<String, Information>.init(uniqueKeysWithValues: result.compactMap({ value -> (String, Information) in
-                        switch value.content {
-                        case let .link(link): return (link.targetBlockID, value)
-                        default: return (value.id, value)
-                        }
-                    }))
-                    
-                    /// 3. Assign details to their links.
-                    details.forEach { (value) in
-                        let correctedDetails = Converters.EventDetailsAndSetDetailsConverter.convert(event: value)
-                        let informationDetails = Details.Converter.asModel(details: correctedDetails)
-                        var correctInformation = idsAndInformation[value.id]
-                        correctInformation?.pageDetails = .init(informationDetails)
-                        
-                        /// Don't forget that our information is a `struct`.
-                        idsAndInformation[value.id] = correctInformation
+                
+        /// 2. Find which is which and take it.
+        
+        let processBlock: ((Anytype_Model_Block?, [Anytype_Model_Block])) -> [Information] = { value  in
+            let others = value.1
+            if let block = value.0 {
+                
+                /// 1. Parse all blocks
+                let result = self.parse(blocks: [block] + others)
+                
+                /// 2. Create a dictionary ( id -> information model )
+                var idsAndInformation = Dictionary<String, Information>.init(uniqueKeysWithValues: result.compactMap({ value -> (String, Information) in
+                    switch value.content {
+                    case let .link(link): return (link.targetBlockID, value)
+                    default: return (value.id, value)
                     }
+                }))
+                
+                /// 3. Assign details to their links.
+                details.forEach { (value) in
+                    let correctedDetails = Converters.EventDetailsAndSetDetailsConverter.convert(event: value)
+                    let informationDetails = Details.Converter.asModel(details: correctedDetails)
+                    var correctInformation = idsAndInformation[value.id]
+                    correctInformation?.pageDetails = .init(informationDetails)
                     
-                    return Array(idsAndInformation.values)
+                    /// Don't forget that our information is a `struct`.
+                    idsAndInformation[value.id] = correctInformation
                 }
-                else {
-                    return []
-                }
+                
+                return Array(idsAndInformation.values)
             }
-            
-            /// Another step: Go through all details and assign details to blocks.
-            
-            let smartblockAtBeginning = processBlock((splitted.first?.first, Array(splitted.dropFirst()).flatMap({$0})))
-            if !smartblockAtBeginning.isEmpty {
-                return smartblockAtBeginning
+            else {
+                return []
             }
-            
-            let smartblockAtEnd = processBlock((splitted.last?.first, Array(splitted.dropLast()).flatMap({$0})))
-            if !smartblockAtEnd.isEmpty {
-                return smartblockAtEnd
-            }
-            
-            /// 3. Check that we have 3 groups.
-            if splitted.count >= 3 {
-                let logger = Logging.createLogger(category: .blockModelsParser)
-                os_log(.debug, log: logger, "Our splitting has 3 or more parts. That means that we either have smartblocks in the middle of the array of blocks OR we have several smartblocks that ARE NOT in one group (or there is a block between them).")
-            }
-            
+        }
+        
+        /// Another step: Go through all details and assign details to blocks.
+        
+        let smartblockAtBeginning = processBlock((splitted.first?.first, Array(splitted.dropFirst()).flatMap({$0})))
+        if !smartblockAtBeginning.isEmpty {
+            return smartblockAtBeginning
+        }
+        
+        let smartblockAtEnd = processBlock((splitted.last?.first, Array(splitted.dropLast()).flatMap({$0})))
+        if !smartblockAtEnd.isEmpty {
+            return smartblockAtEnd
+        }
+        
+        /// 3. Check that we have 3 groups.
+        if splitted.count >= 3 {
             let logger = Logging.createLogger(category: .blockModelsParser)
-            os_log(.debug, log: logger, "In our parsing we can't find smartblock. It is unacceptable. Tell middleware about it.")
-            return []
+            os_log(.debug, log: logger, "Our splitting has 3 or more parts. That means that we either have smartblocks in the middle of the array of blocks OR we have several smartblocks that ARE NOT in one group (or there is a block between them).")
         }
         
-        ///
-        
-        /// Converting Middleware model -> Our model
-        ///
-        /// - Parameter block: Middleware model
-        func convert(block: Anytype_Model_Block) -> Information? {
-            guard let content = block.content, let converter = Converters.convert(middleware: content) else { return nil }
-            guard let blockType = converter.blockType(content) else { return nil }
-            
-            var information = ConcreteInformation.init(id: block.id, content: blockType)
+        let logger = Logging.createLogger(category: .blockModelsParser)
+        os_log(.debug, log: logger, "In our parsing we can't find smartblock. It is unacceptable. Tell middleware about it.")
+        return []
+    }
+}
 
-            // TODO: Add fields and restrictions.
-            // Add parsers for them and model.
-            let logger = Logging.createLogger(category: .todo(.improve("")))
-            os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
-            information.childrenIds = block.childrenIds
-            information.backgroundColor = block.backgroundColor
-            if let alignment = Common.Alignment.Converter.asModel(block.align) {
-                information.alignment = alignment
-            }
-            return information
+// MARK: - Parser / Convert
+extension Namespace.Parser {
+    // MARK: - Blocks
+    /// Converting Middleware model -> Our model
+    ///
+    /// - Parameter block: Middleware model
+    func convert(block: Anytype_Model_Block) -> Information? {
+        guard let content = block.content, let converter = Converters.convert(middleware: content) else { return nil }
+        guard let blockType = converter.blockType(content) else { return nil }
+        
+        var information = ConcreteInformation.init(id: block.id, content: blockType)
+
+        // TODO: Add fields and restrictions.
+        // Add parsers for them and model.
+        let logger = Logging.createLogger(category: .todo(.improve("")))
+        os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
+        information.childrenIds = block.childrenIds
+        information.backgroundColor = block.backgroundColor
+        if let alignment = Common.Alignment.Converter.asModel(block.align) {
+            information.alignment = alignment
         }
-        
-        
-        /// Converting Our model -> Middleware model
-        ///
-        /// - Parameter information: Our model
-        func convert(information: Information) -> Anytype_Model_Block? {
-            let blockType = information.content
-            guard let converter = Converters.convert(block: blockType) else { return nil }
-            guard let content = converter.middleware(blockType) else { return nil }
+        return information
+    }
+    
+    
+    /// Converting Our model -> Middleware model
+    ///
+    /// - Parameter information: Our model
+    func convert(information: Information) -> Anytype_Model_Block? {
+        let blockType = information.content
+        guard let converter = Converters.convert(block: blockType) else { return nil }
+        guard let content = converter.middleware(blockType) else { return nil }
 
-            let id = information.id
-            let fields: Google_Protobuf_Struct = .init()
-            let restrictions: Anytype_Model_Block.Restrictions = .init()
-            let childrenIds = information.childrenIds
-            let backgroundColor = information.backgroundColor
-            var alignment: Anytype_Model_Block.Align = .left
+        let id = information.id
+        let fields: Google_Protobuf_Struct = .init()
+        let restrictions: Anytype_Model_Block.Restrictions = .init()
+        let childrenIds = information.childrenIds
+        let backgroundColor = information.backgroundColor
+        var alignment: Anytype_Model_Block.Align = .left
 
-            if let value = Common.Alignment.Converter.asMiddleware(information.alignment) {
-                alignment = value
-            }
-
-            let logger = Logging.createLogger(category: .todo(.improve("")))
-            os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
-            return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: alignment, content: content)
+        if let value = Common.Alignment.Converter.asMiddleware(information.alignment) {
+            alignment = value
         }
+
+        let logger = Logging.createLogger(category: .todo(.improve("")))
+        os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
+        return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: alignment, content: content)
+    }
+    
+    // MARK: - Content
+    /// Converting Middleware Content -> Our Content
+    /// - Parameter middlewareContent: Middleware Content
+    /// - Returns: Our content
+    func convert(middlewareContent: Anytype_Model_Block.OneOf_Content) -> OurContent? {
+        Converters.convert(middleware: middlewareContent)?.blockType(middlewareContent)
+    }
+    
+    /// Converting Our Content -> Middleware Content
+    /// - Parameter content: Our content
+    /// - Returns: Middleware Content
+    func convert(content: OurContent) -> Anytype_Model_Block.OneOf_Content? {
+        Converters.convert(block: content)?.middleware(content)
     }
 }
 
 // MARK: - Converters
 // MARK: - Public
-extension BlocksModels.Parser {
+extension Namespace.Parser {
     enum PublicConverters {
         enum EventsDetails {
             static func convert(event: Anytype_Event.Block.Set.Details) -> [Anytype_Rpc.Block.Set.Details.Detail] {
@@ -201,7 +224,7 @@ extension BlocksModels.Parser {
 }
 
 // MARK: - Converters / Common
-private extension BlocksModels.Parser {
+private extension Namespace.Parser {
     /// It is a Converters Factory, actually.
     enum Converters {
         typealias BlockType = BlocksModels.Aliases.BlockContent
@@ -233,7 +256,7 @@ private extension BlocksModels.Parser {
 }
 
 // MARK: Helper Converters / GoogleProtobufStructuresConverter
-private extension BlocksModels.Parser.Converters {
+private extension Namespace.Parser.Converters {
     /// Convert (GoogleProtobufStruct) <-> (Dictionary<String, T>)
     /// NOTE: You should define `T` generic parameter. `Any` type for that purpose is bad.
     ///
@@ -258,6 +281,15 @@ private extension BlocksModels.Parser.Converters {
 //            case structure(AllowedType)
 //            case
 //        }
+        struct HashableConverter {
+            static func dictionary(_ from: Google_Protobuf_Struct) -> [String: AnyHashable] {
+                (from.fields as? [String: AnyHashable]) ?? [:]
+            }
+            static func structure(_ from: [String: Any]) -> Google_Protobuf_Struct {
+                return [:]
+            }
+        }
+        
         static func dictionary(_ from: Google_Protobuf_Struct) -> [String: Any] {
             from.fields
         }
@@ -282,7 +314,7 @@ private extension BlocksModels.Parser.Converters {
 }
 
 // MARK: Helper Converters / Details Converter
-private extension BlocksModels.Parser.Converters {
+private extension Namespace.Parser.Converters {
     /// It seems that Middleware can't provide good model.
     /// So, we need to convert this models by ourselves.
     ///
@@ -297,7 +329,7 @@ private extension BlocksModels.Parser.Converters {
 /// We should process Smartblocks correctly.
 /// For now we are mapping them to our content type `.page` with style `.empty`
 // MARK: ContentSmartBlock
-private extension BlocksModels.Parser.Converters {
+private extension Namespace.Parser.Converters {
     class ContentSmartBlockAsEmptyPage: BaseContentConverter {
         func contentType(_ from: Anytype_Model_Block.Content.Smartblock) -> BlockType.Smartblock.Style? {
             .page
@@ -366,7 +398,7 @@ private extension BlocksModels.Parser.Converters {
 //}
 
 // MARK: ContentLink
-private extension BlocksModels.Parser.Converters {
+private extension Namespace.Parser.Converters {
     /// Convert (Anytype_Model_Block.OneOf_Content) <-> (BlockType) for contentType `.link(_)`.
     class ContentLink: BaseContentConverter {
         private func contentType(_ from: Anytype_Model_Block.Content.Link.Style) -> BlockType.Link.Style? {
@@ -387,7 +419,7 @@ private extension BlocksModels.Parser.Converters {
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
             case let .link(value):
-                let fields = GoogleProtobufStructuresConverter.dictionary(value.fields)
+                let fields = GoogleProtobufStructuresConverter.HashableConverter.dictionary(value.fields)
                 return self.contentType(value.style)
                     .flatMap({.link(.init(targetBlockID: value.targetBlockID, style: $0, fields: fields))})
             default: return nil
@@ -471,7 +503,7 @@ private extension BlocksModels.Parser.Converters {
 }
 
 // MARK: ContentFile
-private extension BlocksModels.Parser.Converters {
+private extension Namespace.Parser.Converters {
     class ContentFile: BaseContentConverter {
         func contentType(_ from: Anytype_Model_Block.Content.File.TypeEnum) -> BlockType.File.ContentType? {
             

@@ -16,8 +16,8 @@ extension BlocksModels.Block {
 ///
 extension Namespace {
     enum ContentType {
-        case text(Text)
         case smartblock(Smartblock)
+        case text(Text)
         case file(File)
         case div(Div)
         case bookmark(Bookmark)
@@ -150,6 +150,15 @@ extension Namespace.ContentType {
         }
         var targetBlockID: String
         var style: Style
-        var fields: Dictionary<String, Any>
+        var fields: [String: AnyHashable]
     }
 }
+
+// MARK: - ContentType / Hashable
+extension Namespace.ContentType: Hashable {}
+extension Namespace.ContentType.Smartblock: Hashable {}
+extension Namespace.ContentType.Text: Hashable {}
+extension Namespace.ContentType.File: Hashable {}
+extension Namespace.ContentType.Div: Hashable {}
+extension Namespace.ContentType.Bookmark: Hashable {}
+extension Namespace.ContentType.Link: Hashable {}

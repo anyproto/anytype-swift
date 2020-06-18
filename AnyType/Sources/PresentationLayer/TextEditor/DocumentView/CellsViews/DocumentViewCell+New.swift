@@ -180,6 +180,11 @@ extension DocumentModule.DocumentViewCells.Cell {
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.containedView?.removeFromSuperview()
+    }
+    
     func configured(_ model: Model) -> Self {
         self.updateIfNewModel(model)
         return self

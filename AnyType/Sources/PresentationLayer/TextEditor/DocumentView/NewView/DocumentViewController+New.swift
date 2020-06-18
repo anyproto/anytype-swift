@@ -243,6 +243,10 @@ private extension Namespace.DocumentViewController {
         self.viewModel.fileFieldPublisher.sink(receiveValue: { [weak self] (value) in
             self?.updateView()
         }).store(in: &self.subscriptions)
+        
+        self.viewModel.anyStylePublisher.sink { [weak self] (value) in
+            self?.updateIds(value)
+        }.store(in: &self.subscriptions)
     }
 
     func configured(_ options: ViewModel.Options) {
@@ -291,6 +295,22 @@ extension Namespace.DocumentViewController {
         snapshot.appendSections([ViewModel.Section.first])
         snapshot.appendItems(rows)
         dataSource.apply(snapshot)
+    }
+    
+    func updateIds(_ ids: [String]) {
+        self.updateData(self.viewModel.buildersRows)
+//        guard let dataSource = self.dataSource else { return }
+//        var snapshot = dataSource.snapshot()
+//        let set: Set<String> = .init(ids)
+//        let updatedEntries = self.viewModel.buildersRows.filter { (value) -> Bool in
+//            guard let id = value.builder?.blockId else { return false }
+//            return set.contains(id)
+//        }
+//
+//        let newEntries = updatedEntries.map({$0.rebuilded()})
+//
+//        snapshot.reloadItems(newEntries)
+//        dataSource.apply(snapshot)
     }
 }
 

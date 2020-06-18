@@ -259,7 +259,36 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
             }
         case let .turnIntoBlock(value):
             // TODO: Add turn into
-            break
+            switch value {
+            case let .text(value): // Set Text Style
+                let type: Service.BlockContent
+                switch value {
+                case .text: type = .text(.empty())
+                case .h1: type = .text(.init(contentType: .header))
+                case .h2: type = .text(.init(contentType: .header2))
+                case .h3: type = .text(.init(contentType: .header3))
+                case .highlighted: type = .text(.init(contentType: .quote))
+                }
+                self.service.turnInto(block: block.blockModel.information, type: type)
+            case let .list(value): // Set Text Style
+                let type: Service.BlockContent
+                switch value {
+                case .bulleted: type = .text(.init(contentType: .bulleted))
+                case .checkbox: type = .text(.init(contentType: .checkbox))
+                case .numbered: type = .text(.init(contentType: .numbered))
+                case .toggle: type = .text(.init(contentType: .toggle))
+                }
+                self.service.turnInto(block: block.blockModel.information, type: type)
+
+            case let .other(value): // Change divider style.
+                break
+            case let .page(value): // Convert children to pages.
+                break
+            default:
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
+            }
+            
         case let .editBlock(value):
             switch value {
             case .delete: self.handlingKeyboardAction(block, .pressKey(.delete))
@@ -273,7 +302,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 // MARK: BlockBuilder
 /// This class should be moved to Middleware.
 /// We don't care about business logic on THIS level.
-private extension BlocksViews.NewSupplement.UserInteractionHandler {
+private extension Namespace.UserInteractionHandler {
     struct BlockBuilder {
         typealias BlockId = BlocksModels.Aliases.BlockId
         typealias Content = BlocksModels.Aliases.BlockContent
@@ -369,7 +398,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 }
 
 // MARK: ServiceHandler
-private extension BlocksViews.NewSupplement.UserInteractionHandler {
+private extension Namespace.UserInteractionHandler {
     
     /// Each method should return no a block, but a response.
     /// Next, this response would be proceed by event handler.
@@ -383,6 +412,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
         private var subscriptions: [AnyCancellable] = []
         private let service: ServiceLayerNewModel.BlockActionsService = .init()
         private let pageService: ServiceLayerNewModel.SmartBlockActionsService = .init()
+        private let textService: ServiceLayerNewModel.TextBlockActionsService = .init()
         
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
         
@@ -402,150 +432,196 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
             self.didReceiveEvent = didReceiveEvent
             return self
         }
+    }
+}
+
+// MARK: ServiceHandler / Actions / Add
+private extension Namespace.UserInteractionHandler.Service {
+    func addChild(childBlock: Information, parentBlockId: BlockId, position: Anytype_Model_Block.Position = .inner) {
+        // insert block as child to parent.
+        self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner)
+    }
+    
+    func add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom) {
+
+        // insert block after block
+        // we could catch events and update model.
+        // or we could just update model after sending event.
+        // for now we just update model on success.
+
+        // Shit Swift
+        guard let addedBlock = self.parser.convert(information: newBlock) else {
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let addedBlock = self.parser.convert(information: newBlock)
+            os_log(.error, log: logger, "addedBlock: %@ is nil? ", "\(String(describing: addedBlock))")
+            return
+        }
+
+        let targetId = afterBlockId
+
+        self.service.add.action(contextID: self.documentId, targetID: targetId, block: addedBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
+            }
+        }) { [weak self] (value) in
+            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+        }.store(in: &self.subscriptions)
+    }
+
+
+    func split(block: Information, oldText: String) {
+        let improve = Logging.createLogger(category: .todo(.improve("Markup")))
+        os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
+
+        guard let splittedBlockInformation = self.parser.convert(information: block) else {
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let splittedBlock = self.parser.convert(information: block)
+            os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: splittedBlock))")
+            return
+        }
+
+        // We are using old text as a cursor position.
+        let position = Int32(oldText.count)
+
+        let content = splittedBlockInformation.content
+        guard case let .text(type) = content else {
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
+            return
+        }
+
+        self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, cursorPosition: position, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
+            }
+        }, receiveValue: { [weak self] (value) in
+            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+        }).store(in: &self.subscriptions)
+    }
+    
+    func duplicate(block: Information) {
+        let targetId = block.id
+        let blockIds: [String] = [targetId]
+        let position: Anytype_Model_Block.Position = .bottom
+        self.service.duplicate.action(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "blocksActions.service.duplicate got error: %@", "\(error)")
+            }
+        }) { [weak self] (value) in
+            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+        }.store(in: &self.subscriptions)
+    }
+    
+    func createPage(afterBlock: Information, position: Anytype_Model_Block.Position = .bottom) {
+
+        let targetId = ""
+        let details: Google_Protobuf_Struct = .init()
+
+        self.pageService.createPage.action(contextID: self.documentId, targetID: targetId, details: details, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return // move to this page
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
+            }
+        }) { [weak self] (value) in
+            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+        }.store(in: &self.subscriptions)
+    }
+}
+
+// MARK: ServiceHandler / Actions / Delete
+private extension Namespace.UserInteractionHandler.Service {
+    func delete(block: Information) {
+        // Shit Swift
+        guard let deletedBlock = self.parser.convert(information: block) else {
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let deletedBlock = self.parser.convert(information: block)
+            os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: deletedBlock))")
+            return
+        }
+
+        self.service.delete.action(contextID: self.documentId, blockIds: [deletedBlock.id]).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
+            }
+        }, receiveValue: { [weak self] value in
+            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+        }).store(in: &self.subscriptions)
+    }
+
+    func merge(firstBlock: Information, secondBlock: Information) {
+        let firstInformation = self.parser.convert(information: firstBlock)
+        let secondInformation = self.parser.convert(information: secondBlock)
+
+        guard let firstBlockId = firstInformation?.id, let secondBlockId = secondInformation?.id else {
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            os_log(.error, log: logger, "firstBlock: %@ or secondBlock: %@ are nil? ", "\(String(describing: firstInformation))", "\(String(describing: secondInformation))")
+            return
+        }
+
+        self.service.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { value in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
+            }
+        }, receiveValue: { [weak self] value in
+            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+        }).store(in: &self.subscriptions)
+    }
+}
+
+// MARK: ServiceHandler / Actions / Turn Into
+/// TODO: Add Div and ConvertChildrenToPages
+private extension Namespace.UserInteractionHandler.Service {
+    typealias BlockContent = BlocksModels.Aliases.BlockContent
+    func turnInto(block: Information, type: BlockContent) {
+        switch type {
+        case .text: self.setTextStyle(block: block, type: type)
+        case let .smartblock(value): break
+        case let .div(value): break
+        default: return
+        }
+    }
+    
+    private func setTextStyle(block: Information, type: BlockContent) {
+        let blockId = block.id
         
-        // MARK: Actions
-        func addChild(childBlock: Information, parentBlockId: BlockId, position: Anytype_Model_Block.Position = .inner) {
-            // insert block as child to parent.
-            self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner)
+        guard let middlewareContent = self.parser.convert(content: type) else {
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            os_log(.error, log: logger, "Set Text style cannot convert type: %@", "\(String(describing: type))")
+            return
         }
         
-        func add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom) {
-
-            // insert block after block
-            // we could catch events and update model.
-            // or we could just update model after sending event.
-            // for now we just update model on success.
-
-            // Shit Swift
-            guard let addedBlock = self.parser.convert(information: newBlock) else {
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                let addedBlock = self.parser.convert(information: newBlock)
-                os_log(.error, log: logger, "addedBlock: %@ is nil? ", "\(String(describing: addedBlock))")
-                return
-            }
-
-            let targetId = afterBlockId
-
-            self.service.add.action(contextID: self.documentId, targetID: targetId, block: addedBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
-                }
-            }) { [weak self] (value) in
-                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
-            }.store(in: &self.subscriptions)
-        }
-
-
-        func split(block: Information, oldText: String) {
-            let improve = Logging.createLogger(category: .todo(.improve("Markup")))
-            os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
-
-            guard let splittedBlockInformation = self.parser.convert(information: block) else {
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                let splittedBlock = self.parser.convert(information: block)
-                os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: splittedBlock))")
-                return
-            }
-
-            // We are using old text as a cursor position.
-            let position = Int32(oldText.count)
-
-            let content = splittedBlockInformation.content
-            guard case let .text(type) = content else {
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
-                return
-            }
-
-            self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, cursorPosition: position, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in                
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
-                }
-            }, receiveValue: { [weak self] (value) in
-                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
-            }).store(in: &self.subscriptions)
+        guard case let .text(middlewareTextStyle) = middlewareContent else {
+            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            os_log(.error, log: logger, "Set Text style content is not text style: %@", "\(String(describing: middlewareContent))")
+            return
         }
         
-        func duplicate(block: Information) {
-            let targetId = block.id
-            let blockIds: [String] = [targetId]
-            let position: Anytype_Model_Block.Position = .bottom
-            self.service.duplicate.action(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    os_log(.error, log: logger, "blocksActions.service.duplicate got error: %@", "\(error)")
-                }
-            }) { [weak self] (value) in
-                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
-            }.store(in: &self.subscriptions)
-        }
-
-        func delete(block: Information) {
-            // Shit Swift
-            guard let deletedBlock = self.parser.convert(information: block) else {
+        self.textService.setStyle.action(contextID: self.documentId, blockID: blockId, style: middlewareTextStyle.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
                 let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                let deletedBlock = self.parser.convert(information: block)
-                os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: deletedBlock))")
-                return
+                os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle with payload got error: %@", "\(error)")
             }
-
-            self.service.delete.action(contextID: self.documentId, blockIds: [deletedBlock.id]).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
-                }
-            }, receiveValue: { [weak self] value in
-                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
-            }).store(in: &self.subscriptions)
-        }
-
-        func merge(firstBlock: Information, secondBlock: Information) {
-            let firstInformation = self.parser.convert(information: firstBlock)
-            let secondInformation = self.parser.convert(information: secondBlock)
-
-            guard let firstBlockId = firstInformation?.id, let secondBlockId = secondInformation?.id else {
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                os_log(.error, log: logger, "firstBlock: %@ or secondBlock: %@ are nil? ", "\(String(describing: firstInformation))", "\(String(describing: secondInformation))")
-                return
-            }
-
-            self.service.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { value in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
-                }
-            }, receiveValue: { [weak self] value in
-                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
-            }).store(in: &self.subscriptions)
-        }
-
-        func createPage(afterBlock: Information, position: Anytype_Model_Block.Position = .bottom) {
-
-            let targetId = ""
-            let details: Google_Protobuf_Struct = .init()
-
-            self.pageService.createPage.action(contextID: self.documentId, targetID: targetId, details: details, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return // move to this page
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
-                }
-            }) { [weak self] (value) in
-                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
-            }.store(in: &self.subscriptions)
-        }
+        }) { [weak self] (value) in
+            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+        }.store(in: &self.subscriptions)
     }
 }

@@ -52,6 +52,7 @@ extension DocumentModule {
     
     class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolder {
         typealias RootModel = BlocksModelsContainerModelProtocol
+        typealias BlockId = BlocksModels.Aliases.BlockId
         
         typealias UserInteractionHandler = BlocksViews.NewSupplement.UserInteractionHandler
         
@@ -93,7 +94,12 @@ extension DocumentModule {
                 self.configurePageDetails(for: self.rootModel)
                 if let model = self.rootModel {
                     self.eventHandler?.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
-                        self?.syncBuilders()
+                        self?.syncBuilders {
+                            switch value {
+                            case .general: break
+                            case let .updatedKeys(value): self?.anyStyleSubject.send(value)
+                            }
+                        }
                     }).store(in: &self.subscriptions)
                     _ = self.eventHandler?.configured(model)
                 }
@@ -147,9 +153,15 @@ extension DocumentModule {
                 self.buildersActionsPayloadsSubject.send(buildersActionsPayloadsPublisher)
             }
         }
-        
+                        
         var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
-        var fileFieldPublisher: AnyPublisher<FileBlocksViews.Base.BlockViewModel.State?, Never> = .empty()
+        var fileFieldPublisher: AnyPublisher<BlocksViews.New.File.Image.ViewModel.State?, Never> = .empty()
+        
+        /// We should update some items in place.
+        /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
+        /// Its `Output` is a `List<BlockId>`
+        private var anyStyleSubject: PassthroughSubject<[BlockId], Never> = .init()
+        var anyStylePublisher: AnyPublisher<[BlockId], Never> = .empty()
         
         // put into protocol?
         // var userActionsPublisher: AnyPublisher<UserAction>
@@ -209,30 +221,33 @@ extension DocumentModule {
             
             self.fileFieldPublisher = self.$builders
                 .map {
-                    $0.compactMap { $0 as? FileBlocksViews.Base.BlockViewModel }
+                    $0.compactMap { $0 as? BlocksViews.New.File.Image.ViewModel }
             }.flatMap {
                 Publishers.MergeMany($0.map{$0.$state})
             }.eraseToAnyPublisher()
+            
+            self.anyStylePublisher = self.anyStyleSubject.eraseToAnyPublisher()
         }
         
         /// Update @Published $builders.
-        private func syncBuilders() {
+        private func syncBuilders(_ completion: @escaping () -> () = { }) {
             DispatchQueue.main.async {
                 self.rootModel.flatMap(self.toList(_:)).flatMap(self.update(builders:))
+                completion()
             }
         }
         
         // TODO: Add caching?
         private func update(builders: [BlockViewBuilderProtocol]) {
-            let difference = builders.difference(from: self.builders) { $0.blockId == $1.blockId }
-            if let result = self.builders.applying(difference) {
-                self.builders = result
-            }
-            else {
-                // We should set all builders, because our collection is empty?
-                self.builders = builders
-            }
-            //        self.builders = builders
+//            let difference = builders.difference(from: self.builders) { $0.blockId == $1.blockId }
+//            if let result = self.builders.applying(difference) {
+//                self.builders = result
+//            }
+//            else {
+//                // We should set all builders, because our collection is empty?
+//                self.builders = builders
+//            }
+            self.builders = builders
         }
         
         /// Convert tree model to list view model.
@@ -460,10 +475,24 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
     }
     
     struct Row {
+        /// Soo.... We can't keep model in it.
+        /// We should add information as structure ( which is immutable )
+        /// And use it as presentation structure for cell.
         weak var builder: BlockViewBuilderProtocol?
         var indentationLevel: UInt {
             //            return 0
-            (builder as? BlocksViews.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
+            (builder as? BlocksViews.New.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
+        }
+        var information: BlocksModelsInformationModelProtocol?
+        init(builder: BlockViewBuilderProtocol?) {
+            self.builder = builder
+            self.information = (self.builder as? BlocksViews.New.Base.ViewModel)?.getBlock().blockModel.information
+        }
+        func rebuilded() -> Self {
+            .init(builder: self.builder)
+        }
+        func diffable() -> AnyHashable? {
+            self.information?.diffable()
         }
     }
 }
@@ -473,15 +502,31 @@ extension Namespace.DocumentViewModel.Section: Hashable {}
 
 // MARK: - TableViewModelProtocol.Row
 extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
-    
     static func == (lhs: Self, rhs: Self) -> Bool {
         //        lhs.builder.id == rhs.builder.id
-        lhs.builder?.blockId == rhs.builder?.blockId
+//        let equalIds =
+//            lhs.builder?.blockId == rhs.builder?.blockId
+//
+//        if equalIds {
+//            if let leftBlock = lhs.information?.content, let rightBlock = rhs.information?.content {
+//                switch (leftBlock, rightBlock) {
+//                case let (.text(l), .text(r)): return l.contentType == r.contentType
+//                default: break
+//                }
+//            }
+//        }
+//
+//        return equalIds
+        lhs.diffable() == rhs.diffable()
     }
     
     func hash(into hasher: inout Hasher) {
-        //        hasher.combine(self.builder.id)
-        hasher.combine(self.builder?.blockId)
+//        hasher.combine(self.information)
+//        if let block = (self.builder as? BlocksViews.New.Base.ViewModel)?.getBlock() {
+//            let identifier = BlocksModels.Utilities.ContentIdentifier.identifier(for: block.blockModel.information)
+//            hasher.combine(identifier)
+//        }
+        hasher.combine(self.diffable())
     }
 }
 
@@ -496,83 +541,4 @@ extension Namespace.DocumentViewModel {
         }
     }
     
-}
-
-// MARK: Event Listening
-extension Namespace.DocumentViewModel {
-    class EventHandler: NewEventHandler {
-        typealias Event = Anytype_Event.Message.OneOf_Value
-        typealias ViewModel = DocumentModule.DocumentViewModel
-        
-        private var didProcessEventsSubject: PassthroughSubject<Void, Never> = .init()
-        var didProcessEventsPublisher: AnyPublisher<Void, Never> = .empty()
-        
-        
-        private typealias Builder = BlocksModels.Block.Builder
-        private typealias Information = BlocksModels.Aliases.Information.InformationModel
-        private typealias Updater = BlocksModels.Updater
-        
-        weak var container: BlocksModelsContainerModelProtocol?
-        
-        private var parser: BlocksModels.Parser = .init()
-        private var updater: BlocksModels.Updater?
-        
-        init() {
-            self.setup()
-        }
-        
-        func setup() {
-            self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
-        }
-                
-        func configured(_ container: BlocksModelsContainerModelProtocol) -> Self {
-            self.updater = .init(container)
-            self.container = container
-            return self
-        }
-                
-        func handleOneEvent(_ event: Anytype_Event.Message.OneOf_Value) {
-            switch event {
-            case let .blockAdd(value):
-                value.blocks
-                    .compactMap(self.parser.convert(block:))
-                    .map(Information.init(information:))
-                    .map({Builder.build(information:$0)})
-                    .forEach { (value) in
-                        self.updater?.insert(block: value)
-                }
-            
-            case let .blockDelete(value):
-                // Find blocks and remove them from map.
-                // And from tree.
-                value.blockIds.forEach({ (value) in
-                    self.updater?.delete(at: value)
-                })
-            
-            case let .blockSetChildrenIds(value):
-                let parentId = value.id
-                self.updater?.set(children: value.childrenIds, parent: parentId)
-            
-            default: return
-            }
-        }
-        
-        private func finalize() {
-            guard let container = self.container else {
-                let logger = Logging.createLogger(category: .treeViewModel)
-                os_log(.debug, log: logger, "Container is nil in event handler. Something went wrong.")
-                return
-            }
-            
-            Builder.buildTree(container: container)
-            // Notify about updates if needed.
-            self.didProcessEventsSubject.send(())
-        }
-        
-        func handle(events: [Anytype_Event.Message.OneOf_Value]) {
-            _ = events.compactMap(self.handleOneEvent(_:))
-            self.finalize()
-        }
-    }
-
 }

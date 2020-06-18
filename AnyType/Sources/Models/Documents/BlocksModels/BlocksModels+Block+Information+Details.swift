@@ -73,6 +73,13 @@ extension Namespace {
     }
 }
 
+// MARK: Hashable
+extension Namespace.PageDetails: Hashable {}
+extension Namespace.PageDetails.Details: Hashable {}
+extension Namespace.PageDetails.Details.Title: Hashable {}
+extension Namespace.PageDetails.Details.Emoji: Hashable {}
+
+// MARK: Details
 extension Namespace.PageDetails {
     enum Details {
         case title(Title)

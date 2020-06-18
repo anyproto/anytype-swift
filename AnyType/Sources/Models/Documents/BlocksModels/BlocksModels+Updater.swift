@@ -7,7 +7,14 @@
 //
 import Foundation
 
-extension BlocksModels {
+import os
+
+fileprivate typealias Namespace = BlocksModels
+
+private extension Logging.Categories {
+    static let blocksModelsUpdater: Self = "BlocksModels.Updater"
+}
+extension Namespace {
     class Updater {
         typealias BlockId = BlocksModels.Aliases.BlockId
         typealias Key = BlockId
@@ -22,18 +29,18 @@ extension BlocksModels {
     }
 }
 
-// MARK: Updater / Updates
-extension BlocksModels.Updater {
-    // MARK: - Delete
-    
+// MARK: Updater / Actions
+// MARK: Updater / Actions / Delete
+extension Namespace.Updater {
     /// Delete entry from a container
     /// - Parameter at: at is an associated key to this entry.
     func delete(at: Key) {
         self.container.remove(at)
     }
-    
-    // MARK: - Insert
-    
+}
+
+// MARK: Updater / Actions / Insert
+extension Namespace.Updater {
     /// Insert block at position of an entry that is found by key.
     ///
     /// Notes
@@ -72,8 +79,10 @@ extension BlocksModels.Updater {
     func insert(block: Model) {
         self.container.add(block)
     }
-    
-    // MARK: - Set Children
+}
+
+// MARK: Updater / Actions / Set Children
+extension Namespace.Updater {
     /// Set new children to parent.
     /// It depends on implementation what exactly do children.
     /// For now we don't care about their new parent, it will be set after `buildTree` of a `BuilderProtocol` entry.
@@ -82,5 +91,23 @@ extension BlocksModels.Updater {
     ///   - parent: an associated key to parent entry.
     func set(children: [Key], parent: Key) {
         self.container.replace(childrenIds: children, parentId: parent, shouldSkipGuardAgainstMissingIds: true)
+    }
+}
+
+// MARK: Updater / Actions / Update Style (?)
+extension Namespace.Updater {
+    /// This is the only one valid way to update properties of entry.
+    /// Do not try to update it somehow else, please.
+    /// - Parameters:
+    ///   - key: associated key to an entry that we would like to update.
+    ///   - update: update-closure that we would like to apply to an entry.
+    /// - Returns: Nothing, heh
+    func update(entry key: Key, update: @escaping (Model) -> ()) {
+        guard let entry = self.container.get(by: key) else {
+            let logger = Logging.createLogger(category: .blocksModelsUpdater)
+            os_log(.debug, log: logger, "We haven't found an entry by key: %@", key)
+            return
+        }
+        update(entry)
     }
 }
