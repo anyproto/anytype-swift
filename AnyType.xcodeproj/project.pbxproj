@@ -168,6 +168,9 @@
 		0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */; };
 		0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */; };
 		0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */; };
+		0A2ADCE02496921500FA135D /* EventListening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCDF2496921500FA135D /* EventListening.swift */; };
+		0A2ADCE42496C09A00FA135D /* BlockActionService+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE32496C09A00FA135D /* BlockActionService+New.swift */; };
+		0A2ADCE62496C72A00FA135D /* SmartBlockActionsService+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE52496C72A00FA135D /* SmartBlockActionsService+New.swift */; };
 		0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D50247144F3008ADD86 /* TextView+UIKitTextView+Coordinator.swift */; };
 		0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D51247144F3008ADD86 /* TextView+UIKitTextView+TextView.swift */; };
 		0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D52247144F4008ADD86 /* TextView+UIKitTextView.swift */; };
@@ -504,6 +507,9 @@
 		0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock.swift"; sourceTree = "<group>"; };
+		0A2ADCDF2496921500FA135D /* EventListening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListening.swift; sourceTree = "<group>"; };
+		0A2ADCE32496C09A00FA135D /* BlockActionService+New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionService+New.swift"; sourceTree = "<group>"; };
+		0A2ADCE52496C72A00FA135D /* SmartBlockActionsService+New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartBlockActionsService+New.swift"; sourceTree = "<group>"; };
 		0A2C0D50247144F3008ADD86 /* TextView+UIKitTextView+Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+Coordinator.swift"; sourceTree = "<group>"; };
 		0A2C0D51247144F3008ADD86 /* TextView+UIKitTextView+TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+TextView.swift"; sourceTree = "<group>"; };
 		0A2C0D52247144F4008ADD86 /* TextView+UIKitTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView.swift"; sourceTree = "<group>"; };
@@ -973,6 +979,7 @@
 		037F2D33239D59C0008C16BF /* EventListener */ = {
 			isa = PBXGroup;
 			children = (
+				0A2ADCDF2496921500FA135D /* EventListening.swift */,
 				037F2D34239D59D9008C16BF /* EventListener.swift */,
 				53F1861E2427E4B200738620 /* NotificationEventListener.swift */,
 			);
@@ -1603,6 +1610,7 @@
 			children = (
 				0A66456A24085B82008392AF /* BlockActionsService.swift */,
 				0A63ADE624648C9D00F092C8 /* TextBlockActionsService.swift */,
+				0A2ADCE32496C09A00FA135D /* BlockActionService+New.swift */,
 			);
 			path = BlocksServices;
 			sourceTree = "<group>";
@@ -1620,6 +1628,7 @@
 			isa = PBXGroup;
 			children = (
 				0A721EE7244068270035A3E4 /* SmartBlockActionsService.swift */,
+				0A2ADCE52496C72A00FA135D /* SmartBlockActionsService+New.swift */,
 			);
 			path = SmartBlocksServices;
 			sourceTree = "<group>";
@@ -2001,6 +2010,7 @@
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
 				03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */,
+				0A2ADCE42496C09A00FA135D /* BlockActionService+New.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
@@ -2023,6 +2033,7 @@
 				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
 				0A10CC86248ED549000FF498 /* BlocksViews+New+Page+IconEmoji.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
+				0A2ADCE62496C72A00FA135D /* SmartBlockActionsService+New.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
@@ -2199,6 +2210,7 @@
 				0A9D49E9244A0F83007F0992 /* DocumentViewRouting+File.swift in Sources */,
 				0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */,
 				0A0AA752240185EE003A2935 /* BlockModel+Parser.swift in Sources */,
+				0A2ADCE02496921500FA135D /* EventListening.swift in Sources */,
 				0ADE619124488C6600244E49 /* ToolsBlocksViews+UserActions.swift in Sources */,
 				0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */,
 				0ACA77D923E4482000442690 /* commands+ErrorAdoption.pb.swift in Sources */,

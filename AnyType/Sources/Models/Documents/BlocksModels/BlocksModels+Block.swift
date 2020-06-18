@@ -193,6 +193,47 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
         self.insert(childId: child, parentId: parentId, at: newIndex)
     }
     
+    // MARK: - Children / Replace
+    /// If you would like to change children in parent, you should call this method.
+    ///
+    /// WARNING:
+    /// This method doesn't change parent of previous model.
+    /// You should add this functionality later.
+    ///
+    /// NOTES:
+    /// This method also could change only children ids WITHOUT additional condition if block exists or not.
+    /// For that, set parameter `shouldSkipGuardAgainstMissingIds` to `true`.
+    ///
+    /// - Parameters:
+    ///   - childrenIds: Associated keys to children entries which parent we would like to change.
+    ///   - parentId: An associated key to a parent entry in which we would like to change children.
+    ///   - shouldSkipGuardAgainstMissingIds: A flag that notes if we should skip condition about existing entries.
+    func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool = false) {
+        
+        guard let parent = self.choose(by: parentId) else {
+            let logger = Logging.createLogger(category: .blocksModelsBlock)
+            os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+            return
+        }
+                
+        let existedIds = !shouldSkipGuardAgainstMissingIds ? childrenIds.filter { (childId) in
+            if self.choose(by: childId) != nil {
+                return true
+            }
+            else {
+                let logger = Logging.createLogger(category: .blocksModelsBlock)
+                os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+                return false
+            }
+        } : childrenIds
+        
+        var parentModel = parent.blockModel
+        parentModel.information.childrenIds = existedIds
+        /// TODO: Set children their new parentId if needed?
+        /// Actually, yes, but not now.
+        /// Do it later.
+    }
+    
     // MARK: - UserSession
     var userSession: UserSession {
         get {
@@ -204,7 +245,7 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
 extension BlocksModels.Block {
     final class ChosenBlock {
         typealias BlockId = BlocksModels.Aliases.BlockId
-        private var _container: Container
+        private weak var _container: Container?
         private var _chosenBlock: BlockModel
         init(container: Container, chosenBlock: BlockModel) {
             self._container = container
@@ -221,7 +262,7 @@ extension BlocksModels.Block {
 }
 
 extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
-    var container: BlocksModelsContainerModelProtocol {
+    var container: BlocksModelsContainerModelProtocol? {
         self._container
     }
     
@@ -236,7 +277,7 @@ extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
         }
 
         guard let parentId = self._chosenBlock.parent else { return Self.defaultIndentationLevel }
-        guard let parent = self._container._choose(by: parentId) else { return Self.defaultIndentationLevel }
+        guard let parent = self._container?._choose(by: parentId) else { return Self.defaultIndentationLevel }
         switch self._chosenBlock.kind {
         case .meta: return parent.indentationLevel
         case .block: return parent.indentationLevel + 1
@@ -253,7 +294,7 @@ extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
         }
 
         guard let parentId = self._chosenBlock.parent else { return nil }
-        guard let parent = self._container._choose(by: parentId) else { return nil }
+        guard let parent = self._container?._choose(by: parentId) else { return nil }
         return Self.init(parent)
     }
     
@@ -266,25 +307,25 @@ extension BlocksModels.Block.ChosenBlock: BlocksModelsChosenBlockModelProtocol {
     }
     
     func findChild(by id: BlockId) -> Self? {
-        guard let child = self._container._choose(by: id) else { return nil }
+        guard let child = self._container?._choose(by: id) else { return nil }
         return Self.init(child)
     }
     
     var isFirstResponder: Bool {
         get {
-            self.container.userSession.isFirstResponder(by: self._chosenBlock.information.id)
+            self.container?.userSession.isFirstResponder(by: self._chosenBlock.information.id) ?? false
         }
         set {
-            self.container.userSession.setFirstResponder(by: self._chosenBlock.information.id)
+            self.container?.userSession.setFirstResponder(by: self._chosenBlock.information.id)
         }
     }
     
     var isToggled: Bool {
         get {
-            self.container.userSession.isToggled(by: self._chosenBlock.information.id)
+            self.container?.userSession.isToggled(by: self._chosenBlock.information.id) ?? false
         }
         set {
-            self.container.userSession.setToggled(by: self._chosenBlock.information.id, value: newValue)
+            self.container?.userSession.setToggled(by: self._chosenBlock.information.id, value: newValue)
         }
     }
 }
@@ -324,7 +365,7 @@ protocol BlocksModelsHasRootIdProtocol {
     var rootId: BlockId? {get set}
 }
 
-protocol BlocksModelsContainerModelProtocol: BlocksModelsHasRootIdProtocol, BlocksModelsHasUserSessionProtocol {
+protocol BlocksModelsContainerModelProtocol: class, BlocksModelsHasRootIdProtocol, BlocksModelsHasUserSessionProtocol {
     // MARK: - Operations / List
     func list() -> AnyIterator<BlockId>
     // MARK: - Operations / Choose
@@ -341,6 +382,8 @@ protocol BlocksModelsContainerModelProtocol: BlocksModelsHasRootIdProtocol, Bloc
     func add(child: BlockId, beforeChild: BlockId)
     // MARK: - Children / Add
     func add(child: BlockId, afterChild: BlockId)
+    // MARK: - Children / Replace
+    func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool)
 }
 
 // MARK: - ChosenBlock
@@ -348,7 +391,7 @@ protocol BlocksModelsChosenBlockModelProtocol: BlocksModelsHasContainerProtocol,
 
 // MARK: - ChosenBlock / BlockModel
 protocol BlocksModelsHasContainerProtocol {
-    var container: BlocksModelsContainerModelProtocol {get}
+    var container: BlocksModelsContainerModelProtocol? {get}
 }
 
 // MARK: - ChosenBlock / BlockModel

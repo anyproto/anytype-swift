@@ -56,7 +56,7 @@ extension DocumentModule {
         typealias UserInteractionHandler = BlocksViews.NewSupplement.UserInteractionHandler
         
         /// Service
-        private var blockActionsService: BlockActionsService = .init()
+        private var blockActionsService: ServiceLayerNewModel.BlockActionsService = .init()
         
         /// Data Transformers
         private var transformer: BlocksModels.Transformer.FinalTransformer = .init()
@@ -92,16 +92,18 @@ extension DocumentModule {
                 self.syncBuilders()
                 self.configurePageDetails(for: self.rootModel)
                 if let model = self.rootModel {
-                    // TODO: Add correct subscription
-                    //                    model.objectWillChange.sink { [weak self] (value) in
-                    //                        self?.syncBuilders()
-                    //                    }.store(in: &self.subscriptions)
+                    self.eventHandler?.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
+                        self?.syncBuilders()
+                    }).store(in: &self.subscriptions)
+                    _ = self.eventHandler?.configured(model)
                 }
             }
         }
         
         // MARK: - Events
         @Published var userEvent: UserEvent?
+                
+        private var eventHandler: EventHandler?
         
         // MARK: - Page View Models
         /// PageDetailsViewModel
@@ -180,15 +182,9 @@ extension DocumentModule {
             _ = self.wholePageDetailsViewModel.configured(documentId: documentId)
             
             // Publishers
-            
-            self.userInteractionHandler.$reaction.filter({ (value) in
-                switch value {
-                case .unknown: return false
-                default: return true
-                }
-            }).sink(receiveValue: { [weak self] (value) in
+            self.userInteractionHandler.reactionPublisher.sink { [weak self] (value) in
                 self?.process(reaction: value)
-            }).store(in: &self.subscriptions)
+            }.store(in: &self.subscriptions)
             
             // We are waiting for value "true" to send `.blockClose()` with parameters "contextID: documentId, blockID: documentId"
             self.shouldClosePagePublisher.drop(while: {$0 == false}).flatMap { [weak self] (value) -> AnyPublisher<Never, Error> in
@@ -265,7 +261,13 @@ extension DocumentModule {
             
             let baseModel = self.transformer.transform(models.map({BlocksModels.Aliases.Information.InformationModel.init(information: $0)}), rootId: rootId)
             
-            self.userInteractionHandler.configured(documentId: contextId)
+            _ = self.userInteractionHandler.configured(documentId: contextId)
+                        
+            let eventHandler = EventHandler.init()
+            _ = eventHandler.configured(baseModel)
+            
+            self.eventHandler = eventHandler
+            
             self.rootModel = baseModel
         }
         
@@ -278,7 +280,7 @@ extension DocumentModule {
         
         private func processMiddlewareEvents(contextId: String, messages: [Anytype_Event.Message]) {
             messages.filter({$0.value == .blockShow($0.blockShow)}).compactMap({ [weak self] value in
-                self?.blockActionsService.newEventListener.createFrom(event: value.blockShow)
+                self?.blockActionsService.eventListener.createFrom(event: value.blockShow)
             }).forEach({[weak self] value in
                 self?.internalProcessBlocks(contextId: contextId, rootId: value.rootId, models: value.blocks)
             })
@@ -335,6 +337,10 @@ private extension Namespace.DocumentViewModel {
             // so, tell view controller to open page, yes?..
             let blockId = value.payload.blockId
             // tell view controller to open page.
+        
+        case let .shouldHandleEvent(value):
+            let events = value.payload.events.events.compactMap(\.value)
+            self.eventHandler?.handle(events: events)
             
         default:
             return
@@ -490,4 +496,83 @@ extension Namespace.DocumentViewModel {
         }
     }
     
+}
+
+// MARK: Event Listening
+extension Namespace.DocumentViewModel {
+    class EventHandler: NewEventHandler {
+        typealias Event = Anytype_Event.Message.OneOf_Value
+        typealias ViewModel = DocumentModule.DocumentViewModel
+        
+        private var didProcessEventsSubject: PassthroughSubject<Void, Never> = .init()
+        var didProcessEventsPublisher: AnyPublisher<Void, Never> = .empty()
+        
+        
+        private typealias Builder = BlocksModels.Block.Builder
+        private typealias Information = BlocksModels.Aliases.Information.InformationModel
+        private typealias Updater = BlocksModels.Updater
+        
+        weak var container: BlocksModelsContainerModelProtocol?
+        
+        private var parser: BlocksModels.Parser = .init()
+        private var updater: BlocksModels.Updater?
+        
+        init() {
+            self.setup()
+        }
+        
+        func setup() {
+            self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
+        }
+                
+        func configured(_ container: BlocksModelsContainerModelProtocol) -> Self {
+            self.updater = .init(container)
+            self.container = container
+            return self
+        }
+                
+        func handleOneEvent(_ event: Anytype_Event.Message.OneOf_Value) {
+            switch event {
+            case let .blockAdd(value):
+                value.blocks
+                    .compactMap(self.parser.convert(block:))
+                    .map(Information.init(information:))
+                    .map({Builder.build(information:$0)})
+                    .forEach { (value) in
+                        self.updater?.insert(block: value)
+                }
+            
+            case let .blockDelete(value):
+                // Find blocks and remove them from map.
+                // And from tree.
+                value.blockIds.forEach({ (value) in
+                    self.updater?.delete(at: value)
+                })
+            
+            case let .blockSetChildrenIds(value):
+                let parentId = value.id
+                self.updater?.set(children: value.childrenIds, parent: parentId)
+            
+            default: return
+            }
+        }
+        
+        private func finalize() {
+            guard let container = self.container else {
+                let logger = Logging.createLogger(category: .treeViewModel)
+                os_log(.debug, log: logger, "Container is nil in event handler. Something went wrong.")
+                return
+            }
+            
+            Builder.buildTree(container: container)
+            // Notify about updates if needed.
+            self.didProcessEventsSubject.send(())
+        }
+        
+        func handle(events: [Anytype_Event.Message.OneOf_Value]) {
+            _ = events.compactMap(self.handleOneEvent(_:))
+            self.finalize()
+        }
+    }
+
 }

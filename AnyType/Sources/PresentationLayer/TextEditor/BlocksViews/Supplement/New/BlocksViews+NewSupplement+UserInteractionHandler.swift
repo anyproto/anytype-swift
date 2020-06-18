@@ -29,14 +29,22 @@ extension Namespace {
         typealias Model = BlocksModelsChosenBlockModelProtocol
         
         private var documentId: String = ""
-        private var subscriptions: [AnyCancellable] = []
+        private var subscription: AnyCancellable?
                 
         private let service: Service = .init(documentId: "")
 
-        @Published var reaction: Reaction = .unknown
+        private var reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
+        var reactionPublisher: AnyPublisher<Reaction, Never> = .empty()
         
-        func configured(_ publisher: AnyPublisher<ActionsPayload, Never>) -> Self {
-            return self
+        init() {
+            self.setup()
+        }
+        
+        func setup() {
+            self.reactionPublisher = self.reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
+            _ = self.service.configured { [weak self] (value) in
+                self?.reactionSubject.send(.shouldHandleEvent(.init(payload: .init(events: value))))
+            }
         }
     }
 }
@@ -60,7 +68,16 @@ extension Namespace.UserInteractionHandler {
                 var blockId: Id
             }
         }
-        case unknown, focus(Focus), shouldOpenPage(ShouldOpenPage)
+        struct ShouldHandleEvent {
+            var payload: Payload
+            struct Payload {
+                var events: EventListening.PackOfEvents
+            }
+        }
+        
+        case focus(Focus)
+        case shouldOpenPage(ShouldOpenPage)
+        case shouldHandleEvent(ShouldHandleEvent)
     }
 }
 
@@ -69,6 +86,13 @@ extension Namespace.UserInteractionHandler {
     func configured(documentId: String) -> Self {
         self.documentId = documentId
         _ = self.service.configured(documentId: documentId)
+        return self
+    }
+    
+    func configured(_ publisher: AnyPublisher<ActionsPayload, Never>) -> Self {
+        self.subscription = publisher.sink { [weak self] (value) in
+            self?.didReceiveAction(action: value)
+        }
         return self
     }
 }
@@ -147,7 +171,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 }
 
             case let .enterAtBeginning(payload): // we should assure ourselves about type of block.
-                if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? ""){
+                if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                     if payload != nil {
                         self.service.split(block: block.blockModel.information, oldText: "")
                     }
@@ -200,6 +224,8 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 break
 
             case .delete:
+                                
+                self.service.delete(block: block.blockModel.information)
                 // We should find previous index of block.
 //                let beforeIndex = BlockModels.IndexWalker().index(beforeModel: block, includeParent: true)
 //                guard self.finder != nil else {
@@ -355,8 +381,10 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
         
         private let parser: BlocksModels.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
-        private let service: BlockActionsService = .init()
-        private let pageService: SmartBlockActionsService = .init()
+        private let service: ServiceLayerNewModel.BlockActionsService = .init()
+        private let pageService: ServiceLayerNewModel.SmartBlockActionsService = .init()
+        
+        private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
         
         // We also need a handler of events.
         private let eventHandling: String = ""
@@ -370,13 +398,18 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
             return self
         }
         
-        // MARK: Actions
-        func addChild(childBlock: Information, parentBlockId: BlockId, position: Anytype_Model_Block.Position = .inner, completion: @escaping (Information) -> () = {_ in}) {
-            // insert block as child to parent.
-            self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner, completion: completion)
+        func configured(didReceiveEvent: @escaping (EventListening.PackOfEvents) -> ()) -> Self {
+            self.didReceiveEvent = didReceiveEvent
+            return self
         }
         
-        func add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom, completion: @escaping (Information) -> () = {_ in}) {
+        // MARK: Actions
+        func addChild(childBlock: Information, parentBlockId: BlockId, position: Anytype_Model_Block.Position = .inner) {
+            // insert block as child to parent.
+            self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner)
+        }
+        
+        func add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom) {
 
             // insert block after block
             // we could catch events and update model.
@@ -401,12 +434,12 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                     os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
                 }
             }) { [weak self] (value) in
-                // TODO: Retrieve new block id and set it somewhere as focused.
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
         }
 
 
-        func split(block: Information, oldText: String, completion: @escaping (Model) -> () = {_ in}) {
+        func split(block: Information, oldText: String) {
             let improve = Logging.createLogger(category: .todo(.improve("Markup")))
             os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
 
@@ -427,7 +460,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 return
             }
 
-            self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, cursorPosition: position, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+            self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, cursorPosition: position, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in                
                 switch value {
                 case .finished: return
                 case let .failure(error):
@@ -435,7 +468,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                     os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
                 }
             }, receiveValue: { [weak self] (value) in
-                // TODO: Retrieve new block id and set it somewhere as focused.
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
             }).store(in: &self.subscriptions)
         }
         
@@ -451,17 +484,11 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                     os_log(.error, log: logger, "blocksActions.service.duplicate got error: %@", "\(error)")
                 }
             }) { [weak self] (value) in
-                let blockIds = value.blockIds
-                guard !blockIds.isEmpty else {
-                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-                    os_log(.error, log: logger, "blocksActions.service.duplicate empty block ids!")
-                    return
-                }
-                // TODO: Retrieve new block id and set it somewhere as focused.
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
         }
 
-        func delete(block: Information, completion: @escaping () -> () = { }) {
+        func delete(block: Information) {
             // Shit Swift
             guard let deletedBlock = self.parser.convert(information: block) else {
                 let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
@@ -470,18 +497,19 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 return
             }
 
-            self.service.delete.action(contextID: documentId, blockIds: [deletedBlock.id]).receive(on: RunLoop.main).sink(receiveCompletion: { [weak self] (value) in
+            self.service.delete.action(contextID: self.documentId, blockIds: [deletedBlock.id]).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
                 switch value {
-                case .finished:
-                    completion()
+                case .finished: return
                 case let .failure(error):
                     let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
                     os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
                 }
-            }, receiveValue: {_ in }).store(in: &self.subscriptions)
+            }, receiveValue: { [weak self] value in
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            }).store(in: &self.subscriptions)
         }
 
-        func merge(firstBlock: Information, secondBlock: Information, completion: @escaping () -> () = { }) {
+        func merge(firstBlock: Information, secondBlock: Information) {
             let firstInformation = self.parser.convert(information: firstBlock)
             let secondInformation = self.parser.convert(information: secondBlock)
 
@@ -491,20 +519,19 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 return
             }
 
-            self.service.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { [weak self] value in
+            self.service.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { value in
                 switch value {
-                case .finished:
-                    // we need to set cursor on correct position?...
-                    // Or we just need to set cursor on position of previous block and than we need to append text of deleted block?
-                    completion()
+                case .finished: return
                 case let .failure(error):
                     let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
                     os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
                 }
-            }, receiveValue: {_ in}).store(in: &self.subscriptions)
+            }, receiveValue: { [weak self] value in
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            }).store(in: &self.subscriptions)
         }
 
-        func createPage(afterBlock: Information, position: Anytype_Model_Block.Position = .bottom, completion: @escaping (Information) -> () = {_ in}) {
+        func createPage(afterBlock: Information, position: Anytype_Model_Block.Position = .bottom) {
 
             let targetId = ""
             let details: Google_Protobuf_Struct = .init()
@@ -517,7 +544,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                     os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
                 }
             }) { [weak self] (value) in
-                // TODO: Retrieve new block id and set it somewhere as focused.
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
         }
     }

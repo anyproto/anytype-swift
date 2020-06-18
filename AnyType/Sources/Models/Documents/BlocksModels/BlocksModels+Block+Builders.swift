@@ -37,9 +37,10 @@ extension BlocksModels.Block {
         
         private class func buildTreeRecursively(container: BlocksModelsContainerModelProtocol, id: BlockId) {
             if let entry = container.choose(by: id) {
+                let parentId = id
                 entry.childrenIds().forEach { (value) in
                     var blockModel = entry.findChild(by: value)?.blockModel
-                    blockModel?.parent = id
+                    blockModel?.parent = parentId
                     self.buildTreeRecursively(container: container, id: value)
                 }
             }
