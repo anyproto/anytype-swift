@@ -307,6 +307,7 @@
 		0ACA782023E5D5AC00442690 /* TextBlocksViews+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */; };
 		0ACFCCF7249C17B5002E0477 /* BlockListActionsService+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockListActionsService+New.swift */; };
 		0ACFCCF9249C17DC002E0477 /* ServiceLayerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF8249C17DC002E0477 /* ServiceLayerModule.swift */; };
+		0AD11844249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD11843249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */; };
 		0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */; };
 		0ADE618F24488C5400244E49 /* FileBlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618E24488C5400244E49 /* FileBlocksViews+UserActions.swift */; };
 		0ADE619124488C6600244E49 /* ToolsBlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* ToolsBlocksViews+UserActions.swift */; };
@@ -655,6 +656,7 @@
 		0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Base.swift"; sourceTree = "<group>"; };
 		0ACFCCF6249C17B5002E0477 /* BlockListActionsService+New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockListActionsService+New.swift"; sourceTree = "<group>"; };
 		0ACFCCF8249C17DC002E0477 /* ServiceLayerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLayerModule.swift; sourceTree = "<group>"; };
+		0AD11843249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+ListUserInteractionHandler.swift"; sourceTree = "<group>"; };
 		0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserActions.swift"; sourceTree = "<group>"; };
 		0ADE618E24488C5400244E49 /* FileBlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBlocksViews+UserActions.swift"; sourceTree = "<group>"; };
 		0ADE619024488C6600244E49 /* ToolsBlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToolsBlocksViews+UserActions.swift"; sourceTree = "<group>"; };
@@ -1567,6 +1569,7 @@
 			children = (
 				0A10CCA924913C23000FF498 /* Flattener */,
 				0A10CCB424913C64000FF498 /* BlocksViews+NewSupplement+UserInteractionHandler.swift */,
+				0AD11843249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */,
 			);
 			path = New;
 			sourceTree = "<group>";
@@ -2075,6 +2078,7 @@
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A4C26172489678C00088F0A /* BlocksModels+Block+Information.swift in Sources */,
 				0A2C0D59247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift in Sources */,
+				0AD11844249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift in Sources */,
 				0A693220238C4C8200575544 /* TextBlocksViews+Header.swift in Sources */,
 				0A395E142424E40C009C330C /* BlockModel+IndexWalker.swift in Sources */,
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,

@@ -14,7 +14,7 @@ import SwiftProtobuf
 fileprivate typealias Namespace = BlocksViews.NewSupplement
 
 private extension Logging.Categories {
-    static let treeTextBlocksUserInteractor: Self = "textEditor.treeTextBlocksUserInteractor"
+    static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
 }
 
 extension Namespace {
@@ -147,7 +147,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
         switch action {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
         default:
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             os_log(.debug, log: logger, "Unexpected: %@", String(describing: action))
         }
     }
@@ -285,7 +285,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
             case let .page(value): // Convert children to pages.
                 break
             default:
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
             }
             
@@ -451,7 +451,7 @@ private extension Namespace.UserInteractionHandler.Service {
 
         // Shit Swift
         guard let addedBlock = self.parser.convert(information: newBlock) else {
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             let addedBlock = self.parser.convert(information: newBlock)
             os_log(.error, log: logger, "addedBlock: %@ is nil? ", "\(String(describing: addedBlock))")
             return
@@ -463,7 +463,7 @@ private extension Namespace.UserInteractionHandler.Service {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
             }
         }) { [weak self] (value) in
@@ -477,7 +477,7 @@ private extension Namespace.UserInteractionHandler.Service {
         os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
 
         guard let splittedBlockInformation = self.parser.convert(information: block) else {
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             let splittedBlock = self.parser.convert(information: block)
             os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: splittedBlock))")
             return
@@ -488,7 +488,7 @@ private extension Namespace.UserInteractionHandler.Service {
 
         let content = splittedBlockInformation.content
         guard case let .text(type) = content else {
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
             return
         }
@@ -497,7 +497,7 @@ private extension Namespace.UserInteractionHandler.Service {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
             }
         }, receiveValue: { [weak self] (value) in
@@ -513,7 +513,7 @@ private extension Namespace.UserInteractionHandler.Service {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.error, log: logger, "blocksActions.service.duplicate got error: %@", "\(error)")
             }
         }) { [weak self] (value) in
@@ -530,7 +530,7 @@ private extension Namespace.UserInteractionHandler.Service {
             switch value {
             case .finished: return // move to this page
             case let .failure(error):
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
             }
         }) { [weak self] (value) in
@@ -544,7 +544,7 @@ private extension Namespace.UserInteractionHandler.Service {
     func delete(block: Information) {
         // Shit Swift
         guard let deletedBlock = self.parser.convert(information: block) else {
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             let deletedBlock = self.parser.convert(information: block)
             os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: deletedBlock))")
             return
@@ -554,7 +554,7 @@ private extension Namespace.UserInteractionHandler.Service {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
             }
         }, receiveValue: { [weak self] value in
@@ -567,7 +567,7 @@ private extension Namespace.UserInteractionHandler.Service {
         let secondInformation = self.parser.convert(information: secondBlock)
 
         guard let firstBlockId = firstInformation?.id, let secondBlockId = secondInformation?.id else {
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             os_log(.error, log: logger, "firstBlock: %@ or secondBlock: %@ are nil? ", "\(String(describing: firstInformation))", "\(String(describing: secondInformation))")
             return
         }
@@ -576,7 +576,7 @@ private extension Namespace.UserInteractionHandler.Service {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
             }
         }, receiveValue: { [weak self] value in
@@ -602,13 +602,13 @@ private extension Namespace.UserInteractionHandler.Service {
         let blockId = block.id
         
         guard let middlewareContent = self.parser.convert(content: type) else {
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             os_log(.error, log: logger, "Set Text style cannot convert type: %@", "\(String(describing: type))")
             return
         }
         
         guard case let .text(middlewareTextStyle) = middlewareContent else {
-            let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             os_log(.error, log: logger, "Set Text style content is not text style: %@", "\(String(describing: middlewareContent))")
             return
         }
@@ -617,7 +617,7 @@ private extension Namespace.UserInteractionHandler.Service {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle with payload got error: %@", "\(error)")
             }
         }) { [weak self] (value) in

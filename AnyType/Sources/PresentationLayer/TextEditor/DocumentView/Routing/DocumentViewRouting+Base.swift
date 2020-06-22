@@ -24,6 +24,9 @@ enum DocumentViewRouting {
     /// - `receive(action:)`
     ///
     class BaseRouter {
+        typealias UserAction = BlocksViews.UserAction
+        typealias UserActionPublisher = AnyPublisher<UserAction, Never>
+        
         // MARK: UserActions
         private var userActionsStreamSubscription: AnyCancellable?
         private var combinedUserActionsStreamSubscription: AnyCancellable?
@@ -78,14 +81,14 @@ enum DocumentViewRouting {
         ///
         /// - Parameter userActionsStreamStream: A stream of streams that will deliver new correct stream in its value.
         /// - Returns: A Self for convenient usage.
-        func configured(userActionsStreamStream: AnyPublisher<AnyPublisher<BlocksViews.UserAction, Never>, Never>) -> Self {
+        func configured(userActionsStreamStream: AnyPublisher<UserActionPublisher, Never>) -> Self {
             self.combinedUserActionsStreamSubscription = userActionsStreamStream.sink(receiveValue: { [weak self] (value) in
                 _ = self?.configured(userActionsStream: value)
             })
             return self
         }
 
-        func configured(userActionsStream: AnyPublisher<BlocksViews.UserAction, Never>) -> Self {
+        func configured(userActionsStream: UserActionPublisher) -> Self {
             self.userActionsStreamSubscription?.cancel()
             self.userActionsStreamSubscription = nil
             self.userActionsStreamSubscription = userActionsStream.sink { [weak self] (value) in

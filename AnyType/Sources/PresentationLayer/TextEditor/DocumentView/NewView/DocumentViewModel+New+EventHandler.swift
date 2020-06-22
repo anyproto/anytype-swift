@@ -24,8 +24,12 @@ extension Namespace.DocumentViewModel {
         typealias BlockId = BlocksModels.Aliases.BlockId
         
         enum Update {
-            case updatedKeys([BlockId])
+            struct Payload {
+                var deletedIds: [BlockId] = []
+                var updatedIds: [BlockId] = []
+            }
             case general
+            case update(Payload)
         }
         
         private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
@@ -73,7 +77,7 @@ extension Namespace.DocumentViewModel {
                 value.blockIds.forEach({ (value) in
                     self.updater?.delete(at: value)
                 })
-                return .general
+                return .update(.init(deletedIds: value.blockIds, updatedIds: []))
             
             case let .blockSetChildrenIds(value):
                 let parentId = value.id
@@ -108,7 +112,7 @@ extension Namespace.DocumentViewModel {
                     default: break
                     }
                 })
-                return .updatedKeys([blockId])
+                return .update(.init(deletedIds: [], updatedIds: [blockId]))
                 
             default: return .general
             }
@@ -120,9 +124,9 @@ extension Namespace.DocumentViewModel {
             let update: Update = updates.reduce(.general) { (result, value) in
                 switch (result, value) {
                 case (.general, .general): return .general
-                case (.general, .updatedKeys): return value
-                case (.updatedKeys, .general): return result
-                case let (.updatedKeys(lhs), .updatedKeys(rhs)): return .updatedKeys(lhs + rhs)
+                case (.general, .update): return value
+                case (.update, .general): return result
+                case let (.update(lhs), .update(rhs)): return .update(.init(deletedIds: lhs.deletedIds + rhs.deletedIds, updatedIds: lhs.updatedIds + rhs.updatedIds))
                 }
             }
             

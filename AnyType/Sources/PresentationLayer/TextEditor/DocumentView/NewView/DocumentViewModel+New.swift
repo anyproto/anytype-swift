@@ -55,6 +55,9 @@ extension DocumentModule {
         typealias BlockId = BlocksModels.Aliases.BlockId
         
         typealias UserInteractionHandler = BlocksViews.NewSupplement.UserInteractionHandler
+        typealias ListUserInteractionHandler = BlocksViews.NewSupplement.ListUserInteractionHandler
+        
+        typealias BlocksUserAction = BlocksViews.UserAction
         
         /// Service
         private var blockActionsService: ServiceLayerModule.BlockActionsService = .init()
@@ -65,6 +68,7 @@ extension DocumentModule {
         
         /// User Interaction Processor
         private var userInteractionHandler: UserInteractionHandler = .init()
+        private var listUserInteractionHandler: ListUserInteractionHandler = .init()
         
         /// Combine Subscriptions
         private var subscriptions: Set<AnyCancellable> = .init()
@@ -74,10 +78,28 @@ extension DocumentModule {
         var selectionHandler: DocumentModuleSelectionHandlerProtocol { self.selectionHandlerStorage }
         
         /// Builders Publisher
-        private var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksViews.UserAction, Never>, Never> = .init()
-        private var detailsPublisherSubject: PassthroughSubject<AnyPublisher<BlocksViews.UserAction, Never>, Never> = .init()
-        lazy var userActionPublisher: AnyPublisher<AnyPublisher<BlocksViews.UserAction, Never>, Never> = {
-            Publishers.Merge(self.buildersPublisherSubject, self.detailsPublisherSubject).eraseToAnyPublisher()
+        private var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksUserAction, Never>, Never> = .init()
+        private var detailsPublisherSubject: PassthroughSubject<AnyPublisher<BlocksUserAction, Never>, Never> = .init()
+        private var listToolbarSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
+        private var listSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
+        lazy private var listPublisherSubject: CurrentValueSubject<AnyPublisher<BlocksUserAction, Never>, Never> = {
+            .init(self.listSubject.eraseToAnyPublisher())
+        }()
+        private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
+        private lazy var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
+            self.listActionsPayloadSubject.eraseToAnyPublisher()
+        }()
+        lazy var userActionPublisher: AnyPublisher<AnyPublisher<BlocksUserAction, Never>, Never> = {
+            /// For now, we just collect three publishers and merge them as one publisher.
+            /// If we change current value of our publisher ( list Publisher Subject ), it would go on top of stream of publishers.
+            /// In this case we would receive value.
+            ///
+            /// [A, B, C] // Stream of events
+            /// [[A, A, A], [B, B], C] // Stream of Publishers
+            /// [A, B, C, A, A, A, B, B, A, A] // Stream of Merged Publishers.
+            /// As you see, you can't put C on top of stream, because it is `CurrentValueSubject`.
+            ///
+            Publishers.Merge3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject).eraseToAnyPublisher()
         }()
         private var buildersActionsPayloadsSubject: PassthroughSubject<AnyPublisher<BlocksViews.New.Base.ViewModel.ActionsPayload, Never>, Never> = .init()
         private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViews.New.Base.ViewModel.ActionsPayload, Never>, Never> = {
@@ -100,7 +122,15 @@ extension DocumentModule {
                         self?.syncBuilders {
                             switch value {
                             case .general: break
-                            case let .updatedKeys(value): self?.anyStyleSubject.send(value)
+                            case let .update(value):
+                                if !value.updatedIds.isEmpty {
+                                    self?.anyStyleSubject.send(value.updatedIds)
+                                }
+                                if !value.deletedIds.isEmpty {
+                                    value.deletedIds.forEach { (value) in
+                                        self?.selectionHandlerStorage.toggle(value)
+                                    }
+                                }
                             }
                         }
                     }).store(in: &self.subscriptions)
@@ -154,6 +184,11 @@ extension DocumentModule {
                 }).eraseToAnyPublisher()
                 
                 self.buildersActionsPayloadsSubject.send(buildersActionsPayloadsPublisher)
+                
+                /// Disable selection mode.
+                if self.buildersRows.isEmpty {
+                    self.set(selectionEnabled: false)
+                }
             }
         }
                         
@@ -185,6 +220,11 @@ extension DocumentModule {
                 self?.process(actionsPayload: value)
             }.store(in: &self.subscriptions)
             
+            self.listToolbarSubject.sink { [weak self] (value) in
+                self?.process(toolbarAction: value)
+            }.store(in: &self.subscriptions)
+            
+            _ = self.listUserInteractionHandler.configured(self.listActionsPayloadPublisher)
         }
         
         // MARK: Initialization
@@ -205,6 +245,10 @@ extension DocumentModule {
             
             // Publishers
             self.userInteractionHandler.reactionPublisher.sink { [weak self] (value) in
+                self?.process(reaction: value)
+            }.store(in: &self.subscriptions)
+            
+            self.listUserInteractionHandler.reactionPublisher.sink { [weak self] (value) in
                 self?.process(reaction: value)
             }.store(in: &self.subscriptions)
             
@@ -291,6 +335,7 @@ extension DocumentModule {
             let baseModel = self.transformer.transform(models.map({BlocksModels.Aliases.Information.InformationModel.init(information: $0)}), rootId: rootId)
             
             _ = self.userInteractionHandler.configured(documentId: contextId)
+            _ = self.listUserInteractionHandler.configured(documentId: contextId)
                         
             let eventHandler = EventHandler.init()
             _ = eventHandler.configured(baseModel)
@@ -339,6 +384,16 @@ extension DocumentModule {
 // MARK: Reactions
 private extension Namespace.DocumentViewModel {
     func process(reaction: UserInteractionHandler.Reaction) {
+        switch reaction {
+        case let .shouldHandleEvent(value):
+            let events = value.payload.events.events.compactMap(\.value)
+            self.eventHandler?.handle(events: events)
+            
+        default:
+            return
+        }
+    }
+    func process(reaction: ListUserInteractionHandler.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events.events.compactMap(\.value)
@@ -610,13 +665,38 @@ private extension Namespace.DocumentViewModel {
                 self.syncBuilders()
             }
         case let .toolbar(value):
+            let selectedIds = self.selectionHandlerStorage.list()
             switch value {
-            case .turnInto: break
-            case .delete: break
+            case .turnInto:
+                /// TODO: Fix publishers later.
+                /// We should gather latest values of publishers and create a publisher.
+                ////
+                self.listPublisherSubject.send(.init(self.listSubject.eraseToAnyPublisher()))
+                self.listSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject))))
+            case .delete: self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: .editBlock(.delete))))
             case .copy: break
             default: break
             }
         }
+    }
+    func process(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
+        let selectedIds = self.selectionHandlerStorage.list()
+        self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: toolbarAction)))
+    }
+}
+
+extension Namespace.DocumentViewModel {
+    enum ActionsPayload {
+        typealias BlockId = BlocksModels.Aliases.BlockId
+        typealias ListModel = [BlockId]
+        struct Toolbar {
+            typealias Model = ListModel
+            typealias Action = BlocksViews.Toolbar.UnderlyingAction
+            var model: Model
+            var action: Action
+        }
+        
+        case toolbar(Toolbar)
     }
 }
 

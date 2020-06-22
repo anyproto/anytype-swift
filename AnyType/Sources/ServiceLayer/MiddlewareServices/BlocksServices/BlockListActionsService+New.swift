@@ -11,6 +11,11 @@ import Combine
 
 fileprivate typealias Namespace = ServiceLayerModule
 
+protocol NewModel_BlockListActionsServiceProtocolDelete {
+    associatedtype Success
+    func action(contextID: String, blocksIds: [String]) -> AnyPublisher<Success, Error>
+}
+
 protocol NewModel_BlockListActionsServiceProtocolSetFields {
     associatedtype Success
     func action(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> AnyPublisher<Success, Error>
@@ -47,6 +52,7 @@ protocol NewModel_BlockListActionsServiceProtocolDeletePage {
 
 
 protocol NewModel_BlockListActionsServiceProtocol {
+    associatedtype Delete
     associatedtype SetFields
     associatedtype SetTextStyle
     associatedtype Duplicate
@@ -56,6 +62,7 @@ protocol NewModel_BlockListActionsServiceProtocol {
     associatedtype SetPageIsArchived
     associatedtype DeletePage
     
+    var delete: Delete {get}
     var setFields: SetFields {get}
     var setTextStyle: SetTextStyle {get}
     var duplicate: Duplicate {get}
@@ -68,6 +75,7 @@ protocol NewModel_BlockListActionsServiceProtocol {
 
 extension Namespace {
     class BlockListActionsService: NewModel_BlockListActionsServiceProtocol {
+        var delete: Delete = .init()
         var setFields: SetFields = .init()
         var setTextStyle: SetTextStyle = .init()
         var duplicate: Duplicate = .init()
@@ -81,6 +89,12 @@ extension Namespace {
 
 extension Namespace.BlockListActionsService {
     typealias Success = ServiceLayerModule.Success
+    
+    struct Delete {
+        func action(contextID: String, blocksIds: [String]) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blocksIds).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        }
+    }
     
     struct SetFields {
         func action(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> AnyPublisher<Success, Error> {
