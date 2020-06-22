@@ -108,7 +108,7 @@ extension BlocksViews.NewSupplement {
     class PageBlocksFlattener: BlocksFlattener {
         override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
             switch model.blockModel.kind {
-            case .meta: return model.childrenIds().compactMap({model.findChild(by: $0)}).flatMap(self.toList)
+            case .meta: return model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList)
             default: return super.convert(model: model)
             }
         }

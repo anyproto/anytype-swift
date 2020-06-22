@@ -16,7 +16,7 @@ extension BlocksViews.NewSupplement.Tools {
     class Flattener: BlocksViews.NewSupplement.BaseFlattener {
         private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
             switch information.content {
-            case let .link(value) where value.style == .page: return [BlocksViews.New.Tools.PageLink.ViewModel.init(model)] + model.childrenIds().compactMap({model.findChild(by: $0)}).flatMap(self.toList)
+            case let .link(value) where value.style == .page: return [BlocksViews.New.Tools.PageLink.ViewModel.init(model)] + model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList)
             default: return []
             }
         }

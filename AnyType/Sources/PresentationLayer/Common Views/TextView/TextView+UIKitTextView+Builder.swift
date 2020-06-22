@@ -26,6 +26,7 @@ extension TextView.UIKitTextView.Builder {
         textView.textContainer.lineFragmentPadding = 0.0
         textView.textContainerInset = .zero
         textView.isScrollEnabled = false
+        textView.backgroundColor = nil
         return textView
     }
     

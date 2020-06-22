@@ -86,6 +86,10 @@ extension TextView {
             self.model?.$shouldSetFocus.sink(receiveValue: { [weak self] (value) in
                 self?.onSetFocus(value)
             }).store(in: &self.subscriptions)
+            
+            self.model?.shouldResignFirstResponderPublisher.sink(receiveValue: { [weak self] (value) in
+                self?.textView.resignFirstResponder()
+            }).store(in: &self.subscriptions)
         }
         
         // MARK: UI Elements

@@ -91,7 +91,7 @@ extension BlocksModels.Transformer {
     struct FromTreeToListTransformer {
         private func toListRecursively(_ block: HighModel) -> [HighModel] {
             var result: [HighModel] = []
-            result.append(contentsOf: block.childrenIds().map({block.findChild(by: $0)}).compactMap({$0}))
+            result.append(contentsOf: block.childrenIds().map(block.findChild(by:)).compactMap({$0}))
             return result
         }
         public func toList(_ model: HighModel) -> [HighModel] {

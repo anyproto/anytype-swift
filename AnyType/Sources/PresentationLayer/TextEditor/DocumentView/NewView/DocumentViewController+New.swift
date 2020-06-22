@@ -194,8 +194,9 @@ extension Namespace.DocumentViewController {
                 _ = cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
                 return cell
             }
-            return UITableViewCell.init()
+            return .init()
         })
+        self.dataSource?.defaultRowAnimation = .none
         self.tableView.dataSource = self.dataSource
     }
 
@@ -246,6 +247,10 @@ private extension Namespace.DocumentViewController {
         
         self.viewModel.anyStylePublisher.sink { [weak self] (value) in
             self?.updateIds(value)
+        }.store(in: &self.subscriptions)
+        
+        self.viewModel.selectionModeEnabled.sink { [weak self] (value) in
+            self?.tableView.allowsMultipleSelection = value
         }.store(in: &self.subscriptions)
     }
 

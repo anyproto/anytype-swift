@@ -38,7 +38,7 @@ protocol NewModel_SmartBlockActionsServiceProtocol {
 /// NOTE: Use it as default service IF you want to use desired functionality.
 // MARK: - SmartBlockActionsService
 
-fileprivate typealias Namespace = ServiceLayerNewModel
+fileprivate typealias Namespace = ServiceLayerModule
 
 extension Namespace {
     class SmartBlockActionsService: NewModel_SmartBlockActionsServiceProtocol {
@@ -50,7 +50,7 @@ extension Namespace {
 
 // MARK: - SmartBlockActionsService / CreatePage
 extension Namespace.SmartBlockActionsService {
-    typealias Success = ServiceLayerNewModel.Success
+    typealias Success = ServiceLayerModule.Success
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     struct CreatePage: NewModel_SmartBlockActionsServiceProtocolCreatePage {

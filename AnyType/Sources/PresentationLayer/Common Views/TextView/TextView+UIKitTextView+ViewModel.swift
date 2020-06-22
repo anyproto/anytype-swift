@@ -10,15 +10,18 @@ import Foundation
 import UIKit
 import Combine
 
+fileprivate typealias Namespace = TextView.UIKitTextView
+
 // UIView -> Coordinator -> Delegate -> ...
 // UIView -> Coordinator.text -> ???
 // UIView <- ViewModel <(Update)- ViewModel ( special model )
-extension TextView.UIKitTextView {
+extension Namespace {
     class ViewModel {
         // For View
         @Published var update: Update = .unknown
         @Published var shouldSetFocus: Bool = false
-        
+        private var shouldResignFirstResponderSubject: PassthroughSubject<Bool, Never> = .init()
+        var shouldResignFirstResponderPublisher: AnyPublisher<Bool, Never> = .empty()
         // For OuterWorld.
         /// First publisher which manipulates plain old string, text.
         var updatePublisher: AnyPublisher<Update, Never> = .empty()
@@ -52,6 +55,8 @@ extension TextView.UIKitTextView {
             self.updatePublisher = self.coordinator.$text.safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
             self.richUpdatePublisher = self.coordinator.$attributedText.safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
             self.auxiliaryPublisher = self.coordinator.$textAlignment.safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
+            
+            self.shouldResignFirstResponderPublisher = self.shouldResignFirstResponderSubject.eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {
@@ -62,7 +67,7 @@ extension TextView.UIKitTextView {
 }
 
 // MARK: State
-extension TextView.UIKitTextView.ViewModel {
+extension Namespace.ViewModel {
     enum Update {
         struct Payload {
             var attributedString: NSAttributedString
@@ -84,14 +89,21 @@ extension TextView.UIKitTextView.ViewModel {
 }
 
 // MARK: Focus
-extension TextView.UIKitTextView.ViewModel {
+extension Namespace.ViewModel {
     func set(focus: Bool) {
         self.shouldSetFocus = focus
     }
 }
 
+// MARK: Resign First Responder
+extension Namespace.ViewModel {
+    func shouldResignFirstResponder() {
+        self.shouldResignFirstResponderSubject.send(true)
+    }
+}
+
 // MARK: View
-extension TextView.UIKitTextView.ViewModel {
+extension Namespace.ViewModel {
     typealias UIKitView = TextView.UIKitTextView
     func createView() -> UIKitView {
         UIKitView.init().configured(self)
@@ -105,7 +117,7 @@ extension TextView.UIKitTextView.ViewModel {
 }
 
 // MARK: Configuration
-extension TextView.UIKitTextView.ViewModel {
+extension Namespace.ViewModel {
     func configured(_ delegate: TextViewUserInteractionProtocol?) -> Self {
         _ = self.coordinator.configure(delegate)
         return self
@@ -113,7 +125,7 @@ extension TextView.UIKitTextView.ViewModel {
 }
 
 // MARK: Updates
-extension TextView.UIKitTextView.ViewModel {
+extension Namespace.ViewModel {
     typealias Coordinator = TextView.UIKitTextView.Coordinator
     func updateUIView() {
         // do necessary updates here.

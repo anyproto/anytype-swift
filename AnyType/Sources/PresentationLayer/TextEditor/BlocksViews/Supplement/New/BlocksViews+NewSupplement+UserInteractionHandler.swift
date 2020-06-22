@@ -410,9 +410,9 @@ private extension Namespace.UserInteractionHandler {
         
         private let parser: BlocksModels.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
-        private let service: ServiceLayerNewModel.BlockActionsService = .init()
-        private let pageService: ServiceLayerNewModel.SmartBlockActionsService = .init()
-        private let textService: ServiceLayerNewModel.TextBlockActionsService = .init()
+        private let service: ServiceLayerModule.BlockActionsService = .init()
+        private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
+        private let textService: ServiceLayerModule.TextBlockActionsService = .init()
         
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
         

@@ -14,7 +14,7 @@ import os
 fileprivate typealias Namespace = DocumentModule
 
 private extension Logging.Categories {
-    static let treeViewModel: Self = "DocumentModule.DocumentViewModel.Tree"
+    static let documentViewModel: Self = "DocumentModule.DocumentViewModel"
 }
 
 // MARK: State
@@ -57,7 +57,7 @@ extension DocumentModule {
         typealias UserInteractionHandler = BlocksViews.NewSupplement.UserInteractionHandler
         
         /// Service
-        private var blockActionsService: ServiceLayerNewModel.BlockActionsService = .init()
+        private var blockActionsService: ServiceLayerModule.BlockActionsService = .init()
         
         /// Data Transformers
         private var transformer: BlocksModels.Transformer.FinalTransformer = .init()
@@ -69,6 +69,11 @@ extension DocumentModule {
         /// Combine Subscriptions
         private var subscriptions: Set<AnyCancellable> = .init()
         
+        /// Selection Handler
+        var selectionHandlerStorage: DocumentModuleSelectionHandlerProtocol & DocumentModuleSelectionHandlerCellProtocol = Namespace.SelectionHandler.init()
+        var selectionHandler: DocumentModuleSelectionHandlerProtocol { self.selectionHandlerStorage }
+        var selectionModeEnabled: PassthroughSubject<Bool, Never> = .init()
+        
         /// Builders Publisher
         private var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksViews.UserAction, Never>, Never> = .init()
         private var detailsPublisherSubject: PassthroughSubject<AnyPublisher<BlocksViews.UserAction, Never>, Never> = .init()
@@ -79,7 +84,6 @@ extension DocumentModule {
         private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViews.New.Base.ViewModel.ActionsPayload, Never>, Never> = {
             self.buildersActionsPayloadsSubject.eraseToAnyPublisher()
         }()
-        private var buildersActionsPayloadsPublisherSubscription: AnyCancellable?
         
         /// Options property publisher.
         /// We expect that `ViewController` will listen this property.
@@ -172,19 +176,26 @@ extension DocumentModule {
         }
         
         func setupSubscriptions() {
-            self.buildersActionsPayloadsPublisherSubscription = self.buildersActionsPayloadsPublisher.sink { [weak self] (value) in
+            self.buildersActionsPayloadsPublisher.sink { [weak self] (value) in
                 _ = self?.userInteractionHandler.configured(value)
-            }
+            }.store(in: &self.subscriptions)
+            
+            self.buildersActionsPayloadsPublisher.flatMap { (value) in
+                value
+            }.sink { [weak self] (value) in
+                self?.process(actionsPayload: value)
+            }.store(in: &self.subscriptions)
+            
         }
         
         // MARK: Initialization
         init(documentId: String?, options: Options) {
             // TODO: Add failable init.
-            let logger = Logging.createLogger(category: .treeViewModel)
+            let logger = Logging.createLogger(category: .documentViewModel)
             os_log(.debug, log: logger, "Don't forget to change to failable init?()")
             
             guard let documentId = documentId else {
-                let logger = Logging.createLogger(category: .treeViewModel)
+                let logger = Logging.createLogger(category: .documentViewModel)
                 os_log(.debug, log: logger, "Don't pass nil documentId to DocumentViewModel.init()")
                 return
             }
@@ -207,7 +218,10 @@ extension DocumentModule {
             self.obtainDocument(documentId: documentId)
             
             self.$builders.sink { [weak self] value in
-                self?.buildersRows = value.compactMap(Row.init)
+                self?.buildersRows = value.compactMap(Row.init).map({ (value) in
+                    var value = value
+                    return value.configured(selectionHandler: self?.selectionHandlerStorage)
+                })
             }.store(in: &self.subscriptions)
             
             self.anyFieldPublisher = self.$builders
@@ -239,6 +253,7 @@ extension DocumentModule {
         
         // TODO: Add caching?
         private func update(builders: [BlockViewBuilderProtocol]) {
+            /// We should add caching, otherwise, we will miss updates from long-playing views as file uploading or downloading views.
 //            let difference = builders.difference(from: self.builders) { $0.blockId == $1.blockId }
 //            if let result = self.builders.applying(difference) {
 //                self.builders = result
@@ -322,37 +337,10 @@ extension DocumentModule {
     }
 }
 
-// MARK: Find Block
-private extension Namespace.DocumentViewModel {
-    func find(by blockId: String) -> BlocksViews.Base.ViewModel? {
-        self.buildersRows.first { (row) in
-            row.builder?.blockId == blockId
-        }.map(\.builder).flatMap{$0 as? BlocksViews.Base.ViewModel}
-    }
-}
-
 // MARK: Reactions
 private extension Namespace.DocumentViewModel {
     func process(reaction: UserInteractionHandler.Reaction) {
         switch reaction {
-        case let .focus(value):
-            let payload = value.payload
-            let position = value.position
-            // find viewModelBuilder first.
-            let viewModel = self.find(by: payload.blockId) as? TextBlocksViews.Base.BlockViewModel
-            viewModel?.set(focus: true) // here we send .set(focus: Bool) to correct viewModel.
-            switch position {
-            case .beginning: return
-            case .end: return
-            case let .at(value): return
-            default: return
-            }
-        case let .shouldOpenPage(value):
-            // we should open this page.
-            // so, tell view controller to open page, yes?..
-            let blockId = value.payload.blockId
-            // tell view controller to open page.
-        
         case let .shouldHandleEvent(value):
             let events = value.payload.events.events.compactMap(\.value)
             self.eventHandler?.handle(events: events)
@@ -465,7 +453,9 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
         guard self.builders.indices.contains(at.row) else {
             return .init(builder: TextBlocksViews.Base.BlockViewModel.empty)
         }
-        return .init(builder: self.builders[at.row])
+        var row = Row.init(builder: self.builders[at.row])
+        row.configured(selectionHandler: self.selectionHandlerStorage)
+        return row
     }
     
     struct Section {
@@ -479,23 +469,57 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
         /// We should add information as structure ( which is immutable )
         /// And use it as presentation structure for cell.
         weak var builder: BlockViewBuilderProtocol?
-        var indentationLevel: UInt {
-            //            return 0
-            (builder as? BlocksViews.New.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
-        }
+        weak var selectionHandler: DocumentModuleSelectionHandlerCellProtocol?
         var information: BlocksModelsInformationModelProtocol?
         init(builder: BlockViewBuilderProtocol?) {
             self.builder = builder
             self.information = (self.builder as? BlocksViews.New.Base.ViewModel)?.getBlock().blockModel.information
         }
-        func rebuilded() -> Self {
-            .init(builder: self.builder)
+        
+        struct CachedDiffable: Hashable {
+            var selected: Bool = false
+            mutating func set(selected: Bool) {
+                self.selected = selected
+            }
         }
-        func diffable() -> AnyHashable? {
-            self.information?.diffable()
-        }
+        
+        var cachedDiffable: CachedDiffable = .init()
     }
 }
+
+// MARK: - TableViewModelProtocol.Row / Configurations
+extension Namespace.DocumentViewModel.Row {
+    mutating func configured(selectionHandler: DocumentModuleSelectionHandlerCellProtocol?) -> Self {
+        self.selectionHandler = selectionHandler
+        self.cachedDiffable = .init(selected: self.isSelected)
+        return self
+    }
+}
+
+// MARK: - TableViewModelProtocol.Row / Indentation level
+extension Namespace.DocumentViewModel.Row {
+    var indentationLevel: UInt {
+        (self.builder as? BlocksViews.New.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
+    }
+}
+
+// MARK: - TableViewModelProtocol.Row / Rebuilding and Diffable
+extension Namespace.DocumentViewModel.Row {
+    func rebuilded() -> Self {
+        .init(builder: self.builder)
+    }
+    func diffable() -> AnyHashable? {
+        self.information?.diffable()
+    }
+}
+
+// MARK: - TableViewModelProtocol.Row / Selection
+extension Namespace.DocumentViewModel.Row: DocumentModuleSelectionCellProtocol {
+    func getSelectionKey() -> BlockId? {
+        (self.builder as? BlocksViews.New.Base.ViewModel)?.getBlock().blockModel.information.id
+    }
+}
+
 
 // MARK: - TableViewModelProtocol.Section
 extension Namespace.DocumentViewModel.Section: Hashable {}
@@ -517,7 +541,7 @@ extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
 //        }
 //
 //        return equalIds
-        lhs.diffable() == rhs.diffable()
+        lhs.diffable() == rhs.diffable() && lhs.cachedDiffable == rhs.cachedDiffable
     }
     
     func hash(into hasher: inout Hasher) {
@@ -526,7 +550,7 @@ extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
 //            let identifier = BlocksModels.Utilities.ContentIdentifier.identifier(for: block.blockModel.information)
 //            hasher.combine(identifier)
 //        }
-        hasher.combine(self.diffable())
+        hasher.combine(self.diffable())        
     }
 }
 
@@ -534,11 +558,43 @@ extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
 extension Namespace.DocumentViewModel {
     
     func didSelectBlock(at index: IndexPath) {
-        let item = element(at: index)
         // dispatch event
-        if let builder = item.builder as? BlocksViews.New.Base.ViewModel {
+        
+        if self.selectionEnabled() {
+            self.didSelect(atIndex: index)
+            return
+        }
+        
+        if let builder = element(at: index).builder as? BlocksViews.New.Base.ViewModel {
             builder.receive(event: .didSelectRowInTableView)
         }
     }
     
+}
+
+// MARK: Selection Handling
+private extension Namespace.DocumentViewModel {
+    func process(actionsPayload: BlocksViews.New.Base.ViewModel.ActionsPayload) {
+        switch actionsPayload {
+        case let .textView(value):
+            switch value.action {
+            case .textView(.showMultiActionMenuAction(.showMultiActionMenu)):
+                self.set(selectionEnabled: true)
+                self.selectionModeEnabled.send(self.selectionEnabled())
+            default: return
+            }
+        default: return
+        }
+    }
+    func didSelect(atIndex: IndexPath) {
+        let item = element(at: atIndex)
+        // so, we have to toggle item at index.
+        let newValue = !item.isSelected
+        if let key = item.getSelectionKey() {
+            self.selectionHandlerStorage.set(selected: newValue, id: key)
+            // TODO: We should subscribe on updates in our cells and update them.
+            /// For now we use `reloadData`
+            self.syncBuilders()
+        }
+    }
 }

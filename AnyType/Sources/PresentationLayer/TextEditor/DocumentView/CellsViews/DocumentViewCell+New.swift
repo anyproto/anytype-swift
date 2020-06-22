@@ -16,7 +16,7 @@ extension Namespace {
     enum DocumentViewCells {}
 }
 
-extension DocumentModule.DocumentViewCells {
+extension Namespace.DocumentViewCells {
     class Cell: UITableViewCell {
         struct Options {
             var useUIKit: Bool = true
@@ -122,7 +122,7 @@ extension DocumentModule.DocumentViewCells {
 }
 
 // MARK: Configured
-extension DocumentModule.DocumentViewCells.Cell {
+extension Namespace.DocumentViewCells.Cell {
     class ViewBuilder {
         
         class func createView(_ model: BlockViewBuilderProtocol?, useUIKit: Bool) -> UIView? {
@@ -161,28 +161,32 @@ extension DocumentModule.DocumentViewCells.Cell {
                 self.containerView?.addSubview(view)
        
                 //TODO: Need to rething here for all blocks about insets
-                let needFullWidth = model.builder is FileBlocksViews.Base.BlockViewModel
                 
-                let indentation = needFullWidth ? 0.0 : CGFloat(viewModel.indentationLevel + 1)
+                let indentation = CGFloat(viewModel.indentationLevel + 1)
                 self.indentationConstraint?.constant = indentation * CGFloat(self.layout.indentationWidth)
+
                 if let superview = view.superview {
-                    let spacer: CGFloat = CGFloat(needFullWidth ? self.layout.zero: self.layout.containedViewInset)
+                    view.translatesAutoresizingMaskIntoConstraints = false
+                    let spacer: CGFloat = CGFloat(self.layout.containedViewInset)
                     NSLayoutConstraint.activate([
                         view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: spacer),
                         view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -spacer),
                         view.topAnchor.constraint(equalTo: superview.topAnchor, constant: spacer),
                         view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -spacer)
                     ])
-                    view.translatesAutoresizingMaskIntoConstraints = false
                     view.clipsToBounds = true
                 }
             }
+            
+            self.onSelectionStateChange()
         }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.model = nil
         self.containedView?.removeFromSuperview()
+        self.containedView = nil
     }
     
     func configured(_ model: Model) -> Self {
@@ -205,8 +209,20 @@ extension DocumentModule.DocumentViewCells.Cell {
     }
 }
 
+// MARK: Selection support
+extension Namespace.DocumentViewCells.Cell {
+    func onSelectionStateChange() {
+        let isSelected = self.model?.isSelected ?? false
+        self.contentView.backgroundColor = isSelected ? UIColor.lightGray.withAlphaComponent(0.6) : .clear
+        self.contentView.layer.cornerRadius = isSelected ? 2.0 : 0.0
+    }
+    func on(selectionEnabledChange: Bool) {
+        self.contentView.isUserInteractionEnabled = selectionEnabledChange
+    }
+}
+
 // MARK: Toggle
-extension DocumentModule.DocumentViewCells.Cell {
+extension Namespace.DocumentViewCells.Cell {
     func update(options: Options) {
         if self.options.shouldShowIndent != options.shouldShowIndent {
             self.boundaryRevealConstraint?.constant = options.shouldShowIndent ? CGFloat(self.layout.boundaryWidth) : 0

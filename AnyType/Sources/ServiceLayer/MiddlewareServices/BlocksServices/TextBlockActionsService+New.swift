@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import UIKit
 
-fileprivate typealias Namespace = ServiceLayerNewModel
+fileprivate typealias Namespace = ServiceLayerModule
 
 // MARK: - Actions Protocols
 /// Protocol for `Set Text and Marks` for text block.
@@ -83,7 +83,7 @@ extension Namespace {
 }
 
 extension Namespace.TextBlockActionsService {
-    typealias Success = ServiceLayerNewModel.Success
+    typealias Success = ServiceLayerModule.Success
     // MARK: SetText
     struct SetText: NewModel_TextBlockActionsServiceProtocolSetText {
         func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Never, Error> {

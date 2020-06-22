@@ -9,18 +9,7 @@
 import Foundation
 import Combine
 
-fileprivate typealias Namespace = ServiceLayerNewModel
-
-enum ServiceLayerNewModel {
-    struct Success {
-        var contextID: String
-        var messages: [Anytype_Event.Message]
-        init(_ value: Anytype_ResponseEvent) {
-            self.contextID = value.contextID
-            self.messages = value.messages
-        }
-    }
-}
+fileprivate typealias Namespace = ServiceLayerModule
 
 protocol NewModel_BlockActionsServiceProtocolOpen {
     associatedtype Success
@@ -106,7 +95,7 @@ extension Namespace {
 
 // MARK: Actions
 extension Namespace.BlockActionsService {
-    typealias Success = ServiceLayerNewModel.Success
+    typealias Success = ServiceLayerModule.Success
     
     // MARK: Open / Close
     struct Open: NewModel_BlockActionsServiceProtocolOpen {

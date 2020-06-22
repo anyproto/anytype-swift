@@ -18,7 +18,7 @@ extension BlocksViews.NewSupplement.File {
         // MARK: Convert Blocks
         private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
             switch information.content {
-            case let .file(value) where value.contentType == .image: return [BlocksViews.New.File.Image.ViewModel.init(model)] + model.childrenIds().compactMap({model.findChild(by: $0)}).flatMap(self.toList)
+            case let .file(value) where value.contentType == .image: return [BlocksViews.New.File.Image.ViewModel.init(model)] + model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList)
             default: return []
             }
         }

@@ -174,6 +174,7 @@
 		0A2ADCEA2497CFDC00FA135D /* TextBlockActionsService+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE92497CFDC00FA135D /* TextBlockActionsService+New.swift */; };
 		0A2ADCEC2497DC9800FA135D /* DocumentViewModel+New+EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCEB2497DC9800FA135D /* DocumentViewModel+New+EventHandler.swift */; };
 		0A2ADCEE2497F4E000FA135D /* BlocksModels+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCED2497F4E000FA135D /* BlocksModels+Utilities.swift */; };
+		0A2ADCF2249BB12E00FA135D /* DocumentViewModel+New+SelectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCF1249BB12E00FA135D /* DocumentViewModel+New+SelectionHandler.swift */; };
 		0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D50247144F3008ADD86 /* TextView+UIKitTextView+Coordinator.swift */; };
 		0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D51247144F3008ADD86 /* TextView+UIKitTextView+TextView.swift */; };
 		0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D52247144F4008ADD86 /* TextView+UIKitTextView.swift */; };
@@ -294,6 +295,8 @@
 		0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781523E5C99A00442690 /* AppearanceService.swift */; };
 		0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781B23E5C9A300442690 /* AssetsReader.swift */; };
 		0ACA782023E5D5AC00442690 /* TextBlocksViews+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */; };
+		0ACFCCF7249C17B5002E0477 /* BlockListActionsService+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockListActionsService+New.swift */; };
+		0ACFCCF9249C17DC002E0477 /* ServiceLayerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF8249C17DC002E0477 /* ServiceLayerModule.swift */; };
 		0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */; };
 		0ADE618F24488C5400244E49 /* FileBlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618E24488C5400244E49 /* FileBlocksViews+UserActions.swift */; };
 		0ADE619124488C6600244E49 /* ToolsBlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* ToolsBlocksViews+UserActions.swift */; };
@@ -516,6 +519,7 @@
 		0A2ADCE92497CFDC00FA135D /* TextBlockActionsService+New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockActionsService+New.swift"; sourceTree = "<group>"; };
 		0A2ADCEB2497DC9800FA135D /* DocumentViewModel+New+EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+New+EventHandler.swift"; sourceTree = "<group>"; };
 		0A2ADCED2497F4E000FA135D /* BlocksModels+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModels+Utilities.swift"; sourceTree = "<group>"; };
+		0A2ADCF1249BB12E00FA135D /* DocumentViewModel+New+SelectionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+New+SelectionHandler.swift"; sourceTree = "<group>"; };
 		0A2C0D50247144F3008ADD86 /* TextView+UIKitTextView+Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+Coordinator.swift"; sourceTree = "<group>"; };
 		0A2C0D51247144F3008ADD86 /* TextView+UIKitTextView+TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+TextView.swift"; sourceTree = "<group>"; };
 		0A2C0D52247144F4008ADD86 /* TextView+UIKitTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView.swift"; sourceTree = "<group>"; };
@@ -629,6 +633,8 @@
 		0ACA781523E5C99A00442690 /* AppearanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceService.swift; sourceTree = "<group>"; };
 		0ACA781B23E5C9A300442690 /* AssetsReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsReader.swift; sourceTree = "<group>"; };
 		0ACA781F23E5D5AC00442690 /* TextBlocksViews+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+Base.swift"; sourceTree = "<group>"; };
+		0ACFCCF6249C17B5002E0477 /* BlockListActionsService+New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockListActionsService+New.swift"; sourceTree = "<group>"; };
+		0ACFCCF8249C17DC002E0477 /* ServiceLayerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLayerModule.swift; sourceTree = "<group>"; };
 		0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserActions.swift"; sourceTree = "<group>"; };
 		0ADE618E24488C5400244E49 /* FileBlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBlocksViews+UserActions.swift"; sourceTree = "<group>"; };
 		0ADE619024488C6600244E49 /* ToolsBlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToolsBlocksViews+UserActions.swift"; sourceTree = "<group>"; };
@@ -1530,6 +1536,7 @@
 				0A10CC9E24901DB0000FF498 /* DocumentViewBuilder+New.swift */,
 				0A10CCA024901DBF000FF498 /* DocumentViewRepresentable+New.swift */,
 				0A2ADCEB2497DC9800FA135D /* DocumentViewModel+New+EventHandler.swift */,
+				0A2ADCF1249BB12E00FA135D /* DocumentViewModel+New+SelectionHandler.swift */,
 			);
 			path = NewView;
 			sourceTree = "<group>";
@@ -1620,6 +1627,8 @@
 				0A63ADE624648C9D00F092C8 /* TextBlockActionsService.swift */,
 				0A2ADCE32496C09A00FA135D /* BlockActionService+New.swift */,
 				0A2ADCE92497CFDC00FA135D /* TextBlockActionsService+New.swift */,
+				0ACFCCF6249C17B5002E0477 /* BlockListActionsService+New.swift */,
+				0ACFCCF8249C17DC002E0477 /* ServiceLayerModule.swift */,
 			);
 			path = BlocksServices;
 			sourceTree = "<group>";
@@ -2221,6 +2230,7 @@
 				0A10CC7A248ECF12000FF498 /* BlocksViews+New+Tools.swift in Sources */,
 				0A9D49E9244A0F83007F0992 /* DocumentViewRouting+File.swift in Sources */,
 				0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */,
+				0ACFCCF7249C17B5002E0477 /* BlockListActionsService+New.swift in Sources */,
 				0A0AA752240185EE003A2935 /* BlockModel+Parser.swift in Sources */,
 				0A2ADCE02496921500FA135D /* EventListening.swift in Sources */,
 				0ADE619124488C6600244E49 /* ToolsBlocksViews+UserActions.swift in Sources */,
@@ -2228,10 +2238,12 @@
 				0ACA77D923E4482000442690 /* commands+ErrorAdoption.pb.swift in Sources */,
 				0A996BB123EDBCB8000FDC9C /* DeveloperOptions+Model.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
+				0ACFCCF9249C17DC002E0477 /* ServiceLayerModule.swift in Sources */,
 				0A996BBD23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift in Sources */,
 				0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */,
 				A3D65599246D80EB00292F10 /* PageBlocksViews+IconEmoji.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
+				0A2ADCF2249BB12E00FA135D /* DocumentViewModel+New+SelectionHandler.swift in Sources */,
 				0327B0B8232BBAD9007DB8A7 /* TestDocumentService.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */,
 				0A9D49E52449F1AD007F0992 /* DocumentViewRouting+Protocols.swift in Sources */,

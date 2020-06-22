@@ -32,12 +32,7 @@ extension BlocksViews.New.File.Image {
             fileView = FileImageBlockView().configured(with: self.fileBlock)
             return fileView
         }
-        
-        // TODO: Change it in future tasks
-        override func indentationLevel() -> UInt {
-            return 0
-        }
-        
+                
         // MARK: Subclassing
         override init(_ block: BlockModel) {
             super.init(block)

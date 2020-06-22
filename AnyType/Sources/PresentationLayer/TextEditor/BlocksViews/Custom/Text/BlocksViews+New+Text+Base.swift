@@ -323,6 +323,11 @@ extension BlocksViews.New.Text.Base.ViewModel: TextViewUserInteractionProtocol {
             switch value {
             case .addBlock: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
             }
+        
+        case .showMultiActionMenuAction(.showMultiActionMenu):
+            self.getUIKitViewModel().shouldResignFirstResponder()
+            self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
+            
         default: self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
         }
     }
