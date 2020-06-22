@@ -24,7 +24,13 @@ extension Namespace.SelectionHandler {
         private var selectedIds: Ids = .init()
         
         /// Flag that determines if user initiates selection mode.
-        private var isSelectionEnabled: Bool = false
+        private var isSelectionEnabled: Bool = false {
+            didSet {
+                if !self.isSelectionEnabled {
+                    self.clear()
+                }
+            }
+        }
         
         // MARK: Selection
         func selectionEnabled() -> Bool { self.isSelectionEnabled }
@@ -33,6 +39,8 @@ extension Namespace.SelectionHandler {
         mutating func stopSelection() { self.isSelectionEnabled = false }
         
         // MARK: Ids
+        func isEmpty() -> Bool { self.selectedIds.isEmpty }
+        func count() -> Int { self.selectedIds.count }
         func listSelectedIds() -> [Id] { .init(self.selectedIds) }
         func contains(id: Id) -> Bool { self.selectedIds.contains(id) }
         mutating func set(ids: Ids) { self.selectedIds = ids }
@@ -45,13 +53,66 @@ extension Namespace.SelectionHandler {
 
 extension Namespace {
     class SelectionHandler {
-        /// It will publish actions (?)
-        private var storage: Storage = .init()
+        typealias SelectionEvent = DocumentModule.SelectionEvent
+        /// Publishers
+        private var subscription: AnyCancellable?
+        private var storageEventsSubject: PassthroughSubject<SelectionEvent, Never> = .init()
+        private var storageEventsPublisher: AnyPublisher<SelectionEvent, Never> = .empty()
+        /// Storage
+        @Published private var storage: Storage = .init() {
+            didSet {
+                self.subscription = self.$storage.sink { [weak self] (value) in
+                    self?.handle(value)
+                }
+            }
+        }
+        
+        /// Updates
+        private func storageEvent(from storage: Storage) -> SelectionEvent {
+            if !storage.selectionEnabled() {
+                return .selectionDisabled
+            }
+            if storage.isEmpty() {
+                return .selectionEnabled
+            }
+            return .selectionEnabled(.nonEmpty(.init(storage.count())))
+        }
+        
+        private func handle(_ storageUpdate: Storage) {
+            self.storageEventsSubject.send(self.storageEvent(from: storageUpdate))
+        }
+        
+        /// Setup
+        func setup() {
+            self.storageEventsPublisher = self.storageEventsSubject.eraseToAnyPublisher()
+        }
+        
+        // MARK: - Initialization
+        init() {
+            self.setup()
+        }
+    }
+}
+
+extension Namespace {
+    enum SelectionEvent {
+        enum CountEvent {
+            static var `default`: Self = .isEmpty
+            case isEmpty
+            case nonEmpty(UInt)
+            static func from(_ value: Int) -> Self {
+                value <= 0 ? .isEmpty : nonEmpty(.init(value))
+            }
+        }
+        case selectionDisabled
+        case selectionEnabled(CountEvent)
+        static var selectionEnabled: Self = .selectionEnabled(.default)
     }
 }
 
 protocol DocumentModuleSelectionHandlerProtocol {
     typealias BlockId = BlocksModels.Aliases.BlockId
+    typealias SelectionEvent = DocumentModule.SelectionEvent
     func selectionEnabled() -> Bool
     func set(selectionEnabled: Bool)
     
@@ -60,6 +121,8 @@ protocol DocumentModuleSelectionHandlerProtocol {
     func toggle(_ id: BlockId)
     func list() -> [BlockId]
     func clear()
+    
+    func selectionEventPublisher() -> AnyPublisher<DocumentModule.SelectionEvent, Never>
 }
 
 extension Namespace.SelectionHandler: DocumentModuleSelectionHandlerProtocol {
@@ -87,6 +150,10 @@ extension Namespace.SelectionHandler: DocumentModuleSelectionHandlerProtocol {
     
     func clear() {
         self.storage.clear()
+    }
+    
+    func selectionEventPublisher() -> AnyPublisher<DocumentModule.SelectionEvent, Never> {
+        self.storageEventsPublisher
     }
 }
 
@@ -160,6 +227,10 @@ extension DocumentModuleHasSelectionHandlerProtocol {
         
     func clear() {
         self.selectionHandler.clear()
+    }
+    
+    func selectionEventPublisher() -> AnyPublisher<DocumentModule.SelectionEvent, Never> {
+        self.selectionHandler.selectionEventPublisher()
     }
 }
 

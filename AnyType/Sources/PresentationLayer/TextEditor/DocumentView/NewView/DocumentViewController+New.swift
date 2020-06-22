@@ -41,6 +41,12 @@ extension Namespace {
             self.headerViewModel.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
         }()
         
+        /// Selection
+        private var selectionHandler: SelectionHandler = .init()
+        lazy var selectionHandlerPublisher: AnyPublisher<SelectionHandler.SelectionAction, Never> = {
+            self.selectionHandler.userAction
+        }()
+        
         /// Routing
         /// TODO: Remove it later.
         private var router: DocumentViewRoutingOutputProtocol?
@@ -56,9 +62,11 @@ extension Namespace {
 
         /// Views
         private lazy var tableView: UITableView = {
-            var tableView = UITableView()
-            var tableViewController = UITableViewController()
-            tableView = tableViewController.tableView
+            let tableViewController = UITableViewController()
+            guard let tableView = tableViewController.tableView else {
+                /// Actually, not called, but is required by Swift type system.
+                return .init()
+            }
             tableView.translatesAutoresizingMaskIntoConstraints = false
 
             // add tvc to parent vc
@@ -82,6 +90,14 @@ extension Namespace {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+    }
+}
+
+// MARK: - Selection Handling
+extension Namespace.DocumentViewController {
+    private func configured(selectionEventsPublisher: AnyPublisher<DocumentModule.SelectionEvent, Never>) -> Self {
+        _ = self.selectionHandler.configured(tableView: self.tableView).configured(selectionEventPublisher: selectionEventsPublisher)
+        return self
     }
 }
 
@@ -249,9 +265,9 @@ private extension Namespace.DocumentViewController {
             self?.updateIds(value)
         }.store(in: &self.subscriptions)
         
-        self.viewModel.selectionModeEnabled.sink { [weak self] (value) in
-            self?.tableView.allowsMultipleSelection = value
-        }.store(in: &self.subscriptions)
+        /// Selection
+        _ = self.configured(selectionEventsPublisher: self.viewModel.selectionEventPublisher())
+        self.viewModel.configured(multiSelectionUserActionPublisher: self.selectionHandlerPublisher)
     }
 
     func configured(_ options: ViewModel.Options) {

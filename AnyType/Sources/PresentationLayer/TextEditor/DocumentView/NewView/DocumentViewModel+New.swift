@@ -72,7 +72,6 @@ extension DocumentModule {
         /// Selection Handler
         var selectionHandlerStorage: DocumentModuleSelectionHandlerProtocol & DocumentModuleSelectionHandlerCellProtocol = Namespace.SelectionHandler.init()
         var selectionHandler: DocumentModuleSelectionHandlerProtocol { self.selectionHandlerStorage }
-        var selectionModeEnabled: PassthroughSubject<Bool, Never> = .init()
         
         /// Builders Publisher
         private var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksViews.UserAction, Never>, Never> = .init()
@@ -580,7 +579,6 @@ private extension Namespace.DocumentViewModel {
             switch value.action {
             case .textView(.showMultiActionMenuAction(.showMultiActionMenu)):
                 self.set(selectionEnabled: true)
-                self.selectionModeEnabled.send(self.selectionEnabled())
             default: return
             }
         default: return
@@ -596,5 +594,37 @@ private extension Namespace.DocumentViewModel {
             /// For now we use `reloadData`
             self.syncBuilders()
         }
+    }
+    func process(_ value: DocumentModule.DocumentViewController.SelectionHandler.SelectionAction) {
+        switch value {
+        case let .selection(value):
+            switch value {
+            case .selectAll:
+                self.selectAll()
+                self.syncBuilders()
+            case .deselectAll:
+                self.deselectAll()
+                self.syncBuilders()
+            case .done:
+                self.set(selectionEnabled: false)
+                self.syncBuilders()
+            }
+        case let .toolbar(value):
+            switch value {
+            case .turnInto: break
+            case .delete: break
+            case .copy: break
+            default: break
+            }
+        }
+    }
+}
+
+extension Namespace.DocumentViewModel {
+    func configured(multiSelectionUserActionPublisher: AnyPublisher<DocumentModule.DocumentViewController.SelectionHandler.SelectionAction, Never>) -> Self {
+        multiSelectionUserActionPublisher.sink { [weak self] (value) in
+            self?.process(value)
+        }.store(in: &self.subscriptions)
+        return self
     }
 }
