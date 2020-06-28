@@ -1,5 +1,5 @@
 //
-//  DocumentViewModel+New+SelectionHandler.swift
+//  DocumentModule+Selection+Handler.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 17.06.2020.
@@ -14,9 +14,9 @@ private extension Logging.Categories {
     static let selectionHandler: Self = "DocumentModule.DocumentViewModel.SelectionHandler"
 }
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.Selection
 
-extension Namespace.SelectionHandler {
+extension Namespace.Handler {
     struct Storage {
         typealias Id = BlocksModels.Aliases.BlockId
         typealias Ids = Set<Id>
@@ -52,8 +52,8 @@ extension Namespace.SelectionHandler {
 }
 
 extension Namespace {
-    class SelectionHandler {
-        typealias SelectionEvent = DocumentModule.SelectionEvent
+    class Handler {
+        typealias SelectionEvent = DocumentModule.Selection.IncomingEvent
         /// Publishers
         private var subscription: AnyCancellable?
         private var storageEventsSubject: PassthroughSubject<SelectionEvent, Never> = .init()
@@ -95,7 +95,7 @@ extension Namespace {
 }
 
 extension Namespace {
-    enum SelectionEvent {
+    enum IncomingEvent {
         enum CountEvent {
             static var `default`: Self = .isEmpty
             case isEmpty
@@ -110,22 +110,7 @@ extension Namespace {
     }
 }
 
-protocol DocumentModuleSelectionHandlerProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
-    typealias SelectionEvent = DocumentModule.SelectionEvent
-    func selectionEnabled() -> Bool
-    func set(selectionEnabled: Bool)
-    
-    func select(ids: Set<BlockId>)
-    
-    func toggle(_ id: BlockId)
-    func list() -> [BlockId]
-    func clear()
-    
-    func selectionEventPublisher() -> AnyPublisher<DocumentModule.SelectionEvent, Never>
-}
-
-extension Namespace.SelectionHandler: DocumentModuleSelectionHandlerProtocol {
+extension Namespace.Handler: DocumentModuleSelectionHandlerProtocol {
     func selectionEnabled() -> Bool {
         self.storage.selectionEnabled()
     }
@@ -152,103 +137,19 @@ extension Namespace.SelectionHandler: DocumentModuleSelectionHandlerProtocol {
         self.storage.clear()
     }
     
-    func selectionEventPublisher() -> AnyPublisher<DocumentModule.SelectionEvent, Never> {
+    func selectionEventPublisher() -> AnyPublisher<SelectionEvent, Never> {
         self.storageEventsPublisher
     }
-}
-
-protocol DocumentModuleSelectionHandlerCellProtocol: class {
-    typealias BlockId = BlocksModels.Aliases.BlockId
-    func set(selected: Bool, id: BlockId)
-    func selected(id: BlockId) -> Bool
-}
-
-extension Namespace.SelectionHandler: DocumentModuleSelectionHandlerCellProtocol {
+    
     func set(selected: Bool, id: BlockId) {
         let contains = self.storage.contains(id: id)
         if contains != selected {
             self.storage.toggle(id: id)
         }
     }
+    
     func selected(id: BlockId) -> Bool {
         self.storage.contains(id: id)
-    }
-}
-
-// MARK: Selection / Cell Protocol
-/// Adopt this protocol by a cell or a cell (view?) model.
-protocol DocumentModuleSelectionCellProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
-    func getSelectionKey() -> BlockId?
-    var selectionHandler: DocumentModuleSelectionHandlerCellProtocol? {get}
-}
-
-extension DocumentModuleSelectionCellProtocol {
-    var isSelected: Bool {
-        get {
-            if let key = self.getSelectionKey(), let handler = self.selectionHandler {
-                return handler.selected(id: key)
-            }
-            return false
-        }
-        set {
-            if let key = self.getSelectionKey(), let handler = self.selectionHandler {
-                handler.set(selected: newValue, id: key)
-            }
-        }
-    }
-}
-
-// MARK: Selection / DocumentViewModel Protocol
-protocol DocumentModuleHasSelectionHandlerProtocol: DocumentModuleSelectionHandlerProtocol {
-    var selectionHandler: DocumentModuleSelectionHandlerProtocol {get}
-}
-
-extension DocumentModuleHasSelectionHandlerProtocol {
-    func selectionEnabled() -> Bool {
-        self.selectionHandler.selectionEnabled()
-    }
-    
-    func set(selectionEnabled: Bool) {
-        self.selectionHandler.set(selectionEnabled: selectionEnabled)
-    }
-        
-    func select(ids: Set<BlockId>) {
-        self.selectionHandler.select(ids: ids)
-    }
-            
-    func toggle(_ id: BlockId) {
-        self.selectionHandler.toggle(id)
-    }
-    
-    func list() -> [BlockId] {
-        self.selectionHandler.list()
-    }
-        
-    func clear() {
-        self.selectionHandler.clear()
-    }
-    
-    func selectionEventPublisher() -> AnyPublisher<DocumentModule.SelectionEvent, Never> {
-        self.selectionHandler.selectionEventPublisher()
-    }
-}
-
-// MARK: Selection / SelectionHandler Holder protocol
-/// Should be adopted by Document View model.
-protocol DocumentModuleSelectionHandlerHolderProtocol: DocumentModuleHasSelectionHandlerProtocol {
-    func selectAll()
-}
-
-extension DocumentModuleSelectionHandlerHolderProtocol {
-    func deselectAll() {
-        self.clear()
-    }
-    func done() {
-        self.clear()
-    }
-    func isEmpty() -> Bool {
-        self.list().isEmpty
     }
 }
 

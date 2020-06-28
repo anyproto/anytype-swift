@@ -54,9 +54,11 @@ extension FileNamespace {
             case .isEmpty:
                 self.titleLabel.text = "Select or drag and drop blocks"
                 self.stackView.isHidden = true
+                self.stackViewLeadingConstraint?.isActive = false
             case let .nonEmpty(value):
                 self.titleLabel.text = "\(value) blocks selected"
                 self.stackView.isHidden = false
+                self.stackViewLeadingConstraint?.isActive = true
             }
         }
         
@@ -88,7 +90,7 @@ extension FileNamespace {
 
             self.turnIntoButton.addTarget(self, action: #selector(Self.processTurnInto), for: .touchUpInside)
             self.deleteButton.addTarget(self, action: #selector(Self.processDelete), for: .touchUpInside)
-            self.copyButton.addTarget(self, action: #selector(Self.processTurnInto), for: .touchUpInside)
+            self.copyButton.addTarget(self, action: #selector(Self.processCopy), for: .touchUpInside)
         }
 
         private func setupInteraction() {
@@ -113,10 +115,13 @@ extension FileNamespace {
 
         private var stackView: UIStackView!
         private var contentView: UIView!
+        
+        // MARK: Layout
+        private var stackViewLeadingConstraint: NSLayoutConstraint?
 
         // MARK: Setup UI Elements
         func setupUIElements() {
-            self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.translatesAutoresizingMaskIntoConstraints = false
             self.titleLabel = {
                 let view = UILabel()
                 view.translatesAutoresizingMaskIntoConstraints = false
@@ -126,21 +131,21 @@ extension FileNamespace {
             self.turnIntoButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
-                view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/New/ActionsToolbar/AddBlock"), for: .normal)
+                view.setImage(UIImage(named: "TextEditor/Panes/MultiSelection/Toolbar/TurnInto"), for: .normal)
                 return view
             }()
 
             self.deleteButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
-                view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/New/ActionsToolbar/MultiActionMenu"), for: .normal)
+                view.setImage(UIImage(named: "TextEditor/Panes/MultiSelection/Toolbar/Delete"), for: .normal)
                 return view
             }()
 
             self.copyButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
-                view.setImage(UIImage(named: "TextEditor/Toolbar/Blocks/New/ActionsToolbar/DismissKeyboard"), for: .normal)
+                view.setImage(UIImage(named: "TextEditor/Panes/MultiSelection/Toolbar/More"), for: .normal)
                 return view
             }()
 
@@ -177,6 +182,7 @@ extension FileNamespace {
             }
             
             if let view = self.stackView, let superview = view.superview, let leftView = self.titleLabel {
+                self.stackViewLeadingConstraint = view.leadingAnchor.constraint(equalTo: superview.centerXAnchor)
                 view.leadingAnchor.constraint(greaterThanOrEqualTo: leftView.trailingAnchor).isActive = true
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -offset).isActive = true
                 view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true

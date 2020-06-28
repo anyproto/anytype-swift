@@ -27,12 +27,14 @@ extension Namespace.DocumentViewController {
 extension Namespace {
     class DocumentViewController: UIViewController {
         typealias ViewModel = DocumentModule.DocumentViewModel
+        typealias ListDiffableDataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
+        typealias ListDiffableDataSourceSnapshot = NSDiffableDataSourceSnapshot<ViewModel.Section, ViewModel.Row>
         
         /// Environment
         @Environment(\.developerOptions) private var developerOptions
         
         /// DataSource
-        private var dataSource: UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>?
+        private var dataSource: ListDiffableDataSource?
 
         /// Model
         private var viewModel: ViewModel
@@ -40,17 +42,7 @@ extension Namespace {
         lazy var headerViewModelPublisher: AnyPublisher<HeaderView.UserAction, Never> = {
             self.headerViewModel.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
         }()
-        
-        /// Selection
-        private var selectionHandler: SelectionHandler = .init()
-        lazy var selectionHandlerPublisher: AnyPublisher<SelectionHandler.SelectionAction, Never> = {
-            self.selectionHandler.userAction
-        }()
-        
-        /// Routing
-        /// TODO: Remove it later.
-        private var router: DocumentViewRoutingOutputProtocol?
-
+                
         /// Combine
         private var subscriptions: Set<AnyCancellable> = []
 
@@ -93,14 +85,6 @@ extension Namespace {
     }
 }
 
-// MARK: - Selection Handling
-extension Namespace.DocumentViewController {
-    private func configured(selectionEventsPublisher: AnyPublisher<DocumentModule.SelectionEvent, Never>) -> Self {
-        _ = self.selectionHandler.configured(tableView: self.tableView).configured(selectionEventPublisher: selectionEventsPublisher)
-        return self
-    }
-}
-
 // MARK: - HeaderView PageDetails
 extension Namespace.DocumentViewController {
     private func process(event: Namespace.DocumentViewModel.UserEvent) {
@@ -138,9 +122,6 @@ extension Namespace.DocumentViewController {
     /// This method also retain router.
     /// Refactor it later.
     func subscribeOnRouting(_ router: DocumentViewRoutingOutputProtocol) {
-        let logger = Logging.createLogger(category: .documentViewController)
-        os_log(.debug, log: logger, "We should remove router from view controller later.")
-        self.router = router
         router.outputEventsPublisher.sink { [weak self] (value) in
             self?.handleRouting(action: value)
         }.store(in: &self.subscriptions)
@@ -171,21 +152,32 @@ extension Namespace.DocumentViewController {
     }
 
     private func setupElements() {
-        self.view.addSubview(headerView)
-        self.view.addSubview(tableView)
+        self.view.addSubview(self.headerView)
+        self.view.addSubview(self.tableView)
     }
 
     private func setupLayout() {
-        NSLayoutConstraint.activate([
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            headerView.topAnchor.constraint(equalTo: view.topAnchor),
-
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        ])
+        if let superview = self.headerView.superview {
+            let view = self.headerView
+            let constraints = [
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
+        
+        if let superview = self.tableView.superview {
+            let topView = self.headerView
+            let view = self.tableView
+            let constraints = [
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: topView.bottomAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
     }
 
     private func setupTableView() {
@@ -203,7 +195,7 @@ extension Namespace.DocumentViewController {
     }
 
     private func setupDataSource() {
-        self.dataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>.init(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, entry) -> UITableViewCell? in
+        self.dataSource = ListDiffableDataSource.init(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, entry) -> UITableViewCell? in
             let useUIKit = !(self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell == true)
             let shouldShowIndent = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
             if let cell = tableView.dequeueReusableCell(withIdentifier: Namespace.DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath) as? Namespace.DocumentViewCells.Cell {
@@ -263,11 +255,7 @@ private extension Namespace.DocumentViewController {
         
         self.viewModel.anyStylePublisher.sink { [weak self] (value) in
             self?.updateIds(value)
-        }.store(in: &self.subscriptions)
-        
-        /// Selection
-        _ = self.configured(selectionEventsPublisher: self.viewModel.selectionEventPublisher())
-        self.viewModel.configured(multiSelectionUserActionPublisher: self.selectionHandlerPublisher)
+        }.store(in: &self.subscriptions)        
     }
 
     func configured(_ options: ViewModel.Options) {
@@ -310,9 +298,7 @@ extension Namespace.DocumentViewController {
     func updateData(_ rows: [ViewModel.Row]) {
         guard let dataSource = self.dataSource else { return }
         
-        var snapshot = dataSource.snapshot()
-        snapshot.deleteAllItems()
-        snapshot.deleteSections([ViewModel.Section.first])
+        var snapshot = ListDiffableDataSourceSnapshot.init()
         snapshot.appendSections([ViewModel.Section.first])
         snapshot.appendItems(rows)
         dataSource.apply(snapshot)

@@ -79,15 +79,17 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
                 /// It is old DocumentViewBuilder.
                 /// Lets keep it until we remove it from project.
 //                let viewController = DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value, useUIKit: true))
-                let viewController = DocumentModule.DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value))
+//                let viewController = DocumentModule.DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value))
+                let viewController = DocumentModule.ContentViewBuilder.UIKitBuilder.view(by: .init(documentRequest: .init(id: value)))
                 
+                // TODO: Uncomment later when back button will be ready.
                 /// Actually, we have only one subscription.
                 /// Our router is created and stored in viewController for now.
-                self.subscription = viewController.headerViewModelPublisher.sink { [weak viewController, weak self] (value) in
-                    viewController?.navigationController?.popViewController(animated: true)
-                    self?.subscription?.cancel()
-                    self?.subscription = nil
-                }
+//                self.subscription = viewController.headerViewModelPublisher.sink { [weak viewController, weak self] (value) in
+//                    viewController?.navigationController?.popViewController(animated: true)
+//                    self?.subscription?.cancel()
+//                    self?.subscription = nil
+//                }
                 
                 self.send(event: .pushViewController(viewController))
             }

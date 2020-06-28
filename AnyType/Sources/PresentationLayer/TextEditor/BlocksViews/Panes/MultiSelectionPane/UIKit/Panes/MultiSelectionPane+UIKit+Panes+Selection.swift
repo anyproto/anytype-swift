@@ -90,7 +90,10 @@ extension FileNamespace {
             }
             self.anySelectionSubscription = self.$isAnySelection.safelyUnwrapOptionals().sink { [weak self] (value) in
                 let title = value ? "Unselect All" : "Select All"
-                self?.selectionButton.setTitle(title, for: .normal)
+                UIView.performWithoutAnimation {
+                    self?.selectionButton.setTitle(title, for: .normal)
+                    self?.selectionButton.layoutIfNeeded()
+                }
             }
         }
 
@@ -110,7 +113,7 @@ extension FileNamespace {
 
         // MARK: Setup UI Elements
         func setupUIElements() {
-            self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.translatesAutoresizingMaskIntoConstraints = false
             self.selectionButton = {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false

@@ -116,43 +116,46 @@ extension DocumentViewController {
         
         private func setupView() {
             self.translatesAutoresizingMaskIntoConstraints = false
-            horizontalStackView.addArrangedSubview(backButton)
-            horizontalStackView.addArrangedSubview(UIView())
-            verticalStackView.addArrangedSubview(horizontalStackView)
+            self.horizontalStackView.addArrangedSubview(backButton)
+            self.horizontalStackView.addArrangedSubview(UIView())
+            self.verticalStackView.addArrangedSubview(self.horizontalStackView)
             
-            contentView.addSubview(verticalStackView)
-            addSubview(contentView)
+            self.contentView.addSubview(self.verticalStackView)
+            self.addSubview(self.contentView)
         }
 
         private func setupLayout() {
             NSLayoutConstraint.activate([
-                backButton.widthAnchor.constraint(equalToConstant: 24),
-                backButton.heightAnchor.constraint(equalToConstant: 24),
+                self.backButton.widthAnchor.constraint(equalToConstant: 24),
+                self.backButton.heightAnchor.constraint(equalToConstant: 24),
             ])
             
             let view = verticalStackView
                         
             if let superview = view.superview {
                 let constraints = [
-                    view.leftAnchor.constraint(equalTo: superview.leftAnchor),
-                    view.rightAnchor.constraint(equalTo: superview.rightAnchor),
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                     view.topAnchor.constraint(equalTo: superview.topAnchor),
                     view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
                 ]
                 NSLayoutConstraint.activate(constraints)
             }
-            
+                        
             let contentView = self.contentView
             
             if let superview = contentView.superview {
                 let constraints = [
-                    view.leftAnchor.constraint(equalTo: superview.leftAnchor),
-                    view.rightAnchor.constraint(equalTo: superview.rightAnchor),
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                     view.topAnchor.constraint(equalTo: superview.topAnchor),
                     view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
                 ]
                 NSLayoutConstraint.activate(constraints)
             }
+        }
+        override var intrinsicContentSize: CGSize {
+            return .zero
         }
     }
 }

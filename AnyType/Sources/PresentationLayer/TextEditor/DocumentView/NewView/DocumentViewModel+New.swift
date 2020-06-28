@@ -76,8 +76,7 @@ extension DocumentModule {
         private var subscriptions: Set<AnyCancellable> = .init()
         
         /// Selection Handler
-        var selectionHandlerStorage: DocumentModuleSelectionHandlerProtocol & DocumentModuleSelectionHandlerCellProtocol = Namespace.SelectionHandler.init()
-        var selectionHandler: DocumentModuleSelectionHandlerProtocol { self.selectionHandlerStorage }
+        private(set) var selectionHandler: DocumentModuleSelectionHandlerProtocol?
         
         /// Builders Publisher
         private var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksUserAction, Never>, Never> = .init()
@@ -164,7 +163,7 @@ extension DocumentModule {
                                 }
                                 if !value.deletedIds.isEmpty {
                                     value.deletedIds.forEach { (value) in
-                                        self?.selectionHandlerStorage.toggle(value)
+                                        self?.toggle(value)
                                     }
                                 }
                             }
@@ -299,7 +298,7 @@ extension DocumentModule {
             self.$builders.sink { [weak self] value in
                 self?.buildersRows = value.compactMap(Row.init).map({ (value) in
                     var value = value
-                    return value.configured(selectionHandler: self?.selectionHandlerStorage)
+                    return value.configured(selectionHandler: self?.selectionHandler)
                 })
             }.store(in: &self.subscriptions)
             
@@ -546,7 +545,7 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
             return .init(builder: TextBlocksViews.Base.BlockViewModel.empty)
         }
         var row = Row.init(builder: self.builders[at.row])
-        row.configured(selectionHandler: self.selectionHandlerStorage)
+        row.configured(selectionHandler: self.selectionHandler)
         return row
     }
     
@@ -602,7 +601,15 @@ extension Namespace.DocumentViewModel.Row {
         .init(builder: self.builder)
     }
     func diffable() -> AnyHashable? {
-        self.information?.diffable()
+        if let builder = self.builder as? BlocksViewsNamespace.Base.ViewModel {
+            let diffable = self.information?.diffable()
+            let allEntries = [
+                "isFirstResponder": builder.getBlock().isFirstResponder,
+                "informationDiffable": diffable
+            ]
+            return .init(allEntries)
+        }
+        return self.information?.diffable()
     }
 }
 
@@ -620,30 +627,13 @@ extension Namespace.DocumentViewModel.Section: Hashable {}
 // MARK: - TableViewModelProtocol.Row
 extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        //        lhs.builder.id == rhs.builder.id
-//        let equalIds =
-//            lhs.builder?.blockId == rhs.builder?.blockId
-//
-//        if equalIds {
-//            if let leftBlock = lhs.information?.content, let rightBlock = rhs.information?.content {
-//                switch (leftBlock, rightBlock) {
-//                case let (.text(l), .text(r)): return l.contentType == r.contentType
-//                default: break
-//                }
-//            }
-//        }
-//
-//        return equalIds
+//        lhs.builder?.blockId == rhs.builder?.blockId && lhs.cachedDiffable == rhs.cachedDiffable
         lhs.diffable() == rhs.diffable() && lhs.cachedDiffable == rhs.cachedDiffable
     }
     
     func hash(into hasher: inout Hasher) {
-//        hasher.combine(self.information)
-//        if let block = (self.builder as? BlocksViews.New.Base.ViewModel)?.getBlock() {
-//            let identifier = BlocksModels.Utilities.ContentIdentifier.identifier(for: block.blockModel.information)
-//            hasher.combine(identifier)
-//        }
-        hasher.combine(self.diffable())        
+//        hasher.combine(self.builder?.blockId ?? "")
+        hasher.combine(self.diffable())
     }
 }
 
@@ -683,13 +673,13 @@ private extension Namespace.DocumentViewModel {
         // so, we have to toggle item at index.
         let newValue = !item.isSelected
         if let key = item.getSelectionKey() {
-            self.selectionHandlerStorage.set(selected: newValue, id: key)
+            self.set(selected: newValue, id: key)
             // TODO: We should subscribe on updates in our cells and update them.
             /// For now we use `reloadData`
             self.syncBuilders()
         }
     }
-    func process(_ value: DocumentModule.DocumentViewController.SelectionHandler.SelectionAction) {
+    func process(_ value: DocumentModule.Selection.ToolbarPresenter.SelectionAction) {
         switch value {
         case let .selection(value):
             switch value {
@@ -704,7 +694,7 @@ private extension Namespace.DocumentViewModel {
                 self.syncBuilders()
             }
         case let .toolbar(value):
-            let selectedIds = self.selectionHandlerStorage.list()
+            let selectedIds = self.list()
             switch value {
             case .turnInto:
                 self.listSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject))))
@@ -715,7 +705,7 @@ private extension Namespace.DocumentViewModel {
         }
     }
     func process(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
-        let selectedIds = self.selectionHandlerStorage.list()
+        let selectedIds = self.list()
         self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: toolbarAction)))
     }
 }
@@ -736,10 +726,14 @@ extension Namespace.DocumentViewModel {
 }
 
 extension Namespace.DocumentViewModel {
-    func configured(multiSelectionUserActionPublisher: AnyPublisher<DocumentModule.DocumentViewController.SelectionHandler.SelectionAction, Never>) -> Self {
+    func configured(multiSelectionUserActionPublisher: AnyPublisher<DocumentModule.Selection.ToolbarPresenter.SelectionAction, Never>) -> Self {
         multiSelectionUserActionPublisher.sink { [weak self] (value) in
             self?.process(value)
         }.store(in: &self.subscriptions)
+        return self
+    }
+    func configured(selectionHandler: DocumentModuleSelectionHandlerProtocol?) -> Self {
+        self.selectionHandler = selectionHandler
         return self
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DocumentViewController+New+SelectionHandler.swift
+//  DocumentModule+Selection+ToolbarPresenter.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 21.06.2020.
@@ -10,16 +10,16 @@ import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = DocumentModule.DocumentViewController
+fileprivate typealias Namespace = DocumentModule.Selection
 
 /// This selection handler is intended to show controls.
 ///
 extension Namespace {
-    class SelectionHandler {
+    class ToolbarPresenter {
         private var subscription: AnyCancellable?
-        weak private var tableView: UITableView?
+        weak private var topBottomMenuViewController: DocumentModule.TopBottomMenuViewController?
         typealias SelectionAction = MultiSelectionPane.UIKit.Main.Action
-        typealias SelectionEvent = DocumentModule.SelectionEvent
+        typealias SelectionEvent = DocumentModule.Selection.IncomingEvent
         private var multiSelectionAssembly: MultiSelectionPane.UIKit.Main.Assembly = .init()
         
         /// Subscribe on UserAction.
@@ -33,42 +33,27 @@ extension Namespace {
         }
         
         private func selectionNotShown() -> Bool {
-            self.tableView?.tableFooterView == nil || self.tableView?.tableHeaderView == nil
+            self.topBottomMenuViewController?.menusState() == .some(.none)
         }
         
         private func update(selectionEnabled: Bool) {
-            guard let tableView = self.tableView else { return }
+            guard let controller = self.topBottomMenuViewController else { return }
             
             if selectionEnabled {
-                let toolbarView = self.multiSelectionAssembly.toolbarView()
                 let selectionView = self.multiSelectionAssembly.selectionView()
-                let zero: CGPoint = .zero
-                var size = toolbarView.systemLayoutSizeFitting(.zero)
-                var frame = toolbarView.frame
-                frame.origin = zero
-                frame.size = size
-                toolbarView.frame = frame
                 
-                size = selectionView.systemLayoutSizeFitting(.zero)
-                frame = selectionView.frame
-                
-                frame.origin = zero
-                frame.size = size
-                selectionView.frame = frame
-                tableView.tableFooterView = toolbarView
-                tableView.tableHeaderView = selectionView
+                let toolbarView = self.multiSelectionAssembly.toolbarView()
+                controller.add(subview: selectionView, onToolbar: .top)
+                controller.add(subview: toolbarView, onToolbar: .bottom)
             }
             else {
-                tableView.tableFooterView = nil
-                tableView.tableHeaderView = nil
+                controller.removeSubview(fromToolbar: .top)
+                controller.removeSubview(fromToolbar: .bottom)
             }
         }
         
         private func update(selectionEnabled: Bool, completion: @escaping (Bool) -> ()) {
-            // Add animation
-            UIView.animate(withDuration: 0.3, animations: {
-                self.update(selectionEnabled: selectionEnabled)
-            }, completion: completion)
+            self.update(selectionEnabled: selectionEnabled)
         }
         
         private func update(selectionEvent: SelectionEvent) {
@@ -89,9 +74,9 @@ extension Namespace {
 }
 
 // MARK: Configurations
-extension Namespace.SelectionHandler {
-    func configured(tableView: UITableView?) -> Self {
-        self.tableView = tableView
+extension Namespace.ToolbarPresenter {
+    func configured(topBottomMenuViewController: DocumentModule.TopBottomMenuViewController?) -> Self {
+        self.topBottomMenuViewController = topBottomMenuViewController
         return self
     }
     
