@@ -11,6 +11,10 @@ import UIKit
 import Combine
 import os
 
+private extension Logging.Categories {
+    static let textViewUIKitTextViewCoordinator: Self = "TextView.UIKitTextView.Coordinator"
+}
+
 extension TextView.UIKitTextView {
     class Coordinator: NSObject {
         // MARK: Aliases
@@ -192,7 +196,7 @@ extension TextView.UIKitTextView.Coordinator {
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
-            let logger = Logging.createLogger(category: .textView)
+            let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
             os_log(.debug, log: logger, "configureMarkStylePublisher %@", "\(action)")
             
             switch action {
@@ -263,7 +267,7 @@ extension TextView.UIKitTextView.Coordinator {
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
-            let logger = Logging.createLogger(category: .textView)
+            let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
             os_log(.debug, log: logger, "MarksPane action %@", "\(action)")
             
             switch action {
@@ -651,7 +655,7 @@ extension TextView.UIKitTextView.Coordinator: UIGestureRecognizerDelegate {
         default: break
         }
         
-        let logger = Logging.createLogger(category: .textView)
+        let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
         os_log(.debug, log: logger, "%s tap: %s", "\(self)", "\(message(gestureRecognizer.state))")
     }
 }

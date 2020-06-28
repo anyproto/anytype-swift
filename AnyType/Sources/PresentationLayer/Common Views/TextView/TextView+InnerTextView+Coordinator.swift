@@ -12,6 +12,10 @@ import SwiftUI
 import Combine
 import os
 
+private extension Logging.Categories {
+    static let textViewInnerTextViewCoordinator: Self = "TextView.InnerTextView.Coordinator"
+}
+
 // MARK: InnerTextView.Coordinator / Publishers
 extension TextView.InnerTextView.Coordinator {
     // MARK: - Publishers
@@ -99,7 +103,7 @@ extension TextView.InnerTextView.Coordinator {
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
             
-            let logger = Logging.createLogger(category: .textView)
+            let logger = Logging.createLogger(category: .textViewInnerTextViewCoordinator)
             os_log(.debug, log: logger, "%s configureMarkStylePublisher %s", "\(self)", "\(action)")
             
             switch action {
@@ -306,7 +310,7 @@ extension TextView.InnerTextView.Coordinator: UIGestureRecognizerDelegate {
         default: break
         }
         
-        let logger = Logging.createLogger(category: .textView)
+        let logger = Logging.createLogger(category: .textViewInnerTextViewCoordinator)
         os_log(.debug, log: logger, "%s tap: %s", "\(self)", "\(message(gestureRecognizer.state))")
     }
 }

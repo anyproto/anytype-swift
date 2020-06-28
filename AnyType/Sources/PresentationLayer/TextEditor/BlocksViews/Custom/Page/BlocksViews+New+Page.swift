@@ -31,7 +31,6 @@ extension BlocksViews.New.Page.Base {
     class ViewModel: BlocksViews.New.Base.ViewModel {
         typealias PageDetailsViewModel = DocumentModule.DocumentViewModel.PageDetailsViewModel
         @Environment(\.developerOptions) var developerOptions
-        private weak var delegate: TextBlocksViewsUserInteractionProtocol? // Do we need it?
         private(set) var pageDetailsViewModel: PageDetailsViewModel?
         
         // MARK: Subclassing

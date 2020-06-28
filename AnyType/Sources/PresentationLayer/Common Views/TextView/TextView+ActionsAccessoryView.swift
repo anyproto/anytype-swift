@@ -12,6 +12,10 @@ import Combine
 import SwiftUI
 import os
 
+private extension Logging.Categories {
+    static let textViewActionsToolbar: Self = "TextView.ActionsToolbar"
+}
+
 // MARK: BlockToolbar
 extension TextView.ActionsToolbar {
     class AccessoryView: UIView {
@@ -221,7 +225,7 @@ extension TextView.ActionsToolbar {
                 }
             }.eraseToAnyPublisher()
             self.allInOneStreamDescription = self.allInOnePublisher.sink { value in
-                let logger = Logging.createLogger(category: .textView)
+                let logger = Logging.createLogger(category: .textViewActionsToolbar)
                 os_log(.debug, log: logger, "ActionsToolbarViewModel underlying action %@", "\(String(describing: value))")
             }
         }

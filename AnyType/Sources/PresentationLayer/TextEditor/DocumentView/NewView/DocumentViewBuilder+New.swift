@@ -51,8 +51,12 @@ extension Namespace.DocumentViewBuilder {
             /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
             
             let router: DocumentViewRouting.CompoundRouter = .init()
-            let publisher = viewModel.userActionPublisher
-            _ = router.configured(userActionsStreamStream: publisher)
+            /// TODO: Remove later.
+            /// Lets keep it for a while, until we completely remove old document view model.
+            ///
+//            let publisher = viewModel.soloUserActionPublisherPublisher
+//            _ = router.configured(userActionsStreamStream: publisher)
+            _ = router.configured(userActionsStream: viewModel.soloUserActionPublisher)
             
             /// Subscribe `view controller` on events from `router`.
             view.subscribeOnRouting(router)

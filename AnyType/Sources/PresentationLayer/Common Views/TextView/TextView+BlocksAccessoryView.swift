@@ -11,6 +11,10 @@ import Combine
 import SwiftUI
 import os
 
+private extension Logging.Categories {
+    static let textViewBlocksAccessoryView: Self = "TextView.BlocksAccessoryView"
+}
+
 extension TextView {
     enum BlockToolbar {}
 }
@@ -266,7 +270,7 @@ extension TextView.BlockToolbar {
             }
             
             self.allInOneStreamDescription = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).sink { value in
-                let logger = Logging.createLogger(category: .textView)
+                let logger = Logging.createLogger(category: .textViewBlocksAccessoryView)
                 os_log(.debug, log: logger, "underlying action %@", "\(String(describing: value))")
             }
             self.allInOnePublisher = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).eraseToAnyPublisher()

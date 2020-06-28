@@ -59,6 +59,8 @@ extension DocumentModule {
         
         typealias BlocksUserAction = BlocksViews.UserAction
         
+        typealias BlocksViewsNamespace = BlocksViews.New
+        
         /// Service
         private var blockActionsService: ServiceLayerModule.BlockActionsService = .init()
         
@@ -86,8 +88,41 @@ extension DocumentModule {
             .init(self.listSubject.eraseToAnyPublisher())
         }()
         private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
-        private lazy var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
+        lazy private var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
             self.listActionsPayloadSubject.eraseToAnyPublisher()
+        }()
+        lazy var soloUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = {
+            /// As soon as we made another curve in learning publishers
+            /// It is pretty simple to achieve our desired behavior without publishers of publishers.
+            /// We still will provide appropriate methods to support backward compatibility.
+            /// But it is unnecessary.
+            ///
+            /// What is going on here?
+            ///
+            /// We take latest values of three publishers, several of them ( builders and details ) could change in time if builders or details are updated.
+            ///
+            /// 1. Take builders, details and list ( whole model here ) publishers of publishers.
+            /// 2. Combine their latest values.
+            ///
+            /// -- Stop for a bit for a note --
+            /// If you update ANY publisher by sending any new value in it, all latest values of counterpart publishers will be used.
+            ///
+            /// Look at it:
+            ///
+            /// f: ([[]]) -> ([(_,_,_)])
+            /// [[A], [B], [C]] -> ([(A, B, C)])
+            ///
+            /// [[A, D], [B], [C]] -> ([(D, B, C)])
+            ///
+            /// -- End stop --
+            /// 3. Merge all values into one publisher or into one value.
+            /// 4. Erase.
+            ///
+            /// At step 3 we just merge values into one publisher, so, any value of triple here could emit value.
+            ///
+            Publishers.CombineLatest3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject).flatMap { (value) -> AnyPublisher<BlocksUserAction, Never> in
+                Publishers.Merge3(value.0, value.1, value.2).eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
         }()
         lazy var userActionPublisher: AnyPublisher<AnyPublisher<BlocksUserAction, Never>, Never> = {
             /// For now, we just collect three publishers and merge them as one publisher.
@@ -99,10 +134,11 @@ extension DocumentModule {
             /// [A, B, C, A, A, A, B, B, A, A] // Stream of Merged Publishers.
             /// As you see, you can't put C on top of stream, because it is `CurrentValueSubject`.
             ///
-            Publishers.Merge3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject).eraseToAnyPublisher()
+//            return Publishers.Merge3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject).eraseToAnyPublisher()
+            Just(self.soloUserActionPublisher).eraseToAnyPublisher()
         }()
-        private var buildersActionsPayloadsSubject: PassthroughSubject<AnyPublisher<BlocksViews.New.Base.ViewModel.ActionsPayload, Never>, Never> = .init()
-        private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViews.New.Base.ViewModel.ActionsPayload, Never>, Never> = {
+        private var buildersActionsPayloadsSubject: PassthroughSubject<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = .init()
+        private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = {
             self.buildersActionsPayloadsSubject.eraseToAnyPublisher()
         }()
         
@@ -153,10 +189,10 @@ extension DocumentModule {
         @Published var wholePageDetailsViewModel: PageDetailsViewModel = .init()
         
         /// We  need this model to be Published cause need handle actions from IconEmojiBlock
-        var pageDetailsViewModels: [BlockModels.Block.Information.Details.Kind : BlockViewBuilderProtocol] = [:] {
+        var pageDetailsViewModels: [BlocksModels.Aliases.Information.PageDetails.Details.Kind : BlockViewBuilderProtocol] = [:] {
             didSet {
                 self.userEvent = .pageDetailsViewModelsDidSet
-                let values = self.pageDetailsViewModels.values.compactMap({$0 as? BlocksViews.Base.ViewModel}).map(\.userActionPublisher)
+                let values = self.pageDetailsViewModels.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map(\.userActionPublisher)
                 self.detailsPublisherSubject.send(Publishers.MergeMany(values).eraseToAnyPublisher())
             }
         }
@@ -171,7 +207,7 @@ extension DocumentModule {
                 self.objectWillChange.send()
                 
                 let buildersModels = self.$buildersRows.map {
-                    $0.compactMap({$0.builder as? BlocksViews.New.Base.ViewModel})
+                    $0.compactMap({$0.builder as? BlocksViewsNamespace.Base.ViewModel})
                 }
                 
                 let buildersUserActionPublisher = buildersModels.flatMap({
@@ -193,7 +229,7 @@ extension DocumentModule {
         }
                         
         var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
-        var fileFieldPublisher: AnyPublisher<BlocksViews.New.File.Image.ViewModel.State?, Never> = .empty()
+        var fileFieldPublisher: AnyPublisher<BlocksViewsNamespace.File.Image.ViewModel.State?, Never> = .empty()
         
         /// We should update some items in place.
         /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
@@ -269,7 +305,7 @@ extension DocumentModule {
             
             self.anyFieldPublisher = self.$builders
                 .map {
-                    $0.compactMap { $0 as? TextBlocksViews.Base.BlockViewModel }
+                    $0.compactMap { $0 as? BlocksViewsNamespace.Text.Base.ViewModel }
             }
             .flatMap {
                 Publishers.MergeMany($0.map{$0.textDidChangePublisher.map(\.string)})
@@ -278,7 +314,7 @@ extension DocumentModule {
             
             self.fileFieldPublisher = self.$builders
                 .map {
-                    $0.compactMap { $0 as? BlocksViews.New.File.Image.ViewModel }
+                    $0.compactMap { $0 as? BlocksViewsNamespace.File.Image.ViewModel }
             }.flatMap {
                 Publishers.MergeMany($0.map{$0.$state})
             }.eraseToAnyPublisher()
@@ -447,15 +483,17 @@ private extension Namespace.DocumentViewModel {
         model.add(emojiBlock)
         
         if let titleModel = model.choose(by: titleBlock.information.id), let emojiModel = model.choose(by: emojiBlock.information.id) {
-            let titleBlockModel = BlocksViews.New.Page.Title.ViewModel.init(titleModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
+            let titleBlockModel = BlocksViewsNamespace.Page.Title.ViewModel.init(titleModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
             
-            let emojiBlockModel = BlocksViews.New.Page.IconEmoji.ViewModel.init(emojiModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
+            let emojiBlockModel = BlocksViewsNamespace.Page.IconEmoji.ViewModel.init(emojiModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
             
             
             // Now we have correct blockViewModels
-            let models = [BlockModels.Block.Information.Details.Kind.iconEmoji : emojiBlockModel, BlockModels.Block.Information.Details.Kind.title : titleBlockModel]
             
-            self.pageDetailsViewModels = models
+            self.pageDetailsViewModels = [
+                .title : titleBlockModel,
+                .iconEmoji : emojiBlockModel
+            ]
             
             self.wholePageDetailsViewModel.receive(details: details)
             // Send event that we are ready.
@@ -527,7 +565,7 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
         var information: BlocksModelsInformationModelProtocol?
         init(builder: BlockViewBuilderProtocol?) {
             self.builder = builder
-            self.information = (self.builder as? BlocksViews.New.Base.ViewModel)?.getBlock().blockModel.information
+            self.information = (self.builder as? BlocksViewsNamespace.Base.ViewModel)?.getBlock().blockModel.information
         }
         
         struct CachedDiffable: Hashable {
@@ -552,8 +590,9 @@ extension Namespace.DocumentViewModel.Row {
 
 // MARK: - TableViewModelProtocol.Row / Indentation level
 extension Namespace.DocumentViewModel.Row {
+    typealias BlocksViewsNamespace = BlocksViews.New
     var indentationLevel: UInt {
-        (self.builder as? BlocksViews.New.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
+        (self.builder as? BlocksViewsNamespace.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
     }
 }
 
@@ -570,7 +609,7 @@ extension Namespace.DocumentViewModel.Row {
 // MARK: - TableViewModelProtocol.Row / Selection
 extension Namespace.DocumentViewModel.Row: DocumentModuleSelectionCellProtocol {
     func getSelectionKey() -> BlockId? {
-        (self.builder as? BlocksViews.New.Base.ViewModel)?.getBlock().blockModel.information.id
+        (self.builder as? BlocksViewsNamespace.Base.ViewModel)?.getBlock().blockModel.information.id
     }
 }
 
@@ -619,7 +658,7 @@ extension Namespace.DocumentViewModel {
             return
         }
         
-        if let builder = element(at: index).builder as? BlocksViews.New.Base.ViewModel {
+        if let builder = element(at: index).builder as? BlocksViewsNamespace.Base.ViewModel {
             builder.receive(event: .didSelectRowInTableView)
         }
     }
@@ -628,7 +667,7 @@ extension Namespace.DocumentViewModel {
 
 // MARK: Selection Handling
 private extension Namespace.DocumentViewModel {
-    func process(actionsPayload: BlocksViews.New.Base.ViewModel.ActionsPayload) {
+    func process(actionsPayload: BlocksViewsNamespace.Base.ViewModel.ActionsPayload) {
         switch actionsPayload {
         case let .textView(value):
             switch value.action {
@@ -668,10 +707,6 @@ private extension Namespace.DocumentViewModel {
             let selectedIds = self.selectionHandlerStorage.list()
             switch value {
             case .turnInto:
-                /// TODO: Fix publishers later.
-                /// We should gather latest values of publishers and create a publisher.
-                ////
-                self.listPublisherSubject.send(.init(self.listSubject.eraseToAnyPublisher()))
                 self.listSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject))))
             case .delete: self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: .editBlock(.delete))))
             case .copy: break
