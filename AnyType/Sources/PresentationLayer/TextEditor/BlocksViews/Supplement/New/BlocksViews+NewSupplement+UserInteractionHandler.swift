@@ -25,6 +25,7 @@ extension Namespace {
         typealias ActionsPayloadTextViewButtonView = ActionsPayload.TextBlocksViewsUserInteraction.Action.ButtonViewUserAction
         
         typealias Builder = BlocksModels.Block.Builder
+        typealias IndexWalker = BlocksModels.Utilities.IndexWalker
         
         typealias Model = BlocksModelsChosenBlockModelProtocol
         
@@ -51,17 +52,7 @@ extension Namespace {
 
 extension Namespace.UserInteractionHandler {
     enum Reaction {
-        typealias Id = MiddlewareBlockInformationModel.Id
-        struct Focus {
-            var payload: Payload
-            var position: Position = .unknown
-            struct Payload {
-                var blockId: Id
-            }
-            enum Position {
-                case unknown, beginning, end, at(Int32)
-            }
-        }
+        typealias Id = BlocksModels.Aliases.BlockId
         struct ShouldOpenPage {
             var payload: Payload
             struct Payload {
@@ -75,7 +66,6 @@ extension Namespace.UserInteractionHandler {
             }
         }
         
-        case focus(Focus)
         case shouldOpenPage(ShouldOpenPage)
         case shouldHandleEvent(ShouldHandleEvent)
     }
@@ -163,20 +153,26 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
             case let .enterWithPayload(left, payload):
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                     if let oldText = left {
-                        self.service.split(block: block.blockModel.information, oldText: oldText)
+                        self.service.split(block: block.blockModel.information, oldText: oldText, shouldSetFocusOnUpdate: true)
                     }
                     else {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id)
+                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
                     }
                 }
 
             case let .enterAtBeginning(payload): // we should assure ourselves about type of block.
+                /// TODO: Fix it in TextView API.
+                /// If payload is empty, so, handle it as .enter ( or .enter at the end )
+                if payload?.isEmpty == true {
+                    self.handlingKeyboardAction(block, .pressKey(.enter))
+                    return
+                }
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                     if payload != nil {
-                        self.service.split(block: block.blockModel.information, oldText: "")
+                        self.service.split(block: block.blockModel.information, oldText: "", shouldSetFocusOnUpdate: true)
                     }
                     else {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id)
+                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
                     }
                 }
 
@@ -186,61 +182,68 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 switch block.blockModel.information.content {
                 case let .text(value) where [.bulleted, .numbered, .checkbox, .toggle].contains(value.contentType) && value.text == "":
                     // Turn Into empty text block.
-                    // TODO: Add turn into
-//                    if let newContentType = BlockBuilder.createContentType(for: block, id, action, value.text) {
-//                        block.information.content = newContentType
-//                        block.update(forced: true)
-//                    }
-                    break
+                    if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.text) {
+                        self.service.turnInto(block: block.blockModel.information, type: newContentType)
+                    }
                 default:
                     if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: "") {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id)
+                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
                     }
                 }
 
             case .deleteWithPayload(_):
                 // TODO: Add Index Walker
                 // Add get previous block
-//                let beforeIndex = BlockModels.IndexWalker().index(beforeModel: block, includeParent: true)
-//                guard let finder = self.finder else {
-//                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-//                    os_log(.debug, log: logger, "finder not set")
-//                    return
-//                }
-//
-//                if let beforeBlock = finder.find(beforeIndex) {
-//                    self.service.merge(documentId: self.documentId, firstBlock: beforeBlock, secondBlock: block) { [weak self] in
-//                        if let blockId = self?.finder?.find(beforeIndex)?.information.id {
-//                            self?.reaction = .focus(.init(payload: .init(blockId: blockId), position: .beginning))
-//                        }
-//                    }
-//                }
-//                else {
-//                    // TODO: Add simple delete?
-//                    // Maybe we should just delete?
-//                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-//                    os_log(.debug, log: logger, "blocksActions.service.delete with payload model at index not found %@", "\(beforeIndex)")
-//                }
+                
+                guard let previousModel = IndexWalker.model(beforeModel: block, includeParent: true) else {
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.debug, log: logger, "We can't find previous block to focus on at command .deleteWithPayload for block %@. Moving to .delete command.", block.blockModel.information.id)
+                    self.handlingKeyboardAction(block, .pressKey(.delete))
+                    return
+                }
+                
+                let previousBlockId = previousModel.blockModel.information.id
+                
+                let position: EventListening.PackOfEvents.OurEvent.Focus.Payload.Position
+                switch previousModel.blockModel.information.content {
+                case let .text(value):
+                    let length = value.attributedText.length
+                    position = .at(length)
+                default: position = .end
+                }
+                
+                var newAttributedString: NSMutableAttributedString?
+                switch (previousModel.blockModel.information.content, block.blockModel.information.content) {
+                case let (.text(lhs), .text(rhs)):
+                    let left = lhs.attributedText
+                    newAttributedString = .init(attributedString: left)
+                    let right = rhs.attributedText
+                    newAttributedString?.append(right)
+                default: break
+                }
+                
+                let attributedString = newAttributedString
+                
+                self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
+                    .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                        .setText(.init(payload: .init(blockId: previousBlockId, attributedString: attributedString))),
+                        .setFocus(.init(payload: .init(blockId: previousBlockId, position: position)))
+                    ])
+                }
                 break
 
             case .delete:
-                                
-                self.service.delete(block: block.blockModel.information)
-                // We should find previous index of block.
-//                let beforeIndex = BlockModels.IndexWalker().index(beforeModel: block, includeParent: true)
-//                guard self.finder != nil else {
-//                    let logger = Logging.createLogger(category: .treeTextBlocksUserInteractor)
-//                    os_log(.debug, log: logger, "finder not set")
-//                    return
-//                }
-//
-//                // and next we should set focus on previous element.
-//                self.service.delete(documentId: self.documentId, block: block) { [weak self] in
-//                    if let blockId = self?.finder?.find(beforeIndex)?.information.id {
-//                        self?.reaction = .focus(.init(payload: .init(blockId: blockId), position: .beginning))
-//                    }
-//                }
-                break
+                self.service.delete(block: block.blockModel.information) { value in
+                    guard let previousModel = IndexWalker.model(beforeModel: block, includeParent: true) else {
+                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                        os_log(.debug, log: logger, "We can't find previous block to focus on at command .delete for block %@", block.blockModel.information.id)
+                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                    }
+                    let previousBlockId = previousModel.blockModel.information.id
+                    return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                        .setFocus(.init(payload: .init(blockId: previousBlockId, position: .end)))
+                    ])
+                }
             }
         }
     }
@@ -254,7 +257,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 self.service.createPage(afterBlock: block.blockModel.information)
             default:
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action) {
-                    self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id)
+                    self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: false)
                 }
             }
         case let .turnIntoBlock(value):
@@ -405,6 +408,49 @@ private extension Namespace.UserInteractionHandler {
     class Service {
         typealias Information = BlocksModelsInformationModelProtocol
         typealias BlockId = BlocksModels.Aliases.BlockId
+        typealias Conversion = (ServiceLayerModule.Success) -> (EventListening.PackOfEvents)
+            
+        struct Converter {
+            struct Default {
+                func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                }
+                static let `default`: Self = .init()
+                static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    self.default(value)
+                }
+            }
+            struct Add {
+                func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }
+                    
+                    guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
+                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                    }
+                    
+                    let nextBlockId = addedBlock.id
+                    
+                    return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                        .setFocus(.init(payload: .init(blockId: nextBlockId, position: .beginning)))
+                    ])
+                }
+                static let `default`: Self = .init()
+                static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    self.default(value)
+                }
+            }
+            typealias Split = Add
+            
+            struct Delete {
+                func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                }
+                static let `default`: Self = .init()
+                static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    self.default(value)
+                }
+            }
+        }
 
         private var documentId: String
         
@@ -435,14 +481,9 @@ private extension Namespace.UserInteractionHandler {
     }
 }
 
-// MARK: ServiceHandler / Actions / Add
+// MARK: ServiceHandler / Actions / Add / Private
 private extension Namespace.UserInteractionHandler.Service {
-    func addChild(childBlock: Information, parentBlockId: BlockId, position: Anytype_Model_Block.Position = .inner) {
-        // insert block as child to parent.
-        self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner)
-    }
-    
-    func add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom) {
+    func _add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom, _ completion: @escaping Conversion) {
 
         // insert block after block
         // we could catch events and update model.
@@ -467,12 +508,13 @@ private extension Namespace.UserInteractionHandler.Service {
                 os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
             }
         }) { [weak self] (value) in
-            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            let value = completion(value)
+            self?.didReceiveEvent(value)
         }.store(in: &self.subscriptions)
     }
 
 
-    func split(block: Information, oldText: String) {
+    func _split(block: Information, oldText: String, _ completion: @escaping Conversion) {
         let improve = Logging.createLogger(category: .todo(.improve("Markup")))
         os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
 
@@ -484,7 +526,7 @@ private extension Namespace.UserInteractionHandler.Service {
         }
 
         // We are using old text as a cursor position.
-        let position = Int32(oldText.count)
+        let position = oldText.count
 
         let content = splittedBlockInformation.content
         guard case let .text(type) = content else {
@@ -492,8 +534,10 @@ private extension Namespace.UserInteractionHandler.Service {
             os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
             return
         }
+        
+        let range: NSRange = .init(location: 0, length: position)
 
-        self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, cursorPosition: position, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+        self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, range: range, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):
@@ -501,10 +545,29 @@ private extension Namespace.UserInteractionHandler.Service {
                 os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
             }
         }, receiveValue: { [weak self] (value) in
-            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            let value = completion(value)
+            self?.didReceiveEvent(value)
         }).store(in: &self.subscriptions)
     }
+}
+
+// MARK: ServiceHandler / Actions / Add
+private extension Namespace.UserInteractionHandler.Service {
+    func addChild(childBlock: Information, parentBlockId: BlockId, position: Anytype_Model_Block.Position = .inner) {
+        // insert block as child to parent.
+        self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
+    }
     
+    func add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom, shouldSetFocusOnUpdate: Bool) {
+        let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Add.convert : Converter.Default.convert
+        _add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
+    }
+    
+    func split(block: Information, oldText: String, shouldSetFocusOnUpdate: Bool) {
+        let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Split.convert : Converter.Default.convert
+        _split(block: block, oldText: oldText, conversion)
+    }
+        
     func duplicate(block: Information) {
         let targetId = block.id
         let blockIds: [String] = [targetId]
@@ -539,9 +602,9 @@ private extension Namespace.UserInteractionHandler.Service {
     }
 }
 
-// MARK: ServiceHandler / Actions / Delete
+// MARK: ServiceHandler / Actions / Delete / Private
 private extension Namespace.UserInteractionHandler.Service {
-    func delete(block: Information) {
+    func _delete(block: Information, _ completion: @escaping Conversion) {
         // Shit Swift
         guard let deletedBlock = self.parser.convert(information: block) else {
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
@@ -558,11 +621,19 @@ private extension Namespace.UserInteractionHandler.Service {
                 os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
             }
         }, receiveValue: { [weak self] value in
-            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            let value = completion(value)
+            self?.didReceiveEvent(value)
         }).store(in: &self.subscriptions)
     }
+}
 
-    func merge(firstBlock: Information, secondBlock: Information) {
+// MARK: ServiceHandler / Actions / Delete
+private extension Namespace.UserInteractionHandler.Service {
+    func delete(block: Information, completion: @escaping Conversion) {
+        _delete(block: block, completion)
+    }
+
+    func merge(firstBlock: Information, secondBlock: Information,  _ completion: @escaping Conversion = Converter.Default.convert) {
         let firstInformation = self.parser.convert(information: firstBlock)
         let secondInformation = self.parser.convert(information: secondBlock)
 
@@ -580,7 +651,8 @@ private extension Namespace.UserInteractionHandler.Service {
                 os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
             }
         }, receiveValue: { [weak self] value in
-            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            let value = completion(value)
+            self?.didReceiveEvent(value)
         }).store(in: &self.subscriptions)
     }
 }

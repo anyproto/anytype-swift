@@ -332,15 +332,15 @@ extension DocumentModule {
         // TODO: Add caching?
         private func update(builders: [BlockViewBuilderProtocol]) {
             /// We should add caching, otherwise, we will miss updates from long-playing views as file uploading or downloading views.
-//            let difference = builders.difference(from: self.builders) { $0.blockId == $1.blockId }
-//            if let result = self.builders.applying(difference) {
-//                self.builders = result
-//            }
-//            else {
-//                // We should set all builders, because our collection is empty?
-//                self.builders = builders
-//            }
-            self.builders = builders
+            let difference = builders.difference(from: self.builders) {$0.diffable == $1.diffable}
+            if let result = self.builders.applying(difference) {
+                self.builders = result
+            }
+            else {
+                // We should set all builders, because our collection is empty?
+                self.builders = builders
+            }
+//            self.builders = builders
         }
         
         /// Convert tree model to list view model.
@@ -421,7 +421,7 @@ private extension Namespace.DocumentViewModel {
     func process(reaction: UserInteractionHandler.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
-            let events = value.payload.events.events.compactMap(\.value)
+            let events = value.payload.events
             self.eventHandler?.handle(events: events)
             
         default:
@@ -431,7 +431,7 @@ private extension Namespace.DocumentViewModel {
     func process(reaction: ListUserInteractionHandler.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
-            let events = value.payload.events.events.compactMap(\.value)
+            let events = value.payload.events
             self.eventHandler?.handle(events: events)
             
         default:
@@ -575,6 +575,18 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
         }
         
         var cachedDiffable: CachedDiffable = .init()
+        
+        var blockBuilder: BlocksViews.New.Base.ViewModel? {
+            self.builder as? BlocksViewsNamespace.Base.ViewModel
+        }
+        var isPendingFirstResponder: Bool {
+            self.blockBuilder?.getBlock().isFirstResponder ?? false
+        }
+        func resolvePendingFirstResponder() {
+            if let model = self.blockBuilder?.getBlock() {
+                BlocksModels.Utilities.FirstResponderResolver.resolvePendingUpdate(model)
+            }
+        }
     }
 }
 
@@ -601,14 +613,14 @@ extension Namespace.DocumentViewModel.Row {
         .init(builder: self.builder)
     }
     func diffable() -> AnyHashable? {
-        if let builder = self.builder as? BlocksViewsNamespace.Base.ViewModel {
-            let diffable = self.information?.diffable()
-            let allEntries = [
-                "isFirstResponder": builder.getBlock().isFirstResponder,
-                "informationDiffable": diffable
-            ]
-            return .init(allEntries)
-        }
+//        if let builder = self.builder as? BlocksViewsNamespace.Base.ViewModel {
+//            let diffable = self.information?.diffable()
+//            let allEntries = [
+//                "isFirstResponder": builder.getBlock().isFirstResponder,
+//                "informationDiffable": diffable
+//            ]
+//            return .init(allEntries)
+//        }
         return self.information?.diffable()
     }
 }
@@ -625,15 +637,29 @@ extension Namespace.DocumentViewModel.Row: DocumentModuleSelectionCellProtocol {
 extension Namespace.DocumentViewModel.Section: Hashable {}
 
 // MARK: - TableViewModelProtocol.Row
+
+/// Well, we could compare buildersRows by their diffables...
+/// But for now it is fine for us to keep simple equations.
+///
+/// NOTES: Why we could compare `diffables`.
+/// As soon as we use `Row` as `DataModel` for a `shared` view model `builder`
+/// we should keep a track of `initial` state of Rows.
+/// We do it by providing `information` propepty, which is initiated in `init()`.
+/// Treat this property as `fingerprint` of `initial` builder value.
+///
+///
 extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
+    static private func sameKind(_ lhs: Self?, _ rhs: Self?) -> Bool {
+        lhs?.information?.content.deepKind == rhs?.information?.content.deepKind
+    }
     static func == (lhs: Self, rhs: Self) -> Bool {
-//        lhs.builder?.blockId == rhs.builder?.blockId && lhs.cachedDiffable == rhs.cachedDiffable
-        lhs.diffable() == rhs.diffable() && lhs.cachedDiffable == rhs.cachedDiffable
+        lhs.builder?.blockId == rhs.builder?.blockId && lhs.cachedDiffable == rhs.cachedDiffable && sameKind(lhs, rhs)
+//        lhs.diffable() == rhs.diffable() && lhs.cachedDiffable == rhs.cachedDiffable
     }
     
     func hash(into hasher: inout Hasher) {
-//        hasher.combine(self.builder?.blockId ?? "")
-        hasher.combine(self.diffable())
+        hasher.combine(self.builder?.blockId ?? "")
+//        hasher.combine(self.diffable())
     }
 }
 

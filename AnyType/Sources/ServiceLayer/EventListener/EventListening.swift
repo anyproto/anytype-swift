@@ -40,9 +40,16 @@ extension EventListening.RawListener: LibMessageHandlerProtocol {
 }
 
 extension EventListening {
+    /// Default model of events.
+    /// Use it when you would like to handle events.
+    /// Plain `Anytype_Event*` events are deprecated.
+    ///
     struct PackOfEvents {
         var contextId: String
         var events: [Anytype_Event.Message] = []
+        /// TODO: Remove it later.
+        /// Only for a shit.
+        var ourEvents: [OurEvent] = []
         /// TODO: Maybe add initiator? (Account, who initiates events)
         /// Actually, whoever could send events. We should think about which events we should handle.
         /// Some events could come from other users.
@@ -52,9 +59,37 @@ extension EventListening {
     }
 }
 
+extension EventListening.PackOfEvents {
+    enum OurEvent {
+        struct Focus {
+            struct Payload {
+                enum Position {
+                    case unknown
+                    case beginning
+                    case end
+                    case at(Int)
+                }
+                var blockId: String
+                var position: Position?
+            }
+            var payload: Payload
+        }
+        case setFocus(Focus)
+        
+        struct Text {
+            struct Payload {
+                var blockId: String
+                var attributedString: NSAttributedString?
+            }
+            var payload: Payload
+        }
+        case setText(Text)
+    }
+}
+
 protocol NewEventHandler: class {
-    associatedtype Event
-    func handle(events: [Event])
+    associatedtype EventsContainer
+    func handle(events: EventsContainer)
 }
 
 protocol NewEventListener {

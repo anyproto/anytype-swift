@@ -334,6 +334,8 @@ extension BlocksViews.Base.ViewModel: BlockViewBuilderProtocol {
         }
         return view
     }
+    
+    var diffable: AnyHashable { .init("") }
 }
 
 /// Requirement: `BlocksViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.

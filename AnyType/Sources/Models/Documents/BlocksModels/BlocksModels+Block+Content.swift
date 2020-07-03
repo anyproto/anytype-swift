@@ -23,37 +23,61 @@ extension Namespace {
         case bookmark(Bookmark)
         case link(Link)
         
-        var kind: Kind { .init(attribute: self) }
+        var kind: Kind { .init(attribute: self, strategy: .topLevel) }
+        var deepKind: Kind { .init(attribute: self, strategy: .levelOne) }
     }
 }
 
 extension Namespace.ContentType {
-    struct Kind: Equatable {
-        static func == (lhs: BlocksModels.Block.Content.ContentType.Kind, rhs: BlocksModels.Block.Content.ContentType.Kind) -> Bool {
-            lhs.sameKind(rhs)
-        }
-        
-        typealias Element = BlocksModels.Block.Content.ContentType
-        var attribute: Element
-        func sameKind(_ value: Element) -> Bool {
-            Self.same(self.attribute, value)
-        }
-        func sameKind(_ value: Kind) -> Bool {
-            Self.same(self.attribute, value.attribute)
-        }
-        static func same(_ lhs: Element, _ rhs: Element) -> Bool {
-            switch (lhs, rhs) {
-            case (.text, .text): return true
-            case (.smartblock, .smartblock): return true
-            case (.file, .file): return true
-            case (.div, .div): return true
-            case (.bookmark, .bookmark): return true
-            case (.link, .link): return true
-            default: return false
+    struct KindComparator: Equatable {
+        fileprivate enum Strategy {
+            case topLevel
+            case levelOne
+            func same(_ lhs: Element, _ rhs: Element) -> Bool {
+                switch self {
+                case .topLevel:
+                    switch (lhs, rhs) {
+                    case (.text, .text): return true
+                    case (.smartblock, .smartblock): return true
+                    case (.file, .file): return true
+                    case (.div, .div): return true
+                    case (.bookmark, .bookmark): return true
+                    case (.link, .link): return true
+                    default: return false
+                    }
+                case .levelOne:
+                    guard Strategy.topLevel.same(lhs, rhs) else {
+                        return false
+                    }
+                    switch (lhs, rhs) {
+                    case let (.text(left), .text(right)): return left.contentType == right.contentType
+                    default: return true
+                    }
+                }
             }
         }
         
+        typealias Element = BlocksModels.Block.Content.ContentType
+        
+        var attribute: Element
+        fileprivate var strategy: Strategy = .topLevel
+        
+        func sameKind(_ value: Element) -> Bool {
+            self.same(self.attribute, value)
+        }
+        func sameKind(_ value: Kind) -> Bool {
+            self.same(self.attribute, value.attribute)
+        }
+        func same(_ lhs: Element, _ rhs: Element) -> Bool {
+            self.strategy.same(lhs, rhs)
+        }
+        
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.sameKind(rhs)
+        }
     }
+    
+    typealias Kind = KindComparator
 }
 
 extension Namespace.ContentType {

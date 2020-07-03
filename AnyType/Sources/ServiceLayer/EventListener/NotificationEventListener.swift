@@ -48,33 +48,3 @@ class NotificationEventListener<EventHandlerType: EventHandler>: EventListener w
         }
     }
 }
-
-extension EventListening {
-    class NotificationEventListener<EventHandlerType: NewEventHandler>: NewEventListener where EventHandlerType.Event == Anytype_Event.Message.OneOf_Value {
-
-        private var subscription: AnyCancellable?
-
-        weak var handler: EventHandlerType?
-
-        init(handler: EventHandlerType) {
-            self.handler = handler
-        }
-        
-        // TODO: Make it AnyPublisher?
-        func process(messages: [Anytype_Event.Message]) {
-            guard let handler = self.handler else { return }
-            handler.handle(events: messages.compactMap(\.value))
-        }
-        
-        func receive(contextId: String) {
-            self.subscription = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
-                .compactMap { $0.object as? Anytype_Event }
-                .filter( {$0.contextID == contextId} )
-                .sink { [weak self] event in
-                    // TODO: later pack them into PackOfEvents?
-                    guard let handler = self?.handler else { return }
-                    handler.handle(events: event.messages.compactMap(\.value))
-            }
-        }
-    }
-}

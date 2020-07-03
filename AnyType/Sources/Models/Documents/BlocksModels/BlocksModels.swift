@@ -22,5 +22,6 @@ extension BlocksModels {
         typealias PageDetails = BlocksModels.Block.Information.PageDetails
         typealias BlockKind = BlocksModels.Block.Kind
         typealias Information = BlocksModels.Block.Information
+        typealias FocusPosition = BlocksModels.Block.Focus.Position
     }
 }

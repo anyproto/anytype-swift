@@ -135,7 +135,7 @@ private extension BlockModels.Parser.Text.AttributedText.MarkStyle {
     }
 }
 
-private extension BlockModels.Parser.Text.AttributedText {
+extension BlockModels.Parser.Text.AttributedText {
     enum RangeConverter {
         /// We have to map correctly range from middleware and our range.
         /// For example, our range equals:

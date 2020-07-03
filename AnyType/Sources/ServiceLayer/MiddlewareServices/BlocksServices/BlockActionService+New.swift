@@ -28,6 +28,7 @@ protocol NewModel_BlockActionsServiceProtocolAdd {
 protocol NewModel_BlockActionsServiceProtocolSplit {
     associatedtype Success
     func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
+    func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
 }
 
 protocol NewModel_BlockActionsServiceProtocolReplace {
@@ -125,6 +126,11 @@ extension Namespace.BlockActionsService {
         func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: .init(from: cursorPosition, to: cursorPosition), style: style).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
+        }
+        func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+            let middlewareRange = BlocksModels.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
+            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
         }
     }
     

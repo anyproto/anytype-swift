@@ -12,19 +12,23 @@ import Combine
 import UIKit
 import os
 
+fileprivate typealias Namespace = BlocksViews.New.Text
+
 private extension Logging.Categories {
     static let textBlocksViewsBase: Self = "BlocksViews.New.Text.Base"
 }
 
-extension BlocksViews.New.Text {
+extension Namespace {
     enum Base {}
 }
 
 // MARK: - Base / ViewModel
-extension BlocksViews.New.Text.Base {
+extension Namespace.Base {
     class ViewModel: BlocksViews.New.Base.ViewModel {
         typealias BlocksModelsUpdater = BlocksModels.Updater
         typealias BlockModelId = BlocksModels.Aliases.BlockId
+        typealias FocusPosition = BlocksModels.Aliases.FocusPosition
+        
         @Environment(\.developerOptions) var developerOptions
         
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
@@ -39,6 +43,8 @@ extension BlocksViews.New.Text.Base {
         ///
         @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
         @Published private var toViewTextAlignment: NSTextAlignment? { willSet { self.objectWillChange.send() } }
+        @Published private var toViewSetFocusPosition: FocusPosition?
+        
         private var toViewUpdates: AnyPublisher<TextView.UIKitTextView.ViewModel.Update, Never> = .empty()
         
         private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
@@ -69,113 +75,7 @@ extension BlocksViews.New.Text.Base {
                 self.toViewText?.string ?? ""
             }
         }
-        
-        // MARK: Setup
-        private func setupTextViewModel() {
-            _ = self.textViewModel.configured(self)
-        }
-        
-        private func setupSubscribers() {
-            
-            /// FromView
-            self.textViewModel.richUpdatePublisher.sink { [weak self] (value) in
-                switch value {
-                case let .attributedText(text): self?.toModelTextSubject.send(text)
-                default: return
-                }
-            }.store(in: &self.subscriptions)
-            
-            self.textViewModel.auxiliaryPublisher.sink { [weak self] (value) in
-                switch value {
-                case let .auxiliary(value): self?.toModelAlignmentSubject.send(value.textAlignment)
-                default: return
-                }
-            }.store(in: &self.subscriptions)
-            
-            /// ToView
-            self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), self.$toViewTextAlignment.safelyUnwrapOptionals()).map({ value -> TextView.UIKitTextView.ViewModel.Update in
-                let (text, alignment) = value
-                return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
-            }).eraseToAnyPublisher()
-            
-            self.toViewUpdates.sink { [weak self] (value) in
-                self?.textViewModel.update = value
-            }.store(in: &self.subscriptions)
-            
-            //                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
-            //
-            //                }.store(in: &self.subscriptions)
-            
-            /// FromModel
-            /// ???
-            /// Actually, when we open page, we get BlockShow event.
-            /// This event contains actual state of all blocks.
-            
-            /// ToModel
-            self.toModelTextSubject.notableError().flatMap({ [weak self] (value) in
-                self?.apply(attributedText: value) ?? .empty()
-            }).sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                    os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@", String(describing: error))
-                }
-            }, receiveValue: { _ in }).store(in: &self.subscriptions)
-            
-            self.toModelAlignmentSubject.notableError().flatMap({ [weak self] (value) in
-                self?.apply(alignment: value) ?? .empty()
-            }).sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                    os_log(.debug, log: logger, "TextBlocksViews setAlignment error has occured. %@", String(describing: error))
-                }
-            }, receiveValue: { _ in }).store(in: &self.subscriptions)
-            
-            /// TextDidChange For OuterWorld
-            self.textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
-                switch value {
-                case let .attributedText(text): return text
-                default: return nil
-                }
-            }.safelyUnwrapOptionals().eraseToAnyPublisher()
-        }
-        
-        // MARK: - Events
-        /// Setup function for events that are coming from middleware.
-        /// It has distinct responsibility.
-        private func setupEventListeners() {
-            self.eventPublisher = NotificationEventListener(handler: self.eventListener)
-            self.eventListener.subject.sink { [weak self] (value) in
-                self?.toViewText = value
-            }.store(in: &self.subscriptions)
-        }
-        
-        private func setup() {
-            if self.developerOptions.current.debug.enabled {
-                self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, self.blockId)
-                switch self.getBlock().blockModel.information.content {
-                case let .text(blockType):
-                    self.text = self.text + " >> " + blockType.text
-                default: return
-                }
-            }
-            else {
-                let block = self.getBlock()
-                switch self.getBlock().blockModel.information.content {
-                case let .text(blockType):
-                    self.toViewText = blockType.attributedText
-                    self.toViewTextAlignment = BlocksModels.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.blockModel.information.alignment)
-                default: return
-                }
-            }
-            self.setupTextViewModel()
-            self.setupSubscribers()
-            self.setupEventListeners()
-        }
-        
+                
         // MARK: Subclassing
         override init(_ block: BlockModel) {
             super.init(block)
@@ -204,15 +104,168 @@ extension BlocksViews.New.Text.Base {
     }
 }
 
+// MARK: - Setup
+private extension Namespace.Base.ViewModel {
+    private func setupTextViewModel() {
+        _ = self.textViewModel.configured(self)
+    }
+    
+    private func setupSubscribers() {
+        
+        /// FromView
+        self.textViewModel.richUpdatePublisher.sink { [weak self] (value) in
+            switch value {
+            case let .attributedText(text): self?.toModelTextSubject.send(text)
+            default: return
+            }
+        }.store(in: &self.subscriptions)
+        
+        self.textViewModel.auxiliaryPublisher.sink { [weak self] (value) in
+            switch value {
+            case let .auxiliary(value): self?.toModelAlignmentSubject.send(value.textAlignment)
+            default: return
+            }
+        }.store(in: &self.subscriptions)
+        
+        /// ToView
+        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), self.$toViewTextAlignment.safelyUnwrapOptionals()).map({ value -> TextView.UIKitTextView.ViewModel.Update in
+            let (text, alignment) = value
+            return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
+        }).eraseToAnyPublisher()
+        
+        /// We should subscribe on view updates.
+        /// For now, we have two different publishers.
+        /// It is fine, but, what is under the hood?
+        /// We should initiate update of view by ourselves on `setFocus` or on `Merge`.
+        /// It is a job for `ephemeral passthroughSubject` and `intentional update of text view model`.
+        /// But
+        /// For `initial` state we should update some stored property.
+        /// And it is `@Published update` property of TextView.ViewModel.
+        self.toViewUpdates.sink { [weak self] (value) in
+            self?.textViewModel.intentional(update: value)
+        }.store(in: &self.subscriptions)
+        
+        self.toViewUpdates.sink { [weak self] (value) in
+            self?.textViewModel.update = value
+        }.store(in: &self.subscriptions)
+        
+        self.$toViewSetFocusPosition.sink { [weak self] (value) in
+            self?.textViewModel.setFocus = .init(position: value, completion: { [weak self] (value) in
+                var model = self?.getBlock()
+                model?.unsetFocusAt()
+                model?.unsetFirstResponder()
+                
+                /// Break possible cyclic setFocus.
+                self?.toViewSetFocusPosition = nil
+            })
+        }.store(in: &self.subscriptions)
+        
+        // From Model
+        self.getBlock().container?.userSession.didChangePublisher().sink(receiveValue: { [weak self] (value) in
+            if let block = self?.getBlock(), block.isFirstResponder {
+                self?.toViewSetFocusPosition = block.focusAt
+            }
+        }).store(in: &self.subscriptions)
+        
+        self.getBlock().didChangePublisher().sink { [weak self] (value) in
+            /// Update data(?)
+            if let block = self?.getBlock() {
+                switch block.blockModel.information.content {
+                case let .text(value):
+                    self?.toViewText = value.attributedText
+                    break
+                default: break
+                }
+            }
+        }.store(in: &self.subscriptions)
+        
+        //                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
+        //
+        //                }.store(in: &self.subscriptions)
+        
+        /// FromModel
+        /// ???
+        /// Actually, when we open page, we get BlockShow event.
+        /// This event contains actual state of all blocks.
+        
+        /// ToModel
+        self.toModelTextSubject.notableError().flatMap({ [weak self] (value) in
+            self?.apply(attributedText: value) ?? .empty()
+        }).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textBlocksViewsBase)
+                os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@", String(describing: error))
+            }
+        }, receiveValue: { _ in }).store(in: &self.subscriptions)
+        
+        self.toModelAlignmentSubject.notableError().flatMap({ [weak self] (value) in
+            self?.apply(alignment: value) ?? .empty()
+        }).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textBlocksViewsBase)
+                os_log(.debug, log: logger, "TextBlocksViews setAlignment error has occured. %@", String(describing: error))
+            }
+        }, receiveValue: { _ in }).store(in: &self.subscriptions)
+        
+        /// TextDidChange For OuterWorld
+        self.textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
+            switch value {
+            case let .attributedText(text): return text
+            default: return nil
+            }
+        }.safelyUnwrapOptionals().eraseToAnyPublisher()
+    }
+    
+    // MARK: - Events
+    /// Setup function for events that are coming from middleware.
+    /// It has distinct responsibility.
+    private func setupEventListeners() {
+        self.eventPublisher = NotificationEventListener(handler: self.eventListener)
+        self.eventListener.subject.sink { [weak self] (value) in
+            self?.toViewText = value
+        }.store(in: &self.subscriptions)
+    }
+    
+    private func setup() {
+        if self.developerOptions.current.debug.enabled {
+            self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, self.blockId)
+            switch self.getBlock().blockModel.information.content {
+            case let .text(blockType):
+                self.text = self.text + " >> " + blockType.text
+            default: return
+            }
+        }
+        else {
+            let block = self.getBlock()
+            switch self.getBlock().blockModel.information.content {
+            case let .text(blockType):
+                self.toViewText = blockType.attributedText
+                self.toViewTextAlignment = BlocksModels.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.blockModel.information.alignment)
+            default: return
+            }
+            if block.isFirstResponder {
+                self.toViewSetFocusPosition = block.focusAt
+            }
+        }
+        self.setupTextViewModel()
+        self.setupSubscribers()
+        self.setupEventListeners()
+    }
+}
+
 // MARK: - Actions Payload Legacy
-extension BlocksViews.New.Text.Base.ViewModel {
+extension Namespace.Base.ViewModel {
     func send(textViewAction: BlocksViews.New.Text.UserInteraction) {
         self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: textViewAction)))
     }
 }
 
 // MARK: - Events
-private extension BlocksViews.New.Text.Base.ViewModel {
+private extension Namespace.Base.ViewModel {
     class EventListener: EventHandler {
         typealias Event = Anytype_Event.Message.OneOf_Value
         var subject: PassthroughSubject<NSAttributedString, Never> = .init()
@@ -235,7 +288,7 @@ private extension BlocksViews.New.Text.Base.ViewModel {
 }
 
 // MARK: - ViewModel / Apply to model.
-private extension BlocksViews.New.Text.Base.ViewModel {
+private extension Namespace.Base.ViewModel {
     private func setModelData(text newText: String) {
         let theText = self.text
         self.text = theText
@@ -308,15 +361,8 @@ private extension BlocksViews.New.Text.Base.ViewModel {
     }
 }
 
-// MARK: - Focus
-extension BlocksViews.New.Text.Base.ViewModel {
-    func set(focus: Bool) {
-        self.textViewModel.shouldSetFocus = focus
-    }
-}
-
 // MARK: - TextViewUserInteractionProtocol
-extension BlocksViews.New.Text.Base.ViewModel: TextViewUserInteractionProtocol {
+extension Namespace.Base.ViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: TextView.UserAction) {
         switch action {
         case let .addBlockAction(value):
@@ -334,7 +380,7 @@ extension BlocksViews.New.Text.Base.ViewModel: TextViewUserInteractionProtocol {
 }
 
 // MARK: - Debug
-extension BlocksViews.New.Text.Base.ViewModel {
+extension Namespace.Base.ViewModel {
     // Class scope, actually.
     class func debugString(_ unique: Bool, _ id: BlockModelId) -> String {
         unique ? self.defaultDebugStringUnique(id) : self.defaultDebugString()
@@ -348,7 +394,7 @@ extension BlocksViews.New.Text.Base.ViewModel {
 }
 
 // MARK: - UIKitView / TopView
-extension BlocksViews.New.Text.Base {
+extension Namespace.Base {
     class TopUIKitView: UIView {
         // TODO: Refactor
         // OR
@@ -490,7 +536,7 @@ extension BlocksViews.New.Text.Base {
 }
 
 // MARK: - UIKitView / TopWithChild
-extension BlocksViews.New.Text.Base {
+extension Namespace.Base {
     class TopWithChildUIKitView: UIView {
         // TODO: Refactor
         // OR

@@ -297,13 +297,6 @@ private extension TextBlocksViews.Base.BlockViewModel {
     }
 }
 
-// MARK: - Focus
-extension TextBlocksViews.Base.BlockViewModel {
-    func set(focus: Bool) {
-        self.textViewModel.shouldSetFocus = focus
-    }
-}
-
 // MARK: - TextBlocksViewsUserInteractionProtocolHolder
 // Should we still keep this protocol? It is bad for our purposes.
 extension TextBlocksViews.Base.BlockViewModel: TextBlocksViewsUserInteractionProtocolHolder {

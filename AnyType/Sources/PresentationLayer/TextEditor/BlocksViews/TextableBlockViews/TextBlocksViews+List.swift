@@ -71,6 +71,8 @@ extension TextBlocksViews.List.BlockViewModel: BlockViewBuilderProtocol {
         .init(TextBlocksViews.List.BlockView(viewModel: self))
     }
     func buildUIView() -> UIView { .init() }
+    
+    var diffable: AnyHashable { .init("") }
 }
 
 // MARK: Style

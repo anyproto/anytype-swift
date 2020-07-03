@@ -56,6 +56,7 @@ extension BlocksViews.New.Base {
         // MARK: Initialization
         init(_ block: BlockModel) {
             self.block = block
+            self._diffableStorage = self.makeDiffable()
             self.setupPublishers()
             self.setupSubscriptions()
             let logger = Logging.createLogger(category: .blocksViewsBase)
@@ -164,6 +165,23 @@ extension BlocksViews.New.Base {
         
         // MARK: Subclass / Information
         var information: BlocksModelsInformationModelProtocol { self.getBlock().blockModel.information }
+        
+        // MARK: Subclass / Diffable
+        private var _diffableStorage: AnyHashable = .init("")
+        
+        /// Here we use the following technique.
+        /// As soon as we should recreate our ViewModels very often, we should keep their identity somewhere.
+        /// So, it is kind of "fingerprint" of "initial" block.
+        /// As soon as we use `block` as `shared` entity, we should struggle with its nature in this way.
+        /// Again.
+        /// Treat this property `_diffableStorage` as `initial` fingerprint of block.
+        ///
+        func makeDiffable() -> AnyHashable {
+            [
+                "Id": self.information.id,
+                "Content": BlocksModels.Utilities.ContentTypeIdentifier.identifier(self.information.content)
+            ] as [AnyHashable: AnyHashable]
+        }
         
         // MARK: Subclass / Views
         func makeSwiftUIView() -> AnyView { .init(EmptyView()) }
@@ -324,6 +342,8 @@ extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
         }
         return view
     }
+    
+    var diffable: AnyHashable { self._diffableStorage }
 }
 
 /// Requirement: `Block sViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.

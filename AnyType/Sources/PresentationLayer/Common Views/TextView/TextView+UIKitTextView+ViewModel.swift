@@ -17,11 +17,30 @@ fileprivate typealias Namespace = TextView.UIKitTextView
 // UIView <- ViewModel <(Update)- ViewModel ( special model )
 extension Namespace {
     class ViewModel {
+        struct Focus {
+            typealias Position = BlocksModels.Aliases.FocusPosition
+            var position: Position?
+            
+            /// We should call completion when we are done with set focus.
+            var completion: (Bool) -> () = { _ in }
+        }
+        
         // For View
         @Published var update: Update = .unknown
-        @Published var shouldSetFocus: Bool = false
+        
+        /// Interesting creature.
+        /// We should store first value of `initial` view state.
+        /// Instead, we separate `@Published update` property and `intentionalUpdatePublisher`.
+        private var intentionalUpdateSubject: PassthroughSubject<Update?, Never> = .init()
+        var intentionalUpdatePublisher: AnyPublisher<Update, Never> = .empty()
+        
+        // Set Focus
+        @Published var setFocus: Focus?
+        
+        // First Responder
         private var shouldResignFirstResponderSubject: PassthroughSubject<Bool, Never> = .init()
         var shouldResignFirstResponderPublisher: AnyPublisher<Bool, Never> = .empty()
+        
         // For OuterWorld.
         /// First publisher which manipulates plain old string, text.
         var updatePublisher: AnyPublisher<Update, Never> = .empty()
@@ -55,14 +74,32 @@ extension Namespace {
             self.updatePublisher = self.coordinator.$text.safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
             self.richUpdatePublisher = self.coordinator.$attributedText.safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
             self.auxiliaryPublisher = self.coordinator.$textAlignment.safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
-            
+        
+            // First Responder
             self.shouldResignFirstResponderPublisher = self.shouldResignFirstResponderSubject.eraseToAnyPublisher()
+            
+            // Intentional Update
+            self.intentionalUpdatePublisher = self.intentionalUpdateSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {
             self.init()
             _ = self.configured(delegate)
         }
+    }
+}
+
+// MARK: Intentional Update
+extension Namespace.ViewModel {
+    func intentional(update: Update?) {
+        self.intentionalUpdateSubject.send(update)
+    }
+}
+
+// MARK: Resign first responder
+extension Namespace.ViewModel {
+    func shouldResignFirstResponder() {
+        self.shouldResignFirstResponderSubject.send(true)
     }
 }
 
@@ -85,20 +122,6 @@ extension Namespace.ViewModel {
     func apply(update: Update) {
         // publish update?
         self.update = update
-    }
-}
-
-// MARK: Focus
-extension Namespace.ViewModel {
-    func set(focus: Bool) {
-        self.shouldSetFocus = focus
-    }
-}
-
-// MARK: Resign First Responder
-extension Namespace.ViewModel {
-    func shouldResignFirstResponder() {
-        self.shouldResignFirstResponderSubject.send(true)
     }
 }
 

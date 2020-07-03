@@ -182,6 +182,11 @@ extension Namespace.DocumentViewCells.Cell {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.onFirstResponder()
+    }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.model = nil
@@ -206,6 +211,15 @@ extension Namespace.DocumentViewCells.Cell {
         options.shouldShowIndent = shouldShowIndent
         self.update(options: options)
         return self
+    }
+}
+
+// MARK: First responder support
+extension Namespace.DocumentViewCells.Cell {
+    func onFirstResponder() {
+        if self.model?.isPendingFirstResponder == true {
+            self.model?.resolvePendingFirstResponder()
+        }
     }
 }
 

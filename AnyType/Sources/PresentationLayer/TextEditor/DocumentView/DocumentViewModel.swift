@@ -330,7 +330,7 @@ private extension DocumentViewModel {
             let position = value.position
             // find viewModelBuilder first.
             let viewModel = self.find(by: payload.blockId) as? TextBlocksViews.Base.BlockViewModel
-            viewModel?.set(focus: true) // here we send .set(focus: Bool) to correct viewModel.
+//            viewModel?.set(focus: true) // here we send .set(focus: Bool) to correct viewModel.
             switch position {
             case .beginning: return
             case .end: return
