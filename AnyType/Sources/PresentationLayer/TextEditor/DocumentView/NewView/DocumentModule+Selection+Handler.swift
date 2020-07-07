@@ -48,6 +48,9 @@ extension Namespace.Handler {
         mutating func toggle(id: Id) { self.selectedIds.contains(id) ? self.remove(id: id) : self.add(id: id) }
         mutating func add(id: Id) { self.selectedIds.insert(id) }
         mutating func remove(id: Id) { self.selectedIds.remove(id) }
+        
+        mutating func add(ids: Set<Id>) { self.selectedIds = self.selectedIds.union(ids) }
+        mutating func remove(ids: Set<Id>) { self.selectedIds = self.selectedIds.subtracting(ids) }
     }
 }
 
@@ -121,11 +124,32 @@ extension Namespace.Handler: DocumentModuleSelectionHandlerProtocol {
         }
     }
     
+    /// We should fire events only if selection is enabled.
+    /// Otherwise, we can't remove or selected ids.
+    ///
+    func deselect(ids: Set<BlockId>) {
+        guard self.selectionEnabled() else { return }
+        
+        self.storage.remove(ids: ids)
+    }
+        
+    /// We should fire events only if selection is enabled.
+    /// Otherwise, we can't remove or selected ids.
+    ///
+    /// Is it better to use `add(ids:)` here?
+    ///
     func select(ids: Set<BlockId>) {
+        guard self.selectionEnabled() else { return }
+        
         self.storage.set(ids: ids)
     }
-                
+    
+    /// We should fire events only if selection is enabled.
+    /// Otherwise, we can't remove or selected ids.
+    ///
     func toggle(_ id: BlockId) {
+        guard self.selectionEnabled() else { return }
+        
         self.storage.toggle(id: id)
     }
     
@@ -133,6 +157,11 @@ extension Namespace.Handler: DocumentModuleSelectionHandlerProtocol {
         self.storage.listSelectedIds()
     }
     
+    /// We should fire events only if selection is enabled.
+    /// Otherwise, we can't remove or selected ids.
+    ///
+    /// But, we still `CAN` clear storage without checking if selection is enabled.
+    ///
     func clear() {
         self.storage.clear()
     }
@@ -141,7 +170,11 @@ extension Namespace.Handler: DocumentModuleSelectionHandlerProtocol {
         self.storageEventsPublisher
     }
     
+    /// We should fire events only if selection is enabled.
+    /// Otherwise, we can't remove or selected ids.
+    ///
     func set(selected: Bool, id: BlockId) {
+        guard self.selectionEnabled() else { return }
         let contains = self.storage.contains(id: id)
         if contains != selected {
             self.storage.toggle(id: id)

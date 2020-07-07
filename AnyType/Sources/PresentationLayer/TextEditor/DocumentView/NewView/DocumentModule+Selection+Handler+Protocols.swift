@@ -15,6 +15,7 @@ protocol DocumentModuleSelectionHandlerListProtocol {
     func selectionEnabled() -> Bool
     func set(selectionEnabled: Bool)
     
+    func deselect(ids: Set<BlockId>)
     func select(ids: Set<BlockId>)
     
     func toggle(_ id: BlockId)
@@ -69,7 +70,11 @@ extension DocumentModuleHasSelectionHandlerProtocol {
     func set(selectionEnabled: Bool) {
         self.selectionHandler?.set(selectionEnabled: selectionEnabled)
     }
-        
+    
+    func deselect(ids: Set<BlocksModels.Aliases.BlockId>) {
+        self.selectionHandler?.deselect(ids: ids)
+    }
+    
     func select(ids: Set<BlockId>) {
         self.selectionHandler?.select(ids: ids)
     }

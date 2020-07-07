@@ -151,6 +151,23 @@ private extension Namespace.Base.ViewModel {
         
         self.$toViewSetFocusPosition.sink { [weak self] (value) in
             self?.textViewModel.setFocus = .init(position: value, completion: { [weak self] (value) in
+                /// HACK:
+                /// Look at `diffable` documentation for details.
+                /// Now it consists of two entries.
+                /// `diffable` = `contentType` + `blockId`.
+                /// If we change content type, we change a class of view model.
+                /// This update is not destructive ( like add or delete ) and associated `textView` still exists.
+                /// This `textView` will catch event.
+                /// We would like to prevent it.
+                /// We would like to deliver event to a view which could handle it.
+                ///
+                /// --
+                /// This hack can be removed, when we extract a widget `textView` and we will transfer it between viewModels.
+                /// --
+                ///
+                if self?.makeDiffable() != self?.diffable {
+                    return
+                }
                 var model = self?.getBlock()
                 model?.unsetFocusAt()
                 model?.unsetFirstResponder()
