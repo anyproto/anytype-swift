@@ -195,7 +195,7 @@ extension DocumentModule {
                 self.syncBuilders()
                 self.configurePageDetails(for: self.rootModel)
                 if let model = self.rootModel {
-                    self.eventHandler?.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
+                    self.eventProcessor.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
                         self?.syncBuilders {
                             switch value {
                             case .general: break
@@ -211,15 +211,14 @@ extension DocumentModule {
                             }
                         }
                     }).store(in: &self.subscriptions)
-                    _ = self.eventHandler?.configured(model)
+                    _ = self.eventProcessor.configured(model)
                 }
             }
         }
         
         // MARK: - Events
         @Published var userEvent: UserEvent?
-                
-        private var eventHandler: EventHandler?
+        private var eventProcessor: EventProcessor = .init()
         
         // MARK: - Page View Models
         /// PageDetailsViewModel
@@ -407,11 +406,6 @@ extension DocumentModule {
             
             _ = self.userInteractionHandler.configured(documentId: contextId)
             _ = self.listUserInteractionHandler.configured(documentId: contextId)
-                        
-            let eventHandler = EventHandler.init()
-            _ = eventHandler.configured(baseModel)
-            
-            self.eventHandler = eventHandler
             
             self.rootModel = baseModel
         }
@@ -460,7 +454,7 @@ private extension Namespace.DocumentViewModel {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events
-            self.eventHandler?.handle(events: events)
+            self.eventProcessor.handle(events: events)
             
         default:
             return
@@ -470,7 +464,7 @@ private extension Namespace.DocumentViewModel {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events
-            self.eventHandler?.handle(events: events)
+            self.eventProcessor.handle(events: events)
             
         default:
             return

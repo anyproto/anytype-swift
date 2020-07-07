@@ -11,16 +11,49 @@ import Combine
 import os
 
 private extension Logging.Categories {
-    static let eventHandler: Self = "DocumentModule.DocumentViewModel.EventHandler"
+    static let eventProcessor: Self = "DocumentModule.DocumentViewModel.EventProcessor"
 }
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.DocumentViewModel
+fileprivate typealias FileNamespace = Namespace.EventProcessor
+
+// MARK: Event Processor
+extension Namespace {
+    class EventProcessor {
+        private var eventHandler: EventHandler
+        private var eventPublisher: EventListening.NotificationEventListener<EventHandler>?
+        init() {
+            self.eventHandler = .init()
+            self.eventPublisher = .init(handler: self.eventHandler)
+        }
+        
+        private func startListening(contextId: String) {
+            self.eventPublisher?.receive(contextId: contextId)
+        }
+        
+        // MARK: EventHandler interface
+        var didProcessEventsPublisher: AnyPublisher<EventHandler.Update, Never> { self.eventHandler.didProcessEventsPublisher }
+        func configured(_ container: BlocksModelsContainerModelProtocol) -> Self {
+            _ = self.eventHandler.configured(container)
+            if let rootId = container.rootId {
+                self.startListening(contextId: rootId)
+            }
+            else {
+                let logger = Logging.createLogger(category: .eventProcessor)
+                os_log(.debug, log: logger, "We can't start listening rootId (%@) of container: (%@)", String(describing: container.rootId), String(describing: container))
+            }
+            return self
+        }
+        func handle(events: EventHandler.EventsContainer) {
+            self.eventHandler.handle(events: events)
+        }
+    }
+}
 
 // MARK: Event Listening
-extension Namespace.DocumentViewModel {
+extension FileNamespace {
     class EventHandler: NewEventHandler {
         typealias EventsContainer = EventListening.PackOfEvents
-        typealias ViewModel = DocumentModule.DocumentViewModel
         typealias BlockId = BlocksModels.Aliases.BlockId
                 
         private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
@@ -53,7 +86,7 @@ extension Namespace.DocumentViewModel {
             }
             
             guard let container = self.container else {
-                let logger = Logging.createLogger(category: .eventHandler)
+                let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "Container is nil in event handler. Something went wrong.")
                 return
             }
@@ -73,14 +106,14 @@ extension Namespace.DocumentViewModel {
 }
 
 // MARK: Setup
-private extension Namespace.DocumentViewModel.EventHandler {
+private extension FileNamespace.EventHandler {
     func setup() {
         self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
     }
 }
 
 // MARK: Configurations
-extension Namespace.DocumentViewModel.EventHandler {
+extension FileNamespace.EventHandler {
     func configured(_ container: BlocksModelsContainerModelProtocol) -> Self {
         self.updater = .init(container)
         self.container = container
@@ -89,7 +122,7 @@ extension Namespace.DocumentViewModel.EventHandler {
 }
 
 // MARK: Update
-extension Namespace.DocumentViewModel.EventHandler {
+extension FileNamespace.EventHandler {
     enum Update {
         struct Payload {
             var deletedIds: [BlockId] = []
@@ -102,7 +135,7 @@ extension Namespace.DocumentViewModel.EventHandler {
 
 // MARK: Events Handling
 // MARK: Events Handling / InnerEvents
-private extension Namespace.DocumentViewModel.EventHandler {
+private extension FileNamespace.EventHandler {
     func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> Update {
         switch event {
         case let .blockAdd(value):
@@ -133,7 +166,7 @@ private extension Namespace.DocumentViewModel.EventHandler {
             ///
         case let .blockSetText(value):
             guard let style = self.parser.convert(middlewareContent: .text(.init(text: value.text.value, style: value.style.value, marks: value.marks.value, checked: value.checked.value, color: value.color.value))) else {
-                let logger = Logging.createLogger(category: .eventHandler)
+                let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "We cannot parse style from value: %@", String(describing: value))
                 return .general
             }
@@ -164,13 +197,13 @@ private extension Namespace.DocumentViewModel.EventHandler {
 }
 
 // MARK: Events Handling / OurEvent
-private extension Namespace.DocumentViewModel.EventHandler {
+private extension FileNamespace.EventHandler {
     func handleOurEvent(_ event: EventListening.PackOfEvents.OurEvent) -> Update? {
         switch event {
         case let .setFocus(value):
             let blockId = value.payload.blockId
             guard var focusedModel = self.container?.choose(by: blockId) else {
-                let logger = Logging.createLogger(category: .eventHandler)
+                let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "We can't find focused model by id %@", String(describing: blockId))
                 return nil
             }
@@ -182,13 +215,13 @@ private extension Namespace.DocumentViewModel.EventHandler {
         case let .setText(value):
             let blockId = value.payload.blockId
             guard let focusedModel = self.container?.choose(by: blockId) else {
-                let logger = Logging.createLogger(category: .eventHandler)
+                let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "We can't find focused model by id %@", String(describing: blockId))
                 return nil
             }
             
             guard let attributedText = value.payload.attributedString else {
-                let logger = Logging.createLogger(category: .eventHandler)
+                let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "Text.Payload.attributedString is not allowed to be nil. %@", String(describing: blockId))
                 return nil
             }
@@ -220,11 +253,11 @@ private extension Namespace.DocumentViewModel.EventHandler {
 }
 
 // MARK: Converters
-private extension Namespace.DocumentViewModel.EventHandler {
+private extension FileNamespace.EventHandler {
     enum Focus {}
 }
 
-private extension Namespace.DocumentViewModel.EventHandler.Focus {
+private extension FileNamespace.EventHandler.Focus {
     enum Converter {
         typealias Model = BlocksModels.Aliases.FocusPosition
         typealias EventModel = EventListening.PackOfEvents.OurEvent.Focus.Payload.Position

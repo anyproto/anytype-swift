@@ -24,14 +24,22 @@ protocol NewModel_SmartBlockActionsServiceProtocolSetDetails {
     func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Void, Error>
 }
 
+/// Protocol for convert children to page action.
+/// NOTE: Action supports List context.
+protocol NewModel_SmartBlockActionsServiceProtocolConvertChildrenToPages {
+    func action(contextID: String, blocksIds: [String]) -> AnyPublisher<Void, Error>
+}
+
 // MARK: - Service Protocol
 /// Protocol for SmartBlock actions services.
 protocol NewModel_SmartBlockActionsServiceProtocol {
     associatedtype CreatePage: NewModel_SmartBlockActionsServiceProtocolCreatePage
     associatedtype SetDetails: NewModel_SmartBlockActionsServiceProtocolSetDetails
+    associatedtype ConvertChildrenToPages: NewModel_SmartBlockActionsServiceProtocolConvertChildrenToPages
     
     var createPage: CreatePage {get}
     var setDetails: SetDetails {get}
+    var convertChildrenToPages: ConvertChildrenToPages {get}
 }
 
 /// Concrete service that adopts SmartBlock actions service.
@@ -45,6 +53,7 @@ extension Namespace {
         
         var createPage: CreatePage = .init()
         var setDetails: SetDetails = .init()
+        var convertChildrenToPages: ConvertChildrenToPages = .init()
     }
 }
 
@@ -72,10 +81,9 @@ extension Namespace.SmartBlockActionsService {
 // MARK: - Children to page.
 // TODO: Add later.
 extension Namespace.SmartBlockActionsService {
-    struct ConvertChildrenToPages {
-        func action(contextID: String, blockIds: [String]) {
-//            Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blockIds).filter { (value) -> Bool in
-//            }
+    struct ConvertChildrenToPages: NewModel_SmartBlockActionsServiceProtocolConvertChildrenToPages {
+        func action(contextID: String, blocksIds: [String]) -> AnyPublisher<Void, Error> {
+            Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
 }

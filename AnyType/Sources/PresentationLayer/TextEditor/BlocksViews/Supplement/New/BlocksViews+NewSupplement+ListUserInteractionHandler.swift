@@ -117,8 +117,9 @@ extension Namespace.ListUserInteractionHandler {
 
             case let .other(value): // Change divider style.
                 break
-            case let .page(value): // Convert children to pages.
-                break
+            case .page: // Convert children to pages.
+                let type: Service.BlockContent = .smartblock(.init(style: .page))
+                self.service.turnInto(blocks: model, type: type)
             default:
                 let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
                 os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
@@ -222,12 +223,10 @@ extension Namespace.ListUserInteractionHandler {
 
         private let parser: BlocksModels.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
+        private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
         private let listService: ServiceLayerModule.BlockListActionsService = .init()
 
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
-
-        // We also need a handler of events.
-        private let eventHandling: String = ""
 
         init(documentId: String) {
             self.documentId = documentId
@@ -275,10 +274,36 @@ extension Namespace.ListUserInteractionHandler.Service {
     func turnInto(blocks: ListIds, type: BlockContent) {
         switch type {
         case .text: self.setTextStyle(blocks: blocks, type: type)
-        case let .smartblock(value): break
+        case let .smartblock(value): self.setPageStyle(blocks: blocks, type: type)
         case let .div(value): break
         default: return
         }
+    }
+    
+    private func setPageStyle(blocks: ListIds, type: BlockContent) {
+        
+        guard let middlewareContent = self.parser.convert(content: type) else {
+            let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
+            os_log(.error, log: logger, "Set Page style cannot convert type: %@", "\(String(describing: type))")
+            return
+        }
+        
+        guard case .smartblock = middlewareContent else {
+            let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
+            os_log(.error, log: logger, "Set Page style content is not text style: %@", "\(String(describing: middlewareContent))")
+            return
+        }
+        
+        let blocksIds = blocks
+        
+        self.pageService.convertChildrenToPages.action(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
+                os_log(.error, log: logger, "blocksActions.service.turnInto.convertChildrenToPages got error: %@", "\(error)")
+            }
+        }, receiveValue: { _ in }).store(in: &self.subscriptions)
     }
 
     private func setTextStyle(blocks: ListIds, type: BlockContent) {

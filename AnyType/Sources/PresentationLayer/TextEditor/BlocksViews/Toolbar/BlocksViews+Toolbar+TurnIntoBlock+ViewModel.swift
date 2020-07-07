@@ -13,7 +13,7 @@ extension BlocksViews.Toolbar.TurnIntoBlock {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
-            _ = viewModel.nestedCategories.page([])
+            _ = viewModel.nestedCategories.page([.page])
             _ = viewModel.nestedCategories.media([])
             _ = viewModel.nestedCategories.tool([])
             _ = viewModel.nestedCategories.other([])

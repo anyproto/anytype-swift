@@ -285,8 +285,9 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 
             case let .other(value): // Change divider style.
                 break
-            case let .page(value): // Convert children to pages.
-                break
+            case .page:
+                let type: Service.BlockContent = .smartblock(.init(style: .page))
+                self.service.turnInto(block: block.blockModel.information, type: type)
             default:
                 let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
@@ -664,10 +665,41 @@ private extension Namespace.UserInteractionHandler.Service {
     func turnInto(block: Information, type: BlockContent) {
         switch type {
         case .text: self.setTextStyle(block: block, type: type)
-        case let .smartblock(value): break
-        case let .div(value): break
+        case .smartblock: self.setPageStyle(block: block, type: type)
+        case let .div(value): self.setDividerStyle(block: block, type: type)
         default: return
         }
+    }
+    
+    private func setDividerStyle(block: Information, type: BlockContent) {
+        /// TODO: Add div style conversion.
+    }
+    
+    private func setPageStyle(block: Information, type: BlockContent) {
+        let blockId = block.id
+        
+        guard let middlewareContent = self.parser.convert(content: type) else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "Set Page style cannot convert type: %@", "\(String(describing: type))")
+            return
+        }
+        
+        guard case .smartblock = middlewareContent else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "Set Page style content is not text style: %@", "\(String(describing: middlewareContent))")
+            return
+        }
+        
+        let blocksIds = [blockId]
+        
+        self.pageService.convertChildrenToPages.action(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.error, log: logger, "blocksActions.service.turnInto.convertChildrenToPages got error: %@", "\(error)")
+            }
+        }, receiveValue: { _ in }).store(in: &self.subscriptions)
     }
     
     private func setTextStyle(block: Information, type: BlockContent) {
@@ -690,7 +722,7 @@ private extension Namespace.UserInteractionHandler.Service {
             case .finished: return
             case let .failure(error):
                 let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle with payload got error: %@", "\(error)")
+                os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle got error: %@", "\(error)")
             }
         }) { [weak self] (value) in
             self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))

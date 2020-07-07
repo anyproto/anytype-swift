@@ -124,6 +124,7 @@
 		0A0AA76B24051345003A2935 /* BlocksViewsUtilitiesUpdaterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA76A24051345003A2935 /* BlocksViewsUtilitiesUpdaterProtocol.swift */; };
 		0A0BDCC524B251E200956038 /* DocumentViewController+New+HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC424B251E200956038 /* DocumentViewController+New+HeaderView.swift */; };
 		0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings */; };
+		0A0BDCCA24B3370B00956038 /* OtherBlockActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC924B3370B00956038 /* OtherBlockActionsService.swift */; };
 		0A0C186A24571F6B003EDE7C /* DocumentViewModel+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C186924571F6B003EDE7C /* DocumentViewModel+Title.swift */; };
 		0A0C186D24572656003EDE7C /* DocumentViewModel+PageDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C186C24572656003EDE7C /* DocumentViewModel+PageDetailsViewModel.swift */; };
 		0A0C187024579059003EDE7C /* PageBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0C186F24579059003EDE7C /* PageBlocksViews.swift */; };
@@ -501,6 +502,7 @@
 		0A0AA76A24051345003A2935 /* BlocksViewsUtilitiesUpdaterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewsUtilitiesUpdaterProtocol.swift; sourceTree = "<group>"; };
 		0A0BDCC424B251E200956038 /* DocumentViewController+New+HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewController+New+HeaderView.swift"; sourceTree = "<group>"; };
 		0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.Toolbar.Blocks.Types.strings; sourceTree = "<group>"; };
+		0A0BDCC924B3370B00956038 /* OtherBlockActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherBlockActionsService.swift; sourceTree = "<group>"; };
 		0A0C186924571F6B003EDE7C /* DocumentViewModel+Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+Title.swift"; sourceTree = "<group>"; };
 		0A0C186C24572656003EDE7C /* DocumentViewModel+PageDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+PageDetailsViewModel.swift"; sourceTree = "<group>"; };
 		0A0C186F24579059003EDE7C /* PageBlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBlocksViews.swift; sourceTree = "<group>"; };
@@ -873,6 +875,7 @@
 		0327B0B4232BBA52007DB8A7 /* MiddlewareServices */ = {
 			isa = PBXGroup;
 			children = (
+				0A0BDCC824B336F100956038 /* OtherBlocksServices */,
 				0A721EE6244067DF0035A3E4 /* SmartBlocksServices */,
 				0A66456924085A1E008392AF /* BlocksServices */,
 				03D1516423FB443E004027CE /* ConfigurationServices */,
@@ -1527,6 +1530,14 @@
 				0A0C18772459CDA6003EDE7C /* BlockModel+NewModels+Information+Details.swift */,
 			);
 			path = BlockModel;
+			sourceTree = "<group>";
+		};
+		0A0BDCC824B336F100956038 /* OtherBlocksServices */ = {
+			isa = PBXGroup;
+			children = (
+				0A0BDCC924B3370B00956038 /* OtherBlockActionsService.swift */,
+			);
+			path = OtherBlocksServices;
 			sourceTree = "<group>";
 		};
 		0A0C186B2457263D003EDE7C /* PageDetails */ = {
@@ -2392,6 +2403,7 @@
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
 				0A2C0D58247144F4008ADD86 /* TextView+UIKitTextView+ViewModel.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
+				0A0BDCCA24B3370B00956038 /* OtherBlockActionsService.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SecureStoreServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				0A63ADE724648C9D00F092C8 /* TextBlockActionsService.swift in Sources */,
