@@ -101,6 +101,10 @@ extension DocumentViewController {
 // MARK: - Routing
 extension DocumentViewController {
     private func handleRouting(action: DocumentViewRouting.OutputEvent) {
+        /// Lets keep it as reminder for us not to do so in future.
+        ///
+        /// Actually, this file is deprecated and we'll not see it later.
+        ///
 //        switch action {
 //        case let .showViewController(viewController):
 //            self.present(viewController, animated: true, completion: {})

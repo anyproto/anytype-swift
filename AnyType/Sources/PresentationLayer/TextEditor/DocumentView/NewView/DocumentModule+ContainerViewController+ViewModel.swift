@@ -15,6 +15,10 @@ fileprivate typealias FileNamespace = Namespace.ContainerViewController
 
 // MARK: Actions
 extension FileNamespace.ViewModel {
+    /// An outgoing action that will come from this view model.
+    ///
+    /// Generally, corresponing `ViewController` of this `viewModel` will subscribe on these actions.
+    ///
     enum Action {
         typealias Document = DocumentModule.ContainerViewBuilder.UIKitBuilder.ChildComponent
         case show(UIViewController)

@@ -63,15 +63,10 @@ extension Namespace {
             guard let controller = self.topBottomMenuViewController, let navigationItem = self.navigationItem else { return }
             
             if selectionEnabled {
-//                let selectionView = self.multiSelectionAssembly.selectionView()
                 let leftBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildBarButtonItem(of: .selectAll)
                 let rightBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildBarButtonItem(of: .done)
                 
                 let toolbarView = self.multiSelectionAssembly.toolbarView()
-//                controller.add(subview: selectionView, onToolbar: .top)
-                
-//                navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
-//                navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
                 self.restorationPoint.save(navigationItem)
                 navigationItem.leftBarButtonItem = leftBarButtonItem
                 navigationItem.rightBarButtonItem = rightBarButtonItem
@@ -79,8 +74,6 @@ extension Namespace {
                 controller.add(subview: toolbarView, onToolbar: .bottom)
             }
             else {
-//                controller.removeSubview(fromToolbar: .top)
-//                navigationController.setNavigationBarHidden(true, animated: true)
                 self.restorationPoint.apply(navigationItem)
                 controller.removeSubview(fromToolbar: .bottom)
             }

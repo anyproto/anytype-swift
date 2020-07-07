@@ -19,6 +19,28 @@ fileprivate typealias FileNamespace = Namespace.EventProcessor
 
 // MARK: Event Processor
 extension Namespace {
+    /// This class encapsulates all logic for handling events.
+    ///
+    /// Setup for this class:
+    ///
+    /// ```
+    /// let processor: EventProcessor = .init()
+    /// let container: BlocksModelsContainerModelProtocol = /// get container
+    /// processor.configured(container)
+    /// ```
+    ///
+    /// If you want to listen events, you could use publisher:
+    ///
+    /// ```
+    /// processor.didProcessEventsPublisher // do stuff
+    /// ```
+    ///
+    /// If you want to handle events directly:
+    ///
+    /// ```
+    /// processor.handle(events:)
+    /// ```
+    ///
     class EventProcessor {
         private var eventHandler: EventHandler
         private var eventPublisher: EventListening.NotificationEventListener<EventHandler>?

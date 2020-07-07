@@ -13,6 +13,9 @@ import SwiftUI
 fileprivate typealias Namespace = DocumentModule
 
 extension Namespace {
+    /// This is a builder for Namespace.ContainerViewController. (DocumentModule.ContainerViewController)
+    /// It provides several builders which could build both `SwiftUI` (`SwiftUIBuilder`) and `UIKit` (`UIKitBuilder`) components.
+    ///
     enum ContainerViewBuilder {
         struct Request {
             typealias Id = String            
@@ -26,6 +29,8 @@ extension Namespace {
 }
 
 extension Namespace.ContainerViewBuilder {
+    /// `SwiftUI` builder.
+    /// It builds component for `SwiftUI`.
     enum SwiftUIBuilder {
         private typealias CurrentViewRepresentable = Namespace.ContainerViewRepresentable
         private static func create(by request: Request) -> AnyView {
@@ -47,7 +52,24 @@ extension Namespace.ContainerViewBuilder {
 }
 
 extension Namespace.ContainerViewBuilder {
+    /// `UIKit` builder.
+    /// It builds component for `UIKit`.
     enum UIKitBuilder {
+        /// We have the following system.
+        /// Builder has two kind of components: Self and Child.
+        /// You have an access to both components through `SelfComponent` and `ChildComponent`.
+        /// We don't have a type erasure here ( we don't want to ).
+        ///
+        /// Next, typealiases to `Child` components ( `ChildViewModel`, `ChildViewController`, `ChildViewBuilder` ) have prefix `Child`.
+        ///
+        /// But, typealiases to `Self` components ( `ViewModel`, `ViewController`, `SelfComponent` ) may not have prefix `Self`.
+        ///
+        /// Interesting part is `SelfComponent`.
+        /// `SelfComponent` is a triple `(ViewController, ViewModel, ChildComponent)`.
+        ///
+        /// It allows us to access to child of child of views to configure them on any level if we want to.
+        ///
+        ///
         typealias ViewModel = DocumentModule.ContainerViewController.ViewModel
         typealias ViewController = DocumentModule.ContainerViewController
         
@@ -58,10 +80,24 @@ extension Namespace.ContainerViewBuilder {
         typealias ChildComponent = ChildViewBuilder.UIKitBuilder.SelfComponent
         typealias SelfComponent = (ViewController, ViewModel, ChildComponent)
         
+        /// Returns `ChildComponent` for request in concrete builder. It uses `ChildViewBuilder.UIKitBuilder.selfComponent(by:)` method.
+        /// For us `childComponent` is a `selfComponent` of `ChildViewBuilder` or `ChildViewBuilder.UIKitBuilder.selfComponent(by:)`
+        /// - Parameter request: A request for which we will build child component.
+        /// - Returns: A child component for a request.
+        ///
         static func childComponent(by request: Request) -> ChildComponent {
             ChildViewBuilder.UIKitBuilder.selfComponent(by: request.documentRequest)
         }
         
+        /// Return `SelfComponent` for request in concrete builder.
+        /// For us `selfComponent` is a target for this builder. It access childComponent to configure it by entities on this level.
+        ///
+        /// For example, if you want connect user actions which are coming from internal view, you need access to it on level of builder.
+        /// It will be `childComponent` or `childChildComponent` ( a.k.a. `ChildViewBuilder.UIKitBuilder.ChildComponent` )
+        ///
+        /// - Parameter request: A request for which we will build self component.
+        /// - Returns: A self component for a request.
+        ///
         static func selfComponent(by request: Request) -> SelfComponent {
             let childComponent = self.childComponent(by: request)
             

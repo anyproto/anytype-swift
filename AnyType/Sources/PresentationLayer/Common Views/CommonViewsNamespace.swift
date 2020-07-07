@@ -8,4 +8,5 @@
 
 import Foundation
 
+/// This namespace contains all common views and view controllers.
 enum CommonViews {}

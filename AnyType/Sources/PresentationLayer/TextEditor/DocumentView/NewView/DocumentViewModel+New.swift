@@ -180,7 +180,6 @@ extension DocumentModule {
             }, receiveOutput: nil, receiveCompletion: nil, receiveCancel: nil, receiveRequest: { [weak self] value in
                 self?.refreshUserActionsAndPayloadsAndDetails()
             }).eraseToAnyPublisher()
-//            Just(self.soloUserActionPublisher).eraseToAnyPublisher()
         }()
         
         /// Options property publisher.
@@ -233,7 +232,6 @@ extension DocumentModule {
         var pageDetailsViewModels: PageDetailsViewModelsDictionary = [:] {
             didSet {
                 self.userEvent = .pageDetailsViewModelsDidSet
-//                self.refreshDetails(self.pageDetailsViewModels)
                 self.enhanceDetails(self.pageDetailsViewModels)
             }
         }
@@ -272,16 +270,6 @@ extension DocumentModule {
         }
         
         func setupSubscriptions() {
-//            self.buildersActionsPayloadsPublisher.sink { [weak self] (value) in
-//                _ = self?.userInteractionHandler.configured(value)
-//            }.store(in: &self.subscriptions)
-//
-//            self.buildersActionsPayloadsPublisher.flatMap { (value) in
-//                value
-//            }.sink { [weak self] (value) in
-//                self?.process(actionsPayload: value)
-//            }.store(in: &self.subscriptions)
-            
             self.publicActionsPayloadPublisher.sink { [weak self] (value) in
                 self?.process(actionsPayload: value)
             }.store(in: &self.subscriptions)
@@ -333,7 +321,6 @@ extension DocumentModule {
                     var value = value
                     return value.configured(selectionHandler: self?.selectionHandler)
                 })
-//                self?.refreshUserActionsAndPayloads(value)
                 self?.enhanceUserActionsAndPayloads(value)
             }.store(in: &self.subscriptions)
             
@@ -806,6 +793,12 @@ extension Namespace.DocumentViewModel: CustomDebugStringConvertible {
 }
 
 // MARK: Enhance UserActions and Payloads
+/// These methods work in opposite way as `Merging`.
+/// Instead, we just set a "delegate" ( no, our Subject ) to all viewModels in a List.
+/// So, we have different approach.
+///
+/// 1. We have one Subject that we give to all ViewModels.
+///
 extension Namespace.DocumentViewModel {
     func enhanceUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
         let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
@@ -821,6 +814,13 @@ extension Namespace.DocumentViewModel {
 }
 
 // MARK: Refresh UserActions and Payloads
+/// These methods work in direct way as `Merging`.
+/// If we have a list of viewModels with `Subject` or `Publisher`, we could do the following:
+///
+/// 1. We could `MergeMany` to gather all events in one `Publisher` on which we will react.
+///
+/// Unfortunately, this method doesn't work.
+///
 extension Namespace.DocumentViewModel {
     func refreshUserActionsAndPayloadsAndDetails() {
         self.refreshUserActionsAndPayloads()

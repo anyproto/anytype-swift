@@ -12,6 +12,10 @@ import Combine
 
 fileprivate typealias Namespace = DocumentModule
 extension Namespace {
+    /// We use `TransitionViewController` as a view controller for custom transitions.
+    /// Also, this controller could contain/store all presentation and dismissal animators.
+    /// Very handy.
+    ///
     typealias TransitionViewController = CommonViews.ViewControllers.TransitionContainerViewController
     class ContainerViewController: UIViewController {
         

@@ -40,27 +40,39 @@ extension Namespace.DocumentViewBuilder {
 
 extension Namespace.DocumentViewBuilder {
     enum UIKitBuilder {
-        private typealias ViewModel = Namespace.DocumentViewModel
+        /// Interesting part.
+        /// We define relationship between `Child` and `Self` components.
+        /// Child component has a builder.
+        ///
+        /// In our case, we don't have builders and child components.
+        /// This builder is a `leaf` of builders.
+        ///
+        /// For that, we define `ChildViewModel`, `ChildViewController`, `ChildViewBuilder` as `Void`.
+        ///
+        /// We don't have direct access to them, but we should an ability to add them to `SelfComponent` as `ChildComponent`.
+        ///
+        typealias ViewModel = DocumentModule.DocumentViewModel
         typealias ViewController = DocumentModule.DocumentViewController
         
-        static func documentView(by request: Request) -> ViewController {
+        typealias ChildViewModel = Void
+        typealias ChildViewController = Void
+        typealias ChildViewBuilder = Void
+
+        typealias ChildComponent = (ChildViewController, ChildViewModel)
+        typealias SelfComponent = (ViewController, ViewModel, ChildComponent)
+        
+        static func childComponent(by request: Request) -> ChildComponent {
+            ((), ())
+        }
+        
+        static func selfComponent(by request: Request) -> SelfComponent {
             let viewModel: ViewModel = .init(documentId: request.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
-            
             let view: ViewController = .init(viewModel: viewModel)
-            
-            /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
-            
-            let router: DocumentViewRouting.CompoundRouter = .init()
-            /// TODO: Remove later.
-            /// Lets keep it for a while, until we completely remove old document view model.
-            ///
-//            let publisher = viewModel.soloUserActionPublisherPublisher
-//            _ = router.configured(userActionsStreamStream: publisher)
-            _ = router.configured(userActionsStream: viewModel.soloUserActionPublisher)
-            
-            /// Subscribe `view controller` on events from `router`.
-//            view.subscribeOnRouting(router)
-            return view
+            return (view, viewModel, self.childComponent(by: request))
+        }
+        
+        static func documentView(by request: Request) -> ViewController {
+            self.selfComponent(by: request).0
         }
     }
 }

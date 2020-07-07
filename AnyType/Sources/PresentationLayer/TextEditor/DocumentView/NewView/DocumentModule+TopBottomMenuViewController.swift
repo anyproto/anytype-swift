@@ -54,10 +54,12 @@ extension Namespace.TopBottomMenuViewController {
 }
 
 // MARK: Navigation
+// TODO: Extract to ChildNavigationController.
+/// ChildNavigationController will store ContentViewController.
+/// ContainerViewController will store and present NavigationController which will manipulates ChildNavigationController.
 private extension Namespace.TopBottomMenuViewController {
     private func configureNavigation(_ navigationItem: UINavigationItem) {        
         let appearance = UINavigationBarAppearance()
-//        self.navigationController?.navigationBar.barTintColor = .red
         
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .red

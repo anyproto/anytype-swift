@@ -52,7 +52,6 @@ extension Namespace {
             stackView.alignment = .fill
             stackView.isLayoutMarginsRelativeArrangement = true
             stackView.translatesAutoresizingMaskIntoConstraints = false
-//            stackView.directionalLayoutMargins = self.layout.directionalEdgeInsets
 
             return stackView
         }()
@@ -96,10 +95,7 @@ extension Namespace {
         }
         
         private func setupView() {
-            self.translatesAutoresizingMaskIntoConstraints = false
-//            self.horizontalStackView.addArrangedSubview(UIView())
-//            self.verticalStackView.addArrangedSubview(self.horizontalStackView)
-            
+            self.translatesAutoresizingMaskIntoConstraints = false            
             self.contentView.addSubview(self.verticalStackView)
             self.addSubview(self.contentView)
         }

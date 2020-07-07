@@ -35,6 +35,12 @@ extension Namespace.ContentViewBuilder {
 
 extension Namespace.ContentViewBuilder {
     enum UIKitBuilder {
+        /// Middleware builder.
+        /// It is between `ContainerViewBuilder` and `DocumentViewBuilder`.
+        ///
+        /// It has a `ChildComponent` from `DocumentViewBuilder.UIKitBuilder.SelfComponent`
+        /// And it provides `SelfComponent` to `ContainerViewBuilder` as `ContainerViewBuilder.UIKitBuilder.ChildComponent`
+        ///
         typealias ViewModel = DocumentModule.ContentViewController.ViewModel
         typealias ViewController = DocumentModule.ContentViewController
         
@@ -42,23 +48,21 @@ extension Namespace.ContentViewBuilder {
         typealias ChildViewController = DocumentModule.DocumentViewController
         typealias ChildViewBuilder = DocumentModule.DocumentViewBuilder
         
-        typealias ChildComponent = (ChildViewController, ChildViewModel)
+        typealias ChildComponent = ChildViewBuilder.UIKitBuilder.SelfComponent
         typealias SelfComponent = (ViewController, ViewModel, ChildComponent)
         
         /// Returns concrete child View of a Document.
         /// It is configured to show exactly one document or be a part of Container.
         ///
         static func childComponent(by request: Request) -> ChildComponent {
-            let viewModel: ChildViewModel = .init(documentId: request.documentRequest.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
-            let view: ChildViewController = .init(viewModel: viewModel)
-            return (view, viewModel)
+            ChildViewBuilder.UIKitBuilder.selfComponent(by: request.documentRequest)
         }
         
         /// Returns concrete Document.
         /// It is configured to show exactly one document or be a part of Container.
         ///
         static func selfComponent(by request: Request) -> SelfComponent {
-            let (childViewController, childViewModel) = self.childComponent(by: request)
+            let (childViewController, childViewModel, childChildComponent) = self.childComponent(by: request)
             let viewModel: ViewModel = .init()
             
             let topBottomMenuViewController: Namespace.TopBottomMenuViewController = .init()
@@ -76,7 +80,7 @@ extension Namespace.ContentViewBuilder {
             
             /// Do not forget to configure routers events...
             
-            return (viewController, viewModel, (childViewController, childViewModel))
+            return (viewController, viewModel, (childViewController, childViewModel, childChildComponent))
         }
         
         static func view(by request: Request) -> ViewController {
