@@ -15,8 +15,6 @@ fileprivate typealias Namespace = DocumentModule
 // MARK: ViewModel
 extension Namespace.ContentViewController {
     class ViewModel {
-        /// We could keep there router.
-        private var router: DocumentViewRoutingOutputProtocol?
         /// And keep selection here.
         private var selectionPresenter: DocumentModule.Selection.ToolbarPresenter = .init()
         private(set) var selectionHandler: DocumentModuleSelectionHandlerProtocol = Namespace.Selection.Handler.init()
@@ -38,16 +36,16 @@ extension Namespace.ContentViewController {
 
 // MARK: Configurations
 extension Namespace.ContentViewController.ViewModel {
+    func configured(navigationItem: UINavigationItem) -> Self {
+        _ = self.selectionPresenter.configured(navigationItem: navigationItem)
+        return self
+    }
     func configured(topBottomMenuViewController controller: DocumentModule.TopBottomMenuViewController) -> Self {
         _ = self.selectionPresenter.configured(topBottomMenuViewController: controller)
         return self
     }
     private func configured(selectionEventsPublisher: AnyPublisher<DocumentModule.Selection.IncomingEvent, Never>) -> Self {
         _ = self.selectionPresenter.configured(selectionEventPublisher: selectionEventsPublisher)
-        return self
-    }
-    func configured(router: DocumentViewRoutingOutputProtocol?) -> Self {
-        self.router = router
         return self
     }
 }

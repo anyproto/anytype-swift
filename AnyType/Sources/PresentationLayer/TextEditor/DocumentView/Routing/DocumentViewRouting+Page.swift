@@ -35,7 +35,8 @@ extension DocumentViewRouting.PageBlocksViewsRouter {
         private func handle(action: PageBlocksViews.UserAction.EmojiAction) {
             switch action {
             case let .shouldShowEmojiPicker(model):
-                self.send(event: .showViewController(EmojiPicker.ViewController.init(viewModel: model)))
+                let viewController = EmojiPicker.ViewController.init(viewModel: model)
+                self.send(event: .general(.show(viewController)))
             }
         }
         

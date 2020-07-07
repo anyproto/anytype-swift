@@ -51,6 +51,7 @@ extension Namespace.DocumentViewModel {
 extension DocumentModule {
     
     class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolder {
+        /// Aliases
         typealias RootModel = BlocksModelsContainerModelProtocol
         typealias BlockId = BlocksModels.Aliases.BlockId
         
@@ -60,6 +61,9 @@ extension DocumentModule {
         typealias BlocksUserAction = BlocksViews.UserAction
         
         typealias BlocksViewsNamespace = BlocksViews.New
+        
+        /// DocumentId
+        private var debugDocumentId: String = ""
         
         /// Service
         private var blockActionsService: ServiceLayerModule.BlockActionsService = .init()
@@ -79,17 +83,33 @@ extension DocumentModule {
         private(set) var selectionHandler: DocumentModuleSelectionHandlerProtocol?
         
         /// Builders Publisher
+        /// It is incorrect stuff.
+        /// Please, use a little passthrough subjects, OK?
+        /// Deprecated Publishers and Subjects
         private var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksUserAction, Never>, Never> = .init()
         private var detailsPublisherSubject: PassthroughSubject<AnyPublisher<BlocksUserAction, Never>, Never> = .init()
+        
+        private var buildersActionsPayloadsSubject: PassthroughSubject<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = .init()
+        private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = { self.buildersActionsPayloadsSubject.eraseToAnyPublisher() }()
+        
         private var listToolbarSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
+        
+        /// Deprecated
         private var listSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
-        lazy private var listPublisherSubject: CurrentValueSubject<AnyPublisher<BlocksUserAction, Never>, Never> = {
-            .init(self.listSubject.eraseToAnyPublisher())
-        }()
+        
+        private var publicUserActionSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
+        lazy var publicUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
+        
+        private var publicActionsPayloadSubject: PassthroughSubject<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = .init()
+        lazy var publicActionsPayloadPublisher: AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
+        
+        /// Deprecated
+        lazy private var listPublisherSubject: CurrentValueSubject<AnyPublisher<BlocksUserAction, Never>, Never> = { .init(self.listSubject.eraseToAnyPublisher()) }()
         private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
         lazy private var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
             self.listActionsPayloadSubject.eraseToAnyPublisher()
         }()
+                
         lazy var soloUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = {
             /// As soon as we made another curve in learning publishers
             /// It is pretty simple to achieve our desired behavior without publishers of publishers.
@@ -119,9 +139,22 @@ extension DocumentModule {
             ///
             /// At step 3 we just merge values into one publisher, so, any value of triple here could emit value.
             ///
-            Publishers.CombineLatest3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject).flatMap { (value) -> AnyPublisher<BlocksUserAction, Never> in
+            let buildersSubject = self.buildersPublisherSubject
+            let detailsSubject = self.detailsPublisherSubject
+            let listSubject = self.listPublisherSubject
+            let first = buildersSubject
+                //Publishers.MakeConnectable(upstream: buildersSubject).autoconnect()
+            let second = detailsSubject
+                //Publishers.MakeConnectable(upstream: detailsSubject).autoconnect()
+            let third = listSubject
+            
+            return Publishers.CombineLatest3(first, second, third).flatMap { (value) -> AnyPublisher<BlocksUserAction, Never> in
                 Publishers.Merge3(value.0, value.1, value.2).eraseToAnyPublisher()
-            }.eraseToAnyPublisher()
+            }.handleEvents(receiveSubscription: { [weak self] value in
+                self?.refreshUserActionsAndPayloadsAndDetails()
+            }, receiveOutput: nil, receiveCompletion: nil, receiveCancel: nil, receiveRequest: { [weak self] value in
+                self?.refreshUserActionsAndPayloadsAndDetails()
+            }).eraseToAnyPublisher()
         }()
         lazy var userActionPublisher: AnyPublisher<AnyPublisher<BlocksUserAction, Never>, Never> = {
             /// For now, we just collect three publishers and merge them as one publisher.
@@ -134,11 +167,20 @@ extension DocumentModule {
             /// As you see, you can't put C on top of stream, because it is `CurrentValueSubject`.
             ///
 //            return Publishers.Merge3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject).eraseToAnyPublisher()
-            Just(self.soloUserActionPublisher).eraseToAnyPublisher()
-        }()
-        private var buildersActionsPayloadsSubject: PassthroughSubject<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = .init()
-        private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = {
-            self.buildersActionsPayloadsSubject.eraseToAnyPublisher()
+//            Publishers.CombineLatest3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject)
+            
+            let first = self.buildersPublisherSubject
+            let second = self.detailsPublisherSubject
+            let third = self.listPublisherSubject
+            
+            return Publishers.CombineLatest3(first, second, third).map({ value -> AnyPublisher<BlocksUserAction, Never> in
+                Publishers.Merge3(value.0, value.1, value.2).eraseToAnyPublisher()
+            }).handleEvents(receiveSubscription: { [weak self] value in
+                self?.refreshUserActionsAndPayloadsAndDetails()
+            }, receiveOutput: nil, receiveCompletion: nil, receiveCancel: nil, receiveRequest: { [weak self] value in
+                self?.refreshUserActionsAndPayloadsAndDetails()
+            }).eraseToAnyPublisher()
+//            Just(self.soloUserActionPublisher).eraseToAnyPublisher()
         }()
         
         /// Options property publisher.
@@ -188,11 +230,12 @@ extension DocumentModule {
         @Published var wholePageDetailsViewModel: PageDetailsViewModel = .init()
         
         /// We  need this model to be Published cause need handle actions from IconEmojiBlock
-        var pageDetailsViewModels: [BlocksModels.Aliases.Information.PageDetails.Details.Kind : BlockViewBuilderProtocol] = [:] {
+        typealias PageDetailsViewModelsDictionary = [BlocksModels.Aliases.Information.PageDetails.Details.Kind : BlockViewBuilderProtocol]
+        var pageDetailsViewModels: PageDetailsViewModelsDictionary = [:] {
             didSet {
                 self.userEvent = .pageDetailsViewModelsDidSet
-                let values = self.pageDetailsViewModels.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map(\.userActionPublisher)
-                self.detailsPublisherSubject.send(Publishers.MergeMany(values).eraseToAnyPublisher())
+//                self.refreshDetails(self.pageDetailsViewModels)
+                self.enhanceDetails(self.pageDetailsViewModels)
             }
         }
         
@@ -204,22 +247,7 @@ extension DocumentModule {
         @Published var buildersRows: [Row] = [] {
             didSet {
                 self.objectWillChange.send()
-                
-                let buildersModels = self.$buildersRows.map {
-                    $0.compactMap({$0.builder as? BlocksViewsNamespace.Base.ViewModel})
-                }
-                
-                let buildersUserActionPublisher = buildersModels.flatMap({
-                    Publishers.MergeMany($0.map(\.userActionPublisher))
-                }).eraseToAnyPublisher()
-                self.buildersPublisherSubject.send(buildersUserActionPublisher)
-                
-                let buildersActionsPayloadsPublisher = buildersModels.flatMap({
-                    Publishers.MergeMany($0.map(\.actionsPayloadPublisher))
-                }).eraseToAnyPublisher()
-                
-                self.buildersActionsPayloadsSubject.send(buildersActionsPayloadsPublisher)
-                
+                                
                 /// Disable selection mode.
                 if self.buildersRows.isEmpty {
                     self.set(selectionEnabled: false)
@@ -245,15 +273,21 @@ extension DocumentModule {
         }
         
         func setupSubscriptions() {
-            self.buildersActionsPayloadsPublisher.sink { [weak self] (value) in
-                _ = self?.userInteractionHandler.configured(value)
-            }.store(in: &self.subscriptions)
+//            self.buildersActionsPayloadsPublisher.sink { [weak self] (value) in
+//                _ = self?.userInteractionHandler.configured(value)
+//            }.store(in: &self.subscriptions)
+//
+//            self.buildersActionsPayloadsPublisher.flatMap { (value) in
+//                value
+//            }.sink { [weak self] (value) in
+//                self?.process(actionsPayload: value)
+//            }.store(in: &self.subscriptions)
             
-            self.buildersActionsPayloadsPublisher.flatMap { (value) in
-                value
-            }.sink { [weak self] (value) in
+            self.publicActionsPayloadPublisher.sink { [weak self] (value) in
                 self?.process(actionsPayload: value)
             }.store(in: &self.subscriptions)
+            
+            _ = self.userInteractionHandler.configured(self.publicActionsPayloadPublisher)
             
             self.listToolbarSubject.sink { [weak self] (value) in
                 self?.process(toolbarAction: value)
@@ -294,12 +328,14 @@ extension DocumentModule {
             }.sink(receiveCompletion: { _ in }, receiveValue: {_ in }).store(in: &self.subscriptions)
             
             self.obtainDocument(documentId: documentId)
-            
+                        
             self.$builders.sink { [weak self] value in
                 self?.buildersRows = value.compactMap(Row.init).map({ (value) in
                     var value = value
                     return value.configured(selectionHandler: self?.selectionHandler)
                 })
+//                self?.refreshUserActionsAndPayloads(value)
+                self?.enhanceUserActionsAndPayloads(value)
             }.store(in: &self.subscriptions)
             
             self.anyFieldPublisher = self.$builders
@@ -398,6 +434,8 @@ extension DocumentModule {
         private func obtainDocument(documentId: String?) {
             guard let documentId = documentId else { return }
             self.internalState = .loading
+            
+            self.debugDocumentId = documentId
             
             self.blockActionsService.open.action(contextID: documentId, blockID: documentId)
                 .print()
@@ -545,7 +583,7 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
             return .init(builder: TextBlocksViews.Base.BlockViewModel.empty)
         }
         var row = Row.init(builder: self.builders[at.row])
-        row.configured(selectionHandler: self.selectionHandler)
+        _ = row.configured(selectionHandler: self.selectionHandler)
         return row
     }
     
@@ -709,21 +747,23 @@ private extension Namespace.DocumentViewModel {
         switch value {
         case let .selection(value):
             switch value {
-            case .selectAll:
-                self.selectAll()
-                self.syncBuilders()
-            case .deselectAll:
-                self.deselectAll()
-                self.syncBuilders()
-            case .done:
+            case let .selectAll(value):
+                switch value {
+                case .selectAll:
+                    self.selectAll()
+                    self.syncBuilders()
+                case .deselectAll:
+                    self.deselectAll()
+                    self.syncBuilders()
+                }
+            case .done(.done):
                 self.set(selectionEnabled: false)
                 self.syncBuilders()
             }
         case let .toolbar(value):
             let selectedIds = self.list()
             switch value {
-            case .turnInto:
-                self.listSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject))))
+            case .turnInto: self.publicUserActionSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject))))
             case .delete: self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: .editBlock(.delete))))
             case .copy: break
             default: break
@@ -761,5 +801,55 @@ extension Namespace.DocumentViewModel {
     func configured(selectionHandler: DocumentModuleSelectionHandlerProtocol?) -> Self {
         self.selectionHandler = selectionHandler
         return self
+    }
+}
+
+// MARK: Debug
+extension Namespace.DocumentViewModel: CustomDebugStringConvertible {
+    var debugDescription: String {
+        "\(String(reflecting: Self.self)) -> \(self.debugDocumentId)"
+    }
+}
+
+// MARK: Enhance UserActions and Payloads
+extension Namespace.DocumentViewModel {
+    func enhanceUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
+        let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
+        
+        _ = ourViewModels.map({$0.configured(userActionSubject: self.publicUserActionSubject)})
+        
+        _ = ourViewModels.map({$0.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)})
+    }
+    
+    func enhanceDetails(_ value: PageDetailsViewModelsDictionary) {
+        _ = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map({$0.configured(userActionSubject: self.publicUserActionSubject)})
+    }
+}
+
+// MARK: Refresh UserActions and Payloads
+extension Namespace.DocumentViewModel {
+    func refreshUserActionsAndPayloadsAndDetails() {
+        self.refreshUserActionsAndPayloads()
+        self.refreshDetails()
+    }
+    func refreshDetails() {
+        self.refreshDetails(self.pageDetailsViewModels)
+    }
+    func refreshDetails(_ value: PageDetailsViewModelsDictionary) {
+        let values = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map(\.userActionPublisher)
+        self.detailsPublisherSubject.send(Publishers.MergeMany(values).eraseToAnyPublisher())
+    }
+    func refreshUserActionsAndPayloads() {
+        self.refreshUserActionsAndPayloads(self.builders)
+    }
+    func refreshUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
+        let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
+        
+        let userActions = ourViewModels.map(\.userActionPublisher)
+        
+        self.buildersPublisherSubject.send(Publishers.MergeMany(userActions).eraseToAnyPublisher())
+        
+        let actionsPayloads = ourViewModels.map(\.actionsPayloadPublisher)
+        self.buildersActionsPayloadsSubject.send(Publishers.MergeMany(actionsPayloads).eraseToAnyPublisher())
     }
 }

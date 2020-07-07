@@ -16,11 +16,34 @@ fileprivate typealias Namespace = DocumentModule.Selection
 ///
 extension Namespace {
     class ToolbarPresenter {
-        private var subscription: AnyCancellable?
-        weak private var topBottomMenuViewController: DocumentModule.TopBottomMenuViewController?
+        
+        struct RestorationPoint {
+            var leftBarButtons: [UIBarButtonItem]?
+            var rightBarButtons: [UIBarButtonItem]?
+            
+            mutating func save(_ navigationItem: UINavigationItem) {
+                self.leftBarButtons = navigationItem.leftBarButtonItems
+                self.rightBarButtons = navigationItem.rightBarButtonItems
+            }
+            func apply(_ navigationItem: UINavigationItem) {
+                navigationItem.leftBarButtonItems = self.leftBarButtons
+                navigationItem.rightBarButtonItems = self.rightBarButtons
+            }
+        }
+                
+        
+        /// Aliases
         typealias SelectionAction = MultiSelectionPane.UIKit.Main.Action
         typealias SelectionEvent = DocumentModule.Selection.IncomingEvent
+
+        /// Variables
+        private var subscription: AnyCancellable?
         private var multiSelectionAssembly: MultiSelectionPane.UIKit.Main.Assembly = .init()
+        private var restorationPoint: RestorationPoint = .init()
+        
+        /// Variables / Targets
+        private weak var topBottomMenuViewController: DocumentModule.TopBottomMenuViewController?
+        private weak var navigationItem: UINavigationItem?
         
         /// Subscribe on UserAction.
         var userAction: AnyPublisher<SelectionAction, Never> {
@@ -35,19 +58,30 @@ extension Namespace {
         private func selectionNotShown() -> Bool {
             self.topBottomMenuViewController?.menusState() == .some(.none)
         }
-        
+                
         private func update(selectionEnabled: Bool) {
-            guard let controller = self.topBottomMenuViewController else { return }
+            guard let controller = self.topBottomMenuViewController, let navigationItem = self.navigationItem else { return }
             
             if selectionEnabled {
-                let selectionView = self.multiSelectionAssembly.selectionView()
+//                let selectionView = self.multiSelectionAssembly.selectionView()
+                let leftBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildBarButtonItem(of: .selectAll)
+                let rightBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildBarButtonItem(of: .done)
                 
                 let toolbarView = self.multiSelectionAssembly.toolbarView()
-                controller.add(subview: selectionView, onToolbar: .top)
+//                controller.add(subview: selectionView, onToolbar: .top)
+                
+//                navigationItem.setLeftBarButton(leftBarButtonItem, animated: false)
+//                navigationItem.setRightBarButton(rightBarButtonItem, animated: false)
+                self.restorationPoint.save(navigationItem)
+                navigationItem.leftBarButtonItem = leftBarButtonItem
+                navigationItem.rightBarButtonItem = rightBarButtonItem
+                
                 controller.add(subview: toolbarView, onToolbar: .bottom)
             }
             else {
-                controller.removeSubview(fromToolbar: .top)
+//                controller.removeSubview(fromToolbar: .top)
+//                navigationController.setNavigationBarHidden(true, animated: true)
+                self.restorationPoint.apply(navigationItem)
                 controller.removeSubview(fromToolbar: .bottom)
             }
         }
@@ -77,6 +111,11 @@ extension Namespace {
 extension Namespace.ToolbarPresenter {
     func configured(topBottomMenuViewController: DocumentModule.TopBottomMenuViewController?) -> Self {
         self.topBottomMenuViewController = topBottomMenuViewController
+        return self
+    }
+    
+    func configured(navigationItem: UINavigationItem?) -> Self {
+        self.navigationItem = navigationItem
         return self
     }
     

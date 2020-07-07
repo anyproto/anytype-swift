@@ -69,7 +69,7 @@ extension DocumentViewRouting.ToolbarsRouter {
                 appearance.isTranslucent = false
                 let viewController = UINavigationController.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
                 viewController.viewControllers = [controller]
-                self.send(event: .showViewController(viewController))
+                self.send(event: .general(.show(viewController)))
             default: return
             }
         }
@@ -125,7 +125,7 @@ extension DocumentViewRouting.ToolbarsRouter {
                 appearance.isTranslucent = false
                 let viewController = UINavigationController.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
                 viewController.viewControllers = [controller]
-                self.send(event: .showViewController(viewController))
+                self.send(event: .general(.show(viewController)))
             default: return
             }
         }
@@ -175,7 +175,7 @@ extension DocumentViewRouting.ToolbarsRouter {
                 
                 // TODO: Move to MarksPane.ViewControllerBuilder or MarksPane.ViewBuilder
                 let viewController = MarksPane.ViewController.configured(controller)
-                self.send(event: .showViewController(viewController))
+                self.send(event: .general(.show(viewController)))
             default: return
             }
         }

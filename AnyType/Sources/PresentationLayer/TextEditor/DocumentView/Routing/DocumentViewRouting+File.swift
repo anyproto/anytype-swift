@@ -40,7 +40,7 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
 //                guard let documentId = model.findRoot()?.information.id else { return }
 //                let blockId = model.information.id
 //                let imagePicker: ImagePickerUIKit = .init(model: .init(documentId: documentId, blockId: blockId))
-                self.send(event: .showViewController(ImagePickerUIKit.init(model: model)))
+                self.send(event: .general(.show(ImagePickerUIKit.init(model: model))))
             }
         }
         

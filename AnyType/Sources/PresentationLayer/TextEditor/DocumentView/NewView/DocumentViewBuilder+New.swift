@@ -59,7 +59,7 @@ extension Namespace.DocumentViewBuilder {
             _ = router.configured(userActionsStream: viewModel.soloUserActionPublisher)
             
             /// Subscribe `view controller` on events from `router`.
-            view.subscribeOnRouting(router)
+//            view.subscribeOnRouting(router)
             return view
         }
     }

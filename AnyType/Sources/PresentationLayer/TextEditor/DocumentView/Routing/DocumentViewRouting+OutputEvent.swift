@@ -12,7 +12,23 @@ extension DocumentViewRouting {
     /// Segue, yes, kind of.
     /// For now we can pass controllers without additional dismissal actions and they will be dismissed by theirselves
     enum OutputEvent {
-        case showViewController(UIViewController)
-        case pushViewController(UIViewController)
+        case general(General)
+        case document(Document)
+    }
+}
+
+extension DocumentViewRouting.OutputEvent {
+    enum General {
+        typealias ViewController = UIViewController
+        case show(ViewController)
+        case child(ViewController)
+    }
+}
+
+extension DocumentViewRouting.OutputEvent {
+    enum Document {
+        typealias Request = DocumentModule.ContentViewBuilder.Request
+        case show(Request)
+        case child(Request)
     }
 }

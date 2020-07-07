@@ -80,7 +80,11 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
                 /// Lets keep it until we remove it from project.
 //                let viewController = DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value, useUIKit: true))
 //                let viewController = DocumentModule.DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value))
-                let viewController = DocumentModule.ContentViewBuilder.UIKitBuilder.view(by: .init(documentRequest: .init(id: value)))
+                
+                /// TODO: We should handle presentation of new view controllers in ContentViewController, for example.
+                /// Or even in Workspace (?)
+                ///
+//                let viewController = DocumentModule.ContentViewBuilder.UIKitBuilder.view(by: .init(documentRequest: .init(id: value)))
                 
                 // TODO: Uncomment later when back button will be ready.
                 /// Actually, we have only one subscription.
@@ -91,7 +95,7 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
 //                    self?.subscription = nil
 //                }
                 
-                self.send(event: .pushViewController(viewController))
+                self.send(event: .document(.child(.init(documentRequest: .init(id: value)))))
             }
         }
 

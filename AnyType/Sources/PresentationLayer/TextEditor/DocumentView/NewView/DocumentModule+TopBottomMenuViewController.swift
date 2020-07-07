@@ -46,9 +46,46 @@ extension Namespace.TopBottomMenuViewController {
 extension Namespace.TopBottomMenuViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupNavigation()
         self.setupUIElements()
         self.addLayout()
         self.updateChildViewController()
+    }
+}
+
+// MARK: Navigation
+private extension Namespace.TopBottomMenuViewController {
+    private func configureNavigation(_ navigationItem: UINavigationItem) {        
+        let appearance = UINavigationBarAppearance()
+//        self.navigationController?.navigationBar.barTintColor = .red
+        
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .red
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText] // With a red background, make the title more readable.
+        appearance.shadowColor = .clear
+        
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance // For iPhone small navigation bar in landscape.
+        
+        // Make all buttons with green text.
+        let buttonAppearance = UIBarButtonItemAppearance()
+        buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.systemGray]
+        navigationItem.standardAppearance?.buttonAppearance = buttonAppearance
+        navigationItem.compactAppearance?.buttonAppearance = buttonAppearance // For iPhone small navigation bar in landscape.
+        
+        navigationItem.standardAppearance?.backButtonAppearance = buttonAppearance
+        
+        // Make the done style button with yellow text.
+        let doneButtonAppearance = UIBarButtonItemAppearance()
+        doneButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.systemGray]
+        navigationItem.standardAppearance?.doneButtonAppearance = doneButtonAppearance
+        navigationItem.compactAppearance?.doneButtonAppearance = doneButtonAppearance // For iPhone small navigation bar in landscape.
+    }
+
+    func setupNavigation() {
+        self.navigationItem.backBarButtonItem = .init(title: "", style: .plain, target: nil, action: nil)
+        self.configureNavigation(self.navigationItem)
     }
 }
 

@@ -52,23 +52,16 @@ extension FileNamespace {
             // From OuterWorld
             self.userResponse = self.userResponseSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
             
-            _ = self.toolbarViewModel.configured(userResponseStream: self.userResponse)
-            _ = self.selectionViewModel.configured(userResponseStream: self.userResponse)
+            _ = self._toolbarViewModel.configured(userResponseStream: self.userResponse)
+            _ = self._selectionViewModel.configured(userResponseStream: self.userResponse)
             
             // To OuterWorld
-            self.userAction = Publishers.Merge(self.toolbarViewModel.userAction.map(Action.toolbar), self.selectionViewModel.userAction.map(Action.selection)).eraseToAnyPublisher()
+            self.userAction = Publishers.Merge(self._toolbarViewModel.userAction.map(Action.toolbar), self._selectionViewModel.userAction.map(Action.selection)).eraseToAnyPublisher()
         }
         
         // MARK: ViewModels
-        private lazy var toolbarViewModel: MultiSelectionPane.UIKit.Panes.Toolbar.ViewModel = {
-            let result: MultiSelectionPane.UIKit.Panes.Toolbar.ViewModel = .init()
-            return result
-        }()
-        
-        private lazy var selectionViewModel: MultiSelectionPane.UIKit.Panes.Selection.ViewModel = {
-            let result: MultiSelectionPane.UIKit.Panes.Selection.ViewModel = .init()
-            return result
-        }()
+        private var _toolbarViewModel: MultiSelectionPane.UIKit.Panes.Toolbar.ViewModel = .init()
+        private var _selectionViewModel: MultiSelectionPane.UIKit.Panes.Selection.ViewModel = .init()
         
         // MARK: Publishers
         
@@ -90,12 +83,12 @@ extension FileNamespace {
 
 // TODO: Add cache if needed.
 extension FileNamespace.ViewModel {
-    func toolbarModel() -> MultiSelectionPane.UIKit.Panes.Toolbar.ViewModel {
-        self.toolbarViewModel
+    func toolbarViewModel() -> MultiSelectionPane.UIKit.Panes.Toolbar.ViewModel {
+        self._toolbarViewModel
     }
     
-    func selectionModel() -> MultiSelectionPane.UIKit.Panes.Selection.ViewModel {
-        selectionViewModel
+    func selectionViewModel() -> MultiSelectionPane.UIKit.Panes.Selection.ViewModel {
+        _selectionViewModel
     }
 }
 
@@ -109,8 +102,8 @@ extension FileNamespace {
         
         static func buildView(viewModel: ViewModel, kind: Kind) -> UIView {
             switch kind {
-            case .selection: return FileNamespace.Panes.Selection.View.init(viewModel: viewModel.selectionModel())
-            case .toolbar: return FileNamespace.Panes.Toolbar.View.init(viewModel: viewModel.toolbarModel())
+            case .selection: return FileNamespace.Panes.Selection.Assembly.init(viewModel: viewModel.selectionViewModel()).buildView()
+            case .toolbar: return FileNamespace.Panes.Toolbar.View.init(viewModel: viewModel.toolbarViewModel())
             }
         }
     }
@@ -119,10 +112,23 @@ extension FileNamespace {
 // MARK: Assembly
 extension FileNamespace {
     struct Assembly {
+        /// Aliases
+        typealias SelectionAssembly = MultiSelectionPane.UIKit.Panes.Selection.Assembly
+        
+        /// Variables
         private(set) var viewModel: ViewModel = .init()
+        private(set) var selectionAssembly: SelectionAssembly
+        
+        /// Initialization
+        init() {
+            self.selectionAssembly = .init(viewModel: self.viewModel.selectionViewModel())
+        }
+        
+        /// Getters
         func toolbarView() -> UIView {
             Builder.buildView(viewModel: self.viewModel, kind: .toolbar)
         }
+        
         func selectionView() -> UIView {
             Builder.buildView(viewModel: self.viewModel, kind: .selection)
         }

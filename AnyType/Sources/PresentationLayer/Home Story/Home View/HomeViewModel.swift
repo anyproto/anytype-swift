@@ -21,11 +21,15 @@ class HomeViewModel: ObservableObject {
     
     func createDocumentView(documentId: String) -> some View {
 //        DocumentModule.DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
-        DocumentModule.ContentViewBuilder.SwiftUIBuilder.documentView(by: .init(documentRequest: .init(id: documentId)))
+        DocumentModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
         /// TODO: Remove when you can.
         /// It is old DocumentViewBuilder.
         /// Lets keep it until we remove it from project.
 //        DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId, useUIKit: self.developerOptions.current.workflow.mainDocumentEditor.useUIKit))
+    }
+    
+    func createDocumentView(documentId: String, shouldShowDocument: Binding<Bool>) -> some View {
+        DocumentModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId), shouldShowDocument: shouldShowDocument)
     }
     
     func documentView(selectedDocumentId: String) -> some View {
@@ -33,7 +37,19 @@ class HomeViewModel: ObservableObject {
           return view
         }
         
-        let view = AnyView(self.createDocumentView(documentId: selectedDocumentId))
+        let view: AnyView = .init(self.createDocumentView(documentId: selectedDocumentId))
+        self.documentViewId = selectedDocumentId
+        cachedDocumentView = view
+        
+        return view
+    }
+    
+    func documentView(selectedDocumentId: String, shouldShowDocument: Binding<Bool>) -> some View {
+        if let view = cachedDocumentView, self.documentViewId == selectedDocumentId {
+          return view
+        }
+        
+        let view: AnyView = .init(self.createDocumentView(documentId: selectedDocumentId, shouldShowDocument: shouldShowDocument))
         self.documentViewId = selectedDocumentId
         cachedDocumentView = view
         

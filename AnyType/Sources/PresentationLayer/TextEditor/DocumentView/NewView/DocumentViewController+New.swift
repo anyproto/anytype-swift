@@ -18,11 +18,6 @@ private extension Logging.Categories {
     static let documentViewController: Self = "TextEditor.DocumentViewController"
 }
 
-// MARK: - HeaderView
-extension Namespace.DocumentViewController {
-    typealias HeaderView = DocumentViewController.HeaderView
-}
-
 // MARK: - This is view controller that will handle everything for us.
 extension Namespace {
     class DocumentViewController: UIViewController {
@@ -103,27 +98,6 @@ extension Namespace.DocumentViewController {
     private func setupHeaderPageDetailsEvents() {
         self.viewModel.$userEvent.safelyUnwrapOptionals().sink { [weak self] (value) in
             self?.process(event: value)
-        }.store(in: &self.subscriptions)
-    }
-}
-
-// MARK: - Routing
-extension Namespace.DocumentViewController {
-    private func handleRouting(action: DocumentViewRouting.OutputEvent) {
-        switch action {
-        case let .showViewController(viewController):
-            self.present(viewController, animated: true, completion: {})
-        case let .pushViewController(viewController):
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
-    }
-    
-    /// WARNING!
-    /// This method also retain router.
-    /// Refactor it later.
-    func subscribeOnRouting(_ router: DocumentViewRoutingOutputProtocol) {
-        router.outputEventsPublisher.sink { [weak self] (value) in
-            self?.handleRouting(action: value)
         }.store(in: &self.subscriptions)
     }
 }
@@ -361,4 +335,16 @@ extension Namespace.DocumentViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.viewModel.didSelectBlock(at: indexPath)
     }
+}
+
+// MARK: Debug
+extension Namespace.DocumentViewController {
+    override var debugDescription: String {
+        "\(String(describing: Self.self)) -> \(self.viewModel.debugDescription)"
+    }
+}
+
+// MARK: TODO: Remove later.
+extension Namespace.DocumentViewController {
+    func getViewModel() -> ViewModel { self.viewModel }
 }

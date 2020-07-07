@@ -23,15 +23,12 @@ extension Namespace {
 extension FileNamespace {
     class View: UIView {
         // MARK: Aliases
-        typealias BaseToolbarView = TextView.BaseSingleToolbarView
         typealias Style = TextView.Style
 
         // MARK: Variables
         var style: Style = .default
         var model: ViewModel = .init()
         var userResponseSubscription: AnyCancellable?
-        var anySelectionSubscription: AnyCancellable?
-        @Published var isAnySelection: Bool? = false
 
         // MARK: Initialization
         override init(frame: CGRect) {
@@ -52,22 +49,7 @@ extension FileNamespace {
 
         // MARK: Actions
         private func update(response: UserResponse) {
-            switch response {
-            case .isEmpty: self.isAnySelection = false
-            case .nonEmpty: self.isAnySelection = true
-            }
-        }
-        
-        @objc private func processSelection() {
-            process(self.isAnySelection == true ? .deselectAll : .selectAll)
-        }
-
-        @objc private func processDone() {
-            process(.done)
-        }
-
-        private func process(_ action: Action) {
-            self.model.process(action: action)
+            // send to a view model (?)
         }
 
         // MARK: Public API Configurations
@@ -75,25 +57,11 @@ extension FileNamespace {
 
         private func setupCustomization() {
             self.backgroundColor = self.style.backgroundColor()
-
-            for button in [self.selectionButton, self.doneButton] {
-                button?.tintColor = self.style.normalColor()
-            }
-
-            self.selectionButton.addTarget(self, action: #selector(Self.processSelection), for: .touchUpInside)
-            self.doneButton.addTarget(self, action: #selector(Self.processDone), for: .touchUpInside)
         }
 
         private func setupInteraction() {
             self.userResponseSubscription = self.model.userResponse.sink { [weak self] (value) in
                 self?.update(response: value)
-            }
-            self.anySelectionSubscription = self.$isAnySelection.safelyUnwrapOptionals().sink { [weak self] (value) in
-                let title = value ? "Unselect All" : "Select All"
-                UIView.performWithoutAnimation {
-                    self?.selectionButton.setTitle(title, for: .normal)
-                    self?.selectionButton.layoutIfNeeded()
-                }
             }
         }
 
@@ -106,8 +74,8 @@ extension FileNamespace {
         }
 
         // MARK: UI Elements
-        private var selectionButton: UIButton!
-        private var doneButton: UIButton!
+        private var selectionButton: SelectAll.View!
+        private var doneButton: Done.View!
 
         private var contentView: UIView!
 
@@ -115,18 +83,12 @@ extension FileNamespace {
         func setupUIElements() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.selectionButton = {
-                let view = UIButton(type: .system)
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-                return view
+                // Ask view model for correct view model.
+                .init(viewModel: self.model.selectAllViewModel())
             }()
 
             self.doneButton = {
-                let view = UIButton(type: .system)
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.titleLabel?.font = .preferredFont(forTextStyle: .title3)
-                view.setTitle("Done", for: .normal)
-                return view
+                .init(viewModel: self.model.doneViewModel())
             }()
 
             self.contentView = {
@@ -174,9 +136,8 @@ extension FileNamespace {
 extension FileNamespace {
     // MARK: Action
     enum Action {
-        case selectAll
-        case deselectAll
-        case done
+        case selectAll(SelectAll.Action)
+        case done(Done.Action)
     }
     
     // MARK: State
@@ -184,8 +145,19 @@ extension FileNamespace {
     /// For example, if you press button which doesn't hide keyboard, by design, this button could be highlighted.
     ///
     enum UserResponse {
-        case isEmpty
-        case nonEmpty(UInt)
+        case selection(SelectAll.UserResponse)
+    }
+}
+
+// MARK: ViewModel Composition
+// TODO: Add cache if needed.
+extension FileNamespace.ViewModel {
+    func selectAllViewModel() -> MultiSelectionPane.UIKit.Panes.Selection.SelectAll.ViewModel {
+        self._selectAllViewModel
+    }
+    
+    func doneViewModel() -> MultiSelectionPane.UIKit.Panes.Selection.Done.ViewModel {
+        self._doneViewModel
     }
 }
 
@@ -199,42 +171,93 @@ extension FileNamespace {
 
         // MARK: Setup
         func setup() {
+            
+            // From OuterWorld
             self.userResponse = self.userResponseSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
-            self.userAction = self.userActionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
+            
+            _ = self._selectAllViewModel.configured(userResponseStream: self.userResponse.map { value -> SelectAll.UserResponse in
+                switch value {
+                case let .selection(value): return value
+                }
+            }.eraseToAnyPublisher())
+            
+            // To OuterWorld
+            self.userAction = Publishers.Merge(self._selectAllViewModel.userAction.map(Action.selectAll), self._doneViewModel.userAction.map(Action.done)).eraseToAnyPublisher()
         }
-
+        
+        // MARK: ViewModels
+        private var _selectAllViewModel: FileNamespace.SelectAll.ViewModel = .init()
+        private var _doneViewModel: FileNamespace.Done.ViewModel = .init()
+        
         // MARK: Publishers
+        private var subscription: AnyCancellable?
         
         /// From OuterWorld
-        private var subscription: AnyCancellable?
         private var userResponseSubject: PassthroughSubject<UserResponse?, Never> = .init()
         fileprivate var userResponse: AnyPublisher<UserResponse, Never> = .empty()
                 
         /// To OuterWorld
-        private var userActionSubject: PassthroughSubject<Action?, Never> = .init()
         var userAction: AnyPublisher<Action, Never> = .empty()
 
-        // MARK: Private Setters
-        fileprivate func process(action: Action) {
-            self.userActionSubject.send(action)
-        }
-        
         // MARK: Public Setters
         /// Use this method from outside to update value.
         ///
         func handle(countOfObjects: Int) {
-            self.userResponseSubject.send(countOfObjects <= 0 ? .isEmpty : .nonEmpty(.init(countOfObjects)))
-        }
-        
-        func subscribe(on userResponse: AnyPublisher<Int, Never>) {
-            self.subscription = userResponse.sink(receiveValue: { [weak self] (value) in
-                self?.handle(countOfObjects: value)
-            })
+            self.userResponseSubject.send(.selection(countOfObjects <= 0 ? .isEmpty : .nonEmpty(UInt(countOfObjects))))
         }
         
         func configured(userResponseStream: AnyPublisher<Int, Never>) -> Self {
-            self.subscribe(on: userResponseStream)
+            self.subscription = userResponseStream.sink(receiveValue: { [weak self] (value) in
+                self?.handle(countOfObjects: value)
+            })
             return self
+        }
+    }
+}
+
+// MARK: Builder
+extension FileNamespace.Assembly {
+    private enum Builder {
+        typealias ViewModel = FileNamespace.ViewModel
+        static func buildView(viewModel: ViewModel, kind: Kind) -> UIView {
+            switch kind {
+            case .selectAll: return FileNamespace.SelectAll.View.init(viewModel: viewModel.selectAllViewModel())
+            case .done: return FileNamespace.Done.View.init(viewModel: viewModel.doneViewModel())
+            }
+        }
+        
+        static func buildBarItem(viewModel: ViewModel, kind: Kind) -> UIBarButtonItem {
+            switch kind {
+            case .selectAll: return FileNamespace.SelectAll.BarButtonItem.init(viewModel: viewModel.selectAllViewModel())
+            case .done: return FileNamespace.Done.BarButtonItem.init(viewModel: viewModel.doneViewModel())
+            }
+        }
+    }
+}
+
+// MARK: Assembly
+extension FileNamespace {
+    struct Assembly {
+        enum Kind {
+            case selectAll
+            case done
+        }
+
+        private(set) var viewModel: ViewModel = .init()
+        func buildView() -> UIView {
+            View.init(viewModel: self.viewModel)
+        }
+        
+        private func buildSelectAllView() -> UIView {
+            Builder.buildView(viewModel: self.viewModel, kind: .selectAll)
+        }
+        
+        private func buildDoneView() -> UIView {
+            Builder.buildView(viewModel: self.viewModel, kind: .done)
+        }
+        
+        func buildBarButtonItem(of kind: Kind) -> UIBarButtonItem {
+            Builder.buildBarItem(viewModel: self.viewModel, kind: kind)
         }
     }
 }

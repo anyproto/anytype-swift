@@ -22,64 +22,65 @@ extension Namespace {
 
 extension Namespace.ContentViewBuilder {
     enum SwiftUIBuilder {
+        fileprivate typealias CurrentViewRepresentable = Namespace.ContentViewRepresentable
         static func documentView(by request: Request) -> some View {
             self.create(by: request)
         }
         
         private static func create(by request: Request) -> AnyView {
-            .init(Namespace.ContentViewRepresentable.create(documentId: request.documentRequest.id))
+            .init(CurrentViewRepresentable.create(documentId: request.documentRequest.id))
         }
     }
 }
 
 extension Namespace.ContentViewBuilder {
     enum UIKitBuilder {
-        private typealias ViewModel = Namespace.ContentViewController.ViewModel
+        typealias ViewModel = DocumentModule.ContentViewController.ViewModel
         typealias ViewController = DocumentModule.ContentViewController
         
-        private typealias DocumentViewModel = Namespace.DocumentViewModel
-        private typealias DocumentViewController = Namespace.DocumentViewController
-        private typealias DocumentViewBuilder = Namespace.DocumentViewBuilder
-                
-        private static func documentView(by request: Request) -> (DocumentViewController, DocumentViewModel, DocumentViewRoutingOutputProtocol) {
-            
-            let viewModel: DocumentViewModel = .init(documentId: request.documentRequest.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
-
-            let view: DocumentViewController = .init(viewModel: viewModel)
-
-            /// Subscribe `router` on BlocksViewModels events from `All` blocks views models.
-
-            let router: DocumentViewRouting.CompoundRouter = .init()
-            /// TODO: Remove later.
-            /// Lets keep it for a while, until we completely remove old document view model.
-            ///
-//            let publisher = viewModel.soloUserActionPublisherPublisher
-//            _ = router.configured(userActionsStreamStream: publisher)
-            _ = router.configured(userActionsStream: viewModel.soloUserActionPublisher)
-
-            /// Subscribe `view controller` on events from `router`.
-            view.subscribeOnRouting(router)
-            return (view, viewModel, router)
+        typealias ChildViewModel = DocumentModule.DocumentViewModel
+        typealias ChildViewController = DocumentModule.DocumentViewController
+        typealias ChildViewBuilder = DocumentModule.DocumentViewBuilder
+        
+        typealias ChildComponent = (ChildViewController, ChildViewModel)
+        typealias SelfComponent = (ViewController, ViewModel, ChildComponent)
+        
+        /// Returns concrete child View of a Document.
+        /// It is configured to show exactly one document or be a part of Container.
+        ///
+        static func childComponent(by request: Request) -> ChildComponent {
+            let viewModel: ChildViewModel = .init(documentId: request.documentRequest.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
+            let view: ChildViewController = .init(viewModel: viewModel)
+            return (view, viewModel)
         }
         
-        static func view(by request: Request) -> ViewController {
-            let (documentView, documentViewModel, router) = self.documentView(by: request)
+        /// Returns concrete Document.
+        /// It is configured to show exactly one document or be a part of Container.
+        ///
+        static func selfComponent(by request: Request) -> SelfComponent {
+            let (childViewController, childViewModel) = self.childComponent(by: request)
             let viewModel: ViewModel = .init()
-            _ = viewModel.configured(router: router)
             
             let topBottomMenuViewController: Namespace.TopBottomMenuViewController = .init()
-            topBottomMenuViewController.add(child: documentView)
+            topBottomMenuViewController.add(child: childViewController)
             _ = viewModel.configured(topBottomMenuViewController: topBottomMenuViewController)
             
             let viewController: ViewController = .init(viewModel: viewModel)
+                        
             _ = viewController.configured(childViewController: topBottomMenuViewController)
 
-            // Configure DocumentViewModel
-            // We must set publishers...
-            _ = documentViewModel.configured(multiSelectionUserActionPublisher: viewModel.selectionAction)
-            _ = documentViewModel.configured(selectionHandler: viewModel.selectionHandler)
+            /// Configure DocumentViewModel
+            /// We must set publishers...
+            _ = childViewModel.configured(multiSelectionUserActionPublisher: viewModel.selectionAction)
+            _ = childViewModel.configured(selectionHandler: viewModel.selectionHandler)
             
-            return viewController
+            /// Do not forget to configure routers events...
+            
+            return (viewController, viewModel, (childViewController, childViewModel))
+        }
+        
+        static func view(by request: Request) -> ViewController {
+            self.selfComponent(by: request).0
         }
     }
 }

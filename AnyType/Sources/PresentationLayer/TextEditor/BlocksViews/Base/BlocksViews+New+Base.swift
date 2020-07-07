@@ -122,6 +122,15 @@ extension BlocksViews.New.Base {
         private var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
         public var actionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = .empty()
         
+        /// We use this subject with `.send()` internally.
+        /// Also, we merged it with toolbar action publisher.
+        /// For that reason, we should add subscription and subscribe this subject on toolbar publisher.
+        /// self.subscription = `toolbarPublisher.subscribe(self.actionsPayloadSubject)`.
+        /// We need it to receive updates from toolbar actions
+        /// And from our actions.
+        ///
+        private var actionsPayloadSubjectSubscription: AnyCancellable?
+        
         // MARK: - Handle events
         func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
             // Do nothing? Just let somebody else to do stuff for you?
@@ -142,7 +151,9 @@ extension BlocksViews.New.Base {
             self.toolbarActionPublisher = self.toolbarActionSubject.eraseToAnyPublisher()
             self.marksPaneActionPublisher = self.marksPaneActionSubject.eraseToAnyPublisher()
                         
-            self.actionsPayloadPublisher = self.toolbarActionPublisher.map({ActionsPayload.toolbar(.init(model: self.block, action: $0))}).eraseToAnyPublisher().merge(with: self.actionsPayloadSubject.eraseToAnyPublisher()).eraseToAnyPublisher()
+            self.actionsPayloadPublisher = self.toolbarActionPublisher.map({ [weak self] value in
+                self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
+            }).safelyUnwrapOptionals().eraseToAnyPublisher().merge(with: self.actionsPayloadSubject.eraseToAnyPublisher()).eraseToAnyPublisher()
         }
         
         // MARK: - Setup / Subscriptions
@@ -211,6 +222,25 @@ extension BlocksViews.New.Base {
             default: return
             }
         }
+        
+        private var abc: AnyCancellable?
+    }
+}
+
+// MARK: Configurations
+extension BlocksViews.New.Base.ViewModel {
+    func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) -> Self {
+        self.userActionSubject = userActionSubject
+        self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
+        return self
+    }
+    func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) -> Self {
+        self.actionsPayloadSubject = actionsPayloadSubject
+        let toolbarPublisher = self.toolbarActionPublisher.map({ [weak self] value in
+            self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
+        }).safelyUnwrapOptionals()
+        self.actionsPayloadSubjectSubscription = toolbarPublisher.subscribe(self.actionsPayloadSubject)
+        return self
     }
 }
 

@@ -101,12 +101,12 @@ extension DocumentViewController {
 // MARK: - Routing
 extension DocumentViewController {
     private func handleRouting(action: DocumentViewRouting.OutputEvent) {
-        switch action {
-        case let .showViewController(viewController):
-            self.present(viewController, animated: true, completion: {})
-        case let .pushViewController(viewController):
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+//        switch action {
+//        case let .showViewController(viewController):
+//            self.present(viewController, animated: true, completion: {})
+//        case let .pushViewController(viewController):
+//            self.navigationController?.pushViewController(viewController, animated: true)
+//        }
     }
     
     /// WARNING!
