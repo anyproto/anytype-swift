@@ -183,7 +183,8 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 case let .text(value) where [.bulleted, .numbered, .checkbox, .toggle].contains(value.contentType) && value.text == "":
                     // Turn Into empty text block.
                     if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.text) {
-                        self.service.turnInto(block: block.blockModel.information, type: newContentType)
+                        /// TODO: Add focus on this block.
+                        self.service.turnInto(block: block.blockModel.information, type: newContentType, shouldSetFocusOnUpdate: true)
                     }
                 default:
                     if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: "") {
@@ -272,7 +273,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 case .h3: type = .text(.init(contentType: .header3))
                 case .highlighted: type = .text(.init(contentType: .quote))
                 }
-                self.service.turnInto(block: block.blockModel.information, type: type)
+                self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
             case let .list(value): // Set Text Style
                 let type: Service.BlockContent
                 switch value {
@@ -281,13 +282,13 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 case .numbered: type = .text(.init(contentType: .numbered))
                 case .toggle: type = .text(.init(contentType: .toggle))
                 }
-                self.service.turnInto(block: block.blockModel.information, type: type)
+                self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
 
             case let .other(value): // Change divider style.
                 break
             case .page:
                 let type: Service.BlockContent = .smartblock(.init(style: .page))
-                self.service.turnInto(block: block.blockModel.information, type: type)
+                self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
             default:
                 let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
@@ -440,7 +441,74 @@ private extension Namespace.UserInteractionHandler {
                     self.default(value)
                 }
             }
-            typealias Split = Add
+            struct Split {
+                func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    /// Find added block.
+                    let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }
+                    guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
+                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                        os_log(.debug, log: logger, "blocks.split.afterUpdate can't find added block")
+                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                    }
+                    
+                    /// Find set children ids.
+                    let setChildrenMessage = value.messages.first { $0.value == .blockSetChildrenIds($0.blockSetChildrenIds)}
+                    guard let setChildrenEvent = setChildrenMessage?.blockSetChildrenIds else {
+                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                        os_log(.debug, log: logger, "blocks.split.afterUpdate can't find set children event")
+                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                    }
+                    
+                    let addedBlockId = addedBlock.id
+                    
+                    /// Find a block after added block, because we insert previous block.
+                    guard let index = setChildrenEvent.childrenIds.firstIndex(where: { $0 == addedBlockId }) else {
+                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                        os_log(.debug, log: logger, "blocks.split.afterUpdate can't find index of added block in children ids.")
+                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                    }
+                    
+                    let focusedIndex = setChildrenEvent.childrenIds.index(after: index)
+                    
+                    /// Check that our childrenIds collection indices contains index.
+                    guard setChildrenEvent.childrenIds.indices.contains(focusedIndex) else {
+                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                        os_log(.debug, log: logger, "blocks.split.afterUpdate children ids doesn't contain index of focused block.")
+                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                    }
+                    
+                    let focusedBlockId = setChildrenEvent.childrenIds[focusedIndex]
+                    
+                    return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                        .setFocus(.init(payload: .init(blockId: focusedBlockId, position: .beginning)))
+                    ])
+                }
+                static let `default`: Self = .init()
+                static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                    self.default(value)
+                }
+            }
+            struct TurnInto {
+                struct Text {
+                    func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                        let textMessage = value.messages.first { $0.value == .blockSetText($0.blockSetText) }
+                        
+                        guard let changedBlock = textMessage?.blockSetText else {
+                            return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+                        }
+                        
+                        let focusedBlockId = changedBlock.id
+                        
+                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                            .setFocus(.init(payload: .init(blockId: focusedBlockId, position: .beginning)))
+                        ])
+                    }
+                    static let `default`: Self = .init()
+                    static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                        self.default(value)
+                    }
+                }
+            }
             
             struct Delete {
                 func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
@@ -536,7 +604,7 @@ private extension Namespace.UserInteractionHandler.Service {
             return
         }
         
-        let range: NSRange = .init(location: 0, length: position)
+        let range: NSRange = .init(location: position, length: 0)
 
         self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, range: range, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
@@ -634,7 +702,7 @@ private extension Namespace.UserInteractionHandler.Service {
         _delete(block: block, completion)
     }
 
-    func merge(firstBlock: Information, secondBlock: Information,  _ completion: @escaping Conversion = Converter.Default.convert) {
+    func merge(firstBlock: Information, secondBlock: Information, _ completion: @escaping Conversion = Converter.Default.convert) {
         let firstInformation = self.parser.convert(information: firstBlock)
         let secondInformation = self.parser.convert(information: secondBlock)
 
@@ -658,13 +726,13 @@ private extension Namespace.UserInteractionHandler.Service {
     }
 }
 
-// MARK: ServiceHandler / Actions / Turn Into
+// MARK: ServiceHandler / Actions / Turn Into / Private
 /// TODO: Add Div and ConvertChildrenToPages
 private extension Namespace.UserInteractionHandler.Service {
     typealias BlockContent = BlocksModels.Aliases.BlockContent
-    func turnInto(block: Information, type: BlockContent) {
+    func _turnInto(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         switch type {
-        case .text: self.setTextStyle(block: block, type: type)
+        case .text: self.setTextStyle(block: block, type: type, completion)
         case .smartblock: self.setPageStyle(block: block, type: type)
         case let .div(value): self.setDividerStyle(block: block, type: type)
         default: return
@@ -702,7 +770,7 @@ private extension Namespace.UserInteractionHandler.Service {
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
     }
     
-    private func setTextStyle(block: Information, type: BlockContent) {
+    private func setTextStyle(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
         
         guard let middlewareContent = self.parser.convert(content: type) else {
@@ -725,7 +793,17 @@ private extension Namespace.UserInteractionHandler.Service {
                 os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle got error: %@", "\(error)")
             }
         }) { [weak self] (value) in
-            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            let value = completion(value)
+            self?.didReceiveEvent(value)
         }.store(in: &self.subscriptions)
+    }
+}
+
+// MARK: ServiceHandler / Actions / Turn Into
+private extension Namespace.UserInteractionHandler.Service {
+    func turnInto(block: Information, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
+        /// Also check for style later.
+        let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.TurnInto.Text.convert : Converter.Default.convert
+        _turnInto(block: block, type: type, conversion)
     }
 }

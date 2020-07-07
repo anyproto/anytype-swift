@@ -109,5 +109,6 @@ extension Namespace.Updater {
             return
         }
         update(entry)
+        entry.didChange()
     }
 }

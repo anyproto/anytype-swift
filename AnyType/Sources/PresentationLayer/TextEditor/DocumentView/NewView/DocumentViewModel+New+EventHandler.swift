@@ -173,6 +173,7 @@ private extension FileNamespace.EventHandler {
             
             let blockId = value.id
             
+            /// Add Split and Merge blocks text processing.
             self.updater?.update(entry: blockId, update: { (value) in
                 var value = value
                 switch style {
@@ -181,6 +182,13 @@ private extension FileNamespace.EventHandler {
                     case let .text(oldText):
                         // For now we only support style
                         var text = oldText
+                        if newText.attributedText.length > 0 {
+                            text.attributedText = newText.attributedText
+                        }
+                        else {
+                            let logger = Logging.createLogger(category: .eventProcessor)
+                            os_log(.debug, log: logger, "We don't support empty attributed text for now.")
+                        }
                         text.contentType = newText.contentType
                         value.information.content = .text(text)
                         break
@@ -209,10 +217,16 @@ private extension FileNamespace.EventHandler {
             }
             focusedModel.isFirstResponder = true
             focusedModel.focusAt = value.payload.position.flatMap(Focus.Converter.asModel)
+            
+            /// TODO: We should check that we don't have blocks in updated List.
+            /// IF id is in updated list, we should delay of `.didChange` event before all items will be drawn.
+            /// For example, it can be done by another case.
+            /// This case will capture a completion ( this `didChange()` function ) and call it later.
             focusedModel.container?.userSession.didChange()
             
             return .general
         case let .setText(value):
+            return nil
             let blockId = value.payload.blockId
             guard let focusedModel = self.container?.choose(by: blockId) else {
                 let logger = Logging.createLogger(category: .eventProcessor)
