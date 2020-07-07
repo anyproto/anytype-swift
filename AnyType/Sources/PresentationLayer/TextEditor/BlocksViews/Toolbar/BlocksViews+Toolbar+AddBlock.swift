@@ -9,6 +9,11 @@
 import Foundation
 import SwiftUI
 import Combine
+import os
+
+private extension Logging.Categories {
+    static let blocksViewsToolbarAddBlock: Self = "BlocksViews.Toolbar.AddBlock"
+}
 
 // MARK: AddBlock
 extension BlocksViews.Toolbar {
@@ -32,11 +37,18 @@ extension BlocksViews.Toolbar.AddBlock {
 // MARK: Style
 extension BlocksViews.Toolbar.AddBlock {
     enum Style {
+        func fontSize() -> CGFloat {
+            switch self {
+            case .title: return 17
+            case .subtitle: return 13
+            case .section: return 0
+            }
+        }
         case title, subtitle, section
         func font() -> UIFont {
             switch self {
-            case .title: return .preferredFont(forTextStyle: .title2)
-            case .subtitle: return .preferredFont(forTextStyle: .caption1)
+            case .title: return .systemFont(ofSize: self.fontSize())
+            case .subtitle: return .systemFont(ofSize: self.fontSize())
             case .section: return .preferredFont(forTextStyle: .headline)
             }
         }
@@ -114,6 +126,11 @@ extension BlocksViews.Toolbar.AddBlock {
                 ForEach(self.categories.indices) { i in
                     Category(viewModel: .init(title: self.categories[i].title), cells: self.model.cells(category: i))
                 }
+            }.onAppear {
+                /// Thanks! https://stackoverflow.com/a/58474518
+                let logger = Logging.createLogger(category: .todo(.workaround(.os14, "Fix it.")))
+                os_log(.debug, log: logger, "We should remove all appearances to global UIKit classes.")
+                UITableView.appearance().tableFooterView = .init()
             }
         }
 

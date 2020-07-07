@@ -47,16 +47,21 @@ extension Logging {
 
 extension Logging.Categories {
     enum TODO {
+        enum OS: String {
+            case os14
+        }
         case `default`(String)
         case remove(String)
         case improve(String)
         case refactor(String)
+        case workaround(OS, String)
         var category: String {
             switch self {
             case let .default(value): return "TODO: \(value)"
             case let .remove(value): return "TODO: Remove \(value)"
             case let .improve(value): return "TODO: Improve \(value)"
             case let .refactor(value): return "TODO: Refactor \(value)"
+            case let .workaround(os, value): return "TODO: Workaround for OS below \(os). Read it. \(value)"
             }
         }
     }

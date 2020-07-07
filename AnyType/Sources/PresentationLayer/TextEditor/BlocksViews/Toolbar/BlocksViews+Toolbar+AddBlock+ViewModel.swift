@@ -15,7 +15,10 @@ extension BlocksViews.Toolbar.AddBlock {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
-            viewModel.categories = BlocksTypes.allCases
+            _ = viewModel.nestedCategories.page([.page])
+            _ = viewModel.nestedCategories.media([.picture])
+            _ = viewModel.nestedCategories.tool([])
+            _ = viewModel.nestedCategories.other([])
             _ = viewModel.configured(title: "Add Block")
             return viewModel
         }
@@ -57,7 +60,65 @@ extension BlocksViews.Toolbar.AddBlock {
         private var indexPathIndexSubscribers: Set<AnyCancellable> = []
 
         // MARK: Fileprivate / Variables
-        var categories: [BlocksTypes] = []
+        var categories: [BlocksTypes] {
+            self.nestedCategories.availableCategories()
+        }
+        
+        struct BlocksTypesCasesFiltering {
+            static func text(_ value: [Types.Text]) -> Self { .init(text: value) }
+            static func list(_ value: [Types.List]) -> Self { .init(list: value) }
+            static func page(_ value: [Types.Page]) -> Self { .init(page: value) }
+            static func media(_ value: [Types.Media]) -> Self { .init(media: value) }
+            static func tool(_ value: [Types.Tool]) -> Self { .init(tool: value) }
+            static func other(_ value: [Types.Other]) -> Self { .init(other: value) }
+            
+            var text: [Types.Text] = Types.Text.allCases
+            var list: [Types.List] = Types.List.allCases
+            var page: [Types.Page] = Types.Page.allCases
+            var media: [Types.Media] = Types.Media.allCases
+            var tool: [Types.Tool] = Types.Tool.allCases
+            var other: [Types.Other] = Types.Other.allCases
+                                    
+            func availableCategories() -> [BlocksTypes] {
+                BlocksTypes.allCases.filter { (value) -> Bool in
+                    switch value {
+                    case .text: return !self.text.isEmpty
+                    case .list: return !self.list.isEmpty
+                    case .page: return !self.page.isEmpty
+                    case .media: return !self.media.isEmpty
+                    case .tool: return !self.tool.isEmpty
+                    case .other: return !self.other.isEmpty
+                    }
+                }
+            }
+            
+            mutating func text(_ value: [Types.Text]) -> Self {
+                self.text = value
+                return self
+            }
+            mutating func list(_ value: [Types.List]) -> Self {
+                self.list = value
+                return self
+            }
+            mutating func page(_ value: [Types.Page]) -> Self {
+                self.page = value
+                return self
+            }
+            mutating func media(_ value: [Types.Media]) -> Self {
+                self.media = value
+                return self
+            }
+            mutating func tool(_ value: [Types.Tool]) -> Self {
+                self.tool = value
+                return self
+            }
+            mutating func other(_ value: [Types.Other]) -> Self {
+                self.other = value
+                return self
+            }
+        }
+        
+        var nestedCategories: BlocksTypesCasesFiltering = .init()
 
         // MARK: Initialization
         init() {
@@ -77,20 +138,12 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
         return self
     }
     private func configuredAsAddBlock() -> Self {
-        self.categories = BlocksTypes.allCases
         return self.configured(title: "Add Block")
     }
     private func configuredAsTurnIntoBlock() -> Self {
-        self.categories = BlocksTypes.allCases.filter {
-            switch $0 {
-            case .text: return true
-            case .list: return true
-            case .page: return true
-            case .media: return false
-            case .tool: return false
-            case .other: return false
-            }
-        }
+        _ = self.nestedCategories.media([])
+        _ = self.nestedCategories.tool([])
+        _ = self.nestedCategories.other([])
         return self.configured(title: "Turn Into")
     }
 }
@@ -120,24 +173,24 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
         }
         guard let category = category else { return [] }
         switch self.categories[category] {
-        case .text: return extractedChosenTypes(Types.Text.allCases)
-        case .list: return extractedChosenTypes(Types.List.allCases)
-        case .page: return extractedChosenTypes(Types.Page.allCases)
-        case .media: return extractedChosenTypes(Types.Media.allCases)
-        case .tool: return extractedChosenTypes(Types.Tool.allCases)
-        case .other: return extractedChosenTypes(Types.Other.allCases)
+        case .text: return extractedChosenTypes(self.nestedCategories.text)
+        case .list: return extractedChosenTypes(self.nestedCategories.list)
+        case .page: return extractedChosenTypes(self.nestedCategories.page)
+        case .media: return extractedChosenTypes(self.nestedCategories.media)
+        case .tool: return extractedChosenTypes(self.nestedCategories.tool)
+        case .other: return extractedChosenTypes(self.nestedCategories.other)
         }
     }
 
     func chosenAction(category: Int?, type: Int?) -> Types? {
         guard let category = category, let type = type else { return nil }
         switch self.categories[category] {
-        case .text: return .text(Types.Text.allCases[type])
-        case .list: return .list(Types.List.allCases[type])
-        case .page: return .page(Types.Page.allCases[type])
-        case .media: return .media(Types.Media.allCases[type])
-        case .tool: return .tool(Types.Tool.allCases[type])
-        case .other: return .other(Types.Other.allCases[type])
+        case .text: return .text(self.nestedCategories.text[type])
+        case .list: return .list(self.nestedCategories.list[type])
+        case .page: return .page(self.nestedCategories.page[type])
+        case .media: return .media(self.nestedCategories.media[type])
+        case .tool: return .tool(self.nestedCategories.tool[type])
+        case .other: return .other(self.nestedCategories.other[type])
         }
     }
 

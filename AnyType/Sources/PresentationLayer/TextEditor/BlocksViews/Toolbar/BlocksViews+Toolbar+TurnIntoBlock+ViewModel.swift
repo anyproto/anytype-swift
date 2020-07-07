@@ -13,16 +13,10 @@ extension BlocksViews.Toolbar.TurnIntoBlock {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
-            viewModel.categories = BlocksTypes.allCases.filter {
-                switch $0 {
-                case .text: return true
-                case .list: return true
-                case .page: return true
-                case .media: return false
-                case .tool: return false
-                case .other: return false
-                }
-            }
+            _ = viewModel.nestedCategories.page([])
+            _ = viewModel.nestedCategories.media([])
+            _ = viewModel.nestedCategories.tool([])
+            _ = viewModel.nestedCategories.other([])
             _ = viewModel.configured(title: "Turn Into")
             return viewModel
         }

@@ -17,6 +17,9 @@ protocol BlocksViewsToolbarBlocksTypesProtocol {
     var path: String {get}
     var title: String {get}
     var subtitle: String {get}
+
+    var subtitlePath: String {get}
+    var subtitleName: String {get}
 }
 
 extension BlocksViewsToolbarBlocksTypesProtocol {
@@ -27,8 +30,10 @@ extension BlocksViewsToolbarBlocksTypesProtocol {
         return self.path.components(separatedBy: "/").last ?? ""
     }
     var subtitle: String {
-        ""
+        NSLocalizedString(self.subtitleName, tableName: self.subtitlePath, bundle: .main, value: "", comment: "")
     }
+    var subtitlePath: String { "TextEditor.Toolbar.Blocks.Types" }
+    var subtitleName: String { "" }
 }
 
 extension BlocksViews.Toolbar {
@@ -131,13 +136,13 @@ extension BlocksViews.Toolbar.BlocksTypes.Text: BlocksViewsToolbarBlocksTypesPro
         case .highlighted: return "Text/Highlighted"
         }
     }
-    var subtitle: String {
+    var subtitleName: String {
         switch self {
-        case .text: return "Just start writing with a plain text"
-        case .h1: return "Medium section heading"
-        case .h2: return "Small section heading"
-        case .h3: return "Small section heading"
-        case .highlighted: return "Big section heading"
+        case .text: return "Text.Paragraph"
+        case .h1: return "Text.Header1"
+        case .h2: return "Text.Header2"
+        case .h3: return "Text.Header3"
+        case .highlighted: return "Text.Quote"
         }
     }
 }
@@ -151,12 +156,12 @@ extension BlocksViews.Toolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesPro
         case .toggle: return "List/Toggle"
         }
     }
-    var subtitle: String {
+    var subtitleName: String {
         switch self {
-        case .bulleted: return ""
-        case .checkbox: return ""
-        case .numbered: return ""
-        case .toggle: return ""
+        case .bulleted: return "List.Bulleted"
+        case .checkbox: return "List.Checkbox"
+        case .numbered: return "List.Numbered"
+        case .toggle: return "List.Toggle"
         }
     }
 }
@@ -174,6 +179,12 @@ extension BlocksViews.Toolbar.BlocksTypes.Page: BlocksViewsToolbarBlocksTypesPro
         case .existingTool: return "Existing Page"
         }
     }
+    var subtitleName: String {
+        switch self {
+        case .page: return "Page.Page"
+        case .existingTool: return "Page.ExistingPage"
+        }
+    }
 }
 
 extension BlocksViews.Toolbar.BlocksTypes.Media: BlocksViewsToolbarBlocksTypesProtocol {
@@ -184,6 +195,15 @@ extension BlocksViews.Toolbar.BlocksTypes.Media: BlocksViewsToolbarBlocksTypesPr
         case .video: return "Media/Video"
         case .bookmark: return "Media/Bookmark"
         case .code: return "Media/Code"
+        }
+    }
+    var subtitleName: String {
+        switch self {
+        case .file: return "Objects.File"
+        case .picture: return "Objects.Picture"
+        case .video: return "Objects.Video"
+        case .bookmark: return "Objects.Bookmark"
+        case .code: return "Objects.Code"
         }
     }
 }
@@ -197,6 +217,14 @@ extension BlocksViews.Toolbar.BlocksTypes.Tool: BlocksViewsToolbarBlocksTypesPro
         case .task: return "Tool/Task"
         }
     }
+    var subtitleName: String {
+        switch self {
+        case .contact: return "Tool.Contact"
+        case .database: return "Tool.Database"
+        case .set: return "Tool.Set"
+        case .task: return "Tool.Task"
+        }
+    }
 }
 
 extension BlocksViews.Toolbar.BlocksTypes.Other: BlocksViewsToolbarBlocksTypesProtocol {
@@ -204,6 +232,12 @@ extension BlocksViews.Toolbar.BlocksTypes.Other: BlocksViewsToolbarBlocksTypesPr
         switch self {
         case .divider: return "Other/Divider"
         case .dots: return "Other/Dots"
+        }
+    }
+    var subtitleName: String {
+        switch self {
+        case .divider: return "Other.Line"
+        case .dots: return "Other.Dot"
         }
     }
 }
