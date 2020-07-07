@@ -173,6 +173,8 @@ private extension FileNamespace.EventHandler {
             
             let blockId = value.id
             
+            let newUpdate = value
+            
             /// Add Split and Merge blocks text processing.
             self.updater?.update(entry: blockId, update: { (value) in
                 var value = value
@@ -182,14 +184,12 @@ private extension FileNamespace.EventHandler {
                     case let .text(oldText):
                         // For now we only support style
                         var text = oldText
-                        if newText.attributedText.length > 0 {
+                        if newUpdate.hasText {
                             text.attributedText = newText.attributedText
                         }
-                        else {
-                            let logger = Logging.createLogger(category: .eventProcessor)
-                            os_log(.debug, log: logger, "We don't support empty attributed text for now.")
+                        if newUpdate.hasStyle {
+                            text.contentType = newText.contentType
                         }
-                        text.contentType = newText.contentType
                         value.information.content = .text(text)
                         break
                     default: break
