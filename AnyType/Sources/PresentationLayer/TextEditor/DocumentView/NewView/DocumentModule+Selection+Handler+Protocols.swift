@@ -12,6 +12,7 @@ import Combine
 protocol DocumentModuleSelectionHandlerListProtocol {
     typealias BlockId = BlocksModels.Aliases.BlockId
     typealias SelectionEvent = DocumentModule.Selection.IncomingEvent
+    typealias SelectionCellEvent = DocumentModule.Selection.IncomingCellEvent
     func selectionEnabled() -> Bool
     func set(selectionEnabled: Bool)
     
@@ -29,6 +30,9 @@ protocol DocumentModuleSelectionHandlerCellProtocol: class {
     typealias BlockId = BlocksModels.Aliases.BlockId
     func set(selected: Bool, id: BlockId)
     func selected(id: BlockId) -> Bool
+
+    func selectionCellEvent(_ id: BlockId) -> DocumentModule.Selection.IncomingCellEvent
+    func selectionCellEventPublisher(_ id: BlockId) -> AnyPublisher<DocumentModule.Selection.IncomingCellEvent, Never>
 }
 
 protocol DocumentModuleSelectionHandlerProtocol: DocumentModuleSelectionHandlerListProtocol, DocumentModuleSelectionHandlerCellProtocol {}
@@ -39,6 +43,17 @@ protocol DocumentModuleSelectionCellProtocol {
     typealias BlockId = BlocksModels.Aliases.BlockId
     func getSelectionKey() -> BlockId?
     var selectionHandler: DocumentModuleSelectionHandlerCellProtocol? {get}
+}
+
+extension DocumentModuleSelectionCellProtocol {
+    var selectionCellEvent: DocumentModule.Selection.IncomingCellEvent? {
+        guard let handler = self.selectionHandler, let id = self.getSelectionKey() else { return nil }
+        return handler.selectionCellEvent(id)
+    }
+    var selectionCellEventPublisher: AnyPublisher<DocumentModule.Selection.IncomingCellEvent, Never> {
+        guard let handler = self.selectionHandler, let id = self.getSelectionKey() else { return .empty() }
+        return handler.selectionCellEventPublisher(id)
+    }
 }
 
 extension DocumentModuleSelectionCellProtocol {
@@ -101,6 +116,14 @@ extension DocumentModuleHasSelectionHandlerProtocol {
     
     func selected(id: BlocksModels.Aliases.BlockId) -> Bool {
         self.selectionHandler?.selected(id: id) ?? false
+    }
+
+    func selectionCellEvent(_ id: BlocksModels.Aliases.BlockId) -> DocumentModule.Selection.IncomingCellEvent {
+        self.selectionHandler?.selectionCellEvent(id) ?? .unknown
+    }
+    
+    func selectionCellEventPublisher(_ id: BlocksModels.Aliases.BlockId) -> AnyPublisher<DocumentModule.Selection.IncomingCellEvent, Never> {
+        self.selectionHandler?.selectionCellEventPublisher(id) ?? .empty()
     }
 }
 

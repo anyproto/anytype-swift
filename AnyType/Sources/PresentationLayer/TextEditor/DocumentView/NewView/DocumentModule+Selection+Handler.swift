@@ -62,13 +62,15 @@ extension Namespace {
         private var storageEventsSubject: PassthroughSubject<SelectionEvent, Never> = .init()
         private var storageEventsPublisher: AnyPublisher<SelectionEvent, Never> = .empty()
         /// Storage
-        @Published private var storage: Storage = .init() {
+        private var storage: Storage = .init() {
             didSet {
-                self.subscription = self.$storage.sink { [weak self] (value) in
-                    self?.handle(value)
-                }
+                self.storageDidChangeSubject.send(self.storage)
+                self.handle(self.storage)
             }
         }
+        
+        private var storageDidChangeSubject: PassthroughSubject<Storage, Never> = .init()
+        private var storageDidChangePublisher: AnyPublisher<Storage, Never> = .empty()
         
         /// Updates
         private func storageEvent(from storage: Storage) -> SelectionEvent {
@@ -87,6 +89,7 @@ extension Namespace {
         
         /// Setup
         func setup() {
+            self.storageDidChangePublisher = self.storageDidChangeSubject.eraseToAnyPublisher()
             self.storageEventsPublisher = self.storageEventsSubject.eraseToAnyPublisher()
         }
         
@@ -98,6 +101,22 @@ extension Namespace {
 }
 
 extension Namespace {
+    enum IncomingCellEvent: Equatable {
+        static func == (lhs: DocumentModule.Selection.IncomingCellEvent, rhs: DocumentModule.Selection.IncomingCellEvent) -> Bool {
+            switch (lhs, rhs) {
+            case (.unknown, .unknown): return true
+            case let (.payload(left), .payload(right)): return left.selectionEnabled == right.selectionEnabled && left.isSelected == right.isSelected
+            default: return false
+            }
+        }
+        
+        struct Payload {
+            var selectionEnabled: Bool
+            var isSelected: Bool
+        }
+        case unknown
+        case payload(Payload)
+    }
     enum IncomingEvent {
         enum CountEvent {
             static var `default`: Self = .isEmpty
@@ -183,6 +202,17 @@ extension Namespace.Handler: DocumentModuleSelectionHandlerProtocol {
     
     func selected(id: BlockId) -> Bool {
         self.storage.contains(id: id)
+    }
+    
+    func selectionCellEvent(_ id: BlockId) -> DocumentModule.Selection.IncomingCellEvent {
+        let isSelected = self.selected(id: id)
+        return .payload(.init(selectionEnabled: self.selectionEnabled(), isSelected: isSelected))
+    }
+    
+    func selectionCellEventPublisher(_ id: BlockId) -> AnyPublisher<DocumentModule.Selection.IncomingCellEvent, Never> {
+        self.storageDidChangePublisher.map({ value in
+            .payload(.init(selectionEnabled: value.selectionEnabled(), isSelected: value.contains(id: id)))
+        }).removeDuplicates().eraseToAnyPublisher()
     }
 }
 

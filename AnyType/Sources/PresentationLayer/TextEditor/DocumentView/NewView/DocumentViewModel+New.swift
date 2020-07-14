@@ -370,7 +370,7 @@ extension DocumentModule {
         /// - Returns: a list of view models. ( builders )
         private func toList(_ model: RootModel) -> [BlockViewBuilderProtocol] {
             guard let rootId = model.rootId, let rootModel = model.choose(by: rootId) else { return [] }
-            let result = flattener.toList(rootModel)
+            let result = self.flattener.toList(rootModel)
             // TODO: Add model logging.
             //            let logger = Logging.createLogger(category: .treeViewModel)
             //            os_log(.debug, log: logger, "model: %@", model.debugDescription)
@@ -586,6 +586,13 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
             self.information = (self.builder as? BlocksViewsNamespace.Base.ViewModel)?.getBlock().blockModel.information
         }
         
+        /// Pretty full-typed builder accessor
+        var blockBuilder: BlocksViews.New.Base.ViewModel? {
+            self.builder as? BlocksViewsNamespace.Base.ViewModel
+        }
+        
+        /// CachedDiffable. Check if user session for this cell has changed.
+        /// It is only for UI states.
         struct CachedDiffable: Hashable {
             var selected: Bool = false
             mutating func set(selected: Bool) {
@@ -594,10 +601,15 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
         }
         
         var cachedDiffable: CachedDiffable = .init()
-        
-        var blockBuilder: BlocksViews.New.Base.ViewModel? {
-            self.builder as? BlocksViewsNamespace.Base.ViewModel
+        func sameCachedDiffable(_ other: Self?) -> Bool {
+            self.cachedDiffable != other?.cachedDiffable
         }
+        
+        mutating func update(cachedDiffable: CachedDiffable) {
+            self.cachedDiffable = cachedDiffable
+        }
+        
+        /// First Responder manipulations for Text Cells.
         var isPendingFirstResponder: Bool {
             self.blockBuilder?.getBlock().isFirstResponder ?? false
         }
@@ -721,7 +733,7 @@ private extension Namespace.DocumentViewModel {
             self.set(selected: newValue, id: key)
             // TODO: We should subscribe on updates in our cells and update them.
             /// For now we use `reloadData`
-            self.syncBuilders()
+//            self.syncBuilders()
         }
     }
     func process(_ value: DocumentModule.Selection.ToolbarPresenter.SelectionAction) {
@@ -732,14 +744,14 @@ private extension Namespace.DocumentViewModel {
                 switch value {
                 case .selectAll:
                     self.selectAll()
-                    self.syncBuilders()
+//                    self.syncBuilders()
                 case .deselectAll:
                     self.deselectAll()
-                    self.syncBuilders()
+//                    self.syncBuilders()
                 }
             case .done(.done):
                 self.set(selectionEnabled: false)
-                self.syncBuilders()
+//                self.syncBuilders()
             }
         case let .toolbar(value):
             let selectedIds = self.list()

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Combine
 
 fileprivate typealias Namespace = DocumentModule
 
@@ -31,6 +32,7 @@ extension Namespace.DocumentViewCells {
             var zero = 0
         }
         
+        var selectionSubscription: AnyCancellable?
         var model: Model?
         var containedView: UIView?
         var containerView: UIView?
@@ -152,33 +154,42 @@ extension Namespace.DocumentViewCells.Cell {
     
     func updateIfNewModel(_ model: Model) {
         if model != self.model {
-            self.model = model
+            /// Check that model has changed OR its Cached has changed
             
-            // put into container
-            if let view = ViewBuilder.createView(self.model?.builder, useUIKit: self.options.useUIKit), let viewModel = self.model {
-                self.containedView?.removeFromSuperview()
-                self.containedView = view
-                self.containerView?.addSubview(view)
-       
-                //TODO: Need to rething here for all blocks about insets
+            if model.diffable() != self.model?.diffable() {
+                self.model = model
                 
-                let indentation = CGFloat(viewModel.indentationLevel + 1)
-                self.indentationConstraint?.constant = indentation * CGFloat(self.layout.indentationWidth)
-
-                if let superview = view.superview {
-                    view.translatesAutoresizingMaskIntoConstraints = false
-                    let spacer: CGFloat = CGFloat(self.layout.containedViewInset)
-                    NSLayoutConstraint.activate([
-                        view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: spacer),
-                        view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -spacer),
-                        view.topAnchor.constraint(equalTo: superview.topAnchor, constant: spacer),
-                        view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -spacer)
-                    ])
-                    view.clipsToBounds = true
+                // put into container
+                if let viewModel = self.model, let view = ViewBuilder.createView(viewModel.builder, useUIKit: self.options.useUIKit) {
+                    self.containedView?.removeFromSuperview()
+                    self.containedView = view
+                    self.containerView?.addSubview(view)
+                    print("thisView: \(view)")
+                    
+                    //TODO: Need to rething here for all blocks about insets
+                    
+                    let indentation = CGFloat(viewModel.indentationLevel + 1)
+                    self.indentationConstraint?.constant = indentation * CGFloat(self.layout.indentationWidth)
+                    
+                    if let superview = view.superview {
+                        view.translatesAutoresizingMaskIntoConstraints = false
+                        let spacer: CGFloat = CGFloat(self.layout.containedViewInset)
+                        NSLayoutConstraint.activate([
+                            view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: spacer),
+                            view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -spacer),
+                            view.topAnchor.constraint(equalTo: superview.topAnchor, constant: spacer),
+                            view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -spacer)
+                        ])
+                        view.clipsToBounds = true
+                    }
                 }
+                
+                self.onSelectionStateChange()
             }
-            
-            self.onSelectionStateChange()
+//            if !model.sameCachedDiffable(self.model) {
+//                self.model?.update(cachedDiffable: model.cachedDiffable)
+//                self.onSelectionStateChange()
+//            }
         }
     }
     
@@ -189,6 +200,7 @@ extension Namespace.DocumentViewCells.Cell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         self.model = nil
         self.containedView?.removeFromSuperview()
         self.containedView = nil
@@ -196,6 +208,9 @@ extension Namespace.DocumentViewCells.Cell {
     
     func configured(_ model: Model) -> Self {
         self.updateIfNewModel(model)
+        self.selectionSubscription = model.selectionCellEventPublisher.sink(receiveValue: { [weak self] (value) in
+            self?.onSelectionStateChanged(value)
+        })
         return self
     }
     
@@ -225,13 +240,26 @@ extension Namespace.DocumentViewCells.Cell {
 
 // MARK: Selection support
 extension Namespace.DocumentViewCells.Cell {
-    func onSelectionStateChange() {
-        let isSelected = self.model?.isSelected ?? false
-        self.contentView.backgroundColor = isSelected ? UIColor.lightGray.withAlphaComponent(0.6) : .clear
-        self.contentView.layer.cornerRadius = isSelected ? 2.0 : 0.0
+    func onSelectionStateChanged(_ value: DocumentModule.Selection.IncomingCellEvent) {
+        let event = value
+        switch event {
+        case .unknown: return
+        case let .payload(payload):
+            let selectionDisabled = !payload.selectionEnabled
+            
+            let isSelected = payload.isSelected && payload.selectionEnabled
+            
+            self.contentView.backgroundColor = isSelected ? UIColor.lightGray.withAlphaComponent(0.6) : .clear
+            self.contentView.layer.cornerRadius = isSelected ? 2.0 : 0.0
+            
+            self.contentView.isUserInteractionEnabled = selectionDisabled
+        }
     }
-    func on(selectionEnabledChange: Bool) {
-        self.contentView.isUserInteractionEnabled = selectionEnabledChange
+    func onSelectionStateChange() {
+        guard let event = self.model?.selectionCellEvent else {            
+            return
+        }
+        self.onSelectionStateChanged(event)
     }
 }
 
