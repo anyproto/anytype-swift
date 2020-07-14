@@ -14,24 +14,14 @@ private extension Logging.Categories {
     static let blocksModelsBlock: Self = "BlocksModels.Block"
 }
 
+// MARK: - Block Kind
+extension BlocksModels.Block {
+    enum Kind {
+        case meta, block
+    }
+}
+
 // MARK: - BlockModel
-protocol BlocksModelsHasInformationProtocol {
-    var information: BlocksModelsInformationModelProtocol { get set }
-    init(information: BlocksModelsInformationModelProtocol)
-}
-
-protocol BlocksModelsHasParentProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
-    var parent: BlockId? {get set}
-}
-
-protocol BlocksModelsHasKindProtocol {
-    typealias BlockKind = BlocksModels.Aliases.BlockKind
-    var kind: BlockKind {get}
-}
-
-protocol BlocksModelsBlockModelProtocol: BlocksModelsHasInformationProtocol, BlocksModelsHasParentProtocol, BlocksModelsHasKindProtocol, BlocksModelsHasDidChangePublisherProtocol {}
-
 extension BlocksModels.Block {
     final class BlockModel: ObservableObject {
         private var _information: BlocksModelsInformationModelProtocol
@@ -66,24 +56,59 @@ extension BlocksModels.Block.BlockModel: BlocksModelsBlockModelProtocol {
     func didChange() { self.objectWillChange.send() }
 }
 
-// MARK: - Block Kind
+// MARK: UserSession / Focus
 extension BlocksModels.Block {
-    enum Kind {
-        case meta, block
+    enum Focus {
+        enum Position {
+            case unknown
+            case beginning
+            case end
+            case at(Int)
+        }
     }
 }
 
-// MARK: - BlockModel Container (?)
+// MARK: UserSession
+extension BlocksModels.Block {
+    class UserSession: ObservableObject {
+        struct Information {
+            var isToggled: Bool
+        }
+        var _firstResponder: String?
+        var _focusAt: Position?
+        var _storage: [String: Information] = [:]
+    }
+}
+
+extension BlocksModels.Block.UserSession: BlocksModelsUserSessionModelProtocol {
+    func isToggled(by id: BlockId) -> Bool { self._storage[id]?.isToggled ?? false }
+    func isFirstResponder(by id: BlockId) -> Bool { self._firstResponder == id }
+    func firstResponder() -> BlockId? { self._firstResponder }
+    func focusAt() -> Position? { self._focusAt }
+    func setToggled(by id: BlockId, value: Bool) { self._storage[id] = (self._storage[id] ?? .init(isToggled: value)) }
+    func setFirstResponder(by id: BlockId) { self._firstResponder = id }
+    func setFocusAt(position: Position) { self._focusAt = position }
+    
+    func unsetFirstResponder() { self._firstResponder = nil }
+    func unsetFocusAt() { self._focusAt = nil }
+    
+    func didChangePublisher() -> AnyPublisher<Void, Never> { self.objectWillChange.eraseToAnyPublisher() }
+    func didChange() { self.objectWillChange.send() }
+}
+
+// MARK: - Container
 extension BlocksModels.Block {
     final class Container {
         typealias BlockId = BlocksModels.Aliases.BlockId
-        typealias Block = BlockModel
-        internal var rootId: BlockId?
-        private var blocks: [BlockId: Block] = [:]
+        typealias Model = BlockModel
+        
+        private var _rootId: BlockId?
+        private var _models: [BlockId: Model] = [:]
         private var _userSession: UserSession = .init()
+        private var _detailsContainer: BlocksModels.Block.DetailsContainer = .init()
         
         func _choose(by id: BlockId) -> ChosenBlock? {
-            if let value = self.blocks[id] {
+            if let value = self._models[id] {
                 return .init(container: self, chosenBlock: value)
             }
             else {
@@ -91,26 +116,36 @@ extension BlocksModels.Block {
             }
         }
                         
-        private func _get(by id: BlockId) -> Block? {
-            self.blocks[id]
+        private func _get(by id: BlockId) -> Model? {
+            self._models[id]
         }
         
-        private func _add(_ block: Block) {
-            if self.blocks[block.information.id] != nil {
+        private func _add(_ block: Model) {
+            if self._models[block.information.id] != nil {
                 // tell thta
                 let logger = Logging.createLogger(category: .blocksModelsBlock)
                 os_log(.debug, log: logger, "We shouldn't replace block by add operation. Skipping...")
                 return
             }
-            self.blocks[block.information.id] = block
+            self._models[block.information.id] = block
         }
     }
 }
 
 extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
+    // MARK: RootId
+    var rootId: BlockId? {
+        get {
+            self._rootId
+        }
+        set {
+            self._rootId = newValue
+        }
+    }
+    
     // MARK: - Operations / List
     func list() -> AnyIterator<BlockId> {
-        .init(self.blocks.keys.makeIterator())
+        .init(self._models.keys.makeIterator())
     }
     // MARK: - Operations / Choose
     func choose(by id: BlockId) -> BlocksModelsChosenBlockModelProtocol? {
@@ -118,7 +153,7 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
     }
     // MARK: - Operations / Get
     func get(by id: BlockId) -> BlocksModelsBlockModelProtocol? {
-        self.blocks[id]
+        self._models[id]
     }
     // MARK: - Operations / Remove
     func remove(_ id: BlockId) {
@@ -131,13 +166,13 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
         }
         
         if let block = self.get(by: id) {
-            self.blocks.removeValue(forKey: id)
+            self._models.removeValue(forKey: id)
             block.information.childrenIds.forEach(self.remove(_:))
         }
     }
     // MARK: - Operations / Add
     func add(_ block: BlocksModelsBlockModelProtocol) {
-        let blockModel: Block = .init(information: block.information)
+        let blockModel: Model = .init(information: block.information)
         blockModel.parent = block.parent
         self._add(blockModel)
     }
@@ -258,6 +293,13 @@ extension BlocksModels.Block.Container: BlocksModelsContainerModelProtocol {
             self._userSession
         }
     }
+    
+    // MARK: - DetailsContainer
+    var detailsContainer: DetailsContainer {
+        get {
+            self._detailsContainer
+        }
+    }
 }
 
 extension BlocksModels.Block {
@@ -372,156 +414,124 @@ extension BlocksModels.Block.ChosenBlock: ObservableObject, BlocksModelsChosenBl
     func didChange() { self.blockModel.didChange() }
 }
 
-// MARK: UserSession
+// MARK: DetailsContainer
 extension BlocksModels.Block {
-    class UserSession: ObservableObject {
-        struct Information {
-            var isToggled: Bool
+    final class DetailsContainer {
+        typealias DetailsId = BlocksModels.Aliases.BlockId
+        typealias Model = DetailsModel
+        typealias ChosenModel = ChosenDetailsModel
+        private var models: [DetailsId: Model] = [:]
+        
+        func _choose(by id: DetailsId) -> ChosenModel? {
+            if let value = self.models[id] {
+                return .init(container: self, nestedModel: value)
+            }
+            else {
+                return nil
+            }
         }
-        var _firstResponder: String?
-        var _focusAt: Position?
-        var _storage: [String: Information] = [:]
+                        
+        private func _get(by id: DetailsId) -> Model? {
+            self.models[id]
+        }
+        
+        private func _add(_ model: Model) {
+            guard let parent = model.parent else {
+                /// TODO: Add Logging
+                /// We can't add details without parent. ( or block with details )
+                let logger = Logging.createLogger(category: .blocksModelsBlock)
+                os_log(.debug, log: logger, "We shouldn't add details with empty parent id. Skipping...")
+                return
+            }
+            
+            if self.models[parent] != nil {
+                let logger = Logging.createLogger(category: .blocksModelsBlock)
+                os_log(.debug, log: logger, "We shouldn't replace details by add operation. Skipping...")
+                return
+            }
+            self.models[parent] = model
+        }
+        
+        private func _remove(by id: DetailsId) {
+            guard self.models.keys.contains(id) else {
+                let logger = Logging.createLogger(category: .blocksModelsBlock)
+                os_log(.debug, log: logger, "We shouldn't delete models if they are not in the collection. Skipping...")
+                return
+            }
+            self.models.removeValue(forKey: id)
+        }
     }
 }
 
-extension BlocksModels.Block {
-    enum Focus {
-        enum Position {
-            case unknown
-            case beginning
-            case end
-            case at(Int)
-        }
-    }
-}
-
-extension BlocksModels.Block.UserSession: BlocksModelsUserSessionModelProtocol {
-    func isToggled(by id: BlockId) -> Bool { self._storage[id]?.isToggled ?? false }
-    func isFirstResponder(by id: BlockId) -> Bool { self._firstResponder == id }
-    func firstResponder() -> BlockId? { self._firstResponder }
-    func focusAt() -> Position? { self._focusAt }
-    func setToggled(by id: BlockId, value: Bool) { self._storage[id] = (self._storage[id] ?? .init(isToggled: value)) }
-    func setFirstResponder(by id: BlockId) { self._firstResponder = id }
-    func setFocusAt(position: Position) { self._focusAt = position }
-    
-    func unsetFirstResponder() { self._firstResponder = nil }
-    func unsetFocusAt() { self._focusAt = nil }
-    
-    func didChangePublisher() -> AnyPublisher<Void, Never> { self.objectWillChange.eraseToAnyPublisher() }
-    func didChange() { self.objectWillChange.send() }
-}
-
-// MARK: - UserSession
-protocol BlocksModelsUserSessionModelProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
-    typealias Position = BlocksModels.Aliases.FocusPosition
-    func isToggled(by id: BlockId) -> Bool
-    func isFirstResponder(by id: BlockId) -> Bool
-    func firstResponder() -> BlockId?
-    func focusAt() -> Position?
-    func setToggled(by id: BlockId, value: Bool)
-    func setFirstResponder(by id: BlockId)
-    func setFocusAt(position: Position)
-    
-    func unsetFirstResponder()
-    func unsetFocusAt()
-    
-    func didChangePublisher() -> AnyPublisher<Void, Never>
-    func didChange()
-}
-
-// MARK: - Container
-protocol BlocksModelsHasUserSessionProtocol {
-    typealias UserSession = BlocksModelsUserSessionModelProtocol
-    var userSession: UserSession {get}
-}
-
-protocol BlocksModelsHasRootIdProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
-    var rootId: BlockId? {get set}
-}
-
-protocol BlocksModelsContainerModelProtocol: class, BlocksModelsHasRootIdProtocol, BlocksModelsHasUserSessionProtocol {
+extension BlocksModels.Block.DetailsContainer: BlocksModelsDetailsContainerModelProtocol {
     // MARK: - Operations / List
-    func list() -> AnyIterator<BlockId>
+    func list() -> AnyIterator<DetailsId> { .init(self.models.keys.makeIterator()) }
     // MARK: - Operations / Choose
-    func choose(by id: BlockId) -> BlocksModelsChosenBlockModelProtocol?
+    func choose(by id: DetailsId) -> BlocksModelsChosenDetailsModelProtocol? { self._choose(by: id) }
     // MARK: - Operations / Get
-    func get(by id: BlockId) -> BlocksModelsBlockModelProtocol?
+    func get(by id: DetailsId) -> BlocksModelsDetailsModelProtocol? { self._get(by: id) }
     // MARK: - Operations / Remove
-    func remove(_ id: BlockId)
-    // MARK: - Operations / Add
-    func add(_ block: BlocksModelsBlockModelProtocol)
-    // MARK: - Children / Append
-    func append(childId: BlockId, parentId: BlockId)
-    // MARK: - Children / Add Before
-    func add(child: BlockId, beforeChild: BlockId)
-    // MARK: - Children / Add
-    func add(child: BlockId, afterChild: BlockId)
-    // MARK: - Children / Replace
-    func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool)
+    func remove(_ id: DetailsId) { self._remove(by: id) }
 }
 
-// MARK: - ChosenBlock
-protocol BlocksModelsChosenBlockModelProtocol: BlocksModelsHasContainerProtocol, BlocksModelsHasBlockModelProtocol, BlocksModelsHasIndentationLevelProtocol, BlocksModelsCanBeRootProtocol, BlocksModelsFindParentAndRootProtocol, BlocksModelsFindChildProtocol, BlocksModelsCanBeFirstResponserProtocol, BlocksModelsCanBeToggledProtocol, BlocksModelsCanHaveFocusAtProtocol, BlocksModelsHasDidChangePublisherProtocol {}
+extension BlocksModels.Block.DetailsContainer {
+    class DetailsModel {
+        typealias PageDetails = BlocksModels.Aliases.PageDetails
+        /// Its a Details model.
+        /// It has PageDetails (?)
+        var _details: PageDetails = .empty
+        required init(details: PageDetails) {
+            self._details = details
+        }
+    }
+    
+    class ChosenDetailsModel {
+        /// Represents chosen details over this container.
+        /// Can switch to another details if needed. (?)
+        typealias DetailsId = BlocksModels.Aliases.BlockId
+        typealias Container = BlocksModels.Block.DetailsContainer
+        typealias NestedModel = DetailsModel
+        private weak var _container: Container?
+        private var _nestedModel: NestedModel
+        init(container: Container, nestedModel: NestedModel) {
+            self._container = container
+            self._nestedModel = nestedModel
+        }
+        required init(_ chosen: ChosenDetailsModel) {
+            self._container = chosen._container
+            self._nestedModel = chosen._nestedModel
+        }
+        class func create(_ chosen: ChosenDetailsModel) -> Self { .init(chosen) }
 
-// MARK: - ChosenBlock / BlockModel
-protocol BlocksModelsHasContainerProtocol {
-    var container: BlocksModelsContainerModelProtocol? {get}
+    }
 }
 
-// MARK: - ChosenBlock / BlockModel
-protocol BlocksModelsHasBlockModelProtocol {
-    var blockModel: BlocksModelsBlockModelProtocol {get}
+extension BlocksModels.Block.DetailsContainer.DetailsModel: BlocksModelsDetailsModelProtocol {
+    var details: PageDetails {
+        get {
+            self._details
+        }
+        set {
+            self._details = newValue
+        }
+    }
+    
+    /// TODO: Add parent to model or extend PageDetails to store parentId.
+    var parent: DetailsId? {
+        get {
+            nil
+        }
+        set {
+            
+        }
+    }
 }
 
-// MARK: - ChosenBlock / IndentationLevel
-protocol BlocksModelsHasIndentationLevelProtocol {
-    static var defaultIndentationLevel: Int {get}
-    var indentationLevel: Int {get}
-}
-
-// MARK: - ChosenBlock / isRoot
-protocol BlocksModelsCanBeRootProtocol {
-    var isRoot: Bool {get}
-}
-
-// MARK: - ChosenBlock / FindRoot and FindParent
-protocol BlocksModelsFindParentAndRootProtocol {
-    func findParent() -> Self?
-    func findRoot() -> Self?
-}
-
-// MARK: - ChosenBlock / Children
-protocol BlocksModelsFindChildProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
-    func childrenIds() -> [BlockId]
-    func findChild(by id: BlockId) -> Self?
-}
-
-// MARK: - ChosenBlock / isFirstRepsonder
-protocol BlocksModelsCanBeFirstResponserProtocol {
-    var isFirstResponder: Bool {get set}
-    func unsetFirstResponder()
-}
-
-// MARK: - ChosenBlock / isToggled
-protocol BlocksModelsCanBeToggledProtocol {
-    var isToggled: Bool {get set}
-}
-
-// MARK: - ChosenBlock / FocusAt
-protocol BlocksModelsCanHaveFocusAtProtocol {
-    typealias Position = BlocksModels.Aliases.FocusPosition
-    var focusAt: Position? {get set}
-}
-
-extension BlocksModelsCanHaveFocusAtProtocol {
-    mutating func unsetFocusAt() { self.focusAt = nil }
-}
-
-// MARK: - ChosenBlock / Publishing
-protocol BlocksModelsHasDidChangePublisherProtocol {
-    func didChangePublisher() -> AnyPublisher<Void, Never>
-    func didChange()
+extension BlocksModels.Block.DetailsContainer.ChosenDetailsModel: BlocksModelsChosenDetailsModelProtocol {
+    var container: BlocksModelsDetailsContainerModelProtocol? {
+        self._container
+    }
+    var detailsModel: BlocksModelsDetailsModelProtocol {
+        self._nestedModel
+    }
 }

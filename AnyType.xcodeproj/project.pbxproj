@@ -257,6 +257,9 @@
 		0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6823969B030027A4AD /* CompletionAuthView.swift */; };
 		0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */; };
 		0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA854623A80C2200892713 /* events.pb.swift */; };
+		0A7831C324B72EF400A1B6F6 /* BlocksModels+Block+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7831C224B72EF400A1B6F6 /* BlocksModels+Block+Protocols.swift */; };
+		0A7831C524B72F7C00A1B6F6 /* BlocksModels+Block+Protocols+BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7831C424B72F7C00A1B6F6 /* BlocksModels+Block+Protocols+BlockModel.swift */; };
+		0A7831C724B72FE200A1B6F6 /* BlocksModels+Block+Protocols+ChosenBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7831C624B72FE200A1B6F6 /* BlocksModels+Block+Protocols+ChosenBlock.swift */; };
 		0A8E651F2444FC1100378985 /* ToolsBlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E651E2444FC1100378985 /* ToolsBlocksViews.swift */; };
 		0A8E65232444FDEB00378985 /* ToolsBlocksViews+PageLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8E65222444FDEB00378985 /* ToolsBlocksViews+PageLink.swift */; };
 		0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */; };
@@ -628,6 +631,9 @@
 		0A721EE7244068270035A3E4 /* SmartBlockActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartBlockActionsService.swift; sourceTree = "<group>"; };
 		0A72751024AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift"; sourceTree = "<group>"; };
 		0A72751224AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes+Selection+Done.swift"; sourceTree = "<group>"; };
+		0A7831C224B72EF400A1B6F6 /* BlocksModels+Block+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModels+Block+Protocols.swift"; sourceTree = "<group>"; };
+		0A7831C424B72F7C00A1B6F6 /* BlocksModels+Block+Protocols+BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModels+Block+Protocols+BlockModel.swift"; sourceTree = "<group>"; };
+		0A7831C624B72FE200A1B6F6 /* BlocksModels+Block+Protocols+ChosenBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModels+Block+Protocols+ChosenBlock.swift"; sourceTree = "<group>"; };
 		0A8E651E2444FC1100378985 /* ToolsBlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolsBlocksViews.swift; sourceTree = "<group>"; };
 		0A8E65222444FDEB00378985 /* ToolsBlocksViews+PageLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToolsBlocksViews+PageLink.swift"; sourceTree = "<group>"; };
 		0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptions.swift; sourceTree = "<group>"; };
@@ -1708,6 +1714,9 @@
 			children = (
 				0A54D7D3248846260092FAC7 /* BlocksModels.swift */,
 				0A54D7D72488464C0092FAC7 /* BlocksModels+Block.swift */,
+				0A7831C224B72EF400A1B6F6 /* BlocksModels+Block+Protocols.swift */,
+				0A7831C424B72F7C00A1B6F6 /* BlocksModels+Block+Protocols+BlockModel.swift */,
+				0A7831C624B72FE200A1B6F6 /* BlocksModels+Block+Protocols+ChosenBlock.swift */,
 				0A54D7D52488463F0092FAC7 /* BlocksModels+Block+Content.swift */,
 				0A54D7DB248849BD0092FAC7 /* BlocksModels+Block+Information.swift */,
 				0A4C261224884FEB00088F0A /* BlocksModels+Block+Information+Details.swift */,
@@ -2351,6 +2360,7 @@
 				0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift in Sources */,
 				0A63ADF12465AFC800F092C8 /* BlockModel+Parser+Text+Color.swift in Sources */,
+				0A7831C524B72F7C00A1B6F6 /* BlocksModels+Block+Protocols+BlockModel.swift in Sources */,
 				0A4C2629248A9C0400088F0A /* BlocksModels+Updater.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A0C1872245790DE003EDE7C /* PageBlocksViews+Title.swift in Sources */,
@@ -2401,6 +2411,7 @@
 				0A69321B238C4C8200575544 /* TextBlocksViews+Text.swift in Sources */,
 				0A4C26232489888D00088F0A /* BlocksModels+Parser+Common.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
+				0A7831C324B72EF400A1B6F6 /* BlocksModels+Block+Protocols.swift in Sources */,
 				0A2C0D58247144F4008ADD86 /* TextView+UIKitTextView+ViewModel.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				0A0BDCCA24B3370B00956038 /* OtherBlockActionsService.swift in Sources */,
@@ -2423,6 +2434,7 @@
 				0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */,
 				0ACFCCF7249C17B5002E0477 /* BlockListActionsService+New.swift in Sources */,
 				0A0AA752240185EE003A2935 /* BlockModel+Parser.swift in Sources */,
+				0A7831C724B72FE200A1B6F6 /* BlocksModels+Block+Protocols+ChosenBlock.swift in Sources */,
 				0A2ADCE02496921500FA135D /* EventListening.swift in Sources */,
 				0ADE619124488C6600244E49 /* ToolsBlocksViews+UserActions.swift in Sources */,
 				0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */,

@@ -19,9 +19,14 @@ extension BlocksModels {
         typealias ChildrenIds = [BlockId]
         typealias BackgroundColor = String
         typealias Alignment = BlocksModels.Block.Information.Alignment
-        typealias PageDetails = BlocksModels.Block.Information.PageDetails
+        /// TODO: Remove PageDetails from Information.
+        /// It doesn't fit well anymore.
+        typealias PageDetails = BlocksModels.Block.Information.PageDetails // Actually, deprecated. We should rewrite Details parsing.
         typealias BlockKind = BlocksModels.Block.Kind
         typealias Information = BlocksModels.Block.Information
         typealias FocusPosition = BlocksModels.Block.Focus.Position
+        typealias Details = BlocksModels.Block // Namespace to Details, DetailsModel and Details Container.
+        /// Add distinct namespace to details?
+        /// This will require sometime, but it worth (?)
     }
 }

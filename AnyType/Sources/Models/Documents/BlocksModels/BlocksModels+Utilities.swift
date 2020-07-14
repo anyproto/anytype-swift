@@ -14,12 +14,13 @@ private extension Logging.Categories {
 }
 
 fileprivate typealias Namespace = BlocksModels
+fileprivate typealias FileNamespace = Namespace.Utilities
 
 extension Namespace {
     enum Utilities {}
 }
 
-extension Namespace.Utilities {
+extension FileNamespace {
     // TODO: Implement custom Debug for our models.
     enum Debug {
         static let maxDotsRepeating = 10
@@ -41,7 +42,7 @@ extension Namespace.Utilities {
     }
 }
 
-extension Namespace.Utilities {
+extension FileNamespace {
     enum InformationIdentifier {
         typealias Information = BlocksModelsInformationModelProtocolWithHashable
         
@@ -55,7 +56,7 @@ extension Namespace.Utilities {
     }
 }
 
-extension Namespace.Utilities {
+extension FileNamespace {
     enum IndexWalker {
         typealias Model = BlocksModelsChosenBlockModelProtocol
         
@@ -91,7 +92,7 @@ extension Namespace.Utilities {
     }
 }
 
-extension Namespace.Utilities {
+extension FileNamespace {
     enum FirstResponderResolver {
         typealias Model = BlocksModelsChosenBlockModelProtocol
         static func resolvePendingUpdate(_ model: Model) {
@@ -110,7 +111,7 @@ extension Namespace.Utilities {
 /// It is necessary to determine a kind of content in terms of something "Hashable and Equatable"
 /// Actually, we could use `-> AnyHashable` type here as result type.
 /// But it is fine to use `String` here.
-extension Namespace.Utilities {
+extension FileNamespace {
     enum ContentTypeIdentifier {
         typealias Content = BlocksModels.Aliases.BlockContent
         typealias Identifier = String
@@ -137,6 +138,36 @@ extension Namespace.Utilities {
             case .div(_): return ".div"
             case .bookmark(_): return ".bookmark"
             case .link(_): return ".link"
+            }
+        }
+    }
+}
+
+
+extension FileNamespace {
+    /// The main purpose of this inspector is to identify kind of details.
+    /// It could be done by parsing identifier of Information that was built from concrete detail.
+    ///
+    /// Prerequisites:
+    ///
+    /// 1. Build Information from Details.
+    ///
+    enum DetailsInspector {
+        typealias Kind = BlocksModels.Aliases.PageDetails.Details.Kind
+        typealias Id = BlocksModels.Aliases.BlockId
+        typealias Details = BlocksModels.Aliases.PageDetails.Details
+        typealias Information = BlocksModels.Aliases.Information
+        
+        /// It parses identifier and try to figure our the kind of a detail.
+        /// - Parameter id: Id of Information that is built from detail.
+        /// - Returns: Kind of detail.
+        ///
+        static func kind(of id: Id) -> Kind? {
+            let (_, details) = Information.DetailsAsInformationConverter.IdentifierBuilder.asDetails(id)
+            switch details {
+            case Details.Title.id: return .title
+            case Details.Emoji.id: return .iconEmoji
+            default: return nil
             }
         }
     }

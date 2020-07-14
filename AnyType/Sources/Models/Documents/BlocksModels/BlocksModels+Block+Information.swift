@@ -126,6 +126,28 @@ extension Namespace {
     }
 }
 
+/// TODO: Time to remove Details Crutches.
+extension Namespace.DetailsAsInformationConverter {
+    struct IdentifierBuilder {
+        typealias Details = BlocksModels.Aliases.PageDetails.Details
+        typealias DetailsId = String
+        typealias InformationId = String
+        static var separator: Character = "/"
+        static func asInformation(_ informationId: InformationId, _ id: DetailsId) -> InformationId {
+            informationId + "\(self.separator)" + id
+        }
+        static func asDetails(_ id: InformationId) -> (InformationId, DetailsId) {
+            guard let index = id.lastIndex(of: self.separator) else { return (id, "") }
+            let substring = id[index...].dropFirst()
+            switch String(substring) {
+            case Details.Title.id: return (id, Details.Title.id)
+            case Details.Emoji.id: return (id, Details.Emoji.id)
+            default: return ("", "")
+            }
+        }
+    }
+}
+
 // MARK: Details as Block
 extension Namespace {
     /// We need this converter to convert our details into a block.

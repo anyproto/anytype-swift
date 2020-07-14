@@ -9,6 +9,8 @@
 import Foundation
 import os
 
+/// TODO: Move to toplevel namespace Details.
+/// Information nevermore will store Details.
 private extension Logging.Categories {
     static let pageDetails: Self = "BlocksModels.Block.Information.PageDetails"
 }
