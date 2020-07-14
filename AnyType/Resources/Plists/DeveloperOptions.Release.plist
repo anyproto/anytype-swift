@@ -18,6 +18,11 @@
 				<key>alphaInvitePasscode</key>
 				<string>elbrus</string>
 			</dict>
+			<key>dashboard</key>
+			<dict>
+				<key>hasCustomModalPresentation</key>
+				<false/>
+			</dict>
 			<key>mainDocumentEditor</key>
 			<dict>
 				<key>useUIKit</key>

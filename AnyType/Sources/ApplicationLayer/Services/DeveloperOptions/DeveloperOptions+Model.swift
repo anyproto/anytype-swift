@@ -22,7 +22,7 @@ extension DeveloperOptions {
 //        var services: Services?
         private init() {
             self.debug = .init(enabled: false)
-            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: ""),
+            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: ""), dashboard: .init(hasCustomModalPresentation: false),
                                   mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
         }
         static var `default`: Settings = .init()
@@ -40,6 +40,10 @@ extension DeveloperOptions.Settings {
             var alphaInvitePasscode: String
         }
         
+        struct Dashboard: CodableAndDictionary {
+            var hasCustomModalPresentation: Bool
+        }
+        
         struct MainDocumentEditor: CodableAndDictionary {
             struct TextEditor: CodableAndDictionary {
                 var shouldHaveUniqueText: Bool
@@ -51,6 +55,7 @@ extension DeveloperOptions.Settings {
         }
         
         var authentication: Authentication
+        var dashboard: Dashboard
         var mainDocumentEditor: MainDocumentEditor
     }
 

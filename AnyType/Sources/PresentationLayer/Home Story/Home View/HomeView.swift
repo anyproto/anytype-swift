@@ -22,6 +22,8 @@ struct HomeView: View {
     @State var selectedDocumentId: String = ""
     @State var isNavigationBarHidden: Bool = true // workaround: Used for hiding/show nav bar in childs
     
+    @Environment(\.developerOptions) private var developerOptions
+    
     init(viewModel: HomeViewModel, collectionViewModel: HomeCollectionViewModel) {
         self.viewModel = viewModel
         self.collectionViewModel = collectionViewModel
@@ -69,26 +71,54 @@ struct HomeView: View {
         DocumentViewWrapper(viewModel: self.viewModel, selectedDocumentId: self.$selectedDocumentId, isNavigationBarHidden: self.$isNavigationBarHidden, shouldShowDocument: self.$showDocument)
     }
     
+    func documentView(hasCustomModalView: Bool = false) -> some View {
+        DocumentViewWrapper(viewModel: self.viewModel, selectedDocumentId: self.$selectedDocumentId, isNavigationBarHidden: self.$isNavigationBarHidden, shouldShowDocument: self.$showDocument, hasCustomModalView: hasCustomModalView)
+    }
+    
     var homeView: some View {
         VStack(alignment: .leading, spacing: 0) {
             self.topView
             self.collectionView
         }
     }
-    
-    var body: some View {
+        
+    var customPresentationViewBody: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 ZStack {
                     self.homeView
                     if self.showDocument {
-                        self.documentView
+                        self.documentView(hasCustomModalView: true)
                     }
                 }
             }
-            .background(LinearGradient(gradient: /*@START_MENU_TOKEN@*/Gradient(colors: [Color.red, Color.blue])/*@END_MENU_TOKEN@*/, startPoint: /*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/, endPoint: /*@START_MENU_TOKEN@*/.trailing/*@END_MENU_TOKEN@*/).edgesIgnoringSafeArea(.all))
+            .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing).edgesIgnoringSafeArea(.all))
             .navigationBarTitle("", displayMode: .inline)
             .navigationBarHidden(isNavigationBarHidden)
+        }
+    }
+    
+    var defaultPresentationViewBody: some View {
+        NavigationView {
+            VStack(alignment: .leading, spacing: 0) {
+                self.homeView
+            }.sheet(isPresented: self.$showDocument) {
+                self.documentView(hasCustomModalView: false)
+            }
+            .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing).edgesIgnoringSafeArea(.all))
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarHidden(isNavigationBarHidden)
+        }
+    }
+    
+    var body: some View {
+        Group {
+            if self.developerOptions.current.workflow.dashboard.hasCustomModalPresentation {
+                self.customPresentationViewBody
+            }
+            else {
+                self.defaultPresentationViewBody
+            }
         }
         .onAppear(perform: onAppear)
         .onDisappear(perform: onDisappear)
@@ -132,6 +162,8 @@ extension HomeView {
 
         @State var dragOffset: CGSize = .zero
         
+        var hasCustomModalView: Bool = false
+                
         var oldBody: some View {
             self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId, shouldShowDocument: self.$shouldShowDocument)
                 .navigationBarTitle("") // workaround: used for smooth transition animation
@@ -146,7 +178,7 @@ extension HomeView {
             self.selectedDocumentId = ""
         }
         
-        var body: some View {
+        var customModalView: some View {
             GeometryReader { geometry in
                 self.oldBody.animation(.spring())
                     .gesture(
@@ -166,6 +198,21 @@ extension HomeView {
                     })
                 ).offset(self.dragOffset)
             }.transition(.move(edge: .bottom))
+        }
+        
+        var defaultModalView: some View {
+            self.oldBody
+        }
+        
+        var body: some View {
+            Group {
+                if self.hasCustomModalView {
+                    self.customModalView
+                }
+                else {
+                    self.defaultModalView
+                }
+            }
         }
     }
 }
