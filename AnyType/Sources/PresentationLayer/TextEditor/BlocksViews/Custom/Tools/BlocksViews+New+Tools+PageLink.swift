@@ -56,18 +56,18 @@ extension BlocksViews.New.Tools.PageLink {
                     self.eventPublisher = NotificationEventListener(handler: self.eventListener)
                     self.eventPublisher?.receive(contextId: pageId)
                     
-                    self.eventListener.$state.receive(on: RunLoop.main).sink { [weak self] (value) in
-                        self?.wholeDetailsViewModel.receive(details: value)
-                    }.store(in: &self.subscriptions)
+//                    self.eventListener.$state.receive(on: RunLoop.main).sink { [weak self] (value) in
+//                        self?.wholeDetailsViewModel.receive(details: value)
+//                    }.store(in: &self.subscriptions)
 
-                    self.statePublisher = self.wholeDetailsViewModel.wholeDetailsPublisher.map(State.Converter.from).eraseToAnyPublisher()
+//                    self.statePublisher = self.wholeDetailsViewModel.wholeDetailsPublisher.map(State.Converter.from).eraseToAnyPublisher()
 
-                    self.statePublisher.sink { [weak self] (value) in
-                        self?.state = value
-                    }.store(in: &self.subscriptions)
+//                    self.statePublisher.sink { [weak self] (value) in
+//                        self?.state = value
+//                    }.store(in: &self.subscriptions)
 
                     
-                    self.wholeDetailsViewModel.receive(details: information.pageDetails)
+//                    self.wholeDetailsViewModel.receive(details: information.pageDetails)
                     
                     self.$state.map(\.title).safelyUnwrapOptionals().sink { [weak self] (value) in
                         self?.textViewModel.update = .text(value)

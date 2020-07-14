@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import os
 import SwiftProtobuf
+import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.NewSupplement
 
@@ -24,10 +25,10 @@ extension Namespace {
         typealias ActionsPayloadTextViewTextView = ActionsPayload.TextBlocksViewsUserInteraction.Action.TextViewUserAction
         typealias ActionsPayloadTextViewButtonView = ActionsPayload.TextBlocksViewsUserInteraction.Action.ButtonViewUserAction
         
-        typealias Builder = BlocksModels.Block.Builder
-        typealias IndexWalker = BlocksModels.Utilities.IndexWalker
+        typealias Builder = TopLevel.Builder
+        typealias IndexWalker = TopLevel.AliasesMap.BlockUtilities.IndexWalker
         
-        typealias Model = BlocksModelsChosenBlockModelProtocol
+        typealias Model = BlockActiveRecordModelProtocol
         
         private var documentId: String = ""
         private var subscription: AnyCancellable?
@@ -145,9 +146,32 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 
 // MARK: Actions Handling / TextView / Keyboard
 private extension BlocksViews.NewSupplement.UserInteractionHandler {
+    private typealias DetailsInspector = TopLevel.AliasesMap.BlockUtilities.DetailsInspector
     func handlingKeyboardAction(_ block: Model, _ action: TextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
+            if DetailsInspector.kind(of: block.blockModel.information.id) == .title {
+                switch keyAction {
+                case .enter, .enterWithPayload, .enterAtBeginning:
+                    let id = block.blockModel.information.id
+                    let (blockId, _) = TopLevel.AliasesMap.Information.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
+                    let block = block.container?.choose(by: blockId)
+                    let parentId = block?.blockModel.information.id
+                    
+                    if let information = BlockBuilder.createDefaultInformation(), let parentId = parentId {
+                        if block?.childrenIds().isEmpty == true {
+                            self.service.addChild(childBlock: information, parentBlockId: parentId)
+                        }
+                        else {
+                            let first = block?.childrenIds().first
+                            self.service.add(newBlock: information, afterBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
+                        }
+                    }
+
+                default: return
+                }
+                return
+            }
             switch keyAction {
             // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
             case let .enterWithPayload(left, payload):
@@ -180,9 +204,9 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 // BUSINESS LOGIC:
                 // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
                 switch block.blockModel.information.content {
-                case let .text(value) where [.bulleted, .numbered, .checkbox, .toggle].contains(value.contentType) && value.text == "":
+                case let .text(value) where [.bulleted, .numbered, .checkbox, .toggle].contains(value.contentType) && value.attributedText.string == "":
                     // Turn Into empty text block.
-                    if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.text) {
+                    if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.attributedText.string) {
                         /// TODO: Add focus on this block.
                         self.service.turnInto(block: block.blockModel.information, type: newContentType, shouldSetFocusOnUpdate: true)
                     }
@@ -309,9 +333,11 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 /// We don't care about business logic on THIS level.
 private extension Namespace.UserInteractionHandler {
     struct BlockBuilder {
-        typealias BlockId = BlocksModels.Aliases.BlockId
-        typealias Content = BlocksModels.Aliases.BlockContent
-        typealias Information = BlocksModels.Aliases.Information.InformationModel
+        typealias BlockId = TopLevel.AliasesMap.BlockId
+        typealias Content = TopLevel.AliasesMap.BlockContent
+        typealias Information = BlockInformationModelProtocol
+    
+        typealias Builder = TopLevel.Builder
         
         typealias KeyboardAction = ActionsPayloadTextViewTextView.KeyboardAction
         typealias ToolbarAction = ActionsPayloadToolbar
@@ -321,29 +347,29 @@ private extension Namespace.UserInteractionHandler {
         static func createInformation(block: Model, action: KeyboardAction, textPayload: String) -> Information? {
             switch block.blockModel.information.content {
             case .text:
-                return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Information.init)
+                return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Builder.blockBuilder.informationBuilder.build)
             default: return nil
             }
         }
             
         static func createInformation(block: Model, action: ToolbarAction, textPayload: String = "") -> Information? {
             switch action {
-            case .addBlock: return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Information.init)
+            case .addBlock: return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Builder.blockBuilder.informationBuilder.build)
             default: return nil
             }
         }
                 
         static func createDefaultInformation(block: Model? = nil) -> Information? {
             guard let block = block else {
-                return .init(id: newBlockId(), content: .text(.empty()))
+                return Builder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
             }
             switch block.blockModel.information.content {
             case let .text(value):
                 switch value.contentType {
-                case .toggle: return .init(id: newBlockId(), content: .text(.empty()))
+                case .toggle: return Builder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
                 default: return nil
                 }
-            case .smartblock: return .init(id: newBlockId(), content: .text(.empty()))
+            case .smartblock: return Builder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
             default: return nil
             }
         }
@@ -352,10 +378,10 @@ private extension Namespace.UserInteractionHandler {
             switch block.blockModel.information.content {
             case let .text(blockType):
                 switch blockType.contentType {
-                case .bulleted where blockType.text != "": return .text(.init(contentType: .bulleted))
-                case .checkbox where blockType.text != "": return .text(.init(contentType: .checkbox))
-                case .numbered where blockType.text != "": return .text(.init(contentType: .numbered))
-                case .toggle where blockType.text != "": return .text(.init(contentType: .toggle))
+                case .bulleted where blockType.attributedText.string != "": return .text(.init(contentType: .bulleted))
+                case .checkbox where blockType.attributedText.string != "": return .text(.init(contentType: .checkbox))
+                case .numbered where blockType.attributedText.string != "": return .text(.init(contentType: .numbered))
+                case .toggle where blockType.attributedText.string != "": return .text(.init(contentType: .toggle))
                 default: return .text(.init(contentType: .text))
                 }
             default: return nil
@@ -408,8 +434,8 @@ private extension Namespace.UserInteractionHandler {
     /// Each method should return no a block, but a response.
     /// Next, this response would be proceed by event handler.
     class Service {
-        typealias Information = BlocksModelsInformationModelProtocol
-        typealias BlockId = BlocksModels.Aliases.BlockId
+        typealias Information = BlockInformationModelProtocol
+        typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias Conversion = (ServiceLayerModule.Success) -> (EventListening.PackOfEvents)
             
         struct Converter {
@@ -523,7 +549,7 @@ private extension Namespace.UserInteractionHandler {
 
         private var documentId: String
         
-        private let parser: BlocksModels.Parser = .init()
+        private let parser: BlocksModelsModule.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
         private let service: ServiceLayerModule.BlockActionsService = .init()
         private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
@@ -729,7 +755,7 @@ private extension Namespace.UserInteractionHandler.Service {
 // MARK: ServiceHandler / Actions / Turn Into / Private
 /// TODO: Add Div and ConvertChildrenToPages
 private extension Namespace.UserInteractionHandler.Service {
-    typealias BlockContent = BlocksModels.Aliases.BlockContent
+    typealias BlockContent = TopLevel.AliasesMap.BlockContent
     func _turnInto(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         switch type {
         case .text: self.setTextStyle(block: block, type: type, completion)

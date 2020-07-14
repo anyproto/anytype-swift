@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 import UIKit
 import os
+import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.New.Text
 
@@ -25,9 +26,9 @@ extension Namespace {
 // MARK: - Base / ViewModel
 extension Namespace.Base {
     class ViewModel: BlocksViews.New.Base.ViewModel {
-        typealias BlocksModelsUpdater = BlocksModels.Updater
-        typealias BlockModelId = BlocksModels.Aliases.BlockId
-        typealias FocusPosition = BlocksModels.Aliases.FocusPosition
+        typealias BlocksModelsUpdater = TopLevel.AliasesMap.BlockTools.Updater
+        typealias BlockModelId = TopLevel.AliasesMap.BlockId
+        typealias FocusPosition = TopLevel.AliasesMap.FocusPosition
         
         @Environment(\.developerOptions) var developerOptions
         
@@ -252,7 +253,7 @@ private extension Namespace.Base.ViewModel {
             self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, self.blockId)
             switch self.getBlock().blockModel.information.content {
             case let .text(blockType):
-                self.text = self.text + " >> " + blockType.text
+                self.text = self.text + " >> " + blockType.attributedText.string
             default: return
             }
         }
@@ -261,7 +262,7 @@ private extension Namespace.Base.ViewModel {
             switch self.getBlock().blockModel.information.content {
             case let .text(blockType):
                 self.toViewText = blockType.attributedText
-                self.toViewTextAlignment = BlocksModels.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.blockModel.information.alignment)
+                self.toViewTextAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.blockModel.information.alignment)
             default: return
             }
             if block.isFirstResponder {
@@ -343,7 +344,7 @@ private extension Namespace.Base.ViewModel {
     ///
     func setModelData(alignment: NSTextAlignment) {
         self.update { (block) in
-            if let alignment = BlocksModels.Parser.Common.Alignment.UIKitConverter.asModel(alignment) {
+            if let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment) {
                 var blockModel = block.blockModel
                 blockModel.information.alignment = alignment
             }

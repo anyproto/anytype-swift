@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import BlocksModels
 
 extension BlocksViews.New.File {
     enum Image {} // -> Image.ContentType.image
@@ -17,7 +18,7 @@ extension BlocksViews.New.File {
 
 extension BlocksViews.New.File.Base {
     class ViewModel: BlocksViews.New.Base.ViewModel {
-        typealias File = BlocksModels.Aliases.BlockContent.File
+        typealias File = TopLevel.AliasesMap.BlockContent.File
         typealias State = File.State
         var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }

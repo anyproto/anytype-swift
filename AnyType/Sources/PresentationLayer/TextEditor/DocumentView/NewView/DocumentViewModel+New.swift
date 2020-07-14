@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 import os
+import BlocksModels
 
 fileprivate typealias Namespace = DocumentModule
 
@@ -52,8 +53,11 @@ extension DocumentModule {
     
     class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolder {
         /// Aliases
-        typealias RootModel = BlocksModelsContainerModelProtocol
-        typealias BlockId = BlocksModels.Aliases.BlockId
+        typealias RootModel = TopLevelContainerModelProtocol
+        typealias BlockId = TopLevel.AliasesMap.BlockId
+        typealias ModelInformation = BlockInformationModelProtocol
+        
+        typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
         
         typealias UserInteractionHandler = BlocksViews.NewSupplement.UserInteractionHandler
         typealias ListUserInteractionHandler = BlocksViews.NewSupplement.ListUserInteractionHandler
@@ -69,7 +73,7 @@ extension DocumentModule {
         private var blockActionsService: ServiceLayerModule.BlockActionsService = .init()
         
         /// Data Transformers
-        private var transformer: BlocksModels.Transformer.FinalTransformer = .init()
+        private var transformer: Transformer = .defaultValue
         private var flattener: BlocksViews.NewSupplement.BlocksFlattener = .init()
         
         /// User Interaction Processor
@@ -228,11 +232,11 @@ extension DocumentModule {
         @Published var wholePageDetailsViewModel: PageDetailsViewModel = .init()
         
         /// We  need this model to be Published cause need handle actions from IconEmojiBlock
-        typealias PageDetailsViewModelsDictionary = [BlocksModels.Aliases.Information.PageDetails.Details.Kind : BlockViewBuilderProtocol]
+        typealias PageDetailsViewModelsDictionary = [TopLevel.AliasesMap.DetailsContent.Kind : BlockViewBuilderProtocol]
         var pageDetailsViewModels: PageDetailsViewModelsDictionary = [:] {
             didSet {
-                self.userEvent = .pageDetailsViewModelsDidSet
                 self.enhanceDetails(self.pageDetailsViewModels)
+                self.userEvent = .pageDetailsViewModelsDidSet
             }
         }
         
@@ -333,6 +337,8 @@ extension DocumentModule {
             }
             .eraseToAnyPublisher()
             
+            // TODO: Deprecated.
+            // Remove it when you subscribe in view model on state of a model.
             self.fileFieldPublisher = self.$builders
                 .map {
                     $0.compactMap { $0 as? BlocksViewsNamespace.File.Image.ViewModel }
@@ -369,7 +375,7 @@ extension DocumentModule {
         /// - Parameter model: a tree model that we want to convert.
         /// - Returns: a list of view models. ( builders )
         private func toList(_ model: RootModel) -> [BlockViewBuilderProtocol] {
-            guard let rootId = model.rootId, let rootModel = model.choose(by: rootId) else { return [] }
+            guard let rootId = model.rootId, let rootModel = model.blocksContainer.choose(by: rootId) else { return [] }
             let result = self.flattener.toList(rootModel)
             // TODO: Add model logging.
             //            let logger = Logging.createLogger(category: .treeViewModel)
@@ -382,22 +388,30 @@ extension DocumentModule {
         ///   - contextId: an Identifier of context in which we are working. It is equal to documentId.
         ///   - rootId: an Identifier of root block. It is equal to top-most `Page Identifier`.
         ///   - models: models is a `List` of Middleware objects ( actually, our model objects ) that we would like to process.
-        private func processBlocks(contextId: String? = nil, rootId: String? = nil, models: [BlocksModelsInformationModelProtocol]) {
+        private func processBlocks(contextId: String? = nil, rootId: String? = nil, models: [BlocksModelsModule.Parser.PageEvent]) {
             // create metablock.
             
             guard let contextId = contextId, let rootId = rootId else {
                 return
             }
             
-            let baseModel = self.transformer.transform(models.map({BlocksModels.Aliases.Information.InformationModel.init(information: $0)}), rootId: rootId)
+            guard let event = models.first else {
+                return
+            }
+            
+            let blocksContainer = self.transformer.transform(event.blocks, rootId: rootId)
+            let parsedDetails = event.details.map(TopLevel.Builder.detailsBuilder.build(information:))
+            let detailsContainer = TopLevel.Builder.detailsBuilder.build(list: parsedDetails)
             
             _ = self.userInteractionHandler.configured(documentId: contextId)
             _ = self.listUserInteractionHandler.configured(documentId: contextId)
             
-            self.rootModel = baseModel
+            
+            /// Add details models to process.
+            self.rootModel = TopLevel.Builder.build(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
         }
         
-        private func internalProcessBlocks(contextId: String? = nil, rootId: String? = nil, models: [BlocksModelsInformationModelProtocol]) {
+        private func internalProcessBlocks(contextId: String? = nil, rootId: String? = nil, models: [BlocksModelsModule.Parser.PageEvent]) {
             if self.internalState != .ready {
                 self.processBlocks(contextId: contextId, rootId: rootId, models: models)
                 self.internalState = .ready
@@ -405,11 +419,10 @@ extension DocumentModule {
         }
         
         private func processMiddlewareEvents(contextId: String, messages: [Anytype_Event.Message]) {
-            messages.filter({$0.value == .blockShow($0.blockShow)}).compactMap({ [weak self] value in
-                self?.blockActionsService.eventListener.createFrom(event: value.blockShow)
-            }).forEach({[weak self] value in
-                self?.internalProcessBlocks(contextId: contextId, rootId: value.rootId, models: value.blocks)
-            })
+            /// For now we just assuming that we have only one blockShow.
+            let blockShow = messages.filter({$0.value == .blockShow($0.blockShow)}).first?.blockShow
+            let models = self.eventProcessor.handleBlockShow(events: .init(contextId: contextId, events: messages, ourEvents: []))
+            self.internalProcessBlocks(contextId: contextId, rootId: blockShow?.rootID, models: models)
         }
         
         private func obtainDocument(documentId: String?) {
@@ -463,57 +476,60 @@ private extension Namespace.DocumentViewModel {
 private extension Namespace.DocumentViewModel {
     func configurePageDetails(for rootModel: RootModel?) {
         guard let model = rootModel else { return }
-        guard let rootId = model.rootId, let ourModel = model.choose(by: rootId) else { return }
-        
+        // TODO: Revert back when you are ready.
+        guard let rootId = model.rootId, let ourModel = model.detailsContainer.choose(by: rootId) else { return }
+
         /// take rootViewModel and configure pageDetails from this model.
         /// use special flattener for this.
         /// extract details and try to build view model for each detail.
-        
+
         /// Do not delete this code.
         /// We may need it later when we determine what details are.
         //            let information = value.information
         //            let converter = BlockModels.Block.Information.DetailsAsBlockConverter(information: value.information)
         //            let blocks = information.details.toList().map(converter.callAsFunction(_:))
-        
+
         /// sort details if you want, but for now we only have one detail: title.
         ///
-        
+
         /// And create correct viewModels.
         ///
-        
+
         // TODO: Refactor later.
-        let blockModel = ourModel.blockModel
-        let information = blockModel.information
-        let details = information.pageDetails
+        let blockModel = ourModel.detailsModel
+        let information = blockModel.details
+        
+        let details = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor(value: information)        
+        
         let title = details.title
         let emoji = details.iconEmoji
         
         /// Title Model
-        let titleBlock = BlocksModels.Aliases.Information.DetailsAsBlockConverter(information: information)(.title(title ?? .init(text: "")))
-        
+        let titleBlock = TopLevel.AliasesMap.Information.DetailsAsBlockConverter.init(blockId: rootId)(.title(title ?? .init(text: "")))
+
         /// Emoji Model
-        let emojiBlock = BlocksModels.Aliases.Information.DetailsAsBlockConverter(information: information)(.iconEmoji(emoji ?? .init(text: "")))
-        
+        let emojiBlock = TopLevel.AliasesMap.Information.DetailsAsBlockConverter.init(blockId: rootId)(.iconEmoji(emoji ?? .init(text: "")))
+
         /// Add entries to model.
         /// Well, it is cool that we store our details of page into one scope with all children.
         ///
-        model.add(titleBlock)
-        model.add(emojiBlock)
-        
-        if let titleModel = model.choose(by: titleBlock.information.id), let emojiModel = model.choose(by: emojiBlock.information.id) {
+        model.blocksContainer.add(titleBlock)
+        model.blocksContainer.add(emojiBlock)
+
+        if let titleModel = model.blocksContainer.choose(by: titleBlock.information.id), let emojiModel = model.blocksContainer.choose(by: emojiBlock.information.id) {
             let titleBlockModel = BlocksViewsNamespace.Page.Title.ViewModel.init(titleModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
-            
+
             let emojiBlockModel = BlocksViewsNamespace.Page.IconEmoji.ViewModel.init(emojiModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
-            
-            
+
+
             // Now we have correct blockViewModels
-            
+
             self.pageDetailsViewModels = [
                 .title : titleBlockModel,
                 .iconEmoji : emojiBlockModel
             ]
-            
-            self.wholePageDetailsViewModel.receive(details: details)
+
+            self.wholePageDetailsViewModel.receive(details: information)
             // Send event that we are ready.
         }
     }
@@ -542,155 +558,6 @@ private extension Namespace.DocumentViewModel {
 extension Namespace.DocumentViewModel {
     func handlingTapIfEmpty() {
         self.userInteractionHandler.createEmptyBlock(listIsEmpty: self.state == .empty)
-    }
-}
-
-// MARK: - TableViewModelProtocol
-extension Namespace.DocumentViewModel: TableViewModelProtocol {
-    func numberOfSections() -> Int {
-        1
-    }
-    
-    func countOfElements(at: Int) -> Int {
-        self.builders.count
-    }
-    
-    func section(at: Int) -> Section {
-        .init()
-    }
-    
-    func element(at: IndexPath) -> Row {
-        guard self.builders.indices.contains(at.row) else {
-            return .init(builder: TextBlocksViews.Base.BlockViewModel.empty)
-        }
-        var row = Row.init(builder: self.builders[at.row])
-        _ = row.configured(selectionHandler: self.selectionHandler)
-        return row
-    }
-    
-    struct Section {
-        var section: Int = 0
-        static var first: Section = .init()
-        init() {}
-    }
-    
-    struct Row {
-        /// Soo.... We can't keep model in it.
-        /// We should add information as structure ( which is immutable )
-        /// And use it as presentation structure for cell.
-        weak var builder: BlockViewBuilderProtocol?
-        weak var selectionHandler: DocumentModuleSelectionHandlerCellProtocol?
-        var information: BlocksModelsInformationModelProtocol?
-        init(builder: BlockViewBuilderProtocol?) {
-            self.builder = builder
-            self.information = (self.builder as? BlocksViewsNamespace.Base.ViewModel)?.getBlock().blockModel.information
-        }
-        
-        /// Pretty full-typed builder accessor
-        var blockBuilder: BlocksViews.New.Base.ViewModel? {
-            self.builder as? BlocksViewsNamespace.Base.ViewModel
-        }
-        
-        /// CachedDiffable. Check if user session for this cell has changed.
-        /// It is only for UI states.
-        struct CachedDiffable: Hashable {
-            var selected: Bool = false
-            mutating func set(selected: Bool) {
-                self.selected = selected
-            }
-        }
-        
-        var cachedDiffable: CachedDiffable = .init()
-        func sameCachedDiffable(_ other: Self?) -> Bool {
-            self.cachedDiffable != other?.cachedDiffable
-        }
-        
-        mutating func update(cachedDiffable: CachedDiffable) {
-            self.cachedDiffable = cachedDiffable
-        }
-        
-        /// First Responder manipulations for Text Cells.
-        var isPendingFirstResponder: Bool {
-            self.blockBuilder?.getBlock().isFirstResponder ?? false
-        }
-        func resolvePendingFirstResponder() {
-            if let model = self.blockBuilder?.getBlock() {
-                BlocksModels.Utilities.FirstResponderResolver.resolvePendingUpdate(model)
-            }
-        }
-    }
-}
-
-// MARK: - TableViewModelProtocol.Row / Configurations
-extension Namespace.DocumentViewModel.Row {
-    mutating func configured(selectionHandler: DocumentModuleSelectionHandlerCellProtocol?) -> Self {
-        self.selectionHandler = selectionHandler
-        self.cachedDiffable = .init(selected: self.isSelected)
-        return self
-    }
-}
-
-// MARK: - TableViewModelProtocol.Row / Indentation level
-extension Namespace.DocumentViewModel.Row {
-    typealias BlocksViewsNamespace = BlocksViews.New
-    var indentationLevel: UInt {
-        (self.builder as? BlocksViewsNamespace.Base.ViewModel).flatMap({$0.indentationLevel()}) ?? 0
-    }
-}
-
-// MARK: - TableViewModelProtocol.Row / Rebuilding and Diffable
-extension Namespace.DocumentViewModel.Row {
-    func rebuilded() -> Self {
-        .init(builder: self.builder)
-    }
-    func diffable() -> AnyHashable? {
-//        if let builder = self.builder as? BlocksViewsNamespace.Base.ViewModel {
-//            let diffable = self.information?.diffable()
-//            let allEntries = [
-//                "isFirstResponder": builder.getBlock().isFirstResponder,
-//                "informationDiffable": diffable
-//            ]
-//            return .init(allEntries)
-//        }
-        return self.information?.diffable()
-    }
-}
-
-// MARK: - TableViewModelProtocol.Row / Selection
-extension Namespace.DocumentViewModel.Row: DocumentModuleSelectionCellProtocol {
-    func getSelectionKey() -> BlockId? {
-        (self.builder as? BlocksViewsNamespace.Base.ViewModel)?.getBlock().blockModel.information.id
-    }
-}
-
-
-// MARK: - TableViewModelProtocol.Section
-extension Namespace.DocumentViewModel.Section: Hashable {}
-
-// MARK: - TableViewModelProtocol.Row
-
-/// Well, we could compare buildersRows by their diffables...
-/// But for now it is fine for us to keep simple equations.
-///
-/// NOTES: Why we could compare `diffables`.
-/// As soon as we use `Row` as `DataModel` for a `shared` view model `builder`
-/// we should keep a track of `initial` state of Rows.
-/// We do it by providing `information` propepty, which is initiated in `init()`.
-/// Treat this property as `fingerprint` of `initial` builder value.
-///
-///
-extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
-    static private func sameKind(_ lhs: Self?, _ rhs: Self?) -> Bool {
-        lhs?.information?.content.deepKind == rhs?.information?.content.deepKind
-    }
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.builder?.blockId == rhs.builder?.blockId && lhs.cachedDiffable == rhs.cachedDiffable && sameKind(lhs, rhs)
-//        lhs.diffable() == rhs.diffable() && lhs.cachedDiffable == rhs.cachedDiffable
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.builder?.blockId ?? "")
-//        hasher.combine(self.diffable())
     }
 }
 
@@ -821,7 +688,7 @@ extension Namespace.DocumentViewModel {
     }
     
     func enhanceDetails(_ value: PageDetailsViewModelsDictionary) {
-        _ = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map({$0.configured(userActionSubject: self.publicUserActionSubject)})
+        _ = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map({$0.configured(userActionSubject: self.publicUserActionSubject)}).map({$0.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)})
     }
 }
 

@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import os
 import SwiftProtobuf
+import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.NewSupplement
 
@@ -21,11 +22,8 @@ extension Namespace {
     class ListUserInteractionHandler {
         typealias ActionsPayload = DocumentModule.DocumentViewModel.ActionsPayload
         typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
-        
-        typealias Builder = BlocksModels.Block.Builder
-        
-        typealias Model = BlocksModelsChosenBlockModelProtocol
-        typealias BlockId = BlocksModels.Aliases.BlockId
+                
+        typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ListModel = [BlockId]
         
         private var documentId: String = ""
@@ -131,81 +129,6 @@ extension Namespace.ListUserInteractionHandler {
             default: return
             }
         default: return
-        }
-    }
-}
-
-// MARK: BlockBuilder
-/// This class should be moved to Middleware.
-/// We don't care about business logic on THIS level.
-extension Namespace.ListUserInteractionHandler {
-    struct BlockBuilder {
-        typealias BlockId = BlocksModels.Aliases.BlockId
-        typealias Content = BlocksModels.Aliases.BlockContent
-        typealias Information = BlocksModels.Aliases.Information.InformationModel
-
-        typealias ToolbarAction = ActionsPayloadToolbar
-
-        static func newBlockId() -> BlockId { "" }
-
-        static func createInformation(block: Model, action: ToolbarAction, textPayload: String = "") -> Information? {
-            switch action {
-            case .addBlock: return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Information.init)
-            default: return nil
-            }
-        }
-
-        static func createDefaultInformation(block: Model? = nil) -> Information? {
-            guard let block = block else {
-                return .init(id: newBlockId(), content: .text(.empty()))
-            }
-            switch block.blockModel.information.content {
-            case let .text(value):
-                switch value.contentType {
-                case .toggle: return .init(id: newBlockId(), content: .text(.empty()))
-                default: return nil
-                }
-            case .smartblock: return .init(id: newBlockId(), content: .text(.empty()))
-            default: return nil
-            }
-        }
-
-        static func createContentType(block: Model, action: ToolbarAction, textPayload: String = "") -> Content? {
-            switch action {
-            case let .addBlock(blockType):
-                switch blockType {
-                case let .text(value):
-                    switch value {
-                    case .text: return .text(.init(contentType: .text))
-                    case .h1: return .text(.init(contentType: .header))
-                    case .h2: return .text(.init(contentType: .header2))
-                    case .h3: return .text(.init(contentType: .header3))
-                    case .highlighted: return .text(.init(contentType: .quote))
-                    }
-                case let .list(value):
-                    switch value {
-                    case .bulleted: return .text(.init(contentType: .bulleted))
-                    case .checkbox: return .text(.init(contentType: .checkbox))
-                    case .numbered: return .text(.init(contentType: .numbered))
-                    case .toggle: return .text(.init(contentType: .toggle))
-                    }
-                case let .media(mediaType):
-                    switch mediaType {
-                    case .picture: return .file(.init(name: "", hash: "", state: .empty, contentType: .image))
-                    case .bookmark: return nil
-                    case .code: return nil
-                    case .file: return nil
-                    case .video: return nil
-                    }
-                case let .page(value):
-                    switch value {
-                    case .page: return .link(.init(targetBlockID: "", style: .page, fields: [:]))
-                    default: return nil
-                    }
-                default: return nil
-                }
-            default: return nil
-            }
         }
     }
 }

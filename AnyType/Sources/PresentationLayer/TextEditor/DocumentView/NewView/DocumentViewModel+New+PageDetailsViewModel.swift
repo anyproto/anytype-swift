@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import SwiftProtobuf
 import os
+import BlocksModels
 
 fileprivate typealias Namespace = DocumentModule.DocumentViewModel
 
@@ -20,8 +21,9 @@ private extension Logging.Categories {
 extension Namespace {
     // Sends and receives data via serivce.
     class PageDetailsViewModel {
-        typealias PageDetails = BlocksModels.Aliases.PageDetails
-        typealias Details = PageDetails.Details
+        typealias PageDetails = DetailsInformationModelProtocol
+        typealias Builder = TopLevel.Builder
+        typealias Details = TopLevel.AliasesMap.DetailsContent
 
         private var documentId: String?
         private var service: SmartBlockActionsService = .init()
@@ -59,7 +61,7 @@ extension Namespace.PageDetailsViewModel {
     /// Maybe add AnyPublisher as Return result?
     func update(details: Details) -> AnyPublisher<Void, Error>? {
         self.documentId.flatMap({
-            self.service.setDetails.action(contextID: $0, details: BlocksModels.Parser.Details.Converter.asMiddleware(models: [details])).eraseToAnyPublisher()
+            self.service.setDetails.action(contextID: $0, details: BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: [details])).eraseToAnyPublisher()
         })
     }
 }
@@ -67,8 +69,8 @@ extension Namespace.PageDetailsViewModel {
 // MARK: Receive
 extension Namespace.PageDetailsViewModel {
     func receive(details: [Anytype_Rpc.Block.Set.Details.Detail]) {
-        let modelDetails = BlocksModels.Parser.Details.Converter.asModel(details: details)
-        self.receive(details: .init(modelDetails))
+        let modelDetails = BlocksModelsModule.Parser.Details.Converter.asModel(details: details)
+        self.receive(details: Builder.detailsBuilder.informationBuilder.build(list: modelDetails))
     }
     
     func receive(details: PageDetails?) {

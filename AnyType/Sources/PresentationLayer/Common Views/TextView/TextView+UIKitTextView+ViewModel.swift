@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Combine
+import BlocksModels
 
 fileprivate typealias Namespace = TextView.UIKitTextView
 
@@ -18,7 +19,7 @@ fileprivate typealias Namespace = TextView.UIKitTextView
 extension Namespace {
     class ViewModel {
         struct Focus {
-            typealias Position = BlocksModels.Aliases.FocusPosition
+            typealias Position = TopLevel.AliasesMap.FocusPosition
             var position: Position?
             
             /// We should call completion when we are done with set focus.

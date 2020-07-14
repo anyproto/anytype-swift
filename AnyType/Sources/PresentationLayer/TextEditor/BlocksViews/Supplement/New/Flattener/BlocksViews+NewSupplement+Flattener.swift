@@ -8,6 +8,7 @@
 
 import Foundation
 import os
+import BlocksModels
 
 private extension Logging.Categories {
   static let blocksFlattener: Self = "Presentation.TextEditor.BlocksViews.Supplement.BlocksFlattener"
@@ -17,8 +18,8 @@ extension BlocksViews.NewSupplement {
     /// Generic interface for classes that provides following transform:
     /// (TreeModel) -> Array<ViewModel>
     class BaseFlattener {
-        typealias Model = BlocksModelsChosenBlockModelProtocol
-        typealias Information = BlocksModelsInformationModelProtocol
+        typealias Model = BlockActiveRecordModelProtocol
+        typealias Information = BlockInformationModelProtocol
 
         
         /// Convert tree model to list of ViewModels.

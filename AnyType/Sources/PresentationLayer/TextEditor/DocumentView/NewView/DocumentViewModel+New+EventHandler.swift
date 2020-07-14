@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import os
+import BlocksModels
 
 private extension Logging.Categories {
     static let eventProcessor: Self = "DocumentModule.DocumentViewModel.EventProcessor"
@@ -55,7 +56,7 @@ extension Namespace {
         
         // MARK: EventHandler interface
         var didProcessEventsPublisher: AnyPublisher<EventHandler.Update, Never> { self.eventHandler.didProcessEventsPublisher }
-        func configured(_ container: BlocksModelsContainerModelProtocol) -> Self {
+        func configured(_ container: TopLevelContainerModelProtocol) -> Self {
             _ = self.eventHandler.configured(container)
             if let rootId = container.rootId {
                 self.startListening(contextId: rootId)
@@ -72,6 +73,13 @@ extension Namespace {
     }
 }
 
+// MARK: Block Show
+extension Namespace.EventProcessor {
+    func handleBlockShow(events: EventHandler.EventsContainer) -> [BlocksModelsModule.Parser.PageEvent] {
+        self.eventHandler.handleBlockShow(events: events)
+    }
+}
+
 // MARK: Event Listening
 extension FileNamespace {
     class EventHandler: NewEventHandler {
@@ -82,14 +90,14 @@ extension FileNamespace {
         var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()
         
         
-        private typealias Builder = BlocksModels.Block.Builder
-        private typealias Information = BlocksModels.Aliases.Information.InformationModel
-        private typealias Updater = BlocksModels.Updater
+        private typealias Builder = TopLevel.Builder
+        private typealias Updater = TopLevel.AliasesMap.BlockTools.Updater
+        private typealias Container = TopLevelContainerModelProtocol
         
-        weak var container: BlocksModelsContainerModelProtocol?
+        private weak var container: Container?
         
-        private var parser: BlocksModels.Parser = .init()
-        private var updater: BlocksModels.Updater?
+        private var parser: BlocksModelsModule.Parser = .init()
+        private var updater: Updater?
         
         init() {
             self.setup()
@@ -113,7 +121,7 @@ extension FileNamespace {
                 return
             }
             
-            Builder.buildTree(container: container)
+            Builder.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
             // Notify about updates if needed.
             self.didProcessEventsSubject.send(update)
         }
@@ -124,7 +132,19 @@ extension FileNamespace {
             self.finalize(innerUpdates + ourUpdates)
         }
     }
+}
 
+// MARK: Block Show
+extension FileNamespace.EventHandler {
+    func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> BlocksModelsModule.Parser.PageEvent {
+        switch event {
+        case let .blockShow(value): return self.parser.parse(blocks: value.blocks, details: value.details, smartblockType: value.type)
+        default: return .empty()
+        }
+    }
+    func handleBlockShow(events: EventsContainer) -> [BlocksModelsModule.Parser.PageEvent] {
+        events.events.compactMap(\.value).compactMap(self.handleBlockShow(event:))
+    }
 }
 
 // MARK: Setup
@@ -135,9 +155,9 @@ private extension FileNamespace.EventHandler {
 }
 
 // MARK: Configurations
-extension FileNamespace.EventHandler {
-    func configured(_ container: BlocksModelsContainerModelProtocol) -> Self {
-        self.updater = .init(container)
+private extension FileNamespace.EventHandler {
+    func configured(_ container: TopLevelContainerModelProtocol) -> Self {
+        self.updater = .init(container.blocksContainer)
         self.container = container
         return self
     }
@@ -160,11 +180,12 @@ extension FileNamespace.EventHandler {
 private extension FileNamespace.EventHandler {
     func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> Update {
         switch event {
+            
         case let .blockAdd(value):
             value.blocks
                 .compactMap(self.parser.convert(block:))
-                .map(Information.init(information:))
-                .map({Builder.build(information:$0)})
+                .map(Builder.blockBuilder.informationBuilder.build(information:))
+                .map(Builder.blockBuilder.build(information:))
                 .forEach { (value) in
                     self.updater?.insert(block: value)
             }
@@ -232,7 +253,7 @@ private extension FileNamespace.EventHandler {
         switch event {
         case let .setFocus(value):
             let blockId = value.payload.blockId
-            guard var focusedModel = self.container?.choose(by: blockId) else {
+            guard var focusedModel = self.container?.blocksContainer.choose(by: blockId) else {
                 let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "We can't find focused model by id %@", String(describing: blockId))
                 return nil
@@ -250,7 +271,7 @@ private extension FileNamespace.EventHandler {
         case let .setText(value):
             return nil
             let blockId = value.payload.blockId
-            guard let focusedModel = self.container?.choose(by: blockId) else {
+            guard let focusedModel = self.container?.blocksContainer.choose(by: blockId) else {
                 let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "We can't find focused model by id %@", String(describing: blockId))
                 return nil
@@ -295,7 +316,7 @@ private extension FileNamespace.EventHandler {
 
 private extension FileNamespace.EventHandler.Focus {
     enum Converter {
-        typealias Model = BlocksModels.Aliases.FocusPosition
+        typealias Model = TopLevel.AliasesMap.FocusPosition
         typealias EventModel = EventListening.PackOfEvents.OurEvent.Focus.Payload.Position
         static func asModel(_ value: EventModel) -> Model? {
             switch value {

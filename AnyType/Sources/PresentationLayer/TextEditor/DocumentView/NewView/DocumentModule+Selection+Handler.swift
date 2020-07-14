@@ -226,7 +226,7 @@ extension DocumentModule.DocumentViewModel: DocumentModuleSelectionHandlerHolder
         /// TODO: Find all childrenIds.
         /// But for now it is ok.
         /// Let's iterate over them later.
-        guard let childrenIds = model.choose(by: rootId)?.childrenIds() else {
+        guard let childrenIds = model.blocksContainer.choose(by: rootId)?.childrenIds() else {
             return
         }
         

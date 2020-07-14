@@ -11,6 +11,7 @@ import UIKit
 import Combine
 import os
 import SwiftUI
+import BlocksModels
 
 private extension Logging.Categories {
     static let pageBlocksViewsIconEmoji: Self = "TextEditor.BlocksViews.PageBlocksViews.IconEmoji"
@@ -20,9 +21,10 @@ private extension Logging.Categories {
 extension BlocksViews.New.Page.IconEmoji {
    
     class ViewModel: BlocksViews.New.Page.Base.ViewModel {
-     
+        
+        typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
         private var subscriptions: Set<AnyCancellable> = []
-    
+        
         @Published var toViewEmoji: String = ""
         @Published var fromUserActionSubject: PassthroughSubject<String, Never> = .init()
 
@@ -55,7 +57,7 @@ extension BlocksViews.New.Page.IconEmoji {
             switch event {
             case .pageDetailsViewModelDidSet:
                 
-                self.pageDetailsViewModel?.wholeDetailsPublisher.map(\.iconEmoji).sink(receiveValue: { [weak self] (value) in
+                self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.iconEmoji).sink(receiveValue: { [weak self] (value) in
                     value.flatMap({self?.toViewEmoji = $0.text})
                 }).store(in: &self.subscriptions)
                 

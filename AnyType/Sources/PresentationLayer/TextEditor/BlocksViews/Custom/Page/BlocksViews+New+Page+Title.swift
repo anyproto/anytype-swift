@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Combine
 import os
+import BlocksModels
 
 private extension Logging.Categories {
     static let pageBlocksViewsTitle: Self = "TextEditor.BlocksViews.PageBlocksViews.Title"
@@ -24,6 +25,9 @@ extension BlocksViews.New.Page.Title {
         // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
         // We can't edit name of the block.
         // Add subscription on event.
+        
+        typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
+        
         private var subscriptions: Set<AnyCancellable> = []
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
 
@@ -75,6 +79,7 @@ extension BlocksViews.New.Page.Title {
 
         private func setup(block: BlockModel) {
             self.setupSubscribers()
+            _ = self.textViewModel.configured(self)
         }
         
         // MARK: Subclassing / Events
@@ -84,7 +89,7 @@ extension BlocksViews.New.Page.Title {
                 /// Here we must subscribe on values from this model and filter values.
                 /// We only want values equal to details.
                 ///
-                self.pageDetailsViewModel?.wholeDetailsPublisher.map(\.title).sink(receiveValue: { [weak self] (value) in
+                self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.title).sink(receiveValue: { [weak self] (value) in
                     value.flatMap({self?.toViewTitle = $0.text})
                 }).store(in: &self.subscriptions)
 
@@ -104,6 +109,24 @@ extension BlocksViews.New.Page.Title {
         // MARK: Subclassing / Views
         override func makeUIView() -> UIView {
             UIKitView.init().configured(textView: self.textViewModel.createView(.init(liveUpdateAvailable: true)).configured(placeholder: .init(text: nil, attributedText: self.placeholder, attributes: [:])))
+        }
+    }
+}
+
+// MARK: - TextViewEvents
+extension BlocksViews.New.Page.Title.ViewModel: TextViewUserInteractionProtocol {
+    func didReceiveAction(_ action: TextView.UserAction) {
+        switch action {
+//        case let .addBlockAction(value):
+//            switch value {
+//            case .addBlock: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
+//            }
+        
+//        case .showMultiActionMenuAction(.showMultiActionMenu):
+//            self.getUIKitViewModel().shouldResignFirstResponder()
+//            self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
+            
+        default: self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
         }
     }
 }

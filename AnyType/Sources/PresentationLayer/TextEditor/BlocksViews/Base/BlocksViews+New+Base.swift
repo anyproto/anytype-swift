@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 import os
+import BlocksModels
 
 private extension Logging.Categories {
     static let blocksViewsBase: Self = "TextEditor.BlocksViews.Base"
@@ -25,8 +26,8 @@ extension BlocksViews.New.Base.ViewModel {
 
 extension BlocksViews.New.Base {
     class ViewModel: ObservableObject {
-        typealias BlockModel = BlocksModelsChosenBlockModelProtocol
-        typealias Information = BlocksModelsInformationModelProtocol
+        typealias BlockModel = BlockActiveRecordModelProtocol
+        typealias Information = BlockInformationModelProtocol
         
         // MARK: Variables
         /// our Block
@@ -175,7 +176,7 @@ extension BlocksViews.New.Base {
         }
         
         // MARK: Subclass / Information
-        var information: BlocksModelsInformationModelProtocol { self.getBlock().blockModel.information }
+        var information: Information { self.getBlock().blockModel.information }
         
         // MARK: Subclass / Diffable
         private var _diffableStorage: AnyHashable = .init("")
@@ -190,7 +191,7 @@ extension BlocksViews.New.Base {
         func makeDiffable() -> AnyHashable {
             [
                 "Id": self.information.id,
-                "Content": BlocksModels.Utilities.ContentTypeIdentifier.identifier(self.information.content)
+                "Content": TopLevel.AliasesMap.BlockUtilities.ContentTypeIdentifier.identifier(self.information.content)
             ] as [AnyHashable: AnyHashable]
         }
         
