@@ -1,5 +1,5 @@
 //
-//  ToolsBlocksViews+UserActions.swift
+//  BlocksViews+UserAction+Tools.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 16.04.2020.
@@ -8,14 +8,20 @@
 
 import Foundation
 
-extension ToolsBlocksViews {
+fileprivate typealias Namespace = BlocksViews.UserAction
+
+extension Namespace {
+    enum Tools {}
+}
+
+extension Namespace.Tools {
     enum UserAction {
         case pageLink(PageLink)
     }
 }
 
-extension ToolsBlocksViews.UserAction {
-    typealias Id = MiddlewareBlockInformationModel.Id
+extension Namespace.Tools.UserAction {
+    typealias Id = String
     enum PageLink {
         case shouldShowPage(Id)
     }

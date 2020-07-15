@@ -32,7 +32,7 @@ extension DocumentViewRouting {
 extension DocumentViewRouting.PageBlocksViewsRouter {
     typealias BaseRouter = DocumentViewRouting.BaseRouter
     class EmojiViewRouter: BaseRouter {
-        private func handle(action: PageBlocksViews.UserAction.EmojiAction) {
+        private func handle(action: BlocksViews.UserAction.Page.UserAction.EmojiAction) {
             switch action {
             case let .shouldShowEmojiPicker(model):
                 let viewController = EmojiPicker.ViewController.init(viewModel: model)

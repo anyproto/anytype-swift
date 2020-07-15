@@ -53,7 +53,7 @@ extension Namespace {
 
 extension Namespace.UserInteractionHandler {
     enum Reaction {
-        typealias Id = BlocksModels.Aliases.BlockId
+        typealias Id = TopLevel.AliasesMap.BlockId
         struct ShouldOpenPage {
             var payload: Payload
             struct Payload {

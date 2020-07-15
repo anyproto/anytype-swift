@@ -40,7 +40,7 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
     typealias BaseRouter = DocumentViewRouting.BaseRouter
     class PageLinkToolsBlocksViewsRouter: BaseRouter {
         private var subscription: AnyCancellable?
-        private func handle(action: ToolsBlocksViews.UserAction.PageLink) {
+        private func handle(action: BlocksViews.UserAction.Tools.UserAction.PageLink) {
             switch action {
             case let .shouldShowPage(value):
                 guard self.subscription == nil else {

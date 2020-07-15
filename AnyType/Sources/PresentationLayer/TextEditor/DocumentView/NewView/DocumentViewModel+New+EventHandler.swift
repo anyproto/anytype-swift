@@ -84,7 +84,7 @@ extension Namespace.EventProcessor {
 extension FileNamespace {
     class EventHandler: NewEventHandler {
         typealias EventsContainer = EventListening.PackOfEvents
-        typealias BlockId = BlocksModels.Aliases.BlockId
+        typealias BlockId = TopLevel.AliasesMap.BlockId
                 
         private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
         var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()

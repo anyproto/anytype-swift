@@ -17,8 +17,8 @@ extension MarksPane.Panes {
 
 // MARK: Colors
 extension MarksPane.Panes.Color {
-    typealias Colors = BlockModels.Parser.Text.Color.Converter.Colors
-    typealias ColorsConverter = BlockModels.Parser.Text.Color.Converter
+    typealias Colors = MiddlewareModelsModule.Parsers.Text.Color.Converter.Colors
+    typealias ColorsConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
 }
 
 // MARK: States and Actions

@@ -209,7 +209,7 @@ extension BlocksViews.New.Page.Title.State {
 // MARK: - UIView
 private extension BlocksViews.New.Page.Title {
     class UIKitView: UIView {
-        typealias TopView = TextBlocksViews.Base.TopWithChildUIKitView
+        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
 
         // MARK: Views
         // |    topView    | : | leftView | textView |

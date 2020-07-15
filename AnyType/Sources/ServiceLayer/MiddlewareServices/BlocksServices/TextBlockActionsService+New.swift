@@ -88,7 +88,7 @@ extension Namespace.TextBlockActionsService {
     struct SetText: NewModel_TextBlockActionsServiceProtocolSetText {
         func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Never, Error> {
             // convert attributed string to marks here?
-            let result = BlockModels.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
+            let result = BlocksModelsModule.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
             return action(contextID: contextID, blockID: blockID, text: result.text, marks: result.marks)
         }
         func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Never, Error> {
@@ -109,7 +109,7 @@ extension Namespace.TextBlockActionsService {
     struct SetForegroundColor: NewModel_TextBlockActionsServiceProtocolSetForegroundColor {
         func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Never, Error> {
             // convert color to String?
-            let result = BlockModels.Parser.Text.Color.Converter.asMiddleware(color, background: false)
+            let result = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false)
             return action(contextID: contextID, blockID: blockID, color: result)
         }
         func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Never, Error> {
@@ -122,8 +122,8 @@ extension Namespace.TextBlockActionsService {
     // MARK: SetAlignment
     struct SetAlignment: NewModel_TextBlockActionsServiceProtocolSetAlignment {
         func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Never, Error> {
-            let ourAlignment = BlockModels.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
-            let middlewareAlignment = ourAlignment.flatMap(BlockModels.Parser.Common.Alignment.Converter.asMiddleware)
+            let ourAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
+            let middlewareAlignment = ourAlignment.flatMap(BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware)
             
             if let middlewareAlignment = middlewareAlignment {
                 return self.action(contextID: contextID, blockIds: blockIds, align: middlewareAlignment)

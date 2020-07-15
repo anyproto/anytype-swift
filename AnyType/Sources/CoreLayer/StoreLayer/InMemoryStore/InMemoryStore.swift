@@ -129,6 +129,8 @@ extension InMemoryStoreFacade {
         fileprivate var store: Store<Key, Value> = .init()
     }
     
+    typealias BlockId = String
+    
     // MARK: - Block Information
     // Now we keep .blockId -> .toggle
     // One-to-one .blockId -> Value
@@ -136,7 +138,7 @@ extension InMemoryStoreFacade {
     // But we could keep .pageId -> [blockIds].map{block(blockId) IS toggle}
     class BlockLocalStore: InMemoryStoreStorageHolderProtocol, InMemoryStoreStorageHolderProtocol_Private {
         struct Key: Hashable {
-            var blockId: MiddlewareBlockInformationModel.Id
+            var blockId: BlockId
         }
         
         struct Value {
@@ -148,11 +150,11 @@ extension InMemoryStoreFacade {
     
     class PageToggleStore: InMemoryStoreStorageHolderProtocol, InMemoryStoreStorageHolderProtocol_Private {
         struct Key: Hashable {
-            var pageId: MiddlewareBlockInformationModel.Id
+            var pageId: BlockId
         }
         
         struct Value {
-            var allTogglesIds: [MiddlewareBlockInformationModel.Id]
+            var allTogglesIds: [BlockId]
         }
         
         fileprivate var store: Store<Key, Value> = .init()

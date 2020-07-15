@@ -12,10 +12,10 @@ import SwiftUI
 
 // MARK: MarkStyle
 extension TextView {
-    typealias MarkStyle = BlockModels.Parser.Text.AttributedText.MarkStyle
+    typealias MarkStyle = MiddlewareModelsModule.Parsers.Text.AttributedText.MarkStyle
 }
 
 // MARK: MarkStyleModifier
 extension TextView {
-    typealias MarkStyleModifier = BlockModels.Parser.Text.AttributedText.MarkStyleModifier
+    typealias MarkStyleModifier = MiddlewareModelsModule.Parsers.Text.AttributedText.MarkStyleModifier
 }

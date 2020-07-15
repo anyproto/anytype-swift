@@ -362,7 +362,7 @@ private extension BlocksViews.New.Text.Toggle {
             VStack(spacing: 0.0) {
                 TextView(text: self.$viewModel.text).modifier(MarkedViewModifier(toggled: self.$viewModel.toggled))
                 VStack(spacing: 0.0) {
-                    ForEach(self.blocks(), id: \.id) { (element) in
+                    ForEach(self.blocks(), id: \.blockId) { (element) in
                         element.buildView()
                     }
                 }

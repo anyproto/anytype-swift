@@ -12,7 +12,7 @@ import SwiftProtobuf
 
 class DashboardService: DashboardServiceProtocol {
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
-    private let blocksActionsService: BlockActionsService = .init()
+    private let blocksActionsService: ServiceLayerModule.BlockActionsService = .init()
     private var dashboardId: String = ""
     
     private func save(configuration: MiddlewareConfigurationService.MiddlewareConfiguration) -> MiddlewareConfigurationService.MiddlewareConfiguration {

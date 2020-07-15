@@ -27,7 +27,7 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
     
     func element(at: IndexPath) -> Row {
         guard self.builders.indices.contains(at.row) else {
-            return .init(builder: TextBlocksViews.Base.BlockViewModel.empty)
+            fatalError("Row doesn't exist")
         }
         var row = Row.init(builder: self.builders[at.row])
         _ = row.configured(selectionHandler: self.selectionHandler)

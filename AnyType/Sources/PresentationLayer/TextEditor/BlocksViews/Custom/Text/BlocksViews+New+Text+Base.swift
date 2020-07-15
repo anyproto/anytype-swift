@@ -63,7 +63,7 @@ extension Namespace.Base {
         private var subscriptions: Set<AnyCancellable> = []
         
         // MARK: - Services
-        private var service: TextBlockActionsService = .init()
+        private var service: ServiceLayerModule.TextBlockActionsService = .init()
         
         // MARK: - Convenient accessors.
         var text: String {
@@ -291,11 +291,12 @@ private extension Namespace.Base.ViewModel {
         func handleEvent(event: Event) {
             switch event {
             case let .blockSetText(value):
-                let attributedString = BlockModels.Parser.Text.AttributedText.Converter.asModel(text: value.text.value, marks: value.marks.value)
+//                let attributedString = BlockModels.Parser.Text.AttributedText.Converter.asModel(text: value.text.value, marks: value.marks.value)
                 // take from details and publish them.
                 // get values and put them into page.
                 // tell someone that you have new details.
-                self.subject.send(attributedString)
+//                self.subject.send(attributedString)
+                return
             default:
               let logger = Logging.createLogger(category: .textBlocksViewsBase)
               os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))

@@ -1,5 +1,5 @@
 //
-//  PageBlocksViews+UserActions.swift
+//  BlocksViews+UserAction+Page.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 16.04.2020.
@@ -8,13 +8,19 @@
 
 import Foundation
 
-extension PageBlocksViews {
+fileprivate typealias Namespace = BlocksViews.UserAction
+
+extension Namespace {
+    enum Page {}
+}
+
+extension Namespace.Page {
     enum UserAction {
         case emoji(EmojiAction)
     }
 }
 
-extension PageBlocksViews.UserAction {
+extension Namespace.Page.UserAction {
     typealias Model = EmojiPicker.ViewModel
     enum EmojiAction {
         case shouldShowEmojiPicker(Model)

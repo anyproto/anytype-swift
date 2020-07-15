@@ -139,12 +139,12 @@ extension Namespace.ListUserInteractionHandler {
     /// Each method should return no a block, but a response.
     /// Next, this response would be proceed by event handler.
     class Service {
-        typealias BlockId = BlocksModels.Aliases.BlockId
+        typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ListIds = [BlockId]
 
         private var documentId: String
 
-        private let parser: BlocksModels.Parser = .init()
+        private let parser: BlocksModelsModule.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
         private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
         private let listService: ServiceLayerModule.BlockListActionsService = .init()
@@ -193,7 +193,8 @@ extension Namespace.ListUserInteractionHandler.Service {
 // MARK: ServiceHandler / Actions / Turn Into
 /// TODO: Add Div and ConvertChildrenToPages
 extension Namespace.ListUserInteractionHandler.Service {
-    typealias BlockContent = BlocksModels.Aliases.BlockContent
+    typealias BlockContent = TopLevel.AliasesMap.BlockContent
+    
     func turnInto(blocks: ListIds, type: BlockContent) {
         switch type {
         case .text: self.setTextStyle(blocks: blocks, type: type)

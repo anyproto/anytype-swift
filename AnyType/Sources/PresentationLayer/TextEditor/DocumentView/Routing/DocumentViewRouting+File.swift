@@ -29,7 +29,7 @@ extension DocumentViewRouting {
 extension DocumentViewRouting.FileBlocksViewsRouter {
     typealias BaseRouter = DocumentViewRouting.BaseRouter
     class ImageRouter: BaseRouter {
-        private func handle(action: FileBlocksViews.UserAction.ImageAction) {
+        private func handle(action: BlocksViews.UserAction.File.UserAction.ImageAction) {
             switch action {
             case let .shouldShowImagePicker(model):
                 /// Look at this code, mister Denis.

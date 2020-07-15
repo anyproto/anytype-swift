@@ -26,7 +26,7 @@ extension Namespace {
         typealias Details = TopLevel.AliasesMap.DetailsContent
 
         private var documentId: String?
-        private var service: SmartBlockActionsService = .init()
+        private var service: ServiceLayerModule.SmartBlockActionsService = .init()
         
         // MARK: Publishers
         @Published private var wholeDetails: PageDetails?

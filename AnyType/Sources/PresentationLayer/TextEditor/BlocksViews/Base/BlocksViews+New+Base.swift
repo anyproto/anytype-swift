@@ -362,7 +362,7 @@ extension BlocksViews.New.Base.ViewModel: Identifiable {}
 extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
     var blockId: BlockID { self.getBlock().blockModel.information.id }
     
-    var id: IndexID { .init() } // Unused, actually, so, conform as you want.
+//    var id: IndexID { .init() } // Unused, actually, so, conform as you want.
     
     func buildView() -> AnyView { self.makeSwiftUIView() }
     func buildUIView() -> UIView {
@@ -400,10 +400,3 @@ extension BlocksViews.New.Base.ViewModel: BlocksViewsUserActionsReceivingProtoco
     }
 }
 
-// MARK: Holder
-// This protocol may be deprecated.
-// It is required for now to enable communication between updater and text user interactor and view model.
-private protocol __BlocksViewsViewModelHolder {
-    typealias ViewModel = BlocksViews.Base.ViewModel
-    var ourViewModel: BlocksViews.Base.ViewModel { get }
-}

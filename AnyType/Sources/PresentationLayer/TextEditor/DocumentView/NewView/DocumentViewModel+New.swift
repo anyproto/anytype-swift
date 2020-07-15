@@ -51,7 +51,7 @@ extension Namespace.DocumentViewModel {
 
 extension DocumentModule {
     
-    class DocumentViewModel: ObservableObject, Legacy_BlockViewBuildersProtocolHolder {
+    class DocumentViewModel: ObservableObject {
         /// Aliases
         typealias RootModel = TopLevelContainerModelProtocol
         typealias BlockId = TopLevel.AliasesMap.BlockId
@@ -315,7 +315,8 @@ extension DocumentModule {
             // We are waiting for value "true" to send `.blockClose()` with parameters "contextID: documentId, blockID: documentId"
             self.shouldClosePagePublisher.drop(while: {$0 == false}).flatMap { [weak self] (value) -> AnyPublisher<Never, Error> in
                 self?.cleanupSubscriptions()
-                return BlockActionsService.Close().action(contextID: documentId, blockID: documentId).eraseToAnyPublisher()
+                
+                return ServiceLayerModule.BlockActionsService.Close().action(contextID: documentId, blockID: documentId).eraseToAnyPublisher()
             }.sink(receiveCompletion: { _ in }, receiveValue: {_ in }).store(in: &self.subscriptions)
             
             self.obtainDocument(documentId: documentId)
@@ -638,7 +639,7 @@ private extension Namespace.DocumentViewModel {
 
 extension Namespace.DocumentViewModel {
     enum ActionsPayload {
-        typealias BlockId = BlocksModels.Aliases.BlockId
+        typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ListModel = [BlockId]
         struct Toolbar {
             typealias Model = ListModel

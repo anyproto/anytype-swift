@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import BlocksModels
 
 fileprivate typealias Namespace = ServiceLayerModule
 
@@ -128,7 +129,7 @@ extension Namespace.BlockActionsService {
                 .eraseToAnyPublisher()
         }
         func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceLayerModule.Success, Error> {
-            let middlewareRange = BlocksModels.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
+            let middlewareRange = BlocksModelsModule.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
             return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
@@ -169,13 +170,13 @@ extension Namespace.BlockActionsService {
     // MARK: Events Processing
     // MARK: It is new Listener, so, you should replace old listener.
     struct EventListener: NewModel_BlockEventListener {
-        private static let parser: BlocksModels.Parser = .init()
+        private static let parser: BlocksModelsModule.Parser = .init()
         
          struct Event {
              var rootId: String
-             var blocks: [BlocksModelsInformationModelProtocol]
+             var blocks: [BlockInformationModelProtocol]
              static func from(event: Anytype_Event.Block.Show) -> Self {
-                 .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks, details: event.details, smartblockType: event.type))
+                .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks, details: event.details, smartblockType: event.type).blocks)
              }
          }
          

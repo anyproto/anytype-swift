@@ -122,8 +122,8 @@ private extension BlocksViews.New.Tools.PageLink {
     ///
     class EventListener: EventHandler {
         typealias Event = Anytype_Event.Message.OneOf_Value
-        typealias PageDetails = BlocksModels.Aliases.PageDetails
-        @Published var state: PageDetails?
+//        typealias PageDetails = BlocksModels.Aliases.PageDetails
+//        @Published var state: PageDetails?
         
         func handleEvent(event: Event) {
             switch event {
@@ -131,11 +131,12 @@ private extension BlocksViews.New.Tools.PageLink {
                 // take from details and publish them.
                 // get values and put them into page.
                 // tell someone that you have new details.
-                let details = BlocksModels.Parser.PublicConverters.EventsDetails.convert(event: value)
+//                let details = BlocksModels.Parser.PublicConverters.EventsDetails.convert(event: value)
                 // we should receive them via, for example, our pageDetailsViewModel?
-                let ourDetails = BlocksModels.Parser.Details.Converter.asModel(details: details)
-                let pageDetails: BlocksModels.Block.Information.PageDetails = .init(ourDetails)
-                self.state = pageDetails
+//                let ourDetails = BlocksModels.Parser.Details.Converter.asModel(details: details)
+//                let pageDetails: BlocksModels.Block.Information.PageDetails = .init(ourDetails)
+//                self.state = pageDetails
+                return
             default:
               let logger = Logging.createLogger(category: .eventHandler)
               os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))
@@ -148,14 +149,15 @@ private extension BlocksViews.New.Tools.PageLink {
 // MARK: - Converter PageDetails to State
 extension BlocksViews.New.Tools.PageLink.State {
     enum Converter {
-        static func from(_ pageDetails: BlocksModels.Block.Information.PageDetails) -> BlocksViews.New.Tools.PageLink.State {
-            let archived = false
-            let hasContent = false
-            let title = pageDetails.title?.text
-            let emoji = pageDetails.iconEmoji?.text
-            let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
-            return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)
-        }
+//        static func from(_ pageDetails: BlocksModels.Block.Information.PageDetails) -> BlocksViews.New.Tools.PageLink.State {
+//            return
+//            let archived = false
+//            let hasContent = false
+//            let title = pageDetails.title?.text
+//            let emoji = pageDetails.iconEmoji?.text
+//            let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
+//            return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)
+//        }
     }
 }
 
@@ -202,7 +204,7 @@ extension BlocksViews.New.Tools.PageLink.State {
 // MARK: - UIView
 private extension BlocksViews.New.Tools.PageLink {
     class UIKitView: UIView {
-        typealias TopView = TextBlocksViews.Base.TopWithChildUIKitView
+        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
         
         // MARK: Publishers
         private var subscriptions: Set<AnyCancellable> = []

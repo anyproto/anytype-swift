@@ -11,7 +11,7 @@ import Combine
 
 // MARK: - UserAction
 extension BlocksViews {
-    typealias Model = BlockModels.Block.RealBlock
+    typealias Model = String
     /// Top-level user action.
     /// All parsing is starting from this enumeration.
     ///
@@ -30,9 +30,9 @@ extension BlocksViews.UserAction {
     /// After that you could add it as an entry of this enum.
     ///
     enum SpecificAction {
-        case tool(ToolsBlocksViews.UserAction)
-        case file(FileBlocksViews.UserAction)
-        case page(PageBlocksViews.UserAction)
+        case tool(Tools.UserAction)
+        case file(File.UserAction)
+        case page(Page.UserAction)
     }
 }
 

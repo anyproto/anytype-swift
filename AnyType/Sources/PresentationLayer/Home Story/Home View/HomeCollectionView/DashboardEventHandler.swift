@@ -8,6 +8,7 @@
 
 import Foundation
 import os
+import BlocksModels
 
 private extension Logging.Categories {
   static let dashboardEventHandler: Self = "Services.DashboardEventHandler"
@@ -37,7 +38,7 @@ extension HomeCollectionViewModel {
     // TODO: Rethink current implementation.
     // We should build DashboardView on top of DocumentViewModel.
     // In this case we could take all updates for nothing.
-    private func parser() -> BlockModels.Parser {
+    private func parser() -> BlocksModelsModule.Parser {
         .init()
     }
     private func update(page: DashboardPage?, details: Anytype_Event.Block.Set.Details?) -> DashboardPage? {
@@ -46,11 +47,12 @@ extension HomeCollectionViewModel {
         var title: String? = nil
         var iconEmoji: String? = nil
         if let details = details {
-            let convertedDetails = BlockModels.Parser.PublicConverters.EventsDetails.convert(event: details)
-            let correctedDetails = BlockModels.Parser.Details.Converter.asModel(details: convertedDetails)
-            let ourDetails = BlockModels.Block.Information.PageDetails.init(correctedDetails)
-            title = ourDetails.title?.text
-            iconEmoji = ourDetails.iconEmoji?.text
+            let convertedDetails = BlocksModelsModule.Parser.PublicConverters.EventsDetails.convert(event: details)
+            let correctedDetails = BlocksModelsModule.Parser.Details.Converter.asModel(details: convertedDetails)
+            let information = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: correctedDetails)
+            let informationAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: information)
+            title = informationAccessor.title?.text
+            iconEmoji = informationAccessor.iconEmoji?.text
         }
         
         return .init(id: page.id, targetBlockId: page.targetBlockId, title: title, iconEmoji: iconEmoji, style: page.style)
@@ -62,11 +64,12 @@ extension HomeCollectionViewModel {
         var title: String? = nil
         var iconEmoji: String? = nil
         if let details = details {
-            let convertedDetails = BlockModels.Parser.PublicConverters.EventsDetails.convert(event: details)
-            let correctedDetails = BlockModels.Parser.Details.Converter.asModel(details: convertedDetails)
-            let ourDetails = BlockModels.Block.Information.PageDetails.init(correctedDetails)
-            title = ourDetails.title?.text
-            iconEmoji = ourDetails.iconEmoji?.text
+            let convertedDetails = BlocksModelsModule.Parser.PublicConverters.EventsDetails.convert(event: details)
+            let correctedDetails = BlocksModelsModule.Parser.Details.Converter.asModel(details: convertedDetails)
+            let information = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: correctedDetails)
+            let informationAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: information)
+            title = informationAccessor.title?.text
+            iconEmoji = informationAccessor.iconEmoji?.text
         }
         return .init(id: page.id, targetBlockId: value.targetBlockID, title: title, iconEmoji: iconEmoji, style: value)
     }

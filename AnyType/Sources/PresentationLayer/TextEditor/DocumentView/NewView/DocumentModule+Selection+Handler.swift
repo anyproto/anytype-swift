@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import os
+import BlocksModels
 
 private extension Logging.Categories {
     static let selectionHandler: Self = "DocumentModule.DocumentViewModel.SelectionHandler"
@@ -18,7 +19,7 @@ fileprivate typealias Namespace = DocumentModule.Selection
 
 extension Namespace.Handler {
     struct Storage {
-        typealias Id = BlocksModels.Aliases.BlockId
+        typealias Id = TopLevel.AliasesMap.BlockId
         typealias Ids = Set<Id>
         /// Selected ids that user has selected.
         private var selectedIds: Ids = .init()

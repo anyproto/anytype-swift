@@ -8,9 +8,10 @@
 
 import Foundation
 import Combine
+import BlocksModels
 
 protocol DocumentModuleSelectionHandlerListProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
+    typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias SelectionEvent = DocumentModule.Selection.IncomingEvent
     typealias SelectionCellEvent = DocumentModule.Selection.IncomingCellEvent
     func selectionEnabled() -> Bool
@@ -27,7 +28,7 @@ protocol DocumentModuleSelectionHandlerListProtocol {
 }
 
 protocol DocumentModuleSelectionHandlerCellProtocol: class {
-    typealias BlockId = BlocksModels.Aliases.BlockId
+    typealias BlockId = TopLevel.AliasesMap.BlockId
     func set(selected: Bool, id: BlockId)
     func selected(id: BlockId) -> Bool
 
@@ -40,7 +41,7 @@ protocol DocumentModuleSelectionHandlerProtocol: DocumentModuleSelectionHandlerL
 // MARK: Selection / Cell Protocol
 /// Adopt this protocol by a cell or a cell (view?) model.
 protocol DocumentModuleSelectionCellProtocol {
-    typealias BlockId = BlocksModels.Aliases.BlockId
+    typealias BlockId = TopLevel.AliasesMap.BlockId
     func getSelectionKey() -> BlockId?
     var selectionHandler: DocumentModuleSelectionHandlerCellProtocol? {get}
 }
@@ -86,7 +87,7 @@ extension DocumentModuleHasSelectionHandlerProtocol {
         self.selectionHandler?.set(selectionEnabled: selectionEnabled)
     }
     
-    func deselect(ids: Set<BlocksModels.Aliases.BlockId>) {
+    func deselect(ids: Set<BlockId>) {
         self.selectionHandler?.deselect(ids: ids)
     }
     
@@ -110,19 +111,19 @@ extension DocumentModuleHasSelectionHandlerProtocol {
         self.selectionHandler?.selectionEventPublisher() ?? .empty()
     }
     
-    func set(selected: Bool, id: BlocksModels.Aliases.BlockId) {
+    func set(selected: Bool, id: BlockId) {
         self.selectionHandler?.set(selected: selected, id: id)
     }
     
-    func selected(id: BlocksModels.Aliases.BlockId) -> Bool {
+    func selected(id: BlockId) -> Bool {
         self.selectionHandler?.selected(id: id) ?? false
     }
 
-    func selectionCellEvent(_ id: BlocksModels.Aliases.BlockId) -> DocumentModule.Selection.IncomingCellEvent {
+    func selectionCellEvent(_ id: BlockId) -> DocumentModule.Selection.IncomingCellEvent {
         self.selectionHandler?.selectionCellEvent(id) ?? .unknown
     }
     
-    func selectionCellEventPublisher(_ id: BlocksModels.Aliases.BlockId) -> AnyPublisher<DocumentModule.Selection.IncomingCellEvent, Never> {
+    func selectionCellEventPublisher(_ id: BlockId) -> AnyPublisher<DocumentModule.Selection.IncomingCellEvent, Never> {
         self.selectionHandler?.selectionCellEventPublisher(id) ?? .empty()
     }
 }

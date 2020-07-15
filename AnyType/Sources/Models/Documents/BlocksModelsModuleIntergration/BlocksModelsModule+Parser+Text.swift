@@ -11,5 +11,5 @@ import Foundation
 fileprivate typealias Namespace = BlocksModelsModule.Parser
 
 extension Namespace {
-    typealias Text = BlocksModels.Parser.Text
+    typealias Text = MiddlewareModelsModule.Parsers.Text
 }
