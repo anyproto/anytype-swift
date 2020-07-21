@@ -304,6 +304,38 @@ extension Anytype_Rpc.BlockList.Set.Text.Color {
   }
 }
 
+extension Anytype_Rpc.BlockList.Set.Text.Mark {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextMark(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockIds: [String], mark: Anytype_Model_Block.Content.Text.Mark) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds, mark: mark))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.BlockList.Set.BackgroundColor {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetBackgroundColor(data) }
@@ -1241,6 +1273,70 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
   }
 }
 
+extension Anytype_Rpc.Block.Set.Dataview.View {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetDataviewView(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID, view: view))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Dataview.ActiveView {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetDataviewActiveView(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, viewID: String, offset: UInt32, limit: UInt32) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.Bookmark.Fetch {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockBookmarkFetch(data) }
@@ -1595,6 +1691,38 @@ extension Anytype_Rpc.Block.Create {
   }
 }
 
+extension Anytype_Rpc.Block.Create.Dataview.View {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreateDataviewView(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, view: view))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.CreatePage {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreatePage(data) }
@@ -1635,6 +1763,38 @@ extension Anytype_Rpc.Block.Unlink {
   enum Service {
     public static func invoke(contextID: String, blockIds: [String]) -> Future<Response, Error> {
       .init { promise in promise(self.result(.init(contextID: contextID, blockIds: blockIds))) }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Block.Delete.Dataview.View {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockDeleteDataviewView(data) }
+  }
+
+  enum Service {
+    public static func invoke(contextID: String, blockID: String, viewID: String) -> Future<Response, Error> {
+      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {

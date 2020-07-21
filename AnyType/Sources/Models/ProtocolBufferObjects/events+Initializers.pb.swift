@@ -42,10 +42,258 @@ extension Anytype_Event.Block.Delete {
   }
 }
 
+extension Anytype_Event.Block.Delete.Dataview.View {
+  init(id: String, viewID: String) {
+    self.id = id
+    self.viewID = viewID
+  }
+}
+
 extension Anytype_Event.Block.FilesUpload {
   init(blockID: String, filePath: [String]) {
     self.blockID = blockID
     self.filePath = filePath
+  }
+}
+
+extension Anytype_Event.Block.Fill.Align {
+  init(id: String, align: Anytype_Model_Block.Align) {
+    self.id = id
+    self.align = align
+  }
+}
+
+extension Anytype_Event.Block.Fill.BackgroundColor {
+  init(id: String, backgroundColor: String) {
+    self.id = id
+    self.backgroundColor = backgroundColor
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark {
+  init(
+    id: String, url: Anytype_Event.Block.Fill.Bookmark.Url, title: Anytype_Event.Block.Fill.Bookmark.Title, description_p: Anytype_Event.Block.Fill.Bookmark.Description,
+    imageHash: Anytype_Event.Block.Fill.Bookmark.ImageHash, faviconHash: Anytype_Event.Block.Fill.Bookmark.FaviconHash, type: Anytype_Event.Block.Fill.Bookmark.TypeMessage
+  ) {
+    self.id = id
+    self.url = url
+    self.title = title
+    self.description_p = description_p
+    self.imageHash = imageHash
+    self.faviconHash = faviconHash
+    self.type = type
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.Description {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.FaviconHash {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.ImageHash {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.Title {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.TypeMessage {
+  init(value: Anytype_Model_LinkPreview.TypeEnum) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.Url {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.ChildrenIds {
+  init(id: String, childrenIds: [String]) {
+    self.id = id
+    self.childrenIds = childrenIds
+  }
+}
+
+extension Anytype_Event.Block.Fill.DatabaseRecords {
+  init(id: String, records: [SwiftProtobuf.Google_Protobuf_Struct]) {
+    self.id = id
+    self.records = records
+  }
+}
+
+extension Anytype_Event.Block.Fill.Details {
+  init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.id = id
+    self.details = details
+  }
+}
+
+extension Anytype_Event.Block.Fill.Div {
+  init(id: String, style: Anytype_Event.Block.Fill.Div.Style) {
+    self.id = id
+    self.style = style
+  }
+}
+
+extension Anytype_Event.Block.Fill.Div.Style {
+  init(value: Anytype_Model_Block.Content.Div.Style) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Fields {
+  init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.id = id
+    self.fields = fields
+  }
+}
+
+extension Anytype_Event.Block.Fill.File {
+  init(
+    id: String, type: Anytype_Event.Block.Fill.File.TypeMessage, state: Anytype_Event.Block.Fill.File.State, mime: Anytype_Event.Block.Fill.File.Mime, hash: Anytype_Event.Block.Fill.File.Hash,
+    name: Anytype_Event.Block.Fill.File.Name, size: Anytype_Event.Block.Fill.File.Size
+  ) {
+    self.id = id
+    self.type = type
+    self.state = state
+    self.mime = mime
+    self.hash = hash
+    self.name = name
+    self.size = size
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.Hash {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.Mime {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.Name {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.Size {
+  init(value: Int64) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.State {
+  init(value: Anytype_Model_Block.Content.File.State) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.TypeMessage {
+  init(value: Anytype_Model_Block.Content.File.TypeEnum) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.Width {
+  init(value: Int32) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Link {
+  init(id: String, targetBlockID: Anytype_Event.Block.Fill.Link.TargetBlockId, style: Anytype_Event.Block.Fill.Link.Style, fields: Anytype_Event.Block.Fill.Link.Fields) {
+    self.id = id
+    self.targetBlockID = targetBlockID
+    self.style = style
+    self.fields = fields
+  }
+}
+
+extension Anytype_Event.Block.Fill.Link.Fields {
+  init(value: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Link.Style {
+  init(value: Anytype_Model_Block.Content.Link.Style) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Link.TargetBlockId {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Restrictions {
+  init(id: String, restrictions: Anytype_Model_Block.Restrictions) {
+    self.id = id
+    self.restrictions = restrictions
+  }
+}
+
+extension Anytype_Event.Block.Fill.Text {
+  init(
+    id: String, text: Anytype_Event.Block.Fill.Text.Text, style: Anytype_Event.Block.Fill.Text.Style, marks: Anytype_Event.Block.Fill.Text.Marks, checked: Anytype_Event.Block.Fill.Text.Checked,
+    color: Anytype_Event.Block.Fill.Text.Color
+  ) {
+    self.id = id
+    self.text = text
+    self.style = style
+    self.marks = marks
+    self.checked = checked
+    self.color = color
+  }
+}
+
+extension Anytype_Event.Block.Fill.Text.Checked {
+  init(value: Bool) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Text.Color {
+  init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Text.Marks {
+  init(value: Anytype_Model_Block.Content.Text.Marks) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Text.Style {
+  init(value: Anytype_Model_Block.Content.Text.Style) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Text.Text {
+  init(value: String) {
+    self.value = value
   }
 }
 
@@ -124,6 +372,28 @@ extension Anytype_Event.Block.Set.ChildrenIds {
   init(id: String, childrenIds: [String]) {
     self.id = id
     self.childrenIds = childrenIds
+  }
+}
+
+extension Anytype_Event.Block.Set.Dataview.Records {
+  init(id: String, viewID: String, updated: [SwiftProtobuf.Google_Protobuf_Struct], inserted: [SwiftProtobuf.Google_Protobuf_Struct], insertPosition: UInt32, removed: [String], total: UInt32) {
+    self.id = id
+    self.viewID = viewID
+    self.updated = updated
+    self.inserted = inserted
+    self.insertPosition = insertPosition
+    self.removed = removed
+    self.total = total
+  }
+}
+
+extension Anytype_Event.Block.Set.Dataview.View {
+  init(id: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View, offset: UInt32, limit: UInt32) {
+    self.id = id
+    self.viewID = viewID
+    self.view = view
+    self.offset = offset
+    self.limit = limit
   }
 }
 

@@ -49,8 +49,61 @@ extension Anytype_Model_Block.Content.Bookmark {
 }
 
 extension Anytype_Model_Block.Content.Dataview {
-  init(databaseID: String) {
+  init(databaseID: String, views: [Anytype_Model_Block.Content.Dataview.View], schemaURL: String) {
     self.databaseID = databaseID
+    self.views = views
+    self.schemaURL = schemaURL
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Filter {
+  init(
+    `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator, relationID: String, relationProperty: String, condition: Anytype_Model_Block.Content.Dataview.Filter.Condition,
+    value: SwiftProtobuf.Google_Protobuf_Value
+  ) {
+    self.`operator` = `operator`
+    self.relationID = relationID
+    self.relationProperty = relationProperty
+    self.condition = condition
+    self.value = value
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Relation {
+  init(id: String, isVisible: Bool, width: Int32, options: Anytype_Model_Block.Content.Dataview.Relation.OneOf_Options?) {
+    self.id = id
+    self.isVisible = isVisible
+    self.width = width
+    self.options = options
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Relation.DateOptions {
+  init(includeTime: Bool, timeFormat: Anytype_Model_Block.Content.Dataview.Relation.TimeFormat, dateFormat: Anytype_Model_Block.Content.Dataview.Relation.DateFormat) {
+    self.includeTime = includeTime
+    self.timeFormat = timeFormat
+    self.dateFormat = dateFormat
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Sort {
+  init(relationID: String, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) {
+    self.relationID = relationID
+    self.type = type
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.View {
+  init(
+    id: String, type: Anytype_Model_Block.Content.Dataview.View.TypeEnum, name: String, sorts: [Anytype_Model_Block.Content.Dataview.Sort], filters: [Anytype_Model_Block.Content.Dataview.Filter],
+    relations: [Anytype_Model_Block.Content.Dataview.Relation]
+  ) {
+    self.id = id
+    self.type = type
+    self.name = name
+    self.sorts = sorts
+    self.filters = filters
+    self.relations = relations
   }
 }
 

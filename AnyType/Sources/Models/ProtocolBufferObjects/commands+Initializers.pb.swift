@@ -175,6 +175,29 @@ extension Anytype_Rpc.Block.Copy.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Create.Dataview.View.Request {
+  init(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.view = view
+  }
+}
+
+extension Anytype_Rpc.Block.Create.Dataview.View.Response {
+  init(error: Anytype_Rpc.Block.Create.Dataview.View.Response.Error, event: Anytype_ResponseEvent, viewID: String) {
+    self.error = error
+    self.event = event
+    self.viewID = viewID
+  }
+}
+
+extension Anytype_Rpc.Block.Create.Dataview.View.Response.Error {
+  init(code: Anytype_Rpc.Block.Create.Dataview.View.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Create.Request {
   init(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) {
     self.contextID = contextID
@@ -244,6 +267,28 @@ extension Anytype_Rpc.Block.Cut.Response {
 
 extension Anytype_Rpc.Block.Cut.Response.Error {
   init(code: Anytype_Rpc.Block.Cut.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Delete.Dataview.View.Request {
+  init(contextID: String, blockID: String, viewID: String) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.viewID = viewID
+  }
+}
+
+extension Anytype_Rpc.Block.Delete.Dataview.View.Response {
+  init(error: Anytype_Rpc.Block.Delete.Dataview.View.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Delete.Dataview.View.Response.Error {
+  init(code: Anytype_Rpc.Block.Delete.Dataview.View.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -517,6 +562,53 @@ extension Anytype_Rpc.Block.Replace.Response {
 
 extension Anytype_Rpc.Block.Replace.Response.Error {
   init(code: Anytype_Rpc.Block.Replace.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Dataview.ActiveView.Request {
+  init(contextID: String, blockID: String, viewID: String, offset: UInt32, limit: UInt32) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.viewID = viewID
+    self.offset = offset
+    self.limit = limit
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Dataview.ActiveView.Response {
+  init(error: Anytype_Rpc.Block.Set.Dataview.ActiveView.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Dataview.ActiveView.Response.Error {
+  init(code: Anytype_Rpc.Block.Set.Dataview.ActiveView.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Dataview.View.Request {
+  init(contextID: String, blockID: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.viewID = viewID
+    self.view = view
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Dataview.View.Response {
+  init(error: Anytype_Rpc.Block.Set.Dataview.View.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Dataview.View.Response.Error {
+  init(code: Anytype_Rpc.Block.Set.Dataview.View.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -1185,6 +1277,28 @@ extension Anytype_Rpc.BlockList.Set.Text.Color.Response {
 
 extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error {
   init(code: Anytype_Rpc.BlockList.Set.Text.Color.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Request {
+  init(contextID: String, blockIds: [String], mark: Anytype_Model_Block.Content.Text.Mark) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.mark = mark
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Response {
+  init(error: Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error {
+  init(code: Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

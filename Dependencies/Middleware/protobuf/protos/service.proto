@@ -63,6 +63,7 @@ service ClientCommands {
     rpc BlockSetTextText (anytype.Rpc.Block.Set.Text.Text.Request) returns (anytype.Rpc.Block.Set.Text.Text.Response);
     rpc BlockSetTextColor (anytype.Rpc.Block.Set.Text.Color.Request) returns (anytype.Rpc.Block.Set.Text.Color.Response);
     rpc BlockListSetTextColor (anytype.Rpc.BlockList.Set.Text.Color.Request) returns (anytype.Rpc.BlockList.Set.Text.Color.Response);
+    rpc BlockListSetTextMark (anytype.Rpc.BlockList.Set.Text.Mark.Request) returns (anytype.Rpc.BlockList.Set.Text.Mark.Response);
     rpc BlockSetTextStyle (anytype.Rpc.Block.Set.Text.Style.Request) returns (anytype.Rpc.Block.Set.Text.Style.Response);
     rpc BlockSetTextChecked (anytype.Rpc.Block.Set.Text.Checked.Request) returns (anytype.Rpc.Block.Set.Text.Checked.Response);
 
@@ -84,6 +85,11 @@ service ClientCommands {
 
     rpc BlockSetLinkTargetBlockId (anytype.Rpc.Block.Set.Link.TargetBlockId.Request) returns (anytype.Rpc.Block.Set.Link.TargetBlockId.Response);
 
+    rpc BlockSetDataviewView (anytype.Rpc.Block.Set.Dataview.View.Request) returns (anytype.Rpc.Block.Set.Dataview.View.Response);
+    rpc BlockSetDataviewActiveView (anytype.Rpc.Block.Set.Dataview.ActiveView.Request) returns (anytype.Rpc.Block.Set.Dataview.ActiveView.Response);
+    rpc BlockCreateDataviewView (anytype.Rpc.Block.Create.Dataview.View.Request) returns (anytype.Rpc.Block.Create.Dataview.View.Response);
+    rpc BlockDeleteDataviewView (anytype.Rpc.Block.Delete.Dataview.View.Request) returns (anytype.Rpc.Block.Delete.Dataview.View.Response);
+
     rpc BlockBookmarkFetch (anytype.Rpc.Block.Bookmark.Fetch.Request) returns (anytype.Rpc.Block.Bookmark.Fetch.Response);
     rpc BlockBookmarkCreateAndFetch (anytype.Rpc.Block.Bookmark.CreateAndFetch.Request) returns (anytype.Rpc.Block.Bookmark.CreateAndFetch.Response);
     rpc BlockFileCreateAndUpload (anytype.Rpc.Block.File.CreateAndUpload.Request) returns (anytype.Rpc.Block.File.CreateAndUpload.Response);
@@ -95,6 +101,6 @@ service ClientCommands {
 
     rpc ProcessCancel (anytype.Rpc.Process.Cancel.Request) returns (anytype.Rpc.Process.Cancel.Response);
 
-    // used only for lib-debug via grpc
+    // used only for lib-server via grpc
     rpc ListenEvents (anytype.Empty) returns (stream anytype.Event);
 }

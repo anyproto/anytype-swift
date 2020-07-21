@@ -13,6 +13,7 @@ extension Anytype_Rpc.BlockList.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Page.IsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Align.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
@@ -42,6 +43,8 @@ extension Anytype_Rpc.Block.Set.Image.Width.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Video.Name.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Video.Width.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Dataview.View.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Dataview.ActiveView.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error: Swift.Error {}
@@ -52,9 +55,11 @@ extension Anytype_Rpc.Block.Open.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Create.Dataview.View.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.CreatePage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Unlink.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Delete.Dataview.View.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Close.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Recover.Response.Error: Swift.Error {}
