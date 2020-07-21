@@ -51,9 +51,6 @@ extension Namespace.Base {
         private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
         private var toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
         
-        private var eventListener: EventListener = .init()
-        private var eventPublisher: NotificationEventListener<EventListener>?
-        
         /// For OuterWorld.
         /// We should notify about user input.
         /// And here we have this publisher.
@@ -129,7 +126,8 @@ private extension Namespace.Base.ViewModel {
         }.store(in: &self.subscriptions)
         
         /// ToView
-        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), self.$toViewTextAlignment.safelyUnwrapOptionals()).map({ value -> TextView.UIKitTextView.ViewModel.Update in
+        let alignmentPublisher = self.getBlock().didChangeInformationPublisher().map(\.alignment).map(BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel).removeDuplicates().safelyUnwrapOptionals()
+        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), alignmentPublisher).map({ value -> TextView.UIKitTextView.ViewModel.Update in
             let (text, alignment) = value
             return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
         }).eraseToAnyPublisher()
@@ -185,16 +183,14 @@ private extension Namespace.Base.ViewModel {
             }
         }).store(in: &self.subscriptions)
         
-        self.getBlock().didChangePublisher().sink { [weak self] (value) in
-            /// Update data(?)
-            if let block = self?.getBlock() {
-                switch block.blockModel.information.content {
-                case let .text(value):
-                    self?.toViewText = value.attributedText
-                    break
-                default: break
-                }
+        self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.Text? in
+            switch value.content {
+            case let .text(value): return value
+            default: return nil
             }
+        }).removeDuplicates().safelyUnwrapOptionals().sink { [weak self] (value) in
+            /// Update data(?)
+            self?.toViewText = value.attributedText
         }.store(in: &self.subscriptions)
         
         //                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
@@ -238,16 +234,7 @@ private extension Namespace.Base.ViewModel {
         }.safelyUnwrapOptionals().eraseToAnyPublisher()
     }
     
-    // MARK: - Events
-    /// Setup function for events that are coming from middleware.
-    /// It has distinct responsibility.
-    private func setupEventListeners() {
-        self.eventPublisher = NotificationEventListener(handler: self.eventListener)
-        self.eventListener.subject.sink { [weak self] (value) in
-            self?.toViewText = value
-        }.store(in: &self.subscriptions)
-    }
-    
+    // MARK: - Setup
     private func setup() {
         if self.developerOptions.current.debug.enabled {
             self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, self.blockId)
@@ -262,7 +249,7 @@ private extension Namespace.Base.ViewModel {
             switch self.getBlock().blockModel.information.content {
             case let .text(blockType):
                 self.toViewText = blockType.attributedText
-                self.toViewTextAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.blockModel.information.alignment)
+//                self.toViewTextAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.blockModel.information.alignment)
             default: return
             }
             if block.isFirstResponder {
@@ -271,7 +258,6 @@ private extension Namespace.Base.ViewModel {
         }
         self.setupTextViewModel()
         self.setupSubscribers()
-        self.setupEventListeners()
     }
 }
 
@@ -344,6 +330,8 @@ private extension Namespace.Base.ViewModel {
     /// We have event .blockSetAlignment, which must update model property alignment.
     ///
     func setModelData(alignment: NSTextAlignment) {
+        
+        return
         self.update { (block) in
             if let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment) {
                 var blockModel = block.blockModel

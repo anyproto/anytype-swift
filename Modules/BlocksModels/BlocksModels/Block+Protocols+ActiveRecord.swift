@@ -65,7 +65,12 @@ public extension BlockActiveRecordCanHaveFocusAtProtocol {
 }
 
 // MARK: - BlockActiveRecord / Publishing
+/// Deprecated. Could be removed in future revisions.
 public protocol BlockHasDidChangePublisherProtocol {
     func didChangePublisher() -> AnyPublisher<Void, Never>
     func didChange()
+}
+
+public protocol BlockHasDidChangeInformationPublisherProtocol {
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModelProtocol, Never>
 }

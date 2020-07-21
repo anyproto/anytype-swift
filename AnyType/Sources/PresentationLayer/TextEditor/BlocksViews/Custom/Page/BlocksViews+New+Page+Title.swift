@@ -65,6 +65,27 @@ extension BlocksViews.New.Page.Title {
         // MARK: - Setup
         private func setupSubscribers() {
             // send value back to middleware
+            /// As soon as we use this updatePublisher, we don't have cyclic updates.
+            /// Explanation:
+            /// TextStorage will send event to Coordinator
+            /// Coordinator will send event to TextViewModel
+            /// TextViewModel will send event to this ViewModel.
+            /// This ViewModel will call Service.
+            /// Service will update Model.
+            /// Model will update PageDetailsViewModel.
+            /// PageDetailsViewModel will send event to toViewText property.
+            /// This property will send event to TextViewModel.
+            /// TextViewModel will send event to TextView.
+            /// TextView will send event to TextStorage.
+            ///
+            /// Cycle:
+            /// TextStorage -> Coordinator -> TextViewModel -> ThisViewModel -> Service ->
+            /// Model -> PageDetailsViewModel -> toViewText property -> TextViewModel -> TextView -> TextStorage
+            ///
+            /// BUT! (why does it work well)
+            /// This publisher is binded to $text property of coordinator.
+            /// This propeprty is not updated when update is coming from TextStorage.
+            ///
             self.textViewModel.updatePublisher.sink { [weak self] (value) in
                 switch value {
                 case let .text(value): self?.toModelTitleSubject.send(value)
@@ -72,7 +93,7 @@ extension BlocksViews.New.Page.Title {
                 }
             }.store(in: &self.subscriptions)
                         
-            self.$toViewTitle.receive(on: RunLoop.main).sink { [weak self] (value) in
+            self.$toViewTitle.removeDuplicates().receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.textViewModel.apply(update: .text(value))
             }.store(in: &self.subscriptions)
         }
@@ -89,8 +110,9 @@ extension BlocksViews.New.Page.Title {
                 /// Here we must subscribe on values from this model and filter values.
                 /// We only want values equal to details.
                 ///
-                self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.title).sink(receiveValue: { [weak self] (value) in
-                    value.flatMap({self?.toViewTitle = $0.text})
+                self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.title)
+                    .sink(receiveValue: { [weak self] (value) in
+                    value.flatMap({ self?.toViewTitle = $0.text })
                 }).store(in: &self.subscriptions)
 
                 self.toModelTitleSubject.notableError().flatMap({ [weak self] value in

@@ -493,7 +493,7 @@ private extension FileNamespace.Converters {
             switch from {
                 case let .file(value):
                     guard let state = state(value.state) else { return nil }
-                    return self.contentType(value.type).flatMap({.file(.init(name: value.name, hash: value.hash, state: state, contentType: $0))})
+                    return self.contentType(value.type).flatMap({.file(.init(name: value.name, hash: value.hash, state: state, contentType: $0, mime: value.mime))})
                 default: return nil
             }
         }

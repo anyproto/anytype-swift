@@ -10,14 +10,16 @@ import Foundation
 import Combine
 import os
 
+fileprivate typealias Namespace = Block
+
 private extension Logging.Categories {
     static let blocksModelsBlock: Self = "BlocksModels.Block"
 }
 
 // MARK: - BlockModel
-extension Block {
+extension Namespace {
     final class BlockModel: ObservableObject {
-        private var _information: BlockInformationModelProtocol
+        @Published private var _information: BlockInformationModelProtocol
         private var _parent: BlockId?
         private var _kind: BlockKind {
             switch self._information.content {
@@ -32,7 +34,7 @@ extension Block {
     }
 }
 
-extension Block.BlockModel: BlockModelProtocol {
+extension Namespace.BlockModel: BlockModelProtocol {
     var information: BlockInformationModelProtocol {
         get { self._information }
         set { self._information = newValue }
@@ -47,10 +49,14 @@ extension Block.BlockModel: BlockModelProtocol {
     
     func didChangePublisher() -> AnyPublisher<Void, Never> { self.objectWillChange.eraseToAnyPublisher() }
     func didChange() { self.objectWillChange.send() }
+    
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModelProtocol, Never> {
+        self.$_information.eraseToAnyPublisher()
+    }
 }
 
 // MARK: UserSession
-extension Block {
+extension Namespace {
     class UserSession: ObservableObject {
         struct Information {
             var isToggled: Bool
@@ -61,7 +67,7 @@ extension Block {
     }
 }
 
-extension Block.UserSession: BlockUserSessionModelProtocol {
+extension Namespace.UserSession: BlockUserSessionModelProtocol {
     func isToggled(by id: BlockId) -> Bool { self._storage[id]?.isToggled ?? false }
     func isFirstResponder(by id: BlockId) -> Bool { self._firstResponder == id }
     func firstResponder() -> BlockId? { self._firstResponder }
@@ -78,7 +84,7 @@ extension Block.UserSession: BlockUserSessionModelProtocol {
 }
 
 // MARK: - Container
-extension Block {
+extension Namespace {
     final class Container {
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias Model = BlockModel
@@ -112,7 +118,7 @@ extension Block {
     }
 }
 
-extension Block.Container: BlockContainerModelProtocol {
+extension Namespace.Container: BlockContainerModelProtocol {
     // MARK: RootId
     var rootId: BlockId? {
         get {
@@ -276,7 +282,7 @@ extension Block.Container: BlockContainerModelProtocol {
     
 }
 
-extension Block {
+extension Namespace {
     final class ActiveRecord {
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias NestedModel = BlockModel
@@ -296,7 +302,7 @@ extension Block {
     }
 }
 
-extension Block.ActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
+extension Namespace.ActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
     var container: BlockContainerModelProtocol? {
         self._container
     }
@@ -385,6 +391,9 @@ extension Block.ActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
             }
         }
     }
+    
     func didChangePublisher() -> AnyPublisher<Void, Never> { self.blockModel.didChangePublisher() }
     func didChange() { self.blockModel.didChange() }
+    
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModelProtocol, Never> { self.blockModel.didChangeInformationPublisher() }
 }

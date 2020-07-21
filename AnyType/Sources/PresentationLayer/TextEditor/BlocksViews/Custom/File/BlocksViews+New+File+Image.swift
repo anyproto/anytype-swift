@@ -10,27 +10,24 @@ import Foundation
 import SwiftUI
 import Combine
 import os
+import BlocksModels
+
+fileprivate typealias Namespace = BlocksViews.New.File.Image
 
 private extension Logging.Categories {
-    static let fileBlocksViewsImage: Self = "TextEditor.BlocksViews.FileBlocksViews.Image"
+    static let fileBlocksViewsImage: Self = "BlocksViews.New.File.Image"
 }
 
 // MARK: ViewModel
-extension BlocksViews.New.File.Image {
+extension Namespace {
     class ViewModel: BlocksViews.New.File.Base.ViewModel {
-        
-        var fileBlock: File? {
-            didSet {
-                self.state = self.fileBlock?.state
-            }
-        }
-        
-        fileprivate var fileView: FileImageBlockView!
+                
         private var subscription: AnyCancellable?
         
+        private var fileContentPublisher: AnyPublisher<File, Never> = .empty()
+        
         override func makeUIView() -> UIView {
-            fileView = FileImageBlockView().configured(with: self.fileBlock)
-            return fileView
+            FileImageBlockView().configured(publisher: self.fileContentPublisher)
         }
                 
         // MARK: Subclassing
@@ -63,75 +60,34 @@ extension BlocksViews.New.File.Image {
         }
         
         private func setup() {
-            switch self.getBlock().blockModel.information.content {
-            case let .file(blockType):
-                self.fileBlock = blockType
-            default: return
-            }
+            self.setupSubscribers()
+        }
+        
+        func setupSubscribers() {
+            let fileContentPublisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.File? in
+                switch value.content {
+                case let .file(value): return value
+                default: return nil
+                }
+            }).safelyUnwrapOptionals().eraseToAnyPublisher()
+            /// Should we store it (?)
+            self.fileContentPublisher = fileContentPublisher
             
-            handleEvents()
+            self.subscription = self.fileContentPublisher.sink(receiveValue: { [weak self] (value) in
+                self?.state = value.state
+            })
         }
         
-        func update(to state: State, hash: String, name: String) {
-            self.update { (block) in
-                switch block.blockModel.information.content {
-                case let .file(value):
-                    var value = value
-                    value.contentType = .image
-                    value.hash = hash
-                    value.name = name
-                    value.state = state
-                    
-                    var blockModel = block.blockModel
-                    blockModel.information.content = .file(value)
-                    updateFileBlock(value)
-                default: return
-                }
+        override func makeDiffable() -> AnyHashable {
+            let diffable = super.makeDiffable()
+            if case let .file(value) = self.getBlock().blockModel.information.content {
+                let newDiffable: [String: AnyHashable] = [
+                    "parent": diffable,
+                    "fileState": value.state
+                ]
+                return .init(newDiffable)
             }
-        }
-        
-        private func updateFileBlock(_ block: File) {
-            self.fileBlock = block
-            
-            // TODO: Make listener for update state in view later
-            if self.fileView != nil {
-                self.fileView.block = block
-            }
-        }
-        
-        private func handleEvents() {
-            subscription = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
-                .compactMap { notification in
-                    return notification.object as? Anytype_Event
-            }
-            .map { $0.messages }
-            .map {
-                $0.filter { message in
-                    guard let value = message.value else { return false }
-                    
-                    if case Anytype_Event.Message.OneOf_Value.blockSetFile = value {
-                        return true
-                    }
-                    return false
-                }
-            }
-            .receive(on: RunLoop.main)
-            .sink { [weak self] events in
-                if let event = events.filter({$0.blockSetFile.id == self?.blockId }).first {
-                    let block = event.blockSetFile
-                    
-                    switch block.state.value {
-                    case .done:
-                        self?.update(to: .done, hash: block.hash.value, name: block.name.value)
-                    case .uploading:
-                        self?.update(to: .uploading, hash: block.hash.value, name: block.name.value)
-                    case .error, .UNRECOGNIZED(_):
-                        self?.update(to: .error, hash: block.hash.value, name: block.name.value)
-                    case .empty: break
-                        // Nothing to do
-                    }
-                }
-            }
+            return diffable
         }
         
         // MARK: Contextual Menu
@@ -150,7 +106,7 @@ extension BlocksViews.New.File.Image {
 }
 
 // MARK: - Image Picker Enhancements
-private extension BlocksViews.New.File.Image.ViewModel {
+private extension Namespace.ViewModel {
     func configureListening(imagePickerViewModel: ImagePickerUIKit.ViewModel) {
         imagePickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
             .map(\.documentId, \.blockId, \.filePath)
@@ -160,7 +116,7 @@ private extension BlocksViews.New.File.Image.ViewModel {
                 case .finished: break
                 case let .failure(value):
                     let logger = Logging.createLogger(category: .fileBlocksViewsImage)
-                    os_log(.error, log: logger, "uploading image error %”@ on %@", String(describing: value), String(describing: self))
+                    os_log(.error, log: logger, "uploading image error %@ on %@", String(describing: value), String(describing: self))
                 }
             }) { _ in }
         .store(in: &self.subscriptions)
@@ -168,7 +124,7 @@ private extension BlocksViews.New.File.Image.ViewModel {
 }
 
 // MARK: - UIView
-private extension BlocksViews.New.File.Image {
+private extension Namespace {
     class FileImageBlockView: UIView {
         
         typealias File = BlocksViews.New.File.Image.ViewModel.File
@@ -180,6 +136,8 @@ private extension BlocksViews.New.File.Image {
             var emptyViewHeight: CGFloat = 52
         }
         
+        var subscription: AnyCancellable?
+        
         var layout: Layout = .init()
         
         // MARK: Views
@@ -188,18 +146,7 @@ private extension BlocksViews.New.File.Image {
         var imageView: UIImageView!
         
         var emptyView: EmptyView!
-        
-        var block: File? {
-            didSet {
-                blockState = block?.state
-            }
-        }
-        var blockState: State? {
-            didSet {
-                handleState()
-            }
-        }
-        
+                
         // MARK: Initialization
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -310,10 +257,17 @@ private extension BlocksViews.New.File.Image {
             }
         }
         
-        func setupImage() {
-            guard let blockHash = block?.hash else { return }
-            
-            _ = MiddlewareConfigurationService().obtainConfiguration().sink(receiveCompletion: { _ in }, receiveValue: { (config) in
+        func setupImage(_ file: TopLevel.AliasesMap.BlockContent.File) {
+            guard !file.hash.isEmpty else { return }
+            let blockHash = file.hash
+            _ = MiddlewareConfigurationService().obtainConfiguration().sink(receiveCompletion: { value in
+                switch value {
+                case .finished: break
+                case let .failure(value):
+                    let logger = Logging.createLogger(category: .fileBlocksViewsImage)
+                    os_log(.error, log: logger, "Obtaining image error %@ on %@", String(describing: value), String(describing: self))
+                }
+            }, receiveValue: { (config) in
                 
                 guard let url = URL(string: config.gatewayURL + "/image/" + blockHash) else { return }
                 
@@ -343,10 +297,10 @@ private extension BlocksViews.New.File.Image {
             }
         }
         
-        private func handleState() {
+        private func handleFile(_ file: TopLevel.AliasesMap.BlockContent.File) {
             self.removeViewsIfExist()
             
-            switch blockState  {
+            switch file.state  {
             case .empty:
                 self.setupEmptyView()
                 self.addEmptyViewLayout()
@@ -357,29 +311,25 @@ private extension BlocksViews.New.File.Image {
             case .done:
                 self.setupImageView()
                 self.addImageViewLayout()
-                self.setupImage()
+                self.setupImage(file)
             case .error:
                 self.setupEmptyView()
                 self.addEmptyViewLayout()
                 self.emptyView.setupErrorView()
-            case .none: break
-                // Nothing to do
             }
         }
         
-        // MARK: Configured
-        func configured(with block: File?) -> Self {
-            if let fileBlock = block {
-                self.block = fileBlock
+        func configured(publisher: AnyPublisher<TopLevel.AliasesMap.BlockContent.File, Never>) -> Self {
+            self.subscription = publisher.receive(on: RunLoop.main).sink { [weak self] (value) in
+                self?.handleFile(value)
             }
             return self
         }
-        
     }
 }
 
 // MARK: - UIView
-private extension BlocksViews.New.File.Image {
+private extension Namespace {
     class EmptyView: UIView {
         
         struct Layout {

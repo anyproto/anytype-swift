@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Combine
 
-// MARK: - DetailsContainer / Has
+// MARK: - DetailsContainer / HasDetailsContainer
 public protocol BlockHasDetailsContainerModelProtocol {
     typealias DetailsContainer = DetailsContainerModelProtocol
     var detailsContainer: DetailsContainer {get}
@@ -30,7 +31,7 @@ public protocol DetailsContainerModelProtocol {
 }
 
 // MARK: - DetailsModel
-public protocol DetailsModelProtocol: DetailsHasInformationProtocol, DetailsHasParentProtocol {}
+public protocol DetailsModelProtocol: DetailsHasInformationProtocol, DetailsHasParentProtocol, DetailsHasDidChangeInformationPublisherProtocol {}
 
 // MARK: - DetaisModel / Has Details
 public protocol DetailsHasInformationProtocol {
@@ -45,15 +46,19 @@ public protocol DetailsHasParentProtocol {
 }
 
 // MARK: - DetailsActiveRecord
-public protocol DetailsActiveRecordModelProtocol: DetailsActiveRecordHasContainerProtocol, DetailsActiveRecordHasModelProtocol {}
-//BlocksModelsHasDidChangePublisherProtocol
+public protocol DetailsActiveRecordModelProtocol: DetailsActiveRecordHasContainerProtocol, DetailsActiveRecordHasModelProtocol, DetailsHasDidChangeInformationPublisherProtocol {}
 
-// MARK: - DetailsActiveRecord / BlockModel
+// MARK: - DetailsActiveRecord / HasContainer
 public protocol DetailsActiveRecordHasContainerProtocol {
     var container: DetailsContainerModelProtocol? {get}
 }
 
-// MARK: - DetailsActiveRecord / BlockModel
+// MARK: - DetailsActiveRecord / HasModel
 public protocol DetailsActiveRecordHasModelProtocol {
     var detailsModel: DetailsModelProtocol {get}
+}
+
+// MARK: - DetailsActiveRecord / Publisher
+public protocol DetailsHasDidChangeInformationPublisherProtocol {
+    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModelProtocol, Never>
 }

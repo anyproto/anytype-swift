@@ -409,16 +409,21 @@ private extension Namespace.UserInteractionHandler {
                     }
                 case let .media(mediaType):
                     switch mediaType {
-                    case .picture: return .file(.init(name: "", hash: "", state: .empty, contentType: .image))
+                    case .picture: return .file(.init(name: "", hash: "", state: .empty, contentType: .image, mime: ""))
                     case .bookmark: return nil
                     case .code: return nil
-                    case .file: return nil
-                    case .video: return nil
+                    case .file: return .file(.init(name: "", hash: "", state: .empty, contentType: .file, mime: ""))
+                    case .video: return .file(.init(name: "", hash: "", state: .empty, contentType: .video, mime: ""))
                     }
                 case let .page(value):
                     switch value {
                     case .page: return .link(.init(targetBlockID: "", style: .page, fields: [:]))
                     default: return nil
+                    }
+                case let .other(value):
+                    switch value {
+                    case .divider: return nil
+                    case .dots: return nil
                     }
                 default: return nil
                 }

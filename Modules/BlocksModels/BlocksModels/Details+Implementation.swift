@@ -8,6 +8,7 @@
 
 import Foundation
 import os
+import Combine
 
 private extension Logging.Categories {
     static let blocksModelsDetails: Self = "BlocksModels.Details"
@@ -79,11 +80,12 @@ extension Details.Container: DetailsContainerModelProtocol {
 }
 
 extension Details {
-    class DetailsModel {
+    class DetailsModel: ObservableObject {
         /// Its a Details model.
         /// It has PageDetails (?)
 
-        var _details: DetailsInformationModelProtocol
+        /// TODO: Rename later to information.
+        @Published var _details: DetailsInformationModelProtocol
         required init(details: DetailsInformationModelProtocol) {
             self._details = details
         }
@@ -129,6 +131,10 @@ extension Details.DetailsModel: DetailsModelProtocol {
             self._details.parentId = newValue
         }
     }
+    
+    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModelProtocol, Never> {
+        self.$_details.eraseToAnyPublisher()
+    }
 }
 
 extension Details.ActiveRecord: DetailsActiveRecordModelProtocol {
@@ -137,5 +143,8 @@ extension Details.ActiveRecord: DetailsActiveRecordModelProtocol {
     }
     var detailsModel: DetailsModelProtocol {
         self._nestedModel
+    }
+    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModelProtocol, Never> {
+        self.detailsModel.didChangeInformationPublisher()
     }
 }

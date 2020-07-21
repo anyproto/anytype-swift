@@ -43,7 +43,6 @@ extension BlocksViews.New.Page.IconEmoji {
             //TODO: Better to listen wholeDetailsPublisher when details is updating
             self.fromUserActionSubject.sink { [weak self] (value) in
                 self?.toModelEmojiSubject.send(value)
-                self?.toViewEmoji = value
             }.store(in: &subscriptions)
         }
 

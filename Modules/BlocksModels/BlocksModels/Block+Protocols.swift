@@ -10,7 +10,7 @@ import Foundation
 import Combine
 
 // MARK: - BlockModel
-public protocol BlockModelProtocol: BlockHasInformationProtocol, BlockHasParentProtocol, BlockHasKindProtocol, BlockHasDidChangePublisherProtocol {}
+public protocol BlockModelProtocol: BlockHasInformationProtocol, BlockHasParentProtocol, BlockHasKindProtocol, BlockHasDidChangePublisherProtocol, BlockHasDidChangeInformationPublisherProtocol {}
 
 // MARK: - UserSession
 public protocol BlockUserSessionModelProtocol {
@@ -67,4 +67,4 @@ public protocol BlockContainerModelProtocol: class, BlockHasRootIdProtocol, Bloc
 }
 
 // MARK: - ChosenBlock
-public protocol BlockActiveRecordModelProtocol: BlockActiveRecordHasContainerProtocol, BlockActiveRecordHasBlockModelProtocol, BlockActiveRecordHasIndentationLevelProtocol, BlockActiveRecordCanBeRootProtocol, BlockActiveRecordFindParentAndRootProtocol, BlockActiveRecordFindChildProtocol, BlockActiveRecordCanBeFirstResponserProtocol, BlockActiveRecordCanBeToggledProtocol, BlockActiveRecordCanHaveFocusAtProtocol, BlockHasDidChangePublisherProtocol {}
+public protocol BlockActiveRecordModelProtocol: BlockActiveRecordHasContainerProtocol, BlockActiveRecordHasBlockModelProtocol, BlockActiveRecordHasIndentationLevelProtocol, BlockActiveRecordCanBeRootProtocol, BlockActiveRecordFindParentAndRootProtocol, BlockActiveRecordFindChildProtocol, BlockActiveRecordCanBeFirstResponserProtocol, BlockActiveRecordCanBeToggledProtocol, BlockActiveRecordCanHaveFocusAtProtocol, BlockHasDidChangePublisherProtocol, BlockHasDidChangeInformationPublisherProtocol {}

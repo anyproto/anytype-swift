@@ -50,6 +50,10 @@ extension Namespace.PageDetailsViewModel {
         self.setup()
         return self
     }
+    
+    func configured(publisher: AnyPublisher<PageDetails, Never>) {
+        self.wholeDetailsPublisher = publisher
+    }
 }
 
 // MARK: Updates

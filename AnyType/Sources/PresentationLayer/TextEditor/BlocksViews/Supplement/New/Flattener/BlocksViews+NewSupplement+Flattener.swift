@@ -18,9 +18,18 @@ extension BlocksViews.NewSupplement {
     /// Generic interface for classes that provides following transform:
     /// (TreeModel) -> Array<ViewModel>
     class BaseFlattener {
+        /// Typealiases
         typealias Model = BlockActiveRecordModelProtocol
         typealias Information = BlockInformationModelProtocol
 
+        /// Variables
+        fileprivate weak var container: TopLevelContainerModelProtocol?
+        
+        func getContainer() -> TopLevelContainerModelProtocol? {
+            self.container
+        }
+        
+        /// Methods
         
         /// Convert tree model to list of ViewModels.
         /// NOTE: Do not override this method in subclasses.
@@ -68,6 +77,15 @@ extension BlocksViews.NewSupplement {
             
             return []
         }
+        
+        /// Methods / Configurations
+        func configured(_ container: TopLevelContainerModelProtocol?) -> Self {
+            self.container = container
+            return self
+        }
+        
+        // MARK: - Initialization
+        init() {}
     }
 }
 
@@ -78,7 +96,7 @@ extension BlocksViews.NewSupplement {
     class BlocksFlattener: BaseFlattener {
         /// WARNING! Prevents Inheritance cyclic initialization.
         /// Do not remove `lazy`.
-        lazy var pageBlocksFlattener: PageBlocksFlattener = .init()
+        var pageBlocksFlattener: PageBlocksFlattener?
         var toolsFlattener: Tools.Flattener = .init()
         var textFlattener: Text.Flattener = .init()
         var fileFlattener: File.Flattener = .init()
@@ -100,18 +118,35 @@ extension BlocksViews.NewSupplement {
                 }
             }
         }
+        
+        override init() {
+            super.init()
+            self.pageBlocksFlattener = .init(self)
+        }
+        
+        /// Inject TopLevelContainerModelProtocol into Tools flattener.
+        /// This flattener will inject `containers's` details into view model.
+        override func configured(_ container: TopLevelContainerModelProtocol?) -> Self {
+            _ = super.configured(container)
+            _ = self.toolsFlattener.configured(container)
+            return self
+        }
     }
 }
 
 // MARK: PageBlocksFlattener
 extension BlocksViews.NewSupplement {
     // Could also parse meta blocks.
-    class PageBlocksFlattener: BlocksFlattener {
+    class PageBlocksFlattener: BaseFlattener {
+        unowned var blocksFlattener: BaseFlattener
         override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
             switch model.blockModel.kind {
-            case .meta: return model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList)
-            default: return super.convert(model: model)
+            case .meta: return model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.blocksFlattener.toList)
+            default: return self.blocksFlattener.convert(model: model)
             }
+        }
+        init(_ blocksFlattener: BaseFlattener) {
+            self.blocksFlattener = blocksFlattener
         }
     }
 }

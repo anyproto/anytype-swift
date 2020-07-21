@@ -195,8 +195,6 @@ extension DocumentModule {
         @Published var error: String?
         @Published var rootModel: RootModel? {
             didSet {
-                self.syncBuilders()
-                self.configurePageDetails(for: self.rootModel)
                 if let model = self.rootModel {
                     self.eventProcessor.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
                         self?.syncBuilders {
@@ -216,6 +214,9 @@ extension DocumentModule {
                     }).store(in: &self.subscriptions)
                     _ = self.eventProcessor.configured(model)
                 }
+                _ = self.flattener.configured(self.rootModel)
+                self.syncBuilders()
+                self.configurePageDetails(for: self.rootModel)
             }
         }
         
@@ -479,6 +480,9 @@ private extension Namespace.DocumentViewModel {
         guard let model = rootModel else { return }
         // TODO: Revert back when you are ready.
         guard let rootId = model.rootId, let ourModel = model.detailsContainer.choose(by: rootId) else { return }
+        
+        let detailsPublisher = ourModel.didChangeInformationPublisher()
+        self.wholePageDetailsViewModel.configured(publisher: detailsPublisher)
 
         /// take rootViewModel and configure pageDetails from this model.
         /// use special flattener for this.

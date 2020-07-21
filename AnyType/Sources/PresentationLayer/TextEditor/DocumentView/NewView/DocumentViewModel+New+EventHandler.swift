@@ -241,7 +241,82 @@ private extension FileNamespace.EventHandler {
                 }
             })
             return .update(.init(deletedIds: [], updatedIds: [blockId]))
+        
+        case let .blockSetAlign(value):
+            let blockId = value.id
+            let alignment = value.align
+            guard let modelAlignment = BlocksModelsModule.Parser.Common.Alignment.Converter.asModel(alignment) else {
+                let logger = Logging.createLogger(category: .eventProcessor)
+                os_log(.debug, log: logger, "We cannot parse alignment: %@", String(describing: value))
+                return .general
+            }
             
+            self.updater?.update(entry: blockId, update: { (value) in
+                var value = value
+                value.information.alignment = modelAlignment
+            })
+            return .update(.init(deletedIds: [], updatedIds: [blockId]))
+        
+        case let .blockSetDetails(value):
+            guard value.hasDetails else {
+                return .general
+            }
+            let detailsId = value.id
+            guard let detailsModel = self.container?.detailsContainer.choose(by: detailsId) else {
+                /// We don't have view model, we should create it?
+                let logger = Logging.createLogger(category: .eventProcessor)
+                os_log(.debug, log: logger, "We cannot parse details: %@", String(describing: value))
+                return .general
+            }
+            let details = value.details
+            let eventsDetails = BlocksModelsModule.Parser.PublicConverters.EventsDetails.convert(event: .init(id: detailsId, details: details))
+            let detailsModels = BlocksModelsModule.Parser.Details.Converter.asModel(details: eventsDetails)
+            var model = detailsModel.detailsModel
+            model.details = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+            return .general
+        case let .blockSetFile(value):
+            guard value.hasState else {
+                return .general
+            }
+            
+            let blockId = value.id
+            let newUpdate = value
+            self.updater?.update(entry: blockId, update: { (value) in
+                var block = value
+                switch value.information.content {
+                case let .file(value):
+                    var value = value
+
+                    if newUpdate.hasType {
+                        if let contentType = BlocksModelsModule.Parser.File.ContentType.Converter.asModel(newUpdate.type.value) {
+                            value.contentType = contentType
+                        }
+                    }
+
+                    if newUpdate.hasState {
+                        if let state = BlocksModelsModule.Parser.File.State.Converter.asModel(newUpdate.state.value) {
+                            value.state = state
+                        }
+                    }
+                    
+                    if newUpdate.hasName {
+                        value.name = newUpdate.name.value
+                    }
+                    
+                    if newUpdate.hasHash {
+                        value.hash = newUpdate.hash.value
+                    }
+                    
+                    if newUpdate.hasMime {
+                        value.mime = newUpdate.mime.value
+                    }
+                    
+                    block.information.content = .file(value)
+                default: return
+                }
+            })
+            return .update(.init(deletedIds: [], updatedIds: [blockId]))
+        
         default: return .general
         }
     }

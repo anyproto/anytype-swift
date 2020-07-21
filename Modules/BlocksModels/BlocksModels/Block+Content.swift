@@ -162,13 +162,15 @@ public extension Namespace.ContentType {
         public var hash: String
         public var state: State
         public var contentType: ContentType
+        public var mime: String
 
         // MARK: - Memberwise initializer
-        public init(name: String, hash: String, state: Block.Content.ContentType.File.State, contentType: Block.Content.ContentType.File.ContentType) {
+        public init(name: String, hash: String, state: Block.Content.ContentType.File.State, contentType: Block.Content.ContentType.File.ContentType, mime: String) {
             self.name = name
             self.hash = hash
             self.state = state
             self.contentType = contentType
+            self.mime = mime
         }
     }
 }
@@ -176,6 +178,8 @@ public extension Namespace.ContentType {
 // MARK: ContentType / File / ContentType
 public extension Namespace.ContentType.File {
     enum ContentType {
+        case none
+        case file
         case image
         case video
     }

@@ -10,9 +10,12 @@ import Foundation
 import UIKit
 import Combine
 import os
+import BlocksModels
+
+fileprivate typealias Namespace = BlocksViews.New.Tools.PageLink
 
 // MARK: - ViewModel
-extension BlocksViews.New.Tools.PageLink {
+extension Namespace {
     /// ViewModel for type `.link()` with style `.page`
     /// Should we move it to PageBlocksViews? (?)
     ///
@@ -26,8 +29,6 @@ extension BlocksViews.New.Tools.PageLink {
         
         private var statePublisher: AnyPublisher<State, Never> = .empty()
         @Published private var state: State = .empty
-        private var eventListener: EventListener = .init()
-        private var eventPublisher: NotificationEventListener<EventListener>?
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
         private var wholeDetailsViewModel: PageDetailsViewModel = .init()
         
@@ -53,25 +54,19 @@ extension BlocksViews.New.Tools.PageLink {
                     let pageId = value.targetBlockID // do we need it?
                     _ = self.wholeDetailsViewModel.configured(documentId: pageId)
                     
-                    self.eventPublisher = NotificationEventListener(handler: self.eventListener)
-                    self.eventPublisher?.receive(contextId: pageId)
+                    /// One possible way to do it is to get access to a container in flattener.
+                    /// Possible (?)
+                    /// OR
+                    /// We could set container to all page links when we parsing data.
+                    /// We could add additional field which stores publisher.
+                    /// In this case we move whole notification logic into model.
+                    /// Well, not so bad (?)
                     
-//                    self.eventListener.$state.receive(on: RunLoop.main).sink { [weak self] (value) in
-//                        self?.wholeDetailsViewModel.receive(details: value)
-//                    }.store(in: &self.subscriptions)
-
-//                    self.statePublisher = self.wholeDetailsViewModel.wholeDetailsPublisher.map(State.Converter.from).eraseToAnyPublisher()
-
-//                    self.statePublisher.sink { [weak self] (value) in
-//                        self?.state = value
-//                    }.store(in: &self.subscriptions)
-
-                    
-//                    self.wholeDetailsViewModel.receive(details: information.pageDetails)
-                    
-                    self.$state.map(\.title).safelyUnwrapOptionals().sink { [weak self] (value) in
+                    self.$state.map(\.title).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
                         self?.textViewModel.update = .text(value)
                     }.store(in: &self.subscriptions)
+                    
+                    self.statePublisher = self.$state.eraseToAnyPublisher()
                 default: return
                 }
             default: return
@@ -109,60 +104,56 @@ extension BlocksViews.New.Tools.PageLink {
     }
 }
 
+// MARK: - Configurations
+extension Namespace.ViewModel {
+    /// NOTES:
+    /// Look at this method carefully.
+    /// We have to pass publisher for `self.wholeDetailsViewModel`.
+    /// Why so?
+    ///
+    /// Short story: Link should listen their own Details publisher.
+    ///
+    /// Long story:
+    /// `BlockShow` will send details for open page with title and with icon.
+    /// These details are shown on page itself.
+    ///
+    /// But it also contains `details` for all `links` that this page `contains`.
+    ///
+    /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
+    ///
+    func configured(_ publisher: AnyPublisher<PageDetailsViewModel.PageDetails, Never>) -> Self {
+        _ = self.wholeDetailsViewModel.configured(publisher: publisher)
+        self.wholeDetailsViewModel.wholeDetailsPublisher.map(Namespace.State.Converter.from).sink { [weak self] (value) in
+            self?.state = value
+        }.store(in: &self.subscriptions)
+        return self
+    }
+}
+
 // MARK: - Events
 private extension Logging.Categories {
   static let eventHandler: Self = "Presentation.TextEditor.BlocksViews.Tools.PageLink.EventHandler"
 }
 
-private extension BlocksViews.New.Tools.PageLink {
-    /// Since we need to update a link of page, we should listen for events that are coming from middleware.
-    /// Thus, if we update page, all links to this page must be updated.
-    /// For that we use `EventListener` that will select necessary events.
-    /// It will extract data from events and send to view model of `.link` with style `.page`.
-    ///
-    class EventListener: EventHandler {
-        typealias Event = Anytype_Event.Message.OneOf_Value
-//        typealias PageDetails = BlocksModels.Aliases.PageDetails
-//        @Published var state: PageDetails?
-        
-        func handleEvent(event: Event) {
-            switch event {
-            case let .blockSetDetails(value):
-                // take from details and publish them.
-                // get values and put them into page.
-                // tell someone that you have new details.
-//                let details = BlocksModels.Parser.PublicConverters.EventsDetails.convert(event: value)
-                // we should receive them via, for example, our pageDetailsViewModel?
-//                let ourDetails = BlocksModels.Parser.Details.Converter.asModel(details: details)
-//                let pageDetails: BlocksModels.Block.Information.PageDetails = .init(ourDetails)
-//                self.state = pageDetails
-                return
-            default:
-              let logger = Logging.createLogger(category: .eventHandler)
-              os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))
-                return
-            }
+// MARK: - Converter PageDetails to State
+extension Namespace.State {
+    enum Converter {
+        typealias T = TopLevel.AliasesMap
+        static func from(_ pageDetails: DetailsInformationModelProtocol) -> BlocksViews.New.Tools.PageLink.State {
+            let archived = false
+            var hasContent = false
+            let accessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: pageDetails)
+            let title = accessor.title?.text
+            let emoji = accessor.iconEmoji?.text
+            hasContent = emoji != nil
+            let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
+            return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)
         }
     }
 }
 
-// MARK: - Converter PageDetails to State
-extension BlocksViews.New.Tools.PageLink.State {
-    enum Converter {
-//        static func from(_ pageDetails: BlocksModels.Block.Information.PageDetails) -> BlocksViews.New.Tools.PageLink.State {
-//            return
-//            let archived = false
-//            let hasContent = false
-//            let title = pageDetails.title?.text
-//            let emoji = pageDetails.iconEmoji?.text
-//            let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
-//            return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)
-//        }
-    }
-}
-
 // MARK: - State
-extension BlocksViews.New.Tools.PageLink {
+extension Namespace {
     /// Struct State that will take care of all flags and data.
     /// It is equal semantically to `Payload` that will delivered from outworld ( view model ).
     /// It contains necessary information for view as emoji, title, archived, etc.
@@ -184,7 +175,7 @@ extension BlocksViews.New.Tools.PageLink {
     }
 }
 
-extension BlocksViews.New.Tools.PageLink.State {
+extension Namespace.State {
     /// Visual style of left view ( image or label with emoji ).
     enum Style {
         typealias Emoji = String
@@ -202,7 +193,7 @@ extension BlocksViews.New.Tools.PageLink.State {
 }
 
 // MARK: - UIView
-private extension BlocksViews.New.Tools.PageLink {
+private extension Namespace {
     class UIKitView: UIView {
         typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
         
