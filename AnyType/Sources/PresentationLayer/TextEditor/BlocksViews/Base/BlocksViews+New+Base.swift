@@ -208,6 +208,7 @@ extension BlocksViews.New.Base {
             switch contextualMenuAction {
             case let .general(value):
                 switch value {
+                case .addBlockBelow: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject, input: nil))))
                 case .delete: self.toolbarActionSubject.send(.editBlock(.delete))
                 case .duplicate: self.toolbarActionSubject.send(.editBlock(.duplicate))
                 case .moveTo: break
@@ -215,9 +216,9 @@ extension BlocksViews.New.Base {
             case let .specific(value):
                 switch value {
                 case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject))))
-                case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: nil)))))
-                case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: nil)))))
-                case .backgroundColor: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: nil)))))
+                case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .style))))))
+                case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .textColor))))))
+                case .backgroundColor: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .backgroundColor))))))
                 default: return
                 }
             default: return

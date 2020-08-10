@@ -331,6 +331,10 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
             case .delete: self.handlingKeyboardAction(block, .pressKey(.delete))
             case .duplicate: self.service.duplicate(block: block.blockModel.information)
             }
+        case let .bookmark(value):
+            switch value {
+            case let .fetch(value): self.service.bookmarkFetch(block: block.blockModel.information, url: value.absoluteString)
+            }
         default: return
         }
     }
@@ -417,15 +421,15 @@ private extension Namespace.UserInteractionHandler {
                     }
                 case let .media(mediaType):
                     switch mediaType {
-                    case .picture: return .file(.init(metadata: .empty(), contentType: .image, state: .empty))
-                    case .bookmark: return nil
+                    case .picture: return .file(.init(contentType: .image))
+                    case .bookmark: return .bookmark(.empty())
                     case .code: return nil
-                    case .file: return .file(.init(metadata: .empty(), contentType: .file, state: .empty))
-                    case .video: return .file(.init(metadata: .empty(), contentType: .video, state: .empty))
+                    case .file: return .file(.init(contentType: .file))
+                    case .video: return .file(.init(contentType: .video))
                     }
                 case let .page(value):
                     switch value {
-                    case .page: return .link(.init(targetBlockID: "", style: .page, fields: [:]))
+                    case .page: return .link(.init(style: .page))
                     default: return nil
                     }
                 case let .other(value):
@@ -568,6 +572,7 @@ private extension Namespace.UserInteractionHandler {
         private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
         private let textService: ServiceLayerModule.TextBlockActionsService = .init()
         private let listService: ServiceLayerModule.BlockListActionsService = .init()
+        private let bookmarkService: ServiceLayerModule.BookmarkBlockActionsService = .init()
         
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
         
@@ -869,5 +874,32 @@ private extension Namespace.UserInteractionHandler.Service {
         /// Also check for style later.
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.TurnInto.Text.convert : Converter.Default.convert
         _turnInto(block: block, type: type, conversion)
+    }
+}
+
+// MARK: ServiceHandler / Actions / BookmarkFetch
+private extension Namespace.UserInteractionHandler.Service {
+    private func _bookmarkFetch(block: Information, url: String, _ completion: @escaping Conversion = Converter.Default.convert) {
+        guard let blockId = self.parser.convert(information: block)?.id else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "bookmarkFetch block: %@ is nil? ", "\(String(describing: block))")
+            return
+        }
+        
+        self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.error, log: logger, "blocksActions.service.bookmarkFetch got error: %@", "\(error)")
+            }
+        }) { [weak self] (value) in
+            let value = completion(value)
+            self?.didReceiveEvent(value)
+        }.store(in: &self.subscriptions)
+    }
+    
+    func bookmarkFetch(block: Information, url: String) {
+        self._bookmarkFetch(block: block, url: url)
     }
 }

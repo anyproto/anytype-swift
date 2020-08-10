@@ -22,12 +22,13 @@ extension DocumentViewRouting {
             switch action {
             case .toolbars(.addBlock): return self.router(of: AddBlockToolbarRouter.self)
             case .toolbars(.turnIntoBlock): return self.router(of: TurnIntoToolbarRouter.self)
+            case .toolbars(.bookmark): return self.router(of: BookmarkToolbarRouter.self)
             case .toolbars(.marksPane): return self.router(of: MarksPaneToolbarRouter.self)
             default: return nil
             }
         }
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [AddBlockToolbarRouter(), TurnIntoToolbarRouter(), MarksPaneToolbarRouter()]
+            [AddBlockToolbarRouter(), TurnIntoToolbarRouter(), BookmarkToolbarRouter(), MarksPaneToolbarRouter()]
         }
     }
 }
@@ -152,9 +153,45 @@ extension DocumentViewRouting.ToolbarsRouter {
     }
 }
 
+// MARK: ToolbarsRouter / BookmarkPaneRouter
+extension DocumentViewRouting.ToolbarsRouter {
+    /// It is processing Bookmark toolbar appearing.
+    ///
+    class BookmarkToolbarRouter: BaseRouter {
+        private func hanlde(action: BlocksViews.UserAction.ToolbarOpenAction) {
+            switch action {
+            case let .bookmark(payload):
+                let viewModel: BlocksViews.Toolbar.ViewController.ViewModel = .create(.bookmark)
+                
+                let subject = payload.output
+                
+                /// We want to receive values.
+                viewModel.subscribe(subject: subject, keyPath: \.action)
+                
+                let controller: BlocksViews.Toolbar.ViewController = .init(model: viewModel)
+                self.send(event: .general(.show(controller)))
+                // Do stuff.
+            default: return
+            }
+        }
+        
+        // MARK: Subclassing
+        override func receive(action: BlocksViews.UserAction) {
+            switch action {
+            case let .toolbars(value):
+                switch value {
+                case .bookmark: self.hanlde(action: value)
+                default: return
+                }
+            default: return
+            }
+        }
+    }
+}
+
 // MARK: ToolbarsRouter / MarksPaneRouter
 extension DocumentViewRouting.ToolbarsRouter {
-    /// It is processing AddBlock toolbar appearing.
+    /// It is processing MarksPane toolbar appearing.
     ///
     class MarksPaneToolbarRouter: BaseRouter {
         /// Custom UINavigationBar for AddBlock toolbar.
@@ -164,7 +201,15 @@ extension DocumentViewRouting.ToolbarsRouter {
         private func handle(action: BlocksViews.UserAction.ToolbarOpenAction) {
             switch action {
             case let .marksPane(.mainPane(payload)):
-                let viewModel: MarksPane.ViewController.ViewModel = .create(.color)
+                let viewModel: MarksPane.ViewController.ViewModel
+                
+                if let input = payload.input {
+                    viewModel = .create(.init(section: input.section))
+                }
+                else {
+                    viewModel = .create(.init())
+                }
+
                 let controller: MarksPane.ViewController = .init(model: viewModel)
                 
                 let subject = payload.output

@@ -119,9 +119,9 @@ extension MarksPane.ViewController {
 //        }
         private func setup(style: Style) {
             self.action = self.viewModelHolder.viewModel.userAction
-            self.action.sink { (value) in
-                print("Haha! value: \(value)")
-            }.store(in: &self.subscriptions)
+            if let section = style.section {
+                self.viewModelHolder.viewModel.update(category: section)
+            }
 //            self.action = self.publisher(style: style)
 //            self.dismissControllerPublisher = self.action.successToVoid().eraseToAnyPublisher()
         }
@@ -183,10 +183,11 @@ extension MarksPane.ViewController.ViewModel {
     /// This style is a inclusive set of style, color and backgroundColor.
     /// These options refer to Categories in `MarksPane.Main.Section`
     ///
-    struct Style: OptionSet {
-        let rawValue: Int
-        static let style: Self = .init(rawValue: 1 << 0)
-        static let color: Self = .init(rawValue: 1 << 1)
-        static let backgroundColor: Self = .init(rawValue: 1 << 2)
+    struct Style {
+        fileprivate var section: MarksPane.Main.Section.Category?
+        init(section: MarksPane.Main.Section.Category?) {
+            self.section = section
+        }
+        init() {}
     }
 }

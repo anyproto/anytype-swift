@@ -109,6 +109,7 @@ extension BlocksViews.Toolbar.ViewController {
         // MARK: Models
         @ObservedObject private var addBlockViewModel: Toolbar.AddBlock.ViewModel
         @ObservedObject private var turnIntoBlockViewModel: Toolbar.TurnIntoBlock.ViewModel
+        @ObservedObject private var bookmarkViewModel: Toolbar.Bookmark.ViewModel
         
         // MARK: Setup
         private func publisher(style: Style) -> AnyPublisher<UnderlyingAction, Never> {
@@ -119,6 +120,9 @@ extension BlocksViews.Toolbar.ViewController {
             case .turnIntoBlock: return self.turnIntoBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in            
                 UnderlyingAction.turnIntoBlock(UnderlyingAction.BlockType.convert(value))
             }.eraseToAnyPublisher()
+            case .bookmark: return self.bookmarkViewModel.userAction.map({ value in
+                UnderlyingAction.bookmark(.fetch(value))
+            }).eraseToAnyPublisher()
             }
         }
         private func setup(style: Style) {
@@ -131,6 +135,8 @@ extension BlocksViews.Toolbar.ViewController {
             self.style = style
             self.addBlockViewModel = Toolbar.AddBlock.ViewModelBuilder.create()
             self.turnIntoBlockViewModel = Toolbar.TurnIntoBlock.ViewModelBuilder.create()
+            self.bookmarkViewModel = Toolbar.Bookmark.ViewModelBuilder.create()
+            
             if let filtering = self.style.filtering {
                 _ = self.addBlockViewModel.configured(filtering: filtering)
                 _ = self.turnIntoBlockViewModel.configured(filtering: filtering)
@@ -148,6 +154,7 @@ extension BlocksViews.Toolbar.ViewController {
             switch self.style.style {
             case .addBlock: return .init(style: self.style, view: Toolbar.AddBlock.InputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
             case .turnIntoBlock: return .init(style: self.style, view: Toolbar.TurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
+            case .bookmark: return .init(style: self.style, view: Toolbar.Bookmark.InputViewBuilder.createView(self._bookmarkViewModel), payload: .init(title: self.bookmarkViewModel.title))
             }
         }
     }
@@ -182,11 +189,12 @@ extension BlocksViews.Toolbar.ViewController.ViewModel {
     ///
     struct Style {
         fileprivate enum OurStyle {
-            case addBlock, turnIntoBlock
+            case addBlock, turnIntoBlock, bookmark
         }
         
         static let addBlock: Style = .init(style: .addBlock)
         static let turnIntoBlock: Style = .init(style: .turnIntoBlock)
+        static let bookmark: Style = .init(style: .bookmark)
         
         fileprivate var style: OurStyle = .addBlock
         var filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering?

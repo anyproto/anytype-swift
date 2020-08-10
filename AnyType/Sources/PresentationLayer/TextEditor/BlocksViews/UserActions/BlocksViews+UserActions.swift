@@ -53,10 +53,12 @@ extension BlocksViews.UserAction {
         
         case addBlock(AddBlock)
         case turnIntoBlock(TurnIntoBlock)
+        case bookmark(Bookmark)
         case marksPane(MarksPane)
     }
 }
 
+// MARK: - Blocks / AddBlock and TurnInto
 extension BlocksViews.UserAction.ToolbarOpenAction {
     struct BlockMenu {
         struct Payload {
@@ -81,6 +83,17 @@ extension BlocksViews.UserAction.ToolbarOpenAction {
     }
 }
 
+// MARK: - Bookmark
+extension BlocksViews.UserAction.ToolbarOpenAction {
+    struct Bookmark {
+        typealias Input = Void
+        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        var output: Output
+        var input: Input?
+    }
+}
+
+// MARK: - Marks Pane
 extension BlocksViews.UserAction.ToolbarOpenAction {
     enum MarksPane {
         case setTextColor(TextColor)
@@ -93,7 +106,10 @@ extension BlocksViews.UserAction.ToolbarOpenAction {
 extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
     struct MainPane {
         typealias Output = PassthroughSubject<MarksPane.Main.Action, Never>
-        typealias Input = MarksPane.Main.RawUserResponse
+        struct Input {
+            var userResponse: MarksPane.Main.RawUserResponse?
+            var section: MarksPane.Main.Section.Category?
+        }
         var output: Output
         var input: Input?
     }

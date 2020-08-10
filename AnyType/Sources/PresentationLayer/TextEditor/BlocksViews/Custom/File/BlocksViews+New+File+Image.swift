@@ -139,6 +139,7 @@ private extension Namespace {
         
         struct Resource {
             var emptyViewPlaceholderTitle = "Add link or Upload a picture"
+            var emptyViewImagePath = "TextEditor/Style/File/Empty/Image"
         }
         
         var subscription: AnyCancellable?
@@ -204,7 +205,7 @@ private extension Namespace {
                 return view
             }()
             
-            self.emptyView.configured(.init(placeholderText: self.resource.emptyViewPlaceholderTitle, imagePath: "TextEditor/Style/File/Empty/Image"))
+            self.emptyView.configured(.init(placeholderText: self.resource.emptyViewPlaceholderTitle, imagePath: self.resource.emptyViewImagePath))
             
             self.addSubview(emptyView)
         }

@@ -147,6 +147,7 @@ private extension Namespace {
         
         private var lineView: UIView!
         private var dotsView: UIView!
+        private var dotsImageViews: [UIImageView] = []
                 
         // MARK: Initialization
         override init(frame: CGRect) {
@@ -177,15 +178,60 @@ private extension Namespace {
             
             self.lineView = {
                 let view = UIView()
-                view.backgroundColor = .red
+                view.backgroundColor = .lightGray
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
             
             self.dotsView = {
                 let view = UIView()
-                view.backgroundColor = .green
                 view.translatesAutoresizingMaskIntoConstraints = false
+                /// Add imageViews
+                let image: UIImage? = UIImage.init(named: self.resource.dotsImagePath)
+                let leftImageView: UIImageView = .init(image: image)
+                let centerImageView: UIImageView = .init(image: image)
+                let rightImageView: UIImageView = .init(image: image)
+                
+                for view in [leftImageView, centerImageView, rightImageView] {
+                    view.contentMode = .center
+                    view.translatesAutoresizingMaskIntoConstraints = false
+                }
+                
+                view.addSubview(leftImageView)
+                view.addSubview(centerImageView)
+                view.addSubview(rightImageView)
+                
+                self.dotsImageViews = [leftImageView, centerImageView, rightImageView]
+                
+//                if let superview = centerImageView.superview {
+//                    NSLayoutConstraint.activate([
+//                        view.centerXAnchor.constraint(equalTo: superview.centerXAnchor),
+//                        view.topAnchor.constraint(equalTo: superview.topAnchor),
+//                        view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+//                    ])
+//                }
+//
+//                if let superview = leftImageView.superview {
+//                    let rightView = centerImageView
+//                    NSLayoutConstraint.activate([
+//                        view.topAnchor.constraint(equalTo: superview.topAnchor),
+//                        view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+//                        view.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor),
+//                        view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -10)
+//                    ])
+//                }
+//
+//                if let superview = rightImageView.superview {
+//                    let leftView = centerImageView
+//                    NSLayoutConstraint.activate([
+//                        view.topAnchor.constraint(equalTo: superview.topAnchor),
+//                        view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+//                        view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 10),
+//                        view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor)
+//                    ])
+//                }
+
+                
                 return view
             }()
                         
@@ -224,6 +270,42 @@ private extension Namespace {
                     view.heightAnchor.constraint(equalToConstant: self.layout.dividerHeight)
                 ])
             }
+            
+            let leftImageView = self.dotsImageViews[0]
+            let centerImageView = self.dotsImageViews[1]
+            let rightImageView = self.dotsImageViews[2]
+            
+            if let superview = centerImageView.superview {
+                let view = centerImageView
+                NSLayoutConstraint.activate([
+                    view.centerXAnchor.constraint(equalTo: superview.centerXAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                ])
+            }
+            
+            if let superview = leftImageView.superview {
+                let view = leftImageView
+                let rightView = centerImageView
+                NSLayoutConstraint.activate([
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                    view.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -10)
+                ])
+            }
+            
+            if let superview = rightImageView.superview {
+                let view = rightImageView
+                let leftView = centerImageView
+                NSLayoutConstraint.activate([
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                    view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 10),
+                    view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor)
+                ])
+            }
+
         }
         
         // MARK: - Actions

@@ -18,7 +18,7 @@ extension BlocksViews.Toolbar.AddBlock {
             _ = viewModel.nestedCategories.allText()
             _ = viewModel.nestedCategories.allList()
             _ = viewModel.nestedCategories.page([.page])
-            _ = viewModel.nestedCategories.media([.picture, .file])
+            _ = viewModel.nestedCategories.media([.picture, .file, .bookmark])
             _ = viewModel.nestedCategories.other([.divider, .dots])
             _ = viewModel.configured(title: "Add Block")
             return viewModel

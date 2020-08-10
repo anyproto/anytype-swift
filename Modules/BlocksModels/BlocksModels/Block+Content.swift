@@ -164,8 +164,13 @@ public extension Namespace.ContentType {
         public var contentType: ContentType
         public var state: State
 
+        // MARK: - Designed initializer
+        public init(contentType: ContentType) {
+            self.init(metadata: .empty(), contentType: contentType, state: .empty)
+        }
+        
         // MARK: - Memberwise initializer
-        public init(metadata: Block.Content.ContentType.File.Metadata, contentType: Block.Content.ContentType.File.ContentType, state: Block.Content.ContentType.File.State) {
+        public init(metadata: Metadata, contentType: ContentType, state: State) {
             self.metadata = metadata
             self.contentType = contentType
             self.state = state
@@ -183,7 +188,7 @@ public extension Namespace.ContentType.File {
         public var addedAt: Int64
         
         public static func empty() -> Self {
-            return .init(name: "", size: 0, hash: "", mime: "", addedAt: 0)
+            .init(name: "", size: 0, hash: "", mime: "", addedAt: 0)
         }
         
         // MARK: - Memberwise initializer
@@ -245,8 +250,37 @@ public extension Namespace.ContentType.Divider {
 public extension Namespace.ContentType {
     // Bookmark has something, maybe add it later.
     struct Bookmark {
+        public var url: String
+        public var title: String
+        public var theDescription: String
+        public var imageHash: String
+        public var faviconHash: String
+        public var type: TypeEnum
+
+        // MARK: - Empty
+        public static func empty() -> Self {
+            .init(url: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown)
+        }
+        
         // MARK: - Memberwise initializer
-        public init() {}
+        public init(url: String, title: String, theDescription: String, imageHash: String, faviconHash: String, type: TypeEnum) {
+            self.url = url
+            self.title = title
+            self.theDescription = theDescription
+            self.imageHash = imageHash
+            self.faviconHash = faviconHash
+            self.type = type
+        }
+    }
+}
+
+// MARK: ContentType / Bookmark / TypeEnum
+public extension Namespace.ContentType.Bookmark {
+    enum TypeEnum {
+        case unknown
+        case page
+        case image
+        case text
     }
 }
 
@@ -257,8 +291,13 @@ public extension Namespace.ContentType {
         public var style: Style
         public var fields: [String: AnyHashable]
         
+        // MARK: Designed initializer
+        public init(style: Style) {
+            self.init(targetBlockID: "", style: style, fields: [:])
+        }
+        
         // MARK: - Memberwise initializer
-        public init(targetBlockID: String, style: Block.Content.ContentType.Link.Style, fields: [String : AnyHashable]) {
+        public init(targetBlockID: String, style: Style, fields: [String : AnyHashable]) {
             self.targetBlockID = targetBlockID
             self.style = style
             self.fields = fields

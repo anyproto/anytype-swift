@@ -14,28 +14,33 @@ extension BlocksViews.ContextualMenu.MenuAction {
     struct Resources {
         typealias Action = BlocksViews.ContextualMenu.MenuAction.Action
         struct Title {
-            static func title(for action: Action) -> String {
+            private static func resourceKey(for action: Action) -> String {
                 switch action {
-                case .general(.delete): return "Delete"
-                case .general(.duplicate): return "Duplicate"
-                case .general(.moveTo): return "Move To"
+                case .general(.addBlockBelow): return "General.AddBlockBelow"
+                case .general(.delete): return "General.Delete"
+                case .general(.duplicate): return "General.Duplicate"
+                case .general(.moveTo): return "General.MoveTo"
                 case let .specific(value):
                     switch value {
-                    case .turnInto: return "Turn Into"
-                    case .style: return "Style"
-                    case .color: return "Color"
-                    case .backgroundColor: return "Background"
-                    case .download: return "Download"
-                    case .replace: return "Replace"
-                    case .addCaption: return "Add Caption"
-                    case .rename: return "Rename"
+                    case .turnInto: return "Specific.TurnInto"
+                    case .style: return "Specific.Style"
+                    case .color: return "Specific.Color"
+                    case .backgroundColor: return "Specific.Background"
+                    case .download: return "Specific.Download"
+                    case .replace: return "Specific.Replace"
+                    case .addCaption: return "Specific.AddCaption"
+                    case .rename: return "Specific.Rename"
                     }
                 }
+            }
+            static func title(for action: Action) -> String {
+                NSLocalizedString(self.resourceKey(for: action), tableName: "TextEditor.ContextualMenu.Actions", bundle: .main, value: "", comment: "")
             }
         }
         struct Image {
             static func imagePath(for action: Action) -> String {
                 switch action {
+                case .general(.addBlockBelow): return "TextEditor/ContextMenu/General/addBlockBelow"
                 case .general(.delete): return "TextEditor/ContextMenu/General/delete"
                 case .general(.duplicate): return "TextEditor/ContextMenu/General/duplicate"
                 case .general(.moveTo): return "TextEditor/ContextMenu/General/moveTo"
@@ -56,6 +61,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
         struct IdentifierBuilder {
             typealias Identifier = String
             static var identifiersAndActions: [String: Action] = .init(uniqueKeysWithValues: [
+                .general(.addBlockBelow),
                 .general(.delete),
                 .general(.duplicate),
                 .general(.moveTo),
@@ -71,6 +77,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
             
             static func identifier(for action: Action) -> Identifier {
                 switch action {
+                case .general(.addBlockBelow): return ".general(.addBlockBelow)"
                 case .general(.delete): return ".general(.delete)"
                 case .general(.duplicate): return ".general(.duplicate)"
                 case .general(.moveTo): return ".general(.moveTo)"
@@ -151,6 +158,7 @@ extension BlocksViews.ContextualMenu {
 // MARK: General Actions ( For all blocks )
 extension BlocksViews.ContextualMenu.MenuAction.Action {
     enum GeneralAction {
+        case addBlockBelow
         case delete
         case duplicate
         case moveTo

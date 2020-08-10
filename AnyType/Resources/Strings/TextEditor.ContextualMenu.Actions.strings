@@ -1,0 +1,21 @@
+/* 
+  TextEditor.ContextualMenu.Actions.strings
+  AnyType
+
+  Created by Dmitry Lobanov on 29.07.2020.
+  Copyright © 2020 AnyType. All rights reserved.
+*/
+
+"General.AddBlockBelow" = "Add block below";
+"General.Delete" = "Move to bin";
+"General.Duplicate" = "Duplicate";
+"General.MoveTo" = "Move to";
+
+"Specific.TurnInto" = "Turn into";
+"Specific.Style" = "Style";
+"Specific.Color" = "Color";
+"Specific.BackgroundColor" = "Background";
+"Specific.Download" = "Download";
+"Specific.Replace" = "Replace";
+"Specific.AddCaption" = "Add caption";
+"Specific.Rename" = "Rename";

@@ -353,6 +353,9 @@ private extension Namespace {
             
             self.fileView = {
                 let view = UIKitViewWithFile()
+                view.layer.borderWidth = 1
+                view.layer.borderColor = UIColor(hexString: "#DFDDD0").cgColor
+                view.layer.cornerRadius = 4
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()

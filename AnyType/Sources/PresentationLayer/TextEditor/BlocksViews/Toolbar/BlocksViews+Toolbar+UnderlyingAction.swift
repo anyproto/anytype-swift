@@ -44,6 +44,10 @@ extension BlocksViews.Toolbar {
         enum EditAction {
             case delete, duplicate
         }
+        
+        enum BookmarkAction {
+            case fetch(URL)
+        }
 
         /// Do not delete this commented code.
         /// It may be needed later.
@@ -76,7 +80,11 @@ extension BlocksViews.Toolbar {
 //            }
 //        }
         
-        case addBlock(BlockType), turnIntoBlock(BlockType), changeColor(ChangeColor), editBlock(EditAction)
+        case addBlock(BlockType)
+        case turnIntoBlock(BlockType)
+        case changeColor(ChangeColor)
+        case editBlock(EditAction)
+        case bookmark(BookmarkAction)
     }
 }
 

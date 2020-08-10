@@ -319,7 +319,51 @@ private extension FileNamespace.EventHandler {
                 default: return
                 }
             })
+            return .update(.init(deletedIds: [], updatedIds: [blockId]))        
+        case let .blockSetBookmark(value):
+            
+            let blockId = value.id
+            let newUpdate = value
+            
+            self.updater?.update(entry: blockId, update: { (value) in
+                var block = value
+                switch value.information.content {
+                case let .bookmark(value):
+                    var value = value
+                    
+                    if newUpdate.hasURL {
+                        value.url = newUpdate.url.value
+                    }
+                    
+                    if newUpdate.hasTitle {
+                        value.title = newUpdate.title.value
+                    }
+
+                    if newUpdate.hasDescription_p {
+                        value.theDescription = newUpdate.description_p.value
+                    }
+
+                    if newUpdate.hasImageHash {
+                        value.imageHash = newUpdate.imageHash.value
+                    }
+
+                    if newUpdate.hasFaviconHash {
+                        value.faviconHash = newUpdate.faviconHash.value
+                    }
+
+                    if newUpdate.hasType {
+                        if let type = BlocksModelsModule.Parser.Bookmark.TypeEnum.Converter.asModel(newUpdate.type.value) {
+                            value.type = type
+                        }
+                    }
+                    
+                    block.information.content = .bookmark(value)
+
+                default: return
+                }
+            })
             return .update(.init(deletedIds: [], updatedIds: [blockId]))
+            
         case let .blockSetDiv(value):
             guard value.hasStyle else {
                 return .general
