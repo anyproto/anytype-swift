@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "dots_divider.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

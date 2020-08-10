@@ -38,8 +38,8 @@ extension BlocksViewsToolbarBlocksTypesProtocol {
 
 extension BlocksViews.Toolbar {
     enum BlocksTypes: CaseIterable {
-        case text(Text), list(List), page(Page), media(Media), tool(Tool), other(Other)
-        static var allCases: [Self] = [.text(.text), .list(.bulleted), .page(.page), .media(.bookmark), .other(.divider)]
+        case text(Text), list(List), objects(Objects), tool(Tool), other(Other)
+        static var allCases: [Self] = [.text(.text), .list(.bulleted), objects(.bookmark), .other(.lineDivider)]
     }
 }
 
@@ -51,19 +51,23 @@ extension BlocksViews.Toolbar.BlocksTypes {
     }
 
     enum List: CaseIterable {
-        case bulleted, checkbox, numbered, toggle
-        static var allCases: [Self] = [.bulleted, .checkbox, .numbered, .toggle]
+        case checkbox, bulleted, numbered, toggle
+        static var allCases: [Self] = [.checkbox, .bulleted, .numbered, .toggle]
     }
 
-    enum Page: CaseIterable {
-        case page, existingTool
-        static var allCases: [Self] = [.page, .existingTool]
-    }
+//    enum Page: CaseIterable {
+//        case page, existingTool
+//        static var allCases: [Self] = [.page, .existingTool]
+//    }
 
-    typealias Objects = Media // TODO: Replace it.
-    enum Media: CaseIterable {
-        case file, picture, video, bookmark, code
-        static var allCases: [Self] = [.file, .picture, .video, .bookmark, .code]
+//    enum Media: CaseIterable {
+//        case file, picture, video, bookmark, code
+//        static var allCases: [Self] = [.file, .picture, .video, .bookmark, .code]
+//    }
+    
+    enum Objects: CaseIterable {
+        case page, file, picture, video, bookmark, linkToObject
+        static var allCases: [Self] = [.page, .file, .picture, .video, .bookmark, .linkToObject]
     }
 
     enum Tool: CaseIterable {
@@ -72,8 +76,8 @@ extension BlocksViews.Toolbar.BlocksTypes {
     }
 
     enum Other: CaseIterable {
-        case divider, dots
-        static var allCases: [Self] = [.divider, dots]
+        case lineDivider, dotsDivider, code
+        static var allCases: [Self] = [.lineDivider, .dotsDivider, .code]
     }
 }
 
@@ -92,8 +96,9 @@ extension BlocksViews.Toolbar.BlocksTypes {
                 switch type {
                 case .text: return UIColor.init(named: path + "Text") ?? .clear
                 case .list: return UIColor.init(named: path + "List") ?? .clear
-                case .page: return UIColor.init(named: path + "Page") ?? .clear
-                case .media: return UIColor.init(named: path + "Media") ?? .clear
+                case .objects: return UIColor.init(named: path + "Objects") ?? .clear
+//                case .page: return UIColor.init(named: path + "Page") ?? .clear
+//                case .media: return UIColor.init(named: path + "Media") ?? .clear
                 case .tool: return UIColor.init(named: path + "Tool") ?? .clear
                 case .other: return UIColor.init(named: path + "Other") ?? .clear
                 }
@@ -105,8 +110,9 @@ extension BlocksViews.Toolbar.BlocksTypes {
                 switch type {
                 case .text: return "Text"
                 case .list: return "List"
-                case .page: return "Page"
-                case .media: return "Objects"
+                case .objects: return "Objects"
+//                case .page: return "Page"
+//                case .media: return "Objects"
                 case .tool: return "Tool"
                 case .other: return "Other"
                 }
@@ -114,7 +120,7 @@ extension BlocksViews.Toolbar.BlocksTypes {
 //            func callAsFunction(_ type: BlocksTypes) -> String { Self.title(for: type) }
         }
         struct Image {
-            private static let imagesPrefix = "TextEditor/Toolbar/Blocks/New/Types/"
+            private static let imagesPrefix = "TextEditor/Toolbar/Blocks/New/NewTypes/"
             static func image(_ subpath: String) -> String { imagesPrefix + subpath }
 //            func callAsFunction(_ subpath: String) -> String { Self.image(subpath) }
         }
@@ -166,44 +172,53 @@ extension BlocksViews.Toolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesPro
     }
 }
 
-extension BlocksViews.Toolbar.BlocksTypes.Page: BlocksViewsToolbarBlocksTypesProtocol {
-    var subpath: String {
-        switch self {
-        case .page: return "Page/Page"
-        case .existingTool: return "Page/ExistingPage"
-        }
-    }
-    var title: String {
-        switch self {
-        case .page: return self.path.components(separatedBy: "/").last ?? ""
-        case .existingTool: return "Existing Page"
-        }
-    }
-    var subtitleName: String {
-        switch self {
-        case .page: return "Page.Page"
-        case .existingTool: return "Page.ExistingPage"
-        }
-    }
-}
+//extension BlocksViews.Toolbar.BlocksTypes.Page: BlocksViewsToolbarBlocksTypesProtocol {
+//    var subpath: String {
+//        switch self {
+//        case .page: return "Page/Page"
+//        case .existingTool: return "Page/ExistingPage"
+//        }
+//    }
+//    var title: String {
+//        switch self {
+//        case .page: return self.path.components(separatedBy: "/").last ?? ""
+//        case .existingTool: return "Existing Page"
+//        }
+//    }
+//    var subtitleName: String {
+//        switch self {
+//        case .page: return "Page.Page"
+//        case .existingTool: return "Page.ExistingPage"
+//        }
+//    }
+//}
 
-extension BlocksViews.Toolbar.BlocksTypes.Media: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlocksViews.Toolbar.BlocksTypes.Objects: BlocksViewsToolbarBlocksTypesProtocol {
     var subpath: String {
         switch self {
-        case .file: return "Media/File"
-        case .picture: return "Media/Picture"
-        case .video: return "Media/Video"
-        case .bookmark: return "Media/Bookmark"
-        case .code: return "Media/Code"
+        case .page: return "Objects/Page"
+        case .file: return "Objects/File"
+        case .picture: return "Objects/Picture"
+        case .video: return "Objects/Video"
+        case .bookmark: return "Objects/Bookmark"
+        case .linkToObject: return "Objects/LinkToObject"
         }
     }
     var subtitleName: String {
         switch self {
+        case .page: return "Objects.Page"
         case .file: return "Objects.File"
         case .picture: return "Objects.Picture"
         case .video: return "Objects.Video"
         case .bookmark: return "Objects.Bookmark"
-        case .code: return "Objects.Code"
+        case .linkToObject: return "Objects.LinkToObject"
+        }
+    }
+    /// TODO: Add title localization.
+    var title: String {
+        switch self {
+        case .linkToObject: return "Link to object"
+        default: return self.path.components(separatedBy: "/").last ?? ""
         }
     }
 }
@@ -230,14 +245,24 @@ extension BlocksViews.Toolbar.BlocksTypes.Tool: BlocksViewsToolbarBlocksTypesPro
 extension BlocksViews.Toolbar.BlocksTypes.Other: BlocksViewsToolbarBlocksTypesProtocol {
     var subpath: String {
         switch self {
-        case .divider: return "Other/Divider"
-        case .dots: return "Other/Dots"
+        case .lineDivider: return "Other/LineDivider"
+        case .dotsDivider: return "Other/DotsDivider"
+        case .code: return "Other/Code"
         }
     }
     var subtitleName: String {
         switch self {
-        case .divider: return "Other.Line"
-        case .dots: return "Other.Dot"
+        case .lineDivider: return "Other.LineDivider"
+        case .dotsDivider: return "Other.DotsDivider"
+        case .code: return "Other.Code"
+        }
+    }
+    /// TODO: Add title localization.
+    var title: String {
+        switch self {
+        case .lineDivider: return "Line divider"
+        case .dotsDivider: return "Dots"
+        default: return self.path.components(separatedBy: "/").last ?? ""
         }
     }
 }

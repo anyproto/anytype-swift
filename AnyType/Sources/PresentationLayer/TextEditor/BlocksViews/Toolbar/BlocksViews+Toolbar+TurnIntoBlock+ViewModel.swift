@@ -15,7 +15,7 @@ extension BlocksViews.Toolbar.TurnIntoBlock {
             let viewModel: ViewModel = .init()
             _ = viewModel.nestedCategories.allText()
             _ = viewModel.nestedCategories.allList()
-            _ = viewModel.nestedCategories.page([.page])
+            _ = viewModel.nestedCategories.objects([.page])
             _ = viewModel.configured(title: "Turn Into")
             return viewModel
         }

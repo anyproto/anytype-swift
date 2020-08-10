@@ -278,7 +278,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
         switch action {
         case let .addBlock(value):
             switch value {
-            case .page(.page):
+            case .objects(.page):
                 self.service.createPage(afterBlock: block.blockModel.information)
             default:
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action) {
@@ -312,12 +312,13 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
             case let .other(value): // Change divider style.
                 let type: Service.BlockContent
                 switch value {
-                case .divider: type = .divider(.init(style: .line))
-                case .dots: type = .divider(.init(style: .dots))
+                case .lineDivider: type = .divider(.init(style: .line))
+                case .dotsDivider: type = .divider(.init(style: .dots))
+                case .code: return
                 }
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
                 
-            case .page:
+            case .objects(.page):
                 let type: Service.BlockContent = .smartblock(.init(style: .page))
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
                 
@@ -419,23 +420,20 @@ private extension Namespace.UserInteractionHandler {
                     case .numbered: return .text(.init(contentType: .numbered))
                     case .toggle: return .text(.init(contentType: .toggle))
                     }
-                case let .media(mediaType):
+                case let .objects(mediaType):
                     switch mediaType {
+                    case .page: return .link(.init(style: .page))
                     case .picture: return .file(.init(contentType: .image))
                     case .bookmark: return .bookmark(.empty())
-                    case .code: return nil
                     case .file: return .file(.init(contentType: .file))
                     case .video: return .file(.init(contentType: .video))
-                    }
-                case let .page(value):
-                    switch value {
-                    case .page: return .link(.init(style: .page))
-                    default: return nil
+                    case .linkToObject: return nil
                     }
                 case let .other(value):
                     switch value {
-                    case .divider: return .divider(.init(style: .line))
-                    case .dots: return .divider(.init(style: .dots))
+                    case .lineDivider: return .divider(.init(style: .line))
+                    case .dotsDivider: return .divider(.init(style: .dots))
+                    case .code: return nil
                     }
                 default: return nil
                 }

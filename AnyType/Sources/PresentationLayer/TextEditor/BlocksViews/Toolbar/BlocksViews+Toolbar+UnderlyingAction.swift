@@ -20,16 +20,18 @@ extension BlocksViews.Toolbar {
         enum BlockType {
             case text(Text)
             case list(List)
-            case page(Page)
-            case media(Media)
+            case objects(Objects)
+//            case page(Page)
+//            case media(Media)
             case tool(Tool)
             case other(Other)
             static func convert(_ type: BlocksViews.Toolbar.AddBlock.BlocksTypes) -> Self {
                 switch type {
                 case let .text(value): return .text(.convert(value))
                 case let .list(value): return .list(.convert(value))
-                case let .page(value): return .page(.convert(value))
-                case let .media(value): return .media(.convert(value))
+                case let .objects(value): return .objects(.convert(value))
+//                case let .page(value): return .page(.convert(value))
+//                case let .media(value): return .media(.convert(value))
                 case let .tool(value): return .tool(.convert(value))
                 case let .other(value): return .other(.convert(value))
                 }
@@ -121,34 +123,35 @@ extension BlocksViews.Toolbar.UnderlyingAction.BlockType {
     }
 }
 
-// MARK: UnderlyingAction / BlockType / Page
-extension BlocksViews.Toolbar.UnderlyingAction.BlockType {
-    enum Page {
-        fileprivate typealias UserInterfaceValue = BlocksViews.Toolbar.AddBlock.BlocksTypes.Page
-        fileprivate static func convert(_ type: UserInterfaceValue) -> Self {
-            switch type {
-            case .page: return .page
-            case .existingTool: return .existingPage
-            }
-        }
-        case page, existingPage
-    }
-}
+//// MARK: UnderlyingAction / BlockType / Page
+//extension BlocksViews.Toolbar.UnderlyingAction.BlockType {
+//    enum Page {
+//        fileprivate typealias UserInterfaceValue = BlocksViews.Toolbar.AddBlock.BlocksTypes.Page
+//        fileprivate static func convert(_ type: UserInterfaceValue) -> Self {
+//            switch type {
+//            case .page: return .page
+//            case .existingTool: return .existingPage
+//            }
+//        }
+//        case page, existingPage
+//    }
+//}
 
 // MARK: UnderlyingAction / BlockType / Media
 extension BlocksViews.Toolbar.UnderlyingAction.BlockType {
-    enum Media {
-        fileprivate typealias UserInterfaceValue = BlocksViews.Toolbar.AddBlock.BlocksTypes.Media
+    enum Objects {
+        fileprivate typealias UserInterfaceValue = BlocksViews.Toolbar.AddBlock.BlocksTypes.Objects
         fileprivate static func convert(_ type: UserInterfaceValue) -> Self {
             switch type {
+            case .page: return .page
             case .file: return .file
             case .picture: return .picture
             case .video: return .video
             case .bookmark: return .bookmark
-            case .code: return .code
+            case .linkToObject: return .linkToObject
             }
         }
-        case file, picture, video, bookmark, code
+        case page, file, picture, video, bookmark, linkToObject
     }
 }
 
@@ -174,10 +177,11 @@ extension BlocksViews.Toolbar.UnderlyingAction.BlockType {
         fileprivate typealias UserInterfaceValue = BlocksViews.Toolbar.AddBlock.BlocksTypes.Other
         fileprivate static func convert(_ type: UserInterfaceValue) -> Self {
             switch type {
-            case .divider: return .divider
-            case .dots: return .dots
+            case .lineDivider: return .lineDivider
+            case .dotsDivider: return .dotsDivider
+            case .code: return .code
             }
         }
-        case divider, dots
+        case lineDivider, dotsDivider, code
     }
 }

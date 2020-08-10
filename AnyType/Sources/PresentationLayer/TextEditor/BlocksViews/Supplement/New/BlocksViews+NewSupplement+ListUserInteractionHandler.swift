@@ -115,7 +115,7 @@ extension Namespace.ListUserInteractionHandler {
 
             case let .other(value): // Change divider style.
                 break
-            case .page: // Convert children to pages.
+            case .objects(.page): // Convert children to pages.
                 let type: Service.BlockContent = .smartblock(.init(style: .page))
                 self.service.turnInto(blocks: model, type: type)
             default:
