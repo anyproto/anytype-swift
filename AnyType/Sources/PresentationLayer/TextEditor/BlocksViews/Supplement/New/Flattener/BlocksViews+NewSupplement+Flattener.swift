@@ -164,7 +164,7 @@ extension Namespace {
             case .block:
                 let content = model.blockModel.information.content
                 switch content {
-                case let .link(value) where value.style == .page: return self.toolsFlattener
+                case let .link(value) where [.page, .archive].contains(value.style): return self.toolsFlattener
                 case .text: return self.textFlattener
                 case .file: return self.fileFlattener
                 case .bookmark: return self.bookmarkFlattener

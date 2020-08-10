@@ -30,7 +30,15 @@ extension Namespace {
         
         // MARK: Publishers
         @Published private var wholeDetails: PageDetails?
-        var wholeDetailsPublisher: AnyPublisher<PageDetails, Never> = .empty()
+        @Published private(set) var currentDetails: PageDetails?
+        var wholeDetailsPublisher: AnyPublisher<PageDetails, Never> = .empty() {
+            didSet {
+                self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in
+                    self?.currentDetails = value
+                }
+            }
+        }
+        var currentDetailsSubscription: AnyCancellable?
         
         // MARK: Setup
         func setup() {

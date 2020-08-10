@@ -31,7 +31,7 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
 
         return Anytype_Rpc.Config.Get.Service.invoke()
             .subscribe(on: DispatchQueue.global())
-            .map(\.homeBlockID, \.archiveBlockID, \.gatewayURL)
+            .map({($0.homeBlockID, $0.archiveBlockID, $0.profileBlockID, $0.gatewayURL)})
             .map(MiddlewareConfiguration.init)
             .map { [weak self] configuration in
                 self?.storage?.add(configuration)

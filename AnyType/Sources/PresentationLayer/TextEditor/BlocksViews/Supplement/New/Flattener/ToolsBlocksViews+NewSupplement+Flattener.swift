@@ -19,7 +19,7 @@ extension Namespace {
     class Flattener: BlocksViews.NewSupplement.BaseFlattener {
         private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
             switch information.content {
-            case let .link(value) where value.style == .page:
+            case let .link(value) where [.page, .archive].contains(value.style):
                 let viewModel = ViewModels.PageLink.ViewModel.init(model)
                 
                 if let details = self.getContainer()?.detailsContainer.choose(by: value.targetBlockID) {

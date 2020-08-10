@@ -197,6 +197,11 @@ extension DocumentModule {
             didSet {
                 if let model = self.rootModel {
                     self.eventProcessor.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
+                        switch value {
+                        case .update(.empty): return
+                        default: break
+                        }
+                        
                         self?.syncBuilders {
                             switch value {
                             case .general: break

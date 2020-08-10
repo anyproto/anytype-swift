@@ -36,7 +36,7 @@ struct HomeView: View {
                 .foregroundColor(.white)
                 .font(.title)
             Spacer()
-            NavigationLink(destination: ProfileViewCoordinator().profileView
+            NavigationLink(destination: self.viewModel.profileViewCoordinator.profileView
                 .onAppear {
                     self.isNavigationBarHidden = false
                 }
@@ -54,7 +54,7 @@ struct HomeView: View {
                                                 selectedDocumentId: self.$selectedDocumentId,
                                                 containerSize: geometry.size,
                                                 homeCollectionViewModel: self.collectionViewModel,
-                                                cellsModels: self.$collectionViewModel.documentsCell)
+                                                cellsModels: self.$collectionViewModel.documentsViewModels)
                 .padding()
         }
     }
@@ -126,6 +126,7 @@ struct HomeView: View {
 
     private func onAppear() {
         isNavigationBarHidden = true
+        self.viewModel.obtainAccountInfo()
         customAppereance()
     }
 

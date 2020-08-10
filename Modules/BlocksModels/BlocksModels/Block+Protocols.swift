@@ -29,6 +29,8 @@ public protocol BlockUserSessionModelProtocol {
     
     func didChangePublisher() -> AnyPublisher<Void, Never>
     func didChange()
+    
+    /// We could also store number here.
 }
 
 /// We need to distinct Container and BlockContainer.

@@ -8,27 +8,44 @@
 
 import Combine
 import SwiftUI
+import os
+import BlocksModels
 
+private extension Logging.Categories {
+    static let storiesProfileViewModel: Self = "Stories.Profile.ViewModel"
+}
 
 final class ProfileViewModel: ObservableObject {
-    public var theAccountName: String {
-        UserDefaultsConfig.userName.isEmpty ? "Stranger" : UserDefaultsConfig.userName
-    }
+    /// Typealiases
+    typealias RootModel = TopLevelContainerModelProtocol
+    typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
+    
+    typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
+    
+    /// Variables
     private var profileService: ProfileServiceProtocol
     private var authService: AuthServiceProtocol
     
     @Published var error: String = "" {
         didSet {
-            isShowingError = true
+            self.isShowingError = true
         }
     }
     @Published var isShowingError: Bool = false
     
-    @Published var accountName: String = "" {
-        didSet {
-            profileService.name = accountName
-        }
+    var visibleAccountName: String {
+        self.accountName.isEmpty ? "Anytype User" : self.accountName
     }
+    
+    @Published var accountName: String = ""
+//        {
+//        didSet {
+//            self.objectWillChange.send()
+//        }
+//        didSet {
+//            profileService.name = accountName
+//        }
+//    }
     @Published var accountAvatar: UIImage? {
         didSet {
             // TODO: load avatar to ipfs by textile api
@@ -57,29 +74,118 @@ final class ProfileViewModel: ObservableObject {
         }
     }
     
+    // MARK: - Model
+    private var obtainUserInformationSubscription: AnyCancellable?
+    private var subscriptions: Set<AnyCancellable> = []
+    
+    private let eventProcessor: DocumentModule.DocumentViewModel.EventProcessor = .init()
+    private var rootModel: RootModel? {
+        didSet {
+            self.handleNewRootModel(self.rootModel)
+        }
+    }
+    private let transformer: Transformer = .defaultValue
+    var pageDetailsViewModel: DocumentModule.DocumentViewModel.PageDetailsViewModel = .init()
+    
     // MARK: - Lifecycle
     
     init(profileService: ProfileServiceProtocol, authService: AuthServiceProtocol) {
         self.profileService = profileService
         self.authService = authService
+        self.setupSubscriptions()
     }
     
     // MARK: - Public methods
     
     func obtainAccountInfo() {
-        accountName = profileService.name
-        if accountName.isEmpty {
-            accountName = theAccountName
+        self.obtainUserInformationSubscription = self.profileService.obtainUserInformation().sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: break
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .storiesProfileViewModel)
+                os_log(.debug, log: logger, "TextBlocksViews setAlignment error has occured. %@", String(describing: error))
+            }
+        }) { [weak self] (value) in
+            // Next, we should parse model.
+            // And only after that we should do other stuff.
+            self?.handleOpenBlock(value)
         }
-        if let avatarURL = URL(string: profileService.avatar) {
-            self.accountAvatar = ImageLoaderCache.shared.loaderFor(path: avatarURL).image
-        }
+//        accountName = profileService.name ?? ""
+//        if accountName.isEmpty {
+//            accountName = theAccountName
+//        }
+//        if let avatarURL = profileService.avatar.flatMap(URL.init(string:)) {
+//            self.accountAvatar = ImageLoaderCache.shared.loaderFor(path: avatarURL).image
+//        }
+    }
+        
+    func setupSubscriptions() {
+        let publisher = self.pageDetailsViewModel.$currentDetails.safelyUnwrapOptionals().map(DetailsAccessor.init)
+        
+        publisher.map(\.title).map({$0?.text}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
+            self?.accountName = value
+        }.store(in: &self.subscriptions)
     }
     
     func logout() {
-        authService.logout() {
+        self.authService.logout() {
             let view = MainAuthView(viewModel: MainAuthViewModel())
             applicationCoordinator?.startNewRootView(content: view)
         }
+    }
+}
+
+// MARK: React on root model
+private extension ProfileViewModel {
+    func handleNewRootModel(_ model: RootModel?) {
+        if let model = self.rootModel {
+            // We don't need to process events.
+            // Instead, we just listen for them.
+//            self.eventProcessor.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
+////                switch value {
+////                case .update(.empty): return
+////                default: break
+////                }
+////
+////                self?.syncBuilders()
+//            }).store(in: &self.subscriptions)
+            _ = self.eventProcessor.configured(model)
+        }
+        // No need to flatten blocks or sync builders.
+        // We only listen to details.
+//        _ = self.flattener.configured(self.rootModel)
+//        self.syncBuilders()
+        self.configurePageDetails(for: self.rootModel)
+    }
+}
+
+// MARK: - Handle Open Action
+private extension ProfileViewModel {
+    func handleOpenBlock(_ value: ServiceLayerModule.Success) {
+        let blocks = self.eventProcessor.handleBlockShow(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
+        guard let event = blocks.first else { return }
+        
+        /// Now transform and create new container.
+        ///
+        /// And then, sync builders...
+
+        let rootId = value.contextID
+        
+        let blocksContainer = self.transformer.transform(event.blocks, rootId: rootId)
+        let parsedDetails = event.details.map(TopLevel.Builder.detailsBuilder.build(information:))
+        let detailsContainer = TopLevel.Builder.detailsBuilder.build(list: parsedDetails)
+        
+        /// Add details models to process.
+        self.rootModel = TopLevel.Builder.build(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
+    }
+}
+
+// MARK: - Configure Page Details
+private extension ProfileViewModel {
+    func configurePageDetails(for rootModel: RootModel?) {
+        guard let model = rootModel else { return }
+        guard let rootId = model.rootId, let ourModel = model.detailsContainer.choose(by: rootId) else { return }
+        let detailsPublisher = ourModel.didChangeInformationPublisher()
+        self.pageDetailsViewModel.configured(publisher: detailsPublisher)
     }
 }

@@ -54,6 +54,11 @@ extension Namespace {
             self.eventPublisher?.receive(contextId: contextId)
         }
         
+        func configured(contextId: TopLevel.AliasesMap.BlockId) -> Self {
+            self.startListening(contextId: contextId)
+            return self
+        }
+        
         // MARK: EventHandler interface
         var didProcessEventsPublisher: AnyPublisher<EventHandler.Update, Never> { self.eventHandler.didProcessEventsPublisher }
         func configured(_ container: TopLevelContainerModelProtocol) -> Self {
@@ -166,9 +171,10 @@ private extension FileNamespace.EventHandler {
 // MARK: Update
 extension FileNamespace.EventHandler {
     enum Update {
-        struct Payload {
+        struct Payload: Hashable {
             var deletedIds: [BlockId] = []
             var updatedIds: [BlockId] = []
+            static var empty: Self = .init()
         }
         case general
         case update(Payload)
@@ -265,7 +271,7 @@ private extension FileNamespace.EventHandler {
             guard let detailsModel = self.container?.detailsContainer.choose(by: detailsId) else {
                 /// We don't have view model, we should create it?
                 let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "We cannot parse details: %@", String(describing: value))
+                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
                 return .general
             }
             let details = value.details
@@ -273,7 +279,7 @@ private extension FileNamespace.EventHandler {
             let detailsModels = BlocksModelsModule.Parser.Details.Converter.asModel(details: eventsDetails)
             var model = detailsModel.detailsModel
             model.details = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
-            return .general
+            return .update(.empty) // or .general
         case let .blockSetFile(value):
             guard value.hasState else {
                 return .general

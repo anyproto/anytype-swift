@@ -196,14 +196,14 @@ extension FileNamespace.Converters {
         
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .text(value): return ContentTypeConverter.asModel(value.style).flatMap({.text(.init(attributedText: FileNamespace.Text.AttributedText.Converter.asModel(text: value.text, marks: value.marks), color: value.color, contentType: $0))})
+            case let .text(value): return ContentTypeConverter.asModel(value.style).flatMap({.text(.init(attributedText: FileNamespace.Text.AttributedText.Converter.asModel(text: value.text, marks: value.marks), color: value.color, contentType: $0, checked: value.checked))})
             default: return nil
             }
         }
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .text(value): return ContentTypeConverter.asMiddleware(value.contentType).flatMap({
-                .text(.init(text: value.attributedText.string, style: $0, marks: FileNamespace.Text.AttributedText.Converter.asMiddleware(attributedText: value.attributedText).marks, checked: false, color: value.color))
+                .text(.init(text: value.attributedText.string, style: $0, marks: FileNamespace.Text.AttributedText.Converter.asMiddleware(attributedText: value.attributedText).marks, checked: value.checked, color: value.color))
                 })
             default: return nil
             }

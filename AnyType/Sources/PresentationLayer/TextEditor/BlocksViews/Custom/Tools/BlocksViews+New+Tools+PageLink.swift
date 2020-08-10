@@ -32,6 +32,8 @@ extension Namespace {
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
         private var wholeDetailsViewModel: PageDetailsViewModel = .init()
         
+        func getDetailsViewModel() -> PageDetailsViewModel { self.wholeDetailsViewModel }
+        
         lazy private var placeholder: NSAttributedString = {
             let text: NSString = "Untitled"
             let attributedString: NSMutableAttributedString = .init(string: text as String)

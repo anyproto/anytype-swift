@@ -7,12 +7,52 @@
 //
 
 import UIKit
+import Combine
 
-struct HomeCollectionViewDocumentCellModel: Hashable {
-    let id = UUID()
-    let title: String
-    let image: UIImage? = nil
-    var emojiImage: String? = nil
+enum HomeStoriesModule {}
+
+fileprivate typealias Namespace = HomeStoriesModule
+
+
+class HomeCollectionViewDocumentCellModel: Hashable {
+    internal init(id: String, title: String, image: UIImage?, emojiImage: String?, subscriptions: Set<AnyCancellable> = []) {
+        self.id = id
+        self.title = title
+        self.image = image
+        self.emojiImage = emojiImage
+        self.subscriptions = subscriptions
+    }
+    
+    static func == (lhs: HomeCollectionViewDocumentCellModel, rhs: HomeCollectionViewDocumentCellModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    
+    let id: String
+    @Published var title: String
+    @Published var image: UIImage?
+    @Published var emojiImage: String?
+    var subscriptions: Set<AnyCancellable> = []
+        
+    func configured(titlePublisher: AnyPublisher<String?, Never>) {
+        titlePublisher.safelyUnwrapOptionals().sink { [weak self] (value) in
+            self?.title = value
+        }.store(in: &self.subscriptions)
+    }
+    
+//    func configured(imagePublisher: AnyPublisher<String, Never>) {
+//        titlePublisher.sink { [weak self] (value) in
+//            self?.title = value
+//        }.store(in: &self.subscriptions)
+//    }
+    
+    func configured(emojiImagePublisher: AnyPublisher<String?, Never>) {
+        emojiImagePublisher.sink { [weak self] (value) in
+            self?.emojiImage = value
+        }.store(in: &self.subscriptions)
+    }
 }
 
 final class HomeCollectionViewDocumentCell: UICollectionViewCell {
@@ -21,6 +61,10 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     let titleLabel = UILabel()
     let emojiImage = UILabel()
     let imageView = UIImageView()
+    
+    var titleSubscription: AnyCancellable?
+    var emojiImageSubscription: AnyCancellable?
+    var imageSubscription: AnyCancellable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +76,13 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func invalidateSubscriptions() {
+        self.titleSubscription = nil
+    }
+    
     func updateWithModel(viewModel: HomeCollectionViewDocumentCellModel) {
+        self.invalidateSubscriptions()
+        
         titleLabel.text = viewModel.title
         imageView.image = viewModel.image
         imageView.isHidden = false
@@ -43,38 +93,65 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
             emojiImage.isHidden = false
             imageView.isHidden = true
         }
+        
+        /// Subsrcibe on viewModel updates
+        self.titleSubscription = viewModel.$title.receive(on: RunLoop.main).sink { [weak self] (value) in
+            self?.titleLabel.text = value
+        }
     }
 }
 
 extension HomeCollectionViewDocumentCell {
     
     private func configure() {
-        titleLabel.text = "Some text"
-        layer.cornerRadius = 8.0
-        backgroundColor = .white
+        self.titleLabel.text = ""
+        self.layer.cornerRadius = 8.0
+        self.backgroundColor = .white
         
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(titleLabel)
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.titleLabel)
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(imageView)
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.imageView)
         
-        emojiImage.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(emojiImage)
+        self.emojiImage.translatesAutoresizingMaskIntoConstraints = false
+        self.contentView.addSubview(self.emojiImage)
         
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
-            imageView.heightAnchor.constraint(equalToConstant: 48),
-            imageView.widthAnchor.constraint(equalToConstant: 48),
-            
-            emojiImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16.0),
-            emojiImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16.0),
-            emojiImage.heightAnchor.constraint(equalToConstant: 48),
-            emojiImage.widthAnchor.constraint(equalToConstant: 48),
-            
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16.0),
-            titleLabel.leftAnchor.constraint(equalTo: imageView.leftAnchor),
-        ])
+        let offset: CGFloat = 16.0
+        let size: CGSize = .init(width: 48, height: 48)
+        
+        if let superview = self.imageView.superview {
+            let view = self.imageView
+            let constraints = [
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: offset),
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: offset),
+                view.heightAnchor.constraint(equalToConstant: size.height),
+                view.widthAnchor.constraint(equalToConstant: size.width),
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
+        
+        if let superview = self.emojiImage.superview {
+            let view = self.emojiImage
+            let constraints = [
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: offset),
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: offset),
+                view.heightAnchor.constraint(equalToConstant: size.height),
+                view.widthAnchor.constraint(equalToConstant: size.width),
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
+        
+        if let superview = self.titleLabel.superview {
+            let view = self.titleLabel
+            let topView = self.imageView
+            let constraints = [
+                view.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: offset),
+                view.leftAnchor.constraint(equalTo: topView.leftAnchor),
+                view.rightAnchor.constraint(equalTo: superview.rightAnchor, constant: -offset),
+                view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor)
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
     }
 }

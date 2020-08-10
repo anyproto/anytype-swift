@@ -11,26 +11,34 @@ import SwiftUI
 struct ProfileView: View {
     @ObservedObject var model: ProfileViewModel
     
+    var contentView: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            ProfileSectionView(model: model)
+            SettingsSectionView()
+            StandardButton(disabled: false, text: "Log out", style: .white) {
+                self.model.logout()
+            }
+            .padding(.horizontal, 20)
+        }
+        .padding([.leading, .trailing], 20)
+    }
+    
     var body: some View {
         NavigationView {
         ZStack {
             LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
-
-            VStack(alignment: .leading, spacing: 20) {
-                ProfileSectionView(model: model)
-                SettingsSectionView()
-                StandardButton(disabled: false, text: "Log out", style: .white) {
-                    self.model.logout()
-                }
-                .padding(.horizontal, 20)
+            ScrollView {
+                self.contentView.padding(.bottom, 10)
             }
-            .padding([.leading, .trailing], 20)
         }
         .navigationBarHidden(false)
         .navigationBarTitle("", displayMode: .inline)
         .errorToast(isShowing: $model.isShowingError, errorText: model.error)
         }.navigationBarHidden(false)
+            .onAppear {
+            self.model.obtainAccountInfo()
+        }
     }
 }
 
@@ -40,17 +48,17 @@ struct ProfileSectionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Group {
-                if model.accountAvatar != nil {
-                    Image(uiImage: model.accountAvatar!)
+                if self.model.accountAvatar != nil {
+                    Image(uiImage: self.model.accountAvatar!)
                 } else {
-                    UserIconView(color: model.selectedColor, name: String(model.theAccountName.first ?? "A"))
+                    UserIconView(color: self.model.selectedColor, name: self.model.visibleAccountName)
                 }
             }
             .frame(width: 64, height: 64)
             .padding([.top], 20)
 
             HStack(spacing: 0) {
-                Text("\(model.theAccountName)")
+                Text(self.model.visibleAccountName)
                     .font(.title)
                 Spacer()
                 Image("arrowForward")
@@ -182,24 +190,24 @@ struct SettingsSectionToggleItemView: View {
 }
 
 #if DEBUG
-struct ProfileView_Previews : PreviewProvider {
-    private struct ProfileService: ProfileServiceProtocol {
-        var name: String = "Anton Pronkin"
-        var avatar: String = ""
-    }
-    private struct AuthService: AuthServiceProtocol {
-        func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {}
-        func logout(completion: @escaping () -> Void) {}
-        func createAccount(profile: AuthModels.CreateAccount.Request, alphaInviteCode: String, onCompletion: @escaping OnCompletion) {}
-        func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {}
-        func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {}
-        func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {}
-        func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {}
-    }
-
-    static var previews: some View {
-        let viewModel = ProfileViewModel(profileService: ProfileService(), authService: AuthService())
-        return ProfileView(model: viewModel)
-    }
-}
+//struct ProfileView_Previews : PreviewProvider {
+////    private struct ProfileService: ProfileServiceProtocol {
+////        var name: String = "Anton Pronkin"
+////        var avatar: String = ""
+////    }
+////    private struct AuthService: AuthServiceProtocol {
+////        func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {}
+////        func logout(completion: @escaping () -> Void) {}
+////        func createAccount(profile: AuthModels.CreateAccount.Request, alphaInviteCode: String, onCompletion: @escaping OnCompletion) {}
+////        func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {}
+////        func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {}
+////        func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {}
+////        func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {}
+////    }
+////
+////    static var previews: some View {
+////        let viewModel = ProfileViewModel(profileService: ProfileService(), authService: AuthService())
+////        return ProfileView(model: viewModel)
+////    }
+//}
 #endif

@@ -34,7 +34,7 @@ struct HomeCollectionView: UIViewRepresentable {
         let collectionView = configureCollectionView()
         let dataSource = configureDataSource(collectionView: collectionView)
         collectionView.delegate = context.coordinator
-        collectionView.contentInset = .init(top: 200, left: 0, bottom: 0, right: 0)
+//        collectionView.contentInset = .init(top: 200, left: 0, bottom: 0, right: 0)
         
         populate(dataSource: dataSource)
         context.coordinator.dataSource = dataSource

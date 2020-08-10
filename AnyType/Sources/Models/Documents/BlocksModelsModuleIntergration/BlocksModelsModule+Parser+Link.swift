@@ -28,7 +28,7 @@ extension Namespace.Link.Style {
             case .page: return .page
             case .dataview: return .dataview
             case .dashboard: return nil
-            case .archive: return nil
+            case .archive: return .archive
             default: return nil
             }
         }
@@ -37,6 +37,7 @@ extension Namespace.Link.Style {
             switch value {
             case .page: return .page
             case .dataview: return .dataview
+            case .archive: return .archive
             }
         }
     }

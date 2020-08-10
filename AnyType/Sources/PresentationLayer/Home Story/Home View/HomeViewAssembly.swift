@@ -11,8 +11,8 @@ import Foundation
 class HomeViewAssembly {
     
     func createHomeView() -> HomeView {
-        let viewModel = HomeViewModel(homeCollectionViewAssembly: HomeCollectionViewAssembly())
-        let homeView = HomeView(viewModel: viewModel, collectionViewModel: HomeCollectionViewModel())
+        let viewModel: HomeViewModel = .init(homeCollectionViewAssembly: .init(), profileViewCoordinator: .init())
+        let homeView: HomeView = .init(viewModel: viewModel, collectionViewModel: .init())
         
         return homeView
     }

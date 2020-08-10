@@ -87,14 +87,16 @@ public extension Namespace.ContentType {
 // MARK: ContentType / Text
 public extension Namespace.ContentType {
     struct Text {
+        private static var defaultChecked = false
+        private static var defaultColor = ""
         public var attributedText: NSAttributedString
-        public var color: String = ""
+        public var color: String
         public var contentType: ContentType
-        public var checked: Bool = false
+        public var checked: Bool
         public var number: Int = 0 // We could use any number here, because it only for Swift type to be non-Optional.
         
         // MARK: - Memberwise initializer
-        public init(attributedText: NSAttributedString, color: String = "", contentType: Block.Content.ContentType.Text.ContentType, checked: Bool = false, number: Int = 1) {
+        public init(attributedText: NSAttributedString, color: String, contentType: ContentType, checked: Bool, number: Int = 0) {
             self.attributedText = attributedText
             self.color = color
             self.contentType = contentType
@@ -107,7 +109,7 @@ public extension Namespace.ContentType {
 // MARK: ContentType / Text / Supplements
 public extension Namespace.ContentType.Text {
     init(contentType: ContentType) {
-        self.init(attributedText: .init(), contentType: contentType)
+        self.init(attributedText: .init(), color: Self.defaultColor, contentType: contentType, checked: Self.defaultChecked)
     }
             
     // MARK: - Create
@@ -115,7 +117,7 @@ public extension Namespace.ContentType.Text {
         self.createDefault(text: "")
     }
     static func createDefault(text: String) -> Self {
-        .init(attributedText: .init(string: text), contentType: .text)
+        .init(attributedText: .init(string: text), color: Self.defaultColor, contentType: .text, checked: Self.defaultChecked)
     }
 }
 
@@ -314,6 +316,7 @@ public extension Namespace.ContentType.Link {
     enum Style {
         case page
         case dataview
+        case archive
     }
 }
 
