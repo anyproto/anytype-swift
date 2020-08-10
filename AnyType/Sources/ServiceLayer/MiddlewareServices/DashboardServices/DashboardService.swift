@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import SwiftProtobuf
+import BlocksModels
 
 class DashboardService: DashboardServiceProtocol {
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
@@ -30,8 +31,14 @@ class DashboardService: DashboardServiceProtocol {
     
     func createPage(contextId: String) -> AnyPublisher<[Anytype_Event.Message], Error> {
         
-        let details: Google_Protobuf_Struct = .init()
         let position: Anytype_Model_Block.Position = .bottom
+        
+        let titleId = TopLevel.AliasesMap.DetailsContent.Title.id
+        let iconEmoji = TopLevel.AliasesMap.DetailsContent.Emoji.id
+        let details: Google_Protobuf_Struct = .init(fields: [
+            titleId : .init(stringValue: ""),
+            iconEmoji : .init(stringValue: "")
+        ])
         
         return Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextId, targetID: "", details: details, position: position)
             .map(\.event).map(\.messages)

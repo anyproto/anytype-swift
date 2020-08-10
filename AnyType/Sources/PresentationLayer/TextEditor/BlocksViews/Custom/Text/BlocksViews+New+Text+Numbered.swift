@@ -8,17 +8,68 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import BlocksModels
+
 // MARK: - ViewModel
 extension BlocksViews.New.Text.Numbered {
     class ViewModel: BlocksViews.New.Text.Base.ViewModel {
         fileprivate var style: Style = .none
         func styleString() -> String? { self.style.string() }
+        
+        fileprivate var publisher: AnyPublisher<Style, Never> = .empty()
+        
+        /// We have to update value of number manually, because...
+        /// Because middleware can't do it.
+        ///
+        func updateInternal(style: Style) {
+            _ = self.update(style: style)
+            switch style {
+            case .none: return
+            case let .number(value):
+                let number = value
+                self.update { (value) in
+                    let block = value
+                    switch value.blockModel.information.content {
+                    case let .text(value) where value.contentType == .numbered:
+                        var blockModel = block.blockModel
+                        blockModel.information.content = .text(.init(attributedText: value.attributedText, color: value.color, contentType: value.contentType, checked: value.checked, number: number))
+                    default: return
+                    }
+                }
+            }
+        }
         func update(style: Style) -> Self {
             self.style = style
             return self
         }
+        
+        // MARK: - Setup
+        private func setup() {
+            self.setupSubscribers()
+        }
+        
+        func setupSubscribers() {
+            let publisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.Text? in
+                switch value.content {
+                case let .text(value): return value
+                default: return nil
+                }
+            }).safelyUnwrapOptionals().eraseToAnyPublisher()
+            
+            self.publisher = publisher.map(\.number).removeDuplicates().map({.number($0)}).eraseToAnyPublisher()
+            
+        }
+
+        
+        // MARK: - Subclassing
+        override init(_ block: BlocksViews.New.Text.Base.ViewModel.BlockModel) {
+            super.init(block)
+            self.setup()
+        }
+        
         override func makeUIView() -> UIView {
-            UIKitView.init().configured(textView: self.getUIKitViewModel().createView()).update(style: self.style)
+            UIKitView.init().configured(textView: self.getUIKitViewModel().createView()).configured(self.publisher)
         }
         override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
@@ -44,6 +95,9 @@ extension BlocksViews.New.Text.Numbered {
 private extension BlocksViews.New.Text.Numbered {
     class UIKitView: UIView {
         typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
+        
+        // MARK: Subscriptions
+        var subscription: AnyCancellable?
         
         // MARK: Views
         // |    topView    | : | leftView | textView |
@@ -126,6 +180,13 @@ private extension BlocksViews.New.Text.Numbered {
                 label.text = style.string()
                 return label
             }())
+            return self
+        }
+        
+        func configured(_ publisher: AnyPublisher<Style, Never>) -> Self {
+            self.subscription = publisher.sink(receiveValue: { [weak self] (value) in
+                _ = self?.update(style: value)
+            })
             return self
         }
     }

@@ -74,7 +74,7 @@ extension DocumentModule {
         
         /// Data Transformers
         private var transformer: Transformer = .defaultValue
-        private var flattener: BlocksViews.NewSupplement.BlocksFlattener = .init()
+        private var flattener: BlocksViews.NewSupplement.BaseFlattener = BlocksViews.NewSupplement.CompoundFlattener.init()
         
         /// User Interaction Processor
         private var userInteractionHandler: UserInteractionHandler = .init()

@@ -34,7 +34,7 @@ extension FileNamespace {
     class TopUIKitEmptyView: UIView {
         
         struct Layout {
-            var placeholderViewInsets: UIEdgeInsets = .init(top: 4, left: 6, bottom: 4, right: 6)
+            var placeholderViewInsets: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 0)
             var placeholderIconLeading: CGFloat = 12
             var placeholderLabelSpacing: CGFloat = 4
             var activityIndicatorTrailing: CGFloat = 18

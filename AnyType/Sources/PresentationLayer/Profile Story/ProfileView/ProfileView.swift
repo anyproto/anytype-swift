@@ -93,14 +93,14 @@ struct SettingsSectionView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            SettingsSectionItemView(name: "Wallpaper", icon: "settings/wallpaper", pressed: self.$viewModel.wallpaper).modifier(DividerModifier())
-            SettingsSectionItemView(name: "Keychain phrase", icon: "settings/key", pressed: self.$viewModel.keychain).modifier(DividerModifier())
+            SettingsSectionItemView(name: "Wallpaper", icon: "Settings/wallpaper", pressed: self.$viewModel.wallpaper).modifier(DividerModifier())
+            SettingsSectionItemView(name: "Keychain phrase", icon: "Settings/key", pressed: self.$viewModel.keychain).modifier(DividerModifier())
                 .sheet(isPresented: self.$viewModel.keychain) {
                     KeychainPhraseView(viewModel: .init(), showKeychainView: self.$viewModel.keychain)
             }
-            SettingsSectionItemView(name: "Pin code", icon: "settings/lock", pressed: self.$viewModel.pincode).modifier(DividerModifier())
-            SettingsSectionToggleItemView(name: "Updatess", icon: "settings/updates", switched: self.$viewModel.updates).modifier(DividerModifier())
-            SettingsSectionToggleItemView(name: "Invites", icon: "settings/invites", switched: self.$viewModel.invites).modifier(DividerModifier())
+            SettingsSectionItemView(name: "Pin code", icon: "Settings/lock", pressed: self.$viewModel.pincode).modifier(DividerModifier())
+            SettingsSectionToggleItemView(name: "Updates", icon: "Settings/updates", switched: self.$viewModel.updates).modifier(DividerModifier())
+            SettingsSectionToggleItemView(name: "Invites", icon: "Settings/invites", switched: self.$viewModel.invites).modifier(DividerModifier())
             SettingsSectionItemView(name: "About application", icon: "", pressed: self.$viewModel.about).modifier(DividerModifier())
                 .sheet(isPresented: self.$viewModel.about) {
                     ProfileView.AboutView(viewModel: .init())
@@ -145,8 +145,9 @@ struct SettingsSectionItemView: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            Image(icon)
-                .frame(width: 24.0, height: 24.0)
+            if !self.icon.isEmpty {
+                Image(icon).frame(width: 24.0, height: 24.0)
+            }
             Text(name)
                 .bold()
             Spacer()

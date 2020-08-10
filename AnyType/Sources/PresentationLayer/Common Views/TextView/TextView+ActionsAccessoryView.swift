@@ -216,8 +216,9 @@ extension TextView.ActionsToolbar {
 
         // MARK: Setup
         func setup() {
-            self.allInOnePublisher = self.$userAction.map(\.action).map {
-                switch $0 {
+            self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
+            self.allInOnePublisher = self.userActionPublisher.map(\.action).map { value in
+                switch value {
                 case .unknown: return nil
                 case .keyboardDismiss: return nil
                 case .addBlock: return .addBlockAction(.addBlock)
@@ -232,7 +233,9 @@ extension TextView.ActionsToolbar {
 
         // MARK: Publishers
         @Published fileprivate var userResponse: State = .unknown
-        @Published var userAction: UserAction = .zero
+//        @Published var userAction: UserAction = .zero
+        private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
+        var userActionPublisher: AnyPublisher<UserAction, Never> = .empty()
 
         // MARK: Streams
         private var allInOneStreamDescription: AnyCancellable?
@@ -242,9 +245,9 @@ extension TextView.ActionsToolbar {
         fileprivate func process(_ action: Action) {
             switch action {
             case .unknown: return
-            case .addBlock: self.userAction = .init(action: .addBlock, view: nil)
-            case .multiActionMenu: self.userAction = .init(action: .multiActionMenu, view: nil)
-            case .keyboardDismiss: self.userAction = .init(action: .keyboardDismiss, view: nil)
+            case .addBlock: self.userActionSubject.send(.init(action: .addBlock, view: nil))
+            case .multiActionMenu: self.userActionSubject.send(.init(action: .multiActionMenu, view: nil))
+            case .keyboardDismiss: self.userActionSubject.send(.init(action: .keyboardDismiss, view: nil))
             }
         }
     }

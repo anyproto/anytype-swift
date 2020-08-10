@@ -1,5 +1,5 @@
 //
-//  TextBlocksViews+Supplement+Flattener.swift
+//  BlocksViews+NewSupplement+Flattener+Text.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 13.04.2020.
@@ -31,6 +31,7 @@ extension Namespace.Text {
                 case .quote: return [ViewModels.Quote.ViewModel.init(model)]
                 case .checkbox: return [ViewModels.Checkbox.ViewModel.init(model)]
                 case .bulleted: return [ViewModels.Bulleted.ViewModel.init(model)]
+                case .numbered: return [ViewModels.Numbered.ViewModel.init(model)]
                 default: return []
                 }
             default: return []
@@ -47,20 +48,7 @@ extension Namespace.Text {
                 return [viewModel]
             }
         }
-        
-        // MARK: Convert Numbered List
-        private func convertNumberedList(_ model: Model) -> [BlockViewBuilderProtocol] {
-
-            //            var result: [BlockViewBuilderProtocol] = []
-//            for (index, entry) in model.blocks.enumerated() {
-//                result.append(TextBlocksViews.Numbered.BlockViewModel.init(entry as! Model).update(style: .number(index.advanced(by: 1))))
-//                result.append(contentsOf: entry.blocks.compactMap({$0 as? Model}).flatMap(self.toList))
-//            }
-//            return result
-            
-            return []
-        }
-        
+                
         // MARK: Subclassing
         override func convert(model: Model) -> [BlockViewBuilderProtocol] {
             let blockModel = model.blockModel
@@ -70,11 +58,22 @@ extension Namespace.Text {
             case .block:
                 switch blockModel.information.content {
                 case let .text(value) where value.contentType == .toggle: return self.convertToggledList(model, blockModel.information)
-                case let .text(value) where value.contentType == .numbered: return []
+//                case let .text(value) where value.contentType == .numbered: return []
                 case .text: return self.convertInformation(model, blockModel.information) + self.processChildrenToList(model)
                 default: return []
                 }
             }
+        }
+  
+        override func convert(child: BlocksViews.NewSupplement.BaseFlattener.Model, children: [BlocksViews.NewSupplement.BaseFlattener.Model]) -> [BlockViewBuilderProtocol] {            
+            if !children.isEmpty, case let .text(value) = child.blockModel.information.content, value.contentType == .numbered {
+                for (index, entry) in children.enumerated() {
+                    // We should create view model or even not create and just update value of model.
+                    // and then, we should process them as usual.
+                    ViewModels.Numbered.ViewModel.init(entry).updateInternal(style: .number(index.advanced(by: 1)))
+                }
+            }
+            return super.convert(child: child, children: children)
         }
     }
 }

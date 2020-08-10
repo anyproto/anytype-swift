@@ -25,6 +25,11 @@ extension Namespace {
         typealias Information = BlockInformationModelProtocol
 
         /// Variables
+        
+        /// Keep it for a while.
+        /// Maybe, we will inject every flattener with `CompoundFlattener`.
+        fileprivate weak var router: BaseFlattener?
+        
         fileprivate weak var container: TopLevelContainerModelProtocol?
         
         func getContainer() -> TopLevelContainerModelProtocol? {
@@ -38,10 +43,19 @@ extension Namespace {
         /// Subclass: NO.
         ///
         /// - Parameter model: Tree model that we want to convert.
-        /// - Returns: List of ViewModels.
+        /// - Returns: A list of ViewModels.
         ///
         public func toList(_ model: Model) -> [BlockViewBuilderProtocol] {
-            self.convert(model: model)
+            self.toList([model])
+        }
+        
+        /// Convert a list of models (children) to list of ViewModels.
+        /// NOTE: Do not override this method in subclasses.
+        /// Subclass: NO.
+        /// - Parameter models: A list of models that we want to convert.
+        /// - Returns: A list of ViewModels.
+        func toList(_ models: [Model]) -> [BlockViewBuilderProtocol] {
+            self.convert(children: models)
         }
         
         /// Find correct flattener for current model.
@@ -69,17 +83,50 @@ extension Namespace {
 
         /// Generic method which convert a list of chilren to view models.
         /// NOTE: If you can't reach what you want, override this method.
-        /// Subclass: YES.
+        /// Subclass: NO.
         ///
+        /// - Parameter model: The parent model.
         /// - Parameter children: List of models that we would like to flatten.
         /// - Returns: List of Builders ( actually, view models ) that describes input model in terms of list.
         ///
-        func convert(children: [Model]) -> [BlockViewBuilderProtocol] {
-            let grouped = DataStructures.GroupBy.group(children, by: {$0.blockModel.information.content.kind == $1.blockModel.information.content.kind})
-            
-            return []
+        private func convert(children: [Model]) -> [BlockViewBuilderProtocol] {
+            let grouped = DataStructures.GroupBy.group(children, by: {$0.blockModel.information.content.deepKind == $1.blockModel.information.content.deepKind})
+            return grouped.flatMap({self.convert(child: $0.first, children: $0)})
         }
         
+        /// NOTE:
+        /// Not sure if it worked for nested lists.
+        /// Possibly, no.
+        ///
+        /// This method helps you convert a group of blocks with the same type. ( type + contentType if exists ).
+        /// It uses `match` method, so, you must know that at some point of conversion it should return non-nil.
+        /// OR
+        /// `nil` value is intended.
+        /// Subclass: NO.
+        ///
+        /// - Parameters:
+        ///   - child: Actually, the first object of children.
+        ///   - children: A list of models that we would like to convert to ViewModels. Actually, they are of the same type ( deep kind ). (type + contentType if exists).
+        /// - Returns: A list of ViewModels
+        private func convert(child: Model?, children: [Model]) -> [BlockViewBuilderProtocol] {
+            guard let child = child, let matched = self.match(child) else {
+                return []
+            }
+            return matched.convert(child: child, children: children)
+        }
+                
+        /// This method is the first point of overriding if you want to convert a list of models with the same type ( deep kind ) (type + contentType if exists.)
+        ///
+        /// It uses `convert(model:)` as default implementation.
+        ///
+        /// - Parameters:
+        ///   - child: Actually, the first object of children.
+        ///   - children: A list of models that we would like to convert to ViewModels. Actually, they are of the same type ( deep kind ). (type + contentType if exists).
+        /// - Returns: A list of ViewModels.
+        func convert(child: Model, children: [Model]) -> [BlockViewBuilderProtocol] {
+            children.flatMap(self.convert(model:))
+        }
+                        
         /// Methods / Configurations
         func configured(_ container: TopLevelContainerModelProtocol?) -> Self {
             self.container = container
@@ -94,7 +141,7 @@ extension Namespace {
 // MARK: - BaseFlattener / Childrens
 extension Namespace.BaseFlattener {
     func processChildrenToList(_ model: Model) -> [BlockViewBuilderProtocol] {
-        model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList(_:))
+        self.toList(model.childrenIds().compactMap(model.findChild(by:)))
     }
 }
 
@@ -102,9 +149,7 @@ extension Namespace.BaseFlattener {
 extension Namespace {
     /// Blocks flattener is compound flattener.
     /// It chooses correct flattener based on model type.
-    class BlocksFlattener: BaseFlattener {
-        /// WARNING! Prevents Inheritance cyclic initialization.
-        /// Do not remove `lazy`.
+    class CompoundFlattener: BaseFlattener {
         var pageBlocksFlattener: PageBlocksFlattener?
         var toolsFlattener: Tools.Flattener = .init()
         var textFlattener: Text.Flattener = .init()
@@ -151,15 +196,15 @@ extension Namespace {
 extension Namespace {
     // Could also parse meta blocks.
     class PageBlocksFlattener: BaseFlattener {
-        unowned var blocksFlattener: BaseFlattener
+        unowned var delegateFlattener: BaseFlattener
         override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
             switch model.blockModel.kind {
-            case .meta: return model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.blocksFlattener.toList)
-            default: return self.blocksFlattener.convert(model: model)
+            case .meta: return self.delegateFlattener.processChildrenToList(model)
+            default: return self.delegateFlattener.toList(model)
             }
         }
         init(_ blocksFlattener: BaseFlattener) {
-            self.blocksFlattener = blocksFlattener
+            self.delegateFlattener = blocksFlattener
         }
     }
 }

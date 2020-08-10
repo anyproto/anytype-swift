@@ -113,7 +113,7 @@ extension TextView.UIKitTextView.Coordinator {
     
     // MARK: - Publishers / Actions Toolbar
     func configureActionsToolbarHandler(_ view: UITextView) {
-        self.actionsToolbarAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.actionsToolbarAccessoryView.model.$userAction).sink(receiveValue: { [weak self] (value) in
+        self.actionsToolbarAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.actionsToolbarAccessoryView.model.userActionPublisher).sink(receiveValue: { [weak self] (value) in
             let (textView, action) = value
             
             guard action.action != .keyboardDismiss else {

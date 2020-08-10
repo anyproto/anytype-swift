@@ -82,6 +82,24 @@ extension Namespace {
             default: return
             }
         }
+        
+        /// TODO: Fix it.
+        /// We should add diffable here.
+        /// It will save us from UI glitches when scrolling...
+        /// OR
+        /// We could use SwiftUI for these views...
+        ///
+//        override func makeDiffable() -> AnyHashable {
+//            let diffable = super.makeDiffable()
+//            if case let .bookmark(value) = self.getBlock().blockModel.information.content {
+//                let newDiffable: [String: AnyHashable] = [
+//                    "parent": diffable,
+//                    "bookmark": ["url": value.url, "title": value.title]
+//                ]
+//                return .init(newDiffable)
+//            }
+//            return diffable
+//        }
 
         private func setup() {
             self.setupSubscribers()
@@ -91,7 +109,7 @@ extension Namespace {
 //            self.toolbarSubscription = self.toolbarActionSubject.sink { [weak self] (value) in
 //                self?.handle(toolbarAction: value)
 //            }
-            let publisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.Bookmark? in
+            self.publisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.Bookmark? in
                 switch value.content {
                 case let .bookmark(value): return value
                 default: return nil
@@ -99,7 +117,7 @@ extension Namespace {
             }).safelyUnwrapOptionals().eraseToAnyPublisher()
             
             /// Also embed image data to state.            
-            self.subscription = publisher.sink(receiveValue: { [weak self] (value) in
+            self.subscription = self.publisher.sink(receiveValue: { [weak self] (value) in
                 print("bookmark value: \(String(describing: value))")
                 let state = StateConverter.asOurModel(value)
                 print("bookmark state: \(String(describing: state))")
@@ -121,7 +139,7 @@ extension Namespace {
 }
 
 // MARK: - State Converter
-private extension Namespace.ViewModel {
+extension Namespace.ViewModel {
     enum StateConverter {
         typealias Model = TopLevel.AliasesMap.BlockContent.Bookmark
         typealias OurModel = State
@@ -146,7 +164,7 @@ private extension Namespace.ViewModel {
 // MARK: - ViewModel / Downloading Images
 private extension Namespace.ViewModel {}
 
-private extension Namespace.ViewModel {
+extension Namespace.ViewModel {
     enum State {
         struct Payload {
             struct Image {

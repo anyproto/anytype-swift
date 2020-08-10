@@ -173,8 +173,9 @@ extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate 
             let paragraph = attributes[.paragraphStyle] as? NSParagraphStyle
             
             let paragraphAlignment = paragraph?.alignment
-            os_log(.debug, log: logger, "textAlignment: %@", String(describing: NSTextAlignment.Printer.print(self.textAlignment)))
-            os_log(.debug, log: logger, "paragraph style alignment: %@", NSTextAlignment.Printer.print(paragraphAlignment))
+            /// Uncomment when you would like to look at different text alignment :D
+//            os_log(.debug, log: logger, "textAlignment: %@", String(describing: NSTextAlignment.Printer.print(self.textAlignment)))
+//            os_log(.debug, log: logger, "paragraph style alignment: %@", NSTextAlignment.Printer.print(paragraphAlignment))
             
             textAlignment = paragraphAlignment ?? textAlignment
         }

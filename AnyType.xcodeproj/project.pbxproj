@@ -138,7 +138,7 @@
 		0A10CCA324901E03000FF498 /* DocumentModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCA224901E03000FF498 /* DocumentModule.swift */; };
 		0A10CCA52490204A000FF498 /* DocumentViewModel+New+PageDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCA42490204A000FF498 /* DocumentViewModel+New+PageDetailsViewModel.swift */; };
 		0A10CCAF24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAA24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift */; };
-		0A10CCB024913C23000FF498 /* TextBlocksViews+NewSupplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAB24913C23000FF498 /* TextBlocksViews+NewSupplement+Flattener.swift */; };
+		0A10CCB024913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAB24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift */; };
 		0A10CCB124913C23000FF498 /* FileBlocksViews+NewSupplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAC24913C23000FF498 /* FileBlocksViews+NewSupplement+Flattener.swift */; };
 		0A10CCB224913C23000FF498 /* ToolsBlocksViews+NewSupplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAD24913C23000FF498 /* ToolsBlocksViews+NewSupplement+Flattener.swift */; };
 		0A10CCB324913C23000FF498 /* PageBlocksViews+NewSupplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAE24913C23000FF498 /* PageBlocksViews+NewSupplement+Flattener.swift */; };
@@ -492,7 +492,7 @@
 		0A10CCA224901E03000FF498 /* DocumentModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentModule.swift; sourceTree = "<group>"; };
 		0A10CCA42490204A000FF498 /* DocumentViewModel+New+PageDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewModel+New+PageDetailsViewModel.swift"; sourceTree = "<group>"; };
 		0A10CCAA24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener.swift"; sourceTree = "<group>"; };
-		0A10CCAB24913C23000FF498 /* TextBlocksViews+NewSupplement+Flattener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextBlocksViews+NewSupplement+Flattener.swift"; sourceTree = "<group>"; };
+		0A10CCAB24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener+Text.swift"; sourceTree = "<group>"; };
 		0A10CCAC24913C23000FF498 /* FileBlocksViews+NewSupplement+Flattener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileBlocksViews+NewSupplement+Flattener.swift"; sourceTree = "<group>"; };
 		0A10CCAD24913C23000FF498 /* ToolsBlocksViews+NewSupplement+Flattener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ToolsBlocksViews+NewSupplement+Flattener.swift"; sourceTree = "<group>"; };
 		0A10CCAE24913C23000FF498 /* PageBlocksViews+NewSupplement+Flattener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PageBlocksViews+NewSupplement+Flattener.swift"; sourceTree = "<group>"; };
@@ -1518,7 +1518,7 @@
 			isa = PBXGroup;
 			children = (
 				0A10CCAA24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift */,
-				0A10CCAB24913C23000FF498 /* TextBlocksViews+NewSupplement+Flattener.swift */,
+				0A10CCAB24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift */,
 				0A10CCAC24913C23000FF498 /* FileBlocksViews+NewSupplement+Flattener.swift */,
 				0A10CCAD24913C23000FF498 /* ToolsBlocksViews+NewSupplement+Flattener.swift */,
 				0A10CCAE24913C23000FF498 /* PageBlocksViews+NewSupplement+Flattener.swift */,
@@ -2140,7 +2140,7 @@
 				0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */,
 				0AD6B25024D09B420097A841 /* BlocksViews+NewSupplement+Flattener+Bookmark.swift in Sources */,
 				0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */,
-				0A10CCB024913C23000FF498 /* TextBlocksViews+NewSupplement+Flattener.swift in Sources */,
+				0A10CCB024913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,

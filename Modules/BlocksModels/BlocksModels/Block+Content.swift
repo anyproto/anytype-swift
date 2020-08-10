@@ -90,12 +90,16 @@ public extension Namespace.ContentType {
         public var attributedText: NSAttributedString
         public var color: String = ""
         public var contentType: ContentType
+        public var checked: Bool = false
+        public var number: Int = 0 // We could use any number here, because it only for Swift type to be non-Optional.
         
         // MARK: - Memberwise initializer
-        public init(attributedText: NSAttributedString, color: String = "", contentType: Block.Content.ContentType.Text.ContentType) {
+        public init(attributedText: NSAttributedString, color: String = "", contentType: Block.Content.ContentType.Text.ContentType, checked: Bool = false, number: Int = 1) {
             self.attributedText = attributedText
             self.color = color
             self.contentType = contentType
+            self.checked = checked
+            self.number = number
         }
     }
 }

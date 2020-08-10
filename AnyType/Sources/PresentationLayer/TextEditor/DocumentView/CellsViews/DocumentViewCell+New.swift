@@ -198,13 +198,13 @@ extension Namespace.DocumentViewCells.Cell {
         self.onFirstResponder()
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        self.model = nil
-        self.containedView?.removeFromSuperview()
-        self.containedView = nil
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//
+//        self.model = nil
+//        self.containedView?.removeFromSuperview()
+//        self.containedView = nil
+//    }
     
     func configured(_ model: Model) -> Self {
         self.updateIfNewModel(model)
