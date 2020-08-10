@@ -158,19 +158,41 @@ public extension Namespace.ContentType.Smartblock {
 // MARK: ContentType / File
 public extension Namespace.ContentType {
     struct File {
-        public var name: String
-        public var hash: String
-        public var state: State
+        public var metadata: Metadata
+
+        /// Our entries
         public var contentType: ContentType
-        public var mime: String
+        public var state: State
 
         // MARK: - Memberwise initializer
-        public init(name: String, hash: String, state: Block.Content.ContentType.File.State, contentType: Block.Content.ContentType.File.ContentType, mime: String) {
-            self.name = name
-            self.hash = hash
-            self.state = state
+        public init(metadata: Block.Content.ContentType.File.Metadata, contentType: Block.Content.ContentType.File.ContentType, state: Block.Content.ContentType.File.State) {
+            self.metadata = metadata
             self.contentType = contentType
+            self.state = state
+        }
+    }
+}
+
+// MARK: ContentType / File / Metadata
+public extension Namespace.ContentType.File {
+    struct Metadata {
+        public var name: String
+        public var size: Int64
+        public var hash: String
+        public var mime: String
+        public var addedAt: Int64
+        
+        public static func empty() -> Self {
+            return .init(name: "", size: 0, hash: "", mime: "", addedAt: 0)
+        }
+        
+        // MARK: - Memberwise initializer
+        public init(name: String, size: Int64, hash: String, mime: String, addedAt: Int64) {
+            self.name = name
+            self.size = size
+            self.hash = hash
             self.mime = mime
+            self.addedAt = addedAt
         }
     }
 }
@@ -246,6 +268,7 @@ extension Namespace.ContentType: Hashable {}
 extension Namespace.ContentType.Smartblock: Hashable {}
 extension Namespace.ContentType.Text: Hashable {}
 extension Namespace.ContentType.File: Hashable {}
+extension Namespace.ContentType.File.Metadata: Hashable {}
 extension Namespace.ContentType.Div: Hashable {}
 extension Namespace.ContentType.Bookmark: Hashable {}
 extension Namespace.ContentType.Link: Hashable {}

@@ -16,7 +16,7 @@ extension BlocksViews.Toolbar.AddBlock {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
             _ = viewModel.nestedCategories.page([.page])
-            _ = viewModel.nestedCategories.media([.picture])
+            _ = viewModel.nestedCategories.media([.picture, .file])
             _ = viewModel.nestedCategories.tool([])
             _ = viewModel.nestedCategories.other([])
             _ = viewModel.configured(title: "Add Block")

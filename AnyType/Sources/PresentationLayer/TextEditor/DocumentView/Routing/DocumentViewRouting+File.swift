@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: FileBlocksViewsRouter
 extension DocumentViewRouting {
@@ -15,31 +16,46 @@ extension DocumentViewRouting {
         // MARK: Subclassing
         override func match(action: BlocksViews.UserAction) -> BaseRouter? {
             switch action {
-            case .specific(.file): return self.router(of: ImageRouter.self)
+            case .specific(.file(.file)): return self.router(of: FileRouter.self)
+            case .specific(.file(.image)): return self.router(of: ImageRouter.self)
             default: return nil
             }
         }
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [ImageRouter()]
+            [ImageRouter(), FileRouter()]
+        }
+    }
+}
+
+extension DocumentViewRouting.FileBlocksViewsRouter {
+    typealias BaseRouter = DocumentViewRouting.BaseRouter
+}
+
+// MARK: FileBlocksViewsRouter / ImageRouter
+extension DocumentViewRouting.FileBlocksViewsRouter {
+    class FileRouter: BaseRouter {
+        private func handle(action: BlocksViews.UserAction.File.UserAction.FileAction) {
+            switch action {
+            case let .shouldShowFilePicker(model):
+                self.send(event: .general(.show(CommonViews.Pickers.File.Picker.init(model))))
+            }
+        }
+        
+        override func receive(action: BlocksViews.UserAction) {
+            switch action {
+            case let .specific(.file(.file(value))): self.handle(action: value)
+            default: return
+            }
         }
     }
 }
 
 // MARK: FileBlocksViewsRouter / ImageRouter
 extension DocumentViewRouting.FileBlocksViewsRouter {
-    typealias BaseRouter = DocumentViewRouting.BaseRouter
     class ImageRouter: BaseRouter {
         private func handle(action: BlocksViews.UserAction.File.UserAction.ImageAction) {
             switch action {
             case let .shouldShowImagePicker(model):
-                /// Look at this code, mister Denis.
-                /// We should either use viewModel (blue) in parameter and we don't care about further setup of callbacks.
-                /// OR
-                /// We should use blockModel (red) and setup everything here.
-                /// See commented code below.
-//                guard let documentId = model.findRoot()?.information.id else { return }
-//                let blockId = model.information.id
-//                let imagePicker: ImagePickerUIKit = .init(model: .init(documentId: documentId, blockId: blockId))
                 self.send(event: .general(.show(ImagePickerUIKit.init(model: model))))
             }
         }

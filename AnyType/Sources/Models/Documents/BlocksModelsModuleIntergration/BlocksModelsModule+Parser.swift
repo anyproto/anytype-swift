@@ -452,7 +452,10 @@ private extension FileNamespace.Converters {
                 
                 // Only image support now
                 switch from {
+                case .none: return .some(.none)
+                case .file: return .file
                 case .image: return .image
+                case .video: return .video
                 default: return nil
                 }
             }
@@ -469,13 +472,21 @@ private extension FileNamespace.Converters {
             return descriptive(from)
         }
         
+        func typeEnum(_ from: BlockType.File.ContentType) -> Anytype_Model_Block.Content.File.TypeEnum? {
+            switch from {
+            case .none: return .some(.none)
+            case .file: return .file
+            case .image: return .image
+            case .video: return .video
+            }
+        }
+        
         func state(_ from: BlockType.File.State) -> Anytype_Model_Block.Content.File.State? {
             switch from {
                 case .empty: return .empty
                 case .uploading: return .uploading
                 case .done: return .done
                 case .error: return .error
-                default: return nil
             }
         }
         
@@ -493,19 +504,17 @@ private extension FileNamespace.Converters {
             switch from {
                 case let .file(value):
                     guard let state = state(value.state) else { return nil }
-                    return self.contentType(value.type).flatMap({.file(.init(name: value.name, hash: value.hash, state: state, contentType: $0, mime: value.mime))})
+                    return self.contentType(value.type).flatMap({.file(.init(metadata: .init(name: value.name, size: value.size, hash: value.hash, mime: value.mime, addedAt: value.addedAt), contentType: $0, state: state))})
                 default: return nil
             }
         }
         
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
-                case let .file(value): return self.state(value.state).flatMap({ state in
-                    var file = Anytype_Model_Block.Content.File()
-                    file.type = .image
-                    file.state = state
-                    return Anytype_Model_Block.OneOf_Content.file(file)
-                })
+                case let .file(value):
+                    let metadata = value.metadata
+                    guard let state = self.state(value.state) else { return nil }
+                    return self.typeEnum(value.contentType).flatMap({.file(.init(hash: metadata.hash, name: metadata.name, type: $0, mime: metadata.mime, size: metadata.size, addedAt: 0, state: state))})
                 default: return nil
             }
         }

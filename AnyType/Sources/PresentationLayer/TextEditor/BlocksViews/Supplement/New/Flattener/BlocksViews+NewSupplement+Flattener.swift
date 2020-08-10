@@ -10,11 +10,13 @@ import Foundation
 import os
 import BlocksModels
 
+fileprivate typealias Namespace = BlocksViews.NewSupplement
+
 private extension Logging.Categories {
   static let blocksFlattener: Self = "Presentation.TextEditor.BlocksViews.Supplement.BlocksFlattener"
 }
 
-extension BlocksViews.NewSupplement {
+extension Namespace {
     /// Generic interface for classes that provides following transform:
     /// (TreeModel) -> Array<ViewModel>
     class BaseFlattener {
@@ -89,8 +91,15 @@ extension BlocksViews.NewSupplement {
     }
 }
 
+// MARK: - BaseFlattener / Childrens
+extension Namespace.BaseFlattener {
+    func processChildrenToList(_ model: Model) -> [BlockViewBuilderProtocol] {
+        model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList(_:))
+    }
+}
+
 // MARK: BlocksFlattener
-extension BlocksViews.NewSupplement {
+extension Namespace {
     /// Blocks flattener is compound flattener.
     /// It chooses correct flattener based on model type.
     class BlocksFlattener: BaseFlattener {
@@ -135,7 +144,7 @@ extension BlocksViews.NewSupplement {
 }
 
 // MARK: PageBlocksFlattener
-extension BlocksViews.NewSupplement {
+extension Namespace {
     // Could also parse meta blocks.
     class PageBlocksFlattener: BaseFlattener {
         unowned var blocksFlattener: BaseFlattener

@@ -8,11 +8,14 @@
 
 import Foundation
 
+fileprivate typealias Namespace = BlocksViews.NewSupplement.Page
+fileprivate typealias ViewModels = BlocksViews.New.Page
+
 extension BlocksViews.NewSupplement {
     enum Page {}
 }
 
-extension BlocksViews.NewSupplement.Page {
+extension Namespace {
     /// Actually, we could place details in one list with other blocks.
     /// But for now we place them in a header view.
     /// So, this flattener is empty.

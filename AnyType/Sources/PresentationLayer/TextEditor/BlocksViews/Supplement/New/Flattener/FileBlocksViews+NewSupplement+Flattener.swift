@@ -8,17 +8,21 @@
 
 import Foundation
 
+fileprivate typealias Namespace = BlocksViews.NewSupplement.File
+fileprivate typealias ViewModels = BlocksViews.New.File
+
 extension BlocksViews.NewSupplement {
     enum File {}
 }
 
-extension BlocksViews.NewSupplement.File {
+extension Namespace {
     class Flattener: BlocksViews.NewSupplement.BaseFlattener {
         
         // MARK: Convert Blocks
         private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
             switch information.content {
-            case let .file(value) where value.contentType == .image: return [BlocksViews.New.File.Image.ViewModel.init(model)] + model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList)
+            case let .file(value) where value.contentType == .image: return [ViewModels.Image.ViewModel.init(model)]
+            case let .file(value) where value.contentType == .file: return [ViewModels.File.ViewModel.init(model)]
             default: return []
             }
         }
@@ -30,7 +34,7 @@ extension BlocksViews.NewSupplement.File {
             case .meta: return []
             case .block:
                 switch blockModel.information.content {
-                case .file: return self.convertInformation(model, blockModel.information)
+                case .file: return self.convertInformation(model, blockModel.information) + self.processChildrenToList(model)
                 default: return []
                 }
             }

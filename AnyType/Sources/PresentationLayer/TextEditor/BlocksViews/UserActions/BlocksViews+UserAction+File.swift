@@ -20,13 +20,22 @@ extension Namespace.File {
     /// In our case we have entries referred to `.image`, `.video` and `.file` blocks.
     ///
     enum UserAction {
+        case file(FileAction)
         case image(ImageAction)
     }
 }
 
 extension Namespace.File.UserAction {
-    typealias Model = ImagePickerUIKit.ViewModel
+    enum FileAction {
+        typealias Model = CommonViews.Pickers.File.Picker.ViewModel
+        case shouldShowFilePicker(Model)
+    }
+}
+
+extension Namespace.File.UserAction {
     enum ImageAction {
+        typealias Model = ImagePickerUIKit.ViewModel
         case shouldShowImagePicker(Model)
     }
 }
+

@@ -18,11 +18,7 @@ extension Namespace {
 extension Namespace.Text {
     class Flattener: BlocksViews.NewSupplement.BaseFlattener {
         
-        // MARK: Convert Blocks
-        private func processOthers(_ model: Model) -> [BlockViewBuilderProtocol] {
-            model.childrenIds().compactMap(model.findChild(by:)).flatMap(self.toList(_:))
-        }
-        
+        // MARK: Convert Blocks        
         private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
             switch information.content {
             case let .text(value):
@@ -45,7 +41,7 @@ extension Namespace.Text {
             guard case let .text(value) = information.content, value.contentType == .toggle else { return [] }
             let viewModel = ViewModels.Toggle.ViewModel.init(model)
             if model.isToggled {
-                return [viewModel] + self.processOthers(model)
+                return [viewModel] + self.processChildrenToList(model)
             }
             else {
                 return [viewModel]
@@ -75,7 +71,7 @@ extension Namespace.Text {
                 switch blockModel.information.content {
                 case let .text(value) where value.contentType == .toggle: return self.convertToggledList(model, blockModel.information)
                 case let .text(value) where value.contentType == .numbered: return []
-                case .text: return self.convertInformation(model, blockModel.information) + self.processOthers(model)
+                case .text: return self.convertInformation(model, blockModel.information) + self.processChildrenToList(model)
                 default: return []
                 }
             }

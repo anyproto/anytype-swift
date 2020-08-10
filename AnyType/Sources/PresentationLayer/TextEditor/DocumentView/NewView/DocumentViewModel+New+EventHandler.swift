@@ -300,15 +300,19 @@ private extension FileNamespace.EventHandler {
                     }
                     
                     if newUpdate.hasName {
-                        value.name = newUpdate.name.value
+                        value.metadata.name = newUpdate.name.value
                     }
                     
                     if newUpdate.hasHash {
-                        value.hash = newUpdate.hash.value
+                        value.metadata.hash = newUpdate.hash.value
                     }
                     
                     if newUpdate.hasMime {
-                        value.mime = newUpdate.mime.value
+                        value.metadata.mime = newUpdate.mime.value
+                    }
+                    
+                    if newUpdate.hasSize {
+                        value.metadata.size = newUpdate.size.value
                     }
                     
                     block.information.content = .file(value)
