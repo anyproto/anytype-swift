@@ -154,6 +154,7 @@
 		0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */; };
 		0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */; };
 		0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */; };
+		0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */; };
 		0A29BB9424AC8C3000ED957F /* DocumentModule+ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29BB9324AC8C3000ED957F /* DocumentModule+ContainerViewController.swift */; };
 		0A29BB9624AC8C5F00ED957F /* DocumentModule+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29BB9524AC8C5F00ED957F /* DocumentModule+ViewControllers.swift */; };
 		0A29BB9824AC93BD00ED957F /* DocumentModule+ContainerViewController+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A29BB9724AC93BD00ED957F /* DocumentModule+ContainerViewController+ViewModel.swift */; };
@@ -255,7 +256,6 @@
 		0AAF8C2C2492355100C18D09 /* MarksPane+ViewController+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2A2492355100C18D09 /* MarksPane+ViewController+Presentation.swift */; };
 		0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2B2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift */; };
 		0AAF8C302493827200C18D09 /* DocumentViewCell+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2F2493827200C18D09 /* DocumentViewCell+New.swift */; };
-		0ABB2A1A247FEFE700A7144A /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */; };
 		0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */; };
 		0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */; };
 		0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */; };
@@ -507,6 +507,7 @@
 		0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock.swift"; sourceTree = "<group>"; };
+		0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileStory+AboutView.swift"; sourceTree = "<group>"; };
 		0A29BB9324AC8C3000ED957F /* DocumentModule+ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+ContainerViewController.swift"; sourceTree = "<group>"; };
 		0A29BB9524AC8C5F00ED957F /* DocumentModule+ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+ViewControllers.swift"; sourceTree = "<group>"; };
 		0A29BB9724AC93BD00ED957F /* DocumentModule+ContainerViewController+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+ContainerViewController+ViewModel.swift"; sourceTree = "<group>"; };
@@ -600,7 +601,6 @@
 		0AAF8C2A2492355100C18D09 /* MarksPane+ViewController+Presentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController+Presentation.swift"; sourceTree = "<group>"; };
 		0AAF8C2B2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController+Presentation+Transition.swift"; sourceTree = "<group>"; };
 		0AAF8C2F2493827200C18D09 /* DocumentViewCell+New.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewCell+New.swift"; sourceTree = "<group>"; };
-		0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProfileStory+AboutView.swift"; path = "AnyType/Sources/PresentationLayer/Common Views/TextView/MarksPane/ProfileStory+AboutView.swift"; sourceTree = SOURCE_ROOT; };
 		0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+AlignmentModel.swift"; sourceTree = "<group>"; };
 		0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+FontStyleModel.swift"; sourceTree = "<group>"; };
 		0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes.swift"; sourceTree = "<group>"; };
@@ -820,11 +820,10 @@
 		0331BBD822E5D8AB002AD179 /* Profile Story */ = {
 			isa = PBXGroup;
 			children = (
+				0A1F0D9124DDCE0100A8B488 /* About */,
 				03913E51230B48120040CD4B /* ProfileView */,
 				03913E52230B48330040CD4B /* ProfileSettingsView */,
-				03913E53230B48510040CD4B /* PinCodeView */,
 				03913E54230B485D0040CD4B /* KeychainPhraseView */,
-				03913E55230B48780040CD4B /* About */,
 			);
 			path = "Profile Story";
 			sourceTree = "<group>";
@@ -1117,13 +1116,6 @@
 			path = ProfileSettingsView;
 			sourceTree = "<group>";
 		};
-		03913E53230B48510040CD4B /* PinCodeView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PinCodeView;
-			sourceTree = "<group>";
-		};
 		03913E54230B485D0040CD4B /* KeychainPhraseView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,14 +1123,6 @@
 				53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */,
 			);
 			path = KeychainPhraseView;
-			sourceTree = "<group>";
-		};
-		03913E55230B48780040CD4B /* About */ = {
-			isa = PBXGroup;
-			children = (
-				0ABB2A19247FEFE700A7144A /* ProfileStory+AboutView.swift */,
-			);
-			path = About;
 			sourceTree = "<group>";
 		};
 		039DA2E2230583DC0041F95C /* Alerts */ = {
@@ -1560,6 +1544,14 @@
 				0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */,
 			);
 			path = Toolbar;
+			sourceTree = "<group>";
+		};
+		0A1F0D9124DDCE0100A8B488 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */,
+			);
+			path = About;
 			sourceTree = "<group>";
 		};
 		0A66456924085A1E008392AF /* BlocksServices */ = {
@@ -2192,9 +2184,9 @@
 				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
 				0AA9B055249F7B7800F2962C /* DocumentModule+Selection+ToolbarPresenter.swift in Sources */,
+				0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */,
 				0AA9B049249F65A800F2962C /* MultiSelectionPane+UIKit.swift in Sources */,
 				0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */,
-				0ABB2A1A247FEFE700A7144A /* ProfileStory+AboutView.swift in Sources */,
 				0A29BB9A24AC9BDB00ED957F /* DocumentModule+ContainerViewBuilder.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
@@ -2400,6 +2392,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2455,6 +2448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

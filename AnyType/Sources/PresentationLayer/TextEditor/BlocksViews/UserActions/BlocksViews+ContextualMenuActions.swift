@@ -25,7 +25,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
                     case .turnInto: return "Specific.TurnInto"
                     case .style: return "Specific.Style"
                     case .color: return "Specific.Color"
-                    case .backgroundColor: return "Specific.Background"
+                    case .backgroundColor: return "Specific.BackgroundColor"
                     case .download: return "Specific.Download"
                     case .replace: return "Specific.Replace"
                     case .addCaption: return "Specific.AddCaption"

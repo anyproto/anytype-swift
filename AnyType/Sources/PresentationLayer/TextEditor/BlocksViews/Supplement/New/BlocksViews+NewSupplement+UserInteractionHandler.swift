@@ -282,7 +282,14 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 self.service.createPage(afterBlock: block.blockModel.information)
             default:
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action) {
-                    self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: false)
+                    /// Business logic.
+                    /// If we create block that can capture focus ( text block in our case )
+                    /// Do it!
+                    var shouldSetFocusOnUpdate = false
+                    if case .text = newBlock.content {
+                        shouldSetFocusOnUpdate = true
+                    }
+                    self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
                 }
             }
         case let .turnIntoBlock(value):

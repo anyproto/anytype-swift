@@ -268,17 +268,29 @@ private extension FileNamespace.EventHandler {
                 return .general
             }
             let detailsId = value.id
-            guard let detailsModel = self.container?.detailsContainer.choose(by: detailsId) else {
-                /// We don't have view model, we should create it?
-                let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
-                return .general
-            }
             let details = value.details
             let eventsDetails = BlocksModelsModule.Parser.PublicConverters.EventsDetails.convert(event: .init(id: detailsId, details: details))
             let detailsModels = BlocksModelsModule.Parser.Details.Converter.asModel(details: eventsDetails)
-            var model = detailsModel.detailsModel
-            model.details = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+            let detailsInformationModel = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+            
+            if let detailsModel = self.container?.detailsContainer.choose(by: detailsId) {
+                var model = detailsModel.detailsModel
+                model.details = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+            }
+            else {
+                var newDetailsModel = TopLevel.Builder.detailsBuilder.build(information: detailsInformationModel)
+                newDetailsModel.parent = detailsId
+                self.container?.detailsContainer.add(newDetailsModel)
+            }
+            /// Please, do not delete.
+            /// We should discuss how we handle new details.
+//            guard let detailsModel = self.container?.detailsContainer.choose(by: detailsId) else {
+//                /// We don't have view model, we should create it?
+//                /// We should insert empty details.
+//                let logger = Logging.createLogger(category: .eventProcessor)
+//                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
+//                return .general
+//            }
             return .update(.empty) // or .general
         case let .blockSetFile(value):
             guard value.hasState else {

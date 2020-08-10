@@ -93,6 +93,7 @@ extension Namespace {
         // MARK: Contextual Menu
         override func makeContextualMenu() -> BlocksViews.ContextualMenu {
             .init(title: "", children: [
+                .create(action: .general(.addBlockBelow)),
                 .create(action: .general(.delete)),
                 .create(action: .general(.duplicate)),
                 .create(action: .specific(.download)),

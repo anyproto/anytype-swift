@@ -81,9 +81,9 @@ extension Namespace {
         @ObservedObject var model: ViewModel
         var layout: Layout = .init()
         
-        var newBody: some View {
+        func view(preferredWebViewHeight: CGFloat) -> some View {
             VStack(alignment: .center) {
-                WebView(viewModel: self.model.webViewModel).frame(height: self.layout.webViewHeight)
+                WebView(viewModel: self.model.webViewModel).frame(height: preferredWebViewHeight)
                 TextField(self.model.title, text: self.$model.typingURL).textFieldStyle(RoundedBorderTextFieldStyle())
                 Button(action: {
                     self.model.choose(url: self.model.typingURL)
@@ -92,6 +92,12 @@ extension Namespace {
                 }.modifier(RoundedButtonViewModifier(style: .presentation))
                 Spacer(minLength: 10)
             }.padding(10)
+        }
+        
+        var newBody: some View {
+            GeometryReader { geometry in
+                self.view(preferredWebViewHeight: geometry.size.height / 3.0)
+            }
         }
         
         var body: some View {

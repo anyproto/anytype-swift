@@ -71,6 +71,7 @@ extension Namespace {
         // MARK: Contextual Menu
         override func makeContextualMenu() -> BlocksViews.ContextualMenu {
             .init(title: "", children: [
+                .create(action: .general(.addBlockBelow)),
                 .create(action: .general(.delete)),
                 .create(action: .general(.duplicate)),
                 .create(action: .specific(.turnInto)),
@@ -81,7 +82,7 @@ extension Namespace {
         override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
             switch contextualMenuAction {
             case .specific(.turnInto):
-                let input: BlocksViews.UserAction.ToolbarOpenAction.TurnIntoBlock.Input = .init(payload: .init(filtering: .other([.divider, .dots])))
+                let input: BlocksViews.UserAction.ToolbarOpenAction.TurnIntoBlock.Input = .init(payload: .init(filtering: .other([.lineDivider, .dotsDivider])))
                 self.send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject, input: input))))
             default: super.handle(contextualMenuAction: contextualMenuAction)
             }

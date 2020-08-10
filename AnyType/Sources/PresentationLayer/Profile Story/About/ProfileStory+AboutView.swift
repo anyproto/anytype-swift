@@ -33,7 +33,7 @@ extension ProfileView {
                 Text("About application information")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.top, 34)
+                    .padding(.top, 34).fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
                 Text("Library version \(self.viewModel.libraryVersion)")
                     .font(.body)
                     .fontWeight(.medium)

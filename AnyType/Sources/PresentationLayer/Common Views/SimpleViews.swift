@@ -25,7 +25,7 @@ struct ImageWithCircleBackgroundView: View {
                 Image(uiImage: image!)
                     .resizable()
             }
-            Image(imageName)
+            Image(imageName).aspectRatio(contentMode: .fit)
         }
         .clipShape(Circle())
     }
