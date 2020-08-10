@@ -223,8 +223,6 @@ extension BlocksViews.New.Base {
             default: return
             }
         }
-        
-        private var abc: AnyCancellable?
     }
 }
 
@@ -237,10 +235,29 @@ extension BlocksViews.New.Base.ViewModel {
     }
     func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) -> Self {
         self.actionsPayloadSubject = actionsPayloadSubject
-        let toolbarPublisher = self.toolbarActionPublisher.map({ [weak self] value in
-            self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
+        /// Discussion:
+        /// Do we have here retain cycle?
+        /// I guess that we don't have.
+        /// Because (self.flatMap) here stands for Optional<Self> and this is value type.
+        /// Next, we call function from Optional<Self>: `.flatMap`
+//        let toolbarPublisher = self.toolbarActionPublisher.map({ [weak self] value in
+//            self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
+//        }).safelyUnwrapOptionals()
+        
+        let toolbarPublisher = self.toolbarActionPublisher.map({ [weak self] value -> ActionsPayload? in
+            guard let block = self?.block else { return nil }
+            return ActionsPayload.toolbar(.init(model: block, action: value))
         }).safelyUnwrapOptionals()
-        self.actionsPayloadSubjectSubscription = toolbarPublisher.subscribe(self.actionsPayloadSubject)
+
+        /// Discussion:
+        /// Do we have here retain cycle?
+        /// `toolbarPublisher` is stored in our property, yes.
+        /// However, we use some transforms on our publisher.
+        ///
+//        self.actionsPayloadSubjectSubscription = toolbarPublisher.subscribe(self.actionsPayloadSubject)
+        self.actionsPayloadSubjectSubscription = toolbarPublisher.sink(receiveValue: { [weak self] (value) in
+            self?.actionsPayloadSubject.send(value)
+        })
         return self
     }
 }

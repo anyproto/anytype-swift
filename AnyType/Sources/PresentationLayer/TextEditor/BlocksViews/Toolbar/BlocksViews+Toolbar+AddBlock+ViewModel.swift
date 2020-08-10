@@ -15,12 +15,86 @@ extension BlocksViews.Toolbar.AddBlock {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
+            _ = viewModel.nestedCategories.allText()
+            _ = viewModel.nestedCategories.allList()
             _ = viewModel.nestedCategories.page([.page])
             _ = viewModel.nestedCategories.media([.picture, .file])
-            _ = viewModel.nestedCategories.tool([])
-            _ = viewModel.nestedCategories.other([])
+            _ = viewModel.nestedCategories.other([.divider, .dots])
             _ = viewModel.configured(title: "Add Block")
             return viewModel
+        }
+    }
+}
+
+// MARK: ViewModel / Types Filtering
+extension BlocksViews.Toolbar.AddBlock.ViewModel {
+    struct BlocksTypesCasesFiltering {
+        static func text(_ value: [Types.Text]) -> Self { .init(text: value) }
+        static func list(_ value: [Types.List]) -> Self { .init(list: value) }
+        static func page(_ value: [Types.Page]) -> Self { .init(page: value) }
+        static func media(_ value: [Types.Media]) -> Self { .init(media: value) }
+        static func tool(_ value: [Types.Tool]) -> Self { .init(tool: value) }
+        static func other(_ value: [Types.Other]) -> Self { .init(other: value) }
+        static func empty() -> Self { .init(text: [], list: [], page: [], media: [], tool: [], other: []) }
+        static func all() -> Self { .init(text: Types.Text.allCases, list: Types.List.allCases, page: Types.Page.allCases, media: Types.Media.allCases, tool: Types.Tool.allCases, other: Types.Other.allCases) }
+        
+        static func allText() -> [Types.Text] { Types.Text.allCases }
+        static func allList() -> [Types.List] { Types.List.allCases }
+        static func allPage() -> [Types.Page] { Types.Page.allCases }
+        static func allMedia() -> [Types.Media] { Types.Media.allCases }
+        static func allTool() -> [Types.Tool] { Types.Tool.allCases }
+        static func allOther() -> [Types.Other] { Types.Other.allCases }
+        
+        var text: [Types.Text] = []
+        var list: [Types.List] = []
+        var page: [Types.Page] = []
+        var media: [Types.Media] = []
+        var tool: [Types.Tool] = []
+        var other: [Types.Other] = []
+                                
+        func availableCategories() -> [BlocksTypes] {
+            BlocksTypes.allCases.filter { (value) -> Bool in
+                switch value {
+                case .text: return !self.text.isEmpty
+                case .list: return !self.list.isEmpty
+                case .page: return !self.page.isEmpty
+                case .media: return !self.media.isEmpty
+                case .tool: return !self.tool.isEmpty
+                case .other: return !self.other.isEmpty
+                }
+            }
+        }
+        
+        @discardableResult mutating func allText() -> Self { self.text(Self.allText()) }
+        @discardableResult mutating func allList() -> Self { self.list(Self.allList()) }
+        @discardableResult mutating func allPage() -> Self { self.page(Self.allPage()) }
+        @discardableResult mutating func allMedia() -> Self { self.media(Self.allMedia()) }
+        @discardableResult mutating func allTool() -> Self { self.tool(Self.allTool()) }
+        @discardableResult mutating func allOther() -> Self { self.other(Self.allOther()) }
+
+        mutating func text(_ value: [Types.Text]) -> Self {
+            self.text = value
+            return self
+        }
+        mutating func list(_ value: [Types.List]) -> Self {
+            self.list = value
+            return self
+        }
+        mutating func page(_ value: [Types.Page]) -> Self {
+            self.page = value
+            return self
+        }
+        mutating func media(_ value: [Types.Media]) -> Self {
+            self.media = value
+            return self
+        }
+        mutating func tool(_ value: [Types.Tool]) -> Self {
+            self.tool = value
+            return self
+        }
+        mutating func other(_ value: [Types.Other]) -> Self {
+            self.other = value
+            return self
         }
     }
 }
@@ -63,61 +137,7 @@ extension BlocksViews.Toolbar.AddBlock {
         var categories: [BlocksTypes] {
             self.nestedCategories.availableCategories()
         }
-        
-        struct BlocksTypesCasesFiltering {
-            static func text(_ value: [Types.Text]) -> Self { .init(text: value) }
-            static func list(_ value: [Types.List]) -> Self { .init(list: value) }
-            static func page(_ value: [Types.Page]) -> Self { .init(page: value) }
-            static func media(_ value: [Types.Media]) -> Self { .init(media: value) }
-            static func tool(_ value: [Types.Tool]) -> Self { .init(tool: value) }
-            static func other(_ value: [Types.Other]) -> Self { .init(other: value) }
-            
-            var text: [Types.Text] = Types.Text.allCases
-            var list: [Types.List] = Types.List.allCases
-            var page: [Types.Page] = Types.Page.allCases
-            var media: [Types.Media] = Types.Media.allCases
-            var tool: [Types.Tool] = Types.Tool.allCases
-            var other: [Types.Other] = Types.Other.allCases
-                                    
-            func availableCategories() -> [BlocksTypes] {
-                BlocksTypes.allCases.filter { (value) -> Bool in
-                    switch value {
-                    case .text: return !self.text.isEmpty
-                    case .list: return !self.list.isEmpty
-                    case .page: return !self.page.isEmpty
-                    case .media: return !self.media.isEmpty
-                    case .tool: return !self.tool.isEmpty
-                    case .other: return !self.other.isEmpty
-                    }
-                }
-            }
-            
-            mutating func text(_ value: [Types.Text]) -> Self {
-                self.text = value
-                return self
-            }
-            mutating func list(_ value: [Types.List]) -> Self {
-                self.list = value
-                return self
-            }
-            mutating func page(_ value: [Types.Page]) -> Self {
-                self.page = value
-                return self
-            }
-            mutating func media(_ value: [Types.Media]) -> Self {
-                self.media = value
-                return self
-            }
-            mutating func tool(_ value: [Types.Tool]) -> Self {
-                self.tool = value
-                return self
-            }
-            mutating func other(_ value: [Types.Other]) -> Self {
-                self.other = value
-                return self
-            }
-        }
-        
+                
         var nestedCategories: BlocksTypesCasesFiltering = .init()
 
         // MARK: Initialization
@@ -135,6 +155,10 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
     typealias BlocksTypes = BlocksViews.Toolbar.AddBlock.BlocksTypes
     func configured(title: String) -> Self {
         self.title = title
+        return self
+    }
+    func configured(filtering: BlocksTypesCasesFiltering) -> Self {
+        self.nestedCategories = filtering
         return self
     }
     private func configuredAsAddBlock() -> Self {
@@ -213,7 +237,7 @@ extension BlocksViews.Toolbar.AddBlock.Category {
 
 // MARK: Cell
 extension BlocksViews.Toolbar.AddBlock.Cell {
-    class ViewModel: ObservableObject {
+    class ViewModel: ObservableObject, Identifiable {
         @Published var indexPath: IndexPath?
         let section: Int
         let index: Int
@@ -236,6 +260,11 @@ extension BlocksViews.Toolbar.AddBlock.Cell {
             self.title = title
             self.subtitle = subtitle
             self.imageResource = imageResource
+        }
+        
+        // MARK: - Identifiable
+        var id: IndexPath {
+            .init(row: self.index, section: self.section)
         }
     }
 }

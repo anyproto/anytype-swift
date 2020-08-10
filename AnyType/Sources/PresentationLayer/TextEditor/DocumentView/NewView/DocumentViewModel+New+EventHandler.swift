@@ -320,7 +320,32 @@ private extension FileNamespace.EventHandler {
                 }
             })
             return .update(.init(deletedIds: [], updatedIds: [blockId]))
-        
+        case let .blockSetDiv(value):
+            guard value.hasStyle else {
+                return .general
+            }
+            
+            let blockId = value.id
+            let newUpdate = value
+            
+            self.updater?.update(entry: blockId, update: { (value) in
+                var block = value
+                switch value.information.content {
+                case let .divider(value):
+                    var value = value
+                                        
+                    if let style = BlocksModelsModule.Parser.Other.Divider.Style.Converter.asModel(newUpdate.style.value) {
+                        value.style = style
+                    }
+                    
+                    block.information.content = .divider(value)
+                    
+                default: return
+                }
+            })
+            
+            return .general
+            
         default: return .general
         }
     }

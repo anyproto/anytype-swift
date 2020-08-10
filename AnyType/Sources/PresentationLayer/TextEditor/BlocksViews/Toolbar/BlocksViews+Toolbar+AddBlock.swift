@@ -124,6 +124,12 @@ extension BlocksViews.Toolbar.AddBlock {
         var newBody: some View {
             List {
                 ForEach(self.categories.indices) { i in
+                    /// NOTES:
+                    /// Interesting bug.
+                    /// Each cell should be identifiable by something.
+                    /// As soon as we doesn't know about top-level index, we should provide an identifier.
+                    /// If it doesn't happen, well, we are going wild.
+                    /// Cell *may* be reused and you see a cell in incorrect category.
                     Category(viewModel: .init(title: self.categories[i].title), cells: self.model.cells(category: i))
                 }
             }.onAppear {
@@ -131,6 +137,7 @@ extension BlocksViews.Toolbar.AddBlock {
                 let logger = Logging.createLogger(category: .todo(.workaround(.os14, "Fix it.")))
                 os_log(.debug, log: logger, "We should remove all appearances to global UIKit classes.")
                 UITableView.appearance().tableFooterView = .init()
+                UITableViewHeaderFooterView.appearance().tintColor = UIColor.clear
             }
         }
 
@@ -147,8 +154,8 @@ extension BlocksViews.Toolbar.AddBlock {
         var cells: [Cell.ViewModel]
         var body: some View {
             Section(header: Text(self.viewModel.uppercasedTitle).font(.init(Style.section.coreTextFont())).foregroundColor(.init(Style.section.foregroundColor()))) {
-                ForEach(self.cells.indices) { i in
-                    Cell(viewModel: self.cells[i])
+                ForEach(self.cells) { cell in
+                    Cell(viewModel: cell)
                 }
             }
         }

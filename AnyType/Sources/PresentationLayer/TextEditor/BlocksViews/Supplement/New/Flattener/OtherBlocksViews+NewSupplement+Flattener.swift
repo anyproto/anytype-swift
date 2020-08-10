@@ -1,32 +1,25 @@
 //
-//  ToolsBlocksViews+Supplement+Flattener.swift
+//  OtherBlocksViews+NewSupplement+Flattener.swift
 //  AnyType
 //
-//  Created by Dmitry Lobanov on 13.04.2020.
+//  Created by Dmitry Lobanov on 24.07.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
 import Foundation
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement.Tools
-fileprivate typealias ViewModels = BlocksViews.New.Tools
+fileprivate typealias Namespace = BlocksViews.NewSupplement.Other
+fileprivate typealias ViewModels = BlocksViews.New.Other
 
 extension BlocksViews.NewSupplement {
-    enum Tools {}
+    enum Other {}
 }
 
 extension Namespace {
     class Flattener: BlocksViews.NewSupplement.BaseFlattener {
         private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
             switch information.content {
-            case let .link(value) where value.style == .page:
-                let viewModel = ViewModels.PageLink.ViewModel.init(model)
-                
-                if let details = self.getContainer()?.detailsContainer.choose(by: value.targetBlockID) {
-                    _ = viewModel.configured(details.didChangeInformationPublisher())
-                }
-                
-                return [viewModel] + self.processChildrenToList(model)
+            case .divider: return [ViewModels.Divider.ViewModel.init(model)] + self.processChildrenToList(model)
             default: return []
             }
         }

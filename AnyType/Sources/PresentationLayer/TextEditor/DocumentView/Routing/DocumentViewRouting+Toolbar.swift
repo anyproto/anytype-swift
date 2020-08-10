@@ -44,9 +44,17 @@ extension DocumentViewRouting.ToolbarsRouter {
         private func handle(action: BlocksViews.UserAction.ToolbarOpenAction) {
             switch action {
             case let .turnIntoBlock(payload):
-                let viewModel: BlocksViews.Toolbar.ViewController.ViewModel = .create(.turnIntoBlock)
+                let viewModel: BlocksViews.Toolbar.ViewController.ViewModel
+                if let input = payload.input {
+                    var style: BlocksViews.Toolbar.ViewController.ViewModel.Style = .turnIntoBlock
+                    style = style.configured(input.payload.filtering)
+                    viewModel = .create(style)
+                }
+                else {
+                    viewModel = .create(.turnIntoBlock)
+                }
+                
                 let controller = BlocksViews.Toolbar.ViewController.init(model: viewModel)
-
                 let subject = payload.output
                 
                 /// NOTE: Tough point.

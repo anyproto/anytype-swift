@@ -109,6 +109,7 @@ extension Namespace {
         var toolsFlattener: Tools.Flattener = .init()
         var textFlattener: Text.Flattener = .init()
         var fileFlattener: File.Flattener = .init()
+        var otherFlattener: Other.Flattener = .init()
         
         override func match(_ model: Model) -> BaseFlattener? {
             let kind = model.blockModel.kind
@@ -120,6 +121,7 @@ extension Namespace {
                 case let .link(value) where value.style == .page: return self.toolsFlattener
                 case .text: return self.textFlattener
                 case .file: return self.fileFlattener
+                case .divider: return self.otherFlattener
                 default:
                     let logger = Logging.createLogger(category: .blocksFlattener)
                     os_log(.debug, log: logger, "We handle only content above. This Content (%@) isn't handled.", String(describing: content))

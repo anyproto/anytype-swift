@@ -137,7 +137,7 @@ public extension FileNamespace {
             case .smartblock(_): return ".smartblock"
             case let .text(value): return ".text" + self.subIdentifier(value)
             case .file(_): return ".file"
-            case .div(_): return ".div"
+            case .divider(_): return ".divider"
             case .bookmark(_): return ".bookmark"
             case .link(_): return ".link"
             }
@@ -158,14 +158,12 @@ public extension FileNamespace {
         public typealias Kind = TopLevel.AliasesMap.DetailsContent.Kind
         public typealias Id = TopLevel.AliasesMap.BlockId
         public typealias Details = TopLevel.AliasesMap.DetailsContent
-        public typealias Information = TopLevel.AliasesMap.Information
-
         /// It parses identifier and try to figure our the kind of a detail.
         /// - Parameter id: Id of Information that is built from detail.
         /// - Returns: Kind of detail.
         ///
         public static func kind(of id: Id) -> Kind? {
-            let (_, details) = Information.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
+            let (_, details) = Block.Information.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
             switch details {
             case Details.Title.id: return .title
             case Details.Emoji.id: return .iconEmoji

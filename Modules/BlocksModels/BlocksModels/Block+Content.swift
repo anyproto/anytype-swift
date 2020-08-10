@@ -20,7 +20,7 @@ public extension Namespace {
         case smartblock(Smartblock)
         case text(Text)
         case file(File)
-        case div(Div)
+        case divider(Divider)
         case bookmark(Bookmark)
         case link(Link)
     }
@@ -44,7 +44,7 @@ public extension Namespace.ContentType {
                     case (.text, .text): return true
                     case (.smartblock, .smartblock): return true
                     case (.file, .file): return true
-                    case (.div, .div): return true
+                    case (.divider, .divider): return true
                     case (.bookmark, .bookmark): return true
                     case (.link, .link): return true
                     default: return false
@@ -221,12 +221,23 @@ public extension Namespace.ContentType.File {
     }
 }
 
-// MARK: ContentType / Div
+// MARK: ContentType / Divider
 public extension Namespace.ContentType {
     // TODO: Add style to Div.
-    struct Div {
+    struct Divider {
+        public var style: Style
         // MARK: - Memberwise initializer
-        public init() {}
+        public init(style: Style) {
+            self.style = style
+        }
+    }
+}
+
+// MARK: ContentType / Divider / Style
+public extension Namespace.ContentType.Divider {
+    enum Style {
+        case line // Line separator style
+        case dots // Dots separator style
     }
 }
 
@@ -269,6 +280,6 @@ extension Namespace.ContentType.Smartblock: Hashable {}
 extension Namespace.ContentType.Text: Hashable {}
 extension Namespace.ContentType.File: Hashable {}
 extension Namespace.ContentType.File.Metadata: Hashable {}
-extension Namespace.ContentType.Div: Hashable {}
+extension Namespace.ContentType.Divider: Hashable {}
 extension Namespace.ContentType.Bookmark: Hashable {}
 extension Namespace.ContentType.Link: Hashable {}

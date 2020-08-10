@@ -154,7 +154,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 switch keyAction {
                 case .enter, .enterWithPayload, .enterAtBeginning:
                     let id = block.blockModel.information.id
-                    let (blockId, _) = TopLevel.AliasesMap.Information.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
+                    let (blockId, _) = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.IdentifierBuilder.asDetails(id)
                     let block = block.container?.choose(by: blockId)
                     let parentId = block?.blockModel.information.id
                     
@@ -298,6 +298,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 case .highlighted: type = .text(.init(contentType: .quote))
                 }
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
+                
             case let .list(value): // Set Text Style
                 let type: Service.BlockContent
                 switch value {
@@ -309,10 +310,17 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
 
             case let .other(value): // Change divider style.
-                break
+                let type: Service.BlockContent
+                switch value {
+                case .divider: type = .divider(.init(style: .line))
+                case .dots: type = .divider(.init(style: .dots))
+                }
+                self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
+                
             case .page:
                 let type: Service.BlockContent = .smartblock(.init(style: .page))
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
+                
             default:
                 let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                 os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
@@ -422,8 +430,8 @@ private extension Namespace.UserInteractionHandler {
                     }
                 case let .other(value):
                     switch value {
-                    case .divider: return nil
-                    case .dots: return nil
+                    case .divider: return .divider(.init(style: .line))
+                    case .dots: return .divider(.init(style: .dots))
                     }
                 default: return nil
                 }
@@ -559,6 +567,7 @@ private extension Namespace.UserInteractionHandler {
         private let service: ServiceLayerModule.BlockActionsService = .init()
         private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
         private let textService: ServiceLayerModule.TextBlockActionsService = .init()
+        private let listService: ServiceLayerModule.BlockListActionsService = .init()
         
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
         
@@ -765,13 +774,37 @@ private extension Namespace.UserInteractionHandler.Service {
         switch type {
         case .text: self.setTextStyle(block: block, type: type, completion)
         case .smartblock: self.setPageStyle(block: block, type: type)
-        case let .div(value): self.setDividerStyle(block: block, type: type)
+        case .divider: self.setDividerStyle(block: block, type: type, completion)
         default: return
         }
     }
     
-    private func setDividerStyle(block: Information, type: BlockContent) {
-        /// TODO: Add div style conversion.
+    private func setDividerStyle(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+        let blockId = block.id
+        guard let middlewareContent = self.parser.convert(content: type) else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "Set Div style cannot convert type: %@", "\(String(describing: type))")
+            return
+        }
+        guard case let .div(value) = middlewareContent else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "Set Div style content is not text style: %@", "\(String(describing: middlewareContent))")
+            return
+        }
+        
+        let blocksIds = [blockId]
+        
+        self.listService.setDivStyle.action(contextID: self.documentId, blockIds: blocksIds, style: value.style).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.error, log: logger, "blocksActions.service.turnInto.setDivStyle got error: %@", "\(error)")
+            }
+        }) { [weak self] (value) in
+            let value = completion(value)
+            self?.didReceiveEvent(value)
+        }.store(in: &self.subscriptions)
     }
     
     private func setPageStyle(block: Information, type: BlockContent) {

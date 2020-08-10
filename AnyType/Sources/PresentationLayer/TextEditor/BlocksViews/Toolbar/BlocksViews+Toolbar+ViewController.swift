@@ -112,7 +112,7 @@ extension BlocksViews.Toolbar.ViewController {
         
         // MARK: Setup
         private func publisher(style: Style) -> AnyPublisher<UnderlyingAction, Never> {
-            switch style {
+            switch style.style {
             case .addBlock: return self.addBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
                 UnderlyingAction.addBlock(UnderlyingAction.BlockType.convert(value))
             }.eraseToAnyPublisher()
@@ -131,17 +131,21 @@ extension BlocksViews.Toolbar.ViewController {
             self.style = style
             self.addBlockViewModel = Toolbar.AddBlock.ViewModelBuilder.create()
             self.turnIntoBlockViewModel = Toolbar.TurnIntoBlock.ViewModelBuilder.create()
+            if let filtering = self.style.filtering {
+                _ = self.addBlockViewModel.configured(filtering: filtering)
+                _ = self.turnIntoBlockViewModel.configured(filtering: filtering)
+            }
             self.setup(style: style)
         }
         
         // MARK: Public Create
         class func create(_ style: Style) -> ViewModel {
-            ViewModel(style)
+            .init(style)
         }
-        
+                
         // MARK: Get Chosen View
         func chosenView() -> StyleAndViewAndPayload {
-            switch self.style {
+            switch self.style.style {
             case .addBlock: return .init(style: self.style, view: Toolbar.AddBlock.InputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
             case .turnIntoBlock: return .init(style: self.style, view: Toolbar.TurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
             }
@@ -176,7 +180,24 @@ extension BlocksViews.Toolbar.ViewController.ViewModel {
     /// We should add turnInto later.
     /// And may be we could add action toolbar here...
     ///
-    enum Style {
-    case addBlock, turnIntoBlock
+    struct Style {
+        fileprivate enum OurStyle {
+            case addBlock, turnIntoBlock
+        }
+        
+        static let addBlock: Style = .init(style: .addBlock)
+        static let turnIntoBlock: Style = .init(style: .turnIntoBlock)
+        
+        fileprivate var style: OurStyle = .addBlock
+        var filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering?
+        
+        func configured(_ filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering?) -> Self {
+            .init(style: self.style, filtering: filtering)
+        }
+        
+        private init(style: BlocksViews.Toolbar.ViewController.ViewModel.Style.OurStyle = .addBlock, filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering? = nil) {
+            self.style = style
+            self.filtering = filtering
+        }
     }
 }

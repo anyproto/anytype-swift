@@ -199,7 +199,7 @@ extension Namespace.ListUserInteractionHandler.Service {
         switch type {
         case .text: self.setTextStyle(blocks: blocks, type: type)
         case let .smartblock(value): self.setPageStyle(blocks: blocks, type: type)
-        case let .div(value): break
+        case let .divider(value): break
         default: return
         }
     }

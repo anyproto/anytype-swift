@@ -26,4 +26,5 @@ extension BlocksViews.New {
     enum File {}
     enum Tools {}
     enum Page {}
+    enum Other {}
 }

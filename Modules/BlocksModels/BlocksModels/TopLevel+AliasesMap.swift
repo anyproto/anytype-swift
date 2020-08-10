@@ -20,15 +20,19 @@ public extension Namespace.AliasesMap {
     typealias ChildrenIds = [BlockId]
     typealias BackgroundColor = String
     typealias Alignment = Block.Information.Alignment
+    
     typealias BlockKind = Block.Kind
-    typealias Information = Block.Information
     typealias FocusPosition = Block.Focus.Position
 
-    typealias DetailsInformation = Details.Information
     typealias DetailsId = String
     typealias DetailsContent = Details.Information.Content
     
     typealias BlockTools = Block.Tools
     typealias BlockUtilities = Block.Utilities
     typealias DetailsUtilities = Details.Utilities
+    
+    //TODO: Remove when possible.
+    /// Deprecated.
+    /// We shouldn't convert details to blocks...
+    typealias InformationUtilitiesDetailsBlockConverter = Block.Information.DetailsAsBlockConverter
 }

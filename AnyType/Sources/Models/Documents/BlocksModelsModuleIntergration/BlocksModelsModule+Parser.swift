@@ -169,23 +169,29 @@ private extension FileNamespace {
     /// It is a Converters Factory, actually.
     enum Converters {
         typealias BlockType = OurContent
+        private static var contentSmartBlockAsEmptyPage: ContentSmartBlockAsEmptyPage = .init()
+        private static var contentLink: ContentLink = .init()
+        private static var contentText: ContentText = .init()
+        private static var contentFile: ContentFile = .init()
+        private static var contentDivider: ContentDivider = .init()
+        
         static func convert(middleware: Anytype_Model_Block.OneOf_Content?) -> BaseContentConverter? {
-            guard let middleware = middleware else { return nil }
             switch middleware {
-            case .smartblock: return ContentSmartBlockAsEmptyPage()
-            case .link: return ContentLink()
-            case .text: return ContentText()
-            case .file: return ContentFile()
+            case .smartblock: return self.contentSmartBlockAsEmptyPage
+            case .link: return self.contentLink
+            case .text: return self.contentText
+            case .file: return self.contentFile
+            case .div: return self.contentDivider
             default: return nil
             }
         }
         static func convert(block: BlockType?) -> BaseContentConverter? {
-            guard let block = block else { return nil }
             switch block {
-            case .smartblock: return ContentSmartBlockAsEmptyPage()
-            case .link: return ContentLink()
-            case .text: return ContentText()
-            case .file: return ContentFile()
+            case .smartblock: return self.contentSmartBlockAsEmptyPage
+            case .link: return self.contentLink
+            case .text: return self.contentText
+            case .file: return self.contentFile
+            case .divider: return self.contentDivider
             default: return nil
             }
         }
@@ -224,7 +230,7 @@ private extension FileNamespace.Converters {
 //        }
         struct HashableConverter {
             static func dictionary(_ from: Google_Protobuf_Struct) -> [String: AnyHashable] {
-                (from.fields as? [String: AnyHashable]) ?? [:]
+                from.fields
             }
             static func structure(_ from: [String: Any]) -> Google_Protobuf_Struct {
                 return [:]
@@ -519,5 +525,38 @@ private extension FileNamespace.Converters {
             }
         }
       
+    }
+}
+
+// MARK: ContentDivider
+private extension FileNamespace.Converters {
+    class ContentDivider: BaseContentConverter {
+        func contentType(_ from: Anytype_Model_Block.Content.Div.Style) -> BlockType.Divider.Style? {
+            switch from {
+            case .line: return .line
+            case .dots: return .dots
+            default: return nil
+            }
+        }
+        
+        func style(_ from: BlockType.Divider.Style) -> Anytype_Model_Block.Content.Div.Style? {
+            switch from {
+            case .line: return .line
+            case .dots: return .dots
+            }
+        }
+        
+        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
+            switch from {
+            case let .div(value): return self.contentType(value.style).flatMap({ .divider(.init(style: $0)) })
+            default: return nil
+            }
+        }
+        override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
+            switch from {
+            case let .divider(value): return self.style(value.style).flatMap({ .div(.init(style: $0)) })
+            default: return nil
+            }
+        }
     }
 }
