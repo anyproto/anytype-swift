@@ -141,7 +141,16 @@ private extension HomeCollectionViewModel {
                 default: break
                 }
 
-                self?.syncBuilders()
+                self?.syncBuilders({ [weak self, value] in
+                    switch value {
+                    case let .update(value):
+                        if !value.addedIds.isEmpty, let id = value.addedIds.first {
+                            /// open page.
+                            self?.openPage(with: id)
+                        }
+                    default: return
+                    }
+                })
             }).store(in: &self.subscriptions)
             _ = self.eventProcessor.configured(model)
         }
@@ -211,16 +220,18 @@ extension HomeCollectionViewModel {
 
 // MARK: - view events
 extension HomeCollectionViewModel {
-    
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    func openPage(with id: BlockId) {
+        guard let targetModel = self.rootModel?.blocksContainer.choose(by: id) else { return }
+        guard case let .link(link) = targetModel.blockModel.information.content else { return }
+        
+        let blockId = link.targetBlockID
+        self.view?.showPage(with: blockId)
+    }
     func didSelectPage(with index: IndexPath) {        
         switch self.documentsViewModels[index.row] {
         case let .document(value):
-            
-            guard let targetModel = self.rootModel?.blocksContainer.choose(by: value.id) else { return }
-            guard case let .link(link) = targetModel.blockModel.information.content else { return }
-            
-            let blockId = link.targetBlockID
-            self.view?.showPage(with: blockId)
+            self.openPage(with: value.id)
             
         case .plus:
             guard let rootId = self.rootModel?.rootId else { return }

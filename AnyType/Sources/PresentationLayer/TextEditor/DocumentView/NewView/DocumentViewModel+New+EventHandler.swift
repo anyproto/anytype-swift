@@ -172,6 +172,7 @@ private extension FileNamespace.EventHandler {
 extension FileNamespace.EventHandler {
     enum Update {
         struct Payload: Hashable {
+            var addedIds: [BlockId] = []
             var deletedIds: [BlockId] = []
             var updatedIds: [BlockId] = []
             static var empty: Self = .init()
@@ -195,7 +196,7 @@ private extension FileNamespace.EventHandler {
                 .forEach { (value) in
                     self.updater?.insert(block: value)
             }
-            return .general
+            return .update(.init(addedIds: value.blocks.map(\.id)))
         
         case let .blockDelete(value):
             // Find blocks and remove them from map.
@@ -203,7 +204,7 @@ private extension FileNamespace.EventHandler {
             value.blockIds.forEach({ (value) in
                 self.updater?.delete(at: value)
             })
-            return .update(.init(deletedIds: value.blockIds, updatedIds: []))
+            return .update(.init(deletedIds: value.blockIds))
         
         case let .blockSetChildrenIds(value):
             let parentId = value.id
