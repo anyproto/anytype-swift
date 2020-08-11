@@ -567,7 +567,11 @@ private extension Namespace.DocumentViewModel {
 // MARK: - On Tap Gesture
 extension Namespace.DocumentViewModel {
     func handlingTapIfEmpty() {
-        self.userInteractionHandler.createEmptyBlock(listIsEmpty: self.state == .empty)
+        var model: BlockActiveRecordModelProtocol?
+        if let rootId = self.rootModel?.rootId, let blockModel = self.rootModel?.blocksContainer.choose(by: rootId) {
+            model = blockModel
+        }
+        self.userInteractionHandler.createEmptyBlock(listIsEmpty: self.state == .empty, parentModel: model)
     }
 }
 

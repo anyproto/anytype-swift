@@ -90,7 +90,7 @@ extension Namespace.UserInteractionHandler {
 
 // MARK: TODO - Move to enum or wrap in another protocol
 extension Namespace.UserInteractionHandler {
-    func createEmptyBlock(listIsEmpty: Bool) {
+    func createEmptyBlock(listIsEmpty: Bool, parentModel: Model?) {
         if listIsEmpty {
             if let defaultBlock = BlockBuilder.createDefaultInformation() {
                 self.service.addChild(childBlock: defaultBlock, parentBlockId: self.documentId)
@@ -98,6 +98,38 @@ extension Namespace.UserInteractionHandler {
         }
         else {
             // Unknown for now.
+            // Check that previous ( last block ) is not nil.
+            // We must provide a smartblock of page to solve it.
+            //
+            guard let parentModel = parentModel else {
+                // We don't have parentModel, so, we can't proceed.
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. We don't have parent model.")
+                return
+            }
+            guard let lastChildId = parentModel.childrenIds().last else {
+                // We don't have children, let's do nothing.
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. Children are empty.")
+                return
+            }
+            guard let lastChild = parentModel.container?.choose(by: lastChildId) else {
+                // No child - nothing to do.
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. Last child doesn't exist.")
+                return
+            }
+            
+            switch lastChild.blockModel.information.content {
+            case let .text(value) where value.attributedText.length == 0:
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
+                return
+            default:
+                if let defaultBlock = BlockBuilder.createDefaultInformation() {
+                    self.service.addChild(childBlock: defaultBlock, parentBlockId: self.documentId)
+                }
+            }
         }
     }
 }
