@@ -5306,9 +5306,10 @@ struct Anytype_Rpc {
             typealias RawValue = Int
             case null // = 0
             case unknownError // = 1
-
-            /// ...
             case badInput // = 2
+
+            /// failed to read unknown data format – need to upgrade anytype
+            case anytypeNeedsUpgrade // = 10
             case UNRECOGNIZED(Int)
 
             init() {
@@ -5320,6 +5321,7 @@ struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 10: self = .anytypeNeedsUpgrade
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -5329,6 +5331,7 @@ struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .anytypeNeedsUpgrade: return 10
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -8962,6 +8965,7 @@ extension Anytype_Rpc.Block.Open.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
+    .anytypeNeedsUpgrade,
   ]
 }
 
@@ -16449,6 +16453,7 @@ extension Anytype_Rpc.Block.Open.Response.Error.Code: SwiftProtobuf._ProtoNamePr
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    10: .same(proto: "ANYTYPE_NEEDS_UPGRADE"),
   ]
 }
 
