@@ -31,7 +31,7 @@ struct HomeView: View {
     
     var topView: some View {
         HStack {
-            Text("Hi, \(self.viewModel.user.name)")
+            Text("Hi, \(self.viewModel.profileViewModel.accountName)")
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .font(.title)
@@ -41,7 +41,7 @@ struct HomeView: View {
                     self.isNavigationBarHidden = false
                 }
             ) {
-                UserIconView(color: .blue, name: viewModel.user.name)
+                UserIconView(color: self.viewModel.profileViewModel.selectedColor, name: self.viewModel.profileViewModel.accountName)
                     .frame(width: 43, height: 43)
             }
         }

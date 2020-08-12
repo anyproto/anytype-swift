@@ -112,11 +112,11 @@ extension BlocksViews.New.Page.Title {
                 ///
                 self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.title)
                     .sink(receiveValue: { [weak self] (value) in
-                    value.flatMap({ self?.toViewTitle = $0.text })
+                    value.flatMap({ self?.toViewTitle = $0.value })
                 }).store(in: &self.subscriptions)
 
                 self.toModelTitleSubject.notableError().flatMap({ [weak self] value in
-                    self?.pageDetailsViewModel?.update(details: .title(.init(text: value))) ?? .empty()
+                    self?.pageDetailsViewModel?.update(details: .title(.init(value: value))) ?? .empty()
                 }).sink(receiveCompletion: { (value) in
                     switch value {
                     case .finished: return

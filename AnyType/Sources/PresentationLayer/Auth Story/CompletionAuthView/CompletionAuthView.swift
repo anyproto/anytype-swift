@@ -24,7 +24,7 @@ struct CompletionAuthView: View {
             VStack {
                 Spacer()
                 VStack(alignment: .leading, spacing: 0) {
-                    ImageWithCircleBackgroundView(imageName: "congrats", backgroundColor: Color("backgroundColor"))
+                    ImageWithCircleBackgroundView(imageName: "congrats", backgroundColor: UIColor.init(named: "backgroundColor"))
                         .frame(width: 64, height: 64)
                     Text("Congratulations!")
                         .fontWeight(.bold)

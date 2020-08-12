@@ -200,8 +200,8 @@ extension HomeCollectionViewModel {
             let detailsModel = value.getDetailsViewModel()
             let accessor = detailsModel.wholeDetailsPublisher.map(DetailsAccessor.init)
             
-            let title = accessor.map(\.title).map({$0?.text}).eraseToAnyPublisher()
-            let emojiImage = accessor.map(\.iconEmoji).map({$0?.text}).eraseToAnyPublisher()
+            let title = accessor.map(\.title).map({$0?.value}).eraseToAnyPublisher()
+            let emojiImage = accessor.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
             
             model.configured(titlePublisher: title)
             model.configured(emojiImagePublisher: emojiImage)

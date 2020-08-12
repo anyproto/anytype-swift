@@ -51,8 +51,8 @@ extension HomeCollectionViewModel {
             let correctedDetails = BlocksModelsModule.Parser.Details.Converter.asModel(details: convertedDetails)
             let information = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: correctedDetails)
             let informationAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: information)
-            title = informationAccessor.title?.text
-            iconEmoji = informationAccessor.iconEmoji?.text
+            title = informationAccessor.title?.value
+            iconEmoji = informationAccessor.iconEmoji?.value
         }
         
         return .init(id: page.id, targetBlockId: page.targetBlockId, title: title, iconEmoji: iconEmoji, style: page.style)
@@ -68,8 +68,8 @@ extension HomeCollectionViewModel {
             let correctedDetails = BlocksModelsModule.Parser.Details.Converter.asModel(details: convertedDetails)
             let information = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: correctedDetails)
             let informationAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: information)
-            title = informationAccessor.title?.text
-            iconEmoji = informationAccessor.iconEmoji?.text
+            title = informationAccessor.title?.value
+            iconEmoji = informationAccessor.iconEmoji?.value
         }
         return .init(id: page.id, targetBlockId: value.targetBlockID, title: title, iconEmoji: iconEmoji, style: value)
     }

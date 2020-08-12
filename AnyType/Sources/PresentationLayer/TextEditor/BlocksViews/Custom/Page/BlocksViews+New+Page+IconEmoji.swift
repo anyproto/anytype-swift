@@ -57,11 +57,11 @@ extension BlocksViews.New.Page.IconEmoji {
             case .pageDetailsViewModelDidSet:
                 
                 self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.iconEmoji).sink(receiveValue: { [weak self] (value) in
-                    value.flatMap({self?.toViewEmoji = $0.text})
+                    value.flatMap({self?.toViewEmoji = $0.value})
                 }).store(in: &self.subscriptions)
                 
                 self.toModelEmojiSubject.notableError().flatMap({ [weak self] value in
-                    self?.pageDetailsViewModel?.update(details: .iconEmoji(.init(text: value))) ?? .empty()
+                    self?.pageDetailsViewModel?.update(details: .iconEmoji(.init(value: value))) ?? .empty()
                 }).sink(receiveCompletion: { (value) in
                     switch value {
                     case .finished: return

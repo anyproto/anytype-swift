@@ -51,7 +51,7 @@ final class ProfileViewModel: ObservableObject {
             // TODO: load avatar to ipfs by textile api
         }
     }
-    @Published var selectedColor: UIColor = .blue
+    @Published var selectedColor: UIColor = .clear
     
     @Published var updates: Bool = UserDefaultsConfig.notificationUpdates {
         didSet {
@@ -122,8 +122,12 @@ final class ProfileViewModel: ObservableObject {
     func setupSubscriptions() {
         let publisher = self.pageDetailsViewModel.$currentDetails.safelyUnwrapOptionals().map(DetailsAccessor.init)
         
-        publisher.map(\.title).map({$0?.text}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
+        publisher.map(\.title).map({$0?.value}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.accountName = value
+        }.store(in: &self.subscriptions)
+        
+        publisher.map(\.iconColor).map({$0?.value}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
+            self?.selectedColor = .init(hexString: value)
         }.store(in: &self.subscriptions)
     }
     

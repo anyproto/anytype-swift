@@ -13,15 +13,16 @@ import BlocksModels
 class HomeViewModel: ObservableObject {
     @Environment(\.developerOptions) private var developerOptions
     var homeCollectionViewAssembly: HomeCollectionViewAssembly
+    var profileViewModel: ProfileViewModel {
+        self.profileViewCoordinator.viewModel
+    }
     var profileViewCoordinator: ProfileViewCoordinator
-    var user: UserModel = .init()
     var cachedDocumentView: AnyView?
     var documentViewId: String = ""
 
     init(homeCollectionViewAssembly: HomeCollectionViewAssembly, profileViewCoordinator: ProfileViewCoordinator) {
         self.homeCollectionViewAssembly = homeCollectionViewAssembly
         self.profileViewCoordinator = profileViewCoordinator
-        self.user.configured(namePublisher: self.profileViewCoordinator.viewModel.$accountName.eraseToAnyPublisher())
     }
     
     func createDocumentView(documentId: String) -> some View {
@@ -66,32 +67,6 @@ class HomeViewModel: ObservableObject {
 extension HomeViewModel {
     func obtainAccountInfo() {
         self.profileViewCoordinator.viewModel.obtainAccountInfo()
-    }
-}
-
-// MARK: UserModel
-extension HomeViewModel {
-    class UserModel: ObservableObject {
-        struct Resource {
-            var namePlaceholder: String = "Anytype User"
-        }
-        var resource: Resource = .init()
-        
-        /// Properties
-        var name: String {
-            guard let name = self.namePublished, !name.isEmpty else { return self.resource.namePlaceholder }
-            return name
-        }
-        
-        /// Private properties
-        @Published private var namePublished: String?
-        private var nameSubscription: AnyCancellable?
-        
-        func configured(namePublisher: AnyPublisher<String, Never>) {
-            self.nameSubscription = namePublisher.sink { [weak self] (value) in
-                self?.namePublished = value
-            }
-        }
     }
 }
 

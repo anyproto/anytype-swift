@@ -48,8 +48,10 @@ extension Namespace.Details {
         typealias Model = TopLevel.AliasesMap.DetailsContent
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             switch model {
-            case let .title(title): return Model.Title.Converter.asMiddleware(model: title)
-            case let .iconEmoji(emoji): return Model.Emoji.Converter.asMiddleware(model: emoji)
+            case let .title(value): return Model.Title.Converter.asMiddleware(model: value)
+            case let .iconEmoji(value): return Model.Emoji.Converter.asMiddleware(model: value)
+            case let .iconColor(value): return Model.OurHexColor.Converter.asMiddleware(model: value)
+            case let .iconImage(value): return Model.ImageId.Converter.asMiddleware(model: value)
             }
         }
 
@@ -58,6 +60,8 @@ extension Namespace.Details {
             switch detail.key {
             case Model.Title.id: return Model.Title.Converter.asModel(detail: detail).flatMap(Model.title)
             case Model.Emoji.id: return Model.Emoji.Converter.asModel(detail: detail).flatMap(Model.iconEmoji)
+            case Model.OurHexColor.id: return Model.OurHexColor.Converter.asModel(detail: detail).flatMap(Model.iconColor)
+            case Model.ImageId.id: return Model.ImageId.Converter.asModel(detail: detail).flatMap(Model.iconImage)
             default:
                 let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
                 os_log(.debug, log: logger, "Add converters for this type: (%@) ", detail.key)
@@ -71,7 +75,7 @@ extension Namespace.Details {
 // MARK: Details / Title / Accessors
 private extension ModelsNamespace.Title {
     func key() -> String { id }
-    func value() -> Google_Protobuf_Value { .init(stringValue: text) }
+    func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
 }
 
 // MARK: Details / Title / Converter
@@ -88,7 +92,7 @@ private extension ModelsNamespace.Title {
                 return nil
             }
             switch detail.value.kind {
-                case let .stringValue(string): return .init(text: string)
+                case let .stringValue(string): return .init(value: string)
                 default:
                     let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
                     os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
@@ -101,7 +105,7 @@ private extension ModelsNamespace.Title {
 // MARK: Details / Emoji / Accessors
 private extension ModelsNamespace.Emoji {
     func key() -> String { id }
-    func value() -> Google_Protobuf_Value { .init(stringValue: text) }
+    func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
 }
 
 // MARK: Details / Emoji / Converter
@@ -118,7 +122,67 @@ private extension ModelsNamespace.Emoji {
                 return nil
             }
             switch detail.value.kind {
-                case let .stringValue(string): return .init(text: string)
+                case let .stringValue(string): return .init(value: string)
+                default:
+                    let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
+                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    return nil
+            }
+        }
+    }
+}
+
+// MARK: Details / OurHexColor / Accessors
+private extension ModelsNamespace.OurHexColor {
+    func key() -> String { id }
+    func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
+}
+
+// MARK: Details / OurHexColor / Converter
+private extension ModelsNamespace.OurHexColor {
+    enum Converter: _BlocksModelsParserDetailsConverterProtocol {
+        typealias Model = TopLevel.AliasesMap.DetailsContent.OurHexColor
+        static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
+            .init(key: model.key(), value: model.value())
+        }
+        static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
+            guard detail.key == Model.id else {
+                let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
+                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                return nil
+            }
+            switch detail.value.kind {
+                case let .stringValue(string): return .init(value: string)
+                default:
+                    let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
+                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    return nil
+            }
+        }
+    }
+}
+
+// MARK: Details / ImageId / Accessors
+private extension ModelsNamespace.ImageId {
+    func key() -> String { id }
+    func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
+}
+
+// MARK: Details / ImageId / Converter
+private extension ModelsNamespace.ImageId {
+    enum Converter: _BlocksModelsParserDetailsConverterProtocol {
+        typealias Model = TopLevel.AliasesMap.DetailsContent.ImageId
+        static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
+            .init(key: model.key(), value: model.value())
+        }
+        static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
+            guard detail.key == Model.id else {
+                let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
+                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                return nil
+            }
+            switch detail.value.kind {
+                case let .stringValue(string): return .init(value: string)
                 default:
                     let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
                     os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)

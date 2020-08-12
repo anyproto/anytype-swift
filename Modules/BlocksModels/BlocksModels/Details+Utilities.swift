@@ -21,17 +21,31 @@ public extension Namespace.Utilities {
         private var value: T
         
         public var title: Content.Title? {
-            if case let .title(title) = self.value.details[Content.Title.id] {
-                return title
+            switch self.value.details[Content.Title.id] {
+            case let .title(value): return value
+            default: return nil
             }
-            return nil
         }
         
         public var iconEmoji: Content.Emoji? {
-            if case let .iconEmoji(emoji) = self.value.details[Content.Emoji.id] {
-                return emoji
+            switch self.value.details[Content.Emoji.id] {
+            case let .iconEmoji(value): return value
+            default: return nil
             }
-            return nil
+        }
+        
+        public var iconColor: Content.OurHexColor? {
+            switch self.value.details[Content.OurHexColor.id] {
+            case let .iconColor(value): return value
+            default: return nil
+            }
+        }
+        
+        public var iconImage: Content.ImageId? {
+            switch self.value.details[Content.ImageId.id] {
+            case let .iconImage(value): return value
+            default: return nil
+            }
         }
         
         // MARK: - Memberwise Initializer

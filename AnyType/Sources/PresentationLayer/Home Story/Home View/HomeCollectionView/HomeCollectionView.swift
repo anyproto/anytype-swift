@@ -35,7 +35,7 @@ struct HomeCollectionView: UIViewRepresentable {
         let dataSource = configureDataSource(collectionView: collectionView)
         collectionView.delegate = context.coordinator
 //        collectionView.contentInset = .init(top: 200, left: 0, bottom: 0, right: 0)
-        
+        collectionView.alwaysBounceVertical = true
         populate(dataSource: dataSource)
         context.coordinator.dataSource = dataSource
         

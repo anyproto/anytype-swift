@@ -147,8 +147,8 @@ extension Namespace.State {
             let archived = false
             var hasContent = false
             let accessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: pageDetails)
-            let title = accessor.title?.text
-            let emoji = accessor.iconEmoji?.text
+            let title = accessor.title?.value
+            let emoji = accessor.iconEmoji?.value
             hasContent = emoji != nil
             let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
             return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)

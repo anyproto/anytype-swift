@@ -515,10 +515,10 @@ private extension Namespace.DocumentViewModel {
         let emoji = details.iconEmoji
         
         /// Title Model
-        let titleBlock = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.title(title ?? .init(text: "")))
+        let titleBlock = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.title(title ?? .init(value: "")))
 
         /// Emoji Model
-        let emojiBlock = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconEmoji(emoji ?? .init(text: "")))
+        let emojiBlock = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconEmoji(emoji ?? .init(value: "")))
 
         /// Add entries to model.
         /// Well, it is cool that we store our details of page into one scope with all children.

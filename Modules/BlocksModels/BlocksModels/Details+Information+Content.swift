@@ -20,6 +20,8 @@ public extension Namespace {
     enum Content {
         case title(Title)
         case iconEmoji(Emoji)
+        case iconColor(OurHexColor)
+        case iconImage(ImageId)
     }
 }
 
@@ -32,8 +34,10 @@ public extension Namespace.Content {
     /// - Returns: A key.
     func id() -> String {
         switch self {
-        case .title: return Title.id
-        case .iconEmoji: return Emoji.id
+        case let .title(value): return value.id
+        case let .iconEmoji(value): return value.id
+        case let .iconColor(value): return value.id
+        case let .iconImage(value): return value.id
         }
     }
     
@@ -44,6 +48,8 @@ public extension Namespace.Content {
         switch self {
         case .title: return .title
         case .iconEmoji: return .iconEmoji
+        case .iconColor: return .iconColor
+        case .iconImage: return .iconImage
         }
     }
 }
@@ -55,6 +61,8 @@ public extension Namespace.Content {
     enum Kind {
         case title
         case iconEmoji
+        case iconColor
+        case iconImage
     }
 }
 
@@ -72,13 +80,13 @@ public extension Namespace.Content {
     /// But, it is doc, so, make sure that you use correct id if something goes wrong.
     ///
     struct Title {
-        public private(set) var text: String = ""
+        public private(set) var value: String = ""
         public private(set) var id: String = Self.id
         
         // MARK: - Memberwise initializer
         /// We should explicitly provide public access level to memberwise initializer.
-        public init(text: String = "", id: String = Self.id) {
-            self.text = text
+        public init(value: String = "", id: String = Self.id) {
+            self.value = value
             self.id = id
         }
     }
@@ -92,25 +100,63 @@ extension Namespace.Content.Title: DetailsEntryIdentifiable {
 // MARK: Content / IconEmoji
 public extension Namespace.Content {
     struct Emoji {
-        public private(set) var text: String = ""
+        public private(set) var value: String = ""
         public private(set) var id: String = Self.id
 
         // MARK: - Memberwise initializer
-        public init(text: String = "", id: String = Self.id) {
-            self.text = text
+        public init(value: String = "", id: String = Self.id) {
+            self.value = value
             self.id = id
         }
     }
 }
-
-// MARK: Content / IconEmoji
 
 // MARK: Content / IconEmoji / Key
 extension Namespace.Content.Emoji: DetailsEntryIdentifiable {
     public static var id: String = "iconEmoji"
 }
 
+// MARK: Content / IconColor
+public extension Namespace.Content {
+    struct OurHexColor {
+        public private(set) var value: String = ""
+        public private(set) var id: String = Self.id
+
+        // MARK: - Memberwise initializer
+        public init(value: String = "", id: String = Self.id) {
+            self.value = value
+            self.id = id
+        }
+    }
+}
+
+// MARK: Content / IconColor / Key
+extension Namespace.Content.OurHexColor: DetailsEntryIdentifiable {
+    public static var id: String = "iconColor"
+}
+
+// MARK: Content / IconColor
+public extension Namespace.Content {
+    struct ImageId {
+        public private(set) var value: String = ""
+        public private(set) var id: String = Self.id
+
+        // MARK: - Memberwise initializer
+        public init(value: String = "", id: String = Self.id) {
+            self.value = value
+            self.id = id
+        }
+    }
+}
+
+// MARK: Content / IconColor / Key
+extension Namespace.Content.ImageId: DetailsEntryIdentifiable {
+    public static var id: String = "iconImage"
+}
+
 // MARK: Hashable
 extension Namespace.Content: Hashable {}
 extension Namespace.Content.Title: Hashable {}
 extension Namespace.Content.Emoji: Hashable {}
+extension Namespace.Content.OurHexColor: Hashable {}
+extension Namespace.Content.ImageId: Hashable {}

@@ -56,9 +56,9 @@ private struct NewProfileView: View {
                         self.showImagePicker = true
                     }) {
                         if viewModel.image != nil {
-                            ImageWithCircleBackgroundView(imageName: "photo", backgoundImage: viewModel.image)
+                            ImageWithCircleBackgroundView(imageName: "photo", backgroundImage: viewModel.image)
                         } else {
-                            ImageWithCircleBackgroundView(imageName: "photo", backgroundColor: Color.gray)
+                            ImageWithCircleBackgroundView(imageName: "photo", backgroundColor: .gray)
                         }
                     }
                     .frame(width: 64, height: 64)
