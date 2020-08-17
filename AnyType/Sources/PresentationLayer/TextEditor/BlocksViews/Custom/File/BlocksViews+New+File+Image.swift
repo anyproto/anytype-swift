@@ -145,6 +145,8 @@ private extension Namespace {
         
         var subscription: AnyCancellable?
         
+        var setupImageSubscription: AnyCancellable?
+        
         var resource: Resource = .init()
         var layout: Layout = .init()
         
@@ -269,30 +271,16 @@ private extension Namespace {
         
         func setupImage(_ file: TopLevel.AliasesMap.BlockContent.File) {
             guard !file.metadata.hash.isEmpty else { return }
-            let blockHash = file.metadata.hash
-            _ = MiddlewareConfigurationService().obtainConfiguration().sink(receiveCompletion: { value in
-                switch value {
-                case .finished: break
-                case let .failure(value):
-                    let logger = Logging.createLogger(category: .fileBlocksViewsImage)
-                    os_log(.error, log: logger, "Obtaining image error %@ on %@", String(describing: value), String(describing: self))
+            let imageId = file.metadata.hash
+            
+            self.setupImageSubscription = CoreLayer.Network.Image.URLResolver.init().transform(imageId: imageId).safelyUnwrapOptionals().ignoreFailure().flatMap({
+                CoreLayer.Network.Image.Loader.init($0).imagePublisher
+            }).receive(on: RunLoop.main).sink { [weak self] (value) in
+                if let imageView = self?.imageView {
+                    imageView.image = value
+                    self?.updateImageConstraints()
                 }
-            }, receiveValue: { (config) in
-                
-                guard let url = URL(string: config.gatewayURL + "/image/" + blockHash) else { return }
-                
-                // TODO: WIll change loading to new ImageLoader class
-                DispatchQueue.global().async {
-                    if let data = try? Data(contentsOf: url) {
-                        DispatchQueue.main.async {
-                            if let imageView = self.imageView {
-                                imageView.image = UIImage(data: data)
-                                self.updateImageConstraints()
-                            }
-                        }
-                    }
-                }
-            })
+            }
         }
         // TODO: Will work dynamic when finish granual reload of parent tableView
         private func updateImageConstraints()  {

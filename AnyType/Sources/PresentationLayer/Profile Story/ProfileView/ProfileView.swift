@@ -47,13 +47,7 @@ struct ProfileSectionView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Group {
-                if self.model.accountAvatar != nil {
-                    Image(uiImage: self.model.accountAvatar!)
-                } else {
-                    UserIconView(color: self.model.selectedColor, name: self.model.visibleAccountName)
-                }
-            }
+            UserIconView(image: self.model.accountAvatar, color: self.model.visibleSelectedColor, name: self.model.visibleAccountName)
             .frame(width: 64, height: 64)
             .padding([.top], 20)
 

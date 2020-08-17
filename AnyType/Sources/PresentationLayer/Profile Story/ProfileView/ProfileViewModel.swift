@@ -22,10 +22,11 @@ final class ProfileViewModel: ObservableObject {
     
     typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
     
-    /// Variables
+    /// Variables / Services
     private var profileService: ProfileServiceProtocol
     private var authService: AuthServiceProtocol
     
+    /// Variables / Error
     @Published var error: String = "" {
         didSet {
             self.isShowingError = true
@@ -34,25 +35,22 @@ final class ProfileViewModel: ObservableObject {
     @Published var isShowingError: Bool = false
     
     var visibleAccountName: String {
-        self.accountName.isEmpty ? "Anytype User" : self.accountName
-    }
-    
-    @Published var accountName: String = ""
-//        {
-//        didSet {
-//            self.objectWillChange.send()
-//        }
-//        didSet {
-//            profileService.name = accountName
-//        }
-//    }
-    @Published var accountAvatar: UIImage? {
-        didSet {
-            // TODO: load avatar to ipfs by textile api
+        guard let name = self.accountName, !name.isEmpty else {
+            return "Anytype User"
         }
+        return name
     }
-    @Published var selectedColor: UIColor = .clear
     
+    var visibleSelectedColor: UIColor {
+        self.selectedColor ?? .clear
+    }
+    
+    /// User Model
+    @Published var accountName: String?
+    @Published var accountAvatar: UIImage?
+    @Published var selectedColor: UIColor?
+    
+    /// Device Model
     @Published var updates: Bool = UserDefaultsConfig.notificationUpdates {
         didSet {
             UserDefaultsConfig.notificationUpdates = updates
@@ -128,6 +126,11 @@ final class ProfileViewModel: ObservableObject {
         
         publisher.map(\.iconColor).map({$0?.value}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.selectedColor = .init(hexString: value)
+        }.store(in: &self.subscriptions)
+        
+        publisher.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.URLResolver.init().transform(imageId: value).ignoreFailure()})
+            .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
+                self?.accountAvatar = value
         }.store(in: &self.subscriptions)
     }
     

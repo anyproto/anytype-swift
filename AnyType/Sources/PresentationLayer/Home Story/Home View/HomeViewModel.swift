@@ -13,9 +13,11 @@ import BlocksModels
 class HomeViewModel: ObservableObject {
     @Environment(\.developerOptions) private var developerOptions
     var homeCollectionViewAssembly: HomeCollectionViewAssembly
-    var profileViewModel: ProfileViewModel {
-        self.profileViewCoordinator.viewModel
-    }
+    @ObservedObject var profileViewModel: ProfileViewModel
+    private var profileViewModelObjectWillChange: AnyCancellable?
+//    var profileViewModel: ProfileViewModel {
+//        self.profileViewCoordinator.viewModel
+//    }
     var profileViewCoordinator: ProfileViewCoordinator
     var cachedDocumentView: AnyView?
     var documentViewId: String = ""
@@ -23,6 +25,10 @@ class HomeViewModel: ObservableObject {
     init(homeCollectionViewAssembly: HomeCollectionViewAssembly, profileViewCoordinator: ProfileViewCoordinator) {
         self.homeCollectionViewAssembly = homeCollectionViewAssembly
         self.profileViewCoordinator = profileViewCoordinator
+        self.profileViewModel = self.profileViewCoordinator.viewModel
+        self.profileViewModelObjectWillChange = self.profileViewModel.objectWillChange.sink { [weak self] in
+            self?.objectWillChange.send()
+        }
     }
     
     func createDocumentView(documentId: String) -> some View {
@@ -66,7 +72,8 @@ class HomeViewModel: ObservableObject {
 // MARK: AccountInfo
 extension HomeViewModel {
     func obtainAccountInfo() {
-        self.profileViewCoordinator.viewModel.obtainAccountInfo()
+        self.profileViewModel.obtainAccountInfo()
+//        self.profileViewCoordinator.viewModel.obtainAccountInfo()
     }
 }
 

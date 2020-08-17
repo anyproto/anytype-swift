@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct HomeView: View {
     // UINavigationBar appearance
@@ -16,7 +17,7 @@ struct HomeView: View {
     // view when it's UIViewRepresentable
     // https://forums.swift.org/t/uiviewrepresentable-not-updated-when-observed-object-changed/33890/9
     @ObservedObject var collectionViewModel: HomeCollectionViewModel
-    private var viewModel: HomeViewModel
+    @ObservedObject private var viewModel: HomeViewModel
     
     @State var showDocument: Bool = false
     @State var selectedDocumentId: String = ""
@@ -31,7 +32,7 @@ struct HomeView: View {
     
     var topView: some View {
         HStack {
-            Text("Hi, \(self.viewModel.profileViewModel.accountName)")
+            Text("Hi, \(self.viewModel.profileViewModel.visibleAccountName)")
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .font(.title)
@@ -41,8 +42,7 @@ struct HomeView: View {
                     self.isNavigationBarHidden = false
                 }
             ) {
-                UserIconView(color: self.viewModel.profileViewModel.selectedColor, name: self.viewModel.profileViewModel.accountName)
-                    .frame(width: 43, height: 43)
+                UserIconView(image: self.viewModel.profileViewModel.accountAvatar, color: self.viewModel.profileViewModel.visibleSelectedColor, name: self.viewModel.profileViewModel.visibleAccountName).frame(width: 43, height: 43)
             }
         }
         .padding([.top, .trailing, .leading], 20)

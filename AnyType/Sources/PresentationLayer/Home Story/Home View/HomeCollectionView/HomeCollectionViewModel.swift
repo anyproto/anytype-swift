@@ -71,18 +71,6 @@ class HomeCollectionViewModel: ObservableObject {
     
     // MARK: - Lifecycle
     init() {
-        
-        self.middlewareConfigurationService.obtainConfiguration().sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: break
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .homeCollectionViewModel)
-                os_log(.error, log: logger, "Obtain configuration error %@", String(describing: error))
-            }
-        }, receiveValue: { [weak self] value in
-            _ = self?.eventProcessor.configured(contextId: value.homeBlockID)
-        }).store(in: &self.subscriptions)
-        
         self.dashboardService.openDashboard().receive(on: RunLoop.main)
         .sink(receiveCompletion: { (value) in
             switch value {

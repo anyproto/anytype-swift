@@ -80,8 +80,8 @@
 		03CB3F04230C1185003D5DFD /* ProfileServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F03230C1185003D5DFD /* ProfileServiceProtocol.swift */; };
 		03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F07230C1EDE003D5DFD /* UIViewExtension.swift */; };
 		03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F09230C2464003D5DFD /* UIColorExtension.swift */; };
-		03CB3F0D230C3EAA003D5DFD /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0C230C3EAA003D5DFD /* ImageLoader.swift */; };
-		03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0F230C414C003D5DFD /* ImageService.swift */; };
+		03CB3F0D230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0C230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift */; };
+		03CB3F10230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0F230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift */; };
 		03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAB230457FC00701782 /* PinCodeViewModel.swift */; };
 		03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCADAD2304589E00701782 /* PinCodeValidator.swift */; };
 		03D1515E23FB2B85004027CE /* ConfigurationServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1515D23FB2B85004027CE /* ConfigurationServiceProtocol.swift */; };
@@ -185,6 +185,9 @@
 		0A2CEDF124A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2CEDF024A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift */; };
 		0A31FDF524CF06EC006D9B4E /* BlocksModelsModule+Parser+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31FDF424CF06EC006D9B4E /* BlocksModelsModule+Parser+Content.swift */; };
 		0A31FDF724CF0DDC006D9B4E /* BlocksModelsModule+Parser+Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A31FDF624CF0DDC006D9B4E /* BlocksModelsModule+Parser+Link.swift */; };
+		0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D124EAC6080074DCDF /* CoreLayer.swift */; };
+		0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D324EAC61C0074DCDF /* CoreLayer+Network.swift */; };
+		0A3EE0D624EAC6450074DCDF /* CoreLayer+Network+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D524EAC6450074DCDF /* CoreLayer+Network+Image.swift */; };
 		0A5F5AAF24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F5AAE24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings */; };
 		0A63ADE32462053D00F092C8 /* localstore.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63ADE22462053D00F092C8 /* localstore.pb.swift */; };
 		0A63ADE52462DFD900F092C8 /* DocumentViewRouting+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */; };
@@ -437,8 +440,8 @@
 		03CB3F03230C1185003D5DFD /* ProfileServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileServiceProtocol.swift; sourceTree = "<group>"; };
 		03CB3F07230C1EDE003D5DFD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		03CB3F09230C2464003D5DFD /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		03CB3F0C230C3EAA003D5DFD /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		03CB3F0F230C414C003D5DFD /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		03CB3F0C230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+Loader.swift"; sourceTree = "<group>"; };
+		03CB3F0F230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+Service.swift"; sourceTree = "<group>"; };
 		03CCADAB230457FC00701782 /* PinCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeViewModel.swift; sourceTree = "<group>"; };
 		03CCADAD2304589E00701782 /* PinCodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeValidator.swift; sourceTree = "<group>"; };
 		03D1515D23FB2B85004027CE /* ConfigurationServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationServiceProtocol.swift; sourceTree = "<group>"; };
@@ -538,6 +541,9 @@
 		0A2CEDF024A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventListening+NotificationEventListener.swift"; sourceTree = "<group>"; };
 		0A31FDF424CF06EC006D9B4E /* BlocksModelsModule+Parser+Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+Content.swift"; sourceTree = "<group>"; };
 		0A31FDF624CF0DDC006D9B4E /* BlocksModelsModule+Parser+Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+Link.swift"; sourceTree = "<group>"; };
+		0A3EE0D124EAC6080074DCDF /* CoreLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLayer.swift; sourceTree = "<group>"; };
+		0A3EE0D324EAC61C0074DCDF /* CoreLayer+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network.swift"; sourceTree = "<group>"; };
+		0A3EE0D524EAC6450074DCDF /* CoreLayer+Network+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image.swift"; sourceTree = "<group>"; };
 		0A5F5AAE24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.ContextualMenu.Actions.strings; sourceTree = "<group>"; };
 		0A63ADE22462053D00F092C8 /* localstore.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = localstore.pb.swift; sourceTree = "<group>"; };
 		0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Tools.swift"; sourceTree = "<group>"; };
@@ -1078,6 +1084,7 @@
 				039F669A23C7FD6700DBE36A /* Helpers */,
 				03CB3F0B230C3E98003D5DFD /* NetwrokLayer */,
 				03C5C53422DF6C9900DD91DE /* StoreLayer */,
+				0A3EE0D124EAC6080074DCDF /* CoreLayer.swift */,
 			);
 			path = CoreLayer;
 			sourceTree = "<group>";
@@ -1250,18 +1257,20 @@
 		03CB3F0B230C3E98003D5DFD /* NetwrokLayer */ = {
 			isa = PBXGroup;
 			children = (
-				03CB3F0E230C4137003D5DFD /* ImageLoader */,
+				0A3EE0D324EAC61C0074DCDF /* CoreLayer+Network.swift */,
+				03CB3F0E230C4137003D5DFD /* Image */,
 			);
 			path = NetwrokLayer;
 			sourceTree = "<group>";
 		};
-		03CB3F0E230C4137003D5DFD /* ImageLoader */ = {
+		03CB3F0E230C4137003D5DFD /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				03CB3F0C230C3EAA003D5DFD /* ImageLoader.swift */,
-				03CB3F0F230C414C003D5DFD /* ImageService.swift */,
+				0A3EE0D524EAC6450074DCDF /* CoreLayer+Network+Image.swift */,
+				03CB3F0C230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift */,
+				03CB3F0F230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift */,
 			);
-			path = ImageLoader;
+			path = Image;
 			sourceTree = "<group>";
 		};
 		03D1516123FB437A004027CE /* DashboardServices */ = {
@@ -2037,6 +2046,7 @@
 				0A29BB9624AC8C5F00ED957F /* DocumentModule+ViewControllers.swift in Sources */,
 				03C6750823981BBD0041A7C4 /* ProfileService.swift in Sources */,
 				0AA9B053249F736400F2962C /* MultiSelectionPane+UIKit+Panes.swift in Sources */,
+				0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* SimpleViews.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsModule+Parser+Text.swift in Sources */,
@@ -2059,6 +2069,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				0A6663BE24A4E7D0002206FC /* DocumentModule+Selection+Handler+Protocols.swift in Sources */,
+				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsModule+Parser+Link.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
@@ -2106,7 +2117,7 @@
 				0A10CC8D248FF3D7000FF498 /* BlocksViews+New+Text+Callout.swift in Sources */,
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
-				03CB3F0D230C3EAA003D5DFD /* ImageLoader.swift in Sources */,
+				03CB3F0D230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift in Sources */,
 				0A72751324AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift in Sources */,
 				0AA9B04E249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift in Sources */,
 				0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */,
@@ -2116,7 +2127,7 @@
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				0A10CC9F24901DB0000FF498 /* DocumentViewBuilder+New.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
-				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
+				03CB3F10230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				0ACA77D423E4481800442690 /* commands+Service.pb.swift in Sources */,
 				0A1DACC9244DEA9B0007BC5D /* BlocksViews+Toolbar+ListCell.swift in Sources */,
@@ -2153,6 +2164,7 @@
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
 				03AA854A23A80C2300892713 /* commands.pb.swift in Sources */,
 				A3940BB7245AB47700CD6F37 /* EmojiPicker+ViewController.swift in Sources */,
+				0A3EE0D624EAC6450074DCDF /* CoreLayer+Network+Image.swift in Sources */,
 				0A08D4C424AF824D0088ECC2 /* CommonViews+ViewControllers.swift in Sources */,
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,

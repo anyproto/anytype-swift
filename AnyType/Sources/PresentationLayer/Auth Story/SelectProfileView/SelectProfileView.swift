@@ -15,51 +15,53 @@ struct SelectProfileView: View {
     @State var contentHeight: CGFloat = 0
     
     var body: some View {
-        NavigationView {
-            ZStack(alignment: .bottom) {
-                LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
-                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    ScrollView {
-                        VStack(alignment: .leading) {
-                            Text("Choose profile")
-                                .font(.title)
-                                .fontWeight(.bold)
-                            .animation(nil)
-                            
-                            ForEach(self.viewModel.profilesViewModels) { profile in
-                                Button(action: {
-                                    self.viewModel.selectProfile(id: profile.id)
-                                }) {
-                                    ProfileNameView(viewModel: profile)
+        HStack {        
+            NavigationView {
+                ZStack(alignment: .bottom) {
+                    LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
+                        .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        ScrollView {
+                            VStack(alignment: .leading) {
+                                Text("Choose profile")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                .animation(nil)
+                                
+                                ForEach(self.viewModel.profilesViewModels) { profile in
+                                    Button(action: {
+                                        self.viewModel.selectProfile(id: profile.id)
+                                    }) {
+                                        ProfileNameView(viewModel: profile)
+                                    }
+                                    .transition(.opacity)
                                 }
-                                .transition(.opacity)
+                                .animation(nil)
+                                NavigationLink(destination: self.viewModel.showCreateProfileView()) {
+                                    AddProfileView()
+                                }
+                                .animation(nil)
                             }
-                            .animation(nil)
-                            NavigationLink(destination: self.viewModel.showCreateProfileView()) {
-                                AddProfileView()
-                            }
-                            .animation(nil)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                GeometryReader { proxy in
+                                    self.contentHeight(proxy: proxy)
+                            })
+                                .animation(.easeInOut(duration: 0.6))
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .overlay(
-                            GeometryReader { proxy in
-                                self.contentHeight(proxy: proxy)
-                        })
-                            .animation(.easeInOut(duration: 0.6))
+                        .frame(maxWidth: .infinity, maxHeight: contentHeight)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .animation(.easeInOut(duration: 0.5))
                     }
-                    .frame(maxWidth: .infinity, maxHeight: contentHeight)
                     .padding()
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    .animation(.easeInOut(duration: 0.5))
                 }
-                .padding()
             }
-        }
-        .onAppear {
-            self.viewModel.accountRecover()
+            .onAppear {
+                self.viewModel.accountRecover()
         }.errorToast(isShowing: self.$viewModel.showError, errorText: self.viewModel.error ?? "")
+        }
     }
     
     private func contentHeight(proxy: GeometryProxy) -> some View {
@@ -90,13 +92,7 @@ private struct ProfileNameView: View {
     
     var body: some View {
         HStack {
-            if viewModel.image != nil {
-                UserIconView(image: viewModel.image, name: viewModel.name)
-                    .frame(width: 48, height: 48)
-            } else {
-                UserIconView(color: viewModel.color, name: viewModel.name)
-                    .frame(width: 48, height: 48)
-            }
+            UserIconView(image: self.viewModel.image, color: self.viewModel.color, name: self.viewModel.name)
             VStack(alignment: .leading, spacing: 0) {
                 Text(viewModel.name)
                     .foregroundColor(.black)
@@ -108,9 +104,35 @@ private struct ProfileNameView: View {
                         .foregroundColor(viewModel.peers != nil ? Color.black : Color("GrayText"))
                 }
             }
+            Spacer(minLength: 10).frame(minWidth: 10, maxWidth: nil)
         }
     }
 }
+
+//struct SomeProfileStruct: View {
+//    var name: String { "A" }
+//    var color: UIColor? { nil }
+//    var image: UIImage? { nil }
+//    var peers: String? { nil }
+//
+//    var body: some View {
+//        HStack {
+//            UserIconView(image: self.image, color: self.color, name: self.name)
+//            VStack(alignment: .leading, spacing: 0) {
+//                Text(self.name)
+//                    .foregroundColor(.black)
+//                    .padding(.bottom, 3)
+//                HStack {
+//                    Image("uploaded")
+//                        .clipShape(Circle())
+//                    Text(self.peers ?? "no peers")
+//                        .foregroundColor(self.peers != nil ? Color.black : Color("GrayText"))
+//                }.background(Color.green)
+//            }
+//            Spacer(minLength: 10).frame(minWidth: 10, maxWidth: nil)
+//        }
+//    }
+//}
 
 struct SelectProfileView_Previews: PreviewProvider {
     static var previews: some View {
