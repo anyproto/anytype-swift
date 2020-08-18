@@ -13,27 +13,42 @@ import UIKit
 /// This protocol provides resources getters for each subtype in Category.
 ///
 protocol BlocksViewsToolbarBlocksTypesProtocol {
-    var subpath: String {get}
-    var path: String {get}
-    var title: String {get}
-    var subtitle: String {get}
-
+    var imagePath: String {get}
+    var imageName: String {get}
+    
+    var titlePath: String {get}
+    var titleName: String {get}
+    
     var subtitlePath: String {get}
     var subtitleName: String {get}
+    
+    var image: String {get}
+    var title: String {get}
+    var subtitle: String {get}
 }
 
 extension BlocksViewsToolbarBlocksTypesProtocol {
-    var path: String {
-        BlocksViews.Toolbar.BlocksTypes.Resources.Image.image(subpath)
+    var image: String {
+        BlocksViews.Toolbar.BlocksTypes.Resources.Image.image(self.imageName)
     }
+    
+    var imagePath: String { "" }
+    var imageName: String { "" }
+    
     var title: String {
-        return self.path.components(separatedBy: "/").last ?? ""
+        NSLocalizedString(self.titleName, tableName: self.titlePath, bundle: .main, value: "", comment: "")
     }
+    
+    var titlePath: String { "TextEditor.Toolbar.Blocks.Types.Title" }
+    var titleName: String { self.subtitleName }
+
     var subtitle: String {
         NSLocalizedString(self.subtitleName, tableName: self.subtitlePath, bundle: .main, value: "", comment: "")
     }
-    var subtitlePath: String { "TextEditor.Toolbar.Blocks.Types" }
+    var subtitlePath: String { "TextEditor.Toolbar.Blocks.Types.Subtitle" }
     var subtitleName: String { "" }
+
+    
 }
 
 extension BlocksViews.Toolbar {
@@ -133,7 +148,7 @@ extension BlocksViews.Toolbar.BlocksTypes {
 
 // MARK: Protocol Adoption / BlocksViewsToolbarBlocksTypesProtocol
 extension BlocksViews.Toolbar.BlocksTypes.Text: BlocksViewsToolbarBlocksTypesProtocol {
-    var subpath: String {
+    var imageName: String {
         switch self {
         case .text: return "Text/Text"
         case .h1: return "Text/H1"
@@ -154,7 +169,7 @@ extension BlocksViews.Toolbar.BlocksTypes.Text: BlocksViewsToolbarBlocksTypesPro
 }
 
 extension BlocksViews.Toolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesProtocol {
-    var subpath: String {
+    var imageName: String {
         switch self {
         case .bulleted: return "List/Bulleted"
         case .checkbox: return "List/Checkbox"
@@ -194,7 +209,7 @@ extension BlocksViews.Toolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesPro
 //}
 
 extension BlocksViews.Toolbar.BlocksTypes.Objects: BlocksViewsToolbarBlocksTypesProtocol {
-    var subpath: String {
+    var imageName: String {
         switch self {
         case .page: return "Objects/Page"
         case .file: return "Objects/File"
@@ -214,17 +229,10 @@ extension BlocksViews.Toolbar.BlocksTypes.Objects: BlocksViewsToolbarBlocksTypes
         case .linkToObject: return "Objects.LinkToObject"
         }
     }
-    /// TODO: Add title localization.
-    var title: String {
-        switch self {
-        case .linkToObject: return "Link to object"
-        default: return self.path.components(separatedBy: "/").last ?? ""
-        }
-    }
 }
 
 extension BlocksViews.Toolbar.BlocksTypes.Tool: BlocksViewsToolbarBlocksTypesProtocol {
-    var subpath: String {
+    var imageName: String {
         switch self {
         case .contact: return "Tool/Contact"
         case .database: return "Tool/Database"
@@ -243,7 +251,7 @@ extension BlocksViews.Toolbar.BlocksTypes.Tool: BlocksViewsToolbarBlocksTypesPro
 }
 
 extension BlocksViews.Toolbar.BlocksTypes.Other: BlocksViewsToolbarBlocksTypesProtocol {
-    var subpath: String {
+    var imageName: String {
         switch self {
         case .lineDivider: return "Other/LineDivider"
         case .dotsDivider: return "Other/DotsDivider"
@@ -255,14 +263,6 @@ extension BlocksViews.Toolbar.BlocksTypes.Other: BlocksViewsToolbarBlocksTypesPr
         case .lineDivider: return "Other.LineDivider"
         case .dotsDivider: return "Other.DotsDivider"
         case .code: return "Other.Code"
-        }
-    }
-    /// TODO: Add title localization.
-    var title: String {
-        switch self {
-        case .lineDivider: return "Line divider"
-        case .dotsDivider: return "Dots"
-        default: return self.path.components(separatedBy: "/").last ?? ""
         }
     }
 }

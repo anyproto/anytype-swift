@@ -112,7 +112,7 @@
 		0A0AA75724018631003A2935 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA75624018631003A2935 /* DataStructures.swift */; };
 		0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */; };
 		0A0BDCC524B251E200956038 /* DocumentViewController+New+HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC424B251E200956038 /* DocumentViewController+New+HeaderView.swift */; };
-		0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings */; };
+		0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */; };
 		0A0BDCCA24B3370B00956038 /* OtherBlockActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC924B3370B00956038 /* OtherBlockActionsService.swift */; };
 		0A10CC59248EB5EC000FF498 /* BlocksViews+New+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC58248EB5EC000FF498 /* BlocksViews+New+Base.swift */; };
 		0A10CC76248EC517000FF498 /* BlocksViews+New+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC75248EC517000FF498 /* BlocksViews+New+Text.swift */; };
@@ -188,6 +188,7 @@
 		0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D124EAC6080074DCDF /* CoreLayer.swift */; };
 		0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D324EAC61C0074DCDF /* CoreLayer+Network.swift */; };
 		0A3EE0D624EAC6450074DCDF /* CoreLayer+Network+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D524EAC6450074DCDF /* CoreLayer+Network+Image.swift */; };
+		0A3EE0DA24EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D924EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings */; };
 		0A5F5AAF24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F5AAE24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings */; };
 		0A63ADE32462053D00F092C8 /* localstore.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63ADE22462053D00F092C8 /* localstore.pb.swift */; };
 		0A63ADE52462DFD900F092C8 /* DocumentViewRouting+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */; };
@@ -468,7 +469,7 @@
 		0A0AA75624018631003A2935 /* DataStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+IndexDictionary.swift"; sourceTree = "<group>"; };
 		0A0BDCC424B251E200956038 /* DocumentViewController+New+HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewController+New+HeaderView.swift"; sourceTree = "<group>"; };
-		0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.Toolbar.Blocks.Types.strings; sourceTree = "<group>"; };
+		0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.Toolbar.Blocks.Types.Subtitle.strings; sourceTree = "<group>"; };
 		0A0BDCC924B3370B00956038 /* OtherBlockActionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherBlockActionsService.swift; sourceTree = "<group>"; };
 		0A10CC58248EB5EC000FF498 /* BlocksViews+New+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Base.swift"; sourceTree = "<group>"; };
 		0A10CC75248EC517000FF498 /* BlocksViews+New+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Text.swift"; sourceTree = "<group>"; };
@@ -544,6 +545,7 @@
 		0A3EE0D124EAC6080074DCDF /* CoreLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLayer.swift; sourceTree = "<group>"; };
 		0A3EE0D324EAC61C0074DCDF /* CoreLayer+Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network.swift"; sourceTree = "<group>"; };
 		0A3EE0D524EAC6450074DCDF /* CoreLayer+Network+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image.swift"; sourceTree = "<group>"; };
+		0A3EE0D924EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.Toolbar.Blocks.Types.Title.strings; sourceTree = "<group>"; };
 		0A5F5AAE24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.ContextualMenu.Actions.strings; sourceTree = "<group>"; };
 		0A63ADE22462053D00F092C8 /* localstore.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = localstore.pb.swift; sourceTree = "<group>"; };
 		0A63ADE42462DFD900F092C8 /* DocumentViewRouting+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Tools.swift"; sourceTree = "<group>"; };
@@ -862,8 +864,9 @@
 			children = (
 				0AAC96662340C288006CE58C /* Localizable.strings */,
 				03A46A42231417D6009AC10C /* InfoPlist.strings */,
-				0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings */,
+				0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */,
 				0A5F5AAE24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings */,
+				0A3EE0D924EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -1990,8 +1993,9 @@
 				0A996BD823F042C4000FDC9C /* DeveloperOptions.Debug.plist in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
+				0A3EE0DA24EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings in Resources */,
 				0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */,
-				0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.strings in Resources */,
+				0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings in Resources */,
 				0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */,
 				0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */,
 			);

@@ -23,10 +23,30 @@ extension BlocksViews.New.Text.Quote {
 }
 
 // MARK: - UIView
+private extension BlocksViews.New.Text.Quote.UIKitView {
+    enum Style {
+        case presentation
+        func highlightingColor() -> UIColor {
+            return UIColor.init(named: "TextEditor/Colors/DefaultOrange") ?? .black
+        }
+    }
+    struct Layout {
+        struct HighlightBorder {
+            var width: CGFloat = 2
+            var leadingSpace: CGFloat = 10
+            var trailingSpace: CGFloat = 15
+        }
+        var highlightBorder: HighlightBorder = .init()
+    }
+}
 private extension BlocksViews.New.Text.Quote {
     class UIKitView: UIView {
         typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
 
+        // MARK: Layout
+        var style: Style = .presentation
+        var layout: Layout = .init()
+        
         // MARK: Views
         // |    topView    | : | leftView | textView |
         // |   leftView    | : |  button  |
@@ -70,23 +90,23 @@ private extension BlocksViews.New.Text.Quote {
             self.topView.onLeftChildWillLayout = { view in
                 if let view = view, let superview = view.superview {
                     NSLayoutConstraint.activate([
-                        view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                        view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -2),
+                        view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.highlightBorder.leadingSpace),
+                        view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.highlightBorder.trailingSpace),
                         view.topAnchor.constraint(equalTo: superview.topAnchor),
                         view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor),
-                        view.widthAnchor.constraint(equalToConstant: 3.0)
+                        view.widthAnchor.constraint(equalToConstant: self.layout.highlightBorder.width)
                     ])
                 }
             }
 
             _ = self.topView.configured(leftChild: {
                 let view = UIView()
-                view.backgroundColor = .black
+                view.backgroundColor = self.style.highlightingColor()
                 return view
             }())
             
-            self.contentView.addSubview(topView)
-            self.addSubview(contentView)
+            self.contentView.addSubview(self.topView)
+            self.addSubview(self.contentView)
         }
 
         // MARK: Layout

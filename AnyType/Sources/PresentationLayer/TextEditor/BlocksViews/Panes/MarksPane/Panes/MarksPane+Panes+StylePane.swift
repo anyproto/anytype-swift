@@ -444,12 +444,12 @@ extension MarksPane.Panes.StylePane.Cell {
         case presentation
         func foregroundColor() -> UIColor {
             switch self {
-            case .presentation: return .black
+            case .presentation: return MarksPane.Style.default.accentColor()
             }
         }
         func foregroundColor(chosen: Bool) -> UIColor {
             switch self {
-            case .presentation: return chosen ? .black : .systemGray2
+            case .presentation: return chosen ? self.foregroundColor() : .systemGray2
             }
         }
         func backgroundColor() -> UIColor {

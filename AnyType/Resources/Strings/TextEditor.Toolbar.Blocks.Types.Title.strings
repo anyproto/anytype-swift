@@ -1,0 +1,32 @@
+/* 
+  TextEditor.Toolbar.Blocks.Types.Title.strings
+  AnyType
+
+  Created by Dmitry Lobanov on 18.08.2020.
+  Copyright © 2020 AnyType. All rights reserved.
+*/
+
+"Text.Paragraph" = "Text";
+"Text.Header1" = "Header 1";
+"Text.Header2" = "Header 2";
+"Text.Header3" = "Header 3";
+"Text.Quote" = "Highlighted";
+
+"List.Checkbox" = "Checkbox list";
+"List.Bulleted" = "Bulleted list";
+"List.Numbered" = "Numbered list";
+"List.Toggle" = "Toggle list";
+
+"Page.Page" = "Page";
+"Page.ExistingPage" = "Link To Object";
+
+"Objects.Page" = "Page";
+"Objects.File" = "File";
+"Objects.Picture" = "Picture";
+"Objects.Video" = "Video";
+"Objects.Bookmark" = "Bookmark";
+"Objects.LinkToObject" = "Link to object";
+
+"Other.LineDivider" = "Line divider";
+"Other.DotsDivider" = "Dots";
+"Other.Code" = "Code";

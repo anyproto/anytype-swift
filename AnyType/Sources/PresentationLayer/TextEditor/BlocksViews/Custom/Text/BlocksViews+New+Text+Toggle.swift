@@ -65,8 +65,8 @@ private extension BlocksViews.New.Text.Toggle {
         case unfolded
         func imageResource() -> String {
             switch self {
-            case .folded: return "TextEditor/Style/Toggle/folded"
-            case .unfolded: return "TextEditor/Style/Toggle/unfolded"
+            case .folded: return "TextEditor/Style/Text/Toggle/folded"
+            case .unfolded: return "TextEditor/Style/Text/Toggle/unfolded"
             }
         }
         func foregroundColor() -> UIColor {

@@ -110,6 +110,9 @@ extension MarksPane.Main.Section.InputView {
 
 extension MarksPane.Main.Section.InputView {
     enum Style {
+        static func accentColor() -> UIColor {
+            MarksPane.Style.default.accentColor()
+        }
         case presentation
         func foregroundColor(chosen: Bool) -> UIColor {
             switch self {
@@ -118,7 +121,7 @@ extension MarksPane.Main.Section.InputView {
         }
         func backgroundColor(chosen: Bool) -> UIColor {
             switch self {
-            case .presentation: return chosen ? .black : .white
+            case .presentation: return chosen ? Style.accentColor() : .white
             }
         }
     }

@@ -51,8 +51,8 @@ private extension BlocksViews.New.Text.Checkbox {
         case checked
         func imageResource() -> String {
             switch self {
-            case .unchecked: return "TextEditor/Style/Checkbox/unchecked"
-            case .checked: return "TextEditor/Style/Checkbox/checked"
+            case .unchecked: return "TextEditor/Style/Text/Checkbox/unchecked"
+            case .checked: return "TextEditor/Style/Text/Checkbox/checked"
             }
         }
         func foregroundColor() -> UIColor {

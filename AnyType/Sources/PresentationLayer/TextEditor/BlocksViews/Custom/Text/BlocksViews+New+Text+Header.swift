@@ -174,12 +174,7 @@ extension BlocksViews.New.Text.Header {
         func update(style: Style) -> Self {
             self.style = style
             return self
-        }
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            print("leftView: \(String(describing: self.topView.leftView))")
-        }
+        }        
     }
 }
 

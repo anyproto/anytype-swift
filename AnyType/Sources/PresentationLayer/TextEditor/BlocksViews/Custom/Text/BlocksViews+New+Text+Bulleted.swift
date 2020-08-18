@@ -26,7 +26,23 @@ extension BlocksViews.New.Text.Bulleted {
 private extension BlocksViews.New.Text.Bulleted {
     enum Style {
         // should be Self and ExpressiblyByStringLiteral?
-        static var `default`: String = "⊙"
+        case presentation
+        var character: String {
+            switch self {
+            case .presentation: return "·"
+            }
+        }
+        var font: UIFont {
+            switch self {
+            case .presentation: return .systemFont(ofSize: 20)
+            }
+        }
+        var imageResource: String {
+            switch self {
+            case .presentation: return "TextEditor/Style/Text/Bulleted/Bullet"
+            }
+        }
+//        static var `default`: String = "·"
     }
 }
 
@@ -38,6 +54,8 @@ private extension BlocksViews.New.Text.Bulleted {
         // MARK: Views
         // |    topView    | : | leftView | textView |
         // |   leftView    | : |  button  |
+        
+        var style: Style = .presentation
         
         var contentView: UIView!
         var topView: TopView!
@@ -76,8 +94,15 @@ private extension BlocksViews.New.Text.Bulleted {
             }()
             
             _ = self.topView.configured(leftChild: {
-                let view = UILabel()
-                view.text = Style.default
+//                let view = UILabel()
+//                view.text = self.style.character
+//                view.font = self.style.font
+//                return view
+                let view = UIButton()
+                view.setImage(UIImage(named: self.style.imageResource), for: .normal)
+                view.isUserInteractionEnabled = false
+//                let view = UIImageView()
+//                view.image = UIImage(named: self.style.imageResource)
                 return view
             }())
 //                .configured(leftButton: {
@@ -129,7 +154,7 @@ private extension BlocksViews.New.Text.Bulleted {
     struct MarkedViewModifier: ViewModifier {
         func body(content: Content) -> some View {
             HStack(alignment: .top) {
-                Text(Style.default)
+                Text(Style.presentation.character)
                 content
             }
         }

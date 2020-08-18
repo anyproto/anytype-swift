@@ -313,13 +313,30 @@ extension MarksPane.Panes.Color {
     struct Category: View {
         var cells: [Cell.ViewModel]
         var layout: Layout = .init()
+        var cellsCount: Int { self.cells.count }
+        func cellPreferredSize(for size: CGSize) -> CGSize {
+            .init(width: size.width / CGFloat(self.cells.count), height: size.height / CGFloat(self.cells.count))
+        }
+        func screenSize(for size: CGSize) -> CGSize {
+            size
+        }
         var view: some View {
-            HStack(alignment: .center, spacing: self.layout.horizontalSpacing) {
-                ForEach(self.cells.indices) { i in
-                    Cell(viewModel: self.cells[i])
-                }
+            GeometryReader { geometry in
+                HStack(alignment: .center, spacing: self.layout.adjustToScreen(width: geometry.size.width).horizontalSpacing) {
+                    ForEach(self.cells) { cell in
+                        Cell(viewModel: cell).configured(screenSize: self.screenSize(for: geometry.size))
+                    }
+                }//.foregroundColor(self.geometryReader(proxy: geometry))
             }
         }
+//        func geometryReader(proxy: GeometryProxy) -> Color {
+//            DispatchQueue.main.async {
+//                print("this is: \(proxy.size)")
+////                self.sizeThatFit = proxy.size
+//            }
+//            return .clear
+//        }
+
         var body: some View {
             self.view
         }
@@ -328,7 +345,12 @@ extension MarksPane.Panes.Color {
 
 extension MarksPane.Panes.Color.Category {
     struct Layout {
+        typealias Ratio = MarksPane.Panes.Color.Cell.Layout.Ratio
         var horizontalSpacing: CGFloat = 8
+        
+        func adjustToScreen(width: CGFloat) -> Self {
+            .init(horizontalSpacing: self.horizontalSpacing * Ratio.default.ratio)
+        }
     }
 }
 
@@ -362,19 +384,37 @@ extension MarksPane.Panes.Color {
                 self.view(state: self.viewModel.state)
             }
         }
+        func configured(preferredSize: CGSize) -> Self {
+            let size: CGFloat = preferredSize.width - 2 * (self.layout.selectedCircle.padding + self.layout.selectedCircle.strokeWidth + self.layout.selectedCircle.additionalPadding)
+            let layout: Layout = .init(size: size)
+            return .init(viewModel: self.viewModel, layout: layout, style: self.style)
+        }
+        func configured(screenSize: CGSize) -> Self {
+            let screenWidth = screenSize.width
+            let layout: Layout = self.layout.adjustToScreen(width: screenWidth)
+            return .init(viewModel: self.viewModel, layout: layout, style: self.style)
+        }
     }
 }
 
 // MARK: - Cell Layout
 extension MarksPane.Panes.Color.Cell {
     struct Layout {
-        var size: CGFloat = 48
-        
+        struct Ratio {
+            static let `default`: Self = .init()
+            let width: CGFloat = 48
+            let screenWidth: CGFloat = 360
+            var ratio: CGFloat { self.width / self.screenWidth }
+        }
+        var size: CGFloat = Ratio.default.width
         var selectedCircle: SelectedCircle = .init()
         struct SelectedCircle {
             var padding: CGFloat = 3
             var strokeWidth: CGFloat = 2
             var additionalPadding: CGFloat {self.strokeWidth}
+        }
+        func adjustToScreen(width: CGFloat) -> Self {
+            .init(size: Ratio.default.ratio * width, selectedCircle: self.selectedCircle)
         }
     }
 }
@@ -385,14 +425,17 @@ extension MarksPane.Panes.Color.Cell {
         case presentation
         func borderColor() -> UIColor {
             switch self {
-            case .presentation: return .init(red: 0.165, green: 0.656, blue: 0.933, alpha: 1)
+            case .presentation: return MarksPane.Style.default.accentColor()
             }
+//            switch self {
+//            case .presentation: return .init(red: 0.165, green: 0.656, blue: 0.933, alpha: 1)
+//            }
         }
     }
 }
 
 extension MarksPane.Panes.Color.Cell {
-    class ViewModel: ObservableObject {
+    class ViewModel: ObservableObject, Identifiable {
         /// Connection between view and viewModel
         @Published var state: Bool = false
         
@@ -439,6 +482,11 @@ extension MarksPane.Panes.Color.Cell {
             self.section = section
             self.index = index
             self.imageResource = imageResource
+        }
+        
+        // MARK: - Identifiable
+        var id: IndexPath {
+            .init(row: self.index, section: self.section)
         }
     }
 }

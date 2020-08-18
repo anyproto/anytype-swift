@@ -197,7 +197,7 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
 
     func chosenTypes(category: Int?) -> [ChosenType] {
         func extractedChosenTypes(_ types: [BlocksViewsToolbarBlocksTypesProtocol]) -> [ChosenType] {
-            types.compactMap{($0.title, $0.subtitle, $0.path)}.map(ChosenType.init(title:subtitle:image:))
+            types.compactMap{($0.title, $0.subtitle, $0.image)}.map(ChosenType.init(title:subtitle:image:))
         }
         guard let category = category else { return [] }
         switch self.categories[category] {
