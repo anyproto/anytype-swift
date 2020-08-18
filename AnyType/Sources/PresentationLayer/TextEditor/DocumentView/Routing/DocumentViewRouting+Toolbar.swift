@@ -204,7 +204,20 @@ extension DocumentViewRouting.ToolbarsRouter {
                 let viewModel: MarksPane.ViewController.ViewModel
                 
                 if let input = payload.input {
-                    viewModel = .create(.init(section: input.section))
+                    viewModel = .create(.init(section: input.section, userResponse: input.userResponse))
+                    if input.shouldPluginOutputIntoInput {
+                        let publisher = payload.output.map({ value -> MarksPane.ViewController.ViewModel.Style? in
+                            switch value {
+                            case let .backgroundColor(_, action):
+                                switch action {
+                                case let .setColor(value):
+                                    return .init(section: nil, userResponse: .init(backgroundColor: value))
+                                }
+                            default: return nil
+                            }
+                        }).eraseToAnyPublisher()
+                        viewModel.configured(publisher)
+                    }
                 }
                 else {
                     viewModel = .create(.init())

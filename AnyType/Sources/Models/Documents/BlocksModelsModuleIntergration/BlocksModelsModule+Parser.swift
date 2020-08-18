@@ -102,7 +102,7 @@ extension Namespace.Parser {
         // TODO: Add fields and restrictions.
         // Add parsers for them and model.
         let logger = Logging.createLogger(category: .todo(.improve("")))
-        os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
+        os_log(.debug, log: logger, "Add fields and restrictions into our model.")
         information.childrenIds = block.childrenIds
         information.backgroundColor = block.backgroundColor
         if let alignment = Common.Alignment.Converter.asModel(block.align) {
@@ -125,14 +125,14 @@ extension Namespace.Parser {
         let restrictions: Anytype_Model_Block.Restrictions = .init()
         let childrenIds = information.childrenIds
         let backgroundColor = information.backgroundColor
+        
         var alignment: Anytype_Model_Block.Align = .left
-
         if let value = Common.Alignment.Converter.asMiddleware(information.alignment) {
             alignment = value
         }
 
         let logger = Logging.createLogger(category: .todo(.improve("")))
-        os_log(.debug, log: logger, "Add fields and restrictions and backgroundColor and align into our model.")
+        os_log(.debug, log: logger, "Add fields and restrictions into our model.")
         return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: alignment, content: content)
     }
     

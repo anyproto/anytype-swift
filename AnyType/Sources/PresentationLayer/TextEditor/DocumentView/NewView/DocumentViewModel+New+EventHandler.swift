@@ -176,6 +176,7 @@ extension FileNamespace.EventHandler {
             var deletedIds: [BlockId] = []
             var updatedIds: [BlockId] = []
             static var empty: Self = .init()
+            fileprivate static func noUpdates() -> Self { .empty }
         }
         case general
         case update(Payload)
@@ -249,6 +250,16 @@ private extension FileNamespace.EventHandler {
             })
             return .update(.init(deletedIds: [], updatedIds: [blockId]))
         
+        case let .blockSetBackgroundColor(value):
+            let blockId = value.id
+            let backgroundColor = value.backgroundColor
+            
+            self.updater?.update(entry: blockId, update: { (value) in
+                var value = value
+                value.information.backgroundColor = backgroundColor
+            })
+            return .update(.noUpdates())
+            
         case let .blockSetAlign(value):
             let blockId = value.id
             let alignment = value.align
@@ -292,7 +303,7 @@ private extension FileNamespace.EventHandler {
 //                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
 //                return .general
 //            }
-            return .update(.empty) // or .general
+            return .update(.noUpdates()) // or .general
         case let .blockSetFile(value):
             guard value.hasState else {
                 return .general

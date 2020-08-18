@@ -109,6 +109,13 @@ extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
         struct Input {
             var userResponse: MarksPane.Main.RawUserResponse?
             var section: MarksPane.Main.Section.Category?
+            
+            /// Connect output to input.
+            /// It means that if you want to keep GUI in consistency, you have to provide full cycle from GUI to Model and backward.
+            /// However, you could cheat a bit.
+            /// You could connect output from this GUI to its input.
+            ///
+            var shouldPluginOutputIntoInput: Bool = false
         }
         var output: Output
         var input: Input?

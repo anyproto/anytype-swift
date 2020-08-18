@@ -152,9 +152,15 @@ extension BlocksViews.New.Base {
             self.toolbarActionPublisher = self.toolbarActionSubject.eraseToAnyPublisher()
             self.marksPaneActionPublisher = self.marksPaneActionSubject.eraseToAnyPublisher()
                         
-            self.actionsPayloadPublisher = self.toolbarActionPublisher.map({ [weak self] value in
+            let actionsPayloadPublisher = self.actionsPayloadSubject
+            let toolbarActionPublisher = self.toolbarActionPublisher.map({ [weak self] value in
                 self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
-            }).safelyUnwrapOptionals().eraseToAnyPublisher().merge(with: self.actionsPayloadSubject.eraseToAnyPublisher()).eraseToAnyPublisher()
+            }).safelyUnwrapOptionals()
+            let marksPaneActionPublisher = self.marksPaneActionSubject.map({ [weak self] value in
+                self.flatMap({ActionsPayload.marksPane(.init(model: $0.block, action: value))})
+            }).safelyUnwrapOptionals()
+            
+            self.actionsPayloadPublisher = Publishers.Merge3(actionsPayloadPublisher.eraseToAnyPublisher(), toolbarActionPublisher.eraseToAnyPublisher(), marksPaneActionPublisher.eraseToAnyPublisher()).eraseToAnyPublisher()
         }
         
         // MARK: - Setup / Subscriptions
@@ -218,7 +224,9 @@ extension BlocksViews.New.Base {
                 case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject))))
                 case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .style))))))
                 case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .textColor))))))
-                case .backgroundColor: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .backgroundColor))))))
+                case .backgroundColor:
+                    let color = BlocksModelsModule.Parser.Text.Color.Converter.asModel(self.getBlock().blockModel.information.backgroundColor, background: true)
+                    self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: .init(backgroundColor: color), section: .backgroundColor, shouldPluginOutputIntoInput: true))))))
                 default: return
                 }
             default: return
@@ -249,6 +257,11 @@ extension BlocksViews.New.Base.ViewModel {
             guard let block = self?.block else { return nil }
             return ActionsPayload.toolbar(.init(model: block, action: value))
         }).safelyUnwrapOptionals()
+        
+        let marksPanePublisher = self.marksPaneActionPublisher.map({ [weak self] value in
+            self.flatMap({ActionsPayload.marksPane(.init(model: $0.block, action: value))})
+        }).safelyUnwrapOptionals()
+
 
         /// Discussion:
         /// Do we have here retain cycle?
@@ -256,7 +269,8 @@ extension BlocksViews.New.Base.ViewModel {
         /// However, we use some transforms on our publisher.
         ///
 //        self.actionsPayloadSubjectSubscription = toolbarPublisher.subscribe(self.actionsPayloadSubject)
-        self.actionsPayloadSubjectSubscription = toolbarPublisher.sink(receiveValue: { [weak self] (value) in
+        let allInOnePublisher = Publishers.Merge(toolbarPublisher, marksPanePublisher)
+        self.actionsPayloadSubjectSubscription = allInOnePublisher.sink(receiveValue: { [weak self] (value) in
             self?.actionsPayloadSubject.send(value)
         })
         return self
@@ -278,6 +292,13 @@ extension BlocksViews.New.Base.ViewModel {
             var action: Action
         }
         
+        struct MarksPaneHolder {
+            typealias Model = BlockModel
+            typealias Action = MarksPane.Main.Action
+            var model: Model
+            var action: Action
+        }
+        
         /// For backward compatibility.
         struct TextBlocksViewsUserInteraction {
             typealias Model = BlockModel
@@ -287,6 +308,7 @@ extension BlocksViews.New.Base.ViewModel {
         }
         
         case toolbar(Toolbar)
+        case marksPane(MarksPaneHolder)
         case textView(TextBlocksViewsUserInteraction)
     }
     

@@ -45,6 +45,7 @@ extension Namespace.Base {
         @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
         @Published private var toViewTextAlignment: NSTextAlignment? { willSet { self.objectWillChange.send() } }
         @Published private var toViewSetFocusPosition: FocusPosition?
+        @Published private var toViewSetBackgroundColor: UIColor?
         
         private var toViewUpdates: AnyPublisher<TextView.UIKitTextView.ViewModel.Update, Never> = .empty()
         
@@ -84,7 +85,7 @@ extension Namespace.Base {
         func getUIKitViewModel() -> TextView.UIKitTextView.ViewModel { self.textViewModel }
         
         override func makeUIView() -> UIView {
-            self.getUIKitViewModel().createView()
+            TopWithChildUIKitView().configured(textView: self.getUIKitViewModel().createView()).configured(leftChild: .empty()).configured(self.$toViewSetBackgroundColor.map({TopWithChildUIKitView.Resource.init(backgroundColor: $0)}).eraseToAnyPublisher())
         }
         
         // MARK: Contextual Menu
@@ -99,7 +100,7 @@ extension Namespace.Base {
                 .create(action: .specific(.color)),
                 .create(action: .specific(.backgroundColor)),
             ])
-        }        
+        }
     }
 }
 
@@ -192,6 +193,11 @@ private extension Namespace.Base.ViewModel {
         }).removeDuplicates().safelyUnwrapOptionals().sink { [weak self] (value) in
             /// Update data(?)
             self?.toViewText = value.attributedText
+        }.store(in: &self.subscriptions)
+        
+        self.getBlock().didChangeInformationPublisher().map({ value in value.backgroundColor }).removeDuplicates().sink { [weak self] (value) in
+            let result = BlocksModelsModule.Parser.Text.Color.Converter.asModel(value, background: true)
+            self?.toViewSetBackgroundColor = result
         }.store(in: &self.subscriptions)
         
         //                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
@@ -546,6 +552,13 @@ extension Namespace.Base {
 // MARK: - UIKitView / TopWithChild
 extension Namespace.Base {
     class TopWithChildUIKitView: UIView {
+        struct Resource {
+            var textColor: UIColor?
+            var backgroundColor: UIColor?
+        }
+        
+        private var resourceSubscription: AnyCancellable?
+        
         // TODO: Refactor
         // OR
         // We could do it on toggle level or on block parsing level?
@@ -554,8 +567,6 @@ extension Namespace.Base {
             var indentationWidth = 8
             var boundaryWidth = 2
         }
-
-        // MAKR:
 
         // MARK: Views
         // |    topView    | : | leftView | textView |
@@ -662,6 +673,13 @@ extension Namespace.Base {
 
         func configured(textView: TextView.UIKitTextView?) -> Self {
             _ = self.topView.configured(textView: textView)
+            return self
+        }
+        
+        fileprivate func configured(_ resourceStream: AnyPublisher<Resource, Never>) -> Self {
+            self.resourceSubscription = resourceStream.receive(on: RunLoop.main).sink { [weak self] (value) in            
+                self?.backgroundColor = value.backgroundColor
+            }
             return self
         }
     }

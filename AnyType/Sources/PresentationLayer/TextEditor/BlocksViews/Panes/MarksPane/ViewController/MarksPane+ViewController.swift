@@ -93,6 +93,8 @@ extension MarksPane.ViewController {
         
         // MARK: Variables
         
+        var subscription: AnyCancellable?
+        
         // MARK: Publishers
         var action: AnyPublisher<UnderlyingAction, Never> = .empty()
         var dismissActionPublisher: AnyPublisher<Void, Never> = .empty()
@@ -122,6 +124,9 @@ extension MarksPane.ViewController {
             if let section = style.section {
                 self.viewModelHolder.viewModel.update(category: section)
             }
+            if let userResponse = style.userResponse {
+                self.viewModelHolder.viewModel.update(userResponse)
+            }
 //            self.action = self.publisher(style: style)
 //            self.dismissControllerPublisher = self.action.successToVoid().eraseToAnyPublisher()
         }
@@ -140,6 +145,13 @@ extension MarksPane.ViewController {
         func chosenView() -> StyleAndViewAndPayload {
             let view = self.viewModelHolder.createView()
             return .init(payload: nil, style: self.style, view: view)
+        }
+        
+        func configured(_ stylePublisher: AnyPublisher<Style?, Never>) {
+            self.subscription = stylePublisher.safelyUnwrapOptionals().sink { [weak self] value in
+                self?.style = value
+                self?.setup(style: value)
+            }
         }
     }
 }
@@ -185,8 +197,10 @@ extension MarksPane.ViewController.ViewModel {
     ///
     struct Style {
         fileprivate var section: MarksPane.Main.Section.Category?
-        init(section: MarksPane.Main.Section.Category?) {
+        fileprivate var userResponse: MarksPane.Main.RawUserResponse?
+        init(section: MarksPane.Main.Section.Category?, userResponse: MarksPane.Main.RawUserResponse?) {
             self.section = section
+            self.userResponse = userResponse
         }
         init() {}
     }

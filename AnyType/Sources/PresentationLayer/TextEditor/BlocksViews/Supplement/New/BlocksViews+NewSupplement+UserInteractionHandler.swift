@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import Combine
 import os
 import SwiftProtobuf
@@ -21,6 +22,7 @@ private extension Logging.Categories {
 extension Namespace {
     class UserInteractionHandler {
         typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
+        typealias ActionsPayloadMarksPane = ActionsPayload.MarksPaneHolder.Action
         typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
         typealias ActionsPayloadTextViewTextView = ActionsPayload.TextBlocksViewsUserInteraction.Action.TextViewUserAction
         typealias ActionsPayloadTextViewButtonView = ActionsPayload.TextBlocksViewsUserInteraction.Action.ButtonViewUserAction
@@ -139,11 +141,27 @@ extension Namespace.UserInteractionHandler {
     func didReceiveAction(action: ActionsPayload) {
         switch action {
         case let .toolbar(value): self.handlingToolbarAction(value.model, value.action)
+        case let .marksPane(value): self.handlingMarksPaneAction(value.model, value.action)
         case let .textView(value):
             switch value.action {
             case let .textView(action): self.handlingTextViewAction(value.model, action)
             case let .buttonView(action): self.handlingButtonViewAction(value.model, action)
             }
+        }
+    }
+}
+
+// MARK: Actions Handling / MarksPane
+private extension BlocksViews.NewSupplement.UserInteractionHandler {
+    func handlingMarksPaneAction(_ block: Model, _ action: ActionsPayloadMarksPane) {
+        switch action {
+        case let .backgroundColor(_, action):
+            switch action {
+            case let .setColor(value):
+                /// Do stuff..
+                self.service.setBackgroundColor(block: block.blockModel.information, color: value)
+            }
+        default: return
         }
     }
 }
@@ -938,5 +956,36 @@ private extension Namespace.UserInteractionHandler.Service {
     
     func bookmarkFetch(block: Information, url: String) {
         self._bookmarkFetch(block: block, url: url)
+    }
+}
+
+// MARK: ServiceHandler / Actions / SetBackgroundColor
+private extension Namespace.UserInteractionHandler.Service {
+    private func _setBackgroundColor(block: Information, color: UIColor?, _ completion: @escaping Conversion = Converter.Default.convert) {
+        guard let blockId = self.parser.convert(information: block)?.id else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "setBackgroundColor block: %@ is nil? ", "\(String(describing: block))")
+            return
+        }
+        
+        let blockIds = [blockId]
+        
+        let backgroundColor = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: true)
+
+        self.listService.setBackgroundColor.action(contextID: self.documentId, blockIds: blockIds, color: backgroundColor).sink(receiveCompletion: { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.error, log: logger, "blocksActions.service.bookmarkFetch got error: %@", "\(error)")
+            }
+        }) { [weak self] (value) in
+            let value = completion(value)
+            self?.didReceiveEvent(value)
+        }.store(in: &self.subscriptions)
+    }
+    
+    func setBackgroundColor(block: Information, color: UIColor?) {
+        self._setBackgroundColor(block: block, color: color)
     }
 }

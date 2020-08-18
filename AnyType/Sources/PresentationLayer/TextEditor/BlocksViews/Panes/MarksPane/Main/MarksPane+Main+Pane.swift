@@ -96,7 +96,7 @@ extension MarksPane.Main {
     
     struct RawUserResponse {
         var attributedString: NSAttributedString = .init(string: "")
-        var textAlignment: NSTextAlignment
+        var textAlignment: NSTextAlignment = .natural
         var textColor: UIColor = .clear
         var backgroundColor: UIColor = .clear
     }
@@ -295,22 +295,25 @@ extension MarksPane.Main {
         var style: Style = .presentation
         
         var view: some View {
-                VStack {
-                    Divider().frame(height: self.layout.dividerHeight).background(Color(self.style.separatorColor()))
-                    Spacer().frame(height: self.layout.topSpacing)
-                    HStack(alignment: .top) {
-                        Section.InputViewBuilder.createView(self.viewModel.observedSectionViewModel)
-                    }
-                    Spacer().frame(height: self.layout.intermediateSpacing)//(minLength: self.layout.minimumIntermediateSpacing)
-                    HStack(alignment: .center) {
-                        self.viewModel.view(category: self.sectionViewModel.chosenCategory)
-                    }
-                    Spacer(minLength: self.layout.minimumBottomSpacing)
+            VStack {
+//                Divider().frame(height: self.layout.dividerHeight).background(Color(self.style.separatorColor())).padding(.bottom, 5)
+//                Spacer().frame(height: self.layout.topSpacing)
+                HStack(alignment: .top) {
+                    Section.InputViewBuilder.createView(self.viewModel.observedSectionViewModel)
                 }
+                Spacer().frame(height: self.layout.intermediateSpacing)//(minLength: self.layout.minimumIntermediateSpacing)
+                HStack(alignment: .center) {
+                    self.viewModel.view(category: self.sectionViewModel.chosenCategory)
+                }
+                Spacer(minLength: self.layout.minimumBottomSpacing)
+            }
         }
         var body: some View {
             GeometryReader { geometry in
-                self.view.frame(width: geometry.size.width, height: geometry.size.height)
+                Group {
+                    Divider().frame(height: self.layout.dividerHeight).background(Color(self.style.separatorColor()))
+                    self.view.frame(width: geometry.size.width, height: geometry.size.height).padding(.top, 5)
+                }
             }
         }
     }
