@@ -137,7 +137,7 @@ extension BlocksViews.Toolbar.AddBlock {
                 let logger = Logging.createLogger(category: .todo(.workaround(.os14, "Fix it.")))
                 os_log(.debug, log: logger, "We should remove all appearances to global UIKit classes.")
                 UITableView.appearance().tableFooterView = .init()
-                UITableViewHeaderFooterView.appearance().tintColor = UIColor.clear
+                UITableViewHeaderFooterView.appearance().tintColor = .clear
             }
         }
 
@@ -152,8 +152,17 @@ extension BlocksViews.Toolbar.AddBlock {
     struct Category: View {
         var viewModel: ViewModel
         var cells: [Cell.ViewModel]
+        var header: some View {
+            HStack {
+                Text(self.viewModel.uppercasedTitle)
+                    .font(.init(Style.section.coreTextFont()))
+                    .foregroundColor(.init(Style.section.foregroundColor()))
+                    .padding()
+                Spacer()
+            }.background(Color(Style.section.backgroundColor())).listRowInsets(.init(.init()))
+        }
         var body: some View {
-            Section(header: Text(self.viewModel.uppercasedTitle).font(.init(Style.section.coreTextFont())).foregroundColor(.init(Style.section.foregroundColor()))) {
+            Section(header: self.header) {
                 ForEach(self.cells) { cell in
                     Cell(viewModel: cell)
                 }

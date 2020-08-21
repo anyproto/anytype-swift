@@ -12,10 +12,10 @@
 "Text.Header3" = "Header 3";
 "Text.Quote" = "Highlighted";
 
-"List.Checkbox" = "Checkbox list";
+"List.Checkbox" = "Checkbox";
 "List.Bulleted" = "Bulleted list";
 "List.Numbered" = "Numbered list";
-"List.Toggle" = "Toggle list";
+"List.Toggle" = "Toggle";
 
 "Page.Page" = "Page";
 "Page.ExistingPage" = "Link To Object";

@@ -67,10 +67,12 @@ class HomeCollectionViewModel: ObservableObject {
     
     // TODO: Revise this later. Just in case, save rootId - used for filtering events from middle for main dashboard
     var rootId: String?
-    var view: HomeCollectionViewInput?
+//    var view: HomeCollectionViewInput?
+    var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
+    private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
     
-    // MARK: - Lifecycle
-    init() {
+    // MARK: - Setup
+    func setupDashboard() {
         self.dashboardService.openDashboard().receive(on: RunLoop.main)
         .sink(receiveCompletion: { (value) in
             switch value {
@@ -82,6 +84,20 @@ class HomeCollectionViewModel: ObservableObject {
         }) { [weak self] value in
             self?.handleOpenDashboard(value)
         }.store(in: &self.subscriptions)
+    }
+    
+    func setupSubscribers() {
+        self.userActionsPublisher = self.userActionsSubject.eraseToAnyPublisher()
+    }
+    
+    func setup() {
+        self.setupSubscribers()
+        self.setupDashboard()
+    }
+    
+    // MARK: - Lifecycle
+    init() {
+        self.setup()
     }
 }
 
@@ -206,6 +222,17 @@ extension HomeCollectionViewModel {
     }
 }
 
+// MARK: Events
+extension HomeCollectionViewModel {
+    enum UserAction {
+        case showPage(BlockId)
+    }
+    
+    private func send(_ action: UserAction) {
+        self.userActionsSubject.send(action)
+    }
+}
+
 // MARK: - view events
 extension HomeCollectionViewModel {
     typealias BlockId = TopLevel.AliasesMap.BlockId
@@ -214,7 +241,7 @@ extension HomeCollectionViewModel {
         guard case let .link(link) = targetModel.blockModel.information.content else { return }
         
         let blockId = link.targetBlockID
-        self.view?.showPage(with: blockId)
+        self.send(.showPage(blockId))
     }
     func didSelectPage(with index: IndexPath) {        
         switch self.documentsViewModels[index.row] {

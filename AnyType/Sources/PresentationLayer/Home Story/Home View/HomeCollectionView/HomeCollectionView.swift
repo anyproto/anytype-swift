@@ -7,27 +7,28 @@
 //
 
 import SwiftUI
+import Combine
 
 enum HomeCollectionViewSection {
     case main
 }
 
-protocol HomeCollectionViewInput {
-    func showPage(with blockId: String)
-}
-
 // MARK: - UIViewRepresentable
 struct HomeCollectionView: UIViewRepresentable {
+        
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
     @EnvironmentObject var viewModel: HomeCollectionViewModel
     @Binding var documentsCell: [HomeCollectionViewCellType]
+    class SubscriptionStorage: ObservableObject {
+        var userActionsSubscription: AnyCancellable?
+    }
+    @ObservedObject private var subscriptionStorage: SubscriptionStorage = .init()
     
     let containerSize: CGSize
     
     func makeCoordinator() -> HomeCollectionViewCoordinator {
-        viewModel.view = self // TODO: check if there is retain cycle
-        return HomeCollectionViewCoordinator(self)
+        .init(self, viewModel: self.viewModel)
     }
     
     func makeUIView(context: Context) -> UICollectionView {
@@ -57,9 +58,8 @@ struct HomeCollectionView: UIViewRepresentable {
     }
 }
 
-// MARK: - HomeCollectionViewInput
-extension HomeCollectionView: HomeCollectionViewInput {
-    
+// MARK: - Show Page
+extension HomeCollectionView {
     func showPage(with blockId: String) {
         showDocument = true
         selectedDocumentId = blockId
@@ -123,9 +123,20 @@ extension HomeCollectionView {
 class HomeCollectionViewCoordinator: NSObject {
     var parent: HomeCollectionView
     var dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?
+    var subscription: AnyCancellable?
     
-    init(_ collectionView: HomeCollectionView) {
+    init(_ collectionView: HomeCollectionView, viewModel: HomeCollectionViewModel) {
         self.parent = collectionView
+        super.init()
+        self.configured(viewModel: viewModel)
+    }
+    
+    private func configured(viewModel: HomeCollectionViewModel) {
+        self.subscription = viewModel.userActionsPublisher.sink { [weak self] value in
+            switch value {
+            case let .showPage(value): self?.parent.showPage(with: value)
+            }
+        }
     }
 }
 

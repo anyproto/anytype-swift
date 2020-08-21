@@ -134,7 +134,7 @@ private extension Namespace.ContainerViewController {
         _ = presentation?.configured(presentedViewController: self)
         //        self.transitionContainer.configured
         let containerController = self.transitionContainer
-        let resultController = containerController.configured(root: self)
+        let resultController = containerController//.configured(root: self)
             .configured(presentationAnimator: presentation)
             .configured(presentationInteractor: presentation)
             .configured(dismissalAnimator: dismissal)
