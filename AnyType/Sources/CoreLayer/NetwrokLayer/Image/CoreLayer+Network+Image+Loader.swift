@@ -23,6 +23,9 @@ extension Namespace {
         private let subpath = "/image/"
         
         private func imageURL(configuration: MiddlewareConfigurationService.MiddlewareConfiguration, subpath: String) -> URL? {
+            if subpath.isEmpty {
+                return nil
+            }
             let string = configuration.gatewayURL + self.subpath + subpath
             return URL.init(string: string)
         }

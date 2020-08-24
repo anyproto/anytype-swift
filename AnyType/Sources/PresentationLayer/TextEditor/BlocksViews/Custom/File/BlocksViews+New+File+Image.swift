@@ -54,7 +54,6 @@ extension Namespace {
                 
                 let model: ImagePickerUIKit.ViewModel = .init(documentId: documentId, blockId: blockId)
                 self.configureListening(imagePickerViewModel: model)
-                // self.getRealBlock()
                 self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(model)))))
             }
         }

@@ -100,6 +100,7 @@ extension ImagePickerUIKit {
 }
 
 // MARK: - ViewModel
+// TODO: Remove documentId/blockId(?)
 extension ImagePickerUIKit {
     class ViewModel {
         private var documentId: String

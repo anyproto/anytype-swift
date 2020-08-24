@@ -13,31 +13,36 @@ import os
 import SwiftUI
 import BlocksModels
 
+// TODO: Rename to Icon.
+fileprivate typealias Namespace = BlocksViews.New.Page.IconEmoji
+
 private extension Logging.Categories {
     static let pageBlocksViewsIconEmoji: Self = "TextEditor.BlocksViews.PageBlocksViews.IconEmoji"
 }
 
 // MARK: - ViewModel
-extension BlocksViews.New.Page.IconEmoji {
-   
+extension Namespace {
+    
     class ViewModel: BlocksViews.New.Page.Base.ViewModel {
         
         typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
         private var subscriptions: Set<AnyCancellable> = []
         
         @Published var toViewEmoji: String = ""
+        @Published var toViewImage: UIImage?
         @Published var fromUserActionSubject: PassthroughSubject<String, Never> = .init()
-
+        
         var toModelEmojiSubject: PassthroughSubject<String, Never> = .init()
         
-        public var actionMenuItems: [ActionMenuItem] = []
-   
+        fileprivate var actionMenuItems: [ActionMenuItem] = []
+        
         // MARK: - Initialization
         override init(_ block: BlockModel) {
-            super.init(block)
+            super.init(block)            
             self.setup(block: block)
+            _ = self.configured(.init(shouldAddContextualMenu: false))
         }
-
+        
         // MARK: - Setup
         private func setupSubscribers() {
             //TODO: Better to listen wholeDetailsPublisher when details is updating
@@ -45,7 +50,7 @@ extension BlocksViews.New.Page.IconEmoji {
                 self?.toModelEmojiSubject.send(value)
             }.store(in: &subscriptions)
         }
-
+        
         private func setup(block: BlockModel) {
             self.setupSubscribers()
             self.setupActionMenuItems()
@@ -56,9 +61,16 @@ extension BlocksViews.New.Page.IconEmoji {
             switch event {
             case .pageDetailsViewModelDidSet:
                 
-                self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.iconEmoji).sink(receiveValue: { [weak self] (value) in
+                let detailsAccessor = self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init)
+                
+                detailsAccessor?.map(\.iconEmoji).sink(receiveValue: { [weak self] (value) in
                     value.flatMap({self?.toViewEmoji = $0.value})
                 }).store(in: &self.subscriptions)
+                
+                detailsAccessor?.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.URLResolver.init().transform(imageId: value).ignoreFailure()})
+                    .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
+                        self?.toViewImage = value
+                }.store(in: &self.subscriptions)
                 
                 self.toModelEmojiSubject.notableError().flatMap({ [weak self] value in
                     self?.pageDetailsViewModel?.update(details: .iconEmoji(.init(value: value))) ?? .empty()
@@ -72,7 +84,7 @@ extension BlocksViews.New.Page.IconEmoji {
                 }, receiveValue: {}).store(in: &self.subscriptions)
             }
         }
-
+        
         // MARK: Subclassing / Views
         override func makeUIView() -> UIView {
             UIKitView.init().configured(model: self)
@@ -82,7 +94,7 @@ extension BlocksViews.New.Page.IconEmoji {
 }
 
 // MARK: - ActionMenu handler
-extension BlocksViews.New.Page.IconEmoji.ViewModel {
+extension Namespace.ViewModel {
     
     struct ActionMenuItem {
         var action: UserAction
@@ -99,15 +111,10 @@ extension BlocksViews.New.Page.IconEmoji.ViewModel {
     
     func handle(action: UserAction) {
         switch action {
-        case .select:
-            self.select()
-        case .random:
-            self.random()
-        case .remove:
-            self.remove()
-        default:
-            let logger = Logging.createLogger(category: .pageBlocksViewsIconEmoji)
-            os_log(.debug, log: logger, "We handle only actions above. Action %@ isn't handled", String(describing: action))
+        case .select: self.select()
+        case .random: self.random()
+        case .remove: self.remove()
+        case .upload: self.upload()
         }
     }
     
@@ -115,7 +122,7 @@ extension BlocksViews.New.Page.IconEmoji.ViewModel {
     func actions() -> [UIAction] {
         self.actionMenuItems.map(self.action(with:))
     }
-        
+    
     func action(with item: ActionMenuItem) -> UIAction {
         UIAction(title: item.title, image: UIImage(named: item.imageName)) { action in
             self.handle(action: item.action)
@@ -134,32 +141,78 @@ extension BlocksViews.New.Page.IconEmoji.ViewModel {
 }
 
 // MARK: - ActionMenu Actions
-extension BlocksViews.New.Page.IconEmoji.ViewModel {
-   
+extension Namespace.ViewModel {
+    
     func select() {
         let model = EmojiPicker.ViewModel()
-               
+        
         model.$selectedEmoji.safelyUnwrapOptionals().sink { [weak self] (emoji) in
             self?.fromUserActionSubject.send(emoji.unicode)
         }.store(in: &subscriptions)
-           
+        
         self.send(userAction: .specific(.page(.emoji(.shouldShowEmojiPicker(model)))))
     }
-           
+    
     func random() {
         let emoji = EmojiPicker.Manager().random()
         self.fromUserActionSubject.send(emoji.unicode)
     }
-        
+    
     func remove() {
-        let emoji = EmojiPicker.Manager.Emoji.empty()
-        self.fromUserActionSubject.send(emoji.unicode)
+        if self.toViewImage != nil {
+            // remove photo
+            // else?
+            self.pageDetailsViewModel?.update(details: .iconImage(.init(value: "")))?.sink(receiveCompletion: { [weak self] (value) in
+                switch value {
+                case .finished: self?.toViewImage = nil
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .pageBlocksViewsIconEmoji)
+                    os_log(.debug, log: logger, "PageBlocksViews emoji setDetails removeImage error has occured. %@", String(describing: error))
+                }
+            }, receiveValue: {_ in }).store(in: &self.subscriptions)
+        }
+        else {
+            let emoji = EmojiPicker.Manager.Emoji.empty()
+            self.fromUserActionSubject.send(emoji.unicode)
+        }
     }
-          
+    
+    func upload() {
+        
+        let blockModel = self.getBlock()
+        // We don't care about blockId, because we upload image for a page.
+        let (prefix, _) = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.IdentifierBuilder.asDetails(blockModel.blockModel.information.id)
+        let documentId = prefix
+        guard !documentId.isEmpty else { return }
+        let blockId = ""
+        
+        let model: ImagePickerUIKit.ViewModel = .init(documentId: documentId, blockId: blockId)
+        self.configureListening(imagePickerViewModel: model)
+        self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(model)))))
+    }
+}
+
+extension Namespace.ViewModel {
+    func configureListening(imagePickerViewModel: ImagePickerUIKit.ViewModel) {
+        imagePickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
+            .flatMap({IpfsFilesService().uploadFile.action(url: "", localPath: $0.filePath, type: .image, disableEncryption: false)})
+            .flatMap({[weak self] value in
+                self?.pageDetailsViewModel?.update(details: .iconImage(.init(value: value.hash))) ?? .empty()
+            })
+            .sink(receiveCompletion: { value in
+                switch value {
+                case .finished: break
+                case let .failure(value):
+                    let logger = Logging.createLogger(category: .pageBlocksViewsIconEmoji)
+                    os_log(.error, log: logger, "uploading image error %@ on %@", String(describing: value), String(describing: self))
+                }
+            }) { _ in }
+            .store(in: &self.subscriptions)
+    }
 }
 
 // MARK: Layout
-private extension BlocksViews.New.Page.IconEmoji.UIKitView {
+extension Namespace.UIKitView {
     struct Layout {
         var emojiViewCornerRadius: CGFloat = 32
         var emojiViewSize = CGSize(width: 64, height: 64)
@@ -178,7 +231,7 @@ private extension BlocksViews.New.Page.IconEmoji.UIKitView {
         }
         
         func addIconTitleColor() -> UIColor {
-             #colorLiteral(red: 0.6745098039, green: 0.662745098, blue: 0.5882352941, alpha: 1) //#ACA996
+            #colorLiteral(red: 0.6745098039, green: 0.662745098, blue: 0.5882352941, alpha: 1) //#ACA996
         }
         
         func emojiLabelFont() -> UIFont {
@@ -190,86 +243,126 @@ private extension BlocksViews.New.Page.IconEmoji.UIKitView {
         }
     }
     
-
+    
 }
 
 
 // MARK: - UIView
-private extension BlocksViews.New.Page.IconEmoji {
+extension Namespace {
     class UIKitView: UIView {
         
         var layout: Layout = .init()
         var style: Style = .presentation
-    
+        
         var contentView: UIView!
         
         var stackView: UIStackView!
         
-        var parentEmojiView: UIView!
+        var nonEmptyContentView: UIView!
+        var imageView: UIImageView!
         var emojiView: UIView!
-        var emojLabel: UILabel!
+        var emojiLabel: UILabel!
         
         var addIconButton: UIButton!
-    
+        
         weak var viewModel: ViewModel? {
             didSet {
-                self.viewModel?.$toViewEmoji.receive(on: RunLoop.main).sink(receiveValue: { (value) in
-                    self.text = value
-                }).store(in: &subscriptions)
+                self.viewModel?.$toViewEmoji.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+                    self?.text = value
+                }).store(in: &self.subscriptions)
+                self.viewModel?.$toViewImage.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+                    self?.image = value
+                }).store(in: &self.subscriptions)
             }
         }
         
         // MARK: Publishers
+        func syncViews() {
+            self.addIconButton.isHidden = !self.text.isEmpty || self.image != nil
+            self.nonEmptyContentView.isHidden = !self.addIconButton.isHidden
+            
+            self.emojiView.isHidden = self.text.isEmpty || self.image != nil
+            self.imageView.isHidden = self.image == nil
+        }
+        
         private var subscriptions: Set<AnyCancellable> = []
         private var text: String = "" {
             didSet {
-                self.emojLabel.text = text
-                self.addIconButton.isHidden = !text.isEmpty
-                self.parentEmojiView.isHidden = text.isEmpty
+                self.emojiLabel.text = self.text
+                self.syncViews()
             }
         }
-
+        
+        private var image: UIImage? {
+            didSet {
+                self.imageView.image = self.image
+                self.syncViews()
+            }
+        }
+        
         // MARK: Initialization
         override init(frame: CGRect) {
             super.init(frame: frame)
             self.setup()
         }
-
+        
         required init?(coder: NSCoder) {
             super.init(coder: coder)
             self.setup()
         }
-
+        
         // MARK: Setup
         func setup() {
             self.setupUIElements()
             self.addLayout()
         }
-
+        
         // MARK: UI Elements
         func setupUIElements() {
             self.translatesAutoresizingMaskIntoConstraints = false
-
+            
             self.contentView = {
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
             
-            self.addSubview(contentView)
+            self.addSubview(self.contentView)
             
             self.setupStackView()
-            self.setupEmojiView()
-            self.setupAddButton()
-        }
-        
-        func setupEmojiView() {
             
-            self.parentEmojiView = {
+            self.nonEmptyContentView = {
                 let view = UIView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
+            
+            self.stackView.addArrangedSubview(self.nonEmptyContentView)
+            
+            self.setupImageView()
+            self.setupEmojiView()
+            self.setupAddButton()
+        }
+        
+        func setupImageView() {
+            self.imageView = {
+                let view = UIImageView()
+                view.translatesAutoresizingMaskIntoConstraints = false
+                view.clipsToBounds = true
+                view.contentMode = .scaleAspectFit
+                view.layer.cornerRadius = self.layout.emojiViewCornerRadius
+                view.backgroundColor = .green
+                return view
+            }()
+            
+            self.nonEmptyContentView.addSubview(self.imageView)
+
+            let interaction = UIContextMenuInteraction(delegate: self)
+            self.imageView.isUserInteractionEnabled = true
+            self.imageView.addInteraction(interaction)
+        }
+        
+        func setupEmojiView() {
             
             self.emojiView = {
                 let view = UIView()
@@ -279,22 +372,20 @@ private extension BlocksViews.New.Page.IconEmoji {
                 return view
             }()
             
-            self.emojLabel = {
+            self.emojiLabel = {
                 let label = UILabel()
                 label.translatesAutoresizingMaskIntoConstraints = false
                 label.font = self.style.emojiLabelFont()
                 label.textAlignment = .center
                 return label
             }()
-            
-            self.stackView.addArrangedSubview(parentEmojiView)
-            
-            self.parentEmojiView.addSubview(emojiView)
-            self.emojiView.addSubview(emojLabel)
+                        
+            self.nonEmptyContentView.addSubview(self.emojiView)
+            self.emojiView.addSubview(self.emojiLabel)
             
             // Setup action menu
             let interaction = UIContextMenuInteraction(delegate: self)
-            emojiView.addInteraction(interaction)
+            self.emojiView.addInteraction(interaction)
         }
         
         func setupStackView() {
@@ -305,7 +396,7 @@ private extension BlocksViews.New.Page.IconEmoji {
                 return stackView
             }()
             
-            self.contentView.addSubview(stackView)
+            self.contentView.addSubview(self.stackView)
         }
         
         func setupAddButton() {
@@ -327,7 +418,7 @@ private extension BlocksViews.New.Page.IconEmoji {
                 return button
             }()
             
-            self.stackView.addArrangedSubview(addIconButton)
+            self.stackView.addArrangedSubview(self.addIconButton)
         }
  
         // MARK: Layout
@@ -350,6 +441,16 @@ private extension BlocksViews.New.Page.IconEmoji {
                 ])
             }
             
+            if let view = self.imageView, let superview = view.superview {
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: self.layout.emojiViewBottomPadding),
+                    view.heightAnchor.constraint(equalToConstant: self.layout.emojiViewSize.height),
+                    view.widthAnchor.constraint(equalToConstant:  self.layout.emojiViewSize.width)
+                ])
+            }
+            
             if let view = self.emojiView, let superview = view.superview {
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
@@ -360,7 +461,7 @@ private extension BlocksViews.New.Page.IconEmoji {
                 ])
             }
             
-            if let view = self.emojLabel, let superview = view.superview {
+            if let view = self.emojiLabel, let superview = view.superview {
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
@@ -375,7 +476,7 @@ private extension BlocksViews.New.Page.IconEmoji {
                 ])
             }
         }
-
+        
         // MARK: Configured
         func configured(model: ViewModel) -> Self {
             self.viewModel = model
@@ -388,13 +489,13 @@ private extension BlocksViews.New.Page.IconEmoji {
         }
         
     }
-
+    
 }
 
 //TODO: Maybe it is better to add nested object ContextMenu which adopts this protocol and also it shares viewModel with this view
 
 // MARK: - UIContextMenuInteractionDelegate
-extension BlocksViews.New.Page.IconEmoji.UIKitView: UIContextMenuInteractionDelegate {
+extension Namespace.UIKitView: UIContextMenuInteractionDelegate {
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction,  configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         return .init(identifier: nil, previewProvider: nil, actionProvider: { suggestedActions in
@@ -405,11 +506,13 @@ extension BlocksViews.New.Page.IconEmoji.UIKitView: UIContextMenuInteractionDele
     func makeContextMenu() -> UIMenu {
         .init(title: "", children: self.viewModel?.actions() ?? [])
     }
-       
+    
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         let parameters = UIPreviewParameters()
-        parameters.visiblePath = UIBezierPath(roundedRect: emojiView.bounds, cornerRadius: self.layout.emojiViewCornerRadius)
-        return UITargetedPreview(view: self.emojiView, parameters: parameters)
+        let targetedView: UIView = self.image != nil ? self.imageView : self.emojiView
+        
+        parameters.visiblePath = UIBezierPath(roundedRect: targetedView.bounds, cornerRadius: self.layout.emojiViewCornerRadius)
+        return .init(view: targetedView, parameters: parameters)
     }
     
 }
