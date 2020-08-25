@@ -134,6 +134,7 @@ extension MarksPane.ViewController {
         // MARK: Initialization
         private init(_ style: Style) {
             self.style = style
+            self.dismissActionPublisher = self.viewModelHolder.viewModel.dismissAction
             self.setup(style: style)
         }
         

@@ -121,15 +121,20 @@ extension MarksPane.Main {
 
         // MARK: Initialization
         init() {
+            self.setupSubjects()
             self.setupPublishers()
         }
+        
+        // MARK: Subjects
+        fileprivate var dismissActionSubject: PassthroughSubject<Void, Never> = .init()
         
         // MARK: Publishers
         /// From OuterWorld
         @Published fileprivate var userResponse: UserResponse?
-
+                
         /// To OuterWorld, Public
         var userAction: AnyPublisher<Action, Never> = .empty()
+        var dismissAction: AnyPublisher<Void, Never> = .empty()
         
         // MARK: Subscriptions
         var subscriptions: Set<AnyCancellable> = []
@@ -151,6 +156,11 @@ extension MarksPane.Main {
             case let .textColor(_, value): return .textColor(self.range, value)
             case let .backgroundColor(_, value): return .backgroundColor(self.range, value)
             }
+        }
+        
+        // MARK: Subjects
+        func setupSubjects() {
+            self.dismissAction = self.dismissActionSubject.eraseToAnyPublisher()
         }
         
         // MARK: Publishers
@@ -300,6 +310,13 @@ extension MarksPane.Main {
 //                Spacer().frame(height: self.layout.topSpacing)
                 HStack(alignment: .top) {
                     Section.InputViewBuilder.createView(self.viewModel.observedSectionViewModel)
+                    Spacer()
+                    Button(action: {
+                        self.viewModel.dismissActionSubject.send()
+                    }, label: {
+                        Image("TextEditor/Panes/MarksPane/CloseButton").renderingMode(.original)
+                    })
+                    Spacer()
                 }
                 Spacer().frame(height: self.layout.intermediateSpacing)//(minLength: self.layout.minimumIntermediateSpacing)
                 HStack(alignment: .center) {
