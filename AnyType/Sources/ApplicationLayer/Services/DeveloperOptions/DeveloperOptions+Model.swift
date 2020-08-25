@@ -22,7 +22,7 @@ extension DeveloperOptions {
 //        var services: Services?
         private init() {
             self.debug = .init(enabled: false)
-            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: ""), dashboard: .init(hasCustomModalPresentation: false),
+            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: ""), dashboard: .init(hasCustomModalPresentation: false, cellsHaveActionsOnLongTap: false),
                                   mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
         }
         static var `default`: Settings = .init()
@@ -42,6 +42,7 @@ extension DeveloperOptions.Settings {
         
         struct Dashboard: CodableAndDictionary {
             var hasCustomModalPresentation: Bool
+            var cellsHaveActionsOnLongTap: Bool
         }
         
         struct MainDocumentEditor: CodableAndDictionary {

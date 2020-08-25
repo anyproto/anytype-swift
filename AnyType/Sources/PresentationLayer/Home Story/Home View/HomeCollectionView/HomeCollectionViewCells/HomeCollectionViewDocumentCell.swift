@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import SwiftUI
 
 enum HomeStoriesModule {}
 
@@ -39,6 +40,7 @@ class HomeCollectionViewDocumentCellModel: Hashable {
     @Published var image: UIImage?
     var imagePublisher: AnyPublisher<UIImage?, Never> = .empty()
     var subscriptions: Set<AnyCancellable> = []
+    var userActionSubject: PassthroughSubject<UserActionPayload, Never> = .init()
 
     // MARK: - Properties
     func imageExists() -> Bool {
@@ -78,8 +80,94 @@ class HomeCollectionViewDocumentCellModel: Hashable {
     }
 }
 
+extension HomeCollectionViewDocumentCellModel {
+    func configured(userActionSubject: PassthroughSubject<UserActionPayload, Never>) {
+        self.userActionSubject = userActionSubject
+    }
+    
+    struct UserActionPayload {
+        typealias Model = String
+        var model: Model
+        var action: HomeCollectionViewDocumentCell.ContextualMenuHandler.UserAction
+    }
+}
+
+// MARK: Contextual Menu
+extension HomeCollectionViewDocumentCell {
+    class ContextualMenuHandler: NSObject, UIContextMenuInteractionDelegate {
+        func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+            .init(identifier: nil, previewProvider: nil) { (value) -> UIMenu? in
+                .init(title: "", children: self.getContextualMenu())
+            }
+        }
+        
+        private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
+        var userActionPublisher: AnyPublisher<UserAction, Never> = .empty()
+        
+        private var actionMenuItems: [ActionMenuItem] = []
+        
+        override init() {
+            self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
+            super.init()
+            self.setupActionMenuItems()
+        }
+    }
+}
+
+extension HomeCollectionViewDocumentCell.ContextualMenuHandler {
+    struct ActionMenuItem {
+        var action: UserAction
+        var title: String
+        var imageName: String
+    }
+    
+    struct UserActionPayload {
+        typealias Model = String
+        var model: Model
+        var action: UserAction
+    }
+    
+    enum UserAction: String, CaseIterable {
+        case remove = "Remove"
+    }
+    
+    func handle(action: UserAction) {
+        switch action {
+        case .remove: self.remove()
+        }
+    }
+    
+    func remove() {
+        /// send to outerworld
+        self.userActionSubject.send(.remove)
+    }
+    
+    /// Convert to UIAction
+    func actions() -> [UIAction] {
+        self.actionMenuItems.map(self.action(with:))
+    }
+    
+    func action(with item: ActionMenuItem) -> UIAction {
+        .init(title: item.title, image: UIImage(named: item.imageName)) { action in
+            self.handle(action: item.action)
+        }
+    }
+    
+    func getContextualMenu() -> [UIAction] {
+        self.actions()
+    }
+    
+    func setupActionMenuItems() {
+        self.actionMenuItems = [
+            .init(action: .remove, title: UserAction.remove.rawValue, imageName: "Emoji/ContextMenu/remove")
+        ]
+    }
+}
+
 final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     static let reuseIdentifer = "homeCollectionViewDocumentCellReuseIdentifier"
+    
+    @Environment(\.developerOptions) var developerOptions
     
     let titleLabel: UILabel = .init()
     let emoji: UILabel = .init()
@@ -88,6 +176,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     
     private var layout: Layout = .init()
     private var style: Style = .presentation
+    private var contextualMenuHandler: ContextualMenuHandler = .init()
     
     private var storedId: String = ""
     
@@ -95,6 +184,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     var emojiSubscription: AnyCancellable?
     var imageSubscription: AnyCancellable?
     var imageLoadingSubscription: AnyCancellable?
+    var userActionSubscription: AnyCancellable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -110,6 +200,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
         self.emojiSubscription = nil
         self.imageSubscription = nil
         self.imageLoadingSubscription = nil
+        self.userActionSubscription = nil
     }
     
     func invalidateData() {
@@ -142,6 +233,11 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
         self.imageLoadingSubscription = viewModel.imagePublisher.receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.imageView.image = value
             self?.syncViews()
+        }
+        self.userActionSubscription = self.contextualMenuHandler.userActionPublisher.sink{ [weak viewModel] (value) in
+            if let id = viewModel?.id {
+                viewModel?.userActionSubject.send(.init(model: id, action: value))
+            }
         }
     }
 }
@@ -184,6 +280,12 @@ private extension HomeCollectionViewDocumentCell {
     func configureCell() {
         self.layer.cornerRadius = self.layout.cornerRadius
         self.backgroundColor = self.style.backgroundColor
+        
+        if self.developerOptions.current.workflow.dashboard.cellsHaveActionsOnLongTap {
+            let interaction: UIContextMenuInteraction = .init(delegate: self.contextualMenuHandler)
+            
+            self.addInteraction(interaction)
+        }
     }
     
     func configureLayout() {

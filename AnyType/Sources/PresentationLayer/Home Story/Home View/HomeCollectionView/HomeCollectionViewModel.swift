@@ -44,10 +44,12 @@ class HomeCollectionViewModel: ObservableObject {
     typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
     
     typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
-
+    
+    typealias CellUserAction = HomeCollectionViewDocumentCellModel.UserActionPayload
     
     /// Variables
     private let dashboardService: DashboardServiceProtocol = DashboardService()
+    private let blockActionsService: ServiceLayerModule.BlockActionsService = .init()
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -69,6 +71,8 @@ class HomeCollectionViewModel: ObservableObject {
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
     
+    private var cellUserActionSubject: PassthroughSubject<CellUserAction, Never> = .init()
+    
     // MARK: - Setup
     func setupDashboard() {
         self.dashboardService.openDashboard().receive(on: RunLoop.main)
@@ -86,6 +90,14 @@ class HomeCollectionViewModel: ObservableObject {
     
     func setupSubscribers() {
         self.userActionsPublisher = self.userActionsSubject.eraseToAnyPublisher()
+        
+        self.cellUserActionSubject.map({ value -> UserEvent in
+            switch value.action {
+            case .remove: return .contextualMenu(.init(model: value.model, action: .editBlock(.delete)))
+            }
+        }).sink { [weak self] (value) in
+            self?.receive(value)
+        }.store(in: &self.subscriptions)
     }
     
     func setup() {
@@ -209,6 +221,7 @@ extension HomeCollectionViewModel {
             model.configured(titlePublisher: title)
             model.configured(emojiImagePublisher: emoji)
             model.configured(imagePublisher: iconImage)
+            model.configured(userActionSubject: self.cellUserActionSubject)
             return model
         }).map(HomeCollectionViewCellType.document)
         self.documentsViewModels = links + [.plus]
@@ -217,6 +230,8 @@ extension HomeCollectionViewModel {
 
 // MARK: Events
 extension HomeCollectionViewModel {
+    typealias Input = UserEvent
+    typealias Output = UserAction
     enum UserAction {
         case showPage(BlockId)
     }
@@ -224,11 +239,49 @@ extension HomeCollectionViewModel {
     private func send(_ action: UserAction) {
         self.userActionsSubject.send(action)
     }
+    
+    enum UserEvent {
+        struct ContextualMenuAction {
+            typealias Model = BlockId
+            typealias Action = BlocksViews.Toolbar.UnderlyingAction
+            var model: Model
+            var action: Action
+        }
+        case contextualMenu(ContextualMenuAction)
+    }
+    func receive(_ event: UserEvent) {
+        switch event {
+        case let .contextualMenu(event):
+            switch event.action {
+            case .editBlock(.delete): self.removePage(with: event.model)
+            default:
+                let logger = Logging.createLogger(category: .homeCollectionViewModel)
+                os_log(.debug, log: logger, "Skipping event: %@. We are only handling actions above. Do not forget to process all actions.", String(describing: event))
+            }
+        }
+    }
 }
 
 // MARK: - view events
 extension HomeCollectionViewModel {
     typealias BlockId = TopLevel.AliasesMap.BlockId
+    func removePage(with id: BlockId) {
+        guard let rootId = self.rootModel?.rootId else { return }
+        guard let targetModel = self.rootModel?.blocksContainer.choose(by: id) else { return }
+        let blockId = targetModel.blockModel.information.id
+        self.blockActionsService.delete.action(contextID: rootId, blockIds: [blockId]).sink { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .homeCollectionViewModel)
+                os_log(.error, log: logger, "Remove page error %@", String(describing: error))
+            }
+        } receiveValue: { [weak self] value in
+            /// TODO: Add interactor as a part of rootModel.
+            self?.eventProcessor.handle(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
+        }.store(in: &self.subscriptions)
+    }
+    
     func openPage(with id: BlockId) {
         guard let targetModel = self.rootModel?.blocksContainer.choose(by: id) else { return }
         guard case let .link(link) = targetModel.blockModel.information.content else { return }
@@ -252,7 +305,10 @@ extension HomeCollectionViewModel {
                 }
             }) { [weak self] value in
                 self?.eventProcessor.handle(events: .init(contextId: value.contextID, events: value.messages))
-            }.store(in: &subscriptions)
+            }.store(in: &self.subscriptions)
         }
     }
 }
+
+// MARK: - Contextual menu Interaction
+

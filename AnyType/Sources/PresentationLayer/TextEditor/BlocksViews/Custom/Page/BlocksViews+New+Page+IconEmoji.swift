@@ -124,7 +124,7 @@ extension Namespace.ViewModel {
     }
     
     func action(with item: ActionMenuItem) -> UIAction {
-        UIAction(title: item.title, image: UIImage(named: item.imageName)) { action in
+        .init(title: item.title, image: UIImage(named: item.imageName)) { action in
             self.handle(action: item.action)
         }
     }

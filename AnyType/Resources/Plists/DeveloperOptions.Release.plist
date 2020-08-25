@@ -22,6 +22,8 @@
 			<dict>
 				<key>hasCustomModalPresentation</key>
 				<false/>
+				<key>cellsHaveActionsOnLongTap</key>
+				<false/>
 			</dict>
 			<key>mainDocumentEditor</key>
 			<dict>
