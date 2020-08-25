@@ -15,61 +15,90 @@ fileprivate typealias Namespace = HomeStoriesModule
 
 
 class HomeCollectionViewDocumentCellModel: Hashable {
-    internal init(id: String, title: String, image: UIImage?, emojiImage: String?, subscriptions: Set<AnyCancellable> = []) {
+    internal init(id: String, title: String, image: URL?, emoji: String?, subscriptions: Set<AnyCancellable> = []) {
         self.id = id
         self.title = title
-        self.image = image
-        self.emojiImage = emojiImage
+        self.imageURL = image
+        self.emoji = emoji
         self.subscriptions = subscriptions
     }
     
     static func == (lhs: HomeCollectionViewDocumentCellModel, rhs: HomeCollectionViewDocumentCellModel) -> Bool {
         lhs.id == rhs.id
     }
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.id)
     }
     
+    // MARK: - Variables
     let id: String
     @Published var title: String
+    @Published var emoji: String?
+    @Published var imageURL: URL?
     @Published var image: UIImage?
-    @Published var emojiImage: String?
+    var imagePublisher: AnyPublisher<UIImage?, Never> = .empty()
     var subscriptions: Set<AnyCancellable> = []
-        
+
+    // MARK: - Properties
+    func imageExists() -> Bool {
+        self.imageURL != nil
+    }
+    func emojiExists() -> Bool {
+        self.emoji?.unicodeScalars.first?.properties.isEmoji == true
+    }
+    
+    // MARK: - Providers
+    func imageProvider() -> AnyPublisher<UIImage?, Never> {
+        guard let imageURL = self.imageURL else {
+            return Just(nil).eraseToAnyPublisher()
+        }
+        return CoreLayer.Network.Image.Loader.init(imageURL).imagePublisher
+    }
+    
+    // MARK: - Configuration
     func configured(titlePublisher: AnyPublisher<String?, Never>) {
         titlePublisher.safelyUnwrapOptionals().sink { [weak self] (value) in
             self?.title = value
         }.store(in: &self.subscriptions)
     }
     
-//    func configured(imagePublisher: AnyPublisher<String, Never>) {
-//        titlePublisher.sink { [weak self] (value) in
-//            self?.title = value
-//        }.store(in: &self.subscriptions)
-//    }
-    
     func configured(emojiImagePublisher: AnyPublisher<String?, Never>) {
         emojiImagePublisher.sink { [weak self] (value) in
-            self?.emojiImage = value
+            self?.emoji = value
         }.store(in: &self.subscriptions)
+    }
+    
+    func configured(imagePublisher: AnyPublisher<String?, Never>) {
+        self.imagePublisher = imagePublisher.safelyUnwrapOptionals()
+            .flatMap({value in CoreLayer.Network.Image.URLResolver.init().transform(imageId: value).ignoreFailure()})
+            .safelyUnwrapOptionals()
+            .flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher})
+            .eraseToAnyPublisher()
     }
 }
 
 final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     static let reuseIdentifer = "homeCollectionViewDocumentCellReuseIdentifier"
     
-    let titleLabel = UILabel()
-    let emojiImage = UILabel()
-    let imageView = UIImageView()
+    let titleLabel: UILabel = .init()
+    let emoji: UILabel = .init()
+    let imageView: UIImageView = .init()
+    let roundView: UIView = .init()
+    
+    private var layout: Layout = .init()
+    private var style: Style = .presentation
+    
+    private var storedId: String = ""
     
     var titleSubscription: AnyCancellable?
-    var emojiImageSubscription: AnyCancellable?
+    var emojiSubscription: AnyCancellable?
     var imageSubscription: AnyCancellable?
+    var imageLoadingSubscription: AnyCancellable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        configure()
+        self.configure()
     }
     
     required init?(coder: NSCoder) {
@@ -78,66 +107,128 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     
     func invalidateSubscriptions() {
         self.titleSubscription = nil
+        self.emojiSubscription = nil
+        self.imageSubscription = nil
+        self.imageLoadingSubscription = nil
+    }
+    
+    func invalidateData() {
+        self.titleLabel.text = nil
+        self.imageView.image = nil
+        self.emoji.text = nil
+    }
+    
+    func syncViews() {
+        let imageExists = self.imageView.image != nil
+        let emojiExists = self.emoji.text?.isEmpty == false
+        self.emoji.isHidden = imageExists || !emojiExists
     }
     
     func updateWithModel(viewModel: HomeCollectionViewDocumentCellModel) {
-        self.invalidateSubscriptions()
-        
-        titleLabel.text = viewModel.title
-        imageView.image = viewModel.image
-        imageView.isHidden = false
-        emojiImage.isHidden = true
-        
-        if viewModel.emojiImage?.unicodeScalars.first?.properties.isEmoji ?? false {
-            emojiImage.text = viewModel.emojiImage
-            emojiImage.isHidden = false
-            imageView.isHidden = true
+        if viewModel.id != self.storedId {
+            self.invalidateSubscriptions()
+            self.invalidateData()
         }
+        self.storedId = viewModel.id
         
         /// Subsrcibe on viewModel updates
         self.titleSubscription = viewModel.$title.receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.titleLabel.text = value
         }
+        self.emojiSubscription = viewModel.$emoji.receive(on: RunLoop.main).sink { [weak self] (value) in
+            self?.emoji.text = value
+            self?.syncViews()
+        }
+        self.imageLoadingSubscription = viewModel.imagePublisher.receive(on: RunLoop.main).sink { [weak self] (value) in
+            self?.imageView.image = value
+            self?.syncViews()
+        }
     }
 }
 
 extension HomeCollectionViewDocumentCell {
-    
-    private func configure() {
-        self.titleLabel.text = ""
-        self.layer.cornerRadius = 8.0
-        self.backgroundColor = .white
-        
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.titleLabel)
-        
-        self.imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.imageView)
-        
-        self.emojiImage.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(self.emojiImage)
-        
+    struct Layout {
+        let cornerRadius: CGFloat = 8.0
         let offset: CGFloat = 16.0
-        let size: CGSize = .init(width: 48, height: 48)
+        let roundIconSize: CGSize = .init(width: 48, height: 48)
+        var roundIconCornerRadius: CGFloat { self.roundIconSize.width / 2 }
+    }
+    
+    enum Style {
+        case presentation
+        var backgroundColor: UIColor? {
+            switch self {
+            case .presentation: return .white
+            }
+        }
+        var iconBackgroundColor: UIColor? {
+            switch self {
+            case .presentation: return UIColor(named: "TextEditor/Colors/Background")
+            }
+        }
+    }
+}
+
+private extension HomeCollectionViewDocumentCell {
+    func configureViews() {
+        self.roundView.backgroundColor = self.style.iconBackgroundColor
+        self.roundView.layer.cornerRadius = self.layout.roundIconCornerRadius
         
-        if let superview = self.imageView.superview {
-            let view = self.imageView
+        self.roundView.clipsToBounds = true
+        
+        self.imageView.contentMode = .scaleAspectFit
+        
+        self.emoji.textAlignment = .center
+    }
+        
+    func configureCell() {
+        self.layer.cornerRadius = self.layout.cornerRadius
+        self.backgroundColor = self.style.backgroundColor
+    }
+    
+    func configureLayout() {
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.roundView.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.emoji.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.contentView.addSubview(self.titleLabel)
+        self.contentView.addSubview(self.roundView)
+        self.roundView.addSubview(self.imageView)
+        self.roundView.addSubview(self.emoji)
+        
+        let offset = self.layout.offset
+        let size = self.layout.roundIconSize
+        
+        if let superview = self.roundView.superview {
+            let view = self.roundView
             let constraints = [
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: offset),
                 view.topAnchor.constraint(equalTo: superview.topAnchor, constant: offset),
                 view.heightAnchor.constraint(equalToConstant: size.height),
-                view.widthAnchor.constraint(equalToConstant: size.width),
+                view.widthAnchor.constraint(equalToConstant: size.width)
             ]
             NSLayoutConstraint.activate(constraints)
         }
         
-        if let superview = self.emojiImage.superview {
-            let view = self.emojiImage
+        if let superview = self.imageView.superview {
+            let view = self.imageView
             let constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: offset),
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: offset),
-                view.heightAnchor.constraint(equalToConstant: size.height),
-                view.widthAnchor.constraint(equalToConstant: size.width),
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+            ]
+            NSLayoutConstraint.activate(constraints)
+        }
+        
+        if let superview = self.emoji.superview {
+            let view = self.emoji
+            let constraints = [
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
             ]
             NSLayoutConstraint.activate(constraints)
         }
@@ -153,5 +244,11 @@ extension HomeCollectionViewDocumentCell {
             ]
             NSLayoutConstraint.activate(constraints)
         }
+    }
+    
+    func configure() {
+        self.configureCell()
+        self.configureViews()
+        self.configureLayout()
     }
 }

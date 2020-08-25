@@ -97,7 +97,7 @@ extension Namespace {
             self.setup()
         }
         
-        func createPublisher() -> AnyPublisher<UIImage?, Never> {
+        private func createPublisher() -> AnyPublisher<UIImage?, Never> {
             // Lookup into hash.
             if let image = self.cache.image(url: self.url) {
                 return Just(image).eraseToAnyPublisher()
@@ -110,19 +110,19 @@ extension Namespace {
                               receiveCancel: {[weak self] in self?.onFinish()}).eraseToAnyPublisher()
         }
         
-        func setup() {
+        private func setup() {
             self.imagePublisher = self.createPublisher()
         }
         
-        func onOutput(_ value: UIImage?) {
+        private func onOutput(_ value: UIImage?) {
             self.cache.setImage(url: self.url, image: value)
         }
         
-        func onStart() {
+        private func onStart() {
             self.isLoading = true
         }
         
-        func onFinish() {
+        private func onFinish() {
             self.isLoading = false
         }
         

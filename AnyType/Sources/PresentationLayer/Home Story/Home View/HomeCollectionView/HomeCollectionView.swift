@@ -37,23 +37,23 @@ struct HomeCollectionView: UIViewRepresentable {
         collectionView.delegate = context.coordinator
 //        collectionView.contentInset = .init(top: 200, left: 0, bottom: 0, right: 0)
         collectionView.alwaysBounceVertical = true
-        populate(dataSource: dataSource)
+//        populate(dataSource: dataSource)
         context.coordinator.dataSource = dataSource
         
         return collectionView
     }
     
     func updateUIView(_ uiView: UICollectionView, context: Context) {
-        if let dataSource = context.coordinator.dataSource {
-            populate(dataSource: dataSource)
-        }
+//        if let dataSource = context.coordinator.dataSource {
+//            populate(dataSource: dataSource)
+//        }
     }
     
     private func populate(dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>) {
         var snapshot = NSDiffableDataSourceSnapshot<HomeCollectionViewSection, HomeCollectionViewCellType>()
         snapshot.appendSections([.main])
         
-        snapshot.appendItems(documentsCell)
+        snapshot.appendItems(self.documentsCell)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 }
@@ -61,8 +61,8 @@ struct HomeCollectionView: UIViewRepresentable {
 // MARK: - Show Page
 extension HomeCollectionView {
     func showPage(with blockId: String) {
-        showDocument = true
-        selectedDocumentId = blockId
+        self.showDocument = true
+        self.selectedDocumentId = blockId
     }
 }
 
@@ -123,7 +123,8 @@ extension HomeCollectionView {
 class HomeCollectionViewCoordinator: NSObject {
     var parent: HomeCollectionView
     var dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?
-    var subscription: AnyCancellable?
+    var userActionSubscription: AnyCancellable?
+    var documentCellsSubscription: AnyCancellable?
     
     init(_ collectionView: HomeCollectionView, viewModel: HomeCollectionViewModel) {
         self.parent = collectionView
@@ -132,11 +133,22 @@ class HomeCollectionViewCoordinator: NSObject {
     }
     
     private func configured(viewModel: HomeCollectionViewModel) {
-        self.subscription = viewModel.userActionsPublisher.sink { [weak self] value in
+        self.userActionSubscription = viewModel.userActionsPublisher.sink { [weak self] value in
             switch value {
             case let .showPage(value): self?.parent.showPage(with: value)
             }
         }
+        self.documentCellsSubscription = viewModel.$documentsViewModels.receive(on: RunLoop.main).sink{ [weak self] (value) in
+            self?.populate(dataSource: self?.dataSource, models: value)
+        }
+    }
+    
+    private func populate(dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?, models: [HomeCollectionViewCellType]) {
+        var snapshot = NSDiffableDataSourceSnapshot<HomeCollectionViewSection, HomeCollectionViewCellType>()
+        snapshot.appendSections([.main])
+        
+        snapshot.appendItems(models)
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
 

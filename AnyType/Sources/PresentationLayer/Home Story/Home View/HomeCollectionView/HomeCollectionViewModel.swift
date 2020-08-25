@@ -63,11 +63,9 @@ class HomeCollectionViewModel: ObservableObject {
     @Published var documentsViewModels: [HomeCollectionViewCellType] = []
     var pageDetailsViewModel: DocumentModule.DocumentViewModel.PageDetailsViewModel = .init()
     @Published var error: String = ""
-    var dashboardPages: [DashboardPage] = []
     
     // TODO: Revise this later. Just in case, save rootId - used for filtering events from middle for main dashboard
-    var rootId: String?
-//    var view: HomeCollectionViewInput?
+//    var rootId: String?
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
     
@@ -200,23 +198,18 @@ extension HomeCollectionViewModel {
         
     private func createViewModels(from pages: [BlocksViews.New.Tools.PageLink.ViewModel]) {
         let links = pages.compactMap({ value -> HomeCollectionViewDocumentCellModel? in
-            let model: HomeCollectionViewDocumentCellModel = .init(id: value.blockId, title: "", image: nil, emojiImage: nil)
+            let model: HomeCollectionViewDocumentCellModel = .init(id: value.blockId, title: "", image: nil, emoji: nil)
             let detailsModel = value.getDetailsViewModel()
             let accessor = detailsModel.wholeDetailsPublisher.map(DetailsAccessor.init)
             
             let title = accessor.map(\.title).map({$0?.value}).eraseToAnyPublisher()
-            let emojiImage = accessor.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
+            let emoji = accessor.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
+            let iconImage = accessor.map(\.iconImage).map({$0?.value}).eraseToAnyPublisher()
             
             model.configured(titlePublisher: title)
-            model.configured(emojiImagePublisher: emojiImage)
+            model.configured(emojiImagePublisher: emoji)
+            model.configured(imagePublisher: iconImage)
             return model
-        }).map(HomeCollectionViewCellType.document)
-        self.documentsViewModels = links + [.plus]
-    }
-    
-    private func createViewModels(from pages: [DashboardPage]) {
-        let links = pages.map({ value -> HomeCollectionViewDocumentCellModel in
-            .init(id: UUID().uuidString, title: value.publicTitle(), image: nil, emojiImage: value.iconEmoji)
         }).map(HomeCollectionViewCellType.document)
         self.documentsViewModels = links + [.plus]
     }

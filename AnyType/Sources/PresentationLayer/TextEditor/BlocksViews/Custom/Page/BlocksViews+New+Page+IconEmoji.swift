@@ -351,7 +351,6 @@ extension Namespace {
                 view.clipsToBounds = true
                 view.contentMode = .scaleAspectFit
                 view.layer.cornerRadius = self.layout.emojiViewCornerRadius
-                view.backgroundColor = .green
                 return view
             }()
             
