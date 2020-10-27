@@ -49,6 +49,7 @@ extension Namespace {
         /// Second publisher which manipulates rich string, attributed string.
         var richUpdatePublisher: AnyPublisher<Update, Never> = .empty()
         var auxiliaryPublisher: AnyPublisher<Update, Never> = .empty()
+        var sizePublisher: AnyPublisher<CGSize, Never> = .empty()
         
         private var builder: Builder = .init()
         private var coordinator: Coordinator = .init()
@@ -76,6 +77,9 @@ extension Namespace {
             self.richUpdatePublisher = self.coordinator.$attributedText.safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
             self.auxiliaryPublisher = self.coordinator.$textAlignment.safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
         
+            // Size
+            self.sizePublisher = self.coordinator.$textSize.safelyUnwrapOptionals().eraseToAnyPublisher()
+            
             // First Responder
             self.shouldResignFirstResponderPublisher = self.shouldResignFirstResponderSubject.eraseToAnyPublisher()
             

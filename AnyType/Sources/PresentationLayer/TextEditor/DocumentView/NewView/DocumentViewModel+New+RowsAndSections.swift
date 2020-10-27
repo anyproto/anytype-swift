@@ -13,17 +13,11 @@ fileprivate typealias Namespace = DocumentModule
 
 // MARK: - TableViewModelProtocol
 extension Namespace.DocumentViewModel: TableViewModelProtocol {
-    func numberOfSections() -> Int {
-        1
-    }
+    func numberOfSections() -> Int { 1 }
     
-    func countOfElements(at: Int) -> Int {
-        self.builders.count
-    }
+    func countOfElements(at: Int) -> Int { self.builders.count }
     
-    func section(at: Int) -> Section {
-        .init()
-    }
+    func section(at: Int) -> Section { .init() }
     
     func element(at: IndexPath) -> Row {
         guard self.builders.indices.contains(at.row) else {
@@ -47,9 +41,12 @@ extension Namespace.DocumentViewModel: TableViewModelProtocol {
         weak var builder: BlockViewBuilderProtocol?
         weak var selectionHandler: DocumentModuleSelectionHandlerCellProtocol?
         var information: BlockInformationModelProtocol?
+        private var _diffable: AnyHashable?
         init(builder: BlockViewBuilderProtocol?) {
             self.builder = builder
-            self.information = (self.builder as? BlocksViewsNamespace.Base.ViewModel)?.getBlock().blockModel.information
+            let blockBuilder = (self.builder as? BlocksViewsNamespace.Base.ViewModel)
+            self.information = blockBuilder?.getBlock().blockModel.information
+            self._diffable = blockBuilder?.makeDiffable()
         }
         
         /// Pretty full-typed builder accessor
@@ -118,7 +115,10 @@ extension Namespace.DocumentViewModel.Row {
 //            ]
 //            return .init(allEntries)
 //        }
-        return self.information?.diffable()
+        self.information?.diffable()
+    }
+    func blockBuilderDiffable() -> AnyHashable? {
+        self._diffable
     }
 }
 
@@ -150,12 +150,13 @@ extension Namespace.DocumentViewModel.Row: Hashable, Equatable {
         lhs?.information?.content.deepKind == rhs?.information?.content.deepKind
     }
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.builder?.blockId == rhs.builder?.blockId && lhs.cachedDiffable == rhs.cachedDiffable && sameKind(lhs, rhs)
+        lhs.cachedDiffable == rhs.cachedDiffable && lhs.blockBuilderDiffable() == rhs.blockBuilderDiffable()
+        //&& sameKind(lhs, rhs)
 //        lhs.diffable() == rhs.diffable() && lhs.cachedDiffable == rhs.cachedDiffable
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.builder?.blockId ?? "")
-//        hasher.combine(self.diffable())
+        guard let diffable = self.blockBuilderDiffable() else { return }
+        hasher.combine(diffable)
     }
 }

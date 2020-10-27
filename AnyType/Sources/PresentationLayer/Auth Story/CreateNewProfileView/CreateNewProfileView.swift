@@ -10,19 +10,14 @@ import SwiftUI
 
 
 struct CreateNewProfileView: View {
-    @ObservedObject private var keyboardObserver = KeyboardObserver()
     @ObservedObject var viewModel: CreateNewProfileViewModel
     
     var body: some View {
-        return ZStack {
+        ZStack {
             LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
             NewProfileView(viewModel: viewModel)
                 .padding()
-                .offset(y: -keyboardObserver.keyboardInformation.keyboardRect.height).animation(.easeInOut(duration: keyboardObserver.keyboardInformation.duration))
-                .onDisappear {
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-            }
         }
     }
 }

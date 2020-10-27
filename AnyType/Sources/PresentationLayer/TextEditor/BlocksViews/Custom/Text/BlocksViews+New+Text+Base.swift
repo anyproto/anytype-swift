@@ -13,18 +13,18 @@ import UIKit
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.New.Text
+fileprivate typealias Namespace = BlocksViews.New.Text.Base
 
 private extension Logging.Categories {
     static let textBlocksViewsBase: Self = "BlocksViews.New.Text.Base"
 }
 
-extension Namespace {
+extension BlocksViews.New.Text {
     enum Base {}
 }
 
 // MARK: - Base / ViewModel
-extension Namespace.Base {
+extension Namespace {
     class ViewModel: BlocksViews.New.Base.ViewModel {
         typealias BlocksModelsUpdater = TopLevel.AliasesMap.BlockTools.Updater
         typealias BlockModelId = TopLevel.AliasesMap.BlockId
@@ -84,6 +84,12 @@ extension Namespace.Base {
         // MARK: Subclassing accessors
         func getUIKitViewModel() -> TextView.UIKitTextView.ViewModel { self.textViewModel }
         
+        override func makeContentConfiguration() -> UIContentConfiguration {
+            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            configuration.contextMenuHolder = self
+            return configuration
+        }
+
         override func makeUIView() -> UIView {
             TopWithChildUIKitView().configured(textView: self.getUIKitViewModel().createView()).configured(leftChild: .empty()).configured(self.$toViewSetBackgroundColor.map({TopWithChildUIKitView.Resource.init(backgroundColor: $0)}).eraseToAnyPublisher())
         }
@@ -105,7 +111,7 @@ extension Namespace.Base {
 }
 
 // MARK: - Setup
-private extension Namespace.Base.ViewModel {
+private extension Namespace.ViewModel {
     private func setupTextViewModel() {
         _ = self.textViewModel.configured(self)
     }
@@ -167,6 +173,8 @@ private extension Namespace.Base.ViewModel {
                 /// --
                 ///
                 if self?.makeDiffable() != self?.diffable {
+                    let logger = Logging.createLogger(category: .textBlocksViewsBase)
+                    os_log(.debug, log: logger, "TextBlocksViews toViewSetFocusPosition. Skip set focus for block: %@", String(describing: self?.getBlock().blockModel.information.id))
                     return
                 }
                 var model = self?.getBlock()
@@ -233,12 +241,16 @@ private extension Namespace.Base.ViewModel {
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
         /// TextDidChange For OuterWorld
-        self.textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
+        let textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
             switch value {
             case let .attributedText(text): return text
             default: return nil
             }
         }.safelyUnwrapOptionals().eraseToAnyPublisher()
+        let textSizeDidChangePublisher = self.textViewModel.sizePublisher.eraseToAnyPublisher()
+        self.textDidChangePublisher = Publishers.CombineLatest(textDidChangePublisher, textSizeDidChangePublisher).removeDuplicates { (lhs, rhs) -> Bool in
+            lhs.1.height == rhs.1.height
+        }.map(\.0).eraseToAnyPublisher()
     }
     
     // MARK: - Setup
@@ -269,14 +281,14 @@ private extension Namespace.Base.ViewModel {
 }
 
 // MARK: - Actions Payload Legacy
-extension Namespace.Base.ViewModel {
+extension Namespace.ViewModel {
     func send(textViewAction: BlocksViews.New.Text.UserInteraction) {
         self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: textViewAction)))
     }
 }
 
 // MARK: - Events
-private extension Namespace.Base.ViewModel {
+private extension Namespace.ViewModel {
     class EventListener: EventHandler {
         typealias Event = Anytype_Event.Message.OneOf_Value
         var subject: PassthroughSubject<NSAttributedString, Never> = .init()
@@ -300,7 +312,7 @@ private extension Namespace.Base.ViewModel {
 }
 
 // MARK: - ViewModel / Apply to model.
-private extension Namespace.Base.ViewModel {
+private extension Namespace.ViewModel {
     private func setModelData(text newText: String) {
         let theText = self.text
         self.text = theText
@@ -376,7 +388,7 @@ private extension Namespace.Base.ViewModel {
 }
 
 // MARK: - TextViewUserInteractionProtocol
-extension Namespace.Base.ViewModel: TextViewUserInteractionProtocol {
+extension Namespace.ViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: TextView.UserAction) {
         switch action {
         case let .addBlockAction(value):
@@ -394,7 +406,7 @@ extension Namespace.Base.ViewModel: TextViewUserInteractionProtocol {
 }
 
 // MARK: - Debug
-extension Namespace.Base.ViewModel {
+extension Namespace.ViewModel {
     // Class scope, actually.
     class func debugString(_ unique: Bool, _ id: BlockModelId) -> String {
         unique ? self.defaultDebugStringUnique(id) : self.defaultDebugString()
@@ -408,7 +420,7 @@ extension Namespace.Base.ViewModel {
 }
 
 // MARK: - UIKitView / TopView
-extension Namespace.Base {
+extension Namespace {
     class TopUIKitView: UIView {
         // TODO: Refactor
         // OR
@@ -550,7 +562,7 @@ extension Namespace.Base {
 }
 
 // MARK: - UIKitView / TopWithChild
-extension Namespace.Base {
+extension Namespace {
     class TopWithChildUIKitView: UIView {
         struct Resource {
             var textColor: UIColor?
@@ -681,6 +693,199 @@ extension Namespace.Base {
                 self?.backgroundColor = value.backgroundColor
             }
             return self
+        }
+    }
+}
+
+// MARK: ContentConfiguration
+extension Namespace.ViewModel {
+    
+    struct ContentConfiguration: UIContentConfiguration, Hashable {
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.container == rhs.container
+        }
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(self.container)
+        }
+        
+        // We need this comparison to compare if we need to update view or not.
+        static func isPartialKindOf(_ lhs: Self, _ rhs: Self) -> Bool {
+            lhs.contextMenuHolder?.makeDiffable() == rhs.contextMenuHolder?.makeDiffable()
+        }
+        
+        static func isTextEqual(_ lhs: Self, _ rhs: Self) -> Bool {
+            guard let left = lhs.contextMenuHolder?.getBlock().blockModel.information.content, let right = rhs.contextMenuHolder?.getBlock().blockModel.information.content else { return false }
+            switch (left, right) {
+            case let (.text(leftText), .text(rightText)): return leftText.attributedText == rightText.attributedText
+            default: return false
+            }
+        }
+        
+        typealias HashableContainer = TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
+        var information: Information {
+            self.container.value
+        }
+        private var container: HashableContainer
+        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
+        
+        init(_ information: Information) {
+            /// We should warn if we have incorrect content type (?)
+            /// Don't know :(
+            /// Think about failable initializer
+            
+            switch information.content {
+            case let .text(value) where value.contentType == .text: break
+            default:
+                let logger = Logging.createLogger(category: .textBlocksViewsBase)
+                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+                break
+            }
+            
+            self.container = .init(value: information)
+        }
+        
+        /// UIContentConfiguration
+        func makeContentView() -> UIView & UIContentView {
+            let view = ContentView(configuration: self)
+            self.contextMenuHolder?.addContextMenu(view)
+            return view
+        }
+        
+        /// Hm, we could use state as from-user action channel.
+        /// for example, if we have value "Checked"
+        /// And we pressed something, we should do the following:
+        /// We should pass value of state to a configuration.
+        /// Next, configuration will send this value to a view model.
+        /// Is it what we should use?
+        func updated(for state: UIConfigurationState) -> ContentConfiguration {
+            /// do something
+            return self
+        }
+    }
+}
+
+// MARK: - ContentView
+private extension Namespace.ViewModel {
+    class ContentView: UIView & UIContentView {
+        
+        struct Layout {
+            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        }
+        
+        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
+        
+        /// Views
+        var topView: TopView = .init()
+        var contentView: UIView = .init()
+        
+        /// Subscriptions
+        
+        /// Others
+//        var resource: Namespace.UIKitView.Resource = .init()
+        var layout: Layout = .init()
+                
+        /// Setup
+        private func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        private func setupUIElements() {
+            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
+            self.translatesAutoresizingMaskIntoConstraints = true
+
+            [self.contentView, self.topView].forEach { (value) in
+                value.translatesAutoresizingMaskIntoConstraints = false
+            }
+            
+            _ = self.topView.configured(leftChild: .empty())
+            
+            /// View hierarchy
+            self.contentView.addSubview(self.topView)
+            self.addSubview(self.contentView)
+        }
+        
+        private func addLayout() {
+            if let superview = self.contentView.superview {
+                let view = self.contentView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
+                ])
+            }
+            
+            if let superview = self.topView.superview {
+                let view = self.topView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                ])
+            }
+        }
+        
+        /// Handle
+        private func handle(_ value: Block.Content.ContentType.Text) {
+            /// Do something
+            /// We should reload data if text are not equal
+            ///
+        }
+        
+        /// Cleanup
+        private func cleanupOnNewConfiguration() {
+            /// Cleanup subscriptions.
+        }
+        
+        /// Initialization
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        /// ContentView
+        var currentConfiguration: ContentConfiguration!
+        var configuration: UIContentConfiguration {
+            get { self.currentConfiguration }
+            set {
+                /// apply configuration
+                guard let configuration = newValue as? ContentConfiguration else { return }
+                self.apply(configuration: configuration)
+            }
+        }
+
+        init(configuration: ContentConfiguration) {
+            super.init(frame: .zero)
+            self.setup()
+            self.apply(configuration: configuration)
+        }
+        
+        private func apply(configuration: ContentConfiguration, forced: Bool) {
+            if forced {
+                self.currentConfiguration?.contextMenuHolder?.addContextMenu(self)
+            }
+        }
+        
+        private func apply(configuration: ContentConfiguration) {
+            self.apply(configuration: configuration, forced: true)
+            guard self.currentConfiguration != configuration else { return }
+            
+            self.currentConfiguration = configuration
+            
+            self.cleanupOnNewConfiguration()
+            self.invalidateIntrinsicContentSize()
+            
+            self.applyNewConfiguration()
+            self.topView.backgroundColor = .systemGray6
+//            switch self.currentConfiguration.information.content {
+//            case let .text(value): self.handle(value)
+//            default: return
+//            }
+        }
+        
+        private func applyNewConfiguration() {
+            _ = self.topView.configured(textView: self.currentConfiguration.contextMenuHolder?.getUIKitViewModel().createView())
         }
     }
 }

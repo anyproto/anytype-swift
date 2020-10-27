@@ -17,32 +17,32 @@ extension Namespace {
     enum DocumentViewCells {}
 }
 
+// MARK: - Options
+extension Namespace.DocumentViewCells.Cell {
+    struct Options {
+        var useUIKit: Bool = true
+        var shouldShowIndent: Bool = false
+    }
+}
+
+// MARK: - Layout
 extension Namespace.DocumentViewCells {
-    class Cell: UITableViewCell {
-        struct Options {
-            var useUIKit: Bool = true
-            var shouldShowIndent: Bool = false
-        }
-        typealias Model = DocumentModule.DocumentViewModel.Row
+    struct Layout {
+        var containedViewInset = 8
+        var indentationWidth = 8
+        var boundaryWidth = 2
+        var zero = 0
+    }
+}
+
+// MARK: - UITableView
+extension Namespace.DocumentViewCells {
+    class TableViewCell: UITableViewCell {
+        /// Variables
         
-        struct Layout {
-            var containedViewInset = 8
-            var indentationWidth = 8
-            var boundaryWidth = 2
-            var zero = 0
-        }
+        private let ourView: Cell = .init()
         
-        var selectionSubscription: AnyCancellable?
-        var model: Model?
-        var containedView: UIView?
-        var containerView: UIView?
-        var boundaryView: UIView?
-        var elementsView: UIView? // top-most view
-        var boundaryRevealConstraint: NSLayoutConstraint?
-        var indentationConstraint: NSLayoutConstraint?
-        var options: Options = .init()
-        var layout: Layout = .init()
-        
+        /// Initialization
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             self.setup()
@@ -53,9 +53,157 @@ extension Namespace.DocumentViewCells {
             self.setup()
         }
         
+        /// Setup
+        func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        func setupUIElements() {
+            self.selectionStyle = .none
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.contentView.addSubview(self.ourView)
+        }
+        
+        func addLayout() {
+            let view = self.ourView
+            
+            if let superview = view.superview {
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                ])
+            }
+        }
+        
+        /// OnLayoutSubviews
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            self.ourView.onFirstResponder()
+        }
+        
+        /// Configurations
+        func configured(_ model: Cell.Model) -> Self {
+            _ = self.ourView.configured(model)
+            return self
+        }
+        
+        func configured(useUIKit: Bool) -> Self {
+            _ = self.ourView.configured(useUIKit: useUIKit)
+            return self
+        }
+        
+        func configured(shouldShowIndent: Bool) -> Self {
+            _ = self.ourView.configured(shouldShowIndent: shouldShowIndent)
+            return self
+        }
+    }
+    class CollectionViewCell: UICollectionViewCell {
+        /// Variables
+        private let ourView: Cell = .init()
+
+        /// Initialization
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.setup()
+        }
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            self.setup()
+        }
+        
+        func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        func setupUIElements() {
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.contentView.addSubview(self.ourView)
+        }
+        
+        func addLayout() {
+            let view = self.ourView
+            
+            if let superview = view.superview {
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                ])
+            }
+        }
+        
+        /// OnLayoutSubviews
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            self.ourView.onFirstResponder()
+        }
+        
+        /// Configurations
+        func configured(_ model: Cell.Model) -> Self {
+            _ = self.ourView.configured(model)
+            return self
+        }
+        
+        func configured(useUIKit: Bool) -> Self {
+            _ = self.ourView.configured(useUIKit: useUIKit)
+            return self
+        }
+        
+        func configured(shouldShowIndent: Bool) -> Self {
+            _ = self.ourView.configured(shouldShowIndent: shouldShowIndent)
+            return self
+        }
+    }
+}
+
+// MARK: - Cell
+extension Namespace.DocumentViewCells {
+    class Cell: UIView {
+        
+        /// Aliases
+        typealias Model = DocumentModule.DocumentViewModel.Row
+        
+        /// Variables
+        /// Subscriptions
+        var selectionSubscription: AnyCancellable?
+        
+        /// Model
+        var model: Model?
+        
+        /// Views
+        var contentView: UIView {
+            self
+        }
+        var containedView: UIView?
+        var containerView: UIView?
+        var boundaryView: UIView?
+        var elementsView: UIView? // top-most view
+        
+        /// Constraints
+        var boundaryRevealConstraint: NSLayoutConstraint?
+        var indentationConstraint: NSLayoutConstraint?
+        
+        /// Configurations
+        var options: Options = .init()
+        var layout: Layout = .init()
+        
+        /// Initialization
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            self.setup()
+        }
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            self.setup()
+        }
+        
         // MARK: - Setup
         func setup() {
-            self.selectionStyle = .none
             self.translatesAutoresizingMaskIntoConstraints = false
             let containerView: UIView = {
                 let view = UIView()
@@ -152,7 +300,7 @@ extension Namespace.DocumentViewCells.Cell {
         }
     }
     
-    func updateIfNewModel(_ model: Model) {
+    private func updateIfNewModel(_ model: Model) {
         if model != self.model {
             /// Check that model has changed OR its Cached has changed
             
@@ -193,10 +341,10 @@ extension Namespace.DocumentViewCells.Cell {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.onFirstResponder()
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        self.onFirstResponder()
+//    }
     
 //    override func prepareForReuse() {
 //        super.prepareForReuse()
@@ -272,5 +420,83 @@ extension Namespace.DocumentViewCells.Cell {
         }
         
         self.options = options
+    }
+}
+
+// MARK: New Cells
+// MARK: ContentConfigurations
+extension Namespace.DocumentViewCells {
+    enum ContentConfigurations {
+        class Table: UITableViewCell {
+            /// Initialization
+            override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+                super.init(style: style, reuseIdentifier: reuseIdentifier)
+                self.setup()
+            }
+            
+            required init?(coder: NSCoder) {
+                super.init(coder: coder)
+                self.setup()
+            }
+            
+            func setup() {
+                self.selectionStyle = .none
+            }
+        }
+    }
+}
+
+
+fileprivate typealias ContentConfigurationsCells = Namespace.DocumentViewCells.ContentConfigurations
+// MARK: ContentConfigurations
+extension ContentConfigurationsCells {
+    enum Text {}
+    enum File {}
+    enum Bookmark {}
+    enum Other {}
+    enum Link {}
+}
+
+// MARK: ContentConfigurations / Text
+extension ContentConfigurationsCells.Text {
+    enum Text {
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Collection: UICollectionViewCell {}
+    }
+}
+
+// MARK: ContentConfigurations / Files
+extension ContentConfigurationsCells.File {
+    enum File {
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Collection: UICollectionViewCell {}
+    }
+    enum Image {
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Collection: UICollectionViewCell {}
+    }
+}
+
+// MARK: ContentConfigurations / Bookmark
+extension ContentConfigurationsCells.Bookmark {
+    enum Bookmark {
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Collection: UICollectionViewCell {}
+    }
+}
+
+// MARK: ContentConfigurations / Divider
+extension ContentConfigurationsCells.Other {
+    enum Divider {
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Collection: UICollectionViewCell {}
+    }
+}
+
+// MARK: ContentConfigurations / Link
+extension ContentConfigurationsCells.Link {
+    enum PageLink {
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Collection: UICollectionViewCell {}
     }
 }

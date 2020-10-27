@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreServices
+import UniformTypeIdentifiers
 
 fileprivate typealias Namespace = CommonViews.Pickers.File
 
@@ -79,11 +79,11 @@ private extension Namespace.Picker.UIKitPickerViewController {
 
 }
 
-// MARK: - FilePicker
-
+// MARK: - Picker
 extension Namespace {
     class Picker: UIViewController {
         var viewModel: ViewModel
+        var barTintColor: UIColor?
         
         init(_ model: ViewModel) {
             self.viewModel = model
@@ -96,20 +96,22 @@ extension Namespace {
     }
 }
 
+// MARK: Appearance
+extension Namespace.Picker {
+    private func applyAppearanceForNavigationBar() {
+        // Save color to reset it back later
+        self.barTintColor = UINavigationBar.appearance().tintColor
+        UINavigationBar.appearance().tintColor = .orange
+    }
+    private func resetAppearanceForNavigationBar() {
+        UINavigationBar.appearance().tintColor = self.barTintColor
+    }
+}
+
+// MARK: Controller
 private extension Namespace.Picker {
     func createPickerController() -> UIViewController {
-        // TODO: Move to Mime Type Provider.
-        let types = [
-            kUTTypeText,
-            kUTTypeSpreadsheet,
-            kUTTypePresentation,
-            kUTTypePDF,
-            kUTTypeImage,
-            kUTTypeAudio,
-            kUTTypeVideo,
-            kUTTypeArchive
-        ]
-        let picker = UIKitPickerViewController.init(documentTypes: types as [String], in: .import)
+        let picker = UIKitPickerViewController.init(forOpeningContentTypes: self.viewModel.types, asCopy: true)
         picker.allowsMultipleSelection = false
         picker.delegate = self
         return picker
@@ -139,29 +141,45 @@ private extension Namespace.Picker {
     }
 }
 
+// MARK: View Lifecycle
 extension Namespace.Picker {
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.applyAppearanceForNavigationBar()
         self.setupUIElements()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.applyAppearanceForNavigationBar()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.resetAppearanceForNavigationBar()
     }
 }
 
 // MARK: - ViewModel
 extension Namespace.Picker {
-    class ViewModel {
-        private var documentId: String
-        private var blockId: String
+    class ViewModel {        
+        // TODO: Move to Mime Type Provider.
+        private(set) var types: [UTType] = [
+            .text,
+            .spreadsheet,
+            .presentation,
+            .pdf,
+            .image,
+            .audio,
+            .video,
+            .archive
+        ]
         @Published var resultInformation: ResultInformation?
         
-        init(documentId: String, blockId: String) {
-            self.documentId = documentId
-            self.blockId = blockId
-        }
+        init() {}
         
         func process(_ information: [URL]) {
             guard !information.isEmpty else { return }
             let url = information[0]
-            self.resultInformation = .init(documentUrl: url, blockId: self.blockId, documentId: self.documentId)
+            self.resultInformation = .init(documentUrl: url)
         }
     }
 }
@@ -171,8 +189,6 @@ extension Namespace.Picker {
     struct ResultInformation {
 //        var documentsUrls: [URL] = []
         var documentUrl: URL
-        var blockId: String
-        var documentId: String
         var filePath: String { self.documentUrl.relativePath }
     }
 }

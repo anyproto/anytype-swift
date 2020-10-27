@@ -55,6 +55,7 @@ public extension Namespace.ContentType {
                     }
                     switch (lhs, rhs) {
                     case let (.text(left), .text(right)): return left.contentType == right.contentType
+                    case let (.divider(left), .divider(right)): return left.style == right.style
                     default: return true
                     }
                 }

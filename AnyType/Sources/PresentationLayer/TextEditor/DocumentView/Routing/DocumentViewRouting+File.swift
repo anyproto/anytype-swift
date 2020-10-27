@@ -56,7 +56,7 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
         private func handle(action: BlocksViews.UserAction.File.UserAction.ImageAction) {
             switch action {
             case let .shouldShowImagePicker(model):
-                self.send(event: .general(.show(ImagePickerUIKit.init(model: model))))
+                self.send(event: .general(.show(CommonViews.Pickers.Image.Picker.init(model))))
             }
         }
         

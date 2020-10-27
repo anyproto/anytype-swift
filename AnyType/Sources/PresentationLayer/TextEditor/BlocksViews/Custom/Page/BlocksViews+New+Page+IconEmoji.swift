@@ -178,23 +178,15 @@ extension Namespace.ViewModel {
     }
     
     func upload() {
-        
-        let blockModel = self.getBlock()
-        // We don't care about blockId, because we upload image for a page.
-        let (prefix, _) = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.IdentifierBuilder.asDetails(blockModel.blockModel.information.id)
-        let documentId = prefix
-        guard !documentId.isEmpty else { return }
-        let blockId = ""
-        
-        let model: ImagePickerUIKit.ViewModel = .init(documentId: documentId, blockId: blockId)
-        self.configureListening(imagePickerViewModel: model)
+        let model: CommonViews.Pickers.Image.Picker.ViewModel = .init()
+        self.configureListening(model)
         self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(model)))))
     }
 }
 
 extension Namespace.ViewModel {
-    func configureListening(imagePickerViewModel: ImagePickerUIKit.ViewModel) {
-        imagePickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
+    func configureListening(_ pickerViewModel: CommonViews.Pickers.Image.Picker.ViewModel) {
+        pickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
             .flatMap({IpfsFilesService().uploadFile.action(url: "", localPath: $0.filePath, type: .image, disableEncryption: false)})
             .flatMap({[weak self] value in
                 self?.pageDetailsViewModel?.update(details: .iconImage(.init(value: value.hash))) ?? .empty()

@@ -206,6 +206,9 @@ extension DocumentModule {
                             switch value {
                             case .general: break
                             case let .update(value):
+                                /// We should calculate updates correctly.
+                                /// For example, we should remove items if they appear in detetedIds.
+                                /// That means that even if they appear in updatedIds, we still need to remove them.
                                 if !value.updatedIds.isEmpty {
                                     self?.anyStyleSubject.send(value.updatedIds)
                                 }
@@ -263,6 +266,8 @@ extension DocumentModule {
         }
                         
         var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
+        
+        /// We could delete this publisher, lol.
         var fileFieldPublisher: AnyPublisher<BlocksViewsNamespace.File.Image.ViewModel.State?, Never> = .empty()
         
         /// We should update some items in place.
@@ -335,6 +340,12 @@ extension DocumentModule {
                 self?.enhanceUserActionsAndPayloads(value)
             }.store(in: &self.subscriptions)
             
+            // TODO: Deprecated.
+            // It should be either removed or deleted.
+            // We still (!) need this item to recalculate the size of text views on typing.
+            // But, we should do it in the same manner as in other publishers:
+            // We shouldn't merge them, we should have one passthrough subject which will be passed among all necessary views.
+            //
             self.anyFieldPublisher = self.$builders
                 .map {
                     $0.compactMap { $0 as? BlocksViewsNamespace.Text.Base.ViewModel }
@@ -353,6 +364,12 @@ extension DocumentModule {
                 Publishers.MergeMany($0.map{$0.$state})
             }.eraseToAnyPublisher()
             
+            // TODO: Deprecated.
+            // We should rename it.
+            // Our case would be the following
+            // We should expose one publisher that will publish different updates (delete/update/add) to outer world.
+            // Or to our view controller.
+            // Maybe it will publish only resulted collection of elements.
             self.anyStylePublisher = self.anyStyleSubject.eraseToAnyPublisher()
         }
         

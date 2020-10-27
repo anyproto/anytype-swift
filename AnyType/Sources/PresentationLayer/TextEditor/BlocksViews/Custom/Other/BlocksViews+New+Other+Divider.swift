@@ -31,6 +31,12 @@ extension Namespace {
             UIKitView().configured(publisher: self.$statePublished.eraseToAnyPublisher())
         }
         
+        override func makeContentConfiguration() -> UIContentConfiguration {
+            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            configuration.contextMenuHolder = self
+            return configuration
+        }
+        
         // MARK: Subclassing
         override init(_ block: BlockModel) {
             super.init(block)
@@ -245,10 +251,10 @@ private extension Namespace {
         private func addLayout() {
             if let view = self.contentView, let superview = view.superview {
                 NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.dividerViewInsets.left),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.dividerViewInsets.right),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.dividerViewInsets.top),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.dividerViewInsets.bottom)
                 ])
             }
             
@@ -429,6 +435,176 @@ private extension Namespace {
                 self?.handle(value)
             })
             return self
+        }
+    }
+}
+
+// MARK: ContentConfiguration
+extension Namespace.ViewModel {
+    
+    /// As soon as we have builder in this type ( makeContentView )
+    /// We could map all states ( for example, image has several states ) to several different ContentViews.
+    ///
+    struct ContentConfiguration: UIContentConfiguration, Hashable {
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.container == rhs.container
+        }
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(self.container)
+        }
+        
+        typealias HashableContainer = TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
+        var information: Information {
+            self.container.value
+        }
+        private var container: HashableContainer
+        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
+        
+        init(_ information: Information) {
+            /// We should warn if we have incorrect content type (?)
+            /// Don't know :(
+            /// Think about failable initializer
+            
+            switch information.content {
+            case .divider: break
+            default:
+                let logger = Logging.createLogger(category: .blocksViewsNewOtherDivider)
+                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+                break
+            }
+            
+            self.container = .init(value: information)
+        }
+                
+        /// UIContentConfiguration
+        func makeContentView() -> UIView & UIContentView {
+            let view = ContentView(configuration: self)
+//            self.contextMenuHolder?.addContextMenu(view)
+            return view
+        }
+        
+        /// Hm, we could use state as from-user action channel.
+        /// for example, if we have value "Checked"
+        /// And we pressed something, we should do the following:
+        /// We should pass value of state to a configuration.
+        /// Next, configuration will send this value to a view model.
+        /// Is it what we should use?
+        func updated(for state: UIConfigurationState) -> ContentConfiguration {
+            /// do something
+            return self
+        }
+    }
+}
+
+
+// MARK: - ContentView
+private extension Namespace.ViewModel {
+    class ContentView: UIView & UIContentView {
+        
+        private var subscription: AnyCancellable?
+        private var layout: Namespace.UIKitView.Layout = .init()
+        
+        // MARK: Views
+        private var contentView: UIView = .init()
+        private var dividerView: Namespace.UIKitViewWithDivider = .init()
+                
+        // MARK: Setup
+        func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        // MARK: UI Elements
+        func setupUIElements() {
+            // Default behavior
+            [self.contentView, self.dividerView].forEach { view in
+                view.translatesAutoresizingMaskIntoConstraints = false
+            }
+                        
+            self.contentView.addSubview(self.dividerView)
+            self.addSubview(self.contentView)
+        }
+        
+        // MARK: Layout
+        func addLayout() {
+            if let superview = self.contentView.superview {
+                let view = self.contentView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                ])
+            }
+
+            if let superview = self.dividerView.superview {
+                let view = self.dividerView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                ])
+            }
+        }
+        
+        func handle(_ state: Namespace.UIKitView.State) {
+            switch state.style {
+            case .line: self.dividerView.toLineView()
+            case .dots: self.dividerView.toDotsView()
+            }
+        }
+        
+        /// Initialization
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        /// ContentView
+        func cleanupOnNewConfiguration() {
+            // do nothing or something?
+        }
+        
+        var currentConfiguration: ContentConfiguration!
+        var configuration: UIContentConfiguration {
+            get { self.currentConfiguration }
+            set {
+                /// apply configuration
+                guard let configuration = newValue as? ContentConfiguration else { return }
+                self.apply(configuration: configuration)
+            }
+        }
+
+        init(configuration: ContentConfiguration) {
+            super.init(frame: .zero)
+            self.setup()
+            self.apply(configuration: configuration)
+        }
+        
+        private func apply(configuration: ContentConfiguration, forced: Bool) {
+            if forced {
+                self.currentConfiguration?.contextMenuHolder?.addContextMenu(self)
+            }
+        }
+        
+        private func apply(configuration: ContentConfiguration) {
+            guard self.currentConfiguration != configuration else {
+                self.apply(configuration: configuration, forced: true)
+                return
+            }
+            
+            self.currentConfiguration = configuration
+            self.apply(configuration: configuration, forced: true)
+            
+            self.cleanupOnNewConfiguration()
+            switch self.currentConfiguration.information.content {
+            case let .divider(value):
+                guard let style = Namespace.UIKitView.StateConverter.asOurModel(value.style) else {
+                    return
+                }
+                self.handle(.init(style: style))
+            default: return
+            }
         }
     }
 }

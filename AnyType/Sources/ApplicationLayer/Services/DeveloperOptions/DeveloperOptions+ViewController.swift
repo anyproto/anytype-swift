@@ -209,6 +209,10 @@ extension UITableViewCell {
     class func cellReuseIdentifier() -> String { NSStringFromClass(self) }
 }
 
+extension UICollectionViewCell {
+    class func cellReuseIdentifier() -> String { NSStringFromClass(self) }
+}
+
 class BaseTableViewCell: UITableViewCell {
     enum PrepareItems {
         case data

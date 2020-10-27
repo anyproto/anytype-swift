@@ -14,6 +14,10 @@ import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.New.Tools.PageLink
 
+private extension Logging.Categories {
+    static let blocksViewsNewToolsPageLink: Self = "BlocksViews.New.Tools.PageLink"
+}
+
 // MARK: - ViewModel
 extension Namespace {
     /// ViewModel for type `.link()` with style `.page`
@@ -80,6 +84,13 @@ extension Namespace {
                 .configured(stateStream: self.statePublisher)
                 .configured(state: self._state)
         }
+        
+        override func makeContentConfiguration() -> UIContentConfiguration {
+            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            configuration.contextMenuHolder = self
+            return configuration
+        }
+        
         override func handle(event: BlocksViews.UserEvent) {
             switch event {
             case .didSelectRowInTableView:
@@ -90,6 +101,20 @@ extension Namespace {
                 }
             }
         }
+//
+//        // Add diffable to update changes.
+//        override func makeDiffable() -> AnyHashable {
+//            let diffable = super.makeDiffable()
+//            if case let .link(value) = self.getBlock().blockModel.information.content {
+//                let newDiffable: [String: AnyHashable] = [
+//                    "parent": diffable,
+////                    "style": AnyHashable(self.state)
+//                ]
+//                return .init(newDiffable)
+//            }
+//            return diffable
+//        }
+        
 
         // MARK: Contextual Menu
         override func makeContextualMenu() -> BlocksViews.ContextualMenu {
@@ -105,6 +130,14 @@ extension Namespace {
                 //.create(action: .specific(.backgroundColor)),
             ])
         }
+    }
+}
+
+private extension Namespace.ViewModel {
+    func applyOnUIView(_ view: Namespace.UIKitView) -> UIView {
+        view.configured(textView: self.textViewModel.createView(.init(liveUpdateAvailable: true)).configured(placeholder: .init(text: nil, attributedText: self.placeholder, attributes: [:])))
+            .configured(stateStream: self.statePublisher)
+            .configured(state: self._state)
     }
 }
 
@@ -127,7 +160,7 @@ extension Namespace.ViewModel {
     ///
     func configured(_ publisher: AnyPublisher<PageDetailsViewModel.PageDetails, Never>) -> Self {
         _ = self.wholeDetailsViewModel.configured(publisher: publisher)
-        self.wholeDetailsViewModel.wholeDetailsPublisher.map(Namespace.State.Converter.from).sink { [weak self] (value) in
+        self.wholeDetailsViewModel.wholeDetailsPublisher.map(Namespace.State.Converter.asOurModel).sink { [weak self] (value) in
             self?.state = value
         }.store(in: &self.subscriptions)
         return self
@@ -143,7 +176,9 @@ private extension Logging.Categories {
 extension Namespace.State {
     enum Converter {
         typealias T = TopLevel.AliasesMap
-        static func from(_ pageDetails: DetailsInformationModelProtocol) -> BlocksViews.New.Tools.PageLink.State {
+        typealias Model = DetailsInformationModelProtocol
+        typealias OurModel = BlocksViews.New.Tools.PageLink.State
+        static func asOurModel(_ pageDetails: Model) -> OurModel {
             let archived = false
             var hasContent = false
             let accessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: pageDetails)
@@ -315,22 +350,218 @@ private extension Namespace {
                 
         // MARK: Update State
         func update(state: State) -> Self {
-            _ = self.topView.configured(leftChild: {
-                switch state.style {
-                case .noContent, .noEmoji:
-                    let imageView = UIImageView(image: UIImage(named: state.style.resource))
-                    imageView.translatesAutoresizingMaskIntoConstraints = false
-                    return imageView
-                    
-                case let .emoji(value):
-                    let label = UILabel()
-                    label.translatesAutoresizingMaskIntoConstraints = false
-                    label.text = value
-                    return label
-                }
-            }())
-            
+            self.apply(state)
             return self
+        }
+    }
+}
+
+extension Namespace.UIKitView {
+    func apply(_ state: Namespace.State) {
+        _ = self.topView.configured(leftChild: {
+            switch state.style {
+            case .noContent, .noEmoji:
+                let imageView = UIImageView(image: UIImage(named: state.style.resource))
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                return imageView
+                
+            case let .emoji(value):
+                let label = UILabel()
+                label.translatesAutoresizingMaskIntoConstraints = false
+                label.text = value
+                return label
+            }
+        }())
+    }
+}
+
+// MARK: ContentConfiguration
+extension Namespace.ViewModel {
+    
+    struct ContentConfiguration: UIContentConfiguration, Hashable {
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.container == rhs.container
+        }
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(self.container)
+        }
+        
+        // We need this comparison to compare if we need to update view or not.
+        static func isPartialKindOf(_ lhs: Self, _ rhs: Self) -> Bool {
+            lhs.contextMenuHolder?.makeDiffable() == rhs.contextMenuHolder?.makeDiffable()
+        }
+        
+        static func isTextEqual(_ lhs: Self, _ rhs: Self) -> Bool {
+            guard let left = lhs.contextMenuHolder?.getBlock().blockModel.information.content, let right = rhs.contextMenuHolder?.getBlock().blockModel.information.content else { return false }
+            switch (left, right) {
+            case let (.text(leftText), .text(rightText)): return leftText.attributedText == rightText.attributedText
+            default: return false
+            }
+        }
+        
+        typealias HashableContainer = TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
+        var information: Information {
+            self.container.value
+        }
+        private var container: HashableContainer
+        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
+        
+        init(_ information: Information) {
+            /// We should warn if we have incorrect content type (?)
+            /// Don't know :(
+            /// Think about failable initializer
+            
+            switch information.content {
+            case let .link(value) where value.style == .page: break
+            default:
+                let logger = Logging.createLogger(category: .blocksViewsNewToolsPageLink)
+                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+                break
+            }
+            
+            self.container = .init(value: information)
+        }
+        
+        /// UIContentConfiguration
+        func makeContentView() -> UIView & UIContentView {
+            let view = ContentView(configuration: self)
+            self.contextMenuHolder?.addContextMenu(view)
+            return view
+        }
+        
+        /// Hm, we could use state as from-user action channel.
+        /// for example, if we have value "Checked"
+        /// And we pressed something, we should do the following:
+        /// We should pass value of state to a configuration.
+        /// Next, configuration will send this value to a view model.
+        /// Is it what we should use?
+        func updated(for state: UIConfigurationState) -> ContentConfiguration {
+            /// do something
+            return self
+        }
+    }
+}
+
+// MARK: - ContentView
+private extension Namespace.ViewModel {
+    class ContentView: UIView & UIContentView {
+        
+        struct Layout {
+            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        }
+        
+        typealias TopView = Namespace.UIKitView
+        
+        /// Views
+        var topView: TopView = .init()
+        var contentView: UIView = .init()
+        
+        /// Subscriptions
+        
+        /// Others
+//        var resource: Namespace.UIKitView.Resource = .init()
+        var layout: Layout = .init()
+                
+        /// Setup
+        private func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        private func setupUIElements() {
+            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
+            self.translatesAutoresizingMaskIntoConstraints = true
+
+            [self.contentView, self.topView].forEach { (value) in
+                value.translatesAutoresizingMaskIntoConstraints = false
+            }
+            
+            /// View hierarchy
+            self.contentView.addSubview(self.topView)
+            self.addSubview(self.contentView)
+        }
+        
+        private func addLayout() {
+            if let superview = self.contentView.superview {
+                let view = self.contentView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
+                ])
+            }
+            
+            if let superview = self.topView.superview {
+                let view = self.topView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                ])
+            }
+        }
+        
+        /// Handle
+        private func handle(_ value: Block.Content.ContentType.Text) {
+            /// Do something
+            /// We should reload data if text are not equal
+            ///
+        }
+        
+        /// Cleanup
+        private func cleanupOnNewConfiguration() {
+            /// Cleanup subscriptions.
+        }
+        
+        /// Initialization
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        /// ContentView
+        var currentConfiguration: ContentConfiguration!
+        var configuration: UIContentConfiguration {
+            get { self.currentConfiguration }
+            set {
+                /// apply configuration
+                guard let configuration = newValue as? ContentConfiguration else { return }
+                self.apply(configuration: configuration)
+            }
+        }
+
+        init(configuration: ContentConfiguration) {
+            super.init(frame: .zero)
+            self.setup()
+            self.apply(configuration: configuration)
+        }
+        
+        private func apply(configuration: ContentConfiguration, forced: Bool) {
+            if forced {
+                self.currentConfiguration?.contextMenuHolder?.addContextMenu(self)
+            }
+        }
+        
+        private func apply(configuration: ContentConfiguration) {
+            self.apply(configuration: configuration, forced: true)
+            guard self.currentConfiguration != configuration else { return }
+            
+            self.currentConfiguration = configuration
+            
+            self.cleanupOnNewConfiguration()
+            self.invalidateIntrinsicContentSize()
+            
+            self.applyNewConfiguration()
+            self.topView.backgroundColor = .systemGray6
+//            switch self.currentConfiguration.information.content {
+//            case let .text(value): self.handle(value)
+//            default: return
+//            }
+        }
+        
+        private func applyNewConfiguration() {
+            _ = self.currentConfiguration.contextMenuHolder?.applyOnUIView(self.topView)
         }
     }
 }

@@ -1,0 +1,50 @@
+//
+//  CoreLayer+Network+Image+Property.swift
+//  AnyType
+//
+//  Created by Dmitry Lobanov on 26.10.2020.
+//  Copyright © 2020 AnyType. All rights reserved.
+//
+
+import Combine
+import UIKit
+import os
+import URLComponentsCoder
+
+fileprivate typealias Namespace = CoreLayer.Network.Image
+
+// MARK: - Property
+extension Namespace {
+    class Property {
+        private var internalSubscription: AnyCancellable?
+        private var externalSubscription: AnyCancellable?
+        private var loadingSubscription: AnyCancellable?
+        @Published var property: UIImage?
+        var stream: AnyPublisher<UIImage?, Never> = .empty()
+        private var imageId: String
+        private var parameters: ImageParameters
+        init(imageId: String, _ parameters: ImageParameters = .init(width: .default), _ cache: Cache = .shared) {
+            self.imageId = imageId
+            self.parameters = parameters
+            let publisher = cache.publisher(imageId: imageId, parameters)
+            self.externalSubscription = publisher.0
+            self.internalSubscription = publisher.1.sink(receiveValue: { [weak self] (value) in
+                self?.property = value
+            })
+            self.setup()
+        }
+        
+        func setup() {
+            self.stream = self.$property.handleEvents(receiveSubscription: {[weak self] _ in self?.loading()}).eraseToAnyPublisher()
+        }
+        
+        func loading() {
+            if self.property == nil {
+                // start loading
+                self.loadingSubscription = Namespace.URLResolver.init().transform(imageId: imageId, .init(width: .default)).safelyUnwrapOptionals().ignoreFailure().flatMap({
+                    Namespace.Loader.init($0).imagePublisher
+                }).receive(on: RunLoop.main).sink { _ in }
+            }
+        }
+    }
+}

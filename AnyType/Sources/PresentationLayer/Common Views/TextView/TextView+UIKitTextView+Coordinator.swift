@@ -28,7 +28,7 @@ extension TextView.UIKitTextView {
         @Published var text: String? = nil
         @Published var attributedText: NSAttributedString? = nil
         @Published var textAlignment: NSTextAlignment? = nil
-        
+        @Published var textSize: CGSize? = nil
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
         func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
             self.userInteractionDelegate = delegate
@@ -117,6 +117,11 @@ extension TextView.UIKitTextView.Coordinator {
             let (textView, action) = value
             
             guard action.action != .keyboardDismiss else {
+                guard textView.isFirstResponder else {
+                    let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
+                    os_log(.debug, log: logger, "text view keyboardDismiss is disabled. Our view is not first responder.")
+                    return
+                }
                 textView.endEditing(false)
                 return
             }
@@ -593,7 +598,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
             // TODO: Add text (?) publisher
             self.text = textView.text
             self.attributedText = textView.attributedText
-            
+            self.textSize = textView.intrinsicContentSize
             /// Don't delete this code until we have stable solution for textView attributedText updates.
             /// Maybe we will discard current `@Publsihed` solution.
             ///

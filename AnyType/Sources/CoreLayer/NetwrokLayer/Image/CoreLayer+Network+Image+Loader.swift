@@ -9,70 +9,12 @@
 import Combine
 import UIKit
 import os
+import URLComponentsCoder
 
 fileprivate typealias Namespace = CoreLayer.Network.Image
 
 private extension Logging.Categories {
     static let coreLayerNetworkingImageLoader: Self = "CoreLayer.Network.Image.Loader"
-}
-
-// MARK: - URLResolver
-extension Namespace {
-    struct URLResolver {
-        private let configurationService: ConfigurationServiceProtocol = MiddlewareConfigurationService.init()
-        private let subpath = "/image/"
-        
-        private func imageURL(configuration: MiddlewareConfigurationService.MiddlewareConfiguration, subpath: String) -> URL? {
-            if subpath.isEmpty {
-                return nil
-            }
-            let string = configuration.gatewayURL + self.subpath + subpath
-            return URL.init(string: string)
-        }
-                
-        func transform(imageId: String) -> AnyPublisher<URL?, Error> {
-            self.configurationService.obtainConfiguration().map({self.imageURL(configuration: $0, subpath: imageId)}).eraseToAnyPublisher()
-        }
-    }
-}
-
-// MARK: - Cache
-extension Namespace {
-    class Cache {
-        static let shared: Cache = .init()
-        
-        private var loaders: NSCache<NSString, Loader> = NSCache()
-        
-        // Also add disk cache later.
-        // For now it is fine.
-        private var images: NSCache<NSString, UIImage> = NSCache()
-        
-        func loaderFor(path: URL) -> Loader {
-            let key: NSString = "\(path)" as NSString
-            
-            if let loader = self.loaders.object(forKey: key) {
-                return loader
-            } else {
-                let loader: Loader = .init(path)
-                self.loaders.setObject(loader, forKey: key)
-                return loader
-            }
-        }
-        
-        func image(url: URL) -> UIImage? {
-            guard let image = self.images.object(forKey: "\(url)" as NSString) else {
-                return nil
-            }
-            return image
-        }
-        func setImage(url: URL, image: UIImage?) {
-            guard let image = image else {
-                self.images.removeObject(forKey: "\(url)" as NSString)
-                return
-            }
-            self.images.setObject(image, forKey: "\(url)" as NSString)
-        }
-    }
 }
 
 // MARK: - Loader
@@ -102,10 +44,13 @@ extension Namespace {
             if let image = self.cache.image(url: self.url) {
                 return Just(image).eraseToAnyPublisher()
             }
-                        
+            let url = self.url
             return self.imageService.fetchImageAndIgnoreError(url: self.url)
                 .handleEvents(receiveSubscription: { [weak self] _ in self?.onStart()},
-                              receiveOutput: { [weak self] value in self?.onOutput(value)},
+                              receiveOutput: { value in
+                                Cache.shared.setImage(url: url, image: value)
+//                                self.onOutput(value)
+                              },
                               receiveCompletion: {[weak self] _ in self?.onFinish()},
                               receiveCancel: {[weak self] in self?.onFinish()}).eraseToAnyPublisher()
         }
@@ -143,3 +88,4 @@ extension Namespace {
     }
     
 }
+

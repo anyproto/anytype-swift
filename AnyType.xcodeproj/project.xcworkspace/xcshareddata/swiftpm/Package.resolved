@@ -9,6 +9,15 @@
           "revision": "7790acf0a81d08429cb20375bf42a8c7d279c5fe",
           "version": "1.8.0"
         }
+      },
+      {
+        "package": "URLComponentsCoder",
+        "repositoryURL": "git@github.com:lolgear/URLComponentsCoder.git",
+        "state": {
+          "branch": null,
+          "revision": "bf4b52b5ef4ab3c0167dd207af679564e96150b4",
+          "version": "0.0.1"
+        }
       }
     ]
   },

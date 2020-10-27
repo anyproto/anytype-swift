@@ -38,6 +38,7 @@
 		0A78321C24B897CA00A1B6F6 /* Block+Tools+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78321B24B897CA00A1B6F6 /* Block+Tools+Transformer.swift */; };
 		0A78327824BC8B8800A1B6F6 /* Block+Information+Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327724BC8B8800A1B6F6 /* Block+Information+Builders.swift */; };
 		0A78327D24BCCADC00A1B6F6 /* Details+Information+Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327C24BCCADC00A1B6F6 /* Details+Information+Builders.swift */; };
+		0AB86E192513C1DB00F33208 /* Block+Information+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB86E182513C1DB00F33208 /* Block+Information+Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		0A78321B24B897CA00A1B6F6 /* Block+Tools+Transformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+Tools+Transformer.swift"; sourceTree = "<group>"; };
 		0A78327724BC8B8800A1B6F6 /* Block+Information+Builders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+Information+Builders.swift"; sourceTree = "<group>"; };
 		0A78327C24BCCADC00A1B6F6 /* Details+Information+Builders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Details+Information+Builders.swift"; sourceTree = "<group>"; };
+		0AB86E182513C1DB00F33208 /* Block+Information+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Block+Information+Utilities.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 				0A7831EF24B869CA00A1B6F6 /* Block+Information.swift */,
 				0A78327724BC8B8800A1B6F6 /* Block+Information+Builders.swift */,
 				0A78320324B876B100A1B6F6 /* Block+Information+Protocols.swift */,
+				0AB86E182513C1DB00F33208 /* Block+Information+Utilities.swift */,
 				0A7831E724B8692700A1B6F6 /* Details.swift */,
 				0A78320D24B884A600A1B6F6 /* Details+Builders.swift */,
 				0A7831FD24B86EBE00A1B6F6 /* Details+Protocols.swift */,
@@ -180,7 +183,7 @@
 		0A7831C924B8672D00A1B6F6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Dmitry Lobanov";
 				TargetAttributes = {
 					0A7831D124B8672D00A1B6F6 = {
@@ -236,6 +239,7 @@
 				0A7831FA24B86B5800A1B6F6 /* Details+Implementation.swift in Sources */,
 				0A78327824BC8B8800A1B6F6 /* Block+Information+Builders.swift in Sources */,
 				0A78321824B8974400A1B6F6 /* Block+Tools.swift in Sources */,
+				0AB86E192513C1DB00F33208 /* Block+Information+Utilities.swift in Sources */,
 				0A7831F424B86A1000A1B6F6 /* Block+Builders.swift in Sources */,
 				0A78320224B8742F00A1B6F6 /* Details+Information+Content.swift in Sources */,
 				0A78321424B8938800A1B6F6 /* TopLevel.swift in Sources */,
@@ -284,6 +288,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -309,7 +314,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -347,6 +352,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -366,7 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

@@ -14,17 +14,8 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
-            VStack {
-                Spacer()
-                LoginView.KeychainPhraseView(viewModel: viewModel)
-                    .padding()
-                    .offset(y: -keyboardObserver.keyboardInformation.keyboardRect.height).animation(.easeInOut(duration: keyboardObserver.keyboardInformation.duration))
-                    .onDisappear {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                }
-            }
+            LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
+            LoginView.KeychainPhraseView(viewModel: viewModel).padding()
         }
     }
 }
@@ -57,11 +48,10 @@ extension LoginView {
                         self.viewModel.showQrCodeView = true
                     }
 
-
                     TextField("or Type your keychain phrase", text: $viewModel.seed)
                         .foregroundColor(Color("GrayText"))
                         .padding(.top, 12)
-                        .padding(.bottom, 97)
+                        .padding(.bottom, 24)
 
                     HStack(spacing: 12) {
                         StandardButton(disabled: false, text: "Back", style: .white) {

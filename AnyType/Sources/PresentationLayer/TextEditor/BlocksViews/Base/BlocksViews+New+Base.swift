@@ -204,6 +204,7 @@ extension BlocksViews.New.Base {
         // MARK: Subclass / Views
         func makeSwiftUIView() -> AnyView { .init(EmptyView()) }
         func makeUIView() -> UIView { .init() }
+        func makeContentConfiguration() -> UIContentConfiguration { ContentConfiguration.init() }
         
         // MARK: Subclass / Events
         func handle(event: BlocksViews.UserEvent) {}
@@ -379,6 +380,39 @@ private extension BlocksViews.New.Base.ViewModel {
     }
 }
 
+// MARK: UIKit / Context menu embedding
+extension BlocksViews.New.Base.ViewModel {
+    func addContextMenu(_ view: UIView) {
+        if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
+            let interaction = UIContextMenuInteraction.init(delegate: delegate)
+            view.addInteraction(interaction)
+        }
+    }
+}
+
+// MARK: UIKit / ContentConfiguration
+extension BlocksViews.New.Base.ViewModel {
+    func buildContentConfiguration() -> UIContentConfiguration { self.makeContentConfiguration() }
+    
+    private struct ContentConfiguration: UIContentConfiguration {
+        func makeContentView() -> UIView & UIContentView { ContentView(configuration: self) }
+        
+        func updated(for state: UIConfigurationState) -> ContentConfiguration { self }
+    }
+    
+    private class ContentView: UIView, UIContentView {
+        var configuration: UIContentConfiguration
+        init(configuration: UIContentConfiguration) {
+            self.configuration = configuration
+            super.init(frame: .zero)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
+}
+
 // MARK: Updates ( could be proposed in further releases ).
 extension BlocksViews.New.Base.ViewModel {
     /// Update structure in natural `.with` way.
@@ -407,10 +441,7 @@ extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView { self.makeSwiftUIView() }
     func buildUIView() -> UIView {
         let view = makeUIView()
-        if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
-            let interaction = UIContextMenuInteraction.init(delegate: delegate)
-            view.addInteraction(interaction)
-        }
+        self.addContextMenu(view)
         return view
     }
     

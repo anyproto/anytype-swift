@@ -175,16 +175,26 @@ extension FileNamespace {
         }
         
         // MARK: - Actions
-        
-        func toErrorView() {
-            self.placeholderLabel.text = self.resource.errorText
-            self.activityIndicator.isHidden = true
+        enum State {
+            case empty
+            case uploading
+            case error
         }
         
-        func toUploadingView() {
-            self.placeholderLabel.text = self.resource.uploadingText
-            self.activityIndicator.isHidden = false
-            self.activityIndicator.startAnimating()
+        func change(state: State) {
+            switch state {
+            case .empty:
+                self.placeholderLabel.text = self.resource.placeholderText
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
+            case .uploading:
+                self.placeholderLabel.text = self.resource.uploadingText
+                self.activityIndicator.isHidden = false
+                self.activityIndicator.startAnimating()
+            case .error:
+                self.placeholderLabel.text = self.resource.errorText
+                self.activityIndicator.isHidden = true
+            }
         }
         
         // MARK: - Configurations
@@ -193,10 +203,10 @@ extension FileNamespace {
             self._hasError = stream
             self.subscription = self.$hasError.sink(receiveValue: { [weak self] (value) in
                 if value {
-                    self?.toErrorView()
+                    self?.change(state: .error)
                 }
                 else {
-                    self?.toUploadingView()
+                    self?.change(state: .uploading)
                 }
             })
         }

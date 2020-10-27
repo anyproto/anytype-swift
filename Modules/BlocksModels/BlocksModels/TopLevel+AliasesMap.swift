@@ -29,6 +29,7 @@ public extension Namespace.AliasesMap {
     
     typealias BlockTools = Block.Tools
     typealias BlockUtilities = Block.Utilities
+    typealias BlockInformationUtilities = Block.Information.Utilities
     typealias DetailsUtilities = Details.Utilities
     
     //TODO: Remove when possible.

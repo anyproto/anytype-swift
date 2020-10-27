@@ -34,7 +34,7 @@ extension Namespace.File.UserAction {
 
 extension Namespace.File.UserAction {
     enum ImageAction {
-        typealias Model = ImagePickerUIKit.ViewModel
+        typealias Model = CommonViews.Pickers.Image.Picker.ViewModel
         case shouldShowImagePicker(Model)
     }
 }

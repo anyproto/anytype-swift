@@ -11,7 +11,7 @@ import SwiftUI
 import Combine
 import os
 import BlocksModels
-import MobileCoreServices
+import UniformTypeIdentifiers
 
 fileprivate typealias Namespace = BlocksViews.New.File.File
 
@@ -22,7 +22,7 @@ private extension Logging.Categories {
 // MARK: ViewModel
 extension Namespace {
     class ViewModel: BlocksViews.New.File.Base.ViewModel {
-                
+        
         private var subscription: AnyCancellable?
         
         private var fileContentPublisher: AnyPublisher<File, Never> = .empty()
@@ -31,6 +31,12 @@ extension Namespace {
         
         override func makeUIView() -> UIView {
             UIKitView().configured(publisher: self.fileContentPublisher).configured(published: self.$fileResource.eraseToAnyPublisher())
+        }
+        
+        override func makeContentConfiguration() -> UIContentConfiguration {
+            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            configuration.contextMenuHolder = self
+            return configuration
         }
         
         // MARK: Subclassing
@@ -55,8 +61,8 @@ extension Namespace {
                 guard let documentId = blockModel.findRoot()?.blockModel.information.id else { return }
                 let blockId = blockModel.blockModel.information.id
                 
-                let model: CommonViews.Pickers.File.Picker.ViewModel = .init(documentId: documentId, blockId: blockId)
-                self.configureListening(imagePickerViewModel: model)
+                let model: CommonViews.Pickers.File.Picker.ViewModel = .init()
+                self.configureListening(model)
                 self.send(userAction: .specific(.file(.file(.shouldShowFilePicker(model)))))
             }
         }
@@ -113,9 +119,13 @@ extension Namespace {
 
 // MARK: - Image Picker Enhancements
 private extension Namespace.ViewModel {
-    func configureListening(imagePickerViewModel: CommonViews.Pickers.File.Picker.ViewModel) {
-        imagePickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
-            .map(\.documentId, \.blockId, \.filePath)
+    func configureListening(_ pickerViewModel: CommonViews.Pickers.File.Picker.ViewModel) {
+        let blockModel = self.getBlock()
+        guard let documentId = blockModel.findRoot()?.blockModel.information.id else { return }
+        let blockId = blockModel.blockModel.information.id
+        let pickerPublisher = pickerViewModel.$resultInformation.safelyUnwrapOptionals().map(\.filePath)
+        let result = Publishers.CombineLatest3(Just(documentId), Just(blockId), pickerPublisher)
+        result.map(\.0, \.1, \.2)
             .flatMap(IpfsFilesService().upload(contextID:blockID:filePath:))
             .sink(receiveCompletion: { value in
                 switch value {
@@ -125,7 +135,7 @@ private extension Namespace.ViewModel {
                     os_log(.error, log: logger, "uploading image error %@ on %@", String(describing: value), String(describing: self))
                 }
             }) { _ in }
-        .store(in: &self.subscriptions)
+            .store(in: &self.subscriptions)
     }
 }
 
@@ -338,7 +348,7 @@ private extension Namespace {
         func setup() {
             self.setupUIElements()
             self.addLayout()
-            self.handleFile(.init(metadata: .empty(), contentType: .file, state: .empty))
+            self.handle(.init(metadata: .empty(), contentType: .file, state: .empty))
         }
         
         // MARK: UI Elements
@@ -413,29 +423,30 @@ private extension Namespace {
             }
         }
                         
-        private func handleFile(_ file: TopLevel.AliasesMap.BlockContent.File) {
+        private func handle(_ file: TopLevel.AliasesMap.BlockContent.File) {
             
             switch file.state  {
             case .empty:
                 self.addEmptyViewLayout()
+                self.emptyView.change(state: .empty)
             case .uploading:
                 self.addEmptyViewLayout()
-                self.emptyView.toUploadingView()
+                self.emptyView.change(state: .uploading)
             case .done:
                 self.addFileViewLayout()
             case .error:
                 self.addEmptyViewLayout()
-                self.emptyView.toErrorView()
+                self.emptyView.change(state: .error)
             }
             
             self.fileView.isHidden = [.empty, .uploading, .error].contains(file.state)
             self.emptyView.isHidden = [.done].contains(file.state)
 
         }
-        
+                
         func configured(publisher: AnyPublisher<TopLevel.AliasesMap.BlockContent.File, Never>) -> Self {
             self.subscription = publisher.receive(on: RunLoop.main).sink { [weak self] (value) in
-                self?.handleFile(value)
+                self?.handle(value)
             }
             return self
         }
@@ -444,6 +455,27 @@ private extension Namespace {
             self.fileView.configured(published)
             return self
         }
+    }
+}
+
+fileprivate extension Namespace.UIKitView {
+    func process(_ file: TopLevel.AliasesMap.BlockContent.File) {
+        self.handle(file)
+    }
+    
+    func process(_ resource: Namespace.UIKitViewWithFile.Resource?) {
+        self.fileView.handle(resource)
+    }
+    func apply(_ file: TopLevel.AliasesMap.BlockContent.File) {
+        self.process(file)
+        let resource: Namespace.UIKitViewWithFile.Resource?
+        switch file.contentType {
+        case .file:
+            let metadata = file.metadata
+            resource = .init(size: Namespace.SizeConverter.convert(size: Int(metadata.size)), name: metadata.name, mime: Namespace.MimeConverter.convert(mime: metadata.mime))
+        default: resource = nil
+        }
+        self.process(resource)
     }
 }
 
@@ -468,29 +500,207 @@ private extension Namespace {
 // MARK: - Converters / Image
 private extension Namespace {
     struct MimeConverter {
-        /// TODO: Remove when iOS 14 will be released.
-        /// Well, in iOS 14 it will be SIMPLE.
-        /// For now we could only do this...
-        private static func conforms(mime: String, uttype: CFString) -> Bool {
-            UTTypeConformsTo(mime as CFString, uttype)
+        private static func isEqualOrSubtype(mime: String, of uttype: UTType) -> Bool {
+            guard let type = UTType.init(mimeType: mime) else { return false }
+            return type == uttype || type.isSubtype(of: uttype)
         }
+
         
-        private static var dictionary: [CFString: String] = [
-            kUTTypeText: "Text",
-            kUTTypeSpreadsheet: "Spreadsheet",
-            kUTTypePresentation: "Presentation",
-            kUTTypePDF: "PDF",
-            kUTTypeImage: "Image",
-            kUTTypeAudio: "Audio",
-            kUTTypeVideo: "Video",
-            kUTTypeArchive: "Archive",
+        private static var dictionary: [UTType: String] = [
+            .text: "Text",
+            .spreadsheet: "Spreadsheet",
+            .presentation: "Presentation",
+            .pdf: "PDF",
+            .image: "Image",
+            .audio: "Audio",
+            .video: "Video",
+            .archive: "Archive"
         ]
-        
+                
         static func convert(mime: String) -> String {
-            let key = dictionary.keys.first(where: {self.conforms(mime: mime, uttype: $0)})
+            let key = dictionary.keys.first(where: {self.isEqualOrSubtype(mime: mime, of: $0)})
             let name = key.flatMap({dictionary[$0]}) ?? "Other"
             let path = "TextEditor/Style/File/Content" + "/" + name
             return path
+        }
+    }
+}
+
+// MARK: ContentConfiguration
+extension Namespace.ViewModel {
+    
+    /// As soon as we have builder in this type ( makeContentView )
+    /// We could map all states ( for example, image has several states ) to several different ContentViews.
+    ///
+    struct ContentConfiguration: UIContentConfiguration, Hashable {
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            lhs.container == rhs.container
+        }
+        func hash(into hasher: inout Hasher) {
+            hasher.combine(self.container)
+        }
+        
+        typealias HashableContainer = TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
+        var information: Information {
+            self.container.value
+        }
+        private var container: HashableContainer
+        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
+        
+        init(_ information: Information) {
+            /// We should warn if we have incorrect content type (?)
+            /// Don't know :(
+            /// Think about failable initializer
+            
+            switch information.content {
+            case let .file(value) where value.contentType == .file: break
+            default:
+                let logger = Logging.createLogger(category: .blocksViewsNewFileFile)
+                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+                break
+            }
+            
+            self.container = .init(value: information)
+        }
+                
+        /// UIContentConfiguration
+        func makeContentView() -> UIView & UIContentView {
+            let view = ContentView(configuration: self)
+            self.contextMenuHolder?.addContextMenu(view)
+            return view
+        }
+        
+        /// Hm, we could use state as from-user action channel.
+        /// for example, if we have value "Checked"
+        /// And we pressed something, we should do the following:
+        /// We should pass value of state to a configuration.
+        /// Next, configuration will send this value to a view model.
+        /// Is it what we should use?
+        func updated(for state: UIConfigurationState) -> ContentConfiguration {
+            /// do something
+            return self
+        }
+    }
+}
+
+// MARK: - ContentView
+private extension Namespace.ViewModel {
+    class ContentView: UIView & UIContentView {
+        
+        struct Layout {
+            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        }
+        
+        typealias TopView = Namespace.UIKitView
+        
+        /// Views
+        private var topView: TopView = .init()
+        private var contentView: UIView = .init()
+        
+        /// Subscriptions
+        
+        /// Others
+//        var resource: Namespace.UIKitView.Resource = .init()
+        var layout: Layout = .init()
+                
+        /// Setup
+        private func setup() {
+            self.setupUIElements()
+            self.addLayout()
+        }
+        
+        private func setupUIElements() {
+            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
+            self.translatesAutoresizingMaskIntoConstraints = true
+
+            [self.contentView, self.topView].forEach { (value) in
+                value.translatesAutoresizingMaskIntoConstraints = false
+            }
+            
+            /// View hierarchy
+            self.contentView.addSubview(self.topView)
+            self.addSubview(self.contentView)
+        }
+        
+        private func addLayout() {
+            if let superview = self.contentView.superview {
+                let view = self.contentView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
+                ])
+            }
+            
+            if let superview = self.topView.superview {
+                let view = self.topView
+                NSLayoutConstraint.activate([
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                ])
+            }
+        }
+        
+        /// Handle
+        private func handle(_ value: Block.Content.ContentType.File) {
+            /// Do something
+            /// We should reload data if text are not equal
+            ///
+            switch value.contentType {
+            case .file: self.topView.apply(value)
+            default: return
+            }
+        }
+        
+        /// Cleanup
+        private func cleanupOnNewConfiguration() {
+            /// Cleanup subscriptions.
+        }
+        
+        /// Initialization
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        /// ContentView
+        var currentConfiguration: ContentConfiguration!
+        var configuration: UIContentConfiguration {
+            get { self.currentConfiguration }
+            set {
+                /// apply configuration
+                guard let configuration = newValue as? ContentConfiguration else { return }
+                self.apply(configuration: configuration)
+            }
+        }
+
+        init(configuration: ContentConfiguration) {
+            super.init(frame: .zero)
+            self.setup()
+            self.apply(configuration: configuration)
+        }
+        
+        private func apply(configuration: ContentConfiguration, forced: Bool) {
+            if forced {
+                self.currentConfiguration?.contextMenuHolder?.addContextMenu(self)
+            }
+        }
+        
+        private func apply(configuration: ContentConfiguration) {
+            self.apply(configuration: configuration, forced: true)
+            guard self.currentConfiguration != configuration else { return }
+            
+            self.currentConfiguration = configuration
+            
+            self.cleanupOnNewConfiguration()
+            self.invalidateIntrinsicContentSize()
+            
+            switch self.currentConfiguration.information.content {
+            case let .file(value): self.handle(value)
+            default: return
+            }
         }
     }
 }

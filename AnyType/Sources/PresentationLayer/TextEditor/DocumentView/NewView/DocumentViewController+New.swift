@@ -22,14 +22,18 @@ private extension Logging.Categories {
 extension Namespace {
     class DocumentViewController: UIViewController {
         typealias ViewModel = DocumentModule.DocumentViewModel
-        typealias ListDiffableDataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
+        typealias ListDiffableDataSource = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
         typealias ListDiffableDataSourceSnapshot = NSDiffableDataSourceSnapshot<ViewModel.Section, ViewModel.Row>
+        typealias TableViewDataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
+        typealias CollectionViewDataSource = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
         
         /// Environment
         @Environment(\.developerOptions) private var developerOptions
         
         /// DataSource
         private var dataSource: ListDiffableDataSource?
+        private var tableViewDataSource: TableViewDataSource?
+        private var collectionViewDataSource: CollectionViewDataSource?
 
         /// Model
         private var viewModel: ViewModel
@@ -45,24 +49,22 @@ extension Namespace {
         private var cellHeightsStorage: CellsHeightsStorage = .init()
 
         /// Actions
-        private var tableViewTapGestureRecognizer: UITapGestureRecognizer = .init()
+        private var listViewTapGestureRecognizer: UITapGestureRecognizer = .init()
 
         /// Views
-        private lazy var tableView: UITableView = {
-            let tableViewController = UITableViewController()
-            guard let tableView = tableViewController.tableView else {
-                /// Actually, not called, but is required by Swift type system.
-                return .init()
-            }
-            tableView.translatesAutoresizingMaskIntoConstraints = false
-
-            // add tvc to parent vc
-            self.view.addSubview(tableView)
-            self.addChild(tableViewController)
-            tableViewController.didMove(toParent: self)
-
-            return tableView
-        }()
+        private var collectionViewController: UICollectionViewController?
+        private var collectionView: UICollectionView? {
+            self.collectionViewController?.collectionView
+        }
+        
+        private var tableViewController: UITableViewController?
+        private var tableView: UITableView? {
+            self.tableViewController?.tableView
+        }
+        
+        private var listView: UIView? {
+            self.tableView
+        }
 
         private lazy var headerView: DocumentViewController.HeaderView = {
             .init(viewModel: self.headerViewModel)
@@ -116,8 +118,8 @@ extension Namespace.DocumentViewController {
 // MARK: - Setup
 extension Namespace.DocumentViewController {
     private func setupUI() {
+        self.setupListView()
         self.setupElements()
-        self.setupTableView()
         self.setupDataSource()
         self.setupLayout()
         self.setupUserInteractions()
@@ -127,7 +129,6 @@ extension Namespace.DocumentViewController {
 
     private func setupElements() {
         self.view.addSubview(self.headerView)
-        self.view.addSubview(self.tableView)
     }
 
     private func setupLayout() {
@@ -141,9 +142,8 @@ extension Namespace.DocumentViewController {
             NSLayoutConstraint.activate(constraints)
         }
         
-        if let superview = self.tableView.superview {
+        if let view = self.listView, let superview = view.superview {
             let topView = self.headerView
-            let view = self.tableView
             let constraints = [
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
@@ -153,39 +153,166 @@ extension Namespace.DocumentViewController {
             NSLayoutConstraint.activate(constraints)
         }
     }
-
+    
+    /// ListViews
+    private func setupListView() {
+        self.setupTableView()
+    }
+    
     private func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.estimatedRowHeight = 60
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.sectionHeaderHeight = 0
-        tableView.separatorStyle = .none
-        // Need for image picker
-        tableView.allowsSelection = true
+        
+        let viewController = UITableViewController(style: .grouped)
+        self.addChild(viewController)
+        
+        if let tableView = viewController.tableView {
+            tableView.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(tableView)
+            viewController.didMove(toParent: self)
+            
+            tableView.contentInset = .zero
+            tableView.backgroundView = .init()
+            tableView.backgroundColor = .white
+            tableView.allowsSelection = true
+            tableView.delegate = self
+            tableView.estimatedRowHeight = 60
+            tableView.rowHeight = UITableView.automaticDimension
+            tableView.sectionHeaderHeight = 0
+            tableView.separatorStyle = .none
+            // Need for image picker
+        }
+        
+        self.tableViewController = viewController
 
-        // register cells.
-        tableView.register(Namespace.DocumentViewCells.Cell.self, forCellReuseIdentifier: Namespace.DocumentViewCells.Cell.cellReuseIdentifier())
+        // register cells(?)
+        // register them as CellRegistration
+        self.tableView?.register(Namespace.DocumentViewCells.TableViewCell.self, forCellReuseIdentifier: Namespace.DocumentViewCells.TableViewCell.cellReuseIdentifier())
+    }
+    
+    private func createLayout() -> UICollectionViewLayout {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        listConfiguration.backgroundColor = .white
+        let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
+        return layout
+    }
+    
+    private func setupCollectionView() {
+        
+        let viewController = UICollectionViewController(collectionViewLayout: self.createLayout())
+        self.addChild(viewController)
+        
+        if let collectionView = viewController.collectionView {
+            collectionView.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(collectionView)
+            viewController.didMove(toParent: self)
+            
+            collectionView.backgroundView = .init()
+            collectionView.backgroundColor = .white
+            collectionView.allowsSelection = true
+            collectionView.delegate = self
+        }
+        
+        self.collectionViewController = viewController
+
+        // register cells(?)
+        // register them as CellRegistration
+        self.collectionView?.register(Namespace.DocumentViewCells.CollectionViewCell.self, forCellWithReuseIdentifier: Namespace.DocumentViewCells.CollectionViewCell.cellReuseIdentifier())
+    }
+    
+    private func setupTableViewDataSource() {
+        typealias Cells = Namespace.DocumentViewCells.ContentConfigurations
+        guard let listView = self.tableView else { return }
+        
+        listView.register(Cells.Text.Text.Table.self, forCellReuseIdentifier: Cells.Text.Text.Table.cellReuseIdentifier())
+        
+        listView.register(Cells.File.File.Table.self, forCellReuseIdentifier: Cells.File.File.Table.cellReuseIdentifier())
+        listView.register(Cells.File.Image.Table.self, forCellReuseIdentifier: Cells.File.Image.Table.cellReuseIdentifier())
+        
+        listView.register(Cells.Bookmark.Bookmark.Table.self, forCellReuseIdentifier: Cells.Bookmark.Bookmark.Table.cellReuseIdentifier())
+        
+        listView.register(Cells.Other.Divider.Table.self, forCellReuseIdentifier: Cells.Other.Divider.Table.cellReuseIdentifier())
+        
+        listView.register(Cells.Link.PageLink.Table.self, forCellReuseIdentifier: Cells.Link.PageLink.Table.cellReuseIdentifier())
+
+
+        self.tableViewDataSource = TableViewDataSource.init(tableView: listView, cellProvider: { [weak self] (view, indexPath, entry) -> UITableViewCell? in
+            let useUIKit = !(self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell == true)
+            let shouldShowIndent = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
+            
+            let cell: UITableViewCell?
+            let ourBuilder = entry.builder as! BlocksViews.New.Base.ViewModel
+            switch ourBuilder.getBlock().blockModel.information.content {
+            case let .text(text) where text.contentType == .text:
+                cell = view.dequeueReusableCell(withIdentifier: Cells.Text.Text.Table.cellReuseIdentifier(), for: indexPath)
+            case let .file(file) where file.contentType == .file:
+                cell = view.dequeueReusableCell(withIdentifier: Cells.File.File.Table.cellReuseIdentifier(), for: indexPath)
+            case let .file(file) where file.contentType == .image:
+                cell = view.dequeueReusableCell(withIdentifier: Cells.File.Image.Table.cellReuseIdentifier(), for: indexPath)
+            case .bookmark:
+                cell = view.dequeueReusableCell(withIdentifier: Cells.Bookmark.Bookmark.Table.cellReuseIdentifier(), for: indexPath)
+            case .divider:
+                cell = view.dequeueReusableCell(withIdentifier: Cells.Other.Divider.Table.cellReuseIdentifier(), for: indexPath)
+            case let .link(value) where value.style == .page:
+                cell = view.dequeueReusableCell(withIdentifier: Cells.Link.PageLink.Table.cellReuseIdentifier(), for: indexPath)
+            default:
+                cell = nil
+            }
+            
+            if let ourCell = cell {
+                let configuration = ourBuilder.buildContentConfiguration()
+                ourCell.contentConfiguration = configuration
+                return ourCell
+            }
+
+            switch view.dequeueReusableCell(withIdentifier: Namespace.DocumentViewCells.TableViewCell.cellReuseIdentifier(), for: indexPath) {
+            case let cell as Namespace.DocumentViewCells.TableViewCell: return cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
+            default: return nil
+            }
+        })
+        
+        (self.tableViewDataSource)?.defaultRowAnimation = .none
+    }
+    
+    private func setupCollectionViewDataSource() {
+        guard let listView = self.collectionView else { return }
+        
+        let imageCellRegistration: UICollectionView.CellRegistration<Namespace.DocumentViewCells.ContentConfigurations.File.Image.Collection, ViewModel.Row> =
+            .init { (cell, indexPath, row) in
+            let configuration = (row.builder as! BlocksViews.New.Base.ViewModel).buildContentConfiguration()
+            cell.contentConfiguration = configuration
+        }
+        
+        let dividerCellRegistration: UICollectionView.CellRegistration<Namespace.DocumentViewCells.ContentConfigurations.Other.Divider.Collection, ViewModel.Row>
+            = .init { (cell, indexPath, row) in
+            let configuration = (row.builder as! BlocksViews.New.Base.ViewModel).buildContentConfiguration()
+            cell.contentConfiguration = configuration
+        }
+        
+        self.collectionViewDataSource = CollectionViewDataSource.init(collectionView: listView, cellProvider: { [weak self] (view, indexPath, entry) -> UICollectionViewCell? in
+            let useUIKit = !(self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell == true)
+            let shouldShowIndent = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
+            switch (entry.builder as! BlocksViews.New.Base.ViewModel).getBlock().blockModel.information.content {
+            case let .file(file) where file.contentType == .image: return view.dequeueConfiguredReusableCell(using: imageCellRegistration, for: indexPath, item: entry)
+            case .divider:
+                let cell = view.dequeueConfiguredReusableCell(using: dividerCellRegistration, for: indexPath, item: entry)
+                return cell
+            default: break
+            }
+            
+            switch view.dequeueReusableCell(withReuseIdentifier: Namespace.DocumentViewCells.CollectionViewCell.cellReuseIdentifier(), for: indexPath) {
+            case let cell as Namespace.DocumentViewCells.CollectionViewCell: return cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
+            default: return nil
+            }
+        })
     }
 
     private func setupDataSource() {
-        self.dataSource = ListDiffableDataSource.init(tableView: tableView, cellProvider: { [weak self] (tableView, indexPath, entry) -> UITableViewCell? in
-            let useUIKit = !(self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell == true)
-            let shouldShowIndent = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
-            if let cell = tableView.dequeueReusableCell(withIdentifier: Namespace.DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath) as? Namespace.DocumentViewCells.Cell {
-                _ = cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
-                return cell
-            }
-            return .init()
-        })
-        self.dataSource?.defaultRowAnimation = .none
-        self.tableView.dataSource = self.dataSource
+        self.setupTableViewDataSource()
     }
 
     func setupUserInteractions() {
-        self.tableViewTapGestureRecognizer.cancelsTouchesInView = false
+        self.listViewTapGestureRecognizer.cancelsTouchesInView = false
         // We should skip gestures for all touches in tableView.headerView
-        self.tableView.addGestureRecognizer(self.tableViewTapGestureRecognizer)
+        self.listView?.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
 
     func setupInteractions() {
@@ -218,35 +345,36 @@ private extension Namespace.DocumentViewController {
         self.viewModel.$buildersRows.sink(receiveValue: { [weak self] (value) in
             self?.updateData(value)
         }).store(in: &self.subscriptions)
-        
-        self.viewModel.anyFieldPublisher.sink(receiveValue: { [weak self] (value) in
+                
+        self.viewModel.anyFieldPublisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
             self?.updateView()
         }).store(in: &self.subscriptions)
-        
-        self.viewModel.fileFieldPublisher.sink(receiveValue: { [weak self] (value) in
-            self?.updateView()
-        }).store(in: &self.subscriptions)
+
+//        self.viewModel.fileFieldPublisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+//            return;
+//            self?.updateView()
+//        }).store(in: &self.subscriptions)
         
         self.viewModel.anyStylePublisher.sink { [weak self] (value) in
             self?.updateIds(value)
-        }.store(in: &self.subscriptions)        
+        }.store(in: &self.subscriptions)     
     }
 
     func configured(_ options: ViewModel.Options) {
         if options.shouldCreateEmptyBlockOnTapIfListIsEmpty {
-            self.tableViewTapGestureRecognizer.addTarget(self, action: #selector(createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler))
-            view.addGestureRecognizer(self.tableViewTapGestureRecognizer)
+            self.listViewTapGestureRecognizer.addTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
+            self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
         }
         else {
-            self.tableViewTapGestureRecognizer.removeTarget(self, action: #selector(createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler))
-            view.removeGestureRecognizer(self.tableViewTapGestureRecognizer)
+            self.listViewTapGestureRecognizer.removeTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
+            self.view.removeGestureRecognizer(self.listViewTapGestureRecognizer)
         }
     }
 }
 
 // MARK: Gesture Recognizer
 extension Namespace.DocumentViewController {
-    @objc func createEmptyBlockOnTapIfListIsEmptyGestureRecognizerHandler() {
+    @objc func tapOnListViewGestureRecognizerHandler() {
         self.viewModel.handlingTapIfEmpty()
     }
 }
@@ -254,23 +382,23 @@ extension Namespace.DocumentViewController {
 // MARK: - Initial Update data
 extension Namespace.DocumentViewController {
     func updateView() {
-        DispatchQueue.main.async {
-            // WORKAROUND:
-            // In case of jumping rows we should remove animations..
-            // well...
-            // it works...
-            // I guess..
-            // Thanks! https://stackoverflow.com/a/51048044/826614
-            let lastContentOffset = self.tableView.contentOffset
-            self.tableView.beginUpdates()
-            self.tableView.endUpdates()
-            self.tableView.layer.removeAllAnimations()
-            self.tableView.setContentOffset(lastContentOffset, animated: false)
+        // WORKAROUND:
+        // In case of jumping rows we should remove animations..
+        // well...
+        // it works...
+        // I guess..
+        // Thanks! https://stackoverflow.com/a/51048044/826614
+        if let tableView = self.tableView {
+            let lastContentOffset = tableView.contentOffset
+            tableView.beginUpdates()
+            tableView.endUpdates()
+            tableView.layer.removeAllAnimations()
+            tableView.setContentOffset(lastContentOffset, animated: false)
         }
     }
     
     func updateData(_ rows: [ViewModel.Row]) {
-        guard let dataSource = self.dataSource else { return }
+        guard let dataSource = self.tableViewDataSource else { return }
         
         var snapshot = ListDiffableDataSourceSnapshot.init()
         snapshot.appendSections([ViewModel.Section.first])
@@ -295,24 +423,20 @@ extension Namespace.DocumentViewController {
     }
 }
 
-// MARK: - UITableViewDataSource
-extension Namespace.DocumentViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+// MARK: - UICollectionViewDelegate
+extension Namespace.DocumentViewController: UICollectionViewDelegate {
+    // WORKAROUND:
+    // In case of jumping rows we should also calculate estimated sizes of cells by storing exact sizes of cells.
+    // well...
+    // it works...
+    // I guess..
+    // Thanks! https://stackoverflow.com/a/38729250/826614
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        self.cellHeightsStorage.set(height: cell.frame.size.height, at: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.countOfElements(at: section)
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = self.viewModel.element(at: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: Namespace.DocumentViewCells.Cell.cellReuseIdentifier(), for: indexPath)
-        if let cell = cell as? Namespace.DocumentViewCells.Cell {
-            _ = cell.configured(item)
-            return cell
-        }
-        return .init()
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.viewModel.didSelectBlock(at: indexPath)
     }
 }
 

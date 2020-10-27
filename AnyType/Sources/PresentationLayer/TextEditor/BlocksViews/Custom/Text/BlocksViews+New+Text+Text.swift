@@ -8,11 +8,18 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import os
+import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.New.Text
+fileprivate typealias Namespace = BlocksViews.New.Text.Text
+
+private extension Logging.Categories {
+    static let textBlocksViewsText: Self = "BlocksViews.New.Text.Text"
+}
 
 // MARK: - ViewModel
-extension Namespace.Text {
+extension Namespace {
     class ViewModel: BlocksViews.New.Text.Base.ViewModel {
         override func makeSwiftUIView() -> AnyView {
             .init(BlockView(viewModel: self))
@@ -21,7 +28,7 @@ extension Namespace.Text {
 }
 
 // MARK: - View
-private extension Namespace.Text {
+private extension Namespace {
     struct BlockView: View {
         @ObservedObject var viewModel: ViewModel
         var body: some View {
@@ -32,3 +39,4 @@ private extension Namespace.Text {
         }
     }
 }
+

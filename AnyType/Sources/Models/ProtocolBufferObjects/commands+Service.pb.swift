@@ -863,7 +863,29 @@ extension Anytype_Rpc.Block.Set.Details {
   }
 
   enum Service {
-    public static func invoke(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> Future<Response, Error> {
+    typealias RequestParameters = (contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail])
+    
+    private static func request(_ parameters: RequestParameters) -> Request {
+        .init(contextID: parameters.contextID, details: parameters.details)
+    }
+    
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+        .init { promise in
+            if let queue = queue {
+                queue.async {
+                    promise(self.result(self.request(parameters)))
+                }
+            }
+            else {
+                promise(self.result(self.request(parameters)))
+            }
+        }
+    }
+    public static func invoke(_ parameters: RequestParameters, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        self.invoke(parameters: parameters, on: queue)
+    }
+
+    private static func invoke(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> Future<Response, Error> {
       .init { promise in promise(self.result(.init(contextID: contextID, details: details))) }
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
@@ -959,8 +981,22 @@ extension Anytype_Rpc.Block.Set.Text.Text {
   }
 
   enum Service {
-    public static func invoke(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> Future<Response, Error> {
-      .init { promise in promise(self.result(.init(contextID: contextID, blockID: blockID, text: text, marks: marks))) }
+    typealias RequestParameters = (contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks)
+    
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+        .init { promise in
+            if let queue = queue {
+                queue.async {
+                    promise(self.result(.init(contextID: parameters.contextID, blockID: parameters.blockID, text: parameters.text, marks: parameters.marks)))
+                }
+            }
+            else {
+                promise(self.result(.init(contextID: parameters.contextID, blockID: parameters.blockID, text: parameters.text, marks: parameters.marks)))
+            }
+        }
+    }
+    public static func invoke(_ parameters: RequestParameters, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        self.invoke(parameters: parameters, on: queue)
     }
     private static func result(_ request: Request) -> Result<Response, Error> {
       guard let result = self.invoke(request) else {
