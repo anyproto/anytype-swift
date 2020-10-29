@@ -73,7 +73,7 @@ extension Namespace.SmartBlockActionsService {
 extension Namespace.SmartBlockActionsService {
     struct SetDetails: NewModel_SmartBlockActionsServiceProtocolSetDetails {
         func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Void, Error> {
-            Anytype_Rpc.Block.Set.Details.Service.invoke((contextID: contextID, details: details), queue: .global()).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+            Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
 }

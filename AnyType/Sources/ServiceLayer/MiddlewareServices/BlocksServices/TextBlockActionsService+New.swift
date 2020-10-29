@@ -94,7 +94,7 @@ extension Namespace.TextBlockActionsService {
         func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Never, Error> {
             
             /// TODO: Add private queue, don't use global queue.
-            Anytype_Rpc.Block.Set.Text.Text.Service.invoke((contextID: contextID, blockID: blockID, text: text, marks: marks), queue: .global()).ignoreOutput().subscribe(on: DispatchQueue.global())
+            Anytype_Rpc.Block.Set.Text.Text.Service.invoke(contextID: contextID, blockID: blockID, text: text, marks: marks, queue: .global()).ignoreOutput().subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
     }

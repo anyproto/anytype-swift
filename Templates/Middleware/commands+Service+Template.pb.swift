@@ -1,3 +1,15 @@
+        private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+            .init { promise in
+                if let queue = queue {
+                    queue.async {
+                        promise(self.result(self.request(parameters)))
+                    }
+                }
+                else {
+                    promise(self.result(self.request(parameters)))
+                }
+            }
+        }
         private static func result(_ request: Request) -> Result<Response, Error> {
             guard let result = self.invoke(request) else {
                 // get first Not Null (not equal 0) case.

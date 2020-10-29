@@ -312,30 +312,55 @@ class MainWork
   # ImportsFilePath <- f (filePath, transform)
   # TemplateFilePath <- f(filePath, transform) # only for specific transforms.
   class DefaultOptionsGenerator
+    module SwiftCodegenCLIOptions
+      module GenerateOptions
+        AVAILABLE_VARIANTS = [
+          ErrorAdoption = 'e',
+          RequestAndResponse = 'rr',
+          MemberwiseInitializer = 'mwi',
+          ServiceWithRequestAndResponse = 'swrr',
+        ]
+      end
+    end
+    # Our representation of swift-codegen utility options
+    module CodegenCLIScopes
+      AVAILABLE_VARIANTS = [
+        Initializers = 'inits',
+        Services = 'services',
+        ErrorProtocol = 'error_protocol'
+      ]
+      def self.swift_codegen_option(scope)
+        case scope
+        when ErrorProtocol then SwiftCodegenCLIOptions::GenerateOptions::ErrorAdoption
+        when Initializers then SwiftCodegenCLIOptions::GenerateOptions::MemberwiseInitializer
+        when Services then SwiftCodegenCLIOptions::GenerateOptions::ServiceWithRequestAndResponse
+        end
+      end
+    end
     class << self
       def available_commands
         ["generate"]
       end
       def available_actions
-        ["inits", "services", "error_protocol"]
+        CodegenCLIScopes::AVAILABLE_VARIANTS
       end
       def suffix(type, key)
         case type
-          when 'inits' then
+          when CodegenCLIScopes::Initializers then
             case key
               when :outputFilePath then "+Initializers"
               when :templateFilePath then nil #"+Initializers+Template"
               when :commentsHeaderFilePath then "+CommentsHeader"
               when :importsFilePath then "+Initializers+Import"
             end
-          when 'services' then
+          when CodegenCLIScopes::Services then
             case key
               when :outputFilePath then "+Service"
               when :templateFilePath then "+Service+Template"
               when :commentsHeaderFilePath then "+CommentsHeader"
               when :importsFilePath then "+Service+Import"
             end
-          when 'error_protocol' then
+          when CodegenCLIScopes::ErrorProtocol then
             case key
               when :outputFilePath then "+ErrorAdoption"
               when :templateFilePath then nil
@@ -364,13 +389,10 @@ class MainWork
       end
 
       def chosen_option_key_and_transform(arguments)
-        if arguments.include? 'inits'
-          ['inits', 'mwi']
-        elsif arguments.include? 'services'
-          ['services', 'rr']
-        elsif arguments.include? 'error_protocol'
-          ['error_protocol', 'e']
-        end
+        CodegenCLIScopes::AVAILABLE_VARIANTS
+          .filter{|x| arguments.include?(x)}
+          .map{|x| [x, CodegenCLIScopes.swift_codegen_option(x)]}
+          .first
       end
 
       def generate(arguments, options)
