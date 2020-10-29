@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-// TODO: It's looks like service locator. Rename it to other name due to we have "ServiceLayer" that works with backend.
-
 protocol ServicesInfoProtocol {
     var health: Bool {get}
     static var name: String {get}
@@ -28,12 +26,8 @@ protocol ServicesOnceProtocol {
 class BaseService: NSObject {}
 
 extension BaseService: ServicesInfoProtocol {
-    @objc var health: Bool {
-        return false
-    }
-    static var name: String {
-        return self.description()
-    }
+    @objc var health: Bool { false }
+    static var name: String { self.description() }
 }
 
 extension BaseService: ServicesSetupProtocol {
@@ -45,25 +39,22 @@ extension BaseService: ServicesOnceProtocol {
     @objc func runAtFirstTime() {}
 }
 
-extension BaseService: UIApplicationDelegate {
-
-}
+extension BaseService: UIApplicationDelegate {}
 
 //extension BaseService: UISceneDelegate {
 //
 //}
 
-// MARK: Services Manager.
-class ServicesManager: NSObject {
+// MARK: Services Locator.
+class ServicesLocator: NSObject {
     //MARK: Shared
-    static let shared: ServicesManager = ServicesManager()
+    static let shared: ServicesLocator = .init()
     var services: [BaseService] = []
-    static var manager: ServicesManager {
-        return shared
-    }
+    static var manager: ServicesLocator { shared }
     override init() {
         services = [
-            AppearanceService()
+//            AppearanceService()
+            FirebaseService()
         ]
     }
     func setup() {
@@ -86,13 +77,13 @@ class ServicesManager: NSObject {
 //MARK: Settings.
 //It is the best place to change them.
 //We need production settings.
-extension ServicesManager {
+extension ServicesLocator {
     //HINT: the best place to change default settings to something else.
     func storageSettings() {}
 }
 
 //MARK: Accessors
-extension ServicesManager {
+extension ServicesLocator {
     func service<T>(for search: T.Type) -> T? where T: BaseService  {
         return self.services.filter { (item) in
             return type(of: item) === search
@@ -108,9 +99,9 @@ extension ServicesManager {
     }
 }
 
-extension ServicesManager: UIApplicationDelegate {
+extension ServicesLocator: UIApplicationDelegate {
     func servicesUIDelegates() -> [UIApplicationDelegate] {
-        return services as [UIApplicationDelegate]
+        services as [UIApplicationDelegate]
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

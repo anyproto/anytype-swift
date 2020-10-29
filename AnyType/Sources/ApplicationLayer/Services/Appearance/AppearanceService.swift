@@ -61,7 +61,7 @@ extension Global.OurEnvironmentKeys.AssetsCatalog: EnvironmentKey {
 }
 
 extension Global.OurEnvironmentKeys.AppearanceService: EnvironmentKey {
-    static var defaultValue = ServicesManager.shared.service(for: AppearanceService.self)!
+    static var defaultValue = ServicesLocator.shared.service(for: AppearanceService.self)!
 }
 
 extension EnvironmentValues {

@@ -10,10 +10,10 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    private var eventListener = RawEventListener()
+    private let servicesManager: ServicesLocator = .manager
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        _ = self.servicesManager.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
 
