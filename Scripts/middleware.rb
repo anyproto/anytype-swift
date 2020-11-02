@@ -150,16 +150,11 @@ module MiddlewareUpdater
   end
 
   class CopyProtobufFilesWorker < BaseWorker
-    class << self
-      def targetDirectoryPath
-        "AnyType/Sources/Models/ProtocolBufferObjects/"
-      end
-    end
     attr_accessor :dependenciesDirectoryPath, :protobufDirectoryName, :targetDirectoryPath
     def initialize(dependenciesDirectoryPath, protobufDirectoryName, targetDirectoryPath = nil)
       self.dependenciesDirectoryPath = dependenciesDirectoryPath
       self.protobufDirectoryName = protobufDirectoryName
-      self.targetDirectoryPath = targetDirectoryPath || self.class.targetDirectoryPath
+      self.targetDirectoryPath = targetDirectoryPath
     end
     def protobuf_files
       [
@@ -304,8 +299,8 @@ class Pipeline
       MiddlewareUpdater::RemoveDirectoryWorker.new(downloadFilePath).work
       MiddlewareUpdater::RemoveDirectoryWorker.new(temporaryDirectory).work
 
-      say "Moving protobuf files to Dependencies directory"
-      MiddlewareUpdater::CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName]).work
+      say "Moving protobuf files from Dependencies to our project directory"
+      MiddlewareUpdater::CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
 
       say "Generate services from protobuf files"
       MiddlewareUpdater::RunCodegenScriptWorker.new.work
@@ -528,7 +523,8 @@ class MainWork
           protobufDirectoryName: "protobuf",
 
           # target directory options
-          dependenciesDirectoryPath: "#{__dir__}/../Dependencies/Middleware"
+          dependenciesDirectoryPath: "#{__dir__}/../Dependencies/Middleware",
+          targetDirectoryPath: "#{__dir__}/../AnyType/Sources/Models/ProtocolBufferObjects/"
         }
       end
 
@@ -537,7 +533,8 @@ class MainWork
           :libraryFilePath,
           :librarylockFilePath,
           :downloadFilePath,
-          :dependenciesDirectoryPath
+          :dependenciesDirectoryPath,
+          :targetDirectoryPath
         ]
       end
 
@@ -627,7 +624,7 @@ class MainWork
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 
       # commands
-      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Configuration::Commands::Install.new}
+      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Configuration::Commands::InstallCommand.new}
       opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Configuration::Commands::UpdateCommand.new(v)}
       opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = Configuration::Commands::ListCommand.new}
       opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = Configuration::Commands::CurrentVersionCommand.new}
@@ -650,7 +647,8 @@ class MainWork
       opts.on('--protobufDirectoryName', '--protobufDirectoryName NAME', 'Directory name which contains protobuf in downloadable directory') {|v| options[:protobufDirectoryName] = v}
 
       # target directory options
-      opts.on('--dependenciesDirectoryPath', '--dependenciesDirectoryPath PATH', 'Path to target directory') {|v| options[:dependenciesDirectoryPath] = v}
+      opts.on('--dependenciesDirectoryPath', '--dependenciesDirectoryPath PATH', 'Path to a dependencies directory') {|v| options[:dependenciesDirectoryPath] = v}
+      opts.on('--targetDirectoryPath', '--targetDirectoryPath PATH', 'Path to target directory') {|v| options[:targetDirectoryPath] = v}
 
     end.parse!(arguments)
     DefaultOptionsGenerator.populate(arguments, options)

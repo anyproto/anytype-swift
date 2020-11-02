@@ -218,7 +218,9 @@ private extension Namespace.ViewModel {
         /// This event contains actual state of all blocks.
         
         /// ToModel
-        self.toModelTextSubject.notableError().flatMap({ [weak self] (value) in
+        /// Maybe add throttle.
+//        .throttle(for: 30, scheduler: DispatchQueue.global(), latest: true)
+        self.toModelTextSubject.removeDuplicates().throttle(for: 10, scheduler: DispatchQueue.global(), latest: true).notableError().flatMap({ [weak self] (value) in
             self?.apply(attributedText: value) ?? .empty()
         }).sink(receiveCompletion: { (value) in
             switch value {
@@ -229,7 +231,8 @@ private extension Namespace.ViewModel {
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
-        self.toModelAlignmentSubject.notableError().flatMap({ [weak self] (value) in
+//        .throttle(for: 30, scheduler: DispatchQueue.global(), latest: true)
+        self.toModelAlignmentSubject.removeDuplicates().throttle(for: 10, scheduler: DispatchQueue.global(), latest: true).notableError().flatMap({ [weak self] (value) in
             self?.apply(alignment: value) ?? .empty()
         }).sink(receiveCompletion: { (value) in
             switch value {

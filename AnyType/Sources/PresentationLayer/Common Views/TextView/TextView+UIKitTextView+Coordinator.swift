@@ -594,11 +594,17 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
     }
         
     func textViewDidChange(_ textView: UITextView) {
+//        let (text, attributedText, contentSize) = (textView.text, textView.attributedText, textView.intrinsicContentSize)
+        let contentSize = textView.intrinsicContentSize
+        
+        // TODO: Add dispatch on correct thread.
+        // For example, on queue `.global()`
+        guard self.textSize?.height != contentSize.height else { return }
         DispatchQueue.main.async {
             // TODO: Add text (?) publisher
-            self.text = textView.text
-            self.attributedText = textView.attributedText
-            self.textSize = textView.intrinsicContentSize
+//            self.text = text
+//            self.attributedText = attributedText
+            self.textSize = contentSize
             /// Don't delete this code until we have stable solution for textView attributedText updates.
             /// Maybe we will discard current `@Publsihed` solution.
             ///
@@ -630,8 +636,15 @@ extension TextView.UIKitTextView.Coordinator {
         return self
     }
     private func notifySubscribers(_ payload: TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent.Payload) {
-        self.attributedText = payload.attributedText
-        self.textAlignment = payload.textAlignment
+        /// NOTE:
+        /// We could remove notification about new attributedText
+        /// because we have already notify our subscribers in `textViewDidChange`
+        ///
+        DispatchQueue.global().async {
+            self.text = payload.attributedText.string
+            self.attributedText = payload.attributedText
+            self.textAlignment = payload.textAlignment
+        }
     }
 }
 

@@ -73,12 +73,12 @@ extension Namespace {
             /// 3. we also use `setAttributedString` of textStorage.
             /// In this circumstances, it is better to remove duplicates of attributedString...
             /// You could build a cycle of events in these circumstances, it is very bad.
-            self.updatePublisher = self.coordinator.$text.safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
-            self.richUpdatePublisher = self.coordinator.$attributedText.safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
-            self.auxiliaryPublisher = self.coordinator.$textAlignment.safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
+            self.updatePublisher = self.coordinator.$text.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
+            self.richUpdatePublisher = self.coordinator.$attributedText.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
+            self.auxiliaryPublisher = self.coordinator.$textAlignment.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
         
             // Size
-            self.sizePublisher = self.coordinator.$textSize.safelyUnwrapOptionals().eraseToAnyPublisher()
+            self.sizePublisher = self.coordinator.$textSize.receive(on: RunLoop.main).safelyUnwrapOptionals().eraseToAnyPublisher()
             
             // First Responder
             self.shouldResignFirstResponderPublisher = self.shouldResignFirstResponderSubject.eraseToAnyPublisher()
@@ -97,7 +97,9 @@ extension Namespace {
 // MARK: Intentional Update
 extension Namespace.ViewModel {
     func intentional(update: Update?) {
-        self.intentionalUpdateSubject.send(update)
+        DispatchQueue.main.async {
+            self.intentionalUpdateSubject.send(update)
+        }
     }
 }
 

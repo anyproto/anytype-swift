@@ -75,6 +75,15 @@ extension TextView {
             ///
             /// We could store this into subscription `IF ONLY` we assure ourselves, that text in this field will be handled correctly.
             ///
+            
+            /// TODO: Add async if needed.
+            /// For example, `.receive(on: )` will make invocation `async`.
+            /// Read carefully the code below.
+            ///
+            /// Whenever `self.model.update` property is changed, it will __simultaneously__ and __synchronically__ call `.sink`
+            ///
+            /// So, if you want real "async" api, you need to configure these subscriptions correctly.
+            ///
             if self.options.liveUpdateAvailable {
                 self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)}).store(in: &self.subscriptions)
             }
