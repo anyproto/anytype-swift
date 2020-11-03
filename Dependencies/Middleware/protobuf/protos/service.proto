@@ -1,6 +1,6 @@
 syntax = "proto3";
 package anytype;
-option go_package = "lib";
+option go_package = "service";
 
 import "pb/protos/commands.proto";
 import "pb/protos/events.proto";
@@ -8,6 +8,8 @@ import "pb/protos/events.proto";
 service ClientCommands {
     rpc WalletCreate (anytype.Rpc.Wallet.Create.Request) returns (anytype.Rpc.Wallet.Create.Response);
     rpc WalletRecover (anytype.Rpc.Wallet.Recover.Request) returns (anytype.Rpc.Wallet.Recover.Response);
+    rpc WalletConvert (anytype.Rpc.Wallet.Convert.Request) returns (anytype.Rpc.Wallet.Convert.Response);
+
     rpc AccountRecover (anytype.Rpc.Account.Recover.Request) returns (anytype.Rpc.Account.Recover.Response);
     rpc AccountCreate (anytype.Rpc.Account.Create.Request) returns (anytype.Rpc.Account.Create.Response);
     rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
@@ -90,6 +92,10 @@ service ClientCommands {
     rpc BlockCreateDataviewView (anytype.Rpc.Block.Create.Dataview.View.Request) returns (anytype.Rpc.Block.Create.Dataview.View.Response);
     rpc BlockDeleteDataviewView (anytype.Rpc.Block.Delete.Dataview.View.Request) returns (anytype.Rpc.Block.Delete.Dataview.View.Response);
 
+    rpc BlockCreateDataviewRecord (anytype.Rpc.Block.Create.Dataview.Record.Request) returns (anytype.Rpc.Block.Create.Dataview.Record.Response);
+    rpc BlockUpdateDataviewRecord (anytype.Rpc.Block.Update.Dataview.Record.Request) returns (anytype.Rpc.Block.Update.Dataview.Record.Response);
+    rpc BlockDeleteDataviewRecord (anytype.Rpc.Block.Delete.Dataview.Record.Request) returns (anytype.Rpc.Block.Delete.Dataview.Record.Response);
+
     rpc BlockBookmarkFetch (anytype.Rpc.Block.Bookmark.Fetch.Request) returns (anytype.Rpc.Block.Bookmark.Fetch.Response);
     rpc BlockBookmarkCreateAndFetch (anytype.Rpc.Block.Bookmark.CreateAndFetch.Request) returns (anytype.Rpc.Block.Bookmark.CreateAndFetch.Response);
     rpc BlockFileCreateAndUpload (anytype.Rpc.Block.File.CreateAndUpload.Request) returns (anytype.Rpc.Block.File.CreateAndUpload.Response);
@@ -97,9 +103,16 @@ service ClientCommands {
     rpc NavigationListPages (anytype.Rpc.Navigation.ListPages.Request) returns (anytype.Rpc.Navigation.ListPages.Response);
     rpc NavigationGetPageInfoWithLinks (anytype.Rpc.Navigation.GetPageInfoWithLinks.Request) returns (anytype.Rpc.Navigation.GetPageInfoWithLinks.Response);
 
+    // PageCreate just creates the new page, without adding the link to it from some other page
+    rpc PageCreate (anytype.Rpc.Page.Create.Request) returns (anytype.Rpc.Page.Create.Response);
+
     rpc Ping (anytype.Rpc.Ping.Request) returns (anytype.Rpc.Ping.Response);
 
     rpc ProcessCancel (anytype.Rpc.Process.Cancel.Request) returns (anytype.Rpc.Process.Cancel.Response);
+
+    rpc HistoryShow (anytype.Rpc.History.Show.Request) returns (anytype.Rpc.History.Show.Response);
+    rpc HistoryVersions (anytype.Rpc.History.Versions.Request) returns (anytype.Rpc.History.Versions.Response);
+    rpc HistorySetVersion (anytype.Rpc.History.SetVersion.Request) returns (anytype.Rpc.History.SetVersion.Response);
 
     // used only for lib-server via grpc
     rpc ListenEvents (anytype.Empty) returns (stream anytype.Event);

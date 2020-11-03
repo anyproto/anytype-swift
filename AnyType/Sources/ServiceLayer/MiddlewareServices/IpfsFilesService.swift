@@ -72,7 +72,7 @@ class IpfsFilesService {
         DispatchQueue.global().async {
             if let requestData = requestData {
                 guard
-                    let data = Lib.LibImageGetBlob(requestData),
+                    let data = Lib.ServiceImageGetBlob(requestData),
                     let response = try? Anytype_Rpc.Ipfs.Image.Get.Blob.Response(serializedData: data),
                     response.error.code == .null else {
                         completion(.failure(.downLoadImageError))

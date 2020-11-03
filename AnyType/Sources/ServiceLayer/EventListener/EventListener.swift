@@ -31,11 +31,11 @@ class RawEventListener: NSObject {
     
     override init() {
         super.init()
-        Lib.LibSetEventHandlerMobile(self)
+        Lib.ServiceSetEventHandlerMobile(self)
     }
 }
 
-extension RawEventListener: LibMessageHandlerProtocol {
+extension RawEventListener: ServiceMessageHandlerProtocol {
     
     func handle(_ b: Data?) {
         guard let rawEvent = b,

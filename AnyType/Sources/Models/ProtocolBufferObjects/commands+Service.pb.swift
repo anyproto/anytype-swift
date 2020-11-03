@@ -16,7 +16,7 @@ enum Anytype_Middleware_Error {
 
 extension Anytype_Rpc.ExternalDrop.Files {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibExternalDropFiles(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceExternalDropFiles(data) }
   }
 
   enum Service {
@@ -63,7 +63,7 @@ extension Anytype_Rpc.ExternalDrop.Files {
 
 extension Anytype_Rpc.ExternalDrop.Content {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibExternalDropContent(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceExternalDropContent(data) }
   }
 
   enum Service {
@@ -110,7 +110,7 @@ extension Anytype_Rpc.ExternalDrop.Content {
 
 extension Anytype_Rpc.BlockList.ConvertChildrenToPages {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListConvertChildrenToPages(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListConvertChildrenToPages(data) }
   }
 
   enum Service {
@@ -157,7 +157,7 @@ extension Anytype_Rpc.BlockList.ConvertChildrenToPages {
 
 extension Anytype_Rpc.BlockList.Move {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListMove(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListMove(data) }
   }
 
   enum Service {
@@ -206,7 +206,7 @@ extension Anytype_Rpc.BlockList.Move {
 
 extension Anytype_Rpc.BlockList.MoveToNewPage {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListMoveToNewPage(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListMoveToNewPage(data) }
   }
 
   enum Service {
@@ -255,7 +255,7 @@ extension Anytype_Rpc.BlockList.MoveToNewPage {
 
 extension Anytype_Rpc.BlockList.Duplicate {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListDuplicate(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListDuplicate(data) }
   }
 
   enum Service {
@@ -302,7 +302,7 @@ extension Anytype_Rpc.BlockList.Duplicate {
 
 extension Anytype_Rpc.BlockList.Set.Page.IsArchived {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetPageIsArchived(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetPageIsArchived(data) }
   }
 
   enum Service {
@@ -349,7 +349,7 @@ extension Anytype_Rpc.BlockList.Set.Page.IsArchived {
 
 extension Anytype_Rpc.BlockList.Set.Text.Style {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextStyle(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetTextStyle(data) }
   }
 
   enum Service {
@@ -396,7 +396,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Style {
 
 extension Anytype_Rpc.BlockList.Set.Text.Color {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextColor(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetTextColor(data) }
   }
 
   enum Service {
@@ -443,7 +443,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Color {
 
 extension Anytype_Rpc.BlockList.Set.Text.Mark {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetTextMark(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetTextMark(data) }
   }
 
   enum Service {
@@ -490,7 +490,7 @@ extension Anytype_Rpc.BlockList.Set.Text.Mark {
 
 extension Anytype_Rpc.BlockList.Set.BackgroundColor {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetBackgroundColor(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetBackgroundColor(data) }
   }
 
   enum Service {
@@ -537,7 +537,7 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor {
 
 extension Anytype_Rpc.BlockList.Set.Align {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetAlign(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetAlign(data) }
   }
 
   enum Service {
@@ -584,7 +584,7 @@ extension Anytype_Rpc.BlockList.Set.Align {
 
 extension Anytype_Rpc.BlockList.Set.Fields {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetFields(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetFields(data) }
   }
 
   enum Service {
@@ -631,7 +631,7 @@ extension Anytype_Rpc.BlockList.Set.Fields {
 
 extension Anytype_Rpc.BlockList.Set.Div.Style {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListSetDivStyle(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetDivStyle(data) }
   }
 
   enum Service {
@@ -678,7 +678,7 @@ extension Anytype_Rpc.BlockList.Set.Div.Style {
 
 extension Anytype_Rpc.BlockList.Delete.Page {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockListDeletePage(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListDeletePage(data) }
   }
 
   enum Service {
@@ -725,7 +725,7 @@ extension Anytype_Rpc.BlockList.Delete.Page {
 
 extension Anytype_Rpc.Block.Replace {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockReplace(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockReplace(data) }
   }
 
   enum Service {
@@ -772,7 +772,7 @@ extension Anytype_Rpc.Block.Replace {
 
 extension Anytype_Rpc.Block.Split {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSplit(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSplit(data) }
   }
 
   enum Service {
@@ -780,8 +780,10 @@ extension Anytype_Rpc.Block.Split {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, range: range, style: style), on: queue)
+    public static func invoke(
+      contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style, mode: Anytype_Rpc.Block.Split.Request.Mode, queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode), on: queue)
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -819,7 +821,7 @@ extension Anytype_Rpc.Block.Split {
 
 extension Anytype_Rpc.Block.Merge {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockMerge(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockMerge(data) }
   }
 
   enum Service {
@@ -866,7 +868,7 @@ extension Anytype_Rpc.Block.Merge {
 
 extension Anytype_Rpc.Block.Copy {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCopy(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockCopy(data) }
   }
 
   enum Service {
@@ -913,7 +915,7 @@ extension Anytype_Rpc.Block.Copy {
 
 extension Anytype_Rpc.Block.Paste {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockPaste(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockPaste(data) }
   }
 
   enum Service {
@@ -923,12 +925,12 @@ extension Anytype_Rpc.Block.Paste {
     }
     public static func invoke(
       contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], isPartOfBlock: Bool, textSlot: String, htmlSlot: String,
-      anySlot: [Anytype_Model_Block], queue: DispatchQueue? = nil
+      anySlot: [Anytype_Model_Block], fileSlot: [Anytype_Rpc.Block.Paste.Request.File], queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
       self.invoke(
         parameters: .init(
           contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
-          htmlSlot: htmlSlot, anySlot: anySlot), on: queue)
+          htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot), on: queue)
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -966,7 +968,7 @@ extension Anytype_Rpc.Block.Paste {
 
 extension Anytype_Rpc.Block.Cut {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCut(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockCut(data) }
   }
 
   enum Service {
@@ -1013,7 +1015,7 @@ extension Anytype_Rpc.Block.Cut {
 
 extension Anytype_Rpc.Block.ImportMarkdown {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockImportMarkdown(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockImportMarkdown(data) }
   }
 
   enum Service {
@@ -1060,7 +1062,7 @@ extension Anytype_Rpc.Block.ImportMarkdown {
 
 extension Anytype_Rpc.Block.Export {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockExport(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockExport(data) }
   }
 
   enum Service {
@@ -1107,7 +1109,7 @@ extension Anytype_Rpc.Block.Export {
 
 extension Anytype_Rpc.Block.Upload {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUpload(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockUpload(data) }
   }
 
   enum Service {
@@ -1154,7 +1156,7 @@ extension Anytype_Rpc.Block.Upload {
 
 extension Anytype_Rpc.Block.Download {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockDownload(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockDownload(data) }
   }
 
   enum Service {
@@ -1201,7 +1203,7 @@ extension Anytype_Rpc.Block.Download {
 
 extension Anytype_Rpc.Block.Set.Fields {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetFields(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetFields(data) }
   }
 
   enum Service {
@@ -1248,7 +1250,7 @@ extension Anytype_Rpc.Block.Set.Fields {
 
 extension Anytype_Rpc.Block.Set.Details {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetDetails(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetDetails(data) }
   }
 
   enum Service {
@@ -1295,7 +1297,7 @@ extension Anytype_Rpc.Block.Set.Details {
 
 extension Anytype_Rpc.Block.Set.Restrictions {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetRestrictions(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetRestrictions(data) }
   }
 
   enum Service {
@@ -1342,7 +1344,7 @@ extension Anytype_Rpc.Block.Set.Restrictions {
 
 extension Anytype_Rpc.Block.Set.Page.IsArchived {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetPageIsArchived(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetPageIsArchived(data) }
   }
 
   enum Service {
@@ -1389,7 +1391,7 @@ extension Anytype_Rpc.Block.Set.Page.IsArchived {
 
 extension Anytype_Rpc.Block.Set.Text.Text {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextText(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetTextText(data) }
   }
 
   enum Service {
@@ -1436,7 +1438,7 @@ extension Anytype_Rpc.Block.Set.Text.Text {
 
 extension Anytype_Rpc.Block.Set.Text.Color {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextColor(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetTextColor(data) }
   }
 
   enum Service {
@@ -1483,7 +1485,7 @@ extension Anytype_Rpc.Block.Set.Text.Color {
 
 extension Anytype_Rpc.Block.Set.Text.Style {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextStyle(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetTextStyle(data) }
   }
 
   enum Service {
@@ -1530,7 +1532,7 @@ extension Anytype_Rpc.Block.Set.Text.Style {
 
 extension Anytype_Rpc.Block.Set.Text.Checked {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetTextChecked(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetTextChecked(data) }
   }
 
   enum Service {
@@ -1577,7 +1579,7 @@ extension Anytype_Rpc.Block.Set.Text.Checked {
 
 extension Anytype_Rpc.Block.Set.File.Name {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetFileName(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetFileName(data) }
   }
 
   enum Service {
@@ -1624,7 +1626,7 @@ extension Anytype_Rpc.Block.Set.File.Name {
 
 extension Anytype_Rpc.Block.Set.Image.Name {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetImageName(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetImageName(data) }
   }
 
   enum Service {
@@ -1671,7 +1673,7 @@ extension Anytype_Rpc.Block.Set.Image.Name {
 
 extension Anytype_Rpc.Block.Set.Image.Width {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetImageWidth(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetImageWidth(data) }
   }
 
   enum Service {
@@ -1718,7 +1720,7 @@ extension Anytype_Rpc.Block.Set.Image.Width {
 
 extension Anytype_Rpc.Block.Set.Video.Name {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetVideoName(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetVideoName(data) }
   }
 
   enum Service {
@@ -1765,7 +1767,7 @@ extension Anytype_Rpc.Block.Set.Video.Name {
 
 extension Anytype_Rpc.Block.Set.Video.Width {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetVideoWidth(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetVideoWidth(data) }
   }
 
   enum Service {
@@ -1812,7 +1814,7 @@ extension Anytype_Rpc.Block.Set.Video.Width {
 
 extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetLinkTargetBlockId(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetLinkTargetBlockId(data) }
   }
 
   enum Service {
@@ -1859,7 +1861,7 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
 
 extension Anytype_Rpc.Block.Set.Dataview.View {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetDataviewView(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetDataviewView(data) }
   }
 
   enum Service {
@@ -1906,7 +1908,7 @@ extension Anytype_Rpc.Block.Set.Dataview.View {
 
 extension Anytype_Rpc.Block.Set.Dataview.ActiveView {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetDataviewActiveView(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetDataviewActiveView(data) }
   }
 
   enum Service {
@@ -1953,7 +1955,7 @@ extension Anytype_Rpc.Block.Set.Dataview.ActiveView {
 
 extension Anytype_Rpc.Block.Bookmark.Fetch {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockBookmarkFetch(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockBookmarkFetch(data) }
   }
 
   enum Service {
@@ -2000,7 +2002,7 @@ extension Anytype_Rpc.Block.Bookmark.Fetch {
 
 extension Anytype_Rpc.Block.Bookmark.CreateAndFetch {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockBookmarkCreateAndFetch(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockBookmarkCreateAndFetch(data) }
   }
 
   enum Service {
@@ -2047,7 +2049,7 @@ extension Anytype_Rpc.Block.Bookmark.CreateAndFetch {
 
 extension Anytype_Rpc.Block.File.CreateAndUpload {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockFileCreateAndUpload(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockFileCreateAndUpload(data) }
   }
 
   enum Service {
@@ -2096,7 +2098,7 @@ extension Anytype_Rpc.Block.File.CreateAndUpload {
 
 extension Anytype_Rpc.Block.Get.Marks {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockGetMarks(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockGetMarks(data) }
   }
 
   enum Service {
@@ -2143,7 +2145,7 @@ extension Anytype_Rpc.Block.Get.Marks {
 
 extension Anytype_Rpc.Block.Undo {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUndo(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockUndo(data) }
   }
 
   enum Service {
@@ -2190,7 +2192,7 @@ extension Anytype_Rpc.Block.Undo {
 
 extension Anytype_Rpc.Block.Redo {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockRedo(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockRedo(data) }
   }
 
   enum Service {
@@ -2237,7 +2239,7 @@ extension Anytype_Rpc.Block.Redo {
 
 extension Anytype_Rpc.Block.Open {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockOpen(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockOpen(data) }
   }
 
   enum Service {
@@ -2284,7 +2286,7 @@ extension Anytype_Rpc.Block.Open {
 
 extension Anytype_Rpc.Block.GetPublicWebURL {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockGetPublicWebURL(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockGetPublicWebURL(data) }
   }
 
   enum Service {
@@ -2331,7 +2333,7 @@ extension Anytype_Rpc.Block.GetPublicWebURL {
 
 extension Anytype_Rpc.Block.OpenBreadcrumbs {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockOpenBreadcrumbs(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockOpenBreadcrumbs(data) }
   }
 
   enum Service {
@@ -2378,7 +2380,7 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs {
 
 extension Anytype_Rpc.Block.SetBreadcrumbs {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockSetBreadcrumbs(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockSetBreadcrumbs(data) }
   }
 
   enum Service {
@@ -2425,7 +2427,7 @@ extension Anytype_Rpc.Block.SetBreadcrumbs {
 
 extension Anytype_Rpc.Block.Create {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreate(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockCreate(data) }
   }
 
   enum Service {
@@ -2472,7 +2474,7 @@ extension Anytype_Rpc.Block.Create {
 
 extension Anytype_Rpc.Block.Create.Dataview.View {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreateDataviewView(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockCreateDataviewView(data) }
   }
 
   enum Service {
@@ -2517,9 +2519,56 @@ extension Anytype_Rpc.Block.Create.Dataview.View {
   }
 }
 
+extension Anytype_Rpc.Block.Create.Dataview.Record {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockCreateDataviewRecord(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(contextID: String, blockID: String, record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, record: record), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.CreatePage {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockCreatePage(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockCreatePage(data) }
   }
 
   enum Service {
@@ -2568,7 +2617,7 @@ extension Anytype_Rpc.Block.CreatePage {
 
 extension Anytype_Rpc.Block.Unlink {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockUnlink(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockUnlink(data) }
   }
 
   enum Service {
@@ -2613,9 +2662,56 @@ extension Anytype_Rpc.Block.Unlink {
   }
 }
 
+extension Anytype_Rpc.Block.Update.Dataview.Record {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockUpdateDataviewRecord(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(contextID: String, blockID: String, recordID: String, record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, recordID: recordID, record: record), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.Delete.Dataview.View {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockDeleteDataviewView(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockDeleteDataviewView(data) }
   }
 
   enum Service {
@@ -2660,9 +2756,56 @@ extension Anytype_Rpc.Block.Delete.Dataview.View {
   }
 }
 
+extension Anytype_Rpc.Block.Delete.Dataview.Record {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockDeleteDataviewRecord(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(contextID: String, blockID: String, recordID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, recordID: recordID), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.Close {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibBlockClose(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockClose(data) }
   }
 
   enum Service {
@@ -2709,7 +2852,7 @@ extension Anytype_Rpc.Block.Close {
 
 extension Anytype_Rpc.Wallet.Create {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibWalletCreate(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceWalletCreate(data) }
   }
 
   enum Service {
@@ -2756,7 +2899,7 @@ extension Anytype_Rpc.Wallet.Create {
 
 extension Anytype_Rpc.Wallet.Recover {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibWalletRecover(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceWalletRecover(data) }
   }
 
   enum Service {
@@ -2801,9 +2944,56 @@ extension Anytype_Rpc.Wallet.Recover {
   }
 }
 
+extension Anytype_Rpc.Wallet.Convert {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceWalletConvert(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(mnemonic: String, entropy: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(mnemonic: mnemonic, entropy: entropy), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Account.Create {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibAccountCreate(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountCreate(data) }
   }
 
   enum Service {
@@ -2850,7 +3040,7 @@ extension Anytype_Rpc.Account.Create {
 
 extension Anytype_Rpc.Account.Recover {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibAccountRecover(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountRecover(data) }
   }
 
   enum Service {
@@ -2897,7 +3087,7 @@ extension Anytype_Rpc.Account.Recover {
 
 extension Anytype_Rpc.Account.Select {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibAccountSelect(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountSelect(data) }
   }
 
   enum Service {
@@ -2944,7 +3134,7 @@ extension Anytype_Rpc.Account.Select {
 
 extension Anytype_Rpc.Account.Stop {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibAccountStop(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountStop(data) }
   }
 
   enum Service {
@@ -2991,7 +3181,7 @@ extension Anytype_Rpc.Account.Stop {
 
 extension Anytype_Rpc.Log.Send {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibLogSend(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceLogSend(data) }
   }
 
   enum Service {
@@ -3038,7 +3228,7 @@ extension Anytype_Rpc.Log.Send {
 
 extension Anytype_Rpc.Version.Get {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibVersionGet(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceVersionGet(data) }
   }
 
   enum Service {
@@ -3085,7 +3275,7 @@ extension Anytype_Rpc.Version.Get {
 
 extension Anytype_Rpc.Ipfs.Image.Get.Blob {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibImageGetBlob(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceImageGetBlob(data) }
   }
 
   enum Service {
@@ -3132,7 +3322,7 @@ extension Anytype_Rpc.Ipfs.Image.Get.Blob {
 
 extension Anytype_Rpc.Shutdown {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibShutdown(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceShutdown(data) }
   }
 
   enum Service {
@@ -3179,7 +3369,7 @@ extension Anytype_Rpc.Shutdown {
 
 extension Anytype_Rpc.Config.Get {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibConfigGet(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceConfigGet(data) }
   }
 
   enum Service {
@@ -3226,7 +3416,7 @@ extension Anytype_Rpc.Config.Get {
 
 extension Anytype_Rpc.Ping {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibPing(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServicePing(data) }
   }
 
   enum Service {
@@ -3273,7 +3463,7 @@ extension Anytype_Rpc.Ping {
 
 extension Anytype_Rpc.Process.Cancel {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibProcessCancel(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceProcessCancel(data) }
   }
 
   enum Service {
@@ -3320,7 +3510,7 @@ extension Anytype_Rpc.Process.Cancel {
 
 extension Anytype_Rpc.LinkPreview {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibLinkPreview(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceLinkPreview(data) }
   }
 
   enum Service {
@@ -3367,7 +3557,7 @@ extension Anytype_Rpc.LinkPreview {
 
 extension Anytype_Rpc.UploadFile {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibUploadFile(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceUploadFile(data) }
   }
 
   enum Service {
@@ -3414,7 +3604,7 @@ extension Anytype_Rpc.UploadFile {
 
 extension Anytype_Rpc.Navigation.ListPages {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibNavigationListPages(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceNavigationListPages(data) }
   }
 
   enum Service {
@@ -3422,8 +3612,8 @@ extension Anytype_Rpc.Navigation.ListPages {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(), on: queue)
+    public static func invoke(context: Anytype_Rpc.Navigation.Context, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(context: context), on: queue)
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3461,7 +3651,7 @@ extension Anytype_Rpc.Navigation.ListPages {
 
 extension Anytype_Rpc.Navigation.GetPageInfoWithLinks {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.LibNavigationGetPageInfoWithLinks(data) }
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceNavigationGetPageInfoWithLinks(data) }
   }
 
   enum Service {
@@ -3469,8 +3659,196 @@ extension Anytype_Rpc.Navigation.GetPageInfoWithLinks {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(pageID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(pageID: pageID), on: queue)
+    public static func invoke(pageID: String, context: Anytype_Rpc.Navigation.Context, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(pageID: pageID, context: context), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.History.Versions {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceHistoryVersions(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(pageID: String, lastVersionID: String, limit: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(pageID: pageID, lastVersionID: lastVersionID, limit: limit), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.History.Show {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceHistoryShow(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(pageID: String, versionID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(pageID: pageID, versionID: versionID), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.History.SetVersion {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceHistorySetVersion(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(pageID: String, versionID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(pageID: pageID, versionID: versionID), on: queue)
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Page.Create {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServicePageCreate(data) }
+  }
+
+  enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(details: details), on: queue)
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in

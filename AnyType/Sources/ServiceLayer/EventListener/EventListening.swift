@@ -20,12 +20,12 @@ extension EventListening {
         
         override init() {
             super.init()
-            Lib.LibSetEventHandlerMobile(self)
+            Lib.ServiceSetEventHandlerMobile(self)
         }
     }
 }
 
-extension EventListening.RawListener: LibMessageHandlerProtocol {
+extension EventListening.RawListener: ServiceMessageHandlerProtocol {
     
     func handle(_ b: Data?) {
         guard let rawEvent = b,

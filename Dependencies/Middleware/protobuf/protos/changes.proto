@@ -2,7 +2,7 @@ syntax = "proto3";
 package anytype;
 option go_package = "pb";
 
-import "vendor/github.com/anytypeio/go-anytype-library/pb/model/protos/models.proto";
+import "pkg/lib/pb/model/protos/models.proto";
 
 import "pb/protos/events.proto";
 import "google/protobuf/struct.proto";

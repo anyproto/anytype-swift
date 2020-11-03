@@ -2,8 +2,8 @@ syntax = "proto3";
 package anytype;
 option go_package = "pb";
 
-import "vendor/github.com/anytypeio/go-anytype-library/pb/model/protos/models.proto";
-import "vendor/github.com/anytypeio/go-anytype-library/pb/model/protos/localstore.proto";
+import "pkg/lib/pb/model/protos/models.proto";
+import "pkg/lib/pb/model/protos/localstore.proto";
 
 import "pb/protos/events.proto";
 import "google/protobuf/struct.proto";
@@ -448,6 +448,18 @@ message Rpc {
                 string blockId = 2;
                 anytype.model.Range range = 3;
                 anytype.model.Block.Content.Text.Style style = 4;
+                Mode mode = 5;
+
+                enum Mode {
+                    // new block will be created under existing
+                    BOTTOM = 0;
+                    // new block will be created above existing
+                    TOP = 1;
+                    // new block will be created as the first children of existing
+                    INNER = 2;
+                    // new block will be created after header (not required for set at client side, will auto set for title block)
+                    TITLE = 3;
+                }
             }
 
             message Response {
@@ -532,6 +544,13 @@ message Rpc {
                 string textSlot = 6;
                 string htmlSlot = 7;
                 repeated anytype.model.Block anySlot = 8;
+                repeated File fileSlot = 9;
+
+                message File {
+                    string name = 1;
+                    bytes data = 2;
+                    string localPath = 3;
+                }
             }
 
             message Response {
@@ -719,6 +738,7 @@ message Rpc {
                 }
                 message Response {
                     Error error = 1;
+                    ResponseEvent event = 2;
 
                     message Error {
                         Code code = 1;
@@ -795,6 +815,7 @@ message Rpc {
 
                     message Response {
                         Error error = 1;
+                        ResponseEvent event = 2;
 
                         message Error {
                             Code code = 1;
@@ -1415,6 +1436,31 @@ message Rpc {
                         }
                     }
                 }
+
+                message Record {
+                    message Request {
+                        string contextId = 1;
+                        string blockId = 2;
+                        google.protobuf.Struct record = 3;
+                    }
+
+                    message Response {
+                        Error error = 1;
+                        google.protobuf.Struct record = 2;
+
+                        message Error {
+                            Code code = 1;
+                            string description = 2;
+
+                            enum Code {
+                                NULL = 0;
+                                UNKNOWN_ERROR = 1;
+                                BAD_INPUT = 2;
+                                // ...
+                            }
+                        }
+                    }
+                }
             }
 
             // common simple block command
@@ -1500,13 +1546,67 @@ message Rpc {
             }
         }
 
+        message Update {
+            message Dataview {
+                message Record {
+                    message Request {
+                        string contextId = 1;
+                        string blockId = 2;
+                        string recordId = 3;
+                        google.protobuf.Struct record = 4;
+                    }
+
+                    message Response {
+                        Error error = 1;
+
+                        message Error {
+                            Code code = 1;
+                            string description = 2;
+
+                            enum Code {
+                                NULL = 0;
+                                UNKNOWN_ERROR = 1;
+                                BAD_INPUT = 2;
+                                // ...
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         message Delete {
-            message Dataview{
-                message View{
+            message Dataview {
+                message View {
                     message Request {
                         string contextId = 1; // id of the context block
                         string blockId = 2; // id of the dataview
                         string viewId = 4; // id of the view to remove
+                    }
+
+                    message Response {
+                        Error error = 1;
+                        ResponseEvent event = 2;
+
+                        message Error {
+                            Code code = 1;
+                            string description = 2;
+
+                            enum Code {
+                                NULL = 0;
+                                UNKNOWN_ERROR = 1;
+                                BAD_INPUT = 2;
+                                // ...
+                            }
+                        }
+                    }
+                }
+
+                message Record {
+                    message Request {
+                        string contextId = 1;
+                        string blockId = 2;
+                        string recordId = 3;
                     }
 
                     message Response {
@@ -1558,7 +1658,7 @@ message Rpc {
     }
 
     /*
-     * Namespace, that agregates subtopics and actions, that relates to wallet.
+     * Namespace, that aggregates subtopics and actions, that relates to wallet.
     */
     message Wallet {
         message Create {
@@ -1620,6 +1720,32 @@ message Rpc {
                 }
             }
         }
+
+        message Convert {
+            message Request {
+                string mnemonic = 1; // Mnemonic of a wallet to convert
+                string entropy = 2; // entropy of a wallet to convert
+
+            }
+
+            message Response {
+                Error error = 1; // Error while trying to recover a wallet
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0; // No error; wallet successfully recovered
+                        UNKNOWN_ERROR = 1; // Any other errors
+                        BAD_INPUT = 2; // mnemonic is wrong
+                    }
+                }
+
+                string entropy = 2;
+                string mnemonic = 3;
+            }
+        }
+
     }
 
     /*
@@ -2081,8 +2207,15 @@ message Rpc {
     }
 
     message Navigation {
+        enum Context {
+            Navigation = 0;
+            MoveTo = 1; // do not show sets/archive
+            LinkTo = 2; // same for mention, do not show sets/archive
+        }
+
         message ListPages {
             message Request {
+                Context context = 1;
             }
 
             message Response {
@@ -2109,6 +2242,7 @@ message Rpc {
         message GetPageInfoWithLinks {
             message Request {
                 string pageId = 1;
+                Context context = 2;
             }
 
             message Response {
@@ -2129,6 +2263,121 @@ message Rpc {
             }
         }
     }
+
+    message History {
+        // returns list of versions (changes)
+        message Versions {
+            message Version {
+                string id = 1;
+                repeated string previousIds = 2;
+                string authorId = 3;
+                string authorName = 4;
+                int64 time = 5;
+                int64 groupId = 6;
+            }
+
+            message Request {
+                string pageId = 1;
+                // when indicated, results will include versions before given id
+                string lastVersionId = 2;
+                // desired count of versions
+                int32 limit = 3;
+            }
+
+            message Response {
+                Error error = 1;
+                repeated Version versions = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        // returns blockShow event for given version
+        message Show {
+            message Request {
+                string pageId = 1;
+                string versionId = 2;
+            }
+
+            message Response {
+                Error error = 1;
+                Event.Block.Show blockShow = 2;
+                History.Versions.Version version = 3;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message SetVersion {
+            message Request {
+                string pageId = 1;
+                string versionId = 2;
+            }
+
+            message Response {
+                Error error = 1;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+    }
+
+    message Page {
+        message Create {
+            message Request {
+                google.protobuf.Struct details = 1; // page details
+            }
+
+            message Response {
+                Error error = 1;
+                string pageId = 3;
+                ResponseEvent event = 4;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 message Empty {

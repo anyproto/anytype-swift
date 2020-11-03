@@ -569,7 +569,7 @@ extension Anytype_Event.Block.Show {
 }
 
 extension Anytype_Event.Message {
-  init(value: OneOf_Value?) {
+  init(value: Anytype_Event.Message.OneOf_Value?) {
     self.value = value
   }
 }
@@ -635,9 +635,10 @@ extension Anytype_Model.Process {
 }
 
 extension Anytype_Model.Process.Progress {
-  init(total: Int64, done: Int64) {
+  init(total: Int64, done: Int64, message: String) {
     self.total = total
     self.done = done
+    self.message = message
   }
 }
 

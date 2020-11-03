@@ -1,6 +1,6 @@
 syntax = "proto3";
 package anytype.model;
-option go_package = "github.com/anytypeio/go-anytype-library/pb/model";
+option go_package = "pkg/lib/pb/model";
 
 import "google/protobuf/struct.proto";
 
@@ -69,6 +69,7 @@ message Block {
                 Row = 0;
                 Column = 1;
                 Div = 2;
+                Header = 3;
             }
         }
 
@@ -221,7 +222,8 @@ message Block {
                     DateOptions dateOptions = 11;
                 }
 
-                message EmptyOptions {}
+                message EmptyOptions {
+                }
 
                 message DateOptions {
                     bool includeTime = 1;

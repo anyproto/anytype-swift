@@ -2,7 +2,7 @@ syntax = "proto3";
 package anytype;
 option go_package = "pb";
 
-import "vendor/github.com/anytypeio/go-anytype-library/pb/model/protos/models.proto";
+import "pkg/lib/pb/model/protos/models.proto";
 import "google/protobuf/struct.proto";
 
 /*
@@ -581,6 +581,7 @@ message Model {
 
         enum Type {
             DropFiles = 0;
+            Import = 1;
         }
 
         enum State {
@@ -594,6 +595,7 @@ message Model {
         message Progress {
             int64 total = 1;
             int64 done = 2;
+            string message = 3;
         }
     }
 }

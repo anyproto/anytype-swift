@@ -173,14 +173,9 @@ module MiddlewareUpdater
   end
 
   class RunCodegenScriptWorker < Workers::BasicWorker
-    class << self
-      def scriptPath
-        "Scripts/anytype_swift_codegen.rb"
-      end
-    end
     attr_accessor :scriptPath
-    def initialize(scriptPath = nil)
-      self.scriptPath = scriptPath || self.class.scriptPath
+    def initialize(scriptPath)
+      self.scriptPath = scriptPath
     end
     def tool
       "ruby"
@@ -303,7 +298,7 @@ class Pipeline
       MiddlewareUpdater::CopyProtobufFilesWorker.new(ourDirectory, options[:protobufDirectoryName], options[:targetDirectoryPath]).work
 
       say "Generate services from protobuf files"
-      MiddlewareUpdater::RunCodegenScriptWorker.new.work
+      MiddlewareUpdater::RunCodegenScriptWorker.new(options[:swiftAutocodegenScript]).work
     end
   end
   class InstallPipeline < BasePipeline
@@ -524,7 +519,8 @@ class MainWork
 
           # target directory options
           dependenciesDirectoryPath: "#{__dir__}/../Dependencies/Middleware",
-          targetDirectoryPath: "#{__dir__}/../AnyType/Sources/Models/ProtocolBufferObjects/"
+          targetDirectoryPath: "#{__dir__}/../AnyType/Sources/Models/ProtocolBufferObjects/",
+          swiftAutocodegenScript: "#{__dir__}/../Scripts/anytype_swift_codegen.rb"
         }
       end
 
@@ -534,7 +530,8 @@ class MainWork
           :librarylockFilePath,
           :downloadFilePath,
           :dependenciesDirectoryPath,
-          :targetDirectoryPath
+          :targetDirectoryPath,
+          :swiftAutocodegenScript
         ]
       end
 
@@ -649,6 +646,9 @@ class MainWork
       # target directory options
       opts.on('--dependenciesDirectoryPath', '--dependenciesDirectoryPath PATH', 'Path to a dependencies directory') {|v| options[:dependenciesDirectoryPath] = v}
       opts.on('--targetDirectoryPath', '--targetDirectoryPath PATH', 'Path to target directory') {|v| options[:targetDirectoryPath] = v}
+
+      # swift codegen script
+      opts.on('--swiftAutocodegenScript', '--swiftAutocodegenScript PATH', 'Path to codegen script') {|v| options[:swiftAutocodegenScript] = v}
 
     end.parse!(arguments)
     DefaultOptionsGenerator.populate(arguments, options)

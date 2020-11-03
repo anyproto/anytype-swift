@@ -56,13 +56,17 @@ extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Create.Dataview.View.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Create.Dataview.Record.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.CreatePage.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Unlink.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Update.Dataview.Record.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Delete.Dataview.View.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Delete.Dataview.Record.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Close.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Recover.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Wallet.Convert.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Select.Response.Error: Swift.Error {}
@@ -80,3 +84,7 @@ extension Anytype_Rpc.LinkPreview.Response.Error: Swift.Error {}
 extension Anytype_Rpc.UploadFile.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Navigation.ListPages.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Navigation.GetPageInfoWithLinks.Response.Error: Swift.Error {}
+extension Anytype_Rpc.History.Versions.Response.Error: Swift.Error {}
+extension Anytype_Rpc.History.Show.Response.Error: Swift.Error {}
+extension Anytype_Rpc.History.SetVersion.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Page.Create.Response.Error: Swift.Error {}

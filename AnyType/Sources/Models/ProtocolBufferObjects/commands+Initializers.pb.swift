@@ -175,6 +175,28 @@ extension Anytype_Rpc.Block.Copy.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Create.Dataview.Record.Request {
+  init(contextID: String, blockID: String, record: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.record = record
+  }
+}
+
+extension Anytype_Rpc.Block.Create.Dataview.Record.Response {
+  init(error: Anytype_Rpc.Block.Create.Dataview.Record.Response.Error, record: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.error = error
+    self.record = record
+  }
+}
+
+extension Anytype_Rpc.Block.Create.Dataview.Record.Response.Error {
+  init(code: Anytype_Rpc.Block.Create.Dataview.Record.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Create.Dataview.View.Request {
   init(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View) {
     self.contextID = contextID
@@ -267,6 +289,28 @@ extension Anytype_Rpc.Block.Cut.Response {
 
 extension Anytype_Rpc.Block.Cut.Response.Error {
   init(code: Anytype_Rpc.Block.Cut.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Delete.Dataview.Record.Request {
+  init(contextID: String, blockID: String, recordID: String) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.recordID = recordID
+  }
+}
+
+extension Anytype_Rpc.Block.Delete.Dataview.Record.Response {
+  init(error: Anytype_Rpc.Block.Delete.Dataview.Record.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Delete.Dataview.Record.Response.Error {
+  init(code: Anytype_Rpc.Block.Delete.Dataview.Record.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -494,7 +538,7 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error {
 extension Anytype_Rpc.Block.Paste.Request {
   init(
     contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], isPartOfBlock: Bool, textSlot: String, htmlSlot: String,
-    anySlot: [Anytype_Model_Block]
+    anySlot: [Anytype_Model_Block], fileSlot: [Anytype_Rpc.Block.Paste.Request.File]
   ) {
     self.contextID = contextID
     self.focusedBlockID = focusedBlockID
@@ -504,6 +548,15 @@ extension Anytype_Rpc.Block.Paste.Request {
     self.textSlot = textSlot
     self.htmlSlot = htmlSlot
     self.anySlot = anySlot
+    self.fileSlot = fileSlot
+  }
+}
+
+extension Anytype_Rpc.Block.Paste.Request.File {
+  init(name: String, data: Data, localPath: String) {
+    self.name = name
+    self.data = data
+    self.localPath = localPath
   }
 }
 
@@ -629,8 +682,9 @@ extension Anytype_Rpc.Block.Set.Details.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Details.Response {
-  init(error: Anytype_Rpc.Block.Set.Details.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Details.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -868,8 +922,9 @@ extension Anytype_Rpc.Block.Set.Text.Text.Request {
 }
 
 extension Anytype_Rpc.Block.Set.Text.Text.Response {
-  init(error: Anytype_Rpc.Block.Set.Text.Text.Response.Error) {
+  init(error: Anytype_Rpc.Block.Set.Text.Text.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
+    self.event = event
   }
 }
 
@@ -944,11 +999,12 @@ extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error {
 }
 
 extension Anytype_Rpc.Block.Split.Request {
-  init(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style) {
+  init(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style, mode: Anytype_Rpc.Block.Split.Request.Mode) {
     self.contextID = contextID
     self.blockID = blockID
     self.range = range
     self.style = style
+    self.mode = mode
   }
 }
 
@@ -1003,6 +1059,28 @@ extension Anytype_Rpc.Block.Unlink.Response {
 
 extension Anytype_Rpc.Block.Unlink.Response.Error {
   init(code: Anytype_Rpc.Block.Unlink.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Block.Update.Dataview.Record.Request {
+  init(contextID: String, blockID: String, recordID: String, record: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.recordID = recordID
+    self.record = record
+  }
+}
+
+extension Anytype_Rpc.Block.Update.Dataview.Record.Response {
+  init(error: Anytype_Rpc.Block.Update.Dataview.Record.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Block.Update.Dataview.Record.Response.Error {
+  init(code: Anytype_Rpc.Block.Update.Dataview.Record.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -1387,6 +1465,81 @@ extension Anytype_Rpc.ExternalDrop.Files.Response.Error {
   }
 }
 
+extension Anytype_Rpc.History.SetVersion.Request {
+  init(pageID: String, versionID: String) {
+    self.pageID = pageID
+    self.versionID = versionID
+  }
+}
+
+extension Anytype_Rpc.History.SetVersion.Response {
+  init(error: Anytype_Rpc.History.SetVersion.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.History.SetVersion.Response.Error {
+  init(code: Anytype_Rpc.History.SetVersion.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.History.Show.Request {
+  init(pageID: String, versionID: String) {
+    self.pageID = pageID
+    self.versionID = versionID
+  }
+}
+
+extension Anytype_Rpc.History.Show.Response {
+  init(error: Anytype_Rpc.History.Show.Response.Error, blockShow: Anytype_Event.Block.Show, version: Anytype_Rpc.History.Versions.Version) {
+    self.error = error
+    self.blockShow = blockShow
+    self.version = version
+  }
+}
+
+extension Anytype_Rpc.History.Show.Response.Error {
+  init(code: Anytype_Rpc.History.Show.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.History.Versions.Request {
+  init(pageID: String, lastVersionID: String, limit: Int32) {
+    self.pageID = pageID
+    self.lastVersionID = lastVersionID
+    self.limit = limit
+  }
+}
+
+extension Anytype_Rpc.History.Versions.Response {
+  init(error: Anytype_Rpc.History.Versions.Response.Error, versions: [Anytype_Rpc.History.Versions.Version]) {
+    self.error = error
+    self.versions = versions
+  }
+}
+
+extension Anytype_Rpc.History.Versions.Response.Error {
+  init(code: Anytype_Rpc.History.Versions.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.History.Versions.Version {
+  init(id: String, previousIds: [String], authorID: String, authorName: String, time: Int64, groupID: Int64) {
+    self.id = id
+    self.previousIds = previousIds
+    self.authorID = authorID
+    self.authorName = authorName
+    self.time = time
+    self.groupID = groupID
+  }
+}
+
 extension Anytype_Rpc.Ipfs.File.Get.Request {
   init(id: String) {
     self.id = id
@@ -1492,8 +1645,9 @@ extension Anytype_Rpc.Log.Send.Response.Error {
 }
 
 extension Anytype_Rpc.Navigation.GetPageInfoWithLinks.Request {
-  init(pageID: String) {
+  init(pageID: String, context: Anytype_Rpc.Navigation.Context) {
     self.pageID = pageID
+    self.context = context
   }
 }
 
@@ -1511,6 +1665,12 @@ extension Anytype_Rpc.Navigation.GetPageInfoWithLinks.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Navigation.ListPages.Request {
+  init(context: Anytype_Rpc.Navigation.Context) {
+    self.context = context
+  }
+}
+
 extension Anytype_Rpc.Navigation.ListPages.Response {
   init(error: Anytype_Rpc.Navigation.ListPages.Response.Error, pages: [Anytype_Model_PageInfo]) {
     self.error = error
@@ -1520,6 +1680,27 @@ extension Anytype_Rpc.Navigation.ListPages.Response {
 
 extension Anytype_Rpc.Navigation.ListPages.Response.Error {
   init(code: Anytype_Rpc.Navigation.ListPages.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Page.Create.Request {
+  init(details: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.details = details
+  }
+}
+
+extension Anytype_Rpc.Page.Create.Response {
+  init(error: Anytype_Rpc.Page.Create.Response.Error, pageID: String, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.pageID = pageID
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Page.Create.Response.Error {
+  init(code: Anytype_Rpc.Page.Create.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -1611,6 +1792,28 @@ extension Anytype_Rpc.Version.Get.Response {
 
 extension Anytype_Rpc.Version.Get.Response.Error {
   init(code: Anytype_Rpc.Version.Get.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Wallet.Convert.Request {
+  init(mnemonic: String, entropy: String) {
+    self.mnemonic = mnemonic
+    self.entropy = entropy
+  }
+}
+
+extension Anytype_Rpc.Wallet.Convert.Response {
+  init(error: Anytype_Rpc.Wallet.Convert.Response.Error, entropy: String, mnemonic: String) {
+    self.error = error
+    self.entropy = entropy
+    self.mnemonic = mnemonic
+  }
+}
+
+extension Anytype_Rpc.Wallet.Convert.Response.Error {
+  init(code: Anytype_Rpc.Wallet.Convert.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
