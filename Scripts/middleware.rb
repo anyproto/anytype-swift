@@ -151,7 +151,7 @@ module MiddlewareUpdater
 
   class CopyProtobufFilesWorker < BaseWorker
     attr_accessor :dependenciesDirectoryPath, :protobufDirectoryName, :targetDirectoryPath
-    def initialize(dependenciesDirectoryPath, protobufDirectoryName, targetDirectoryPath = nil)
+    def initialize(dependenciesDirectoryPath, protobufDirectoryName, targetDirectoryPath)
       self.dependenciesDirectoryPath = dependenciesDirectoryPath
       self.protobufDirectoryName = protobufDirectoryName
       self.targetDirectoryPath = targetDirectoryPath
@@ -165,9 +165,9 @@ module MiddlewareUpdater
       ]
     end
     def perform_work
-      directory = "#{dependenciesDirectoryPath}/#{protobufDirectoryName}"
-      files = protobuf_files.map{|v| "#{directory}/#{v}"}
-      target_directory = targetDirectoryPath
+      directory = File.join([self.dependenciesDirectoryPath, self.protobufDirectoryName])
+      files = protobuf_files.map{|v| File.join([directory, v])}
+      target_directory = self.targetDirectoryPath
       FileUtils.mv(files, target_directory)
     end
   end

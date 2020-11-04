@@ -423,11 +423,16 @@ extension Namespace.DocumentViewCells.Cell {
     }
 }
 
-// MARK: New Cells
+// MARK: - New Cells
 // MARK: ContentConfigurations
 extension Namespace.DocumentViewCells {
     enum ContentConfigurations {
         class Table: UITableViewCell {
+            enum Event {
+                case shouldLayoutSubviews
+            }
+            private var eventSubject: PassthroughSubject<Event, Never> = .init()
+            var eventPublisher: AnyPublisher<Event, Never> = .empty()
             /// Initialization
             override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
                 super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -441,13 +446,25 @@ extension Namespace.DocumentViewCells {
             
             func setup() {
                 self.selectionStyle = .none
+                self.eventPublisher = self.eventSubject.eraseToAnyPublisher()
+            }
+            
+            override func layoutSubviews() {
+                // subscribe on events by view (?)
+                super.layoutSubviews()
+                self.eventSubject.send(.shouldLayoutSubviews)
             }
         }
     }
 }
 
+// MARK: Protocols
+protocol DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
+    func configure(publisher: AnyPublisher<DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event, Never>)
+}
 
 fileprivate typealias ContentConfigurationsCells = Namespace.DocumentViewCells.ContentConfigurations
+
 // MARK: ContentConfigurations
 extension ContentConfigurationsCells {
     enum Text {}
@@ -460,7 +477,14 @@ extension ContentConfigurationsCells {
 // MARK: ContentConfigurations / Text
 extension ContentConfigurationsCells.Text {
     enum Text {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {
+            override func layoutSubviews() {
+                if let view = self.contentView as? DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
+                    view.configure(publisher: self.eventPublisher)
+                }
+                super.layoutSubviews()
+            }
+        }
         class Collection: UICollectionViewCell {}
     }
 }

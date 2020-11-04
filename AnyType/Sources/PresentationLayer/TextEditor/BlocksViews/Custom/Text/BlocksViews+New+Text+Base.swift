@@ -764,18 +764,34 @@ extension Namespace.ViewModel {
             /// do something
             return self
         }
+        
+        /// First Responder
+        private var isPendingFirstResponder: Bool {
+            self.contextMenuHolder?.getBlock().isFirstResponder ?? false
+        }
+        private func resolvePendingFirstResponder() {
+            if let model = self.contextMenuHolder?.getBlock() {
+                TopLevel.AliasesMap.BlockUtilities.FirstResponderResolver.resolvePendingUpdate(model)
+            }
+        }
+        func resolvePendingFirstResponderIfNeeded() {
+            if self.isPendingFirstResponder {
+                self.resolvePendingFirstResponder()
+            }
+        }
     }
 }
 
 // MARK: - ContentView
 private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView {
+    class ContentView: UIView & UIContentView, DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
         
         struct Layout {
             let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
         }
         
         typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
+        private var onLayoutSubviewsSubscription: AnyCancellable?
         
         /// Views
         var topView: TopView = .init()
@@ -889,6 +905,24 @@ private extension Namespace.ViewModel {
         
         private func applyNewConfiguration() {
             _ = self.topView.configured(textView: self.currentConfiguration.contextMenuHolder?.getUIKitViewModel().createView())
+        }
+        
+        /// MARK: - DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
+        private func onFirstResponder() {
+            self.currentConfiguration.resolvePendingFirstResponderIfNeeded()
+        }
+        private func handle(_ value: DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event) {
+            switch value {
+            case .shouldLayoutSubviews:
+                self.onFirstResponder()
+            }
+        }
+        func configure(publisher: AnyPublisher<DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event, Never>) {
+            if self.onLayoutSubviewsSubscription == nil {
+                self.onLayoutSubviewsSubscription = publisher.sink(receiveValue: { [weak self] (value) in
+                    self?.handle(value)
+                })
+            }
         }
     }
 }

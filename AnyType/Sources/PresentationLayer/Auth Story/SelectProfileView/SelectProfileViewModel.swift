@@ -117,10 +117,7 @@ class SelectProfileViewModel: ObservableObject {
 //            imageSize = .small
 //        }
         
-        let request = IpfsFilesModel.Image.Download.Request(hash: hash, wantWidth: imageSize)
-        
-        avatarCancellable = ipfsFileService.fetchImage(requestModel: request)
-            .receive(on: RunLoop.main)
+        ipfsFileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:
@@ -128,8 +125,8 @@ class SelectProfileViewModel: ObservableObject {
                 case .failure(let error):
                     self?.error = error.localizedDescription
                 }
-            }) { data in
-                profileViewModel.image = UIImage(data: data)
+            }) { response in
+                profileViewModel.image = UIImage(data: response.blob)
         }
     }
     

@@ -116,7 +116,7 @@ private extension Namespace.ViewModel {
         let pickerPublisher = pickerViewModel.$resultInformation.safelyUnwrapOptionals().map(\.filePath)
         let result = Publishers.CombineLatest3(Just(documentId), Just(blockId), pickerPublisher)
         result.map(\.0, \.1, \.2)
-            .flatMap(IpfsFilesService().upload(contextID:blockID:filePath:))
+            .flatMap(IpfsFilesService().uploadDataAtFilePath.action)
             .sink(receiveCompletion: { value in
                 switch value {
                 case .finished: break
