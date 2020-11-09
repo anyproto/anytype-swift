@@ -23,7 +23,7 @@ extension Namespace {
     class ViewModel: BlocksViews.New.File.Base.ViewModel {
         
         private var subscription: AnyCancellable?
-        
+        /// We should publish event about uploading image...
         private var fileContentPublisher: AnyPublisher<File, Never> = .empty()
         
         override func makeUIView() -> UIView {
@@ -56,7 +56,7 @@ extension Namespace {
                                 
                 let model: CommonViews.Pickers.Image.Picker.ViewModel = .init()
                 self.configureListening(model)
-                self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(model)))))
+                self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(.init(model: model))))))
             }
         }
         
@@ -109,23 +109,14 @@ extension Namespace {
 
 // MARK: - Image Picker Enhancements
 private extension Namespace.ViewModel {
-    func configureListening(_ pickerViewModel: CommonViews.Pickers.Image.Picker.ViewModel) {
+    private func sendFile(at filePath: String) {
         let blockModel = self.getBlock()
-        guard let documentId = blockModel.findRoot()?.blockModel.information.id else { return }
-        let blockId = blockModel.blockModel.information.id
-        let pickerPublisher = pickerViewModel.$resultInformation.safelyUnwrapOptionals().map(\.filePath)
-        let result = Publishers.CombineLatest3(Just(documentId), Just(blockId), pickerPublisher)
-        result.map(\.0, \.1, \.2)
-            .flatMap(IpfsFilesService().uploadDataAtFilePath.action)
-            .sink(receiveCompletion: { value in
-                switch value {
-                case .finished: break
-                case let .failure(value):
-                    let logger = Logging.createLogger(category: .fileBlocksViewsImage)
-                    os_log(.error, log: logger, "uploading image error %@ on %@", String(describing: value), String(describing: self))
-                }
-            }) { _ in }
-            .store(in: &self.subscriptions)
+        self.send(actionsPayload: .userAction(.init(model: blockModel, action: .specific(.file(.image(.shouldUploadImage(.init(filePath: filePath))))))))
+    }
+    func configureListening(_ pickerViewModel: CommonViews.Pickers.Image.Picker.ViewModel) {
+        pickerViewModel.$resultInformation.safelyUnwrapOptionals().sink { [weak self] (value) in
+            self?.sendFile(at: value.filePath)
+        }.store(in: &self.subscriptions)
     }
 }
 
@@ -391,7 +382,7 @@ extension Namespace.ViewModel {
 
 // MARK: - ContentView
 private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView {
+    class ContentView: UIView & UIContentView, DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
         
         /// Views
         var imageContentView: UIView = .init()
@@ -402,6 +393,7 @@ private extension Namespace.ViewModel {
         
         /// Subscriptions
         var setupImageSubscription: AnyCancellable?
+        var onLayoutSubviewsSubscription: AnyCancellable?
         
         /// Publishers Properties
         var imageProperty: CoreLayer.Network.Image.Property?
@@ -608,6 +600,28 @@ private extension Namespace.ViewModel {
             case let (.file(value), .file(oldValue)): self.handleFile(value, oldValue)
             case let (.file(value), .none): self.handleFile(value, .none)
             default: return
+            }
+        }
+        
+        /// MARK: - DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
+        private func refreshImage() {
+            switch self.currentConfiguration.information.content {
+            case let .file(value): self.handleFile(value, .none)
+            default: return
+            }
+        }
+        
+        private func handle(_ value: DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event) {
+            switch value {
+            case .shouldLayoutSubviews:
+                self.refreshImage()
+            }
+        }
+        func configure(publisher: AnyPublisher<DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event, Never>) {
+            if self.onLayoutSubviewsSubscription == nil {
+                self.onLayoutSubviewsSubscription = publisher.sink(receiveValue: { [weak self] (value) in
+                    self?.handle(value)
+                })
             }
         }
     }

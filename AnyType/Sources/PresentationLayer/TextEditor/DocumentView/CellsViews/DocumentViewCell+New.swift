@@ -497,7 +497,14 @@ extension ContentConfigurationsCells.File {
         class Collection: UICollectionViewCell {}
     }
     enum Image {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {
+            override func layoutSubviews() {
+                if let view = self.contentView as? DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
+                    view.configure(publisher: self.eventPublisher)
+                }
+                super.layoutSubviews()
+            }
+        }
         class Collection: UICollectionViewCell {}
     }
 }

@@ -37,7 +37,8 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
         private func handle(action: BlocksViews.UserAction.File.UserAction.FileAction) {
             switch action {
             case let .shouldShowFilePicker(model):
-                self.send(event: .general(.show(CommonViews.Pickers.File.Picker.init(model))))
+                self.send(event: .general(.show(CommonViews.Pickers.File.Picker.init(model.model))))
+            default: return
             }
         }
         
@@ -56,7 +57,8 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
         private func handle(action: BlocksViews.UserAction.File.UserAction.ImageAction) {
             switch action {
             case let .shouldShowImagePicker(model):
-                self.send(event: .general(.show(CommonViews.Pickers.Image.Picker.init(model))))
+                self.send(event: .general(.show(CommonViews.Pickers.Image.Picker.init(model.model))))
+            default: return
             }
         }
         

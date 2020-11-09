@@ -63,7 +63,7 @@ extension Namespace {
                 
                 let model: CommonViews.Pickers.File.Picker.ViewModel = .init()
                 self.configureListening(model)
-                self.send(userAction: .specific(.file(.file(.shouldShowFilePicker(model)))))
+                self.send(userAction: .specific(.file(.file(.shouldShowFilePicker(.init(model: model))))))
             }
         }
         
@@ -119,23 +119,14 @@ extension Namespace {
 
 // MARK: - Image Picker Enhancements
 private extension Namespace.ViewModel {
-    func configureListening(_ pickerViewModel: CommonViews.Pickers.File.Picker.ViewModel) {
+    private func sendFile(at filePath: String) {
         let blockModel = self.getBlock()
-        guard let documentId = blockModel.findRoot()?.blockModel.information.id else { return }
-        let blockId = blockModel.blockModel.information.id
-        let pickerPublisher = pickerViewModel.$resultInformation.safelyUnwrapOptionals().map(\.filePath)
-        let result = Publishers.CombineLatest3(Just(documentId), Just(blockId), pickerPublisher)
-        result.map(\.0, \.1, \.2)
-            .flatMap(IpfsFilesService().uploadDataAtFilePath.action)
-            .sink(receiveCompletion: { value in
-                switch value {
-                case .finished: break
-                case let .failure(value):
-                    let logger = Logging.createLogger(category: .blocksViewsNewFileFile)
-                    os_log(.error, log: logger, "uploading image error %@ on %@", String(describing: value), String(describing: self))
-                }
-            }) { _ in }
-            .store(in: &self.subscriptions)
+        self.send(actionsPayload: .userAction(.init(model: blockModel, action: .specific(.file(.file(.shouldUploadFile(.init(filePath: filePath))))))))
+    }
+    func configureListening(_ pickerViewModel: CommonViews.Pickers.File.Picker.ViewModel) {
+        pickerViewModel.$resultInformation.safelyUnwrapOptionals().sink { [weak self] (value) in
+            self?.sendFile(at: value.filePath)
+        }.store(in: &self.subscriptions)
     }
 }
 

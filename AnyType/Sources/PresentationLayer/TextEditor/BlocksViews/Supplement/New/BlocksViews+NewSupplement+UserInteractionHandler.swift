@@ -26,6 +26,7 @@ extension Namespace {
         typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
         typealias ActionsPayloadTextViewTextView = ActionsPayload.TextBlocksViewsUserInteraction.Action.TextViewUserAction
         typealias ActionsPayloadTextViewButtonView = ActionsPayload.TextBlocksViewsUserInteraction.Action.ButtonViewUserAction
+        typealias ActionsPayloadUserAction = ActionsPayload.UserActionHolder.Action
         
         typealias Builder = TopLevel.Builder
         typealias IndexWalker = TopLevel.AliasesMap.BlockUtilities.IndexWalker
@@ -147,12 +148,27 @@ extension Namespace.UserInteractionHandler {
             case let .textView(action): self.handlingTextViewAction(value.model, action)
             case let .buttonView(action): self.handlingButtonViewAction(value.model, action)
             }
+        case let .userAction(value): self.handlingUserAction(value.model, value.action)
+        }
+        
+    }
+}
+
+// MARK: Actions Handling / User Actions
+private extension Namespace.UserInteractionHandler {
+    func handlingUserAction(_ block: Model, _ action: ActionsPayloadUserAction) {
+        switch action {
+        case let .specific(.file(.file(.shouldUploadFile(value)))):
+            self.service.upload(block: block.blockModel.information, filePath: value.filePath)
+        case let .specific(.file(.image(.shouldUploadImage(value)))):
+            self.service.upload(block: block.blockModel.information, filePath: value.filePath)
+        default: return
         }
     }
 }
 
 // MARK: Actions Handling / MarksPane
-private extension BlocksViews.NewSupplement.UserInteractionHandler {
+private extension Namespace.UserInteractionHandler {
     func handlingMarksPaneAction(_ block: Model, _ action: ActionsPayloadMarksPane) {
         switch action {
         case let .backgroundColor(_, action):
@@ -167,7 +183,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 }
 
 // MARK: Actions Handling / TextView / ButtonView
-private extension BlocksViews.NewSupplement.UserInteractionHandler {
+private extension Namespace.UserInteractionHandler {
     func handlingButtonViewAction(_ block: Model, _ action: ActionsPayloadTextViewButtonView) {
         switch action {
         case let .toggle(.toggled(value)):
@@ -183,7 +199,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 }
 
 // MARK: Actions Handling / TextView / TextView
-private extension BlocksViews.NewSupplement.UserInteractionHandler {
+private extension Namespace.UserInteractionHandler {
     func handlingTextViewAction(_ block: Model, _ action: ActionsPayloadTextViewTextView) {
         switch action {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
@@ -195,7 +211,7 @@ private extension BlocksViews.NewSupplement.UserInteractionHandler {
 }
 
 // MARK: Actions Handling / TextView / Keyboard
-private extension BlocksViews.NewSupplement.UserInteractionHandler {
+private extension Namespace.UserInteractionHandler {
     private typealias DetailsInspector = TopLevel.AliasesMap.BlockUtilities.DetailsInspector
     func handlingKeyboardAction(_ block: Model, _ action: TextView.UserAction.KeyboardAction) {
         switch action {
@@ -628,6 +644,8 @@ private extension Namespace.UserInteractionHandler {
         private let textService: ServiceLayerModule.TextBlockActionsService = .init()
         private let listService: ServiceLayerModule.BlockListActionsService = .init()
         private let bookmarkService: ServiceLayerModule.BookmarkBlockActionsService = .init()
+        // TODO: Rename file service.
+        private let fileService: IpfsFilesService = .init()
         
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
         
@@ -977,7 +995,7 @@ private extension Namespace.UserInteractionHandler.Service {
             case .finished: return
             case let .failure(error):
                 let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.bookmarkFetch got error: %@", "\(error)")
+                os_log(.error, log: logger, "listService.setBackgroundColor got error: %@", "\(error)")
             }
         }) { [weak self] (value) in
             let value = completion(value)
@@ -987,5 +1005,31 @@ private extension Namespace.UserInteractionHandler.Service {
     
     func setBackgroundColor(block: Information, color: UIColor?) {
         self._setBackgroundColor(block: block, color: color)
+    }
+}
+
+// MARK: ServiceHandler / Actions / UploadFile
+private extension Namespace.UserInteractionHandler.Service {
+    private func _upload(block: Information, filePath: String, _ completion: @escaping Conversion = Converter.Default.convert) {
+        guard let blockId = self.parser.convert(information: block)?.id else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "uploadFile block: %@ is nil? ", "\(String(describing: block))")
+            return
+        }
+        
+        self.fileService.uploadDataAtFilePath.action(contextID: self.documentId, blockID: blockId, filePath: filePath).sink { (value) in
+            switch value {
+            case .finished: return
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.error, log: logger, "fileService.uploadDataAtFilePath got error: %@", "\(error)")
+            }
+        } receiveValue: { [weak self] (value) in
+            let value = completion(value)
+            self?.didReceiveEvent(value)
+        }.store(in: &self.subscriptions)
+    }
+    func upload(block: Information, filePath: String) {
+        self._upload(block: block, filePath: filePath)
     }
 }

@@ -80,23 +80,38 @@ extension Namespace.Cache {
         override var hash: Int {
             self.id.hash ^ self.parameters.hashValue
         }
+        override var debugDescription: String {
+            return "\(self.id) -> \(self.parameters)"
+        }
     }
 }
 
 // MARK: - Cache / Cache
 extension Namespace {
     class Cache {
+        private struct Configuration {
+            var countLimit: Int = 100
+            var totalCostLimit: Int = 1024 * 1024 * 100
+        }
         static let shared: Cache = .init()
-                
+        private var listener: Listener = .init()
+        private var configuration: Configuration = .init()
         private var loaders: NSCache<NSString, Loader> = .init()
         private var imagesSubject: PassthroughSubject<(key: EntityKey, value: UIImage?), Never> = .init()
         // Also add disk cache later.
         // For now it is fine.
-        private var images: NSCache<EntityKey, UIImage> = {
-            let value: NSCache<EntityKey, UIImage> = .init()
-            value.countLimit = 10
-            return value
-        }()
+        private var images: NSCache<EntityKey, ImageHolder> = .init()
+        class Listener: NSObject, NSCacheDelegate {
+            override init() {}
+            func cache(_ cache: NSCache<AnyObject, AnyObject>, willEvictObject obj: Any) {
+                print("object: \(obj)")
+            }
+        }
+        init() {
+            self.images.countLimit = self.configuration.countLimit
+            self.images.totalCostLimit = self.configuration.totalCostLimit
+            self.images.delegate = self.listener
+        }
         
         func loaderFor(path: URL) -> Loader {
             let key: NSString = "\(path)" as NSString
@@ -111,11 +126,11 @@ extension Namespace {
         }
         
         func image(imageId: String, _ parameters: ImageParameters = .init(width: .default)) -> UIImage? {
-            self.images.object(forKey: .create(id: imageId, parameters))
+            self.images.object(forKey: .create(id: imageId, parameters))?.image
         }
         
         func image(url: URL) -> UIImage? {
-            self.images.object(forKey: .create(url: url))
+            self.images.object(forKey: .create(url: url))?.image
         }
         
         func setImage(url: URL, image: UIImage?) {
@@ -124,7 +139,39 @@ extension Namespace {
                 self.images.removeObject(forKey: .create(url: url))
                 return
             }
-            self.images.setObject(image, forKey: .create(url: url))
+            self.images.setObject(.init(image: image), forKey: .create(url: url))
+        }
+    }
+}
+
+extension Namespace.Cache {
+    /// We should use `ImageHolder` class that adopts to `NSDiscardableContent`.
+    /// Otherwise, `NSCache` will evict all objects on `applicationDidEnterBackground`.
+    /// Thanks a lot! https://stackoverflow.com/a/13579963
+    private class ImageHolder: NSObject, NSDiscardableContent {
+        var image: UIImage?
+        override init() {}
+        init(image: UIImage?) {
+            self.image = image
+        }
+        
+        private var accessCounter: Bool = true
+        
+        func beginContentAccess() -> Bool {
+            self.accessCounter = self.image != nil
+            return self.accessCounter
+        }
+        
+        func endContentAccess() {
+            self.accessCounter = false
+        }
+        
+        func discardContentIfPossible() {
+            self.image = nil
+        }
+        
+        func isContentDiscarded() -> Bool {
+            self.image == nil
         }
     }
 }
@@ -134,8 +181,9 @@ extension Namespace.Cache {
     typealias ImageParameters = CoreLayer.Network.Image.ImageParameters
     
     private func publisher(key: EntityKey) -> (AnyCancellable?, CurrentValueSubject<UIImage?, Never>) {
-        let subject = CurrentValueSubject<UIImage?, Never>.init(self.images.object(forKey: key))
+        let subject = CurrentValueSubject<UIImage?, Never>.init(self.images.object(forKey: key)?.image)
         /// we should subscribe on something that will publish updates.
+        print("entityKey: \(key.debugDescription) has image: \(String(describing: subject.value))")
         let subscription = self.imagesSubject.filter({$0.key == key}).map({$0.value}).subscribe(subject)
         return (subscription, subject)
     }

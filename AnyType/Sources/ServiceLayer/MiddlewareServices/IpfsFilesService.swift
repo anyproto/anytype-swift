@@ -55,9 +55,11 @@ class IpfsFilesService {
     var uploadFile: UploadFile = .init()
     var fetchImageAsBlob: FetchImageAsBlob = .init()
     
-    struct UploadDataAtFilePath {        
-        func action(contextID: String, blockID: String, filePath: String) -> AnyPublisher<Void, Error>  {
-            Anytype_Rpc.Block.Upload.Service.invoke(contextID: contextID, blockID: blockID, filePath: filePath, url: "").successToVoid().subscribe(on: DispatchQueue.global())
+    struct UploadDataAtFilePath {
+        typealias Success = ServiceLayerModule.Success
+        func action(contextID: String, blockID: String, filePath: String) -> AnyPublisher<Success, Error>  {
+            Anytype_Rpc.Block.Upload.Service.invoke(contextID: contextID, blockID: blockID, filePath: filePath, url: "")
+                .map(\.event).map(Success.init).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }

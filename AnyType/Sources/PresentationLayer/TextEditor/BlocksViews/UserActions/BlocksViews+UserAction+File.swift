@@ -27,15 +27,29 @@ extension Namespace.File {
 
 extension Namespace.File.UserAction {
     enum FileAction {
-        typealias Model = CommonViews.Pickers.File.Picker.ViewModel
-        case shouldShowFilePicker(Model)
+        struct ShouldShowFilePicker {
+            typealias Model = CommonViews.Pickers.File.Picker.ViewModel
+            var model: Model
+        }
+        struct ShouldUploadFile {
+            var filePath: String
+        }
+        case shouldShowFilePicker(ShouldShowFilePicker)
+        case shouldUploadFile(ShouldUploadFile)
     }
 }
 
 extension Namespace.File.UserAction {
     enum ImageAction {
-        typealias Model = CommonViews.Pickers.Image.Picker.ViewModel
-        case shouldShowImagePicker(Model)
+        struct ShouldShowImagePicker {
+            typealias Model = CommonViews.Pickers.Image.Picker.ViewModel
+            var model: Model
+        }
+        struct ShouldUploadImage {
+            var filePath: String
+        }
+        case shouldShowImagePicker(ShouldShowImagePicker)
+        case shouldUploadImage(ShouldUploadImage)
     }
 }
 

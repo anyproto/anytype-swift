@@ -308,9 +308,18 @@ extension BlocksViews.New.Base.ViewModel {
             var action: Action
         }
         
+        /// For seamless usage of UserAction as "Payload"
+        struct UserActionHolder {
+            typealias Model = BlockModel
+            typealias Action = BlocksViews.UserAction
+            var model: Model
+            var action: Action
+        }
+        
         case toolbar(Toolbar)
         case marksPane(MarksPaneHolder)
         case textView(TextBlocksViewsUserInteraction)
+        case userAction(UserActionHolder)
     }
     
     // Send actions payload

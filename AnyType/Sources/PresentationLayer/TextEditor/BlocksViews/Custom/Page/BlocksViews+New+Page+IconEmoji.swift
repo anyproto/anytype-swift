@@ -180,7 +180,7 @@ extension Namespace.ViewModel {
     func upload() {
         let model: CommonViews.Pickers.Image.Picker.ViewModel = .init()
         self.configureListening(model)
-        self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(model)))))
+        self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(.init(model: model))))))
     }
 }
 
