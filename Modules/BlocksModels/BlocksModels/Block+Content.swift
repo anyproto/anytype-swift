@@ -23,6 +23,7 @@ public extension Namespace {
         case divider(Divider)
         case bookmark(Bookmark)
         case link(Link)
+        case layout(Layout)
     }
 }
 
@@ -321,6 +322,27 @@ public extension Namespace.ContentType.Link {
     }
 }
 
+// MARK: ContentType / Layout
+public extension Namespace.ContentType {
+    struct Layout {
+        public var style: Style
+        // MARK: - Memberwise initializer
+        public init(style: Style) {
+            self.style = style
+        }
+    }
+}
+
+// MARK: ContentType / Layout / Style
+public extension Namespace.ContentType.Layout {
+    enum Style {
+        case row
+        case column
+        case div
+        case header
+    }
+}
+
 // MARK: - ContentType / Hashable
 extension Namespace.ContentType: Hashable {}
 extension Namespace.ContentType.Smartblock: Hashable {}
@@ -330,3 +352,4 @@ extension Namespace.ContentType.File.Metadata: Hashable {}
 extension Namespace.ContentType.Divider: Hashable {}
 extension Namespace.ContentType.Bookmark: Hashable {}
 extension Namespace.ContentType.Link: Hashable {}
+extension Namespace.ContentType.Layout: Hashable {}

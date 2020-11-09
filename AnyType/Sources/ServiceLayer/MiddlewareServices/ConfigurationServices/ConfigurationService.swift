@@ -16,12 +16,12 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
     // TODO: Rethink result type.
     // Maybe we would like to return Result?
     private func save(configuration: MiddlewareConfiguration) {
-        storage?.add(configuration)
+        self.storage?.add(configuration)
     }
 
     /// Obtain middleware configuration
     func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
-        let configuration = storage?.get(by: MiddlewareConfiguration.self)
+        let configuration = self.storage?.get(by: MiddlewareConfiguration.self)
 
         if let configuration = configuration {
             return Just(configuration)

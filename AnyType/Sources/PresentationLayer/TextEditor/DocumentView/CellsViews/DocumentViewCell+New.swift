@@ -472,6 +472,7 @@ extension ContentConfigurationsCells {
     enum Bookmark {}
     enum Other {}
     enum Link {}
+    enum Unknown {}
 }
 
 // MARK: ContentConfigurations / Text
@@ -520,6 +521,14 @@ extension ContentConfigurationsCells.Other {
 // MARK: ContentConfigurations / Link
 extension ContentConfigurationsCells.Link {
     enum PageLink {
+        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Collection: UICollectionViewCell {}
+    }
+}
+
+// MARK: ContentConfigurations / Unknown
+extension ContentConfigurationsCells.Unknown {
+    enum Label {
         class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
         class Collection: UICollectionViewCell {}
     }

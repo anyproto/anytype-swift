@@ -217,9 +217,28 @@ extension Namespace.DocumentViewController {
         // register them as CellRegistration
         self.collectionView?.register(Namespace.DocumentViewCells.CollectionViewCell.self, forCellWithReuseIdentifier: Namespace.DocumentViewCells.CollectionViewCell.cellReuseIdentifier())
     }
-    
+        
     private func setupTableViewDataSource() {
         typealias Cells = Namespace.DocumentViewCells.ContentConfigurations
+        func cellIdentifier(for builder: BlocksViews.New.Base.ViewModel) -> String? {
+            switch builder.getBlock().blockModel.information.content {
+            case let .text(text) where text.contentType == .text:
+                return Cells.Text.Text.Table.cellReuseIdentifier()
+            case let .file(file) where file.contentType == .file:
+                return Cells.File.File.Table.cellReuseIdentifier()
+            case let .file(file) where file.contentType == .image:
+                return Cells.File.Image.Table.cellReuseIdentifier()
+            case .bookmark:
+                return Cells.Bookmark.Bookmark.Table.cellReuseIdentifier()
+            case .divider:
+                return Cells.Other.Divider.Table.cellReuseIdentifier()
+            case let .link(value) where value.style == .page:
+                return Cells.Link.PageLink.Table.cellReuseIdentifier()
+            default:
+                return Cells.Unknown.Label.Table.cellReuseIdentifier()
+            }
+        }
+        
         guard let listView = self.tableView else { return }
         
         listView.register(Cells.Text.Text.Table.self, forCellReuseIdentifier: Cells.Text.Text.Table.cellReuseIdentifier())
@@ -233,40 +252,22 @@ extension Namespace.DocumentViewController {
         
         listView.register(Cells.Link.PageLink.Table.self, forCellReuseIdentifier: Cells.Link.PageLink.Table.cellReuseIdentifier())
 
+        listView.register(Cells.Unknown.Label.Table.self, forCellReuseIdentifier: Cells.Unknown.Label.Table.cellReuseIdentifier())
 
         self.tableViewDataSource = TableViewDataSource.init(tableView: listView, cellProvider: { [weak self] (view, indexPath, entry) -> UITableViewCell? in
             let useUIKit = !(self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell == true)
             let shouldShowIndent = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
             
-            let cell: UITableViewCell?
             let ourBuilder = entry.builder as! BlocksViews.New.Base.ViewModel
-            switch ourBuilder.getBlock().blockModel.information.content {
-            case let .text(text) where text.contentType == .text:
-                cell = view.dequeueReusableCell(withIdentifier: Cells.Text.Text.Table.cellReuseIdentifier(), for: indexPath)
-            case let .file(file) where file.contentType == .file:
-                cell = view.dequeueReusableCell(withIdentifier: Cells.File.File.Table.cellReuseIdentifier(), for: indexPath)
-            case let .file(file) where file.contentType == .image:
-                cell = view.dequeueReusableCell(withIdentifier: Cells.File.Image.Table.cellReuseIdentifier(), for: indexPath)
-            case .bookmark:
-                cell = view.dequeueReusableCell(withIdentifier: Cells.Bookmark.Bookmark.Table.cellReuseIdentifier(), for: indexPath)
-            case .divider:
-                cell = view.dequeueReusableCell(withIdentifier: Cells.Other.Divider.Table.cellReuseIdentifier(), for: indexPath)
-            case let .link(value) where value.style == .page:
-                cell = view.dequeueReusableCell(withIdentifier: Cells.Link.PageLink.Table.cellReuseIdentifier(), for: indexPath)
-            default:
-                cell = nil
-            }
+            let cell = cellIdentifier(for: ourBuilder).flatMap({view.dequeueReusableCell(withIdentifier: $0, for: indexPath)})
             
-            if let ourCell = cell {
-                let configuration = ourBuilder.buildContentConfiguration()
-                ourCell.contentConfiguration = configuration
-                return ourCell
-            }
-
-            switch view.dequeueReusableCell(withIdentifier: Namespace.DocumentViewCells.TableViewCell.cellReuseIdentifier(), for: indexPath) {
-            case let cell as Namespace.DocumentViewCells.TableViewCell: return cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
-            default: return nil
-            }
+            let configuration = ourBuilder.buildContentConfiguration()
+            cell?.contentConfiguration = configuration
+            return cell
+//            switch view.dequeueReusableCell(withIdentifier: Namespace.DocumentViewCells.TableViewCell.cellReuseIdentifier(), for: indexPath) {
+//            case let cell as Namespace.DocumentViewCells.TableViewCell: return cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
+//            default: return nil
+//            }
         })
         
         (self.tableViewDataSource)?.defaultRowAnimation = .none

@@ -283,3 +283,25 @@ extension FileNamespace.Converters {
         }
     }
 }
+
+// MARK: ContentLayout
+extension FileNamespace.Converters {
+    class ContentLayout: BaseContentConverter {
+        fileprivate typealias Layout = FileNamespace.Layout
+        fileprivate typealias StyleConverter = Layout.Style.Converter
+        
+        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
+            switch from {
+            case let .layout(value): return StyleConverter.asModel(value.style).flatMap({ .layout(.init(style: $0)) })
+            default: return nil
+            }
+        }
+        
+        override func middleware(_ from: BlocksModelsModule.Parser.Converters.BlockType?) -> Anytype_Model_Block.OneOf_Content? {
+            switch from {
+            case let .layout(value): return StyleConverter.asMiddleware(value.style).flatMap({ .layout(.init(style: $0)) })
+            default: return nil
+            }
+        }
+    }
+}

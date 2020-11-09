@@ -28,4 +28,5 @@ extension BlocksViews.New {
     enum Page {}
     enum Bookmark {}
     enum Other {}
+    enum Unknown {}
 }

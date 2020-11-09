@@ -140,6 +140,7 @@ public extension FileNamespace {
             case .divider(_): return ".divider"
             case .bookmark(_): return ".bookmark"
             case .link(_): return ".link"
+            case .layout(_): return ".layout"
             }
         }
     }

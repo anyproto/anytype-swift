@@ -199,6 +199,9 @@
 		0A6663C224A515D1002206FC /* DocumentModule+ContentViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6663C124A515D1002206FC /* DocumentModule+ContentViewBuilder.swift */; };
 		0A6663C424A51EDD002206FC /* DocumentModule+ContentViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6663C324A51EDD002206FC /* DocumentModule+ContentViewRepresentable.swift */; };
 		0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A68C77B240D52B3001E2F44 /* DataStructures+GroupBy.swift */; };
+		0A6F90062554546300B94AED /* BlocksModelsModule+Parser+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F90052554546200B94AED /* BlocksModelsModule+Parser+Layout.swift */; };
+		0A6F900B2554825700B94AED /* BlocksViews+New+Unknown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F900A2554825700B94AED /* BlocksViews+New+Unknown.swift */; };
+		0A6F900E2554826700B94AED /* BlocksViews+New+Unknown+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F900D2554826700B94AED /* BlocksViews+New+Unknown+Label.swift */; };
 		0A70816523968410004B04AB /* BlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70816423968410004B04AB /* BlocksViews.swift */; };
 		0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72751024AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift */; };
 		0A72751324AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72751224AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift */; };
@@ -556,6 +559,9 @@
 		0A6663C124A515D1002206FC /* DocumentModule+ContentViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+ContentViewBuilder.swift"; sourceTree = "<group>"; };
 		0A6663C324A51EDD002206FC /* DocumentModule+ContentViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+ContentViewRepresentable.swift"; sourceTree = "<group>"; };
 		0A68C77B240D52B3001E2F44 /* DataStructures+GroupBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+GroupBy.swift"; sourceTree = "<group>"; };
+		0A6F90052554546200B94AED /* BlocksModelsModule+Parser+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+Layout.swift"; sourceTree = "<group>"; };
+		0A6F900A2554825700B94AED /* BlocksViews+New+Unknown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Unknown.swift"; sourceTree = "<group>"; };
+		0A6F900D2554826700B94AED /* BlocksViews+New+Unknown+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Unknown+Label.swift"; sourceTree = "<group>"; };
 		0A70816423968410004B04AB /* BlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViews.swift; sourceTree = "<group>"; };
 		0A72751024AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift"; sourceTree = "<group>"; };
 		0A72751224AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes+Selection+Done.swift"; sourceTree = "<group>"; };
@@ -1423,6 +1429,7 @@
 		0A10CC5A248EC2EE000FF498 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				0A6F9009255481B300B94AED /* Unknown */,
 				0AD6B24624CF5D0A0097A841 /* Bookmark */,
 				0A005AC224C86DFA000520AA /* Other */,
 				0A10CC5B248EC2FA000FF498 /* Text */,
@@ -1588,6 +1595,15 @@
 			path = BlocksServices;
 			sourceTree = "<group>";
 		};
+		0A6F9009255481B300B94AED /* Unknown */ = {
+			isa = PBXGroup;
+			children = (
+				0A6F900A2554825700B94AED /* BlocksViews+New+Unknown.swift */,
+				0A6F900D2554826700B94AED /* BlocksViews+New+Unknown+Label.swift */,
+			);
+			path = Unknown;
+			sourceTree = "<group>";
+		};
 		0A721EE6244067DF0035A3E4 /* SmartBlocksServices */ = {
 			isa = PBXGroup;
 			children = (
@@ -1633,6 +1649,7 @@
 				0AA00C5124CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift */,
 				0A31FDF424CF06EC006D9B4E /* BlocksModelsModule+Parser+Content.swift */,
 				0A31FDF624CF0DDC006D9B4E /* BlocksModelsModule+Parser+Link.swift */,
+				0A6F90052554546200B94AED /* BlocksModelsModule+Parser+Layout.swift */,
 			);
 			path = BlocksModelsModuleIntergration;
 			sourceTree = "<group>";
@@ -2081,6 +2098,7 @@
 				0A29BB9624AC8C5F00ED957F /* DocumentModule+ViewControllers.swift in Sources */,
 				03C6750823981BBD0041A7C4 /* ProfileService.swift in Sources */,
 				0AA9B053249F736400F2962C /* MultiSelectionPane+UIKit+Panes.swift in Sources */,
+				0A6F90062554546300B94AED /* BlocksModelsModule+Parser+Layout.swift in Sources */,
 				0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* SimpleViews.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
@@ -2151,6 +2169,7 @@
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				0ABB2A432480205F00A7144A /* MarksPane+ViewController.swift in Sources */,
+				0A6F900E2554826700B94AED /* BlocksViews+New+Unknown+Label.swift in Sources */,
 				0A10CC8D248FF3D7000FF498 /* BlocksViews+New+Text+Callout.swift in Sources */,
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
@@ -2258,6 +2277,7 @@
 				0A63ADE52462DFD900F092C8 /* DocumentViewRouting+Tools.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
+				0A6F900B2554825700B94AED /* BlocksViews+New+Unknown.swift in Sources */,
 				0327B0BB232BCE2A007DB8A7 /* HomeCollectionViewModel.swift in Sources */,
 				0AA9B046249CF6DB00F2962C /* MultiSelectionPane+Panes.swift in Sources */,
 				0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */,

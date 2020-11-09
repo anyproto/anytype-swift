@@ -30,6 +30,9 @@ extension Namespace {
         /// Maybe, we will inject every flattener with `CompoundFlattener`.
         fileprivate weak var router: BaseFlattener?
         
+        /// Use it if you want to skip blocks.
+        weak var unknownCaseRouter: BaseFlattener?
+        
         fileprivate weak var container: TopLevelContainerModelProtocol?
         
         func getContainer() -> TopLevelContainerModelProtocol? {
@@ -109,10 +112,14 @@ extension Namespace {
         ///   - children: A list of models that we would like to convert to ViewModels. Actually, they are of the same type ( deep kind ). (type + contentType if exists).
         /// - Returns: A list of ViewModels
         private func convert(child: Model?, children: [Model]) -> [BlockViewBuilderProtocol] {
-            guard let child = child, let matched = self.match(child) else {
-                return []
+            guard let child = child else { return [] }
+            if let matched = self.match(child) {
+                return matched.convert(child: child, children: children)
             }
-            return matched.convert(child: child, children: children)
+            if let matched = self.router?.match(child) {
+                return matched.convert(child: child, children: children)
+            }
+            return []
         }
                 
         /// This method is the first point of overriding if you want to convert a list of models with the same type ( deep kind ) (type + contentType if exists.)
@@ -150,12 +157,14 @@ extension Namespace {
     /// Blocks flattener is compound flattener.
     /// It chooses correct flattener based on model type.
     class CompoundFlattener: BaseFlattener {
-        var pageBlocksFlattener: PageBlocksFlattener?
+        var pageBlocksFlattener: PageBlocksFlattener = .init()
         var toolsFlattener: Tools.Flattener = .init()
         var textFlattener: Text.Flattener = .init()
         var fileFlattener: File.Flattener = .init()
         var bookmarkFlattener: Bookmark.Flattener = .init()
         var otherFlattener: Other.Flattener = .init()
+        var layoutFlattener: LayoutBlocksFlattener = .init()
+        var unknownBlocksFlattener: UnknownBlocksFlattener = .init()
         
         override func match(_ model: Model) -> BaseFlattener? {
             let kind = model.blockModel.kind
@@ -169,17 +178,21 @@ extension Namespace {
                 case .file: return self.fileFlattener
                 case .bookmark: return self.bookmarkFlattener
                 case .divider: return self.otherFlattener
+                case .layout: return self.layoutFlattener
                 default:
                     let logger = Logging.createLogger(category: .blocksFlattener)
                     os_log(.debug, log: logger, "We handle only content above. This Content (%@) isn't handled.", String(describing: content))
-                    return nil
+                    return self.unknownBlocksFlattener
                 }
             }
         }
         
         override init() {
             super.init()
-            self.pageBlocksFlattener = .init(self)
+            [self.pageBlocksFlattener, self.toolsFlattener, self.textFlattener, self.fileFlattener, self.bookmarkFlattener, self.otherFlattener, self.layoutFlattener, self.unknownBlocksFlattener].forEach { (value) in
+                value.router = self
+            }
+            self.textFlattener.unknownCaseRouter = self.unknownBlocksFlattener
         }
         
         /// Inject TopLevelContainerModelProtocol into Tools flattener.
@@ -196,15 +209,54 @@ extension Namespace {
 extension Namespace {
     // Could also parse meta blocks.
     class PageBlocksFlattener: BaseFlattener {
-        unowned var delegateFlattener: BaseFlattener
         override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
             switch model.blockModel.kind {
-            case .meta: return self.delegateFlattener.processChildrenToList(model)
-            default: return self.delegateFlattener.toList(model)
+            case .meta: return self.router?.processChildrenToList(model) ?? []
+            default: return self.router?.toList(model) ?? []
             }
-        }
-        init(_ blocksFlattener: BaseFlattener) {
-            self.delegateFlattener = blocksFlattener
         }
     }
 }
+
+// MARK: LayoutBlocksFlattener
+extension Namespace {
+    class LayoutBlocksFlattener: BaseFlattener {
+        override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
+            let blockModel = model.blockModel
+            switch blockModel.kind {
+            case .meta: return self.router?.toList(model) ?? []
+            case .block:
+                switch blockModel.information.content {
+                case .layout: return self.router?.processChildrenToList(model) ?? []
+                default: return self.router?.toList(model) ?? []
+                }
+            }
+        }
+    }
+}
+
+// MARK: UnknownBlocksFlattener
+extension Namespace {
+    class UnknownBlocksFlattener: BaseFlattener {
+        override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
+            [BlocksViews.New.Unknown.Label.ViewModel.init(model)] + self.processChildrenToList(model)
+        }
+    }
+}
+
+// Rethink for a bit.
+// For example, we could do the following:
+//
+// Every Flattener has child/parent relationship.
+// And also Root flattener.
+// When we see a model, we could either:
+// 1. Move to a new flattener.
+// 2. Continue with over flattener.
+// 3. Move backwards to our parent flattener.
+// 4. Ask a root about appropriate flattener.
+// 5. We could keep a stack of flatteners, for example.
+// Current implementation is:
+// 1. Compound flattener is a "Router" of flatteners.
+// 2. Every router has a link to Compound flattener to handle unknown blocks.
+// 3. Also we should have "Unknown block" flattener.
+

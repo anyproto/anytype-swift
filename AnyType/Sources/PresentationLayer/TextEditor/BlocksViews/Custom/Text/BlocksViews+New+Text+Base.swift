@@ -23,6 +23,13 @@ extension BlocksViews.New.Text {
     enum Base {}
 }
 
+// MARK: - Options
+extension Namespace {
+    struct Options {
+        var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
+    }
+}
+
 // MARK: - Base / ViewModel
 extension Namespace {
     class ViewModel: BlocksViews.New.Base.ViewModel {
@@ -31,6 +38,7 @@ extension Namespace {
         typealias FocusPosition = TopLevel.AliasesMap.FocusPosition
         
         @Environment(\.developerOptions) var developerOptions
+        private var textOptions: Namespace.Options = .init()
         
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
         
@@ -135,7 +143,7 @@ private extension Namespace.ViewModel {
         
         /// ToView
         let alignmentPublisher = self.getBlock().didChangeInformationPublisher().map(\.alignment).map(BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel).removeDuplicates().safelyUnwrapOptionals()
-        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), alignmentPublisher).map({ value -> TextView.UIKitTextView.ViewModel.Update in
+        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), alignmentPublisher).receive(on: RunLoop.main).map({ value -> TextView.UIKitTextView.ViewModel.Update in
             let (text, alignment) = value
             return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
         }).eraseToAnyPublisher()
@@ -220,7 +228,8 @@ private extension Namespace.ViewModel {
         /// ToModel
         /// Maybe add throttle.
 //        .throttle(for: 30, scheduler: DispatchQueue.global(), latest: true)
-        self.toModelTextSubject.removeDuplicates().throttle(for: 10, scheduler: DispatchQueue.global(), latest: true).notableError().flatMap({ [weak self] (value) in
+        
+        self.toModelTextSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.global()).notableError().flatMap({ [weak self] (value) in
             self?.apply(attributedText: value) ?? .empty()
         }).sink(receiveCompletion: { (value) in
             switch value {
@@ -232,7 +241,7 @@ private extension Namespace.ViewModel {
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
 //        .throttle(for: 30, scheduler: DispatchQueue.global(), latest: true)
-        self.toModelAlignmentSubject.removeDuplicates().throttle(for: 10, scheduler: DispatchQueue.global(), latest: true).notableError().flatMap({ [weak self] (value) in
+        self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.main).notableError().receive(on: DispatchQueue.global()).flatMap({ [weak self] (value) in
             self?.apply(alignment: value) ?? .empty()
         }).sink(receiveCompletion: { (value) in
             switch value {

@@ -130,7 +130,7 @@ extension Namespace.BlockActionsService {
         }
         func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceLayerModule.Success, Error> {
             let middlewareRange = BlocksModelsModule.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
-            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: .top).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: .top, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
     }
@@ -151,7 +151,7 @@ extension Namespace.BlockActionsService {
     // MARK: Merge
     struct Merge: NewModel_BlockActionsServiceProtocolMerge {
         func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID)
+            Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global())
                 .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }

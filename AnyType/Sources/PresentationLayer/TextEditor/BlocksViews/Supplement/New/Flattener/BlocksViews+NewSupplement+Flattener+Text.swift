@@ -59,7 +59,8 @@ extension Namespace.Text {
                 switch blockModel.information.content {
                 case let .text(value) where value.contentType == .toggle: return self.convertToggledList(model, blockModel.information)
 //                case let .text(value) where value.contentType == .numbered: return []
-                case .text: return self.convertInformation(model, blockModel.information) + self.processChildrenToList(model)
+                case let .text(value) where value.contentType == .text: return self.convertInformation(model, blockModel.information) + self.processChildrenToList(model)
+                case .text: return self.unknownCaseRouter?.convert(model: model) ?? []
                 default: return []
                 }
             }
