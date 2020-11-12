@@ -70,7 +70,7 @@ extension DocumentModule {
         private var debugDocumentId: String = ""
         
         /// Service
-        private var blockActionsService: ServiceLayerModule.BlockActionsService = .init()
+        private var blockActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
         
         /// Data Transformers
         private var transformer: Transformer = .defaultValue
@@ -327,7 +327,7 @@ extension DocumentModule {
             self.shouldClosePagePublisher.drop(while: {$0 == false}).flatMap { [weak self] (value) -> AnyPublisher<Never, Error> in
                 self?.cleanupSubscriptions()
                 
-                return ServiceLayerModule.BlockActionsService.Close().action(contextID: documentId, blockID: documentId).eraseToAnyPublisher()
+                return ServiceLayerModule.Single.BlockActionsService.Close().action(contextID: documentId, blockID: documentId).eraseToAnyPublisher()
             }.sink(receiveCompletion: { _ in }, receiveValue: {_ in }).store(in: &self.subscriptions)
             
             self.obtainDocument(documentId: documentId)

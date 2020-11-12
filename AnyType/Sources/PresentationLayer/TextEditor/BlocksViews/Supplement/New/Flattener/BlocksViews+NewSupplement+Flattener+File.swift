@@ -1,5 +1,5 @@
 //
-//  FileBlocksViews+Supplement+Flattener.swift
+//  BlocksViews+NewSupplement+Flattener+File.swift
 //  AnyType
 //
 //  Created by Valentie on 10.04.2020.

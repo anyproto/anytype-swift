@@ -69,7 +69,7 @@ extension Namespace {
         private var subscriptions: Set<AnyCancellable> = []
         
         // MARK: - Services
-        private var service: ServiceLayerModule.TextBlockActionsService = .init()
+        private var service: ServiceLayerModule.Text.BlockActionsService = .init()
         
         // MARK: - Convenient accessors.
         var text: String {

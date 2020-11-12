@@ -13,7 +13,7 @@ import BlocksModels
 
 class DashboardService: DashboardServiceProtocol {
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
-    private let blocksActionsService: ServiceLayerModule.BlockActionsService = .init()
+    private let blocksActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
     private let smartBlockService: ServiceLayerModule.SmartBlockActionsService = .init()
     private var dashboardId: String = ""
     

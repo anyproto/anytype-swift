@@ -26,7 +26,7 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
 class SelectProfileViewModel: ObservableObject {
     @Environment(\.authService) private var authService
     @Environment(\.localRepoService) private var localRepoService
-    @Environment(\.ipfsFilesServie) private var ipfsFileService
+    @Environment(\.fileService) private var fileService
     
     private var cancellable: AnyCancellable?
     private var avatarCancellable: AnyCancellable?
@@ -109,15 +109,7 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-//        var imageSize: Anytype_Model_Image.Size = .large
-//
-//        if imageModel.sizes.contains(.thumb) {
-//            imageSize = .thumb
-//        } else if imageModel.sizes.contains(.small) {
-//            imageSize = .small
-//        }
-        
-        ipfsFileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).receive(on: RunLoop.main)
+        self.fileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:

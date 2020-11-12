@@ -6,6 +6,8 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
+fileprivate typealias Namespace = ServiceLayerModule
+
 enum ServiceLayerModule {
     struct Success {
         var contextID: String
@@ -15,4 +17,13 @@ enum ServiceLayerModule {
             self.messages = value.messages
         }
     }
+}
+
+extension Namespace {
+    enum Single {}
+    enum List {}
+    enum Text {}
+    enum File {}
+    enum Bookmark {}
+    enum Other {}
 }

@@ -26,7 +26,7 @@ private extension Logging.Categories {
 // MARK: ViewModel
 extension Namespace {
     class ViewModel: BlocksViews.New.Bookmark.Base.ViewModel {
-        private var service: ServiceLayerModule.BookmarkBlockActionsService = .init()
+        private var service: ServiceLayerModule.Bookmark.BlockActionsService = .init()
         
         private var subscription: AnyCancellable?
         private var toolbarSubscription: AnyCancellable?

@@ -49,7 +49,7 @@ class HomeCollectionViewModel: ObservableObject {
     
     /// Variables
     private let dashboardService: DashboardServiceProtocol = DashboardService()
-    private let blockActionsService: ServiceLayerModule.BlockActionsService = .init()
+    private let blockActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private var subscriptions: Set<AnyCancellable> = []
     

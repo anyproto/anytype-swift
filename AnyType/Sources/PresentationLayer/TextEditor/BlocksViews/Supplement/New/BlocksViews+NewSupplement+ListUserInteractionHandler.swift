@@ -147,7 +147,7 @@ extension Namespace.ListUserInteractionHandler {
         private let parser: BlocksModelsModule.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
         private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
-        private let listService: ServiceLayerModule.BlockListActionsService = .init()
+        private let listService: ServiceLayerModule.List.BlockActionsService = .init()
 
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
 

@@ -149,29 +149,38 @@ extension Namespace.Cache {
     /// Otherwise, `NSCache` will evict all objects on `applicationDidEnterBackground`.
     /// Thanks a lot! https://stackoverflow.com/a/13579963
     private class ImageHolder: NSObject, NSDiscardableContent {
-        var image: UIImage?
+        private(set) var image: UIImage?
         override init() {}
         init(image: UIImage?) {
             self.image = image
         }
         
-        private var accessCounter: Bool = true
+        private var objectExists: Bool {
+            self.image != nil
+        }
+        
+        private var accessCounter: Int = 1
         
         func beginContentAccess() -> Bool {
-            self.accessCounter = self.image != nil
-            return self.accessCounter
+            guard self.objectExists else { return false }
+            self.accessCounter += 1
+            return true
         }
         
         func endContentAccess() {
-            self.accessCounter = false
+            if self.accessCounter > 0 {
+                self.accessCounter -= 1
+            }
         }
         
         func discardContentIfPossible() {
-            self.image = nil
+            if self.accessCounter == 0 {
+                self.image = nil
+            }
         }
         
         func isContentDiscarded() -> Bool {
-            self.image == nil
+            !self.objectExists
         }
     }
 }

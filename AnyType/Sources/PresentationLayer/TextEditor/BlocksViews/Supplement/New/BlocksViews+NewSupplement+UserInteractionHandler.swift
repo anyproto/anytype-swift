@@ -639,13 +639,12 @@ private extension Namespace.UserInteractionHandler {
         
         private let parser: BlocksModelsModule.Parser = .init()
         private var subscriptions: [AnyCancellable] = []
-        private let service: ServiceLayerModule.BlockActionsService = .init()
+        private let service: ServiceLayerModule.Single.BlockActionsService = .init()
         private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
-        private let textService: ServiceLayerModule.TextBlockActionsService = .init()
-        private let listService: ServiceLayerModule.BlockListActionsService = .init()
-        private let bookmarkService: ServiceLayerModule.BookmarkBlockActionsService = .init()
-        // TODO: Rename file service.
-        private let fileService: IpfsFilesService = .init()
+        private let textService: ServiceLayerModule.Text.BlockActionsService = .init()
+        private let listService: ServiceLayerModule.List.BlockActionsService = .init()
+        private let bookmarkService: ServiceLayerModule.Bookmark.BlockActionsService = .init()
+        private let fileService: ServiceLayerModule.File.BlockActionsService = .init()
         
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
         
@@ -724,7 +723,7 @@ private extension Namespace.UserInteractionHandler.Service {
         
         let range: NSRange = .init(location: position, length: 0)
 
-        self.service.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, range: range, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+        self.textService.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, range: range, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):
@@ -830,7 +829,7 @@ private extension Namespace.UserInteractionHandler.Service {
             return
         }
 
-        self.service.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { value in
+        self.textService.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { value in
             switch value {
             case .finished: return
             case let .failure(error):

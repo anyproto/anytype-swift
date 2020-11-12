@@ -1,5 +1,5 @@
 //
-//  BlockListActionsService+New.swift
+//  BlockActionsService+List.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 19.06.2020.
@@ -9,49 +9,49 @@
 import Foundation
 import Combine
 
-fileprivate typealias Namespace = ServiceLayerModule
+fileprivate typealias Namespace = ServiceLayerModule.List
 
-protocol NewModel_BlockListActionsServiceProtocolDelete {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolDelete {
     associatedtype Success
     func action(contextID: String, blocksIds: [String]) -> AnyPublisher<Success, Error>
 }
 
-protocol NewModel_BlockListActionsServiceProtocolSetFields {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolSetFields {
     associatedtype Success
     func action(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> AnyPublisher<Success, Error>
 }
-protocol NewModel_BlockListActionsServiceProtocolSetTextStyle {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolSetTextStyle {
     associatedtype Success
     func action(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
 }
 // TODO: Later enable it and remove old services that works with Duplicates.
-//protocol NewModel_BlockListActionsServiceProtocolDuplicate {
+//protocol ServiceLayerModule_BlockActionsServiceListProtocolDuplicate {
 //    associatedtype Success
 //    func action() -> AnyPublisher<Success, Error>
 //}
-protocol NewModel_BlockListActionsServiceProtocolSetBackgroundColor {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolSetBackgroundColor {
     associatedtype Success
     func action(contextID: String, blockIds: [String], color: String) -> AnyPublisher<Success, Error>
 }
-protocol NewModel_BlockListActionsServiceProtocolSetAlign {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolSetAlign {
     associatedtype Success
     func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Success, Error>
 }
-protocol NewModel_BlockListActionsServiceProtocolSetDivStyle {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolSetDivStyle {
     associatedtype Success
     func action(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style) -> AnyPublisher<Success, Error>
 }
-protocol NewModel_BlockListActionsServiceProtocolSetPageIsArchived {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolSetPageIsArchived {
     associatedtype Success
     func action(contextID: String, blockIds: [String], isArchived: Bool) -> AnyPublisher<Success, Error>
 }
-protocol NewModel_BlockListActionsServiceProtocolDeletePage {
+protocol ServiceLayerModule_BlockActionsServiceListProtocolDeletePage {
     associatedtype Success
     func action(contextID: String, blockIds: [String], isArchived: Bool) -> AnyPublisher<Success, Error>
 }
 
 
-protocol NewModel_BlockListActionsServiceProtocol {
+protocol ServiceLayerModule_BlockActionsServiceListProtocol {
     associatedtype Delete
     associatedtype SetFields
     associatedtype SetTextStyle
@@ -74,7 +74,7 @@ protocol NewModel_BlockListActionsServiceProtocol {
 }
 
 extension Namespace {
-    class BlockListActionsService: NewModel_BlockListActionsServiceProtocol {
+    class BlockActionsService: ServiceLayerModule_BlockActionsServiceListProtocol {
         var delete: Delete = .init()
         var setFields: SetFields = .init()
         var setTextStyle: SetTextStyle = .init()
@@ -87,7 +87,7 @@ extension Namespace {
     }
 }
 
-extension Namespace.BlockListActionsService {
+extension Namespace.BlockActionsService {
     typealias Success = ServiceLayerModule.Success
     
     struct Delete {

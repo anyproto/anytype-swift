@@ -7,8 +7,9 @@
 //
 
 import Foundation
-import Lib
 import Combine
+import SwiftProtobuf
+import Lib
 
 /// request/response model
 fileprivate struct IpfsFilesModel {
@@ -106,7 +107,7 @@ fileprivate extension IpfsFilesService.FetchImageAsBlob.Success {
 // Deprecated.
 // TODO: Remove it later.
 fileprivate extension IpfsFilesService {
-    func fetchImage(requestModel: IpfsFilesModel.Image.Download.Request) -> Future<Data, IpfsFilesModel.Image.Download.DownloadError> {
+    private func fetchImage(requestModel: IpfsFilesModel.Image.Download.Request) -> Future<Data, IpfsFilesModel.Image.Download.DownloadError> {
 
         Future<Data, IpfsFilesModel.Image.Download.DownloadError>  { [weak self] promise in
             self?.fetchImage(requestModel: requestModel) { result in
@@ -137,7 +138,7 @@ fileprivate extension IpfsFilesService {
     }
     
     // Need to make file uploader/downloder class & Listen for callback
-    func upload(contextID: String, blockID: String, filePath: String) -> AnyPublisher<Void, Error>  {
+    private func upload(contextID: String, blockID: String, filePath: String) -> AnyPublisher<Void, Error>  {
         Anytype_Rpc.Block.Upload.Service.invoke(contextID: contextID, blockID: blockID, filePath: filePath, url: "").successToVoid().subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }

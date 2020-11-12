@@ -1,5 +1,5 @@
 //
-//  PageBlocksViews+Supplement+Flattener.swift
+//  BlocksViews+Supplement+Flattener+Page.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 29.04.2020.

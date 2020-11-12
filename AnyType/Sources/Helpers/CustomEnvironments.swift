@@ -40,22 +40,20 @@ extension EnvironmentValues {
     }
 }
 
-
-struct IpfsFilesServiceKey: EnvironmentKey {
-    static let defaultValue: IpfsFilesService = .init()
+struct FileServiceKey: EnvironmentKey {
+    static let defaultValue: ServiceLayerModule.File.BlockActionsService = .init()
 }
 
 extension EnvironmentValues {
-    var ipfsFilesServie: IpfsFilesService {
+    var fileService: ServiceLayerModule.File.BlockActionsService {
         get {
-            self[IpfsFilesServiceKey.self]
+            self[FileServiceKey.self]
         }
         set {
-            self[IpfsFilesServiceKey.self] = newValue
+            self[FileServiceKey.self] = newValue
         }
     }
 }
-
 
 struct ShowViewFramesKey: EnvironmentKey {
     static let defaultValue: Bool = false

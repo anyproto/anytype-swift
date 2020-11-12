@@ -1,5 +1,5 @@
 //
-//  BlockActionService+New.swift
+//  BlockActionService+Single.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 14.06.2020.
@@ -10,86 +10,70 @@ import Foundation
 import Combine
 import BlocksModels
 
-fileprivate typealias Namespace = ServiceLayerModule
+fileprivate typealias Namespace = ServiceLayerModule.Single
 
-protocol NewModel_BlockActionsServiceProtocolOpen {
+protocol ServiceLayerModule_BlockActionsServiceSingleProtocolOpen {
     associatedtype Success
     func action(contextID: String, blockID: String) -> AnyPublisher<Success, Error>
 }
 
-protocol NewModel_BlockActionsServiceProtocolClose {
+protocol ServiceLayerModule_BlockActionsServiceSingleProtocolClose {
     func action(contextID: String, blockID: String) -> AnyPublisher<Never, Error>
 }
 
-protocol NewModel_BlockActionsServiceProtocolAdd {
+protocol ServiceLayerModule_BlockActionsServiceSingleProtocolAdd {
     associatedtype Success
     func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error>
 }
 
-protocol NewModel_BlockActionsServiceProtocolSplit {
-    associatedtype Success
-    func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
-    func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
-}
 
-protocol NewModel_BlockActionsServiceProtocolReplace {
+protocol ServiceLayerModule_BlockActionsServiceSingleProtocolReplace {
     associatedtype Success
     func action(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<Success, Error>
 }
 
-protocol NewModel_BlockActionsServiceProtocolDelete {
+protocol ServiceLayerModule_BlockActionsServiceSingleProtocolDelete {
     associatedtype Success
     func action(contextID: String, blockIds: [String]) -> AnyPublisher<Success, Error>
 }
 
-protocol NewModel_BlockActionsServiceProtocolMerge {
-    associatedtype Success
-    func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Success, Error>
-}
-
-protocol NewModel_BlockListActionsServiceProtocolDuplicate {
+protocol ServiceLayerModule_BlockListActionsServiceProtocolDuplicate {
     associatedtype Success
     func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error>
 }
 
-protocol NewModel_BlockEventListener {
+protocol ServiceLayerModule_BlockEventListener {
     associatedtype Event
     func receive(contextId: String) -> AnyPublisher<Event, Never>
 }
 
-protocol NewModel_BlockActionsServiceProtocol {
-    associatedtype Open: NewModel_BlockActionsServiceProtocolOpen
-    associatedtype Close: NewModel_BlockActionsServiceProtocolClose
-    associatedtype Add: NewModel_BlockActionsServiceProtocolAdd
-    associatedtype Split: NewModel_BlockActionsServiceProtocolSplit
-    associatedtype Replace: NewModel_BlockActionsServiceProtocolReplace
-    associatedtype Delete: NewModel_BlockActionsServiceProtocolDelete
-    associatedtype Merge: NewModel_BlockActionsServiceProtocolMerge
-    associatedtype Duplicate: NewModel_BlockListActionsServiceProtocolDuplicate
-    associatedtype EventListener: NewModel_BlockEventListener
+protocol ServiceLayerModule_BlockActionsServiceSingleProtocol {
+    associatedtype Open: ServiceLayerModule_BlockActionsServiceSingleProtocolOpen
+    associatedtype Close: ServiceLayerModule_BlockActionsServiceSingleProtocolClose
+    associatedtype Add: ServiceLayerModule_BlockActionsServiceSingleProtocolAdd
+    associatedtype Replace: ServiceLayerModule_BlockActionsServiceSingleProtocolReplace
+    associatedtype Delete: ServiceLayerModule_BlockActionsServiceSingleProtocolDelete
+    associatedtype Duplicate: ServiceLayerModule_BlockListActionsServiceProtocolDuplicate
+    associatedtype EventListener: ServiceLayerModule_BlockEventListener
     
     var open: Open {get}
     var close: Close {get}
     var add: Add {get}
-    var split: Split {get}
     var replace: Replace {get}
     var delete: Delete {get}
-    var merge: Merge {get}
     var duplicate: Duplicate {get}
     var eventListener: EventListener {get}
 }
 
 extension Namespace {
-    class BlockActionsService: NewModel_BlockActionsServiceProtocol {
+    class BlockActionsService: ServiceLayerModule_BlockActionsServiceSingleProtocol {
         typealias ContextId = String
         
         var open: Open = .init() // SmartBlock only for now?
         var close: Close = .init() // SmartBlock only for now?
         var add: Add = .init()
-        var split: Split = .init() // Remove Split and Merge to TextBlocks only.
         var replace: Replace = .init()
         var delete: Delete = .init()
-        var merge: Merge = .init() // Remove Split and Merge to TextBlocks only.
         var duplicate: Duplicate = .init() // BlockList?
         var eventListener: EventListener = .init()
     }
@@ -100,14 +84,14 @@ extension Namespace.BlockActionsService {
     typealias Success = ServiceLayerModule.Success
     
     // MARK: Open / Close
-    struct Open: NewModel_BlockActionsServiceProtocolOpen {
+    struct Open: ServiceLayerModule_BlockActionsServiceSingleProtocolOpen {
         func action(contextID: String, blockID: String) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Open.Service.invoke(contextID: contextID, blockID: blockID).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }
     
-    struct Close: NewModel_BlockActionsServiceProtocolClose {
+    struct Close: ServiceLayerModule_BlockActionsServiceSingleProtocolClose {
         func action(contextID: String, blockID: String) -> AnyPublisher<Never, Error> {
             Anytype_Rpc.Block.Close.Service.invoke(contextID: contextID, blockID: blockID).ignoreOutput().subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
@@ -115,50 +99,30 @@ extension Namespace.BlockActionsService {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    struct Add: NewModel_BlockActionsServiceProtocolAdd {
+    struct Add: ServiceLayerModule_BlockActionsServiceSingleProtocolAdd {
         func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
                 .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }
-    
-    struct Split: NewModel_BlockActionsServiceProtocolSplit {
-        func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: .init(from: cursorPosition, to: cursorPosition), style: style, mode: .top).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
-                .eraseToAnyPublisher()
-        }
-        func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceLayerModule.Success, Error> {
-            let middlewareRange = BlocksModelsModule.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
-            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: .top, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-        }
-    }
-    
-    struct Replace: NewModel_BlockActionsServiceProtocolReplace {
+        
+    struct Replace: ServiceLayerModule_BlockActionsServiceSingleProtocolReplace {
         func action(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Replace.Service.invoke(contextID: contextID, blockID: blockID, block: block).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }
     
-    struct Delete: NewModel_BlockActionsServiceProtocolDelete {
+    struct Delete: ServiceLayerModule_BlockActionsServiceSingleProtocolDelete {
         func action(contextID: String, blockIds: [String]) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
-    
-    // MARK: Merge
-    struct Merge: NewModel_BlockActionsServiceProtocolMerge {
-        func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global())
-                .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-        }
-    }
-    
+        
     // MARK: Duplicate
     // Actually, should be used for BlockList
-    struct Duplicate: NewModel_BlockListActionsServiceProtocolDuplicate {
+    struct Duplicate: ServiceLayerModule_BlockListActionsServiceProtocolDuplicate {
         func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
@@ -169,7 +133,7 @@ extension Namespace.BlockActionsService {
 extension Namespace.BlockActionsService {
     // MARK: Events Processing
     // MARK: It is new Listener, so, you should replace old listener.
-    struct EventListener: NewModel_BlockEventListener {
+    struct EventListener: ServiceLayerModule_BlockEventListener {
         private static let parser: BlocksModelsModule.Parser = .init()
         
          struct Event {

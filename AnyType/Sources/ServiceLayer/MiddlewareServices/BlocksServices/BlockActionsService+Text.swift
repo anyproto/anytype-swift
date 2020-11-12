@@ -1,5 +1,5 @@
 //
-//  TextBlockActionsService+New.swift
+//  BlockActionsService+Text.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 15.06.2020.
@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import UIKit
 
-fileprivate typealias Namespace = ServiceLayerModule
+fileprivate typealias Namespace = ServiceLayerModule.Text
 
 // MARK: - Actions Protocols
 /// Protocol for `Set Text and Marks` for text block.
@@ -19,7 +19,7 @@ fileprivate typealias Namespace = ServiceLayerModule
 /// We consume middleware marks and convert them to NSAttributedString.
 /// Later, TextView update NSAttributedString and send updates back.
 ///
-protocol NewModel_TextBlockActionsServiceProtocolSetText {
+protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
     func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Never, Error>
     func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Never, Error>
 }
@@ -28,7 +28,7 @@ protocol NewModel_TextBlockActionsServiceProtocolSetText {
 /// It is used in `TurnInto` actions in UI.
 /// When you would like to update style of block ( or turn into this block to another block ),
 /// you will use this method.
-protocol NewModel_TextBlockActionsServiceProtocolSetStyle {
+protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
     associatedtype Success
     func action(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
 }
@@ -48,44 +48,61 @@ protocol NewModel_TextBlockActionsServiceProtocolSetStyle {
 /// This protocol requires two methods to be implemented. One of them uses UIColor as Color representation.
 /// It is essential for us to use `high-level` color.
 /// In that way we are distancing from low-level API and low-level colors.
-protocol NewModel_TextBlockActionsServiceProtocolSetForegroundColor {
+protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
     func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Never, Error>
     func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Never, Error>
 }
 
 /// Protocol for `SetAlignment` for text block. Actually, not only for text block.
 /// When you would like to set alignment of a block ( text block or not text block ), you should call method of this protocol.
-protocol NewModel_TextBlockActionsServiceProtocolSetAlignment {
+protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
     func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Never, Error>
     func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Never, Error>
 }
 
+protocol ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
+    associatedtype Success
+    func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
+    func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
+}
+
+protocol ServiceLayerModule_BlockActionsServiceTextProtocolMerge {
+    associatedtype Success
+    func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Success, Error>
+}
+
 /// Protocol for TextBlockActions service.
-protocol NewModel_TextBlockActionsServiceProtocol {
-    associatedtype SetText: NewModel_TextBlockActionsServiceProtocolSetText
-    associatedtype SetStyle: NewModel_TextBlockActionsServiceProtocolSetStyle
-    associatedtype SetForegroundColor: NewModel_TextBlockActionsServiceProtocolSetForegroundColor
-    associatedtype SetAlignment: NewModel_TextBlockActionsServiceProtocolSetAlignment
+protocol ServiceLayerModule_BlockActionsServiceTextProtocol {
+    associatedtype SetText: ServiceLayerModule_BlockActionsServiceTextProtocolSetText
+    associatedtype SetStyle: ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle
+    associatedtype SetForegroundColor: ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor
+    associatedtype SetAlignment: ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment
+    associatedtype Split: ServiceLayerModule_BlockActionsServiceTextProtocolSplit
+    associatedtype Merge: ServiceLayerModule_BlockActionsServiceTextProtocolMerge
     
     var setText: SetText {get}
     var setStyle: SetStyle {get}
     var setForegroundColor: SetForegroundColor {get}
     var setAlignment: SetAlignment {get}
+    var split: Split {get}
+    var merge: Merge {get}
 }
 
 extension Namespace {
-    class TextBlockActionsService: NewModel_TextBlockActionsServiceProtocol {
+    class BlockActionsService: ServiceLayerModule_BlockActionsServiceTextProtocol {
         var setText: SetText = .init()
         var setStyle: SetStyle = .init()
         var setForegroundColor: SetForegroundColor = .init()
         var setAlignment: SetAlignment = .init()
+        var split: Split = .init()
+        var merge: Merge = .init()
     }
 }
 
-extension Namespace.TextBlockActionsService {
+extension Namespace.BlockActionsService {
     typealias Success = ServiceLayerModule.Success
     // MARK: SetText
-    struct SetText: NewModel_TextBlockActionsServiceProtocolSetText {
+    struct SetText: ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
         func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Never, Error> {
             // convert attributed string to marks here?
             let result = BlocksModelsModule.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
@@ -100,7 +117,7 @@ extension Namespace.TextBlockActionsService {
     }
     
     // MARK: SetStyle
-    struct SetStyle: NewModel_TextBlockActionsServiceProtocolSetStyle {
+    struct SetStyle: ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
         func action(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
@@ -108,7 +125,7 @@ extension Namespace.TextBlockActionsService {
     }
     
     // MARK: SetForegroundColor
-    struct SetForegroundColor: NewModel_TextBlockActionsServiceProtocolSetForegroundColor {
+    struct SetForegroundColor: ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
         func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Never, Error> {
             // convert color to String?
             let result = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false)
@@ -122,7 +139,7 @@ extension Namespace.TextBlockActionsService {
     }
     
     // MARK: SetAlignment
-    struct SetAlignment: NewModel_TextBlockActionsServiceProtocolSetAlignment {
+    struct SetAlignment: ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
         func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Never, Error> {
             let ourAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
             let middlewareAlignment = ourAlignment.flatMap(BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware)
@@ -134,6 +151,27 @@ extension Namespace.TextBlockActionsService {
         }
         func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Never, Error> {
             Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).ignoreOutput().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        }
+    }
+    
+    // MARK: Split
+    struct Split: ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
+        func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: .init(from: cursorPosition, to: cursorPosition), style: style, mode: .top).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+                .eraseToAnyPublisher()
+        }
+        func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
+            let middlewareRange = BlocksModelsModule.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
+            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: .top, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
+        }
+    }
+
+    // MARK: Merge
+    struct Merge: ServiceLayerModule_BlockActionsServiceTextProtocolMerge {
+        func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global())
+                .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
 }
