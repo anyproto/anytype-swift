@@ -208,7 +208,6 @@
 		0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F2D36239DC6DC008C16BF /* MainAuthViewModel.swift */; };
 		0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0339676F2397DA7E000CB7BA /* AuthService.swift */; };
 		0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F642395D7A10027A4AD /* CreateNewProfileView.swift */; };
-		0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037F2D34239D59D9008C16BF /* EventListener.swift */; };
 		0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6823969B030027A4AD /* CompletionAuthView.swift */; };
 		0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */; };
 		0A74E50123A90F0400B6C406 /* events.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AA854623A80C2200892713 /* events.pb.swift */; };
@@ -314,7 +313,6 @@
 		0AE62A2424A4DED8009EE08B /* DocumentModule+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE62A2324A4DED8009EE08B /* DocumentModule+Selection.swift */; };
 		0AFC462C23EB23AD009F4CB2 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFC462B23EB23AD009F4CB2 /* SwiftProtobuf */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
-		53F1861F2427E4B200738620 /* NotificationEventListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F1861E2427E4B200738620 /* NotificationEventListener.swift */; };
 		A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */; };
 		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
 		A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */; };
@@ -398,7 +396,6 @@
 		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		037CC4E423154AF900D5AB62 /* NavigationButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
-		037F2D34239D59D9008C16BF /* EventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListener.swift; sourceTree = "<group>"; };
 		037F2D36239DC6DC008C16BF /* MainAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAuthViewModel.swift; sourceTree = "<group>"; };
 		0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		038A81FC23A0158B00B71388 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -665,7 +662,6 @@
 		0AE62A2124A4DB4C009EE08B /* DocumentModule+ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+ContentViewController.swift"; sourceTree = "<group>"; };
 		0AE62A2324A4DED8009EE08B /* DocumentModule+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Selection.swift"; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
-		53F1861E2427E4B200738620 /* NotificationEventListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationEventListener.swift; sourceTree = "<group>"; };
 		A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Page.swift"; sourceTree = "<group>"; };
 		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
 		A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Manager.swift"; sourceTree = "<group>"; };
@@ -992,8 +988,6 @@
 			isa = PBXGroup;
 			children = (
 				0A2ADCDF2496921500FA135D /* EventListening.swift */,
-				037F2D34239D59D9008C16BF /* EventListener.swift */,
-				53F1861E2427E4B200738620 /* NotificationEventListener.swift */,
 				0A2CEDF024A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift */,
 			);
 			path = EventListener;
@@ -2077,7 +2071,6 @@
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				0A29BB9424AC8C3000ED957F /* DocumentModule+ContainerViewController.swift in Sources */,
 				0A10CCB62491872A000FF498 /* DocumentViewModel+New.swift in Sources */,
-				53F1861F2427E4B200738620 /* NotificationEventListener.swift in Sources */,
 				0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* BlocksViews+New+Other+Divider.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
@@ -2106,7 +2099,6 @@
 				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
 				034A303F24045B75002599E2 /* HomeViewAssembly.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
-				0A74E4FE23A90EBB00B6C406 /* EventListener.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,
 				0ACA781623E5C99A00442690 /* Services.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* BlocksModelsModule+Parser.swift in Sources */,
@@ -2529,7 +2521,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -2558,7 +2550,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;

@@ -53,6 +53,7 @@ extension TextView.UIKitTextView {
         
         var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
         var contextualMenuSubject: PassthroughSubject<ContextualMenu.Action, Never> = .init()
+        var resignFirstResponderSubject: PassthroughSubject<Void, Never> = .init()
         
         // MARK: Variables
         private var subscriptions: Set<AnyCancellable> = []
@@ -122,6 +123,12 @@ extension TextView.UIKitTextView {
                 NSLayoutConstraint.activate(self.placeholderConstraints)
             }
         }
+        
+//        override func resignFirstResponder() -> Bool {
+//            let value = super.resignFirstResponder()
+//            self.resignFirstResponderSubject.send()
+//            return value
+//        }
     }
 }
 

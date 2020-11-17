@@ -7,7 +7,7 @@
 		<key>debug</key>
 		<dict>
 			<key>enabled</key>
-			<true/>
+			<false/>
 		</dict>
 		<key>workflow</key>
 		<dict>

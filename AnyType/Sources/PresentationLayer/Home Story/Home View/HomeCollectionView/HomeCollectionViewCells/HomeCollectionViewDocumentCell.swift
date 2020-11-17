@@ -33,6 +33,7 @@ class HomeCollectionViewDocumentCellModel: Hashable {
     }
     
     // MARK: - Variables
+    /// TODO: Remove published properties and use "plain" values instead.
     let id: String
     @Published var title: String
     @Published var emoji: String?

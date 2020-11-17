@@ -454,6 +454,11 @@ extension Namespace.DocumentViewCells {
                 super.layoutSubviews()
                 self.eventSubject.send(.shouldLayoutSubviews)
             }
+            override func updateConfiguration(using state: UICellConfigurationState) {
+                super.updateConfiguration(using: state)
+                self.setNeedsUpdateConstraints()
+                self.setNeedsLayout()
+            }
         }
     }
 }

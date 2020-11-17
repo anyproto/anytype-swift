@@ -75,9 +75,12 @@ extension Namespace.MarkStyleModifier {
         switch (attributedString.string.isEmpty, range) {
         // isEmpty & range == zero(0, 0) - assuming that we deleted text. So, we need to apply default typing attributes that are coming from textView.
         case (true, NSRange(location: 0, length: 0)): return self.typingAttributes
-        
+            
         // isEmpty & range != zero(0, 0) - strange situation, we can't do that. Error, we guess. In that case we need only empty attributes.
         case (true, _): return [:]
+        
+        // At the end.
+        case let (_, value) where value.location == attributedString.length && value.length == 0: return self.typingAttributes
             
         // Otherwise, return string attributes.
         default: break

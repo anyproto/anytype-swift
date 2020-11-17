@@ -11,11 +11,14 @@ import UIKit
 import Combine
 import os
 
+fileprivate typealias Namespace = TextView.UIKitTextView
+fileprivate typealias FileNamespace = Namespace.Coordinator
+
 private extension Logging.Categories {
     static let textViewUIKitTextViewCoordinator: Self = "TextView.UIKitTextView.Coordinator"
 }
 
-extension TextView.UIKitTextView {
+extension Namespace {
     class Coordinator: NSObject {
         // MARK: Aliases
         typealias TheTextView = TextView.UIKitTextView
@@ -25,9 +28,13 @@ extension TextView.UIKitTextView {
         typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
 
         // MARK: Variables
-        @Published var text: String? = nil
-        @Published var attributedText: NSAttributedString? = nil
-        @Published var textAlignment: NSTextAlignment? = nil
+        /// TODO: Should we store variables here?
+        /// Because, we have also `viewModel`.
+        /// Maybe we need remove these variables?
+        private var attributedTextSubject: PassthroughSubject<NSAttributedString?, Never> = .init()
+        private var textAlignmentSubject: PassthroughSubject<NSTextAlignment?, Never> = .init()
+        var attributedTextPublisher: AnyPublisher<NSAttributedString?, Never> = .empty()
+        var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
         @Published var textSize: CGSize? = nil
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
         func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
@@ -75,13 +82,19 @@ extension TextView.UIKitTextView {
             self.setup()
         }
         
+        func setupPublishers() {
+            self.attributedTextPublisher = self.attributedTextSubject.eraseToAnyPublisher()
+            self.textAlignmentPublisher = self.textAlignmentSubject.eraseToAnyPublisher()
+        }
+        
         func setup() {
+            self.setupPublishers()
             self.configureKeyboardNotificationsListening()
         }
     }
 }
 
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     func configureKeyboardNotificationsListening() {
         self.keyboardObserverHandler = KeyboardObserver.default.$keyboardInformation.map(\.keyboardRect).filter({
             [weak self] value in
@@ -91,7 +104,7 @@ extension TextView.UIKitTextView.Coordinator {
 }
 
 // MARK: InnerTextView.Coordinator / Publishers
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     // MARK: - Publishers
     // MARK: - Publishers / Outer world
     
@@ -312,7 +325,7 @@ extension TextView.UIKitTextView.Coordinator {
 }
 
 // MARK: Attributes and MarkStyles Converter (Move it to MarksPane)
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     enum ActionsToMarkStyleConverter {
         static func emptyMark(from action: MarksPane.Main.Panes.StylePane.FontStyle.Action) -> TextView.MarkStyle {
             switch action {
@@ -334,7 +347,7 @@ extension TextView.UIKitTextView.Coordinator {
 
 
 // MARK: ContextualMenuHandling
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     // TODO: Put textView into it.
     func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<TextView.UIKitTextView.ContextualMenu.Action, Never>) -> Self {
         self.contextualMenuSubscription = Publishers.CombineLatest(Just(view), contextualMenuStream).sink { [weak self] (tuple) in
@@ -349,7 +362,7 @@ extension TextView.UIKitTextView.Coordinator {
 }
 
 // MARK: Marks Input View handling
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     private enum ActionToCategoryConverter {
         typealias ContextualMenuAction = TextView.UIKitTextView.ContextualMenu.Action
         typealias Category = MarksPane.Main.Section.Category
@@ -375,7 +388,7 @@ extension TextView.UIKitTextView.Coordinator {
 }
 
 // MARK: Highlighted Accessory view handling
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     func updateHighlightedAccessoryView(_ tuple: (NSRange, NSTextStorage)) {
         let (range, storage) = tuple
         self.highlightedAccessoryView.model.update(range: range, attributedText: storage)
@@ -383,7 +396,7 @@ extension TextView.UIKitTextView.Coordinator {
 }
 
 // MARK: Input Switcher
-private extension TextView.UIKitTextView.Coordinator {
+private extension FileNamespace {
     class InputSwitcher {
         struct Triplet {
             var shouldAnimate: Bool
@@ -549,7 +562,7 @@ private extension TextView.UIKitTextView.Coordinator {
 }
 
 // MARK: Input Switching
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     private typealias Switcher = ActionsAndMarksPaneInputSwitcher
     func switchInputs(_ textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
         Switcher.switchInputs(self.defaultKeyboardRect.size, textView: textView, accessoryView: accessoryView, inputView: inputView)
@@ -568,7 +581,16 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         if text == "\n" {
             // we should return false and perform update by ourselves.
             switch (textView.text, range) {
-            case (_, .init(location: 0, length: 0)): textView.text = ""
+            case (_, .init(location: 0, length: 0)):
+                /// At the beginning
+                /// We shouldn't set text, of course.
+                /// It is correct logic only if we insert new text below our text.
+                /// For now, we insert text above our text.
+                ///
+                /// TODO: Uncomment when you set split to type `.bottom`, not `.top`.
+                /// textView.text = ""
+                let logger = Logging.createLogger(category: .todo(.refactor("Uncomment when needed. Read above.")))
+                os_log(.debug, log: logger, "We only should remove text if our split operation will insert blocks at bottom, not a top. At top it works without resetting text.")
                 return false
             case let (source, at) where source?.count == at.location + at.length:
                 return false
@@ -614,7 +636,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
 }
 
 // MARK: - Update Text
-extension TextView.UIKitTextView.Coordinator {
+extension FileNamespace {
     /// NOTE:
     /// As soon as we notify ourselves about all updates in textStorage, we have side effects.
     /// For example,
@@ -641,9 +663,8 @@ extension TextView.UIKitTextView.Coordinator {
         /// because we have already notify our subscribers in `textViewDidChange`
         ///
         DispatchQueue.global().async {
-            self.text = payload.attributedText.string
-            self.attributedText = payload.attributedText
-            self.textAlignment = payload.textAlignment
+            self.attributedTextSubject.send(payload.attributedText)
+            self.textAlignmentSubject.send(payload.textAlignment)
         }
     }
 }

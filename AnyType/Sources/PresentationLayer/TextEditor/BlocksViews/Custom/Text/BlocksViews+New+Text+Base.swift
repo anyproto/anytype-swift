@@ -40,6 +40,10 @@ extension Namespace {
         @Environment(\.developerOptions) var developerOptions
         private var textOptions: Namespace.Options = .init()
         
+        /// TODO: Begin to use publishers and values in this view.
+        /// We could directly set a state or a parts of this viewModel state.
+        /// This should fire updates and corresponding view will be updated.
+        /// 
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
         
         // MARK: - Publishers
@@ -50,13 +54,17 @@ extension Namespace {
         /// We shouldn't take care about a value, because user initiates events.
         /// So, we need only to listen his typing.
         ///
+        @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
         @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
-        @Published private var toViewTextAlignment: NSTextAlignment? { willSet { self.objectWillChange.send() } }
+        @available(iOS, introduced: 13.0, deprecated: 14.0, message: "Rethink. Too complex logic in SetFocus. We need something more accurate and predictable.")
         @Published private var toViewSetFocusPosition: FocusPosition?
-        @Published private var toViewSetBackgroundColor: UIColor?
         
+        /// TODO: Rethink. It could be done more accurate and predictable. Do we need it at all?
+        /// Actually, we need an update, yes, but we could publish it as Update(or ViewState) from raw block.
         private var toViewUpdates: AnyPublisher<TextView.UIKitTextView.ViewModel.Update, Never> = .empty()
         
+        /// TODO: Rethink. We only need one (?) publisher to a model?
+        /// Really?
         private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
         private var toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
         
@@ -72,6 +80,9 @@ extension Namespace {
         private var service: ServiceLayerModule.Text.BlockActionsService = .init()
         
         // MARK: - Convenient accessors.
+        
+        /// TODO: We have to connect our values (if we want to) to values of view model.
+        /// View model should store values if needed. Updates or not.
         var text: String {
             set {
                 if self.toViewText != nil {
@@ -99,7 +110,8 @@ extension Namespace {
         }
 
         override func makeUIView() -> UIView {
-            TopWithChildUIKitView().configured(textView: self.getUIKitViewModel().createView()).configured(leftChild: .empty()).configured(self.$toViewSetBackgroundColor.map({TopWithChildUIKitView.Resource.init(backgroundColor: $0)}).eraseToAnyPublisher())
+            let toViewSetBackgroundColorPublisher = self.getBlock().didChangeInformationPublisher().map(\.backgroundColor).removeDuplicates().map({value in BlocksModelsModule.Parser.Text.Color.Converter.asModel(value, background: true)}).map({TopWithChildUIKitView.Resource.init(backgroundColor: $0)}).eraseToAnyPublisher()
+            return TopWithChildUIKitView().configured(textView: self.getUIKitViewModel().createView()).configured(leftChild: .empty()).configured(toViewSetBackgroundColorPublisher)
         }
         
         // MARK: Contextual Menu
@@ -114,6 +126,25 @@ extension Namespace {
                 .create(action: .specific(.color)),
                 .create(action: .specific(.backgroundColor)),
             ])
+        }
+    }
+}
+
+// MARK: - TextViewModel
+private extension Namespace.ViewModel {
+    func refreshTextViewModel() {
+        let block = self.getBlock()
+        let information = block.blockModel.information
+        switch information.content {
+        case let .text(blockType):
+            let attributedText = blockType.attributedText
+            if let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(information.alignment) {
+                self.textViewModel.update = .payload(.init(attributedString: attributedText, auxiliary: .init(textAlignment: alignment)))
+            }
+        default: return
+        }
+        if block.isFirstResponder {
+            self.toViewSetFocusPosition = block.focusAt
         }
     }
 }
@@ -156,9 +187,9 @@ private extension Namespace.ViewModel {
         /// But
         /// For `initial` state we should update some stored property.
         /// And it is `@Published update` property of TextView.ViewModel.
-        self.toViewUpdates.sink { [weak self] (value) in
-            self?.textViewModel.intentional(update: value)
-        }.store(in: &self.subscriptions)
+//        self.toViewUpdates.sink { [weak self] (value) in
+//            self?.textViewModel.intentional(update: value)
+//        }.store(in: &self.subscriptions)
         
         self.toViewUpdates.sink { [weak self] (value) in
             self?.textViewModel.update = value
@@ -201,19 +232,21 @@ private extension Namespace.ViewModel {
             }
         }).store(in: &self.subscriptions)
         
-        self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.Text? in
+        /// SUSPENDED: subscription.
+        /// We should subscribe only on blocks from other users.
+        /// Ok?
+        /// Or any other condition.
+        ///
+        
+        self.getBlock().didChangeInformationPublisher().receive(on: DispatchQueue.global()).map({ value -> TopLevel.AliasesMap.BlockContent.Text? in
             switch value.content {
             case let .text(value): return value
             default: return nil
             }
         }).removeDuplicates().safelyUnwrapOptionals().sink { [weak self] (value) in
             /// Update data(?)
+            /// We need it for Merge requests.
             self?.toViewText = value.attributedText
-        }.store(in: &self.subscriptions)
-        
-        self.getBlock().didChangeInformationPublisher().map({ value in value.backgroundColor }).removeDuplicates().sink { [weak self] (value) in
-            let result = BlocksModelsModule.Parser.Text.Color.Converter.asModel(value, background: true)
-            self?.toViewSetBackgroundColor = result
         }.store(in: &self.subscriptions)
         
         //                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
@@ -227,20 +260,27 @@ private extension Namespace.ViewModel {
         
         /// ToModel
         /// Maybe add throttle.
-//        .throttle(for: 30, scheduler: DispatchQueue.global(), latest: true)
         
-        self.toModelTextSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.global()).notableError().flatMap({ [weak self] (value) in
+        self.toModelTextSubject.receive(on: DispatchQueue.global()).sink { (value) in
+            self.setModelData(attributedText: value)
+        }.store(in: &self.subscriptions)
+        
+        self.getBlock().didChangeInformationPublisher().map(\.content).map({ value -> NSAttributedString? in
+            switch value {
+            case let .text(value): return value.attributedText
+            default: return nil
+            }
+        }).safelyUnwrapOptionals().debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.global()).notableError().flatMap({ [weak self] (value) in
             self?.apply(attributedText: value) ?? .empty()
-        }).sink(receiveCompletion: { (value) in
+        }).sink(receiveCompletion: { [weak self] (value) in
             switch value {
             case .finished: return
             case let .failure(error):
                 let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@", String(describing: error))
+                os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@. ParentId: %@ BlockId: %@", String(describing: error), String(describing: self?.getBlock().blockModel.parent), String(describing: self?.getBlock().blockModel.information.id))
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
-//        .throttle(for: 30, scheduler: DispatchQueue.global(), latest: true)
         self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.main).notableError().receive(on: DispatchQueue.global()).flatMap({ [weak self] (value) in
             self?.apply(alignment: value) ?? .empty()
         }).sink(receiveCompletion: { (value) in
@@ -265,9 +305,9 @@ private extension Namespace.ViewModel {
         }.map(\.0).eraseToAnyPublisher()
     }
     
-    // MARK: - Setup
-    private func setup() {
-        if self.developerOptions.current.debug.enabled {
+    // MARK: - Setup Text
+    func setupText() {
+        if self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText {
             self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, self.blockId)
             switch self.getBlock().blockModel.information.content {
             case let .text(blockType):
@@ -280,13 +320,17 @@ private extension Namespace.ViewModel {
             switch self.getBlock().blockModel.information.content {
             case let .text(blockType):
                 self.toViewText = blockType.attributedText
-//                self.toViewTextAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(block.blockModel.information.alignment)
             default: return
             }
             if block.isFirstResponder {
                 self.toViewSetFocusPosition = block.focusAt
             }
         }
+    }
+    
+    // MARK: - Setup
+    private func setup() {
+        self.setupText()
         self.setupTextViewModel()
         self.setupSubscribers()
     }
@@ -296,30 +340,6 @@ private extension Namespace.ViewModel {
 extension Namespace.ViewModel {
     func send(textViewAction: BlocksViews.New.Text.UserInteraction) {
         self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: textViewAction)))
-    }
-}
-
-// MARK: - Events
-private extension Namespace.ViewModel {
-    class EventListener: EventHandler {
-        typealias Event = Anytype_Event.Message.OneOf_Value
-        var subject: PassthroughSubject<NSAttributedString, Never> = .init()
-        
-        func handleEvent(event: Event) {
-            switch event {
-            case let .blockSetText(value):
-//                let attributedString = BlockModels.Parser.Text.AttributedText.Converter.asModel(text: value.text.value, marks: value.marks.value)
-                // take from details and publish them.
-                // get values and put them into page.
-                // tell someone that you have new details.
-//                self.subject.send(attributedString)
-                return
-            default:
-              let logger = Logging.createLogger(category: .textBlocksViewsBase)
-              os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))
-                return
-            }
-        }
     }
 }
 
@@ -377,15 +397,18 @@ private extension Namespace.ViewModel {
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
         return self.service.setAlignment.action(contextID: contextID, blockIds: [self.blockId], alignment: alignment)
     }
-    func apply(attributedText: NSAttributedString) -> AnyPublisher<Never, Error>? {
+    func apply(attributedText: NSAttributedString, shouldStoreInModel: Bool = false) -> AnyPublisher<Never, Error>? {
         /// Do we need to update model?
         /// It will be updated on every blockShow event. ( BlockOpen command ).
         ///
-        self.setModelData(attributedText: attributedText)
-        
+        if shouldStoreInModel {
+            self.setModelData(attributedText: attributedText)
+        }
         let block = self.getBlock()
         
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
+        let logger = Logging.createLogger(category: .textBlocksViewsBase)
+        os_log(.debug, log: logger, "Before TextBlocksViews setBlockText has occured. ParentId: %@ BlockId: %@", String(describing: contextID), String(describing: self.blockId))
         return self.service.setText.action(contextID: contextID, blockID: self.blockId, attributedString: attributedText)
     }
     func apply(update: TextView.UIKitTextView.ViewModel.Update) {
@@ -775,18 +798,13 @@ extension Namespace.ViewModel {
         }
         
         /// First Responder
-        private var isPendingFirstResponder: Bool {
-            self.contextMenuHolder?.getBlock().isFirstResponder ?? false
-        }
         private func resolvePendingFirstResponder() {
             if let model = self.contextMenuHolder?.getBlock() {
-                TopLevel.AliasesMap.BlockUtilities.FirstResponderResolver.resolvePendingUpdate(model)
+                TopLevel.AliasesMap.BlockUtilities.FirstResponderResolver.resolvePendingUpdateIfNeeded(model)
             }
         }
         func resolvePendingFirstResponderIfNeeded() {
-            if self.isPendingFirstResponder {
-                self.resolvePendingFirstResponder()
-            }
+            self.resolvePendingFirstResponder()
         }
     }
 }
@@ -913,12 +931,20 @@ private extension Namespace.ViewModel {
         }
         
         private func applyNewConfiguration() {
-            _ = self.topView.configured(textView: self.currentConfiguration.contextMenuHolder?.getUIKitViewModel().createView())
+            /// TODO: Redone.
+            /// Instead of creating new view, it is better to assign view model to old textView for performance.
+            ///
+            self.currentConfiguration.contextMenuHolder?.refreshTextViewModel()
+            _ = self.topView.configured(textView: self.currentConfiguration.contextMenuHolder?.getUIKitViewModel().createView(.init(liveUpdateAvailable: true)))
         }
         
         /// MARK: - DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
         private func onFirstResponder() {
-            self.currentConfiguration.resolvePendingFirstResponderIfNeeded()
+            let logger = Logging.createLogger(category: .todo(.refactor("Improper usage of property access.")))
+            os_log(.debug, log: logger, "We should redone view hierarchy, so, we should never check canBecomeFirstResponder on this level.")
+            if (self.topView.topView.textView.subviews.first as? TextView.UIKitTextView)?.getTextView?.canBecomeFirstResponder == true {
+                self.currentConfiguration.resolvePendingFirstResponderIfNeeded()
+            }
         }
         private func handle(_ value: DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event) {
             switch value {

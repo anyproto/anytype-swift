@@ -158,36 +158,6 @@ private extension Logging.Categories {
   static let eventHandler: Self = "Presentation.TextEditor.BlocksViews.Pages.Title.EventHandler"
 }
 
-private extension BlocksViews.New.Page.Title {
-    /// Since we need to update a link of page, we should listen for events that are coming from middleware.
-    /// Thus, if we update page, all links to this page must be updated.
-    /// For that we use `EventListener` that will select necessary events.
-    /// It will extract data from events and send to view model of `.link` with style `.page`.
-    ///
-    class EventListener: EventHandler {
-        typealias Event = Anytype_Event.Message.OneOf_Value
-
-        @Published var state: State?
-
-        func handleEvent(event: Event) {
-            switch event {
-//            case let .blockSetDetails(value):
-            case let .blockShow(value):
-                // take from details and publish them.
-                // get values and put them into page.
-//
-                break
-//            case let .blockSetLink(value):
-//                break
-            default:
-              let logger = Logging.createLogger(category: .eventHandler)
-              os_log(.debug, log: logger, "We handle only events above. Event %@ isn't handled", String(describing: event))
-                return
-            }
-        }
-    }
-}
-
 // MARK: - State
 extension BlocksViews.New.Page.Title {
     /// Struct State that will take care of all flags and data.

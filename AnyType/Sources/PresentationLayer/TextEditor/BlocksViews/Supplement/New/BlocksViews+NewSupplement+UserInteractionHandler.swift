@@ -278,7 +278,18 @@ private extension Namespace.UserInteractionHandler {
                     }
                 default:
                     if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: "") {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
+                        /// TODO:
+                        /// Uncomment when you are ready.
+//                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
+                        let logger = Logging.createLogger(category: .todo(.remove("Remove after refactoring of set focus.")))
+                        os_log(.debug, log: logger, "We should not use self.service.split here. Instead, we should self.service.add block. It is possible to swap them only after set focus total cleanup. Redo it.")
+
+                        switch block.blockModel.information.content {
+                        case let .text(payload): let oldText = payload.attributedText.string
+                            self.service.split(block: block.blockModel.information, oldText: oldText, shouldSetFocusOnUpdate: true)
+                        default: return
+                        }
+                        
                     }
                 }
 
@@ -735,6 +746,58 @@ private extension Namespace.UserInteractionHandler.Service {
             self?.didReceiveEvent(value)
         }).store(in: &self.subscriptions)
     }
+    
+    func _setTextAndSplit(block: Information, oldText: String, _ completion: @escaping Conversion) {
+        let improve = Logging.createLogger(category: .todo(.improve("Markup")))
+        os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
+
+        guard let splittedBlockInformation = self.parser.convert(information: block) else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            let splittedBlock = self.parser.convert(information: block)
+            os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: splittedBlock))")
+            return
+        }
+
+        // We are using old text as a cursor position.
+        let position = oldText.count
+
+        let content = splittedBlockInformation.content
+        guard case let .text(type) = content else {
+            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+            os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
+            return
+        }
+        
+        guard case let .text(blockContent) = block.content else {
+            return
+        }
+        
+        let range: NSRange = .init(location: position, length: 0)
+
+        let documentId = self.documentId
+        self.textService.setText.action(contextID: documentId, blockID: splittedBlockInformation.id, attributedString: blockContent.attributedText).handleEvents(receiveCompletion: { [weak self] (value) in
+            switch value {
+            /// TODO: Fix it.
+            /// Bad style.
+            /// We need `.andThen` operator from Rx libraries family and call first and then second operator.
+            case .finished: _ = self?.textService.split.action(contextID: documentId, blockID: splittedBlockInformation.id, range: range, style: type.style).receive(on: RunLoop.main).eraseToAnyPublisher().sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "blocksActions.service.setTextAndSplit(split) without payload got error: %@", "\(error)")
+                }
+            }, receiveValue: { [weak self] (value) in
+                let value = completion(value)
+                self?.didReceiveEvent(value)
+            })
+
+            case let .failure(error):
+                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                os_log(.error, log: logger, "blocksActions.service.setTextAndSplit(setText) without payload got error: %@", "\(error)")
+            }
+        }).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: &self.subscriptions)
+    }
 }
 
 // MARK: ServiceHandler / Actions / Add
@@ -751,7 +814,7 @@ private extension Namespace.UserInteractionHandler.Service {
     
     func split(block: Information, oldText: String, shouldSetFocusOnUpdate: Bool) {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Split.convert : Converter.Default.convert
-        _split(block: block, oldText: oldText, conversion)
+        _setTextAndSplit(block: block, oldText: oldText, conversion)
     }
         
     func duplicate(block: Information) {

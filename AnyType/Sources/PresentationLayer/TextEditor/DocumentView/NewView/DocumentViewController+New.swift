@@ -380,6 +380,19 @@ extension Namespace.DocumentViewController {
     }
 }
 
+// MARK: - Set Focus
+private extension Namespace.DocumentViewController {
+    func scrollToFocused() {
+        guard let dataSource = self.tableViewDataSource else { return }
+        let snapshot = dataSource.snapshot()
+        let id = self.viewModel.rootModel?.blocksContainer.userSession.firstResponder()
+        /// TODO: Don't reset in blocks, only do it here.
+        /// It is one time action, so, after applying we are forgeting about focus at all.
+        /// Find indexPath by id and scroll to it.
+//        self.tableView?.scrollToRow(at: <#T##IndexPath#>, at: <#T##UITableView.ScrollPosition#>, animated: <#T##Bool#>)
+    }
+}
+
 // MARK: - Initial Update data
 extension Namespace.DocumentViewController {
     func updateView() {
@@ -404,7 +417,14 @@ extension Namespace.DocumentViewController {
         var snapshot = ListDiffableDataSourceSnapshot.init()
         snapshot.appendSections([ViewModel.Section.first])
         snapshot.appendItems(rows)
+        
+        /// TODO: Think about post update and set focus synergy.
+        /// Maybe we should sync set focus here in completion?
+        ///
         dataSource.apply(snapshot)
+//        { [weak self] in
+//            self?.scrollToFocused()
+//        }
     }
     
     func updateIds(_ ids: [String]) {

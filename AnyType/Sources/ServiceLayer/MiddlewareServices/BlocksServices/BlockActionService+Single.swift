@@ -42,11 +42,6 @@ protocol ServiceLayerModule_BlockListActionsServiceProtocolDuplicate {
     func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error>
 }
 
-protocol ServiceLayerModule_BlockEventListener {
-    associatedtype Event
-    func receive(contextId: String) -> AnyPublisher<Event, Never>
-}
-
 protocol ServiceLayerModule_BlockActionsServiceSingleProtocol {
     associatedtype Open: ServiceLayerModule_BlockActionsServiceSingleProtocolOpen
     associatedtype Close: ServiceLayerModule_BlockActionsServiceSingleProtocolClose
@@ -54,7 +49,6 @@ protocol ServiceLayerModule_BlockActionsServiceSingleProtocol {
     associatedtype Replace: ServiceLayerModule_BlockActionsServiceSingleProtocolReplace
     associatedtype Delete: ServiceLayerModule_BlockActionsServiceSingleProtocolDelete
     associatedtype Duplicate: ServiceLayerModule_BlockListActionsServiceProtocolDuplicate
-    associatedtype EventListener: ServiceLayerModule_BlockEventListener
     
     var open: Open {get}
     var close: Close {get}
@@ -62,7 +56,6 @@ protocol ServiceLayerModule_BlockActionsServiceSingleProtocol {
     var replace: Replace {get}
     var delete: Delete {get}
     var duplicate: Duplicate {get}
-    var eventListener: EventListener {get}
 }
 
 extension Namespace {
@@ -75,7 +68,6 @@ extension Namespace {
         var replace: Replace = .init()
         var delete: Delete = .init()
         var duplicate: Duplicate = .init() // BlockList?
-        var eventListener: EventListener = .init()
     }
 }
 
@@ -127,39 +119,5 @@ extension Namespace.BlockActionsService {
             Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
-    }
-}
-
-extension Namespace.BlockActionsService {
-    // MARK: Events Processing
-    // MARK: It is new Listener, so, you should replace old listener.
-    struct EventListener: ServiceLayerModule_BlockEventListener {
-        private static let parser: BlocksModelsModule.Parser = .init()
-        
-         struct Event {
-             var rootId: String
-             var blocks: [BlockInformationModelProtocol]
-             static func from(event: Anytype_Event.Block.Show) -> Self {
-                .init(rootId: event.rootID, blocks: parser.parse(blocks: event.blocks, details: event.details, smartblockType: event.type).blocks)
-             }
-         }
-         
-         func createFrom(event: Anytype_Event.Block.Show) -> Event {
-             .from(event: event)
-         }
-         
-         func receive(contextId: ContextId) -> AnyPublisher<Event, Never> {
-             receiveRawEvent(contextId: contextId).map(Event.from(event:)).eraseToAnyPublisher()
-         }
-         
-         func receiveRawEvent(contextId: ContextId) -> AnyPublisher<Anytype_Event.Block.Show, Never> {
-             NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
-                 .compactMap { $0.object as? Anytype_Event }
-                 .filter({$0.contextID == contextId})
-                 .map(\.messages)
-                 .compactMap { $0.first { $0.value == .blockShow($0.blockShow) }?.blockShow }
-                 .eraseToAnyPublisher()
-         }
-
     }
 }

@@ -36,6 +36,8 @@ extension Namespace {
         var intentionalUpdatePublisher: AnyPublisher<Update, Never> = .empty()
         
         // Set Focus
+        /// TODO: Think
+        /// Do we really need SetFocus as Published property?
         @Published var setFocus: Focus?
         
         // First Responder
@@ -51,8 +53,15 @@ extension Namespace {
         var auxiliaryPublisher: AnyPublisher<Update, Never> = .empty()
         var sizePublisher: AnyPublisher<CGSize, Never> = .empty()
         
+        /// ResignFirstResponder to outer world.
+        private var resignFirstResponderSubject: PassthroughSubject<Void, Never> = .init()
+        var resignFirstResponderPublisher: AnyPublisher<Void, Never> = .empty()
+        
         private var builder: Builder = .init()
         private var coordinator: Coordinator = .init()
+        
+        /// Subscriptions
+        private var resignFirstResponderSubscription: AnyCancellable?
         
         init() {
             self.setup()
@@ -73,9 +82,9 @@ extension Namespace {
             /// 3. we also use `setAttributedString` of textStorage.
             /// In this circumstances, it is better to remove duplicates of attributedString...
             /// You could build a cycle of events in these circumstances, it is very bad.
-            self.updatePublisher = self.coordinator.$text.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(Update.text).eraseToAnyPublisher()
-            self.richUpdatePublisher = self.coordinator.$attributedText.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
-            self.auxiliaryPublisher = self.coordinator.$textAlignment.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
+            self.updatePublisher = self.coordinator.attributedTextPublisher.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(\.string).map(Update.text).eraseToAnyPublisher()
+            self.richUpdatePublisher = self.coordinator.attributedTextPublisher.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
+            self.auxiliaryPublisher = self.coordinator.textAlignmentPublisher.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
         
             // Size
             self.sizePublisher = self.coordinator.$textSize.receive(on: RunLoop.main).safelyUnwrapOptionals().eraseToAnyPublisher()
@@ -85,6 +94,8 @@ extension Namespace {
             
             // Intentional Update
             self.intentionalUpdatePublisher = self.intentionalUpdateSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
+            
+            self.resignFirstResponderPublisher = self.resignFirstResponderSubject.eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {
@@ -107,6 +118,10 @@ extension Namespace.ViewModel {
 extension Namespace.ViewModel {
     func shouldResignFirstResponder() {
         self.shouldResignFirstResponderSubject.send(true)
+    }
+    /// For view.
+    private func didResignFirstResponder() {
+        self.resignFirstResponderSubject.send()
     }
 }
 
@@ -150,6 +165,12 @@ extension Namespace.ViewModel {
 extension Namespace.ViewModel {
     func configured(_ delegate: TextViewUserInteractionProtocol?) -> Self {
         _ = self.coordinator.configure(delegate)
+        return self
+    }
+    func configured(resignFirstResponderPublisher: AnyPublisher<Void, Never>) -> Self {
+        self.resignFirstResponderSubscription = resignFirstResponderPublisher.sink { [weak self] (value) in
+            self?.didResignFirstResponder()
+        }
         return self
     }
 }

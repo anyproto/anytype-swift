@@ -31,9 +31,7 @@ extension TextView {
         struct Resources {}
         
         // MARK: TODO: Remove
-        var getTextView: UITextView? {
-            return textView
-        }
+        var getTextView: UITextView? { self.textView }
                 
         func update(placeholder: Placeholder) {
             // set placeholder to view.
@@ -150,7 +148,7 @@ extension TextView {
         }
         
         override var intrinsicContentSize: CGSize {
-            return .zero
+            .zero
         }
         
     }
@@ -239,7 +237,7 @@ extension TextView.UIKitTextView {
         case let .at(value):
             if let textView = self.textView {
                 // check that we can set it.
-                let length = self.textView.textStorage.length
+                let length = textView.textStorage.length
                 let zero = 0
                 let newValue = min(max(value, zero), length)
                 switch newValue {
@@ -267,7 +265,7 @@ extension TextView.UIKitTextView {
             /// Otherwise, we should set first responder when view will go into layout cycle.
             ///
             if self.textView.isFirstResponder {
-            value.completion(true)
+                value.completion(true)
             }
 //            break
         }
@@ -297,9 +295,9 @@ extension TextView.UIKitTextView {
 // MARK: Placeholder
 extension TextView.UIKitTextView {
     struct Placeholder {
-        var text: String?
-        var attributedText: NSAttributedString?
-        var attributes: [NSAttributedString.Key: Any] = [:]
+        private(set) var text: String?
+        private(set) var attributedText: NSAttributedString?
+        private(set) var attributes: [NSAttributedString.Key: Any] = [:]
         
         fileprivate var placeholder: NSAttributedString {
             if let result = attributedText {
@@ -310,19 +308,16 @@ extension TextView.UIKitTextView {
             }
         }
         
-        mutating func configured(text: String?) -> Self {
-            self.text = text
-            return self
+        func configured(text: String?) -> Self {
+            .init(text: text, attributedText: self.attributedText, attributes: self.attributes)
         }
         
-        mutating func configured(attributedText: NSAttributedString?) -> Self {
-            self.attributedText = attributedText
-            return self
+        func configured(attributedText: NSAttributedString?) -> Self {
+            .init(text: self.text, attributedText: attributedText, attributes: self.attributes)
         }
         
-        mutating func configured(attributes: [NSAttributedString.Key: Any] = [:]) -> Self {
-            self.attributes = attributes
-            return self
+        func configured(attributes: [NSAttributedString.Key: Any] = [:]) -> Self {
+            .init(text: self.text, attributedText: self.attributedText, attributes: attributes)
         }
     }
 }

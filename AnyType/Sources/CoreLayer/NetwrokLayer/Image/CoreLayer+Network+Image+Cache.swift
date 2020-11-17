@@ -192,7 +192,6 @@ extension Namespace.Cache {
     private func publisher(key: EntityKey) -> (AnyCancellable?, CurrentValueSubject<UIImage?, Never>) {
         let subject = CurrentValueSubject<UIImage?, Never>.init(self.images.object(forKey: key)?.image)
         /// we should subscribe on something that will publish updates.
-        print("entityKey: \(key.debugDescription) has image: \(String(describing: subject.value))")
         let subscription = self.imagesSubject.filter({$0.key == key}).map({$0.value}).subscribe(subject)
         return (subscription, subject)
     }

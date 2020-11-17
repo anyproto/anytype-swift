@@ -96,16 +96,20 @@ public extension FileNamespace {
     enum FirstResponderResolver {
         public typealias Model = BlockActiveRecordModelProtocol
         
-        public static func resolvePendingUpdate(_ model: Model) {
-            model.container?.userSession.didChange()
+        public static func resolvePendingUpdateIfNeeded(_ model: Model) {
+            if model.isFirstResponder {
+                self.resolvePendingUpdate(model)
+            }
         }
         
-        public static func resolve(_ model: Model) {
-            if model.isFirstResponder {
-                var model = model
-                model.unsetFirstResponder()
-                model.unsetFocusAt()
-            }
+        public static func resolvePendingUpdate(_ model: Model) {
+            self.resolve(model)
+        }
+        
+        private static func resolve(_ model: Model) {
+            var model = model
+            model.unsetFirstResponder()
+            model.unsetFocusAt()
         }
     }
 }
