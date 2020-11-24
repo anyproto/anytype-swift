@@ -33,8 +33,8 @@ extension Namespace {
         /// Maybe we need remove these variables?
         private var attributedTextSubject: PassthroughSubject<NSAttributedString?, Never> = .init()
         private var textAlignmentSubject: PassthroughSubject<NSTextAlignment?, Never> = .init()
-        var attributedTextPublisher: AnyPublisher<NSAttributedString?, Never> = .empty()
-        var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
+        private(set) var attributedTextPublisher: AnyPublisher<NSAttributedString?, Never> = .empty()
+        private(set) var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
         @Published var textSize: CGSize? = nil
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
         func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
@@ -662,10 +662,10 @@ extension FileNamespace {
         /// We could remove notification about new attributedText
         /// because we have already notify our subscribers in `textViewDidChange`
         ///
-        DispatchQueue.global().async {
-            self.attributedTextSubject.send(payload.attributedText)
-            self.textAlignmentSubject.send(payload.textAlignment)
-        }
+        
+        /// We don't need any dispatching, because we are receiving values on different than .main queue.
+        self.attributedTextSubject.send(payload.attributedText)
+        self.textAlignmentSubject.send(payload.textAlignment)
     }
 }
 

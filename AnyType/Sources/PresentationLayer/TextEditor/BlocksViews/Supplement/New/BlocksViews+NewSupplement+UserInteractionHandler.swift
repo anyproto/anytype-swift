@@ -314,21 +314,22 @@ private extension Namespace.UserInteractionHandler {
                 default: position = .end
                 }
                 
-                var newAttributedString: NSMutableAttributedString?
-                switch (previousModel.blockModel.information.content, block.blockModel.information.content) {
-                case let (.text(lhs), .text(rhs)):
-                    let left = lhs.attributedText
-                    newAttributedString = .init(attributedString: left)
-                    let right = rhs.attributedText
-                    newAttributedString?.append(right)
-                default: break
-                }
+//                var newAttributedString: NSMutableAttributedString?
+//                switch (previousModel.blockModel.information.content, block.blockModel.information.content) {
+//                case let (.text(lhs), .text(rhs)):
+//                    let left = lhs.attributedText
+//                    newAttributedString = .init(attributedString: left)
+//                    let right = rhs.attributedText
+//                    newAttributedString?.append(right)
+//                default: break
+//                }
                 
-                let attributedString = newAttributedString
+//                let attributedString = newAttributedString
                 
                 self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
                     .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setText(.init(payload: .init(blockId: previousBlockId, attributedString: attributedString))),
+//                        .setText(.init(payload: .init(blockId: previousBlockId, attributedString: attributedString))),
+                        .setTextMerge(.init(payload: .init(blockId: previousBlockId))),
                         .setFocus(.init(payload: .init(blockId: previousBlockId, position: position)))
                     ])
                 }
@@ -587,13 +588,16 @@ private extension Namespace.UserInteractionHandler {
                     let addedBlockId = addedBlock.id
                     
                     /// Find a block after added block, because we insert previous block.
-                    guard let index = setChildrenEvent.childrenIds.firstIndex(where: { $0 == addedBlockId }) else {
+                    guard let addedBlockIndex = setChildrenEvent.childrenIds.firstIndex(where: { $0 == addedBlockId }) else {
                         let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                         os_log(.debug, log: logger, "blocks.split.afterUpdate can't find index of added block in children ids.")
                         return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                     }
                     
-                    let focusedIndex = setChildrenEvent.childrenIds.index(after: index)
+                    /// If we are adding as bottom, we don't need to find block after added block.
+                    /// Our addedBlockIndex is focused index.
+                    let focusedIndex = addedBlockIndex
+                    //setChildrenEvent.childrenIds.index(after: addedBlockIndex)
                     
                     /// Check that our childrenIds collection indices contains index.
                     guard setChildrenEvent.childrenIds.indices.contains(focusedIndex) else {

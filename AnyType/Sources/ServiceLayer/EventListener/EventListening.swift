@@ -59,31 +59,42 @@ extension EventListening {
     }
 }
 
+extension EventListening.PackOfEvents.OurEvent {
+    struct Focus {
+        struct Payload {
+            enum Position {
+                case unknown
+                case beginning
+                case end
+                case at(Int)
+            }
+            var blockId: String
+            var position: Position?
+        }
+        var payload: Payload
+    }
+    
+    struct Text {
+        struct Payload {
+            var blockId: String
+            var attributedString: NSAttributedString?
+        }
+        var payload: Payload
+    }
+    
+    struct TextMerge {
+        struct Payload {
+            var blockId: String
+        }
+        var payload: Payload
+    }
+}
+
 extension EventListening.PackOfEvents {
     enum OurEvent {
-        struct Focus {
-            struct Payload {
-                enum Position {
-                    case unknown
-                    case beginning
-                    case end
-                    case at(Int)
-                }
-                var blockId: String
-                var position: Position?
-            }
-            var payload: Payload
-        }
         case setFocus(Focus)
-        
-        struct Text {
-            struct Payload {
-                var blockId: String
-                var attributedString: NSAttributedString?
-            }
-            var payload: Payload
-        }
         case setText(Text)
+        case setTextMerge(TextMerge)
     }
 }
 

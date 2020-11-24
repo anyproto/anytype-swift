@@ -382,14 +382,23 @@ extension Namespace.DocumentViewController {
 
 // MARK: - Set Focus
 private extension Namespace.DocumentViewController {
-    func scrollToFocused() {
+    func scrollAndFocusOnFocusedBlock() {
         guard let dataSource = self.tableViewDataSource else { return }
         let snapshot = dataSource.snapshot()
-        let id = self.viewModel.rootModel?.blocksContainer.userSession.firstResponder()
-        /// TODO: Don't reset in blocks, only do it here.
-        /// It is one time action, so, after applying we are forgeting about focus at all.
-        /// Find indexPath by id and scroll to it.
-//        self.tableView?.scrollToRow(at: <#T##IndexPath#>, at: <#T##UITableView.ScrollPosition#>, animated: <#T##Bool#>)
+        let userSession = self.viewModel.rootModel?.blocksContainer.userSession
+        let id = userSession?.firstResponder()
+        let focusedAt = userSession?.focusAt()
+        if let id = id, let focusedAt = focusedAt {
+            let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
+            if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
+                value.builder?.blockId == id
+            }) {
+                (itemIdentifiers[index].blockBuilder as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
+                self.tableView?.scrollToRow(at: .init(row: index, section: 0), at: .middle, animated: true)
+                userSession?.unsetFocusAt()
+                userSession?.unsetFirstResponder()
+            }
+        }
     }
 }
 
@@ -414,6 +423,14 @@ extension Namespace.DocumentViewController {
     func updateData(_ rows: [ViewModel.Row]) {
         guard let dataSource = self.tableViewDataSource else { return }
         
+        /// TODO: Add
+        /// Check if we about to delete block.
+        /// In this case we should first focus position and then apply snapshot.
+        /// Otherwise, if we need to insert item, we should first insert everything and
+        /// on completion set focus.
+        ///
+        self.scrollAndFocusOnFocusedBlock()
+        
         var snapshot = ListDiffableDataSourceSnapshot.init()
         snapshot.appendSections([ViewModel.Section.first])
         snapshot.appendItems(rows)
@@ -421,10 +438,9 @@ extension Namespace.DocumentViewController {
         /// TODO: Think about post update and set focus synergy.
         /// Maybe we should sync set focus here in completion?
         ///
-        dataSource.apply(snapshot)
-//        { [weak self] in
-//            self?.scrollToFocused()
-//        }
+        dataSource.apply(snapshot) { [weak self] in
+            self?.scrollAndFocusOnFocusedBlock()
+        }
     }
     
     func updateIds(_ ids: [String]) {

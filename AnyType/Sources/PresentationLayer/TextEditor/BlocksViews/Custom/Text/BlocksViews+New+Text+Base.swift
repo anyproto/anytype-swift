@@ -27,6 +27,7 @@ extension BlocksViews.New.Text {
 extension Namespace {
     struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
+        var shouldApplyChangesLocally: Bool = false
     }
 }
 
@@ -56,8 +57,6 @@ extension Namespace {
         ///
         @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
         @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
-        @available(iOS, introduced: 13.0, deprecated: 14.0, message: "Rethink. Too complex logic in SetFocus. We need something more accurate and predictable.")
-        @Published private var toViewSetFocusPosition: FocusPosition?
         
         /// TODO: Rethink. It could be done more accurate and predictable. Do we need it at all?
         /// Actually, we need an update, yes, but we could publish it as Update(or ViewState) from raw block.
@@ -143,9 +142,6 @@ private extension Namespace.ViewModel {
             }
         default: return
         }
-        if block.isFirstResponder {
-            self.toViewSetFocusPosition = block.focusAt
-        }
     }
 }
 
@@ -194,43 +190,8 @@ private extension Namespace.ViewModel {
         self.toViewUpdates.sink { [weak self] (value) in
             self?.textViewModel.update = value
         }.store(in: &self.subscriptions)
-        
-        self.$toViewSetFocusPosition.sink { [weak self] (value) in
-            self?.textViewModel.setFocus = .init(position: value, completion: { [weak self] (value) in
-                /// HACK:
-                /// Look at `diffable` documentation for details.
-                /// Now it consists of two entries.
-                /// `diffable` = `contentType` + `blockId`.
-                /// If we change content type, we change a class of view model.
-                /// This update is not destructive ( like add or delete ) and associated `textView` still exists.
-                /// This `textView` will catch event.
-                /// We would like to prevent it.
-                /// We would like to deliver event to a view which could handle it.
-                ///
-                /// --
-                /// This hack can be removed, when we extract a widget `textView` and we will transfer it between viewModels.
-                /// --
-                ///
-                if self?.makeDiffable() != self?.diffable {
-                    let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                    os_log(.debug, log: logger, "TextBlocksViews toViewSetFocusPosition. Skip set focus for block: %@", String(describing: self?.getBlock().blockModel.information.id))
-                    return
-                }
-                var model = self?.getBlock()
-                model?.unsetFocusAt()
-                model?.unsetFirstResponder()
                 
-                /// Break possible cyclic setFocus.
-                self?.toViewSetFocusPosition = nil
-            })
-        }.store(in: &self.subscriptions)
-        
         // From Model
-        self.getBlock().container?.userSession.didChangePublisher().sink(receiveValue: { [weak self] (value) in
-            if let block = self?.getBlock(), block.isFirstResponder {
-                self?.toViewSetFocusPosition = block.focusAt
-            }
-        }).store(in: &self.subscriptions)
         
         /// SUSPENDED: subscription.
         /// We should subscribe only on blocks from other users.
@@ -238,21 +199,21 @@ private extension Namespace.ViewModel {
         /// Or any other condition.
         ///
         
-        self.getBlock().didChangeInformationPublisher().receive(on: DispatchQueue.global()).map({ value -> TopLevel.AliasesMap.BlockContent.Text? in
-            switch value.content {
+        /// We need it for Merge requests.
+        /// Maybe we should do it differently.
+        /// We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
+        /// If we listen `didChangeInformationPublisher()`, we will receive whole data from every change.
+        self.getBlock().didChangePublisher().receive(on: DispatchQueue.global()).map({ [weak self] _ -> TopLevel.AliasesMap.BlockContent.Text? in
+            let value = self?.getBlock().blockModel.information
+            switch value?.content {
             case let .text(value): return value
             default: return nil
             }
-        }).removeDuplicates().safelyUnwrapOptionals().sink { [weak self] (value) in
+        }).safelyUnwrapOptionals().sink { [weak self] (value) in
             /// Update data(?)
-            /// We need it for Merge requests.
             self?.toViewText = value.attributedText
         }.store(in: &self.subscriptions)
-        
-        //                self.blockUpdatesPublisher.map(\.information.alignment).map(Alignment.Converter.asModel(_:)).sink { [weak self] (value) in
-        //
-        //                }.store(in: &self.subscriptions)
-        
+                
         /// FromModel
         /// ???
         /// Actually, when we open page, we get BlockShow event.
@@ -261,8 +222,8 @@ private extension Namespace.ViewModel {
         /// ToModel
         /// Maybe add throttle.
         
-        self.toModelTextSubject.receive(on: DispatchQueue.global()).sink { (value) in
-            self.setModelData(attributedText: value)
+        self.toModelTextSubject.receive(on: DispatchQueue.global()).sink { [weak self] (value) in
+            self?.setModelData(attributedText: value)
         }.store(in: &self.subscriptions)
         
         self.getBlock().didChangeInformationPublisher().map(\.content).map({ value -> NSAttributedString? in
@@ -281,7 +242,7 @@ private extension Namespace.ViewModel {
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
-        self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.main).notableError().receive(on: DispatchQueue.global()).flatMap({ [weak self] (value) in
+        self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.global()).notableError().flatMap({ [weak self] (value) in
             self?.apply(alignment: value) ?? .empty()
         }).sink(receiveCompletion: { (value) in
             switch value {
@@ -293,12 +254,13 @@ private extension Namespace.ViewModel {
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
         /// TextDidChange For OuterWorld
-        let textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
-            switch value {
-            case let .attributedText(text): return text
-            default: return nil
-            }
-        }.safelyUnwrapOptionals().eraseToAnyPublisher()
+//        let textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
+//            switch value {
+//            case let .attributedText(text): return text
+//            default: return nil
+//            }
+//        }.safelyUnwrapOptionals().eraseToAnyPublisher()
+        let textDidChangePublisher = Just(NSAttributedString.init())
         let textSizeDidChangePublisher = self.textViewModel.sizePublisher.eraseToAnyPublisher()
         self.textDidChangePublisher = Publishers.CombineLatest(textDidChangePublisher, textSizeDidChangePublisher).removeDuplicates { (lhs, rhs) -> Bool in
             lhs.1.height == rhs.1.height
@@ -322,9 +284,6 @@ private extension Namespace.ViewModel {
                 self.toViewText = blockType.attributedText
             default: return
             }
-            if block.isFirstResponder {
-                self.toViewSetFocusPosition = block.focusAt
-            }
         }
     }
     
@@ -333,6 +292,13 @@ private extension Namespace.ViewModel {
         self.setupText()
         self.setupTextViewModel()
         self.setupSubscribers()
+    }
+}
+
+// MARK: - Set Focus
+extension Namespace.ViewModel {
+    func set(focus: TextView.UIKitTextView.ViewModel.Focus?) {
+        self.textViewModel.set(focus: focus)
     }
 }
 
@@ -404,11 +370,15 @@ private extension Namespace.ViewModel {
         if shouldStoreInModel {
             self.setModelData(attributedText: attributedText)
         }
-        let block = self.getBlock()
         
+        if self.textOptions.shouldApplyChangesLocally {
+            return .empty()
+        }
+        
+        let block = self.getBlock()
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
-        let logger = Logging.createLogger(category: .textBlocksViewsBase)
-        os_log(.debug, log: logger, "Before TextBlocksViews setBlockText has occured. ParentId: %@ BlockId: %@", String(describing: contextID), String(describing: self.blockId))
+//        let logger = Logging.createLogger(category: .textBlocksViewsBase)
+//        os_log(.debug, log: logger, "Before TextBlocksViews setBlockText has occured. ParentId: %@ BlockId: %@", String(describing: contextID), String(describing: self.blockId))
         return self.service.setText.action(contextID: contextID, blockID: self.blockId, attributedString: attributedText)
     }
     func apply(update: TextView.UIKitTextView.ViewModel.Update) {
@@ -823,6 +793,7 @@ private extension Namespace.ViewModel {
         /// Views
         var topView: TopView = .init()
         var contentView: UIView = .init()
+        var textView: TextView.UIKitTextView? = nil
         
         /// Subscriptions
         
@@ -935,7 +906,15 @@ private extension Namespace.ViewModel {
             /// Instead of creating new view, it is better to assign view model to old textView for performance.
             ///
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel()
-            _ = self.topView.configured(textView: self.currentConfiguration.contextMenuHolder?.getUIKitViewModel().createView(.init(liveUpdateAvailable: true)))
+            let model = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel()
+            let shouldReuseView: Bool = false
+            if let view = self.textView, let textView = view.getTextView, shouldReuseView {
+                view.assign(model, view: textView)
+            }
+            else {
+                self.textView = model?.createView(.init(liveUpdateAvailable: true))
+                _ = self.topView.configured(textView: self.textView)
+            }
         }
         
         /// MARK: - DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol
@@ -955,7 +934,7 @@ private extension Namespace.ViewModel {
         func configure(publisher: AnyPublisher<DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event, Never>) {
             if self.onLayoutSubviewsSubscription == nil {
                 self.onLayoutSubviewsSubscription = publisher.sink(receiveValue: { [weak self] (value) in
-                    self?.handle(value)
+//                    self?.handle(value)
                 })
             }
         }

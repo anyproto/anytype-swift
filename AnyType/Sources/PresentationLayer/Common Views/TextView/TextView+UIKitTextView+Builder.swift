@@ -63,10 +63,10 @@ extension TextView.UIKitTextView.Builder {
         let textView = configuredTextView(textView, coordinator: coordinator)
         coordinator.configureActionsToolbarHandler(textView)
         if let smartTextView = textView as? TextView.UIKitTextView.TextViewWithPlaceholder {
-            _ = coordinator.configured(textStorageStream: smartTextView.textStorageEventsSubject.eraseToAnyPublisher())
-            _ = coordinator.configured(textView, contextualMenuStream: smartTextView.contextualMenuSubject.eraseToAnyPublisher())
+            _ = coordinator.configured(textStorageStream: smartTextView.textStorageEventsPublisher)
+            _ = coordinator.configured(textView, contextualMenuStream: smartTextView.contextualMenuPublisher)
         }
-        _ = coordinator.configureMarksPanePublisher(textView)
+        coordinator.configureMarksPanePublisher(textView)
         return textView
     }
 }

@@ -13,18 +13,31 @@ import BlocksModels
 
 fileprivate typealias Namespace = TextView.UIKitTextView
 
+extension Namespace.ViewModel {
+    struct Focus {
+        typealias Position = TopLevel.AliasesMap.FocusPosition
+        var position: Position?
+        
+        /// We should call completion when we are done with set focus.
+        var completion: (Bool) -> () = { _ in }
+    }
+}
+
+extension Namespace.ViewModel {
+    enum FirstResponder {
+        enum Change {
+            case unknown
+            case become
+            case resign
+        }
+    }
+}
+
 // UIView -> Coordinator -> Delegate -> ...
 // UIView -> Coordinator.text -> ???
 // UIView <- ViewModel <(Update)- ViewModel ( special model )
 extension Namespace {
     class ViewModel {
-        struct Focus {
-            typealias Position = TopLevel.AliasesMap.FocusPosition
-            var position: Position?
-            
-            /// We should call completion when we are done with set focus.
-            var completion: (Bool) -> () = { _ in }
-        }
         
         // For View
         @Published var update: Update = .unknown
@@ -34,34 +47,44 @@ extension Namespace {
         /// Instead, we separate `@Published update` property and `intentionalUpdatePublisher`.
         private var intentionalUpdateSubject: PassthroughSubject<Update?, Never> = .init()
         var intentionalUpdatePublisher: AnyPublisher<Update, Never> = .empty()
-        
-        // Set Focus
-        /// TODO: Think
-        /// Do we really need SetFocus as Published property?
-        @Published var setFocus: Focus?
+                
+        /// Set focus subject and publishers.
+        private var setFocusSubject: PassthroughSubject<Focus?, Never> = .init()
+        var setFocusPublisher: AnyPublisher<Focus, Never> = .empty()
         
         // First Responder
-        private var shouldResignFirstResponderSubject: PassthroughSubject<Bool, Never> = .init()
-        var shouldResignFirstResponderPublisher: AnyPublisher<Bool, Never> = .empty()
+        /// TODO: Remove when you are ready or do it in different way...
+        /// We use this publisher for resign first responder if user press Multiaction on keyboard.
+        /// Actually, we should do it without knowledge of first responder.
+        /// So, we should resign first responder via AppDelegate.
+        
+        /// Deprecated.
+        @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property makes sense only before first responder refactoring. Remove it when you are ready.")
+        lazy private var shouldResignFirstResponderSubject: PassthroughSubject<Bool, Never> = .init()
+        @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property makes sense only before first responder refactoring. Remove it when you are ready.")
+        lazy private(set) var shouldResignFirstResponderPublisher: AnyPublisher<Bool, Never> = .empty()
         
         // For OuterWorld.
         /// First publisher which manipulates plain old string, text.
-        var updatePublisher: AnyPublisher<Update, Never> = .empty()
+        /// Deprecated.
+        lazy private(set) var updatePublisher: AnyPublisher<Update, Never> = .empty()
         
         /// Second publisher which manipulates rich string, attributed string.
-        var richUpdatePublisher: AnyPublisher<Update, Never> = .empty()
-        var auxiliaryPublisher: AnyPublisher<Update, Never> = .empty()
-        var sizePublisher: AnyPublisher<CGSize, Never> = .empty()
+        lazy private(set) var richUpdatePublisher: AnyPublisher<Update, Never> = .empty()
+        lazy private(set) var auxiliaryPublisher: AnyPublisher<Update, Never> = .empty()
+        
+        /// Size publisher, we require it to update size of text views only if it has changed.
+        lazy private(set) var sizePublisher: AnyPublisher<CGSize, Never> = .empty()
         
         /// ResignFirstResponder to outer world.
-        private var resignFirstResponderSubject: PassthroughSubject<Void, Never> = .init()
-        var resignFirstResponderPublisher: AnyPublisher<Void, Never> = .empty()
+        private var firstResponderChangeSubject: PassthroughSubject<FirstResponder.Change, Never> = .init()
+        private(set) var firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never> = .empty()
         
         private var builder: Builder = .init()
         private var coordinator: Coordinator = .init()
         
         /// Subscriptions
-        private var resignFirstResponderSubscription: AnyCancellable?
+        private var firstResponderChangeSubscription: AnyCancellable?
         
         init() {
             self.setup()
@@ -89,13 +112,17 @@ extension Namespace {
             // Size
             self.sizePublisher = self.coordinator.$textSize.receive(on: RunLoop.main).safelyUnwrapOptionals().eraseToAnyPublisher()
             
-            // First Responder
+            // Should Resign First Responder
             self.shouldResignFirstResponderPublisher = self.shouldResignFirstResponderSubject.eraseToAnyPublisher()
             
             // Intentional Update
             self.intentionalUpdatePublisher = self.intentionalUpdateSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
+                        
+            // SetFocusPublisher
+            self.setFocusPublisher = self.setFocusSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
             
-            self.resignFirstResponderPublisher = self.resignFirstResponderSubject.eraseToAnyPublisher()
+            // FirstResponder
+            self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
         }
         
         convenience init(_ delegate: TextViewUserInteractionProtocol?) {
@@ -114,14 +141,24 @@ extension Namespace.ViewModel {
     }
 }
 
+// MARK: Set Focus
+extension Namespace.ViewModel {
+    func set(focus: Focus?) {
+        self.setFocusSubject.send(focus)
+    }
+}
+
 // MARK: Resign first responder
 extension Namespace.ViewModel {
+    @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This function makes sense only before first responder refactoring. Remove it when you are ready.")
     func shouldResignFirstResponder() {
         self.shouldResignFirstResponderSubject.send(true)
     }
     /// For view.
-    private func didResignFirstResponder() {
-        self.resignFirstResponderSubject.send()
+    /// TODO: Rethink.
+    /// We need to listen `resignFirstResponder to deselect current state of selected text.
+    private func didChangeFirstResponder(_ firstResponderChange: FirstResponder.Change) {
+        self.firstResponderChangeSubject.send(firstResponderChange)
     }
 }
 
@@ -157,7 +194,18 @@ extension Namespace.ViewModel {
         UIKitView.init().configured(options).configured(self)
     }
     func createInnerView() -> UITextView {
-        self.builder.makeUIView(coordinator: self.coordinator)
+        let view = self.builder.makeUIView(coordinator: self.coordinator)
+        if let textView = view as? TextView.UIKitTextView.TextViewWithPlaceholder {
+            _ = self.configured(firstResponderChangePublisher: textView.firstResponderChangePublisher)
+        }
+        return view
+    }
+    func configureInnerView(_ textView: UITextView) -> UITextView {
+        let view = self.builder.makeUIView(textView, coordinator: self.coordinator)
+        if let textView = view as? TextView.UIKitTextView.TextViewWithPlaceholder {
+            _ = self.configured(firstResponderChangePublisher: textView.firstResponderChangePublisher)
+        }
+        return view
     }
 }
 
@@ -167,10 +215,10 @@ extension Namespace.ViewModel {
         _ = self.coordinator.configure(delegate)
         return self
     }
-    func configured(resignFirstResponderPublisher: AnyPublisher<Void, Never>) -> Self {
-        self.resignFirstResponderSubscription = resignFirstResponderPublisher.sink { [weak self] (value) in
-            self?.didResignFirstResponder()
-        }
+    func configured(firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never>) -> Self {
+        self.firstResponderChangeSubscription = firstResponderChangePublisher.sink(receiveValue: { [weak self] (value) in
+            self?.didChangeFirstResponder(value)
+        })
         return self
     }
 }

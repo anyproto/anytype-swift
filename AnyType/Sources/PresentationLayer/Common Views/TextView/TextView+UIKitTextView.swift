@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 import Combine
+import os
+
+fileprivate typealias Namespace = TextView.UIKitTextView
+
+private extension Logging.Categories {
+    static let textViewUIKitTextView: Self = "TextView.UIKitTextView"
+}
 
 extension TextView {
     class UIKitTextView: UIView {
@@ -99,7 +106,7 @@ extension TextView {
             }).store(in: &self.subscriptions)
             
             // Set Focus
-            self.model?.$setFocus.safelyUnwrapOptionals().sink(receiveValue: { [weak self] (value) in
+            self.model?.setFocusPublisher.sink(receiveValue: { [weak self] (value) in
                 self?.setFocus(value)
             }).store(in: &self.subscriptions)
             
@@ -155,7 +162,7 @@ extension TextView {
 }
 
 // MARK: Updates
-extension TextView.UIKitTextView {
+extension Namespace {
     func onUpdate(_ update: TextView.UIKitTextView.ViewModel.Update) {
         switch update {
         case .unknown: return
@@ -166,6 +173,12 @@ extension TextView.UIKitTextView {
             // 2. self.textView.textStorage.length != 0.
             // We should _replace_ text in range, however, if we don't check that our string is empty, we will configure incorrect attributes.
             // There is no way to set attributes for text, becasue it is inherited from attributes that are assigned to first character, that will be replaced.
+            guard value != self.textView.textStorage.string else {
+                /// Skip updating row without
+                let logger = Logging.createLogger(category: .textViewUIKitTextView)
+                os_log(.debug, log: logger, "Update is equal to our textStorage. Skip it.")
+                return
+            }
             if self.textView.textStorage.length == 0 {
                 let text = NSAttributedString(string: value, attributes: self.textView.typingAttributes)
                 self.textView.textStorage.setAttributedString(text)
@@ -188,6 +201,11 @@ extension TextView.UIKitTextView {
             /// let font: UIFont = self.textView.typingAttributes[.foregroundColor] as? UIFont ?? UIFont.preferredFont(forTextStyle: .body)
             /// text.addAttributes([.font : font], range: .init(location: 0, length: text.length))
             ///
+            guard text != self.textView.textStorage else {
+                let logger = Logging.createLogger(category: .textViewUIKitTextView)
+                os_log(.debug, log: logger, "Update is equal to our textStorage. Skip it.")
+                return
+            }
             if self.textView.textStorage.length == 0 {
                 self.textView.textStorage.setAttributedString(text)
             }
@@ -217,7 +235,7 @@ extension TextView.UIKitTextView {
 }
 
 // MARK: Focus
-extension TextView.UIKitTextView {
+extension Namespace {
     private func setFocus(_ value: ViewModel.Focus.Position) {
         let position = value
         switch position {
@@ -264,10 +282,12 @@ extension TextView.UIKitTextView {
             /// We must assure ourselves, that we really set view as firstResponder.
             /// Otherwise, we should set first responder when view will go into layout cycle.
             ///
-            if self.textView.isFirstResponder {
-                value.completion(true)
-            }
-//            break
+            /// Actually, we don't use it, so, we could do nothing here.
+//            if self.textView.isFirstResponder {
+//                value.completion(true)
+//            }
+            /// TODO: Remove comments above.
+            break
         }
     }
 }
@@ -282,13 +302,23 @@ extension TextView.UIKitTextView {
     func configured(_ model: ViewModel?) -> Self {
         self.model = model
         self.setup()
-        
         return self
     }
     
     func configured(placeholder: Placeholder) -> Self {
         self.update(placeholder: placeholder)
         return self
+    }
+}
+
+// MARK: Assign / Reusing view.
+extension TextView.UIKitTextView {
+    func assign(_ model: ViewModel?, view: UITextView) {
+        self.subscriptions = []
+        self.model = model
+        /// We should also setup all publishers from textView.
+        _ = self.model?.configureInnerView(view)
+        self.setupInteractions()
     }
 }
 

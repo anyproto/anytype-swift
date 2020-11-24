@@ -157,12 +157,12 @@ extension Namespace.BlockActionsService {
     // MARK: Split
     struct Split: ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
         func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: .init(from: cursorPosition, to: cursorPosition), style: style, mode: .top).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: .init(from: cursorPosition, to: cursorPosition), style: style, mode: .bottom).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
         func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
             let middlewareRange = BlocksModelsModule.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
-            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: .top, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: .bottom, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
     }

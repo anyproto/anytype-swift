@@ -1,5 +1,5 @@
 //
-//  BlockActionService+Single.swift
+//  BlockActionsService+Single.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 14.06.2020.

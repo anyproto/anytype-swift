@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 import os
 
-extension Logging.Categories {
+private extension Logging.Categories {
     static let servicesFirebaseService: Self = "ServicesLayer.FirebaseService"
 }
 

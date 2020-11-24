@@ -14,6 +14,7 @@ import os
 //    static let customCategory: Self = "yourDesiredValue"
 //}
 
+/// TODO: Move to separate project.
 enum Logging {
     enum Subsystems {
         static let iOSApp = "org.anytype.anytype"

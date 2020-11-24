@@ -11,15 +11,17 @@ import UIKit
 import Combine
 import os
 
+fileprivate typealias Namespace = TextView.UIKitTextView
+
 private extension Logging.Categories {
     static let textViewUIKitTextView: Self = "TextView.UIKitTextView"
 }
 
-extension TextView.UIKitTextView {
+extension Namespace {
     enum ContextualMenu {}
 }
 
-extension TextView.UIKitTextView.ContextualMenu {
+extension Namespace.ContextualMenu {
     enum Action {
         case style
         case color
@@ -38,22 +40,41 @@ extension TextView.UIKitTextView.ContextualMenu {
     }
 }
 
-extension TextView.UIKitTextView {
+// MARK: - Private Queue
+private extension Namespace {
+    enum QueueStorage {
+        static let updatesQueue: DispatchQueue = .init(label: "org.anytype.anytype.TextView.UIKitTextView.TextView")
+    }
+}
+
+// MARK: - TextStorageEvent
+extension Namespace.TextViewWithPlaceholder {
+    enum TextStorageEvent {
+        struct Payload {
+            var attributedText: NSAttributedString
+            var textAlignment: NSTextAlignment
+        }
+        case willProcessEditing(Payload)
+        case didProcessEditing(Payload)
+    }
+}
+
+// MARK: - TextView
+extension Namespace {
     class TextViewWithPlaceholder: UITextView {
         
         // MARK: Publishers
-        enum TextStorageEvent {
-            struct Payload {
-                var attributedText: NSAttributedString
-                var textAlignment: NSTextAlignment
-            }
-            case willProcessEditing(Payload)
-            case didProcessEditing(Payload)
-        }
+        private var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
+        private(set) var textStorageEventsPublisher: AnyPublisher<TextStorageEvent, Never> = .empty()
         
-        var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
-        var contextualMenuSubject: PassthroughSubject<ContextualMenu.Action, Never> = .init()
-        var resignFirstResponderSubject: PassthroughSubject<Void, Never> = .init()
+        private var contextualMenuSubject: PassthroughSubject<ContextualMenu.Action, Never> = .init()
+        private(set) var contextualMenuPublisher: AnyPublisher<ContextualMenu.Action, Never> = .empty()
+        
+        private var resignFirstResponderSubject: PassthroughSubject<Void, Never> = .init()
+        private(set) var resignFirstResponderPublisher: AnyPublisher<Void, Never> = .empty()
+        
+        private var firstResponderChangeSubject: PassthroughSubject<ViewModel.FirstResponder.Change, Never> = .init()
+        private(set) var firstResponderChangePublisher: AnyPublisher<ViewModel.FirstResponder.Change, Never> = .empty()
         
         // MARK: Variables
         private var subscriptions: Set<AnyCancellable> = []
@@ -91,6 +112,7 @@ extension TextView.UIKitTextView {
         
         // MARK: Setup
         private func setup() {
+            self.setupPublishers()
             self.setupUIElements()
             self.updatePlaceholderLayout()
             self.setupMenu()
@@ -124,16 +146,44 @@ extension TextView.UIKitTextView {
             }
         }
         
-//        override func resignFirstResponder() -> Bool {
-//            let value = super.resignFirstResponder()
-//            self.resignFirstResponderSubject.send()
-//            return value
-//        }
+        func setupPublishers() {
+            /// Hm... Maybe it is not good idea to even send updates.
+            /// Actually, we only need to dispatch on correct queue?
+            /// Do we?
+            /// Maybe we need some private queue (?)
+            self.textStorageEventsPublisher = self.textStorageEventsSubject
+//                .subscribe(on: QueueStorage.updatesQueue)
+//                .receive(on: QueueStorage.updatesQueue)
+                //.debounce(for: .seconds(1), scheduler: DispatchQueue.global())
+                .eraseToAnyPublisher()
+            /// TODO: Measure.
+            /// We don't care about text anymore. We use debounce technique to sync document.
+            /// For that, we need only access to parts of textView.
+            /// For example, we could do it by getters (?)
+            let logger = Logging.createLogger(category: .todo(.improve("Performance issues")))
+            os_log(.debug, log: logger, "We intentionally disable publisher. We could live without this publisher and only debounce our work.")
+//            self.textStorageEventsPublisher = .empty()
+            self.contextualMenuPublisher = self.contextualMenuSubject.eraseToAnyPublisher()
+            
+            self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
+        }
+        
+        override func becomeFirstResponder() -> Bool {
+            let value = super.becomeFirstResponder()
+            self.firstResponderChangeSubject.send(.become)
+            return value
+        }
+        
+        override func resignFirstResponder() -> Bool {
+            let value = super.resignFirstResponder()
+            self.firstResponderChangeSubject.send(.resign)
+            return value
+        }
     }
 }
 
 // MARK: Contextual Menu
-extension TextView.UIKitTextView.TextViewWithPlaceholder {
+extension Namespace.TextViewWithPlaceholder {
     private class ContextualMenuItem: UIMenuItem {
         var payload: TextView.UIKitTextView.ContextualMenu.Action
         init(title: String, action: Selector, payload: TextView.UIKitTextView.ContextualMenu.Action) {
@@ -167,7 +217,7 @@ extension TextView.UIKitTextView.TextViewWithPlaceholder {
 /// As soon as we use `textStorage.setAttributedString`, we couldn't catch event via `.textDidChange`.
 /// We could do it only by `textStorage.delegate` methods ( or textStorage notifications ).
 ///
-extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate {
+extension Namespace.TextViewWithPlaceholder: NSTextStorageDelegate {
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
         self.syncPlaceholder()
         
@@ -193,7 +243,9 @@ extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate 
         /// For example, if you set `textView.textAlignment` it may have previous value ( was .center ).
         /// But first letter of attributes ( `NSParagraphStyle.alignment` ) has right alignment ( now .right )
         ///
-        self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: textAlignment)))
+        Namespace.QueueStorage.updatesQueue.async {
+            self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: textAlignment)))
+        }
     }
 }
 
@@ -201,8 +253,8 @@ extension TextView.UIKitTextView.TextViewWithPlaceholder: NSTextStorageDelegate 
 /// Actually, we should extract textAlignment from MarksStyle.
 /// In this case we even don't need correct order of applying alignment.
 ///
-extension NSTextAlignment {
-    enum Printer {
+extension Namespace.TextViewWithPlaceholder {
+    enum TextAlignmentPrinter {
         static func print(_ alignment: NSTextAlignment?) -> String {
             guard let alignment = alignment else { return "" }
             switch alignment {
@@ -218,7 +270,7 @@ extension NSTextAlignment {
 }
 
 // MARK: - Placeholder
-extension TextView.UIKitTextView.TextViewWithPlaceholder {
+extension Namespace.TextViewWithPlaceholder {
     fileprivate func syncPlaceholder() {
         self.placeholderLabel?.isHidden = !self.text.isEmpty
     }

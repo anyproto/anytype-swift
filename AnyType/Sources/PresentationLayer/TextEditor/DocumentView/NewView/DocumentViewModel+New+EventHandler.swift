@@ -431,33 +431,33 @@ private extension FileNamespace.EventHandler {
         switch event {
         case let .setFocus(value):
             let blockId = value.payload.blockId
-            guard var focusedModel = self.container?.blocksContainer.choose(by: blockId) else {
+            guard var model = self.container?.blocksContainer.choose(by: blockId) else {
                 let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "We can't find focused model by id %@", String(describing: blockId))
+                os_log(.debug, log: logger, "setFocus. We can't find model by id %@", String(describing: blockId))
                 return nil
             }
-            focusedModel.isFirstResponder = true
-            focusedModel.focusAt = value.payload.position.flatMap(Focus.Converter.asModel)
+            model.isFirstResponder = true
+            model.focusAt = value.payload.position.flatMap(Focus.Converter.asModel)
             
             /// TODO: We should check that we don't have blocks in updated List.
             /// IF id is in updated list, we should delay of `.didChange` event before all items will be drawn.
             /// For example, it can be done by another case.
             /// This case will capture a completion ( this `didChange()` function ) and call it later.
-            focusedModel.container?.userSession.didChange()
+            model.container?.userSession.didChange()
             
             return .general
         case let .setText(value):
             return nil
             let blockId = value.payload.blockId
-            guard let focusedModel = self.container?.blocksContainer.choose(by: blockId) else {
+            guard let model = self.container?.blocksContainer.choose(by: blockId) else {
                 let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "We can't find focused model by id %@", String(describing: blockId))
+                os_log(.debug, log: logger, "setText. We can't find model by id %@", String(describing: blockId))
                 return nil
             }
             
             guard let attributedText = value.payload.attributedString else {
                 let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "Text.Payload.attributedString is not allowed to be nil. %@", String(describing: blockId))
+                os_log(.debug, log: logger, "setText. Text.Payload.attributedString is not allowed to be nil. %@", String(describing: blockId))
                 return nil
             }
             
@@ -471,17 +471,30 @@ private extension FileNamespace.EventHandler {
 //                default: return
 //                }
 //            })
-            switch focusedModel.blockModel.information.content {
+            switch model.blockModel.information.content {
             case let .text(value):
-                var blockModel = focusedModel.blockModel
+                var blockModel = model.blockModel
                 var updatedValue = value
                 updatedValue.attributedText = attributedText
                 blockModel.information.content = .text(updatedValue)
-                focusedModel.didChange()
+                model.didChange()
             default: break
             }
             
             // set text to our model.
+            return .general
+        case let .setTextMerge(value):
+            let blockId = value.payload.blockId
+            guard var model = self.container?.blocksContainer.choose(by: blockId) else {
+                let logger = Logging.createLogger(category: .eventProcessor)
+                os_log(.debug, log: logger, "setTextMerge. We can't find model by id %@", String(describing: blockId))
+                return nil
+            }
+            
+            /// We should call didChange publisher to invoke related setText event (`didChangePublisher()` subscription) in viewModel.
+            
+            model.didChange()
+            
             return .general
         }
     }
