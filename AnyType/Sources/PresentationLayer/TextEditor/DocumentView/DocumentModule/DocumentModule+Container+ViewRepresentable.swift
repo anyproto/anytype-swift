@@ -1,8 +1,8 @@
 //
-//  DocumentModule+ContentViewRepresentable.swift
+//  DocumentModule+Container+ViewRepresentable.swift
 //  AnyType
 //
-//  Created by Dmitry Lobanov on 25.06.2020.
+//  Created by Dmitry Lobanov on 01.07.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
@@ -11,21 +11,22 @@ import SwiftUI
 import Combine
 import os
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.Container
 
 extension Namespace {
-    struct ContentViewRepresentable {
+    struct ViewRepresentable {
         @Environment(\.presentationMode) var presentationMode
         private(set) var documentId: String
+        private(set) var shouldShowDocument: Binding<Bool> = .init(get: { false }, set: { value in })
     }
 }
 
 // MARK: - ContentViewRepresentable
-extension Namespace.ContentViewRepresentable: UIViewControllerRepresentable {
+extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
     
-    private typealias ViewBuilder = Namespace.ContentViewBuilder
-    typealias ViewController = DocumentModule.ContentViewController
-    typealias Me = DocumentModule.ContentViewRepresentable
+    private typealias ViewBuilder = Namespace.ViewBuilder
+    typealias ViewController = DocumentModule.Container.ViewController
+    typealias Me = DocumentModule.Container.ViewRepresentable
     
     func makeCoordinator() -> Coordinator {
         .init(self)
@@ -34,13 +35,15 @@ extension Namespace.ContentViewRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(context: UIViewControllerRepresentableContext<Me>) -> ViewController {
         /// Configure document view builder.
 //        let view = ViewBuilder.UIKitBuilder.documentView(by: .init(id: self.documentId))
-        let view = ViewBuilder.UIKitBuilder.view(by: .init(documentRequest: .init(id: self.documentId)))
+        let view = ViewBuilder.UIKitBuilder.view(by: .init(id: self.documentId))
         
         // TODO: Fix later.
         // We should enable back button handling.
         /// Subscribe `coordinator` on events from `view.headerView`.
         /// TODO: Add back button here.
 //        _ = context.coordinator.configured(headerViewModelPublisher: view.headerViewModelPublisher)
+        
+        context.coordinator.configured(userActionStream: view.userActionPublisher)
         
         return view
     }
@@ -59,34 +62,42 @@ extension Namespace.ContentViewRepresentable: UIViewControllerRepresentable {
         //        }
     }
 
+    static func create(documentId: String, shouldShowDocument: Binding<Bool>) -> Self {
+        Me.init(documentId: documentId, shouldShowDocument: shouldShowDocument)
+    }
+    
     static func create(documentId: String) -> some View {
         Me.init(documentId: documentId)
     }
 }
 
-extension Namespace.ContentViewRepresentable {
+extension Namespace.ViewRepresentable {
     class Coordinator {
-        typealias Parent = DocumentModule.ContentViewRepresentable
+        typealias Parent = DocumentModule.Container.ViewRepresentable
+        typealias IncomingAction = DocumentModule.Container.ViewController.UserAction
+        
         // MARK: Variables
         private var parent: Parent
-        private var subscriptions: Set<AnyCancellable> = .init()
-
+        private var subscription: AnyCancellable?
+        
         // MARK: Initialization
         init(_ parent: Parent) {
             self.parent = parent
         }
-
-        // MARK: Actions
-//        func processBackButtonPressed() {
-//            parent.presentationMode.wrappedValue.dismiss()
-//        }
         
-        // MARK: Configuration
-//        func configured(headerViewModelPublisher: AnyPublisher<ViewController.HeaderView.UserAction, Never>) -> Self {
-//            headerViewModelPublisher.sink { [weak self] (value) in
-//                self?.processBackButtonPressed()
-//            }.store(in: &self.subscriptions)
-//            return self
-//        }
+        /// Subscription
+        func configured(userActionStream: AnyPublisher<IncomingAction, Never>) {
+            self.subscription = userActionStream.sink(receiveValue: { [weak self] (value) in
+                switch value {
+                case .shouldDismiss: self?.dismiss()
+                }
+            })
+        }
+        
+        /// Do dismiss
+        func dismiss() {
+            self.parent.shouldShowDocument.wrappedValue = false
+        }
     }
 }
+

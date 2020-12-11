@@ -1,8 +1,8 @@
 //
-//  DocumentViewCell+New.swift
+//  DocumentModule+Document+Cells.swift
 //  AnyType
 //
-//  Created by Dmitry Lobanov on 11.06.2020.
+//  Created by Dmitry Lobanov on 11.12.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
@@ -11,14 +11,15 @@ import UIKit
 import SwiftUI
 import Combine
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias DocumentNamespace = DocumentModule.Document
+fileprivate typealias Namespace = DocumentNamespace.Cells
 
-extension Namespace {
-    enum DocumentViewCells {}
+extension DocumentNamespace {
+    enum Cells {}
 }
 
 // MARK: - Options
-extension Namespace.DocumentViewCells.Cell {
+extension Namespace.Cell {
     struct Options {
         var useUIKit: Bool = true
         var shouldShowIndent: Bool = false
@@ -26,7 +27,7 @@ extension Namespace.DocumentViewCells.Cell {
 }
 
 // MARK: - Layout
-extension Namespace.DocumentViewCells {
+extension Namespace {
     struct Layout {
         var containedViewInset = 8
         var indentationWidth = 8
@@ -36,7 +37,7 @@ extension Namespace.DocumentViewCells {
 }
 
 // MARK: - UITableView
-extension Namespace.DocumentViewCells {
+extension Namespace {
     class TableViewCell: UITableViewCell {
         /// Variables
         
@@ -162,11 +163,11 @@ extension Namespace.DocumentViewCells {
 }
 
 // MARK: - Cell
-extension Namespace.DocumentViewCells {
+extension Namespace {
     class Cell: UIView {
         
         /// Aliases
-        typealias Model = DocumentModule.DocumentViewModel.Row
+        typealias Model = DocumentModule.Document.ViewController.ViewModel.Row
         
         /// Variables
         /// Subscriptions
@@ -272,7 +273,7 @@ extension Namespace.DocumentViewCells {
 }
 
 // MARK: Configured
-extension Namespace.DocumentViewCells.Cell {
+extension Namespace.Cell {
     class ViewBuilder {
         
         class func createView(_ model: BlockViewBuilderProtocol?, useUIKit: Bool) -> UIView? {
@@ -378,7 +379,7 @@ extension Namespace.DocumentViewCells.Cell {
 }
 
 // MARK: First responder support
-extension Namespace.DocumentViewCells.Cell {
+extension Namespace.Cell {
     func onFirstResponder() {
         if self.model?.isPendingFirstResponder == true {
             self.model?.resolvePendingFirstResponder()
@@ -387,7 +388,7 @@ extension Namespace.DocumentViewCells.Cell {
 }
 
 // MARK: Selection support
-extension Namespace.DocumentViewCells.Cell {
+extension Namespace.Cell {
     func onSelectionStateChanged(_ value: DocumentModule.Selection.IncomingCellEvent) {
         let event = value
         switch event {
@@ -404,7 +405,7 @@ extension Namespace.DocumentViewCells.Cell {
         }
     }
     func onSelectionStateChange() {
-        guard let event = self.model?.selectionCellEvent else {            
+        guard let event = self.model?.selectionCellEvent else {
             return
         }
         self.onSelectionStateChanged(event)
@@ -412,7 +413,7 @@ extension Namespace.DocumentViewCells.Cell {
 }
 
 // MARK: Toggle
-extension Namespace.DocumentViewCells.Cell {
+extension Namespace.Cell {
     func update(options: Options) {
         if self.options.shouldShowIndent != options.shouldShowIndent {
             self.boundaryRevealConstraint?.constant = options.shouldShowIndent ? CGFloat(self.layout.boundaryWidth) : 0
@@ -425,7 +426,7 @@ extension Namespace.DocumentViewCells.Cell {
 
 // MARK: - New Cells
 // MARK: ContentConfigurations
-extension Namespace.DocumentViewCells {
+extension Namespace {
     enum ContentConfigurations {
         class Table: UITableViewCell {
             enum Event {
@@ -465,10 +466,10 @@ extension Namespace.DocumentViewCells {
 
 // MARK: Protocols
 protocol DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
-    func configure(publisher: AnyPublisher<DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event, Never>)
+    func configure(publisher: AnyPublisher<DocumentModule.Document.Cells.ContentConfigurations.Table.Event, Never>)
 }
 
-fileprivate typealias ContentConfigurationsCells = Namespace.DocumentViewCells.ContentConfigurations
+fileprivate typealias ContentConfigurationsCells = Namespace.ContentConfigurations
 
 // MARK: ContentConfigurations
 extension ContentConfigurationsCells {
@@ -483,7 +484,7 @@ extension ContentConfigurationsCells {
 // MARK: ContentConfigurations / Text
 extension ContentConfigurationsCells.Text {
     enum Text {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {
+        class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {
             override func layoutSubviews() {
                 if let view = self.contentView as? DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
                     view.configure(publisher: self.eventPublisher)
@@ -498,11 +499,11 @@ extension ContentConfigurationsCells.Text {
 // MARK: ContentConfigurations / Files
 extension ContentConfigurationsCells.File {
     enum File {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
         class Collection: UICollectionViewCell {}
     }
     enum Image {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {
+        class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {
             override func layoutSubviews() {
                 if let view = self.contentView as? DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
                     view.configure(publisher: self.eventPublisher)
@@ -517,7 +518,7 @@ extension ContentConfigurationsCells.File {
 // MARK: ContentConfigurations / Bookmark
 extension ContentConfigurationsCells.Bookmark {
     enum Bookmark {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
         class Collection: UICollectionViewCell {}
     }
 }
@@ -525,7 +526,7 @@ extension ContentConfigurationsCells.Bookmark {
 // MARK: ContentConfigurations / Divider
 extension ContentConfigurationsCells.Other {
     enum Divider {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
         class Collection: UICollectionViewCell {}
     }
 }
@@ -533,7 +534,7 @@ extension ContentConfigurationsCells.Other {
 // MARK: ContentConfigurations / Link
 extension ContentConfigurationsCells.Link {
     enum PageLink {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
         class Collection: UICollectionViewCell {}
     }
 }
@@ -541,7 +542,7 @@ extension ContentConfigurationsCells.Link {
 // MARK: ContentConfigurations / Unknown
 extension ContentConfigurationsCells.Unknown {
     enum Label {
-        class Table: DocumentModule.DocumentViewCells.ContentConfigurations.Table {}
+        class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
         class Collection: UICollectionViewCell {}
     }
 }

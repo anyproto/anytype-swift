@@ -20,7 +20,7 @@ private extension Logging.Categories {
 
 extension Namespace {
     class ListUserInteractionHandler {
-        typealias ActionsPayload = DocumentModule.DocumentViewModel.ActionsPayload
+        typealias ActionsPayload = DocumentModule.Document.ViewController.ViewModel.ActionsPayload
         typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
                 
         typealias BlockId = TopLevel.AliasesMap.BlockId

@@ -1,5 +1,5 @@
 //
-//  DocumentModule+ContainerViewController+ViewModel.swift
+//  DocumentModule+Container+ViewController+ViewModel.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 01.07.2020.
@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = DocumentModule
-fileprivate typealias FileNamespace = Namespace.ContainerViewController
+fileprivate typealias Namespace = DocumentModule.Container
+fileprivate typealias FileNamespace = Namespace.ViewController
 
 // MARK: Actions
 extension FileNamespace.ViewModel {
@@ -20,7 +20,7 @@ extension FileNamespace.ViewModel {
     /// Generally, corresponing `ViewController` of this `viewModel` will subscribe on these actions.
     ///
     enum Action {
-        typealias Document = DocumentModule.ContainerViewBuilder.UIKitBuilder.ChildComponent
+        typealias Document = DocumentModule.Container.ViewBuilder.UIKitBuilder.ChildComponent
         case show(UIViewController)
         case child(UIViewController)
         case showDocument(Document)
@@ -35,7 +35,7 @@ extension FileNamespace.ViewModel {
         /// Aliases
         typealias IncomingEvent = DocumentViewRouting.OutputEvent
         typealias UserAction = Action
-        typealias DocumentRequest = DocumentModule.ContainerViewBuilder.Request
+        typealias DocumentRequest = DocumentModule.Container.ViewBuilder.Request
         
         /// Variables
         private var subscription: AnyCancellable?
@@ -43,8 +43,8 @@ extension FileNamespace.ViewModel {
         fileprivate var userAction: AnyPublisher<UserAction, Never> = .empty()
         
         /// TODO: Maybe extract to some entity
-        func build(_ request: DocumentRequest) -> DocumentModule.ContainerViewBuilder.UIKitBuilder.ChildComponent {
-            let component = DocumentModule.ContainerViewBuilder.UIKitBuilder.childComponent(by: request)
+        func build(_ request: DocumentRequest) -> DocumentModule.Container.ViewBuilder.UIKitBuilder.ChildComponent {
+            let component = DocumentModule.Container.ViewBuilder.UIKitBuilder.childComponent(by: request)
             /// Next, we should configure router and, well, we should configure navigation item, of course...
             /// But we don't know anything about navigation item here...
             /// We could ask ViewModel to configure and then send this event to view controller.

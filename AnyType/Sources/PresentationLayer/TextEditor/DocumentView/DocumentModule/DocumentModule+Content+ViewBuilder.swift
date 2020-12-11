@@ -1,5 +1,5 @@
 //
-//  DocumentModule+ContentViewBuilder.swift
+//  DocumentModule+Content+ViewBuilder.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 25.06.2020.
@@ -10,19 +10,19 @@ import Foundation
 import UIKit
 import SwiftUI
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.Content
 
 extension Namespace {
-    enum ContentViewBuilder {
+    enum ViewBuilder {
         struct Request {
-            var documentRequest: DocumentModule.DocumentViewBuilder.Request
+            var documentRequest: DocumentModule.Document.ViewBuilder.Request
         }
     }
 }
 
-extension Namespace.ContentViewBuilder {
+extension Namespace.ViewBuilder {
     enum SwiftUIBuilder {
-        fileprivate typealias CurrentViewRepresentable = Namespace.ContentViewRepresentable
+        fileprivate typealias CurrentViewRepresentable = Namespace.ViewRepresentable
         static func documentView(by request: Request) -> some View {
             self.create(by: request)
         }
@@ -33,7 +33,7 @@ extension Namespace.ContentViewBuilder {
     }
 }
 
-extension Namespace.ContentViewBuilder {
+extension Namespace.ViewBuilder {
     enum UIKitBuilder {
         /// Middleware builder.
         /// It is between `ContainerViewBuilder` and `DocumentViewBuilder`.
@@ -41,12 +41,12 @@ extension Namespace.ContentViewBuilder {
         /// It has a `ChildComponent` from `DocumentViewBuilder.UIKitBuilder.SelfComponent`
         /// And it provides `SelfComponent` to `ContainerViewBuilder` as `ContainerViewBuilder.UIKitBuilder.ChildComponent`
         ///
-        typealias ViewModel = DocumentModule.ContentViewController.ViewModel
-        typealias ViewController = DocumentModule.ContentViewController
+        typealias ViewModel = DocumentModule.Content.ViewController.ViewModel
+        typealias ViewController = DocumentModule.Content.ViewController
         
-        typealias ChildViewModel = DocumentModule.DocumentViewModel
-        typealias ChildViewController = DocumentModule.DocumentViewController
-        typealias ChildViewBuilder = DocumentModule.DocumentViewBuilder
+        typealias ChildViewModel = DocumentModule.Document.ViewController.ViewModel
+        typealias ChildViewController = DocumentModule.Document.ViewController
+        typealias ChildViewBuilder = DocumentModule.Document.ViewBuilder
         
         typealias ChildComponent = ChildViewBuilder.UIKitBuilder.SelfComponent
         typealias SelfComponent = (ViewController, ViewModel, ChildComponent)
@@ -65,7 +65,7 @@ extension Namespace.ContentViewBuilder {
             let (childViewController, childViewModel, childChildComponent) = self.childComponent(by: request)
             let viewModel: ViewModel = .init()
             
-            let topBottomMenuViewController: Namespace.TopBottomMenuViewController = .init()
+            let topBottomMenuViewController: DocumentModule.TopBottomMenuViewController = .init()
             topBottomMenuViewController.add(child: childViewController)
             _ = viewModel.configured(topBottomMenuViewController: topBottomMenuViewController)
             

@@ -1,5 +1,5 @@
 //
-//  DocumentModule+ContainerViewController.swift
+//  DocumentModule+Container+ViewController.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 01.07.2020.
@@ -10,14 +10,15 @@ import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias DocumentNamespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.Container
 extension Namespace {
     /// We use `TransitionViewController` as a view controller for custom transitions.
     /// Also, this controller could contain/store all presentation and dismissal animators.
     /// Very handy.
     ///
     typealias TransitionViewController = CommonViews.ViewControllers.TransitionContainerViewController
-    class ContainerViewController: UIViewController {
+    class ViewController: UIViewController {
         
         /// Variables
         private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
@@ -52,7 +53,7 @@ extension Namespace {
 }
 
 // MARK: Actions Handling
-private extension Namespace.ContainerViewController {
+private extension Namespace.ViewController {
     func handle(_ action: ViewModel.Action) {
         switch action {
         case let .child(value): self.childAsNavigationController?.pushViewController(value, animated: true)
@@ -73,13 +74,13 @@ private extension Namespace.ContainerViewController {
 }
 
 // MARK: UINavigationController Handling
-extension Namespace.ContainerViewController: UINavigationControllerDelegate {
+extension Namespace.ViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         /// We should keep track of navigation links.
         /// Where we should update navigation from item.
-        if let controller = viewController as? Namespace.ContentViewController {
+        if let controller = viewController as? DocumentNamespace.Content.ViewController {
             
-            if let child = controller.children.first?.children.first as? Namespace.DocumentViewController {
+            if let child = controller.children.first?.children.first as? DocumentNamespace.Document.ViewController {
                 /// extract model from it.
                 let viewModel = child.getViewModel()
                 
@@ -90,9 +91,9 @@ extension Namespace.ContainerViewController: UINavigationControllerDelegate {
         }
     }
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if let controller = viewController as? Namespace.ContentViewController {
+        if let controller = viewController as? DocumentNamespace.Content.ViewController {
             
-            if let child = controller.children.first?.children.first as? Namespace.DocumentViewController {
+            if let child = controller.children.first?.children.first as? DocumentNamespace.Document.ViewController {
                 /// extract model from it.
             }
         }
@@ -100,7 +101,7 @@ extension Namespace.ContainerViewController: UINavigationControllerDelegate {
 }
 
 // MARK: Setup And Layout
-private extension Namespace.ContainerViewController {
+private extension Namespace.ViewController {
     func setupUIElements() {
         if let viewController = self.childViewController {
             self.addChild(viewController)
@@ -145,26 +146,26 @@ private extension Namespace.ContainerViewController {
 }
 
 // MARK: Transitioning
-extension Namespace.ContainerViewController {
+extension Namespace.ViewController {
     typealias TransitionController = MarksPane.ViewController.TransitionController
 }
 
 // MARK: User Actions
-extension Namespace.ContainerViewController {
+extension Namespace.ViewController {
     enum UserAction {
         case shouldDismiss
     }
 }
 
 // MARK: Actions
-extension Namespace.ContainerViewController {
+extension Namespace.ViewController {
     @objc func dismissAction() {
         self.userActionSubject.send(.shouldDismiss)
     }
 }
 
 // MARK: Gesture Recognizer
-extension Namespace.ContainerViewController {
+extension Namespace.ViewController {
     @objc func didDrag(sender: UIGestureRecognizer) {
         if let recognizer = sender as? UIPanGestureRecognizer {
             switch recognizer.state {
@@ -189,7 +190,7 @@ extension Namespace.ContainerViewController {
 }
 
 // MARK: View Lifecycle
-extension Namespace.ContainerViewController {
+extension Namespace.ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUIElements()
@@ -201,7 +202,7 @@ extension Namespace.ContainerViewController {
 }
 
 // MARK: Configurations
-extension Namespace.ContainerViewController {
+extension Namespace.ViewController {
     func configured(actionsPublisher: AnyPublisher<ViewModel.Action, Never>) {
         self.subscription = actionsPublisher.sink(receiveValue: { [weak self] (value) in
             self?.handle(value)

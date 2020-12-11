@@ -1,5 +1,5 @@
 //
-//  DocumentModule+ContainerViewBuilder.swift
+//  DocumentModule+Container+ViewBuilder.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 01.07.2020.
@@ -10,29 +10,29 @@ import Foundation
 import UIKit
 import SwiftUI
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.Container
 
 extension Namespace {
     /// This is a builder for Namespace.ContainerViewController. (DocumentModule.ContainerViewController)
     /// It provides several builders which could build both `SwiftUI` (`SwiftUIBuilder`) and `UIKit` (`UIKitBuilder`) components.
     ///
-    enum ContainerViewBuilder {
+    enum ViewBuilder {
         struct Request {
             typealias Id = String            
             var id: Id
             
-            fileprivate var documentRequest: DocumentModule.ContentViewBuilder.Request {
+            fileprivate var documentRequest: DocumentModule.Content.ViewBuilder.Request {
                 .init(documentRequest: .init(id: self.id))
             }
         }
     }
 }
 
-extension Namespace.ContainerViewBuilder {
+extension Namespace.ViewBuilder {
     /// `SwiftUI` builder.
     /// It builds component for `SwiftUI`.
     enum SwiftUIBuilder {
-        private typealias CurrentViewRepresentable = Namespace.ContainerViewRepresentable
+        private typealias CurrentViewRepresentable = Namespace.ViewRepresentable
         private static func create(by request: Request) -> AnyView {
             .init(CurrentViewRepresentable.create(documentId: request.id))
         }
@@ -51,7 +51,7 @@ extension Namespace.ContainerViewBuilder {
     }
 }
 
-extension Namespace.ContainerViewBuilder {
+extension Namespace.ViewBuilder {
     /// `UIKit` builder.
     /// It builds component for `UIKit`.
     enum UIKitBuilder {
@@ -70,12 +70,12 @@ extension Namespace.ContainerViewBuilder {
         /// It allows us to access to child of child of views to configure them on any level if we want to.
         ///
         ///
-        typealias ViewModel = DocumentModule.ContainerViewController.ViewModel
-        typealias ViewController = DocumentModule.ContainerViewController
+        typealias ViewModel = DocumentModule.Container.ViewController.ViewModel
+        typealias ViewController = DocumentModule.Container.ViewController
         
-        typealias ChildViewModel = DocumentModule.ContentViewController.ViewModel
-        typealias ChildViewController = DocumentModule.ContentViewController
-        typealias ChildViewBuilder = DocumentModule.ContentViewBuilder
+        typealias ChildViewModel = DocumentModule.Content.ViewController.ViewModel
+        typealias ChildViewController = DocumentModule.Content.ViewController
+        typealias ChildViewBuilder = DocumentModule.Content.ViewBuilder
         
         typealias ChildComponent = ChildViewBuilder.UIKitBuilder.SelfComponent
         typealias SelfComponent = (ViewController, ViewModel, ChildComponent)
@@ -104,7 +104,7 @@ extension Namespace.ContainerViewBuilder {
             let childViewController = childComponent.0
             
             /// Configure Navigation Controller
-            let navigationController: UINavigationController = .init(navigationBarClass: Namespace.ContainerViewBuilder.NavigationBar.self, toolbarClass: nil)
+            let navigationController: UINavigationController = .init(navigationBarClass: Namespace.ViewBuilder.NavigationBar.self, toolbarClass: nil)
             NavigationBar.applyAppearance()
             navigationController.setViewControllers([childViewController], animated: false)
             
@@ -146,7 +146,7 @@ extension Namespace.ContainerViewBuilder {
 
 // MARK: Custom Appearance
 /// TODO: Move it somewhere
-private extension Namespace.ContainerViewBuilder {
+private extension Namespace.ViewBuilder {
     class NavigationBar: UINavigationBar {
         static func applyAppearance() {
             let appearance = Self.appearance()

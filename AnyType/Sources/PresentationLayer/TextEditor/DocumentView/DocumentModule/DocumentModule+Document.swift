@@ -1,8 +1,8 @@
 //
-//  DocumentModule+TopLevelBuilder.swift
+//  DocumentModule+Document.swift
 //  AnyType
 //
-//  Created by Dmitry Lobanov on 01.07.2020.
+//  Created by Dmitry Lobanov on 11.12.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
@@ -11,5 +11,5 @@ import Foundation
 fileprivate typealias Namespace = DocumentModule
 
 extension Namespace {
-    typealias TopLevelBuilder = ContainerViewBuilder
+    enum Document {}
 }

@@ -611,13 +611,13 @@ private extension Namespace.ViewModel {
             }
         }
         
-        private func handle(_ value: DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event) {
+        private func handle(_ value: DocumentModule.Document.Cells.ContentConfigurations.Table.Event) {
             switch value {
             case .shouldLayoutSubviews:
                 self.refreshImage()
             }
         }
-        func configure(publisher: AnyPublisher<DocumentModule.DocumentViewCells.ContentConfigurations.Table.Event, Never>) {
+        func configure(publisher: AnyPublisher<DocumentModule.Document.Cells.ContentConfigurations.Table.Event, Never>) {
             if self.onLayoutSubviewsSubscription == nil {
                 self.onLayoutSubviewsSubscription = publisher.sink(receiveValue: { [weak self] (value) in
                     self?.handle(value)

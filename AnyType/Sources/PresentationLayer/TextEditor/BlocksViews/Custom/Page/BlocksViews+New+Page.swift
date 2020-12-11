@@ -29,7 +29,9 @@ extension BlocksViews.New.Page.Base {
     /// Add common behavior to this class.
     ///
     class ViewModel: BlocksViews.New.Base.ViewModel {
-        typealias PageDetailsViewModel = DocumentModule.DocumentViewModel.PageDetailsViewModel
+        /// This DetailsViewModel could be extracted somewhere.
+        /// Somewhere near EventHandler.
+        typealias PageDetailsViewModel = DocumentModule.Document.ViewController.ViewModel.PageDetailsViewModel
         @Environment(\.developerOptions) var developerOptions
         private(set) var pageDetailsViewModel: PageDetailsViewModel?
         

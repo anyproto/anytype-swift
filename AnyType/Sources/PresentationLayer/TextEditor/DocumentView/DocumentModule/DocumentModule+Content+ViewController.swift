@@ -1,5 +1,5 @@
 //
-//  DocumentModule+ContentViewController.swift
+//  DocumentModule+Content+ViewController.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 25.06.2020.
@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.Content
 extension Namespace {
-    class ContentViewController: UIViewController {
+    class ViewController: UIViewController {
         
         private var viewModel: ViewModel
         private var childViewController: UIViewController?
@@ -29,7 +29,7 @@ extension Namespace {
 }
 
 // MARK: Setup And Layout
-private extension Namespace.ContentViewController {
+private extension Namespace.ViewController {
     func setupUIElements() {
         if let viewController = self.childViewController {
             self.addChild(viewController)
@@ -53,7 +53,7 @@ private extension Namespace.ContentViewController {
 }
 
 // MARK: View Lifecycle
-extension Namespace.ContentViewController {
+extension Namespace.ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUIElements()
@@ -63,7 +63,7 @@ extension Namespace.ContentViewController {
 }
 
 // MARK: Configurations
-extension Namespace.ContentViewController {
+extension Namespace.ViewController {
     func configured(childViewController: UIViewController?) -> Self {
         self.childViewController = childViewController
         return self

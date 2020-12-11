@@ -1,5 +1,5 @@
 //
-//  DocumentModule+ContentViewController+ViewModel.swift
+//  DocumentModule+Content+ViewController+ViewModel.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 25.06.2020.
@@ -10,14 +10,15 @@ import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = DocumentModule
+fileprivate typealias DocumentNamespace = DocumentModule
+fileprivate typealias Namespace = DocumentModule.Content.ViewController
 
 // MARK: ViewModel
-extension Namespace.ContentViewController {
+extension Namespace {
     class ViewModel {
         /// And keep selection here.
         private var selectionPresenter: DocumentModule.Selection.ToolbarPresenter = .init()
-        private(set) var selectionHandler: DocumentModuleSelectionHandlerProtocol = Namespace.Selection.Handler.init()
+        private(set) var selectionHandler: DocumentModuleSelectionHandlerProtocol = DocumentNamespace.Selection.Handler.init()
         var selectionAction: AnyPublisher<DocumentModule.Selection.ToolbarPresenter.SelectionAction, Never> {
             self.selectionPresenter.userAction
         }
@@ -35,7 +36,7 @@ extension Namespace.ContentViewController {
 }
 
 // MARK: Configurations
-extension Namespace.ContentViewController.ViewModel {
+extension Namespace.ViewModel {
     func configured(navigationItem: UINavigationItem) -> Self {
         _ = self.selectionPresenter.configured(navigationItem: navigationItem)
         return self

@@ -217,7 +217,7 @@ extension Namespace.Handler: DocumentModuleSelectionHandlerProtocol {
     }
 }
 
-extension DocumentModule.DocumentViewModel: DocumentModuleSelectionHandlerHolderProtocol {
+extension DocumentModule.Document.ViewController.ViewModel: DocumentModuleSelectionHandlerHolderProtocol {
     func selectAll() {
         /// take all ids
         guard let model = self.rootModel, let rootId = model.rootId else {
