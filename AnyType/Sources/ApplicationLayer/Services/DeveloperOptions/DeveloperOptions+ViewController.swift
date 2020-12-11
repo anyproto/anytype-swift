@@ -264,23 +264,26 @@ extension DeveloperOptions.ViewController {
             self.delegate?.didUpdate(cell: self, identifier: self.identifier)
         }
         
-        func setup() {
-            
+        private func theSetup() {
+            self.textLabel?.lineBreakMode = .byCharWrapping
+            self.textLabel?.numberOfLines = 2
+            self.setup()
         }
+        func setup() {}
         
         override func prepareItems(items: BaseTableViewCell.PrepareItems) {
             super.prepareItems(items: items)
-            self.setup()
+            self.theSetup()
         }
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            self.setup()
+            self.theSetup()
         }
         
         required init?(coder aDecoder: NSCoder) {
             super.init(coder: aDecoder)
-            self.setup()
+            self.theSetup()
         }
     }
     

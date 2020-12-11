@@ -425,7 +425,7 @@ extension Namespace.ViewModel {
         /// UIContentConfiguration
         func makeContentView() -> UIView & UIContentView {
             let view = ContentView(configuration: self)
-            self.contextMenuHolder?.addContextMenu(view)
+            self.contextMenuHolder?.addContextMenuIfNeeded(view)
             return view
         }
         
@@ -539,7 +539,7 @@ private extension Namespace.ViewModel {
         
         private func apply(configuration: ContentConfiguration, forced: Bool) {
             if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenu(self)
+                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
             }
         }
         

@@ -63,31 +63,46 @@ extension ApplicationCoordinator {
     }
 }
 
-// MARK: Login
+// MARK: Start new root
 extension ApplicationCoordinator {
-    
     func startNewRootView<Content: View>(content: Content) {
         window.rootViewController = UIHostingController(rootView: content.environmentObject(self.pageScrollViewLayout))
         window.makeKeyAndVisible()
     }
+    
+    func startNewRootViewController(_ controller: UIViewController) {
+        window.rootViewController = controller
+        window.makeKeyAndVisible()
+    }
+}
 
+// MARK: Login
+extension ApplicationCoordinator {
+    private func processLogin(result: Result<String, AuthServiceError>) {
+        if self.developerOptions.current.workflow.authentication.shouldShowFocusedPageId && !self.developerOptions.current.workflow.authentication.focusedPageId.isEmpty {
+            let pageId = self.developerOptions.current.workflow.authentication.focusedPageId
+            let controller = DocumentModule.ContainerViewBuilder.UIKitBuilder.view(by: .init(id: pageId))
+            self.startNewRootViewController(controller)
+            return
+        }
+        switch result {
+        case .success:
+            let homeAssembly = HomeViewAssembly()
+            let view = homeAssembly.createHomeView()
+            self.startNewRootView(content: view)
+        case .failure:
+            let view = MainAuthView(viewModel: MainAuthViewModel())
+            self.startNewRootView(content: view)
+        }
+    }
     private func login(id: String) {
         guard id.isEmpty == false else {
-            let view = MainAuthView(viewModel: MainAuthViewModel())
-            startNewRootView(content: view)
+            self.processLogin(result: .failure(.loginError(message: "")))
             return
         }
         
         self.authService.selectAccount(id: id, path: localRepoService.middlewareRepoPath) { [weak self] result in
-            switch result {
-            case .success:
-                 let homeAssembly = HomeViewAssembly()
-                 let view = homeAssembly.createHomeView()
-                self?.startNewRootView(content: view)
-            case .failure:
-                let view = MainAuthView(viewModel: MainAuthViewModel())
-                self?.startNewRootView(content: view)
-            }
+            self?.processLogin(result: result)
         }
     }
 }

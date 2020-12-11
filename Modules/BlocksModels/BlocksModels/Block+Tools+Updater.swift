@@ -110,6 +110,8 @@ public extension Namespace.Updater {
             return
         }
         update(entry)
-        entry.didChange()
+        /// It is unnecessary, because previously `didChange` call `objectWillChange` publisher.
+        /// Now we separate `didChangePublisher` and `objectWillChange` publisher.
+//        entry.didChange()
     }
 }

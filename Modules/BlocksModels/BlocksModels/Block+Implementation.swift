@@ -27,9 +27,11 @@ extension Namespace {
             default: return .block
             }
         }
-        
+        private var _didChangeSubject: PassthroughSubject<Void, Never> = .init()
+        private var _didChangePublisher: AnyPublisher<Void, Never>
         required init(information: BlockInformationModelProtocol) {
             self._information = information
+            self._didChangePublisher = self._didChangeSubject.eraseToAnyPublisher()
         }
     }
 }
@@ -47,8 +49,8 @@ extension Namespace.BlockModel: BlockModelProtocol {
     
     var kind: BlockKind { self._kind }
     
-    func didChangePublisher() -> AnyPublisher<Void, Never> { self.objectWillChange.eraseToAnyPublisher() }
-    func didChange() { self.objectWillChange.send() }
+    func didChangePublisher() -> AnyPublisher<Void, Never> { self._didChangePublisher }
+    func didChange() { self._didChangeSubject.send() }
     
     func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModelProtocol, Never> {
         self.$_information.eraseToAnyPublisher()

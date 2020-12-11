@@ -18,6 +18,12 @@ private extension Logging.Categories {
     static let textViewUIKitTextViewCoordinator: Self = "TextView.UIKitTextView.Coordinator"
 }
 
+private extension Namespace.Coordinator {
+    struct Options {
+        var shouldStopSetupSubscribers: Bool = false
+    }
+}
+
 extension Namespace {
     class Coordinator: NSObject {
         // MARK: Aliases
@@ -28,6 +34,7 @@ extension Namespace {
         typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
 
         // MARK: Variables
+        private var options: Options = .init()
         /// TODO: Should we store variables here?
         /// Because, we have also `viewModel`.
         /// Maybe we need remove these variables?
@@ -79,6 +86,11 @@ extension Namespace {
         // MARK: - Initiazliation
         override init() {
             super.init()
+            if self.options.shouldStopSetupSubscribers {
+                let logger = Logging.createLogger(category: .todo(.refactor(String(reflecting: Self.self))))
+                os_log(.debug, log: logger, "Initialization process has been cut down. You have to call 'self.setup' method.")
+                return;
+            }
             self.setup()
         }
         
@@ -89,13 +101,17 @@ extension Namespace {
         
         func setup() {
             self.setupPublishers()
-            self.configureKeyboardNotificationsListening()
+//            self.configureKeyboardNotificationsListening()
         }
     }
 }
 
 extension FileNamespace {
     func configureKeyboardNotificationsListening() {
+        /// TODO: Refactor
+        /// Shit. You can't `observe` `Published` value. It will be observed on the same thread. Instead, you have to `receive(on:)` it on main/background thread.
+        let logger = Logging.createLogger(category: .todo(.refactor(String(reflecting: Self.self))))
+        os_log(.debug, log: logger, "Keyboard observing is incorrect. You have to either change it by modifier .receive(on:) or you have to cache it in more 'mutable' way.")
         self.keyboardObserverHandler = KeyboardObserver.default.$keyboardInformation.map(\.keyboardRect).filter({
             [weak self] value in
             value != .zero && self?.defaultKeyboardRect == .zero
@@ -604,17 +620,29 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         return true
     }
     func textViewDidChangeSelection(_ textView: UITextView) {
+        /// TODO: Refactor it later.
+        return;
         self.switchInputs(textView)
     }
         
     func textViewDidBeginEditing(_ textView: UITextView) {
+        /// TODO: Refactor it later.
+        let logger = Logging.createLogger(category: .todo(.refactor("TextView.Coordinator")))
+        os_log(.debug, log: logger, "We should enable our coordinator later, because for now it corrupts typing. So. Disable it.")
+        if textView.inputAccessoryView == nil {
+            textView.inputAccessoryView = self.actionsToolbarAccessoryView
+            textView.reloadInputViews()
+        }
+        return;
         self.switchInputs(textView)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        /// TODO: Refactor it later.
+        return;
         self.switchInputs(textView)
     }
-        
+    
     func textViewDidChange(_ textView: UITextView) {
 //        let (text, attributedText, contentSize) = (textView.text, textView.attributedText, textView.intrinsicContentSize)
         let contentSize = textView.intrinsicContentSize

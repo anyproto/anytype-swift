@@ -22,8 +22,8 @@ extension DeveloperOptions {
 //        var services: Services?
         private init() {
             self.debug = .init(enabled: false)
-            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: ""), dashboard: .init(hasCustomModalPresentation: false, cellsHaveActionsOnLongTap: false),
-                                  mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
+            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""), dashboard: .init(hasCustomModalPresentation: false, cellsHaveActionsOnLongTap: false),
+                                  mainDocumentEditor: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseSimpleTextViewCell: false, shouldUsePlainOldTextViewCell: false, useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
         }
         static var `default`: Settings = .init()
     }
@@ -38,6 +38,8 @@ extension DeveloperOptions.Settings {
         struct Authentication: CodableAndDictionary {
             var shouldSkipLogin: Bool
             var alphaInvitePasscode: String
+            var shouldShowFocusedPageId: Bool
+            var focusedPageId: String
         }
         
         struct Dashboard: CodableAndDictionary {
@@ -51,6 +53,9 @@ extension DeveloperOptions.Settings {
                 var shouldEmbedSwiftUIIntoCell: Bool
                 var shouldShowCellsIndentation: Bool
             }
+            var shouldAnimateRowsInsertionAndDeletion: Bool
+            var shouldUseSimpleTextViewCell: Bool
+            var shouldUsePlainOldTextViewCell: Bool
             var useUIKit: Bool
             var textEditor: TextEditor
         }

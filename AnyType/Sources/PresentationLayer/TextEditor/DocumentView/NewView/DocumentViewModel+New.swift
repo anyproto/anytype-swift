@@ -107,6 +107,9 @@ extension DocumentModule {
         private var publicActionsPayloadSubject: PassthroughSubject<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = .init()
         lazy var publicActionsPayloadPublisher: AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
         
+        private var publicSizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
+        public private(set) lazy var publicSizeDidChangePublisher: AnyPublisher<CGSize, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
+        
         /// Deprecated
         lazy private var listPublisherSubject: CurrentValueSubject<AnyPublisher<BlocksUserAction, Never>, Never> = { .init(self.listSubject.eraseToAnyPublisher()) }()
         private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
@@ -264,8 +267,10 @@ extension DocumentModule {
                 }
             }
         }
-                        
-        var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
+        
+        /// Deprecated. Replaced by `publicSizeDidChangePublisher`
+        @available(iOS, introduced: 13.0, deprecated: 14.0, renamed: "publicSizeDidChangePublisher")
+        lazy var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
         
         /// We could delete this publisher, lol.
         var fileFieldPublisher: AnyPublisher<BlocksViewsNamespace.File.Image.ViewModel.State?, Never> = .empty()
@@ -456,7 +461,7 @@ extension DocumentModule {
             self.debugDocumentId = documentId
             
             self.blockActionsService.open.action(contextID: documentId, blockID: documentId)
-                .print()
+//                .print()
                 .receive(on: RunLoop.main)
                 .sink(receiveCompletion: { [weak self] (value) in
                     switch value {
@@ -716,6 +721,8 @@ extension Namespace.DocumentViewModel {
         _ = ourViewModels.map({$0.configured(userActionSubject: self.publicUserActionSubject)})
         
         _ = ourViewModels.map({$0.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)})
+        
+        _ = ourViewModels.map({$0.configured(sizeDidChangeSubject: self.publicSizeDidChangeSubject)})
     }
     
     func enhanceDetails(_ value: PageDetailsViewModelsDictionary) {

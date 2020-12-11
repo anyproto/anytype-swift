@@ -583,7 +583,7 @@ private extension Namespace.ViewModel {
         
         private func apply(configuration: ContentConfiguration, forced: Bool) {
             if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenu(self)
+                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
             }
         }
         

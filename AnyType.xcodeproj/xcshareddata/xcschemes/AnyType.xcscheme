@@ -60,6 +60,19 @@
             ReferencedContainer = "container:AnyType.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "ANYTYPE_LOG_LEVEL=&quot;*=fatal;anytype*=error&quot;"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "ANYTYPE_LOG_LEVEL"
+            value = "*=fatal"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

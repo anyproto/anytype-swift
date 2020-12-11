@@ -163,8 +163,9 @@ extension Namespace.DocumentViewController {
         
         let viewController = UITableViewController(style: .grouped)
         self.addChild(viewController)
-        
-        if let tableView = viewController.tableView {
+        self.tableViewController = viewController
+
+        if let tableView = self.tableView {
             tableView.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(tableView)
             viewController.didMove(toParent: self)
@@ -181,8 +182,6 @@ extension Namespace.DocumentViewController {
             // Need for image picker
         }
         
-        self.tableViewController = viewController
-
         // register cells(?)
         // register them as CellRegistration
         self.tableView?.register(Namespace.DocumentViewCells.TableViewCell.self, forCellReuseIdentifier: Namespace.DocumentViewCells.TableViewCell.cellReuseIdentifier())
@@ -347,9 +346,12 @@ private extension Namespace.DocumentViewController {
             self?.updateData(value)
         }).store(in: &self.subscriptions)
                 
-        self.viewModel.anyFieldPublisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+//        self.viewModel.anyFieldPublisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+//            self?.updateView()
+//        }).store(in: &self.subscriptions)
+        self.viewModel.publicSizeDidChangePublisher.receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.updateView()
-        }).store(in: &self.subscriptions)
+        }.store(in: &self.subscriptions)
 
 //        self.viewModel.fileFieldPublisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
 //            return;
@@ -393,11 +395,40 @@ private extension Namespace.DocumentViewController {
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
                 value.builder?.blockId == id
             }) {
+                let elementPosition: UITableView.ScrollPosition
+                switch focusedAt {
+                case .beginning: elementPosition = .top
+                default: elementPosition = .bottom
+                }
+                
+                self.tableView?.scrollToRow(at: .init(row: index, section: 0), at: elementPosition, animated: true)
                 (itemIdentifiers[index].blockBuilder as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
-                self.tableView?.scrollToRow(at: .init(row: index, section: 0), at: .middle, animated: true)
                 userSession?.unsetFocusAt()
                 userSession?.unsetFirstResponder()
             }
+        }
+    }
+    func tryFocusItem(at indexPath: IndexPath) {
+        guard !self.viewModel.selectionEnabled() else { return }
+        guard let dataSource = self.tableViewDataSource else { return }
+        let snapshot = dataSource.snapshot()
+        let userSession = self.viewModel.rootModel?.blocksContainer.userSession
+        let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
+        /// Since we are working only with one section, we could safely iterate over array of items.
+        let index = indexPath.row
+        let item = itemIdentifiers[index]
+        if let textItem = item as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
+            let id = textItem.getBlock().blockModel.information.id
+            
+            let elementPosition: UITableView.ScrollPosition = .middle
+//            switch focusedAt {
+//            case .beginning: elementPosition = .top
+//            default: elementPosition = .bottom
+//            }
+            self.tableView?.scrollToRow(at: .init(row: index, section: 0), at: elementPosition, animated: true)
+//            textItem.set(focus: .init(position: focusedAt, completion: {_ in }))
+            userSession?.unsetFocusAt()
+            userSession?.unsetFirstResponder()
         }
     }
 }
@@ -438,12 +469,26 @@ extension Namespace.DocumentViewController {
         /// TODO: Think about post update and set focus synergy.
         /// Maybe we should sync set focus here in completion?
         ///
-        dataSource.apply(snapshot) { [weak self] in
-            self?.scrollAndFocusOnFocusedBlock()
+        ///
+        
+        if self.developerOptions.current.workflow.mainDocumentEditor.shouldAnimateRowsInsertionAndDeletion {
+            dataSource.apply(snapshot) { [weak self] in
+                self?.scrollAndFocusOnFocusedBlock()
+            }
+        }
+        else {
+            UIView.performWithoutAnimation {
+                dataSource.apply(snapshot) { [weak self] in
+                    self?.scrollAndFocusOnFocusedBlock()
+                }
+            }
         }
     }
     
     func updateIds(_ ids: [String]) {
+        /// We should find ids and update them.
+        /// For that, we should use data.
+        ///
         self.updateData(self.viewModel.buildersRows)
 //        guard let dataSource = self.dataSource else { return }
 //        var snapshot = dataSource.snapshot()
@@ -489,11 +534,12 @@ extension Namespace.DocumentViewController: UITableViewDelegate {
         self.cellHeightsStorage.set(height: cell.frame.size.height, at: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.cellHeightsStorage.height(at: indexPath)
-    }
+//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return self.cellHeightsStorage.height(at: indexPath)
+//    }
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tryFocusItem(at: indexPath)
         self.viewModel.didSelectBlock(at: indexPath)
     }
 }

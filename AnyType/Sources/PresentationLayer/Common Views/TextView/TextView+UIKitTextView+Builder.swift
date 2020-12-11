@@ -30,8 +30,7 @@ extension TextView.UIKitTextView.Builder {
         return textView
     }
     
-    func configuredTextView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
-        // TODO: add text?
+    func configured(textView: UITextView) -> UITextView {
         let view = defaultConfiguration(textView)
         
         let attributedString = NSMutableAttributedString(string: "")
@@ -41,8 +40,15 @@ extension TextView.UIKitTextView.Builder {
         view.typingAttributes = attributes
         view.textStorage.setAttributedString(attributedString)
         view.textStorage.setAttributes(attributes, range: range)
-        view.delegate = coordinator
         view.autocorrectionType = .no
+        return view
+    }
+    
+    func configuredTextView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
+        // TODO: add text?
+        let view = self.configured(textView: textView)
+        
+        view.delegate = coordinator
         
         //        _ = configuredTapGesture(textView, context: context)
         return view

@@ -793,7 +793,9 @@ private extension Namespace.UserInteractionHandler.Service {
                 }
             }, receiveValue: { [weak self] (value) in
                 let value = completion(value)
-                self?.didReceiveEvent(value)
+                var theValue = value
+                theValue.ourEvents = [.setTextMerge(.init(payload: .init(blockId: splittedBlockInformation.id)))] + theValue.ourEvents
+                self?.didReceiveEvent(theValue)
             })
 
             case let .failure(error):

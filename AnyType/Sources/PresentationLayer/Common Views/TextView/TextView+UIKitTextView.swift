@@ -163,7 +163,7 @@ extension TextView {
 
 // MARK: Updates
 extension Namespace {
-    func onUpdate(_ update: TextView.UIKitTextView.ViewModel.Update) {
+    func onUpdate(receive update: TextView.UIKitTextView.ViewModel.Update) {
         switch update {
         case .unknown: return
         case let .text(value):
@@ -220,6 +220,9 @@ extension Namespace {
             }
         case let .auxiliary(value):
             let textAlignment = value.textAlignment
+            guard textAlignment != self.textView.textAlignment else {
+                return;
+            }
             self.textView.textAlignment = textAlignment
             
         case let .payload(value):
@@ -231,6 +234,15 @@ extension Namespace {
             ///
             self.onUpdate(.auxiliary(value.auxiliary))
         }
+    }
+    
+    func onUpdate(_ update: TextView.UIKitTextView.ViewModel.Update) {
+        /// TODO: Maybe we don't need this dispatching.
+        /// Rethink later.
+        ///
+//        DispatchQueue.main.async {
+            self.onUpdate(receive: update)
+//        }
     }
 }
 

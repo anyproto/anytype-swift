@@ -32,22 +32,11 @@ extension BlocksViews.New.Base {
         // MARK: Variables
         /// our Block
         /// Maybe we should made it Observable?.. Let think a bit about it.
-        private var block: BlockModel {
-            didSet {
-                self.blockUpdatesSubject.send(self.getBlock())
-            }
-        }
+        private var block: BlockModel
         
         /// Options that handle a behavior of view model.
         private var options: Options = .init()
-        
-        /// Updates of block.
-        /// Necessary to handle
-        private var blockUpdatesSubject: PassthroughSubject<BlockModel, Never> = .init()
-        lazy var blockUpdatesPublisher: AnyPublisher<BlockModel, Never> = {
-            self.blockUpdatesSubject.eraseToAnyPublisher()
-        }()
-        
+                
         // MARK: Deinitialization
         deinit {
             let logger = Logging.createLogger(category: .blocksViewsBase)
@@ -58,10 +47,18 @@ extension BlocksViews.New.Base {
         init(_ block: BlockModel) {
             self.block = block
             self._diffableStorage = self.makeDiffable()
+            let logger = Logging.createLogger(category: .blocksViewsBase)
+            os_log(.debug, log: logger, "%@ has been initialized: %@", "\(String(describing: self))", "-> \(self.getBlock().blockModel.information.id)")
+            self.configure()
+        }
+        
+        /// Configure
+        /// Call this method before you want to use view model.
+        func configure() {
             self.setupPublishers()
             self.setupSubscriptions()
             let logger = Logging.createLogger(category: .blocksViewsBase)
-            os_log(.debug, log: logger, "%@ has been initialized: %@", "\(String(describing: self))", "-> \(self.getBlock().blockModel.information.id)")
+            os_log(.debug, log: logger, "%@ has been configured: %@", "\(String(describing: self))", "-> \(self.getBlock().blockModel.information.id)")
         }
                 
         // MARK: Subclass / Blocks
@@ -131,6 +128,12 @@ extension BlocksViews.New.Base {
         /// And from our actions.
         ///
         private var actionsPayloadSubjectSubscription: AnyCancellable?
+        
+        /// DidChange Size Subject.
+        /// Whenever item changes size ( or thinking so ), we have to notify our document view model about it.
+        /// This can be done via "PassthroughSubject as Delegate" technique.
+        private var sizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
+        public private(set) var sizeDidChangePublisher: AnyPublisher<CGSize, Never> = .empty()
         
         // MARK: - Handle events
         func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
@@ -238,6 +241,12 @@ extension BlocksViews.New.Base {
 
 // MARK: Configurations
 extension BlocksViews.New.Base.ViewModel {
+    /// TODO: Remove later. Maybe we don't need this publisher.
+    func configured(sizeDidChangeSubject: PassthroughSubject<CGSize, Never>) -> Self {
+        self.sizeDidChangeSubject = sizeDidChangeSubject
+        self.sizeDidChangePublisher = self.sizeDidChangeSubject.eraseToAnyPublisher()
+        return self
+    }
     func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) -> Self {
         self.userActionSubject = userActionSubject
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
@@ -326,6 +335,11 @@ extension BlocksViews.New.Base.ViewModel {
     func send(actionsPayload: ActionsPayload) {
         self.actionsPayloadSubject.send(actionsPayload)
     }
+    
+    // Send did change size
+    func send(sizeDidChange: CGSize) {
+        self.sizeDidChangeSubject.send(sizeDidChange)
+    }
 }
 
 // MARK: Options
@@ -391,11 +405,56 @@ private extension BlocksViews.New.Base.ViewModel {
 
 // MARK: UIKit / Context menu embedding
 extension BlocksViews.New.Base.ViewModel {
-    func addContextMenu(_ view: UIView) {
+    class OurContextMenuInteraction: UIContextMenuInteraction {
+        /// Uncomment later if needed.
+        /// Also, you should update delegate by `update(delegate:)` when view apply(configuration:) method has been called.
+//        typealias Delegate = UIContextMenuInteractionDelegate
+//        class ProxyChain: NSObject, Delegate {
+//            private var delegate: Delegate?
+//            func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+//                self.delegate?.contextMenuInteraction(interaction, configurationForMenuAtLocation: location)
+//            }
+//            func update(_ delegate: Delegate?) {
+//                self.delegate = delegate
+//            }
+//        }
+//        /// Proxy
+//        private var proxyChain: ProxyChain = .init()
+//        private var ourDelegate: Delegate { self.proxyChain }
+//        func update(delegate: Delegate) {
+//            self.proxyChain.update(delegate)
+//        }
+//
+//        /// Initialization
+//        override init(delegate: Delegate) {
+//            self.proxyChain.update(delegate)
+//            super.init(delegate: self.proxyChain)
+//        }
+//
+//        /// UIContextMenuInteractionDelegate
+//        func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+//            self.ourDelegate.contextMenuInteraction(interaction, configurationForMenuAtLocation: location)
+//        }
+    }
+    /// We need this method, because it goes insane if you add hundreds of interactions.
+    /// True story.
+    ///
+    /// HINT: We could add setter/getter `self.delegate` for `OurContextMenuInteraction` and update only delegate instead of add/removing.
+    ///
+    func addContextMenuIfNeeded(_ view: UIView) {
+        self.updateContextMenu(view)
+    }
+    private func addContextMenu(_ view: UIView) {
         if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
-            let interaction = UIContextMenuInteraction.init(delegate: delegate)
+            let interaction = OurContextMenuInteraction.init(delegate: delegate)
             view.addInteraction(interaction)
         }
+    }
+    private func updateContextMenu(_ view: UIView) {
+        if let interaction = view.interactions.first(where: {$0 is OurContextMenuInteraction}) {
+            view.removeInteraction(interaction)
+        }
+        self.addContextMenu(view)
     }
 }
 
