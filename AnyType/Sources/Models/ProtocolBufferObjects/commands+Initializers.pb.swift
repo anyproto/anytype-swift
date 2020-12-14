@@ -1404,6 +1404,28 @@ extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockList.TurnInto.Request {
+  init(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.style = style
+  }
+}
+
+extension Anytype_Rpc.BlockList.TurnInto.Response {
+  init(error: Anytype_Rpc.BlockList.TurnInto.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockList.TurnInto.Response.Error {
+  init(code: Anytype_Rpc.BlockList.TurnInto.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Config.Get.Response {
   init(error: Anytype_Rpc.Config.Get.Response.Error, homeBlockID: String, archiveBlockID: String, profileBlockID: String, gatewayURL: String) {
     self.error = error

@@ -347,6 +347,14 @@ struct Anytype_Event {
       set {value = .processDone(newValue)}
     }
 
+    var threadStatus: Anytype_Event.Status.Thread {
+      get {
+        if case .threadStatus(let v)? = value {return v}
+        return Anytype_Event.Status.Thread()
+      }
+      set {value = .threadStatus(newValue)}
+    }
+
     var unknownFields = SwiftProtobuf.UnknownStorage()
 
     enum OneOf_Value: Equatable {
@@ -379,6 +387,7 @@ struct Anytype_Event {
       case processNew(Anytype_Event.Process.New)
       case processUpdate(Anytype_Event.Process.Update)
       case processDone(Anytype_Event.Process.Done)
+      case threadStatus(Anytype_Event.Status.Thread)
 
     #if !swift(>=4.1)
       static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -500,6 +509,10 @@ struct Anytype_Event {
         }()
         case (.processDone, .processDone): return {
           guard case .processDone(let l) = lhs, case .processDone(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.threadStatus, .threadStatus): return {
+          guard case .threadStatus(let l) = lhs, case .threadStatus(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -2375,10 +2388,204 @@ struct Anytype_Event {
     init() {}
   }
 
+  struct Status {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    struct Thread {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      var summary: Anytype_Event.Status.Thread.Summary {
+        get {return _summary ?? Anytype_Event.Status.Thread.Summary()}
+        set {_summary = newValue}
+      }
+      /// Returns true if `summary` has been explicitly set.
+      var hasSummary: Bool {return self._summary != nil}
+      /// Clears the value of `summary`. Subsequent reads from it will return its default value.
+      mutating func clearSummary() {self._summary = nil}
+
+      var cafe: Anytype_Event.Status.Thread.Cafe {
+        get {return _cafe ?? Anytype_Event.Status.Thread.Cafe()}
+        set {_cafe = newValue}
+      }
+      /// Returns true if `cafe` has been explicitly set.
+      var hasCafe: Bool {return self._cafe != nil}
+      /// Clears the value of `cafe`. Subsequent reads from it will return its default value.
+      mutating func clearCafe() {self._cafe = nil}
+
+      var accounts: [Anytype_Event.Status.Thread.Account] = []
+
+      var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      enum SyncStatus: SwiftProtobuf.Enum {
+        typealias RawValue = Int
+        case unknown // = 0
+        case offline // = 1
+        case syncing // = 2
+        case synced // = 3
+        case failed // = 4
+        case UNRECOGNIZED(Int)
+
+        init() {
+          self = .unknown
+        }
+
+        init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .unknown
+          case 1: self = .offline
+          case 2: self = .syncing
+          case 3: self = .synced
+          case 4: self = .failed
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        var rawValue: Int {
+          switch self {
+          case .unknown: return 0
+          case .offline: return 1
+          case .syncing: return 2
+          case .synced: return 3
+          case .failed: return 4
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
+      struct Summary {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var status: Anytype_Event.Status.Thread.SyncStatus = .unknown
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      struct Cafe {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var status: Anytype_Event.Status.Thread.SyncStatus = .unknown
+
+        var lastPulled: Int64 = 0
+
+        var lastPushSucceed: Bool = false
+
+        var files: Anytype_Event.Status.Thread.Cafe.PinStatus {
+          get {return _files ?? Anytype_Event.Status.Thread.Cafe.PinStatus()}
+          set {_files = newValue}
+        }
+        /// Returns true if `files` has been explicitly set.
+        var hasFiles: Bool {return self._files != nil}
+        /// Clears the value of `files`. Subsequent reads from it will return its default value.
+        mutating func clearFiles() {self._files = nil}
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        struct PinStatus {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          var pinning: Int32 = 0
+
+          var pinned: Int32 = 0
+
+          var failed: Int32 = 0
+
+          var updated: Int64 = 0
+
+          var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          init() {}
+        }
+
+        init() {}
+
+        fileprivate var _files: Anytype_Event.Status.Thread.Cafe.PinStatus? = nil
+      }
+
+      struct Account {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var id: String = String()
+
+        var name: String = String()
+
+        var imageHash: String = String()
+
+        var online: Bool = false
+
+        var lastPulled: Int64 = 0
+
+        var lastEdited: Int64 = 0
+
+        var devices: [Anytype_Event.Status.Thread.Device] = []
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      struct Device {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        var name: String = String()
+
+        var online: Bool = false
+
+        var lastPulled: Int64 = 0
+
+        var lastEdited: Int64 = 0
+
+        var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        init() {}
+      }
+
+      init() {}
+
+      fileprivate var _summary: Anytype_Event.Status.Thread.Summary? = nil
+      fileprivate var _cafe: Anytype_Event.Status.Thread.Cafe? = nil
+    }
+
+    init() {}
+  }
+
   init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
 }
+
+#if swift(>=4.2)
+
+extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+    .unknown,
+    .offline,
+    .syncing,
+    .synced,
+    .failed,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 struct Anytype_ResponseEvent {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -2626,6 +2833,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     101: .same(proto: "processNew"),
     102: .same(proto: "processUpdate"),
     103: .same(proto: "processDone"),
+    110: .same(proto: "threadStatus"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2886,6 +3094,15 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {self.value = .processDone(v)}
       }()
+      case 110: try {
+        var v: Anytype_Event.Status.Thread?
+        if let current = self.value {
+          try decoder.handleConflictingOneOf()
+          if case .threadStatus(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {self.value = .threadStatus(v)}
+      }()
       case 201: try {
         var v: Anytype_Event.Account.Details?
         if let current = self.value {
@@ -3016,6 +3233,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .processDone?: try {
       guard case .processDone(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
+    }()
+    case .threadStatus?: try {
+      guard case .threadStatus(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 110)
     }()
     case .accountDetails?: try {
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }
@@ -6369,6 +6590,329 @@ extension Anytype_Event.Process.Done: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
   static func ==(lhs: Anytype_Event.Process.Done, rhs: Anytype_Event.Process.Done) -> Bool {
     if lhs._process != rhs._process {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Status: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.protoMessageName + ".Status"
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Status, rhs: Anytype_Event.Status) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Status.Thread: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Status.protoMessageName + ".Thread"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "summary"),
+    2: .same(proto: "cafe"),
+    3: .same(proto: "accounts"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._summary) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._cafe) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.accounts) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._summary {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if let v = self._cafe {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }
+    if !self.accounts.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.accounts, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Status.Thread, rhs: Anytype_Event.Status.Thread) -> Bool {
+    if lhs._summary != rhs._summary {return false}
+    if lhs._cafe != rhs._cafe {return false}
+    if lhs.accounts != rhs.accounts {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Status.Thread.SyncStatus: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Unknown"),
+    1: .same(proto: "Offline"),
+    2: .same(proto: "Syncing"),
+    3: .same(proto: "Synced"),
+    4: .same(proto: "Failed"),
+  ]
+}
+
+extension Anytype_Event.Status.Thread.Summary: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Status.Thread.protoMessageName + ".Summary"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "status"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.status != .unknown {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Status.Thread.Summary, rhs: Anytype_Event.Status.Thread.Summary) -> Bool {
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Status.Thread.Cafe: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Status.Thread.protoMessageName + ".Cafe"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "status"),
+    2: .same(proto: "lastPulled"),
+    3: .same(proto: "lastPushSucceed"),
+    4: .same(proto: "files"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.lastPulled) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.lastPushSucceed) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._files) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.status != .unknown {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
+    }
+    if self.lastPulled != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastPulled, fieldNumber: 2)
+    }
+    if self.lastPushSucceed != false {
+      try visitor.visitSingularBoolField(value: self.lastPushSucceed, fieldNumber: 3)
+    }
+    if let v = self._files {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Status.Thread.Cafe, rhs: Anytype_Event.Status.Thread.Cafe) -> Bool {
+    if lhs.status != rhs.status {return false}
+    if lhs.lastPulled != rhs.lastPulled {return false}
+    if lhs.lastPushSucceed != rhs.lastPushSucceed {return false}
+    if lhs._files != rhs._files {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Status.Thread.Cafe.PinStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Status.Thread.Cafe.protoMessageName + ".PinStatus"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "pinning"),
+    2: .same(proto: "pinned"),
+    3: .same(proto: "failed"),
+    4: .same(proto: "updated"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.pinning) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.pinned) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.failed) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.updated) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.pinning != 0 {
+      try visitor.visitSingularInt32Field(value: self.pinning, fieldNumber: 1)
+    }
+    if self.pinned != 0 {
+      try visitor.visitSingularInt32Field(value: self.pinned, fieldNumber: 2)
+    }
+    if self.failed != 0 {
+      try visitor.visitSingularInt32Field(value: self.failed, fieldNumber: 3)
+    }
+    if self.updated != 0 {
+      try visitor.visitSingularInt64Field(value: self.updated, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Status.Thread.Cafe.PinStatus, rhs: Anytype_Event.Status.Thread.Cafe.PinStatus) -> Bool {
+    if lhs.pinning != rhs.pinning {return false}
+    if lhs.pinned != rhs.pinned {return false}
+    if lhs.failed != rhs.failed {return false}
+    if lhs.updated != rhs.updated {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Status.Thread.Account: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Status.Thread.protoMessageName + ".Account"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "imageHash"),
+    4: .same(proto: "online"),
+    5: .same(proto: "lastPulled"),
+    6: .same(proto: "lastEdited"),
+    7: .same(proto: "devices"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.imageHash) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.online) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.lastPulled) }()
+      case 6: try { try decoder.decodeSingularInt64Field(value: &self.lastEdited) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.devices) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.imageHash.isEmpty {
+      try visitor.visitSingularStringField(value: self.imageHash, fieldNumber: 3)
+    }
+    if self.online != false {
+      try visitor.visitSingularBoolField(value: self.online, fieldNumber: 4)
+    }
+    if self.lastPulled != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastPulled, fieldNumber: 5)
+    }
+    if self.lastEdited != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastEdited, fieldNumber: 6)
+    }
+    if !self.devices.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.devices, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Status.Thread.Account, rhs: Anytype_Event.Status.Thread.Account) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.imageHash != rhs.imageHash {return false}
+    if lhs.online != rhs.online {return false}
+    if lhs.lastPulled != rhs.lastPulled {return false}
+    if lhs.lastEdited != rhs.lastEdited {return false}
+    if lhs.devices != rhs.devices {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Status.Thread.Device: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = Anytype_Event.Status.Thread.protoMessageName + ".Device"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "online"),
+    3: .same(proto: "lastPulled"),
+    4: .same(proto: "lastEdited"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.online) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.lastPulled) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.lastEdited) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if self.online != false {
+      try visitor.visitSingularBoolField(value: self.online, fieldNumber: 2)
+    }
+    if self.lastPulled != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastPulled, fieldNumber: 3)
+    }
+    if self.lastEdited != 0 {
+      try visitor.visitSingularInt64Field(value: self.lastEdited, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Anytype_Event.Status.Thread.Device, rhs: Anytype_Event.Status.Thread.Device) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.online != rhs.online {return false}
+    if lhs.lastPulled != rhs.lastPulled {return false}
+    if lhs.lastEdited != rhs.lastEdited {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

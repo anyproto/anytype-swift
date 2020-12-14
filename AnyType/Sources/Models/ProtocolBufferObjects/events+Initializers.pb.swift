@@ -598,6 +598,59 @@ extension Anytype_Event.Process.Update {
   }
 }
 
+extension Anytype_Event.Status.Thread {
+  init(summary: Anytype_Event.Status.Thread.Summary, cafe: Anytype_Event.Status.Thread.Cafe, accounts: [Anytype_Event.Status.Thread.Account]) {
+    self.summary = summary
+    self.cafe = cafe
+    self.accounts = accounts
+  }
+}
+
+extension Anytype_Event.Status.Thread.Account {
+  init(id: String, name: String, imageHash: String, online: Bool, lastPulled: Int64, lastEdited: Int64, devices: [Anytype_Event.Status.Thread.Device]) {
+    self.id = id
+    self.name = name
+    self.imageHash = imageHash
+    self.online = online
+    self.lastPulled = lastPulled
+    self.lastEdited = lastEdited
+    self.devices = devices
+  }
+}
+
+extension Anytype_Event.Status.Thread.Cafe {
+  init(status: Anytype_Event.Status.Thread.SyncStatus, lastPulled: Int64, lastPushSucceed: Bool, files: Anytype_Event.Status.Thread.Cafe.PinStatus) {
+    self.status = status
+    self.lastPulled = lastPulled
+    self.lastPushSucceed = lastPushSucceed
+    self.files = files
+  }
+}
+
+extension Anytype_Event.Status.Thread.Cafe.PinStatus {
+  init(pinning: Int32, pinned: Int32, failed: Int32, updated: Int64) {
+    self.pinning = pinning
+    self.pinned = pinned
+    self.failed = failed
+    self.updated = updated
+  }
+}
+
+extension Anytype_Event.Status.Thread.Device {
+  init(name: String, online: Bool, lastPulled: Int64, lastEdited: Int64) {
+    self.name = name
+    self.online = online
+    self.lastPulled = lastPulled
+    self.lastEdited = lastEdited
+  }
+}
+
+extension Anytype_Event.Status.Thread.Summary {
+  init(status: Anytype_Event.Status.Thread.SyncStatus) {
+    self.status = status
+  }
+}
+
 extension Anytype_Event.User.Block.Join {
   init(account: Anytype_Event.Account) {
     self.account = account

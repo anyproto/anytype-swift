@@ -19,6 +19,7 @@ extension Anytype_Rpc.BlockList.Set.Align.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Delete.Page.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.TurnInto.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Split.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Merge.Response.Error: Swift.Error {}

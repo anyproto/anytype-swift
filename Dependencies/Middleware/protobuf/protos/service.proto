@@ -61,6 +61,7 @@ service ClientCommands {
     rpc BlockListSetDivStyle (anytype.Rpc.BlockList.Set.Div.Style.Request) returns (anytype.Rpc.BlockList.Set.Div.Style.Response);
     rpc BlockListSetPageIsArchived (anytype.Rpc.BlockList.Set.Page.IsArchived.Request) returns (anytype.Rpc.BlockList.Set.Page.IsArchived.Response);
     rpc BlockListDeletePage (anytype.Rpc.BlockList.Delete.Page.Request) returns (anytype.Rpc.BlockList.Delete.Page.Response);
+    rpc BlockListTurnInto (anytype.Rpc.BlockList.TurnInto.Request) returns (anytype.Rpc.BlockList.TurnInto.Response);
 
     rpc BlockSetTextText (anytype.Rpc.Block.Set.Text.Text.Request) returns (anytype.Rpc.Block.Set.Text.Text.Response);
     rpc BlockSetTextColor (anytype.Rpc.Block.Set.Text.Color.Request) returns (anytype.Rpc.Block.Set.Text.Color.Response);
