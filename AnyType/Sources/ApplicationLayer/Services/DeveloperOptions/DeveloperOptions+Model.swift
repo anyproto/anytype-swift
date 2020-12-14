@@ -23,7 +23,7 @@ extension DeveloperOptions {
         private init() {
             self.debug = .init(enabled: false)
             self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""), dashboard: .init(hasCustomModalPresentation: false, cellsHaveActionsOnLongTap: false),
-                                  mainDocumentEditor: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseSimpleTextViewCell: false, shouldUsePlainOldTextViewCell: false, useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
+                                  mainDocumentEditor: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseSimpleTextViewCell: false, shouldUseCollectionView: false, useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
         }
         static var `default`: Settings = .init()
     }
@@ -55,7 +55,7 @@ extension DeveloperOptions.Settings {
             }
             var shouldAnimateRowsInsertionAndDeletion: Bool
             var shouldUseSimpleTextViewCell: Bool
-            var shouldUsePlainOldTextViewCell: Bool
+            var shouldUseCollectionView: Bool
             var useUIKit: Bool
             var textEditor: TextEditor
         }

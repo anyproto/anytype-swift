@@ -34,8 +34,8 @@
 				<key>shouldAnimateRowsInsertionAndDeletion</key>
 				<false/>
 				<key>shouldUseSimpleTextViewCell</key>
-				<true/>
-				<key>shouldUsePlainOldTextViewCell</key>
+				<false/>
+				<key>shouldUseCollectionView</key>
 				<false/>
 				<key>useUIKit</key>
 				<true/>

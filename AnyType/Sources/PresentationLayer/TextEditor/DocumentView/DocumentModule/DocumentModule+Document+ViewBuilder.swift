@@ -71,7 +71,7 @@ extension Namespace.ViewBuilder {
             return (view, viewModel, self.childComponent(by: request))
         }
         
-        static func documentView(by request: Request) -> ViewController {
+        static func view(by request: Request) -> ViewController {
             self.selfComponent(by: request).0
         }
     }

@@ -68,6 +68,7 @@ extension Namespace {
         
         /// DocumentId
         private var debugDocumentId: String = ""
+        private var documentId: TopLevel.AliasesMap.BlockId = ""
         
         /// Service
         private var blockActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
@@ -85,22 +86,9 @@ extension Namespace {
         
         /// Selection Handler
         private(set) var selectionHandler: DocumentModuleSelectionHandlerProtocol?
-        
-        /// Builders Publisher
-        /// It is incorrect stuff.
-        /// Please, use a little passthrough subjects, OK?
-        /// Deprecated Publishers and Subjects
-        private var buildersPublisherSubject: PassthroughSubject<AnyPublisher<BlocksUserAction, Never>, Never> = .init()
-        private var detailsPublisherSubject: PassthroughSubject<AnyPublisher<BlocksUserAction, Never>, Never> = .init()
-        
-        private var buildersActionsPayloadsSubject: PassthroughSubject<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = .init()
-        private lazy var buildersActionsPayloadsPublisher: AnyPublisher<AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never>, Never> = { self.buildersActionsPayloadsSubject.eraseToAnyPublisher() }()
-        
+                
         private var listToolbarSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
-        
-        /// Deprecated
-        private var listSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
-        
+                
         private var publicUserActionSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
         lazy var publicUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
         
@@ -110,83 +98,9 @@ extension Namespace {
         private var publicSizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
         public private(set) lazy var publicSizeDidChangePublisher: AnyPublisher<CGSize, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
         
-        /// Deprecated
-        lazy private var listPublisherSubject: CurrentValueSubject<AnyPublisher<BlocksUserAction, Never>, Never> = { .init(self.listSubject.eraseToAnyPublisher()) }()
         private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
         lazy private var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
             self.listActionsPayloadSubject.eraseToAnyPublisher()
-        }()
-                
-        lazy var soloUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = {
-            /// As soon as we made another curve in learning publishers
-            /// It is pretty simple to achieve our desired behavior without publishers of publishers.
-            /// We still will provide appropriate methods to support backward compatibility.
-            /// But it is unnecessary.
-            ///
-            /// What is going on here?
-            ///
-            /// We take latest values of three publishers, several of them ( builders and details ) could change in time if builders or details are updated.
-            ///
-            /// 1. Take builders, details and list ( whole model here ) publishers of publishers.
-            /// 2. Combine their latest values.
-            ///
-            /// -- Stop for a bit for a note --
-            /// If you update ANY publisher by sending any new value in it, all latest values of counterpart publishers will be used.
-            ///
-            /// Look at it:
-            ///
-            /// f: ([[]]) -> ([(_,_,_)])
-            /// [[A], [B], [C]] -> ([(A, B, C)])
-            ///
-            /// [[A, D], [B], [C]] -> ([(D, B, C)])
-            ///
-            /// -- End stop --
-            /// 3. Merge all values into one publisher or into one value.
-            /// 4. Erase.
-            ///
-            /// At step 3 we just merge values into one publisher, so, any value of triple here could emit value.
-            ///
-            let buildersSubject = self.buildersPublisherSubject
-            let detailsSubject = self.detailsPublisherSubject
-            let listSubject = self.listPublisherSubject
-            let first = buildersSubject
-                //Publishers.MakeConnectable(upstream: buildersSubject).autoconnect()
-            let second = detailsSubject
-                //Publishers.MakeConnectable(upstream: detailsSubject).autoconnect()
-            let third = listSubject
-            
-            return Publishers.CombineLatest3(first, second, third).flatMap { (value) -> AnyPublisher<BlocksUserAction, Never> in
-                Publishers.Merge3(value.0, value.1, value.2).eraseToAnyPublisher()
-            }.handleEvents(receiveSubscription: { [weak self] value in
-                self?.refreshUserActionsAndPayloadsAndDetails()
-            }, receiveOutput: nil, receiveCompletion: nil, receiveCancel: nil, receiveRequest: { [weak self] value in
-                self?.refreshUserActionsAndPayloadsAndDetails()
-            }).eraseToAnyPublisher()
-        }()
-        lazy var userActionPublisher: AnyPublisher<AnyPublisher<BlocksUserAction, Never>, Never> = {
-            /// For now, we just collect three publishers and merge them as one publisher.
-            /// If we change current value of our publisher ( list Publisher Subject ), it would go on top of stream of publishers.
-            /// In this case we would receive value.
-            ///
-            /// [A, B, C] // Stream of events
-            /// [[A, A, A], [B, B], C] // Stream of Publishers
-            /// [A, B, C, A, A, A, B, B, A, A] // Stream of Merged Publishers.
-            /// As you see, you can't put C on top of stream, because it is `CurrentValueSubject`.
-            ///
-//            return Publishers.Merge3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject).eraseToAnyPublisher()
-//            Publishers.CombineLatest3(self.buildersPublisherSubject, self.detailsPublisherSubject, self.listPublisherSubject)
-            
-            let first = self.buildersPublisherSubject
-            let second = self.detailsPublisherSubject
-            let third = self.listPublisherSubject
-            
-            return Publishers.CombineLatest3(first, second, third).map({ value -> AnyPublisher<BlocksUserAction, Never> in
-                Publishers.Merge3(value.0, value.1, value.2).eraseToAnyPublisher()
-            }).handleEvents(receiveSubscription: { [weak self] value in
-                self?.refreshUserActionsAndPayloadsAndDetails()
-            }, receiveOutput: nil, receiveCompletion: nil, receiveCancel: nil, receiveRequest: { [weak self] value in
-                self?.refreshUserActionsAndPayloadsAndDetails()
-            }).eraseToAnyPublisher()
         }()
         
         /// Options property publisher.
@@ -216,9 +130,7 @@ extension Namespace {
                                     self?.anyStyleSubject.send(value.updatedIds)
                                 }
                                 if !value.deletedIds.isEmpty {
-                                    value.deletedIds.forEach { (value) in
-                                        self?.toggle(value)                                        
-                                    }
+                                    self?.deselect(ids: Set(value.deletedIds))
                                 }
                             }
                         }
@@ -254,27 +166,17 @@ extension Namespace {
         
         // MARK: - Builders
         @Published var builders: [BlockViewBuilderProtocol] = []
-        private var shouldClosePagePublisher: CurrentValueSubject<Bool, Error> = .init(false)
         private var internalState: State = .loading
         
         @Published var buildersRows: [Row] = [] {
             didSet {
-                self.objectWillChange.send()
-                                
                 /// Disable selection mode.
                 if self.buildersRows.isEmpty {
                     self.set(selectionEnabled: false)
                 }
             }
         }
-        
-        /// Deprecated. Replaced by `publicSizeDidChangePublisher`
-        @available(iOS, introduced: 13.0, deprecated: 14.0, renamed: "publicSizeDidChangePublisher")
-        lazy var anyFieldPublisher: AnyPublisher<String, Never> = .empty()
-        
-        /// We could delete this publisher, lol.
-        var fileFieldPublisher: AnyPublisher<BlocksViewsNamespace.File.Image.ViewModel.State?, Never> = .empty()
-        
+                        
         /// We should update some items in place.
         /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
         /// Its `Output` is a `List<BlockId>`
@@ -327,14 +229,7 @@ extension Namespace {
             self.listUserInteractionHandler.reactionPublisher.sink { [weak self] (value) in
                 self?.process(reaction: value)
             }.store(in: &self.subscriptions)
-            
-            // We are waiting for value "true" to send `.blockClose()` with parameters "contextID: documentId, blockID: documentId"
-            self.shouldClosePagePublisher.drop(while: {$0 == false}).flatMap { [weak self] (value) -> AnyPublisher<Never, Error> in
-                self?.cleanupSubscriptions()
-                
-                return ServiceLayerModule.Single.BlockActionsService.Close().action(contextID: documentId, blockID: documentId).eraseToAnyPublisher()
-            }.sink(receiveCompletion: { _ in }, receiveValue: {_ in }).store(in: &self.subscriptions)
-            
+                        
             self.obtainDocument(documentId: documentId)
                         
             self.$builders.sink { [weak self] value in
@@ -344,30 +239,6 @@ extension Namespace {
                 })
                 self?.enhanceUserActionsAndPayloads(value)
             }.store(in: &self.subscriptions)
-            
-            // TODO: Deprecated.
-            // It should be either removed or deleted.
-            // We still (!) need this item to recalculate the size of text views on typing.
-            // But, we should do it in the same manner as in other publishers:
-            // We shouldn't merge them, we should have one passthrough subject which will be passed among all necessary views.
-            //
-            self.anyFieldPublisher = self.$builders
-                .map {
-                    $0.compactMap { $0 as? BlocksViewsNamespace.Text.Base.ViewModel }
-            }
-            .flatMap {
-                Publishers.MergeMany($0.map{$0.textDidChangePublisher.map(\.string)})
-            }
-            .eraseToAnyPublisher()
-            
-            // TODO: Deprecated.
-            // Remove it when you subscribe in view model on state of a model.
-            self.fileFieldPublisher = self.$builders
-                .map {
-                    $0.compactMap { $0 as? BlocksViewsNamespace.File.Image.ViewModel }
-            }.flatMap {
-                Publishers.MergeMany($0.map{$0.$state})
-            }.eraseToAnyPublisher()
             
             // TODO: Deprecated.
             // We should rename it.
@@ -459,6 +330,7 @@ extension Namespace {
             self.internalState = .loading
             
             self.debugDocumentId = documentId
+            self.documentId = documentId
             
             self.blockActionsService.open.action(contextID: documentId, blockID: documentId)
 //                .print()
@@ -575,10 +447,10 @@ extension Namespace.ViewModel {
 }
 
 private extension Namespace.ViewModel {
-    // It is called automatically ( should be called automatically ) by publisher
-    
     func closePage() {
-        self.shouldClosePagePublisher.send(true)
+        self.cleanupSubscriptions()
+        let documentId = self.documentId
+        _ = ServiceLayerModule.Single.BlockActionsService.Close().action(contextID: documentId, blockID: documentId)
     }
     
     func cleanupSubscriptions() {
@@ -719,48 +591,11 @@ extension Namespace.ViewModel {
         let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
         
         _ = ourViewModels.map({$0.configured(userActionSubject: self.publicUserActionSubject)})
-        
         _ = ourViewModels.map({$0.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)})
-        
         _ = ourViewModels.map({$0.configured(sizeDidChangeSubject: self.publicSizeDidChangeSubject)})
     }
     
     func enhanceDetails(_ value: PageDetailsViewModelsDictionary) {
         _ = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map({$0.configured(userActionSubject: self.publicUserActionSubject)}).map({$0.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)})
-    }
-}
-
-// MARK: Refresh UserActions and Payloads
-/// These methods work in direct way as `Merging`.
-/// If we have a list of viewModels with `Subject` or `Publisher`, we could do the following:
-///
-/// 1. We could `MergeMany` to gather all events in one `Publisher` on which we will react.
-///
-/// Unfortunately, this method doesn't work.
-///
-extension Namespace.ViewModel {
-    func refreshUserActionsAndPayloadsAndDetails() {
-        self.refreshUserActionsAndPayloads()
-        self.refreshDetails()
-    }
-    func refreshDetails() {
-        self.refreshDetails(self.pageDetailsViewModels)
-    }
-    func refreshDetails(_ value: PageDetailsViewModelsDictionary) {
-        let values = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map(\.userActionPublisher)
-        self.detailsPublisherSubject.send(Publishers.MergeMany(values).eraseToAnyPublisher())
-    }
-    func refreshUserActionsAndPayloads() {
-        self.refreshUserActionsAndPayloads(self.builders)
-    }
-    func refreshUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
-        let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
-        
-        let userActions = ourViewModels.map(\.userActionPublisher)
-        
-        self.buildersPublisherSubject.send(Publishers.MergeMany(userActions).eraseToAnyPublisher())
-        
-        let actionsPayloads = ourViewModels.map(\.actionsPayloadPublisher)
-        self.buildersActionsPayloadsSubject.send(Publishers.MergeMany(actionsPayloads).eraseToAnyPublisher())
     }
 }

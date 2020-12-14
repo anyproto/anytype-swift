@@ -18,10 +18,37 @@ private extension Logging.Categories {
     static let documentViewController: Self = "TextEditor.DocumentViewController"
 }
 
+private protocol ListDataSource {
+    associatedtype SectionIdentifierType: Hashable
+    associatedtype ItemIdentifierType: Hashable
+    func apply(_ snapshot: NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>, animatingDifferences: Bool, completion: (() -> Void)?)
+    func snapshot() -> NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>
+}
+
+extension UICollectionViewDiffableDataSource: ListDataSource {}
+extension UITableViewDiffableDataSource: ListDataSource {}
+private extension Namespace.ViewController {
+    struct AnyListDataSource<SectionIdentifierType, ItemIdentifierType>: ListDataSource where SectionIdentifierType: Hashable, ItemIdentifierType: Hashable {
+        private var applyFunction: (NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>, Bool, (() -> Void)?) -> ()
+        private var snapshotFunction: () -> NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>
+        init<T: ListDataSource>(_ value: T) where T.SectionIdentifierType == SectionIdentifierType, T.ItemIdentifierType == ItemIdentifierType {
+            self.applyFunction = value.apply
+            self.snapshotFunction = value.snapshot
+        }
+        /// ListDataSource
+        func apply(_ snapshot: NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>, animatingDifferences: Bool, completion: (() -> Void)?) {
+            self.applyFunction(snapshot, animatingDifferences, completion)
+        }
+        func snapshot() -> NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType> {
+            self.snapshotFunction()
+        }
+    }
+}
+
 // MARK: - This is view controller that will handle everything for us.
 extension Namespace {
     class ViewController: UIViewController {
-        typealias ListDiffableDataSource = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
+        private typealias ListDiffableDataSource = AnyListDataSource<ViewModel.Section, ViewModel.Row>
         typealias ListDiffableDataSourceSnapshot = NSDiffableDataSourceSnapshot<ViewModel.Section, ViewModel.Row>
         typealias TableViewDataSource = UITableViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
         typealias CollectionViewDataSource = UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Row>
@@ -31,8 +58,20 @@ extension Namespace {
         
         /// DataSource
         private var dataSource: ListDiffableDataSource?
-        private var tableViewDataSource: TableViewDataSource?
-        private var collectionViewDataSource: CollectionViewDataSource?
+        private var tableViewDataSource: TableViewDataSource? {
+            didSet {
+                if let value = self.tableViewDataSource {
+                    self.dataSource = .init(value)
+                }
+            }
+        }
+        private var collectionViewDataSource: CollectionViewDataSource? {
+            didSet {
+                if let value = self.collectionViewDataSource {
+                    self.dataSource = .init(value)
+                }
+            }
+        }
 
         /// Model
         private var viewModel: ViewModel
@@ -62,7 +101,7 @@ extension Namespace {
         }
         
         private var listView: UIView? {
-            self.tableView
+            self.collectionView ?? self.tableView
         }
 
         private lazy var headerView: HeaderView = {
@@ -155,7 +194,12 @@ extension Namespace.ViewController {
     
     /// ListViews
     private func setupListView() {
-        self.setupTableView()
+        if self.developerOptions.current.workflow.mainDocumentEditor.shouldUseCollectionView {
+            self.setupCollectionView()
+        }
+        else {
+            self.setupTableView()
+        }
     }
     
     private func setupTableView() {
@@ -186,10 +230,18 @@ extension Namespace.ViewController {
         self.tableView?.register(DocumentModule.Document.Cells.TableViewCell.self, forCellReuseIdentifier: DocumentModule.Document.Cells.TableViewCell.cellReuseIdentifier())
     }
     
+    private func createFlowLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        
+        return layout
+    }
+    
     private func createLayout() -> UICollectionViewLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
         listConfiguration.backgroundColor = .white
+        listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
+        
         return layout
     }
     
@@ -197,8 +249,9 @@ extension Namespace.ViewController {
         
         let viewController = UICollectionViewController(collectionViewLayout: self.createLayout())
         self.addChild(viewController)
-        
-        if let collectionView = viewController.collectionView {
+        self.collectionViewController = viewController
+
+        if let collectionView = self.collectionView {
             collectionView.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(collectionView)
             viewController.didMove(toParent: self)
@@ -208,8 +261,6 @@ extension Namespace.ViewController {
             collectionView.allowsSelection = true
             collectionView.delegate = self
         }
-        
-        self.collectionViewController = viewController
 
         // register cells(?)
         // register them as CellRegistration
@@ -217,9 +268,9 @@ extension Namespace.ViewController {
     }
     
     private typealias Cells = DocumentModule.Document.Cells.ContentConfigurations
-        
-    private func setupTableViewDataSource() {
-        func cellIdentifier(for builder: BlocksViews.New.Base.ViewModel) -> String? {
+    
+    enum CellIdentifierConverter {
+        static func identifier(for builder: BlocksViews.New.Base.ViewModel) -> String? {
             switch builder.getBlock().blockModel.information.content {
             case let .text(text) where text.contentType == .text:
                 return Cells.Text.Text.Table.cellReuseIdentifier()
@@ -237,6 +288,9 @@ extension Namespace.ViewController {
                 return Cells.Unknown.Label.Table.cellReuseIdentifier()
             }
         }
+    }
+    
+    private func setupTableViewDataSource() {
         
         guard let listView = self.tableView else { return }
         
@@ -258,15 +312,11 @@ extension Namespace.ViewController {
             let shouldShowIndent = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
             
             let ourBuilder = entry.builder as! BlocksViews.New.Base.ViewModel
-            let cell = cellIdentifier(for: ourBuilder).flatMap({view.dequeueReusableCell(withIdentifier: $0, for: indexPath)})
+            let cell = CellIdentifierConverter.identifier(for: ourBuilder).flatMap({view.dequeueReusableCell(withIdentifier: $0, for: indexPath)})
             
             let configuration = ourBuilder.buildContentConfiguration()
             cell?.contentConfiguration = configuration
             return cell
-//            switch view.dequeueReusableCell(withIdentifier: Namespace.DocumentViewCells.TableViewCell.cellReuseIdentifier(), for: indexPath) {
-//            case let cell as Namespace.DocumentViewCells.TableViewCell: return cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
-//            default: return nil
-//            }
         })
         
         (self.tableViewDataSource)?.defaultRowAnimation = .none
@@ -275,38 +325,39 @@ extension Namespace.ViewController {
     private func setupCollectionViewDataSource() {
         guard let listView = self.collectionView else { return }
         
-        let imageCellRegistration: UICollectionView.CellRegistration<Cells.File.Image.Collection, ViewModel.Row> =
-            .init { (cell, indexPath, row) in
-            let configuration = (row.builder as! BlocksViews.New.Base.ViewModel).buildContentConfiguration()
-            cell.contentConfiguration = configuration
-        }
+        listView.register(Cells.Text.Text.Collection.self, forCellWithReuseIdentifier: Cells.Text.Text.Table.cellReuseIdentifier())
         
-        let dividerCellRegistration: UICollectionView.CellRegistration<Cells.Other.Divider.Collection, ViewModel.Row>
-            = .init { (cell, indexPath, row) in
-            let configuration = (row.builder as! BlocksViews.New.Base.ViewModel).buildContentConfiguration()
-            cell.contentConfiguration = configuration
-        }
+        listView.register(Cells.File.File.Collection.self, forCellWithReuseIdentifier: Cells.File.File.Table.cellReuseIdentifier())
+        listView.register(Cells.File.Image.Collection.self, forCellWithReuseIdentifier: Cells.File.Image.Table.cellReuseIdentifier())
+        
+        listView.register(Cells.Bookmark.Bookmark.Collection.self, forCellWithReuseIdentifier: Cells.Bookmark.Bookmark.Table.cellReuseIdentifier())
+        
+        listView.register(Cells.Other.Divider.Collection.self, forCellWithReuseIdentifier: Cells.Other.Divider.Table.cellReuseIdentifier())
+        
+        listView.register(Cells.Link.PageLink.Collection.self, forCellWithReuseIdentifier: Cells.Link.PageLink.Table.cellReuseIdentifier())
+
+        listView.register(Cells.Unknown.Label.Collection.self, forCellWithReuseIdentifier: Cells.Unknown.Label.Table.cellReuseIdentifier())
+
         
         self.collectionViewDataSource = CollectionViewDataSource.init(collectionView: listView, cellProvider: { [weak self] (view, indexPath, entry) -> UICollectionViewCell? in
             let useUIKit = !(self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell == true)
             let shouldShowIndent = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
-            switch (entry.builder as! BlocksViews.New.Base.ViewModel).getBlock().blockModel.information.content {
-            case let .file(file) where file.contentType == .image: return view.dequeueConfiguredReusableCell(using: imageCellRegistration, for: indexPath, item: entry)
-            case .divider:
-                let cell = view.dequeueConfiguredReusableCell(using: dividerCellRegistration, for: indexPath, item: entry)
-                return cell
-            default: break
-            }
+            let ourBuilder = entry.builder as! BlocksViews.New.Base.ViewModel
+            let cell = CellIdentifierConverter.identifier(for: ourBuilder).flatMap({view.dequeueReusableCell(withReuseIdentifier: $0, for: indexPath)})
             
-            switch view.dequeueReusableCell(withReuseIdentifier: DocumentModule.Document.Cells.CollectionViewCell.cellReuseIdentifier(), for: indexPath) {
-            case let cell as DocumentModule.Document.Cells.CollectionViewCell: return cell.configured(useUIKit: useUIKit).configured(shouldShowIndent: shouldShowIndent).configured(entry)
-            default: return nil
-            }
+            let configuration = ourBuilder.buildContentConfiguration()
+            cell?.contentConfiguration = configuration
+            return cell
         })
     }
 
     private func setupDataSource() {
-        self.setupTableViewDataSource()
+        if self.developerOptions.current.workflow.mainDocumentEditor.shouldUseCollectionView {
+            self.setupCollectionViewDataSource()
+        }
+        else {
+            self.setupTableViewDataSource()
+        }
     }
 
     func setupUserInteractions() {
@@ -345,19 +396,11 @@ private extension Namespace.ViewController {
         self.viewModel.$buildersRows.sink(receiveValue: { [weak self] (value) in
             self?.updateData(value)
         }).store(in: &self.subscriptions)
-                
-//        self.viewModel.anyFieldPublisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
-//            self?.updateView()
-//        }).store(in: &self.subscriptions)
+
         self.viewModel.publicSizeDidChangePublisher.receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.updateView()
         }.store(in: &self.subscriptions)
 
-//        self.viewModel.fileFieldPublisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
-//            return;
-//            self?.updateView()
-//        }).store(in: &self.subscriptions)
-        
         self.viewModel.anyStylePublisher.sink { [weak self] (value) in
             self?.updateIds(value)
         }.store(in: &self.subscriptions)     
@@ -385,7 +428,7 @@ extension Namespace.ViewController {
 // MARK: - Set Focus
 private extension Namespace.ViewController {
     func scrollAndFocusOnFocusedBlock() {
-        guard let dataSource = self.tableViewDataSource else { return }
+        guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot()
         let userSession = self.viewModel.rootModel?.blocksContainer.userSession
         let id = userSession?.firstResponder()
@@ -395,13 +438,20 @@ private extension Namespace.ViewController {
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
                 value.builder?.blockId == id
             }) {
-                let elementPosition: UITableView.ScrollPosition
+                let tableViewScrollPosition: UITableView.ScrollPosition
                 switch focusedAt {
-                case .beginning: elementPosition = .top
-                default: elementPosition = .bottom
+                case .beginning: tableViewScrollPosition = .top
+                default: tableViewScrollPosition = .bottom
+                }
+                let collectionViewScrollPosition: UICollectionView.ScrollPosition
+                switch focusedAt {
+                case .beginning: collectionViewScrollPosition = .top
+                default: collectionViewScrollPosition = .bottom
                 }
                 
-                self.tableView?.scrollToRow(at: .init(row: index, section: 0), at: elementPosition, animated: true)
+                let indexPath: IndexPath = .init(row: index, section: 0)
+                self.tableView?.scrollToRow(at: indexPath, at: tableViewScrollPosition, animated: true)
+                self.collectionView?.scrollToItem(at: indexPath, at: collectionViewScrollPosition, animated: true)
                 (itemIdentifiers[index].blockBuilder as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
                 userSession?.unsetFocusAt()
                 userSession?.unsetFirstResponder()
@@ -410,7 +460,7 @@ private extension Namespace.ViewController {
     }
     func tryFocusItem(at indexPath: IndexPath) {
         guard !self.viewModel.selectionEnabled() else { return }
-        guard let dataSource = self.tableViewDataSource else { return }
+        guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot()
         let userSession = self.viewModel.rootModel?.blocksContainer.userSession
         let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
@@ -420,12 +470,15 @@ private extension Namespace.ViewController {
         if let textItem = item as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
             let id = textItem.getBlock().blockModel.information.id
             
-            let elementPosition: UITableView.ScrollPosition = .middle
+            let tableViewElementPosition: UITableView.ScrollPosition = .middle
+            let collectionViewElementPosition: UICollectionView.ScrollPosition = .centeredVertically
 //            switch focusedAt {
 //            case .beginning: elementPosition = .top
 //            default: elementPosition = .bottom
 //            }
-            self.tableView?.scrollToRow(at: .init(row: index, section: 0), at: elementPosition, animated: true)
+            let indexPath: IndexPath = .init(row: index, section: 0)
+            self.tableView?.scrollToRow(at: indexPath, at: tableViewElementPosition, animated: true)
+            self.collectionView?.scrollToItem(at: indexPath, at: collectionViewElementPosition, animated: true)
 //            textItem.set(focus: .init(position: focusedAt, completion: {_ in }))
             userSession?.unsetFocusAt()
             userSession?.unsetFirstResponder()
@@ -449,10 +502,13 @@ extension Namespace.ViewController {
             tableView.layer.removeAllAnimations()
             tableView.setContentOffset(lastContentOffset, animated: false)
         }
+        else if let collectionView = self.collectionView {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
-    
+        
     func updateData(_ rows: [ViewModel.Row]) {
-        guard let dataSource = self.tableViewDataSource else { return }
+        guard let theDataSource = self.dataSource else { return }
         
         /// TODO: Add
         /// Check if we about to delete block.
@@ -470,17 +526,16 @@ extension Namespace.ViewController {
         /// Maybe we should sync set focus here in completion?
         ///
         ///
-        
+        let scrollAndFocusCompletion: () -> () = { [weak self] in
+            self?.scrollAndFocusOnFocusedBlock()
+        }
         if self.developerOptions.current.workflow.mainDocumentEditor.shouldAnimateRowsInsertionAndDeletion {
-            dataSource.apply(snapshot) { [weak self] in
-                self?.scrollAndFocusOnFocusedBlock()
-            }
+            theDataSource.apply(snapshot, animatingDifferences: true, completion: scrollAndFocusCompletion)
         }
         else {
             UIView.performWithoutAnimation {
-                dataSource.apply(snapshot) { [weak self] in
-                    self?.scrollAndFocusOnFocusedBlock()
-                }
+                theDataSource.apply(snapshot, animatingDifferences: true, completion: scrollAndFocusCompletion)
+//                updateDataSource()
             }
         }
     }

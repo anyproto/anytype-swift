@@ -33,7 +33,7 @@ extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<Me>) -> ViewController {
         /// Configure document view builder.
-        let view = ViewBuilder.UIKitBuilder.documentView(by: .init(id: self.documentId))
+        let view = ViewBuilder.UIKitBuilder.view(by: .init(id: self.documentId))
                 
         /// Subscribe `coordinator` on events from `view.headerView`.
         _ = context.coordinator.configured(headerViewModelPublisher: view.headerViewModelPublisher)

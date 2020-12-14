@@ -8,9 +8,16 @@
 
 import Foundation
 import os
+import Combine
 
 extension DeveloperOptions {
-    class Service: BaseService {}
+    class Service: BaseService {
+        private var settingsDidChangeSubject: PassthroughSubject<Settings, Never> = .init()
+        private(set) var settingsDidChangePublisher: AnyPublisher<Settings, Never> = .empty()
+        override init() {
+            self.settingsDidChangePublisher = self.settingsDidChangeSubject.eraseToAnyPublisher()
+        }
+    }
 }
 
 // Maybe we don't need it later.
@@ -102,6 +109,7 @@ extension DeveloperOptions.Service {
     func update(settings: Settings?) {
         guard let settings = settings, let dictionary = settings.dictionary() else { return }
         Driver.save(dictionary)
+        self.settingsDidChangeSubject.send(settings)
     }
     func resetToDefaults() {
         self.update(settings: self.defaultSettings())

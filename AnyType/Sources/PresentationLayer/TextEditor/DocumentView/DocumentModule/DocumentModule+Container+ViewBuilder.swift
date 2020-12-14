@@ -118,7 +118,7 @@ extension Namespace.ViewBuilder {
             
             /// Don't forget configure router by events from blocks.
             let router: DocumentViewRouting.CompoundRouter = .init()
-            _ = router.configured(userActionsStream: childChildViewModel.soloUserActionPublisher)
+            _ = router.configured(userActionsStream: childChildViewModel.publicUserActionPublisher)
             
             /// Configure ViewModel of current View Controller.
             let viewModel: ViewModel = .init()

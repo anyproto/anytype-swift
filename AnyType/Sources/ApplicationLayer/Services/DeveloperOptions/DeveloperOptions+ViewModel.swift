@@ -7,19 +7,31 @@
 //
 
 import Foundation
+import Combine
 
 extension DeveloperOptions {
     
     class ViewModel {
         // to show we need settings at least.
-        var service: Service?
-        var settings: Settings
-        var cells: [Cell] = []
-        var updatedCells: [Cell] = []
+        private var service: Service?
+        private var settings: Settings {
+            didSet {
+                self.syncCells()
+            }
+        }
+        private var shouldReloadCellsSubject: PassthroughSubject<Void, Never> = .init()
+        private(set) var shouldReloadCellsPublisher: AnyPublisher<Void, Never> = .empty()
+        private var subscription: AnyCancellable?
+        private var cells: [Cell] = []
+        private var updatedCells: [Cell] = []
         
         init(settings: Settings) {
             self.settings = settings
-            let (_, entries) = SettingsSerialization.plaintify(settings: settings)
+            self.syncCells()
+        }
+        
+        private func syncCells() {
+            let (_, entries) = SettingsSerialization.plaintify(settings: self.settings)
             
             self.cells = entries.map { (item) in
                 var cell = Cell(keypath: item.keypath)
@@ -35,6 +47,14 @@ extension DeveloperOptions {
                 return cell
             }.sorted { $0.keypath < $1.keypath }
             self.updatedCells = self.cells
+            self.shouldReloadCellsSubject.send()
+        }
+        
+        private func setupSubscriptions() {
+            self.shouldReloadCellsPublisher = self.shouldReloadCellsSubject.eraseToAnyPublisher()
+            self.subscription = self.service?.settingsDidChangePublisher.sink(receiveValue: { [weak self] (value) in
+                self?.settings = value
+            })
         }
         //        class ChildViewModel {
         //            weak var parent: ViewModel?
@@ -189,6 +209,7 @@ extension DeveloperOptions.ViewModel {
 extension DeveloperOptions.ViewModel {
     func configured(service: Service?) -> Self {
         self.service = service
+        self.setupSubscriptions()
         return self
     }
 }

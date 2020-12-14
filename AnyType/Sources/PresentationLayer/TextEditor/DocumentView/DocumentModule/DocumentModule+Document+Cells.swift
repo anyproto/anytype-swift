@@ -461,6 +461,14 @@ extension Namespace {
                 self.setNeedsLayout()
             }
         }
+        class Collection: UICollectionViewCell {
+            func setup() {}
+            override func updateConfiguration(using state: UICellConfigurationState) {
+                super.updateConfiguration(using: state)
+                self.setNeedsUpdateConstraints()
+                self.setNeedsLayout()
+            }
+        }
     }
 }
 
@@ -492,7 +500,7 @@ extension ContentConfigurationsCells.Text {
                 super.layoutSubviews()
             }
         }
-        class Collection: UICollectionViewCell {}
+        class Collection: DocumentModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
@@ -500,7 +508,7 @@ extension ContentConfigurationsCells.Text {
 extension ContentConfigurationsCells.File {
     enum File {
         class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: UICollectionViewCell {}
+        class Collection: DocumentModule.Document.Cells.ContentConfigurations.Collection {}
     }
     enum Image {
         class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {
@@ -511,7 +519,7 @@ extension ContentConfigurationsCells.File {
                 super.layoutSubviews()
             }
         }
-        class Collection: UICollectionViewCell {}
+        class Collection: DocumentModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
@@ -519,7 +527,7 @@ extension ContentConfigurationsCells.File {
 extension ContentConfigurationsCells.Bookmark {
     enum Bookmark {
         class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: UICollectionViewCell {}
+        class Collection: DocumentModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
@@ -527,7 +535,7 @@ extension ContentConfigurationsCells.Bookmark {
 extension ContentConfigurationsCells.Other {
     enum Divider {
         class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: UICollectionViewCell {}
+        class Collection: DocumentModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
@@ -535,7 +543,7 @@ extension ContentConfigurationsCells.Other {
 extension ContentConfigurationsCells.Link {
     enum PageLink {
         class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: UICollectionViewCell {}
+        class Collection: DocumentModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
@@ -543,6 +551,6 @@ extension ContentConfigurationsCells.Link {
 extension ContentConfigurationsCells.Unknown {
     enum Label {
         class Table: DocumentModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: UICollectionViewCell {}
+        class Collection: DocumentModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }

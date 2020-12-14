@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import Combine
 
 extension DeveloperOptions {
     class ViewController: UIViewController {
         var contentView: UIView?
         var tableView: UITableViewController?
         var model: ViewModel?
+        var subscription: AnyCancellable?
     }
 }
 
@@ -24,25 +26,25 @@ extension DeveloperOptions.ViewController {
 
 // MARK: Setup
 extension DeveloperOptions.ViewController {
-    func setupUI() {
+    private func setupUI() {
         self.setupElements()
         self.setupTableView()
         self.setupNavigation()
         self.addLayout()
     }
     
-    func setupNavigation() {
+    private func setupNavigation() {
         self.navigationItem.leftBarButtonItem = .init(title: "Reset To Defaults", style: .plain, target: self, action: #selector(reactOnResetToDefaultsDidPressed))
         self.navigationItem.rightBarButtonItem = .init(title: "Save", style: .plain, target: self, action: #selector(reactOnSaveDidPressed))
     }
     
-    func setupElements() {
+    private func setupElements() {
         let contentView = UIView()
         self.contentView = contentView
         self.view.addSubview(contentView)
     }
     
-    func setupTableView() {
+    private func setupTableView() {
         let tableView = UITableViewController(style: .grouped)
         
         tableView.tableView.dataSource = self
@@ -62,7 +64,7 @@ extension DeveloperOptions.ViewController {
         self.tableView = tableView
     }
     
-    func addLayout() {
+    private func addLayout() {
         if let view = self.contentView, let superview = view.superview {
             view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
             view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
@@ -113,7 +115,16 @@ extension DeveloperOptions.ViewController {
     typealias ViewModel = DeveloperOptions.ViewModel
     func configured(_ model: ViewModel) -> Self {
         self.model = model
+        self.setupSubscriptions()
         return self
+    }
+    private func setupSubscriptions() {
+        self.subscription = self.model?.shouldReloadCellsPublisher.sink(receiveValue: { [weak self] (value) in
+            self?.reloadCells()
+        })
+    }
+    private func reloadCells() {
+        self.tableView?.tableView.reloadData()
     }
 }
 

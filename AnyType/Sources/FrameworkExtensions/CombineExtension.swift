@@ -10,6 +10,20 @@
 import Foundation
 import Combine
 
+// MARK: PublisherAndSubjectPair
+extension Publishers {
+    class WriteableStream<Success, Failure> where Failure: Error {
+        private var subject: PassthroughSubject<Success, Failure> = .init()
+        private(set) var publisher: AnyPublisher<Success, Failure> = .empty()
+        init() {
+            self.publisher = self.subject.eraseToAnyPublisher()
+        }
+        func send(_ value: Success) {
+            self.subject.send(value)
+        }
+    }
+}
+
 // MARK: SuccessToVoid
 extension Publishers {
 
