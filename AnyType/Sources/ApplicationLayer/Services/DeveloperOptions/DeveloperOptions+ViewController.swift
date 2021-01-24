@@ -195,7 +195,7 @@ extension DeveloperOptions.ViewController: UITableViewDelegate {
     }
 }
 
-protocol Developer_ViewModel_ViewController_CellsUpdateProtocol {
+protocol Developer_ViewModel_ViewController_CellsUpdateProtocol: class {
     func didUpdate(cell: DeveloperOptions.ViewController.CellWithItem, identifier: String?)
 }
 
@@ -252,7 +252,7 @@ class BaseTableViewCell: UITableViewCell {
 // MARK: Cells / CellWithItem
 extension DeveloperOptions.ViewController {
     class CellWithItem: BaseTableViewCell {
-        var delegate: Developer_ViewModel_ViewController_CellsUpdateProtocol?
+        weak var delegate: Developer_ViewModel_ViewController_CellsUpdateProtocol?
         var cellType: DeveloperOptions.ViewModel.Row.CellType?
         var identifier: String?
         

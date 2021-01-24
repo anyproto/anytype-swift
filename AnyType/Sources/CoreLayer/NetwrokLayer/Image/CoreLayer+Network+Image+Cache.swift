@@ -188,19 +188,21 @@ extension Namespace.Cache {
 // MARK: - Publishers
 extension Namespace.Cache {
     typealias ImageParameters = CoreLayer.Network.Image.ImageParameters
-    
-    private func publisher(key: EntityKey) -> (AnyCancellable?, CurrentValueSubject<UIImage?, Never>) {
-        let subject = CurrentValueSubject<UIImage?, Never>.init(self.images.object(forKey: key)?.image)
-        /// we should subscribe on something that will publish updates.
-        let subscription = self.imagesSubject.filter({$0.key == key}).map({$0.value}).subscribe(subject)
-        return (subscription, subject)
+    typealias ImagePublisherReturnType = AnyPublisher<UIImage?, Never>
+//    (AnyCancellable?, CurrentValueSubject<UIImage?, Never>)
+    private func publisher(key: EntityKey) -> ImagePublisherReturnType {
+        Just(self.images.object(forKey: key)?.image).merge(with: self.imagesSubject.filter({$0.key == key}).map(\.value)).eraseToAnyPublisher()
+//        let subject = CurrentValueSubject<UIImage?, Never>.init(self.images.object(forKey: key)?.image)
+        // we should subscribe on something that will publish updates.
+//        let subscription = self.imagesSubject.filter({$0.key == key}).map({$0.value}).subscribe(subject)
+//        return (subscription, subject)
     }
     
-    func publisher(imageId: String, _ parameters: ImageParameters = .init(width: .default)) -> (AnyCancellable?, CurrentValueSubject<UIImage?, Never>) {
+    func publisher(imageId: String, _ parameters: ImageParameters = .init(width: .default)) -> ImagePublisherReturnType {
         self.publisher(key: .create(id: imageId, parameters))
     }
     
-    func publisher(url: URL) -> (AnyCancellable?, CurrentValueSubject<UIImage?, Never>) {
+    func publisher(url: URL) -> ImagePublisherReturnType {
         self.publisher(key: .create(url: url))
     }
 }

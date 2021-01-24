@@ -59,8 +59,8 @@ extension Namespace {
         
         typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
         
-        typealias UserInteractionHandler = BlocksViews.NewSupplement.UserInteractionHandler
-        typealias ListUserInteractionHandler = BlocksViews.NewSupplement.ListUserInteractionHandler
+        typealias UserInteractionHandler = BlocksViews.Supplement.UserInteractionHandler
+        typealias ListUserInteractionHandler = BlocksViews.Supplement.ListUserInteractionHandler
         
         typealias BlocksUserAction = BlocksViews.UserAction
         
@@ -75,7 +75,7 @@ extension Namespace {
         
         /// Data Transformers
         private var transformer: Transformer = .defaultValue
-        private var flattener: BlocksViews.NewSupplement.BaseFlattener = BlocksViews.NewSupplement.CompoundFlattener.init()
+        private var flattener: BlocksViews.Supplement.BaseFlattener = .defaultValue
         
         /// User Interaction Processor
         private var userInteractionHandler: UserInteractionHandler = .init()
@@ -303,7 +303,7 @@ extension Namespace {
             let parsedDetails = event.details.map(TopLevel.Builder.detailsBuilder.build(information:))
             let detailsContainer = TopLevel.Builder.detailsBuilder.build(list: parsedDetails)
             
-            _ = self.userInteractionHandler.configured(documentId: contextId)
+            _ = self.userInteractionHandler.configured(documentId: contextId).configured(self)
             _ = self.listUserInteractionHandler.configured(documentId: contextId)
             
             
@@ -589,13 +589,18 @@ extension Namespace.ViewModel: CustomDebugStringConvertible {
 extension Namespace.ViewModel {
     func enhanceUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
         let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
-        
-        _ = ourViewModels.map({$0.configured(userActionSubject: self.publicUserActionSubject)})
-        _ = ourViewModels.map({$0.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)})
-        _ = ourViewModels.map({$0.configured(sizeDidChangeSubject: self.publicSizeDidChangeSubject)})
+        ourViewModels.forEach { (value) in
+            _ = value.configured(userActionSubject: self.publicUserActionSubject)
+            _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)
+            _ = value.configured(sizeDidChangeSubject: self.publicSizeDidChangeSubject)
+        }
     }
     
     func enhanceDetails(_ value: PageDetailsViewModelsDictionary) {
-        _ = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel}).map({$0.configured(userActionSubject: self.publicUserActionSubject)}).map({$0.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)})
+        let ourValues = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
+        ourValues.forEach { (value) in
+            _ = value.configured(userActionSubject: self.publicUserActionSubject)
+            _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)
+        }
     }
 }

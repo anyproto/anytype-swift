@@ -44,10 +44,6 @@ extension Namespace {
         private(set) var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
         @Published var textSize: CGSize? = nil
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
-        func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
-            self.userInteractionDelegate = delegate
-            return self
-        }
         
         /// TextStorage Subscription
         private var textStorageSubscription: AnyCancellable?
@@ -94,53 +90,31 @@ extension Namespace {
             self.setup()
         }
         
-        func setupPublishers() {
+        private func setupPublishers() {
             self.attributedTextPublisher = self.attributedTextSubject.eraseToAnyPublisher()
             self.textAlignmentPublisher = self.textAlignmentSubject.eraseToAnyPublisher()
         }
         
-        func setup() {
+        private func setup() {
             self.setupPublishers()
 //            self.configureKeyboardNotificationsListening()
         }
     }
 }
 
+// MARK: - Public Protocol
 extension FileNamespace {
-    func configureKeyboardNotificationsListening() {
-        /// TODO: Refactor
-        /// Shit. You can't `observe` `Published` value. It will be observed on the same thread. Instead, you have to `receive(on:)` it on main/background thread.
-        let logger = Logging.createLogger(category: .todo(.refactor(String(reflecting: Self.self))))
-        os_log(.debug, log: logger, "Keyboard observing is incorrect. You have to either change it by modifier .receive(on:) or you have to cache it in more 'mutable' way.")
-        self.keyboardObserverHandler = KeyboardObserver.default.$keyboardInformation.map(\.keyboardRect).filter({
-            [weak self] value in
-            value != .zero && self?.defaultKeyboardRect == .zero
-        }).sink{ [weak self] value in self?.defaultKeyboardRect = value }
-    }
-}
-
-// MARK: InnerTextView.Coordinator / Publishers
-extension FileNamespace {
-    // MARK: - Publishers
-    // MARK: - Publishers / Outer world
-    
-    func publishToOuterWorld(_ action: TextView.UserAction?) {
-        action.flatMap({self.userInteractionDelegate?.didReceiveAction($0)})
-    }
-    func publishToOuterWorld(_ action: TextView.UserAction.BlockAction?) {
-        action.flatMap(TextView.UserAction.blockAction).flatMap(publishToOuterWorld)
-    }
-    func publishToOuterWorld(_ action: TextView.UserAction.MarksAction?) {
-        action.flatMap(TextView.UserAction.marksAction).flatMap(publishToOuterWorld)
-    }
-    func publishToOuterWorld(_ action: TextView.UserAction.InputAction?) {
-        action.flatMap(TextView.UserAction.inputAction).flatMap(publishToOuterWorld)
-    }
-    func publishToOuterWorld(_ action: TextView.UserAction.KeyboardAction?) {
-        action.flatMap(TextView.UserAction.keyboardAction).flatMap(publishToOuterWorld)
+    func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
+        self.userInteractionDelegate = delegate
+        return self
     }
     
     // MARK: - Publishers / Actions Toolbar
+    /// TODO:
+    /// Rethink proper implementation of `Publishers.CombineLatest`.
+    /// It will catch view value that we want to avoid, heh.
+    /// Instead, think about `Coordinator` as a view-agnostic textView events handler.
+    ///
     func configureActionsToolbarHandler(_ view: UITextView) {
         self.actionsToolbarAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.actionsToolbarAccessoryView.model.userActionPublisher).sink(receiveValue: { [weak self] (value) in
             let (textView, action) = value
@@ -148,7 +122,8 @@ extension FileNamespace {
             guard action.action != .keyboardDismiss else {
                 guard textView.isFirstResponder else {
                     let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
-                    os_log(.debug, log: logger, "text view keyboardDismiss is disabled. Our view is not first responder.")
+                    os_log(.debug, log: logger, "text view keyboardDismiss is disabled. Our view is not first responder. Fixing it by invoking UIApplication.resignFirstResponder")
+                    UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                     return
                 }
                 textView.endEditing(false)
@@ -171,7 +146,126 @@ extension FileNamespace {
             self?.publishToOuterWorld(value)
         }
     }
+
+    // MARK: - Publishers / Marks Pane
+    /// We could apply new attributes somewhere else.
+    /// 
+    /// TODO:
+    /// Remove it from here.
+    ///
+    func configureMarksPanePublisher(_ view: UITextView) {
+        self.marksToolbarHandler = Publishers.CombineLatest(Just(view), self.marksToolbarInputView.viewModel.userAction).sink { [weak self] (value) in
+            let (textView, action) = value
+            let attributedText = textView.textStorage
+            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
+            
+            let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
+            os_log(.debug, log: logger, "MarksPane action %@", "\(action)")
+            
+            switch action {
+            case let .style(range, attribute):
+                guard range.length > 0 else { return }
+                switch attribute {
+                case let .fontStyle(attribute):
+                    let theMark = ActionsToMarkStyleConverter.emptyMark(from: attribute)
+                    if let style = modifier.getMarkStyle(style: theMark, at: .range(range)) {
+                        _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
+                    }
+                case let .alignment(attribute):
+                    textView.textAlignment = ActionsToMarkStyleConverter.textAlignment(from: attribute)
+                }
+                self?.updateMarksInputView((range, attributedText, textView))
+                
+            case let .textColor(range, attribute):
+                guard range.length > 0 else { return }
+                
+                switch attribute {
+                case let .setColor(color):
+                    _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .range(range))
+                    self?.updateMarksInputView((range, attributedText))
+                }
+                
+            case let .backgroundColor(range, attribute):
+                guard range.length > 0 else { return }
+                
+                switch attribute {
+                case let .setColor(color):
+                    _ = modifier.applyStyle(style: .backgroundColor(color), rangeOrWholeString: .range(range))
+                    self?.updateMarksInputView((range, attributedText))
+                }
+            }
+        }
+    }
     
+    // MARK: - TextStorage Processing
+    /// NOTE:
+    /// As soon as we notify ourselves about all updates in textStorage, we have side effects.
+    /// For example,
+    /// When you invoke `textStorage.setAttributedString` somewhere, this publisher gets notification about change.
+    /// That means, `notifySubscribers` will invoke and we get notification about change in outerWorld.
+    ///
+    /// Nothing is wrogn here, but...
+    /// When you set `NSAttributedString` at first time, you get additional call to middleware.
+    ///
+    /// We could add additional check if `attributedText is nil` and catch "setupAtFirstTime" event.
+    ///
+    func configured(textStorageStream: AnyPublisher<TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent, Never>) -> Self {
+        self.textStorageSubscription = textStorageStream.sink(receiveValue: { [weak self] (value) in
+            switch value {
+            case .willProcessEditing(_): return
+            case let .didProcessEditing(payload): self?.notifySubscribers(payload)
+            }
+        })
+        return self
+    }
+    
+    // MARK: - ContextualMenuHandling
+    /// TODO: Put textView into it.
+    func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<TextView.UIKitTextView.ContextualMenu.Action, Never>) -> Self {
+        self.contextualMenuSubscription = Publishers.CombineLatest(Just(view), contextualMenuStream).sink { [weak self] (tuple) in
+            let (view, action) = tuple
+            let range = view.selectedRange
+            let attributedText = view.textStorage
+            self?.updateMarksInputView((range, attributedText, view, action))
+            self?.switchInputs(view)
+        }
+        return self
+    }
+}
+
+private extension FileNamespace {
+    func configureKeyboardNotificationsListening() {
+        /// TODO: Refactor
+        /// Shit. You can't `observe` `Published` value. It will be observed on the same thread. Instead, you have to `receive(on:)` it on main/background thread.
+        let logger = Logging.createLogger(category: .todo(.refactor(String(reflecting: Self.self))))
+        os_log(.debug, log: logger, "Keyboard observing is incorrect. You have to either change it by modifier .receive(on:) or you have to cache it in more 'mutable' way.")
+        self.keyboardObserverHandler = KeyboardObserver.default.$keyboardInformation.map(\.keyboardRect).filter({
+            [weak self] value in
+            value != .zero && self?.defaultKeyboardRect == .zero
+        }).sink{ [weak self] value in self?.defaultKeyboardRect = value }
+    }
+}
+
+// MARK: InnerTextView.Coordinator / Publishers
+private extension FileNamespace {
+    // MARK: - Publishers
+    // MARK: - Publishers / Outer world
+    
+    func publishToOuterWorld(_ action: TextView.UserAction?) {
+        action.flatMap({self.userInteractionDelegate?.didReceiveAction($0)})
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.BlockAction?) {
+        action.flatMap(TextView.UserAction.blockAction).flatMap(publishToOuterWorld)
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.MarksAction?) {
+        action.flatMap(TextView.UserAction.marksAction).flatMap(publishToOuterWorld)
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.InputAction?) {
+        action.flatMap(TextView.UserAction.inputAction).flatMap(publishToOuterWorld)
+    }
+    func publishToOuterWorld(_ action: TextView.UserAction.KeyboardAction?) {
+        action.flatMap(TextView.UserAction.keyboardAction).flatMap(publishToOuterWorld)
+    }
     
     // MARK: - Publishers / Blocks Toolbar
     func configureBlocksToolbarHandler(_ view: UITextView) {
@@ -293,55 +387,11 @@ extension FileNamespace {
             default: return
             }
         }
-    }
-    
-    func configureMarksPanePublisher(_ view: UITextView) {
-        self.marksToolbarHandler = Publishers.CombineLatest(Just(view), self.marksToolbarInputView.viewModel.userAction).sink { [weak self] (value) in
-            let (textView, action) = value
-            let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            
-            let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
-            os_log(.debug, log: logger, "MarksPane action %@", "\(action)")
-            
-            switch action {
-            case let .style(range, attribute):
-                guard range.length > 0 else { return }
-                switch attribute {
-                case let .fontStyle(attribute):
-                    let theMark = ActionsToMarkStyleConverter.emptyMark(from: attribute)
-                    if let style = modifier.getMarkStyle(style: theMark, at: .range(range)) {
-                        _ = modifier.applyStyle(style: style.opposite(), rangeOrWholeString: .range(range))
-                    }
-                case let .alignment(attribute):
-                    textView.textAlignment = ActionsToMarkStyleConverter.textAlignment(from: attribute)
-                }
-                self?.updateMarksInputView((range, attributedText, textView))
-                
-            case let .textColor(range, attribute):
-                guard range.length > 0 else { return }
-                
-                switch attribute {
-                case let .setColor(color):
-                    _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .range(range))
-                    self?.updateMarksInputView((range, attributedText))
-                }
-                
-            case let .backgroundColor(range, attribute):
-                guard range.length > 0 else { return }
-                
-                switch attribute {
-                case let .setColor(color):
-                    _ = modifier.applyStyle(style: .backgroundColor(color), rangeOrWholeString: .range(range))
-                    self?.updateMarksInputView((range, attributedText))
-                }
-            }
-        }
-    }
+    }    
 }
 
 // MARK: Attributes and MarkStyles Converter (Move it to MarksPane)
-extension FileNamespace {
+private extension FileNamespace {
     enum ActionsToMarkStyleConverter {
         static func emptyMark(from action: MarksPane.Main.Panes.StylePane.FontStyle.Action) -> TextView.MarkStyle {
             switch action {
@@ -361,24 +411,8 @@ extension FileNamespace {
     }
 }
 
-
-// MARK: ContextualMenuHandling
-extension FileNamespace {
-    // TODO: Put textView into it.
-    func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<TextView.UIKitTextView.ContextualMenu.Action, Never>) -> Self {
-        self.contextualMenuSubscription = Publishers.CombineLatest(Just(view), contextualMenuStream).sink { [weak self] (tuple) in
-            let (view, action) = tuple
-            let range = view.selectedRange
-            let attributedText = view.textStorage
-            self?.updateMarksInputView((range, attributedText, view, action))
-            self?.switchInputs(view)
-        }
-        return self
-    }
-}
-
 // MARK: Marks Input View handling
-extension FileNamespace {
+private extension FileNamespace {
     private enum ActionToCategoryConverter {
         typealias ContextualMenuAction = TextView.UIKitTextView.ContextualMenu.Action
         typealias Category = MarksPane.Main.Section.Category
@@ -395,16 +429,18 @@ extension FileNamespace {
         self.marksToolbarInputView.viewModel.update(range: range, attributedText: storage)
     }
     func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, TextView.UIKitTextView.ContextualMenu.Action)) {
-        self.updateMarksInputView((quadruple.0, quadruple.1, quadruple.2))
-        self.marksToolbarInputView.viewModel.update(category: ActionToCategoryConverter.asCategory(quadruple.3))
+        let (range, storage, textView, action) = quadruple
+        self.updateMarksInputView((range, storage, textView))
+        self.marksToolbarInputView.viewModel.update(category: ActionToCategoryConverter.asCategory(action))
     }
     func updateMarksInputView(_ triple: (NSRange, NSTextStorage, UITextView)) {
-        self.marksToolbarInputView.viewModel.update(range: triple.0, attributedText: triple.1, alignment: triple.2.textAlignment)
+        let (range, storage, textView) = triple
+        self.marksToolbarInputView.viewModel.update(range: range, attributedText: storage, alignment: textView.textAlignment)
     }
 }
 
 // MARK: Highlighted Accessory view handling
-extension FileNamespace {
+private extension FileNamespace {
     func updateHighlightedAccessoryView(_ tuple: (NSRange, NSTextStorage)) {
         let (range, storage) = tuple
         self.highlightedAccessoryView.model.update(range: range, attributedText: storage)
@@ -578,7 +614,7 @@ private extension FileNamespace {
 }
 
 // MARK: Input Switching
-extension FileNamespace {
+private extension FileNamespace {
     private typealias Switcher = ActionsAndMarksPaneInputSwitcher
     func switchInputs(_ textView: UITextView, accessoryView: UIView?, inputView: UIView?) {
         Switcher.switchInputs(self.defaultKeyboardRect.size, textView: textView, accessoryView: accessoryView, inputView: inputView)
@@ -664,28 +700,8 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
 }
 
 // MARK: - Update Text
-extension FileNamespace {
-    /// NOTE:
-    /// As soon as we notify ourselves about all updates in textStorage, we have side effects.
-    /// For example,
-    /// When you invoke `textStorage.setAttributedString` somewhere, this publisher gets notification about change.
-    /// That means, `notifySubscribers` will invoke and we get notification about change in outerWorld.
-    ///
-    /// Nothing is wrogn here, but...
-    /// When you set `NSAttributedString` at first time, you get additional call to middleware.
-    ///
-    /// We could add additional check if `attributedText is nil` and catch "setupAtFirstTime" event.
-    ///
-    func configured(textStorageStream: AnyPublisher<TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent, Never>) -> Self {
-        self.textStorageSubscription = textStorageStream.sink(receiveValue: { [weak self] (value) in
-            switch value {
-            case .willProcessEditing(_): return
-            case let .didProcessEditing(payload): self?.notifySubscribers(payload)
-            }
-        })
-        return self
-    }
-    private func notifySubscribers(_ payload: TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent.Payload) {
+private extension FileNamespace {
+    func notifySubscribers(_ payload: TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent.Payload) {
         /// NOTE:
         /// We could remove notification about new attributedText
         /// because we have already notify our subscribers in `textViewDidChange`

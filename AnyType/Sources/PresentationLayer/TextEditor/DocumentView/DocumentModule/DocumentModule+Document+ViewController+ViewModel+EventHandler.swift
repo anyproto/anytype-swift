@@ -180,6 +180,7 @@ extension FileNamespace.EventHandler {
         }
         case general
         case update(Payload)
+        static var empty: Self = .update(.empty)
     }
 }
 
@@ -419,8 +420,9 @@ private extension FileNamespace.EventHandler {
             })
             
             return .general
-            
-        default: return .general
+        
+        /// We treat `unknown events` as `empty`, because we won't handle updates for unknown events.
+        default: return .empty
         }
     }
 }
@@ -495,6 +497,9 @@ private extension FileNamespace.EventHandler {
             
             model.didChange()
             
+            return .general
+        case let .setToggled(value):
+            /// TODO: Implement
             return .general
         }
     }

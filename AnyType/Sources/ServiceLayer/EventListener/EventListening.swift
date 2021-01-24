@@ -88,6 +88,12 @@ extension EventListening.PackOfEvents.OurEvent {
         }
         var payload: Payload
     }
+    struct Toggled {
+        struct Payload {
+            var blockId: String
+        }
+        var payload: Payload
+    }
 }
 
 extension EventListening.PackOfEvents {
@@ -95,6 +101,7 @@ extension EventListening.PackOfEvents {
         case setFocus(Focus)
         case setText(Text)
         case setTextMerge(TextMerge)
+        case setToggled(Toggled)
     }
 }
 

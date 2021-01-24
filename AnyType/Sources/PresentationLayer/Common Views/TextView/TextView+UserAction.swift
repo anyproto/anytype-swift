@@ -51,6 +51,18 @@ extension TextView.UserAction {
     // Actions with input custom keys...
     enum KeyboardAction {
         enum Key {
+            /// TODO:
+            /// Implement solution with shared `NSAttributedString`.
+            /// Now we have to create strings on each user key pressing.
+            ///
+            /// Possible Solution
+            ///
+            /// struct Payload {
+            ///   var string: String (?)
+            ///   var left: Substring?
+            ///   var right: Substring?
+            /// }
+            ///
             case enterWithPayload(String?, String?)
             case enterAtBeginning(String?)
             case enter

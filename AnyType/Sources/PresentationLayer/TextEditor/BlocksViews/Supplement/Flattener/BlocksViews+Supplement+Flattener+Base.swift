@@ -1,5 +1,5 @@
 //
-//  BlocksViews+Supplement.swift
+//  BlocksViews+Supplement+Flattener+Base.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 24.02.2020.
@@ -10,7 +10,7 @@ import Foundation
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement
+fileprivate typealias Namespace = BlocksViews.Supplement
 
 private extension Logging.Categories {
   static let blocksFlattener: Self = "Presentation.TextEditor.BlocksViews.Supplement.BlocksFlattener"
@@ -23,7 +23,7 @@ extension Namespace {
         /// Typealiases
         typealias Model = BlockActiveRecordModelProtocol
         typealias Information = BlockInformationModelProtocol
-
+        typealias ResultViewModel = BlockViewBuilderProtocol
         /// Variables
         
         /// Keep it for a while.
@@ -48,7 +48,7 @@ extension Namespace {
         /// - Parameter model: Tree model that we want to convert.
         /// - Returns: A list of ViewModels.
         ///
-        public func toList(_ model: Model) -> [BlockViewBuilderProtocol] {
+        public func toList(_ model: Model) -> [ResultViewModel] {
             self.toList([model])
         }
         
@@ -57,7 +57,7 @@ extension Namespace {
         /// Subclass: NO.
         /// - Parameter models: A list of models that we want to convert.
         /// - Returns: A list of ViewModels.
-        func toList(_ models: [Model]) -> [BlockViewBuilderProtocol] {
+        func toList(_ models: [Model]) -> [ResultViewModel] {
             self.convert(children: models)
         }
         
@@ -80,7 +80,7 @@ extension Namespace {
         /// - Parameter model: Model that we would like to flatten.
         /// - Returns: List of Builders ( actually, view models ) that describes input model in terms of list.
         ///
-        func convert(model: Model) -> [BlockViewBuilderProtocol] {
+        func convert(model: Model) -> [ResultViewModel] {
             self.match(model)?.convert(model: model) ?? []
         }
 
@@ -92,7 +92,7 @@ extension Namespace {
         /// - Parameter children: List of models that we would like to flatten.
         /// - Returns: List of Builders ( actually, view models ) that describes input model in terms of list.
         ///
-        private func convert(children: [Model]) -> [BlockViewBuilderProtocol] {
+        private func convert(children: [Model]) -> [ResultViewModel] {
             let grouped = DataStructures.GroupBy.group(children, by: {$0.blockModel.information.content.deepKind == $1.blockModel.information.content.deepKind})
             return grouped.flatMap({self.convert(child: $0.first, children: $0)})
         }
@@ -111,7 +111,7 @@ extension Namespace {
         ///   - child: Actually, the first object of children.
         ///   - children: A list of models that we would like to convert to ViewModels. Actually, they are of the same type ( deep kind ). (type + contentType if exists).
         /// - Returns: A list of ViewModels
-        private func convert(child: Model?, children: [Model]) -> [BlockViewBuilderProtocol] {
+        private func convert(child: Model?, children: [Model]) -> [ResultViewModel] {
             guard let child = child else { return [] }
             if let matched = self.match(child) {
                 return matched.convert(child: child, children: children)
@@ -130,7 +130,7 @@ extension Namespace {
         ///   - child: Actually, the first object of children.
         ///   - children: A list of models that we would like to convert to ViewModels. Actually, they are of the same type ( deep kind ). (type + contentType if exists).
         /// - Returns: A list of ViewModels.
-        func convert(child: Model, children: [Model]) -> [BlockViewBuilderProtocol] {
+        func convert(child: Model, children: [Model]) -> [ResultViewModel] {
             children.flatMap(self.convert(model:))
         }
                         
@@ -147,7 +147,7 @@ extension Namespace {
 
 // MARK: - BaseFlattener / Childrens
 extension Namespace.BaseFlattener {
-    func processChildrenToList(_ model: Model) -> [BlockViewBuilderProtocol] {
+    func processChildrenToList(_ model: Model) -> [ResultViewModel] {
         self.toList(model.childrenIds().compactMap(model.findChild(by:)))
     }
 }
@@ -209,7 +209,7 @@ extension Namespace {
 extension Namespace {
     // Could also parse meta blocks.
     class PageBlocksFlattener: BaseFlattener {
-        override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             switch model.blockModel.kind {
             case .meta: return self.router?.processChildrenToList(model) ?? []
             default: return self.router?.toList(model) ?? []
@@ -221,7 +221,7 @@ extension Namespace {
 // MARK: LayoutBlocksFlattener
 extension Namespace {
     class LayoutBlocksFlattener: BaseFlattener {
-        override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             let blockModel = model.blockModel
             switch blockModel.kind {
             case .meta: return self.router?.toList(model) ?? []
@@ -238,9 +238,19 @@ extension Namespace {
 // MARK: UnknownBlocksFlattener
 extension Namespace {
     class UnknownBlocksFlattener: BaseFlattener {
-        override func convert(model: BlocksViews.NewSupplement.BaseFlattener.Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             [BlocksViews.New.Unknown.Label.ViewModel.init(model)] + self.processChildrenToList(model)
         }
+    }
+}
+
+// MARK: Class methods
+extension Namespace.BaseFlattener {
+    static func compoundFlattener() -> BlocksViews.Supplement.BaseFlattener {
+        Namespace.CompoundFlattener.init()
+    }
+    static var defaultValue: BlocksViews.Supplement.BaseFlattener {
+        self.compoundFlattener()
     }
 }
 

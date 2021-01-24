@@ -434,8 +434,8 @@ private extension Namespace {
             
             self.addSubview(self.contentView)
             
-            self.leftStackView.backgroundColor = .green
-            self.imageView.backgroundColor = .red
+            self.leftStackView.backgroundColor = .systemGray6
+            self.imageView.backgroundColor = .systemGray2
         }
         
         /// Layout

@@ -8,20 +8,21 @@
 
 import Foundation
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement.Page
+fileprivate typealias Namespace = BlocksViews.Supplement
+fileprivate typealias FileNamespace = Namespace.Page
 fileprivate typealias ViewModels = BlocksViews.New.Page
 
-extension BlocksViews.NewSupplement {
+extension Namespace {
     enum Page {}
 }
 
-extension Namespace {
+extension FileNamespace {
     /// Actually, we could place details in one list with other blocks.
     /// But for now we place them in a header view.
     /// So, this flattener is empty.
     /// 
-    class Flattener: BlocksViews.NewSupplement.BaseFlattener {
-        private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
+    class Flattener: BlocksViews.Supplement.BaseFlattener {
+        private func convertInformation(_ model: Model, _ information: Information) -> [ResultViewModel] {
             switch (model.blockModel.kind, information.content) {
             case (.meta, .smartblock): return [] //self.convertInformation(model, model.information)
             case (.block, .smartblock): return [] //self.convertInformation(model, model.information)
@@ -31,7 +32,7 @@ extension Namespace {
         }
         
         // MARK: Subclassing
-        override func convert(model: Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             let blockModel = model.blockModel
             switch (blockModel.kind, blockModel.information.content) {
             case (.meta, .smartblock): return self.convertInformation(model, blockModel.information)

@@ -60,7 +60,7 @@ public extension FileNamespace {
     enum IndexWalker {
         public typealias Model = BlockActiveRecordModelProtocol
         
-        public static func model(beforeModel model: Model, includeParent: Bool) -> Model? {
+        public static func model(beforeModel model: Model, includeParent: Bool, onlyFocused: Bool = true) -> Model? {
             guard let parent = model.findParent() else {
                 // hm.. we don't have parent?
                 let logger = Logging.createLogger(category: .blocksModelsIndexWalker)
@@ -81,12 +81,24 @@ public extension FileNamespace {
             if childrenIds.startIndex == childIndex {
                 // move to parent
                 guard includeParent else { return nil }
-                return self.model(beforeModel: parent, includeParent: includeParent)
+                return self.model(beforeModel: parent, includeParent: includeParent, onlyFocused: onlyFocused)
             }
             else {
                 let beforeIndex = childrenIds.index(before: childIndex)
                 let beforeIndexId = childrenIds[beforeIndex]
-                return parent.container?.choose(by: beforeIndexId)
+                let chosen = parent.container?.choose(by: beforeIndexId)
+                if onlyFocused {
+                    guard let chosen = chosen else { return nil }
+                    let information = chosen.blockModel.information
+                    switch information.content {
+                    /// Add support for title content type of Text.
+                    case .text: return chosen
+                    default: return self.model(beforeModel: chosen, includeParent: includeParent, onlyFocused: onlyFocused)
+                    }
+                }
+                else {
+                    return chosen
+                }
             }
         }
     }

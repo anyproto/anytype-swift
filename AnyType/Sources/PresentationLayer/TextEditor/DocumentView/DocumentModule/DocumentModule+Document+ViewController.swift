@@ -45,6 +45,57 @@ private extension Namespace.ViewController {
     }
 }
 
+private extension Namespace.ViewController {
+    class TableViewDelegate: NSObject, UITableViewDelegate {
+        private class HeightsStorage {
+            private var storage: [IndexPath: CGFloat] = [:]
+            
+            func get(at: IndexPath) -> CGFloat? {
+                return storage[at]
+            }
+            
+            func set(height: CGFloat, at: IndexPath) {
+                storage[at] = height
+            }
+        }
+        /// Decorations of UIKit
+        private var heightsStorage: HeightsStorage = .init()
+        
+        /// UITableViewDelegate
+        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+            self.heightsStorage.set(height: cell.frame.size.height, at: indexPath)
+        }
+        
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            self.heightsStorage.get(at: indexPath) ?? UITableView.automaticDimension
+        }
+    }
+    class CollectionViewDelegate: NSObject, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+        private class SizesStorage {
+            typealias Size = CGSize
+            private var storage: [IndexPath: Size] = [:]
+            
+            func get(at: IndexPath) -> Size? {
+                return storage[at]
+            }
+            
+            func set(height: Size, at: IndexPath) {
+                storage[at] = height
+            }
+        }
+        private var sizesStorage: SizesStorage = .init()
+        
+        /// UICollectionViewDelegateFlowLayout
+        func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+            self.sizesStorage.set(height: cell.frame.size, at: indexPath)
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            self.sizesStorage.get(at: indexPath) ?? UICollectionViewFlowLayout.automaticSize
+        }
+    }
+}
+
 // MARK: - This is view controller that will handle everything for us.
 extension Namespace {
     class ViewController: UIViewController {
@@ -82,9 +133,10 @@ extension Namespace {
                 
         /// Combine
         private var subscriptions: Set<AnyCancellable> = []
-
-        /// Decorations of UIKit
-        private var cellHeightsStorage: CellsHeightsStorage = .init()
+        
+        /// Delegates
+        private var tableViewDelegate: UITableViewDelegate = TableViewDelegate.init()
+        private var collectionViewDelegate: UICollectionViewDelegateFlowLayout & UICollectionViewDelegate = CollectionViewDelegate.init()
 
         /// Actions
         private var listViewTapGestureRecognizer: UITapGestureRecognizer = .init()
@@ -194,7 +246,7 @@ extension Namespace.ViewController {
     
     /// ListViews
     private func setupListView() {
-        if self.developerOptions.current.workflow.mainDocumentEditor.shouldUseCollectionView {
+        if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldUseCollectionView {
             self.setupCollectionView()
         }
         else {
@@ -232,17 +284,37 @@ extension Namespace.ViewController {
     
     private func createFlowLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         return layout
     }
     
-    private func createLayout() -> UICollectionViewLayout {
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                              heightDimension: .estimated(40))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .estimated(40))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
+                                                       subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
+    }
+    
+    private func createListLayout() -> UICollectionViewLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
         listConfiguration.backgroundColor = .white
         listConfiguration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
         
         return layout
+    }
+    
+    private func createLayout() -> UICollectionViewLayout {
+        self.createFlowLayout()
     }
     
     private func setupCollectionView() {
@@ -352,7 +424,7 @@ extension Namespace.ViewController {
     }
 
     private func setupDataSource() {
-        if self.developerOptions.current.workflow.mainDocumentEditor.shouldUseCollectionView {
+        if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldUseCollectionView {
             self.setupCollectionViewDataSource()
         }
         else {
@@ -371,21 +443,6 @@ extension Namespace.ViewController {
         self.viewModel.$options.sink(receiveValue: { [weak self] (options) in
             self?.configured(options)
         }).store(in: &self.subscriptions)
-    }
-}
-
-// MARK: - CellsHeightsStorage
-extension Namespace.ViewController {
-    class CellsHeightsStorage {
-        private var storage: [IndexPath: CGFloat] = [:]
-        
-        func height(at: IndexPath) -> CGFloat {
-            return storage[at] ?? UITableView.automaticDimension
-        }
-        
-        func set(height: CGFloat, at: IndexPath) {
-            storage[at] = height
-        }
     }
 }
 
@@ -433,6 +490,7 @@ private extension Namespace.ViewController {
         let userSession = self.viewModel.rootModel?.blocksContainer.userSession
         let id = userSession?.firstResponder()
         let focusedAt = userSession?.focusAt()
+        print("id: \(id) focusedAt: \(focusedAt)")
         if let id = id, let focusedAt = focusedAt {
             let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
@@ -440,13 +498,13 @@ private extension Namespace.ViewController {
             }) {
                 let tableViewScrollPosition: UITableView.ScrollPosition
                 switch focusedAt {
-                case .beginning: tableViewScrollPosition = .top
-                default: tableViewScrollPosition = .bottom
+                case .beginning: tableViewScrollPosition = .middle
+                default: tableViewScrollPosition = .middle
                 }
                 let collectionViewScrollPosition: UICollectionView.ScrollPosition
                 switch focusedAt {
-                case .beginning: collectionViewScrollPosition = .top
-                default: collectionViewScrollPosition = .bottom
+                case .beginning: collectionViewScrollPosition = .centeredVertically
+                default: collectionViewScrollPosition = .centeredVertically
                 }
                 
                 let indexPath: IndexPath = .init(row: index, section: 0)
@@ -467,7 +525,7 @@ private extension Namespace.ViewController {
         /// Since we are working only with one section, we could safely iterate over array of items.
         let index = indexPath.row
         let item = itemIdentifiers[index]
-        if let textItem = item as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
+        if let textItem = item.blockBuilder as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
             let id = textItem.getBlock().blockModel.information.id
             
             let tableViewElementPosition: UITableView.ScrollPosition = .middle
@@ -476,10 +534,11 @@ private extension Namespace.ViewController {
 //            case .beginning: elementPosition = .top
 //            default: elementPosition = .bottom
 //            }
+            let focusedAt:  TextView.UIKitTextView.ViewModel.Focus.Position = .end
             let indexPath: IndexPath = .init(row: index, section: 0)
             self.tableView?.scrollToRow(at: indexPath, at: tableViewElementPosition, animated: true)
             self.collectionView?.scrollToItem(at: indexPath, at: collectionViewElementPosition, animated: true)
-//            textItem.set(focus: .init(position: focusedAt, completion: {_ in }))
+            textItem.set(focus: .init(position: focusedAt, completion: {_ in }))
             userSession?.unsetFocusAt()
             userSession?.unsetFirstResponder()
         }
@@ -529,7 +588,7 @@ extension Namespace.ViewController {
         let scrollAndFocusCompletion: () -> () = { [weak self] in
             self?.scrollAndFocusOnFocusedBlock()
         }
-        if self.developerOptions.current.workflow.mainDocumentEditor.shouldAnimateRowsInsertionAndDeletion {
+        if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldAnimateRowsInsertionAndDeletion {
             theDataSource.apply(snapshot, animatingDifferences: true, completion: scrollAndFocusCompletion)
         }
         else {
@@ -569,12 +628,22 @@ extension Namespace.ViewController: UICollectionViewDelegate {
     // I guess..
     // Thanks! https://stackoverflow.com/a/38729250/826614
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        self.cellHeightsStorage.set(height: cell.frame.size.height, at: indexPath)
+        self.collectionViewDelegate.collectionView?(collectionView, willDisplay: cell, forItemAt: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel.didSelectBlock(at: indexPath)
     }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension Namespace.ViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+////        if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldUseCellsCaching {
+////            return self.collectionViewDelegate.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? .zero
+////        }
+//        return .zero
+//    }
 }
 
 // MARK: - UITableViewDelegate
@@ -586,16 +655,18 @@ extension Namespace.ViewController: UITableViewDelegate {
     // I guess..
     // Thanks! https://stackoverflow.com/a/38729250/826614
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        self.cellHeightsStorage.set(height: cell.frame.size.height, at: indexPath)
+        self.tableViewDelegate.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
     }
-    
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return self.cellHeightsStorage.height(at: indexPath)
-//    }
- 
+     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tryFocusItem(at: indexPath)
         self.viewModel.didSelectBlock(at: indexPath)
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldUseCellsCaching {
+            return self.tableViewDelegate.tableView?(tableView, heightForRowAt: indexPath) ?? UITableView.automaticDimension
+        }
+        return UITableView.automaticDimension
     }
 }
 

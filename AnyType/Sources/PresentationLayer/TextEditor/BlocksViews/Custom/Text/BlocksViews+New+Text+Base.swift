@@ -835,7 +835,7 @@ extension Namespace.ViewModel {
         func makeContentView() -> UIView & UIContentView {
             let view = OldContentView(configuration: self)
             self.contextMenuHolder?.addContextMenuIfNeeded(view)
-            if self.developerOptions.current.workflow.mainDocumentEditor.shouldUseSimpleTextViewCell {
+            if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldUseSimpleTextViewCell {
                 let view = SimpleContentView(configuration: self)
                 return view
             }

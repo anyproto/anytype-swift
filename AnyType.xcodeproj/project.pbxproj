@@ -134,12 +134,6 @@
 		0A10CCA124901DBF000FF498 /* DocumentModule+Document+ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCA024901DBF000FF498 /* DocumentModule+Document+ViewRepresentable.swift */; };
 		0A10CCA324901E03000FF498 /* DocumentModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCA224901E03000FF498 /* DocumentModule.swift */; };
 		0A10CCA52490204A000FF498 /* DocumentModule+Document+ViewController+ViewModel+PageDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCA42490204A000FF498 /* DocumentModule+Document+ViewController+ViewModel+PageDetailsViewModel.swift */; };
-		0A10CCAF24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAA24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift */; };
-		0A10CCB024913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAB24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift */; };
-		0A10CCB124913C23000FF498 /* BlocksViews+NewSupplement+Flattener+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAC24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+File.swift */; };
-		0A10CCB224913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAD24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Tools.swift */; };
-		0A10CCB324913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCAE24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Page.swift */; };
-		0A10CCB524913C64000FF498 /* BlocksViews+NewSupplement+UserInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CCB424913C64000FF498 /* BlocksViews+NewSupplement+UserInteractionHandler.swift */; };
 		0A10CCB62491872A000FF498 /* DocumentModule+Document+ViewController+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC9A24901D7A000FF498 /* DocumentModule+Document+ViewController+ViewModel.swift */; };
 		0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */; };
 		0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */; };
@@ -225,6 +219,16 @@
 		0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328B24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift */; };
 		0A78328E24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328D24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift */; };
 		0A7D91002539BB49000714F5 /* URLComponentsCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 0A7D90FF2539BB49000714F5 /* URLComponentsCoder */; };
+		0A89F2F525ABAC760058D26E /* BlocksViews+NewSupplement+UserInteractionHandler+IndexWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EA25ABAC750058D26E /* BlocksViews+NewSupplement+UserInteractionHandler+IndexWalker.swift */; };
+		0A89F2F625ABAC760058D26E /* BlocksViews+NewSupplement+UserInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EB25ABAC750058D26E /* BlocksViews+NewSupplement+UserInteractionHandler.swift */; };
+		0A89F2F725ABAC760058D26E /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EC25ABAC750058D26E /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */; };
+		0A89F2F825ABAC760058D26E /* BlocksViews+Supplement+Flattener+Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EE25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Other.swift */; };
+		0A89F2F925ABAC760058D26E /* BlocksViews+Supplement+Flattener+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EF25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Base.swift */; };
+		0A89F2FA25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2F025ABAC760058D26E /* BlocksViews+Supplement+Flattener+Tools.swift */; };
+		0A89F2FB25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2F125ABAC760058D26E /* BlocksViews+Supplement+Flattener+Bookmark.swift */; };
+		0A89F2FC25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2F225ABAC760058D26E /* BlocksViews+Supplement+Flattener+Text.swift */; };
+		0A89F2FD25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2F325ABAC760058D26E /* BlocksViews+Supplement+Flattener+Page.swift */; };
+		0A89F2FE25ABAC760058D26E /* BlocksViews+Supplement+Flattener+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2F425ABAC760058D26E /* BlocksViews+Supplement+Flattener+File.swift */; };
 		0A986E9C25839B8000FEA9FA /* DocumentModule+Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A986E9B25839B8000FEA9FA /* DocumentModule+Document.swift */; };
 		0A986EA12583A56500FEA9FA /* DocumentModule+Document+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A986EA02583A56500FEA9FA /* DocumentModule+Document+Cells.swift */; };
 		0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */; };
@@ -246,7 +250,6 @@
 		0A9D49E9244A0F83007F0992 /* DocumentViewRouting+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9D49E8244A0F83007F0992 /* DocumentViewRouting+File.swift */; };
 		0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */; };
 		0AA00C4424CB02D400870C18 /* BlocksViews+New+Other+Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4324CB02D400870C18 /* BlocksViews+New+Other+Divider.swift */; };
-		0AA00C4624CB0B7300870C18 /* BlocksViews+NewSupplement+Flattener+Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4524CB0B7300870C18 /* BlocksViews+NewSupplement+Flattener+Other.swift */; };
 		0AA00C4824CDB65F00870C18 /* BlocksModelsModule+Parser+Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4724CDB65E00870C18 /* BlocksModelsModule+Parser+Other.swift */; };
 		0AA00C5224CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C5124CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift */; };
 		0AA168DA254060CE0097CB23 /* ImagePickerUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168D9254060CE0097CB23 /* ImagePickerUIKit.swift */; };
@@ -295,18 +298,18 @@
 		0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */; };
 		0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781523E5C99A00442690 /* AppearanceService.swift */; };
 		0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781B23E5C9A300442690 /* AssetsReader.swift */; };
+		0ACAAD662588DCF600DF1C82 /* CommonViews+ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACAAD652588DCF600DF1C82 /* CommonViews+ImageView.swift */; };
+		0ACAAD692588DD0F00DF1C82 /* CommonViews+ImageView+Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACAAD682588DD0F00DF1C82 /* CommonViews+ImageView+Loader.swift */; };
 		0ACDB06A25599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB06925599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift */; };
 		0ACDB078255AA12D00B8B0D8 /* BlockActionsService+Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB077255AA12D00B8B0D8 /* BlockActionsService+Other.swift */; };
 		0ACDB07C255AA40900B8B0D8 /* BlockActionsService+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB07B255AA40900B8B0D8 /* BlockActionsService+File.swift */; };
 		0ACFCCF7249C17B5002E0477 /* BlockActionsService+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockActionsService+List.swift */; };
 		0ACFCCF9249C17DC002E0477 /* ServiceLayerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF8249C17DC002E0477 /* ServiceLayerModule.swift */; };
-		0AD11844249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD11843249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */; };
 		0AD6B24524CF12CC0097A841 /* BlockActionsService+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24424CF12CC0097A841 /* BlockActionsService+Bookmark.swift */; };
 		0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24724CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift */; };
 		0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */; };
 		0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24B24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift */; };
 		0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */; };
-		0AD6B25024D09B420097A841 /* BlocksViews+NewSupplement+Flattener+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24F24D09B420097A841 /* BlocksViews+NewSupplement+Flattener+Bookmark.swift */; };
 		0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */; };
 		0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */; };
 		0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */; };
@@ -496,12 +499,6 @@
 		0A10CCA024901DBF000FF498 /* DocumentModule+Document+ViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document+ViewRepresentable.swift"; sourceTree = "<group>"; };
 		0A10CCA224901E03000FF498 /* DocumentModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentModule.swift; sourceTree = "<group>"; };
 		0A10CCA42490204A000FF498 /* DocumentModule+Document+ViewController+ViewModel+PageDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document+ViewController+ViewModel+PageDetailsViewModel.swift"; sourceTree = "<group>"; };
-		0A10CCAA24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener.swift"; sourceTree = "<group>"; };
-		0A10CCAB24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener+Text.swift"; sourceTree = "<group>"; };
-		0A10CCAC24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener+File.swift"; sourceTree = "<group>"; };
-		0A10CCAD24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener+Tools.swift"; sourceTree = "<group>"; };
-		0A10CCAE24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener+Page.swift"; sourceTree = "<group>"; };
-		0A10CCB424913C64000FF498 /* BlocksViews+NewSupplement+UserInteractionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+UserInteractionHandler.swift"; sourceTree = "<group>"; };
 		0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar.swift"; sourceTree = "<group>"; };
 		0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+BlocksTypes.swift"; sourceTree = "<group>"; };
 		0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock.swift"; sourceTree = "<group>"; };
@@ -578,6 +575,16 @@
 		0A78328924BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers+Text.swift"; sourceTree = "<group>"; };
 		0A78328B24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareModelsModule.swift; sourceTree = "<group>"; };
 		0A78328D24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers.swift"; sourceTree = "<group>"; };
+		0A89F2EA25ABAC750058D26E /* BlocksViews+NewSupplement+UserInteractionHandler+IndexWalker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+UserInteractionHandler+IndexWalker.swift"; sourceTree = "<group>"; };
+		0A89F2EB25ABAC750058D26E /* BlocksViews+NewSupplement+UserInteractionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+UserInteractionHandler.swift"; sourceTree = "<group>"; };
+		0A89F2EC25ABAC750058D26E /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+ListUserInteractionHandler.swift"; sourceTree = "<group>"; };
+		0A89F2EE25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Other.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener+Other.swift"; sourceTree = "<group>"; };
+		0A89F2EF25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener+Base.swift"; sourceTree = "<group>"; };
+		0A89F2F025ABAC760058D26E /* BlocksViews+Supplement+Flattener+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener+Tools.swift"; sourceTree = "<group>"; };
+		0A89F2F125ABAC760058D26E /* BlocksViews+Supplement+Flattener+Bookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener+Bookmark.swift"; sourceTree = "<group>"; };
+		0A89F2F225ABAC760058D26E /* BlocksViews+Supplement+Flattener+Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener+Text.swift"; sourceTree = "<group>"; };
+		0A89F2F325ABAC760058D26E /* BlocksViews+Supplement+Flattener+Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener+Page.swift"; sourceTree = "<group>"; };
+		0A89F2F425ABAC760058D26E /* BlocksViews+Supplement+Flattener+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+Flattener+File.swift"; sourceTree = "<group>"; };
 		0A986E9B25839B8000FEA9FA /* DocumentModule+Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document.swift"; sourceTree = "<group>"; };
 		0A986EA02583A56500FEA9FA /* DocumentModule+Document+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document+Cells.swift"; sourceTree = "<group>"; };
 		0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptions.swift; sourceTree = "<group>"; };
@@ -599,7 +606,6 @@
 		0A9D49E8244A0F83007F0992 /* DocumentViewRouting+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+File.swift"; sourceTree = "<group>"; };
 		0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+ContextualMenuActions.swift"; sourceTree = "<group>"; };
 		0AA00C4324CB02D400870C18 /* BlocksViews+New+Other+Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Other+Divider.swift"; sourceTree = "<group>"; };
-		0AA00C4524CB0B7300870C18 /* BlocksViews+NewSupplement+Flattener+Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener+Other.swift"; sourceTree = "<group>"; };
 		0AA00C4724CDB65E00870C18 /* BlocksModelsModule+Parser+Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+Other.swift"; sourceTree = "<group>"; };
 		0AA00C5124CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+Bookmark.swift"; sourceTree = "<group>"; };
 		0AA168D9254060CE0097CB23 /* ImagePickerUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerUIKit.swift; sourceTree = "<group>"; };
@@ -648,18 +654,18 @@
 		0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceServices+Schemes+Domains+Auth.swift"; sourceTree = "<group>"; };
 		0ACA781523E5C99A00442690 /* AppearanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceService.swift; sourceTree = "<group>"; };
 		0ACA781B23E5C9A300442690 /* AssetsReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsReader.swift; sourceTree = "<group>"; };
+		0ACAAD652588DCF600DF1C82 /* CommonViews+ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonViews+ImageView.swift"; sourceTree = "<group>"; };
+		0ACAAD682588DD0F00DF1C82 /* CommonViews+ImageView+Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonViews+ImageView+Loader.swift"; sourceTree = "<group>"; };
 		0ACDB06925599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File+Base.swift"; sourceTree = "<group>"; };
 		0ACDB077255AA12D00B8B0D8 /* BlockActionsService+Other.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+Other.swift"; sourceTree = "<group>"; };
 		0ACDB07B255AA40900B8B0D8 /* BlockActionsService+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+File.swift"; sourceTree = "<group>"; };
 		0ACFCCF6249C17B5002E0477 /* BlockActionsService+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+List.swift"; sourceTree = "<group>"; };
 		0ACFCCF8249C17DC002E0477 /* ServiceLayerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLayerModule.swift; sourceTree = "<group>"; };
-		0AD11843249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+ListUserInteractionHandler.swift"; sourceTree = "<group>"; };
 		0AD6B24424CF12CC0097A841 /* BlockActionsService+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24724CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Bookmark+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24B24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+Bookmark+ViewModel.swift"; sourceTree = "<group>"; };
-		0AD6B24F24D09B420097A841 /* BlocksViews+NewSupplement+Flattener+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+NewSupplement+Flattener+Bookmark.swift"; sourceTree = "<group>"; };
 		0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserActions.swift"; sourceTree = "<group>"; };
 		0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+File.swift"; sourceTree = "<group>"; };
 		0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Tools.swift"; sourceTree = "<group>"; };
@@ -854,6 +860,7 @@
 		0331BBE122E608AC002AD179 /* Common Views */ = {
 			isa = PBXGroup;
 			children = (
+				0ACAAD632588DCE600DF1C82 /* ImageView */,
 				0A005AAD24C5D2F1000520AA /* Pickers */,
 				0A08D4C124AF822B0088ECC2 /* CommonViewsNamespace.swift */,
 				0A08D4C024AF81F30088ECC2 /* ViewControllers */,
@@ -1505,34 +1512,11 @@
 			path = DocumentModule;
 			sourceTree = "<group>";
 		};
-		0A10CCA724913BD8000FF498 /* New */ = {
-			isa = PBXGroup;
-			children = (
-				0A10CCA924913C23000FF498 /* Flattener */,
-				0A10CCB424913C64000FF498 /* BlocksViews+NewSupplement+UserInteractionHandler.swift */,
-				0AD11843249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */,
-			);
-			path = New;
-			sourceTree = "<group>";
-		};
-		0A10CCA924913C23000FF498 /* Flattener */ = {
-			isa = PBXGroup;
-			children = (
-				0A10CCAA24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift */,
-				0A10CCAB24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift */,
-				0A10CCAC24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+File.swift */,
-				0A10CCAD24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Tools.swift */,
-				0A10CCAE24913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Page.swift */,
-				0AA00C4524CB0B7300870C18 /* BlocksViews+NewSupplement+Flattener+Other.swift */,
-				0AD6B24F24D09B420097A841 /* BlocksViews+NewSupplement+Flattener+Bookmark.swift */,
-			);
-			path = Flattener;
-			sourceTree = "<group>";
-		};
 		0A19E2B12444C8F30078DFAB /* Supplement */ = {
 			isa = PBXGroup;
 			children = (
-				0A10CCA724913BD8000FF498 /* New */,
+				0A89F2ED25ABAC750058D26E /* Flattener */,
+				0A89F2E925ABAC750058D26E /* UserInteractionHandler */,
 			);
 			path = Supplement;
 			sourceTree = "<group>";
@@ -1656,6 +1640,30 @@
 				0A78328724BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift */,
 			);
 			path = Parsers;
+			sourceTree = "<group>";
+		};
+		0A89F2E925ABAC750058D26E /* UserInteractionHandler */ = {
+			isa = PBXGroup;
+			children = (
+				0A89F2EA25ABAC750058D26E /* BlocksViews+NewSupplement+UserInteractionHandler+IndexWalker.swift */,
+				0A89F2EB25ABAC750058D26E /* BlocksViews+NewSupplement+UserInteractionHandler.swift */,
+				0A89F2EC25ABAC750058D26E /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift */,
+			);
+			path = UserInteractionHandler;
+			sourceTree = "<group>";
+		};
+		0A89F2ED25ABAC750058D26E /* Flattener */ = {
+			isa = PBXGroup;
+			children = (
+				0A89F2EE25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Other.swift */,
+				0A89F2EF25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Base.swift */,
+				0A89F2F025ABAC760058D26E /* BlocksViews+Supplement+Flattener+Tools.swift */,
+				0A89F2F125ABAC760058D26E /* BlocksViews+Supplement+Flattener+Bookmark.swift */,
+				0A89F2F225ABAC760058D26E /* BlocksViews+Supplement+Flattener+Text.swift */,
+				0A89F2F325ABAC760058D26E /* BlocksViews+Supplement+Flattener+Page.swift */,
+				0A89F2F425ABAC760058D26E /* BlocksViews+Supplement+Flattener+File.swift */,
+			);
+			path = Flattener;
 			sourceTree = "<group>";
 		};
 		0A996BAD23EDBC09000FDC9C /* DeveloperOptions */ = {
@@ -1852,6 +1860,15 @@
 				0A68C77B240D52B3001E2F44 /* DataStructures+GroupBy.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0ACAAD632588DCE600DF1C82 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				0ACAAD652588DCF600DF1C82 /* CommonViews+ImageView.swift */,
+				0ACAAD682588DD0F00DF1C82 /* CommonViews+ImageView+Loader.swift */,
+			);
+			path = ImageView;
 			sourceTree = "<group>";
 		};
 		0AD6B24624CF5D0A0097A841 /* Bookmark */ = {
@@ -2054,8 +2071,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A89F2F625ABAC760058D26E /* BlocksViews+NewSupplement+UserInteractionHandler.swift in Sources */,
 				0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */,
 				0A10CC8F248FF415000FF498 /* BlocksViews+New+Text+Checkbox.swift in Sources */,
+				0ACAAD662588DCF600DF1C82 /* CommonViews+ImageView.swift in Sources */,
 				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
 				0A2C0D67247145BD008ADD86 /* TextView+InnerTextView.swift in Sources */,
 				0A9D49E72449F246007F0992 /* DocumentViewRouting+OutputEvent.swift in Sources */,
@@ -2081,7 +2100,7 @@
 				034A303D240457A8002599E2 /* HomeCollectionViewAssembly.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A2C0D59247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift in Sources */,
-				0AD11844249FD944004C5BE2 /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift in Sources */,
+				0A89F2FD25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Page.swift in Sources */,
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,
 				034CD9BE23F9D9AF00C8E131 /* CompletionAuthViewModel.swift in Sources */,
 				0A29BB9624AC8C5F00ED957F /* DocumentModule+ViewControllers.swift in Sources */,
@@ -2090,6 +2109,7 @@
 				0A6F90062554546300B94AED /* BlocksModelsModule+Parser+Layout.swift in Sources */,
 				0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* SimpleViews.swift in Sources */,
+				0A89F2FE25ABAC760058D26E /* BlocksViews+Supplement+Flattener+File.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsModule+Parser+Text.swift in Sources */,
 				0ABB2A3B24801D9000A7144A /* MarksPane+Main.swift in Sources */,
@@ -2099,6 +2119,7 @@
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
 				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
 				034A303F24045B75002599E2 /* HomeViewAssembly.swift in Sources */,
+				0A89F2F825ABAC760058D26E /* BlocksViews+Supplement+Flattener+Other.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				03AA854823A80C2300892713 /* models.pb.swift in Sources */,
 				0ACA781623E5C99A00442690 /* Services.swift in Sources */,
@@ -2112,6 +2133,7 @@
 				0A6663BE24A4E7D0002206FC /* DocumentModule+Selection+Handler+Protocols.swift in Sources */,
 				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */,
+				0A89F2F525ABAC760058D26E /* BlocksViews+NewSupplement+UserInteractionHandler+IndexWalker.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsModule+Parser+Link.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
@@ -2124,7 +2146,6 @@
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				0A005AB524C5D303000520AA /* CommonViews+Pickers.swift in Sources */,
 				0A203A8A2547106100D3729A /* CoreLayer+Network+Image+Property.swift in Sources */,
-				0AA00C4624CB0B7300870C18 /* BlocksViews+NewSupplement+Flattener+Other.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
 				0A78327624BC83A500A1B6F6 /* BlocksModelsModule+Parser+Details.swift in Sources */,
 				03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */,
@@ -2135,6 +2156,7 @@
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				0A986E9C25839B8000FEA9FA /* DocumentModule+Document.swift in Sources */,
 				0A10CC76248EC517000FF498 /* BlocksViews+New+Text.swift in Sources */,
+				0A89F2FC25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Text.swift in Sources */,
 				0AA168DA254060CE0097CB23 /* ImagePickerUIKit.swift in Sources */,
 				0A2C0D6B247145BD008ADD86 /* TextView+HighlightedToolbar.swift in Sources */,
 				0A10CC97248FF804000FF498 /* BlocksViews+New+Text+Quote.swift in Sources */,
@@ -2169,7 +2191,6 @@
 				0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
 				0A10CC8B248FF35A000FF498 /* BlocksViews+New+Text+Bulleted.swift in Sources */,
-				0A10CCB124913C23000FF498 /* BlocksViews+NewSupplement+Flattener+File.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				0A10CC9F24901DB0000FF498 /* DocumentModule+Document+ViewBuilder.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
@@ -2187,18 +2208,18 @@
 				0A996BB723EDC3C7000FDC9C /* DeveloperOptions+ViewModel.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */,
-				0AD6B25024D09B420097A841 /* BlocksViews+NewSupplement+Flattener+Bookmark.swift in Sources */,
 				0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */,
-				0A10CCB024913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Text.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
 				0316497C23E5C223009A3984 /* commands+Initializers.pb.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
+				0A89F2FB25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Bookmark.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				0A996BB923EDC541000FDC9C /* DeveloperOptions+ViewController.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logging.swift in Sources */,
 				0A10CC78248EC5EC000FF498 /* BlocksViews+New+Text+Base.swift in Sources */,
+				0A89F2F725ABAC760058D26E /* BlocksViews+NewSupplement+ListUserInteractionHandler.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0A10CCA324901E03000FF498 /* DocumentModule.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
@@ -2226,7 +2247,6 @@
 				0A203A8625470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift in Sources */,
 				0A78327A24BCB99700A1B6F6 /* DocumentModule+Document+ViewController+ViewModel+RowsAndSections.swift in Sources */,
 				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
-				0A10CCB324913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Page.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */,
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */,
@@ -2267,7 +2287,9 @@
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,
 				0A63ADE52462DFD900F092C8 /* DocumentViewRouting+Tools.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
+				0A89F2F925ABAC760058D26E /* BlocksViews+Supplement+Flattener+Base.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
+				0ACAAD692588DD0F00DF1C82 /* CommonViews+ImageView+Loader.swift in Sources */,
 				0A6F900B2554825700B94AED /* BlocksViews+New+Unknown.swift in Sources */,
 				0327B0BB232BCE2A007DB8A7 /* HomeCollectionViewModel.swift in Sources */,
 				0AA9B046249CF6DB00F2962C /* MultiSelectionPane+Panes.swift in Sources */,
@@ -2275,7 +2297,6 @@
 				0AA9401324C192BE006B1774 /* BlocksModelsModule+Parser+File.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift in Sources */,
 				A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */,
-				0A10CCB224913C23000FF498 /* BlocksViews+NewSupplement+Flattener+Tools.swift in Sources */,
 				0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */,
 				0A2C0D6A247145BD008ADD86 /* TextView+ActionsAccessoryView.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,
@@ -2283,9 +2304,9 @@
 				0A9D49DE244905C0007F0992 /* BlocksViews+UserEvents.swift in Sources */,
 				0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */,
 				03D1516623FB446A004027CE /* ConfigurationService.swift in Sources */,
-				0A10CCAF24913C23000FF498 /* BlocksViews+NewSupplement+Flattener.swift in Sources */,
 				0A78327324B8D2DF00A1B6F6 /* BlocksModelsModule+Parser+Common.swift in Sources */,
 				0350A2E7232960D900E00FB5 /* HomeCollectionViewPlusCell.swift in Sources */,
+				0A89F2FA25ABAC760058D26E /* BlocksViews+Supplement+Flattener+Tools.swift in Sources */,
 				0A6663C424A51EDD002206FC /* DocumentModule+Content+ViewRepresentable.swift in Sources */,
 				0327B0B0232BB876007DB8A7 /* HomeViewModel.swift in Sources */,
 				0A10CC95248FF5A8000FF498 /* BlocksViews+New+Text+Toggle.swift in Sources */,
@@ -2342,7 +2363,6 @@
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				0A10CC93248FF510000FF498 /* BlocksViews+New+Text+Numbered.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
-				0A10CCB524913C64000FF498 /* BlocksViews+NewSupplement+UserInteractionHandler.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlocksViews+New+Tools+PageLink.swift in Sources */,
 				0ACA781723E5C99A00442690 /* AppearanceService+Schemes.swift in Sources */,
 				0A005AAC24C4731D000520AA /* BlocksViews+New+File+File.swift in Sources */,
@@ -2525,7 +2545,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;
@@ -2554,7 +2574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_ASSET_PATHS = "AnyType/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = NO;

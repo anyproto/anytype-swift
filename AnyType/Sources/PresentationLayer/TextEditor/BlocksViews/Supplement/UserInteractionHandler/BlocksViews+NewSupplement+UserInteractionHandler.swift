@@ -13,7 +13,7 @@ import os
 import SwiftProtobuf
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement
+fileprivate typealias Namespace = BlocksViews.Supplement
 
 private extension Logging.Categories {
     static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
@@ -29,13 +29,15 @@ extension Namespace {
         typealias ActionsPayloadUserAction = ActionsPayload.UserActionHolder.Action
         
         typealias Builder = TopLevel.Builder
-        typealias IndexWalker = TopLevel.AliasesMap.BlockUtilities.IndexWalker
+        typealias IndexWalker = LinearIndexWalker //TopLevel.AliasesMap.BlockUtilities.IndexWalker
+        
+        private var indexWalker: IndexWalker?
         
         typealias Model = BlockActiveRecordModelProtocol
         
         private var documentId: String = ""
         private var subscription: AnyCancellable?
-                
+        
         private let service: Service = .init(documentId: "")
 
         private var reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
@@ -51,6 +53,15 @@ extension Namespace {
                 self?.reactionSubject.send(.shouldHandleEvent(.init(payload: .init(events: value))))
             }
         }
+    }
+}
+
+/// MARK: Search
+extension Namespace.UserInteractionHandler {
+    func model(beforeModel: Model, includeParent: Bool) -> Model? {
+//        TopLevel.AliasesMap.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
+        self.indexWalker?.renew()
+        return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
 }
 
@@ -87,6 +98,10 @@ extension Namespace.UserInteractionHandler {
         self.subscription = publisher.sink { [weak self] (value) in
             self?.didReceiveAction(action: value)
         }
+        return self
+    }
+    func configured(_ model: DocumentModule.Document.ViewController.ViewModel) -> Self {
+        self.indexWalker = .init(DocumentModelListProvider.init(model: model))
         return self
     }
 }
@@ -189,6 +204,10 @@ private extension Namespace.UserInteractionHandler {
         case let .toggle(.toggled(value)):
             var block = block
             block.isToggled = value
+            /// TODO:
+            /// Configure event and send it.
+            /// And send event that we need to recalculate all blocks below.
+            /// Maybe it is "Toggle" event?
         case .toggle(.insertFirst):
             if let defaultBlock = BlockBuilder.createDefaultInformation(block: block) {
                 self.service.addChild(childBlock: defaultBlock, parentBlockId: block.blockModel.information.id)
@@ -297,7 +316,7 @@ private extension Namespace.UserInteractionHandler {
                 // TODO: Add Index Walker
                 // Add get previous block
                 
-                guard let previousModel = IndexWalker.model(beforeModel: block, includeParent: true) else {
+                guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                     let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                     os_log(.debug, log: logger, "We can't find previous block to focus on at command .deleteWithPayload for block %@. Moving to .delete command.", block.blockModel.information.id)
                     self.handlingKeyboardAction(block, .pressKey(.delete))
@@ -337,7 +356,7 @@ private extension Namespace.UserInteractionHandler {
 
             case .delete:
                 self.service.delete(block: block.blockModel.information) { value in
-                    guard let previousModel = IndexWalker.model(beforeModel: block, includeParent: true) else {
+                    guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                         let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                         os_log(.debug, log: logger, "We can't find previous block to focus on at command .delete for block %@", block.blockModel.information.id)
                         return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
@@ -351,7 +370,7 @@ private extension Namespace.UserInteractionHandler {
         }
     }
 }
-private extension BlocksViews.NewSupplement.UserInteractionHandler {
+private extension Namespace.UserInteractionHandler {
     func handlingToolbarAction(_ block: Model, _ action: ActionsPayloadToolbar) {
         switch action {
         case let .addBlock(value):

@@ -380,6 +380,10 @@ extension Namespace.ViewModel {
     }
 }
 
+private extension Namespace.ViewModel {
+    typealias ImageLoader = CommonViews.ImageView.Loader
+}
+
 // MARK: - ContentView
 private extension Namespace.ViewModel {
     class ContentView: UIView & UIContentView, DocumentModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
@@ -392,11 +396,10 @@ private extension Namespace.ViewModel {
         var emptyView: Namespace.UIKitView.EmptyView = .init()
         
         /// Subscriptions
-        var setupImageSubscription: AnyCancellable?
         var onLayoutSubviewsSubscription: AnyCancellable?
         
         /// Publishers Properties
-        var imageProperty: CoreLayer.Network.Image.Property?
+        var imageLoader: ImageLoader = .init()
         
         /// Others
         var resource: Namespace.UIKitView.Resource = .init()
@@ -409,6 +412,7 @@ private extension Namespace.ViewModel {
         /// Setup
         func setup() {
             self.setupUIElements()
+            self.imageLoader.configured(self.imageView)
         }
         
         func setupUIElements() {
@@ -419,6 +423,8 @@ private extension Namespace.ViewModel {
             /// Image View
             self.imageView.contentMode = .scaleAspectFill
             self.imageView.clipsToBounds = true
+            self.imageContentView.isUserInteractionEnabled = true
+            self.imageView.isUserInteractionEnabled = true
             
             /// Disable Autoresizing Mask
             [self.emptyView, self.imageContentView, self.imageView].forEach { (value) in
@@ -488,19 +494,7 @@ private extension Namespace.ViewModel {
             guard imageId != oldFile?.metadata.hash else { return }
             // We could put image into viewModel.
             // In this case we would only check
-
-            self.imageProperty = CoreLayer.Network.Image.Property.init(imageId: imageId, .init(width: .default))
-            
-            if let image = self.imageProperty?.property {
-                self.imageView.image = image
-                return
-            }
-            
-            self.imageView.image = nil
-            self.setupImageSubscription = self.imageProperty?.stream.receive(on: RunLoop.main).sink { [weak self] (value) in
-                self?.imageView.image = value
-//                    self?.updateImageConstraints()
-            }
+            self.imageLoader.update(imageId: imageId)
         }
         
         // TODO: Will work dynamic when finish granual reload of parent tableView
@@ -518,7 +512,7 @@ private extension Namespace.ViewModel {
         
         /// Cleanup
         private func cleanupOnNewConfiguration() {
-            self.setupImageSubscription = nil
+            self.imageLoader.cleanupSubscription()
         }
         /// Handle new value
         private func handleFile(_ file: TopLevel.AliasesMap.BlockContent.File, _ oldFile: TopLevel.AliasesMap.BlockContent.File?) {
@@ -559,6 +553,7 @@ private extension Namespace.ViewModel {
                 self.emptyView.isHidden = true
                 self.imageContentView.isHidden = false
             }
+            self.invalidateIntrinsicContentSize()
         }
                         
         /// Initialization

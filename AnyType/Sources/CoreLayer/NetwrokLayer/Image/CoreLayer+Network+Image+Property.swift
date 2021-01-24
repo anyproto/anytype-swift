@@ -27,8 +27,10 @@ extension Namespace {
             self.imageId = imageId
             self.parameters = parameters
             let publisher = cache.publisher(imageId: imageId, parameters)
-            self.externalSubscription = publisher.0
-            self.internalSubscription = publisher.1.sink(receiveValue: { [weak self] (value) in
+//          self.externalSubscription = publisher.0
+//          self.internalSubscription = publisher.1
+            self.internalSubscription = publisher
+                .sink(receiveValue: { [weak self] (value) in
                 self?.property = value
             })
             self.setup()

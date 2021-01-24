@@ -12,7 +12,7 @@ import os
 import SwiftProtobuf
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement
+fileprivate typealias Namespace = BlocksViews.Supplement
 
 private extension Logging.Categories {
     static let textEditorListUserInteractorHandler: Self = "TextEditor.ListUserInteractionHandler"

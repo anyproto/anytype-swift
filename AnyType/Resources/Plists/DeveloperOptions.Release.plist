@@ -31,12 +31,6 @@
 			</dict>
 			<key>mainDocumentEditor</key>
 			<dict>
-				<key>shouldAnimateRowsInsertionAndDeletion</key>
-				<false/>
-				<key>shouldUseSimpleTextViewCell</key>
-				<false/>
-				<key>shouldUseCollectionView</key>
-				<false/>
 				<key>useUIKit</key>
 				<true/>
 				<key>textEditor</key>
@@ -46,6 +40,17 @@
 					<key>shouldEmbedSwiftUIIntoCell</key>
 					<false/>
 					<key>shouldShowCellsIndentation</key>
+					<false/>
+				</dict>
+				<key>listView</key>
+				<dict>
+					<key>shouldAnimateRowsInsertionAndDeletion</key>
+					<false/>
+					<key>shouldUseSimpleTextViewCell</key>
+					<false/>
+					<key>shouldUseCollectionView</key>
+					<false/>
+					<key>shouldUseCellsCaching</key>
 					<false/>
 				</dict>
 			</dict>

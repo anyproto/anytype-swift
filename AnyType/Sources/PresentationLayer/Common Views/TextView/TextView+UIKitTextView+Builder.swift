@@ -44,11 +44,11 @@ extension TextView.UIKitTextView.Builder {
         return view
     }
     
-    func configuredTextView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
+    func configuredTextView(_ textView: UITextView, textViewDelegate: UITextViewDelegate) -> UITextView {
         // TODO: add text?
         let view = self.configured(textView: textView)
         
-        view.delegate = coordinator
+        view.delegate = textViewDelegate
         
         //        _ = configuredTapGesture(textView, context: context)
         return view
@@ -62,11 +62,11 @@ extension TextView.UIKitTextView.Builder {
     }
     
     func makeUIView(coordinator: Coordinator) -> UITextView {
-        return makeUIView(createTextView(), coordinator: coordinator)
+        return self.makeUIView(self.createTextView(), coordinator: coordinator)
     }
     
     func makeUIView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
-        let textView = configuredTextView(textView, coordinator: coordinator)
+        let textView = configuredTextView(textView, textViewDelegate: coordinator)
         coordinator.configureActionsToolbarHandler(textView)
         if let smartTextView = textView as? TextView.UIKitTextView.TextViewWithPlaceholder {
             _ = coordinator.configured(textStorageStream: smartTextView.textStorageEventsPublisher)

@@ -23,7 +23,7 @@ extension DeveloperOptions {
         private init() {
             self.debug = .init(enabled: false)
             self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""), dashboard: .init(hasCustomModalPresentation: false, cellsHaveActionsOnLongTap: false),
-                                  mainDocumentEditor: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseSimpleTextViewCell: false, shouldUseCollectionView: false, useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false)))
+                                  mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false), listView: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseSimpleTextViewCell: false, shouldUseCollectionView: false, shouldUseCellsCaching: false)))
         }
         static var `default`: Settings = .init()
     }
@@ -53,11 +53,15 @@ extension DeveloperOptions.Settings {
                 var shouldEmbedSwiftUIIntoCell: Bool
                 var shouldShowCellsIndentation: Bool
             }
-            var shouldAnimateRowsInsertionAndDeletion: Bool
-            var shouldUseSimpleTextViewCell: Bool
-            var shouldUseCollectionView: Bool
+            struct ListView: CodableAndDictionary {
+                var shouldAnimateRowsInsertionAndDeletion: Bool
+                var shouldUseSimpleTextViewCell: Bool
+                var shouldUseCollectionView: Bool
+                var shouldUseCellsCaching: Bool
+            }
             var useUIKit: Bool
             var textEditor: TextEditor
+            var listView: ListView
         }
         
         var authentication: Authentication

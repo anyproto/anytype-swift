@@ -1,5 +1,5 @@
 //
-//  BlocksViews+NewSupplement+Flattener+Bookmark.swift
+//  BlocksViews+Supplement+Flattener+Bookmark.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 28.07.2020.
@@ -8,16 +8,17 @@
 
 import Foundation
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement.Bookmark
+fileprivate typealias Namespace = BlocksViews.Supplement
+fileprivate typealias FileNamespace = Namespace.Bookmark
 fileprivate typealias ViewModels = BlocksViews.New.Bookmark
 
-extension BlocksViews.NewSupplement {
+extension Namespace {
     enum Bookmark {}
 }
 
-extension Namespace {
-    class Flattener: BlocksViews.NewSupplement.BaseFlattener {
-        private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
+extension FileNamespace {
+    class Flattener: BlocksViews.Supplement.BaseFlattener {
+        private func convertInformation(_ model: Model, _ information: Information) -> [ResultViewModel] {
             switch information.content {
             case .bookmark: return [ViewModels.Bookmark.ViewModel.init(model)] + self.processChildrenToList(model)
             default: return []
@@ -25,7 +26,7 @@ extension Namespace {
         }
         
         // MARK: Subclassing
-        override func convert(model: Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             let blockModel = model.blockModel
             switch blockModel.kind {
             case .meta: return []

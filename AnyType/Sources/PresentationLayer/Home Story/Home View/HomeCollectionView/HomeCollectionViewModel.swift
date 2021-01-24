@@ -60,7 +60,7 @@ class HomeCollectionViewModel: ObservableObject {
         }
     }
     private let transformer: Transformer = .defaultValue
-    private let flattener: BlocksViews.NewSupplement.BaseFlattener = BlocksViews.NewSupplement.CompoundFlattener.init()
+    private let flattener: BlocksViews.Supplement.BaseFlattener = .defaultValue
         
     @Published var documentsViewModels: [HomeCollectionViewCellType] = []
     var pageDetailsViewModel: DocumentModule.Document.ViewController.ViewModel.PageDetailsViewModel = .init()

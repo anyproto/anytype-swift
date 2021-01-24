@@ -1,5 +1,5 @@
 //
-//  BlocksViews+NewSupplement+Flattener+File.swift
+//  BlocksViews+Supplement+Flattener+File.swift
 //  AnyType
 //
 //  Created by Valentie on 10.04.2020.
@@ -8,18 +8,19 @@
 
 import Foundation
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement.File
+fileprivate typealias Namespace = BlocksViews.Supplement
+fileprivate typealias FileNamespace = Namespace.File
 fileprivate typealias ViewModels = BlocksViews.New.File
 
-extension BlocksViews.NewSupplement {
+extension Namespace {
     enum File {}
 }
 
-extension Namespace {
-    class Flattener: BlocksViews.NewSupplement.BaseFlattener {
+extension FileNamespace {
+    class Flattener: BlocksViews.Supplement.BaseFlattener {
         
         // MARK: Convert Blocks
-        private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
+        private func convertInformation(_ model: Model, _ information: Information) -> [ResultViewModel] {
             switch information.content {
             case let .file(value) where value.contentType == .image: return [ViewModels.Image.ViewModel.init(model)]
             case let .file(value) where value.contentType == .file: return [ViewModels.File.ViewModel.init(model)]
@@ -28,7 +29,7 @@ extension Namespace {
         }
         
         // MARK: Subclassing
-        override func convert(model: Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             let blockModel = model.blockModel
             switch blockModel.kind {
             case .meta: return []

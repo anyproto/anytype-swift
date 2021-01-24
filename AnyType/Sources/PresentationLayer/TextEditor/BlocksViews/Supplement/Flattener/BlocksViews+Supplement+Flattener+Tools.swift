@@ -8,16 +8,17 @@
 
 import Foundation
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement.Tools
+fileprivate typealias Namespace = BlocksViews.Supplement
+fileprivate typealias FileNamespace = Namespace.Tools
 fileprivate typealias ViewModels = BlocksViews.New.Tools
 
-extension BlocksViews.NewSupplement {
+extension Namespace {
     enum Tools {}
 }
 
-extension Namespace {
-    class Flattener: BlocksViews.NewSupplement.BaseFlattener {
-        private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
+extension FileNamespace {
+    class Flattener: BlocksViews.Supplement.BaseFlattener {
+        private func convertInformation(_ model: Model, _ information: Information) -> [ResultViewModel] {
             switch information.content {
             case let .link(value) where [.page, .archive].contains(value.style):
                 let viewModel = ViewModels.PageLink.ViewModel.init(model)
@@ -32,7 +33,7 @@ extension Namespace {
         }
         
         // MARK: Subclassing
-        override func convert(model: Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             let blockModel = model.blockModel
             switch blockModel.kind {
             case .meta: return []

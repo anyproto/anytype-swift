@@ -1,5 +1,5 @@
 //
-//  BlocksViews+NewSupplement+Flattener+Text.swift
+//  BlocksViews+Supplement+Flattener+Text.swift
 //  AnyType
 //
 //  Created by Dmitry Lobanov on 13.04.2020.
@@ -8,18 +8,19 @@
 
 import Foundation
 
-fileprivate typealias Namespace = BlocksViews.NewSupplement
+fileprivate typealias Namespace = BlocksViews.Supplement
+fileprivate typealias FileNamespace = Namespace.Text
 fileprivate typealias ViewModels = BlocksViews.New.Text
 
 extension Namespace {
     enum Text {}
 }
 
-extension Namespace.Text {
-    class Flattener: BlocksViews.NewSupplement.BaseFlattener {
+extension FileNamespace {
+    class Flattener: BlocksViews.Supplement.BaseFlattener {
         
         // MARK: Convert Blocks        
-        private func convertInformation(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
+        private func convertInformation(_ model: Model, _ information: Information) -> [ResultViewModel] {
             switch information.content {
             case let .text(value):
                 switch value.contentType {
@@ -38,7 +39,7 @@ extension Namespace.Text {
             }
         }
         
-        private func convertToggledList(_ model: Model, _ information: Information) -> [BlockViewBuilderProtocol] {
+        private func convertToggledList(_ model: Model, _ information: Information) -> [ResultViewModel] {
             guard case let .text(value) = information.content, value.contentType == .toggle else { return [] }
             let viewModel = ViewModels.Toggle.ViewModel.init(model)
             if model.isToggled {
@@ -50,7 +51,7 @@ extension Namespace.Text {
         }
                 
         // MARK: Subclassing
-        override func convert(model: Model) -> [BlockViewBuilderProtocol] {
+        override func convert(model: Model) -> [ResultViewModel] {
             let blockModel = model.blockModel
             
             switch blockModel.kind {
@@ -66,7 +67,7 @@ extension Namespace.Text {
             }
         }
   
-        override func convert(child: BlocksViews.NewSupplement.BaseFlattener.Model, children: [BlocksViews.NewSupplement.BaseFlattener.Model]) -> [BlockViewBuilderProtocol] {            
+        override func convert(child: Model, children: [Model]) -> [ResultViewModel] {            
             if !children.isEmpty, case let .text(value) = child.blockModel.information.content, value.contentType == .numbered {
                 for (index, entry) in children.enumerated() {
                     // We should create view model or even not create and just update value of model.

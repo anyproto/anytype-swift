@@ -140,17 +140,11 @@ extension Publishers {
 
         /// The publisher from which this publisher receives elements.
         public let upstream: Upstream
-        private let downstream: FlatMap<AnyPublisher<Output, Failure>, Publishers.Filter<Upstream>>
+        private let downstream: Publishers.Map<Publishers.Filter<Upstream>, T> //FlatMap<AnyPublisher<Output, Failure>, Publishers.Filter<Upstream>>
         
         public init(upstream: Upstream) {
-            self.upstream = upstream
-            
-//            self.downstream = upstream.filter{$0 != nil}.flatMap { (value) -> AnyPublisher<Output, Failure> in
-//                guard let value = value else { return .empty() }
-//                return CurrentValueSubject(value).eraseToAnyPublisher()
-//            }
-            
-            self.downstream = upstream.filter{$0 != nil}.flatMap({ $0.flatMap(CurrentValueSubject.init).map{$0.eraseToAnyPublisher()} ?? .empty() })
+            self.upstream = upstream            
+            self.downstream = upstream.filter{$0 != nil}.map({$0!})
         }
 
         /// This function is called to attach the specified `Subscriber` to this `Publisher` by `subscribe(_:)`
