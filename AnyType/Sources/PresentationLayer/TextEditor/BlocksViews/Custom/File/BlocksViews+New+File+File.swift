@@ -56,11 +56,7 @@ extension Namespace {
                     os_log(.info, log: logger, "User pressed on FileBlocksViews when our state is not empty.")
                     return
                 }
-                
-                let blockModel = self.getBlock()
-                guard let documentId = blockModel.findRoot()?.blockModel.information.id else { return }
-                let blockId = blockModel.blockModel.information.id
-                
+                                
                 let model: CommonViews.Pickers.File.Picker.ViewModel = .init()
                 self.configureListening(model)
                 self.send(userAction: .specific(.file(.file(.shouldShowFilePicker(.init(model: model))))))

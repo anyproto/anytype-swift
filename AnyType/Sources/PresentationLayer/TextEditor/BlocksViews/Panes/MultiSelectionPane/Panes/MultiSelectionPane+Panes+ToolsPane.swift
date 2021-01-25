@@ -218,7 +218,6 @@ extension MultiSelectionPane.Panes.ToolbarPane {
                 return cells
             default: return []
             }
-            return []
         }
     }
 }

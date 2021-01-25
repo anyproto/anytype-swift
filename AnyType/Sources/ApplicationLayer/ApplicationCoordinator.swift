@@ -81,7 +81,7 @@ extension ApplicationCoordinator {
     private func processLogin(result: Result<String, AuthServiceError>) {
         if self.developerOptions.current.workflow.authentication.shouldShowFocusedPageId && !self.developerOptions.current.workflow.authentication.focusedPageId.isEmpty {
             let pageId = self.developerOptions.current.workflow.authentication.focusedPageId
-            let controller = DocumentModule.Container.ViewBuilder.UIKitBuilder.view(by: .init(id: pageId))
+            let controller = EditorModule.Container.ViewBuilder.UIKitBuilder.view(by: .init(id: pageId))
             self.startNewRootViewController(controller)
             return
         }

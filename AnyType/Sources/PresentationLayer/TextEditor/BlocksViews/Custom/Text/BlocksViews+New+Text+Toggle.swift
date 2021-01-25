@@ -280,7 +280,7 @@ private extension BlocksViews.New.Text.Toggle {
             self.stackView.isHidden = true
             
             let shouldShowInputButton = self.shouldShowInputButton
-            let fromAlpha: CGFloat = shouldShowInputButton ? 0.0 : 1.0
+            let _: CGFloat = shouldShowInputButton ? 0.0 : 1.0
             let toAlpha: CGFloat = shouldShowInputButton ? 1.0 : 0.0
             [self.inputButtonsLayoutConstraints].forEach(shouldShowInputButton ? NSLayoutConstraint.activate(_:) : NSLayoutConstraint.deactivate(_:))
             UIView.animate(withDuration: 0.2) {

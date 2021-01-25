@@ -92,8 +92,6 @@ extension Namespace {
         /// We should notify about user input.
         /// And here we have this publisher.
         ///
-        @available(iOS, introduced: 13.0, deprecated: 14.0, renamed: "sizeDidChangePublisher")
-        lazy var textDidChangePublisher: AnyPublisher<NSAttributedString, Never> = .empty()
         
         private var textViewModelSubscriptions: Set<AnyCancellable> = []
         private var subscriptions: Set<AnyCancellable> = []
@@ -318,23 +316,9 @@ private extension Namespace.ViewModel {
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
-        /// TextDidChange For OuterWorld
-//        let textDidChangePublisher = self.textViewModel.richUpdatePublisher.map{ value -> NSAttributedString? in
-//            switch value {
-//            case let .attributedText(text): return text
-//            default: return nil
-//            }
-//        }.safelyUnwrapOptionals().eraseToAnyPublisher()
-
         self.toModelSizeDidChangeSubject.eraseToAnyPublisher().sink { [weak self] (value) in
             self?.send(sizeDidChange: value)
         }.store(in: &self.subscriptions)
-        
-        let textDidChangePublisher = Just(NSAttributedString.init())
-        let textSizeDidChangePublisher = self.toModelSizeDidChangeSubject.eraseToAnyPublisher()
-        self.textDidChangePublisher = Publishers.CombineLatest(textDidChangePublisher, textSizeDidChangePublisher).removeDuplicates { (lhs, rhs) -> Bool in
-            lhs.1.height == rhs.1.height
-        }.map(\.0).eraseToAnyPublisher()
     }
     
     // MARK: - Setup Text
@@ -386,17 +370,19 @@ private extension Namespace.ViewModel {
         let theText = self.text
         self.text = theText
 
-        return
-        self.update { (block) in
-            switch block.blockModel.information.content {
-            case let .text(value):
-                var value = value
-//                value.text = newText
-                var blockModel = block.blockModel
-                blockModel.information.content = .text(value)
-            default: return
-            }
-        }
+        /// TODO:
+        /// Remove when you are ready.
+//        return
+//        self.update { (block) in
+//            switch block.blockModel.information.content {
+//            case let .text(value):
+//                var value = value
+////                value.text = newText
+//                var blockModel = block.blockModel
+//                blockModel.information.content = .text(value)
+//            default: return
+//            }
+//        }
     }
     func setModelData(attributedText: NSAttributedString) {
         
@@ -419,13 +405,15 @@ private extension Namespace.ViewModel {
     ///
     func setModelData(alignment: NSTextAlignment) {
         
-        return
-        self.update { (block) in
-            if let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment) {
-                var blockModel = block.blockModel
-                blockModel.information.alignment = alignment
-            }
-        }
+        /// TODO:
+        /// Remove when you are ready.
+//        return
+//        self.update { (block) in
+//            if let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment) {
+//                var blockModel = block.blockModel
+//                blockModel.information.alignment = alignment
+//            }
+//        }
     }
     
     func apply(alignment: NSTextAlignment) -> AnyPublisher<Never, Error>? {
@@ -1049,7 +1037,7 @@ private extension Namespace.ViewModel {
             /// View hierarchy
             self.textView = self.textViewModel.createView(.init(liveUpdateAvailable: true))
             if let textView = self.textView {
-                self.topView.configured(textView: self.textView)
+                _ = self.topView.configured(textView: textView)
             }
             self.contentView.addSubview(self.topView)
             self.addSubview(self.contentView)
@@ -1178,7 +1166,7 @@ private extension Namespace.ViewModel {
         
         /// Setup
         private func setup() {
-            self.builder.configured(textView: self.textView)
+            _ = self.builder.configured(textView: self.textView)
             self.setupUIElements()
             self.addLayout()
         }

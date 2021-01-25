@@ -161,11 +161,14 @@ extension Namespace {
         func makeUIView(context: Context) -> WKWebView {
             // Enable javascript in WKWebView to interact with the web app
             let preferences = WKPreferences()
-            preferences.javaScriptEnabled = false
             
             let configuration = WKWebViewConfiguration()
+            let webPagePreferences: WKWebpagePreferences = .init()
+            webPagePreferences.allowsContentJavaScript = false
+
             // Here "iOSNative" is our interface name that we pushed to the website that is being loaded
             //        configuration.userContentController.add(self.makeCoordinator(), name: "iOSNative")
+            configuration.defaultWebpagePreferences = webPagePreferences
             configuration.preferences = preferences
             
             let webView = WKWebView(frame: CGRect.zero, configuration: configuration)

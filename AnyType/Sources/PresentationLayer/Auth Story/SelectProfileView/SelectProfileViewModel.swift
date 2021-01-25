@@ -9,7 +9,6 @@
 import SwiftUI
 import Combine
 
-
 class ProfileNameViewModel: ObservableObject, Identifiable {
     var id: String
     @Published var image: UIImage? = nil
@@ -109,7 +108,7 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        self.fileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).receive(on: RunLoop.main)
+        _ = self.fileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:

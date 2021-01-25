@@ -143,9 +143,9 @@ extension BlocksViews.New.Base {
         func handle(marksPaneAction: MarksPane.Main.Action) {
             // Do nothing? We need external custom processors?
             switch marksPaneAction {
-            case let .style(range, action): return
-            case let .textColor(range, action): return
-            case let .backgroundColor(range, action): return // set background color of view and send sets background color.
+            case .style: return
+            case .textColor: return
+            case .backgroundColor: return // set background color of view and send sets background color.
             }
         }
         
@@ -233,7 +233,6 @@ extension BlocksViews.New.Base {
                     self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: .init(backgroundColor: color), section: .backgroundColor, shouldPluginOutputIntoInput: true))))))
                 default: return
                 }
-            default: return
             }
         }
     }

@@ -24,7 +24,7 @@ extension Namespace {
     /// Should we move it to PageBlocksViews? (?)
     ///
     class ViewModel: BlocksViews.New.Tools.Base.ViewModel {
-        typealias PageDetailsViewModel = DocumentModule.Document.ViewController.ViewModel.PageDetailsViewModel
+        typealias PageDetailsViewModel = EditorModule.Document.ViewController.ViewModel.PageDetailsViewModel
         // Maybe we need also input and output subscribers.
         // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
         // We can't edit name of the block.
@@ -159,7 +159,7 @@ extension Namespace.ViewModel {
     /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
     ///
     func configured(_ publisher: AnyPublisher<PageDetailsViewModel.PageDetails, Never>) -> Self {
-        _ = self.wholeDetailsViewModel.configured(publisher: publisher)
+        self.wholeDetailsViewModel.configured(publisher: publisher)
         self.wholeDetailsViewModel.wholeDetailsPublisher.map(Namespace.State.Converter.asOurModel).sink { [weak self] (value) in
             self?.state = value
         }.store(in: &self.subscriptions)

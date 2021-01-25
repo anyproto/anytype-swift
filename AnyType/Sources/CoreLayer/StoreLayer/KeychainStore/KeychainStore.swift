@@ -7,6 +7,7 @@
 //
 
 import Security
+import LocalAuthentication
 import Foundation
 
 /// Wrapper for keychain store
@@ -80,7 +81,9 @@ class KeychainStore {
         // specify kSecUseAuthenticationUIFail so that the error
         // errSecInteractionNotAllowed will be returned if an item needs
         // to authenticate with UI and the authentication UI will not be presented.
-        query[String(kSecUseAuthenticationUI)] = kSecUseAuthenticationUIFail
+        let context = LAContext.init()
+        context.interactionNotAllowed = true
+        query[String(kSecUseAuthenticationContext)] = context
         
         var item: CFTypeRef?
         

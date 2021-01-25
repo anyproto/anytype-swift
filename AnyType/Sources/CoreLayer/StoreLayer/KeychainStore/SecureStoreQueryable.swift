@@ -79,6 +79,12 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
             context.setCredential(pinCode.data(using: .utf8), type: .applicationPassword)
         }
         
+        /// TODO:
+        /// Resolve.
+        /// Why?
+        /// WHAT?
+        /// I Don't know
+        /// :(
         switch keyChainPassword {
         case .none: break
         default:

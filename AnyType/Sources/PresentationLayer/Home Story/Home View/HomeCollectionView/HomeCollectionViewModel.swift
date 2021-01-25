@@ -53,7 +53,7 @@ class HomeCollectionViewModel: ObservableObject {
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private var subscriptions: Set<AnyCancellable> = []
     
-    private let eventProcessor: DocumentModule.Document.ViewController.ViewModel.EventProcessor = .init()
+    private let eventProcessor: EditorModule.Document.ViewController.ViewModel.EventProcessor = .init()
     private var rootModel: RootModel? {
         didSet {
             self.handleNewRootModel(self.rootModel)
@@ -63,7 +63,7 @@ class HomeCollectionViewModel: ObservableObject {
     private let flattener: BlocksViews.Supplement.BaseFlattener = .defaultValue
         
     @Published var documentsViewModels: [HomeCollectionViewCellType] = []
-    var pageDetailsViewModel: DocumentModule.Document.ViewController.ViewModel.PageDetailsViewModel = .init()
+    var pageDetailsViewModel: EditorModule.Document.ViewController.ViewModel.PageDetailsViewModel = .init()
     @Published var error: String = ""
     
     // TODO: Revise this later. Just in case, save rootId - used for filtering events from middle for main dashboard

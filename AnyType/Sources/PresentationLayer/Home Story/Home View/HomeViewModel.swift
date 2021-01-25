@@ -32,8 +32,8 @@ class HomeViewModel: ObservableObject {
     }
     
     func createDocumentView(documentId: String) -> some View {
-//        DocumentModule.DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
-        DocumentModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
+//        EditorModule.DocumentViewBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
+        EditorModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
         /// TODO: Remove when you can.
         /// It is old DocumentViewBuilder.
         /// Lets keep it until we remove it from project.
@@ -41,7 +41,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func createDocumentView(documentId: String, shouldShowDocument: Binding<Bool>) -> some View {
-        DocumentModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId), shouldShowDocument: shouldShowDocument)
+        EditorModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId), shouldShowDocument: shouldShowDocument)
     }
     
     func documentView(selectedDocumentId: String) -> some View {

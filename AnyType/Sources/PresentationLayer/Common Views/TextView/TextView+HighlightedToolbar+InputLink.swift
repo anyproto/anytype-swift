@@ -456,7 +456,7 @@ extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
                 return view
             }()
 
-            self.configure(nil).configure(.init())
+            _ = self.configure(nil).configure(.init())
             
             self.stackView = {
                 let view = UIStackView()

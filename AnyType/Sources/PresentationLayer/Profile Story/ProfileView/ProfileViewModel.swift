@@ -76,14 +76,14 @@ final class ProfileViewModel: ObservableObject {
     private var obtainUserInformationSubscription: AnyCancellable?
     private var subscriptions: Set<AnyCancellable> = []
     
-    private let eventProcessor: DocumentModule.Document.ViewController.ViewModel.EventProcessor = .init()
+    private let eventProcessor: EditorModule.Document.ViewController.ViewModel.EventProcessor = .init()
     private var rootModel: RootModel? {
         didSet {
             self.handleNewRootModel(self.rootModel)
         }
     }
     private let transformer: Transformer = .defaultValue
-    var pageDetailsViewModel: DocumentModule.Document.ViewController.ViewModel.PageDetailsViewModel = .init()
+    var pageDetailsViewModel: EditorModule.Document.ViewController.ViewModel.PageDetailsViewModel = .init()
     
     // MARK: - Lifecycle
     
