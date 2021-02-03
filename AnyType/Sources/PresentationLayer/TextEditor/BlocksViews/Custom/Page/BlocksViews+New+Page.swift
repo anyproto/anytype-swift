@@ -31,7 +31,7 @@ extension BlocksViews.New.Page.Base {
     class ViewModel: BlocksViews.New.Base.ViewModel {
         /// This DetailsViewModel could be extracted somewhere.
         /// Somewhere near EventHandler.
-        typealias PageDetailsViewModel = EditorModule.Document.ViewController.ViewModel.PageDetailsViewModel
+        typealias PageDetailsViewModel = DocumentModule.Document.DetailsActiveModel
         @Environment(\.developerOptions) var developerOptions
         private(set) var pageDetailsViewModel: PageDetailsViewModel?
         

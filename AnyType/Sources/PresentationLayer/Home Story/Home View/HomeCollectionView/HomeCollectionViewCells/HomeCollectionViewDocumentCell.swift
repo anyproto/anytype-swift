@@ -14,27 +14,37 @@ enum HomeStoriesModule {}
 
 fileprivate typealias Namespace = HomeStoriesModule
 
+extension HomeCollectionViewDocumentCellModel {
+    struct DashboardPage: Hashable {
+        var rootId: String
+        var id: String
+        var targetBlockId: String
+        static var empty: Self = .init(rootId: "", id: "", targetBlockId: "")
+    }
+}
 
-class HomeCollectionViewDocumentCellModel: Hashable {
-    internal init(id: String, title: String, image: URL?, emoji: String?, subscriptions: Set<AnyCancellable> = []) {
-        self.id = id
+extension HomeCollectionViewDocumentCellModel: Hashable {
+    static func == (lhs: HomeCollectionViewDocumentCellModel, rhs: HomeCollectionViewDocumentCellModel) -> Bool {
+        lhs.page.id == rhs.page.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.page.id)
+    }
+}
+
+class HomeCollectionViewDocumentCellModel {
+    internal init(page: DashboardPage, title: String, image: URL?, emoji: String?, subscriptions: Set<AnyCancellable> = []) {
+        self.page = page
         self.title = title
         self.imageURL = image
         self.emoji = emoji
         self.subscriptions = subscriptions
     }
-    
-    static func == (lhs: HomeCollectionViewDocumentCellModel, rhs: HomeCollectionViewDocumentCellModel) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-    }
-    
+        
     // MARK: - Variables
     /// TODO: Remove published properties and use "plain" values instead.
-    let id: String
+    let page: DashboardPage
     @Published var title: String
     @Published var emoji: String?
     @Published var imageURL: URL?
@@ -179,7 +189,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     private var style: Style = .presentation
     private var contextualMenuHandler: ContextualMenuHandler = .init()
     
-    private var storedId: String = ""
+    private var storedPage: HomeCollectionViewDocumentCellModel.DashboardPage = .empty
     
     var titleSubscription: AnyCancellable?
     var emojiSubscription: AnyCancellable?
@@ -217,13 +227,16 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     }
     
     func updateWithModel(viewModel: HomeCollectionViewDocumentCellModel) {
-        if viewModel.id != self.storedId {
+        if viewModel.page != self.storedPage {
             self.invalidateSubscriptions()
             self.invalidateData()
         }
-        self.storedId = viewModel.id
+        self.storedPage = viewModel.page
         
         /// Subsrcibe on viewModel updates
+        self.titleLabel.text = viewModel.title
+        self.emoji.text = viewModel.emoji
+        self.syncViews()
         self.titleSubscription = viewModel.$title.receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.titleLabel.text = value
         }
@@ -236,7 +249,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
             self?.syncViews()
         }
         self.userActionSubscription = self.contextualMenuHandler.userActionPublisher.sink{ [weak viewModel] (value) in
-            if let id = viewModel?.id {
+            if let id = viewModel?.page.id {
                 viewModel?.userActionSubject.send(.init(model: id, action: value))
             }
         }

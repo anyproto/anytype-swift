@@ -145,7 +145,7 @@ extension Namespace {
         
         // MARK: - Events
         @Published var userEvent: UserEvent?
-        private var eventProcessor: EventProcessor = .init()
+        private var eventProcessor: DocumentModule.EventProcessor = .init()
         
         // MARK: - Page View Models
         /// PageDetailsViewModel
@@ -153,7 +153,7 @@ extension Namespace {
         /// These models should subscribe on publishers of this model.
         /// Next, if we receive new data, we should pass this data directly to this model.
         /// All other models we handle in special
-        @Published var wholePageDetailsViewModel: PageDetailsViewModel = .init()
+        @Published var wholePageDetailsViewModel: DocumentModule.Document.DetailsActiveModel = .init()
         
         /// We  need this model to be Published cause need handle actions from IconEmojiBlock
         typealias PageDetailsViewModelsDictionary = [TopLevel.AliasesMap.DetailsContent.Kind : BlockViewBuilderProtocol]

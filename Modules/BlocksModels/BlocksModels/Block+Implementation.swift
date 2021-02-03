@@ -135,6 +135,12 @@ extension Namespace.Container: BlockContainerModelProtocol {
     func list() -> AnyIterator<BlockId> {
         .init(self._models.keys.makeIterator())
     }
+    func children(of id: BlockId) -> [BlockId] {
+        if let value = self._models[id] {
+            return value.information.childrenIds
+        }
+        return []
+    }
     // MARK: - Operations / Choose
     func choose(by id: BlockId) -> BlockActiveRecordModelProtocol? {
         self._choose(by: id)

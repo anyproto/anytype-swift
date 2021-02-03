@@ -9,12 +9,19 @@
 import Foundation
 import Lib
 import Combine
+import os
+
+fileprivate typealias Namespace = EventListening
+
+private extension Logging.Categories {
+    static let eventListening: Self = "EventListening"
+}
 
 enum EventListening {
     typealias ContextId = String
 }
 
-extension EventListening {
+extension Namespace {
     /// Recive events from middleware and broadcast throught notification center
     class RawListener: NSObject {
         
@@ -25,13 +32,26 @@ extension EventListening {
     }
 }
 
-extension EventListening.RawListener: ServiceMessageHandlerProtocol {
+extension Namespace.RawListener: ServiceMessageHandlerProtocol {
+    
+    /// TODO:
+    /// Don't forget to remove it. We only add this method to hide logs from thread status.
+    ///
+    private func filterNecessary(_ event: Anytype_Event.Message) -> Bool {
+        guard let value = event.value else { return false }
+        switch value {
+        case .threadStatus: return false
+        default: return true
+        }
+    }
     
     func handle(_ b: Data?) {
         guard let rawEvent = b,
             let event = try? Anytype_Event(serializedData: rawEvent) else { return }
         
-        print("event: \(event.messages)")
+        let necessaryEvents = event.messages.filter(self.filterNecessary)
+        let logger = Logging.createLogger(category: .eventListening)
+        os_log(.debug, log: logger, "handleEvents. Necessary events are %@", "\(necessaryEvents)")
         
         // TODO: Add filter by messages here???
         NotificationCenter.default.post(name: .middlewareEvent, object: event)
@@ -39,7 +59,7 @@ extension EventListening.RawListener: ServiceMessageHandlerProtocol {
     
 }
 
-extension EventListening {
+extension Namespace {
     /// Default model of events.
     /// Use it when you would like to handle events.
     /// Plain `Anytype_Event*` events are deprecated.
@@ -59,7 +79,7 @@ extension EventListening {
     }
 }
 
-extension EventListening.PackOfEvents.OurEvent {
+extension Namespace.PackOfEvents.OurEvent {
     struct Focus {
         struct Payload {
             enum Position {
@@ -96,7 +116,7 @@ extension EventListening.PackOfEvents.OurEvent {
     }
 }
 
-extension EventListening.PackOfEvents {
+extension Namespace.PackOfEvents {
     enum OurEvent {
         case setFocus(Focus)
         case setText(Text)

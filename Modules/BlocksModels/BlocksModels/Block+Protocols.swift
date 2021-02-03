@@ -50,6 +50,7 @@ public protocol BlockHasRootIdProtocol {
 public protocol BlockContainerModelProtocol: class, BlockHasRootIdProtocol, BlockHasUserSessionProtocol {
     // MARK: - Operations / List
     func list() -> AnyIterator<BlockId>
+    func children(of id: BlockId) -> [BlockId]
     // MARK: - Operations / Choose
     func choose(by id: BlockId) -> BlockActiveRecordModelProtocol?
     // MARK: - Operations / Get
