@@ -23,7 +23,7 @@ module Workers
 
     def work
       unless can_run?
-        puts "Tool #{tool} not exists. Please, install it or select alternatives."
+        puts "Tool #{tool} does not exist. Please, install it or select alternatives."
         exit(0)
       end
       perform_work

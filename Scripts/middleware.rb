@@ -28,8 +28,22 @@ module MiddlewareUpdater
       self.token = token
       self.url = url
     end
+    def is_valid?
+      (self.token || '').empty? == false
+    end
+    def work
+      unless can_run?
+        puts <<-__REASON__
+        Access token does not exist. 
+        Please, provide it by cli argument or environment variable. 
+        Run `ruby #{$0} --help`
+        __REASON__
+        exit(0)
+      end
+      perform_work
+    end
     def perform_work
-      # fetch curl -H "Authorization: token 4b7e2777e67f163d955660be00b09f239cc811fb" -H "Accept: application/vnd.github.v3+json" -sL https://api.github.com/repos/anytypeio/go-anytype-middleware/releases
+      # fetch curl -H "Authorization: token Token" -H "Accept: application/vnd.github.v3+json" -sL https://api.github.com/repos/anytypeio/go-anytype-middleware/releases
       uri = URI(url)
       request = Net::HTTP::Get.new(uri)
       request["Authorization"] = "token #{token}"
@@ -37,6 +51,10 @@ module MiddlewareUpdater
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http|
         http.request(request)
       }
+      if Integer(response.code) > 400
+        puts "Code: #{response.code} and response: #{JSON.parse(response.body)}"
+        exit(0)
+      end
       JSON.parse(response.body)
     end
   end
@@ -261,6 +279,17 @@ class Configuration
     class CurrentVersionCommand
     end
   end
+  class EnvironmentVariables
+    AVAILABLE_VARIABLES = {
+      ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN: 'Access token to a middelware repositry'
+    }
+    def self.token
+      ENV['ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN']
+    end
+    def self.variables_description
+      AVAILABLE_VARIABLES.collect{|k, v| "#{k} -- #{v}"}.join('\n')
+    end
+  end
 end
 
 class Pipeline
@@ -268,7 +297,7 @@ class Pipeline
     def self.work(version, options)
       say "Lets fetch data from remote!"
       information = MiddlewareUpdater::GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
-      say "I have gathered information!"
+      say "I have gathered information! #{information}"
 
       say "Now lets find our url to release!"
       assetURL = MiddlewareUpdater::GetRemoteAssetURLWorker.new(information, version, options[:iOSAssetMiddlewarePrefix]).work
@@ -506,7 +535,7 @@ class MainWork
           librarylockFileVersionKey: "middleware.version",
 
           # repository options
-          token: "4b7e2777e67f163d955660be00b09f239cc811fb",
+          token: Configuration::EnvironmentVariables.token || '',
           repositoryURL: "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases",
 
           # download file options
@@ -602,6 +631,36 @@ class MainWork
     ruby #{$0} --update --libraryFilePath ./Libraryfile # Gather restrictions from ./Libraryfile and fetch **appropriate** version from remote.
     ruby #{$0} --update --libraryFilePath ./Abc # Fetch **latest** version from remote
 
+    4. Environment Variables
+    You could pass several arguments by environment.
+
+    ENV_VARIABLE="VALUE" ruby #{$0} --list
+
+    Available variables are
+
+    #{Configuration::EnvironmentVariables.variables_description}
+
+    5. Set Environment Variables
+
+    For different shells it would different, but the scheme would be:
+
+    1. Open shell terminal rc file.
+    2. Append `export ENV_VAR="VALUE"`
+    3. Save file.
+    Either
+    4. Open new terminal window
+    Or
+    4. Execute `source terminal_rc_file`
+
+    For a zsh shell it would be:
+
+    1. Open ~/.zshrc
+    2. Append `export ENV_VAR="VALUE"`
+    3. Save file.
+    Either
+    4. Open new terminal window
+    Or
+    4. Execute `source ~/.zshrc`
     __HELP__
   end
 
