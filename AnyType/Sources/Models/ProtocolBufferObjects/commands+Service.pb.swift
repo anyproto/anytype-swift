@@ -27,6 +27,9 @@ extension Anytype_Rpc.ExternalDrop.Files {
     public static func invoke(contextID: String, dropTargetID: String, position: Anytype_Model_Block.Position, localFilePaths: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths), on: queue)
     }
+    public static func invoke(contextID: String, dropTargetID: String, position: Anytype_Model_Block.Position, localFilePaths: [String]) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -74,6 +77,9 @@ extension Anytype_Rpc.ExternalDrop.Content {
     public static func invoke(contextID: String, focusedBlockID: String, content: Data, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, focusedBlockID: focusedBlockID, content: content), on: queue)
     }
+    public static func invoke(contextID: String, focusedBlockID: String, content: Data) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, content: content))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -120,6 +126,9 @@ extension Anytype_Rpc.BlockList.ConvertChildrenToPages {
     }
     public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
+    }
+    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -170,6 +179,9 @@ extension Anytype_Rpc.BlockList.Move {
     > {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position), on: queue)
     }
+    public static func invoke(contextID: String, blockIds: [String], targetContextID: String, dropTargetID: String, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -219,6 +231,11 @@ extension Anytype_Rpc.BlockList.MoveToNewPage {
     ) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position), on: queue)
     }
+    public static func invoke(contextID: String, blockIds: [String], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String, position: Anytype_Model_Block.Position) -> Result<
+      Response, Error
+    > {
+      self.result(.init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -265,6 +282,9 @@ extension Anytype_Rpc.BlockList.Duplicate {
     }
     public static func invoke(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position), on: queue)
+    }
+    public static func invoke(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -313,6 +333,9 @@ extension Anytype_Rpc.BlockList.Set.Page.IsArchived {
     public static func invoke(contextID: String, blockIds: [String], isArchived: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, isArchived: isArchived), on: queue)
     }
+    public static func invoke(contextID: String, blockIds: [String], isArchived: Bool) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, isArchived: isArchived))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -359,6 +382,9 @@ extension Anytype_Rpc.BlockList.Set.Text.Style {
     }
     public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
+    }
+    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, style: style))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -407,6 +433,9 @@ extension Anytype_Rpc.BlockList.Set.Text.Color {
     public static func invoke(contextID: String, blockIds: [String], color: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, color: color), on: queue)
     }
+    public static func invoke(contextID: String, blockIds: [String], color: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, color: color))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -453,6 +482,9 @@ extension Anytype_Rpc.BlockList.Set.Text.Mark {
     }
     public static func invoke(contextID: String, blockIds: [String], mark: Anytype_Model_Block.Content.Text.Mark, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, mark: mark), on: queue)
+    }
+    public static func invoke(contextID: String, blockIds: [String], mark: Anytype_Model_Block.Content.Text.Mark) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, mark: mark))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -501,6 +533,9 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor {
     public static func invoke(contextID: String, blockIds: [String], color: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, color: color), on: queue)
     }
+    public static func invoke(contextID: String, blockIds: [String], color: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, color: color))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -547,6 +582,9 @@ extension Anytype_Rpc.BlockList.Set.Align {
     }
     public static func invoke(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, align: align), on: queue)
+    }
+    public static func invoke(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, align: align))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -595,6 +633,9 @@ extension Anytype_Rpc.BlockList.Set.Fields {
     public static func invoke(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockFields: blockFields), on: queue)
     }
+    public static func invoke(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockFields: blockFields))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -641,6 +682,9 @@ extension Anytype_Rpc.BlockList.Set.Div.Style {
     }
     public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
+    }
+    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, style: style))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -689,6 +733,9 @@ extension Anytype_Rpc.BlockList.Delete.Page {
     public static func invoke(blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(blockIds: blockIds), on: queue)
     }
+    public static func invoke(blockIds: [String]) -> Result<Response, Error> {
+      self.result(.init(blockIds: blockIds))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -736,6 +783,9 @@ extension Anytype_Rpc.BlockList.TurnInto {
     public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
     }
+    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, style: style))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -782,6 +832,9 @@ extension Anytype_Rpc.Block.Replace {
     }
     public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, block: block), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, block: block))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -832,6 +885,11 @@ extension Anytype_Rpc.Block.Split {
     ) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style, mode: Anytype_Rpc.Block.Split.Request.Mode) -> Result<
+      Response, Error
+    > {
+      self.result(.init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -879,6 +937,9 @@ extension Anytype_Rpc.Block.Merge {
     public static func invoke(contextID: String, firstBlockID: String, secondBlockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID), on: queue)
     }
+    public static func invoke(contextID: String, firstBlockID: String, secondBlockID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -925,6 +986,9 @@ extension Anytype_Rpc.Block.Copy {
     }
     public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange), on: queue)
+    }
+    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -979,6 +1043,15 @@ extension Anytype_Rpc.Block.Paste {
           contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
           htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot), on: queue)
     }
+    public static func invoke(
+      contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], isPartOfBlock: Bool, textSlot: String, htmlSlot: String,
+      anySlot: [Anytype_Model_Block], fileSlot: [Anytype_Rpc.Block.Paste.Request.File]
+    ) -> Result<Response, Error> {
+      self.result(
+        .init(
+          contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
+          htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1025,6 +1098,9 @@ extension Anytype_Rpc.Block.Cut {
     }
     public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange), on: queue)
+    }
+    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1073,6 +1149,9 @@ extension Anytype_Rpc.Block.ImportMarkdown {
     public static func invoke(contextID: String, importPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, importPath: importPath), on: queue)
     }
+    public static func invoke(contextID: String, importPath: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, importPath: importPath))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1119,6 +1198,9 @@ extension Anytype_Rpc.Block.Export {
     }
     public static func invoke(contextID: String, blocks: [Anytype_Model_Block], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blocks: blocks), on: queue)
+    }
+    public static func invoke(contextID: String, blocks: [Anytype_Model_Block]) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blocks: blocks))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1167,6 +1249,9 @@ extension Anytype_Rpc.Block.Upload {
     public static func invoke(contextID: String, blockID: String, filePath: String, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, filePath: filePath, url: url), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, filePath: String, url: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, filePath: filePath, url: url))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1213,6 +1298,9 @@ extension Anytype_Rpc.Block.Download {
     }
     public static func invoke(contextID: String, blockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1261,6 +1349,9 @@ extension Anytype_Rpc.Block.Set.Fields {
     public static func invoke(contextID: String, blockID: String, fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, fields: fields), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, fields: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, fields: fields))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1307,6 +1398,9 @@ extension Anytype_Rpc.Block.Set.Details {
     }
     public static func invoke(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, details: details), on: queue)
+    }
+    public static func invoke(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, details: details))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1355,6 +1449,9 @@ extension Anytype_Rpc.Block.Set.Restrictions {
     public static func invoke(contextID: String, blockID: String, restrictions: Anytype_Model_Block.Restrictions, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, restrictions: restrictions), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, restrictions: Anytype_Model_Block.Restrictions) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, restrictions: restrictions))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1401,6 +1498,9 @@ extension Anytype_Rpc.Block.Set.Page.IsArchived {
     }
     public static func invoke(contextID: String, blockID: String, isArchived: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, isArchived: isArchived), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, isArchived: Bool) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, isArchived: isArchived))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1449,6 +1549,9 @@ extension Anytype_Rpc.Block.Set.Text.Text {
     public static func invoke(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, text: text, marks: marks), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, text: text, marks: marks))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1495,6 +1598,9 @@ extension Anytype_Rpc.Block.Set.Text.Color {
     }
     public static func invoke(contextID: String, blockID: String, color: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, color: color), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, color: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, color: color))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1543,6 +1649,9 @@ extension Anytype_Rpc.Block.Set.Text.Style {
     public static func invoke(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, style: style), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, style: style))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1589,6 +1698,9 @@ extension Anytype_Rpc.Block.Set.Text.Checked {
     }
     public static func invoke(contextID: String, blockID: String, checked: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, checked: checked), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, checked: Bool) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, checked: checked))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1637,6 +1749,9 @@ extension Anytype_Rpc.Block.Set.File.Name {
     public static func invoke(contextID: String, blockID: String, name: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, name: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, name: name))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1683,6 +1798,9 @@ extension Anytype_Rpc.Block.Set.Image.Name {
     }
     public static func invoke(contextID: String, blockID: String, name: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, name: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, name: name))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1731,6 +1849,9 @@ extension Anytype_Rpc.Block.Set.Image.Width {
     public static func invoke(contextID: String, blockID: String, width: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, width: width), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, width: Int32) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, width: width))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1777,6 +1898,9 @@ extension Anytype_Rpc.Block.Set.Video.Name {
     }
     public static func invoke(contextID: String, blockID: String, name: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, name: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, name: name))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1825,6 +1949,9 @@ extension Anytype_Rpc.Block.Set.Video.Width {
     public static func invoke(contextID: String, blockID: String, width: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, width: width), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, width: Int32) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, width: width))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1871,6 +1998,9 @@ extension Anytype_Rpc.Block.Set.Link.TargetBlockId {
     }
     public static func invoke(contextID: String, blockID: String, targetBlockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, targetBlockID: targetBlockID), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, targetBlockID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, targetBlockID: targetBlockID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1919,6 +2049,9 @@ extension Anytype_Rpc.Block.Set.Dataview.View {
     public static func invoke(contextID: String, blockID: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, viewID: viewID, view: view), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID, view: view))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -1965,6 +2098,9 @@ extension Anytype_Rpc.Block.Set.Dataview.ActiveView {
     }
     public static func invoke(contextID: String, blockID: String, viewID: String, offset: UInt32, limit: UInt32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, viewID: String, offset: UInt32, limit: UInt32) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2013,6 +2149,9 @@ extension Anytype_Rpc.Block.Bookmark.Fetch {
     public static func invoke(contextID: String, blockID: String, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, url: url), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, url: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, url: url))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2059,6 +2198,9 @@ extension Anytype_Rpc.Block.Bookmark.CreateAndFetch {
     }
     public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, targetID: targetID, position: position, url: url), on: queue)
+    }
+    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, position: position, url: url))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2109,6 +2251,11 @@ extension Anytype_Rpc.Block.File.CreateAndUpload {
     ) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType), on: queue)
     }
+    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String, localPath: String, fileType: Anytype_Model_Block.Content.File.TypeEnum)
+      -> Result<Response, Error>
+    {
+      self.result(.init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2155,6 +2302,9 @@ extension Anytype_Rpc.Block.Get.Marks {
     }
     public static func invoke(contextID: String, blockID: String, range: Anytype_Model_Range, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, range: range), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, range: Anytype_Model_Range) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, range: range))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2203,6 +2353,9 @@ extension Anytype_Rpc.Block.Undo {
     public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID), on: queue)
     }
+    public static func invoke(contextID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2249,6 +2402,9 @@ extension Anytype_Rpc.Block.Redo {
     }
     public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID), on: queue)
+    }
+    public static func invoke(contextID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2297,6 +2453,9 @@ extension Anytype_Rpc.Block.Open {
     public static func invoke(contextID: String, blockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2343,6 +2502,9 @@ extension Anytype_Rpc.Block.GetPublicWebURL {
     }
     public static func invoke(blockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(blockID: blockID), on: queue)
+    }
+    public static func invoke(blockID: String) -> Result<Response, Error> {
+      self.result(.init(blockID: blockID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2391,6 +2553,9 @@ extension Anytype_Rpc.Block.OpenBreadcrumbs {
     public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID), on: queue)
     }
+    public static func invoke(contextID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2437,6 +2602,9 @@ extension Anytype_Rpc.Block.SetBreadcrumbs {
     }
     public static func invoke(breadcrumbsID: String, ids: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(breadcrumbsID: breadcrumbsID, ids: ids), on: queue)
+    }
+    public static func invoke(breadcrumbsID: String, ids: [String]) -> Result<Response, Error> {
+      self.result(.init(breadcrumbsID: breadcrumbsID, ids: ids))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2485,6 +2653,9 @@ extension Anytype_Rpc.Block.Create {
     public static func invoke(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, targetID: targetID, block: block, position: position), on: queue)
     }
+    public static func invoke(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, block: block, position: position))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2532,6 +2703,9 @@ extension Anytype_Rpc.Block.Create.Dataview.View {
     public static func invoke(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, view: view), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, view: view))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2578,6 +2752,9 @@ extension Anytype_Rpc.Block.Create.Dataview.Record {
     }
     public static func invoke(contextID: String, blockID: String, record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, record: record), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, record: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, record: record))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2628,6 +2805,9 @@ extension Anytype_Rpc.Block.CreatePage {
     > {
       self.invoke(parameters: .init(contextID: contextID, targetID: targetID, details: details, position: position), on: queue)
     }
+    public static func invoke(contextID: String, targetID: String, details: SwiftProtobuf.Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, details: details, position: position))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2674,6 +2854,9 @@ extension Anytype_Rpc.Block.Unlink {
     }
     public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
+    }
+    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2722,6 +2905,9 @@ extension Anytype_Rpc.Block.Update.Dataview.Record {
     public static func invoke(contextID: String, blockID: String, recordID: String, record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, recordID: recordID, record: record), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, recordID: String, record: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, recordID: recordID, record: record))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2768,6 +2954,9 @@ extension Anytype_Rpc.Block.Delete.Dataview.View {
     }
     public static func invoke(contextID: String, blockID: String, viewID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, viewID: viewID), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String, viewID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2816,6 +3005,9 @@ extension Anytype_Rpc.Block.Delete.Dataview.Record {
     public static func invoke(contextID: String, blockID: String, recordID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID, recordID: recordID), on: queue)
     }
+    public static func invoke(contextID: String, blockID: String, recordID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, recordID: recordID))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2862,6 +3054,9 @@ extension Anytype_Rpc.Block.Close {
     }
     public static func invoke(contextID: String, blockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(contextID: contextID, blockID: blockID), on: queue)
+    }
+    public static func invoke(contextID: String, blockID: String) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2910,6 +3105,9 @@ extension Anytype_Rpc.Wallet.Create {
     public static func invoke(rootPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(rootPath: rootPath), on: queue)
     }
+    public static func invoke(rootPath: String) -> Result<Response, Error> {
+      self.result(.init(rootPath: rootPath))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -2956,6 +3154,9 @@ extension Anytype_Rpc.Wallet.Recover {
     }
     public static func invoke(rootPath: String, mnemonic: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(rootPath: rootPath, mnemonic: mnemonic), on: queue)
+    }
+    public static func invoke(rootPath: String, mnemonic: String) -> Result<Response, Error> {
+      self.result(.init(rootPath: rootPath, mnemonic: mnemonic))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3004,6 +3205,9 @@ extension Anytype_Rpc.Wallet.Convert {
     public static func invoke(mnemonic: String, entropy: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(mnemonic: mnemonic, entropy: entropy), on: queue)
     }
+    public static func invoke(mnemonic: String, entropy: String) -> Result<Response, Error> {
+      self.result(.init(mnemonic: mnemonic, entropy: entropy))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3050,6 +3254,9 @@ extension Anytype_Rpc.Account.Create {
     }
     public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode), on: queue)
+    }
+    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String) -> Result<Response, Error> {
+      self.result(.init(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3098,6 +3305,9 @@ extension Anytype_Rpc.Account.Recover {
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(), on: queue)
     }
+    public static func invoke() -> Result<Response, Error> {
+      self.result(.init())
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3144,6 +3354,9 @@ extension Anytype_Rpc.Account.Select {
     }
     public static func invoke(id: String, rootPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(id: id, rootPath: rootPath), on: queue)
+    }
+    public static func invoke(id: String, rootPath: String) -> Result<Response, Error> {
+      self.result(.init(id: id, rootPath: rootPath))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3192,6 +3405,9 @@ extension Anytype_Rpc.Account.Stop {
     public static func invoke(removeData: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(removeData: removeData), on: queue)
     }
+    public static func invoke(removeData: Bool) -> Result<Response, Error> {
+      self.result(.init(removeData: removeData))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3238,6 +3454,9 @@ extension Anytype_Rpc.Log.Send {
     }
     public static func invoke(message: String, level: Anytype_Rpc.Log.Send.Request.Level, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(message: message, level: level), on: queue)
+    }
+    public static func invoke(message: String, level: Anytype_Rpc.Log.Send.Request.Level) -> Result<Response, Error> {
+      self.result(.init(message: message, level: level))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3286,6 +3505,9 @@ extension Anytype_Rpc.Version.Get {
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(), on: queue)
     }
+    public static func invoke() -> Result<Response, Error> {
+      self.result(.init())
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3332,6 +3554,9 @@ extension Anytype_Rpc.Ipfs.Image.Get.Blob {
     }
     public static func invoke(hash: String, wantWidth: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(hash: hash, wantWidth: wantWidth), on: queue)
+    }
+    public static func invoke(hash: String, wantWidth: Int32) -> Result<Response, Error> {
+      self.result(.init(hash: hash, wantWidth: wantWidth))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3380,6 +3605,9 @@ extension Anytype_Rpc.Shutdown {
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(), on: queue)
     }
+    public static func invoke() -> Result<Response, Error> {
+      self.result(.init())
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3426,6 +3654,9 @@ extension Anytype_Rpc.Config.Get {
     }
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(), on: queue)
+    }
+    public static func invoke() -> Result<Response, Error> {
+      self.result(.init())
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3474,6 +3705,9 @@ extension Anytype_Rpc.Ping {
     public static func invoke(index: Int32, numberOfEventsToSend: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(index: index, numberOfEventsToSend: numberOfEventsToSend), on: queue)
     }
+    public static func invoke(index: Int32, numberOfEventsToSend: Int32) -> Result<Response, Error> {
+      self.result(.init(index: index, numberOfEventsToSend: numberOfEventsToSend))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3520,6 +3754,9 @@ extension Anytype_Rpc.Process.Cancel {
     }
     public static func invoke(id: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(id: id), on: queue)
+    }
+    public static func invoke(id: String) -> Result<Response, Error> {
+      self.result(.init(id: id))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3568,6 +3805,9 @@ extension Anytype_Rpc.LinkPreview {
     public static func invoke(url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(url: url), on: queue)
     }
+    public static func invoke(url: String) -> Result<Response, Error> {
+      self.result(.init(url: url))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3614,6 +3854,9 @@ extension Anytype_Rpc.UploadFile {
     }
     public static func invoke(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption), on: queue)
+    }
+    public static func invoke(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool) -> Result<Response, Error> {
+      self.result(.init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3662,6 +3905,9 @@ extension Anytype_Rpc.Navigation.ListPages {
     public static func invoke(context: Anytype_Rpc.Navigation.Context, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(context: context), on: queue)
     }
+    public static func invoke(context: Anytype_Rpc.Navigation.Context) -> Result<Response, Error> {
+      self.result(.init(context: context))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3708,6 +3954,9 @@ extension Anytype_Rpc.Navigation.GetPageInfoWithLinks {
     }
     public static func invoke(pageID: String, context: Anytype_Rpc.Navigation.Context, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(pageID: pageID, context: context), on: queue)
+    }
+    public static func invoke(pageID: String, context: Anytype_Rpc.Navigation.Context) -> Result<Response, Error> {
+      self.result(.init(pageID: pageID, context: context))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3756,6 +4005,9 @@ extension Anytype_Rpc.History.Versions {
     public static func invoke(pageID: String, lastVersionID: String, limit: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(pageID: pageID, lastVersionID: lastVersionID, limit: limit), on: queue)
     }
+    public static func invoke(pageID: String, lastVersionID: String, limit: Int32) -> Result<Response, Error> {
+      self.result(.init(pageID: pageID, lastVersionID: lastVersionID, limit: limit))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3802,6 +4054,9 @@ extension Anytype_Rpc.History.Show {
     }
     public static func invoke(pageID: String, versionID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(pageID: pageID, versionID: versionID), on: queue)
+    }
+    public static func invoke(pageID: String, versionID: String) -> Result<Response, Error> {
+      self.result(.init(pageID: pageID, versionID: versionID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -3850,6 +4105,9 @@ extension Anytype_Rpc.History.SetVersion {
     public static func invoke(pageID: String, versionID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(pageID: pageID, versionID: versionID), on: queue)
     }
+    public static func invoke(pageID: String, versionID: String) -> Result<Response, Error> {
+      self.result(.init(pageID: pageID, versionID: versionID))
+    }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
@@ -3896,6 +4154,9 @@ extension Anytype_Rpc.Page.Create {
     }
     public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(parameters: .init(details: details), on: queue)
+    }
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+      self.result(.init(details: details))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
