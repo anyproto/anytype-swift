@@ -179,6 +179,7 @@
 		0A203A8225470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A8125470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift */; };
 		0A203A8625470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A8525470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift */; };
 		0A203A8A2547106100D3729A /* CoreLayer+Network+Image+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A892547106100D3729A /* CoreLayer+Network+Image+Property.swift */; };
+		0A20E64625CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A20E64525CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift */; };
 		0A2ADCE02496921500FA135D /* EventListening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCDF2496921500FA135D /* EventListening.swift */; };
 		0A2ADCE42496C09A00FA135D /* BlockActionsService+Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE32496C09A00FA135D /* BlockActionsService+Single.swift */; };
 		0A2ADCE62496C72A00FA135D /* SmartBlockActionsService+New.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE52496C72A00FA135D /* SmartBlockActionsService+New.swift */; };
@@ -552,6 +553,7 @@
 		0A203A8125470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+URLResolver.swift"; sourceTree = "<group>"; };
 		0A203A8525470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+Cache.swift"; sourceTree = "<group>"; };
 		0A203A892547106100D3729A /* CoreLayer+Network+Image+Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+Property.swift"; sourceTree = "<group>"; };
+		0A20E64525CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+ViewModelsConvertions+Details.swift"; sourceTree = "<group>"; };
 		0A2ADCDF2496921500FA135D /* EventListening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListening.swift; sourceTree = "<group>"; };
 		0A2ADCE32496C09A00FA135D /* BlockActionsService+Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+Single.swift"; sourceTree = "<group>"; };
 		0A2ADCE52496C72A00FA135D /* SmartBlockActionsService+New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartBlockActionsService+New.swift"; sourceTree = "<group>"; };
@@ -1909,6 +1911,7 @@
 			children = (
 				0ACC357025C850B80003CF3A /* BlocksViews+Supplement+ViewModelsConvertions.swift */,
 				0ACC357525C851650003CF3A /* BlocksViews+Supplement+ViewModelsConvertions+Base.swift */,
+				0A20E64525CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift */,
 			);
 			path = ViewModelsConverter;
 			sourceTree = "<group>";
@@ -2324,6 +2327,7 @@
 				0AA9B049249F65A800F2962C /* MultiSelectionPane+UIKit.swift in Sources */,
 				0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
+				0A20E64625CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift in Sources */,
 				0A203A8225470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,

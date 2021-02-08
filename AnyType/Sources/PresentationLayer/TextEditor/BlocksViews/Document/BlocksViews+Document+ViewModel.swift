@@ -28,19 +28,22 @@ extension Namespace {
     class ViewModel {
         typealias Document = DocumentModule.Document.BaseDocument
         private typealias ViewModelsConverter = BlocksViews.Supplement.ViewModelsConvertions.CompoundConverter
-        private var converter: ViewModelsConverter?
+        private typealias DetailsViewModelsConverter = BlocksViews.Supplement.ViewModelsConvertions.Details.BaseConverter
+        private var blocksConverter: ViewModelsConverter?
+        private var detailsConverter: DetailsViewModelsConverter
         private var document: Document
         
         /// TODO:
         /// Remove it later.
-        /// 
+        ///
         /// We have to keep it private, but ok for now.
         ///
         var documentId: String? { self.document.documentId }
         
         init(_ document: Document = .init()) {
             self.document = document
-            self.converter = .init(self.document)
+            self.blocksConverter = .init(self.document)
+            self.detailsConverter = .init(self.document)
         }
     }
 }
@@ -74,33 +77,50 @@ extension FileNamespace {
     }
     
     private func viewModels(from models: [DocumentModule.Document.BaseDocument.ActiveModel]) -> [BlockViewModel] {
-        self.converter?.convert(models) ?? []
+        self.blocksConverter?.convert(models) ?? []
     }
     
     func updatePublisher() -> AnyPublisher<UpdateResult, Never> {
-        self.document.modelsAndUpdatePublisher().map { [weak self] (value) in
+        self.document.modelsAndUpdatesPublisher().map { [weak self] (value) in
             .init(updates: value.updates, models: self?.viewModels(from: value.models) ?? [])
         }.eraseToAnyPublisher()
+    }
+}
+
+// MARK: - Models
+extension FileNamespace {
+    func getRootActiveModel() -> DocumentModule.Document.BaseDocument.ActiveModel? {
+        self.document.getRootActiveModel()
+    }
+    func getUserSession() -> DocumentModule.Document.BaseDocument.UserSession? {
+        self.document.getUserSession()
     }
 }
 
 // MARK: - Details
 extension FileNamespace {
     struct Predicate {
-        var list: [TopLevel.AliasesMap.DetailsContent.Kind] = [.title]
+        var list: [TopLevel.AliasesMap.DetailsContent.Kind] = [.iconEmoji, .title]
     }
     
     func defaultDetails() -> DocumentModule.Document.BaseDocument.DetailsActiveModel {
         self.document.getDefaultDetails()
     }
     
-    func defaultDetailsAccessor() -> AnyPublisher<DocumentModule.Document.BaseDocument.DetailsAccessor, Never> {
+    func defaultDetailsAccessor() -> DocumentModule.Document.BaseDocument.DetailsAccessor {
         self.document.getDefaultDetailsAccessor()
     }
     
-    /// TODO: Implement it later.
-    func defaultDetailsViewModels(orderedBy predicate: Predicate) -> [BlockViewModel] {
-        []
+    func defaultDetailsAccessorPublisher() -> AnyPublisher<DocumentModule.Document.BaseDocument.DetailsAccessor, Never> {
+        self.document.getDefaultDetailsAccessorPublisher()
+    }
+    
+    func defaultDetailsViewModels(orderedBy predicate: Predicate = .init()) -> [BlockViewModel] {
+        predicate.list.compactMap({ value -> BlockViewModel? in
+            guard let model = self.document.getDefaultDetailsActiveModel(of: value) else { return nil }
+            guard let viewModel = self.detailsConverter.convert(model, kind: value) else { return nil }
+            return viewModel.configured(pageDetailsViewModel: self.defaultDetails())
+        })
     }
 }
 

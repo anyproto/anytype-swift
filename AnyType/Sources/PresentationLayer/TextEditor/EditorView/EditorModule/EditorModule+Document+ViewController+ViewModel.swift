@@ -13,13 +13,14 @@ import os
 import BlocksModels
 
 fileprivate typealias Namespace = EditorModule.Document.ViewController
+fileprivate typealias FileNamespace = Namespace.ViewModel
 
 private extension Logging.Categories {
-    static let documentViewModel: Self = "EditorModule.DocumentViewModel"
+    static let editorDocumentViewModel: Self = "EditorModule.Document.ViewModel"
 }
 
 // MARK: State
-extension Namespace.ViewModel {
+extension FileNamespace {
     enum State {
         case loading
         case empty
@@ -34,14 +35,14 @@ extension Namespace.ViewModel {
 }
 
 // MARK: Events
-extension Namespace.ViewModel {
+extension FileNamespace {
     enum UserEvent {
         case pageDetailsViewModelsDidSet
     }
 }
 
 // MARK: - Options
-extension Namespace.ViewModel {
+extension FileNamespace {
     /// Structure contains `Feature Flags`.
     ///
     struct Options {
@@ -65,17 +66,12 @@ extension Namespace {
         typealias BlocksUserAction = BlocksViews.UserAction
         
         typealias BlocksViewsNamespace = BlocksViews.New
-        
-        /// DocumentId
-        private var debugDocumentId: String = ""
-        private var documentId: TopLevel.AliasesMap.BlockId = ""
-        
+                
         /// Service
         private var blockActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
         
-        /// Data Transformers
-        private var transformer: Transformer = .defaultValue
-        private var flattener: BlocksViews.Supplement.BaseFlattener = .defaultValue
+        /// Document ViewModel
+        private(set) var documentViewModel: BlocksViews.Document.ViewModel = .init()
         
         /// User Interaction Processor
         private var userInteractionHandler: UserInteractionHandler = .init()
@@ -86,9 +82,9 @@ extension Namespace {
         
         /// Selection Handler
         private(set) var selectionHandler: EditorModuleSelectionHandlerProtocol?
-                
+        
         private var listToolbarSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
-                
+        
         private var publicUserActionSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
         lazy var publicUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
         
@@ -96,7 +92,7 @@ extension Namespace {
         lazy var publicActionsPayloadPublisher: AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
         
         private var publicSizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
-        public private(set) lazy var publicSizeDidChangePublisher: AnyPublisher<CGSize, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
+        lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<CGSize, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
         
         private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
         lazy private var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
@@ -110,56 +106,17 @@ extension Namespace {
         @Published var options: Options = .init()
         
         @Published var error: String?
-        @Published var rootModel: RootModel? {
-            didSet {
-                if let model = self.rootModel {
-                    self.eventProcessor.didProcessEventsPublisher.sink(receiveValue: { [weak self] (value) in
-                        switch value {
-                        case .update(.empty): return
-                        default: break
-                        }
-                        
-                        self?.syncBuilders {
-                            switch value {
-                            case .general: break
-                            case let .update(value):
-                                /// We should calculate updates correctly.
-                                /// For example, we should remove items if they appear in detetedIds.
-                                /// That means that even if they appear in updatedIds, we still need to remove them.
-                                if !value.updatedIds.isEmpty {
-                                    self?.anyStyleSubject.send(value.updatedIds)
-                                }
-                                if !value.deletedIds.isEmpty {
-                                    self?.deselect(ids: Set(value.deletedIds))
-                                }
-                            }
-                        }
-                    }).store(in: &self.subscriptions)
-                    _ = self.eventProcessor.configured(model)
-                }
-                _ = self.flattener.configured(self.rootModel)
-                self.syncBuilders()
-                self.configurePageDetails(for: self.rootModel)
-            }
-        }
-        
+                
         // MARK: - Events
         @Published var userEvent: UserEvent?
-        private var eventProcessor: DocumentModule.EventProcessor = .init()
         
         // MARK: - Page View Models
-        /// PageDetailsViewModel
-        /// We use this model in BlocksViews for Title, Image.
-        /// These models should subscribe on publishers of this model.
-        /// Next, if we receive new data, we should pass this data directly to this model.
-        /// All other models we handle in special
-        @Published var wholePageDetailsViewModel: DocumentModule.Document.DetailsActiveModel = .init()
-        
-        /// We  need this model to be Published cause need handle actions from IconEmojiBlock
-        typealias PageDetailsViewModelsDictionary = [TopLevel.AliasesMap.DetailsContent.Kind : BlockViewBuilderProtocol]
-        var pageDetailsViewModels: PageDetailsViewModelsDictionary = [:] {
+        /// We need this model to be Published cause need handle actions from IconEmojiBlock
+        typealias PageDetailsViewModelsDictionary = [DocumentModule.Document.BaseDocument.DetailsContentKind : BlockViewBuilderProtocol]
+        @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
+        lazy private(set) var detailsViewModels: PageDetailsViewModelsDictionary = [:] {
             didSet {
-                self.enhanceDetails(self.pageDetailsViewModels)
+                self.enhanceDetails(self.detailsViewModels)
                 self.userEvent = .pageDetailsViewModelsDidSet
             }
         }
@@ -176,7 +133,7 @@ extension Namespace {
                 }
             }
         }
-                        
+        
         /// We should update some items in place.
         /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
         /// Its `Output` is a `List<BlockId>`
@@ -185,11 +142,6 @@ extension Namespace {
         
         // put into protocol?
         // var userActionsPublisher: AnyPublisher<UserAction>
-        
-        // MARK: Deinitialization
-        deinit {
-            self.close()
-        }
         
         func setupSubscriptions() {
             self.publicActionsPayloadPublisher.sink { [weak self] (value) in
@@ -203,25 +155,7 @@ extension Namespace {
             }.store(in: &self.subscriptions)
             
             _ = self.listUserInteractionHandler.configured(self.listActionsPayloadPublisher)
-        }
-        
-        // MARK: Initialization
-        init(documentId: String?, options: Options) {
-            // TODO: Add failable init.
-            let logger = Logging.createLogger(category: .documentViewModel)
-            os_log(.debug, log: logger, "Don't forget to change to failable init?()")
             
-            guard let documentId = documentId else {
-                let logger = Logging.createLogger(category: .documentViewModel)
-                os_log(.debug, log: logger, "Don't pass nil documentId to DocumentViewModel.init()")
-                return
-            }
-            
-            self.setupSubscriptions()
-            self.options = options
-            _ = self.wholePageDetailsViewModel.configured(documentId: documentId)
-            
-            // Publishers
             self.userInteractionHandler.reactionPublisher.sink { [weak self] (value) in
                 self?.process(reaction: value)
             }.store(in: &self.subscriptions)
@@ -229,9 +163,7 @@ extension Namespace {
             self.listUserInteractionHandler.reactionPublisher.sink { [weak self] (value) in
                 self?.process(reaction: value)
             }.store(in: &self.subscriptions)
-                        
-            self.obtainDocument(documentId: documentId)
-                        
+            
             self.$builders.sink { [weak self] value in
                 self?.buildersRows = value.compactMap(Row.init).map({ (value) in
                     var value = value
@@ -239,6 +171,22 @@ extension Namespace {
                 })
                 self?.enhanceUserActionsAndPayloads(value)
             }.store(in: &self.subscriptions)
+        }
+        
+        // MARK: Initialization
+        init(documentId: String?, options: Options) {
+            // TODO: Add failable init.
+            let logger = Logging.createLogger(category: .editorDocumentViewModel)
+            os_log(.debug, log: logger, "Don't forget to change to failable init?()")
+            
+            guard let documentId = documentId else {
+                let logger = Logging.createLogger(category: .editorDocumentViewModel)
+                os_log(.debug, log: logger, "Don't pass nil documentId to DocumentViewModel.init()")
+                return
+            }
+            
+            self.options = options
+            self.setupSubscriptions()
             
             // TODO: Deprecated.
             // We should rename it.
@@ -247,14 +195,8 @@ extension Namespace {
             // Or to our view controller.
             // Maybe it will publish only resulted collection of elements.
             self.anyStylePublisher = self.anyStyleSubject.eraseToAnyPublisher()
-        }
-        
-        /// Update @Published $builders.
-        private func syncBuilders(_ completion: @escaping () -> () = { }) {
-            DispatchQueue.main.async {
-                self.rootModel.flatMap(self.toList(_:)).flatMap(self.update(builders:))
-                completion()
-            }
+            
+            self.obtainDocument(documentId: documentId)
         }
         
         // TODO: Add caching?
@@ -268,72 +210,15 @@ extension Namespace {
                 // We should set all builders, because our collection is empty?
                 self.builders = builders
             }
-//            self.builders = builders
-        }
-        
-        /// Convert tree model to list view model.
-        /// - Parameter model: a tree model that we want to convert.
-        /// - Returns: a list of view models. ( builders )
-        private func toList(_ model: RootModel) -> [BlockViewBuilderProtocol] {
-            guard let rootId = model.rootId, let rootModel = model.blocksContainer.choose(by: rootId) else { return [] }
-            let result = self.flattener.toList(rootModel)
-            // TODO: Add model logging.
-            //            let logger = Logging.createLogger(category: .treeViewModel)
-            //            os_log(.debug, log: logger, "model: %@", model.debugDescription)
-            return result
-        }
-        
-        /// Process blocks list when we receive it from event BlockShow.
-        /// - Parameters:
-        ///   - contextId: an Identifier of context in which we are working. It is equal to documentId.
-        ///   - rootId: an Identifier of root block. It is equal to top-most `Page Identifier`.
-        ///   - models: models is a `List` of Middleware objects ( actually, our model objects ) that we would like to process.
-        private func processBlocks(contextId: String? = nil, rootId: String? = nil, models: [BlocksModelsModule.Parser.PageEvent]) {
-            // create metablock.
-            
-            guard let contextId = contextId, let rootId = rootId else {
-                return
-            }
-            
-            guard let event = models.first else {
-                return
-            }
-            
-            let blocksContainer = self.transformer.transform(event.blocks, rootId: rootId)
-            let parsedDetails = event.details.map(TopLevel.Builder.detailsBuilder.build(information:))
-            let detailsContainer = TopLevel.Builder.detailsBuilder.build(list: parsedDetails)
-            
-            _ = self.userInteractionHandler.configured(documentId: contextId).configured(self)
-            _ = self.listUserInteractionHandler.configured(documentId: contextId)
-            
-            
-            /// Add details models to process.
-            self.rootModel = TopLevel.Builder.build(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
-        }
-        
-        private func internalProcessBlocks(contextId: String? = nil, rootId: String? = nil, models: [BlocksModelsModule.Parser.PageEvent]) {
-            if self.internalState != .ready {
-                self.processBlocks(contextId: contextId, rootId: rootId, models: models)
-                self.internalState = .ready
-            }
-        }
-        
-        private func processMiddlewareEvents(contextId: String, messages: [Anytype_Event.Message]) {
-            /// For now we just assuming that we have only one blockShow.
-            let blockShow = messages.filter({$0.value == .blockShow($0.blockShow)}).first?.blockShow
-            let models = self.eventProcessor.handleBlockShow(events: .init(contextId: contextId, events: messages, ourEvents: []))
-            self.internalProcessBlocks(contextId: contextId, rootId: blockShow?.rootID, models: models)
+            //            self.builders = builders
         }
         
         private func obtainDocument(documentId: String?) {
             guard let documentId = documentId else { return }
             self.internalState = .loading
-            
-            self.debugDocumentId = documentId
-            self.documentId = documentId
-            
+                        
             self.blockActionsService.open.action(contextID: documentId, blockID: documentId)
-//                .print()
+                //                .print()
                 .receive(on: RunLoop.main)
                 .sink(receiveCompletion: { [weak self] (value) in
                     switch value {
@@ -342,133 +227,93 @@ extension Namespace {
                         self?.internalState = .empty
                         self?.error = error.localizedDescription
                     }
-                    }, receiveValue: { [weak self] value in
-                        self?.processMiddlewareEvents(contextId: value.contextID, messages: value.messages)
+                }, receiveValue: { [weak self] value in
+                    self?.handleOpenDocument(value)
                 }).store(in: &self.subscriptions)
+        }
+        
+        private func handleOpenDocument(_ value: ServiceLayerModule.Success) {
+            self.documentViewModel.updatePublisher().sink { [weak self] (value) in
+                /// Process values.
+                DispatchQueue.main.async {
+                    self?.update(builders: value.models)
+                    switch value.updates {
+                    case .general: break
+                    case let .update(value):
+                        /// We should calculate updates correctly.
+                        /// For example, we should remove items if they appear in detetedIds.
+                        /// That means that even if they appear in updatedIds, we still need to remove them.
+                        if !value.updatedIds.isEmpty {
+                            self?.anyStyleSubject.send(value.updatedIds)
+                        }
+                        if !value.deletedIds.isEmpty {
+                            self?.deselect(ids: Set(value.deletedIds))
+                        }
+                    }
+                }
+            }.store(in: &self.subscriptions)
+            self.documentViewModel.open(value)
+            self.configureDetails()
+            self.configureInteractions(self.documentViewModel.documentId)
+        }
+        
+        private func configureInteractions(_ documentId: BlockId?) {
+            guard let documentId = documentId else {
+                let logger = Logging.createLogger(category: .editorDocumentViewModel)
+                os_log(.debug, log: logger, "configureInteractions(_:). DocumentId is not configured.")
+                return
+            }
+            _ = self.userInteractionHandler.configured(documentId: documentId).configured(self)
+            _ = self.listUserInteractionHandler.configured(documentId: documentId)
+        }
+        
+        private func configureDetails() {
+            let detailsViewModels = self.documentViewModel.defaultDetailsViewModels()
+            var dictionary: PageDetailsViewModelsDictionary = [:]
+            /// TODO:
+            /// Refactor when you are ready.
+            /// It is tough stuff.
+            ///
+            if let title = detailsViewModels.first(where: {$0 as? BlocksViewsNamespace.Page.Title.ViewModel != nil}) {
+                dictionary[.title] = title
+            }
+            if let iconEmoji = detailsViewModels.first(where: {$0 as? BlocksViewsNamespace.Page.IconEmoji.ViewModel != nil}) {
+                dictionary[.iconEmoji] = iconEmoji
+            }
+            self.detailsViewModels = dictionary
         }
     }
 }
 
 // MARK: Reactions
-private extension Namespace.ViewModel {
+private extension FileNamespace {
     func process(reaction: UserInteractionHandler.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events
-            self.eventProcessor.handle(events: events)
+            self.documentViewModel.handle(events: events)
             
-        default:
-            return
+        default: return
         }
     }
     func process(reaction: ListUserInteractionHandler.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events
-            self.eventProcessor.handle(events: events)            
+            self.documentViewModel.handle(events: events)
         }
-    }
-}
-
-// MARK: - PageDetails
-private extension Namespace.ViewModel {
-    func configurePageDetails(for rootModel: RootModel?) {
-        guard let model = rootModel else { return }
-        // TODO: Revert back when you are ready.
-        guard let rootId = model.rootId, let ourModel = model.detailsContainer.choose(by: rootId) else { return }
-        
-        let detailsPublisher = ourModel.didChangeInformationPublisher()
-        self.wholePageDetailsViewModel.configured(publisher: detailsPublisher)
-
-        /// take rootViewModel and configure pageDetails from this model.
-        /// use special flattener for this.
-        /// extract details and try to build view model for each detail.
-
-        /// Do not delete this code.
-        /// We may need it later when we determine what details are.
-        //            let information = value.information
-        //            let converter = BlockModels.Block.Information.DetailsAsBlockConverter(information: value.information)
-        //            let blocks = information.details.toList().map(converter.callAsFunction(_:))
-
-        /// sort details if you want, but for now we only have one detail: title.
-        ///
-
-        /// And create correct viewModels.
-        ///
-
-        // TODO: Refactor later.
-        let blockModel = ourModel.detailsModel
-        let information = blockModel.details
-        
-        let details = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor(value: information)        
-        
-        let title = details.title
-        let emoji = details.iconEmoji
-        
-        /// Title Model
-        let titleBlock = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.title(title ?? .init(value: "")))
-
-        /// Emoji Model
-        let emojiBlock = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconEmoji(emoji ?? .init(value: "")))
-
-        /// Add entries to model.
-        /// Well, it is cool that we store our details of page into one scope with all children.
-        ///
-        model.blocksContainer.add(titleBlock)
-        model.blocksContainer.add(emojiBlock)
-
-        if let titleModel = model.blocksContainer.choose(by: titleBlock.information.id), let emojiModel = model.blocksContainer.choose(by: emojiBlock.information.id) {
-            let titleBlockModel = BlocksViewsNamespace.Page.Title.ViewModel.init(titleModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
-
-            let emojiBlockModel = BlocksViewsNamespace.Page.IconEmoji.ViewModel.init(emojiModel).configured(pageDetailsViewModel: self.wholePageDetailsViewModel)
-
-
-            // Now we have correct blockViewModels
-
-            self.pageDetailsViewModels = [
-                .title : titleBlockModel,
-                .iconEmoji : emojiBlockModel
-            ]
-
-            self.wholePageDetailsViewModel.receive(details: information)
-            // Send event that we are ready.
-        }
-    }
-}
-
-// MARK: - Cleanup
-extension Namespace.ViewModel {
-    func close() {
-        self.closePage()
-    }
-}
-
-private extension Namespace.ViewModel {
-    func closePage() {
-        self.cleanupSubscriptions()
-        let documentId = self.documentId
-        _ = ServiceLayerModule.Single.BlockActionsService.Close().action(contextID: documentId, blockID: documentId)
-    }
-    
-    func cleanupSubscriptions() {
-        self.subscriptions.cancelAll()
     }
 }
 
 // MARK: - On Tap Gesture
-extension Namespace.ViewModel {
+extension FileNamespace {
     func handlingTapIfEmpty() {
-        var model: BlockActiveRecordModelProtocol?
-        if let rootId = self.rootModel?.rootId, let blockModel = self.rootModel?.blocksContainer.choose(by: rootId) {
-            model = blockModel
-        }
-        self.userInteractionHandler.createEmptyBlock(listIsEmpty: self.state == .empty, parentModel: model)
+        self.userInteractionHandler.createEmptyBlock(listIsEmpty: self.state == .empty, parentModel: self.documentViewModel.getRootActiveModel())
     }
 }
 
 // MARK: didSelectItem
-extension Namespace.ViewModel {
-    
+extension FileNamespace {
     func didSelectBlock(at index: IndexPath) {
         // dispatch event
         
@@ -485,7 +330,7 @@ extension Namespace.ViewModel {
 }
 
 // MARK: Selection Handling
-private extension Namespace.ViewModel {
+private extension FileNamespace {
     func process(actionsPayload: BlocksViewsNamespace.Base.ViewModel.ActionsPayload) {
         switch actionsPayload {
         case let .textView(value):
@@ -505,7 +350,7 @@ private extension Namespace.ViewModel {
             self.set(selected: newValue, id: key)
             // TODO: We should subscribe on updates in our cells and update them.
             /// For now we use `reloadData`
-//            self.syncBuilders()
+            //            self.syncBuilders()
         }
     }
     func process(_ value: EditorModule.Selection.ToolbarPresenter.SelectionAction) {
@@ -514,16 +359,10 @@ private extension Namespace.ViewModel {
             switch value {
             case let .selectAll(value):
                 switch value {
-                case .selectAll:
-                    self.selectAll()
-//                    self.syncBuilders()
-                case .deselectAll:
-                    self.deselectAll()
-//                    self.syncBuilders()
+                case .selectAll: self.selectAll()
+                case .deselectAll: self.deselectAll()
                 }
-            case .done(.done):
-                self.set(selectionEnabled: false)
-//                self.syncBuilders()
+            case .done(.done): self.set(selectionEnabled: false)
             }
         case let .toolbar(value):
             let selectedIds = self.list()
@@ -540,7 +379,7 @@ private extension Namespace.ViewModel {
     }
 }
 
-extension Namespace.ViewModel {
+extension FileNamespace {
     enum ActionsPayload {
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ListModel = [BlockId]
@@ -555,7 +394,7 @@ extension Namespace.ViewModel {
     }
 }
 
-extension Namespace.ViewModel {
+extension FileNamespace {
     func configured(multiSelectionUserActionPublisher: AnyPublisher<EditorModule.Selection.ToolbarPresenter.SelectionAction, Never>) -> Self {
         multiSelectionUserActionPublisher.sink { [weak self] (value) in
             self?.process(value)
@@ -569,9 +408,9 @@ extension Namespace.ViewModel {
 }
 
 // MARK: Debug
-extension Namespace.ViewModel: CustomDebugStringConvertible {
+extension FileNamespace: CustomDebugStringConvertible {
     var debugDescription: String {
-        "\(String(reflecting: Self.self)) -> \(self.debugDocumentId)"
+        "\(String(reflecting: Self.self)) -> \(String(describing: self.documentViewModel.documentId))"
     }
 }
 
@@ -582,7 +421,7 @@ extension Namespace.ViewModel: CustomDebugStringConvertible {
 ///
 /// 1. We have one Subject that we give to all ViewModels.
 ///
-extension Namespace.ViewModel {
+extension FileNamespace {
     func enhanceUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
         let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
         ourViewModels.forEach { (value) in

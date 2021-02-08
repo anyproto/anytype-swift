@@ -21,7 +21,8 @@ protocol NewModel_SmartBlockActionsServiceProtocolCreatePage {
 /// Protocol for set details action.
 /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
 protocol NewModel_SmartBlockActionsServiceProtocolSetDetails {
-    func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Void, Error>
+    associatedtype Success
+    func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Success, Error>
 }
 
 /// Protocol for convert children to page action.
@@ -72,8 +73,8 @@ extension Namespace.SmartBlockActionsService {
 // MARK: - SmartBlockActionsService / SetDetails
 extension Namespace.SmartBlockActionsService {
     struct SetDetails: NewModel_SmartBlockActionsServiceProtocolSetDetails {
-        func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Void, Error> {
-            Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
 }

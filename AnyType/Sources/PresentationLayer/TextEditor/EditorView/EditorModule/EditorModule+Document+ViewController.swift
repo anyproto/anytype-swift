@@ -185,7 +185,7 @@ extension Namespace.ViewController {
     private func process(event: Namespace.ViewController.ViewModel.UserEvent) {
         switch event {
         case .pageDetailsViewModelsDidSet:
-            let viewModels = self.viewModel.pageDetailsViewModels.filter({[.iconEmoji, .title].contains($0.key)})
+            let viewModels = self.viewModel.detailsViewModels.filter({[.iconEmoji, .title].contains($0.key)})
                 .map({$0})
                 .reordered(by: [.iconEmoji, .title], findInCollection: { (value, collection) in
                     collection.firstIndex(of: value.key)
@@ -495,7 +495,7 @@ private extension Namespace.ViewController {
     func scrollAndFocusOnFocusedBlock() {
         guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot()
-        let userSession = self.viewModel.rootModel?.blocksContainer.userSession
+        let userSession = self.viewModel.documentViewModel.getUserSession()
         let id = userSession?.firstResponder()
         let focusedAt = userSession?.focusAt()
         print("id: \(String(describing: id)) focusedAt: \(String(describing: focusedAt))")
@@ -528,7 +528,7 @@ private extension Namespace.ViewController {
         guard !self.viewModel.selectionEnabled() else { return }
         guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot()
-        let userSession = self.viewModel.rootModel?.blocksContainer.userSession
+        let userSession = self.viewModel.documentViewModel.getUserSession()
         let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
         /// Since we are working only with one section, we could safely iterate over array of items.
         let index = indexPath.row

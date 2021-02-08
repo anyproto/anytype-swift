@@ -134,27 +134,22 @@ extension HomeCollectionViewModel {
             let model: HomeCollectionViewDocumentCellModel
             let detailsModel = value.getDetailsViewModel()
 
-            if let details = detailsModel.currentDetails {
-                let acccessor = DetailsAccessor.init(value: details)
-                let rootId = value.getBlock().container?.rootId ?? ""
-                let targetBlockId: String
-                if case let .link(link) = value.getBlock().blockModel.information.content {
-                    targetBlockId = link.targetBlockID
-                }
-                else {
-                    targetBlockId = ""
-                }
-                model = .init(page: .init(rootId: "", id: value.blockId, targetBlockId: targetBlockId), title: acccessor.title?.value ?? "", image: nil, emoji: acccessor.iconEmoji?.value)
+            let details = detailsModel.currentDetails
+            let detailsAcccessor = DetailsAccessor.init(value: details)
+            let targetBlockId: String
+            if case let .link(link) = value.getBlock().blockModel.information.content {
+                targetBlockId = link.targetBlockID
             }
             else {
-                model = .init(page: .init(rootId: "", id: value.blockId, targetBlockId: ""), title: "", image: nil, emoji: nil)
+                targetBlockId = ""
             }
+            model = .init(page: .init(id: value.blockId, targetBlockId: targetBlockId), title: detailsAcccessor.title?.value ?? "", image: nil, emoji: detailsAcccessor.iconEmoji?.value)
 
-            let accessor = detailsModel.wholeDetailsPublisher.map(DetailsAccessor.init)
+            let accessorPublisher = detailsModel.wholeDetailsPublisher.map(DetailsAccessor.init)
             
-            let title = accessor.map(\.title).map({$0?.value}).eraseToAnyPublisher()
-            let emoji = accessor.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
-            let iconImage = accessor.map(\.iconImage).map({$0?.value}).eraseToAnyPublisher()
+            let title = accessorPublisher.map(\.title).map({$0?.value}).eraseToAnyPublisher()
+            let emoji = accessorPublisher.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
+            let iconImage = accessorPublisher.map(\.iconImage).map({$0?.value}).eraseToAnyPublisher()
                         
             model.configured(titlePublisher: title)
             model.configured(emojiImagePublisher: emoji)

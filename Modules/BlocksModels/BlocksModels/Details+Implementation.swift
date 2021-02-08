@@ -118,6 +118,17 @@ extension Details.DetailsModel: DetailsModelProtocol {
             self._details
         }
         set {
+            /// TODO:
+            /// Refactor later.
+            ///
+            /// Check if parent ids are not equal.
+            /// If so, take parent id and set it to new value.
+            ///
+            
+            var newValue = newValue
+            if self._details.parentId != newValue.parentId {
+                newValue.parentId = self._details.parentId
+            }
             self._details = newValue
         }
     }

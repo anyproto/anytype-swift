@@ -105,7 +105,7 @@ extension FileNamespace {
 // MARK: - Setup Subscriptions
 extension FileNamespace {
     func setupSubscriptions() {
-        let publisher = self.documentViewModel.defaultDetailsAccessor()
+        let publisher = self.documentViewModel.defaultDetailsAccessorPublisher()
         
         publisher.map(\.title).map({$0?.value}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.accountName = value

@@ -16,10 +16,9 @@ fileprivate typealias Namespace = HomeStoriesModule
 
 extension HomeCollectionViewDocumentCellModel {
     struct DashboardPage: Hashable {
-        var rootId: String
         var id: String
         var targetBlockId: String
-        static var empty: Self = .init(rootId: "", id: "", targetBlockId: "")
+        static var empty: Self = .init(id: "", targetBlockId: "")
     }
 }
 

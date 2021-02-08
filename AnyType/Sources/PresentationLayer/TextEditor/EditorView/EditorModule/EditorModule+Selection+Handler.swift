@@ -220,16 +220,14 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
 extension EditorModule.Document.ViewController.ViewModel: EditorModuleSelectionHandlerHolderProtocol {
     func selectAll() {
         /// take all ids
-        guard let model = self.rootModel, let rootId = model.rootId else {
+        guard let model = self.documentViewModel.getRootActiveModel() else {
             return
         }
         
         /// TODO: Find all childrenIds.
         /// But for now it is ok.
         /// Let's iterate over them later.
-        guard let childrenIds = model.blocksContainer.choose(by: rootId)?.childrenIds() else {
-            return
-        }
+        let childrenIds = model.childrenIds()
         
         self.select(ids: .init(childrenIds))
     }

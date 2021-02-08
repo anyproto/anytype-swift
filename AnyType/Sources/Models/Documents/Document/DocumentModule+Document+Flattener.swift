@@ -100,7 +100,14 @@ extension Namespace {
         ///   - options: Options for flattening strategies.
         /// - Returns: A list of active models.
         static func flatten(root model: ActiveModel, in container: Container, options: Options) -> [ActiveModel] {
-            if options.shouldIncludeRootNode {
+            /// TODO: Fix it.
+            /// Because `ShouldKeep` template method will flush out all unnecessary blocks from list.
+            /// There is no need to skip first block ( or parent block ) if it is already skipped by `ShouldKeep`.
+            ///
+            /// But for any other parent block it will work properly.
+            ///
+            let rootItemIsAlreadySkipped = !self.shouldKeep(item: model.blockModel.information.id, in: container)
+            if options.shouldIncludeRootNode || rootItemIsAlreadySkipped {
                 return self.flatten(root: model, in: container)
             }
             else {

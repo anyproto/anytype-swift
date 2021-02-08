@@ -11,6 +11,7 @@ import Foundation
 fileprivate typealias Namespace = BlocksViews.Supplement.ViewModelsConvertions
 fileprivate typealias FileNamespace = BlocksViews.Supplement.ViewModelsConvertions.BaseConverter
 fileprivate typealias ViewModels = BlocksViews.New
+
 extension Namespace {
     class BaseConverter {
         fileprivate let document: DocumentModule.Document.BaseDocument

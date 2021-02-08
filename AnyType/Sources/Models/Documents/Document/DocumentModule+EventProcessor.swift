@@ -170,13 +170,12 @@ private extension FileNamespace.EventHandler {
 
 // MARK: Update
 extension FileNamespace.EventHandler {
-    enum Update {
+    enum Update: Equatable {
         struct Payload: Hashable {
             var addedIds: [BlockId] = []
             var deletedIds: [BlockId] = []
             var updatedIds: [BlockId] = []
             static var empty: Self = .init()
-            fileprivate static func noUpdates() -> Self { .empty }
         }
         case general
         fileprivate static var specialAfterBlockShow: Self = .general
@@ -250,7 +249,7 @@ private extension FileNamespace.EventHandler {
                 default: break
                 }
             })
-            return .update(.init(deletedIds: [], updatedIds: [blockId]))
+            return .update(.init(updatedIds: [blockId]))
         
         case let .blockSetBackgroundColor(value):
             let blockId = value.id
@@ -260,7 +259,7 @@ private extension FileNamespace.EventHandler {
                 var value = value
                 value.information.backgroundColor = backgroundColor
             })
-            return .update(.noUpdates())
+            return .update(.empty)
             
         case let .blockSetAlign(value):
             let blockId = value.id
@@ -275,7 +274,7 @@ private extension FileNamespace.EventHandler {
                 var value = value
                 value.information.alignment = modelAlignment
             })
-            return .update(.init(deletedIds: [], updatedIds: [blockId]))
+            return .update(.init(updatedIds: [blockId]))
         
         case let .blockSetDetails(value):
             guard value.hasDetails else {
@@ -289,7 +288,9 @@ private extension FileNamespace.EventHandler {
             
             if let detailsModel = self.container?.detailsContainer.choose(by: detailsId) {
                 var model = detailsModel.detailsModel
-                model.details = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+                var resultDetails = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+                resultDetails.parentId = detailsId
+                model.details = resultDetails
             }
             else {
                 var newDetailsModel = TopLevel.Builder.detailsBuilder.build(information: detailsInformationModel)
@@ -305,7 +306,7 @@ private extension FileNamespace.EventHandler {
 //                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
 //                return .general
 //            }
-            return .update(.noUpdates()) // or .general
+            return .update(.empty) // or .general
         case let .blockSetFile(value):
             guard value.hasState else {
                 return .general
@@ -351,7 +352,7 @@ private extension FileNamespace.EventHandler {
                 default: return
                 }
             })
-            return .update(.init(deletedIds: [], updatedIds: [blockId]))
+            return .update(.init(updatedIds: [blockId]))
         case let .blockSetBookmark(value):
             
             let blockId = value.id
@@ -394,7 +395,7 @@ private extension FileNamespace.EventHandler {
                 default: return
                 }
             })
-            return .update(.init(deletedIds: [], updatedIds: [blockId]))
+            return .update(.init(updatedIds: [blockId]))
             
         case let .blockSetDiv(value):
             guard value.hasStyle else {
