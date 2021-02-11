@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import Combine
 import os
-import SwiftProtobuf
 import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.Supplement.UserInteractionHandler

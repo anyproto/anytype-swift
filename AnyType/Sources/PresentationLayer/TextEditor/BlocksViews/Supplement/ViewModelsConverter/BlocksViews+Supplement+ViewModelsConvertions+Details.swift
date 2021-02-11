@@ -19,7 +19,6 @@ extension Namespace {
 
 extension FileNamespace {
     class BaseConverter {
-        typealias DetailsContent = TopLevel.AliasesMap.DetailsContent
         fileprivate let document: DocumentModule.Document.BaseDocument
         func convert(_ model: DocumentModule.Document.BaseDocument.ActiveModel, kind: DocumentModule.Document.BaseDocument.DetailsContentKind) -> BlocksViews.New.Page.Base.ViewModel? {
             switch kind {

@@ -416,13 +416,13 @@ private extension Namespace.ViewModel {
 //        }
     }
     
-    func apply(alignment: NSTextAlignment) -> AnyPublisher<Never, Error>? {
+    func apply(alignment: NSTextAlignment) -> AnyPublisher<Void, Error>? {
         self.setModelData(alignment: alignment)
         let block = self.getBlock()
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
         return self.service.setAlignment.action(contextID: contextID, blockIds: [self.blockId], alignment: alignment)
     }
-    func apply(attributedText: NSAttributedString, shouldStoreInModel: Bool = false) -> AnyPublisher<Never, Error>? {
+    func apply(attributedText: NSAttributedString, shouldStoreInModel: Bool = false) -> AnyPublisher<Void, Error>? {
         /// Do we need to update model?
         /// It will be updated on every blockShow event. ( BlockOpen command ).
         ///

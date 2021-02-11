@@ -20,8 +20,8 @@ fileprivate typealias Namespace = ServiceLayerModule.Text
 /// Later, TextView update NSAttributedString and send updates back.
 ///
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
-    func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Never, Error>
-    func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Never, Error>
+    func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
+//    func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Void, Error>
 }
 
 /// Protocol for `SetStyle` for text block.
@@ -49,15 +49,15 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
 /// It is essential for us to use `high-level` color.
 /// In that way we are distancing from low-level API and low-level colors.
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
-    func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Never, Error>
-    func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Never, Error>
+    func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Void, Error>
+    func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error>
 }
 
 /// Protocol for `SetAlignment` for text block. Actually, not only for text block.
 /// When you would like to set alignment of a block ( text block or not text block ), you should call method of this protocol.
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
-    func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Never, Error>
-    func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Never, Error>
+    func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Void, Error>
+    func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Void, Error>
 }
 
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
@@ -103,15 +103,15 @@ extension Namespace.BlockActionsService {
     typealias Success = ServiceLayerModule.Success
     // MARK: SetText
     struct SetText: ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
-        func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Never, Error> {
+        func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error> {
             // convert attributed string to marks here?
             let result = BlocksModelsModule.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
             return action(contextID: contextID, blockID: blockID, text: result.text, marks: result.marks)
         }
-        func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Never, Error> {
+        private func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Void, Error> {
             
             /// TODO: Add private queue, don't use global queue.
-            Anytype_Rpc.Block.Set.Text.Text.Service.invoke(contextID: contextID, blockID: blockID, text: text, marks: marks, queue: .global()).ignoreOutput().subscribe(on: DispatchQueue.global())
+            Anytype_Rpc.Block.Set.Text.Text.Service.invoke(contextID: contextID, blockID: blockID, text: text, marks: marks, queue: .global()).successToVoid().subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
     }
@@ -126,21 +126,21 @@ extension Namespace.BlockActionsService {
     
     // MARK: SetForegroundColor
     struct SetForegroundColor: ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
-        func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Never, Error> {
+        func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Void, Error> {
             // convert color to String?
             let result = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false)
             return action(contextID: contextID, blockID: blockID, color: result)
         }
-        func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Never, Error> {
+        func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error> {
             Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextID, blockID: blockID, color: color)
-                .ignoreOutput().subscribe(on: DispatchQueue.global())
+                .successToVoid().subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
         }
     }
     
     // MARK: SetAlignment
     struct SetAlignment: ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
-        func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Never, Error> {
+        func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Void, Error> {
             let ourAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
             let middlewareAlignment = ourAlignment.flatMap(BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware)
             
@@ -149,8 +149,8 @@ extension Namespace.BlockActionsService {
             }
             return .empty()
         }
-        func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Never, Error> {
-            Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).ignoreOutput().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Void, Error> {
+            Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
     

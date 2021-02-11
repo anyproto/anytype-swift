@@ -39,7 +39,7 @@ extension Namespace {
         private var subscription: AnyCancellable?
         
         private let service: Service = .init(documentId: "")
-
+        
         private var reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
         var reactionPublisher: AnyPublisher<Reaction, Never> = .empty()
         
@@ -59,7 +59,7 @@ extension Namespace {
 /// MARK: Search
 extension Namespace.UserInteractionHandler {
     func model(beforeModel: Model, includeParent: Bool) -> Model? {
-//        TopLevel.AliasesMap.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
+        //        TopLevel.AliasesMap.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
         self.indexWalker?.renew()
         return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
@@ -204,10 +204,10 @@ private extension Namespace.UserInteractionHandler {
         case let .toggle(.toggled(value)):
             var block = block
             block.isToggled = value
-            /// TODO:
-            /// Configure event and send it.
-            /// And send event that we need to recalculate all blocks below.
-            /// Maybe it is "Toggle" event?
+        /// TODO:
+        /// Configure event and send it.
+        /// And send event that we need to recalculate all blocks below.
+        /// Maybe it is "Toggle" event?
         case .toggle(.insertFirst):
             if let defaultBlock = BlockBuilder.createDefaultInformation(block: block) {
                 self.service.addChild(childBlock: defaultBlock, parentBlockId: block.blockModel.information.id)
@@ -252,7 +252,7 @@ private extension Namespace.UserInteractionHandler {
                             self.service.add(newBlock: information, afterBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
                         }
                     }
-
+                    
                 default: return
                 }
                 return
@@ -268,7 +268,7 @@ private extension Namespace.UserInteractionHandler {
                         self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
                     }
                 }
-
+                
             case let .enterAtBeginning(payload): // we should assure ourselves about type of block.
                 /// TODO: Fix it in TextView API.
                 /// If payload is empty, so, handle it as .enter ( or .enter at the end )
@@ -284,7 +284,7 @@ private extension Namespace.UserInteractionHandler {
                         self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
                     }
                 }
-
+                
             case .enter:
                 // BUSINESS LOGIC:
                 // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
@@ -299,10 +299,10 @@ private extension Namespace.UserInteractionHandler {
                     if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: "") {
                         /// TODO:
                         /// Uncomment when you are ready.
-//                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
+                        //                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
                         let logger = Logging.createLogger(category: .todo(.remove("Remove after refactoring of set focus.")))
                         os_log(.debug, log: logger, "We should not use self.service.split here. Instead, we should self.service.add block. It is possible to swap them only after set focus total cleanup. Redo it.")
-
+                        
                         switch block.blockModel.information.content {
                         case let .text(payload): let oldText = payload.attributedText.string
                             self.service.split(block: block.blockModel.information, oldText: oldText, shouldSetFocusOnUpdate: true)
@@ -311,7 +311,7 @@ private extension Namespace.UserInteractionHandler {
                         
                     }
                 }
-
+                
             case .deleteWithPayload(_):
                 // TODO: Add Index Walker
                 // Add get previous block
@@ -333,27 +333,27 @@ private extension Namespace.UserInteractionHandler {
                 default: position = .end
                 }
                 
-//                var newAttributedString: NSMutableAttributedString?
-//                switch (previousModel.blockModel.information.content, block.blockModel.information.content) {
-//                case let (.text(lhs), .text(rhs)):
-//                    let left = lhs.attributedText
-//                    newAttributedString = .init(attributedString: left)
-//                    let right = rhs.attributedText
-//                    newAttributedString?.append(right)
-//                default: break
-//                }
+                //                var newAttributedString: NSMutableAttributedString?
+                //                switch (previousModel.blockModel.information.content, block.blockModel.information.content) {
+                //                case let (.text(lhs), .text(rhs)):
+                //                    let left = lhs.attributedText
+                //                    newAttributedString = .init(attributedString: left)
+                //                    let right = rhs.attributedText
+                //                    newAttributedString?.append(right)
+                //                default: break
+                //                }
                 
-//                let attributedString = newAttributedString
+                //                let attributedString = newAttributedString
                 
                 self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
                     .init(contextId: value.contextID, events: value.messages, ourEvents: [
-//                        .setText(.init(payload: .init(blockId: previousBlockId, attributedString: attributedString))),
+                        //                        .setText(.init(payload: .init(blockId: previousBlockId, attributedString: attributedString))),
                         .setTextMerge(.init(payload: .init(blockId: previousBlockId))),
                         .setFocus(.init(payload: .init(blockId: previousBlockId, position: position)))
                     ])
                 }
                 break
-
+                
             case .delete:
                 self.service.delete(block: block.blockModel.information) { value in
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
@@ -412,7 +412,7 @@ private extension Namespace.UserInteractionHandler {
                 case .toggle: type = .text(.init(contentType: .toggle))
                 }
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
-
+                
             case let .other(value): // Change divider style.
                 let type: Service.BlockContent
                 switch value {
@@ -453,14 +453,14 @@ private extension Namespace.UserInteractionHandler {
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias Content = TopLevel.AliasesMap.BlockContent
         typealias Information = BlockInformationModelProtocol
-    
+        
         typealias Builder = TopLevel.Builder
         
         typealias KeyboardAction = ActionsPayloadTextViewTextView.KeyboardAction
         typealias ToolbarAction = ActionsPayloadToolbar
         
         static func newBlockId() -> BlockId { "" }
-
+        
         static func createInformation(block: Model, action: KeyboardAction, textPayload: String) -> Information? {
             switch block.blockModel.information.content {
             case .text:
@@ -468,14 +468,14 @@ private extension Namespace.UserInteractionHandler {
             default: return nil
             }
         }
-            
+        
         static func createInformation(block: Model, action: ToolbarAction, textPayload: String = "") -> Information? {
             switch action {
             case .addBlock: return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Builder.blockBuilder.informationBuilder.build)
             default: return nil
             }
         }
-                
+        
         static func createDefaultInformation(block: Model? = nil) -> Information? {
             guard let block = block else {
                 return Builder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
@@ -504,7 +504,7 @@ private extension Namespace.UserInteractionHandler {
             default: return nil
             }
         }
-                
+        
         static func createContentType(block: Model, action: ToolbarAction, textPayload: String = "") -> Content? {
             switch action {
             case let .addBlock(blockType):
@@ -556,7 +556,7 @@ private extension Namespace.UserInteractionHandler {
         typealias Information = BlockInformationModelProtocol
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias Conversion = (ServiceLayerModule.Success) -> (EventListening.PackOfEvents)
-            
+        
         struct Converter {
             struct Default {
                 func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
@@ -668,7 +668,7 @@ private extension Namespace.UserInteractionHandler {
                 }
             }
         }
-
+        
         private var documentId: String
         
         private let parser: BlocksModelsModule.Parser = .init()
@@ -704,12 +704,12 @@ private extension Namespace.UserInteractionHandler {
 // MARK: ServiceHandler / Actions / Add / Private
 private extension Namespace.UserInteractionHandler.Service {
     func _add(newBlock: Information, afterBlockId: BlockId, position: Anytype_Model_Block.Position = .bottom, _ completion: @escaping Conversion) {
-
+        
         // insert block after block
         // we could catch events and update model.
         // or we could just update model after sending event.
         // for now we just update model on success.
-
+        
         // Shit Swift
         guard let addedBlock = self.parser.convert(information: newBlock) else {
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
@@ -717,9 +717,9 @@ private extension Namespace.UserInteractionHandler.Service {
             os_log(.error, log: logger, "addedBlock: %@ is nil? ", "\(String(describing: addedBlock))")
             return
         }
-
+        
         let targetId = afterBlockId
-
+        
         self.service.add.action(contextID: self.documentId, targetID: targetId, block: addedBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
@@ -732,22 +732,22 @@ private extension Namespace.UserInteractionHandler.Service {
             self?.didReceiveEvent(value)
         }.store(in: &self.subscriptions)
     }
-
-
+    
+    
     func _split(block: Information, oldText: String, _ completion: @escaping Conversion) {
         let improve = Logging.createLogger(category: .todo(.improve("Markup")))
         os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
-
+        
         guard let splittedBlockInformation = self.parser.convert(information: block) else {
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             let splittedBlock = self.parser.convert(information: block)
             os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: splittedBlock))")
             return
         }
-
+        
         // We are using old text as a cursor position.
         let position = oldText.count
-
+        
         let content = splittedBlockInformation.content
         guard case let .text(type) = content else {
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
@@ -756,7 +756,7 @@ private extension Namespace.UserInteractionHandler.Service {
         }
         
         let range: NSRange = .init(location: position, length: 0)
-
+        
         self.textService.split.action(contextID: self.documentId, blockID: splittedBlockInformation.id, range: range, style: type.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
@@ -773,17 +773,17 @@ private extension Namespace.UserInteractionHandler.Service {
     func _setTextAndSplit(block: Information, oldText: String, _ completion: @escaping Conversion) {
         let improve = Logging.createLogger(category: .todo(.improve("Markup")))
         os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
-
+        
         guard let splittedBlockInformation = self.parser.convert(information: block) else {
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             let splittedBlock = self.parser.convert(information: block)
             os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: splittedBlock))")
             return
         }
-
+        
         // We are using old text as a cursor position.
         let position = oldText.count
-
+        
         let content = splittedBlockInformation.content
         guard case let .text(type) = content else {
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
@@ -796,32 +796,24 @@ private extension Namespace.UserInteractionHandler.Service {
         }
         
         let range: NSRange = .init(location: position, length: 0)
-
+        
         let documentId = self.documentId
-        self.textService.setText.action(contextID: documentId, blockID: splittedBlockInformation.id, attributedString: blockContent.attributedText).handleEvents(receiveCompletion: { [weak self] (value) in
+        
+        self.textService.setText.action(contextID: documentId, blockID: splittedBlockInformation.id, attributedString: blockContent.attributedText).flatMap({ [weak self] value in
+            self?.textService.split.action(contextID: documentId, blockID: splittedBlockInformation.id, range: range, style: type.style) ?? .empty()
+        }).sink { (value) in
             switch value {
-            /// TODO: Fix it.
-            /// Bad style.
-            /// We need `.andThen` operator from Rx libraries family and call first and then second operator.
-            case .finished: _ = self?.textService.split.action(contextID: documentId, blockID: splittedBlockInformation.id, range: range, style: type.style).receive(on: RunLoop.main).eraseToAnyPublisher().sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "blocksActions.service.setTextAndSplit(split) without payload got error: %@", "\(error)")
-                }
-            }, receiveValue: { [weak self] (value) in
-                let value = completion(value)
-                var theValue = value
-                theValue.ourEvents = [.setTextMerge(.init(payload: .init(blockId: splittedBlockInformation.id)))] + theValue.ourEvents
-                self?.didReceiveEvent(theValue)
-            })
-
+            case .finished: return
             case let .failure(error):
                 let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.setTextAndSplit(setText) without payload got error: %@", "\(error)")
+                os_log(.error, log: logger, "blocksActions.service.setTextAndSplit got error: %@", "\(error)")
             }
-        }).sink(receiveCompletion: { _ in }, receiveValue: { _ in }).store(in: &self.subscriptions)
+        } receiveValue: { [weak self] (value) in
+            let value = completion(value)
+            var theValue = value
+            theValue.ourEvents = [.setTextMerge(.init(payload: .init(blockId: splittedBlockInformation.id)))] + theValue.ourEvents
+            self?.didReceiveEvent(theValue)
+        }.store(in: &self.subscriptions)        
     }
 }
 
@@ -841,7 +833,7 @@ private extension Namespace.UserInteractionHandler.Service {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Split.convert : Converter.Default.convert
         _setTextAndSplit(block: block, oldText: oldText, conversion)
     }
-        
+    
     func duplicate(block: Information) {
         let targetId = block.id
         let blockIds: [String] = [targetId]
@@ -859,10 +851,10 @@ private extension Namespace.UserInteractionHandler.Service {
     }
     
     func createPage(afterBlock: Information, position: Anytype_Model_Block.Position = .bottom) {
-
+        
         let targetId = ""
         let details: Google_Protobuf_Struct = .init()
-
+        
         self.pageService.createPage.action(contextID: self.documentId, targetID: targetId, details: details, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return // move to this page
@@ -886,7 +878,7 @@ private extension Namespace.UserInteractionHandler.Service {
             os_log(.error, log: logger, "deletedBlock: %@ is nil? ", "\(String(describing: deletedBlock))")
             return
         }
-
+        
         self.service.delete.action(contextID: self.documentId, blockIds: [deletedBlock.id]).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
@@ -906,17 +898,17 @@ private extension Namespace.UserInteractionHandler.Service {
     func delete(block: Information, completion: @escaping Conversion) {
         _delete(block: block, completion)
     }
-
+    
     func merge(firstBlock: Information, secondBlock: Information, _ completion: @escaping Conversion = Converter.Default.convert) {
         let firstInformation = self.parser.convert(information: firstBlock)
         let secondInformation = self.parser.convert(information: secondBlock)
-
+        
         guard let firstBlockId = firstInformation?.id, let secondBlockId = secondInformation?.id else {
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             os_log(.error, log: logger, "firstBlock: %@ or secondBlock: %@ are nil? ", "\(String(describing: firstInformation))", "\(String(describing: secondInformation))")
             return
         }
-
+        
         self.textService.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { value in
             switch value {
             case .finished: return
@@ -1076,7 +1068,7 @@ private extension Namespace.UserInteractionHandler.Service {
         let blockIds = [blockId]
         
         let backgroundColor = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: true)
-
+        
         self.listService.setBackgroundColor.action(contextID: self.documentId, blockIds: blockIds, color: backgroundColor).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return

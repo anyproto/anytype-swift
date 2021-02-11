@@ -32,6 +32,9 @@ extension Namespace {
         
         /// TODO:
         /// Add DI later.
+        /// Or remove service from this model completely.
+        /// We could use events/actions and send them directly to `user interaction handler`, which will send result to `event handler`.
+        ///
         private var service: ServiceLayerModule.SmartBlockActionsService = .init()
         
         // MARK: Publishers

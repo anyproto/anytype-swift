@@ -18,7 +18,7 @@ protocol ServiceLayerModule_BlockActionsServiceSingleProtocolOpen {
 }
 
 protocol ServiceLayerModule_BlockActionsServiceSingleProtocolClose {
-    func action(contextID: String, blockID: String) -> AnyPublisher<Never, Error>
+    func action(contextID: String, blockID: String) -> AnyPublisher<Void, Error>
 }
 
 protocol ServiceLayerModule_BlockActionsServiceSingleProtocolAdd {
@@ -84,8 +84,8 @@ extension Namespace.BlockActionsService {
     }
     
     struct Close: ServiceLayerModule_BlockActionsServiceSingleProtocolClose {
-        func action(contextID: String, blockID: String) -> AnyPublisher<Never, Error> {
-            Anytype_Rpc.Block.Close.Service.invoke(contextID: contextID, blockID: blockID).ignoreOutput().subscribe(on: DispatchQueue.global())
+        func action(contextID: String, blockID: String) -> AnyPublisher<Void, Error> {
+            Anytype_Rpc.Block.Close.Service.invoke(contextID: contextID, blockID: blockID).successToVoid().subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }
