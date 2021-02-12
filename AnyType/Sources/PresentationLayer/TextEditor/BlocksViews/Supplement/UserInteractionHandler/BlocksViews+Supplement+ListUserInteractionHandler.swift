@@ -9,10 +9,10 @@
 import Foundation
 import Combine
 import os
-import SwiftProtobuf
 import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.Supplement
+fileprivate typealias FileNamespace = Namespace.ListUserInteractionHandler
 
 private extension Logging.Categories {
     static let textEditorListUserInteractorHandler: Self = "TextEditor.ListUserInteractionHandler"
@@ -22,13 +22,13 @@ extension Namespace {
     class ListUserInteractionHandler {
         typealias ActionsPayload = EditorModule.Document.ViewController.ViewModel.ActionsPayload
         typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
-                
+        
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ListModel = [BlockId]
         
         private var documentId: String = ""
         private var subscription: AnyCancellable?
-                
+        
         private let service: Service = .init(documentId: "")
         
         private var reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
@@ -47,7 +47,7 @@ extension Namespace {
     }
 }
 
-extension Namespace.ListUserInteractionHandler {
+extension FileNamespace {
     enum Reaction {
         struct ShouldHandleEvent {
             var payload: Payload
@@ -61,7 +61,7 @@ extension Namespace.ListUserInteractionHandler {
 }
 
 // MARK: Configuration
-extension Namespace.ListUserInteractionHandler {
+extension FileNamespace {
     func configured(documentId: String) -> Self {
         self.documentId = documentId
         _ = self.service.configured(documentId: documentId)
@@ -77,7 +77,7 @@ extension Namespace.ListUserInteractionHandler {
 }
 
 // MARK: Actions Handling
-extension Namespace.ListUserInteractionHandler {
+extension FileNamespace {
     func didReceiveAction(action: ActionsPayload) {
         switch action {
         case let .toolbar(value): self.handlingToolbarAction(value.model, value.action)
@@ -85,7 +85,7 @@ extension Namespace.ListUserInteractionHandler {
     }
 }
 
-extension Namespace.ListUserInteractionHandler {
+extension FileNamespace {
     func handlingToolbarAction(_ model: ListModel, _ action: ActionsPayloadToolbar) {
         switch action {
         case .addBlock: break
@@ -102,7 +102,7 @@ extension Namespace.ListUserInteractionHandler {
                 case .highlighted: type = .text(.init(contentType: .quote))
                 }
                 self.service.turnInto(blocks: model, type: type)
-
+                
             case let .list(value): // Set Text Style
                 let type: Service.BlockContent
                 switch value {
@@ -112,7 +112,7 @@ extension Namespace.ListUserInteractionHandler {
                 case .toggle: type = .text(.init(contentType: .toggle))
                 }
                 self.service.turnInto(blocks: model, type: type)
-
+                
             case .other: // Change divider style.
                 break
             case .objects(.page): // Convert children to pages.
@@ -122,7 +122,7 @@ extension Namespace.ListUserInteractionHandler {
                 let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
                 os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
             }
-
+            
         case let .editBlock(value):
             switch value {
             case .delete: self.service.delete(model)
@@ -134,32 +134,31 @@ extension Namespace.ListUserInteractionHandler {
 }
 
 // MARK: ServiceHandler
-extension Namespace.ListUserInteractionHandler {
-
+extension FileNamespace {
+    
     /// Each method should return no a block, but a response.
     /// Next, this response would be proceed by event handler.
     class Service {
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ListIds = [BlockId]
-
+        
         private var documentId: String
-
-        private let parser: BlocksModelsModule.Parser = .init()
+        
         private var subscriptions: [AnyCancellable] = []
         private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
         private let listService: ServiceLayerModule.List.BlockActionsService = .init()
-
+        
         private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
-
+        
         init(documentId: String) {
             self.documentId = documentId
         }
-
+        
         func configured(documentId: String) -> Self {
             self.documentId = documentId
             return self
         }
-
+        
         func configured(didReceiveEvent: @escaping (EventListening.PackOfEvents) -> ()) -> Self {
             self.didReceiveEvent = didReceiveEvent
             return self
@@ -168,11 +167,11 @@ extension Namespace.ListUserInteractionHandler {
 }
 
 // MARK: ServiceHandler / Actions / Add
-extension Namespace.ListUserInteractionHandler.Service {
+extension FileNamespace.Service {
 }
 
 // MARK: ServiceHandler / Actions / Delete
-extension Namespace.ListUserInteractionHandler.Service {
+extension FileNamespace.Service {
     func delete(_ blocks: ListIds) {
         // Shit Swift
         let blocksIds = blocks
@@ -192,7 +191,7 @@ extension Namespace.ListUserInteractionHandler.Service {
 
 // MARK: ServiceHandler / Actions / Turn Into
 /// TODO: Add Div and ConvertChildrenToPages
-extension Namespace.ListUserInteractionHandler.Service {
+extension FileNamespace.Service {
     typealias BlockContent = TopLevel.AliasesMap.BlockContent
     
     func turnInto(blocks: ListIds, type: BlockContent) {
@@ -206,18 +205,12 @@ extension Namespace.ListUserInteractionHandler.Service {
     
     private func setPageStyle(blocks: ListIds, type: BlockContent) {
         
-        guard let middlewareContent = self.parser.convert(content: type) else {
+        guard case .smartblock = type else {
             let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
             os_log(.error, log: logger, "Set Page style cannot convert type: %@", "\(String(describing: type))")
             return
         }
-        
-        guard case .smartblock = middlewareContent else {
-            let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-            os_log(.error, log: logger, "Set Page style content is not text style: %@", "\(String(describing: middlewareContent))")
-            return
-        }
-        
+                
         let blocksIds = blocks
         
         self.pageService.convertChildrenToPages.action(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
@@ -229,23 +222,17 @@ extension Namespace.ListUserInteractionHandler.Service {
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
     }
-
+    
     private func setTextStyle(blocks: ListIds, type: BlockContent) {
         let blocksIds = blocks
-
-        guard let middlewareContent = self.parser.convert(content: type) else {
+        
+        guard case let .text(text) = type else {
             let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-            os_log(.error, log: logger, "Set Text style cannot convert type: %@", "\(String(describing: type))")
-            return
-        }
-
-        guard case let .text(middlewareTextStyle) = middlewareContent else {
-            let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-            os_log(.error, log: logger, "Set Text style content is not text style: %@", "\(String(describing: middlewareContent))")
+            os_log(.error, log: logger, "Set Text style content is not text style: %@", "\(String(describing: type))")
             return
         }
         
-        self.listService.setTextStyle.action(contextID: self.documentId, blockIds: blocksIds, style: middlewareTextStyle.style).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+        self.listService.setTextStyle.action(contextID: self.documentId, blockIds: blocksIds, style: text.contentType).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):

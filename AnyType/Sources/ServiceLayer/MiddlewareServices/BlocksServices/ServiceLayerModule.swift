@@ -8,6 +8,12 @@
 
 fileprivate typealias Namespace = ServiceLayerModule
 
+/// TODO:
+/// Add concrete `Success` types for protocols.
+/// Most of the time we need `ServiceLayerModule.Success` type.
+/// In other cases we could provide concrete type.
+/// For that we could add `Success` type for appropriate namespace in this nested enum `ServiceLayerModule`.
+///
 enum ServiceLayerModule {
     struct Success {
         var contextID: String

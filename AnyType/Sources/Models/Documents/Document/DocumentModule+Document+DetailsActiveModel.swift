@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import SwiftProtobuf
 import os
 import BlocksModels
 
@@ -88,7 +87,7 @@ extension FileNamespace {
             return nil
         }
         
-        return self.service.setDetails.action(contextID: documentId, details: BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: [details])).handleEvents(receiveOutput: { [weak self] (value) in
+        return self.service.setDetails.action(contextID: documentId, details: details).handleEvents(receiveOutput: { [weak self] (value) in
             self?.handle(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
         }).successToVoid().eraseToAnyPublisher()
     }

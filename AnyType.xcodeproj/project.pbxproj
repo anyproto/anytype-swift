@@ -236,6 +236,8 @@
 		0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328B24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift */; };
 		0A78328E24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328D24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift */; };
 		0A7D91002539BB49000714F5 /* URLComponentsCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 0A7D90FF2539BB49000714F5 /* URLComponentsCoder */; };
+		0A83081125D562AC0067EEC9 /* SmartBlockActionsService+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081025D562AC0067EEC9 /* SmartBlockActionsService+Implementation.swift */; };
+		0A83081525D572630067EEC9 /* BlockActionsService+Single+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081425D572630067EEC9 /* BlockActionsService+Single+Implementation.swift */; };
 		0A89F2F525ABAC760058D26E /* BlocksViews+Supplement+UserInteractionHandler+IndexWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EA25ABAC750058D26E /* BlocksViews+Supplement+UserInteractionHandler+IndexWalker.swift */; };
 		0A89F2F625ABAC760058D26E /* BlocksViews+Supplement+UserInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EB25ABAC750058D26E /* BlocksViews+Supplement+UserInteractionHandler.swift */; };
 		0A89F2F725ABAC760058D26E /* BlocksViews+Supplement+ListUserInteractionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89F2EC25ABAC750058D26E /* BlocksViews+Supplement+ListUserInteractionHandler.swift */; };
@@ -323,6 +325,11 @@
 		0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */; };
 		0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24B24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift */; };
 		0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */; };
+		0AD7694C25D57F2D00669F8C /* BlockActionsService+Text+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694B25D57F2D00669F8C /* BlockActionsService+Text+Implementation.swift */; };
+		0AD7695025D5854700669F8C /* BlockActionsService+List+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694F25D5854700669F8C /* BlockActionsService+List+Implementation.swift */; };
+		0AD7695325D58D6000669F8C /* BlockActionsService+Bookmark+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695225D58D6000669F8C /* BlockActionsService+Bookmark+Implementation.swift */; };
+		0AD7695625D58F1700669F8C /* BlockActionsService+Other+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695525D58F1700669F8C /* BlockActionsService+Other+Implementation.swift */; };
+		0AD7695925D5908E00669F8C /* BlockActionsService+File+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695825D5908E00669F8C /* BlockActionsService+File+Implementation.swift */; };
 		0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */; };
 		0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */; };
 		0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */; };
@@ -602,6 +609,8 @@
 		0A78328924BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers+Text.swift"; sourceTree = "<group>"; };
 		0A78328B24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareModelsModule.swift; sourceTree = "<group>"; };
 		0A78328D24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers.swift"; sourceTree = "<group>"; };
+		0A83081025D562AC0067EEC9 /* SmartBlockActionsService+Implementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SmartBlockActionsService+Implementation.swift"; sourceTree = "<group>"; };
+		0A83081425D572630067EEC9 /* BlockActionsService+Single+Implementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+Single+Implementation.swift"; sourceTree = "<group>"; };
 		0A89F2EA25ABAC750058D26E /* BlocksViews+Supplement+UserInteractionHandler+IndexWalker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+UserInteractionHandler+IndexWalker.swift"; sourceTree = "<group>"; };
 		0A89F2EB25ABAC750058D26E /* BlocksViews+Supplement+UserInteractionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+UserInteractionHandler.swift"; sourceTree = "<group>"; };
 		0A89F2EC25ABAC750058D26E /* BlocksViews+Supplement+ListUserInteractionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+ListUserInteractionHandler.swift"; sourceTree = "<group>"; };
@@ -689,6 +698,11 @@
 		0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Bookmark+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24B24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+Bookmark+ViewModel.swift"; sourceTree = "<group>"; };
+		0AD7694B25D57F2D00669F8C /* BlockActionsService+Text+Implementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+Text+Implementation.swift"; sourceTree = "<group>"; };
+		0AD7694F25D5854700669F8C /* BlockActionsService+List+Implementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+List+Implementation.swift"; sourceTree = "<group>"; };
+		0AD7695225D58D6000669F8C /* BlockActionsService+Bookmark+Implementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+Bookmark+Implementation.swift"; sourceTree = "<group>"; };
+		0AD7695525D58F1700669F8C /* BlockActionsService+Other+Implementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+Other+Implementation.swift"; sourceTree = "<group>"; };
+		0AD7695825D5908E00669F8C /* BlockActionsService+File+Implementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockActionsService+File+Implementation.swift"; sourceTree = "<group>"; };
 		0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserActions.swift"; sourceTree = "<group>"; };
 		0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+File.swift"; sourceTree = "<group>"; };
 		0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Tools.swift"; sourceTree = "<group>"; };
@@ -1613,6 +1627,12 @@
 				0AD6B24424CF12CC0097A841 /* BlockActionsService+Bookmark.swift */,
 				0ACDB077255AA12D00B8B0D8 /* BlockActionsService+Other.swift */,
 				0ACDB07B255AA40900B8B0D8 /* BlockActionsService+File.swift */,
+				0A83081425D572630067EEC9 /* BlockActionsService+Single+Implementation.swift */,
+				0AD7694B25D57F2D00669F8C /* BlockActionsService+Text+Implementation.swift */,
+				0AD7694F25D5854700669F8C /* BlockActionsService+List+Implementation.swift */,
+				0AD7695225D58D6000669F8C /* BlockActionsService+Bookmark+Implementation.swift */,
+				0AD7695525D58F1700669F8C /* BlockActionsService+Other+Implementation.swift */,
+				0AD7695825D5908E00669F8C /* BlockActionsService+File+Implementation.swift */,
 			);
 			path = BlocksServices;
 			sourceTree = "<group>";
@@ -1630,6 +1650,7 @@
 			isa = PBXGroup;
 			children = (
 				0A2ADCE52496C72A00FA135D /* SmartBlockActionsService.swift */,
+				0A83081025D562AC0067EEC9 /* SmartBlockActionsService+Implementation.swift */,
 			);
 			path = SmartBlocksServices;
 			sourceTree = "<group>";
@@ -2176,6 +2197,7 @@
 				0ACA781623E5C99A00442690 /* Services.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* BlocksModelsModule+Parser.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
+				0AD7695325D58D6000669F8C /* BlockActionsService+Bookmark+Implementation.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				0A09661025C06DBA00C004BD /* DocumentModule+EventProcessor.swift in Sources */,
@@ -2213,6 +2235,7 @@
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				0A09660025BEF5B000C004BD /* EditorModule+Selection.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
+				0AD7695925D5908E00669F8C /* BlockActionsService+File+Implementation.swift in Sources */,
 				0A005AB224C5D2F1000520AA /* ImagePicker.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
@@ -2244,6 +2267,7 @@
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
 				0A10CC8B248FF35A000FF498 /* BlocksViews+New+Text+Bulleted.swift in Sources */,
 				0A09660125BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift in Sources */,
+				0AD7695025D5854700669F8C /* BlockActionsService+List+Implementation.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift in Sources */,
@@ -2277,6 +2301,7 @@
 				0A10CC78248EC5EC000FF498 /* BlocksViews+New+Text+Base.swift in Sources */,
 				0A89F2F725ABAC760058D26E /* BlocksViews+Supplement+ListUserInteractionHandler.swift in Sources */,
 				0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */,
+				0A83081525D572630067EEC9 /* BlockActionsService+Single+Implementation.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* BlocksViews+New+Page+Title.swift in Sources */,
@@ -2304,6 +2329,7 @@
 				0A10CC91248FF45C000FF498 /* BlocksViews+New+Text+Header.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				0A203A8625470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift in Sources */,
+				0AD7695625D58F1700669F8C /* BlockActionsService+Other+Implementation.swift in Sources */,
 				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */,
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
@@ -2354,8 +2380,10 @@
 				0A89F2F925ABAC760058D26E /* BlocksViews+Supplement+Flattener+Base.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
 				0A0965FA25BEF5B000C004BD /* EditorModule.swift in Sources */,
+				0AD7694C25D57F2D00669F8C /* BlockActionsService+Text+Implementation.swift in Sources */,
 				0ACAAD692588DD0F00DF1C82 /* CommonViews+ImageView+Loader.swift in Sources */,
 				0A6F900B2554825700B94AED /* BlocksViews+New+Unknown.swift in Sources */,
+				0A83081125D562AC0067EEC9 /* SmartBlockActionsService+Implementation.swift in Sources */,
 				0327B0BB232BCE2A007DB8A7 /* HomeCollectionViewModel.swift in Sources */,
 				0AA9B046249CF6DB00F2962C /* MultiSelectionPane+Panes.swift in Sources */,
 				0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCell.swift in Sources */,

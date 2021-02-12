@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import SwiftProtobuf
 import BlocksModels
 
 class DashboardService: DashboardServiceProtocol {
@@ -37,33 +36,13 @@ class DashboardService: DashboardServiceProtocol {
     }
     
     func createNewPage(contextId: String) -> AnyPublisher<ServiceLayerModule.Success, Error> {
-        let position: Anytype_Model_Block.Position = .bottom
-        
-        let titleId = TopLevel.AliasesMap.DetailsContent.Title.id
-        let iconEmoji = TopLevel.AliasesMap.DetailsContent.Emoji.id
-        let details: Google_Protobuf_Struct = .init(fields: [
-            titleId : .init(stringValue: ""),
-            iconEmoji : .init(stringValue: "")
-        ])
-        
         let targetId: String = ""
+        let details: DetailsInformationModelProtocol = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: [
+            .title(.init()),
+            .iconEmoji(.init())
+        ])
+        let position: BlocksModelsModule.Parser.Common.Position.Position = .bottom
                 
         return self.smartBlockService.createPage.action(contextID: contextId, targetID: targetId, details: details, position: position)
-    }
-    
-    func createPage(contextId: String) -> AnyPublisher<[Anytype_Event.Message], Error> {
-        
-        let position: Anytype_Model_Block.Position = .bottom
-        
-        let titleId = TopLevel.AliasesMap.DetailsContent.Title.id
-        let iconEmoji = TopLevel.AliasesMap.DetailsContent.Emoji.id
-        let details: Google_Protobuf_Struct = .init(fields: [
-            titleId : .init(stringValue: ""),
-            iconEmoji : .init(stringValue: "")
-        ])
-        
-        return Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextId, targetID: "", details: details, position: position)
-            .map(\.event).map(\.messages)
-            .eraseToAnyPublisher()
     }
 }

@@ -16,8 +16,5 @@ protocol DashboardServiceProtocol {
     
     func openDashboard() -> AnyPublisher<ServiceLayerModule.Success, Error>
     
-    func createNewPage(contextId: String) -> AnyPublisher<ServiceLayerModule.Success, Error>
-    
-    /// Create pages
-    func createPage(contextId: String) -> AnyPublisher<[Anytype_Event.Message], Error>
+    func createNewPage(contextId: String) -> AnyPublisher<ServiceLayerModule.Success, Error>    
 }

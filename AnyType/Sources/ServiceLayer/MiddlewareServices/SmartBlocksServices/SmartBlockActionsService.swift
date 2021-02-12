@@ -8,29 +8,33 @@
 
 import Foundation
 import Combine
-import SwiftProtobuf
-
-fileprivate typealias Namespace = ServiceLayerModule
+import BlocksModels
 
 // MARK: - Actions Protocols
 /// Protocol for create page action.
 /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
 protocol ServiceLayerModule_SmartBlockActionsServiceProtocolCreatePage {
     associatedtype Success
-    func action(contextID: String, targetID: String, details: Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias DetailsInformation = DetailsInformationModelProtocol
+    typealias Position = BlocksModelsModule.Parser.Common.Position.Position
+    func action(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<Success, Error>
 }
 
 /// Protocol for set details action.
 /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
 protocol ServiceLayerModule_SmartBlockActionsServiceProtocolSetDetails {
     associatedtype Success
-    func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Success, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias DetailsContent = TopLevel.AliasesMap.DetailsContent
+    func action(contextID: BlockId, details: DetailsContent) -> AnyPublisher<Success, Error>
 }
 
 /// Protocol for convert children to page action.
 /// NOTE: Action supports List context.
 protocol ServiceLayerModule_SmartBlockActionsServiceProtocolConvertChildrenToPages {
-    func action(contextID: String, blocksIds: [String]) -> AnyPublisher<Void, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    func action(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<Void, Error>
 }
 
 // MARK: - Service Protocol
@@ -43,48 +47,4 @@ protocol ServiceLayerModule_SmartBlockActionsServiceProtocol {
     var createPage: CreatePage {get}
     var setDetails: SetDetails {get}
     var convertChildrenToPages: ConvertChildrenToPages {get}
-}
-
-/// Concrete service that adopts SmartBlock actions service.
-/// NOTE: Use it as default service IF you want to use desired functionality.
-// MARK: - SmartBlockActionsService
-
-extension Namespace {
-    class SmartBlockActionsService: ServiceLayerModule_SmartBlockActionsServiceProtocol {
-        
-        var createPage: CreatePage = .init()
-        var setDetails: SetDetails = .init()
-        var convertChildrenToPages: ConvertChildrenToPages = .init()
-    }
-}
-
-// MARK: - SmartBlockActionsService / CreatePage
-extension Namespace.SmartBlockActionsService {
-    typealias Success = ServiceLayerModule.Success
-    /// Structure that adopts `CreatePage` action protocol
-    /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
-    struct CreatePage: ServiceLayerModule_SmartBlockActionsServiceProtocolCreatePage {
-        func action(contextID: String, targetID: String, details: Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID, targetID: targetID, details: details, position: position).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-        }
-    }
-}
-
-// MARK: - SmartBlockActionsService / SetDetails
-extension Namespace.SmartBlockActionsService {
-    struct SetDetails: ServiceLayerModule_SmartBlockActionsServiceProtocolSetDetails {
-        func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-        }
-    }
-}
-
-// MARK: - Children to page.
-// TODO: Add later.
-extension Namespace.SmartBlockActionsService {
-    struct ConvertChildrenToPages: ServiceLayerModule_SmartBlockActionsServiceProtocolConvertChildrenToPages {
-        func action(contextID: String, blocksIds: [String]) -> AnyPublisher<Void, Error> {
-            Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-        }
-    }
 }

@@ -9,8 +9,7 @@
 import Foundation
 import Combine
 import UIKit
-
-fileprivate typealias Namespace = ServiceLayerModule.Text
+import BlocksModels
 
 // MARK: - Actions Protocols
 /// Protocol for `Set Text and Marks` for text block.
@@ -20,8 +19,8 @@ fileprivate typealias Namespace = ServiceLayerModule.Text
 /// Later, TextView update NSAttributedString and send updates back.
 ///
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
-    func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
-//    func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Void, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    func action(contextID: BlockId, blockID: BlockId, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
 }
 
 /// Protocol for `SetStyle` for text block.
@@ -30,7 +29,9 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
 /// you will use this method.
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
     associatedtype Success
-    func action(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias Style = TopLevel.AliasesMap.BlockContent.Text.ContentType
+    func action(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<Success, Error>
 }
 
 /// Protocol for `SetTextColor` for text block.
@@ -49,26 +50,28 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
 /// It is essential for us to use `high-level` color.
 /// In that way we are distancing from low-level API and low-level colors.
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
-    func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Void, Error>
-    func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    func action(contextID: BlockId, blockID: BlockId, color: UIColor) -> AnyPublisher<Void, Error>
 }
 
 /// Protocol for `SetAlignment` for text block. Actually, not only for text block.
 /// When you would like to set alignment of a block ( text block or not text block ), you should call method of this protocol.
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
-    func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Void, Error>
-    func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Void, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    func action(contextID: BlockId, blockIds: [BlockId], alignment: NSTextAlignment) -> AnyPublisher<Void, Error>
 }
 
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
     associatedtype Success
-    func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
-    func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias Style = TopLevel.AliasesMap.BlockContent.Text.ContentType
+    func action(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<Success, Error>
 }
 
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolMerge {
     associatedtype Success
-    func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Success, Error>
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    func action(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<Success, Error>
 }
 
 /// Protocol for TextBlockActions service.
@@ -86,92 +89,4 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocol {
     var setAlignment: SetAlignment {get}
     var split: Split {get}
     var merge: Merge {get}
-}
-
-extension Namespace {
-    class BlockActionsService: ServiceLayerModule_BlockActionsServiceTextProtocol {
-        var setText: SetText = .init()
-        var setStyle: SetStyle = .init()
-        var setForegroundColor: SetForegroundColor = .init()
-        var setAlignment: SetAlignment = .init()
-        var split: Split = .init()
-        var merge: Merge = .init()
-    }
-}
-
-extension Namespace.BlockActionsService {
-    typealias Success = ServiceLayerModule.Success
-    // MARK: SetText
-    struct SetText: ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
-        func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error> {
-            // convert attributed string to marks here?
-            let result = BlocksModelsModule.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
-            return action(contextID: contextID, blockID: blockID, text: result.text, marks: result.marks)
-        }
-        private func action(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Void, Error> {
-            
-            /// TODO: Add private queue, don't use global queue.
-            Anytype_Rpc.Block.Set.Text.Text.Service.invoke(contextID: contextID, blockID: blockID, text: text, marks: marks, queue: .global()).successToVoid().subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-        }
-    }
-    
-    // MARK: SetStyle
-    struct SetStyle: ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
-        func action(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-        }
-    }
-    
-    // MARK: SetForegroundColor
-    struct SetForegroundColor: ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
-        func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Void, Error> {
-            // convert color to String?
-            let result = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false)
-            return action(contextID: contextID, blockID: blockID, color: result)
-        }
-        func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error> {
-            Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextID, blockID: blockID, color: color)
-                .successToVoid().subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-        }
-    }
-    
-    // MARK: SetAlignment
-    struct SetAlignment: ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
-        func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Void, Error> {
-            let ourAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
-            let middlewareAlignment = ourAlignment.flatMap(BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware)
-            
-            if let middlewareAlignment = middlewareAlignment {
-                return self.action(contextID: contextID, blockIds: blockIds, align: middlewareAlignment)
-            }
-            return .empty()
-        }
-        func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Void, Error> {
-            Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-        }
-    }
-    
-    // MARK: Split
-    struct Split: ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
-        func action(contextID: String, blockID: String, cursorPosition: Int32, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: .init(from: cursorPosition, to: cursorPosition), style: style, mode: .bottom).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
-                .eraseToAnyPublisher()
-        }
-        func action(contextID: String, blockID: String, range: NSRange, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-            let middlewareRange = BlocksModelsModule.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
-            return Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: middlewareRange, style: style, mode: .bottom, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
-        }
-    }
-
-    // MARK: Merge
-    struct Merge: ServiceLayerModule_BlockActionsServiceTextProtocolMerge {
-        func action(contextID: String, firstBlockID: String, secondBlockID: String) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global())
-                .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
-        }
-    }
 }
