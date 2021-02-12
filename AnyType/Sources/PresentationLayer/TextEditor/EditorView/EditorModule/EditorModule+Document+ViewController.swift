@@ -96,14 +96,6 @@ private extension Namespace.ViewController {
     }
 }
 
-private extension Namespace.ViewController {
-    class OurTableViewController: UITableViewController {
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(true)
-        }
-    }
-}
-
 // MARK: - This is view controller that will handle everything for us.
 extension Namespace {
     class ViewController: UIViewController {
@@ -155,10 +147,7 @@ extension Namespace {
             self.collectionViewController?.collectionView
         }
         
-        private var tableViewController: UITableViewController?
-        private var tableView: UITableView? {
-            self.tableViewController?.tableView
-        }
+        private var tableView: UITableView?
         
         private var listView: UIView? {
             self.collectionView ?? self.tableView
@@ -264,9 +253,9 @@ extension Namespace.ViewController {
     
     private func setupTableView() {
         
-        let viewController: UITableViewController = OurTableViewController(style: .grouped)
+        let viewController = UITableViewController(style: .grouped)
         self.addChild(viewController)
-        self.tableViewController = viewController
+        self.tableView = viewController.tableView
 
         if let tableView = self.tableView {
             tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -350,7 +339,7 @@ extension Namespace.ViewController {
     private typealias Cells = EditorModule.Document.Cells.ContentConfigurations
     
     enum CellIdentifierConverter {
-        static func identifier(for builder: BlocksViews.New.Base.ViewModel) -> String? {
+        static func identifier(for builder: BlocksViews.New.Base.ViewModel) -> String {
             switch builder.getBlock().blockModel.information.content {
             case let .text(text) where text.contentType == .text:
                 return Cells.Text.Text.Table.cellReuseIdentifier()
@@ -392,10 +381,11 @@ extension Namespace.ViewController {
             _ = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
             
             let ourBuilder = entry.builder as! BlocksViews.New.Base.ViewModel
-            let cell = CellIdentifierConverter.identifier(for: ourBuilder).flatMap({view.dequeueReusableCell(withIdentifier: $0, for: indexPath)})
+            let cellId = CellIdentifierConverter.identifier(for: ourBuilder)
+            let cell = view.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
             
             let configuration = ourBuilder.buildContentConfiguration()
-            cell?.contentConfiguration = configuration
+            cell.contentConfiguration = configuration
             return cell
         })
         
@@ -423,10 +413,11 @@ extension Namespace.ViewController {
             _ = !(self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldEmbedSwiftUIIntoCell == true)
             _ = (self?.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldShowCellsIndentation == true)
             let ourBuilder = entry.builder as! BlocksViews.New.Base.ViewModel
-            let cell = CellIdentifierConverter.identifier(for: ourBuilder).flatMap({view.dequeueReusableCell(withReuseIdentifier: $0, for: indexPath)})
+            let cellId = CellIdentifierConverter.identifier(for: ourBuilder)
+            let cell = view.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
             
             let configuration = ourBuilder.buildContentConfiguration()
-            cell?.contentConfiguration = configuration
+            cell.contentConfiguration = configuration
             return cell
         })
     }
@@ -516,7 +507,7 @@ private extension Namespace.ViewController {
                 }
                 
                 let indexPath: IndexPath = .init(row: index, section: 0)
-                self.tableView?.scrollToRow(at: indexPath, at: tableViewScrollPosition, animated: true)
+                self.tableView?.scrollToRow(at: indexPath, at: tableViewScrollPosition, animated: false)
                 self.collectionView?.scrollToItem(at: indexPath, at: collectionViewScrollPosition, animated: true)
                 (itemIdentifiers[index].blockBuilder as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
                 userSession?.unsetFocusAt()
@@ -556,18 +547,11 @@ private extension Namespace.ViewController {
 // MARK: - Initial Update data
 extension Namespace.ViewController {
     func updateView() {
-        // WORKAROUND:
-        // In case of jumping rows we should remove animations..
-        // well...
-        // it works...
-        // I guess..
-        // Thanks! https://stackoverflow.com/a/51048044/826614
         if let tableView = self.tableView {
-            let lastContentOffset = tableView.contentOffset
-            tableView.beginUpdates()
-            tableView.endUpdates()
-            tableView.layer.removeAllAnimations()
-            tableView.setContentOffset(lastContentOffset, animated: false)
+            DispatchQueue.main.async {
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
         }
         else if let collectionView = self.collectionView {
             collectionView.collectionViewLayout.invalidateLayout()
@@ -576,15 +560,7 @@ extension Namespace.ViewController {
         
     func updateData(_ rows: [ViewModel.Row]) {
         guard let theDataSource = self.dataSource else { return }
-        
-        /// TODO: Add
-        /// Check if we about to delete block.
-        /// In this case we should first focus position and then apply snapshot.
-        /// Otherwise, if we need to insert item, we should first insert everything and
-        /// on completion set focus.
-        ///
-        self.scrollAndFocusOnFocusedBlock()
-        
+                
         var snapshot = ListDiffableDataSourceSnapshot.init()
         snapshot.appendSections([ViewModel.Section.first])
         snapshot.appendItems(rows)

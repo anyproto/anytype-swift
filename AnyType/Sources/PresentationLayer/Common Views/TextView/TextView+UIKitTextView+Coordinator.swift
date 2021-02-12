@@ -26,6 +26,10 @@ private extension Namespace.Coordinator {
 
 extension Namespace {
     class Coordinator: NSObject {
+        
+        enum Constants {
+            static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 1
+        }
         // MARK: Aliases
         typealias TheTextView = TextView.UIKitTextView
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
@@ -78,6 +82,7 @@ extension Namespace {
         
         private var keyboardObserverHandler: AnyCancellable?
         private var defaultKeyboardRect: CGRect = .zero
+        private lazy var pressingEnterTimeChecker: TimeChecker = .init(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
         
         // MARK: - Initiazliation
         override init() {
@@ -629,6 +634,13 @@ private extension FileNamespace {
 extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
     // MARK: - UITextViewDelegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        In the case of frequent pressing of enter
+//        we can send multiple split requests to middle
+//        from the same block, it will leads to wrong order of blocks in array,
+//        adding a delay in UITextView makes impossible to press enter very often
+        if text == "\n" && !self.pressingEnterTimeChecker.exceedsTimeInterval() {
+            return false
+        }
         self.publishToOuterWorld(TextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))
         if text == "\n" {
             // we should return false and perform update by ourselves.
