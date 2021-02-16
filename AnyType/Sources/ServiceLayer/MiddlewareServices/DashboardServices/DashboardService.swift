@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import BlocksModels
+import ProtobufMessages
 
 class DashboardService: DashboardServiceProtocol {
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
@@ -20,15 +21,7 @@ class DashboardService: DashboardServiceProtocol {
         self.dashboardId = configuration.homeBlockID
         return configuration
     }
-    
-    func subscribeDashboardEvents() -> AnyPublisher<[Anytype_Event.Message], Error> {
-        middlewareConfigurationService.obtainConfiguration()
-            .flatMap { [unowned self] cunfiguration in
-                return self.blocksActionsService.open.action(contextID: cunfiguration.homeBlockID, blockID: cunfiguration.homeBlockID)
-        }.map(\.messages)
-        .eraseToAnyPublisher()
-    }
-    
+        
     func openDashboard() -> AnyPublisher<ServiceLayerModule.Success, Error> {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
             self.blocksActionsService.open.action(contextID: configuration.homeBlockID, blockID: configuration.homeBlockID)

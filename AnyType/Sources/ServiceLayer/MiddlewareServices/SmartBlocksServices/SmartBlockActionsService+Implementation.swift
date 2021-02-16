@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import SwiftProtobuf
 import BlocksModels
+import ProtobufMessages
 
 fileprivate typealias Namespace = ServiceLayerModule
 fileprivate typealias FileNamespace = Namespace.SmartBlockActionsService

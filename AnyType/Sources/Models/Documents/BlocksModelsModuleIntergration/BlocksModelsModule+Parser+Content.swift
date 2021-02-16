@@ -10,6 +10,7 @@ import Foundation
 import SwiftProtobuf
 import os
 import BlocksModels
+import ProtobufMessages
 
 fileprivate typealias Namespace = BlocksModelsModule
 fileprivate typealias FileNamespace = BlocksModelsModule.Parser

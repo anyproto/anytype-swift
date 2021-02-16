@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import os
 import BlocksModels
+import ProtobufMessages
 
 fileprivate typealias Namespace = DocumentModule
 fileprivate typealias FileNamespace = Namespace.EventProcessor

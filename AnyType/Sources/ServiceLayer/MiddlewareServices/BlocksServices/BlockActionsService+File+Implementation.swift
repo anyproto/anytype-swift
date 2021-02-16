@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import BlocksModels
+import ProtobufMessages
 
 fileprivate typealias Namespace = ServiceLayerModule.File
 fileprivate typealias FileNamespace = Namespace.BlockActionsService

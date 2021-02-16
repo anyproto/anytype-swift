@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftProtobuf
+import ProtobufMessages
 import Combine
 import os
 import BlocksModels

@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import SwiftUI
 import os
+import ProtobufMessages
 
 private extension Logging.Categories {
     static let servicesAuthService: Self = "Services.AuthService"

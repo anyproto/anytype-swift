@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import UIKit
+import ProtobufMessages
 
 fileprivate typealias Namespace = ServiceLayerModule.Text
 fileprivate typealias FileNamespace = Namespace.BlockActionsService

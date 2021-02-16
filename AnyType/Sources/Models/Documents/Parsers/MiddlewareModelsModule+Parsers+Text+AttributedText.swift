@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import ProtobufMessages
 
 fileprivate typealias Namespace = MiddlewareModelsModule.Parsers.Text.AttributedText
 

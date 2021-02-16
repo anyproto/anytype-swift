@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Lib
+import ProtobufMessages
 import Combine
 import os
 
@@ -24,15 +24,15 @@ enum EventListening {
 extension Namespace {
     /// Recive events from middleware and broadcast throught notification center
     class RawListener: NSObject {
-        
+        private var wrapper: ProtobufMessages.ServiceMessageHandlerAdapter = .init()
         override init() {
             super.init()
-            Lib.ServiceSetEventHandlerMobile(self)
+            _ = self.wrapper.with(value: self)
         }
     }
 }
 
-extension Namespace.RawListener: ServiceMessageHandlerProtocol {
+extension Namespace.RawListener: ProtobufMessages.ServiceEventsHandlerProtocol {
     
     /// TODO:
     /// Don't forget to remove it. We only add this method to hide logs from thread status.
@@ -45,8 +45,8 @@ extension Namespace.RawListener: ServiceMessageHandlerProtocol {
         }
     }
     
-    func handle(_ b: Data?) {
-        guard let rawEvent = b,
+    func handle(_ data: Data?) {
+        guard let rawEvent = data,
             let event = try? Anytype_Event(serializedData: rawEvent) else { return }
         
         let necessaryEvents = event.messages.filter(self.filterNecessary)

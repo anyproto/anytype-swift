@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import ProtobufMessages
 
 class ProfileNameViewModel: ObservableObject, Identifiable {
     var id: String

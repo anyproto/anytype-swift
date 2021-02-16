@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import ProtobufMessages
 
 /// Service that handles middleware config
 class MiddlewareConfigurationService: ConfigurationServiceProtocol {

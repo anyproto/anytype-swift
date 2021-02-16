@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import BlocksModels
 import UIKit
+import ProtobufMessages
 
 fileprivate typealias Namespace = ServiceLayerModule.List
 fileprivate typealias FileNamespace = Namespace.BlockActionsService

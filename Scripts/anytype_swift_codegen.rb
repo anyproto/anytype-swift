@@ -172,7 +172,7 @@ class Runner
   class Configuration
     class << self
       def protobuf_directory
-        "#{__dir__}/../AnyType/Sources/Models/ProtocolBufferObjects/"
+        "#{__dir__}/../Modules/ProtobufMessages/Sources/"
       end
       def dependencies_tool_directory
         "#{__dir__}/../Dependencies/AnytypeSwiftCodegen"

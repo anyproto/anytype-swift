@@ -590,6 +590,11 @@ private extension Namespace.UserInteractionHandler {
                 }
             }
             struct Split {
+                /// TODO: Remove it later.
+                /// We don't need to navigate through middleware messages.
+                /// Instead, we need to check a result of a invocation.
+                /// Middleware should send us back two blocks.
+                ///
                 func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
                     /// Find added block.
                     let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }

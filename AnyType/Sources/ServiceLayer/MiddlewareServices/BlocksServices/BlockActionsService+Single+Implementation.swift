@@ -10,6 +10,7 @@ import Foundation
 import Combine
 import BlocksModels
 import os
+import ProtobufMessages
 
 fileprivate typealias Namespace = ServiceLayerModule.Single
 

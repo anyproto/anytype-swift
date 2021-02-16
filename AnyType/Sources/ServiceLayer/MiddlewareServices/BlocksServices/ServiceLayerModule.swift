@@ -5,6 +5,7 @@
 //  Created by Dmitry Lobanov on 19.06.2020.
 //  Copyright © 2020 AnyType. All rights reserved.
 //
+import ProtobufMessages
 
 fileprivate typealias Namespace = ServiceLayerModule
 

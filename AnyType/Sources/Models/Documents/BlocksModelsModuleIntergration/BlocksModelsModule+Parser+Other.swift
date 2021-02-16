@@ -8,6 +8,7 @@
 
 import Foundation
 import BlocksModels
+import ProtobufMessages
 
 fileprivate typealias Namespace = BlocksModelsModule.Parser
 

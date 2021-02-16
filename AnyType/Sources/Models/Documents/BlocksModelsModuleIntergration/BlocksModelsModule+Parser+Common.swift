@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import BlocksModels
+import ProtobufMessages
 
 fileprivate typealias Namespace = BlocksModelsModule
 
@@ -85,6 +86,9 @@ extension Namespace.Parser.Common.Position {
 extension Namespace.Parser.Common.Position {
     /// Position: Conversion between our model and middleware model.
     enum Converter {
+        /// TODO: Rethink.
+        /// Maybe we will move Position and Common structures to `BlocksModels`.
+        ///
         typealias Model = Position
         typealias MiddlewareModel = Anytype_Model_Block.Position
         
