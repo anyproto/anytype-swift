@@ -103,7 +103,7 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 0) {
                 self.homeView
             }.sheet(isPresented: self.$showDocument) {
-                self.documentView(hasCustomModalView: false)
+                self.documentView(hasCustomModalView: false).edgesIgnoringSafeArea(.all)
             }
             .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing).edgesIgnoringSafeArea(.all))
             .navigationBarTitle("", displayMode: .inline)

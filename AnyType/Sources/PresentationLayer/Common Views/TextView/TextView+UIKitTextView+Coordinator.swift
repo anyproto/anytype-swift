@@ -28,7 +28,8 @@ extension Namespace {
     class Coordinator: NSObject {
         
         enum Constants {
-            static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 1
+            /// Minimum time interval to stay idle to handle consequent return key presses
+            static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
         }
         // MARK: Aliases
         typealias TheTextView = TextView.UIKitTextView

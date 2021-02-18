@@ -48,8 +48,6 @@
 					<false/>
 					<key>shouldUseSimpleTextViewCell</key>
 					<false/>
-					<key>shouldUseCollectionView</key>
-					<false/>
 					<key>shouldUseCellsCaching</key>
 					<false/>
 				</dict>

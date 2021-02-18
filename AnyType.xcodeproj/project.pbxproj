@@ -339,6 +339,7 @@
 		A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */; };
 		A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */; };
 		EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */; };
+		EA0BF08B25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF08A25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -712,6 +713,7 @@
 		A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Cell.swift"; sourceTree = "<group>"; };
 		A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+HeaderCollectionReusableView.swift"; sourceTree = "<group>"; };
 		EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChecker.swift; sourceTree = "<group>"; };
+		EA0BF08A25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorModule+CellIdentifierConverter.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1480,6 +1482,7 @@
 				0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */,
 				0A0965DE25BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift */,
 				0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */,
+				EA0BF08A25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift */,
 			);
 			path = EditorModule;
 			sourceTree = "<group>";
@@ -2274,6 +2277,7 @@
 				0A09660125BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsService+List+Implementation.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
+				EA0BF08B25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,

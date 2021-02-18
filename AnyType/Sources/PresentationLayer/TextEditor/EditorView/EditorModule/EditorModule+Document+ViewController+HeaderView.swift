@@ -13,17 +13,42 @@ import Combine
 fileprivate typealias Namespace = EditorModule.Document.ViewController
 
 extension Namespace {
+    
+    final class CollectionViewHeaderView: UICollectionReusableView {
+        
+        let headerView: HeaderView
+        
+        override init(frame: CGRect) {
+            self.headerView = .init(frame: frame)
+            super.init(frame: frame)
+            self.addSubview(self.headerView)
+            NSLayoutConstraint.activate([
+                headerView.topAnchor.constraint(equalTo: topAnchor),
+                headerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                headerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                headerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+    }
 
     /// Header view with navigation controls
-    class HeaderView: UIView {
+    final class HeaderView: UIView {
         
         // MARK: Variables
         private var layout: Layout = .init()
-        private var viewModel: ViewModel
+        var viewModel: ViewModel? {
+            didSet {
+                setupSubscribers()
+            }
+        }
         private var subscriptions: Set<AnyCancellable> = []
         
         private func process(action: UserAction) {
-            self.viewModel.process(action: action)
+            self.viewModel?.process(action: action)
         }
         
         // MARK: Events
@@ -31,7 +56,7 @@ extension Namespace {
             switch event {
             case .pageDetailsViewModelsDidSet:
                 // add page details to stackView?
-                self.viewModel.pageDetailsViewModels.map({$0.buildUIView()}).forEach { view in
+                self.viewModel?.pageDetailsViewModels.map({$0.buildUIView()}).forEach { view in
                     self.verticalStackView.addArrangedSubview(view)
                 }
             }
@@ -43,17 +68,6 @@ extension Namespace {
             view.translatesAutoresizingMaskIntoConstraints = false
             view.backgroundColor = Style.presentation.backgroundColor()
             return view
-        }()
-        
-        private lazy var horizontalStackView: UIStackView = {
-            let stackView = UIStackView()
-            stackView.axis = .horizontal
-            stackView.distribution = .fill
-            stackView.alignment = .fill
-            stackView.isLayoutMarginsRelativeArrangement = true
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-
-            return stackView
         }()
         
         private lazy var verticalStackView: UIStackView = {
@@ -70,10 +84,8 @@ extension Namespace {
         }()
 
         // MARK: Initialization
-        init(viewModel: ViewModel) {
-            self.viewModel = viewModel
-                        
-            super.init(frame: .zero)
+        override init(frame: CGRect) {
+            super.init(frame: frame)
             self.setup()
         }
 
@@ -82,16 +94,15 @@ extension Namespace {
         }
 
         // MARK: Setup
-        private func setupSubscribers() {
-            self.viewModel.$userEvent.safelyUnwrapOptionals().sink { [weak self] (value) in
-                self?.process(event: value)
-            }.store(in: &self.subscriptions)
-        }
-        
         private func setup() {
-            self.setupSubscribers()
             self.setupView()
             self.setupLayout()
+        }
+        
+        private func setupSubscribers() {
+            self.viewModel?.$userEvent.safelyUnwrapOptionals().sink { [weak self] (value) in
+                self?.process(event: value)
+            }.store(in: &self.subscriptions)
         }
         
         private func setupView() {
@@ -152,6 +163,10 @@ private extension Namespace.HeaderView {
 
 // MARK: ViewModel
 extension Namespace.HeaderView {
+    /// This enum is used by a publisher to emit user-related actions.
+    /// It contains following events:
+    /// - didTapBackButton // tap on back button
+    ///
     enum UserAction {
         case didTapBackButton
     }
