@@ -118,6 +118,7 @@ extension BlocksViews.New.Base {
         /// If you need to process whole user input for specific BlocksViewModel, you need to listen this publisher.
         ///
         private var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
+        // TODO: what purpose is it here for?
         public var actionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = .empty()
         
         /// We use this subject with `.send()` internally.
@@ -154,7 +155,8 @@ extension BlocksViews.New.Base {
             self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
             self.toolbarActionPublisher = self.toolbarActionSubject.eraseToAnyPublisher()
             self.marksPaneActionPublisher = self.marksPaneActionSubject.eraseToAnyPublisher()
-                        
+
+            // TODO: what purpose is it here for?
             let actionsPayloadPublisher = self.actionsPayloadSubject
             let toolbarActionPublisher = self.toolbarActionPublisher.map({ [weak self] value in
                 self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
@@ -162,7 +164,8 @@ extension BlocksViews.New.Base {
             let marksPaneActionPublisher = self.marksPaneActionSubject.map({ [weak self] value in
                 self.flatMap({ActionsPayload.marksPane(.init(model: $0.block, action: value))})
             }).safelyUnwrapOptionals()
-            
+
+            // TODO: what purpose is it here for?
             self.actionsPayloadPublisher = Publishers.Merge3(actionsPayloadPublisher.eraseToAnyPublisher(), toolbarActionPublisher.eraseToAnyPublisher(), marksPaneActionPublisher.eraseToAnyPublisher()).eraseToAnyPublisher()
         }
         

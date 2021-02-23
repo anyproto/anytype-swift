@@ -12,6 +12,13 @@ import Combine
 
 fileprivate typealias Namespace = EditorModule.Document
 
+/// Input data for document view
+protocol EditorModuleDocumentViewInput: AnyObject {
+    /// Set focus
+    /// - Parameter index: Block index
+    func setFocus(at index: Int)
+}
+
 extension Namespace {
     final class ViewController: UICollectionViewController {
         
@@ -85,17 +92,19 @@ extension Namespace {
             listView.register(Cells.ContentConfigurations.Unknown.Label.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Unknown.Label.Table.cellReuseIdentifier())
 
             
-            self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView, cellProvider: { (view, indexPath, entry) -> UICollectionViewCell? in
-                guard let ourBuilder = entry.builder as? BlocksViews.New.Base.ViewModel, let cellId = EditorModuleCellIdentifierConverter.identifier(for: ourBuilder) else {
-                    assertionFailure("Check builder or create cell for builder")
-                    return UICollectionViewCell()
+            self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView) { (view, indexPath, item) -> UICollectionViewCell? in
+                guard let ourBuilder = item.builder as? BlocksViews.New.Base.ViewModel else {
+                    assertionFailure("Check builder")
+                    return nil
                 }
+                let cellId = EditorModuleCellIdentifierConverter.identifier(for: ourBuilder)
                 let cell = view.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
                 
                 let configuration = ourBuilder.buildContentConfiguration()
                 cell.contentConfiguration = configuration
                 return cell
-            })
+            }
+
             self.dataSource?.supplementaryViewProvider = { view, type, indexPath in
                 guard let headerView = view.dequeueReusableSupplementaryView(ofKind: type,
                                                                              withReuseIdentifier: Constants.headerReuseId,
@@ -262,4 +271,12 @@ extension Namespace.ViewController {
 // MARK: TODO: Remove later.
 extension Namespace.ViewController {
     func getViewModel() -> ViewModel { self.viewModel }
+}
+
+// MARK: - EditorModuleDocumentViewInput
+
+extension Namespace.ViewController: EditorModuleDocumentViewInput {
+    func setFocus(at index: Int) {
+        self.tryFocusItem(at: IndexPath(row: index, section: 1))
+    }
 }

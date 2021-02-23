@@ -53,20 +53,17 @@ extension FileNamespace {
 extension Namespace {
     
     class ViewModel: ObservableObject {
-        /// Aliases
+        // MARK: Aliases
         typealias RootModel = TopLevelContainerModelProtocol
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ModelInformation = BlockInformationModelProtocol
-        
         typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
-        
-        typealias UserInteractionHandler = BlocksViews.Supplement.UserInteractionHandler
-        typealias ListUserInteractionHandler = BlocksViews.Supplement.ListUserInteractionHandler
-        
         typealias BlocksUserAction = BlocksViews.UserAction
-        
         typealias BlocksViewsNamespace = BlocksViews.New
-                
+
+        /// View Input
+        weak var viewInput: EditorModuleDocumentViewInput?
+
         /// Service
         private var blockActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
         
@@ -74,8 +71,8 @@ extension Namespace {
         private(set) var documentViewModel: BlocksViews.Document.ViewModel = .init()
         
         /// User Interaction Processor
-        private var userInteractionHandler: UserInteractionHandler = .init()
-        private var listUserInteractionHandler: ListUserInteractionHandler = .init()
+        private var blockActionHandler: BlockActionsHandlersFacade = .init()
+        private var listBlockActionHandler: ListBlockActionHandler = .init()
         
         /// Combine Subscriptions
         private var subscriptions: Set<AnyCancellable> = .init()
@@ -107,10 +104,10 @@ extension Namespace {
         
         @Published var error: String?
                 
-        // MARK: - Events
+        // MARK: Events
         @Published var userEvent: UserEvent?
         
-        // MARK: - Page View Models
+        // MARK: Page View Models
         /// We need this model to be Published cause need handle actions from IconEmojiBlock
         typealias PageDetailsViewModelsDictionary = [DocumentModule.Document.BaseDocument.DetailsContentKind : BlockViewBuilderProtocol]
         @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
@@ -121,7 +118,7 @@ extension Namespace {
             }
         }
         
-        // MARK: - Builders
+        // MARK: Builders
         @Published var builders: [BlockViewBuilderProtocol] = []
         private var internalState: State = .loading
         
@@ -143,37 +140,8 @@ extension Namespace {
         // put into protocol?
         // var userActionsPublisher: AnyPublisher<UserAction>
         
-        func setupSubscriptions() {
-            self.publicActionsPayloadPublisher.sink { [weak self] (value) in
-                self?.process(actionsPayload: value)
-            }.store(in: &self.subscriptions)
-            
-            _ = self.userInteractionHandler.configured(self.publicActionsPayloadPublisher)
-            
-            self.listToolbarSubject.sink { [weak self] (value) in
-                self?.process(toolbarAction: value)
-            }.store(in: &self.subscriptions)
-            
-            _ = self.listUserInteractionHandler.configured(self.listActionsPayloadPublisher)
-            
-            self.userInteractionHandler.reactionPublisher.sink { [weak self] (value) in
-                self?.process(reaction: value)
-            }.store(in: &self.subscriptions)
-            
-            self.listUserInteractionHandler.reactionPublisher.sink { [weak self] (value) in
-                self?.process(reaction: value)
-            }.store(in: &self.subscriptions)
-            
-            self.$builders.sink { [weak self] value in
-                self?.buildersRows = value.compactMap(Row.init).map({ (value) in
-                    var value = value
-                    return value.configured(selectionHandler: self?.selectionHandler)
-                })
-                self?.enhanceUserActionsAndPayloads(value)
-            }.store(in: &self.subscriptions)
-        }
-        
-        // MARK: Initialization
+        // MARK: - Initialization
+
         init(documentId: String?, options: Options) {
             // TODO: Add failable init.
             let logger = Logging.createLogger(category: .editorDocumentViewModel)
@@ -197,6 +165,38 @@ extension Namespace {
             self.anyStylePublisher = self.anyStyleSubject.eraseToAnyPublisher()
             
             self.obtainDocument(documentId: documentId)
+        }
+
+        // MARK: - Setup subscriptions
+
+        private func setupSubscriptions() {
+            self.publicActionsPayloadPublisher.sink { [weak self] (value) in
+                self?.process(actionsPayload: value)
+            }.store(in: &self.subscriptions)
+
+            _ = self.blockActionHandler.configured(self.publicActionsPayloadPublisher)
+
+            self.listToolbarSubject.sink { [weak self] (value) in
+                self?.process(toolbarAction: value)
+            }.store(in: &self.subscriptions)
+
+            _ = self.listBlockActionHandler.configured(self.listActionsPayloadPublisher)
+
+            self.blockActionHandler.reactionPublisher.sink { [weak self] (value) in
+                self?.process(reaction: value)
+            }.store(in: &self.subscriptions)
+
+            self.listBlockActionHandler.reactionPublisher.sink { [weak self] (value) in
+                self?.process(reaction: value)
+            }.store(in: &self.subscriptions)
+
+            self.$builders.sink { [weak self] value in
+                self?.buildersRows = value.compactMap(Row.init).map({ (value) in
+                    var value = value
+                    return value.configured(selectionHandler: self?.selectionHandler)
+                })
+                self?.enhanceUserActionsAndPayloads(value)
+            }.store(in: &self.subscriptions)
         }
         
         // TODO: Add caching?
@@ -233,16 +233,19 @@ extension Namespace {
         }
         
         private func handleOpenDocument(_ value: ServiceLayerModule.Success) {
-            self.documentViewModel.updatePublisher().sink { [weak self] (value) in
-                /// Process values.
-                DispatchQueue.main.async {
+            // sink publisher
+            self.documentViewModel.updatePublisher()
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] (value) in
+                    // Process values
                     self?.update(builders: value.models)
+
                     switch value.updates {
                     case .general: break
                     case let .update(value):
-                        /// We should calculate updates correctly.
-                        /// For example, we should remove items if they appear in detetedIds.
-                        /// That means that even if they appear in updatedIds, we still need to remove them.
+                        // We should calculate updates correctly.
+                        // For example, we should remove items if they appear in detetedIds.
+                        // That means that even if they appear in updatedIds, we still need to remove them.
                         if !value.updatedIds.isEmpty {
                             self?.anyStyleSubject.send(value.updatedIds)
                         }
@@ -250,8 +253,7 @@ extension Namespace {
                             self?.deselect(ids: Set(value.deletedIds))
                         }
                     }
-                }
-            }.store(in: &self.subscriptions)
+                }.store(in: &self.subscriptions)
             self.documentViewModel.open(value)
             self.configureDetails()
             self.configureInteractions(self.documentViewModel.documentId)
@@ -263,8 +265,8 @@ extension Namespace {
                 os_log(.debug, log: logger, "configureInteractions(_:). DocumentId is not configured.")
                 return
             }
-            _ = self.userInteractionHandler.configured(documentId: documentId).configured(self)
-            _ = self.listUserInteractionHandler.configured(documentId: documentId)
+            _ = self.blockActionHandler.configured(documentId: documentId).configured(self)
+            _ = self.listBlockActionHandler.configured(documentId: documentId)
         }
         
         private func configureDetails() {
@@ -285,18 +287,31 @@ extension Namespace {
     }
 }
 
-// MARK: Reactions
+// MARK: - Reactions
+
 private extension FileNamespace {
-    func process(reaction: UserInteractionHandler.Reaction) {
+    func process(reaction: BlockActionsHandlersFacade.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events
+            let actionType = value.actionType
+
             self.documentViewModel.handle(events: events)
-            
+
+            switch actionType {
+            case .deleteBlock, .merge:
+                let firstResponderBlockId = self.documentViewModel.getUserSession()?.firstResponder()
+                
+                if let firstResponderIndex = self.builders.firstIndex(where: { $0.blockId == firstResponderBlockId }) {
+                    self.viewInput?.setFocus(at: firstResponderIndex)
+                }
+            default: break
+            }
         default: return
         }
     }
-    func process(reaction: ListUserInteractionHandler.Reaction) {
+
+    func process(reaction: ListBlockActionHandler.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events
@@ -306,13 +321,15 @@ private extension FileNamespace {
 }
 
 // MARK: - On Tap Gesture
+
 extension FileNamespace {
     func handlingTapIfEmpty() {
-        self.userInteractionHandler.createEmptyBlock(listIsEmpty: self.state == .empty, parentModel: self.documentViewModel.getRootActiveModel())
+        self.blockActionHandler.createEmptyBlock(listIsEmpty: self.state == .empty, parentModel: self.documentViewModel.getRootActiveModel())
     }
 }
 
-// MARK: didSelectItem
+// MARK: - didSelectItem
+
 extension FileNamespace {
     func didSelectBlock(at index: IndexPath) {
         // dispatch event
@@ -329,7 +346,8 @@ extension FileNamespace {
     
 }
 
-// MARK: Selection Handling
+// MARK: - Selection Handling
+
 private extension FileNamespace {
     func process(actionsPayload: BlocksViewsNamespace.Base.ViewModel.ActionsPayload) {
         switch actionsPayload {
@@ -342,6 +360,7 @@ private extension FileNamespace {
         default: return
         }
     }
+
     func didSelect(atIndex: IndexPath) {
         let item = element(at: atIndex)
         // so, we have to toggle item at index.
@@ -353,6 +372,7 @@ private extension FileNamespace {
             //            self.syncBuilders()
         }
     }
+
     func process(_ value: EditorModule.Selection.ToolbarPresenter.SelectionAction) {
         switch value {
         case let .selection(value):
@@ -383,6 +403,7 @@ extension FileNamespace {
     enum ActionsPayload {
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias ListModel = [BlockId]
+
         struct Toolbar {
             typealias Model = ListModel
             typealias Action = BlocksViews.Toolbar.UnderlyingAction
@@ -401,20 +422,23 @@ extension FileNamespace {
         }.store(in: &self.subscriptions)
         return self
     }
+
     func configured(selectionHandler: EditorModuleSelectionHandlerProtocol?) -> Self {
         self.selectionHandler = selectionHandler
         return self
     }
 }
 
-// MARK: Debug
+// MARK: - Debug
+
 extension FileNamespace: CustomDebugStringConvertible {
     var debugDescription: String {
         "\(String(reflecting: Self.self)) -> \(String(describing: self.documentViewModel.documentId))"
     }
 }
 
-// MARK: Enhance UserActions and Payloads
+// MARK: - Enhance UserActions and Payloads
+
 /// These methods work in opposite way as `Merging`.
 /// Instead, we just set a "delegate" ( no, our Subject ) to all viewModels in a List.
 /// So, we have different approach.

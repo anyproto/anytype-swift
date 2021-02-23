@@ -68,6 +68,8 @@ extension Namespace.ViewBuilder {
         static func selfComponent(by request: Request) -> SelfComponent {
             let viewModel: ViewModel = .init(documentId: request.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
             let view: ViewController = .init(viewModel: viewModel)
+            viewModel.viewInput = view
+            
             return (view, viewModel, self.childComponent(by: request))
         }
         

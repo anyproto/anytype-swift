@@ -68,6 +68,7 @@ extension TextView.UserAction {
             case enter
             case deleteWithPayload(String?)
             case delete
+
             static func convert(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Self? {
                 // Well...
                 // We should also keep values to the right of the Cursor.

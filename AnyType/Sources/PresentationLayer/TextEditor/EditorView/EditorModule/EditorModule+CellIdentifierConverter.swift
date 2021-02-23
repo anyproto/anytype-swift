@@ -14,7 +14,7 @@ enum EditorModuleCellIdentifierConverter {
     /// - Parameters:
     ///   - builder: Block view model
     /// - Returns: Cell reuse identifier
-    static func identifier(for builder: BlocksViews.New.Base.ViewModel) -> String? {
+    static func identifier(for builder: BlocksViews.New.Base.ViewModel) -> String {
         switch builder.getBlock().blockModel.information.content {
         case let .text(text) where text.contentType == .text:
             return EditorModule.Document.Cells.ContentConfigurations.Text.Text.Table.cellReuseIdentifier()
@@ -29,8 +29,7 @@ enum EditorModuleCellIdentifierConverter {
         case let .link(value) where value.style == .page:
             return EditorModule.Document.Cells.ContentConfigurations.Link.PageLink.Table.cellReuseIdentifier()
         default:
-            assertionFailure("Builder with unknown content passed")
-            return nil
+            return EditorModule.Document.Cells.ContentConfigurations.Unknown.Label.Table.cellReuseIdentifier()
         }
     }
 }

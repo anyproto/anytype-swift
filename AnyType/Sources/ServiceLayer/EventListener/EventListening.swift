@@ -80,6 +80,7 @@ extension Namespace {
 }
 
 extension Namespace.PackOfEvents.OurEvent {
+    // TODO: remove all payload as it unnecessary struct
     struct Focus {
         struct Payload {
             enum Position {
