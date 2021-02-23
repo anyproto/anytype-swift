@@ -51,7 +51,7 @@ module MiddlewareUpdater
       response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) { |http|
         http.request(request)
       }
-      if Integer(response.code) > 400
+      if Integer(response.code) >= 400
         puts "Code: #{response.code} and response: #{JSON.parse(response.body)}"
         exit(0)
       end
@@ -297,7 +297,7 @@ class Pipeline
     def self.work(version, options)
       say "Lets fetch data from remote!"
       information = MiddlewareUpdater::GetRemoteInformationWorker.new(options[:token], options[:repositoryURL]).work
-      say "I have gathered information! #{information}"
+      say "I have gathered information!"
 
       say "Now lets find our url to release!"
       assetURL = MiddlewareUpdater::GetRemoteAssetURLWorker.new(information, version, options[:iOSAssetMiddlewarePrefix]).work
@@ -548,8 +548,8 @@ class MainWork
 
           # target directory options
           dependenciesDirectoryPath: "#{__dir__}/../Dependencies/Middleware",
-          targetDirectoryPath: "#{__dir__}/../AnyType/Sources/Models/ProtocolBufferObjects/",
-          swiftAutocodegenScript: "#{__dir__}/../Scripts/anytype_swift_codegen.rb"
+          targetDirectoryPath: "#{__dir__}/../Modules/ProtobufMessages/Sources/",
+          swiftAutocodegenScript: "#{__dir__}/../Scripts/anytype_swift_codegen_runner.rb"
         }
       end
 
@@ -575,7 +575,7 @@ class MainWork
       end
 
       def generate(arguments, options)
-        result_options = options.merge defaultOptions
+        result_options = defaultOptions.merge options
         fixOptions(result_options)
       end
 
