@@ -21,91 +21,91 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 }
 
 /// the element of change tree used to store and internal apply smartBlock history
-struct Anytype_Change {
+public struct Anytype_Change {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   /// ids of previous changes
-  var previousIds: [String] = []
+  public var previousIds: [String] = []
 
   /// id of the last snapshot
-  var lastSnapshotID: String = String()
+  public var lastSnapshotID: String = String()
 
   /// ids of the last changes with details content
-  var previousDetailsIds: [String] = []
+  public var previousDetailsIds: [String] = []
 
   /// set of actions to apply
-  var content: [Anytype_Change.Content] = []
+  public var content: [Anytype_Change.Content] = []
 
   /// snapshot - when not null, the content will ignoring
-  var snapshot: Anytype_Change.Snapshot {
+  public var snapshot: Anytype_Change.Snapshot {
     get {return _snapshot ?? Anytype_Change.Snapshot()}
     set {_snapshot = newValue}
   }
   /// Returns true if `snapshot` has been explicitly set.
-  var hasSnapshot: Bool {return self._snapshot != nil}
+  public var hasSnapshot: Bool {return self._snapshot != nil}
   /// Clears the value of `snapshot`. Subsequent reads from it will return its default value.
-  mutating func clearSnapshot() {self._snapshot = nil}
+  public mutating func clearSnapshot() {self._snapshot = nil}
 
   /// file keys related to changes content
-  var fileKeys: [Anytype_Change.FileKeys] = []
+  public var fileKeys: [Anytype_Change.FileKeys] = []
 
   /// creation timestamp
-  var timestamp: Int64 = 0
+  public var timestamp: Int64 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  struct Snapshot {
+  public struct Snapshot {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     /// logId -> lastChangeId
-    var logHeads: Dictionary<String,String> = [:]
+    public var logHeads: Dictionary<String,String> = [:]
 
     /// snapshot data
-    var data: Anytype_Model_SmartBlockSnapshotBase {
+    public var data: Anytype_Model_SmartBlockSnapshotBase {
       get {return _data ?? Anytype_Model_SmartBlockSnapshotBase()}
       set {_data = newValue}
     }
     /// Returns true if `data` has been explicitly set.
-    var hasData: Bool {return self._data != nil}
+    public var hasData: Bool {return self._data != nil}
     /// Clears the value of `data`. Subsequent reads from it will return its default value.
-    mutating func clearData() {self._data = nil}
+    public mutating func clearData() {self._data = nil}
 
     /// all file keys related to doc
-    var fileKeys: [Anytype_Change.FileKeys] = []
+    public var fileKeys: [Anytype_Change.FileKeys] = []
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
 
     fileprivate var _data: Anytype_Model_SmartBlockSnapshotBase? = nil
   }
 
-  struct FileKeys {
+  public struct FileKeys {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var hash: String = String()
+    public var hash: String = String()
 
-    var keys: Dictionary<String,String> = [:]
+    public var keys: Dictionary<String,String> = [:]
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  struct Content {
+  public struct Content {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var value: Anytype_Change.Content.OneOf_Value? = nil
+    public var value: Anytype_Change.Content.OneOf_Value? = nil
 
-    var blockCreate: Anytype_Change.BlockCreate {
+    public var blockCreate: Anytype_Change.BlockCreate {
       get {
         if case .blockCreate(let v)? = value {return v}
         return Anytype_Change.BlockCreate()
@@ -113,7 +113,7 @@ struct Anytype_Change {
       set {value = .blockCreate(newValue)}
     }
 
-    var blockUpdate: Anytype_Change.BlockUpdate {
+    public var blockUpdate: Anytype_Change.BlockUpdate {
       get {
         if case .blockUpdate(let v)? = value {return v}
         return Anytype_Change.BlockUpdate()
@@ -121,7 +121,7 @@ struct Anytype_Change {
       set {value = .blockUpdate(newValue)}
     }
 
-    var blockRemove: Anytype_Change.BlockRemove {
+    public var blockRemove: Anytype_Change.BlockRemove {
       get {
         if case .blockRemove(let v)? = value {return v}
         return Anytype_Change.BlockRemove()
@@ -129,7 +129,7 @@ struct Anytype_Change {
       set {value = .blockRemove(newValue)}
     }
 
-    var blockMove: Anytype_Change.BlockMove {
+    public var blockMove: Anytype_Change.BlockMove {
       get {
         if case .blockMove(let v)? = value {return v}
         return Anytype_Change.BlockMove()
@@ -137,7 +137,7 @@ struct Anytype_Change {
       set {value = .blockMove(newValue)}
     }
 
-    var blockDuplicate: Anytype_Change.BlockDuplicate {
+    public var blockDuplicate: Anytype_Change.BlockDuplicate {
       get {
         if case .blockDuplicate(let v)? = value {return v}
         return Anytype_Change.BlockDuplicate()
@@ -145,7 +145,7 @@ struct Anytype_Change {
       set {value = .blockDuplicate(newValue)}
     }
 
-    var detailsSet: Anytype_Change.DetailsSet {
+    public var detailsSet: Anytype_Change.DetailsSet {
       get {
         if case .detailsSet(let v)? = value {return v}
         return Anytype_Change.DetailsSet()
@@ -153,7 +153,7 @@ struct Anytype_Change {
       set {value = .detailsSet(newValue)}
     }
 
-    var detailsUnset: Anytype_Change.DetailsUnset {
+    public var detailsUnset: Anytype_Change.DetailsUnset {
       get {
         if case .detailsUnset(let v)? = value {return v}
         return Anytype_Change.DetailsUnset()
@@ -161,9 +161,9 @@ struct Anytype_Change {
       set {value = .detailsUnset(newValue)}
     }
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    enum OneOf_Value: Equatable {
+    public enum OneOf_Value: Equatable {
       case blockCreate(Anytype_Change.BlockCreate)
       case blockUpdate(Anytype_Change.BlockUpdate)
       case blockRemove(Anytype_Change.BlockRemove)
@@ -173,7 +173,7 @@ struct Anytype_Change {
       case detailsUnset(Anytype_Change.DetailsUnset)
 
     #if !swift(>=4.1)
-      static func ==(lhs: Anytype_Change.Content.OneOf_Value, rhs: Anytype_Change.Content.OneOf_Value) -> Bool {
+      public static func ==(lhs: Anytype_Change.Content.OneOf_Value, rhs: Anytype_Change.Content.OneOf_Value) -> Bool {
         // The use of inline closures is to circumvent an issue where the compiler
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
@@ -212,117 +212,117 @@ struct Anytype_Change {
     #endif
     }
 
-    init() {}
+    public init() {}
   }
 
-  struct BlockCreate {
+  public struct BlockCreate {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var targetID: String = String()
+    public var targetID: String = String()
 
-    var position: Anytype_Model_Block.Position = .none
+    public var position: Anytype_Model_Block.Position = .none
 
-    var blocks: [Anytype_Model_Block] = []
+    public var blocks: [Anytype_Model_Block] = []
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  struct BlockUpdate {
+  public struct BlockUpdate {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var events: [Anytype_Event.Message] = []
+    public var events: [Anytype_Event.Message] = []
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  struct BlockRemove {
+  public struct BlockRemove {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var ids: [String] = []
+    public var ids: [String] = []
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  struct BlockMove {
+  public struct BlockMove {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var targetID: String = String()
+    public var targetID: String = String()
 
-    var position: Anytype_Model_Block.Position = .none
+    public var position: Anytype_Model_Block.Position = .none
 
-    var ids: [String] = []
+    public var ids: [String] = []
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  struct BlockDuplicate {
+  public struct BlockDuplicate {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var targetID: String = String()
+    public var targetID: String = String()
 
-    var position: Anytype_Model_Block.Position = .none
+    public var position: Anytype_Model_Block.Position = .none
 
-    var ids: [String] = []
+    public var ids: [String] = []
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  struct DetailsSet {
+  public struct DetailsSet {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var key: String = String()
+    public var key: String = String()
 
-    var value: SwiftProtobuf.Google_Protobuf_Value {
+    public var value: SwiftProtobuf.Google_Protobuf_Value {
       get {return _value ?? SwiftProtobuf.Google_Protobuf_Value()}
       set {_value = newValue}
     }
     /// Returns true if `value` has been explicitly set.
-    var hasValue: Bool {return self._value != nil}
+    public var hasValue: Bool {return self._value != nil}
     /// Clears the value of `value`. Subsequent reads from it will return its default value.
-    mutating func clearValue() {self._value = nil}
+    public mutating func clearValue() {self._value = nil}
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
 
     fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
   }
 
-  struct DetailsUnset {
+  public struct DetailsUnset {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    var key: String = String()
+    public var key: String = String()
 
-    var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-    init() {}
+    public init() {}
   }
 
-  init() {}
+  public init() {}
 
   fileprivate var _snapshot: Anytype_Change.Snapshot? = nil
 }
@@ -332,8 +332,8 @@ struct Anytype_Change {
 fileprivate let _protobuf_package = "anytype"
 
 extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".Change"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = _protobuf_package + ".Change"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "previous_ids"),
     2: .standard(proto: "last_snapshot_id"),
     5: .standard(proto: "previous_details_ids"),
@@ -343,7 +343,7 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     7: .same(proto: "timestamp"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -361,7 +361,7 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.previousIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.previousIds, fieldNumber: 1)
     }
@@ -386,7 +386,7 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change, rhs: Anytype_Change) -> Bool {
+  public static func ==(lhs: Anytype_Change, rhs: Anytype_Change) -> Bool {
     if lhs.previousIds != rhs.previousIds {return false}
     if lhs.lastSnapshotID != rhs.lastSnapshotID {return false}
     if lhs.previousDetailsIds != rhs.previousDetailsIds {return false}
@@ -400,14 +400,14 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
 }
 
 extension Anytype_Change.Snapshot: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".Snapshot"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".Snapshot"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "logHeads"),
     2: .same(proto: "data"),
     3: .same(proto: "fileKeys"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -421,7 +421,7 @@ extension Anytype_Change.Snapshot: SwiftProtobuf.Message, SwiftProtobuf._Message
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.logHeads.isEmpty {
       try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString,SwiftProtobuf.ProtobufString>.self, value: self.logHeads, fieldNumber: 1)
     }
@@ -434,7 +434,7 @@ extension Anytype_Change.Snapshot: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.Snapshot, rhs: Anytype_Change.Snapshot) -> Bool {
+  public static func ==(lhs: Anytype_Change.Snapshot, rhs: Anytype_Change.Snapshot) -> Bool {
     if lhs.logHeads != rhs.logHeads {return false}
     if lhs._data != rhs._data {return false}
     if lhs.fileKeys != rhs.fileKeys {return false}
@@ -444,13 +444,13 @@ extension Anytype_Change.Snapshot: SwiftProtobuf.Message, SwiftProtobuf._Message
 }
 
 extension Anytype_Change.FileKeys: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".FileKeys"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".FileKeys"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "hash"),
     2: .same(proto: "keys"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -463,7 +463,7 @@ extension Anytype_Change.FileKeys: SwiftProtobuf.Message, SwiftProtobuf._Message
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.hash.isEmpty {
       try visitor.visitSingularStringField(value: self.hash, fieldNumber: 1)
     }
@@ -473,7 +473,7 @@ extension Anytype_Change.FileKeys: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.FileKeys, rhs: Anytype_Change.FileKeys) -> Bool {
+  public static func ==(lhs: Anytype_Change.FileKeys, rhs: Anytype_Change.FileKeys) -> Bool {
     if lhs.hash != rhs.hash {return false}
     if lhs.keys != rhs.keys {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -482,8 +482,8 @@ extension Anytype_Change.FileKeys: SwiftProtobuf.Message, SwiftProtobuf._Message
 }
 
 extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".Content"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".Content"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "blockCreate"),
     2: .same(proto: "blockUpdate"),
     3: .same(proto: "blockRemove"),
@@ -493,7 +493,7 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     101: .same(proto: "detailsUnset"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -567,7 +567,7 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     // The use of inline closures is to circumvent an issue where the compiler
     // allocates stack space for every case branch when no optimizations are
     // enabled. https://github.com/apple/swift-protobuf/issues/1034
@@ -605,7 +605,7 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.Content, rhs: Anytype_Change.Content) -> Bool {
+  public static func ==(lhs: Anytype_Change.Content, rhs: Anytype_Change.Content) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -613,14 +613,14 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 }
 
 extension Anytype_Change.BlockCreate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockCreate"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockCreate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "targetId"),
     2: .same(proto: "position"),
     3: .same(proto: "blocks"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -634,7 +634,7 @@ extension Anytype_Change.BlockCreate: SwiftProtobuf.Message, SwiftProtobuf._Mess
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.targetID.isEmpty {
       try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 1)
     }
@@ -647,7 +647,7 @@ extension Anytype_Change.BlockCreate: SwiftProtobuf.Message, SwiftProtobuf._Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.BlockCreate, rhs: Anytype_Change.BlockCreate) -> Bool {
+  public static func ==(lhs: Anytype_Change.BlockCreate, rhs: Anytype_Change.BlockCreate) -> Bool {
     if lhs.targetID != rhs.targetID {return false}
     if lhs.position != rhs.position {return false}
     if lhs.blocks != rhs.blocks {return false}
@@ -657,12 +657,12 @@ extension Anytype_Change.BlockCreate: SwiftProtobuf.Message, SwiftProtobuf._Mess
 }
 
 extension Anytype_Change.BlockUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockUpdate"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockUpdate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     2: .same(proto: "events"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -674,14 +674,14 @@ extension Anytype_Change.BlockUpdate: SwiftProtobuf.Message, SwiftProtobuf._Mess
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.events.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.events, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.BlockUpdate, rhs: Anytype_Change.BlockUpdate) -> Bool {
+  public static func ==(lhs: Anytype_Change.BlockUpdate, rhs: Anytype_Change.BlockUpdate) -> Bool {
     if lhs.events != rhs.events {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -689,12 +689,12 @@ extension Anytype_Change.BlockUpdate: SwiftProtobuf.Message, SwiftProtobuf._Mess
 }
 
 extension Anytype_Change.BlockRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockRemove"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockRemove"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "ids"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -706,14 +706,14 @@ extension Anytype_Change.BlockRemove: SwiftProtobuf.Message, SwiftProtobuf._Mess
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.ids.isEmpty {
       try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.BlockRemove, rhs: Anytype_Change.BlockRemove) -> Bool {
+  public static func ==(lhs: Anytype_Change.BlockRemove, rhs: Anytype_Change.BlockRemove) -> Bool {
     if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -721,14 +721,14 @@ extension Anytype_Change.BlockRemove: SwiftProtobuf.Message, SwiftProtobuf._Mess
 }
 
 extension Anytype_Change.BlockMove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockMove"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockMove"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "targetId"),
     2: .same(proto: "position"),
     3: .same(proto: "ids"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -742,7 +742,7 @@ extension Anytype_Change.BlockMove: SwiftProtobuf.Message, SwiftProtobuf._Messag
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.targetID.isEmpty {
       try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 1)
     }
@@ -755,7 +755,7 @@ extension Anytype_Change.BlockMove: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.BlockMove, rhs: Anytype_Change.BlockMove) -> Bool {
+  public static func ==(lhs: Anytype_Change.BlockMove, rhs: Anytype_Change.BlockMove) -> Bool {
     if lhs.targetID != rhs.targetID {return false}
     if lhs.position != rhs.position {return false}
     if lhs.ids != rhs.ids {return false}
@@ -765,14 +765,14 @@ extension Anytype_Change.BlockMove: SwiftProtobuf.Message, SwiftProtobuf._Messag
 }
 
 extension Anytype_Change.BlockDuplicate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockDuplicate"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".BlockDuplicate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "targetId"),
     2: .same(proto: "position"),
     3: .same(proto: "ids"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -786,7 +786,7 @@ extension Anytype_Change.BlockDuplicate: SwiftProtobuf.Message, SwiftProtobuf._M
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.targetID.isEmpty {
       try visitor.visitSingularStringField(value: self.targetID, fieldNumber: 1)
     }
@@ -799,7 +799,7 @@ extension Anytype_Change.BlockDuplicate: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.BlockDuplicate, rhs: Anytype_Change.BlockDuplicate) -> Bool {
+  public static func ==(lhs: Anytype_Change.BlockDuplicate, rhs: Anytype_Change.BlockDuplicate) -> Bool {
     if lhs.targetID != rhs.targetID {return false}
     if lhs.position != rhs.position {return false}
     if lhs.ids != rhs.ids {return false}
@@ -809,13 +809,13 @@ extension Anytype_Change.BlockDuplicate: SwiftProtobuf.Message, SwiftProtobuf._M
 }
 
 extension Anytype_Change.DetailsSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".DetailsSet"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".DetailsSet"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "key"),
     2: .same(proto: "value"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -828,7 +828,7 @@ extension Anytype_Change.DetailsSet: SwiftProtobuf.Message, SwiftProtobuf._Messa
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
@@ -838,7 +838,7 @@ extension Anytype_Change.DetailsSet: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.DetailsSet, rhs: Anytype_Change.DetailsSet) -> Bool {
+  public static func ==(lhs: Anytype_Change.DetailsSet, rhs: Anytype_Change.DetailsSet) -> Bool {
     if lhs.key != rhs.key {return false}
     if lhs._value != rhs._value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -847,12 +847,12 @@ extension Anytype_Change.DetailsSet: SwiftProtobuf.Message, SwiftProtobuf._Messa
 }
 
 extension Anytype_Change.DetailsUnset: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = Anytype_Change.protoMessageName + ".DetailsUnset"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".DetailsUnset"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "key"),
   ]
 
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
@@ -864,14 +864,14 @@ extension Anytype_Change.DetailsUnset: SwiftProtobuf.Message, SwiftProtobuf._Mes
     }
   }
 
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.key.isEmpty {
       try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Anytype_Change.DetailsUnset, rhs: Anytype_Change.DetailsUnset) -> Bool {
+  public static func ==(lhs: Anytype_Change.DetailsUnset, rhs: Anytype_Change.DetailsUnset) -> Bool {
     if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

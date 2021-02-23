@@ -89,3 +89,4 @@ extension Anytype_Rpc.History.Versions.Response.Error: Swift.Error {}
 extension Anytype_Rpc.History.Show.Response.Error: Swift.Error {}
 extension Anytype_Rpc.History.SetVersion.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Page.Create.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Debug.Sync.Response.Error: Swift.Error {}

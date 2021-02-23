@@ -2405,6 +2405,58 @@ message Rpc {
         }
     }
 
+    message Debug {
+        message Sync {
+            message Request {
+                int32 recordsTraverseLimit = 1;
+            }
+
+            message Response {
+                Error error = 1;
+                repeated thread threads =2 ;
+                string deviceId = 3;
+                int32 totalThreads = 4;
+                int32 threadsWithoutReplInOwnLog = 5;
+                int32 threadsWithoutHeadDownloaded = 6;
+
+                message thread {
+                    string id = 1;
+                    int32 logsWithDownloadedHead = 2;
+                    repeated log logs = 3;
+                    bool ownLogHasCafeReplicator = 4;
+                    int32 lastPullSecAgo = 5;
+                    string upStatus = 6;
+                    string downStatus = 7;
+                    int32 totalRecords = 8;
+
+                }
+
+                message log  {
+                    string id = 1;
+                    string head = 2;
+                    bool headDownloaded = 3;
+                    int32 totalRecords = 4;
+                    int32 firstRecordTs = 5;
+                    int32 firstRecordVer = 6;
+                    int32 lastRecordTs = 7;
+                    int32 lastRecordVer = 8;
+                }
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 message Empty {
