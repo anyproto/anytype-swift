@@ -56,6 +56,10 @@ extension Namespace {
         typealias BlockModelId = TopLevel.AliasesMap.BlockId
         typealias FocusPosition = TopLevel.AliasesMap.FocusPosition
         
+        private enum Constants {
+            static let setTextDebounceDelay: DispatchQueue.SchedulerTimeType.Stride = .seconds(0.5)
+        }
+        
         @Environment(\.developerOptions) var developerOptions
         private var textOptions: Namespace.Options = .init()
         
@@ -98,6 +102,8 @@ extension Namespace {
         
         // MARK: - Services
         private var service: ServiceLayerModule.Text.BlockActionsService = .init()
+        private let serviceInteractionSubject: PassthroughSubject<Void, Never> = .init()
+        private var serviceSendInteractionSubscriber: AnyCancellable?
         
         // MARK: - Convenient accessors.
         
@@ -347,6 +353,23 @@ private extension Namespace.ViewModel {
         self.setupTextViewModel()
         self.setupTextViewModelSubscribers()
         self.setupSubscribers()
+        self.serviceSendInteractionSubscriber = self.serviceInteractionSubject
+            .debounce(for: Constants.setTextDebounceDelay, scheduler: DispatchQueue.main)
+            .receive(on: DispatchQueue.global())
+            .eraseToAnyPublisher().sink { [weak self] _ in
+            guard let self = self else { return }
+            let block = self.getBlock()
+            switch block.blockModel.information.content {
+            case let .text(value):
+                guard let contextID = block.findRoot()?.blockModel.information.id,
+                      case .text = block.blockModel.information.content else { return }
+                let _ = self.service.setText.action(contextID: contextID,
+                                            blockID: self.blockId,
+                                            attributedString: value.attributedText)
+
+            default: return
+            }
+        }
     }
 }
 
@@ -390,11 +413,12 @@ private extension Namespace.ViewModel {
         // Do we need to update model?
         self.update { (block) in
             switch block.blockModel.information.content {
-            case let .text(value):
-                var value = value
+            case var .text(value):
+                guard value.attributedText != attributedText else { return }
                 value.attributedText = attributedText
                 var blockModel = block.blockModel
                 blockModel.information.content = .text(value)
+                self.serviceInteractionSubject.send()
             default: return
             }
         }

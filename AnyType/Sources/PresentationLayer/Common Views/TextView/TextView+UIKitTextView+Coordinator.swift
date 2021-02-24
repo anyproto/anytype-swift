@@ -713,7 +713,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
 }
 
 // MARK: - Update Text
-private extension FileNamespace {
+extension FileNamespace {
     func notifySubscribers(_ payload: TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent.Payload) {
         /// NOTE:
         /// We could remove notification about new attributedText

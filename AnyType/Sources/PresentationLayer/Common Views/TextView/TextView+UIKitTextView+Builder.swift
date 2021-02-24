@@ -71,6 +71,12 @@ extension TextView.UIKitTextView.Builder {
         if let smartTextView = textView as? TextView.UIKitTextView.TextViewWithPlaceholder {
             _ = coordinator.configured(textStorageStream: smartTextView.textStorageEventsPublisher)
             _ = coordinator.configured(textView, contextualMenuStream: smartTextView.contextualMenuPublisher)
+            // When sending signal with send() in textView
+            // textStorageEventsSubject subscribers installed
+            // in coordinator configured(textStorageStream:)
+            // method have not being called, it leads us to
+            // deleting text in textView without updating it in block model
+            smartTextView.coordinator = coordinator
         }
         coordinator.configureMarksPanePublisher(textView)
         return textView

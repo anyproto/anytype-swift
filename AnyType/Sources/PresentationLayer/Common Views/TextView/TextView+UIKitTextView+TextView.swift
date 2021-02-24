@@ -40,13 +40,6 @@ extension Namespace.ContextualMenu {
     }
 }
 
-// MARK: - Private Queue
-private extension Namespace {
-    enum QueueStorage {
-        static let updatesQueue: DispatchQueue = .init(label: "org.anytype.anytype.TextView.UIKitTextView.TextView")
-    }
-}
-
 // MARK: - TextStorageEvent
 extension Namespace.TextViewWithPlaceholder {
     enum TextStorageEvent {
@@ -62,6 +55,8 @@ extension Namespace.TextViewWithPlaceholder {
 // MARK: - TextView
 extension Namespace {
     class TextViewWithPlaceholder: UITextView {
+        
+        weak var coordinator: TextView.UIKitTextView.Coordinator?
         
         // MARK: Publishers
         private var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
@@ -243,9 +238,8 @@ extension Namespace.TextViewWithPlaceholder: NSTextStorageDelegate {
         /// For example, if you set `textView.textAlignment` it may have previous value ( was .center ).
         /// But first letter of attributes ( `NSParagraphStyle.alignment` ) has right alignment ( now .right )
         ///
-        Namespace.QueueStorage.updatesQueue.async {
-            self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: textAlignment)))
-        }
+        coordinator?.notifySubscribers(.init(attributedText: textStorage, textAlignment: textAlignment))
+//        self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: textAlignment)))
     }
 }
 
