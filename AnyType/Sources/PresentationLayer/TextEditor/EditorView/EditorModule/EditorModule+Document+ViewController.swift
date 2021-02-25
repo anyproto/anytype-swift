@@ -200,7 +200,6 @@ private extension Namespace.ViewController {
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
                 value.builder?.blockId == id
             }) {
-                self.collectionView?.scrollToItem(at: .init(row: index, section: 0), at: .centeredVertically, animated: false)
                 (itemIdentifiers[index].blockBuilder as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
                 userSession?.unsetFocusAt()
                 userSession?.unsetFirstResponder()

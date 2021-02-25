@@ -246,9 +246,9 @@ extension Namespace {
                         // We should calculate updates correctly.
                         // For example, we should remove items if they appear in detetedIds.
                         // That means that even if they appear in updatedIds, we still need to remove them.
-                        if !value.updatedIds.isEmpty {
-                            self?.anyStyleSubject.send(value.updatedIds)
-                        }
+                        
+                        // In case of nonempty updateIds controller will call updateData(_:) method
+                        // Which was already called inside update(builders:) method in this viewModel
                         if !value.deletedIds.isEmpty {
                             self?.deselect(ids: Set(value.deletedIds))
                         }
