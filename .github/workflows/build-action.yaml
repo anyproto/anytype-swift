@@ -5,8 +5,8 @@ name: Build action
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
-  push:
-    branches: [ develop ]
+  # push:
+  #   branches: [ develop ]
   pull_request:
     branches: [ develop ]
 
@@ -50,8 +50,8 @@ jobs:
       - name: Import certificate
         uses: Apple-Actions/import-codesign-certs@v1
         with:
-          p12-file-base64: ${{ secrets.DISTRIBUTION_CERTIFICATE_BASE64 }}
-          p12-password: ${{ secrets.DISTRIBUTION_CERTIFICATE_PASSWORD }}
+          p12-file-base64: ${{ secrets.DEVELOPER_CERTIFICATE_BASE64 }}
+          p12-password: ${{ secrets.DEVELOPER_CERTIFICATE_PASSWORD }}
 
       # Download provisioning profiles
       # Look at this file for available options for profile-type
