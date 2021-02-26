@@ -27,7 +27,7 @@ extension BlocksViews.New.Text {
 extension Namespace {
     struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
-        var shouldApplyChangesLocally: Bool = true
+        var shouldApplyChangesLocally: Bool = false
         var shouldStopSetupTextViewModel: Bool = false
     }
 }
@@ -102,8 +102,6 @@ extension Namespace {
         
         // MARK: - Services
         private var service: ServiceLayerModule.Text.BlockActionsService = .init()
-        private let serviceInteractionSubject: PassthroughSubject<Void, Never> = .init()
-        private var serviceSendInteractionSubscriber: AnyCancellable?
         
         // MARK: - Convenient accessors.
         
@@ -353,23 +351,6 @@ private extension Namespace.ViewModel {
         self.setupTextViewModel()
         self.setupTextViewModelSubscribers()
         self.setupSubscribers()
-        self.serviceSendInteractionSubscriber = self.serviceInteractionSubject
-            .debounce(for: Constants.setTextDebounceDelay, scheduler: DispatchQueue.main)
-            .receive(on: DispatchQueue.global())
-            .eraseToAnyPublisher().sink { [weak self] _ in
-            guard let self = self else { return }
-            let block = self.getBlock()
-            switch block.blockModel.information.content {
-            case let .text(value):
-                guard let contextID = block.findRoot()?.blockModel.information.id,
-                      case .text = block.blockModel.information.content else { return }
-                let _ = self.service.setText.action(contextID: contextID,
-                                            blockID: self.blockId,
-                                            attributedString: value.attributedText)
-
-            default: return
-            }
-        }
     }
 }
 
@@ -418,7 +399,6 @@ private extension Namespace.ViewModel {
                 value.attributedText = attributedText
                 var blockModel = block.blockModel
                 blockModel.information.content = .text(value)
-                self.serviceInteractionSubject.send()
             default: return
             }
         }
@@ -444,7 +424,8 @@ private extension Namespace.ViewModel {
         self.setModelData(alignment: alignment)
         let block = self.getBlock()
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
-        return self.service.setAlignment.action(contextID: contextID, blockIds: [self.blockId], alignment: alignment)
+        let blocksIds = [block.blockModel.information.id]
+        return self.service.setAlignment.action(contextID: contextID, blockIds: blocksIds, alignment: alignment)
     }
     func apply(attributedText: NSAttributedString, shouldStoreInModel: Bool = false) -> AnyPublisher<Void, Error>? {
         /// Do we need to update model?
@@ -460,9 +441,10 @@ private extension Namespace.ViewModel {
         
         let block = self.getBlock()
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
+        let blockId = block.blockModel.information.id
 //        let logger = Logging.createLogger(category: .textBlocksViewsBase)
 //        os_log(.debug, log: logger, "Before TextBlocksViews setBlockText has occured. ParentId: %@ BlockId: %@", String(describing: contextID), String(describing: self.blockId))
-        return self.service.setText.action(contextID: contextID, blockID: self.blockId, attributedString: attributedText)
+        return self.service.setText.action(contextID: contextID, blockID: blockId, attributedString: attributedText)
     }
     func apply(update: TextView.UIKitTextView.ViewModel.Update) {
         switch update {

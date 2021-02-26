@@ -327,10 +327,26 @@ extension BlocksViews.New.Base.ViewModel {
             var action: Action
         }
         
+        /// Text blocks draft.
+        /// It should hold also toggle from `TextBlocksViewsUserInteraction`.
+        /// Name it properly.
+        struct TextBlockViewModelPayload {
+            typealias Model = BlockModel
+            enum Action {
+                case text(NSAttributedString)
+                case alignment(NSTextAlignment)
+                case checked(Bool)                
+            }
+            
+            var model: Model
+            var action: Action
+        }
+        
         case toolbar(Toolbar)
         case marksPane(MarksPaneHolder)
         case textView(TextBlocksViewsUserInteraction)
         case userAction(UserActionHolder)
+//        case textBlocksViewModel(TextBlockViewModelPayload)
     }
     
     // Send actions payload
@@ -515,7 +531,7 @@ extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
     func buildView() -> AnyView { self.makeSwiftUIView() }
     func buildUIView() -> UIView {
         let view = makeUIView()
-        self.addContextMenu(view)
+        self.addContextMenuIfNeeded(view)
         return view
     }
     

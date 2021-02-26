@@ -216,6 +216,18 @@ extension FileNamespace {
     /// We could add additional check if `attributedText is nil` and catch "setupAtFirstTime" event.
     ///
     func configured(textStorageStream: AnyPublisher<TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent, Never>) -> Self {
+        /// TODO: Fix or redone.
+        /// 
+        /// It could be the most annoying issue.
+        /// Even if you setup correctly everything and call setup only once.
+        /// There would be one path in execution that you don't handle properly.
+        /// The code below works, for example, for title block ( block with details, NOT a block with `.title` style )
+        ///
+        /// That is correct, because you setup it only once.
+        /// But for regular blocks you have to consider another approach and work with text view setup more accurate.
+        ///
+        /// Uncomment the comment below to investigate issue.
+        /// if self.textStorageSubscription != nil { print("strange"); return; }
         self.textStorageSubscription = textStorageStream.sink(receiveValue: { [weak self] (value) in
             switch value {
             case .willProcessEditing(_): return
