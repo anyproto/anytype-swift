@@ -395,8 +395,8 @@ private extension Namespace.ViewModel {
         self.update { (block) in
             switch block.blockModel.information.content {
             case var .text(value):
-                guard value.attributedText != attributedText else { return }
-                value.attributedText = attributedText
+                guard value.attributedText != attributedText, let copy = attributedText.copy() as? NSAttributedString else { return }
+                value.attributedText = copy
                 var blockModel = block.blockModel
                 blockModel.information.content = .text(value)
             default: return
