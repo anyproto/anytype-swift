@@ -664,14 +664,19 @@ extension Namespace {
         var leftView: UIView!
         var onLeftChildWillLayout: (UIView?) -> () = { view in
             if let view = view, let superview = view.superview {
-                NSLayoutConstraint.activate([
+                var constraints = [
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                     view.topAnchor.constraint(equalTo: superview.topAnchor),
                     view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor),
-                    view.heightAnchor.constraint(equalToConstant: view.intrinsicContentSize.height),
-                    view.widthAnchor.constraint(equalToConstant: view.intrinsicContentSize.width)
-                ])
+                ]
+                if view.intrinsicContentSize.width != UIView.noIntrinsicMetric {
+                    constraints.append(view.widthAnchor.constraint(equalToConstant: view.intrinsicContentSize.width))
+                }
+                if view.intrinsicContentSize.height != UIView.noIntrinsicMetric {
+                    constraints.append(view.heightAnchor.constraint(equalToConstant: view.intrinsicContentSize.height))
+                }
+                NSLayoutConstraint.activate(constraints)
             }
         }
 
@@ -744,17 +749,17 @@ extension Namespace {
             // toggle animation also
         }
 
-        func updateIfNeeded(leftChild: UIView?) {
+        func updateIfNeeded(leftChild: UIView?, setConstraints: Bool = false) {
             guard let leftChild = leftChild else { return }
-            self.topView.updateIfNeeded(leftViewSubview: leftChild, false)
+            self.topView.updateIfNeeded(leftViewSubview: leftChild, setConstraints)
             leftChild.translatesAutoresizingMaskIntoConstraints = false
             self.leftView = leftChild
             self.onLeftChildWillLayout(leftChild)
         }
 
         // MARK: Configured
-        func configured(leftChild: UIView?) -> Self {
-            self.updateIfNeeded(leftChild: leftChild)
+        func configured(leftChild: UIView?, setConstraints: Bool = false) -> Self {
+            self.updateIfNeeded(leftChild: leftChild, setConstraints: setConstraints)
             return self
         }
 
@@ -862,6 +867,12 @@ extension Namespace.ViewModel {
 // MARK: - ContentView
 private extension Namespace.ViewModel {
     class OldContentView: UIView & UIContentView {
+        
+        private enum Constants {
+            static let quoteViewWidth: CGFloat = 15
+            static let quoteBlockTextConteinerInset: UIEdgeInsets = .init(top: 4, left: 14, bottom: 4, right: 8)
+        }
+        
         struct Layout {
             let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
         }
@@ -975,7 +986,6 @@ private extension Namespace.ViewModel {
             self.invalidateIntrinsicContentSize()
             
             self.applyNewConfiguration()
-            self.topView.backgroundColor = .systemGray6
 //            switch self.currentConfiguration.information.content {
 //            case let .text(value): self.handle(value)
 //            default: return
@@ -998,6 +1008,16 @@ private extension Namespace.ViewModel {
             else {
                 self.textView = model?.createView(.init(liveUpdateAvailable: true))
                 _ = self.topView.configured(textView: self.textView)
+                if case let .text(text) = currentConfiguration.information.content, text.contentType == .quote {
+                    let quoteView: QuoteBlockLeadingView = .init()
+                    quoteView.translatesAutoresizingMaskIntoConstraints = false
+                    quoteView.widthAnchor.constraint(equalToConstant: Constants.quoteViewWidth).isActive = true
+                    _ = self.topView.configured(leftChild: quoteView, setConstraints: true)
+                    self.topView.backgroundColor = .white
+                    self.textView?.getTextView?.textContainerInset = Constants.quoteBlockTextConteinerInset
+                } else {
+                    self.topView.backgroundColor = .systemGray6
+                }
             }
         }
     }

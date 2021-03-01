@@ -75,7 +75,7 @@ extension Namespace {
         private var subscriptions: Set<AnyCancellable> = []
         
         // MARK: Views
-        private lazy var placeholderLabel: UILabel? = {
+        private lazy var placeholderLabel: UILabel = {
             let label: UILabel = .init()
             label.textColor = self.textColor
             label.font = self.font
@@ -91,6 +91,13 @@ extension Namespace {
         override var textContainerInset: UIEdgeInsets {
             didSet {
                 self.updatePlaceholderLayout()
+            }
+        }
+        
+        override var typingAttributes: [NSAttributedString.Key : Any] {
+            didSet {
+                guard let font = typingAttributes[.font] as? UIFont else { return }
+                self.placeholderLabel.font = font
             }
         }
 
@@ -115,14 +122,13 @@ extension Namespace {
         
         private func setupUIElements() {
             self.textStorage.delegate = self
-            if let view = self.placeholderLabel {
-                self.addSubview(view)
-            }
+            self.addSubview(self.placeholderLabel)
         }
                 
         // MARK: Add Layout
         private func updatePlaceholderLayout() {
-            if let view = self.placeholderLabel, let superview = view.superview {
+            let view = self.placeholderLabel
+            if let superview = view.superview {
                 let insets = self.textContainerInset
                 let lineFragmentPadding = self.textContainer.lineFragmentPadding
                 
@@ -266,11 +272,11 @@ extension Namespace.TextViewWithPlaceholder {
 // MARK: - Placeholder
 extension Namespace.TextViewWithPlaceholder {
     fileprivate func syncPlaceholder() {
-        self.placeholderLabel?.isHidden = !self.text.isEmpty
+        self.placeholderLabel.isHidden = !self.text.isEmpty
     }
     
     func update(placeholder: NSAttributedString?) {
-        self.placeholderLabel?.attributedText = placeholder
+        self.placeholderLabel.attributedText = placeholder
         // TODO: Add redrawing?
     }
 }

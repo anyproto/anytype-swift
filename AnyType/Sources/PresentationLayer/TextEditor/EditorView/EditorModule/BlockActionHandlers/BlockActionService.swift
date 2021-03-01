@@ -300,8 +300,9 @@ private extension BlockActionService {
 
         let documentId = self.documentId
 
-        self.textService.setText.action(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value in
-            self?.textService.split.action(contextID: documentId, blockID: blockId, range: range, style: type.contentType) ?? .empty()
+        self.textService.setText.action(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceLayerModule.Success, Error> in
+            let contentType = type.contentType == .quote ? .text : type.contentType
+            return self?.textService.split.action(contextID: documentId, blockID: blockId, range: range, style: contentType) ?? .empty()
         }).sink { (value) in
             switch value {
             case .finished: return

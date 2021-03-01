@@ -346,6 +346,9 @@
 		A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */; };
 		EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */; };
 		EA0BF08B25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF08A25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift */; };
+		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
+		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
+		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -726,6 +729,9 @@
 		A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+HeaderCollectionReusableView.swift"; sourceTree = "<group>"; };
 		EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChecker.swift; sourceTree = "<group>"; };
 		EA0BF08A25D6C19700B2A747 /* EditorModule+CellIdentifierConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorModule+CellIdentifierConverter.swift"; sourceTree = "<group>"; };
+		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
+		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
+		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1056,6 +1062,7 @@
 		0388BF7822F10D3D00B73E39 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */,
 				0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */,
 			);
 			path = Fonts;
@@ -1161,6 +1168,7 @@
 				0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */,
 				034A30402405CDBE002599E2 /* CombineExtension.swift */,
 				0A0AA749240146B5003A2935 /* UIView+Extensions.swift */,
+				EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -1535,6 +1543,7 @@
 				0A10CC92248FF510000FF498 /* BlocksViews+New+Text+Numbered.swift */,
 				0A10CC94248FF5A8000FF498 /* BlocksViews+New+Text+Toggle.swift */,
 				0A10CC96248FF804000FF498 /* BlocksViews+New+Text+Quote.swift */,
+				EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -2164,6 +2173,7 @@
 				0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings in Resources */,
 				0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */,
 				0303ED0522D8EDAD005C552B /* Assets.xcassets in Resources */,
+				EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2362,6 +2372,7 @@
 				0A0965F125BEF5B000C004BD /* EditorModule+Selection+Handler.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */,
 				0A10CC88248FF0A4000FF498 /* BlocksViews+New+Text+Text.swift in Sources */,
+				EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */,
 				0A10CC91248FF45C000FF498 /* BlocksViews+New+Text+Header.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				0A203A8625470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift in Sources */,
@@ -2374,6 +2385,7 @@
 				0AA00C5224CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift in Sources */,
 				0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */,
 				0A1DACCD244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift in Sources */,
+				EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				0A0965E725BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,

@@ -77,19 +77,21 @@ extension Namespace {
         private func setupCollectionViewDataSource() {
             guard let listView = self.collectionView else { return }
             
-            listView.register(Cells.ContentConfigurations.Text.Text.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Text.Table.cellReuseIdentifier())
+            listView.register(Cells.ContentConfigurations.Text.Text.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Text.Collection.cellReuseIdentifier())
             
-            listView.register(Cells.ContentConfigurations.File.File.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.File.File.Table.cellReuseIdentifier())
+            listView.register(Cells.ContentConfigurations.Text.Quote.Collection.self, forCellWithReuseIdentifier: EditorModule.Document.Cells.ContentConfigurations.Text.Quote.Collection.cellReuseIdentifier())
             
-            listView.register(Cells.ContentConfigurations.File.Image.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.File.Image.Table.cellReuseIdentifier())
+            listView.register(Cells.ContentConfigurations.File.File.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.File.File.Collection.cellReuseIdentifier())
             
-            listView.register(Cells.ContentConfigurations.Bookmark.Bookmark.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Bookmark.Bookmark.Table.cellReuseIdentifier())
+            listView.register(Cells.ContentConfigurations.File.Image.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.File.Image.Collection.cellReuseIdentifier())
             
-            listView.register(Cells.ContentConfigurations.Other.Divider.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Other.Divider.Table.cellReuseIdentifier())
+            listView.register(Cells.ContentConfigurations.Bookmark.Bookmark.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Bookmark.Bookmark.Collection.cellReuseIdentifier())
             
-            listView.register(Cells.ContentConfigurations.Link.PageLink.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Link.PageLink.Table.cellReuseIdentifier())
+            listView.register(Cells.ContentConfigurations.Other.Divider.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Other.Divider.Collection.cellReuseIdentifier())
+            
+            listView.register(Cells.ContentConfigurations.Link.PageLink.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Link.PageLink.Collection.cellReuseIdentifier())
 
-            listView.register(Cells.ContentConfigurations.Unknown.Label.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Unknown.Label.Table.cellReuseIdentifier())
+            listView.register(Cells.ContentConfigurations.Unknown.Label.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Unknown.Label.Collection.cellReuseIdentifier())
 
             
             self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView) { (view, indexPath, item) -> UICollectionViewCell? in

@@ -462,7 +462,6 @@ extension Namespace {
             }
         }
         class Collection: UICollectionViewCell {
-            func setup() {}
             override func updateConfiguration(using state: UICellConfigurationState) {
                 super.updateConfiguration(using: state)
                 self.setNeedsUpdateConstraints()
@@ -492,65 +491,48 @@ extension ContentConfigurationsCells {
 // MARK: ContentConfigurations / Text
 extension ContentConfigurationsCells.Text {
     enum Text {
-        class Table: EditorModule.Document.Cells.ContentConfigurations.Table {
-            override func layoutSubviews() {
-                if let view = self.contentView as? EdiotrModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
-                    view.configure(publisher: self.eventPublisher)
-                }
-                super.layoutSubviews()
-            }
-        }
-        class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+    }
+    
+    enum Quote {
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
 // MARK: ContentConfigurations / Files
 extension ContentConfigurationsCells.File {
     enum File {
-        class Table: EditorModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
     enum Image {
-        class Table: EditorModule.Document.Cells.ContentConfigurations.Table {
-            override func layoutSubviews() {
-                if let view = self.contentView as? EdiotrModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
-                    view.configure(publisher: self.eventPublisher)
-                }
-                super.layoutSubviews()
-            }
-        }
-        class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
 // MARK: ContentConfigurations / Bookmark
 extension ContentConfigurationsCells.Bookmark {
     enum Bookmark {
-        class Table: EditorModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
 // MARK: ContentConfigurations / Divider
 extension ContentConfigurationsCells.Other {
     enum Divider {
-        class Table: EditorModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
 // MARK: ContentConfigurations / Link
 extension ContentConfigurationsCells.Link {
     enum PageLink {
-        class Table: EditorModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
 
 // MARK: ContentConfigurations / Unknown
 extension ContentConfigurationsCells.Unknown {
     enum Label {
-        class Table: EditorModule.Document.Cells.ContentConfigurations.Table {}
-        class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }
