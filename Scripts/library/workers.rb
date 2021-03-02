@@ -1,5 +1,7 @@
+require_relative 'shell_executor'
+
 module Workers
-  class BasicWorker
+  class BaseWorker
     attr_reader :executor
     def executor
       @executor || ShellExecutor
@@ -24,7 +26,7 @@ module Workers
     def work
       unless can_run?
         puts "Tool #{tool} does not exist. Please, install it or select alternatives."
-        exit(0)
+        exit(1)
       end
       perform_work
     end
@@ -34,7 +36,20 @@ module Workers
     end
   end
 
-  class TravelerWorker < BasicWorker
+  class ExternalToolWorker < BaseWorker
+    attr_accessor :toolPath
+    def initialize(toolPath)
+      self.toolPath = toolPath
+    end
+    def is_valid?
+      File.exists? toolPath
+    end
+    def tool
+      "#{toolPath}"
+    end
+  end
+
+  class TravelerWorker < BaseWorker
     attr_accessor :path
     def initialize(path)
       self.path = path

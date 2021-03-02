@@ -6,64 +6,55 @@
 //   https://github.com/anytypeio/anytype-swift-codegen
 
 extension Anytype_Model_PageDetails {
-  init(details: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
     self.details = details
   }
 }
 
 extension Anytype_Model_PageInfo {
-  init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct, snippet: String, state: Anytype_Model_State, hasInboundLinks_p: Bool) {
+  public init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct, snippet: String, hasInboundLinks_p: Bool, pageType: Anytype_Model_PageInfo.TypeEnum) {
     self.id = id
     self.details = details
     self.snippet = snippet
-    self.state = state
     self.hasInboundLinks_p = hasInboundLinks_p
+    self.pageType = pageType
   }
 }
 
 extension Anytype_Model_PageInfoWithLinks {
-  init(id: String, info: Anytype_Model_PageInfo, links: Anytype_Model_PageLinksInfo, state: Anytype_Model_State) {
+  public init(id: String, info: Anytype_Model_PageInfo, links: Anytype_Model_PageLinksInfo) {
     self.id = id
     self.info = info
     self.links = links
-    self.state = state
   }
 }
 
 extension Anytype_Model_PageInfoWithOutboundLinks {
-  init(id: String, info: Anytype_Model_PageInfo, outboundLinks: [Anytype_Model_PageInfo], state: Anytype_Model_State) {
+  public init(id: String, info: Anytype_Model_PageInfo, outboundLinks: [Anytype_Model_PageInfo]) {
     self.id = id
     self.info = info
     self.outboundLinks = outboundLinks
-    self.state = state
   }
 }
 
 extension Anytype_Model_PageInfoWithOutboundLinksIDs {
-  init(id: String, info: Anytype_Model_PageInfo, outboundLinks: [String], state: Anytype_Model_State) {
+  public init(id: String, info: Anytype_Model_PageInfo, outboundLinks: [String]) {
     self.id = id
     self.info = info
     self.outboundLinks = outboundLinks
-    self.state = state
   }
 }
 
 extension Anytype_Model_PageLinks {
-  init(inboundIds: [String], outboundIds: [String]) {
+  public init(inboundIds: [String], outboundIds: [String]) {
     self.inboundIds = inboundIds
     self.outboundIds = outboundIds
   }
 }
 
 extension Anytype_Model_PageLinksInfo {
-  init(inbound: [Anytype_Model_PageInfo], outbound: [Anytype_Model_PageInfo]) {
+  public init(inbound: [Anytype_Model_PageInfo], outbound: [Anytype_Model_PageInfo]) {
     self.inbound = inbound
     self.outbound = outbound
-  }
-}
-
-extension Anytype_Model_State {
-  init(state: [String: UInt64]) {
-    self.state = state
   }
 }

@@ -18,25 +18,12 @@ require_relative 'library/shell_executor'
 require_relative 'library/voice'
 require_relative 'library/workers'
 require_relative 'library/pipelines'
+require_relative 'library/commands'
 
 module AnytypeSwiftCodegenRunner
   TravelerWorker = Workers::TravelerWorker
-  class BaseWorker < Workers::BasicWorker
-    attr_accessor :toolPath
-    def initialize(toolPath)
-      self.toolPath = toolPath
-    end
-    def is_directory?
-      is_valid? && Dir.exists?(toolPath)
-    end
-    def is_valid?
-      File.exists? toolPath
-    end
-    def tool
-      "#{toolPath}"
-    end
-  end
-  class CodegenWorker < BaseWorker
+  ExternalToolWorker = Workers::ExternalToolWorker
+  class CodegenWorker < ExternalToolWorker
     attr_accessor :transform, :filePath
     def initialize(toolPath, transform, filePath)
       super(toolPath)
@@ -47,11 +34,10 @@ module AnytypeSwiftCodegenRunner
       "ruby #{tool} --transform #{transform} --filePath #{filePath}"
     end
   end
-  class FormatWorker < BaseWorker
+  class FormatWorker < ExternalToolWorker
     attr_accessor :filePath
     def initialize(toolPath, filePath)
       super(toolPath)
-      self.transform = transform
       self.filePath = filePath
     end
     def action
@@ -62,12 +48,8 @@ end
 
 module AnytypeSwiftCodegenRunner
   module Configuration
+    BaseCommand = Commands::BaseCommand
     module Commands
-      class BaseCommand
-        def to_json(*args)
-          self.class.name
-        end
-      end
       class CodegenCommand < BaseCommand
       end
       class CodegenListCommand < BaseCommand
@@ -105,8 +87,9 @@ module AnytypeSwiftCodegenRunner::Pipeline
       if Dir.exists? options[:toolPath]
         AnytypeSwiftCodegenRunner::TravelerWorker.new(options[:toolPath]).work
       end
-      Dir[options[:outputDirectory]].entries.select{|f| File.file?(f) && File.extname(f) == ".swift"}.map{|f| File.absolute_path(f)}.each{|f|
-        AnytypeSwiftCodegenRunner::FormatWorker.new(options[:formatToolPath], f)
+      directory = options[:outputDirectory]
+      Dir.entries(directory).map{|f| File.join(directory, f)}.select{|f| File.file?(f) && File.extname(f) == '.swift'}.each{|f|
+        AnytypeSwiftCodegenRunner::FormatWorker.new(options[:formatToolPath], f).work
       }
     end
   end
@@ -154,6 +137,9 @@ class Matrix
       def eventsFilePath
         self.protobufDirectory + "events.pb.swift"
       end
+      def localstoreFilePath
+        self.protobufDirectory + "localstore.pb.swift"
+      end
     end
 
     attr_accessor :transform, :filePath
@@ -174,7 +160,7 @@ class Matrix
 
     class << self
       def make_all
-        [make_inits_for_commands, make_inits_for_models, make_inits_for_events, make_error_protocols_for_commands, make_services_for_commands]
+        [make_inits_for_commands, make_inits_for_models, make_inits_for_events, make_inits_for_localstore, make_error_protocols_for_commands, make_services_for_commands]
       end
       def make_error_protocols_for_commands
         new("error_protocol", self.commandsFilePath)
@@ -190,6 +176,9 @@ class Matrix
       end
       def make_inits_for_events
         new("inits", self.eventsFilePath)
+      end
+      def make_inits_for_localstore
+        new("inits", self.localstoreFilePath)
       end
     end
   end
@@ -227,7 +216,7 @@ class MainWork
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
-      exit(0)
+      exit(1)
     end
 
     ShellExecutor.setup options[:dry_run]
@@ -251,7 +240,7 @@ class MainWork
       end
 
       def filePathOptions
-        [:toolPath]
+        [:toolPath, :outputDirectory, :formatToolPath]
       end
 
       def fixOptions(options)

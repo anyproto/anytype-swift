@@ -13,16 +13,17 @@ require_relative 'library/shell_executor'
 require_relative 'library/voice'
 require_relative 'library/workers'
 require_relative 'library/semantic_versioning'
+require_relative 'library/commands'
 
 module MiddlewareUpdater
-  class BaseWorker < Workers::BasicWorker
+  class AlwaysValidWorker < Workers::BaseWorker
     def is_valid?
       true
     end
   end
 
   # version=`curl -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" -sL https://$GITHUB/repos/$REPO/releases | jq ".[] | select(.tag_name == \"$MIDDLEWARE_VERSION_BY_TAG_NAME\")"`
-  class GetRemoteInformationWorker < BaseWorker
+  class GetRemoteInformationWorker < AlwaysValidWorker
     attr_accessor :token, :url
     def initialize(token, url)
       self.token = token
@@ -38,7 +39,7 @@ module MiddlewareUpdater
         Please, provide it by cli argument or environment variable. 
         Run `ruby #{$0} --help`
         __REASON__
-        exit(0)
+        exit(1)
       end
       perform_work
     end
@@ -53,13 +54,13 @@ module MiddlewareUpdater
       }
       if Integer(response.code) >= 400
         puts "Code: #{response.code} and response: #{JSON.parse(response.body)}"
-        exit(0)
+        exit(1)
       end
       JSON.parse(response.body)
     end
   end
 
-  class GetRemoteAvailableVersionsWorker < BaseWorker
+  class GetRemoteAvailableVersionsWorker < AlwaysValidWorker
     attr_accessor :json_list
     def initialize(json_list)
       self.json_list = json_list
@@ -69,7 +70,7 @@ module MiddlewareUpdater
     end
   end
 
-  class GetRemoteVersionWorker < BaseWorker
+  class GetRemoteVersionWorker < AlwaysValidWorker
     attr_accessor :json_list
     def initialize(json_list)
       self.json_list = json_list
@@ -85,7 +86,7 @@ module MiddlewareUpdater
     end
   end
 
-  class GetRemoteAssetURLWorker < BaseWorker
+  class GetRemoteAssetURLWorker < AlwaysValidWorker
     attr_accessor :json_list, :version, :prefix
     def initialize(json_list, version, prefix)
       self.json_list = json_list
@@ -100,7 +101,7 @@ module MiddlewareUpdater
     end
   end
 
-  class DownloadFileAtURLWorker < Workers::BasicWorker
+  class DownloadFileAtURLWorker < Workers::BaseWorker
     attr_accessor :token, :url, :filePath
     def initialize(token, url, filePath)
       self.token = token
@@ -119,13 +120,13 @@ module MiddlewareUpdater
     end
   end
 
-  class GetTemporaryDirectoryWorker < BaseWorker
+  class GetTemporaryDirectoryWorker < AlwaysValidWorker
     def perform_work
       Dir.mktmpdir
     end
   end
 
-  class UncompressFileToTemporaryDirectoryWorker < Workers::BasicWorker
+  class UncompressFileToTemporaryDirectoryWorker < Workers::BaseWorker
     attr_accessor :filePath, :temporaryDirectory
     def initialize(filePath, temporaryDirectory)
       self.filePath = filePath
@@ -139,7 +140,7 @@ module MiddlewareUpdater
     end
   end
 
-  class CleanupDependenciesDirectoryWorker < BaseWorker
+  class CleanupDependenciesDirectoryWorker < AlwaysValidWorker
     attr_accessor :directoryPath
     def initialize(directoryPath)
       self.directoryPath = directoryPath
@@ -150,7 +151,7 @@ module MiddlewareUpdater
     end
   end
 
-  class CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker < BaseWorker
+  class CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker < AlwaysValidWorker
     attr_accessor :temporaryDirectoryPath, :filesNames, :targetDirectoryPath
     def initialize(temporaryDirectoryPath, filesNames = [], targetDirectoryPath)
       self.temporaryDirectoryPath = temporaryDirectoryPath
@@ -167,7 +168,7 @@ module MiddlewareUpdater
     end
   end
 
-  class CopyProtobufFilesWorker < BaseWorker
+  class CopyProtobufFilesWorker < AlwaysValidWorker
     attr_accessor :dependenciesDirectoryPath, :protobufDirectoryName, :targetDirectoryPath
     def initialize(dependenciesDirectoryPath, protobufDirectoryName, targetDirectoryPath)
       self.dependenciesDirectoryPath = dependenciesDirectoryPath
@@ -190,7 +191,7 @@ module MiddlewareUpdater
     end
   end
 
-  class RunCodegenScriptWorker < Workers::BasicWorker
+  class RunCodegenScriptWorker < Workers::BaseWorker
     attr_accessor :scriptPath
     def initialize(scriptPath)
       self.scriptPath = scriptPath
@@ -203,7 +204,7 @@ module MiddlewareUpdater
     end
   end
 
-  class RemoveDirectoryWorker < BaseWorker
+  class RemoveDirectoryWorker < AlwaysValidWorker
     attr_accessor :directoryPath
     def initialize(directoryPath)
       self.directoryPath = directoryPath
@@ -213,7 +214,7 @@ module MiddlewareUpdater
     end
   end
 
-  class GetLockfileVersionWorker < BaseWorker
+  class GetLockfileVersionWorker < AlwaysValidWorker
     attr_accessor :filePath, :key
     def initialize(filePath, key)
       self.key = key
@@ -224,7 +225,7 @@ module MiddlewareUpdater
     end
   end
 
-  class SetLockfileVersionWorker < BaseWorker
+  class SetLockfileVersionWorker < AlwaysValidWorker
     attr_accessor :filePath, :key, :value
     def initialize(filePath, key, value)
       self.filePath = filePath
@@ -240,7 +241,7 @@ module MiddlewareUpdater
     end
   end
 
-  class GetLibraryfileVersionWorker < BaseWorker
+  class GetLibraryfileVersionWorker < AlwaysValidWorker
     attr_accessor :filePath, :key
     def initialize(filePath, key)
       self.filePath = filePath
@@ -252,7 +253,7 @@ module MiddlewareUpdater
     end
   end
 
-  class SemanticCompareVersionsWorker < BaseWorker
+  class SemanticCompareVersionsWorker < AlwaysValidWorker
     attr_accessor :semantic_versioning_parsed, :versions
     def initialize(semantic_versioning_parsed, versions)
       self.semantic_versioning_parsed = semantic_versioning_parsed
@@ -264,30 +265,33 @@ module MiddlewareUpdater
   end
 end
 
-class Configuration
-  class Commands
-    class InstallCommand
-    end
-    class UpdateCommand
-      attr_accessor :version
-      def initialize(version = nil)
-        self.version = version
+module MiddlewareUpdater
+  module Configuration
+    BaseCommand = Commands::BaseCommand
+    module Commands
+      class InstallCommand < BaseCommand
+      end
+      class UpdateCommand < BaseCommand
+        attr_accessor :version
+        def initialize(version = nil)
+          self.version = version
+        end
+      end
+      class ListCommand < BaseCommand
+      end
+      class CurrentVersionCommand < BaseCommand
       end
     end
-    class ListCommand
-    end
-    class CurrentVersionCommand
-    end
-  end
-  class EnvironmentVariables
-    AVAILABLE_VARIABLES = {
-      ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN: 'Access token to a middelware repositry'
-    }
-    def self.token
-      ENV['ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN']
-    end
-    def self.variables_description
-      AVAILABLE_VARIABLES.collect{|k, v| "#{k} -- #{v}"}.join('\n')
+    class EnvironmentVariables
+      AVAILABLE_VARIABLES = {
+        ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN: 'Access token to a middelware repositry'
+      }
+      def self.token
+        ENV['ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN']
+      end
+      def self.variables_description
+        AVAILABLE_VARIABLES.collect{|k, v| "#{k} -- #{v}"}.join('\n')
+      end
     end
   end
 end
@@ -463,10 +467,10 @@ class Pipeline
     def start(options)
       say "Lets find you command in a list..."
       case options[:command]
-      when Configuration::Commands::InstallCommand then InstallPipeline.start(options)
-      when Configuration::Commands::UpdateCommand then UpdatePipeline.start(options)
-      when Configuration::Commands::ListCommand then ListPipeline.start(options)
-      when Configuration::Commands::CurrentVersionCommand then CurrentVersionPipeline.start(options)
+      when MiddlewareUpdater::Configuration::Commands::InstallCommand then InstallPipeline.start(options)
+      when MiddlewareUpdater::Configuration::Commands::UpdateCommand then UpdatePipeline.start(options)
+      when MiddlewareUpdater::Configuration::Commands::ListCommand then ListPipeline.start(options)
+      when MiddlewareUpdater::Configuration::Commands::CurrentVersionCommand then CurrentVersionPipeline.start(options)
       else
         say "I don't recognize this command: #{options[:command]}"
         finalize
@@ -514,7 +518,7 @@ class MainWork
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
-      exit(0)
+      exit(1)
     end
 
     ShellExecutor.setup options[:dry_run]
@@ -527,7 +531,7 @@ class MainWork
       def defaultOptions
         options = {
           # commands
-          command: Configuration::Commands::InstallCommand.new,
+          command: MiddlewareUpdater::Configuration::Commands::InstallCommand.new,
 
           # library file options
           libraryFilePath: "#{__dir__}/../Libraryfile",
@@ -535,7 +539,7 @@ class MainWork
           librarylockFileVersionKey: "middleware.version",
 
           # repository options
-          token: Configuration::EnvironmentVariables.token || '',
+          token: MiddlewareUpdater::Configuration::EnvironmentVariables.token || '',
           repositoryURL: "https://api.github.com/repos/anytypeio/go-anytype-middleware/releases",
 
           # download file options
@@ -638,7 +642,7 @@ class MainWork
 
     Available variables are
 
-    #{Configuration::EnvironmentVariables.variables_description}
+    #{MiddlewareUpdater::Configuration::EnvironmentVariables.variables_description}
 
     5. Set Environment Variables
 
@@ -680,10 +684,10 @@ class MainWork
       opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
 
       # commands
-      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = Configuration::Commands::InstallCommand.new}
-      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = Configuration::Commands::UpdateCommand.new(v)}
-      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = Configuration::Commands::ListCommand.new}
-      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = Configuration::Commands::CurrentVersionCommand.new}
+      opts.on('--install', '--install', 'Install version from library lock file if it is exists.') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::InstallCommand.new}
+      opts.on('--update', '--update [VERSION]', 'Fetch new version from remote and write it to lock file.') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::UpdateCommand.new(v)}
+      opts.on('--list', '--list', 'List available versions from remote') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::ListCommand.new}
+      opts.on('--current_version', '--current_version', 'Print current version') {|v| options[:command] = MiddlewareUpdater::Configuration::Commands::CurrentVersionCommand.new}
 
       # library file options
       opts.on('--libraryFilePath', '--libraryFilePath PATH', 'Path to library file.') {|v| options[:libraryFilePath] = v}

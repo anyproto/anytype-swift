@@ -7,35 +7,22 @@ require_relative 'library/shell_executor'
 require_relative 'library/voice'
 require_relative 'library/workers'
 require_relative 'library/pipelines'
+require_relative 'library/commands'
 
 module SwiftFormat
   TravelerWorker = Workers::TravelerWorker
-  class BaseWorker < Workers::BasicWorker
-    attr_accessor :toolPath
-    def initialize(toolPath)
-      self.toolPath = toolPath
-    end
-    def is_directory?
-      is_valid? && Dir.exists?(toolPath)
-    end
-    def is_valid?
-      File.exists? toolPath
-    end
-    def tool
-      "#{toolPath}"
-    end
-  end
-  class ToolVersionWorker < BaseWorker
+  ExternalToolWorker = Workers::ExternalToolWorker
+  class ToolVersionWorker < ExternalToolWorker
     def action
       "#{tool} --version"
     end
   end
-  class ToolHelpWorker < BaseWorker
+  class ToolHelpWorker < ExternalToolWorker
     def action
       "#{tool} --help"
     end
   end
-  class FormatWorker < BaseWorker
+  class FormatWorker < ExternalToolWorker
     attr_accessor :configuration_path, :input_path
     def initialize(tool_path, configuration_path, input_path)
       super(tool_path)
@@ -50,12 +37,8 @@ end
 
 module SwiftFormat
   module Configuration
+    BaseCommand = Commands::BaseCommand
     module Commands
-      class BaseCommand
-        def to_json(*args)
-          self.class.name
-        end
-      end
       class ToolVersionCommand < BaseCommand
       end
       class ToolHelpCommand < BaseCommand
@@ -164,7 +147,7 @@ class MainWork
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
-      exit(0)
+      exit(1)
     end
 
     ShellExecutor.setup options[:dry_run]

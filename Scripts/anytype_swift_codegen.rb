@@ -18,30 +18,12 @@ require_relative 'library/shell_executor'
 require_relative 'library/voice'
 require_relative 'library/workers'
 require_relative 'library/pipelines'
+require_relative 'library/commands'
 
 module AnytypeSwiftCodegen
   TravelerWorker = Workers::TravelerWorker
-  class BaseWorker < Workers::BasicWorker
-    class << self
-      def repository_based_tool
-        "swift run anytype-swift-codegen"
-      end
-    end
-    attr_accessor :toolPath
-    def initialize(toolPath = nil)
-      self.toolPath = toolPath || self.class.repository_based_tool
-    end
-    def is_directory?
-      is_valid? && Dir.exists?(toolPath)
-    end
-    def is_valid?
-      File.exists? toolPath
-    end
-    def tool
-      "#{toolPath}"
-    end
-  end
-  class BuilderWorker < BaseWorker
+  ExternalToolWorker = Workers::ExternalToolWorker
+  class BuilderWorker < ExternalToolWorker
     def tool
       "swift"
     end
@@ -49,22 +31,22 @@ module AnytypeSwiftCodegen
       "#{tool} build"
     end
   end
-  class ToolVersionWorker < BaseWorker
+  class ToolVersionWorker < ExternalToolWorker
     def action
       "#{tool} version"
     end
   end
-  class ListTransformsWorker < BaseWorker
+  class ListTransformsWorker < ExternalToolWorker
     def action
       "#{tool} generate -l"
     end
   end
-  class ToolHelpWorker < BaseWorker
+  class ToolHelpWorker < ExternalToolWorker
     def action
       "#{tool} help"
     end
   end
-  class ApplyTransformsWorker < BaseWorker
+  class ApplyTransformsWorker < ExternalToolWorker
     attr_accessor :options
     def initialize(toolPath, options)
       super(toolPath)
@@ -82,12 +64,8 @@ end
 
 module AnytypeSwiftCodegen
   module Configuration
+    BaseCommand = Commands::BaseCommand
     module Commands
-      class BaseCommand
-        def to_json(*args)
-          self.class.name
-        end
-      end
       class ToolVersionCommand < BaseCommand
       end
       class ToolHelpCommand < BaseCommand
@@ -318,7 +296,7 @@ class MainWork
       puts "options are not valid!"
       puts "options are: #{options}"
       puts "missing options: #{required_keys}"
-      exit(0)
+      exit(1)
     end
 
     ShellExecutor.setup options[:dry_run]
