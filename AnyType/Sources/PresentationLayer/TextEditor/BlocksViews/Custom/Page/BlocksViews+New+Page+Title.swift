@@ -271,10 +271,10 @@ private extension BlocksViews.New.Page.Title {
 
         // MARK: Configured
         func configured(textView: TextView.UIKitTextView?) -> Self {
-            if let attributes = textView?.getTextView?.typingAttributes {
+            if let attributes = textView?.textView?.typingAttributes {
                 var correctedAttributes = attributes
                 correctedAttributes[.font] = UIFont.titleFont
-                textView?.getTextView?.typingAttributes = correctedAttributes
+                textView?.textView?.typingAttributes = correctedAttributes
             }
             _ = self.topView.configured(textView: textView)
             return self

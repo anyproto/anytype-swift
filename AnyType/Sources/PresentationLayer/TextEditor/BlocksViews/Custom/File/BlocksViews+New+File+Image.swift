@@ -386,7 +386,7 @@ private extension Namespace.ViewModel {
 
 // MARK: - ContentView
 private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView, EdiotrModuleDocumentViewCellContentConfigurationsCellsListenerProtocol {
+    class ContentView: UIView & UIContentView {
         
         /// Views
         var imageContentView: UIView = .init()
@@ -603,20 +603,6 @@ private extension Namespace.ViewModel {
             switch self.currentConfiguration.information.content {
             case let .file(value): self.handleFile(value, .none)
             default: return
-            }
-        }
-        
-        private func handle(_ value: EditorModule.Document.Cells.ContentConfigurations.Table.Event) {
-            switch value {
-            case .shouldLayoutSubviews:
-                self.refreshImage()
-            }
-        }
-        func configure(publisher: AnyPublisher<EditorModule.Document.Cells.ContentConfigurations.Table.Event, Never>) {
-            if self.onLayoutSubviewsSubscription == nil {
-                self.onLayoutSubviewsSubscription = publisher.sink(receiveValue: { [weak self] (value) in
-                    self?.handle(value)
-                })
             }
         }
     }

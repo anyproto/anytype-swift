@@ -59,9 +59,6 @@ extension Namespace {
         weak var coordinator: TextView.UIKitTextView.Coordinator?
         
         // MARK: Publishers
-        private var textStorageEventsSubject: PassthroughSubject<TextStorageEvent, Never> = .init()
-        private(set) var textStorageEventsPublisher: AnyPublisher<TextStorageEvent, Never> = .empty()
-        
         private var contextualMenuSubject: PassthroughSubject<ContextualMenu.Action, Never> = .init()
         private(set) var contextualMenuPublisher: AnyPublisher<ContextualMenu.Action, Never> = .empty()
         
@@ -148,15 +145,6 @@ extension Namespace {
         }
         
         func setupPublishers() {
-            /// Hm... Maybe it is not good idea to even send updates.
-            /// Actually, we only need to dispatch on correct queue?
-            /// Do we?
-            /// Maybe we need some private queue (?)
-            self.textStorageEventsPublisher = self.textStorageEventsSubject
-//                .subscribe(on: QueueStorage.updatesQueue)
-//                .receive(on: QueueStorage.updatesQueue)
-                //.debounce(for: .seconds(1), scheduler: DispatchQueue.global())
-                .eraseToAnyPublisher()
             /// TODO: Measure.
             /// We don't care about text anymore. We use debounce technique to sync document.
             /// For that, we need only access to parts of textView.
@@ -245,7 +233,6 @@ extension Namespace.TextViewWithPlaceholder: NSTextStorageDelegate {
         /// But first letter of attributes ( `NSParagraphStyle.alignment` ) has right alignment ( now .right )
         ///
         coordinator?.notifySubscribers(.init(attributedText: textStorage, textAlignment: textAlignment))
-//        self.textStorageEventsSubject.send(.didProcessEditing(.init(attributedText: textStorage, textAlignment: textAlignment)))
     }
 }
 

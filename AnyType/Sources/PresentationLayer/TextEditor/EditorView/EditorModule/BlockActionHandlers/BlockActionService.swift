@@ -206,16 +206,18 @@ final class BlockActionService {
             .iconEmoji(.init())
         ])
 
-        self.pageService.createPage.action(contextID: self.documentId, targetID: targetId, details: details, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return // move to this page
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
-            }
-        }) { [weak self] (value) in
-            self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
-        }.store(in: &self.subscriptions)
+        self.pageService.createPage.action(contextID: self.documentId, targetID: targetId, details: details, position: position)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return // move to this page
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
+                }
+            }) { [weak self] (value) in
+                self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
+            }.store(in: &self.subscriptions)
     }
 
     /// Turn Into
@@ -237,17 +239,19 @@ private extension BlockActionService {
 
         let targetId = afterBlockId
 
-        self.service.add.action(contextID: self.documentId, targetID: targetId, block: newBlock, position: position).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
-            }
-        }) { [weak self] (value) in
-            let value = completion(value)
-            self?.didReceiveEvent(nil, value)
-        }.store(in: &self.subscriptions)
+        self.service.add.action(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
+                }
+            }) { [weak self] (value) in
+                let value = completion(value)
+                self?.didReceiveEvent(nil, value)
+            }.store(in: &self.subscriptions)
     }
 
 
@@ -268,17 +272,19 @@ private extension BlockActionService {
 
         let range: NSRange = .init(location: position, length: 0)
 
-        self.textService.split.action(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
-            }
-        }, receiveValue: { [weak self] (value) in
-            let value = completion(value)
-            self?.didReceiveEvent(nil, value)
-        }).store(in: &self.subscriptions)
+        self.textService.split.action(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
+                }
+            }, receiveValue: { [weak self] (value) in
+                let value = completion(value)
+                self?.didReceiveEvent(nil, value)
+            }).store(in: &self.subscriptions)
     }
 
     func _setTextAndSplit(block: Information, oldText: String, _ completion: @escaping Conversion) {
@@ -321,17 +327,19 @@ private extension BlockActionService {
     // MARK: Delete
     func _delete(block: Information, _ completion: @escaping Conversion) {
         let blockIds = [block.id]
-        self.service.delete.action(contextID: self.documentId, blockIds: blockIds).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
-            }
-        }, receiveValue: { [weak self] value in
-            let value = completion(value)
-            self?.didReceiveEvent(.deleteBlock, value)
-        }).store(in: &self.subscriptions)
+        self.service.delete.action(contextID: self.documentId, blockIds: blockIds)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
+                }
+            }, receiveValue: { [weak self] value in
+                let value = completion(value)
+                self?.didReceiveEvent(.deleteBlock, value)
+            }).store(in: &self.subscriptions)
     }
 
     // MARK: - Turn Into
@@ -397,17 +405,19 @@ private extension BlockActionService {
             return
         }
 
-        self.textService.setStyle.action(contextID: self.documentId, blockID: blockId, style: text.contentType).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle got error: %@", "\(error)")
-            }
-        }) { [weak self] (value) in
-            let value = completion(value)
-            self?.didReceiveEvent(nil, value)
-        }.store(in: &self.subscriptions)
+        self.textService.setStyle.action(contextID: self.documentId, blockID: blockId, style: text.contentType)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle got error: %@", "\(error)")
+                }
+            }) { [weak self] (value) in
+                let value = completion(value)
+                self?.didReceiveEvent(nil, value)
+            }.store(in: &self.subscriptions)
     }
 }
 
@@ -422,17 +432,19 @@ extension BlockActionService {
         let firstBlockId = firstBlock.id
         let secondBlockId = secondBlock.id
 
-        self.textService.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId).receive(on: RunLoop.main).sink(receiveCompletion: { value in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
-            }
-        }, receiveValue: { [weak self] value in
-            let value = completion(value)
-            self?.didReceiveEvent(.merge, value)
-        }).store(in: &self.subscriptions)
+        self.textService.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { value in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
+                }
+            }, receiveValue: { [weak self] value in
+                let value = completion(value)
+                self?.didReceiveEvent(.merge, value)
+            }).store(in: &self.subscriptions)
     }
 }
 

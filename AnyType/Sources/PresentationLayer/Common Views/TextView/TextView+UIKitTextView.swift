@@ -19,9 +19,6 @@ private extension Logging.Categories {
 
 extension TextView {
     class UIKitTextView: UIView {
-        // MARK: Combine
-        private var subscriptions: Set<AnyCancellable> = []
-        
         // MARK: Options ( From Developers To Managers ONLY )
         struct Options {
             /// Well, we still don't have correct handling of input data.
@@ -29,47 +26,37 @@ extension TextView {
             /// Read about usage of this flag below.
             var liveUpdateAvailable: Bool
         }
+
+        // MARK: Combine
+        private var subscriptions: Set<AnyCancellable> = []
+
         private var options: Options = .init(liveUpdateAvailable: false)
-        
+
         // MARK: ViewModel
         weak var model: ViewModel?
-        
-        // MARK: Resources
-        struct Resources {}
-        
-        // MARK: TODO: Remove
-        var getTextView: UITextView? { self.textView }
-                
-        func update(placeholder: Placeholder) {
-            // set placeholder to view.
-            if let view = self.textView as? TextViewWithPlaceholder {
-                view.update(placeholder: placeholder.placeholder)
-            }
-        }
-        
-        // MARK: Outlets
+        private var builder: Builder = .init()
+
+        // MARK: Views
         private var contentView: UIView!
-        private var textView: UITextView!
-        
-        // MARK: Configuration
-        func configured(_ resources: Resources) -> Self {
-            return self
-        }
+        var textView: UITextView!
         
         // MARK: Initialization
         override init(frame: CGRect) {
             super.init(frame: frame)
+
+            self.setupUIElements()
+            self.addLayout()
         }
         
         required init?(coder: NSCoder) {
             super.init(coder: coder)
         }
-        
-        // MARK: Setup
-        private func setup() {
-            self.setupUIElements()
-            self.addLayout()
-            self.setupInteractions()
+
+        func update(placeholder: Placeholder) {
+            // set placeholder to view.
+            if let view = self.textView as? TextViewWithPlaceholder {
+                view.update(placeholder: placeholder.placeholder)
+            }
         }
         
         // MARK: Setup Interactions
@@ -90,7 +77,11 @@ extension TextView {
             /// So, if you want real "async" api, you need to configure these subscriptions correctly.
             ///
             if self.options.liveUpdateAvailable {
-                self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)}).store(in: &self.subscriptions)
+                self.model?.$update
+                    .sink { [weak self] value in
+                        self?.onUpdate(value)
+                    }
+                    .store(in: &self.subscriptions)
             }
             else {
                 /// We don't store this subscription _intentionally_.
@@ -118,11 +109,10 @@ extension TextView {
         
         // MARK: UI Elements
         private func setupUIElements() {
-            guard let model = self.model else { return }
             self.translatesAutoresizingMaskIntoConstraints = false
             
             self.textView = {
-                let view = model.createInnerView()
+                let view = self.builder.createTextView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
@@ -312,25 +302,23 @@ extension TextView.UIKitTextView {
     }
     
     func configured(_ model: ViewModel?) -> Self {
+        self.subscriptions.removeAll()
         self.model = model
-        self.setup()
+        self.textView.delegate = nil
+
+        if let textView = self.textView as? TextView.UIKitTextView.TextViewWithPlaceholder, let model = self.model {
+            textView.coordinator = nil
+            _ = model.configured(firstResponderChangePublisher: textView.firstResponderChangePublisher)
+            _ = builder.makeUIView(textView, coordinator: model.coordinator)
+        }
+        self.setupInteractions()
+
         return self
     }
     
     func configured(placeholder: Placeholder) -> Self {
         self.update(placeholder: placeholder)
         return self
-    }
-}
-
-// MARK: Assign / Reusing view.
-extension TextView.UIKitTextView {
-    func assign(_ model: ViewModel?, view: UITextView) {
-        self.subscriptions = []
-        self.model = model
-        /// We should also setup all publishers from textView.
-        _ = self.model?.configureInnerView(view)
-        self.setupInteractions()
     }
 }
 

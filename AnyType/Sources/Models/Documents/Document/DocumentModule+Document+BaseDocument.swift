@@ -241,12 +241,14 @@ extension FileNamespace {
     /// - Parameter includeEmptyUpdates: A flag indicates whether you need to include empty updates or not.
     /// - Returns: A publisher of updates and related models to these updates.
     func modelsAndUpdatesPublisher(includeEmptyUpdates: Bool = false) -> AnyPublisher<UpdateResult, Never> {
-        let publisher: AnyPublisher<ModelsUpdates, Never> = includeEmptyUpdates ? self.updatesPublisher() : self.updatesPublisher().filter({ (value) -> Bool in
-            switch value {
-            case .empty: return false
-            default: return true
-            }
-        }).eraseToAnyPublisher()
+        let publisher: AnyPublisher<ModelsUpdates, Never> = includeEmptyUpdates ? self.updatesPublisher() :
+            self.updatesPublisher()
+            .filter({ (value) -> Bool in
+                switch value {
+                case .empty: return false
+                default: return true
+                }
+            }).eraseToAnyPublisher()
         
         return publisher.map { [weak self] (value) in
             .init(updates: value, models: self?.getModels() ?? [])

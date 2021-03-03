@@ -189,7 +189,8 @@ extension FileNamespace.Converters {
     }
 }
 
-// MARK: ContentText
+// MARK: - ContentText
+
 extension FileNamespace.Converters {
     class ContentText: BaseContentConverter {
         fileprivate typealias Text = FileNamespace.Text
@@ -201,6 +202,7 @@ extension FileNamespace.Converters {
             default: return nil
             }
         }
+        
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .text(value): return ContentTypeConverter.asMiddleware(value.contentType).flatMap({

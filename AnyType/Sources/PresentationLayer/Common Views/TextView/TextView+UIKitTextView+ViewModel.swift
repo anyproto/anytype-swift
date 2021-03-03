@@ -80,8 +80,7 @@ extension Namespace {
         private var firstResponderChangeSubject: PassthroughSubject<FirstResponder.Change, Never> = .init()
         private(set) var firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never> = .empty()
         
-        private var builder: Builder = .init()
-        private var coordinator: Coordinator = .init()
+        private(set) var coordinator: Coordinator = .init()
         
         /// Subscriptions
         private var firstResponderChangeSubscription: AnyCancellable?
@@ -123,11 +122,6 @@ extension Namespace {
             
             // FirstResponder
             self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
-        }
-        
-        convenience init(_ delegate: TextViewUserInteractionProtocol?) {
-            self.init()
-            _ = self.configured(delegate)
         }
     }
 }
@@ -187,25 +181,13 @@ extension Namespace.ViewModel {
 // MARK: View
 extension Namespace.ViewModel {
     typealias UIKitView = TextView.UIKitTextView
+
     func createView() -> UIKitView {
         UIKitView.init().configured(self)
     }
+
     func createView(_ options: UIKitView.Options) -> UIKitView {
         UIKitView.init().configured(options).configured(self)
-    }
-    func createInnerView() -> UITextView {
-        let view = self.builder.makeUIView(coordinator: self.coordinator)
-        if let textView = view as? TextView.UIKitTextView.TextViewWithPlaceholder {
-            _ = self.configured(firstResponderChangePublisher: textView.firstResponderChangePublisher)
-        }
-        return view
-    }
-    func configureInnerView(_ textView: UITextView) -> UITextView {
-        let view = self.builder.makeUIView(textView, coordinator: self.coordinator)
-        if let textView = view as? TextView.UIKitTextView.TextViewWithPlaceholder {
-            _ = self.configured(firstResponderChangePublisher: textView.firstResponderChangePublisher)
-        }
-        return view
     }
 }
 
@@ -215,6 +197,7 @@ extension Namespace.ViewModel {
         _ = self.coordinator.configure(delegate)
         return self
     }
+
     func configured(firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never>) -> Self {
         self.firstResponderChangeSubscription = firstResponderChangePublisher.sink(receiveValue: { [weak self] (value) in
             self?.didChangeFirstResponder(value)
@@ -226,6 +209,7 @@ extension Namespace.ViewModel {
 // MARK: Updates
 extension Namespace.ViewModel {
     typealias Coordinator = TextView.UIKitTextView.Coordinator
+
     func updateUIView() {
         // do necessary updates here.
         // for example, we could call it after .text didSet
@@ -234,6 +218,7 @@ extension Namespace.ViewModel {
         // we could update textView attributedString.
         // So, in this case we don't need to know about actual view.
     }
+
     // TODO: Move this method somewhere. This method is called when we need to update this view.
     func updateUIView(_ uiView: UITextView, coordinator: Coordinator) {
         // TODO: Add somewhere wholeTextKeeper

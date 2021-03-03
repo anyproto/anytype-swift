@@ -203,40 +203,6 @@ extension FileNamespace {
         }
     }
     
-    // MARK: - TextStorage Processing
-    /// NOTE:
-    /// As soon as we notify ourselves about all updates in textStorage, we have side effects.
-    /// For example,
-    /// When you invoke `textStorage.setAttributedString` somewhere, this publisher gets notification about change.
-    /// That means, `notifySubscribers` will invoke and we get notification about change in outerWorld.
-    ///
-    /// Nothing is wrogn here, but...
-    /// When you set `NSAttributedString` at first time, you get additional call to middleware.
-    ///
-    /// We could add additional check if `attributedText is nil` and catch "setupAtFirstTime" event.
-    ///
-    func configured(textStorageStream: AnyPublisher<TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent, Never>) -> Self {
-        /// TODO: Fix or redone.
-        /// 
-        /// It could be the most annoying issue.
-        /// Even if you setup correctly everything and call setup only once.
-        /// There would be one path in execution that you don't handle properly.
-        /// The code below works, for example, for title block ( block with details, NOT a block with `.title` style )
-        ///
-        /// That is correct, because you setup it only once.
-        /// But for regular blocks you have to consider another approach and work with text view setup more accurate.
-        ///
-        /// Uncomment the comment below to investigate issue.
-        /// if self.textStorageSubscription != nil { print("strange"); return; }
-        self.textStorageSubscription = textStorageStream.sink(receiveValue: { [weak self] (value) in
-            switch value {
-            case .willProcessEditing(_): return
-            case let .didProcessEditing(payload): self?.notifySubscribers(payload)
-            }
-        })
-        return self
-    }
-    
     // MARK: - ContextualMenuHandling
     /// TODO: Put textView into it.
     func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<TextView.UIKitTextView.ContextualMenu.Action, Never>) -> Self {
@@ -324,6 +290,7 @@ private extension FileNamespace {
             _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .whole(true))
         }
     }
+    
     func configureWholeMarkStylePublisher(_ view: UITextView, wholeMarkStyleKeeper: TextView.MarkStyleKeeper) {
         self.wholeMarkStyleHandler = Publishers.CombineLatest(Just(view), wholeMarkStyleKeeper.$value).sink { (textView, value) in
             let attributedText = textView.textStorage

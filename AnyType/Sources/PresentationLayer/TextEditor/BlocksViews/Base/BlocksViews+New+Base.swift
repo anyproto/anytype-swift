@@ -492,6 +492,7 @@ extension BlocksViews.New.Base.ViewModel {
     
     private class ContentView: UIView, UIContentView {
         var configuration: UIContentConfiguration
+
         init(configuration: UIContentConfiguration) {
             self.configuration = configuration
             super.init(frame: .zero)
@@ -529,6 +530,7 @@ extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
 //    var id: IndexID { .init() } // Unused, actually, so, conform as you want.
     
     func buildView() -> AnyView { self.makeSwiftUIView() }
+
     func buildUIView() -> UIView {
         let view = makeUIView()
         self.addContextMenuIfNeeded(view)

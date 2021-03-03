@@ -126,8 +126,11 @@ extension FileNamespace {
                 os_log(.debug, log: logger, "Container is nil in event handler. Something went wrong.")
                 return
             }
-            
-            Builder.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
+
+            if update.hasUpdate {
+                Builder.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
+            }
+
             // Notify about updates if needed.
             self.didProcessEventsSubject.send(update)
         }
@@ -178,10 +181,21 @@ extension FileNamespace.EventHandler {
             var updatedIds: [BlockId] = []
             static var empty: Self = .init()
         }
-        case general
+
         fileprivate static var specialAfterBlockShow: Self = .general
-        case update(Payload)
         static var empty: Self = .update(.empty)
+
+        case general
+        case update(Payload)
+
+        var hasUpdate: Bool {
+            switch self {
+            case let .update(payload):
+                return !payload.addedIds.isEmpty || !payload.deletedIds.isEmpty || !payload.updatedIds.isEmpty
+            default:
+                return false
+            }
+        }
     }
 }
 
@@ -218,40 +232,40 @@ private extension FileNamespace.EventHandler {
             /// Our middleware doesn't send current text to us ( ok ), so, we should somehow find it in our model.
             ///
         case let .blockSetText(value):
-            guard let style = self.parser.convert(middlewareContent: .text(.init(text: value.text.value, style: value.style.value, marks: value.marks.value, checked: value.checked.value, color: value.color.value))) else {
-                let logger = Logging.createLogger(category: .eventProcessor)
+            let logger = Logging.createLogger(category: .eventProcessor)
+            let blockId = value.id
+
+            guard var blockModel = self.container?.blocksContainer.get(by: blockId) else {
+                os_log(.debug, log: logger, "We cannot parse style from value: %@ reason: block model not found", String(describing: value))
+                return .general
+            }
+
+            // TODO: We need introduce Textable protocol for blocks that would support text
+            guard case let .text(oldText) = blockModel.information.content else {
+                os_log(.debug, log: logger, "We cannot parse style from value: %@ reason: block model doesn't support text", String(describing: value))
+                return .general
+            }
+            let newText = value.hasText ? value.text.value : oldText.attributedText.string
+            let newChecked = value.hasChecked ? value.checked.value : oldText.checked
+
+            let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
+                                                                      style: value.style.value,
+                                                                      marks: value.marks.value,
+                                                                      checked: newChecked,
+                                                                      color: value.color.value)
+
+            guard let blockContent = self.parser.convert(middlewareContent: .text(textContent)),
+                  case var .text(newTextBlockContentType) = blockContent else {
                 os_log(.debug, log: logger, "We cannot parse style from value: %@", String(describing: value))
                 return .general
             }
-            
-            let blockId = value.id
-            
-            let newUpdate = value
-            
-            /// Add Split and Merge blocks text processing.
-            self.updater?.update(entry: blockId, update: { (value) in
-                var value = value
-                switch style {
-                case let .text(newText):
-                    switch value.information.content {
-                    case let .text(oldText):
-                        // For now we only support style
-                        var text = oldText
-                        if newUpdate.hasText {
-                            text.attributedText = newText.attributedText
-                        }
-                        if newUpdate.hasStyle {
-                            text.contentType = newText.contentType
-                        }
-                        value.information.content = .text(text)
-                        break
-                    default: break
-                    }
-                default: break
-                }
-            })
+            if !value.hasStyle {
+                newTextBlockContentType.contentType = oldText.contentType
+            }
+            blockModel.information.content = .text(newTextBlockContentType)
+
             return .update(.init(updatedIds: [blockId]))
-        
+
         case let .blockSetBackgroundColor(value):
             let blockId = value.id
             let backgroundColor = value.backgroundColor

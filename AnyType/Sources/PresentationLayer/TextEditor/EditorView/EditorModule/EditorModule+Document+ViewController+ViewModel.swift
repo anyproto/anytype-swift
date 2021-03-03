@@ -218,8 +218,7 @@ extension Namespace {
             self.internalState = .loading
                         
             self.blockActionsService.open.action(contextID: documentId, blockID: documentId)
-                //                .print()
-                .receive(on: RunLoop.main)
+                .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { [weak self] (value) in
                     switch value {
                     case .finished: break
@@ -328,12 +327,10 @@ extension FileNamespace {
     }
 }
 
-// MARK: - didSelectItem
+// MARK: - Selection Handling
 
 extension FileNamespace {
     func didSelectBlock(at index: IndexPath) {
-        // dispatch event
-        
         if self.selectionEnabled() {
             self.didSelect(atIndex: index)
             return
@@ -343,10 +340,28 @@ extension FileNamespace {
             builder.receive(event: .didSelectRowInTableView)
         }
     }
-    
+
+    private func element(at: IndexPath) -> Row {
+        guard self.builders.indices.contains(at.row) else {
+            fatalError("Row doesn't exist")
+        }
+        var row = Row.init(builder: self.builders[at.row])
+        _ = row.configured(selectionHandler: self.selectionHandler)
+        return row
+    }
+
+    private func didSelect(atIndex: IndexPath) {
+        let item = element(at: atIndex)
+        // so, we have to toggle item at index.
+        let newValue = !item.isSelected
+
+        if let key = item.getSelectionKey() {
+            self.set(selected: newValue, id: key)
+        }
+    }
 }
 
-// MARK: - Selection Handling
+// MARK: - Process actions
 
 private extension FileNamespace {
     func process(actionsPayload: BlocksViewsNamespace.Base.ViewModel.ActionsPayload) {
@@ -358,18 +373,6 @@ private extension FileNamespace {
             default: return
             }
         default: return
-        }
-    }
-
-    func didSelect(atIndex: IndexPath) {
-        let item = element(at: atIndex)
-        // so, we have to toggle item at index.
-        let newValue = !item.isSelected
-        if let key = item.getSelectionKey() {
-            self.set(selected: newValue, id: key)
-            // TODO: We should subscribe on updates in our cells and update them.
-            /// For now we use `reloadData`
-            //            self.syncBuilders()
         }
     }
 
@@ -393,6 +396,7 @@ private extension FileNamespace {
             }
         }
     }
+
     func process(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
         let selectedIds = self.list()
         self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: toolbarAction)))

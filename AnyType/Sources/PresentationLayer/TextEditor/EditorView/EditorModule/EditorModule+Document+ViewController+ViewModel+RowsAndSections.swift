@@ -12,21 +12,8 @@ import BlocksModels
 fileprivate typealias Namespace = EditorModule.Document.ViewController.ViewModel
 
 // MARK: - TableViewModelProtocol
-extension Namespace: TableViewModelProtocol {
-    func numberOfSections() -> Int { 1 }
-    
-    func countOfElements(at: Int) -> Int { self.builders.count }
-    
-    func section(at: Int) -> Section { .init() }
-    
-    func element(at: IndexPath) -> Row {
-        guard self.builders.indices.contains(at.row) else {
-            fatalError("Row doesn't exist")
-        }
-        var row = Row.init(builder: self.builders[at.row])
-        _ = row.configured(selectionHandler: self.selectionHandler)
-        return row
-    }
+
+extension Namespace {
     
     struct Section {
         var section: Int = 0
@@ -42,6 +29,7 @@ extension Namespace: TableViewModelProtocol {
         weak var selectionHandler: EditorModuleSelectionHandlerCellProtocol?
         var information: BlockInformationModelProtocol?
         private var _diffable: AnyHashable?
+
         init(builder: BlockViewBuilderProtocol?) {
             self.builder = builder
             let blockBuilder = (self.builder as? BlocksViewsNamespace.Base.ViewModel)
@@ -84,7 +72,12 @@ extension Namespace: TableViewModelProtocol {
     }
 }
 
-// MARK: - TableViewModelProtocol.Row / Configurations
+// MARK: - Section Hashable
+
+extension Namespace.Section: Hashable {}
+
+// MARK: - Row / Configurations
+
 extension Namespace.Row {
     mutating func configured(selectionHandler: EditorModuleSelectionHandlerCellProtocol?) -> Self {
         self.selectionHandler = selectionHandler
@@ -93,7 +86,8 @@ extension Namespace.Row {
     }
 }
 
-// MARK: - TableViewModelProtocol.Row / Indentation level
+// MARK: - Row / Indentation level
+
 extension Namespace.Row {
     typealias BlocksViewsNamespace = BlocksViews.New
     var indentationLevel: UInt {
@@ -101,39 +95,23 @@ extension Namespace.Row {
     }
 }
 
-// MARK: - TableViewModelProtocol.Row / Rebuilding and Diffable
+// MARK: - Row / Rebuilding and Diffable
+
 extension Namespace.Row {
-    func rebuilded() -> Self {
-        .init(builder: self.builder)
-    }
     func diffable() -> AnyHashable? {
-//        if let builder = self.builder as? BlocksViewsNamespace.Base.ViewModel {
-//            let diffable = self.information?.diffable()
-//            let allEntries = [
-//                "isFirstResponder": builder.getBlock().isFirstResponder,
-//                "informationDiffable": diffable
-//            ]
-//            return .init(allEntries)
-//        }
         self.information?.diffable()
-    }
-    func blockBuilderDiffable() -> AnyHashable? {
-        self._diffable
     }
 }
 
-// MARK: - TableViewModelProtocol.Row / Selection
+// MARK: - Row / Selection
+
 extension Namespace.Row: EditorModuleSelectionCellProtocol {
     func getSelectionKey() -> BlockId? {
         (self.builder as? BlocksViewsNamespace.Base.ViewModel)?.getBlock().blockModel.information.id
     }
 }
 
-
-// MARK: - TableViewModelProtocol.Section
-extension Namespace.Section: Hashable {}
-
-// MARK: - TableViewModelProtocol.Row
+// MARK: - Hashable
 
 /// Well, we could compare buildersRows by their diffables...
 /// But for now it is fine for us to keep simple equations.
@@ -143,20 +121,21 @@ extension Namespace.Section: Hashable {}
 /// we should keep a track of `initial` state of Rows.
 /// We do it by providing `information` propepty, which is initiated in `init()`.
 /// Treat this property as `fingerprint` of `initial` builder value.
-///
-///
 extension Namespace.Row: Hashable, Equatable {
     static private func sameKind(_ lhs: Self?, _ rhs: Self?) -> Bool {
         lhs?.information?.content.deepKind == rhs?.information?.content.deepKind
     }
+
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.cachedDiffable == rhs.cachedDiffable && lhs.blockBuilderDiffable() == rhs.blockBuilderDiffable()
-        //&& sameKind(lhs, rhs)
-//        lhs.diffable() == rhs.diffable() && lhs.cachedDiffable == rhs.cachedDiffable
     }
     
     func hash(into hasher: inout Hasher) {
         guard let diffable = self.blockBuilderDiffable() else { return }
         hasher.combine(diffable)
+    }
+
+    private func blockBuilderDiffable() -> AnyHashable? {
+        self._diffable
     }
 }

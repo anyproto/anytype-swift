@@ -324,17 +324,17 @@ private extension Namespace {
                         
         // MARK: Configured
         func configured(textView: TextView.UIKitTextView?) -> Self {
-            if let attributes = textView?.getTextView?.typingAttributes {
+            if let attributes = textView?.textView?.typingAttributes {
                 var correctedAttributes = attributes
                 correctedAttributes[.font] = UIFont.preferredFont(forTextStyle: .title3)
-                textView?.getTextView?.typingAttributes = correctedAttributes
+                textView?.textView?.typingAttributes = correctedAttributes
                 
-                let text = textView?.getTextView?.text ?? ""
+                let text = textView?.textView?.text ?? ""
                 let attributedString: NSMutableAttributedString = .init(string: text, attributes: correctedAttributes)
-                textView?.getTextView?.textStorage.setAttributedString(attributedString)
+                textView?.textView?.textStorage.setAttributedString(attributedString)
             }
             _ = self.topView.configured(textView: textView)
-            textView?.getTextView?.isUserInteractionEnabled = false
+            textView?.textView?.isUserInteractionEnabled = false
             return self
         }
         

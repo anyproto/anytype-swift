@@ -167,7 +167,7 @@ extension BlocksViews.New.Text.Header {
         // MARK: Configured
         func configured(textView: TextView.UIKitTextView?) -> Self {
             _ = self.topView.configured(textView: textView)
-            textView?.getTextView?.font = self.style.uiKitFont()
+            textView?.textView?.font = self.style.uiKitFont()
             return self
         }
         

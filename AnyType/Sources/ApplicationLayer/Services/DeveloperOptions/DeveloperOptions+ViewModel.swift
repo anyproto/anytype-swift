@@ -104,18 +104,7 @@ extension DeveloperOptions.ViewModel {
     }
 }
 
-// MARK: TableViewModelProtocol
-
-protocol TableViewModelProtocol {
-    associatedtype Section
-    associatedtype Row
-    func numberOfSections() -> Int
-    func countOfElements(at: Int) -> Int
-    func section(at: Int) -> Section
-    func element(at: IndexPath) -> Row
-}
-
-extension DeveloperOptions.ViewModel: TableViewModelProtocol {
+extension DeveloperOptions.ViewModel {
     struct Section {
         var title: String?
     }

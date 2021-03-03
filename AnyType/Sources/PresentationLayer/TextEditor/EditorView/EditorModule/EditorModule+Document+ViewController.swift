@@ -71,7 +71,6 @@ extension Namespace {
         
         private func setupCollectionView() {
             self.collectionView.register(CollectionViewHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.headerReuseId)
-            self.collectionView?.register(EditorModule.Document.Cells.CollectionViewCell.self, forCellWithReuseIdentifier: EditorModule.Document.Cells.CollectionViewCell.cellReuseIdentifier())
         }
         
         private func setupCollectionViewDataSource() {

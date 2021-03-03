@@ -8,7 +8,7 @@
 
 /// Entity to convert block view model type to cell reuse identifier
 enum EditorModuleCellIdentifierConverter {
-    
+
     /// Convert block content type to cell reuse identifier
     ///
     /// - Parameters:

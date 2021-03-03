@@ -59,6 +59,8 @@ extension Namespace {
         private enum Constants {
             static let setTextDebounceDelay: DispatchQueue.SchedulerTimeType.Stride = .seconds(0.5)
         }
+
+        private var serialQueue = DispatchQueue(label: "BlocksViews.New.Text.Base.SerialQueue")
         
         @Environment(\.developerOptions) var developerOptions
         private var textOptions: Namespace.Options = .init()
@@ -71,7 +73,8 @@ extension Namespace {
         private lazy var textViewModelHolder: TextViewModelHolder = {
             .init(self.textViewModel)
         }()
-        // MARK: - Publishers
+
+        // MARK: Publishers
         /// As always, lets keep an eye on these properties a little bit.
         /// `toViewText` `@Published` variable keep state of new coming value from a model.
         /// However, we should skip additional cycle for `toModelText`
@@ -82,29 +85,25 @@ extension Namespace {
         @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
         @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
         
-        /// TODO: Rethink. It could be done more accurate and predictable. Do we need it at all?
-        /// Actually, we need an update, yes, but we could publish it as Update(or ViewState) from raw block.
+        // TODO: Rethink. It could be done more accurate and predictable. Do we need it at all?
+        // Actually, we need an update, yes, but we could publish it as Update(or ViewState) from raw block.
         private var toViewUpdates: AnyPublisher<TextView.UIKitTextView.ViewModel.Update, Never> = .empty()
         
-        /// TODO: Rethink. We only need one (?) publisher to a model?
-        /// Really?
+        // TODO: Rethink. We only need one (?) publisher to a model?
         private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
         private var toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
         private var toModelSizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
         
-        /// For OuterWorld.
-        /// We should notify about user input.
-        /// And here we have this publisher.
-        ///
-        
+        // For OuterWorld.
+        // We should notify about user input.
+        // And here we have this publisher.
         private var textViewModelSubscriptions: Set<AnyCancellable> = []
         private var subscriptions: Set<AnyCancellable> = []
         
-        // MARK: - Services
+        // MARK: Services
         private var service: ServiceLayerModule.Text.BlockActionsService = .init()
         
-        // MARK: - Convenient accessors.
-        
+        // MARK: Convenient accessors
         /// TODO: We have to connect our values (if we want to) to values of view model.
         /// View model should store values if needed. Updates or not.
         var text: String {
@@ -118,7 +117,8 @@ extension Namespace {
             }
         }
                 
-        // MARK: Subclassing
+        // MARK: - Subclassing
+
         override init(_ block: BlockModel) {
             super.init(block)
             if self.textOptions.shouldStopSetupTextViewModel {
@@ -129,15 +129,9 @@ extension Namespace {
             self.setup()
         }
         
-        // MARK: Subclassing accessors
+        // MARK: - Subclassing accessors
+
         func getUIKitViewModel() -> TextView.UIKitTextView.ViewModel { self.textViewModel }
-        func set(uikitViewModel: TextView.UIKitTextView.ViewModel) {
-            self.cleanupTextViewModel()
-            self.textViewModel = uikitViewModel
-            self.textViewModelHolder = .init(self.textViewModel)
-            self.setupTextViewModel()
-            self.setupTextViewModelSubscribers()
-        }
         
         override func makeContentConfiguration() -> UIContentConfiguration {
             var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
@@ -146,7 +140,17 @@ extension Namespace {
         }
 
         override func makeUIView() -> UIView {
-            let toViewSetBackgroundColorPublisher = self.getBlock().didChangeInformationPublisher().map(\.backgroundColor).removeDuplicates().map({value in BlocksModelsModule.Parser.Text.Color.Converter.asModel(value, background: true)}).map({TopWithChildUIKitView.Resource.init(backgroundColor: $0)}).eraseToAnyPublisher()
+            let toViewSetBackgroundColorPublisher = self.getBlock().didChangeInformationPublisher()
+                .map(\.backgroundColor)
+                .removeDuplicates()
+                .map {value in
+                    BlocksModelsModule.Parser.Text.Color.Converter.asModel(value, background: true)
+                }
+                .map {
+                    TopWithChildUIKitView.Resource.init(backgroundColor: $0)
+                }
+                .eraseToAnyPublisher()
+
             return TopWithChildUIKitView().configured(textView: self.getUIKitViewModel().createView()).configured(leftChild: .empty()).configured(toViewSetBackgroundColorPublisher)
         }
         
@@ -188,10 +192,6 @@ private extension Namespace.ViewModel {
         default: return
         }
     }
-    func assign(textViewModel: TextView.UIKitTextView.ViewModel) {
-        self.refreshTextViewModel(textViewModel)
-        self.set(uikitViewModel: textViewModel)
-    }
 }
 
 // MARK: - Setup
@@ -222,13 +222,19 @@ private extension Namespace.ViewModel {
     }
     
     private func setupSubscribers() {
-        
         /// ToView
-        let alignmentPublisher = self.getBlock().didChangeInformationPublisher().map(\.alignment).map(BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel).removeDuplicates().safelyUnwrapOptionals()
-        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), alignmentPublisher).receive(on: RunLoop.main).map({ value -> TextView.UIKitTextView.ViewModel.Update in
-            let (text, alignment) = value
-            return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
-        }).eraseToAnyPublisher()
+        let alignmentPublisher = self.getBlock().didChangeInformationPublisher()
+            .map(\.alignment)
+            .map(BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel)
+            .removeDuplicates()
+            .safelyUnwrapOptionals()
+
+        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), alignmentPublisher)
+            .receive(on: DispatchQueue.main)
+            .map({ value -> TextView.UIKitTextView.ViewModel.Update in
+                let (text, alignment) = value
+                return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
+            }).eraseToAnyPublisher()
         
         /// We should subscribe on view updates.
         /// For now, we have two different publishers.
@@ -270,7 +276,7 @@ private extension Namespace.ViewModel {
         /// Maybe we should do it differently.
         /// We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
         /// If we listen `didChangeInformationPublisher()`, we will receive whole data from every change.
-        self.getBlock().didChangePublisher().receive(on: DispatchQueue.global()).map({ [weak self] _ -> TopLevel.AliasesMap.BlockContent.Text? in
+        self.getBlock().didChangePublisher().receive(on: serialQueue).map({ [weak self] _ -> TopLevel.AliasesMap.BlockContent.Text? in
             let value = self?.getBlock().blockModel.information
             switch value?.content {
             case let .text(value): return value
@@ -289,27 +295,34 @@ private extension Namespace.ViewModel {
         /// ToModel
         /// Maybe add throttle.
         
-        self.toModelTextSubject.receive(on: DispatchQueue.global()).sink { [weak self] (value) in
+        self.toModelTextSubject.receive(on: serialQueue).sink { [weak self] (value) in
             self?.setModelData(attributedText: value)
         }.store(in: &self.subscriptions)
         
-        self.getBlock().didChangeInformationPublisher().map(\.content).map({ value -> NSAttributedString? in
-            switch value {
-            case let .text(value): return value.attributedText
-            default: return nil
+        self.getBlock().didChangeInformationPublisher()
+            .map(\.content)
+            .map { value -> NSAttributedString? in
+                switch value {
+                case let .text(value): return value.attributedText
+                default: return nil
+                }
             }
-        }).safelyUnwrapOptionals().debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.global()).notableError().flatMap({ [weak self] (value) in
-            self?.apply(attributedText: value) ?? .empty()
-        }).sink(receiveCompletion: { [weak self] (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@. ParentId: %@ BlockId: %@", String(describing: error), String(describing: self?.getBlock().blockModel.parent), String(describing: self?.getBlock().blockModel.information.id))
+            .safelyUnwrapOptionals()
+            .debounce(for: self.textOptions.throttlingInterval, scheduler: serialQueue)
+            .notableError()
+            .flatMap { [weak self] (value) in
+                self?.apply(attributedText: value) ?? .empty()
             }
-        }, receiveValue: { _ in }).store(in: &self.subscriptions)
+            .sink(receiveCompletion: { [weak self] (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textBlocksViewsBase)
+                    os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@. ParentId: %@ BlockId: %@", String(describing: error), String(describing: self?.getBlock().blockModel.parent), String(describing: self?.getBlock().blockModel.information.id))
+                }
+            }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
-        self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: DispatchQueue.global()).notableError().flatMap({ [weak self] (value) in
+        self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: serialQueue).notableError().flatMap({ [weak self] (value) in
             self?.apply(alignment: value) ?? .empty()
         }).sink(receiveCompletion: { (value) in
             switch value {
@@ -395,8 +408,9 @@ private extension Namespace.ViewModel {
         self.update { (block) in
             switch block.blockModel.information.content {
             case var .text(value):
-                guard value.attributedText != attributedText, let copy = attributedText.copy() as? NSAttributedString else { return }
-                value.attributedText = copy
+                guard value.attributedText != attributedText else { return }
+                let attributedText: NSAttributedString = .init(attributedString: attributedText)
+                value.attributedText = attributedText
                 var blockModel = block.blockModel
                 blockModel.information.content = .text(value)
             default: return
@@ -595,13 +609,14 @@ extension Namespace {
             self.leftView.addSubview(leftViewSubview)
             let view = leftViewSubview
             if setConstraints, let superview = view.superview {
+                view.translatesAutoresizingMaskIntoConstraints = false
+
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                     view.topAnchor.constraint(equalTo: superview.topAnchor),
                     view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
                 ])
-                view.translatesAutoresizingMaskIntoConstraints = false
             }
         }
 
@@ -613,13 +628,14 @@ extension Namespace {
             self.textView.addSubview(textView)
             let view = textView
             if let superview = view.superview {
+                view.translatesAutoresizingMaskIntoConstraints = false
+
                 NSLayoutConstraint.activate([
                     view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                     view.topAnchor.constraint(equalTo: superview.topAnchor),
                     view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
                 ])
-                view.translatesAutoresizingMaskIntoConstraints = false
             }
         }
         
@@ -774,7 +790,7 @@ extension Namespace {
         }
         
         fileprivate func configured(_ resourceStream: AnyPublisher<Resource, Never>) -> Self {
-            self.resourceSubscription = resourceStream.receive(on: RunLoop.main).sink { [weak self] (value) in            
+            self.resourceSubscription = resourceStream.receive(on: DispatchQueue.main).sink { [weak self] (value) in            
                 self?.backgroundColor = value.backgroundColor
             }
             return self
@@ -832,12 +848,9 @@ extension Namespace.ViewModel {
         
         /// UIContentConfiguration
         func makeContentView() -> UIView & UIContentView {
-            let view = OldContentView(configuration: self)
+            let view = ContentView(configuration: self)
             self.contextMenuHolder?.addContextMenuIfNeeded(view)
-            if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldUseSimpleTextViewCell {
-                let view = SimpleContentView(configuration: self)
-                return view
-            }
+
             return view
         }
         
@@ -858,6 +871,7 @@ extension Namespace.ViewModel {
                 TopLevel.AliasesMap.BlockUtilities.FirstResponderResolver.resolvePendingUpdateIfNeeded(model)
             }
         }
+
         func resolvePendingFirstResponderIfNeeded() {
             self.resolvePendingFirstResponder()
         }
@@ -866,36 +880,34 @@ extension Namespace.ViewModel {
 
 // MARK: - ContentView
 private extension Namespace.ViewModel {
-    class OldContentView: UIView & UIContentView {
-        
+    class ContentView: UIView & UIContentView {
+
         private enum Constants {
             static let quoteViewWidth: CGFloat = 15
             static let quoteBlockTextConteinerInset: UIEdgeInsets = .init(top: 4, left: 14, bottom: 4, right: 8)
         }
-        
+
         struct Layout {
             let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
         }
-        
+
         typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
         private var onLayoutSubviewsSubscription: AnyCancellable?
-        
+
         /// Views
         var topView: TopView = .init()
         var contentView: UIView = .init()
         var textView: TextView.UIKitTextView? = nil
-        
-        /// Subscriptions
-        
+
         /// Others
         var layout: Layout = .init()
-                
+
         /// Setup
         private func setup() {
             self.setupUIElements()
             self.addLayout()
         }
-        
+
         private func setupUIElements() {
             /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
             self.translatesAutoresizingMaskIntoConstraints = true
@@ -903,14 +915,17 @@ private extension Namespace.ViewModel {
             [self.contentView, self.topView].forEach { (value) in
                 value.translatesAutoresizingMaskIntoConstraints = false
             }
-            
+
             _ = self.topView.configured(leftChild: .empty())
-            
+
             /// View hierarchy
             self.contentView.addSubview(self.topView)
             self.addSubview(self.contentView)
+
+            textView = TextView.UIKitTextView()
+            _ = self.topView.configured(textView: self.textView)
         }
-        
+
         private func addLayout() {
             if let superview = self.contentView.superview {
                 let view = self.contentView
@@ -921,7 +936,7 @@ private extension Namespace.ViewModel {
                     view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
                 ])
             }
-            
+
             if let superview = self.topView.superview {
                 let view = self.topView
                 NSLayoutConstraint.activate([
@@ -932,20 +947,7 @@ private extension Namespace.ViewModel {
                 ])
             }
         }
-        
-        /// Handle
-        private func handle(_ value: Block.Content.ContentType.Text) {
-            /// Do something
-            /// We should reload data if text are not equal
-            ///
-        }
-        
-        /// Cleanup
-        private func cleanupBeforeNewConfiguration() {}
-        private func cleanupOnNewConfiguration() {
-            /// Cleanup subscriptions.
-        }
-        
+
         /// Initialization
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
@@ -967,438 +969,39 @@ private extension Namespace.ViewModel {
             self.setup()
             self.apply(configuration: configuration)
         }
-        
+
         private func apply(configuration: ContentConfiguration, forced: Bool) {
             if forced {
                 self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
             }
         }
-        
+
         private func apply(configuration: ContentConfiguration) {
-            self.apply(configuration: configuration, forced: true)
             guard self.currentConfiguration != configuration else { return }
-            
-            self.cleanupBeforeNewConfiguration()
-            
             self.currentConfiguration = configuration
-            
-            self.cleanupOnNewConfiguration()
-            self.invalidateIntrinsicContentSize()
-            
+
+            self.apply(configuration: configuration, forced: true)
+
             self.applyNewConfiguration()
-//            switch self.currentConfiguration.information.content {
-//            case let .text(value): self.handle(value)
-//            default: return
-//            }
         }
-        
+
         private func applyNewConfiguration() {
-            /// TODO: Redone.
-            /// Instead of creating new view, it is better to assign view model to old textView for performance.
-            ///
-//            let model = self.textViewModel
             if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
-                self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
-            }
-            let model = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel()
-            let shouldReuseView: Bool = false
-            if let view = self.textView, let textView = view.getTextView, shouldReuseView {
-                view.assign(model, view: textView)
-            }
-            else {
-                self.textView = model?.createView(.init(liveUpdateAvailable: true))
-                _ = self.topView.configured(textView: self.textView)
+                textViewModel.update = .unknown
+                _ = self.textView?.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
+                
                 if case let .text(text) = currentConfiguration.information.content, text.contentType == .quote {
                     let quoteView: QuoteBlockLeadingView = .init()
                     quoteView.translatesAutoresizingMaskIntoConstraints = false
                     quoteView.widthAnchor.constraint(equalToConstant: Constants.quoteViewWidth).isActive = true
                     _ = self.topView.configured(leftChild: quoteView, setConstraints: true)
                     self.topView.backgroundColor = .white
-                    self.textView?.getTextView?.textContainerInset = Constants.quoteBlockTextConteinerInset
+                    self.textView?.textView?.textContainerInset = Constants.quoteBlockTextConteinerInset
                 } else {
                     self.topView.backgroundColor = .systemGray6
                 }
-            }
-        }
-    }
-}
 
-private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView {
-        
-        struct Layout {
-            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
-        }
-        
-        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
-        private var onLayoutSubviewsSubscription: AnyCancellable?
-        
-        /// Views
-        var topView: TopView = .init()
-        var contentView: UIView = .init()
-        var textView: TextView.UIKitTextView? = nil
-        var textViewModel: TextView.UIKitTextView.ViewModel = .init()
-        
-        /// Subscriptions
-        
-        /// Others
-        var layout: Layout = .init()
-                
-        /// Setup
-        private func setup() {
-            self.setupUIElements()
-            self.addLayout()
-        }
-        
-        private func setupUIElements() {
-            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
-            self.translatesAutoresizingMaskIntoConstraints = true
-
-            [self.contentView, self.topView].forEach { (value) in
-                value.translatesAutoresizingMaskIntoConstraints = false
-            }
-            
-            _ = self.topView.configured(leftChild: .empty())
-            
-            /// View hierarchy
-            self.textView = self.textViewModel.createView(.init(liveUpdateAvailable: true))
-            if let textView = self.textView {
-                _ = self.topView.configured(textView: textView)
-            }
-            self.contentView.addSubview(self.topView)
-            self.addSubview(self.contentView)
-        }
-        
-        private func addLayout() {
-            if let superview = self.contentView.superview {
-                let view = self.contentView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
-                ])
-            }
-            
-            if let superview = self.topView.superview {
-                let view = self.topView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
-        }
-        
-        /// Handle
-        private func handle(_ value: Block.Content.ContentType.Text) {
-            /// Do something
-            /// We should reload data if text are not equal
-            ///
-        }
-        
-        /// Cleanup
-        private func cleanupBeforeNewConfiguration() {
-            if let configuration = self.currentConfiguration {
-                configuration.contextMenuHolder?.cleanup()
-                configuration.contextMenuHolder?.cleanupTextViewModel()
-            }
-        }
-        private func cleanupOnNewConfiguration() {
-            /// Cleanup subscriptions.
-        }
-        
-        /// Initialization
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        /// ContentView
-        var currentConfiguration: ContentConfiguration!
-        var configuration: UIContentConfiguration {
-            get { self.currentConfiguration }
-            set {
-                /// apply configuration
-                guard let configuration = newValue as? ContentConfiguration else { return }
-                self.apply(configuration: configuration)
-            }
-        }
-
-        init(configuration: ContentConfiguration) {
-            super.init(frame: .zero)
-            self.setup()
-            self.apply(configuration: configuration)
-        }
-        
-        private func apply(configuration: ContentConfiguration, forced: Bool) {
-            if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
-            }
-        }
-        
-        private func apply(configuration: ContentConfiguration) {
-            self.apply(configuration: configuration, forced: true)
-            guard self.currentConfiguration != configuration else { return }
-            
-            self.cleanupBeforeNewConfiguration()
-            
-            self.currentConfiguration = configuration
-            
-            self.cleanupOnNewConfiguration()
-            self.invalidateIntrinsicContentSize()
-            
-            self.applyNewConfiguration()
-            self.topView.backgroundColor = .systemGray6
-//            switch self.currentConfiguration.information.content {
-//            case let .text(value): self.handle(value)
-//            default: return
-//            }
-        }
-        
-        private func applyNewConfiguration() {
-            /// TODO: Redone.
-            /// Instead of creating new view, it is better to assign view model to old textView for performance.
-            ///
-            let model = self.textViewModel
-            let shouldReuseView: Bool = false
-            if let view = self.textView, let textView = view.getTextView, shouldReuseView {
-                view.assign(model, view: textView)
-            }
-            else {
-                self.currentConfiguration.contextMenuHolder?.assign(textViewModel: model)
-//                self.currentConfiguration.contextMenuHolder?.refresh(textViewModel: model)
-//                self.textView = model?.createView(.init(liveUpdateAvailable: true))
-//                _ = self.topView.configured(textView: self.textView)
-            }
-        }
-    }
-}
-
-// MARK: - SimpleContentView
-private extension Namespace.ViewModel {
-    class TextViewHolder: UIView {
-        private(set) var textView: UITextView = .init()
-        private var builder: TextView.UIKitTextView.Builder = .init()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.setup()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        /// Setup
-        private func setup() {
-            _ = self.builder.configured(textView: self.textView)
-            self.setupUIElements()
-            self.addLayout()
-        }
-
-        private func setupUIElements() {
-            self.translatesAutoresizingMaskIntoConstraints = false
-
-            [self.textView].forEach { (value) in
-                value.translatesAutoresizingMaskIntoConstraints = false
-            }
-            
-            self.addSubview(self.textView)
-        }
-        
-        private func addLayout() {
-            if let superview = self.textView.superview {
-                let view = self.textView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
-        }
-        
-        override var intrinsicContentSize: CGSize { .zero }
-    }
-
-    class SimpleContentView: UIView & UIContentView, UITextViewDelegate {
-        
-        struct Layout {
-            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
-        }
-        
-        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
-        private var onLayoutSubviewsSubscription: AnyCancellable?
-        
-        /// Views
-//        private var topView: TopView = .init()
-        private var topView: UIView = .init()
-        private var contentView: UIView = .init()
-//        var textView: TextView.UIKitTextView? = nil
-//        var textViewModel: TextView.UIKitTextView.ViewModel = .init()
-        private var oldTextView: TextViewHolder = .init()
-        
-        /// Subscriptions
-        
-        /// Others
-        private var layout: Layout = .init()
-        
-        private var lastKnownTextViewSize: CGSize = .zero
-        
-        /// Setup
-        private func setup() {
-            self.setupUIElements()
-            self.addLayout()
-        }
-        
-        private func setupUIElements() {
-            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
-            self.translatesAutoresizingMaskIntoConstraints = true
-
-            [self.contentView, self.topView, self.oldTextView].forEach { (value) in
-                value.translatesAutoresizingMaskIntoConstraints = false
-            }
-            
-            /// View hierarchy
-            self.topView.addSubview(self.oldTextView)
-            self.oldTextView.textView.delegate = self
-            self.contentView.addSubview(self.topView)
-            self.addSubview(self.contentView)
-            
-            self.topView.backgroundColor = .systemGray6
-            self.oldTextView.backgroundColor = .clear
-            self.contentView.backgroundColor = .systemRed
-        }
-                
-        private func addLayout() {
-            if let superview = self.contentView.superview {
-                let view = self.contentView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
-                ])
-            }
-            
-            if let superview = self.topView.superview {
-                let view = self.topView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
-            
-            if let superview = self.oldTextView.superview {
-                let view = self.oldTextView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
-        }
-        
-        /// Handle
-        private func handle(_ value: Block.Content.ContentType.Text) {
-            /// Do something
-            /// We should reload data if text are not equal
-            ///
-        }
-        
-        /// Cleanup
-        private func cleanupBeforeNewConfiguration() {
-//            if let configuration = self.currentConfiguration {
-//                configuration.contextMenuHolder?.cleanup()
-//                configuration.contextMenuHolder?.cleanupTextViewModel()
-//            }
-        }
-        private func cleanupOnNewConfiguration() {
-            /// Cleanup subscriptions.
-        }
-        
-        /// Initialization
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        /// ContentView
-        var currentConfiguration: ContentConfiguration!
-        var configuration: UIContentConfiguration {
-            get { self.currentConfiguration }
-            set {
-                /// apply configuration
-                guard let configuration = newValue as? ContentConfiguration else { return }
-                self.apply(configuration: configuration)
-            }
-        }
-
-        init(configuration: ContentConfiguration) {
-            super.init(frame: .zero)
-            self.setup()
-            self.apply(configuration: configuration)
-        }
-        
-        private func apply(configuration: ContentConfiguration, forced: Bool) {
-            if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
-            }
-        }
-        
-        private func apply(configuration: ContentConfiguration) {
-            self.apply(configuration: configuration, forced: true)
-            guard self.currentConfiguration != configuration else { return }
-            
-            self.cleanupBeforeNewConfiguration()
-            
-            self.currentConfiguration = configuration
-            
-            self.cleanupOnNewConfiguration()
-            self.invalidateIntrinsicContentSize()
-            
-            self.applyNewConfiguration()
-//            switch self.currentConfiguration.information.content {
-//            case let .text(value): self.handle(value)
-//            default: return
-//            }
-        }
-        
-        private func applyNewConfiguration() {
-            /// TODO: Redone.
-            /// Instead of creating new view, it is better to assign view model to old textView for performance.
-            ///
-            if let information = self.currentConfiguration?.contextMenuHolder?.getBlock().blockModel.information {
-                switch information.content {
-                case let .text(text):
-                    if self.oldTextView.textView.textStorage != text.attributedText {
-                        self.oldTextView.textView.textStorage.setAttributedString(text.attributedText)
-                    }
-                default: break
-                }
-            }
-//            let model = self.textViewModel
-//            let shouldReuseView: Bool = false
-//            if let view = self.textView, let textView = view.getTextView, shouldReuseView {
-//                view.assign(model, view: textView)
-//            }
-//            else {
-//                self.currentConfiguration.contextMenuHolder?.assign(textViewModel: model)
-////                self.currentConfiguration.contextMenuHolder?.refresh(textViewModel: model)
-////                self.textView = model?.createView(.init(liveUpdateAvailable: true))
-////                _ = self.topView.configured(textView: self.textView)
-//            }
-        }
-        
-        /// MARK: - UITextViewDelegate
-        func textViewDidChange(_ textView: UITextView) {
-            let size = textView.intrinsicContentSize
-            if self.lastKnownTextViewSize != size {
-                self.lastKnownTextViewSize = size
-                self.currentConfiguration.contextMenuHolder?.send(sizeDidChange: self.lastKnownTextViewSize)
+                self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
             }
         }
     }
