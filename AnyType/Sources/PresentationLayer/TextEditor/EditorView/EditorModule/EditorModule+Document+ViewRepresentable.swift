@@ -78,8 +78,8 @@ extension Namespace.ViewRepresentable {
         }
         
         // MARK: Configuration
-        func configured(headerViewModelPublisher: AnyPublisher<ViewController.HeaderView.UserAction, Never>) -> Self {
-            headerViewModelPublisher.sink { [weak self] (value) in
+        func configured(headerViewModelPublisher: AnyPublisher<ViewController.HeaderView.UserAction, Never>?) -> Self {
+            headerViewModelPublisher?.sink { [weak self] (value) in
                 self?.processBackButtonPressed()
             }.store(in: &self.subscriptions)
             return self

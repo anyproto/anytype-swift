@@ -92,6 +92,7 @@ public extension Namespace.ContentType {
         private static var defaultChecked = false
         private static var defaultColor = ""
         public var attributedText: NSAttributedString
+        /// Block color
         public var color: String
         public var contentType: ContentType
         public var checked: Bool

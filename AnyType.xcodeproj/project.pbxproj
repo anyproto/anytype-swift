@@ -336,6 +336,7 @@
 		5338E7FB25DC7AF5008CB97D /* BlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */; };
 		5338E7FE25DD2F74008CB97D /* ListBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */; };
 		5338E80225DD3090008CB97D /* ListBlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E80125DD3090008CB97D /* ListBlockActionService.swift */; };
+		538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
 		A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */; };
 		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
@@ -719,6 +720,7 @@
 		5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionService.swift; sourceTree = "<group>"; };
 		5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E80125DD3090008CB97D /* ListBlockActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionService.swift; sourceTree = "<group>"; };
+		538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
 		A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Page.swift"; sourceTree = "<group>"; };
 		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
@@ -1169,6 +1171,7 @@
 				034A30402405CDBE002599E2 /* CombineExtension.swift */,
 				0A0AA749240146B5003A2935 /* UIView+Extensions.swift */,
 				EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */,
+				538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -2380,6 +2383,7 @@
 				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */,
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
+				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */,
 				0AEAD66025C0B93800E8A442 /* DocumentModule+Document+Flattener.swift in Sources */,
 				0AA00C5224CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift in Sources */,

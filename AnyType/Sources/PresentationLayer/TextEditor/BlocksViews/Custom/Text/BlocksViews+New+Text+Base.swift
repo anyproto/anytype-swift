@@ -163,8 +163,6 @@ extension Namespace {
                 .create(action: .general(.duplicate)),
                 .create(action: .general(.moveTo)),
                 .create(action: .specific(.style)),
-                .create(action: .specific(.color)),
-                .create(action: .specific(.backgroundColor)),
             ])
         }
     }

@@ -121,6 +121,7 @@ extension MarksPane.ViewController {
 //        }
         private func setup(style: Style) {
             self.action = self.viewModelHolder.viewModel.userAction
+            
             if let section = style.section {
                 self.viewModelHolder.viewModel.update(category: section)
             }

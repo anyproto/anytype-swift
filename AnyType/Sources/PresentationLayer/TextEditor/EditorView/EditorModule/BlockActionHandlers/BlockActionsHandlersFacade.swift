@@ -63,7 +63,7 @@ final class BlockActionsHandlersFacade {
     
     lazy var textBlockActionHandler: TextBlockActionHandler = .init(service: service, indexWalker: indexWalker)
     lazy var toolbarBlockActionHandler: ToolbarBlockActionHandler = .init(service: service, indexWalker: indexWalker)
-    lazy var marksPaneBlockActionHandler: MarksPaneBlockActionHandler = .init(service: service)
+    lazy var marksPaneBlockActionHandler: MarksPaneBlockActionHandler = .init(service: service, contextId: self.documentId, subject: reactionSubject)
     lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
     lazy var userActionHandler: UserActionHandler = .init(service: service)
 

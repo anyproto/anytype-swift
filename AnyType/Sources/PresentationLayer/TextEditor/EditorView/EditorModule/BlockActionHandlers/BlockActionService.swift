@@ -15,7 +15,7 @@ private extension Logging.Categories {
     static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
 }
 
-/// Each method should return no a block, but a response.
+/// Each method should return not a block, but a response.
 /// Next, this response would be proceed by event handler.
 final class BlockActionService {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload

@@ -41,7 +41,7 @@ final class TextBlockActionHandler {
         return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
 
-    func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction.KeyboardAction) {
+    private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
             if DetailsInspector.kind(of: block.blockModel.information.id) == .title {

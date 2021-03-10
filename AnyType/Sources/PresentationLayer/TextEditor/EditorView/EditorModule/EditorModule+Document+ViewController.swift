@@ -29,8 +29,8 @@ extension Namespace {
         @Environment(\.developerOptions) private var developerOptions
         private var dataSource: UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Row>?
         private let viewModel: ViewModel
-        private let headerViewModel: HeaderView.ViewModel = .init()
-        private(set) lazy var headerViewModelPublisher: AnyPublisher<HeaderView.UserAction, Never> = self.headerViewModel.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
+        private weak var headerViewModel: HeaderView.ViewModel?
+        private(set) lazy var headerViewModelPublisher: AnyPublisher<HeaderView.UserAction, Never>? = self.headerViewModel?.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
                 
         private var subscriptions: Set<AnyCancellable> = []
         /// Gesture recognizer to handle taps in empty document
@@ -106,7 +106,7 @@ extension Namespace {
                 return cell
             }
 
-            self.dataSource?.supplementaryViewProvider = { view, type, indexPath in
+            self.dataSource?.supplementaryViewProvider = { [weak self] view, type, indexPath in
                 guard let headerView = view.dequeueReusableSupplementaryView(ofKind: type,
                                                                              withReuseIdentifier: Constants.headerReuseId,
                                                                              for: indexPath) as? CollectionViewHeaderView else {
@@ -114,11 +114,11 @@ extension Namespace {
                     return UICollectionReusableView()
                 }
                 if headerView.headerView.viewModel == nil {
-                    headerView.headerView.viewModel = self.headerViewModel
+                    headerView.headerView.viewModel = .init()
+                    self?.headerViewModel = headerView.headerView.viewModel
                 }
                 return headerView
             }
-            self.collectionView.dataSource = self.dataSource
         }
 
         private func setupInteractions() {
@@ -177,7 +177,7 @@ extension Namespace.ViewController {
                     collection.firstIndex(of: value.key)
                 })
                 .compactMap({$0.value})
-            _ = self.headerViewModel.configured(pageDetailsViewModels: viewModels)
+            _ = self.headerViewModel?.configured(pageDetailsViewModels: viewModels)
         }
     }
     

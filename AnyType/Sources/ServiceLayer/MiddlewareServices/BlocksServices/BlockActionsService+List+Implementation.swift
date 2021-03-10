@@ -26,6 +26,15 @@ extension Namespace {
         var setDivStyle: SetDivStyle = .init()
         var setPageIsArchived: SetPageIsArchived = .init()
         var deletePage: DeletePage = .init()
+        
+        func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: UIColor?) -> AnyPublisher<Success, Error> {
+            let colorAsString = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false)
+            return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: colorAsString)
+                .map(\.event)
+                .map(Success.init(_:))
+                .subscribe(on: DispatchQueue.global())
+                .eraseToAnyPublisher()
+        }
     }
 }
 
@@ -84,6 +93,7 @@ extension FileNamespace {
             Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID, blockIds: blockIds, color: color).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
+
     struct SetAlign: ServiceLayerModule_BlockActionsServiceListProtocolSetAlign {
         func action(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<Success, Error> {
             guard let alignment = BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware(alignment) else {
@@ -91,10 +101,12 @@ extension FileNamespace {
             }
             return self.action(contextID: contextID, blockIds: blockIds, align: alignment)
         }
+
         private func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
+
     struct SetDivStyle: ServiceLayerModule_BlockActionsServiceListProtocolSetDivStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
             guard let style = BlocksModelsModule.Parser.Other.Divider.Style.Converter.asMiddleware(style) else {

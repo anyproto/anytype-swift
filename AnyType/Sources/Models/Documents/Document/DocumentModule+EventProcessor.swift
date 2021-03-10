@@ -212,7 +212,7 @@ private extension FileNamespace.EventHandler {
                 .map(Builder.blockBuilder.build(information:))
                 .forEach { (value) in
                     self.updater?.insert(block: value)
-            }
+                }
             return .update(.init(addedIds: value.blocks.map(\.id)))
         
         case let .blockDelete(value):

@@ -11,6 +11,8 @@ import UIKit
 import Combine
 import SwiftUI
 import os
+import BlocksModels
+
 
 private extension Logging.Categories {
     static let textViewMarksPanePanesStylePaneAlignment: Self = "MarksPane.Panes.StylePane"
@@ -105,6 +107,17 @@ extension MarksPane.Panes.StylePane.Alignment {
             case .right: return .right
             }
         }
+
+        /// Convert marks pane alignment model to block model
+        /// - Returns: Alignment in block model
+        func asModel() -> TopLevel.AliasesMap.Alignment {
+            switch self {
+            case .left: return .left
+            case .center: return .center
+            case .right: return .right
+            }
+        }
+        
     }
 }
 

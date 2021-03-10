@@ -91,7 +91,8 @@ extension FileNamespace {
             }
             return self.action(contextID: contextID, blockIds: blockIds, align: middlewareAlignment)
         }
-        func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Void, Error> {
+
+        private func action(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> AnyPublisher<Void, Error> {
             Anytype_Rpc.BlockList.Set.Align.Service.invoke(contextID: contextID, blockIds: blockIds, align: align).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }

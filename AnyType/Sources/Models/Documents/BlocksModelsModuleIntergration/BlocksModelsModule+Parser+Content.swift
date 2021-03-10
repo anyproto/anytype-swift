@@ -193,12 +193,18 @@ extension FileNamespace.Converters {
 
 extension FileNamespace.Converters {
     class ContentText: BaseContentConverter {
-        fileprivate typealias Text = FileNamespace.Text
-        fileprivate typealias ContentTypeConverter = Text.ContentType.Converter
+        fileprivate typealias TextConverter = FileNamespace.Text
+        fileprivate typealias ContentTypeConverter = TextConverter.ContentType.Converter
         
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .text(value): return ContentTypeConverter.asModel(value.style).flatMap({.text(.init(attributedText: FileNamespace.Text.AttributedText.Converter.asModel(text: value.text, marks: value.marks), color: value.color, contentType: $0, checked: value.checked))})
+            case let .text(value):
+                return ContentTypeConverter.asModel(value.style).flatMap {
+                    typealias Text = Block.Content.ContentType.Text
+                    let attributedString = TextConverter.AttributedText.Converter.asModel(text: value.text, marks: value.marks)
+                    let textContent: Text = .init(attributedText: attributedString, color: value.color, contentType: $0, checked: value.checked)
+                    return .text(textContent)
+                }
             default: return nil
             }
         }

@@ -125,9 +125,7 @@ extension Namespace {
                 .create(action: .general(.duplicate)),
                 .create(action: .specific(.rename)),
                 .create(action: .general(.moveTo)),
-                .create(action: .specific(.color)),
-                .init(payload: .init(), action: .specific(.backgroundColor))
-                //.create(action: .specific(.backgroundColor)),
+                .create(action: .specific(.backgroundColor)),
             ])
         }
     }

@@ -87,4 +87,13 @@ protocol ServiceLayerModule_BlockActionsServiceListProtocol {
     var setDivStyle: SetDivStyle {get}
     var setPageIsArchived: SetPageIsArchived {get}
     var deletePage: DeletePage {get}
+
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+
+    /// Set foreground color for block
+    /// - Parameters:
+    ///   - contextID: page id
+    ///   - blockIds: id block
+    ///   - color:block foreground color
+    func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: UIColor?) -> AnyPublisher<ServiceLayerModule.Success, Error>
 }
