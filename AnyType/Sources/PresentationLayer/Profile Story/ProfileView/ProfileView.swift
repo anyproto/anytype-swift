@@ -24,7 +24,6 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        NavigationView {
         ZStack {
             LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
@@ -32,11 +31,8 @@ struct ProfileView: View {
                 self.contentView.padding(.bottom, 10)
             }
         }
-        .navigationBarHidden(false)
-        .navigationBarTitle("", displayMode: .inline)
         .errorToast(isShowing: $model.isShowingError, errorText: model.error)
-        }.navigationBarHidden(false)
-            .onAppear {
+        .onAppear {
             self.model.obtainAccountInfo()
         }
     }

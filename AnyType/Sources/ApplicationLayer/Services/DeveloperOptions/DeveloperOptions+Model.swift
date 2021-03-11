@@ -22,7 +22,7 @@ extension DeveloperOptions {
 //        var services: Services?
         private init() {
             self.debug = .init(enabled: false)
-            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""), dashboard: .init(hasCustomModalPresentation: false, cellsHaveActionsOnLongTap: false),
+            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""), dashboard: .init(cellsHaveActionsOnLongTap: false),
                                   mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false), listView: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseCellsCaching: false)))
         }
         static var `default`: Settings = .init()
@@ -43,7 +43,6 @@ extension DeveloperOptions.Settings {
         }
         
         struct Dashboard: CodableAndDictionary {
-            var hasCustomModalPresentation: Bool
             var cellsHaveActionsOnLongTap: Bool
         }
         

@@ -10,8 +10,7 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    // UINavigationBar appearance
-    private let defautlNavbarImage = UINavigationBar.appearance().backgroundImage(for: .default)
+    @Environment(\.developerOptions) private var developerOptions
 
     // TODO: workaround - HomeCollectionView view model here due to SwiftUI doesn't update
     // view when it's UIViewRepresentable
@@ -21,15 +20,30 @@ struct HomeView: View {
     
     @State var showDocument: Bool = false
     @State var selectedDocumentId: String = ""
-    @State var isNavigationBarHidden: Bool = true // workaround: Used for hiding/show nav bar in childs
-    
-    @Environment(\.developerOptions) private var developerOptions
     
     init(viewModel: HomeViewModel, collectionViewModel: HomeCollectionViewModel) {
         self.viewModel = viewModel
         self.collectionViewModel = collectionViewModel
     }
-    
+
+    var body: some View {
+        NavigationView {
+            VStack(alignment: .leading, spacing: 0) {
+                NavigationLink(
+                    destination: self.documentView(hasCustomModalView: false).edgesIgnoringSafeArea(.all),
+                    isActive: self.$showDocument,
+                    label: { EmptyView() })
+
+                self.topView
+                self.collectionView
+            }
+            .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing).edgesIgnoringSafeArea(.all))
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .accentColor(.gray)
+        .onAppear(perform: onAppear)
+    }
+
     var topView: some View {
         HStack {
             Text("Hi, \(self.viewModel.profileViewModel.visibleAccountName)")
@@ -37,11 +51,7 @@ struct HomeView: View {
                 .foregroundColor(.white)
                 .font(.title)
             Spacer()
-            NavigationLink(destination: self.viewModel.profileViewCoordinator.profileView
-                .onAppear {
-                    self.isNavigationBarHidden = false
-                }
-            ) {
+            NavigationLink(destination: self.viewModel.profileViewCoordinator.profileView) {
                 UserIconView(image: self.viewModel.profileViewModel.accountAvatar, color: self.viewModel.profileViewModel.visibleSelectedColor, name: self.viewModel.profileViewModel.visibleAccountName).frame(width: 43, height: 43)
             }
         }
@@ -58,162 +68,49 @@ struct HomeView: View {
                 .padding()
         }
     }
-        
-    
-    var documentView: some View {
-//        NavigationLink(destination:
-//            DocomentViewWrapper(viewModel: self.viewModel, selectedDocumentId: self.$selectedDocumentId, isNavigationBarHidden: self.$isNavigationBarHidden),
-//                       isActive: self.$showDocument)
-//        {
-//            return EmptyView()
-//        }
-//        .frame(width: 0, height: 0)
-        DocumentViewWrapper(viewModel: self.viewModel, selectedDocumentId: self.$selectedDocumentId, isNavigationBarHidden: self.$isNavigationBarHidden, shouldShowDocument: self.$showDocument)
-    }
     
     func documentView(hasCustomModalView: Bool = false) -> some View {
-        DocumentViewWrapper(viewModel: self.viewModel, selectedDocumentId: self.$selectedDocumentId, isNavigationBarHidden: self.$isNavigationBarHidden, shouldShowDocument: self.$showDocument, hasCustomModalView: hasCustomModalView)
-    }
-    
-    var homeView: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            self.topView
-            self.collectionView
-        }
-    }
-        
-    var customPresentationViewBody: some View {
-        NavigationView {
-            VStack(alignment: .leading, spacing: 0) {
-                ZStack {
-                    self.homeView
-                    if self.showDocument {
-                        self.documentView(hasCustomModalView: true)
-                    }
-                }
-            }
-            .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing).edgesIgnoringSafeArea(.all))
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarHidden(isNavigationBarHidden)
-        }
-    }
-    
-    var defaultPresentationViewBody: some View {
-        NavigationView {
-            VStack(alignment: .leading, spacing: 0) {
-                self.homeView
-            }.sheet(isPresented: self.$showDocument) {
-                self.documentView(hasCustomModalView: false).edgesIgnoringSafeArea(.all)
-            }
-            .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing).edgesIgnoringSafeArea(.all))
-            .navigationBarTitle("", displayMode: .inline)
-            .navigationBarHidden(isNavigationBarHidden)
-        }
-    }
-    
-    var body: some View {
-        Group {
-            if self.developerOptions.current.workflow.dashboard.hasCustomModalPresentation {
-                self.customPresentationViewBody
-            }
-            else {
-                self.defaultPresentationViewBody
-            }
-        }
-        .onAppear(perform: onAppear)
-        .onDisappear(perform: onDisappear)
+        DocumentViewWrapper(viewModel: self.viewModel, selectedDocumentId: self.$selectedDocumentId, shouldShowDocument: self.$showDocument)
     }
 
     private func onAppear() {
-        isNavigationBarHidden = true
         self.viewModel.obtainAccountInfo()
-        customAppereance()
-    }
-
-    func customAppereance() {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().standardAppearance = navBarAppearance
-    }
-
-    private func onDisappear() {
-        UINavigationBar.appearance().setBackgroundImage(defautlNavbarImage, for: .default)
+        HomeView.transparentAppereance()
     }
 }
 
-/// -- By Sheet or List modal presentation.
-/// 1. Add sheet presentation for View.
-///
-///
-///
-/// -- Full animation presentation.
-/// 1. Add custom transition for view.
-/// 2. Enable it by ZStack (?)
-/// 3. Or enable it by GeometryReader (?)
-/// 4. Add GestureRecognizer to push it down.
-
 extension HomeView {
     struct DocumentViewWrapper: View {
+        @Environment(\.presentationMode) var mode: Binding<PresentationMode>
         @ObservedObject var viewModel: HomeViewModel
         @Binding var selectedDocumentId: String
-        @Binding var isNavigationBarHidden: Bool
         @Binding var shouldShowDocument: Bool
 
-        @State var dragOffset: CGSize = .zero
-        
-        var hasCustomModalView: Bool = false
-                
-        var oldBody: some View {
-            self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId, shouldShowDocument: self.$shouldShowDocument)
-                .navigationBarTitle("") // workaround: used for smooth transition animation
-                .navigationBarHidden(isNavigationBarHidden)
-                .onAppear {
-                    self.isNavigationBarHidden = true
-            }
-        }
-        
-        func onDismiss() {
-            self.dragOffset = .zero
-            self.selectedDocumentId = ""
-        }
-        
-        var customModalView: some View {
-            GeometryReader { geometry in
-                self.oldBody.animation(.spring())
-                    .gesture(
-                    DragGesture().onChanged({ (value) in
-                        let height = value.translation.height
-                        let correctHeight = max(0, height)
-                        self.dragOffset = .init(width: self.dragOffset.width, height: correctHeight)
-                    }).onEnded({ (value) in
-                        let height = value.translation.height
-                        if height / geometry.size.height < 0.3 {
-                            self.dragOffset = .zero
-                        }
-                        else {
-                            self.shouldShowDocument = false
-                            self.onDismiss()
-                        }
-                    })
-                ).offset(self.dragOffset)
-            }.transition(.move(edge: .bottom))
-        }
-        
-        var defaultModalView: some View {
-            self.oldBody
-        }
-        
         var body: some View {
-            Group {
-                if self.hasCustomModalView {
-                    self.customModalView
-                }
-                else {
-                    self.defaultModalView
-                }
-            }
+            self.viewModel.documentView(selectedDocumentId: self.selectedDocumentId, shouldShowDocument: self.$shouldShowDocument)
+                .navigationBarHidden(true)
         }
+    }
+}
+
+extension HomeView {
+    // UINavigationBar appearance
+    fileprivate static let defautlNavbarImage = UINavigationBar.appearance().backgroundImage(for: .default)
+
+    fileprivate static func transparentAppereance() {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        UINavigationBar.appearance().standardAppearance = navBarAppearance
+    }
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }

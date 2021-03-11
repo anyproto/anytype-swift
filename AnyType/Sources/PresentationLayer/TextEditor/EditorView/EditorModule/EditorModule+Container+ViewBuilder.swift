@@ -107,6 +107,7 @@ extension Namespace.ViewBuilder {
             let navigationController: UINavigationController = .init(navigationBarClass: Namespace.ViewBuilder.NavigationBar.self, toolbarClass: nil)
             NavigationBar.applyAppearance()
             navigationController.setViewControllers([childViewController], animated: false)
+            navigationController.navigationBar.isTranslucent = false
             
             /// Configure Navigation Item for Content View Model.
             /// We need it to support Selection navigation bar buttons.
@@ -129,8 +130,9 @@ extension Namespace.ViewBuilder {
             _ = viewController.configured(childViewController: navigationController)
             
             /// Configure navigation item of root
-            childViewController.navigationItem.leftBarButtonItem = .init(title: "Dismiss", style: .plain, target: viewController, action: #selector(viewController.dismissAction))
-            
+            let backButtonImage = UIImage(systemName: "chevron.backward", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))
+            childViewController.navigationItem.leftBarButtonItem = .init(image: backButtonImage, style: .plain, target: viewController, action: #selector(viewController.dismissAction))
+
             /// DEBUG: Conformance to navigation delegate.
             ///
             navigationController.delegate = viewController
@@ -151,7 +153,7 @@ private extension Namespace.ViewBuilder {
         static func applyAppearance() {
             let appearance = Self.appearance()
             appearance.prefersLargeTitles = false
-            appearance.tintColor = .orange
+            appearance.tintColor = .gray
             appearance.backgroundColor = .white
         }
     }
