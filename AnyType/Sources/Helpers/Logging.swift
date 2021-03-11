@@ -8,6 +8,7 @@
 
 import Foundation
 import os
+import OSLog
 
 // MARK: Example
 //private extension Logging.Categories {
@@ -16,19 +17,25 @@ import os
 
 /// TODO: Move to separate project.
 enum Logging {
-    enum Subsystems {
+    private enum Subsystems {
         static let iOSApp = "org.anytype.anytype"
     }
-    static let subsystem = Subsystems.iOSApp
+    private static let subsystem = Subsystems.iOSApp
     
     // NOTE: `OSLog.init(subsystem:category:)` is thread-safe AND cheap.
     // It will `findOrCreate` new logger, cause every logger is signleton.
     // For further information look at os_log documentation.
     static func createLogger(category: Categories) -> OSLog {
-        .init(subsystem: subsystem, category: category.category)
+        self.createLogger(category: category.category)
     }
     private static func createLogger(category: String) -> OSLog {
-        .init(subsystem: subsystem, category: category)
+        .init(subsystem: self.subsystem, category: category)
+    }
+    static func createOSLogger(category: Categories) -> Logger {
+        self.createOSLogger(category: category.category)
+    }
+    private static func createOSLogger(category: String) -> Logger {
+        .init(subsystem: self.subsystem, category: category)
     }
 }
 
@@ -69,5 +76,11 @@ extension Logging.Categories {
     
     static func todo(_ todo: TODO) -> Self {
         .init(category: todo.category)
+    }
+}
+
+extension Logger {
+    static func create(_ category: Logging.Categories) -> Logger {
+        Logging.createOSLogger(category: category)
     }
 }

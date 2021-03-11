@@ -11,6 +11,9 @@ import Combine
 import OSLog
 import BlocksModels
 
+private extension Logging.Categories {
+   static let marksPaneBlockActionHandler: Self = "MarksPaneBlockActionHandler"
+}
 
 final class MarksPaneBlockActionHandler {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
@@ -62,7 +65,8 @@ private extension MarksPaneBlockActionHandler {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    Logger(subsystem: Bundle.main.bundleIdentifier ?? "", category: "MarksPane").error("setBlockColor: \(error.localizedDescription)")
+                    let logger: Logger = Logging.createOSLogger(category: .marksPaneBlockActionHandler)
+                    logger.error("setBlockColor: \(error.localizedDescription)")
                 }
             }) { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
@@ -79,7 +83,8 @@ private extension MarksPaneBlockActionHandler {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    Logger(subsystem: Bundle.main.bundleIdentifier ?? "", category: "MarksPane").error("setAlignment: \(error.localizedDescription)")
+                    let logger: Logger = Logging.createOSLogger(category: .marksPaneBlockActionHandler)
+                    logger.error("setAlignment: \(error.localizedDescription)")
                 }
             }) { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
