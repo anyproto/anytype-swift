@@ -344,6 +344,7 @@
 		EA325D8725F03A52002C8A6F /* ContextMenuHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA325D8625F03A52002C8A6F /* ContextMenuHolderProtocol.swift */; };
 		EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
+		EA5A8FB825FA9A2F009EFAF2 /* TextBlockViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5A8FB725FA9A2F009EFAF2 /* TextBlockViewModelOutput.swift */; };
 		EA6EC90425ED05BA00740B31 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA6EC90125ED05BA00740B31 /* Inter-Regular.ttf */; };
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
@@ -726,6 +727,7 @@
 		EA325D8625F03A52002C8A6F /* ContextMenuHolderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuHolderProtocol.swift; sourceTree = "<group>"; };
 		EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentView.swift; sourceTree = "<group>"; };
+		EA5A8FB725FA9A2F009EFAF2 /* TextBlockViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockViewModelOutput.swift; sourceTree = "<group>"; };
 		EA6EC90125ED05BA00740B31 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
@@ -1505,6 +1507,7 @@
 				0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */,
 				0A0965DE25BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift */,
 				0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */,
+				EA5A8FB725FA9A2F009EFAF2 /* TextBlockViewModelOutput.swift */,
 			);
 			path = EditorModule;
 			sourceTree = "<group>";
@@ -2243,6 +2246,7 @@
 				0A2C0D67247145BD008ADD86 /* TextView+InnerTextView.swift in Sources */,
 				0A0965E925BEF5B000C004BD /* DocumentViewRouting+Protocols.swift in Sources */,
 				531DC58225EFC0170052A327 /* EditorModule+CellIdentifierConverter.swift in Sources */,
+				EA5A8FB825FA9A2F009EFAF2 /* TextBlockViewModelOutput.swift in Sources */,
 				0AA9B04C249F65F200F2962C /* MultiSelectionPane+UIKit+Panes+Toolbar.swift in Sources */,
 				0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */,
 				5338E7F225DC730A008CB97D /* MarksPaneBlockActionHandler.swift in Sources */,

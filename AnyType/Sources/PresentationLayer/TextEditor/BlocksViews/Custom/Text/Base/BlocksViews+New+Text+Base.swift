@@ -55,10 +55,6 @@ extension Namespace {
         typealias BlocksModelsUpdater = TopLevel.AliasesMap.BlockTools.Updater
         typealias BlockModelId = TopLevel.AliasesMap.BlockId
         typealias FocusPosition = TopLevel.AliasesMap.FocusPosition
-        
-        private enum Constants {
-            static let setTextDebounceDelay: DispatchQueue.SchedulerTimeType.Stride = .seconds(0.5)
-        }
 
         private var serialQueue = DispatchQueue(label: "BlocksViews.New.Text.Base.SerialQueue")
         
@@ -116,6 +112,9 @@ extension Namespace {
                 self.toViewText?.string ?? ""
             }
         }
+        
+        /// ViewModel output to notify about view model state changes
+        weak var output: TextBlockViewModelOutput?
                 
         // MARK: - Subclassing
 
@@ -322,8 +321,11 @@ private extension Namespace.ViewModel {
             .safelyUnwrapOptionals()
             .debounce(for: self.textOptions.throttlingInterval, scheduler: serialQueue)
             .notableError()
-            .flatMap { [weak self] (value) in
-                self?.apply(attributedText: value) ?? .empty()
+            .flatMap { [weak self] (value) -> AnyPublisher<Void, Error> in
+                self?.output?.setTextChangeClosure { [weak self] in
+                    _ = self?.apply(attributedText: value)
+                }
+                return self?.apply(attributedText: value) ?? .empty()
             }
             .sink(receiveCompletion: { [weak self] (value) in
                 switch value {

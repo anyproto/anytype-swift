@@ -131,8 +131,9 @@ extension Namespace {
         /// We should update some items in place.
         /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
         /// Its `Output` is a `List<BlockId>`
-        private var anyStyleSubject: PassthroughSubject<[BlockId], Never> = .init()
-        var anyStylePublisher: AnyPublisher<[BlockId], Never> = .empty()
+        private let updateElementsSubject: PassthroughSubject<[BlockId], Never> = .init()
+        private(set) var updateElementsPublisher: AnyPublisher<[BlockId], Never> = .empty()
+        private var lastSetTextClosure: (() -> Void)?
         
         // MARK: - Initialization
 
@@ -156,9 +157,14 @@ extension Namespace {
             // We should expose one publisher that will publish different updates (delete/update/add) to outer world.
             // Or to our view controller.
             // Maybe it will publish only resulted collection of elements.
-            self.anyStylePublisher = self.anyStyleSubject.eraseToAnyPublisher()
+            self.updateElementsPublisher = self.updateElementsSubject.eraseToAnyPublisher()
             
             self.obtainDocument(documentId: documentId)
+        }
+        
+        /// Apply last setText action, to ensure text was saved after document was closed
+        func applyPendingChanges() {
+            self.lastSetTextClosure?()
         }
 
         // MARK: - Setup subscriptions
@@ -228,7 +234,7 @@ extension Namespace {
                             self?.update(builders: value.models)
                         }
                         if !update.updatedIds.isEmpty {
-                            self?.anyStyleSubject.send(update.updatedIds)
+                            self?.updateElementsSubject.send(update.updatedIds)
                         }
                         if !update.deletedIds.isEmpty {
                             self?.deselect(ids: Set(update.deletedIds))
@@ -265,6 +271,12 @@ extension Namespace {
             }
             self.detailsViewModels = dictionary
         }
+    }
+}
+
+extension FileNamespace: TextBlockViewModelOutput {
+    func setTextChangeClosure(closure: @escaping () -> Void) {
+        self.lastSetTextClosure = closure
     }
 }
 
@@ -429,6 +441,9 @@ extension FileNamespace {
             _ = value.configured(userActionSubject: self.publicUserActionSubject)
             _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)
             _ = value.configured(sizeDidChangeSubject: self.publicSizeDidChangeSubject)
+            if let textViewModel = value as? BlocksViewsNamespace.Text.Base.ViewModel {
+                textViewModel.output = self
+            }
         }
     }
     

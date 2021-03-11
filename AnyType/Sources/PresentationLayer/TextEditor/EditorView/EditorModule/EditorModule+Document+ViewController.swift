@@ -59,6 +59,12 @@ extension Namespace {
             self.updateData(self.viewModel.builders)
         }
         
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            guard isMovingFromParent else { return }
+            self.viewModel.applyPendingChanges()
+        }
+        
         private func setupUI() {
             self.setupCollectionViewDataSource()
             self.collectionView.allowsSelection = false
@@ -145,7 +151,7 @@ extension Namespace {
                 self?.updateView()
             }.store(in: &self.subscriptions)
 
-            self.viewModel.anyStylePublisher.sink { [weak self] (value) in
+            self.viewModel.updateElementsPublisher.sink { [weak self] (value) in
                 guard let self = self, let snapshot = self.dataSource?.snapshot() else { return }
                 let set: Set = .init(value)
                 let updatingItemIndices: [Int] = snapshot.itemIdentifiers.enumerated().compactMap {
