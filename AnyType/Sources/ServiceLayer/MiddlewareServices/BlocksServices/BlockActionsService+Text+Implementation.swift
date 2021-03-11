@@ -20,12 +20,14 @@ private extension Logging.Categories {
 
 extension Namespace {
     class BlockActionsService: ServiceLayerModule_BlockActionsServiceTextProtocol {
-        var setText: SetText = .init()
-        var setStyle: SetStyle = .init()
-        var setForegroundColor: SetForegroundColor = .init()
-        var setAlignment: SetAlignment = .init()
-        var split: Split = .init()
-        var merge: Merge = .init()
+        let setText: SetText = .init()
+        let setStyle: SetStyle = .init()
+        let setForegroundColor: SetForegroundColor = .init()
+        let setAlignment: SetAlignment = .init()
+        let split: Split = .init()
+        let merge: Merge = .init()
+        let checked: Checked = .init()
+        
     }
 }
 
@@ -117,6 +119,22 @@ extension FileNamespace {
         func action(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global())
                 .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        }
+    }
+    
+    // MARK: Checked
+    struct Checked: ServiceLayerModuleBlockActionsServiceTextProtocolChecked {
+        func action(contextId: BlockId,
+                    blockId: BlockId,
+                    newValue: Bool) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Set.Text.Checked.Service.invoke(contextID: contextId,
+                                                              blockID: blockId,
+                                                              checked: newValue,
+                                                              queue: .global())
+                .map(\.event)
+                .map(Success.init(_:))
+                .subscribe(on: DispatchQueue.global())
+                .eraseToAnyPublisher()
         }
     }
 }

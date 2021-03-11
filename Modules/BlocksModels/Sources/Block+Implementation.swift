@@ -23,7 +23,8 @@ extension Namespace {
         private var _parent: BlockId?
         private var _kind: BlockKind {
             switch self._information.content {
-            case .smartblock(_): return .meta
+            case .smartblock, .divider: return .meta
+            case let .layout(layout) where layout.style == .div: return .meta
             default: return .block
             }
         }
@@ -60,21 +61,18 @@ extension Namespace.BlockModel: BlockModelProtocol {
 // MARK: UserSession
 extension Namespace {
     class UserSession: ObservableObject {
-        struct Information {
-            var isToggled: Bool
-        }
-        var _firstResponder: String?
-        var _focusAt: Position?
-        var _storage: [String: Information] = [:]
+        private var _firstResponder: String?
+        private var _focusAt: Position?
+        private var toggleStorage: [String: Bool] = [:]
     }
 }
 
 extension Namespace.UserSession: BlockUserSessionModelProtocol {
-    func isToggled(by id: BlockId) -> Bool { self._storage[id]?.isToggled ?? false }
+    func isToggled(by id: BlockId) -> Bool { self.toggleStorage[id, default: false] }
     func isFirstResponder(by id: BlockId) -> Bool { self._firstResponder == id }
     func firstResponder() -> BlockId? { self._firstResponder }
     func focusAt() -> Position? { self._focusAt }
-    func setToggled(by id: BlockId, value: Bool) { self._storage[id] = (self._storage[id] ?? .init(isToggled: value)) }
+    func setToggled(by id: BlockId, value: Bool) { self.toggleStorage[id] = value }
     func setFirstResponder(by id: BlockId) { self._firstResponder = id }
     func setFocusAt(position: Position) { self._focusAt = position }
     
@@ -319,7 +317,7 @@ extension Namespace.ActiveRecord: ObservableObject, BlockActiveRecordModelProtoc
         self._nestedModel
     }
     
-    static var defaultIndentationLevel: Int { 0 }
+    static var defaultIndentationLevel: Int { -1 }
     var indentationLevel: Int {
         if self.isRoot {
             return Self.defaultIndentationLevel

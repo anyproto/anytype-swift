@@ -61,14 +61,14 @@ final class BlockActionsHandlersFacade {
     private var documentId: String = ""
     private var indexWalker: LinearIndexWalker?
     
-    lazy var textBlockActionHandler: TextBlockActionHandler = .init(service: service, indexWalker: indexWalker)
-    lazy var toolbarBlockActionHandler: ToolbarBlockActionHandler = .init(service: service, indexWalker: indexWalker)
-    lazy var marksPaneBlockActionHandler: MarksPaneBlockActionHandler = .init(service: service, contextId: self.documentId, subject: reactionSubject)
-    lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
-    lazy var userActionHandler: UserActionHandler = .init(service: service)
+    private lazy var textBlockActionHandler: TextBlockActionHandler = .init(service: service, indexWalker: indexWalker)
+    private lazy var toolbarBlockActionHandler: ToolbarBlockActionHandler = .init(service: service, indexWalker: indexWalker)
+    private lazy var marksPaneBlockActionHandler: MarksPaneBlockActionHandler = .init(service: service, contextId: self.documentId, subject: reactionSubject)
+    private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
+    private lazy var userActionHandler: UserActionHandler = .init(service: service)
 
-    private var reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
-    var reactionPublisher: AnyPublisher<Reaction, Never> = .empty()
+    private let reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
+    private(set) var reactionPublisher: AnyPublisher<Reaction, Never> = .empty()
 
     init() {
         self.setup()
@@ -110,7 +110,8 @@ final class BlockActionsHandlersFacade {
         case let .textView(value):
             switch value.action {
             case let .textView(action): textBlockActionHandler.handlingTextViewAction(value.model, action)
-            case let .buttonView(action): self.buttonBlockActionHandler.handlingButtonViewAction(value.model, action)
+            case let .buttonView(action):
+                self.buttonBlockActionHandler.handlingButtonViewAction(value.model, action)
             }
         case let .userAction(value): self.userActionHandler.handlingUserAction(value.model, value.action)
         }

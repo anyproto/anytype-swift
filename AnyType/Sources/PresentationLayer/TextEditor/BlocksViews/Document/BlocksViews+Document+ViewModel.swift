@@ -31,7 +31,7 @@ extension Namespace {
         private typealias DetailsViewModelsConverter = BlocksViews.Supplement.ViewModelsConvertions.Details.BaseConverter
         private var blocksConverter: ViewModelsConverter?
         private var detailsConverter: DetailsViewModelsConverter
-        private var document: Document
+        private(set) var document: Document
         
         /// TODO:
         /// Remove it later.

@@ -71,7 +71,7 @@ extension Namespace {
         private(set) var documentViewModel: BlocksViews.Document.ViewModel = .init()
         
         /// User Interaction Processor
-        private var blockActionHandler: BlockActionsHandlersFacade = .init()
+        private let blockActionHandler: BlockActionsHandlersFacade = .init()
         private var listBlockActionHandler: ListBlockActionHandler = .init()
         
         /// Combine Subscriptions
@@ -118,27 +118,21 @@ extension Namespace {
             }
         }
         
-        // MARK: Builders
-        @Published var builders: [BlockViewBuilderProtocol] = []
-        private var internalState: State = .loading
-        
-        @Published var buildersRows: [Row] = [] {
+        /// Builders to build block views
+        @Published private(set) var builders: [BlocksViews.New.Base.ViewModel] = [] {
             didSet {
-                /// Disable selection mode.
-                if self.buildersRows.isEmpty {
+                if self.builders.isEmpty {
                     self.set(selectionEnabled: false)
                 }
             }
         }
+        private var internalState: State = .loading
         
         /// We should update some items in place.
         /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
         /// Its `Output` is a `List<BlockId>`
         private var anyStyleSubject: PassthroughSubject<[BlockId], Never> = .init()
         var anyStylePublisher: AnyPublisher<[BlockId], Never> = .empty()
-        
-        // put into protocol?
-        // var userActionsPublisher: AnyPublisher<UserAction>
         
         // MARK: - Initialization
 
@@ -191,26 +185,16 @@ extension Namespace {
             }.store(in: &self.subscriptions)
 
             self.$builders.sink { [weak self] value in
-                self?.buildersRows = value.compactMap(Row.init).map({ (value) in
-                    var value = value
-                    return value.configured(selectionHandler: self?.selectionHandler)
-                })
                 self?.enhanceUserActionsAndPayloads(value)
             }.store(in: &self.subscriptions)
         }
         
         // TODO: Add caching?
-        private func update(builders: [BlockViewBuilderProtocol]) {
-            /// We should add caching, otherwise, we will miss updates from long-playing views as file uploading or downloading views.
+        private func update(builders: [BlocksViews.New.Base.ViewModel]) {
             let difference = builders.difference(from: self.builders) {$0.diffable == $1.diffable}
-            if let result = self.builders.applying(difference) {
+            if !difference.isEmpty, let result = self.builders.applying(difference) {
                 self.builders = result
             }
-            else {
-                // We should set all builders, because our collection is empty?
-                self.builders = builders
-            }
-            //            self.builders = builders
         }
         
         private func obtainDocument(documentId: String?) {
@@ -236,20 +220,18 @@ extension Namespace {
             self.documentViewModel.updatePublisher()
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] (value) in
-                    // Process values
-                    self?.update(builders: value.models)
-
                     switch value.updates {
-                    case .general: break
-                    case let .update(value):
-                        // We should calculate updates correctly.
-                        // For example, we should remove items if they appear in detetedIds.
-                        // That means that even if they appear in updatedIds, we still need to remove them.
-                        
-                        // In case of nonempty updateIds controller will call updateData(_:) method
-                        // Which was already called inside update(builders:) method in this viewModel
-                        if !value.deletedIds.isEmpty {
-                            self?.deselect(ids: Set(value.deletedIds))
+                    case .general:
+                        self?.update(builders: value.models)
+                    case let .update(update):
+                        if !update.addedIds.isEmpty || !update.deletedIds.isEmpty {
+                            self?.update(builders: value.models)
+                        }
+                        if !update.updatedIds.isEmpty {
+                            self?.anyStyleSubject.send(update.updatedIds)
+                        }
+                        if !update.deletedIds.isEmpty {
+                            self?.deselect(ids: Set(update.deletedIds))
                         }
                     }
                 }.store(in: &self.subscriptions)
@@ -335,29 +317,20 @@ extension FileNamespace {
             self.didSelect(atIndex: index)
             return
         }
-        
-        if let builder = element(at: index).builder as? BlocksViewsNamespace.Base.ViewModel {
-            builder.receive(event: .didSelectRowInTableView)
-        }
+        self.element(at: index)?.receive(event: .didSelectRowInTableView)
     }
 
-    private func element(at: IndexPath) -> Row {
+    private func element(at: IndexPath) -> BlocksViews.New.Base.ViewModel? {
         guard self.builders.indices.contains(at.row) else {
-            fatalError("Row doesn't exist")
+            assertionFailure("Row doesn't exist")
+            return nil
         }
-        var row = Row.init(builder: self.builders[at.row])
-        _ = row.configured(selectionHandler: self.selectionHandler)
-        return row
+        return self.builders[at.row]
     }
 
     private func didSelect(atIndex: IndexPath) {
-        let item = element(at: atIndex)
-        // so, we have to toggle item at index.
-        let newValue = !item.isSelected
-
-        if let key = item.getSelectionKey() {
-            self.set(selected: newValue, id: key)
-        }
+        guard let item = element(at: atIndex) else { return }
+        self.set(selected: !self.selected(id: item.blockId), id: item.blockId)
     }
 }
 

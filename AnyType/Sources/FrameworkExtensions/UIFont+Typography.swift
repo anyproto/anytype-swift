@@ -10,8 +10,13 @@ import UIKit
 
 extension UIFont {
     private static let graphikLCGSemibold = "GraphikLCG-Semibold"
+    private static let interRegular = "Inter-Regular"
     
     static var titleFont: UIFont {
         UIFont(name: graphikLCGSemibold, size: 34) ?? .preferredFont(forTextStyle: .title1)
+    }
+    
+    static var bodyFont: UIFont {
+        UIFont(name: interRegular, size: 15) ?? .preferredFont(forTextStyle: .body)
     }
 }

@@ -263,7 +263,7 @@ private extension FileNamespace.EventHandler {
                 newTextBlockContentType.contentType = oldText.contentType
             }
             blockModel.information.content = .text(newTextBlockContentType)
-
+            
             return .update(.init(updatedIds: [blockId]))
 
         case let .blockSetBackgroundColor(value):

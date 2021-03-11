@@ -134,7 +134,21 @@ extension Namespace {
         func getUIKitViewModel() -> TextView.UIKitTextView.ViewModel { self.textViewModel }
         
         override func makeContentConfiguration() -> UIContentConfiguration {
-            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            let toggleAction: () -> Void = { [weak self] in
+                guard let self = self else { return }
+                self.update { $0.isToggled.toggle() }
+                let toggled = self.getBlock().isToggled
+                self.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
+            }
+            let checkedAction: (Bool) -> Void = { [weak self] value in
+                self?.send(textViewAction: .buttonView(.checkbox(value)))
+            }
+            guard var configuration = TextBlockContentConfiguration(self.getBlock(),
+                                                                    toggleAction: toggleAction,
+                                                                    checkedAction: checkedAction) else {
+                assertionFailure("Can't create content configuration for content: \(self.getBlock().blockModel.information.content)")
+                return super.makeContentConfiguration()
+            }
             configuration.contextMenuHolder = self
             return configuration
         }
@@ -169,15 +183,15 @@ extension Namespace {
 }
 
 // MARK: - TextViewModel
-private extension Namespace.ViewModel {
-    func cleanup() {
+extension Namespace.ViewModel {
+    private func cleanup() {
         self.subscriptions = []
     }
-    func cleanupTextViewModel() {
+    private func cleanupTextViewModel() {
         self.textViewModelHolder.cleanup()
         self.textViewModelSubscriptions = []
     }
-    private func refreshTextViewModel(_ textViewModel: TextView.UIKitTextView.ViewModel) {
+    func refreshTextViewModel(_ textViewModel: TextView.UIKitTextView.ViewModel) {
         let block = self.getBlock()
         let information = block.blockModel.information
         switch information.content {
@@ -792,215 +806,6 @@ extension Namespace {
                 self?.backgroundColor = value.backgroundColor
             }
             return self
-        }
-    }
-}
-
-// MARK: ContentConfiguration
-extension Namespace.ViewModel {
-    
-    struct ContentConfiguration: UIContentConfiguration, Hashable {
-        @Environment(\.developerOptions) var developerOptions
-        static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.container == rhs.container
-        }
-        func hash(into hasher: inout Hasher) {
-            hasher.combine(self.container)
-        }
-        
-        // We need this comparison to compare if we need to update view or not.
-        static func isPartialKindOf(_ lhs: Self, _ rhs: Self) -> Bool {
-            lhs.contextMenuHolder?.makeDiffable() == rhs.contextMenuHolder?.makeDiffable()
-        }
-        
-        static func isTextEqual(_ lhs: Self, _ rhs: Self) -> Bool {
-            guard let left = lhs.contextMenuHolder?.getBlock().blockModel.information.content, let right = rhs.contextMenuHolder?.getBlock().blockModel.information.content else { return false }
-            switch (left, right) {
-            case let (.text(leftText), .text(rightText)): return leftText.attributedText == rightText.attributedText
-            default: return false
-            }
-        }
-        
-        typealias HashableContainer = TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
-        var information: Information {
-            self.container.value
-        }
-        private var container: HashableContainer
-        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
-        
-        init(_ information: Information) {
-            /// We should warn if we have incorrect content type (?)
-            /// Don't know :(
-            /// Think about failable initializer
-            
-            switch information.content {
-            case let .text(value) where value.contentType == .text: break
-            default:
-                let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
-                break
-            }
-            
-            self.container = .init(value: information)
-        }
-        
-        /// UIContentConfiguration
-        func makeContentView() -> UIView & UIContentView {
-            let view = ContentView(configuration: self)
-            self.contextMenuHolder?.addContextMenuIfNeeded(view)
-
-            return view
-        }
-        
-        /// Hm, we could use state as from-user action channel.
-        /// for example, if we have value "Checked"
-        /// And we pressed something, we should do the following:
-        /// We should pass value of state to a configuration.
-        /// Next, configuration will send this value to a view model.
-        /// Is it what we should use?
-        func updated(for state: UIConfigurationState) -> ContentConfiguration {
-            /// do something
-            return self
-        }
-        
-        /// First Responder
-        private func resolvePendingFirstResponder() {
-            if let model = self.contextMenuHolder?.getBlock() {
-                TopLevel.AliasesMap.BlockUtilities.FirstResponderResolver.resolvePendingUpdateIfNeeded(model)
-            }
-        }
-
-        func resolvePendingFirstResponderIfNeeded() {
-            self.resolvePendingFirstResponder()
-        }
-    }
-}
-
-// MARK: - ContentView
-private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView {
-
-        private enum Constants {
-            static let quoteViewWidth: CGFloat = 15
-            static let quoteBlockTextConteinerInset: UIEdgeInsets = .init(top: 4, left: 14, bottom: 4, right: 8)
-        }
-
-        struct Layout {
-            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
-        }
-
-        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
-        private var onLayoutSubviewsSubscription: AnyCancellable?
-
-        /// Views
-        var topView: TopView = .init()
-        var contentView: UIView = .init()
-        var textView: TextView.UIKitTextView? = nil
-
-        /// Others
-        var layout: Layout = .init()
-
-        /// Setup
-        private func setup() {
-            self.setupUIElements()
-            self.addLayout()
-        }
-
-        private func setupUIElements() {
-            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
-            self.translatesAutoresizingMaskIntoConstraints = true
-
-            [self.contentView, self.topView].forEach { (value) in
-                value.translatesAutoresizingMaskIntoConstraints = false
-            }
-
-            _ = self.topView.configured(leftChild: .empty())
-
-            /// View hierarchy
-            self.contentView.addSubview(self.topView)
-            self.addSubview(self.contentView)
-
-            textView = TextView.UIKitTextView()
-            _ = self.topView.configured(textView: self.textView)
-        }
-
-        private func addLayout() {
-            if let superview = self.contentView.superview {
-                let view = self.contentView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
-                ])
-            }
-
-            if let superview = self.topView.superview {
-                let view = self.topView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
-        }
-
-        /// Initialization
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        /// ContentView
-        var currentConfiguration: ContentConfiguration!
-        var configuration: UIContentConfiguration {
-            get { self.currentConfiguration }
-            set {
-                /// apply configuration
-                guard let configuration = newValue as? ContentConfiguration else { return }
-                self.apply(configuration: configuration)
-            }
-        }
-
-        init(configuration: ContentConfiguration) {
-            super.init(frame: .zero)
-            self.setup()
-            self.apply(configuration: configuration)
-        }
-
-        private func apply(configuration: ContentConfiguration, forced: Bool) {
-            if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
-            }
-        }
-
-        private func apply(configuration: ContentConfiguration) {
-            guard self.currentConfiguration != configuration else { return }
-            self.currentConfiguration = configuration
-
-            self.apply(configuration: configuration, forced: true)
-
-            self.applyNewConfiguration()
-        }
-
-        private func applyNewConfiguration() {
-            if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
-                textViewModel.update = .unknown
-                _ = self.textView?.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
-                
-                if case let .text(text) = currentConfiguration.information.content, text.contentType == .quote {
-                    let quoteView: QuoteBlockLeadingView = .init()
-                    quoteView.translatesAutoresizingMaskIntoConstraints = false
-                    quoteView.widthAnchor.constraint(equalToConstant: Constants.quoteViewWidth).isActive = true
-                    _ = self.topView.configured(leftChild: quoteView, setConstraints: true)
-                    self.topView.backgroundColor = .white
-                    self.textView?.textView?.textContainerInset = Constants.quoteBlockTextConteinerInset
-                } else {
-                    self.topView.backgroundColor = .systemGray6
-                }
-
-                self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
-            }
         }
     }
 }

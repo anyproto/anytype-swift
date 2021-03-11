@@ -20,18 +20,14 @@ final class ButtonBlockActionHandler {
 
     func handlingButtonViewAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadTextViewButtonView) {
         switch action {
-        case let .toggle(.toggled(value)):
-            var block = block
-            block.isToggled = value
-        /// TODO:
-        /// Configure event and send it.
-        /// And send event that we need to recalculate all blocks below.
-        /// Maybe it is "Toggle" event?
+        case .toggle(.toggled):
+            self.service.receiveOurEvents([.setToggled(.init(payload: .init(blockId: block.blockModel.information.id)))])
         case .toggle(.insertFirst):
             if let defaultBlock = BlockBuilder.createDefaultInformation(block: block) {
                 self.service.addChild(childBlock: defaultBlock, parentBlockId: block.blockModel.information.id)
             }
-        default: return
+        case let .checkbox(value):
+            service.checked(block: block, newValue: value)
         }
     }
 }

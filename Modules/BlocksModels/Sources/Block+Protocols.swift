@@ -16,10 +16,18 @@ public protocol BlockModelProtocol: BlockHasInformationProtocol, BlockHasParentP
 public protocol BlockUserSessionModelProtocol {
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Position = TopLevel.AliasesMap.FocusPosition
+    /// Get toggled state for block
+    ///
+    /// - Parameters:
+    ///   - id: Block id to get state
     func isToggled(by id: BlockId) -> Bool
     func isFirstResponder(by id: BlockId) -> Bool
     func firstResponder() -> BlockId?
     func focusAt() -> Position?
+    /// Set toggled state for block
+    ///
+    /// - Parameters:
+    ///   - id: Block id to change state
     func setToggled(by id: BlockId, value: Bool)
     func setFirstResponder(by id: BlockId)
     func setFocusAt(position: Position)

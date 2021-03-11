@@ -48,4 +48,12 @@ extension UIColor {
     static var highlighterColor: UIColor {
         .init(red: 255.0/255.0, green: 181.0/255.0, blue: 34.0/255.0, alpha: 1)
     }
+    
+    static var textColor: UIColor {
+        .init(red: 44.0/255.0, green: 43.0/255.0, blue: 39.0/255.0, alpha: 1)
+    }
+    
+    static var secondaryTextColor: UIColor {
+        .init(red: 172.0/255.0, green: 169.0/255.0, blue: 150.0/255.0, alpha: 1)
+    }
 }

@@ -18,33 +18,25 @@ extension DocumentNamespace {
     enum Cells {}
 }
 
-extension Namespace {
-    enum Cell {}
-}
-
-// MARK: - Options
-extension Namespace.Cell {
-    struct Options {
-        var useUIKit: Bool = true
-        var shouldShowIndent: Bool = false
-    }
-}
-
-// MARK: - Layout
-extension Namespace {
-    struct Layout {
-        var containedViewInset = 8
-        var indentationWidth = 8
-        var boundaryWidth = 2
-        var zero = 0
-    }
-}
-
 // MARK: - New Cells
-// MARK: ContentConfigurations
 extension Namespace {
     enum ContentConfigurations {
-        class Collection: UICollectionViewCell {
+        class Collection: UICollectionViewListCell {
+            
+            private enum Constants {
+                static let indentationWidth: CGFloat = 24
+            }
+            
+            override init(frame: CGRect) {
+                super.init(frame: frame)
+                self.indentationWidth = Constants.indentationWidth
+            }
+            
+            required init?(coder: NSCoder) {
+                super.init(coder: coder)
+                self.indentationWidth = Constants.indentationWidth
+            }
+            
             override func updateConfiguration(using state: UICellConfigurationState) {
                 super.updateConfiguration(using: state)
                 self.setNeedsUpdateConstraints()
@@ -73,6 +65,22 @@ extension ContentConfigurationsCells.Text {
     }
     
     enum Quote {
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+    }
+    
+    enum Checkbox {
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+    }
+    
+    enum Numbered {
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+    }
+    
+    enum Bulleted {
+        final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
+    }
+    
+    enum Toggle {
         final class Collection: EditorModule.Document.Cells.ContentConfigurations.Collection {}
     }
 }

@@ -24,16 +24,12 @@ extension FileNamespace {
             switch information.content {
             case let .text(value):
                 switch value.contentType {
-                case .text: return [ViewModels.Text.ViewModel.init(model)]
+                case .text, .quote, .checkbox, .bulleted, .numbered, .toggle: return [ViewModels.Base.ViewModel(model)]
                 case .header: return [ViewModels.Header.ViewModel.init(model).update(style: .heading1)]
                 case .header2: return [ViewModels.Header.ViewModel.init(model).update(style: .heading2)]
                 case .header3: return [ViewModels.Header.ViewModel.init(model).update(style: .heading3)]
                 case .header4: return [ViewModels.Header.ViewModel.init(model).update(style: .heading4)]
-                case .quote: return [ViewModels.Quote.ViewModel.init(model)]
-                case .checkbox: return [ViewModels.Checkbox.ViewModel.init(model)]
-                case .bulleted: return [ViewModels.Bulleted.ViewModel.init(model)]
-                case .numbered: return [ViewModels.Numbered.ViewModel.init(model)]
-                default: return []
+                case .callout: return []
                 }
             default: return []
             }
@@ -41,7 +37,7 @@ extension FileNamespace {
         
         private func convertToggledList(_ model: Model, _ information: Information) -> [ResultViewModel] {
             guard case let .text(value) = information.content, value.contentType == .toggle else { return [] }
-            let viewModel = ViewModels.Toggle.ViewModel.init(model)
+            let viewModel = ViewModels.Base.ViewModel(model)
             if model.isToggled {
                 return [viewModel] + self.processChildrenToList(model)
             }
@@ -65,17 +61,6 @@ extension FileNamespace {
                 default: return []
                 }
             }
-        }
-  
-        override func convert(child: Model, children: [Model]) -> [ResultViewModel] {            
-            if !children.isEmpty, case let .text(value) = child.blockModel.information.content, value.contentType == .numbered {
-                for (index, entry) in children.enumerated() {
-                    // We should create view model or even not create and just update value of model.
-                    // and then, we should process them as usual.
-                    ViewModels.Numbered.ViewModel.init(entry).updateInternal(style: .number(index.advanced(by: 1)))
-                }
-            }
-            return super.convert(child: child, children: children)
         }
     }
 }

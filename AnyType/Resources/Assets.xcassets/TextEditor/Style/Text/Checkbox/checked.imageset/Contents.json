@@ -1,18 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "checked@2x.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "checked@3x.png",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "checkbox_checked.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

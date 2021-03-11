@@ -11,11 +11,6 @@ import Foundation
 extension BlocksViews.New.Text {
     enum Text {} // -> Text.ContentType.text
     enum Header {} // -> Text.ContentType.header
-    enum Quote {} // -> Text.ContentType.quote
-    enum Checkbox {} // -> Text.ContentType.todo
-    enum Bulleted {} // -> Text.ContentType.bulleted
-    enum Numbered {} // -> Text.ContentType.numbered
-    enum Toggle {} // -> Text.ContentType.toggle
     enum Callout {} // -> Text.ContentType.callout
 }
 

@@ -16,10 +16,23 @@ enum EditorModuleCellIdentifierConverter {
     /// - Returns: Cell reuse identifier
     static func identifier(for builder: BlocksViews.New.Base.ViewModel) -> String {
         switch builder.getBlock().blockModel.information.content {
-        case let .text(text) where text.contentType == .text:
+        case let .text(text):
+        switch text.contentType {
+        case .text:
             return EditorModule.Document.Cells.ContentConfigurations.Text.Text.Collection.cellReuseIdentifier()
-        case let .text(text) where text.contentType == .quote:
+        case .quote:
             return EditorModule.Document.Cells.ContentConfigurations.Text.Quote.Collection.cellReuseIdentifier()
+        case .bulleted:
+            return EditorModule.Document.Cells.ContentConfigurations.Text.Bulleted.Collection.cellReuseIdentifier()
+        case .checkbox:
+            return EditorModule.Document.Cells.ContentConfigurations.Text.Checkbox.Collection.cellReuseIdentifier()
+        case .numbered:
+            return EditorModule.Document.Cells.ContentConfigurations.Text.Numbered.Collection.cellReuseIdentifier()
+        case .toggle:
+            return EditorModule.Document.Cells.ContentConfigurations.Text.Toggle.Collection.cellReuseIdentifier()
+        default:
+            return EditorModule.Document.Cells.ContentConfigurations.Unknown.Label.Collection.cellReuseIdentifier()
+        }
         case let .file(file) where file.contentType == .file:
             return EditorModule.Document.Cells.ContentConfigurations.File.File.Collection.cellReuseIdentifier()
         case let .file(file) where file.contentType == .image:

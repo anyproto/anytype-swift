@@ -27,7 +27,7 @@ extension Namespace {
         }
         
         @Environment(\.developerOptions) private var developerOptions
-        private var dataSource: UICollectionViewDiffableDataSource<ViewModel.Section, ViewModel.Row>?
+        private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BlocksViews.New.Base.ViewModel>?
         private let viewModel: ViewModel
         private weak var headerViewModel: HeaderView.ViewModel?
         private(set) lazy var headerViewModelPublisher: AnyPublisher<HeaderView.UserAction, Never>? = self.headerViewModel?.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
@@ -56,29 +56,36 @@ extension Namespace {
         override func viewDidLoad() {
             super.viewDidLoad()
             self.setupUI()
-            // TODO: Redone on top of Combine.
-            // We should fire event, when somebody is subscribed buildersRows.
-            self.updateData(self.viewModel.buildersRows)
+            self.updateData(self.viewModel.builders)
         }
         
         private func setupUI() {
-            self.setupCollectionView()
             self.setupCollectionViewDataSource()
+            self.collectionView.allowsSelection = false
             self.collectionView?.addGestureRecognizer(self.listViewTapGestureRecognizer)
             self.setupInteractions()
             self.setupHeaderPageDetailsEvents()
         }
         
-        private func setupCollectionView() {
-            self.collectionView.register(CollectionViewHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Constants.headerReuseId)
-        }
         
         private func setupCollectionViewDataSource() {
             guard let listView = self.collectionView else { return }
             
+            listView.register(CollectionViewHeaderView.self,
+                              forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                              withReuseIdentifier: Constants.headerReuseId)
+            
             listView.register(Cells.ContentConfigurations.Text.Text.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Text.Collection.cellReuseIdentifier())
             
             listView.register(Cells.ContentConfigurations.Text.Quote.Collection.self, forCellWithReuseIdentifier: EditorModule.Document.Cells.ContentConfigurations.Text.Quote.Collection.cellReuseIdentifier())
+            
+            listView.register(Cells.ContentConfigurations.Text.Bulleted.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Bulleted.Collection.cellReuseIdentifier())
+            
+            listView.register(Cells.ContentConfigurations.Text.Numbered.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Numbered.Collection.cellReuseIdentifier())
+            
+            listView.register(Cells.ContentConfigurations.Text.Checkbox.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Checkbox.Collection.cellReuseIdentifier())
+            
+            listView.register(Cells.ContentConfigurations.Text.Toggle.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Toggle.Collection.cellReuseIdentifier())
             
             listView.register(Cells.ContentConfigurations.File.File.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.File.File.Collection.cellReuseIdentifier())
             
@@ -94,15 +101,10 @@ extension Namespace {
 
             
             self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView) { (view, indexPath, item) -> UICollectionViewCell? in
-                guard let ourBuilder = item.builder as? BlocksViews.New.Base.ViewModel else {
-                    assertionFailure("Check builder")
-                    return nil
-                }
-                let cellId = EditorModuleCellIdentifierConverter.identifier(for: ourBuilder)
-                let cell = view.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-                
-                let configuration = ourBuilder.buildContentConfiguration()
-                cell.contentConfiguration = configuration
+                let cellId = EditorModuleCellIdentifierConverter.identifier(for: item)
+                let cell = view.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? UICollectionViewListCell
+                cell?.contentConfiguration = item.buildContentConfiguration()
+                cell?.indentationLevel = item.indentationLevel()
                 return cell
             }
 
@@ -135,7 +137,7 @@ extension Namespace {
         
         /// Add handlers to viewmdoel state changes
         private func configured() {
-            self.viewModel.$buildersRows.sink(receiveValue: { [weak self] (value) in
+            self.viewModel.$builders.sink(receiveValue: { [weak self] (value) in
                 self?.updateData(value)
             }).store(in: &self.subscriptions)
 
@@ -144,8 +146,14 @@ extension Namespace {
             }.store(in: &self.subscriptions)
 
             self.viewModel.anyStylePublisher.sink { [weak self] (value) in
-                guard let self = self else { return }
-                self.updateData(self.viewModel.buildersRows)
+                guard let self = self, let snapshot = self.dataSource?.snapshot() else { return }
+                let set: Set = .init(value)
+                let updatingItemIndices: [Int] = snapshot.itemIdentifiers.enumerated().compactMap {
+                    return set.contains($0.element.blockId) ? $0.offset : nil
+                }
+                updatingItemIndices.forEach {
+                    self.collectionView.cellForItem(at: .init(item: $0, section: 0))?.contentConfiguration = self.viewModel.builders[$0].buildContentConfiguration()
+                }
             }.store(in: &self.subscriptions)
         }
 
@@ -199,9 +207,9 @@ private extension Namespace.ViewController {
         if let id = id, let focusedAt = focusedAt {
             let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
-                value.builder?.blockId == id
+                value.blockId == id
             }) {
-                (itemIdentifiers[index].blockBuilder as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
+                (itemIdentifiers[index] as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
                 userSession?.unsetFocusAt()
                 userSession?.unsetFirstResponder()
             }
@@ -216,8 +224,7 @@ private extension Namespace.ViewController {
         /// Since we are working only with one section, we could safely iterate over array of items.
         let index = indexPath.row
         let item = itemIdentifiers[index]
-        if let textItem = item.blockBuilder as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
-            _ = textItem.getBlock().blockModel.information.id
+        if let textItem = item as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
             
             let collectionViewElementPosition: UICollectionView.ScrollPosition = .centeredVertically
             let focusedAt: TextView.UIKitTextView.ViewModel.Focus.Position = .end
@@ -236,11 +243,11 @@ extension Namespace.ViewController {
         self.collectionView?.collectionViewLayout.invalidateLayout()
     }
         
-    private func updateData(_ rows: [ViewModel.Row]) {
+    private func updateData(_ rows: [BlocksViews.New.Base.ViewModel]) {
         guard let theDataSource = self.dataSource else { return }
                 
-        var snapshot = NSDiffableDataSourceSnapshot<ViewModel.Section, ViewModel.Row>()
-        snapshot.appendSections([ViewModel.Section.first])
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.New.Base.ViewModel>()
+        snapshot.appendSections([.first])
         snapshot.appendItems(rows)
         
         /// TODO: Think about post update and set focus synergy.
@@ -248,6 +255,7 @@ extension Namespace.ViewController {
         ///
         ///
         let scrollAndFocusCompletion: () -> () = { [weak self] in
+            self?.updateVisibleNumberedItems()
             self?.scrollAndFocusOnFocusedBlock()
         }
         if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldAnimateRowsInsertionAndDeletion {
@@ -257,6 +265,14 @@ extension Namespace.ViewController {
             UIView.performWithoutAnimation {
                 theDataSource.apply(snapshot, animatingDifferences: true, completion: scrollAndFocusCompletion)
             }
+        }
+    }
+    
+    private func updateVisibleNumberedItems() {
+        self.collectionView.indexPathsForVisibleItems.forEach {
+            guard case let .text(text) = self.viewModel.builders[$0.row].getBlock().blockModel.information.content,
+                  text.contentType == .numbered else { return }
+            self.collectionView.cellForItem(at: $0)?.contentConfiguration = self.viewModel.builders[$0.row].buildContentConfiguration()
         }
     }
 }

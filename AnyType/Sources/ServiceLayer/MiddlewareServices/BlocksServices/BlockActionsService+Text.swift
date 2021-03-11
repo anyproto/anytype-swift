@@ -74,6 +74,12 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocolMerge {
     func action(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<Success, Error>
 }
 
+protocol ServiceLayerModuleBlockActionsServiceTextProtocolChecked {
+    associatedtype Success
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    func action(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<Success, Error>
+}
+
 /// Protocol for TextBlockActions service.
 protocol ServiceLayerModule_BlockActionsServiceTextProtocol {
     associatedtype SetText: ServiceLayerModule_BlockActionsServiceTextProtocolSetText

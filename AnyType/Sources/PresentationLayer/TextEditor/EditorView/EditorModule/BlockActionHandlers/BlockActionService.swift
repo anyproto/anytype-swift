@@ -154,6 +154,14 @@ final class BlockActionService {
     init(documentId: String) {
         self.documentId = documentId
     }
+    
+    /// Method to handle our events from outside of action service
+    ///
+    /// - Parameters:
+    ///   - events: Event to handle
+    func receiveOurEvents(_ events: [EventListening.PackOfEvents.OurEvent]) {
+        self.didReceiveEvent(nil, .init(contextId: documentId, events: [], ourEvents: events))
+    }
 
     func configured(documentId: String) -> Self {
         self.documentId = documentId
@@ -226,6 +234,27 @@ final class BlockActionService {
         /// Also check for style later.
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.TurnInto.Text.convert : Converter.Default.convert
         _turnInto(block: block, type: type, conversion)
+    }
+    
+    /// Set checkbox state for block
+    ///
+    /// - Parameters:
+    ///   - block: Block to change checkbox state
+    ///   - newValue: New value of checkbox
+    func checked(block: BlockActiveRecordModelProtocol, newValue: Bool) {
+        self.textService.checked.action(contextId: self.documentId,
+                                        blockId: block.blockModel.information.id,
+                                        newValue: newValue)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { value in
+                switch value {
+                case .finished: break
+                case let .failure(error):
+                    os_log(.error, "textService.checked got error with payload: \(error.localizedDescription)")
+                }
+            }) { [weak self] value in
+                self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
+            }.store(in: &self.subscriptions)
     }
 }
 

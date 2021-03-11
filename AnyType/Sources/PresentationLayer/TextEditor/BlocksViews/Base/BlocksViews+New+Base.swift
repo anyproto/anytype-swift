@@ -183,8 +183,8 @@ extension BlocksViews.New.Base {
         weak var contextualMenuDelegate: UIContextMenuInteractionDelegate? { self.contextualMenuInteractor }
                         
         // MARK: Indentation
-        func indentationLevel() -> UInt {
-            .init(self.getBlock().indentationLevel)
+        func indentationLevel() -> Int {
+            self.getBlock().indentationLevel
         }
         
         // MARK: Subclass / Information
@@ -238,6 +238,16 @@ extension BlocksViews.New.Base {
                 }
             }
         }
+    }
+}
+
+extension BlocksViews.New.Base.ViewModel: Hashable {
+    static func == (lhs: BlocksViews.New.Base.ViewModel, rhs: BlocksViews.New.Base.ViewModel) -> Bool {
+        lhs.blockId == rhs.blockId
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.blockId)
     }
 }
 

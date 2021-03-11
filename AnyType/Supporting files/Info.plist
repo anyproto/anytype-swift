@@ -28,6 +28,7 @@
 	<string>hehehe</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Inter-Regular.ttf</string>
 		<string>RobotoMono-Regular.ttf</string>
 		<string>GraphikLCG-Semibold.ttf</string>
 	</array>
