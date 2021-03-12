@@ -27,6 +27,7 @@ extension Namespace.Text.ContentType {
         typealias MiddlewareModel = Anytype_Model_Block.Content.Text.Style
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {
+            case .title: return .title
             case .paragraph: return .text
             case .header1: return .header
             case .header2: return .header2
@@ -34,7 +35,6 @@ extension Namespace.Text.ContentType {
             case .header4: return .header4
             case .quote: return .quote
             case .code: return nil
-            case .title: return nil
             case .checkbox: return .checkbox
             case .marked: return .bulleted
             case .numbered: return .numbered
@@ -45,6 +45,7 @@ extension Namespace.Text.ContentType {
         
         static func asMiddleware(_ value: Model) -> MiddlewareModel? {
             switch value {
+            case .title: return .title
             case .text: return .paragraph
             case .header: return .header1
             case .header2: return .header2

@@ -62,5 +62,16 @@ extension FileNamespace {
                 }
             }
         }
+        
+        override func convert(child: Model, children: [Model]) -> [ResultViewModel] {
+            if !children.isEmpty, case let .text(value) = child.blockModel.information.content, value.contentType == .numbered {
+                for (index, entry) in children.enumerated() {
+                    // We should create view model or even not create and just update value of model.
+                    // and then, we should process them as usual.
+                    ViewModels.Numbered.ViewModel.init(entry).updateInternal(style: .number(index.advanced(by: 1)))
+                }
+            }
+            return super.convert(child: child, children: children)
+        }
     }
 }

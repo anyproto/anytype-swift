@@ -25,6 +25,7 @@ extension Namespace {
             switch self._information.content {
             case .smartblock, .divider: return .meta
             case let .layout(layout) where layout.style == .div: return .meta
+            case let .layout(layout) where layout.style == .header: return .meta
             default: return .block
             }
         }

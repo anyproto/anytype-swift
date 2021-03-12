@@ -35,7 +35,7 @@ extension Namespace {
             case .smartblock: return nil // we don't care about smartblocks
             case let .text(value):
                 switch value.contentType {
-                case .text, .quote, .checkbox, .bulleted, .numbered, .toggle:
+                case .title, .text, .quote, .checkbox, .bulleted, .numbered, .toggle:
                     return ViewModels.Text.Base.ViewModel(block)
                 default: return ViewModels.Unknown.Label.ViewModel.init(block)
                 }

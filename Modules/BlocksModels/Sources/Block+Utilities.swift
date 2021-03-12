@@ -135,6 +135,7 @@ public extension FileNamespace {
         public typealias Identifier = String
         private static func subIdentifier(_ content: Content.Text) -> Identifier {
             switch content.contentType {
+            case .title: return ".title"
             case .text: return ".text"
             case .header: return ".header"
             case .header2: return ".header2"

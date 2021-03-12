@@ -112,14 +112,7 @@ extension FileNamespace {
         private func finalize(_ updates: [Update]) {
             
             // configure one update
-            let update: Update = updates.reduce(.general) { (result, value) in
-                switch (result, value) {
-                case (.general, .general): return .general
-                case (.general, .update): return value
-                case (.update, .general): return result
-                case let (.update(lhs), .update(rhs)): return .update(.init(deletedIds: lhs.deletedIds + rhs.deletedIds, updatedIds: lhs.updatedIds + rhs.updatedIds))
-                }
-            }
+            let update: Update = updates.reduce(.general) { (result, value) in .merged(lhs: result, rhs: value) }
             
             guard let container = self.container else {
                 let logger = Logging.createLogger(category: .eventProcessor)
@@ -180,6 +173,23 @@ extension FileNamespace.EventHandler {
             var deletedIds: [BlockId] = []
             var updatedIds: [BlockId] = []
             static var empty: Self = .init()
+            
+            static func merged(lhs: Self, rhs: Self) -> Self {
+                .init(addedIds: lhs.addedIds + rhs.addedIds, deletedIds: lhs.deletedIds + rhs.deletedIds, updatedIds: lhs.updatedIds + rhs.updatedIds)
+            }
+        }
+        
+        static func merged(lhs: Self, rhs: Self) -> Self {
+            switch (lhs, rhs) {
+            case (.general, .general): return .general
+            case (.update, .general): return lhs
+            case (.general, .update): return rhs
+            case let (.update(left), .update(right)): return .update(.merged(lhs: left, rhs: right))
+            }
+        }
+        
+        func merged(update: Update) -> Self {
+            .merged(lhs: self, rhs: update)
         }
 
         fileprivate static var specialAfterBlockShow: Self = .general
@@ -190,10 +200,8 @@ extension FileNamespace.EventHandler {
 
         var hasUpdate: Bool {
             switch self {
-            case let .update(payload):
-                return !payload.addedIds.isEmpty || !payload.deletedIds.isEmpty || !payload.updatedIds.isEmpty
-            default:
-                return false
+            case .empty: return false
+            default: return true
             }
         }
     }

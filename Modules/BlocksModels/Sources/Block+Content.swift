@@ -127,6 +127,7 @@ public extension Namespace.ContentType.Text {
 // MARK: ContentType / Text / ContentType
 public extension Namespace.ContentType.Text {
     enum ContentType {
+        case title
         case text
         case header
         case header2

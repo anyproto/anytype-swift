@@ -132,6 +132,11 @@ final class TextBlockContentView: UIView & UIContentView {
         }
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
         switch text.contentType {
+        case .title:
+            /// TODO: 
+            /// Change to setupToHeader1
+            ///
+            self.setupForTitle()
         case .text:
             self.setupForPlainText()
         case .bulleted:
@@ -154,6 +159,12 @@ final class TextBlockContentView: UIView & UIContentView {
         self.topView.backgroundColor = .systemGray6
         _ = self.topView.configured(leftChild: .empty())
         self.textView?.textView.textContainerInset = Constants.textBlockContainerInset
+    }
+    
+    private func setupForTitle() {
+        self.setupForPlainText()
+        self.topView.backgroundColor = nil
+        self.textView?.textView.font = .preferredFont(forTextStyle: .title1)
     }
     
     private func setupForToggle(toggled: Bool) {

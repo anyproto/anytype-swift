@@ -263,9 +263,6 @@ extension Namespace {
             /// Refactor when you are ready.
             /// It is tough stuff.
             ///
-            if let title = detailsViewModels.first(where: {$0 as? BlocksViewsNamespace.Page.Title.ViewModel != nil}) {
-                dictionary[.title] = title
-            }
             if let iconEmoji = detailsViewModels.first(where: {$0 as? BlocksViewsNamespace.Page.IconEmoji.ViewModel != nil}) {
                 dictionary[.iconEmoji] = iconEmoji
             }
