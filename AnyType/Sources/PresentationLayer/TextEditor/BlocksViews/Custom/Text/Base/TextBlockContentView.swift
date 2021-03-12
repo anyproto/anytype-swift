@@ -16,7 +16,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private enum Constants {
         /// Text
-        static let textBlockContainerInset: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 0)
+        static let textBlockContainerInset: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 4)
         
         /// Quote
         static let quoteViewWidth: CGFloat = 14
@@ -41,7 +41,7 @@ final class TextBlockContentView: UIView & UIContentView {
         static let toggleButtonTag = 2
         
         /// Numbered
-        static let labelTopOffset: CGFloat = 6
+        static let labelTopOffset: CGFloat = 3
         static let leadingViewWidth: CGFloat = 27
         static let numberedTextViewContainerInsets: UIEdgeInsets = .init(top: 4, left: 1, bottom: 4, right: 8)
         static let numberToPlaceTextLeft: Int = 20
@@ -133,12 +133,9 @@ final class TextBlockContentView: UIView & UIContentView {
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
         switch text.contentType {
         case .title:
-            /// TODO: 
-            /// Change to setupToHeader1
-            ///
-            self.setupForTitle()
+            self.setupText(placeholer: NSLocalizedString("Title", comment: ""), font: .titleFont)
         case .text:
-            self.setupForPlainText()
+            self.setupForText()
         case .bulleted:
             self.setupForBulleted()
         case .checkbox:
@@ -149,22 +146,37 @@ final class TextBlockContentView: UIView & UIContentView {
             self.setupForQuote()
         case .toggle:
             self.setupForToggle(toggled: self.currentConfiguration.block.isToggled)
-        case .header, .header2, .header3, .header4, .callout:
+        case .header:
+            self.setupText(placeholer: NSLocalizedString("Header 1", comment: ""), font: .header1Font)
+        case .header2:
+            self.setupText(placeholer: NSLocalizedString("Header 2", comment: ""), font: .header2Font)
+        case .header3:
+            self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .header3Font)
+        case .header4, .callout:
             break
         }
     }
     
     private func setupForPlainText() {
         guard self.topView.leftView != nil else  { return }
-        self.topView.backgroundColor = .systemGray6
         _ = self.topView.configured(leftChild: .empty())
-        self.textView?.textView.textContainerInset = Constants.textBlockContainerInset
+        self.textView?.textView?.textContainerInset = Constants.textBlockContainerInset
     }
     
-    private func setupForTitle() {
+    private func setupForText() {
         self.setupForPlainText()
-        self.topView.backgroundColor = nil
-        self.textView?.textView.font = .preferredFont(forTextStyle: .title1)
+        self.topView.backgroundColor = .systemGray6
+        self.textView?.textView?.update(placeholder: nil)
+        self.textView?.textView.font = .bodyFont
+    }
+    
+    private func setupText(placeholer: String, font: UIFont) {
+        self.setupForPlainText()
+        self.textView?.textView?.backgroundColor = .systemBackground
+        let attributes: [NSAttributedString.Key: Any] = [.font: font,
+                                                         .foregroundColor: UIColor.secondaryTextColor]
+        self.textView?.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
+        self.textView?.textView.font = font
     }
     
     private func setupForToggle(toggled: Bool) {
@@ -182,6 +194,7 @@ final class TextBlockContentView: UIView & UIContentView {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setContentHuggingPriority(.required, for: .horizontal)
             button.addTarget(self, action: #selector(didTapToggleButton), for: .touchUpInside)
+            button.isSelected = toggled
             
             let container: UIView = .init()
             container.translatesAutoresizingMaskIntoConstraints = false
@@ -216,7 +229,9 @@ final class TextBlockContentView: UIView & UIContentView {
             button.setImage(.init(imageLiteralResourceName: Constants.checkedImageName), for: .selected)
             button.imageView?.contentMode = .scaleAspectFill
             button.contentEdgeInsets.left = 4
+            button.contentVerticalAlignment = .bottom
             button.setContentHuggingPriority(.required, for: .horizontal)
+            button.isSelected = checked
             button.addTarget(self, action: #selector(didTapCheckboxButton), for: .touchUpInside)
             
             let container: UIView = .init()
@@ -291,6 +306,11 @@ final class TextBlockContentView: UIView & UIContentView {
         guard !isQuoteView else { return }
         
         self.textView?.textView?.textContainerInset = Constants.quoteBlockTextContainerInset
+        let attribures: [NSAttributedString.Key: Any] = [.font: UIFont.highlightFont,
+                                                         .foregroundColor: UIColor.secondaryTextColor]
+        self.textView?.textView?.update(placeholder: .init(string: NSLocalizedString("Quote",
+                                                                                     comment: ""),
+                                                           attributes: attribures))
         self.topView.backgroundColor = .systemBackground
         let view: QuoteBlockLeadingView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false

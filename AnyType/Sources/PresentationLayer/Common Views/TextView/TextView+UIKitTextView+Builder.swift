@@ -39,7 +39,7 @@ extension TextView.UIKitTextView.Builder {
         return textView
     }
 
-    func createTextView() -> UITextView {
+    func createTextView() -> TextView.UIKitTextView.TextViewWithPlaceholder {
         TextView.UIKitTextView.TextViewWithPlaceholder.init()
     }
 

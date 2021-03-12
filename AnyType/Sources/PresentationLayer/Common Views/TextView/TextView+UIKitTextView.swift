@@ -38,7 +38,7 @@ extension TextView {
 
         // MARK: Views
         private var contentView: UIView!
-        var textView: UITextView!
+        var textView: TextView.UIKitTextView.TextViewWithPlaceholder!
         
         // MARK: Initialization
         override init(frame: CGRect) {
@@ -53,10 +53,7 @@ extension TextView {
         }
 
         func update(placeholder: Placeholder) {
-            // set placeholder to view.
-            if let view = self.textView as? TextViewWithPlaceholder {
-                view.update(placeholder: placeholder.placeholder)
-            }
+            self.textView?.update(placeholder: placeholder.placeholder)
         }
         
         // MARK: Setup Interactions

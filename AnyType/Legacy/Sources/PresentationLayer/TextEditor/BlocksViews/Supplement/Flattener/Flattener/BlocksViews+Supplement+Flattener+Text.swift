@@ -24,11 +24,17 @@ extension FileNamespace {
             switch information.content {
             case let .text(value):
                 switch value.contentType {
-                case .text, .quote, .checkbox, .bulleted, .numbered, .toggle: return [ViewModels.Base.ViewModel(model)]
-                case .header: return [ViewModels.Header.ViewModel.init(model).update(style: .heading1)]
-                case .header2: return [ViewModels.Header.ViewModel.init(model).update(style: .heading2)]
-                case .header3: return [ViewModels.Header.ViewModel.init(model).update(style: .heading3)]
-                case .header4: return [ViewModels.Header.ViewModel.init(model).update(style: .heading4)]
+                case .text,
+                     .quote,
+                     .checkbox,
+                     .bulleted,
+                     .numbered,
+                     .toggle,
+                     .header,
+                     .header2,
+                     .header3,
+                     .header4:
+                    return [ViewModels.Base.ViewModel(model)]
                 case .callout: return []
                 }
             default: return []

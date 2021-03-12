@@ -312,20 +312,21 @@ private extension Namespace.ViewModel {
         
         self.getBlock().didChangeInformationPublisher()
             .map(\.content)
-            .map { value -> NSAttributedString? in
+            .map { [weak self] value -> NSAttributedString? in
                 switch value {
-                case let .text(value): return value.attributedText
+                case let .text(value):
+                    self?.output?.setTextChangeClosure { [weak self] in
+                        _ = self?.apply(attributedText: value.attributedText)
+                    }
+                    return value.attributedText
                 default: return nil
                 }
             }
             .safelyUnwrapOptionals()
             .debounce(for: self.textOptions.throttlingInterval, scheduler: serialQueue)
             .notableError()
-            .flatMap { [weak self] (value) -> AnyPublisher<Void, Error> in
-                self?.output?.setTextChangeClosure { [weak self] in
-                    _ = self?.apply(attributedText: value)
-                }
-                return self?.apply(attributedText: value) ?? .empty()
+            .flatMap { [weak self] (value) in
+                self?.apply(attributedText: value) ?? .empty()
             }
             .sink(receiveCompletion: { [weak self] (value) in
                 switch value {

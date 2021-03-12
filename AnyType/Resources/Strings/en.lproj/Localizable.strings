@@ -25,6 +25,11 @@
 "Recovery pharse is nil" = "Recovery pharse is nil";
 "node failed to start" = "node failed to start";
 "Toogle empty Click and drop block inside" = "Toogle empty Click and drop block inside";
+"Quote" = "Quote";
+"Header 1" = "Header 1";
+"Header 2" = "Header 2";
+"Header 3" = "Header 3";
+"Title" = "Title";
 
 // Auth
 

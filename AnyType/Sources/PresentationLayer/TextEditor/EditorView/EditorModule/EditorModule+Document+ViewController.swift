@@ -24,6 +24,8 @@ extension Namespace {
         
         private enum Constants {
             static let headerReuseId = "header"
+            static let cellIndentationWidth: CGFloat = 24
+            static let cellReuseId: String = UICollectionViewListCell.cellReuseIdentifier()
         }
         
         @Environment(\.developerOptions) private var developerOptions
@@ -67,7 +69,6 @@ extension Namespace {
         
         private func setupUI() {
             self.setupCollectionViewDataSource()
-            self.collectionView.allowsSelection = false
             self.collectionView?.addGestureRecognizer(self.listViewTapGestureRecognizer)
             self.setupInteractions()
             self.setupHeaderPageDetailsEvents()
@@ -81,35 +82,13 @@ extension Namespace {
                               forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                               withReuseIdentifier: Constants.headerReuseId)
             
-            listView.register(Cells.ContentConfigurations.Text.Text.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Text.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Text.Quote.Collection.self, forCellWithReuseIdentifier: EditorModule.Document.Cells.ContentConfigurations.Text.Quote.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Text.Bulleted.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Bulleted.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Text.Numbered.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Numbered.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Text.Checkbox.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Checkbox.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Text.Toggle.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Text.Toggle.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.File.File.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.File.File.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.File.Image.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.File.Image.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Bookmark.Bookmark.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Bookmark.Bookmark.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Other.Divider.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Other.Divider.Collection.cellReuseIdentifier())
-            
-            listView.register(Cells.ContentConfigurations.Link.PageLink.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Link.PageLink.Collection.cellReuseIdentifier())
-
-            listView.register(Cells.ContentConfigurations.Unknown.Label.Collection.self, forCellWithReuseIdentifier: Cells.ContentConfigurations.Unknown.Label.Collection.cellReuseIdentifier())
-
+            listView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: Constants.cellReuseId)
             
             self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView) { (view, indexPath, item) -> UICollectionViewCell? in
-                let cellId = EditorModuleCellIdentifierConverter.identifier(for: item)
-                let cell = view.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? UICollectionViewListCell
+                let cell = view.dequeueReusableCell(withReuseIdentifier: Constants.cellReuseId,
+                                                    for: indexPath) as? UICollectionViewListCell
                 cell?.contentConfiguration = item.buildContentConfiguration()
+                cell?.indentationWidth = Constants.cellIndentationWidth
                 cell?.indentationLevel = item.indentationLevel()
                 return cell
             }
@@ -287,6 +266,16 @@ extension Namespace.ViewController {
 extension Namespace.ViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel.didSelectBlock(at: indexPath)
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        let viewModel = self.viewModel.builders[indexPath.row]
+        if case .text = viewModel.getBlock().blockModel.information.content {
+            return false
+        } else {
+            return true
+        }
     }
 }
 
