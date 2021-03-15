@@ -69,6 +69,7 @@ extension Namespace {
         
         private func setupUI() {
             self.setupCollectionViewDataSource()
+            self.collectionView?.backgroundColor = .systemBackground
             self.collectionView?.addGestureRecognizer(self.listViewTapGestureRecognizer)
             self.setupInteractions()
             self.setupHeaderPageDetailsEvents()

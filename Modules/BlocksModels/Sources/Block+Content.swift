@@ -139,6 +139,26 @@ public extension Namespace.ContentType.Text {
         case numbered
         case toggle
         case callout
+        
+        /// Returns true in case of content type is list, otherwise returns false
+        public var isList: Bool {
+            switch self {
+            case .checkbox, .bulleted, .numbered, .toggle:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        /// Retutnrns true in case of .checkbox, .bulleted, .numbered, otherwise returns false
+        public var isListAndNotToggle: Bool {
+            switch self {
+            case .checkbox , .bulleted, .numbered:
+                return true
+            default:
+                return false
+            }
+        }
     }
 }
 

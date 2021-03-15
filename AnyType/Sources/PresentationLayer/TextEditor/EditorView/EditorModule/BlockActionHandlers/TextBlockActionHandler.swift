@@ -71,7 +71,14 @@ final class TextBlockActionHandler {
             case let .enterWithPayload(left, payload):
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                     if let oldText = left {
-                        self.service.split(block: block.blockModel.information, oldText: oldText, shouldSetFocusOnUpdate: true)
+                        guard case let .text(text) = block.blockModel.information.content else {
+                            assertionFailure("Only text block may send keyboard action")
+                            return
+                        }
+                        self.service.split(block: block.blockModel.information,
+                                           oldText: oldText,
+                                           newBlockContentType: text.contentType,
+                                           shouldSetFocusOnUpdate: true)
                     }
                     else {
                         self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
@@ -86,8 +93,11 @@ final class TextBlockActionHandler {
                     return
                 }
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
-                    if payload != nil {
-                        self.service.split(block: block.blockModel.information, oldText: "", shouldSetFocusOnUpdate: true)
+                    if payload != nil, case let .text(text) = block.blockModel.information.content {
+                        self.service.split(block: block.blockModel.information,
+                                           oldText: "",
+                                           newBlockContentType: text.contentType,
+                                           shouldSetFocusOnUpdate: true)
                     }
                     else {
                         self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
@@ -98,7 +108,7 @@ final class TextBlockActionHandler {
                 // BUSINESS LOGIC:
                 // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
                 switch block.blockModel.information.content {
-                case let .text(value) where [.bulleted, .numbered, .checkbox, .toggle].contains(value.contentType) && value.attributedText.string == "":
+                case let .text(value) where value.contentType.isList && value.attributedText.string == "":
                     // Turn Into empty text block.
                     if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.attributedText.string) {
                         /// TODO: Add focus on this block.
@@ -113,8 +123,25 @@ final class TextBlockActionHandler {
                         os_log(.debug, log: logger, "We should not use self.service.split here. Instead, we should self.service.add block. It is possible to swap them only after set focus total cleanup. Redo it.")
 
                         switch block.blockModel.information.content {
-                        case let .text(payload): let oldText = payload.attributedText.string
-                            self.service.split(block: block.blockModel.information, oldText: oldText, shouldSetFocusOnUpdate: true)
+                        case let .text(payload):
+                            let isListNotToggle = payload.contentType.isListAndNotToggle
+                            let isToggleAndOpen = payload.contentType == .toggle && block.isToggled
+                            // In case of return was tapped in list block (for toggle in should be open)
+                            // and this block has children, we will insert new child block at the beginning
+                            // of children list, otherwise we will create new block under current block
+                            if (isListNotToggle || isToggleAndOpen), let firstChild = block.childrenIds().first {
+                                self.service.add(newBlock: newBlock,
+                                                 afterBlockId: firstChild,
+                                                 position: .top,
+                                                 shouldSetFocusOnUpdate: true)
+                            } else {
+                                let newContentType = payload.contentType.isList ? payload.contentType : .text
+                                let oldText = payload.attributedText.string
+                                self.service.split(block: block.blockModel.information,
+                                                   oldText: oldText,
+                                                   newBlockContentType: newContentType,
+                                                   shouldSetFocusOnUpdate: true)
+                            }
                         default: return
                         }
 

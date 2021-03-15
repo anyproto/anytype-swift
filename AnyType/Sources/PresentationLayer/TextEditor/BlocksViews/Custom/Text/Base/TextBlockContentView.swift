@@ -133,7 +133,7 @@ final class TextBlockContentView: UIView & UIContentView {
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
         switch text.contentType {
         case .title:
-            self.setupText(placeholer: NSLocalizedString("Title", comment: ""), font: .titleFont)
+            self.setupForTitle()
         case .text:
             self.setupForText()
         case .bulleted:
@@ -147,11 +147,11 @@ final class TextBlockContentView: UIView & UIContentView {
         case .toggle:
             self.setupForToggle(toggled: self.currentConfiguration.block.isToggled)
         case .header:
-            self.setupText(placeholer: NSLocalizedString("Header 1", comment: ""), font: .header1Font)
+            self.setupForHeader1()
         case .header2:
-            self.setupText(placeholer: NSLocalizedString("Header 2", comment: ""), font: .header2Font)
+            self.setupForHeader2()
         case .header3:
-            self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .header3Font)
+            self.setupForHeader3()
         case .header4, .callout:
             break
         }
@@ -170,9 +170,28 @@ final class TextBlockContentView: UIView & UIContentView {
         self.textView?.textView.font = .bodyFont
     }
     
-    private func setupText(placeholer: String, font: UIFont) {
+    private func setupForTitle() {
         self.setupForPlainText()
-        self.textView?.textView?.backgroundColor = .systemBackground
+        self.setupText(placeholer: NSLocalizedString("Title", comment: ""), font: .titleFont)
+    }
+    
+    private func setupForHeader1() {
+        self.setupForPlainText()
+        self.setupText(placeholer: NSLocalizedString("Header 1", comment: ""), font: .header1Font)
+    }
+    
+    private func setupForHeader2() {
+        self.setupForPlainText()
+        self.setupText(placeholer: NSLocalizedString("Header 2", comment: ""), font: .header2Font)
+    }
+    
+    private func setupForHeader3() {
+        self.setupForPlainText()
+        self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .header3Font)
+    }
+    
+    private func setupText(placeholer: String, font: UIFont) {
+        self.topView.backgroundColor = .systemBackground
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
                                                          .foregroundColor: UIColor.secondaryTextColor]
         self.textView?.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
@@ -184,7 +203,7 @@ final class TextBlockContentView: UIView & UIContentView {
             toggleButton.isSelected = toggled
         } else {
             self.textView?.textView?.textContainerInset = Constants.toggleTextContainerInsets
-            self.topView.backgroundColor = .systemBackground
+            self.setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
             self.textView?.textView?.textColor = .secondaryTextColor
             
             let button: UIButton = .init()
@@ -219,7 +238,7 @@ final class TextBlockContentView: UIView & UIContentView {
            button.tag == Constants.checkboxButtonTag {
             button.isSelected = checked
         } else {
-            self.topView.backgroundColor = .systemBackground
+            self.setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
             self.textView?.textView?.textContainerInset = Constants.checkboxTextContainerInset
             
             let button: UIButton = .init()
@@ -256,7 +275,7 @@ final class TextBlockContentView: UIView & UIContentView {
         let isBulletedView = self.topView.leftView.subviews.first is UIImageView
         guard !isBulletedView else { return }
         self.textView?.textView?.textContainerInset = Constants.bulletedTextViewContainerInsets
-        self.topView.backgroundColor = .systemBackground
+        self.setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .bodyFont)
         
         let view: UIView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -279,7 +298,7 @@ final class TextBlockContentView: UIView & UIContentView {
             label.text = String(number) + "."
         } else {
             self.textView?.textView?.textContainerInset = Constants.numberedTextViewContainerInsets
-            self.topView.backgroundColor = .systemBackground
+            self.setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .bodyFont)
             
             let label: UILabel = .init()
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -306,12 +325,7 @@ final class TextBlockContentView: UIView & UIContentView {
         guard !isQuoteView else { return }
         
         self.textView?.textView?.textContainerInset = Constants.quoteBlockTextContainerInset
-        let attribures: [NSAttributedString.Key: Any] = [.font: UIFont.highlightFont,
-                                                         .foregroundColor: UIColor.secondaryTextColor]
-        self.textView?.textView?.update(placeholder: .init(string: NSLocalizedString("Quote",
-                                                                                     comment: ""),
-                                                           attributes: attribures))
-        self.topView.backgroundColor = .systemBackground
+        self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .highlightFont)
         let view: QuoteBlockLeadingView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: Constants.quoteViewWidth).isActive = true

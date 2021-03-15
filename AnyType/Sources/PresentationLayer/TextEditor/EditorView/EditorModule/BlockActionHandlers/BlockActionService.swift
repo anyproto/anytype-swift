@@ -23,6 +23,7 @@ final class BlockActionService {
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Conversion = (ServiceLayerModule.Success) -> (EventListening.PackOfEvents)
     typealias BlockContent = TopLevel.AliasesMap.BlockContent
+    typealias BlockContentTypeText = BlockContent.Text.ContentType
 
     struct Converter {
         struct Default {
@@ -185,9 +186,15 @@ final class BlockActionService {
         _add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
     }
 
-    func split(block: Information, oldText: String, shouldSetFocusOnUpdate: Bool) {
+    func split(block: Information,
+               oldText: String,
+               newBlockContentType: BlockContentTypeText,
+               shouldSetFocusOnUpdate: Bool) {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Split.convert : Converter.Default.convert
-        _setTextAndSplit(block: block, oldText: oldText, conversion)
+        _setTextAndSplit(block: block,
+                         oldText: oldText,
+                         newBlockContentType: newBlockContentType,
+                         conversion)
     }
 
     func duplicate(block: Information) {
@@ -316,7 +323,10 @@ private extension BlockActionService {
             }).store(in: &self.subscriptions)
     }
 
-    func _setTextAndSplit(block: Information, oldText: String, _ completion: @escaping Conversion) {
+    func _setTextAndSplit(block: Information,
+                          oldText: String,
+                          newBlockContentType: BlockContentTypeText,
+                          _ completion: @escaping Conversion) {
         let improve = Logging.createLogger(category: .todo(.improve("Markup")))
         os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
 
@@ -336,8 +346,10 @@ private extension BlockActionService {
         let documentId = self.documentId
 
         self.textService.setText.action(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceLayerModule.Success, Error> in
-            let contentType = type.contentType == .quote ? .text : type.contentType
-            return self?.textService.split.action(contextID: documentId, blockID: blockId, range: range, style: contentType) ?? .empty()
+            return self?.textService.split.action(contextID: documentId,
+                                                  blockID: blockId,
+                                                  range: range,
+                                                  style: newBlockContentType) ?? .empty()
         }).sink { (value) in
             switch value {
             case .finished: return
