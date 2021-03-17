@@ -73,23 +73,12 @@ extension Namespace.Parser.Common.Alignment {
 
 // MARK: - Common / Position
 extension Namespace.Parser.Common.Position {
-    // TODO: Move to Model if needed?
-    enum Position {
-        case none
-        case top, bottom
-        case left, right
-        case inner
-        case replace
-    }
-}
-
-extension Namespace.Parser.Common.Position {
     /// Position: Conversion between our model and middleware model.
     enum Converter {
         /// TODO: Rethink.
         /// Maybe we will move Position and Common structures to `BlocksModels`.
         ///
-        typealias Model = Position
+        typealias Model = TopLevel.AliasesMap.Position
         typealias MiddlewareModel = Anytype_Model_Block.Position
         
         static func asModel(_ value: MiddlewareModel) -> Model? {

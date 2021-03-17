@@ -25,7 +25,7 @@ protocol ServiceLayerModule_BlockActionsServiceSingleProtocolAdd {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Model = BlockInformationModelProtocol
-    typealias Position = BlocksModelsModule.Parser.Common.Position.Position
+    typealias Position = TopLevel.AliasesMap.Position
     func action(contextID: BlockId, targetID: BlockId, block: Model, position: Position) -> AnyPublisher<Success, Error>
 }
 
@@ -46,7 +46,7 @@ protocol ServiceLayerModule_BlockActionsServiceSingleProtocolDelete {
 protocol ServiceLayerModule_BlockListActionsServiceProtocolDuplicate {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Position = BlocksModelsModule.Parser.Common.Position.Position
+    typealias Position = TopLevel.AliasesMap.Position
     func action(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: Position) -> AnyPublisher<Success, Error>
 }
 

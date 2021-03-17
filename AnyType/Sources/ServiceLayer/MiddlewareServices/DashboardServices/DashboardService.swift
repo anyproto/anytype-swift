@@ -34,8 +34,7 @@ class DashboardService: DashboardServiceProtocol {
             .title(.init()),
             .iconEmoji(.init())
         ])
-        let position: BlocksModelsModule.Parser.Common.Position.Position = .bottom
                 
-        return self.smartBlockService.createPage.action(contextID: contextId, targetID: targetId, details: details, position: position)
+        return self.smartBlockService.createPage.action(contextID: contextId, targetID: targetId, details: details, position: .bottom)
     }
 }

@@ -181,7 +181,7 @@ final class BlockActionService {
         self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
     }
 
-    func add(newBlock: Information, afterBlockId: BlockId, position: BlocksModelsModule.Parser.Common.Position.Position = .bottom, shouldSetFocusOnUpdate: Bool) {
+    func add(newBlock: Information, afterBlockId: BlockId, position: TopLevel.AliasesMap.Position = .bottom, shouldSetFocusOnUpdate: Bool) {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Add.convert : Converter.Default.convert
         _add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
     }
@@ -200,7 +200,7 @@ final class BlockActionService {
     func duplicate(block: Information) {
         let targetId = block.id
         let blockIds: [String] = [targetId]
-        let position: BlocksModelsModule.Parser.Common.Position.Position = .bottom
+        let position: TopLevel.AliasesMap.Position = .bottom
         self.service.duplicate.action(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
@@ -213,7 +213,7 @@ final class BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    func createPage(afterBlock: Information, position: BlocksModelsModule.Parser.Common.Position.Position = .bottom) {
+    func createPage(afterBlock: Information, position: TopLevel.AliasesMap.Position = .bottom) {
 
         let targetId = ""
         let details: DetailsInformationModelProtocol = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: [
@@ -266,7 +266,7 @@ final class BlockActionService {
 }
 
 private extension BlockActionService {
-    func _add(newBlock: Information, afterBlockId: BlockId, position: BlocksModelsModule.Parser.Common.Position.Position = .bottom, _ completion: @escaping Conversion) {
+    func _add(newBlock: Information, afterBlockId: BlockId, position: TopLevel.AliasesMap.Position = .bottom, _ completion: @escaping Conversion) {
 
         // insert block after block
         // we could catch events and update model.

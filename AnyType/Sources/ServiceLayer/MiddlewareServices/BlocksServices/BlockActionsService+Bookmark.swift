@@ -21,7 +21,7 @@ protocol ServiceLayerModule_BlockActionsServiceBookmarkProtocolFetchBookmark {
 protocol ServiceLayerModule_BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Position = BlocksModelsModule.Parser.Common.Position.Position
+    typealias Position = TopLevel.AliasesMap.Position
     func action(contextID: BlockId, targetID: BlockId, position: Position, url: String) -> AnyPublisher<Success, Error>
 }
 

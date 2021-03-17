@@ -9,23 +9,37 @@
 import Foundation
 
 fileprivate typealias Namespace = Block
+fileprivate typealias FileNamespace = Block.Common
 
 public extension Namespace {
+    enum Common {}
+}
+
+public extension FileNamespace {
     enum Kind {
         case meta
         case block
     }
 }
 
-public extension Namespace {
-    enum Focus {}
-}
-
-public extension Namespace.Focus {
+public extension FileNamespace {
     enum Position {
-        case unknown
-        case beginning
-        case end
-        case at(Int)
+        case none
+        case top, bottom
+        case left, right
+        case inner
+        case replace
     }
 }
+
+public extension FileNamespace {
+    enum Focus {
+        public enum Position {
+            case unknown
+            case beginning
+            case end
+            case at(Int)
+        }
+    }
+}
+

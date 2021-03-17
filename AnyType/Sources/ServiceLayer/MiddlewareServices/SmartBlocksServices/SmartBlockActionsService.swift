@@ -17,7 +17,7 @@ protocol ServiceLayerModule_SmartBlockActionsServiceProtocolCreatePage {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias DetailsInformation = DetailsInformationModelProtocol
-    typealias Position = BlocksModelsModule.Parser.Common.Position.Position
+    typealias Position = TopLevel.AliasesMap.Position
     func action(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<Success, Error>
 }
 

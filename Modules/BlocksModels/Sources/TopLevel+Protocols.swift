@@ -31,9 +31,10 @@ public protocol TopLevelAliasesMapProtocol {
     typealias ChildrenIds = [BlockId]
     typealias BackgroundColor = String
     typealias Alignment = Block.Information.Alignment
-    typealias BlockKind = Block.Kind
-
-    typealias FocusPosition = Block.Focus.Position
+    typealias BlockKind = Block.Common.Kind
+    typealias Position = Block.Common.Position
+    
+    typealias FocusPosition = Block.Common.Focus.Position
 
     typealias DetailsId = String
     typealias DetailsContent = Details.Information.Content
