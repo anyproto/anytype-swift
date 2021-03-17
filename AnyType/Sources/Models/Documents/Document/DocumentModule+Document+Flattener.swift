@@ -130,8 +130,7 @@ private extension FileNamespace {
             return false
         }
         switch model.blockModel.information.content {
-        case let .layout(value) where value.style != .div: return false
-        case .smartblock: return false
+        case .smartblock, .layout: return false
         default: return true
         }
     }

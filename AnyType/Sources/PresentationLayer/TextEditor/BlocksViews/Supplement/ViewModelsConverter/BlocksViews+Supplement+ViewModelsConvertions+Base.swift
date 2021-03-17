@@ -32,7 +32,7 @@ extension Namespace {
         }
         override func convert(_ block: DocumentModule.Document.BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? {
             switch block.blockModel.information.content {
-            case .smartblock: return nil // we don't care about smartblocks
+            case .smartblock, .layout: return nil
             case let .text(value):
                 switch value.contentType {
                 case .title, .text, .quote, .checkbox, .bulleted, .numbered, .toggle, .header, .header2, .header3, .header4:
@@ -54,11 +54,6 @@ extension Namespace {
                     _ = result.configured(details.wholeDetailsPublisher)
                 }
                 return result
-            case let .layout(value):
-                switch value.style {
-                case .div: return ViewModels.Other.Divider.ViewModel.init(block)
-                default: return nil // we don't care about layout except divider.
-                }
             }
         }
     }

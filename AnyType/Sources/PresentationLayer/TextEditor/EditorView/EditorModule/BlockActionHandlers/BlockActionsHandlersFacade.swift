@@ -196,16 +196,22 @@ extension LinearIndexWalker {
         guard let modelIndex = self.models.firstIndex(where: { $0.blockModel.information.id == model.blockModel.information.id }) else { return nil }
 
         /// Iterate back
-        var index = self.models.index(before: modelIndex)
+        /// Actually, `index(before:)` doesn't respect indices of collection.
+        /// Consider
+        ///
+        /// let a: [Int] = []
+        /// a.startIndex // 0
+        /// a.index(before: a.startIndex) // -1
+        ///
+        let index = self.models.index(before: modelIndex)
         let startIndex = self.models.startIndex
-
+        
         /// TODO:
         /// Look at documentation how we should handle different blocks types.
-        while index >= startIndex {
+        if index >= startIndex {
             let object = self.models[index]
             switch object.blockModel.information.content {
             case .text: return object
-            case let .layout(value) where value.style == .div: index = self.models.index(before: index)
             default: return nil
             }
         }
