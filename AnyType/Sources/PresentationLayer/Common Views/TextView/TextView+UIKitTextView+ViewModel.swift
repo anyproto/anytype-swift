@@ -109,7 +109,7 @@ extension Namespace {
             self.auxiliaryPublisher = self.coordinator.textAlignmentPublisher.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
         
             // Size
-            self.sizePublisher = self.coordinator.$textSize.receive(on: RunLoop.main).safelyUnwrapOptionals().eraseToAnyPublisher()
+            self.sizePublisher = self.coordinator.textSizeChangePublisher
             
             // Should Resign First Responder
             self.shouldResignFirstResponderPublisher = self.shouldResignFirstResponderSubject.eraseToAnyPublisher()

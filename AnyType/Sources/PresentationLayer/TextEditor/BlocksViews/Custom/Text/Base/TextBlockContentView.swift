@@ -15,36 +15,45 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private enum Constants {
-        /// Text
-        static let textBlockContainerInset: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 4)
         
-        /// Quote
-        static let quoteViewWidth: CGFloat = 14
-        static let quoteBlockTextContainerInset: UIEdgeInsets = .init(top: 4, left: 14, bottom: 4, right: 8)
+        enum Text {
+            static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 4)
+        }
         
-        /// Bulleted
-        static let viewSide: CGFloat = 28
-        static let dotTopOffset: CGFloat = 11
-        static let bulletedTextViewContainerInsets: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 8)
-        static let dotImageName: String = "TextEditor/Style/Text/Bulleted/Bullet"
+        enum Quote {
+            static let viewWidth: CGFloat = 14
+            static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 14, bottom: 4, right: 8)
+        }
         
-        /// Checkbox
-        static let checkboxTextContainerInset: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 8)
-        static let checkedImageName: String = "TextEditor/Style/Text/Checkbox/checked"
-        static let uncheckedImageName: String = "TextEditor/Style/Text/Checkbox/unchecked"
-        static let checkboxButtonTag = 1
+        enum Bulleted {
+            static let viewSide: CGFloat = 28
+            static let dotTopOffset: CGFloat = 11
+            static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 8)
+            static let dotImageName: String = "TextEditor/Style/Text/Bulleted/Bullet"
+        }
         
-        /// Toggle
-        static let foldedImageName = "TextEditor/Style/Text/Toggle/folded"
-        static let unfoldedImageName = "TextEditor/Style/Text/Toggle/unfolded"
-        static let toggleTextContainerInsets: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 8)
-        static let toggleButtonTag = 2
+        enum Checkbox {
+            static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 8)
+            static let checkedImageName: String = "TextEditor/Style/Text/Checkbox/checked"
+            static let uncheckedImageName: String = "TextEditor/Style/Text/Checkbox/unchecked"
+            static let buttonTag = 1
+            static let buttonTopOffset: CGFloat = 3
+        }
         
-        /// Numbered
-        static let labelTopOffset: CGFloat = 3
-        static let leadingViewWidth: CGFloat = 27
-        static let numberedTextViewContainerInsets: UIEdgeInsets = .init(top: 4, left: 1, bottom: 4, right: 8)
-        static let numberToPlaceTextLeft: Int = 20
+        enum Toggle {
+            static let foldedImageName = "TextEditor/Style/Text/Toggle/folded"
+            static let unfoldedImageName = "TextEditor/Style/Text/Toggle/unfolded"
+            static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 0, bottom: 4, right: 8)
+            static let buttonTag = 2
+            static let buttonTopOffset: CGFloat = 3
+        }
+        
+        enum Numbered {
+            static let labelTopOffset: CGFloat = 6
+            static let leadingViewWidth: CGFloat = 27
+            static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 1, bottom: 4, right: 8)
+            static let numberToPlaceTextLeft: Int = 20
+        }
     }
 
     /// Views
@@ -131,6 +140,8 @@ final class TextBlockContentView: UIView & UIContentView {
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
         }
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
+        // In case of configurations is not equal we should check what exactly we should change
+        // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
         switch text.contentType {
         case .title:
             self.setupForTitle()
@@ -160,14 +171,12 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForPlainText() {
         guard self.topView.leftView != nil else  { return }
         _ = self.topView.configured(leftChild: .empty())
-        self.textView?.textView?.textContainerInset = Constants.textBlockContainerInset
+        self.textView?.textView?.textContainerInset = Constants.Text.textContainerInsets
     }
     
     private func setupForText() {
         self.setupForPlainText()
-        self.topView.backgroundColor = .systemGray6
-        self.textView?.textView?.update(placeholder: nil)
-        self.textView?.textView.font = .bodyFont
+        self.setupText(placeholer: "", font: .bodyFont, backgroundColor: .systemGray6)
     }
     
     private func setupForTitle() {
@@ -190,26 +199,23 @@ final class TextBlockContentView: UIView & UIContentView {
         self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .header3Font)
     }
     
-    private func setupText(placeholer: String, font: UIFont) {
-        self.topView.backgroundColor = .systemBackground
+    private func setupText(placeholer: String, font: UIFont, backgroundColor: UIColor = .systemBackground) {
+        self.textView?.textView?.backgroundColor = backgroundColor
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
                                                          .foregroundColor: UIColor.secondaryTextColor]
         self.textView?.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
         self.textView?.textView.font = font
+        self.textView?.textView?.textColor = .textColor
     }
     
     private func setupForToggle(toggled: Bool) {
-        if let toggleButton = self.topView.leftView.subviews.first as? UIButton, toggleButton.tag == Constants.toggleButtonTag {
+        if let toggleButton = self.topView.leftView.subviews.first as? UIButton, toggleButton.tag == Constants.Toggle.buttonTag {
             toggleButton.isSelected = toggled
         } else {
-            self.textView?.textView?.textContainerInset = Constants.toggleTextContainerInsets
-            self.setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
-            self.textView?.textView?.textColor = .secondaryTextColor
-            
             let button: UIButton = .init()
-            button.tag = Constants.toggleButtonTag
-            button.setImage(.init(imageLiteralResourceName: Constants.foldedImageName), for: .normal)
-            button.setImage(.init(imageLiteralResourceName: Constants.unfoldedImageName), for: .selected)
+            button.tag = Constants.Toggle.buttonTag
+            button.setImage(.init(imageLiteralResourceName: Constants.Toggle.foldedImageName), for: .normal)
+            button.setImage(.init(imageLiteralResourceName: Constants.Toggle.unfoldedImageName), for: .selected)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setContentHuggingPriority(.required, for: .horizontal)
             button.addTarget(self, action: #selector(didTapToggleButton), for: .touchUpInside)
@@ -222,10 +228,12 @@ final class TextBlockContentView: UIView & UIContentView {
                 container.widthAnchor.constraint(equalTo: button.widthAnchor),
                 container.heightAnchor.constraint(greaterThanOrEqualTo: button.heightAnchor),
                 button.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-                button.topAnchor.constraint(equalTo: container.topAnchor)
+                button.topAnchor.constraint(equalTo: container.topAnchor, constant: Constants.Toggle.buttonTopOffset)
             ])
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
+        self.setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
+        self.textView?.textView?.textContainerInset = Constants.Toggle.textContainerInsets
     }
     
     @objc private func didTapToggleButton(_ button: UIButton) {
@@ -235,19 +243,15 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupForCheckbox(checked: Bool) {
         if let button = self.topView.leftView.subviews.first as? UIButton,
-           button.tag == Constants.checkboxButtonTag {
+           button.tag == Constants.Checkbox.buttonTag {
             button.isSelected = checked
         } else {
-            self.setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
-            self.textView?.textView?.textContainerInset = Constants.checkboxTextContainerInset
-            
             let button: UIButton = .init()
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.tag = Constants.checkboxButtonTag
-            button.setImage(.init(imageLiteralResourceName: Constants.uncheckedImageName), for: .normal)
-            button.setImage(.init(imageLiteralResourceName: Constants.checkedImageName), for: .selected)
+            button.tag = Constants.Checkbox.buttonTag
+            button.setImage(.init(imageLiteralResourceName: Constants.Checkbox.uncheckedImageName), for: .normal)
+            button.setImage(.init(imageLiteralResourceName: Constants.Checkbox.checkedImageName), for: .selected)
             button.imageView?.contentMode = .scaleAspectFill
-            button.contentEdgeInsets.left = 4
             button.contentVerticalAlignment = .bottom
             button.setContentHuggingPriority(.required, for: .horizontal)
             button.isSelected = checked
@@ -260,10 +264,12 @@ final class TextBlockContentView: UIView & UIContentView {
                 container.widthAnchor.constraint(equalTo: button.widthAnchor),
                 container.heightAnchor.constraint(greaterThanOrEqualTo: button.heightAnchor),
                 button.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-                button.topAnchor.constraint(equalTo: container.topAnchor)
+                button.topAnchor.constraint(equalTo: container.topAnchor, constant: Constants.Checkbox.buttonTopOffset)
             ])
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
+        self.setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
+        self.textView?.textView?.textContainerInset = Constants.Checkbox.textContainerInsets
         self.textView?.textView?.textColor = checked ? .secondaryTextColor : .textColor
     }
     
@@ -272,21 +278,21 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForBulleted() {
+        self.setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .bodyFont)
+        self.textView?.textView?.textContainerInset = Constants.Bulleted.textContainerInsets
         let isBulletedView = self.topView.leftView.subviews.first is UIImageView
         guard !isBulletedView else { return }
-        self.textView?.textView?.textContainerInset = Constants.bulletedTextViewContainerInsets
-        self.setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .bodyFont)
         
         let view: UIView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
         
-        let dotView: UIImageView = .init(image: .init(imageLiteralResourceName: Constants.dotImageName))
+        let dotView: UIImageView = .init(image: .init(imageLiteralResourceName: Constants.Bulleted.dotImageName))
         dotView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dotView)
         NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.viewSide),
-            view.widthAnchor.constraint(equalToConstant: Constants.viewSide),
-            dotView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.dotTopOffset),
+            view.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.Bulleted.viewSide),
+            view.widthAnchor.constraint(equalToConstant: Constants.Bulleted.viewSide),
+            dotView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.Bulleted.viewSide),
             dotView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         _ = self.topView.configured(leftChild: view, setConstraints: true)
@@ -294,41 +300,39 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupForNumbered(number: Int) {
         if let label = self.topView.leftView.subviews.first as? UILabel {
-            label.textAlignment = number >= Constants.numberToPlaceTextLeft ? .left : .center
+            label.textAlignment = number >= Constants.Numbered.numberToPlaceTextLeft ? .left : .center
             label.text = String(number) + "."
         } else {
-            self.textView?.textView?.textContainerInset = Constants.numberedTextViewContainerInsets
-            self.setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .bodyFont)
-            
             let label: UILabel = .init()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.font = .bodyFont
-            label.textAlignment = number >= Constants.numberToPlaceTextLeft ? .left : .center
+            label.textAlignment = number >= Constants.Numbered.numberToPlaceTextLeft ? .left : .center
             label.text = String(number) + "."
             
             let container: UIView = .init()
             container.translatesAutoresizingMaskIntoConstraints = false
             container.addSubview(label)
             NSLayoutConstraint.activate([
-                container.widthAnchor.constraint(equalToConstant: Constants.leadingViewWidth),
+                container.widthAnchor.constraint(equalToConstant: Constants.Numbered.leadingViewWidth),
                 label.widthAnchor.constraint(equalTo: container.widthAnchor),
                 container.heightAnchor.constraint(greaterThanOrEqualTo: label.heightAnchor),
                 label.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-                label.topAnchor.constraint(equalTo: container.topAnchor, constant: Constants.labelTopOffset)
+                label.topAnchor.constraint(equalTo: container.topAnchor, constant: Constants.Numbered.labelTopOffset)
             ])
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
+        self.textView?.textView?.textContainerInset = Constants.Numbered.textContainerInsets
+        self.setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .bodyFont)
     }
     
     private func setupForQuote() {
-        let isQuoteView = self.topView.leftView.subviews.first is QuoteBlockLeadingView
-        guard !isQuoteView else { return }
-        
-        self.textView?.textView?.textContainerInset = Constants.quoteBlockTextContainerInset
+        self.textView?.textView?.textContainerInset = Constants.Quote.textContainerInsets
         self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .highlightFont)
+        let isQuoteViewExist = self.topView.leftView.subviews.first is QuoteBlockLeadingView
+        guard !isQuoteViewExist else { return }
         let view: QuoteBlockLeadingView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: Constants.quoteViewWidth).isActive = true
+        view.widthAnchor.constraint(equalToConstant: Constants.Quote.viewWidth).isActive = true
         _ = self.topView.configured(leftChild: view, setConstraints: true)
     }
 }

@@ -47,7 +47,9 @@ extension Namespace {
         private var textAlignmentSubject: PassthroughSubject<NSTextAlignment?, Never> = .init()
         private(set) var attributedTextPublisher: AnyPublisher<NSAttributedString?, Never> = .empty()
         private(set) var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
-        @Published var textSize: CGSize? = nil
+        private var textSize: CGSize?
+        private let textSizeChangeSubject: PassthroughSubject<CGSize, Never> = .init()
+        private(set) lazy var textSizeChangePublisher: AnyPublisher<CGSize, Never> = self.textSizeChangeSubject.eraseToAnyPublisher()
         private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
         
         /// TextStorage Subscription
@@ -655,6 +657,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         
     func textViewDidBeginEditing(_ textView: UITextView) {
         /// TODO: Refactor it later.
+        self.textSize = textView.intrinsicContentSize
         let logger = Logging.createLogger(category: .todo(.refactor("TextView.Coordinator")))
         os_log(.debug, log: logger, "We should enable our coordinator later, because for now it corrupts typing. So. Disable it.")
         if textView.inputAccessoryView == nil {
@@ -678,11 +681,12 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         // TODO: Add dispatch on correct thread.
         // For example, on queue `.global()`
         guard self.textSize?.height != contentSize.height else { return }
+        self.textSize = contentSize
         DispatchQueue.main.async {
             // TODO: Add text (?) publisher
 //            self.text = text
 //            self.attributedText = attributedText
-            self.textSize = contentSize
+            self.textSizeChangeSubject.send(contentSize)
             /// Don't delete this code until we have stable solution for textView attributedText updates.
             /// Maybe we will discard current `@Publsihed` solution.
             ///
