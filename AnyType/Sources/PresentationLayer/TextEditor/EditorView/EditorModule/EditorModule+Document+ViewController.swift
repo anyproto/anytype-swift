@@ -205,26 +205,6 @@ private extension Namespace.ViewController {
             }
         }
     }
-    func tryFocusItem(at indexPath: IndexPath) {
-        guard !self.viewModel.selectionEnabled() else { return }
-        guard let dataSource = self.dataSource else { return }
-        let snapshot = dataSource.snapshot()
-        let userSession = self.viewModel.documentViewModel.getUserSession()
-        let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
-        /// Since we are working only with one section, we could safely iterate over array of items.
-        let index = indexPath.row
-        let item = itemIdentifiers[index]
-        if let textItem = item as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
-            
-            let collectionViewElementPosition: UICollectionView.ScrollPosition = .centeredVertically
-            let focusedAt: TextView.UIKitTextView.ViewModel.Focus.Position = .end
-            let indexPath: IndexPath = .init(row: index, section: 0)
-            self.collectionView?.scrollToItem(at: indexPath, at: collectionViewElementPosition, animated: true)
-            textItem.set(focus: .init(position: focusedAt, completion: {_ in }))
-            userSession?.unsetFocusAt()
-            userSession?.unsetFirstResponder()
-        }
-    }
 }
 
 // MARK: - Initial Update data
@@ -294,6 +274,12 @@ extension Namespace.ViewController {
 
 extension Namespace.ViewController: EditorModuleDocumentViewInput {
     func setFocus(at index: Int) {
-        self.tryFocusItem(at: IndexPath(row: index, section: 1))
+        guard !self.viewModel.selectionEnabled() else { return }
+        guard let snapshot = self.dataSource?.snapshot() else { return }
+        let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
+        if let textItem = itemIdentifiers[index] as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
+            let userSession = self.viewModel.documentViewModel.getUserSession()
+            textItem.set(focus: .init(position: userSession?.focusAt() ?? .end, completion: {_ in }))
+        }
     }
 }

@@ -41,7 +41,7 @@ final class TextBlockContentView: UIView & UIContentView {
             static let checkedImageName: String = "TextEditor/Style/Text/Checkbox/checked"
             static let uncheckedImageName: String = "TextEditor/Style/Text/Checkbox/unchecked"
             static let buttonTag = 1
-            static let buttonTopOffset: CGFloat = 3
+            static let buttonTopOffset: CGFloat = 2
         }
         
         enum Toggle {
@@ -53,7 +53,7 @@ final class TextBlockContentView: UIView & UIContentView {
         }
         
         enum Numbered {
-            static let labelTopOffset: CGFloat = 6
+            static let labelTopOffset: CGFloat = 5
             static let leadingViewWidth: CGFloat = 27
             static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 1, bottom: 4, right: 8)
             static let numberToPlaceTextLeft: Int = 20
@@ -321,7 +321,7 @@ final class TextBlockContentView: UIView & UIContentView {
         NSLayoutConstraint.activate([
             view.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.Bulleted.viewSide),
             view.widthAnchor.constraint(equalToConstant: Constants.Bulleted.viewSide),
-            dotView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.Bulleted.viewSide),
+            dotView.topAnchor.constraint(equalTo: view.topAnchor, constant: Constants.Bulleted.dotTopOffset),
             dotView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         _ = self.topView.configured(leftChild: view, setConstraints: true)
