@@ -8,6 +8,7 @@
 
 import BlocksModels
 import os
+import Combine
 
 private extension Logging.Categories {
     static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
@@ -18,17 +19,22 @@ final class TextBlockActionHandler {
     typealias ActionsPayloadTextViewTextView = ActionsPayload.TextBlocksViewsUserInteraction.Action.TextViewUserAction
     typealias DetailsInspector = TopLevel.AliasesMap.BlockUtilities.DetailsInspector
 
+    private var subscriptions: Set<AnyCancellable> = []
     private let service: BlockActionService
+    private var textService: ServiceLayerModule.Text.BlockActionsService = .init()
+    private let contextId: String
     private var indexWalker: LinearIndexWalker?
 
-    init(service: BlockActionService, indexWalker: LinearIndexWalker?) {
+    init(contextId: String, service: BlockActionService, indexWalker: LinearIndexWalker?) {
         self.service = service
+        self.contextId = contextId
         self.indexWalker = indexWalker
     }
 
     func handlingTextViewAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadTextViewTextView) {
         switch action {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
+        case let .inputAction(value): self.handlingInputAction(block, value)
         default:
             let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
             os_log(.debug, log: logger, "Unexpected: %@", String(describing: action))
@@ -39,6 +45,33 @@ final class TextBlockActionHandler {
         //        TopLevel.AliasesMap.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
         self.indexWalker?.renew()
         return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
+    }
+
+    private func handlingInputAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction.InputAction) {
+        guard case var .text(textContentType) = block.blockModel.information.content else { return }
+        var blockModel = block.blockModel
+
+        switch action {
+        case let .changeText(attributedText):
+            let blockId = blockModel.information.id
+            textContentType.attributedText = attributedText
+            blockModel.information.content = .text(textContentType)
+
+            self.textService.setText.action(contextID: self.contextId, blockID: blockId, attributedString: attributedText)
+                .sink(receiveCompletion: { value in
+                    switch value {
+                    case .finished: return
+                    case let .failure(error):
+                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                        os_log(.debug,
+                               log: logger,
+                               "TextBlocksViews setBlockText error has occured. %@. ParentId: %@ BlockId: %@",
+                               String(describing: error),
+                               String(describing: blockModel.parent),
+                               String(describing: blockModel.information.id))
+                    }
+                }, receiveValue: { _ in }).store(in: &self.subscriptions)
+        }
     }
 
     private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction.KeyboardAction) {
@@ -166,8 +199,8 @@ final class TextBlockActionHandler {
                 }
 
                 let previousBlockId = previousModel.blockModel.information.id
-
                 let position: EventListening.PackOfEvents.OurEvent.Focus.Payload.Position
+
                 switch previousModel.blockModel.information.content {
                 case let .text(value):
                     let length = value.attributedText.length
@@ -175,21 +208,8 @@ final class TextBlockActionHandler {
                 default: position = .end
                 }
 
-                //                var newAttributedString: NSMutableAttributedString?
-                //                switch (previousModel.blockModel.information.content, block.blockModel.information.content) {
-                //                case let (.text(lhs), .text(rhs)):
-                //                    let left = lhs.attributedText
-                //                    newAttributedString = .init(attributedString: left)
-                //                    let right = rhs.attributedText
-                //                    newAttributedString?.append(right)
-                //                default: break
-                //                }
-
-                //                let attributedString = newAttributedString
-
                 self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
                     .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        //                        .setText(.init(payload: .init(blockId: previousBlockId, attributedString: attributedString))),
                         .setTextMerge(.init(payload: .init(blockId: previousBlockId))),
                         .setFocus(.init(payload: .init(blockId: previousBlockId, position: position)))
                     ])

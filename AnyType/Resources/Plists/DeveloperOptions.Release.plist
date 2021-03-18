@@ -35,8 +35,6 @@
 				<true/>
 				<key>textEditor</key>
 				<dict>
-					<key>shouldHaveUniqueText</key>
-					<false/>
 					<key>shouldEmbedSwiftUIIntoCell</key>
 					<false/>
 					<key>shouldShowCellsIndentation</key>

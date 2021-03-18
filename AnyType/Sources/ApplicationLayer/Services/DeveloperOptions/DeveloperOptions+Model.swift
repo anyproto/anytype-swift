@@ -23,7 +23,7 @@ extension DeveloperOptions {
         private init() {
             self.debug = .init(enabled: false)
             self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""), dashboard: .init(cellsHaveActionsOnLongTap: false),
-                                  mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldHaveUniqueText: true, shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false), listView: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseCellsCaching: false)))
+                                  mainDocumentEditor: .init(useUIKit: true, textEditor: .init(shouldEmbedSwiftUIIntoCell: false, shouldShowCellsIndentation: false), listView: .init(shouldAnimateRowsInsertionAndDeletion: false, shouldUseCellsCaching: false)))
         }
         static var `default`: Settings = .init()
     }
@@ -48,7 +48,6 @@ extension DeveloperOptions.Settings {
         
         struct MainDocumentEditor: CodableAndDictionary {
             struct TextEditor: CodableAndDictionary {
-                var shouldHaveUniqueText: Bool
                 var shouldEmbedSwiftUIIntoCell: Bool
                 var shouldShowCellsIndentation: Bool
             }

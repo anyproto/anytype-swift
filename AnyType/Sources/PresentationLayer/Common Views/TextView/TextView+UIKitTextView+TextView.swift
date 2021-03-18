@@ -83,23 +83,36 @@ extension Namespace {
         }()
         
         private var placeholderConstraints: [NSLayoutConstraint] = []
-        
+        var blockColorAttribute: UIColor?
         
         override var textContainerInset: UIEdgeInsets {
             didSet {
                 self.updatePlaceholderLayout()
             }
         }
-        
+
         override var typingAttributes: [NSAttributedString.Key : Any] {
-            didSet {
-                guard let font = typingAttributes[.font] as? UIFont else { return }
-                self.placeholderLabel.font = font
+            get {
+                var newAttr = super.typingAttributes
+                newAttr[.blockColor] = blockColorAttribute
+                return newAttr
+            }
+            set {
+                if let font = super.typingAttributes[.font] as? UIFont {
+                    self.placeholderLabel.font = font
+                }
+                super.typingAttributes = newValue
             }
         }
 
         // MARK: Initialization
         override init(frame: CGRect, textContainer: NSTextContainer?) {
+            let layoutManager = TextBlockLayoutManager()
+            let textStorage = NSTextStorage()
+            textStorage.addLayoutManager(layoutManager)
+            let textContainer = NSTextContainer()
+            layoutManager.addTextContainer(textContainer)
+
             super.init(frame: frame, textContainer: textContainer)
             self.setup()
         }
@@ -203,36 +216,12 @@ extension Namespace.TextViewWithPlaceholder {
 }
 
 // MARK: - NSTextStorageDelegate
-/// As soon as we use `textStorage.setAttributedString`, we couldn't catch event via `.textDidChange`.
-/// We could do it only by `textStorage.delegate` methods ( or textStorage notifications ).
-///
+
 extension Namespace.TextViewWithPlaceholder: NSTextStorageDelegate {
+    // We can't use this delegate func to update our block model as we don't know source of changes (middleware or user).
+    // If in future we want here change attributes then we should send command to middleware.
     func textStorage(_ textStorage: NSTextStorage, didProcessEditing editedMask: NSTextStorage.EditActions, range editedRange: NSRange, changeInLength delta: Int) {
         self.syncPlaceholder()
-        
-        var textAlignment: NSTextAlignment = self.textAlignment
-        if textStorage.length != 0 {
-            let logger = Logging.createLogger(category: .textViewUIKitTextView)
-                        
-            let range: NSRange = .init(location: 0, length: textStorage.length)
-            let attributes = textStorage.attributes(at: 0, longestEffectiveRange: nil, in: range)
-            let paragraph = attributes[.paragraphStyle] as? NSParagraphStyle
-            
-            let paragraphAlignment = paragraph?.alignment
-            /// Uncomment when you would like to look at different text alignment :D
-//            os_log(.debug, log: logger, "textAlignment: %@", String(describing: NSTextAlignment.Printer.print(self.textAlignment)))
-//            os_log(.debug, log: logger, "paragraph style alignment: %@", NSTextAlignment.Printer.print(paragraphAlignment))
-            
-            textAlignment = paragraphAlignment ?? textAlignment
-        }
-        
-        /// TODO: We must embed textAlignment into our MarksStyle.
-        /// But for now, it is ok to do the following trick.
-        /// self.textAlignment is out of sync with paragraph style ( which has actual alignment )
-        /// For example, if you set `textView.textAlignment` it may have previous value ( was .center ).
-        /// But first letter of attributes ( `NSParagraphStyle.alignment` ) has right alignment ( now .right )
-        ///
-        coordinator?.notifySubscribers(.init(attributedText: textStorage, textAlignment: textAlignment))
     }
 }
 

@@ -211,8 +211,9 @@ extension FileNamespace.EventHandler {
 // MARK: Events Handling / InnerEvents
 private extension FileNamespace.EventHandler {
     func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> Update {
+        typealias AttributedTextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
+
         switch event {
-            
         case let .blockAdd(value):
             value.blocks
                 .compactMap(self.parser.convert(block:))
@@ -256,11 +257,17 @@ private extension FileNamespace.EventHandler {
             let newText = value.hasText ? value.text.value : oldText.attributedText.string
             let newChecked = value.hasChecked ? value.checked.value : oldText.checked
 
+            // obtain current marks as middleware model
+            let currentMarks = AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
+            let marks = value.hasMarks ? value.marks.value : currentMarks
+            // obtain current block color
+            let blockColor = value.hasColor ? value.color.value : oldText.color
+
             let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
                                                                       style: value.style.value,
-                                                                      marks: value.marks.value,
+                                                                      marks: marks,
                                                                       checked: newChecked,
-                                                                      color: value.color.value)
+                                                                      color: blockColor)
 
             guard let blockContent = self.parser.convert(middlewareContent: .text(textContent)),
                   case var .text(newTextBlockContentType) = blockContent else {

@@ -21,20 +21,22 @@ extension Namespace {
             var marks: Anytype_Model_Block.Content.Text.Marks
         }
         
-        static func asModel(text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> NSAttributedString {
-            /// Map attributes to our internal format.
+        static func asModel(text: String, marks: Anytype_Model_Block.Content.Text.Marks, color: String) -> NSAttributedString {
+            // Map attributes to our internal format.
             let attributes = marks.marks.map({ value in
                 (RangeConverter.asModel(value.range), AttributeConverter.asModel(.init(attribute: value.type, value: value.param)))
             })
             
-            /// Create modifier of an attributed string.
+            // Create modifier of an attributed string.
             let modifier = MarkStyleModifier.init(attributedText: .init(string: text))
+
+            // appy block color
+            let color = AttributeConverter.ColorConverter.textColor.asModel(color)
+            let colorRange: NSRange = .init(location: 0, length: modifier.attributedString.length)
+            modifier.attributedString.addAttribute(.blockColor, value: color, range: colorRange)
             
-            /// We have to set some font, because all styles `change` font attribute.
-            /// Not the best place to set attribute, however, we don't have best place...
-            ///
-            /// Too bad :/
-            ///
+            // We have to set some font, because all styles `change` font attribute.
+            // Not the best place to set attribute, however, we don't have best place...
             let defaultFont: UIFont = .preferredFont(forTextStyle: .body)
             let range: NSRange = .init(location: 0, length: modifier.attributedString.length)
             modifier.attributedString.addAttribute(.font, value: defaultFont, range: range)
@@ -223,6 +225,7 @@ private extension Namespace.AttributeConverter {
             url?.absoluteString ?? ""
         }
     }
+
     struct ColorConverter {
         typealias Color = MiddlewareModelsModule.Parsers.Text.Color
         private var background = false

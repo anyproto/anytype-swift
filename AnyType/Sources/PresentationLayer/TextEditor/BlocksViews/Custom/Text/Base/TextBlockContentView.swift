@@ -147,6 +147,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private func applyNewConfiguration() {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
+
         if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
             textViewModel.update = .unknown
             _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
@@ -219,8 +220,8 @@ final class TextBlockContentView: UIView & UIContentView {
                                                          .foregroundColor: UIColor.secondaryTextColor]
 
         self.textView.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
-        self.textView.textView.font = font
-        self.textView.textView?.textColor = .textColor
+//        self.textView.textView.font = font
+//        self.textView.textView?.textColor = .textColor
     }
     
     private func setupForToggle(toggled: Bool, hasChildren: Bool) {

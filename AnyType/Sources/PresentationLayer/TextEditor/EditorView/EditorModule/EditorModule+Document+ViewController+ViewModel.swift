@@ -71,7 +71,7 @@ extension Namespace {
         private(set) var documentViewModel: BlocksViews.Document.ViewModel = .init()
         
         /// User Interaction Processor
-        private let blockActionHandler: BlockActionsHandlersFacade = .init()
+        private lazy var blockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
         private var listBlockActionHandler: ListBlockActionHandler = .init()
         
         /// Combine Subscriptions
@@ -271,9 +271,11 @@ extension Namespace {
     }
 }
 
-extension FileNamespace: TextBlockViewModelOutput {
-    func setTextChangeClosure(closure: @escaping () -> Void) {
-        self.lastSetTextClosure = closure
+// MARK: - DocumentViewInteraction
+
+extension FileNamespace: DocumentViewInteraction {
+    func updateBlocks(with ids: [BlockId]) {
+        self.updateElementsSubject.send(ids)
     }
 }
 
@@ -438,9 +440,6 @@ extension FileNamespace {
             _ = value.configured(userActionSubject: self.publicUserActionSubject)
             _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)
             _ = value.configured(sizeDidChangeSubject: self.publicSizeDidChangeSubject)
-            if let textViewModel = value as? BlocksViewsNamespace.Text.Base.ViewModel {
-                textViewModel.output = self
-            }
         }
     }
     

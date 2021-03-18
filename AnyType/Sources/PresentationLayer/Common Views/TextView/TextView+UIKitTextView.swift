@@ -11,7 +11,8 @@ import UIKit
 import Combine
 import os
 
-fileprivate typealias Namespace = TextView.UIKitTextView
+
+enum TextView {}
 
 private extension Logging.Categories {
     static let textViewUIKitTextView: Self = "TextView.UIKitTextView"
@@ -38,7 +39,7 @@ extension TextView {
 
         // MARK: Views
         private var contentView: UIView!
-        var textView: TextView.UIKitTextView.TextViewWithPlaceholder!
+        var textView: TextViewWithPlaceholder!
         
         // MARK: Initialization
         override init(frame: CGRect) {
@@ -109,7 +110,7 @@ extension TextView {
             self.translatesAutoresizingMaskIntoConstraints = false
             
             self.textView = {
-                let view = self.builder.createTextView()
+                let view = TextView.UIKitTextView.TextViewWithPlaceholder.init()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
@@ -149,7 +150,7 @@ extension TextView {
 }
 
 // MARK: Updates
-extension Namespace {
+private extension TextView.UIKitTextView {
     func onUpdate(receive update: TextView.UIKitTextView.ViewModel.Update) {
         switch update {
         case .unknown: return
@@ -206,12 +207,12 @@ extension Namespace {
                 // self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
             }
         case let .auxiliary(value):
+            self.textView.blockColorAttribute = value.blockColor
+
             let textAlignment = value.textAlignment
-            guard textAlignment != self.textView.textAlignment else {
-                return;
+            if textAlignment != self.textView.textAlignment {
+                self.textView.textAlignment = textAlignment
             }
-            self.textView.textAlignment = textAlignment
-            
         case let .payload(value):
             self.onUpdate(.attributedText(value.attributedString))
             
@@ -233,9 +234,10 @@ extension Namespace {
     }
 }
 
-// MARK: Focus
-extension Namespace {
-    private func setFocus(_ value: ViewModel.Focus.Position) {
+// MARK: - Focus
+
+private extension TextView.UIKitTextView {
+    func setFocus(_ value: ViewModel.Focus.Position) {
         let position = value
         switch position {
         case .unknown: break
@@ -271,6 +273,7 @@ extension Namespace {
         }
         self.textView?.becomeFirstResponder()
     }
+
     func setFocus(_ value: ViewModel.Focus) {
         guard let position = value.position else { return }
         self.setFocus(position)
@@ -291,7 +294,8 @@ extension Namespace {
     }
 }
 
-// MARK: Configuration
+// MARK: - Configuration
+
 extension TextView.UIKitTextView {
     func configured(_ options: Options) -> Self {
         self.options = options
@@ -303,7 +307,7 @@ extension TextView.UIKitTextView {
         self.model = model
         self.textView.delegate = nil
 
-        if let textView = self.textView as? TextView.UIKitTextView.TextViewWithPlaceholder, let model = self.model {
+        if let textView = self.textView, let model = self.model {
             textView.coordinator = nil
             _ = model.configured(firstResponderChangePublisher: textView.firstResponderChangePublisher)
             _ = builder.makeUIView(textView, coordinator: model.coordinator)
@@ -319,7 +323,8 @@ extension TextView.UIKitTextView {
     }
 }
 
-// MARK: Placeholder
+// MARK: - Placeholder
+
 extension TextView.UIKitTextView {
     struct Placeholder {
         private(set) var text: String?

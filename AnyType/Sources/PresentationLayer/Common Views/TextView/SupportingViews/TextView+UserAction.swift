@@ -15,7 +15,7 @@ extension TextView {
         case
         blockAction(BlockAction), // Deprecated
         marksAction(MarksAction), // Deprecated
-        inputAction(InputAction), // Deprecated
+        inputAction(InputAction),
         keyboardAction(KeyboardAction),
         addBlockAction(AddBlockAction),
         showMultiActionMenuAction(ShowMultiActionMenuAction)
@@ -42,7 +42,7 @@ extension TextView.UserAction {
 extension TextView.UserAction {
     // Actions with text...
     enum InputAction {
-        case changeText(String)
+        case changeText(NSAttributedString)
     }
 }
 

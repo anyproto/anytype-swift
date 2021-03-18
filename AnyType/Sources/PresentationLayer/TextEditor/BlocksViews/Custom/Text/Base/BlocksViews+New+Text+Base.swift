@@ -69,21 +69,6 @@ extension Namespace {
         private lazy var textViewModelHolder: TextViewModelHolder = {
             .init(self.textViewModel)
         }()
-
-        // MARK: Publishers
-        /// As always, lets keep an eye on these properties a little bit.
-        /// `toViewText` `@Published` variable keep state of new coming value from a model.
-        /// However, we should skip additional cycle for `toModelText`
-        /// That means, that we need `toModelTextSubject`.
-        /// We shouldn't take care about a value, because user initiates events.
-        /// So, we need only to listen his typing.
-        ///
-        @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
-        @Published private var toViewText: NSAttributedString? { willSet { self.objectWillChange.send() } }
-        
-        // TODO: Rethink. It could be done more accurate and predictable. Do we need it at all?
-        // Actually, we need an update, yes, but we could publish it as Update(or ViewState) from raw block.
-        private var toViewUpdates: AnyPublisher<TextView.UIKitTextView.ViewModel.Update, Never> = .empty()
         
         // TODO: Rethink. We only need one (?) publisher to a model?
         private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
@@ -99,24 +84,7 @@ extension Namespace {
         // MARK: Services
         private var service: ServiceLayerModule.Text.BlockActionsService = .init()
         
-        // MARK: Convenient accessors
-        /// TODO: We have to connect our values (if we want to) to values of view model.
-        /// View model should store values if needed. Updates or not.
-        var text: String {
-            set {
-                if self.toViewText != nil {
-                    self.toViewText = .init(string: newValue)
-                }
-            }
-            get {
-                self.toViewText?.string ?? ""
-            }
-        }
-        
-        /// ViewModel output to notify about view model state changes
-        weak var output: TextBlockViewModelOutput?
-                
-        // MARK: - Subclassing
+        // MARK: - Life cycle
 
         override init(_ block: BlockModel) {
             super.init(block)
@@ -199,13 +167,16 @@ extension Namespace.ViewModel {
     func refreshTextViewModel(_ textViewModel: TextView.UIKitTextView.ViewModel) {
         let block = self.getBlock()
         let information = block.blockModel.information
+
         switch information.content {
         case let .text(blockType):
             let attributedText = blockType.attributedText
-            if let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(information.alignment) {
-//                self.textViewModelHolder.apply()
-                textViewModel.update = .payload(.init(attributedString: attributedText, auxiliary: .init(textAlignment: alignment)))
-            }
+
+            let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(information.alignment)
+            let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(blockType.color)
+
+            textViewModel.update = .payload(.init(attributedString: attributedText,
+                                                  auxiliary: .init(textAlignment: alignment ?? .left, blockColor: blockColor)))
         default: return
         }
     }
@@ -225,7 +196,7 @@ private extension Namespace.ViewModel {
             default: return
             }
         }.store(in: &self.textViewModelSubscriptions)
-        
+
         self.getUIKitViewModel().auxiliaryPublisher.sink { [weak self] (value) in
             switch value {
             case let .auxiliary(value): self?.toModelAlignmentSubject.send(value.textAlignment)
@@ -239,70 +210,38 @@ private extension Namespace.ViewModel {
     }
     
     private func setupSubscribers() {
-        /// ToView
+        // ToView
         let alignmentPublisher = self.getBlock().didChangeInformationPublisher()
             .map(\.alignment)
             .map(BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel)
             .removeDuplicates()
             .safelyUnwrapOptionals()
 
-        self.toViewUpdates = Publishers.CombineLatest(self.$toViewText.safelyUnwrapOptionals(), alignmentPublisher)
+        // We need it for Merge requests.
+        // Maybe we should do it differently.
+        // We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
+        // If we listen `didChangeInformationPublisher()`, we will receive whole data from every change.
+        let modelDidChangeOnMergePublisher = self.getBlock().didChangePublisher().receive(on: serialQueue)
+            .map { [weak self] _ -> TopLevel.AliasesMap.BlockContent.Text? in
+                let value = self?.getBlock().blockModel.information
+                switch value?.content {
+                case let .text(value): return value
+                default: return nil
+                }
+            }
+            .safelyUnwrapOptionals()
+
+        Publishers.CombineLatest(modelDidChangeOnMergePublisher, alignmentPublisher)
             .receive(on: DispatchQueue.main)
             .map({ value -> TextView.UIKitTextView.ViewModel.Update in
                 let (text, alignment) = value
-                return .payload(.init(attributedString: text, auxiliary: .init(textAlignment: alignment)))
-            }).eraseToAnyPublisher()
-        
-        /// We should subscribe on view updates.
-        /// For now, we have two different publishers.
-        /// It is fine, but, what is under the hood?
-        /// We should initiate update of view by ourselves on `setFocus` or on `Merge`.
-        /// It is a job for `ephemeral passthroughSubject` and `intentional update of text view model`.
-        /// But
-        /// For `initial` state we should update some stored property.
-        /// And it is `@Published update` property of TextView.ViewModel.
-//        self.toViewUpdates.sink { [weak self] (value) in
-//            self?.textViewModel.intentional(update: value)
-//        }.store(in: &self.subscriptions)
-        
-        self.toViewUpdates.sink { [weak self] (value) in
-//            self?.textViewModel.update = value
-            self?.textViewModelHolder.apply(value)
-        }.store(in: &self.subscriptions)
-                
-        // From Model
-        
-        /// SUSPENDED: subscription.
-        /// We should subscribe only on blocks from other users.
-        /// Ok?
-        /// Or any other condition.
-        ///
-        
-        /// TODO: Remove it later. It works well for now.
-//        self.getBlock().didChangeInformationPublisher().receive(on: DispatchQueue.global()).map({ [weak self] value -> TopLevel.AliasesMap.BlockContent.Text? in
-//            switch value.content {
-//            case let .text(value): return value
-//            default: return nil
-//            }
-//        }).removeDuplicates().safelyUnwrapOptionals().sink { [weak self] (value) in
-//            /// Update data(?)
-//            self?.toViewText = value.attributedText
-//        }.store(in: &self.subscriptions)
-        
-        /// We need it for Merge requests.
-        /// Maybe we should do it differently.
-        /// We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
-        /// If we listen `didChangeInformationPublisher()`, we will receive whole data from every change.
-        self.getBlock().didChangePublisher().receive(on: serialQueue).map({ [weak self] _ -> TopLevel.AliasesMap.BlockContent.Text? in
-            let value = self?.getBlock().blockModel.information
-            switch value?.content {
-            case let .text(value): return value
-            default: return nil
-            }
-        }).safelyUnwrapOptionals().sink { [weak self] (value) in
-            /// Update data(?)
-            self?.toViewText = value.attributedText
-        }.store(in: &self.subscriptions)
+                let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(text.color)
+                return .payload(.init(attributedString: text.attributedText, auxiliary: .init(textAlignment: alignment,
+                                                                                              blockColor: blockColor)))
+            })
+            .sink { [weak self] (value) in
+                self?.textViewModelHolder.apply(value)
+            }.store(in: &self.subscriptions)
                 
         /// FromModel
         /// ???
@@ -315,33 +254,6 @@ private extension Namespace.ViewModel {
         self.toModelTextSubject.receive(on: serialQueue).sink { [weak self] (value) in
             self?.setModelData(attributedText: value)
         }.store(in: &self.subscriptions)
-        
-        self.getBlock().didChangeInformationPublisher()
-            .map(\.content)
-            .map { [weak self] value -> NSAttributedString? in
-                switch value {
-                case let .text(value):
-                    self?.output?.setTextChangeClosure { [weak self] in
-                        _ = self?.apply(attributedText: value.attributedText)
-                    }
-                    return value.attributedText
-                default: return nil
-                }
-            }
-            .safelyUnwrapOptionals()
-            .debounce(for: self.textOptions.throttlingInterval, scheduler: serialQueue)
-            .notableError()
-            .flatMap { [weak self] (value) in
-                self?.apply(attributedText: value) ?? .empty()
-            }
-            .sink(receiveCompletion: { [weak self] (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                    os_log(.debug, log: logger, "TextBlocksViews setBlockText error has occured. %@. ParentId: %@ BlockId: %@", String(describing: error), String(describing: self?.getBlock().blockModel.parent), String(describing: self?.getBlock().blockModel.information.id))
-                }
-            }, receiveValue: { _ in }).store(in: &self.subscriptions)
         
         self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: serialQueue).notableError().flatMap({ [weak self] (value) in
             self?.apply(alignment: value) ?? .empty()
@@ -359,29 +271,8 @@ private extension Namespace.ViewModel {
         }.store(in: &self.subscriptions)
     }
     
-    // MARK: - Setup Text
-    func setupText() {
-        if self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText {
-            self.text = Self.debugString(self.developerOptions.current.workflow.mainDocumentEditor.textEditor.shouldHaveUniqueText, self.blockId)
-            switch self.getBlock().blockModel.information.content {
-            case let .text(blockType):
-                self.text = self.text + " >> " + blockType.attributedText.string
-            default: return
-            }
-        }
-        else {
-            let block = self.getBlock()
-            switch self.getBlock().blockModel.information.content {
-            case let .text(blockType):
-                self.toViewText = blockType.attributedText
-            default: return
-            }
-        }
-    }
-    
     // MARK: - Setup
     private func setup() {
-        self.setupText()
         self.setupTextViewModel()
         self.setupTextViewModelSubscribers()
         self.setupSubscribers()
@@ -396,36 +287,18 @@ extension Namespace.ViewModel {
 }
 
 // MARK: - Actions Payload Legacy
+
 extension Namespace.ViewModel {
     func send(textViewAction: BlocksViews.New.Text.UserInteraction) {
         self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: textViewAction)))
     }
 }
 
-// MARK: - ViewModel / Apply to model.
-private extension Namespace.ViewModel {
-    private func setModelData(text newText: String) {
-        let theText = self.text
-        self.text = theText
+// MARK: - ViewModel / Apply to model
 
-        /// TODO:
-        /// Remove when you are ready.
-//        return
-//        self.update { (block) in
-//            switch block.blockModel.information.content {
-//            case let .text(value):
-//                var value = value
-////                value.text = newText
-//                var blockModel = block.blockModel
-//                blockModel.information.content = .text(value)
-//            default: return
-//            }
-//        }
-    }
+private extension Namespace.ViewModel {
     func setModelData(attributedText: NSAttributedString) {
-        
         // Update model.
-        // Do we need to update model?
         self.update { (block) in
             switch block.blockModel.information.content {
             case var .text(value):
@@ -439,52 +312,17 @@ private extension Namespace.ViewModel {
         }
     }
     
-    /// TODO: Move to appropriate event in event handler.
-    /// We have event .blockSetAlignment, which must update model property alignment.
-    ///
-    func setModelData(alignment: NSTextAlignment) {
-        
-        /// TODO:
-        /// Remove when you are ready.
-//        return
-//        self.update { (block) in
-//            if let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment) {
-//                var blockModel = block.blockModel
-//                blockModel.information.alignment = alignment
-//            }
-//        }
-    }
-    
     func apply(alignment: NSTextAlignment) -> AnyPublisher<Void, Error>? {
-        self.setModelData(alignment: alignment)
         let block = self.getBlock()
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
         let blocksIds = [block.blockModel.information.id]
         return self.service.setAlignment.action(contextID: contextID, blockIds: blocksIds, alignment: alignment)
     }
-    func apply(attributedText: NSAttributedString, shouldStoreInModel: Bool = false) -> AnyPublisher<Void, Error>? {
-        /// Do we need to update model?
-        /// It will be updated on every blockShow event. ( BlockOpen command ).
-        ///
-        if shouldStoreInModel {
-            self.setModelData(attributedText: attributedText)
-        }
-        
-        if self.textOptions.shouldApplyChangesLocally {
-            return .empty()
-        }
-        
-        let block = self.getBlock()
-        guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
-        let blockId = block.blockModel.information.id
-//        let logger = Logging.createLogger(category: .textBlocksViewsBase)
-//        os_log(.debug, log: logger, "Before TextBlocksViews setBlockText has occured. ParentId: %@ BlockId: %@", String(describing: contextID), String(describing: self.blockId))
-        return self.service.setText.action(contextID: contextID, blockID: blockId, attributedString: attributedText)
-    }
+
     func apply(update: TextView.UIKitTextView.ViewModel.Update) {
         switch update {
         case .unknown: return
-        case let .text(value): self.setModelData(text: value)
+        case let .text(value): self.setModelData(attributedText: NSAttributedString(string: value))
         case let .attributedText(value): return self.setModelData(attributedText: value)
         case .auxiliary: return
         case .payload: return
@@ -504,7 +342,7 @@ extension Namespace.ViewModel: TextViewUserInteractionProtocol {
         case .showMultiActionMenuAction(.showMultiActionMenu):
             self.getUIKitViewModel().shouldResignFirstResponder()
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
-            
+
         default: self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
         }
     }

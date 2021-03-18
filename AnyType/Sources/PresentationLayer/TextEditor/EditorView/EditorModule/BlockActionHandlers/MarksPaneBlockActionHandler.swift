@@ -21,12 +21,15 @@ final class MarksPaneBlockActionHandler {
     typealias Conversion = (ServiceLayerModule.Success) -> (EventListening.PackOfEvents)
     
     private let service: BlockActionService
+    private var textService: ServiceLayerModule.Text.BlockActionsService = .init()
     private let listService: ServiceLayerModule.List.BlockActionsService = .init()
     private let contextId: String
     private var subscriptions: [AnyCancellable] = []
     private weak var subject: PassthroughSubject<BlockActionsHandlersFacade.Reaction?, Never>?
+    private weak var documentViewInteraction: DocumentViewInteraction?
 
-    init(service: BlockActionService, contextId: String, subject: PassthroughSubject<BlockActionsHandlersFacade.Reaction?, Never>) {
+    init(documentViewInteraction: DocumentViewInteraction?, service: BlockActionService, contextId: String, subject: PassthroughSubject<BlockActionsHandlersFacade.Reaction?, Never>) {
+        self.documentViewInteraction = documentViewInteraction
         self.service = service
         self.contextId = contextId
         self.subject = subject
@@ -59,7 +62,7 @@ private extension MarksPaneBlockActionHandler {
 
     func setBlockColor(block: BlockInformationModelProtocol, color: UIColor?) {
         let blockIds = [block.id]
-
+        
         self.listService.setBlockColor(contextID: self.contextId, blockIds: blockIds, color: color)
             .sink(receiveCompletion: { (value) in
                 switch value {
@@ -124,6 +127,13 @@ private extension MarksPaneBlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             blockModel.information.content = .text(textContentType)
+            self.documentViewInteraction?.updateBlocks(with: [blockModel.information.id])
+
+            self.textService.setText.action(contextID: self.contextId,
+                                            blockID: blockModel.information.id,
+                                            attributedString: newAttributedString)
+                .sink(receiveCompletion: {_ in }, receiveValue: {})
+                .store(in: &self.subscriptions)
         }
 
         switch fontAction {
@@ -139,6 +149,12 @@ private extension MarksPaneBlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             blockModel.information.content = .text(textContentType)
+            self.documentViewInteraction?.updateBlocks(with: [blockModel.information.id])
+            self.textService.setText.action(contextID: self.contextId,
+                                            blockID: blockModel.information.id,
+                                            attributedString: newAttributedString)
+                .sink(receiveCompletion: {_ in }, receiveValue: {})
+                .store(in: &self.subscriptions)
         case .keyboard:
             self.service.setBackgroundColor(block: block.blockModel.information, color: UIColor.lightGray)
         }

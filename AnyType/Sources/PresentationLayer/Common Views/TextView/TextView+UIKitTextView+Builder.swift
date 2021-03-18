@@ -18,10 +18,6 @@ extension TextView.UIKitTextView {
 extension TextView.UIKitTextView.Builder {
     typealias Coordinator = TextView.UIKitTextView.Coordinator
 
-    func makeUIView(coordinator: Coordinator) -> UITextView {
-        return self.makeUIView(self.createTextView(), coordinator: coordinator)
-    }
-
     func makeUIView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
         let textView = configuredTextView(textView, textViewDelegate: coordinator)
         coordinator.configureActionsToolbarHandler(textView)
@@ -37,10 +33,6 @@ extension TextView.UIKitTextView.Builder {
         }
         coordinator.configureMarksPanePublisher(textView)
         return textView
-    }
-
-    func createTextView() -> TextView.UIKitTextView.TextViewWithPlaceholder {
-        TextView.UIKitTextView.TextViewWithPlaceholder.init()
     }
 
     func configuredTextView(_ textView: UITextView, textViewDelegate: UITextViewDelegate) -> UITextView {

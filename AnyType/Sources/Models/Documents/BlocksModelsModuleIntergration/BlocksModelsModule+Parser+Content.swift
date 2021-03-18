@@ -201,7 +201,7 @@ extension FileNamespace.Converters {
             case let .text(value):
                 return ContentTypeConverter.asModel(value.style).flatMap {
                     typealias Text = Block.Content.ContentType.Text
-                    let attributedString = TextConverter.AttributedText.Converter.asModel(text: value.text, marks: value.marks)
+                    let attributedString = TextConverter.AttributedText.Converter.asModel(text: value.text, marks: value.marks, color: value.color)
                     let textContent: Text = .init(attributedText: attributedString, color: value.color, contentType: $0, checked: value.checked)
                     return .text(textContent)
                 }

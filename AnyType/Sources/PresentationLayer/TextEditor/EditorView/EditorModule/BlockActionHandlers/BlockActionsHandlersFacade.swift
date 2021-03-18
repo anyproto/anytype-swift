@@ -15,6 +15,14 @@ private extension Logging.Categories {
     static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
 }
 
+/// Interaction with document view
+protocol DocumentViewInteraction: AnyObject {
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    /// Update blocks by ids
+    /// - Parameter ids: blocks ids
+    func updateBlocks(with ids: [BlockId])
+}
+
 final class BlockActionsHandlersFacade {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
     // TODO: remove when possible
@@ -60,17 +68,22 @@ final class BlockActionsHandlersFacade {
     private let service: BlockActionService = .init(documentId: "")
     private var documentId: String = ""
     private var indexWalker: LinearIndexWalker?
+    private weak var documentViewInteraction: DocumentViewInteraction?
     
-    private lazy var textBlockActionHandler: TextBlockActionHandler = .init(service: service, indexWalker: indexWalker)
+    private lazy var textBlockActionHandler: TextBlockActionHandler = .init(contextId: self.documentId, service: service, indexWalker: indexWalker)
     private lazy var toolbarBlockActionHandler: ToolbarBlockActionHandler = .init(service: service, indexWalker: indexWalker)
-    private lazy var marksPaneBlockActionHandler: MarksPaneBlockActionHandler = .init(service: service, contextId: self.documentId, subject: reactionSubject)
+    private lazy var marksPaneBlockActionHandler: MarksPaneBlockActionHandler = .init(documentViewInteraction: self.documentViewInteraction,
+                                                                                      service: service,
+                                                                                      contextId: self.documentId,
+                                                                                      subject: reactionSubject)
     private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
     private lazy var userActionHandler: UserActionHandler = .init(service: service)
 
     private let reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
     private(set) var reactionPublisher: AnyPublisher<Reaction, Never> = .empty()
 
-    init() {
+    init(documentViewInteraction: DocumentViewInteraction) {
+        self.documentViewInteraction = documentViewInteraction
         self.setup()
     }
 
@@ -86,7 +99,8 @@ final class BlockActionsHandlersFacade {
     /// - Parameter publisher: Publisher that send action from block view to this handler
     /// - Returns: self
     func configured(_ publisher: AnyPublisher<ActionsPayload, Never>) -> Self {
-        self.subscription = publisher.sink { [weak self] (value) in
+        self.subscription = publisher
+            .sink { [weak self] (value) in
             self?.didReceiveAction(action: value)
         }
         return self

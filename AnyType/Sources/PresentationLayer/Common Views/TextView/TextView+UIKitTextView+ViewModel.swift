@@ -106,7 +106,6 @@ extension Namespace {
             /// You could build a cycle of events in these circumstances, it is very bad.
             self.updatePublisher = self.coordinator.attributedTextPublisher.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(\.string).map(Update.text).eraseToAnyPublisher()
             self.richUpdatePublisher = self.coordinator.attributedTextPublisher.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map(Update.attributedText).eraseToAnyPublisher()
-            self.auxiliaryPublisher = self.coordinator.textAlignmentPublisher.receive(on: DispatchQueue.global()).safelyUnwrapOptionals().map({Update.auxiliary(.init(textAlignment: $0))}).eraseToAnyPublisher()
         
             // Size
             self.sizePublisher = self.coordinator.textSizeChangePublisher
@@ -165,6 +164,7 @@ extension Namespace.ViewModel {
         }
         struct Auxiliary {
             var textAlignment: NSTextAlignment
+            var blockColor: UIColor?
         }
         case unknown
         case text(String)

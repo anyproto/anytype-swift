@@ -95,17 +95,6 @@ extension Namespace {
                 os_log(.debug, log: logger, "Initialization process has been cut down. You have to call 'self.setup' method.")
                 return;
             }
-            self.setup()
-        }
-        
-        private func setupPublishers() {
-            self.attributedTextPublisher = self.attributedTextSubject.eraseToAnyPublisher()
-            self.textAlignmentPublisher = self.textAlignmentSubject.eraseToAnyPublisher()
-        }
-        
-        private func setup() {
-            self.setupPublishers()
-//            self.configureKeyboardNotificationsListening()
         }
     }
 }
@@ -277,32 +266,6 @@ private extension FileNamespace {
             // now tell outer world that we are ready to process actions.
             // ...
             self?.publishToOuterWorld(value)
-        }
-    }
-    
-    // MARK: - Publishers / Highlighted Toolbar
-    func updateWholeMarkStyle(_ view: UITextView, wholeMarkStyleKeeper: TextView.MarkStyleKeeper) {
-        let (textView, value) = (view, wholeMarkStyleKeeper.value)
-        let attributedText = textView.textStorage
-        let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-        if let style = modifier.getMarkStyle(style: .strikethrough(value.strikethrough), at: .whole(true)), style != .strikethrough(value.strikethrough) {
-            _ = modifier.applyStyle(style: .strikethrough(value.strikethrough), rangeOrWholeString: .whole(true))
-        }
-        if let color = value.textColor, let style = modifier.getMarkStyle(style: .textColor(color), at: .whole(true)), style != .textColor(color) {
-            _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .whole(true))
-        }
-    }
-    
-    func configureWholeMarkStylePublisher(_ view: UITextView, wholeMarkStyleKeeper: TextView.MarkStyleKeeper) {
-        self.wholeMarkStyleHandler = Publishers.CombineLatest(Just(view), wholeMarkStyleKeeper.$value).sink { (textView, value) in
-            let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
-            if let style = modifier.getMarkStyle(style: .strikethrough(value.strikethrough), at: .whole(true)), style != .strikethrough(value.strikethrough) {
-                _ = modifier.applyStyle(style: .strikethrough(value.strikethrough), rangeOrWholeString: .whole(true))
-            }
-            if let color = value.textColor, let style = modifier.getMarkStyle(style: .textColor(color), at: .whole(true)), style != .textColor(color) {
-                _ = modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .whole(true))
-            }
         }
     }
         
@@ -612,17 +575,18 @@ private extension FileNamespace {
     }
 }
 
-// MARK: InnerTextView.Coordinator / UITextViewDelegate
+// MARK: - UITextViewDelegate
+
 extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
-    // MARK: - UITextViewDelegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//        In the case of frequent pressing of enter
-//        we can send multiple split requests to middle
-//        from the same block, it will leads to wrong order of blocks in array,
-//        adding a delay in UITextView makes impossible to press enter very often
+        // In the case of frequent pressing of enter
+        // we can send multiple split requests to middle
+        // from the same block, it will leads to wrong order of blocks in array,
+        // adding a delay in UITextView makes impossible to press enter very often
         if text == "\n" && !self.pressingEnterTimeChecker.exceedsTimeInterval() {
             return false
         }
+
         self.publishToOuterWorld(TextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))
         if text == "\n" {
             // we should return false and perform update by ourselves.
@@ -647,8 +611,11 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
                 return false
             }
         }
+        // workaround: without this typingAttributes reset our custom attributes wouldn't work
+        textView.typingAttributes[.blockColor] = textView.typingAttributes[.blockColor]
         return true
     }
+
     func textViewDidChangeSelection(_ textView: UITextView) {
         /// TODO: Refactor it later.
         return;
@@ -675,22 +642,13 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-//        let (text, attributedText, contentSize) = (textView.text, textView.attributedText, textView.intrinsicContentSize)
         let contentSize = textView.intrinsicContentSize
-        
-        // TODO: Add dispatch on correct thread.
-        // For example, on queue `.global()`
+        self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.attributedText)))
+
         guard self.textSize?.height != contentSize.height else { return }
         self.textSize = contentSize
         DispatchQueue.main.async {
-            // TODO: Add text (?) publisher
-//            self.text = text
-//            self.attributedText = attributedText
             self.textSizeChangeSubject.send(contentSize)
-            /// Don't delete this code until we have stable solution for textView attributedText updates.
-            /// Maybe we will discard current `@Publsihed` solution.
-            ///
-//            self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.text)))
         }
     }
 }

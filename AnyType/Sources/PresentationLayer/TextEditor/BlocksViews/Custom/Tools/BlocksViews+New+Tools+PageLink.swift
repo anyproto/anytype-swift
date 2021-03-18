@@ -101,20 +101,6 @@ extension Namespace {
                 }
             }
         }
-//
-//        // Add diffable to update changes.
-//        override func makeDiffable() -> AnyHashable {
-//            let diffable = super.makeDiffable()
-//            if case let .link(value) = self.getBlock().blockModel.information.content {
-//                let newDiffable: [String: AnyHashable] = [
-//                    "parent": diffable,
-////                    "style": AnyHashable(self.state)
-//                ]
-//                return .init(newDiffable)
-//            }
-//            return diffable
-//        }
-        
 
         // MARK: Contextual Menu
         override func makeContextualMenu() -> BlocksViews.ContextualMenu {
