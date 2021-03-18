@@ -124,17 +124,23 @@ final class TextBlockActionHandler {
 
                         switch block.blockModel.information.content {
                         case let .text(payload):
-                            let isListNotToggle = payload.contentType.isListAndNotToggle
+                            let isListAndNotToggle = payload.contentType.isListAndNotToggle
                             let isToggleAndOpen = payload.contentType == .toggle && block.isToggled
-                            // In case of return was tapped in list block (for toggle in should be open)
+                            // In case of return was tapped in list block (for toggle it should be open)
                             // and this block has children, we will insert new child block at the beginning
                             // of children list, otherwise we will create new block under current block
-                            if (isListNotToggle || isToggleAndOpen), let firstChild = block.childrenIds().first {
+                            let childrenIds = block.childrenIds()
+                            switch (childrenIds.isEmpty, isToggleAndOpen, isListAndNotToggle) {
+                            case (true, true, _):
+                                self.service.addChild(childBlock: newBlock,
+                                                      parentBlockId: block.blockModel.information.id)
+                            case (false, true, _), (false, _, true):
+                                let firstChildId = childrenIds[0]
                                 self.service.add(newBlock: newBlock,
-                                                 afterBlockId: firstChild,
+                                                 afterBlockId: firstChildId,
                                                  position: .top,
                                                  shouldSetFocusOnUpdate: true)
-                            } else {
+                            default:
                                 let newContentType = payload.contentType.isList ? payload.contentType : .text
                                 let oldText = payload.attributedText.string
                                 self.service.split(block: block.blockModel.information,

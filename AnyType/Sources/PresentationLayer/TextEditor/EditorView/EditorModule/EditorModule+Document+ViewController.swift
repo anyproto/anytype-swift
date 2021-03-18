@@ -118,6 +118,10 @@ extension Namespace {
         }
         
         @objc private func tapOnListViewGestureRecognizerHandler() {
+            let location = self.listViewTapGestureRecognizer.location(in: self.listViewTapGestureRecognizer.view)
+            if self.collectionView.visibleCells.first(where: {$0.frame.contains(location)}) != nil {
+                return
+            }
             self.viewModel.handlingTapIfEmpty()
         }
         
@@ -241,7 +245,7 @@ extension Namespace.ViewController {
         ///
         ///
         let scrollAndFocusCompletion: () -> () = { [weak self] in
-            self?.updateVisibleNumberedItems()
+            self?.updateVisibleNumberedAndToggleItems()
             self?.scrollAndFocusOnFocusedBlock()
         }
         if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldAnimateRowsInsertionAndDeletion {
@@ -254,11 +258,12 @@ extension Namespace.ViewController {
         }
     }
     
-    private func updateVisibleNumberedItems() {
+    private func updateVisibleNumberedAndToggleItems() {
         self.collectionView.indexPathsForVisibleItems.forEach {
-            guard case let .text(text) = self.viewModel.builders[$0.row].getBlock().blockModel.information.content,
-                  text.contentType == .numbered else { return }
-            self.collectionView.cellForItem(at: $0)?.contentConfiguration = self.viewModel.builders[$0.row].buildContentConfiguration()
+            let builder = self.viewModel.builders[$0.row]
+            let content = builder.getBlock().blockModel.information.content
+            guard case let .text(text) = content, [.numbered, .toggle].contains(text.contentType) else { return }
+            self.collectionView.cellForItem(at: $0)?.contentConfiguration = builder.buildContentConfiguration()
         }
     }
 }

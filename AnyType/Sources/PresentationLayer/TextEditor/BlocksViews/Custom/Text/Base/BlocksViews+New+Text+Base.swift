@@ -142,9 +142,15 @@ extension Namespace {
             let checkedAction: (Bool) -> Void = { [weak self] value in
                 self?.send(textViewAction: .buttonView(.checkbox(value)))
             }
+            let createChildAction: () -> Void = { [weak self] in
+                guard let self = self else { return }
+                self.send(actionsPayload: .textView(.init(model: self.getBlock(),
+                                                          action: .textView(.keyboardAction(.pressKey(.enter))))))
+            }
             guard var configuration = TextBlockContentConfiguration(self.getBlock(),
                                                                     toggleAction: toggleAction,
-                                                                    checkedAction: checkedAction) else {
+                                                                    checkedAction: checkedAction,
+                                                                    createFirstChildAction: createChildAction) else {
                 assertionFailure("Can't create content configuration for content: \(self.getBlock().blockModel.information.content)")
                 return super.makeContentConfiguration()
             }

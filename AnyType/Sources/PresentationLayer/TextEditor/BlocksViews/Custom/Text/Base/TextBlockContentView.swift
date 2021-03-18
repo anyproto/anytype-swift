@@ -11,7 +11,11 @@ import UIKit
 final class TextBlockContentView: UIView & UIContentView {
 
     struct Layout {
-        let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        struct ToggleAddChildButton {
+                let titleEdgeInsets: UIEdgeInsets = .init(top: 0, left: 24, bottom: 0, right: 0)
+            }
+            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+            let toggleAddChildButton: ToggleAddChildButton = .init()
     }
     
     private enum Constants {
@@ -55,11 +59,27 @@ final class TextBlockContentView: UIView & UIContentView {
             static let numberToPlaceTextLeft: Int = 20
         }
     }
-
+    private let layout: Layout = .init()
     /// Views
     private let topView: BlocksViews.New.Text.Base.TopWithChildUIKitView = .init()
-    private let contentView: UIView = .init()
-    private var textView: TextView.UIKitTextView? = nil
+    private let textView: TextView.UIKitTextView = .init()
+    private lazy var topViewBottomConstraint: NSLayoutConstraint = self.topView.bottomAnchor.constraint(equalTo: self.bottomAnchor,
+                                                                                                        constant: -self.layout.insets.bottom)
+    private lazy var createChildBlockButton: UIButton = {
+        let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
+            self?.currentConfiguration.createFirstChildAction()
+        }))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle(.init(string: NSLocalizedString("Toogle empty Click and drop block inside",
+                                                                  comment: ""),
+                                        attributes: [.font: UIFont.bodyFont,
+                                                     .foregroundColor: UIColor.textColor]),
+                                  for: .normal)
+        button.titleEdgeInsets = self.layout.toggleAddChildButton.titleEdgeInsets
+        button.contentHorizontalAlignment = .leading
+        button.isHidden = true
+        return button
+    }()
     
     private var currentConfiguration: TextBlockContentConfiguration
     var configuration: UIContentConfiguration {
@@ -89,40 +109,33 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func setupUIElements() {
-        [self.contentView, self.topView].forEach { (value) in
-            value.translatesAutoresizingMaskIntoConstraints = false
-        }
-
+        self.topView.translatesAutoresizingMaskIntoConstraints = false
         _ = self.topView.configured(leftChild: .empty())
-
-        /// View hierarchy
-        self.contentView.addSubview(self.topView)
-        self.addSubview(self.contentView)
-
-        textView = TextView.UIKitTextView()
+        self.addSubview(self.createChildBlockButton)
+        self.addSubview(self.topView)
         _ = self.topView.configured(textView: self.textView)
     }
 
     private func addLayout() {
-        if let superview = self.contentView.superview {
-            let view = self.contentView
-            let layout: Layout = .init()
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: layout.insets.left),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -layout.insets.right),
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: layout.insets.top),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -layout.insets.bottom),
-            ])
-        }
-
         if let superview = self.topView.superview {
             let view = self.topView
             NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
+                self.topViewBottomConstraint,
             ])
+        }
+        if let superview = self.createChildBlockButton.superview {
+            let view = self.createChildBlockButton
+            let constraints: [NSLayoutConstraint] = [
+                view.topAnchor.constraint(equalTo: self.topView.bottomAnchor, constant: self.layout.insets.top),
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom)
+            ]
+            constraints.forEach { $0.priority = .defaultHigh }
+            NSLayoutConstraint.activate(constraints)
         }
     }
 
@@ -136,7 +149,7 @@ final class TextBlockContentView: UIView & UIContentView {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
         if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
             textViewModel.update = .unknown
-            _ = self.textView?.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
+            _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
         }
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
@@ -156,7 +169,8 @@ final class TextBlockContentView: UIView & UIContentView {
         case .quote:
             self.setupForQuote()
         case .toggle:
-            self.setupForToggle(toggled: self.currentConfiguration.block.isToggled)
+            self.setupForToggle(toggled: self.currentConfiguration.block.isToggled,
+                                hasChildren: !self.currentConfiguration.block.childrenIds().isEmpty)
         case .header:
             self.setupForHeader1()
         case .header2:
@@ -171,7 +185,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForPlainText() {
         guard self.topView.leftView != nil else  { return }
         _ = self.topView.configured(leftChild: .empty())
-        self.textView?.textView?.textContainerInset = Constants.Text.textContainerInsets
+        self.textView.textView?.textContainerInset = Constants.Text.textContainerInsets
     }
     
     private func setupForText() {
@@ -200,15 +214,16 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupText(placeholer: String, font: UIFont, backgroundColor: UIColor = .systemBackground) {
-        self.textView?.textView?.backgroundColor = backgroundColor
+        self.textView.textView?.backgroundColor = backgroundColor
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
                                                          .foregroundColor: UIColor.secondaryTextColor]
-        self.textView?.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
-        self.textView?.textView.font = font
-        self.textView?.textView?.textColor = .textColor
+
+        self.textView.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
+        self.textView.textView.font = font
+        self.textView.textView?.textColor = .textColor
     }
     
-    private func setupForToggle(toggled: Bool) {
+    private func setupForToggle(toggled: Bool, hasChildren: Bool) {
         if let toggleButton = self.topView.leftView.subviews.first as? UIButton, toggleButton.tag == Constants.Toggle.buttonTag {
             toggleButton.isSelected = toggled
         } else {
@@ -233,12 +248,25 @@ final class TextBlockContentView: UIView & UIContentView {
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
         self.setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
-        self.textView?.textView?.textContainerInset = Constants.Toggle.textContainerInsets
+        self.textView.textView?.textContainerInset = Constants.Toggle.textContainerInsets
+        self.updateCreateChildButtonState(toggled: toggled, hasChildren: hasChildren)
     }
     
     @objc private func didTapToggleButton(_ button: UIButton) {
         button.isSelected.toggle()
         self.currentConfiguration.toggleAction()
+        self.updateCreateChildButtonState(toggled: button.isSelected,
+                                          hasChildren: !self.currentConfiguration.block.childrenIds().isEmpty)
+    }
+    
+    private func updateCreateChildButtonState(toggled: Bool, hasChildren: Bool) {
+        let oldValue = self.topViewBottomConstraint.isActive
+        let shouldShowCreateButton = toggled && !hasChildren
+        self.topViewBottomConstraint.isActive = !shouldShowCreateButton
+        self.createChildBlockButton.isHidden = !shouldShowCreateButton
+        if oldValue != self.topViewBottomConstraint.isActive {
+            self.currentConfiguration.contextMenuHolder?.send(sizeDidChange: .zero)
+        }
     }
     
     private func setupForCheckbox(checked: Bool) {
@@ -269,8 +297,8 @@ final class TextBlockContentView: UIView & UIContentView {
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
         self.setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
-        self.textView?.textView?.textContainerInset = Constants.Checkbox.textContainerInsets
-        self.textView?.textView?.textColor = checked ? .secondaryTextColor : .textColor
+        self.textView.textView?.textContainerInset = Constants.Checkbox.textContainerInsets
+        self.textView.textView?.textColor = checked ? .secondaryTextColor : .textColor
     }
     
     @objc private func didTapCheckboxButton(_ button: UIButton) {
@@ -279,7 +307,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupForBulleted() {
         self.setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .bodyFont)
-        self.textView?.textView?.textContainerInset = Constants.Bulleted.textContainerInsets
+        self.textView.textView?.textContainerInset = Constants.Bulleted.textContainerInsets
         let isBulletedView = self.topView.leftView.subviews.first is UIImageView
         guard !isBulletedView else { return }
         
@@ -321,12 +349,12 @@ final class TextBlockContentView: UIView & UIContentView {
             ])
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
-        self.textView?.textView?.textContainerInset = Constants.Numbered.textContainerInsets
+        self.textView.textView?.textContainerInset = Constants.Numbered.textContainerInsets
         self.setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .bodyFont)
     }
     
     private func setupForQuote() {
-        self.textView?.textView?.textContainerInset = Constants.Quote.textContainerInsets
+        self.textView.textView?.textContainerInset = Constants.Quote.textContainerInsets
         self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .highlightFont)
         let isQuoteViewExist = self.topView.leftView.subviews.first is QuoteBlockLeadingView
         guard !isQuoteViewExist else { return }

@@ -62,4 +62,15 @@ extension Array {
             return leftIndex < rightIndex
         }
     }
+    
+    /// Safe access to elements by arbitrary index
+    ///
+    /// - Parameters:
+    /// - index: Index to access element
+    subscript(safe index: Int) -> Element? {
+        if index >= 0 && index < self.count {
+            return self[index]
+        }
+        return nil
+    }
 }

@@ -20,6 +20,9 @@ struct TextBlockContentConfiguration {
     /// Action for toggle button
     let toggleAction: () -> Void
     
+    /// Action for creating firast child block for toggle
+    let createFirstChildAction: () -> Void
+    
     /// Action for checked button
     let checkedAction: (Bool) -> Void
     
@@ -33,12 +36,14 @@ struct TextBlockContentConfiguration {
     
     init?(_ block: BlockActiveRecordModelProtocol,
           toggleAction: @escaping() -> Void,
-          checkedAction: @escaping(Bool) -> Void) {
+          checkedAction: @escaping(Bool) -> Void,
+          createFirstChildAction: @escaping() -> Void) {
         if case .text = block.blockModel.information.content {
             self.container = .init(value: block.blockModel.information)
             self.block = block
             self.toggleAction = toggleAction
             self.checkedAction = checkedAction
+            self.createFirstChildAction = createFirstChildAction
         } else {
             return nil
         }

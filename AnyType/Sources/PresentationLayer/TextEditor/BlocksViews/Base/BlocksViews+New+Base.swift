@@ -26,6 +26,11 @@ extension BlocksViews.New.Base.ViewModel {
 
 extension BlocksViews.New.Base {
     class ViewModel: ObservableObject {
+        
+        private enum Constants {
+            static let maxIndentationLevel: Int = 4
+        }
+        
         typealias BlockModel = BlockActiveRecordModelProtocol
         typealias Information = BlockInformationModelProtocol
         
@@ -70,6 +75,28 @@ extension BlocksViews.New.Base {
             if isRealBlock() {
                 self.block = update(getBlock(), body: block)
 //                self.blockUpdatesSubject.send(self.block)
+            }
+        }
+        
+        /// Check whether is possible to drop other block to this to create parent-child relation
+        func canHaveChildren() -> Bool {
+            switch block.blockModel.information.content {
+            case let .text(text):
+                switch text.contentType {
+                case .text, .checkbox, .toggle, .bulleted, .numbered:
+                    return true
+                default:
+                    return false
+                }
+            case let .link(link):
+                switch link.style {
+                case .page:
+                    return true
+                case .dataview, .archive:
+                    return false
+                }
+            default:
+                return false
             }
         }
         
@@ -184,7 +211,7 @@ extension BlocksViews.New.Base {
                         
         // MARK: Indentation
         func indentationLevel() -> Int {
-            self.getBlock().indentationLevel
+            min(self.getBlock().indentationLevel, Constants.maxIndentationLevel)
         }
         
         // MARK: Subclass / Information
