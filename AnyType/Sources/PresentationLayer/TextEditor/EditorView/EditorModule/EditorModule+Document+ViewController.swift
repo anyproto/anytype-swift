@@ -214,7 +214,7 @@ extension Namespace.ViewController {
     }
         
     private func updateData(_ rows: [BlocksViews.New.Base.ViewModel]) {
-        guard let theDataSource = self.dataSource else { return }
+        guard let dataSource = self.dataSource else { return }
                 
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.New.Base.ViewModel>()
         snapshot.appendSections([.first])
@@ -224,16 +224,10 @@ extension Namespace.ViewController {
         /// Maybe we should sync set focus here in completion?
         ///
         ///
-        let scrollAndFocusCompletion: () -> () = { [weak self] in
-            self?.updateVisibleNumberedAndToggleItems()
-            self?.scrollAndFocusOnFocusedBlock()
-        }
-        if self.developerOptions.current.workflow.mainDocumentEditor.listView.shouldAnimateRowsInsertionAndDeletion {
-            theDataSource.apply(snapshot, animatingDifferences: true, completion: scrollAndFocusCompletion)
-        }
-        else {
-            UIView.performWithoutAnimation {
-                theDataSource.apply(snapshot, animatingDifferences: true, completion: scrollAndFocusCompletion)
+        UIView.performWithoutAnimation {
+            dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
+                self?.updateVisibleNumberedAndToggleItems()
+                self?.scrollAndFocusOnFocusedBlock()
             }
         }
     }

@@ -75,25 +75,6 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
                     os_log(.debug, log: logger, "Surely, It should be fixed in another way, but, it is ok for now.")
                     return
                 }
-                /// TODO: Remove when you can.
-                /// It is old DocumentViewBuilder.
-                /// Lets keep it until we remove it from project.
-//                let viewController = DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value, useUIKit: true))
-//                let viewController = EditorModule.DocumentViewBuilder.UIKitBuilder.documentView(by: .init(id: value))
-                
-                /// TODO: We should handle presentation of new view controllers in ContentViewController, for example.
-                /// Or even in Workspace (?)
-                ///
-//                let viewController = EditorModule.ContentViewBuilder.UIKitBuilder.view(by: .init(documentRequest: .init(id: value)))
-                
-                // TODO: Uncomment later when back button will be ready.
-                /// Actually, we have only one subscription.
-                /// Our router is created and stored in viewController for now.
-//                self.subscription = viewController.headerViewModelPublisher.sink { [weak viewController, weak self] (value) in
-//                    viewController?.navigationController?.popViewController(animated: true)
-//                    self?.subscription?.cancel()
-//                    self?.subscription = nil
-//                }
                 
                 self.send(event: .document(.child(.init(documentRequest: .init(id: value)))))
             }

@@ -15,8 +15,7 @@ fileprivate typealias Namespace = EditorModule.Document
 extension Namespace {
     enum ViewBuilder {
         struct Request {
-            var id: String
-//            var useUIKit: Bool = true
+            let id: String
         }
     }
 }

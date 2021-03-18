@@ -31,22 +31,10 @@
 			</dict>
 			<key>mainDocumentEditor</key>
 			<dict>
-				<key>useUIKit</key>
-				<true/>
 				<key>textEditor</key>
-				<dict>
-					<key>shouldEmbedSwiftUIIntoCell</key>
-					<false/>
-					<key>shouldShowCellsIndentation</key>
-					<false/>
-				</dict>
+				<dict/>
 				<key>listView</key>
-				<dict>
-					<key>shouldAnimateRowsInsertionAndDeletion</key>
-					<false/>
-					<key>shouldUseCellsCaching</key>
-					<false/>
-				</dict>
+				<dict/>
 			</dict>
 		</dict>
 	</dict>
