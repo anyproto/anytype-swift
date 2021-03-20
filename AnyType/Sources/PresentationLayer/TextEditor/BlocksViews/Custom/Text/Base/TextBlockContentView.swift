@@ -220,7 +220,7 @@ final class TextBlockContentView: UIView & UIContentView {
                                                          .foregroundColor: UIColor.secondaryTextColor]
 
         self.textView.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
-//        self.textView.textView.font = font
+        self.textView.textView.font = font
 //        self.textView.textView?.textColor = .textColor
     }
     

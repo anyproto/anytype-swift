@@ -150,7 +150,7 @@ public extension Namespace.ContentType.Text {
             }
         }
         
-        /// Retutnrns true in case of .checkbox, .bulleted, .numbered, otherwise returns false
+        /// Returns true in case of .checkbox, .bulleted, .numbered, otherwise returns false
         public var isListAndNotToggle: Bool {
             switch self {
             case .checkbox , .bulleted, .numbered:

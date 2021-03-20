@@ -263,8 +263,9 @@ private extension FileNamespace.EventHandler {
             // obtain current block color
             let blockColor = value.hasColor ? value.color.value : oldText.color
 
+            let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(oldText.contentType)
             let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
-                                                                      style: value.style.value,
+                                                                      style: style ?? value.style.value,
                                                                       marks: marks,
                                                                       checked: newChecked,
                                                                       color: blockColor)

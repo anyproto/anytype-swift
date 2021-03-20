@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import BlocksModels
 
 extension UIFont {
+    typealias TextBlockContentType = TopLevel.AliasesMap.BlockContent.Text.ContentType
     private static let graphikLCGSemibold = "GraphikLCG-Semibold"
     private static let interRegular = "Inter-Regular"
     private static let interBold = "Inter-Bold"
@@ -35,5 +37,26 @@ extension UIFont {
     
     static var bodyFont: UIFont {
         UIFont(name: interRegular, size: 15) ?? .preferredFont(forTextStyle: .body)
+    }
+    
+    /// Get font for for text block type
+    ///
+    /// - Parameters:
+    /// - textType: Text block style
+    static func font(for textType: TextBlockContentType) -> UIFont {
+        switch textType {
+        case .title:
+            return .titleFont
+        case .header2:
+            return .header2Font
+        case .header3:
+            return .header3Font
+        case .header:
+            return .header1Font
+        case .quote:
+            return .highlightFont
+        case .text, .checkbox, .bulleted, .numbered, .toggle, .callout, .header4:
+            return .bodyFont
+        }
     }
 }

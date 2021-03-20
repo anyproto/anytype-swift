@@ -46,25 +46,10 @@ extension TextView.UIKitTextView.Builder {
     }
 
     private func configured(textView: UITextView) -> UITextView {
-        let view = defaultConfiguration(textView)
-
-        let attributedString = NSMutableAttributedString(string: "")
-        let attributes: [NSAttributedString.Key : Any] = [.font : UIFont.preferredFont(forTextStyle: .body)]
-        let range = NSRange(location: 0, length: attributedString.length)
-
-        view.typingAttributes = attributes
-        view.textStorage.setAttributedString(attributedString)
-        view.textStorage.setAttributes(attributes, range: range)
-        view.autocorrectionType = .no
-        return view
-    }
-    
-    private func defaultConfiguration(_ textView: UITextView) -> UITextView {
-        textView.font = .preferredFont(forTextStyle: .title1)
         textView.textContainer.lineFragmentPadding = 0.0
-        textView.textContainerInset = .zero
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
+        textView.autocorrectionType = .no
         return textView
     }
     

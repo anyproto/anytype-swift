@@ -21,7 +21,7 @@ extension Namespace {
             var marks: Anytype_Model_Block.Content.Text.Marks
         }
         
-        static func asModel(text: String, marks: Anytype_Model_Block.Content.Text.Marks, color: String) -> NSAttributedString {
+        static func asModel(text: String, marks: Anytype_Model_Block.Content.Text.Marks, color: String, style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
             // Map attributes to our internal format.
             let attributes = marks.marks.map({ value in
                 (RangeConverter.asModel(value.range), AttributeConverter.asModel(.init(attribute: value.type, value: value.param)))
@@ -37,7 +37,12 @@ extension Namespace {
             
             // We have to set some font, because all styles `change` font attribute.
             // Not the best place to set attribute, however, we don't have best place...
-            let defaultFont: UIFont = .preferredFont(forTextStyle: .body)
+            let defaultFont: UIFont
+            if let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asModel(style) {
+                defaultFont = UIFont.font(for: style)
+            } else {
+                defaultFont = .bodyFont
+            }
             let range: NSRange = .init(location: 0, length: modifier.attributedString.length)
             modifier.attributedString.addAttribute(.font, value: defaultFont, range: range)
             
