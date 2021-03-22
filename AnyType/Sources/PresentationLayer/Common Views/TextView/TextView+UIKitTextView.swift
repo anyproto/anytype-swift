@@ -207,7 +207,7 @@ private extension TextView.UIKitTextView {
                 // self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
             }
         case let .auxiliary(value):
-            self.textView.blockColorAttribute = value.blockColor
+            self.textView.blockColor = value.blockColor
 
             let textAlignment = value.textAlignment
             if textAlignment != self.textView.textAlignment {

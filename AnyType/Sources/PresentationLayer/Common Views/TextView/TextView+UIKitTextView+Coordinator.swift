@@ -586,8 +586,8 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         if text == "\n" && !self.pressingEnterTimeChecker.exceedsTimeInterval() {
             return false
         }
-
         self.publishToOuterWorld(TextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))
+        
         if text == "\n" {
             // we should return false and perform update by ourselves.
             switch (textView.text, range) {
@@ -611,8 +611,6 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
                 return false
             }
         }
-        // workaround: without this typingAttributes reset our custom attributes wouldn't work
-        textView.typingAttributes[.blockColor] = textView.typingAttributes[.blockColor]
         return true
     }
 

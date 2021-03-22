@@ -21,7 +21,6 @@ extension Namespace.Color {
     ///
     /// In API you will see nullable parameters.
     /// It is intentional, we could use `default` options by passing `nil` as a value.
-    ///
     enum Converter {
         enum Colors: CaseIterable {
             case `default`, grey, yellow, orange, red, magenta, purple, ultramarine, lightBlue, teal, green
@@ -75,18 +74,14 @@ extension Namespace.Color {
             static let allCases: [Colors] = [.default, .grey, .yellow, .orange, .red, .magenta, .purple, .ultramarine, .lightBlue, .teal, .green]
         }
 
-        /// Actually, we could set color name to nil.
-        /// But that shouldn't be true?
-        ///
+        /// Convert middlware color to UIColor.
         static func asModel(_ name: String?, background: Bool = false) -> UIColor {
             name.flatMap(Colors.init(name:))?.color(background: background) ?? Colors.default.color(background: background)
         }
 
-        /// Actually, we could set color to nil.
-        /// In this case we should send to middle default value.
-        ///
+        /// Convert UIColor to middlware color.
         static func asMiddleware(_ color: UIColor?, background: Bool = false) -> String {
-            color.flatMap({Colors.name($0, background: background)}) ?? Colors.default.name()
+            color.flatMap({Colors.name($0, background: background)}) ?? ""
         }
     }
 }

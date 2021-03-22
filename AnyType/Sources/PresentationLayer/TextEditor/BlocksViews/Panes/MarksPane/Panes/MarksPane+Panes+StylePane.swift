@@ -415,11 +415,13 @@ extension MarksPane.Panes.StylePane {
                 .foregroundColor(Color(self.style.foregroundColor(chosen: self.viewModel.state)))
                 .frame(width: self.layout.width)
         }
+
         func view(state: Bool) -> some View {
             /// For now, we don't want to play with background.
             /// Do it later.
             self.view//.background(Color(self.viewModel.state ? self.style.backgroundColor() : .clear))
         }
+
         var body: some View {
             Button(action: {
                 self.viewModel.pressed()

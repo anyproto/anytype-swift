@@ -157,7 +157,7 @@ extension Namespace.HeaderView {
 // MARK: Layout
 private extension Namespace.HeaderView {
     struct Layout {
-        var directionalEdgeInsets: NSDirectionalEdgeInsets = .init(top: 12, leading: 20, bottom: 12, trailing: 20)
+        var directionalEdgeInsets: NSDirectionalEdgeInsets = .init(top: 12, leading: 20, bottom: 0, trailing: 20)
     }
 }
 

@@ -14,7 +14,7 @@ final class TextBlockContentView: UIView & UIContentView {
         struct ToggleAddChildButton {
                 let titleEdgeInsets: UIEdgeInsets = .init(top: 0, left: 24, bottom: 0, right: 0)
             }
-            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+            let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: 1, right: 20)
             let toggleAddChildButton: ToggleAddChildButton = .init()
     }
     
@@ -148,6 +148,9 @@ final class TextBlockContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
 
+        // it's important to clean old attributed string
+        self.textView.textView.attributedText = nil
+
         if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
             textViewModel.update = .unknown
             _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
@@ -191,7 +194,7 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private func setupForText() {
         self.setupForPlainText()
-        self.setupText(placeholer: "", font: .bodyFont, backgroundColor: .systemGray6)
+        self.setupText(placeholer: "", font: .bodyFont)
     }
     
     private func setupForTitle() {
@@ -221,6 +224,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         self.textView.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
         self.textView.textView.font = font
+        self.textView.textView.typingAttributes = [.font: font]
 //        self.textView.textView?.textColor = .textColor
     }
     
@@ -299,7 +303,8 @@ final class TextBlockContentView: UIView & UIContentView {
         }
         self.setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
         self.textView.textView?.textContainerInset = Constants.Checkbox.textContainerInsets
-        self.textView.textView?.textColor = checked ? .secondaryTextColor : .textColor
+        // selected color
+        textView.textView.selectedColor = checked ? UIColor.secondaryTextColor : nil
     }
     
     @objc private func didTapCheckboxButton(_ button: UIButton) {

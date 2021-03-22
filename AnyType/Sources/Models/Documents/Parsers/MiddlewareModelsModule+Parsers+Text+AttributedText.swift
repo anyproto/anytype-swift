@@ -30,11 +30,6 @@ extension Namespace {
             // Create modifier of an attributed string.
             let modifier = MarkStyleModifier.init(attributedText: .init(string: text))
 
-            // appy block color
-            let color = AttributeConverter.ColorConverter.textColor.asModel(color)
-            let colorRange: NSRange = .init(location: 0, length: modifier.attributedString.length)
-            modifier.attributedString.addAttribute(.blockColor, value: color, range: colorRange)
-            
             // We have to set some font, because all styles `change` font attribute.
             // Not the best place to set attribute, however, we don't have best place...
             let defaultFont: UIFont

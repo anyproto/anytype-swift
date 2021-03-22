@@ -91,6 +91,7 @@ extension Namespace {
                 cell?.contentConfiguration = item.buildContentConfiguration()
                 cell?.indentationWidth = Constants.cellIndentationWidth
                 cell?.indentationLevel = item.indentationLevel()
+
                 return cell
             }
 

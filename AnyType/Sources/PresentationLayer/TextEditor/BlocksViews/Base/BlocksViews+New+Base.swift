@@ -244,6 +244,7 @@ extension BlocksViews.New.Base {
         
         // MARK: Subclass / ContextualMenu
         func makeContextualMenu() -> BlocksViews.ContextualMenu { .init() }
+
         func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
             switch contextualMenuAction {
             case let .general(value):
@@ -412,7 +413,8 @@ extension BlocksViews.New.Base.ViewModel {
     }
 }
 
-// MARK: Contextual Menu Delegate
+// MARK: - UIContextMenuInteractionDelegate
+
 private extension BlocksViews.New.Base.ViewModel {
     class ContextualMenuInteractor: NSObject, UIContextMenuInteractionDelegate {
         // MARK: Conversion BlocksViews.ContextualMenu.MenuAction <-> UIAction.Identifier
@@ -442,11 +444,12 @@ private extension BlocksViews.New.Base.ViewModel {
             .init(title: action.payload.title, image: action.payload.currentImage, identifier: IdentifierConverter.action(for: action), discoverabilityTitle: nil, attributes: [], state: .off, handler: handler)
         }
         
-        // MARK: UIContextMenuInteractionDelegate
+        // MARK: Delegate methods
+
         func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
             .init(identifier: "" as NSCopying, previewProvider: nil) { [weak self] (value) -> UIMenu? in
                 let menu = self?.provider?.buildContextualMenu()
-                return menu.flatMap{
+                return menu.flatMap {
                     .init(title: $0.title, image: nil, identifier: nil, options: .init(), children: $0.children.map { [weak self] child in
                         ContextualMenuInteractor.action(from: child) { [weak self] (action) in
                             IdentifierConverter.menuAction(for: action.identifier).flatMap({self?.actionSubject.send($0)})

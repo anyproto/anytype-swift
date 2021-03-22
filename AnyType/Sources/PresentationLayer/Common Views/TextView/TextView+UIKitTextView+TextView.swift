@@ -81,9 +81,22 @@ extension Namespace {
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
-        
+
+        private let blockLayoutManager: TextBlockLayoutManager = .init()
+
         private var placeholderConstraints: [NSLayoutConstraint] = []
-        var blockColorAttribute: UIColor?
+        /// Block color
+        var blockColor: UIColor? {
+            didSet {
+                blockLayoutManager.tertiaryColor = blockColor
+            }
+        }
+        /// Color for selected state
+        var selectedColor: UIColor? {
+            didSet {
+                blockLayoutManager.primaryColor = selectedColor
+            }
+        }
         
         override var textContainerInset: UIEdgeInsets {
             didSet {
@@ -92,28 +105,23 @@ extension Namespace {
         }
 
         override var typingAttributes: [NSAttributedString.Key : Any] {
-            get {
-                var newAttr = super.typingAttributes
-                newAttr[.blockColor] = blockColorAttribute
-                return newAttr
-            }
-            set {
+            didSet {
                 if let font = super.typingAttributes[.font] as? UIFont {
                     self.placeholderLabel.font = font
                 }
-                super.typingAttributes = newValue
             }
         }
 
         // MARK: Initialization
         override init(frame: CGRect, textContainer: NSTextContainer?) {
-            let layoutManager = TextBlockLayoutManager()
+
             let textStorage = NSTextStorage()
-            textStorage.addLayoutManager(layoutManager)
+            textStorage.addLayoutManager(blockLayoutManager)
             let textContainer = NSTextContainer()
-            layoutManager.addTextContainer(textContainer)
+            blockLayoutManager  .addTextContainer(textContainer)
 
             super.init(frame: frame, textContainer: textContainer)
+
             self.setup()
         }
         

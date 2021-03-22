@@ -257,9 +257,13 @@ private extension FileNamespace.EventHandler {
             let newText = value.hasText ? value.text.value : oldText.attributedText.string
             let newChecked = value.hasChecked ? value.checked.value : oldText.checked
 
-            // obtain current marks as middleware model
-            let currentMarks = AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
-            let marks = value.hasMarks ? value.marks.value : currentMarks
+            // Apply marks only if we haven't received text and marks.
+            var marks = value.marks.value
+            if !value.hasText, !value.hasMarks {
+                // obtain current marks as middleware model
+                marks = AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
+            }
+
             // obtain current block color
             let blockColor = value.hasColor ? value.color.value : oldText.color
 

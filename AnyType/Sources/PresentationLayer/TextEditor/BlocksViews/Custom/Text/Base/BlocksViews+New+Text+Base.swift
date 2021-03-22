@@ -113,7 +113,7 @@ extension Namespace {
             let createChildAction: () -> Void = { [weak self] in
                 guard let self = self else { return }
                 self.send(actionsPayload: .textView(.init(model: self.getBlock(),
-                                                          action: .textView(.keyboardAction(.pressKey(.enter))))))
+                                                          action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
             }
             guard var configuration = TextBlockContentConfiguration(self.getBlock(),
                                                                     toggleAction: toggleAction,

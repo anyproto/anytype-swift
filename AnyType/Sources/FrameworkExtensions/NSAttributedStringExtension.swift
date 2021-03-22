@@ -15,6 +15,7 @@ extension NSAttributedString {
     /// - Parameter range: range over which the style are checked
     /// - Returns: true if has given style otherwise false
     func hasTrait(trait: UIFontDescriptor.SymbolicTraits, at range: NSRange) -> Bool {
+        guard length > 0 else { return false }
         var hasStyle = false
 
         enumerateAttribute(.font, in: range) { font, _, shouldStop in
@@ -28,7 +29,14 @@ extension NSAttributedString {
         return hasStyle
     }
 
+    /// Check if string has attribute
+    /// - Parameters:
+    ///   - attributeKey: attributed that we check
+    ///   - range: attributed range
+    /// - Returns: true if attribute founded otherweise false
     func hasAttribute(_ attributeKey: NSAttributedString.Key, at range: NSRange) -> Bool {
-        attribute(attributeKey, at: range.location, longestEffectiveRange: nil, in: range) != nil
+        guard length > 0 else { return false }
+
+        return attribute(attributeKey, at: range.location, longestEffectiveRange: nil, in: range) != nil
     }
 }

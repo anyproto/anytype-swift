@@ -28,6 +28,7 @@ extension Block.Information.Utilities.AsHashable: Hashable {
     public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.value.diffable() == rhs.value.diffable()
     }
+    
     public func hash(into hasher: inout Hasher) {
         hasher.combine(self.value.diffable())
     }

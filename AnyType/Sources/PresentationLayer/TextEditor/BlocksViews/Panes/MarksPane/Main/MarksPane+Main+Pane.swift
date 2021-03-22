@@ -89,6 +89,7 @@ extension MarksPane.Main {
         var range: NSRange = .init()
         var states: [Attribute] = []
         static var zero = Self.init()
+
         func isZero() -> Bool {
             return self.range == Self.zero.range && self.states.count == Self.zero.states.count
         }

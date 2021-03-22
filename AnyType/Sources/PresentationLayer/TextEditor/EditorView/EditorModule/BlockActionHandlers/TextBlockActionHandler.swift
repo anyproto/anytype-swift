@@ -79,7 +79,7 @@ final class TextBlockActionHandler {
         case let .pressKey(keyAction):
             if DetailsInspector.kind(of: block.blockModel.information.id) == .title {
                 switch keyAction {
-                case .enter, .enterWithPayload, .enterAtBeginning:
+                case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
                     let id = block.blockModel.information.id
                     let (blockId, _) = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.IdentifierBuilder.asDetails(id)
                     let block = block.container?.choose(by: blockId)
@@ -101,7 +101,7 @@ final class TextBlockActionHandler {
             }
             switch keyAction {
             // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
-            case let .enterWithPayload(left, payload):
+            case let .enterInsideContent(left, payload):
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                     if let oldText = left {
                         guard case let .text(text) = block.blockModel.information.content else {
@@ -118,11 +118,11 @@ final class TextBlockActionHandler {
                     }
                 }
 
-            case let .enterAtBeginning(payload): // we should assure ourselves about type of block.
+            case let .enterOnEmptyContent(payload): // we should assure ourselves about type of block.
                 /// TODO: Fix it in TextView API.
                 /// If payload is empty, so, handle it as .enter ( or .enter at the end )
                 if payload?.isEmpty == true {
-                    self.handlingKeyboardAction(block, .pressKey(.enter))
+                    self.handlingKeyboardAction(block, .pressKey(.enterAtTheEndOfContent))
                     return
                 }
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
@@ -137,7 +137,7 @@ final class TextBlockActionHandler {
                     }
                 }
 
-            case .enter:
+            case .enterAtTheEndOfContent:
                 // BUSINESS LOGIC:
                 // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
                 switch block.blockModel.information.content {
@@ -194,7 +194,7 @@ final class TextBlockActionHandler {
                 guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                     let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
                     os_log(.debug, log: logger, "We can't find previous block to focus on at command .deleteWithPayload for block %@. Moving to .delete command.", block.blockModel.information.id)
-                    self.handlingKeyboardAction(block, .pressKey(.delete))
+                    self.handlingKeyboardAction(block, .pressKey(.deleteOnEmptyContent))
                     return
                 }
 
@@ -216,7 +216,7 @@ final class TextBlockActionHandler {
                 }
                 break
 
-            case .delete:
+            case .deleteOnEmptyContent:
                 self.service.delete(block: block.blockModel.information) { value in
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                         let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
