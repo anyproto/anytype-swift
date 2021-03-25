@@ -101,28 +101,42 @@ extension Namespace {
         func getUIKitViewModel() -> TextView.UIKitTextView.ViewModel { self.textViewModel }
         
         override func makeContentConfiguration() -> UIContentConfiguration {
+            var configuration: UIContentConfiguration?
+            if case let .text(text) = self.getBlock().blockModel.information.content,
+               text.contentType == .toggle {
+                configuration = makeToggleBlockConfiguration()
+            } else {
+                configuration = makeTextBlockConfiguration()
+            }
+            return configuration ?? super.makeContentConfiguration()
+        }
+        
+        private func makeToggleBlockConfiguration() -> UIContentConfiguration? {
             let toggleAction: () -> Void = { [weak self] in
                 guard let self = self else { return }
                 self.update { $0.isToggled.toggle() }
                 let toggled = self.getBlock().isToggled
                 self.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
             }
-            let checkedAction: (Bool) -> Void = { [weak self] value in
-                self?.send(textViewAction: .buttonView(.checkbox(value)))
-            }
             let createChildAction: () -> Void = { [weak self] in
                 guard let self = self else { return }
                 self.send(actionsPayload: .textView(.init(model: self.getBlock(),
                                                           action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
             }
-            guard var configuration = TextBlockContentConfiguration(self.getBlock(),
-                                                                    toggleAction: toggleAction,
-                                                                    checkedAction: checkedAction,
-                                                                    createFirstChildAction: createChildAction) else {
-                assertionFailure("Can't create content configuration for content: \(self.getBlock().blockModel.information.content)")
-                return super.makeContentConfiguration()
+            var configuration = ToggleBlockContentConfiguration(self.getBlock(),
+                                                                toggleAction: toggleAction,
+                                                                createFirstChildAction: createChildAction)
+            configuration?.contextMenuHolder = self
+            return configuration
+        }
+        
+        private func makeTextBlockConfiguration() -> UIContentConfiguration? {
+            let checkedAction: (Bool) -> Void = { [weak self] value in
+                self?.send(textViewAction: .buttonView(.checkbox(value)))
             }
-            configuration.contextMenuHolder = self
+            var configuration = TextBlockContentConfiguration(self.getBlock(),
+                                                                    checkedAction: checkedAction)
+            configuration?.contextMenuHolder = self
             return configuration
         }
 

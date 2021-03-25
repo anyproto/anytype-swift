@@ -12,13 +12,6 @@ import Combine
 
 fileprivate typealias Namespace = EditorModule.Document
 
-/// Input data for document view
-protocol EditorModuleDocumentViewInput: AnyObject {
-    /// Set focus
-    /// - Parameter index: Block index
-    func setFocus(at index: Int)
-}
-
 extension Namespace {
     final class ViewController: UICollectionViewController {
         
@@ -128,10 +121,6 @@ extension Namespace {
         
         /// Add handlers to viewmdoel state changes
         private func configured() {
-            self.viewModel.$builders.sink(receiveValue: { [weak self] (value) in
-                self?.updateData(value)
-            }).store(in: &self.subscriptions)
-
             self.viewModel.publicSizeDidChangePublisher.receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.updateView()
             }.store(in: &self.subscriptions)
@@ -191,12 +180,12 @@ extension Namespace.ViewController {
 private extension Namespace.ViewController {
     func scrollAndFocusOnFocusedBlock() {
         guard let dataSource = self.dataSource else { return }
-        let snapshot = dataSource.snapshot()
+        let snapshot = dataSource.snapshot(for: .first)
         let userSession = self.viewModel.documentViewModel.getUserSession()
         let id = userSession?.firstResponder()
         let focusedAt = userSession?.focusAt()
         if let id = id, let focusedAt = focusedAt {
-            let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
+            let itemIdentifiers = snapshot.visibleItems
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
                 value.blockId == id
             }) {
@@ -214,19 +203,9 @@ extension Namespace.ViewController {
         self.collectionView?.collectionViewLayout.invalidateLayout()
     }
         
-    private func updateData(_ rows: [BlocksViews.New.Base.ViewModel]) {
-        guard let dataSource = self.dataSource else { return }
-                
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.New.Base.ViewModel>()
-        snapshot.appendSections([.first])
-        snapshot.appendItems(rows)
-        
-        /// TODO: Think about post update and set focus synergy.
-        /// Maybe we should sync set focus here in completion?
-        ///
-        ///
+    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.New.Base.ViewModel>) {
         UIView.performWithoutAnimation {
-            dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
+            self.dataSource?.apply(snapshot, animatingDifferences: true) { [weak self] in
                 self?.updateVisibleNumberedAndToggleItems()
                 self?.scrollAndFocusOnFocusedBlock()
             }
@@ -235,7 +214,7 @@ extension Namespace.ViewController {
     
     private func updateVisibleNumberedAndToggleItems() {
         self.collectionView.indexPathsForVisibleItems.forEach {
-            let builder = self.viewModel.builders[$0.row]
+            guard let builder = self.viewModel.builders[safe: $0.row] else { return }
             let content = builder.getBlock().blockModel.information.content
             guard case let .text(text) = content, [.numbered, .toggle].contains(text.contentType) else { return }
             self.collectionView.cellForItem(at: $0)?.contentConfiguration = builder.buildContentConfiguration()
@@ -277,4 +256,24 @@ extension Namespace.ViewController: EditorModuleDocumentViewInput {
             textItem.set(focus: .init(position: userSession?.focusAt() ?? .end, completion: {_ in }))
         }
     }
+    
+    func updateData(_ rows: [BlocksViews.New.Base.ViewModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.New.Base.ViewModel>()
+        snapshot.appendSections([.first])
+        snapshot.appendItems(rows)
+        self.apply(snapshot)
+    }
+    
+    func delete(rows: [BlocksViews.New.Base.ViewModel]) {
+        guard var snapshot = self.dataSource?.snapshot() else { return }
+        snapshot.deleteItems(rows)
+        self.apply(snapshot)
+    }
+    
+    func insert(rows: [BlocksViews.New.Base.ViewModel], after row: BlocksViews.New.Base.ViewModel) {
+        guard var snapshot = self.dataSource?.snapshot() else { return }
+        snapshot.insertItems(rows, afterItem: row)
+        self.apply(snapshot)
+    }
+
 }

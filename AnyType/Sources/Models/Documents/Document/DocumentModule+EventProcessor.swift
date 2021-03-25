@@ -172,10 +172,14 @@ extension FileNamespace.EventHandler {
             var addedIds: [BlockId] = []
             var deletedIds: [BlockId] = []
             var updatedIds: [BlockId] = []
+            var openedToggleId: BlockId? = nil
             static var empty: Self = .init()
             
             static func merged(lhs: Self, rhs: Self) -> Self {
-                .init(addedIds: lhs.addedIds + rhs.addedIds, deletedIds: lhs.deletedIds + rhs.deletedIds, updatedIds: lhs.updatedIds + rhs.updatedIds)
+                .init(addedIds: lhs.addedIds + rhs.addedIds,
+                      deletedIds: lhs.deletedIds + rhs.deletedIds,
+                      updatedIds: lhs.updatedIds + rhs.updatedIds,
+                      openedToggleId: lhs.openedToggleId ?? rhs.openedToggleId)
             }
         }
         
@@ -543,9 +547,22 @@ private extension FileNamespace.EventHandler {
             model.didChange()
             
             return .general
-        case .setToggled:
-            /// TODO: Implement
-            return .general
+        case let .setToggled(payload):
+            guard let container = self.container,
+                  let block = container.blocksContainer.choose(by: payload.payload.blockId) else {
+                return .empty
+            }
+            if !block.isToggled {
+                let flattener = DocumentModule.Document.BaseFlattener.self
+                let deletedIds = flattener.flattenIds(root: block,
+                                                      in: container,
+                                                      options: .init(shouldCheckIsToggleOpened: false,
+                                                                     shouldSetNumbers: false))
+                return .update(.init(deletedIds: deletedIds))
+            } else {
+                return .update(.init(openedToggleId: payload.payload.blockId))
+            }
+
         }
     }
 }

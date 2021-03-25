@@ -6,8 +6,7 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
+import UIKit
 import Combine
 import os
 import BlocksModels
@@ -235,7 +234,6 @@ extension BlocksViews.New.Base {
         }
         
         // MARK: Subclass / Views
-        func makeSwiftUIView() -> AnyView { .init(EmptyView()) }
         func makeUIView() -> UIView { .init() }
         func makeContentConfiguration() -> UIContentConfiguration { ContentConfiguration.init() }
         
@@ -568,8 +566,6 @@ extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
     var blockId: BlockID { self.getBlock().blockModel.information.id }
     
 //    var id: IndexID { .init() } // Unused, actually, so, conform as you want.
-    
-    func buildView() -> AnyView { self.makeSwiftUIView() }
 
     func buildUIView() -> UIView {
         let view = makeUIView()

@@ -14,6 +14,8 @@ fileprivate typealias FileNamespace = Namespace.BaseFlattener
 
 extension FileNamespace {
     struct Options {
+        var shouldCheckIsToggleOpened: Bool = true
+        var shouldSetNumbers: Bool = true
         var shouldIncludeRootNode: Bool = false
         static var `default`: Self = .init()
     }
@@ -59,7 +61,7 @@ extension Namespace {
     ///
     class BaseFlattener {
         typealias ActiveModel = BlockActiveRecordModelProtocol
-        fileprivate typealias BlockId = TopLevel.AliasesMap.BlockId
+        typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias Container = TopLevelContainerModelProtocol
         
         /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
@@ -68,11 +70,13 @@ extension Namespace {
         /// - Parameters:
         ///   - model: Model ( or Root ) from which we would like to start.
         ///   - container: A container in which we will find items.
-        /// - Returns: A list of active models.
-        private static func flatten(root model: ActiveModel, in container: Container) -> [ActiveModel] {
+        ///   - options: Options
+        /// - Returns: A list of block ids.
+        private static func flatten(root model: ActiveModel,
+                                       in container: Container,
+                                       options: Options) -> [BlockId] {
             var result: Array<BlockId> = .init()
             let stack: DataStructures.Stack<BlockId> = .init()
-            let blocksContainer = container.blocksContainer
             stack.push(model.blockModel.information.id)
             while !stack.isEmpty {
                 if let value = stack.pop() {
@@ -82,14 +86,18 @@ extension Namespace {
                     }
                     
                     /// Do numbered stuff?
-                    let children = self.filteredChildren(of: value, in: container)
-                    self.preprocessingChildren(children, in: container)
+                    let children = self.filteredChildren(of: value,
+                                                         in: container,
+                                                         shouldCheckIsToggleOpened: options.shouldCheckIsToggleOpened)
+                    if options.shouldSetNumbers {
+                        NumberedFlattener().process(children, in: container)
+                    }
                     for item in children.reversed() {
                         stack.push(item)
                     }
                 }
             }
-            return result.compactMap({blocksContainer.choose(by: $0)})
+            return result
         }
                 
         /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
@@ -100,6 +108,23 @@ extension Namespace {
         ///   - options: Options for flattening strategies.
         /// - Returns: A list of active models.
         static func flatten(root model: ActiveModel, in container: Container, options: Options) -> [ActiveModel] {
+            let ids = flattenIds(root: model,
+                                  in: container,
+                                  options: options)
+             let blocksContainer = container.blocksContainer
+             return ids.compactMap { blocksContainer.choose(by: $0) }
+        }
+        
+        /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
+        /// It is like a "opening all nested folders" in a parent folder.
+        /// - Parameters:
+        ///   - model: Model ( or Root ) from which we would like to start.
+        ///   - container: A container in which we will find items.
+        ///   - options: Options for flattening strategies.
+        /// - Returns: A list of block ids.
+        static func flattenIds(root model: ActiveModel,
+                               in container: Container,
+                               options: Options) -> [BlockId] {
             /// TODO: Fix it.
             /// Because `ShouldKeep` template method will flush out all unnecessary blocks from list.
             /// There is no need to skip first block ( or parent block ) if it is already skipped by `ShouldKeep`.
@@ -108,10 +133,14 @@ extension Namespace {
             ///
             let rootItemIsAlreadySkipped = !self.shouldKeep(item: model.blockModel.information.id, in: container)
             if options.shouldIncludeRootNode || rootItemIsAlreadySkipped {
-                return self.flatten(root: model, in: container)
+                return self.flatten(root: model,
+                                    in: container,
+                                    options: options)
             }
             else {
-                return Array(self.flatten(root: model, in: container).dropFirst())
+                return Array(self.flatten(root: model,
+                                          in: container,
+                                          options: options).dropFirst())
             }
         }
     }
@@ -141,56 +170,19 @@ private extension FileNamespace {
     /// - Parameters:
     ///   - item: Id of current item.
     ///   - container: Container.
+    ///   - shouldCheckIsToggleOpened: Should check opened state for toggle bocks
     /// - Returns: Filtered children of an item.
-    private static func filteredChildren(of item: BlockId, in container: Container) -> [BlockId] {
+    private static func filteredChildren(of item: BlockId,
+                                         in container: Container,
+                                         shouldCheckIsToggleOpened: Bool) -> [BlockId] {
         guard let model = container.blocksContainer.choose(by: item) else {
             return []
         }
         switch model.blockModel.information.content {
-        case let .text(value) where value.contentType == .toggle: return ToggleFlattener.processedChildren(item, in: container)
+        case let .text(value) where value.contentType == .toggle:
+                return ToggleFlattener(shouldCheckToggleFlag: shouldCheckIsToggleOpened).processedChildren(item,
+                                                                                                           in: container)
         default: return container.blocksContainer.children(of: item)
-        }
-    }
-    
-    /// Template method.
-    /// Preprocess children of item. If you would like to change some things before rendering, it is the best place.
-    /// - Parameters:
-    ///   - children: Children ids.
-    ///   - container: Container.
-    private static func preprocessingChildren(_ children: [BlockId],  in container: Container) {
-        NumberedFlattener.process(children, in: container)
-    }
-}
-
-private extension FileNamespace {
-    /// TODO:
-    /// Add Toggle and Numbered Flatteners.
-    ///
-    class ToggleFlattener {
-        static func processedChildren(_ id: BlockId, in container: Container) -> [BlockId] {
-            let isToggled = container.blocksContainer.userSession.isToggled(by: id)
-            if isToggled {
-                return container.blocksContainer.children(of: id)
-            }
-            else {
-                return []
-            }
-        }
-    }
-    class NumberedFlattener {
-        static func process(_ ids: [BlockId], in container: Container) {
-            var number: Int = 0
-            for id in ids {
-                if let model = container.blocksContainer.choose(by: id) {
-                    switch model.blockModel.information.content {
-                    case let .text(value) where value.contentType == .numbered:
-                        number += 1
-                        var blockModel = model.blockModel
-                        blockModel.information.content = .text(.init(attributedText: value.attributedText, color: value.color, contentType: value.contentType, checked: value.checked, number: number))
-                    default: number = 0
-                    }
-                }
-            }
         }
     }
 }

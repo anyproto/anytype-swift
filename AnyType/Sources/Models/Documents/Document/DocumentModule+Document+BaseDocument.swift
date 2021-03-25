@@ -251,9 +251,28 @@ extension FileNamespace {
             }).eraseToAnyPublisher()
         
         return publisher.map { [weak self] (value) in
-            .init(updates: value, models: self?.getModels() ?? [])
+            .init(updates: value, models: self?.models(from: value) ?? [])
         }.eraseToAnyPublisher()
     }
+    
+    private func models(from updates: ModelsUpdates) -> [ActiveModel] {
+        switch updates {
+        case .general:
+            return self.getModels()
+        case let .update(payload):
+            if let toggleId = payload.openedToggleId,
+               let container = self.rootModel,
+               let block = container.blocksContainer.choose(by: toggleId),
+               block.isToggled {
+                return DocumentModule.Document.BaseFlattener.flatten(root: block, in: container, options: .default)
+            }
+            if !payload.addedIds.isEmpty {
+                return self.getModels()
+            }
+            return []
+        }
+    }
+
 }
 
 // MARK: - Details

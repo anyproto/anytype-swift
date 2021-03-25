@@ -331,10 +331,15 @@
 		EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
 		EA5A8FC625FB5EF9009EFAF2 /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA5A8FC325FB5EF8009EFAF2 /* Inter-Bold.ttf */; };
+		EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */; };
+		EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF45260C8E420062273F /* ToggleFlattener.swift */; };
 		EA6EC90425ED05BA00740B31 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA6EC90125ED05BA00740B31 /* Inter-Regular.ttf */; };
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
+		EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */; };
+		EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */; };
+		EADA96C8260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -700,10 +705,15 @@
 		EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentView.swift; sourceTree = "<group>"; };
 		EA5A8FC325FB5EF8009EFAF2 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
+		EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedFlattener.swift; sourceTree = "<group>"; };
+		EA6BAF45260C8E420062273F /* ToggleFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleFlattener.swift; sourceTree = "<group>"; };
 		EA6EC90125ED05BA00740B31 /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
+		EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentView.swift; sourceTree = "<group>"; };
+		EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentConfiguration.swift; sourceTree = "<group>"; };
+		EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorModuleDocumentViewInput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1409,6 +1419,8 @@
 				0A09661725C0AB4F00C004BD /* DocumentModule+Document+BaseDocument.swift */,
 				0A09661A25C0AD0800C004BD /* DocumentModule+Document+DetailsActiveModel.swift */,
 				0AEAD65F25C0B93800E8A442 /* DocumentModule+Document+Flattener.swift */,
+				EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */,
+				EA6BAF45260C8E420062273F /* ToggleFlattener.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -1465,6 +1477,7 @@
 				0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */,
 				0A0965DE25BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift */,
 				0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */,
+				EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */,
 			);
 			path = EditorModule;
 			sourceTree = "<group>";
@@ -1480,6 +1493,7 @@
 		0A10CC5A248EC2EE000FF498 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				EADA96BD260A738B001F6FA4 /* Toggle */,
 				0A6F9009255481B300B94AED /* Unknown */,
 				0AD6B24624CF5D0A0097A841 /* Bookmark */,
 				0A005AC224C86DFA000520AA /* Other */,
@@ -2032,6 +2046,15 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		EADA96BD260A738B001F6FA4 /* Toggle */ = {
+			isa = PBXGroup;
+			children = (
+				EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */,
+				EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */,
+			);
+			path = Toggle;
+			sourceTree = "<group>";
+		};
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2236,6 +2259,7 @@
 				034A303F24045B75002599E2 /* HomeViewAssembly.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
 				0ACA781623E5C99A00442690 /* Services.swift in Sources */,
+				EADA96C8260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* BlocksModelsModule+Parser.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsService+Bookmark+Implementation.swift in Sources */,
@@ -2245,6 +2269,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
+				EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsModule+Parser+Link.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
@@ -2299,6 +2324,7 @@
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift in Sources */,
 				0A72751324AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift in Sources */,
+				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				0AA9B04E249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift in Sources */,
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
@@ -2355,6 +2381,7 @@
 				0A0965F525BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
+				EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */,
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BlockActionsService+Bookmark.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */,
@@ -2384,6 +2411,7 @@
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
+				EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */,
 				0ACC357125C850B80003CF3A /* BlocksViews+Supplement+ViewModelsConvertions.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */,

@@ -19,6 +19,5 @@ protocol BlockViewBuilderProtocol: class {
     var blockId: BlockID { get }
     var diffable: AnyHashable { get }
     
-    func buildView() -> AnyView
     func buildUIView() -> UIView
 }

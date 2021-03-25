@@ -200,6 +200,7 @@ extension Namespace {
             let difference = builders.difference(from: self.builders) {$0.diffable == $1.diffable}
             if !difference.isEmpty, let result = self.builders.applying(difference) {
                 self.builders = result
+                self.viewInput?.updateData(self.builders)
             }
         }
         
@@ -221,6 +222,36 @@ extension Namespace {
                 }).store(in: &self.subscriptions)
         }
         
+        private func remove(buildersWith ids: [BlockId]) {
+            let targetIds: Set<BlockId> = .init(ids)
+            var indexSet: IndexSet = .init()
+            var itemsToDelete: [BlocksViews.New.Base.ViewModel] = []
+            
+            let startIndex = self.builders.startIndex
+            let endIndex = self.builders.endIndex
+            
+            var buildersIndex = startIndex
+            
+            while buildersIndex != endIndex, targetIds.count != itemsToDelete.count {
+                let item = self.builders[buildersIndex]
+                if targetIds.contains(item.blockId) {
+                    indexSet.insert(buildersIndex)
+                    itemsToDelete.append(item)
+                }
+                buildersIndex = buildersIndex.advanced(by: 1)
+            }
+            self.builders.remove(atOffsets: indexSet)
+            self.viewInput?.delete(rows: itemsToDelete)
+        }
+        
+        private func insert(builders: [BlocksViews.New.Base.ViewModel], after blockId: BlockId) {
+            guard let index = self.builders.firstIndex(where: { $0.blockId == blockId }) else { return }
+            let builder = self.builders[index]
+            self.builders.insert(contentsOf: builders, at: index + 1)
+            self.viewInput?.insert(rows: builders, after: builder)
+        }
+
+        
         private func handleOpenDocument(_ value: ServiceLayerModule.Success) {
             // sink publisher
             self.documentViewModel.updatePublisher()
@@ -230,13 +261,17 @@ extension Namespace {
                     case .general:
                         self?.update(builders: value.models)
                     case let .update(update):
-                        if !update.addedIds.isEmpty || !update.deletedIds.isEmpty {
+                        if let toggledId = update.openedToggleId {
+                            self?.insert(builders: value.models, after: toggledId)
+                        }
+                        if !update.addedIds.isEmpty {
                             self?.update(builders: value.models)
                         }
                         if !update.updatedIds.isEmpty {
                             self?.updateElementsSubject.send(update.updatedIds)
                         }
                         if !update.deletedIds.isEmpty {
+                            self?.remove(buildersWith: update.deletedIds)
                             self?.deselect(ids: Set(update.deletedIds))
                         }
                     }
