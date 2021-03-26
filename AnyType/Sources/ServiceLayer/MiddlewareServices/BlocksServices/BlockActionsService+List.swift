@@ -41,7 +41,7 @@ protocol ServiceLayerModule_BlockActionsServiceListProtocolSetTextStyle {
 protocol ServiceLayerModule_BlockActionsServiceListProtocolSetBackgroundColor {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
-    func action(contextID: BlockId, blockIds: [BlockId], color: UIColor?) -> AnyPublisher<Success, Error>
+    func action(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<Success, Error>
 }
 protocol ServiceLayerModule_BlockActionsServiceListProtocolSetAlign {
     associatedtype Success
@@ -90,10 +90,10 @@ protocol ServiceLayerModule_BlockActionsServiceListProtocol {
 
     typealias BlockId = TopLevel.AliasesMap.BlockId
 
-    /// Set foreground color for block
+    /// Set block  color
     /// - Parameters:
     ///   - contextID: page id
     ///   - blockIds: id block
-    ///   - color:block foreground color
-    func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: UIColor?) -> AnyPublisher<ServiceLayerModule.Success, Error>
+    ///   - color: block  color
+    func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<ServiceLayerModule.Success, Error>
 }

@@ -14,12 +14,8 @@ fileprivate typealias Namespace = MiddlewareModelsModule.Parsers.Text.Attributed
 extension Namespace {
     /// First, we use it in UI.
     /// But now we use it also as a presentation of Middleware MarkStyle.
-    /// Well, lets describe a bit.
     /// We have middleware marks that don't have one-to-one map to our attributes in NSAttributedString.
-    /// And it is ok, because some styles are not so easy to achieve.
-    /// So, we have intermediate presentation ( this `MarkStyle` ) which could be easily convert from middleware ( business logic ) styles
-    /// to `NSAttributedString` parameters.
-    ///
+    /// So, we have intermediate presentation (this `MarkStyle`) which could be easily convert from middleware (business logic) styles to `NSAttributedString` parameters.
     enum MarkStyle: Equatable, CaseIterable {
         enum Update {
             case empty
@@ -41,6 +37,7 @@ extension Namespace {
                 }
             }
         }
+
         static var allCases: [MarkStyle] {
             return [
                 .bold(false),

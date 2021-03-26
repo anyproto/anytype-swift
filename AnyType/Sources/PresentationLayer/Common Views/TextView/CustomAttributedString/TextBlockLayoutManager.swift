@@ -10,16 +10,23 @@ import UIKit
 
 /// Custom layout manager for text block.
 ///
-/// We can use this for drawing custom attributed key.
+/// We can use this for drawing custom attributed key, color or other text styles.
+/// - Note: `foregroundColor` from `NSAttributedString.Key` applied as secondary color.
 final class TextBlockLayoutManager: NSLayoutManager {
     /// Main color.
     ///
     /// Custom color that applyed before `foregroundColor`and `thirdColor`
     var primaryColor: UIColor?
+
     /// Third priority color.
     ///
     /// Custom color that applyed after `primaryColor`and `foregroundColor`
     var tertiaryColor: UIColor?
+
+    /// Default color.
+    ///
+    /// The lowest priority color.  Applied when either `primaryColor`, `foregroundColor` and `tertiaryColor` haven't set. Default value is `black`.
+    var defaultColor: UIColor?
 
     override func showCGGlyphs(_ glyphs: UnsafePointer<CGGlyph>, positions: UnsafePointer<CGPoint>, count glyphCount: Int, font: UIFont, textMatrix: CGAffineTransform, attributes: [NSAttributedString.Key : Any] = [:], in CGContext: CGContext) {
 
@@ -31,14 +38,17 @@ final class TextBlockLayoutManager: NSLayoutManager {
     }
 
     private func obtainCustomFontColor(hasForegroundColor: Bool) -> CGColor? {
-        var color: CGColor?
-
         if let primaryColor = primaryColor {
-            color = primaryColor.cgColor
+            return primaryColor.cgColor
         }
-        else if let thirdColor = tertiaryColor, !hasForegroundColor {
-            color = thirdColor.cgColor
+
+        if let thirdColor = tertiaryColor, !hasForegroundColor {
+            return thirdColor.cgColor
         }
-        return color
+
+        if !hasForegroundColor {
+            return defaultColor?.cgColor
+        }
+        return nil
     }
 }

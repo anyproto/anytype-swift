@@ -60,9 +60,14 @@ final class MarksPaneBlockActionHandler {
 
 private extension MarksPaneBlockActionHandler {
 
-    func setBlockColor(block: BlockInformationModelProtocol, color: UIColor?) {
+    func setBlockColor(block: BlockInformationModelProtocol, color: UIColor) {
+        // Important: we don't send command if color is wrong
+        guard let color = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false) else {
+            assertionFailure("Wrong UIColor for setBlockColor command")
+            return
+        }
         let blockIds = [block.id]
-        
+
         self.listService.setBlockColor(contextID: self.contextId, blockIds: blockIds, color: color)
             .sink(receiveCompletion: { (value) in
                 switch value {
@@ -112,17 +117,17 @@ private extension MarksPaneBlockActionHandler {
 
             textContentType.attributedText.enumerateAttribute(.font, in: range) { oldFont, range, shouldStop in
                 guard let oldFont = oldFont as? UIFont else { return }
-                var boldSymbolicTraits = oldFont.fontDescriptor.symbolicTraits
+                var symbolicTraits = oldFont.fontDescriptor.symbolicTraits
 
                 if hasTrait {
-                    boldSymbolicTraits.remove(trait)
+                    symbolicTraits.remove(trait)
                 } else {
-                    boldSymbolicTraits.insert(trait)
+                    symbolicTraits.insert(trait)
                 }
 
-                if let newFontDescriptor = oldFont.fontDescriptor.withSymbolicTraits(boldSymbolicTraits) {
-                    let boldFont = UIFont(descriptor: newFontDescriptor, size: oldFont.pointSize)
-                    newAttributedString.addAttributes([NSAttributedString.Key.font: boldFont], range: range)
+                if let newFontDescriptor = oldFont.fontDescriptor.withSymbolicTraits(symbolicTraits) {
+                    let newFont = UIFont(descriptor: newFontDescriptor, size: oldFont.pointSize)
+                    newAttributedString.addAttributes([NSAttributedString.Key.font: newFont], range: range)
                 }
             }
             textContentType.attributedText = newAttributedString
@@ -145,7 +150,7 @@ private extension MarksPaneBlockActionHandler {
             if textContentType.attributedText.hasAttribute(.strikethroughStyle, at: range) {
                 newAttributedString.removeAttribute(.strikethroughStyle, range: range)
             } else {
-                newAttributedString.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single, range: range)
+                newAttributedString.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: range)
             }
             textContentType.attributedText = newAttributedString
             blockModel.information.content = .text(textContentType)
@@ -156,7 +161,8 @@ private extension MarksPaneBlockActionHandler {
                 .sink(receiveCompletion: {_ in }, receiveValue: {})
                 .store(in: &self.subscriptions)
         case .keyboard:
-            self.service.setBackgroundColor(block: block.blockModel.information, color: UIColor.lightGray)
+            typealias ColorsConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+            self.service.setBackgroundColor(block: block.blockModel.information, color: ColorsConverter.Colors.grey.color(background: true))
         }
     }
     

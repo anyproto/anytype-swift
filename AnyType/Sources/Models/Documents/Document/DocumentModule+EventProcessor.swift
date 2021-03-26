@@ -298,7 +298,7 @@ private extension FileNamespace.EventHandler {
                 var value = value
                 value.information.backgroundColor = backgroundColor
             })
-            return .update(.empty)
+            return .update(.init(updatedIds: [blockId]))
             
         case let .blockSetAlign(value):
             let blockId = value.id

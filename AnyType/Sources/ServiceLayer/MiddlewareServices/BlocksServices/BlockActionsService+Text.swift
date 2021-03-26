@@ -51,7 +51,7 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
 /// In that way we are distancing from low-level API and low-level colors.
 protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
     typealias BlockId = TopLevel.AliasesMap.BlockId
-    func action(contextID: BlockId, blockID: BlockId, color: UIColor) -> AnyPublisher<Void, Error>
+    func action(contextID: BlockId, blockID: BlockId, color: String) -> AnyPublisher<Void, Error>
 }
 
 /// Protocol for `SetAlignment` for text block. Actually, not only for text block.

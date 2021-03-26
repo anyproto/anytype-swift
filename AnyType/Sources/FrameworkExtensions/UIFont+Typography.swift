@@ -11,32 +11,42 @@ import BlocksModels
 
 extension UIFont {
     typealias TextBlockContentType = TopLevel.AliasesMap.BlockContent.Text.ContentType
-    private static let graphikLCGSemibold = "GraphikLCG-Semibold"
-    private static let interRegular = "Inter-Regular"
-    private static let interBold = "Inter-Bold"
+
+    private enum Graphik {
+        static let graphikLCGSemibold = "GraphikLCG-Semibold"
+    }
+
+    private enum Inter {
+        static let family = "Inter"
+        static let regularFace = "Regular"
+    }
     
     static var titleFont: UIFont {
-        UIFont(name: graphikLCGSemibold, size: 34) ?? .preferredFont(forTextStyle: .largeTitle)
+        UIFont(name: Graphik.graphikLCGSemibold, size: 34) ?? .preferredFont(forTextStyle: .largeTitle)
     }
     
     static var header1Font: UIFont {
-        UIFont(name: graphikLCGSemibold, size: 28) ?? .preferredFont(forTextStyle: .title1)
+        UIFont(name: Graphik.graphikLCGSemibold, size: 28) ?? .preferredFont(forTextStyle: .title1)
     }
     
     static var header2Font: UIFont {
-        UIFont(name: graphikLCGSemibold, size: 22) ?? .preferredFont(forTextStyle: .title2)
+        UIFont(name: Graphik.graphikLCGSemibold, size: 22) ?? .preferredFont(forTextStyle: .title2)
     }
     
     static var header3Font: UIFont {
-        UIFont(name: interBold, size: 17) ?? .preferredFont(forTextStyle: .title3)
+        let fontDescription = UIFontDescriptor(fontAttributes: [.family: Inter.family])
+        let font = UIFont(descriptor: fontDescription, size: 17.0)
+        return font.fontDescriptor.withSymbolicTraits(.traitBold).map { UIFont(descriptor: $0, size: 17.0) } ?? font
     }
     
     static var highlightFont: UIFont {
-        UIFont(name: interRegular, size: 17) ?? .preferredFont(forTextStyle: .headline)
+        let fontDescription = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.regularFace])
+        return UIFont(descriptor: fontDescription, size: 17.0)
     }
     
     static var bodyFont: UIFont {
-        UIFont(name: interRegular, size: 15) ?? .preferredFont(forTextStyle: .body)
+        let fontDescription = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.regularFace])
+        return UIFont(descriptor: fontDescription, size: 15.0)
     }
     
     /// Get font for for text block type

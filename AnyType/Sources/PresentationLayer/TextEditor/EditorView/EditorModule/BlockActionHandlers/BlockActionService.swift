@@ -515,25 +515,31 @@ extension BlockActionService {
 // MARK: - SetBackgroundColor
 
 extension BlockActionService {
-    private func _setBackgroundColor(block: Information, color: UIColor?, _ completion: @escaping Conversion = Converter.Default.convert) {
+    private func _setBackgroundColor(block: Information, color: UIColor, _ completion: @escaping Conversion = Converter.Default.convert) {
+        guard let color = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: true) else {            assertionFailure("Wrong UIColor for setBackgroundColor command")
+            return
+        }
+
         let blockId = block.id
         let blockIds = [blockId]
         let backgroundColor = color
 
-        self.listService.setBackgroundColor.action(contextID: self.documentId, blockIds: blockIds, color: backgroundColor).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "listService.setBackgroundColor got error: %@", "\(error)")
+        self.listService.setBackgroundColor.action(contextID: self.documentId, blockIds: blockIds, color: backgroundColor)
+            .sink { (value) in
+                switch value {
+                case .finished: return
+                case let .failure(error):
+                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
+                    os_log(.error, log: logger, "listService.setBackgroundColor got error: %@", "\(error)")
+                }
+            } receiveValue: { [weak self] (value) in
+                let value = completion(value)
+                self?.didReceiveEvent(nil, value)
             }
-        }) { [weak self] (value) in
-            let value = completion(value)
-            self?.didReceiveEvent(nil, value)
-        }.store(in: &self.subscriptions)
+            .store(in: &self.subscriptions)
     }
 
-    func setBackgroundColor(block: Information, color: UIColor?) {
+    func setBackgroundColor(block: Information, color: UIColor) {
         self._setBackgroundColor(block: block, color: color)
     }
 }

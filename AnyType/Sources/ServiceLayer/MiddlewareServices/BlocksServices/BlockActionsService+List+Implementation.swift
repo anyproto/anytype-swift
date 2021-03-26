@@ -27,9 +27,8 @@ extension Namespace {
         var setPageIsArchived: SetPageIsArchived = .init()
         var deletePage: DeletePage = .init()
         
-        func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: UIColor?) -> AnyPublisher<Success, Error> {
-            let colorAsString = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false)
-            return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: colorAsString)
+        func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<Success, Error> {
+            return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color)
                 .map(\.event)
                 .map(Success.init(_:))
                 .subscribe(on: DispatchQueue.global())
@@ -83,14 +82,16 @@ extension FileNamespace {
             Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
+
     struct SetBackgroundColor: ServiceLayerModule_BlockActionsServiceListProtocolSetBackgroundColor {
-        func action(contextID: BlockId, blockIds: [BlockId], color: UIColor?) -> AnyPublisher<Success, Error> {
-            // convert color to String?
-            let result = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: true)
-            return action(contextID: contextID, blockIds: blockIds, color: result)
-        }
-        private func action(contextID: String, blockIds: [String], color: String) -> AnyPublisher<Success, Error> {
-            Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID, blockIds: blockIds, color: color).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        func action(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID,
+                                                                     blockIds: blockIds,
+                                                                     color: color)
+                .map(\.event)
+                .map(Success.init(_:))
+                .subscribe(on: DispatchQueue.global())
+                .eraseToAnyPublisher()
         }
     }
 

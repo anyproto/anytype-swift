@@ -85,12 +85,21 @@ extension Namespace {
         private let blockLayoutManager: TextBlockLayoutManager = .init()
 
         private var placeholderConstraints: [NSLayoutConstraint] = []
+
         /// Block color
         var blockColor: UIColor? {
             didSet {
                 blockLayoutManager.tertiaryColor = blockColor
             }
         }
+
+        /// Default font color. Applied as the lowest priority color.
+        var defaultFontColor: UIColor? {
+            didSet {
+                blockLayoutManager.defaultColor = defaultFontColor
+            }
+        }
+
         /// Color for selected state
         var selectedColor: UIColor? {
             didSet {
@@ -118,7 +127,7 @@ extension Namespace {
             let textStorage = NSTextStorage()
             textStorage.addLayoutManager(blockLayoutManager)
             let textContainer = NSTextContainer()
-            blockLayoutManager  .addTextContainer(textContainer)
+            blockLayoutManager.addTextContainer(textContainer)
 
             super.init(frame: frame, textContainer: textContainer)
 

@@ -72,12 +72,7 @@ extension FileNamespace {
     
     // MARK: SetForegroundColor
     struct SetForegroundColor: ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
-        func action(contextID: String, blockID: String, color: UIColor) -> AnyPublisher<Void, Error> {
-            // convert color to String?
-            let result = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false)
-            return action(contextID: contextID, blockID: blockID, color: result)
-        }
-        private func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error> {
+        func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error> {
             Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextID, blockID: blockID, color: color)
                 .successToVoid().subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()

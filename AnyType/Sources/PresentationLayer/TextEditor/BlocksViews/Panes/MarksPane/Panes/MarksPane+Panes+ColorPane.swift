@@ -32,8 +32,6 @@ extension MarksPane.Panes.Color {
     /// This attribute refers to this update.
     ///
     /// That is why you have `Converter` from `TextView.MarkStyle`
-    ///
-    
     enum Attribute {
         case setColor(UIColor)
     }
@@ -43,8 +41,8 @@ extension MarksPane.Panes.Color {
     enum Converter {
         private static func state(_ style: TextView.MarkStyle, background: Bool) -> Attribute? {
             switch style {
-            case let .textColor(color): return .setColor(color ?? Colors.default.color(background: false))
-            case let .backgroundColor(color): return .setColor(color ?? Colors.default.color(background: true))
+            case let .textColor(color): return .setColor(color ?? .defaultColor)
+            case let .backgroundColor(color): return .setColor(color ?? .defaultBackgroundColor)
             default: return nil
             }
         }
@@ -77,11 +75,9 @@ extension MarksPane.Panes.Color {
 extension MarksPane.Panes.Color {
     /// `ListDataSource` is intended to manipulate with data at index paths.
     /// Also, it knows about the count of entries in a row at section.
-    ///
     enum ListDataSource {
         /// Since we have only two rows on our screen in current design, we are fine with constant `2`.
         /// - Returns: A count of sections (actually, rows) of colors in pane.
-        ///
         static func sectionsCount() -> Int {
             return 2
         }
@@ -92,7 +88,6 @@ extension MarksPane.Panes.Color {
         ///
         /// WARNING:
         /// This method returns `valid` indices even for `section > sectionsCount` and for `section < 0`
-        ///
         static func itemsCount(section: Int) -> Int {
             switch section {
             case 0: return 6
@@ -113,7 +108,6 @@ extension MarksPane.Panes.Color {
         /// (0, 0), (0, 1), (0, 2)
         /// (1, 3), (1, 4)
         /// (2, 5)
-        ///
         static func indexPath(_ index: Int) -> IndexPath {
             for section in 0 ..< self.sectionsCount() {
                 let previousCount = self.itemsCount(section: section - 1) // equal to zero for -1
@@ -140,19 +134,18 @@ extension MarksPane.Panes.Color {
         /// This method uses a fact about indexPath.
         /// IndexPath doesn't align to a zero and uses `continuous numbering`.
         /// It `does not` reset `indexPath.item` to a `zero` in `new` section.
-        ///
         static func color(at indexPath: IndexPath) -> Colors {
             Colors.allCases[indexPath.item]
         }
         
-        // MARK: Conversion: UIColor and Colors
+        /// Conversion: UIColor and Colors
         /// Actually, we can't determine a `case` of `enum Colors` without a context: `background`.
         /// This method determines a case of `enum Colors` with `background` flag.
         ///
         /// `(UIColor, background: Bool) -> Colors`
-        ///
-        static func color(by color: UIColor, background: Bool) -> Colors {
-            .init(name: ColorsConverter.asMiddleware(color, background: background))
+        static func color(by color: UIColor, background: Bool) -> Colors? {
+            guard let color = ColorsConverter.asMiddleware(color, background: background) else { return nil }
+            return Colors(name: color)
         }
         
         // TODO: Change to String (maybe?)
@@ -160,7 +153,6 @@ extension MarksPane.Panes.Color {
         /// Without it, we use a context `background` to determine `UIColor`.
         ///
         /// `(Colors, background: Bool) -> UIColor`
-        ///
         static func imageResource(_ color: Colors, background: Bool) -> UIColor {
             color.color(background: background)
         }
@@ -189,25 +181,24 @@ extension MarksPane.Panes.Color {
     class ViewModel: ObservableObject {
         // MARK: Variables
         private var background: Bool = false
+        private var subscriptions: Set<AnyCancellable> = []
+
+        // MARK: Publishers
+        /// User response `Attribute`
+        @Published fileprivate var userResponse: Attribute?
+        fileprivate var userResponsePublisher: AnyPublisher<IndexPath?, Never> = .empty()
         
+        /// Action from user (for example, user has selected color)
+        var userAction: AnyPublisher<Action, Never> = .empty()
+        
+        /// From Colors ViewModels
+        @Published fileprivate var indexPath: IndexPath?
+
         // MARK: Initialization
         init(background: Bool) {
             self.background = background
             self.setupSubscriptions(background: background)
         }
-        
-        // MARK: Publishers
-        /// From OuterWorld
-        @Published fileprivate var userResponse: Attribute?
-        fileprivate var userResponsePublisher: AnyPublisher<IndexPath?, Never> = .empty()
-        
-        /// To OuterWorld, Public
-        var userAction: AnyPublisher<Action, Never> = .empty()
-        
-        /// From Colors ViewModels
-        @Published fileprivate var indexPath: IndexPath?
-        
-        var subscriptions: Set<AnyCancellable> = []
         
         // MARK: Subscriptions
         private func setupSubscriptions(background: Bool) {
@@ -217,8 +208,7 @@ extension MarksPane.Panes.Color {
                 self.flatMap({ListDataSource.color(at: value).color(background: $0.background)})
             }.safelyUnwrapOptionals().map(Action.setColor).eraseToAnyPublisher()
             
-            // From OuterWorld
-            /// Actually, we have to do the following:
+            /// Recive user response as follows:
             /// 1. Receive a response from a User ( when he select a range of attributed string ).
             /// 2. Convert this response to our `IndexPath` to select a `Cell` with related `IndexPath`.
             ///
@@ -227,14 +217,11 @@ extension MarksPane.Panes.Color {
             /// 1. Extract a value from a case of `enum Attribute`.
             /// 2. Convert this value to a case of `enum Colors`. (UIColor, background: Bool) -> (Colors)
             /// 3. Convert a case of `enum Colors` to an IndexPath. (Colors) -> (IndexPath)
-            ///
-            self.userResponsePublisher = self.$userResponse.map({ Self.enhance(response: $0, background: background) }).eraseToAnyPublisher()
-        }
-        
-        // MARK: From OuterWorld
-        private class func enhance(response: Attribute?, background: Bool) -> IndexPath? {
-            guard case let .setColor(color) = response else { return nil }
-            return ListDataSource.indexPath(ListDataSource.color(by: color, background: background))
+            self.userResponsePublisher = self.$userResponse.map { attribute in
+                guard case let .setColor(uiColor) = attribute,
+                      let color = ListDataSource.color(by: uiColor, background: background) else { return nil }
+                return ListDataSource.indexPath(color)
+            }.eraseToAnyPublisher()
         }
         
         // MARK: Public Setters

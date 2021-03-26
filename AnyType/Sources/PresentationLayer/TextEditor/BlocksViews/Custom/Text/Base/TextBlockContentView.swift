@@ -114,32 +114,35 @@ final class TextBlockContentView: UIView & UIContentView {
             textViewModel.update = .unknown
             _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
-        }
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
-        // In case of configurations is not equal we should check what exactly we should change
-        // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
-        switch text.contentType {
-        case .title:
-            self.setupForTitle()
-        case .text:
-            self.setupForText()
-        case .bulleted:
-            self.setupForBulleted()
-        case .checkbox:
-            self.setupForCheckbox(checked: text.checked)
-        case .numbered:
-            self.setupForNumbered(number: text.number)
-        case .quote:
-            self.setupForQuote()
-        case .header:
-            self.setupForHeader1()
-        case .header2:
-            self.setupForHeader2()
-        case .header3:
-            self.setupForHeader3()
-        case .header4, .callout, .toggle:
-            break
+            // In case of configurations is not equal we should check what exactly we should change
+            // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
+            switch text.contentType {
+            case .title:
+                self.setupForTitle()
+            case .text:
+                self.setupForText()
+            case .bulleted:
+                self.setupForBulleted()
+            case .checkbox:
+                self.setupForCheckbox(checked: text.checked)
+            case .numbered:
+                self.setupForNumbered(number: text.number)
+            case .quote:
+                self.setupForQuote()
+            case .header:
+                self.setupForHeader1()
+            case .header2:
+                self.setupForHeader2()
+            case .header3:
+                self.setupForHeader3()
+            case .header4, .callout, .toggle:
+                break
+            }
+            self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
         }
+        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+        self.textView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor)
     }
     
     private func setupForPlainText() {
@@ -174,14 +177,14 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupText(placeholer: String, font: UIFont, backgroundColor: UIColor = .systemBackground) {
-        self.textView.textView?.backgroundColor = backgroundColor
+        self.backgroundColor = backgroundColor
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
                                                          .foregroundColor: UIColor.secondaryTextColor]
 
         self.textView.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
         self.textView.textView.font = font
         self.textView.textView.typingAttributes = [.font: font]
-//        self.textView.textView?.textColor = .textColor
+        self.textView.textView?.defaultFontColor = .textColor
     }
     
     private func setupForCheckbox(checked: Bool) {

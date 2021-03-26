@@ -258,7 +258,7 @@ extension BlocksViews.New.Base {
                 case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .style))))))
                 case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .textColor))))))
                 case .backgroundColor:
-                    let color = BlocksModelsModule.Parser.Text.Color.Converter.asModel(self.getBlock().blockModel.information.backgroundColor, background: true)
+                    let color = BlocksModelsModule.Parser.Text.Color.Converter.asModel(self.getBlock().blockModel.information.backgroundColor, background: true) ?? .defaultColor
                     self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: .init(backgroundColor: color), section: .backgroundColor, shouldPluginOutputIntoInput: true))))))
                 default: return
                 }
