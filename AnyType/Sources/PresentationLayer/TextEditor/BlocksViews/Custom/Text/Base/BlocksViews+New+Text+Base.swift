@@ -112,20 +112,7 @@ extension Namespace {
         }
         
         private func makeToggleBlockConfiguration() -> UIContentConfiguration? {
-            let toggleAction: () -> Void = { [weak self] in
-                guard let self = self else { return }
-                self.update { $0.isToggled.toggle() }
-                let toggled = self.getBlock().isToggled
-                self.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
-            }
-            let createChildAction: () -> Void = { [weak self] in
-                guard let self = self else { return }
-                self.send(actionsPayload: .textView(.init(model: self.getBlock(),
-                                                          action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
-            }
-            var configuration = ToggleBlockContentConfiguration(self.getBlock(),
-                                                                toggleAction: toggleAction,
-                                                                createFirstChildAction: createChildAction)
+            var configuration = ToggleBlockContentConfiguration(self)
             configuration?.contextMenuHolder = self
             return configuration
         }

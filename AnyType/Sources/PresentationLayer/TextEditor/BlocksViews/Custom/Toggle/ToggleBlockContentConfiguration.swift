@@ -20,28 +20,18 @@ struct ToggleBlockContentConfiguration {
     /// Does block have children
     let hasChildren: Bool
     
-    /// Block value
-    let block: BlockActiveRecordModelProtocol
-    
-    /// Action for toggle button
-    let toggleAction: () -> Void
-    
-    /// Action for creating firast child block for toggle
-    let createFirstChildAction: () -> Void
+    /// Block view model value
+    let blockVM: BlocksViews.New.Text.Base.ViewModel
     
     /// Entity for context menu
     weak var contextMenuHolder: BlocksViews.New.Text.Base.ViewModel?
     
-    init?(_ block: BlockActiveRecordModelProtocol,
-          toggleAction: @escaping() -> Void,
-          createFirstChildAction: @escaping() -> Void) {
-        if case let .text(text) = block.blockModel.information.content,
+    init?(_ blockViewModel: BlocksViews.New.Text.Base.ViewModel) {
+        if case let .text(text) = blockViewModel.getBlock().blockModel.information.content,
            text.contentType == .toggle {
-            self.block = block
-            self.information = block.blockModel.information
-            self.hasChildren = !block.childrenIds().isEmpty
-            self.toggleAction = toggleAction
-            self.createFirstChildAction = createFirstChildAction
+            self.blockVM = blockViewModel
+            self.information = blockViewModel.getBlock().blockModel.information
+            self.hasChildren = !blockViewModel.getBlock().childrenIds().isEmpty
         } else {
             return nil
         }
@@ -66,14 +56,14 @@ extension ToggleBlockContentConfiguration: Hashable {
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.information.id == rhs.information.id &&
         lhs.information.content == rhs.information.content &&
-        lhs.block.isToggled == rhs.block.isToggled &&
+        lhs.blockVM.getBlock().isToggled == rhs.blockVM.getBlock().isToggled &&
         lhs.hasChildren == rhs.hasChildren
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.information.id)
         hasher.combine(self.information.content)
-        hasher.combine(self.block.isToggled)
+        hasher.combine(self.blockVM.getBlock().isToggled)
         hasher.combine(self.hasChildren)
     }
 }

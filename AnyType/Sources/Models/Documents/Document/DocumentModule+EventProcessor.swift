@@ -270,10 +270,14 @@ private extension FileNamespace.EventHandler {
 
             // obtain current block color
             let blockColor = value.hasColor ? value.color.value : oldText.color
-
-            let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(oldText.contentType)
+            let style: Anytype_Model_Block.Content.Text.Style
+            if value.hasStyle {
+                style = value.style.value
+            } else {
+                style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(oldText.contentType) ?? value.style.value
+            }
             let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
-                                                                      style: style ?? value.style.value,
+                                                                      style: style,
                                                                       marks: marks,
                                                                       checked: newChecked,
                                                                       color: blockColor)
@@ -556,7 +560,7 @@ private extension FileNamespace.EventHandler {
                 let flattener = DocumentModule.Document.BaseFlattener.self
                 let deletedIds = flattener.flattenIds(root: block,
                                                       in: container,
-                                                      options: .init(shouldCheckIsToggleOpened: false,
+                                                      options: .init(shouldCheckIsRootToggleOpened: false,
                                                                      shouldSetNumbers: false))
                 return .update(.init(deletedIds: deletedIds))
             } else {

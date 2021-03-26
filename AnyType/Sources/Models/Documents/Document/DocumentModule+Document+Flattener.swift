@@ -14,7 +14,7 @@ fileprivate typealias FileNamespace = Namespace.BaseFlattener
 
 extension FileNamespace {
     struct Options {
-        var shouldCheckIsToggleOpened: Bool = true
+        var shouldCheckIsRootToggleOpened: Bool = true
         var shouldSetNumbers: Bool = true
         var shouldIncludeRootNode: Bool = false
         static var `default`: Self = .init()
@@ -78,6 +78,7 @@ extension Namespace {
             var result: Array<BlockId> = .init()
             let stack: DataStructures.Stack<BlockId> = .init()
             stack.push(model.blockModel.information.id)
+            var isInRootModel = true
             while !stack.isEmpty {
                 if let value = stack.pop() {
                     /// Various flatteners?
@@ -88,13 +89,14 @@ extension Namespace {
                     /// Do numbered stuff?
                     let children = self.filteredChildren(of: value,
                                                          in: container,
-                                                         shouldCheckIsToggleOpened: options.shouldCheckIsToggleOpened)
+                                                         shouldCheckIsToggleOpened: isInRootModel ? options.shouldCheckIsRootToggleOpened : true)
                     if options.shouldSetNumbers {
                         NumberedFlattener().process(children, in: container)
                     }
                     for item in children.reversed() {
                         stack.push(item)
                     }
+                    isInRootModel = false
                 }
             }
             return result

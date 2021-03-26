@@ -28,9 +28,11 @@ final class ToggleBlockContentView: UIView & UIContentView {
     private let textView: TextView.UIKitTextView = .init()
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
-            self?.createChildBlockButton.isHidden = true
-            self?.currentConfiguration.contextMenuHolder?.send(sizeDidChange: .zero)
-            self?.currentConfiguration.createFirstChildAction()
+            guard let self = self else { return }
+            self.createChildBlockButton.isHidden = true
+            self.currentConfiguration.contextMenuHolder?.send(sizeDidChange: .zero)
+            self.currentConfiguration.blockVM.send(actionsPayload: .textView(.init(model: self.currentConfiguration.blockVM.getBlock(),
+                                                      action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setAttributedTitle(.init(string: NSLocalizedString("Toogle empty Click and drop block inside",
@@ -52,9 +54,11 @@ final class ToggleBlockContentView: UIView & UIContentView {
         button.addAction(.init(handler: { [weak self] _ in
             guard let self = self else { return }
             self.toggleButton.isSelected.toggle()
-            self.currentConfiguration.toggleAction()
-            self.updateCreateChildButtonState(toggled: self.currentConfiguration.block.isToggled,
-                                              hasChildren: !self.currentConfiguration.block.childrenIds().isEmpty)
+            self.currentConfiguration.blockVM.update { $0.isToggled.toggle() }
+            let toggled = self.currentConfiguration.blockVM.getBlock().isToggled
+            self.currentConfiguration.blockVM.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
+            self.updateCreateChildButtonState(toggled: toggled,
+                                              hasChildren: !self.currentConfiguration.blockVM.getBlock().childrenIds().isEmpty)
         }), for: .touchUpInside)
         return button
     }()
@@ -131,9 +135,9 @@ final class ToggleBlockContentView: UIView & UIContentView {
             _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
         }
-        let toggled = self.currentConfiguration.block.isToggled
-        toggleButton.isSelected = self.currentConfiguration.block.isToggled
-        let hasChildren = !self.currentConfiguration.block.childrenIds().isEmpty
+        let toggled = self.currentConfiguration.blockVM.getBlock().isToggled
+        toggleButton.isSelected = toggled
+        let hasChildren = !self.currentConfiguration.blockVM.getBlock().childrenIds().isEmpty
         self.updateCreateChildButtonState(toggled: toggled, hasChildren: hasChildren)
     }
 

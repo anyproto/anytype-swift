@@ -229,7 +229,8 @@ extension BlocksViews.New.Base {
         func makeDiffable() -> AnyHashable {
             [
                 "Id": self.information.id,
-                "Content": TopLevel.AliasesMap.BlockUtilities.ContentTypeIdentifier.identifier(self.information.content)
+                "Content": TopLevel.AliasesMap.BlockUtilities.ContentTypeIdentifier.identifier(self.information.content),
+                "Indentation": self.indentationLevel()
             ] as [AnyHashable: AnyHashable]
         }
         

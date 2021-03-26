@@ -126,14 +126,20 @@ extension Namespace {
             }.store(in: &self.subscriptions)
 
             self.viewModel.updateElementsPublisher.sink { [weak self] (value) in
-                guard let self = self, let snapshot = self.dataSource?.snapshot() else { return }
+                guard let self = self, let snapshot = self.dataSource?.snapshot(for: .first) else { return }
                 let set: Set = .init(value)
-                let updatingItemIndices: [Int] = snapshot.itemIdentifiers.enumerated().compactMap {
+                let updatingItemIndices: [Int] = snapshot.visibleItems.enumerated().compactMap {
                     return set.contains($0.element.blockId) ? $0.offset : nil
                 }
-                updatingItemIndices.forEach {
-                    self.collectionView.cellForItem(at: .init(item: $0, section: 0))?.contentConfiguration = self.viewModel.builders[$0].buildContentConfiguration()
+                if updatingItemIndices.isEmpty {
+                    return
                 }
+                updatingItemIndices.forEach {
+                    let cell = self.collectionView.cellForItem(at: .init(item: $0, section: 0)) as? UICollectionViewListCell
+                    cell?.contentConfiguration = snapshot.visibleItems[$0].buildContentConfiguration()
+                    cell?.indentationLevel = snapshot.visibleItems[$0].indentationLevel()
+                }
+                self.scrollAndFocusOnFocusedBlock()
             }.store(in: &self.subscriptions)
         }
 
@@ -174,17 +180,12 @@ extension Namespace.ViewController {
             self?.process(event: value)
         }.store(in: &self.subscriptions)
     }
-}
-
-// MARK: - Set Focus
-private extension Namespace.ViewController {
-    func scrollAndFocusOnFocusedBlock() {
+    
+    private func scrollAndFocusOnFocusedBlock() {
         guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot(for: .first)
         let userSession = self.viewModel.documentViewModel.getUserSession()
-        let id = userSession?.firstResponder()
-        let focusedAt = userSession?.focusAt()
-        if let id = id, let focusedAt = focusedAt {
+        if let id = userSession?.firstResponder(), let focusedAt = userSession?.focusAt() {
             let itemIdentifiers = snapshot.visibleItems
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
                 value.blockId == id

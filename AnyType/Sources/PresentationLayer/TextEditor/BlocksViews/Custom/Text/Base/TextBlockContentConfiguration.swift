@@ -14,9 +14,6 @@ struct TextBlockContentConfiguration {
     
     private let container: TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
     
-    /// Block value
-    let block: BlockActiveRecordModelProtocol
-    
     /// Action for checked button
     let checkedAction: (Bool) -> Void
     
@@ -32,7 +29,6 @@ struct TextBlockContentConfiguration {
           checkedAction: @escaping(Bool) -> Void) {
         if case .text = block.blockModel.information.content {
             self.container = .init(value: block.blockModel.information)
-            self.block = block
             self.checkedAction = checkedAction
         } else {
             return nil
