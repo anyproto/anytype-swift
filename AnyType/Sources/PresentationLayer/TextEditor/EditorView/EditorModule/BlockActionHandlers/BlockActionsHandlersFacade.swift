@@ -260,7 +260,7 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
 struct BlockBuilder {
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Content = TopLevel.AliasesMap.BlockContent
-    typealias Information = BlockInformationModelProtocol
+    typealias Information = Block.Information.InformationModel
 
     typealias Builder = TopLevel.Builder
 

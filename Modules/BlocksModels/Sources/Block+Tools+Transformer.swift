@@ -19,7 +19,6 @@ public extension Namespace {
     enum Transformer {
         public typealias Model = BlockModelProtocol
         public typealias ActiveRecord = BlockActiveRecordModelProtocol
-        public typealias Information = BlockInformationModelProtocol
         public typealias BlockId = TopLevel.AliasesMap.BlockId
         public typealias Container = BlockContainerModelProtocol
         
@@ -49,7 +48,7 @@ fileprivate extension Namespace.Transformer {
         /// Consider unsorted (not sorted topologically) blocks.
         /// At the end we _may_ don't know if these blocks have correct indices or not.
         /// For that case we _should_ rerun building indices in second time after we determine root.
-        private func fromList(information: [Information], isRoot: (Model) -> Bool) -> Container {
+        private func fromList(information: [Block.Information.InformationModel], isRoot: (Model) -> Bool) -> Container {
             fromList(information.compactMap({self.builder.build(information: $0)}), isRoot: isRoot)
         }
         
@@ -86,7 +85,7 @@ fileprivate extension Namespace.Transformer {
         }
                 
         // MARK: Target rootId.
-        func fromList(information: [Information], rootId: BlockId) -> Container {
+        func fromList(information: [Block.Information.InformationModel], rootId: BlockId) -> Container {
             fromList(information: information, isRoot: { $0.information.id == rootId })
         }
         
@@ -113,7 +112,7 @@ extension Namespace.Transformer {
 public extension Namespace.Transformer {
     struct FinalTransformer {
         private var fromListToTree: FromListToTreeTransformer
-        public func transform(_ information: [Information], rootId: BlockId) -> Container {
+        public func transform(_ information: [Block.Information.InformationModel], rootId: BlockId) -> Container {
             fromListToTree.fromList(information: information, rootId: rootId)
         }
         public init(builder: BlockBuilderProtocol) {

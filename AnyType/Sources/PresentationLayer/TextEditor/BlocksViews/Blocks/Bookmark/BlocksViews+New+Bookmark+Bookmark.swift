@@ -709,17 +709,13 @@ extension Namespace.ViewModel {
     ///
     struct ContentConfiguration: UIContentConfiguration, Hashable {
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.container == rhs.container
+            lhs.information == rhs.information
         }
         func hash(into hasher: inout Hasher) {
-            hasher.combine(self.container)
+            hasher.combine(self.information)
         }
         
-        typealias HashableContainer = TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
-        var information: Information {
-            self.container.value
-        }
-        private var container: HashableContainer
+        var information: Information
         fileprivate weak var contextMenuHolder: Namespace.ViewModel?
         
         init(_ information: Information) {
@@ -735,7 +731,7 @@ extension Namespace.ViewModel {
                 break
             }
             
-            self.container = .init(value: information)
+            self.information = .init(information: information)
         }
                 
         /// UIContentConfiguration

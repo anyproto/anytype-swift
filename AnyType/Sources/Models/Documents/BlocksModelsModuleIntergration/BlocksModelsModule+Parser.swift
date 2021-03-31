@@ -22,7 +22,7 @@ private extension Logging.Categories {
 // MARK: - Parser
 extension Namespace {
     class Parser {
-        typealias Information = BlockInformationModelProtocol
+        typealias Information = Block.Information.InformationModel
         typealias Model = BlockModelProtocol
         typealias OurContent = TopLevel.AliasesMap.BlockContent
         typealias Builder = TopLevel.Builder
@@ -32,7 +32,7 @@ extension Namespace {
 extension Namespace.Parser {
     struct PageEvent {
         var rootId: String
-        var blocks: [BlockInformationModelProtocol] = []
+        var blocks: [Block.Information.InformationModel] = []
         var details: [DetailsInformationModelProtocol] = []
         static func empty() -> Self { .init(rootId: "") }
     }

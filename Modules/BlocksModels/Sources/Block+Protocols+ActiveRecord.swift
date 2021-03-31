@@ -72,5 +72,5 @@ public protocol BlockHasDidChangePublisherProtocol {
 }
 
 public protocol BlockHasDidChangeInformationPublisherProtocol {
-    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModelProtocol, Never>
+    func didChangeInformationPublisher() -> AnyPublisher<Block.Information.InformationModel, Never>
 }

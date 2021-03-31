@@ -24,17 +24,15 @@ protocol ServiceLayerModule_BlockActionsServiceSingleProtocolClose {
 protocol ServiceLayerModule_BlockActionsServiceSingleProtocolAdd {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Model = BlockInformationModelProtocol
     typealias Position = TopLevel.AliasesMap.Position
-    func action(contextID: BlockId, targetID: BlockId, block: Model, position: Position) -> AnyPublisher<Success, Error>
+    func action(contextID: BlockId, targetID: BlockId, block: Block.Information.InformationModel, position: Position) -> AnyPublisher<Success, Error>
 }
 
 
 protocol ServiceLayerModule_BlockActionsServiceSingleProtocolReplace {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Model = BlockInformationModelProtocol
-    func action(contextID: BlockId, blockID: BlockId, block: Model) -> AnyPublisher<Success, Error>
+    func action(contextID: BlockId, blockID: BlockId, block: Block.Information.InformationModel) -> AnyPublisher<Success, Error>
 }
 
 protocol ServiceLayerModule_BlockActionsServiceSingleProtocolDelete {

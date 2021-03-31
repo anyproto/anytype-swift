@@ -15,29 +15,31 @@ extension Block {
 }
 
 extension Namespace {
-    struct InformationModel: BlockInformationModelProtocol {
-        func diffable() -> Diffable {
-            .init(self)
-        }
+    public struct InformationModel {
+        public typealias BlockId = TopLevel.AliasesMap.BlockId
+        public typealias Content = TopLevel.AliasesMap.BlockContent
+        public typealias ChildrenIds = TopLevel.AliasesMap.ChildrenIds
+        public typealias BackgroundColor = TopLevel.AliasesMap.BackgroundColor
+        public typealias Alignment = TopLevel.AliasesMap.Alignment
+
+        public var id: BlockId
+        public var childrenIds: ChildrenIds = []
+        public var content: Content
         
-        var id: BlockId
-        var childrenIds: ChildrenIds = []
-        var content: Content
-        
-        var fields: [String : AnyHashable] = [:]
+        public var fields: [String : AnyHashable] = [:]
         var restrictions: [String] = []
         
-        var backgroundColor: BackgroundColor = ""
-        var alignment: Alignment = .left
+        public var backgroundColor: BackgroundColor = ""
+        public var alignment: Alignment = .left
                 
         static func defaultValue() -> Self { .default }
         
-        init(id: BlockId, content: Content) {
+        public init(id: BlockId, content: Content) {
             self.id = id
             self.content = content
         }
         
-        init(information: BlockInformationModelProtocol) {
+        public init(information: Self) {
             self.id = information.id
             self.content = information.content
             self.childrenIds = information.childrenIds
@@ -56,7 +58,9 @@ extension Namespace {
 }
 
 // MARK: Hashable
-extension Namespace.InformationModel: Hashable {}
+extension Namespace.InformationModel: Hashable {
+
+}
 extension Namespace.Alignment: Hashable {}
 
 // MARK: Alignment
@@ -71,13 +75,12 @@ extension Namespace {
     /// What happens here?
     /// We convert details ( PageDetails ) to ready-to-use information.
     struct DetailsAsInformationConverter {
-        typealias Information = BlockInformationModelProtocol
         typealias BlockId = TopLevel.AliasesMap.BlockId
         typealias Content = TopLevel.AliasesMap.BlockContent
         typealias Details = TopLevel.AliasesMap.DetailsContent
         var blockId: BlockId
 
-        private func detailsAsInformation(_ blockId: BlockId, _ details: Details) -> Information {
+        private func detailsAsInformation(_ blockId: BlockId, _ details: Details) -> InformationModel {
             /// Our ID is <ID>/<Details.key>.
             /// Look at implementation in `IdentifierBuilder`
             
@@ -89,7 +92,7 @@ extension Namespace {
             return InformationModel.init(id: id, content: content)
         }
 
-        func callAsFunction(_ details: Details) -> BlockInformationModelProtocol {
+        func callAsFunction(_ details: Details) -> InformationModel {
             detailsAsInformation(self.blockId, details)
         }
     }

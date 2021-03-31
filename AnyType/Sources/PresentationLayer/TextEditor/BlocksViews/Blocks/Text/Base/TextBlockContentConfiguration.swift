@@ -11,9 +11,6 @@ import UIKit
 
 /// Content configuration for text blocks
 struct TextBlockContentConfiguration {
-    
-    private let container: TopLevel.AliasesMap.BlockInformationUtilities.AsHashable
-    
     /// Action for checked button
     let checkedAction: (Bool) -> Void
     
@@ -21,14 +18,12 @@ struct TextBlockContentConfiguration {
     weak var contextMenuHolder: BlocksViews.New.Text.Base.ViewModel?
     
     /// Block information
-    var information: BlockInformationModelProtocol {
-        self.container.value
-    }
+    var information: Block.Information.InformationModel
     
     init?(_ block: BlockActiveRecordModelProtocol,
           checkedAction: @escaping(Bool) -> Void) {
         if case .text = block.blockModel.information.content {
-            self.container = .init(value: block.blockModel.information)
+            self.information = .init(information: block.blockModel.information)
             self.checkedAction = checkedAction
         } else {
             return nil
@@ -52,10 +47,10 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
 extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.container == rhs.container
+        lhs.information == rhs.information
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.container)
+        hasher.combine(self.information)
     }
 }

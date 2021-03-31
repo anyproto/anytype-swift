@@ -30,8 +30,7 @@ final class ToggleBlockContentView: UIView & UIContentView {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
             guard let self = self else { return }
             self.createChildBlockButton.isHidden = true
-            self.currentConfiguration.contextMenuHolder?.send(sizeDidChange: .zero)
-            self.currentConfiguration.blockVM.send(actionsPayload: .textView(.init(model: self.currentConfiguration.blockVM.getBlock(),
+            self.currentConfiguration.blockViewModel.send(actionsPayload: .textView(.init(model: self.currentConfiguration.blockViewModel.getBlock(),
                                                       action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -54,11 +53,15 @@ final class ToggleBlockContentView: UIView & UIContentView {
         button.addAction(.init(handler: { [weak self] _ in
             guard let self = self else { return }
             self.toggleButton.isSelected.toggle()
-            self.currentConfiguration.blockVM.update { $0.isToggled.toggle() }
-            let toggled = self.currentConfiguration.blockVM.getBlock().isToggled
-            self.currentConfiguration.blockVM.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
+            self.currentConfiguration.blockViewModel.update { $0.isToggled.toggle() }
+            let toggled = self.currentConfiguration.blockViewModel.getBlock().isToggled
+            self.currentConfiguration.blockViewModel.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
+            let oldValue = self.createChildBlockButton.isHidden
             self.updateCreateChildButtonState(toggled: toggled,
-                                              hasChildren: !self.currentConfiguration.blockVM.getBlock().childrenIds().isEmpty)
+                                              hasChildren: !self.currentConfiguration.blockViewModel.getBlock().childrenIds().isEmpty)
+            if oldValue != self.createChildBlockButton.isHidden {
+                self.currentConfiguration.contextMenuHolder?.send(sizeDidChange: .zero)
+            }
         }), for: .touchUpInside)
         return button
     }()
@@ -88,7 +91,6 @@ final class ToggleBlockContentView: UIView & UIContentView {
         _ = self.topView.configured(textView: self.textView)
         
         let stack: UIStackView = .init(arrangedSubviews: [self.topView, self.createChildBlockButton])
-        stack.spacing = Constants.insets.top
         stack.axis = .vertical
         stack.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(stack)
@@ -119,6 +121,7 @@ final class ToggleBlockContentView: UIView & UIContentView {
         self.textView.textView.font = .bodyFont
         self.textView.textView.typingAttributes = [.font: UIFont.bodyFont]
         self.textView.textView?.textContainerInset = Constants.textContainerInsets
+        self.textView.textView?.defaultFontColor = .textColor
     }
 
     private func apply(configuration: ToggleBlockContentConfiguration) {
@@ -130,22 +133,25 @@ final class ToggleBlockContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
 
+        // it's important to clean old attributed string
+        self.textView.textView.attributedText = nil
+
         if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
             textViewModel.update = .unknown
             _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
         }
-        let toggled = self.currentConfiguration.blockVM.getBlock().isToggled
+        let toggled = self.currentConfiguration.blockViewModel.getBlock().isToggled
         toggleButton.isSelected = toggled
-        let hasChildren = !self.currentConfiguration.blockVM.getBlock().childrenIds().isEmpty
+        let hasChildren = !self.currentConfiguration.blockViewModel.getBlock().childrenIds().isEmpty
         self.updateCreateChildButtonState(toggled: toggled, hasChildren: hasChildren)
+
+        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+        self.textView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor)
     }
 
     private func updateCreateChildButtonState(toggled: Bool, hasChildren: Bool) {
         let shouldShowCreateButton = toggled && !hasChildren
         self.createChildBlockButton.isHidden = !shouldShowCreateButton
-        if self.superview != nil {
-            self.currentConfiguration.contextMenuHolder?.send(sizeDidChange: .zero)
-        }
     }
 }

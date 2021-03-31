@@ -119,27 +119,22 @@ extension Namespace {
             self.viewModel.handlingTapIfEmpty()
         }
         
-        /// Add handlers to viewmdoel state changes
+        /// Add handlers to viewModel state changes
         private func configured() {
             self.viewModel.publicSizeDidChangePublisher.receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.updateView()
             }.store(in: &self.subscriptions)
 
             self.viewModel.updateElementsPublisher.sink { [weak self] (value) in
-                guard let self = self, let snapshot = self.dataSource?.snapshot(for: .first) else { return }
+                guard let sectionSnapshot = self?.dataSource?.snapshot(for: .first),
+                      var snapshot = self?.dataSource?.snapshot() else { return }
                 let set: Set = .init(value)
-                let updatingItemIndices: [Int] = snapshot.visibleItems.enumerated().compactMap {
-                    return set.contains($0.element.blockId) ? $0.offset : nil
-                }
-                if updatingItemIndices.isEmpty {
+                let itemsForUpdate = sectionSnapshot.visibleItems.filter { set.contains($0.blockId) }
+                if itemsForUpdate.isEmpty {
                     return
                 }
-                updatingItemIndices.forEach {
-                    let cell = self.collectionView.cellForItem(at: .init(item: $0, section: 0)) as? UICollectionViewListCell
-                    cell?.contentConfiguration = snapshot.visibleItems[$0].buildContentConfiguration()
-                    cell?.indentationLevel = snapshot.visibleItems[$0].indentationLevel()
-                }
-                self.scrollAndFocusOnFocusedBlock()
+                snapshot.reloadItems(itemsForUpdate)
+                self?.apply(snapshot)
             }.store(in: &self.subscriptions)
         }
 
@@ -155,6 +150,21 @@ extension Namespace {
             else {
                 self.listViewTapGestureRecognizer.removeTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
                 self.view.removeGestureRecognizer(self.listViewTapGestureRecognizer)
+            }
+        }
+        
+        private func toggleBlockViewModelsForUpdate() -> [BlocksViews.New.Base.ViewModel] {
+            return self.collectionView.indexPathsForVisibleItems.compactMap { indexPath -> BlocksViews.New.Base.ViewModel? in
+                guard let builder = self.viewModel.builders[safe: indexPath.row] else { return nil }
+                let content = builder.getBlock().blockModel.information.content
+                guard case let .text(text) = content, text.contentType == .toggle else {
+                    return nil
+                }
+                guard let configuration = self.collectionView.cellForItem(at: indexPath)?.contentConfiguration as? ToggleBlockContentConfiguration,
+                      configuration.hasChildren == builder.getBlock().childrenIds().isEmpty else {
+                        return nil
+                }
+                return builder
             }
         }
     }
@@ -207,17 +217,17 @@ extension Namespace.ViewController {
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.New.Base.ViewModel>) {
         UIView.performWithoutAnimation {
             self.dataSource?.apply(snapshot, animatingDifferences: true) { [weak self] in
-                self?.updateVisibleNumberedAndToggleItems()
+                self?.updateVisibleNumberedItems()
                 self?.scrollAndFocusOnFocusedBlock()
             }
         }
     }
     
-    private func updateVisibleNumberedAndToggleItems() {
+    private func updateVisibleNumberedItems() {
         self.collectionView.indexPathsForVisibleItems.forEach {
             guard let builder = self.viewModel.builders[safe: $0.row] else { return }
             let content = builder.getBlock().blockModel.information.content
-            guard case let .text(text) = content, [.numbered, .toggle].contains(text.contentType) else { return }
+            guard case let .text(text) = content, text.contentType == .numbered else { return }
             self.collectionView.cellForItem(at: $0)?.contentConfiguration = builder.buildContentConfiguration()
         }
     }
@@ -262,12 +272,14 @@ extension Namespace.ViewController: EditorModuleDocumentViewInput {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.New.Base.ViewModel>()
         snapshot.appendSections([.first])
         snapshot.appendItems(rows)
+        snapshot.reloadItems(self.toggleBlockViewModelsForUpdate())
         self.apply(snapshot)
     }
     
     func delete(rows: [BlocksViews.New.Base.ViewModel]) {
         guard var snapshot = self.dataSource?.snapshot() else { return }
         snapshot.deleteItems(rows)
+        snapshot.reloadItems(self.toggleBlockViewModelsForUpdate())
         self.apply(snapshot)
     }
     

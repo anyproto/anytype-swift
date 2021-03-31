@@ -11,8 +11,8 @@ import Combine
 
 // MARK: - BlockModel
 public protocol BlockHasInformationProtocol {
-    var information: BlockInformationModelProtocol { get set }
-    init(information: BlockInformationModelProtocol)
+    var information: Block.Information.InformationModel { get set }
+    init(information: Block.Information.InformationModel)
 }
 
 public protocol BlockHasParentProtocol {

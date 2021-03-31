@@ -113,7 +113,7 @@ final class TextBlockContentView: UIView & UIContentView {
         if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
             textViewModel.update = .unknown
             _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
-            self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
+
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
             // In case of configurations is not equal we should check what exactly we should change
             // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view

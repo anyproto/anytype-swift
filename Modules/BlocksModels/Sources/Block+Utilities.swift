@@ -42,20 +42,6 @@ public extension FileNamespace {
     }
 }
 
-extension FileNamespace {
-    enum InformationIdentifier {
-        typealias Information = BlockInformationModelProtocolWithHashable
-        
-        struct Diffable<Wrapped: BlockInformationModelProtocolWithHashable>: Hashable {
-            var value: Wrapped
-        }
-        
-        static func identifier<T: Information>(for information: T) -> Diffable<T> {
-            .init(value: information)
-        }
-    }
-}
-
 public extension FileNamespace {
     enum IndexWalker {
         public typealias Model = BlockActiveRecordModelProtocol

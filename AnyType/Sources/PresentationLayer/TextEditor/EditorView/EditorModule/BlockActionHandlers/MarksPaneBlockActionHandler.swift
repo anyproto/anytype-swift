@@ -60,7 +60,7 @@ final class MarksPaneBlockActionHandler {
 
 private extension MarksPaneBlockActionHandler {
 
-    func setBlockColor(block: BlockInformationModelProtocol, color: UIColor) {
+    func setBlockColor(block: Block.Information.InformationModel, color: UIColor) {
         // Important: we don't send command if color is wrong
         guard let color = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false) else {
             assertionFailure("Wrong UIColor for setBlockColor command")
@@ -83,7 +83,7 @@ private extension MarksPaneBlockActionHandler {
             .store(in: &self.subscriptions)
     }
 
-    func setAlignment(block: BlockInformationModelProtocol, alignment: MarksPane.Panes.StylePane.Alignment.Action) {
+    func setAlignment(block: Block.Information.InformationModel, alignment: MarksPane.Panes.StylePane.Alignment.Action) {
         let blockIds = [block.id]
 
         self.listService.setAlign.action(contextID: self.contextId, blockIds: blockIds, alignment: alignment.asModel())

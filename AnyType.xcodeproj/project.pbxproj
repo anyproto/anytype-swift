@@ -829,7 +829,7 @@
 			isa = PBXGroup;
 			children = (
 				0ACC357825C8789C0003CF3A /* Document */,
-				0A10CC5A248EC2EE000FF498 /* Custom */,
+				0A10CC5A248EC2EE000FF498 /* Blocks */,
 				0ABB2A1D24801A3700A7144A /* Panes */,
 				0A1DACC1244DD34B0007BC5D /* Toolbar */,
 				0A19E2B22444C9430078DFAB /* Base */,
@@ -1487,7 +1487,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		0A10CC5A248EC2EE000FF498 /* Custom */ = {
+		0A10CC5A248EC2EE000FF498 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
 				EADA96BD260A738B001F6FA4 /* Toggle */,
@@ -1499,7 +1499,7 @@
 				0A10CC5E248EC331000FF498 /* Page */,
 				0A10CC5D248EC30D000FF498 /* Tools */,
 			);
-			path = Custom;
+			path = Blocks;
 			sourceTree = "<group>";
 		};
 		0A10CC5B248EC2FA000FF498 /* Text */ = {

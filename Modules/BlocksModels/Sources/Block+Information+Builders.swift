@@ -13,17 +13,17 @@ fileprivate typealias Namespace = Block.Information
 public protocol BlockInformationBuilderProtocol {
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Content = TopLevel.AliasesMap.BlockContent
-    func build(id: BlockId, content: Content) -> BlockInformationModelProtocol
-    func build(information: BlockInformationModelProtocol) -> BlockInformationModelProtocol
+    func build(id: BlockId, content: Content) -> Block.Information.InformationModel
+    func build(information: Block.Information.InformationModel) -> Block.Information.InformationModel
 }
 
 extension Namespace {
     class Builder: BlockInformationBuilderProtocol {
         typealias Model = InformationModel
-        func build(id: BlockId, content: Content) -> BlockInformationModelProtocol {
+        func build(id: BlockId, content: Content) -> Block.Information.InformationModel {
             Model.init(id: id, content: content)
         }
-        func build(information: BlockInformationModelProtocol) -> BlockInformationModelProtocol {
+        func build(information: Block.Information.InformationModel) -> Block.Information.InformationModel {
             Model.init(information: information)
         }
     }

@@ -15,13 +15,13 @@ struct ToggleBlockContentConfiguration {
     /// Content value
     /// Because block is a reference type, it will always contains actual information
     /// We need this property to compare old information with new to detect changes
-    let information: BlockInformationModelProtocol
+    let information: Block.Information.InformationModel
     
     /// Does block have children
     let hasChildren: Bool
     
     /// Block view model value
-    let blockVM: BlocksViews.New.Text.Base.ViewModel
+    let blockViewModel: BlocksViews.New.Text.Base.ViewModel
     
     /// Entity for context menu
     weak var contextMenuHolder: BlocksViews.New.Text.Base.ViewModel?
@@ -29,7 +29,7 @@ struct ToggleBlockContentConfiguration {
     init?(_ blockViewModel: BlocksViews.New.Text.Base.ViewModel) {
         if case let .text(text) = blockViewModel.getBlock().blockModel.information.content,
            text.contentType == .toggle {
-            self.blockVM = blockViewModel
+            self.blockViewModel = blockViewModel
             self.information = blockViewModel.getBlock().blockModel.information
             self.hasChildren = !blockViewModel.getBlock().childrenIds().isEmpty
         } else {
@@ -54,16 +54,15 @@ extension ToggleBlockContentConfiguration: UIContentConfiguration {
 extension ToggleBlockContentConfiguration: Hashable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.information.id == rhs.information.id &&
-        lhs.information.content == rhs.information.content &&
-        lhs.blockVM.getBlock().isToggled == rhs.blockVM.getBlock().isToggled &&
+        lhs.information == rhs.information &&
+        lhs.blockViewModel.getBlock().isToggled == rhs.blockViewModel.getBlock().isToggled &&
         lhs.hasChildren == rhs.hasChildren
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.information.id)
         hasher.combine(self.information.content)
-        hasher.combine(self.blockVM.getBlock().isToggled)
+        hasher.combine(self.blockViewModel.getBlock().isToggled)
         hasher.combine(self.hasChildren)
     }
 }

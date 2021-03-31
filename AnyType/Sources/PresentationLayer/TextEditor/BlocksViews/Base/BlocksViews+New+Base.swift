@@ -31,7 +31,7 @@ extension BlocksViews.New.Base {
         }
         
         typealias BlockModel = BlockActiveRecordModelProtocol
-        typealias Information = BlockInformationModelProtocol
+        typealias Information = Block.Information.InformationModel
         
         // MARK: Variables
         /// our Block
@@ -214,7 +214,7 @@ extension BlocksViews.New.Base {
         }
         
         // MARK: Subclass / Information
-        var information: Information { self.getBlock().blockModel.information }
+        var information: Block.Information.InformationModel { self.getBlock().blockModel.information }
         
         // MARK: Subclass / Diffable
         private var _diffableStorage: AnyHashable = .init("")

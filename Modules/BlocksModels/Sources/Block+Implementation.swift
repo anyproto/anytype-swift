@@ -19,7 +19,7 @@ private extension Logging.Categories {
 // MARK: - BlockModel
 extension Namespace {
     final class BlockModel: ObservableObject {
-        @Published private var _information: BlockInformationModelProtocol
+        @Published private var _information: Block.Information.InformationModel
         private var _parent: BlockId?
         private var _kind: BlockKind {
             switch self._information.content {
@@ -31,7 +31,8 @@ extension Namespace {
         }
         private var _didChangeSubject: PassthroughSubject<Void, Never> = .init()
         private var _didChangePublisher: AnyPublisher<Void, Never>
-        required init(information: BlockInformationModelProtocol) {
+
+        required init(information: Block.Information.InformationModel) {
             self._information = information
             self._didChangePublisher = self._didChangeSubject.eraseToAnyPublisher()
         }
@@ -39,7 +40,7 @@ extension Namespace {
 }
 
 extension Namespace.BlockModel: BlockModelProtocol {
-    var information: BlockInformationModelProtocol {
+    var information: Block.Information.InformationModel {
         get { self._information }
         set { self._information = newValue }
     }
@@ -54,7 +55,7 @@ extension Namespace.BlockModel: BlockModelProtocol {
     func didChangePublisher() -> AnyPublisher<Void, Never> { self._didChangePublisher }
     func didChange() { self._didChangeSubject.send() }
     
-    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModelProtocol, Never> {
+    func didChangeInformationPublisher() -> AnyPublisher<Block.Information.InformationModel, Never> {
         self.$_information.eraseToAnyPublisher()
     }
 }
@@ -402,5 +403,5 @@ extension Namespace.ActiveRecord: ObservableObject, BlockActiveRecordModelProtoc
     func didChangePublisher() -> AnyPublisher<Void, Never> { self.blockModel.didChangePublisher() }
     func didChange() { self.blockModel.didChange() }
     
-    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModelProtocol, Never> { self.blockModel.didChangeInformationPublisher() }
+    func didChangeInformationPublisher() -> AnyPublisher<Block.Information.InformationModel, Never> { self.blockModel.didChangeInformationPublisher() }
 }

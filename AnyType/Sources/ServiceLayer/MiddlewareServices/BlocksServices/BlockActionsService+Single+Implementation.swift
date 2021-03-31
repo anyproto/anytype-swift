@@ -64,11 +64,14 @@ extension Namespace.BlockActionsService {
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
     struct Add: ServiceLayerModule_BlockActionsServiceSingleProtocolAdd {
+        typealias InformationModel = Block.Information.InformationModel
         private var parser: BlocksModelsModule.Parser
+
         init(parser: BlocksModelsModule.Parser) {
             self.parser = parser
         }
-        func action(contextID: BlockId, targetID: BlockId, block: Model, position: Position) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+
+        func action(contextID: BlockId, targetID: BlockId, block: InformationModel, position: Position) -> AnyPublisher<ServiceLayerModule.Success, Error> {
             guard let blockInformation = self.parser.convert(information: block) else {
                 return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
             }
@@ -77,6 +80,7 @@ extension Namespace.BlockActionsService {
             }
             return self.action(contextID: contextID, targetID: targetID, block: blockInformation, position: position)
         }
+
         private func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
                 .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
@@ -87,7 +91,9 @@ extension Namespace.BlockActionsService {
     /// TODO: Remove it or implement it.
     /// Unused.
     struct Replace: ServiceLayerModule_BlockActionsServiceSingleProtocolReplace {
-        func action(contextID: BlockId, blockID: BlockId, block: Model) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+        typealias InformationModel = Block.Information.InformationModel
+
+        func action(contextID: BlockId, blockID: BlockId, block: InformationModel) -> AnyPublisher<ServiceLayerModule.Success, Error> {
             let logger = Logging.createLogger(category: .service)
             os_log(.info, log: logger, "method is not implemented")
             return .empty()
