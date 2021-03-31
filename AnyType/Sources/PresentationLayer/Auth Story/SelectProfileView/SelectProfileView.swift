@@ -17,50 +17,55 @@ struct SelectProfileView: View {
     var body: some View {
         HStack {        
             NavigationView {
-                ZStack(alignment: .bottom) {
+                ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
                     LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
                         .edgesIgnoringSafeArea(.all)
-                    VStack {
-                        ScrollView {
-                            VStack(alignment: .leading) {
-                                Text("Choose profile")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                .animation(nil)
-                                
-                                ForEach(self.viewModel.profilesViewModels) { profile in
-                                    Button(action: {
-                                        self.viewModel.selectProfile(id: profile.id)
-                                    }) {
-                                        ProfileNameView(viewModel: profile)
+                    if self.viewModel.isMultipleAccountsEnabled {
+                        VStack {
+                            ScrollView {
+                                VStack(alignment: .leading) {
+                                    Text("Choose profile")
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                    .animation(nil)
+                                    
+                                    ForEach(self.viewModel.profilesViewModels) { profile in
+                                        Button(action: {
+                                            self.viewModel.selectProfile(id: profile.id)
+                                        }) {
+                                            ProfileNameView(viewModel: profile)
+                                        }
+                                        .transition(.opacity)
                                     }
-                                    .transition(.opacity)
+                                    .animation(nil)
+                                    NavigationLink(destination: self.viewModel.showCreateProfileView()) {
+                                        AddProfileView()
+                                    }
+                                    .animation(nil)
                                 }
-                                .animation(nil)
-                                NavigationLink(destination: self.viewModel.showCreateProfileView()) {
-                                    AddProfileView()
-                                }
-                                .animation(nil)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .overlay(
+                                    GeometryReader { proxy in
+                                        self.contentHeight(proxy: proxy)
+                                })
+                                    .animation(.easeInOut(duration: 0.6))
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .overlay(
-                                GeometryReader { proxy in
-                                    self.contentHeight(proxy: proxy)
-                            })
-                                .animation(.easeInOut(duration: 0.6))
+                            .frame(maxWidth: .infinity, maxHeight: contentHeight)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .animation(.easeInOut(duration: 0.5))
                         }
-                        .frame(maxWidth: .infinity, maxHeight: contentHeight)
                         .padding()
-                        .background(Color.white)
-                        .cornerRadius(12)
-                        .animation(.easeInOut(duration: 0.5))
+                    } else {
+                        ProgressView()
                     }
-                    .padding()
                 }
             }
             .onAppear {
                 self.viewModel.accountRecover()
-        }.errorToast(isShowing: self.$viewModel.showError, errorText: self.viewModel.error ?? "")
+            }
+            .errorToast(isShowing: self.$viewModel.showError, errorText: self.viewModel.error ?? "")
         }
     }
     

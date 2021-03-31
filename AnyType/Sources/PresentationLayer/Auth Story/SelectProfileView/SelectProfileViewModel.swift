@@ -24,6 +24,8 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
 
 
 class SelectProfileViewModel: ObservableObject {
+    let isMultipleAccountsEnabled = false // Not supported yet
+    
     @Environment(\.authService) private var authService
     @Environment(\.localRepoService) private var localRepoService
     @Environment(\.fileService) private var fileService
@@ -44,10 +46,9 @@ class SelectProfileViewModel: ObservableObject {
     @Published var showError: Bool = false
     
     func accountRecover() {
-        DispatchQueue.global().async {
-            self.handleAccountShowEvent()
-            
-            self.authService.accountRecover { [weak self] result in
+        DispatchQueue.global().async { [weak self] in
+            self?.handleAccountShowEvent()
+            self?.authService.accountRecover { result in
                 if case let .failure(.recoverAccountError(error)) = result {
                     self?.error = error
                 }
@@ -86,26 +87,39 @@ class SelectProfileViewModel: ObservableObject {
         }
         .receive(on: RunLoop.main)
         .sink { [weak self] events in
+            guard let self = self else {
+                return
+            }
+            
             for event in events {
-                let account = event.accountShow
-
-                let profileViewModel = ProfileNameViewModel(id: account.account.id)
-                profileViewModel.name = account.account.name
+                let account = event.accountShow.account
                 
-                switch account.account.avatar.avatar {
-                case .color(let hexColor):
-                    profileViewModel.color = UIColor(hexString: hexColor)
-                case .image(let file):
-                    let defaultWidth: CGFloat = 500
-                    let imageSize = Int32(defaultWidth * UIScreen.main.scale) // we also need device aspect ratio and etc.
-                    // so, it is better here to subscribe or take event from UIWindow and get its data.
-                    self?.downloadAvatarImage(imageSize: imageSize, hash: file.hash, profileViewModel: profileViewModel)
-                default: break
+                if self.isMultipleAccountsEnabled {
+                    let profileViewModel = self.profileViewModelFromAccount(account)
+                    self.profilesViewModels.append(profileViewModel)
+                } else {
+                    self.selectProfile(id: account.id)
                 }
-                
-                self?.profilesViewModels.append(profileViewModel)
             }
         }
+    }
+    
+    private func profileViewModelFromAccount(_ account: Anytype_Model_Account) -> ProfileNameViewModel {
+        let profileViewModel = ProfileNameViewModel(id: account.id)
+        profileViewModel.name = account.name
+        
+        switch account.avatar.avatar {
+        case .color(let hexColor):
+            profileViewModel.color = UIColor(hexString: hexColor)
+        case .image(let file):
+            let defaultWidth: CGFloat = 500
+            let imageSize = Int32(defaultWidth * UIScreen.main.scale) // we also need device aspect ratio and etc.
+            // so, it is better here to subscribe or take event from UIWindow and get its data.
+            self.downloadAvatarImage(imageSize: imageSize, hash: file.hash, profileViewModel: profileViewModel)
+        default: break
+        }
+        
+        return profileViewModel
     }
     
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
