@@ -1,163 +1,65 @@
-//
-//  DocumentModule+EventProcessor.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 26.01.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import os
 import BlocksModels
 import ProtobufMessages
 
-fileprivate typealias Namespace = DocumentModule
-fileprivate typealias FileNamespace = Namespace.EventProcessor
-
-private extension Logging.Categories {
-    static let eventProcessor: Self = "DocumentModule.EventProcessor"
-}
-
-// MARK: Event Processor
-extension Namespace {
-    /// This class encapsulates all logic for handling events.
-    ///
-    /// Setup for this class:
-    ///
-    /// ```
-    /// let processor: EventProcessor = .init()
-    /// let container: BlocksModelsContainerModelProtocol = /// get container
-    /// processor.configured(container)
-    /// ```
-    ///
-    /// If you want to listen events, you could use publisher:
-    ///
-    /// ```
-    /// processor.didProcessEventsPublisher // do stuff
-    /// ```
-    ///
-    /// If you want to handle events directly:
-    ///
-    /// ```
-    /// processor.handle(events:)
-    /// ```
-    ///
-    class EventProcessor {
-        private var eventHandler: EventHandler
-        private var eventPublisher: EventListening.NotificationEventListener<EventHandler>?
-        init() {
-            self.eventHandler = .init()
-            self.eventPublisher = .init(handler: self.eventHandler)
-        }
-        
-        private func startListening(contextId: String) {
-            self.eventPublisher?.receive(contextId: contextId)
-        }
-        
-        func configured(contextId: TopLevel.AliasesMap.BlockId) -> Self {
-            self.startListening(contextId: contextId)
-            return self
-        }
-        
-        // MARK: EventHandler interface
-        var didProcessEventsPublisher: AnyPublisher<EventHandler.Update, Never> { self.eventHandler.didProcessEventsPublisher }
-        func configured(_ container: TopLevelContainerModelProtocol) -> Self {
-            _ = self.eventHandler.configured(container)
-            if let rootId = container.rootId {
-                self.startListening(contextId: rootId)
-            }
-            else {
-                let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "We can't start listening rootId (%@) of container: (%@)", String(describing: container.rootId), String(describing: container))
-            }
-            return self
-        }
-        func handle(events: EventHandler.EventsContainer) {
-            self.eventHandler.handle(events: events)
-        }
-    }
-}
-
-// MARK: Block Show
-extension Namespace.EventProcessor {
-    func handleBlockShow(events: EventHandler.EventsContainer) -> [BlocksModelsModule.Parser.PageEvent] {
-        self.eventHandler.handleBlockShow(events: events)
-    }
-}
-
-// MARK: Event Listening
-extension FileNamespace {
-    class EventHandler: NewEventHandler {
-        typealias EventsContainer = EventListening.PackOfEvents
-        typealias BlockId = TopLevel.AliasesMap.BlockId
-                
-        private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
-        var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()
-        
-        
-        private typealias Builder = TopLevel.Builder
-        private typealias Updater = TopLevel.AliasesMap.BlockTools.Updater
-        private typealias Container = TopLevelContainerModelProtocol
-        
-        private weak var container: Container?
-        
-        private var parser: BlocksModelsModule.Parser = .init()
-        private var updater: Updater?
-        
-        init() {
-            self.setup()
-        }
-                                        
-        private func finalize(_ updates: [Update]) {
+class EventHandler: NewEventHandler {
+    typealias EventsContainer = EventListening.PackOfEvents
+    typealias BlockId = TopLevel.AliasesMap.BlockId
             
-            // configure one update
-            let update: Update = updates.reduce(.general) { (result, value) in .merged(lhs: result, rhs: value) }
-            
-            guard let container = self.container else {
-                let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "Container is nil in event handler. Something went wrong.")
-                return
-            }
-
-            if update.hasUpdate {
-                Builder.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
-            }
-
-            // Notify about updates if needed.
-            self.didProcessEventsSubject.send(update)
-        }
+    private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
+    var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()
+    
+    
+    private typealias Builder = TopLevel.Builder
+    private typealias Updater = TopLevel.AliasesMap.BlockTools.Updater
+    private typealias Container = TopLevelContainerModelProtocol
+    
+    private weak var container: Container?
+    
+    var parser: BlocksModelsModule.Parser = .init()
+    private var updater: Updater?
+    
+    init() {
+        self.setup()
+    }
+                                    
+    private func finalize(_ updates: [Update]) {
         
-        func handle(events: EventsContainer) {
-            let innerUpdates = events.events.compactMap(\.value).compactMap(self.handleInnerEvent(_:))
-            let ourUpdates = events.ourEvents.compactMap(self.handleOurEvent(_:))
-            self.finalize(innerUpdates + ourUpdates)
+        // configure one update
+        let update: Update = updates.reduce(.general) { (result, value) in .merged(lhs: result, rhs: value) }
+        
+        guard let container = self.container else {
+            let logger = Logging.createLogger(category: .eventProcessor)
+            os_log(.debug, log: logger, "Container is nil in event handler. Something went wrong.")
+            return
         }
-    }
-}
 
-// MARK: Block Show
-extension FileNamespace.EventHandler {
-    func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> BlocksModelsModule.Parser.PageEvent {
-        switch event {
-        case let .blockShow(value): return self.parser.parse(blocks: value.blocks, details: value.details, smartblockType: value.type)
-        default: return .empty()
+        if update.hasUpdate {
+            Builder.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
         }
+
+        // Notify about updates if needed.
+        self.didProcessEventsSubject.send(update)
     }
-    func handleBlockShow(events: EventsContainer) -> [BlocksModelsModule.Parser.PageEvent] {
-        events.events.compactMap(\.value).compactMap(self.handleBlockShow(event:))
+    
+    func handle(events: EventsContainer) {
+        let innerUpdates = events.events.compactMap(\.value).compactMap(self.handleInnerEvent(_:))
+        let ourUpdates = events.ourEvents.compactMap(self.handleOurEvent(_:))
+        self.finalize(innerUpdates + ourUpdates)
     }
 }
 
 // MARK: Setup
-private extension FileNamespace.EventHandler {
+private extension EventHandler {
     func setup() {
         self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
     }
 }
 
 // MARK: Configurations
-private extension FileNamespace.EventHandler {
+extension EventHandler {
     func configured(_ container: TopLevelContainerModelProtocol) -> Self {
         self.updater = .init(container.blocksContainer)
         self.container = container
@@ -166,7 +68,7 @@ private extension FileNamespace.EventHandler {
 }
 
 // MARK: Update
-extension FileNamespace.EventHandler {
+extension EventHandler {
     enum Update: Equatable {
         struct Payload: Hashable {
             var addedIds: [BlockId] = []
@@ -213,7 +115,7 @@ extension FileNamespace.EventHandler {
 
 // MARK: Events Handling
 // MARK: Events Handling / InnerEvents
-private extension FileNamespace.EventHandler {
+private extension EventHandler {
     func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> Update {
         typealias AttributedTextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
 
@@ -479,7 +381,7 @@ private extension FileNamespace.EventHandler {
 }
 
 // MARK: Events Handling / OurEvent
-private extension FileNamespace.EventHandler {
+private extension EventHandler {
     func handleOurEvent(_ event: EventListening.PackOfEvents.OurEvent) -> Update? {
         switch event {
         case let .setFocus(value):
@@ -557,7 +459,7 @@ private extension FileNamespace.EventHandler {
                 return .empty
             }
             if !block.isToggled {
-                let flattener = DocumentModule.Document.BaseFlattener.self
+                let flattener = BaseFlattener.self
                 let deletedIds = flattener.flattenIds(root: block,
                                                       in: container,
                                                       options: .init(shouldCheckIsRootToggleOpened: false,
@@ -572,11 +474,11 @@ private extension FileNamespace.EventHandler {
 }
 
 // MARK: Converters
-private extension FileNamespace.EventHandler {
+private extension EventHandler {
     enum Focus {}
 }
 
-private extension FileNamespace.EventHandler.Focus {
+private extension EventHandler.Focus {
     enum Converter {
         typealias Model = TopLevel.AliasesMap.FocusPosition
         typealias EventModel = EventListening.PackOfEvents.OurEvent.Focus.Payload.Position

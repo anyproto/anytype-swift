@@ -134,10 +134,9 @@
 		0A09660525BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E225BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift */; };
 		0A09660625BEF5B000C004BD /* EditorModule+Content+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E325BEF5B000C004BD /* EditorModule+Content+ViewController.swift */; };
 		0A09660D25BF176700C004BD /* DocumentModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09660C25BF176700C004BD /* DocumentModule.swift */; };
-		0A09661025C06DBA00C004BD /* DocumentModule+EventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09660F25C06DBA00C004BD /* DocumentModule+EventProcessor.swift */; };
-		0A09661525C0AB1200C004BD /* DocumentModule+Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09661425C0AB1200C004BD /* DocumentModule+Document.swift */; };
-		0A09661825C0AB4F00C004BD /* DocumentModule+Document+BaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09661725C0AB4F00C004BD /* DocumentModule+Document+BaseDocument.swift */; };
-		0A09661B25C0AD0800C004BD /* DocumentModule+Document+DetailsActiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09661A25C0AD0800C004BD /* DocumentModule+Document+DetailsActiveModel.swift */; };
+		0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09660F25C06DBA00C004BD /* EventProcessor.swift */; };
+		0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09661725C0AB4F00C004BD /* BaseDocument.swift */; };
+		0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09661A25C0AD0800C004BD /* DetailsActiveModel.swift */; };
 		0A0AA73E23FD8446003A2935 /* BlockModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA73D23FD8446003A2935 /* BlockModelTests.swift */; };
 		0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA749240146B5003A2935 /* UIView+Extensions.swift */; };
 		0A0AA74C240156F7003A2935 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA74B240156F7003A2935 /* Logging.swift */; };
@@ -306,7 +305,9 @@
 		0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */; };
 		0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */; };
 		0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */; };
-		0AEAD66025C0B93800E8A442 /* DocumentModule+Document+Flattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* DocumentModule+Document+Flattener.swift */; };
+		0AEAD66025C0B93800E8A442 /* BaseFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */; };
+		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
+		3DCE79FE2615222300E09593 /* LoggingCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79FD2615222300E09593 /* LoggingCategories.swift */; };
 		53178879260A29FC004F9F68 /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53178878260A29FC004F9F68 /* Inter.ttf */; };
 		5338E7E725DC3352008CB97D /* BlockActionsHandlersFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
@@ -516,10 +517,9 @@
 		0A0965E225BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Container+ViewController+ViewModel.swift"; sourceTree = "<group>"; };
 		0A0965E325BEF5B000C004BD /* EditorModule+Content+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Content+ViewController.swift"; sourceTree = "<group>"; };
 		0A09660C25BF176700C004BD /* DocumentModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentModule.swift; sourceTree = "<group>"; };
-		0A09660F25C06DBA00C004BD /* DocumentModule+EventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+EventProcessor.swift"; sourceTree = "<group>"; };
-		0A09661425C0AB1200C004BD /* DocumentModule+Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document.swift"; sourceTree = "<group>"; };
-		0A09661725C0AB4F00C004BD /* DocumentModule+Document+BaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document+BaseDocument.swift"; sourceTree = "<group>"; };
-		0A09661A25C0AD0800C004BD /* DocumentModule+Document+DetailsActiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document+DetailsActiveModel.swift"; sourceTree = "<group>"; };
+		0A09660F25C06DBA00C004BD /* EventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventProcessor.swift; sourceTree = "<group>"; };
+		0A09661725C0AB4F00C004BD /* BaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDocument.swift; sourceTree = "<group>"; };
+		0A09661A25C0AD0800C004BD /* DetailsActiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsActiveModel.swift; sourceTree = "<group>"; };
 		0A0AA73023FB25DA003A2935 /* Lib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Lib.framework; path = Dependencies/Middleware/Lib.framework; sourceTree = "<group>"; };
 		0A0AA73D23FD8446003A2935 /* BlockModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModelTests.swift; sourceTree = "<group>"; };
 		0A0AA749240146B5003A2935 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -679,7 +679,9 @@
 		0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+File.swift"; sourceTree = "<group>"; };
 		0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Tools.swift"; sourceTree = "<group>"; };
 		0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Protocols.swift"; sourceTree = "<group>"; };
-		0AEAD65F25C0B93800E8A442 /* DocumentModule+Document+Flattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentModule+Document+Flattener.swift"; sourceTree = "<group>"; };
+		0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFlattener.swift; sourceTree = "<group>"; };
+		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
+		3DCE79FD2615222300E09593 /* LoggingCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingCategories.swift; sourceTree = "<group>"; };
 		53178878260A29FC004F9F68 /* Inter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttf; sourceTree = "<group>"; };
 		5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsHandlersFacade.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
@@ -1410,14 +1412,13 @@
 		0A0965B525BEE7DE00C004BD /* Document */ = {
 			isa = PBXGroup;
 			children = (
+				3DCE7A092615248A00E09593 /* Flattener */,
 				0A09660C25BF176700C004BD /* DocumentModule.swift */,
-				0A09660F25C06DBA00C004BD /* DocumentModule+EventProcessor.swift */,
-				0A09661425C0AB1200C004BD /* DocumentModule+Document.swift */,
-				0A09661725C0AB4F00C004BD /* DocumentModule+Document+BaseDocument.swift */,
-				0A09661A25C0AD0800C004BD /* DocumentModule+Document+DetailsActiveModel.swift */,
-				0AEAD65F25C0B93800E8A442 /* DocumentModule+Document+Flattener.swift */,
-				EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */,
-				EA6BAF45260C8E420062273F /* ToggleFlattener.swift */,
+				0A09660F25C06DBA00C004BD /* EventProcessor.swift */,
+				3DCE79F92615215D00E09593 /* EventHandler.swift */,
+				0A09661725C0AB4F00C004BD /* BaseDocument.swift */,
+				0A09661A25C0AD0800C004BD /* DetailsActiveModel.swift */,
+				3DCE79FD2615222300E09593 /* LoggingCategories.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -1930,6 +1931,16 @@
 			path = UserActions;
 			sourceTree = "<group>";
 		};
+		3DCE7A092615248A00E09593 /* Flattener */ = {
+			isa = PBXGroup;
+			children = (
+				0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */,
+				EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */,
+				EA6BAF45260C8E420062273F /* ToggleFlattener.swift */,
+			);
+			path = Flattener;
+			sourceTree = "<group>";
+		};
 		5338E7E425DC32E5008CB97D /* BlockActionHandlers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2261,7 +2272,7 @@
 				0AD7695325D58D6000669F8C /* BlockActionsService+Bookmark+Implementation.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
-				0A09661025C06DBA00C004BD /* DocumentModule+EventProcessor.swift in Sources */,
+				0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
@@ -2278,7 +2289,7 @@
 				5338E7F825DC736A008CB97D /* UserActionHandler.swift in Sources */,
 				0A005AB524C5D303000520AA /* CommonViews+Pickers.swift in Sources */,
 				0A203A8A2547106100D3729A /* CoreLayer+Network+Image+Property.swift in Sources */,
-				0A09661825C0AB4F00C004BD /* DocumentModule+Document+BaseDocument.swift in Sources */,
+				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
 				0A0965FF25BEF5B000C004BD /* EditorModule+Document.swift in Sources */,
 				0A78327624BC83A500A1B6F6 /* BlocksModelsModule+Parser+Details.swift in Sources */,
@@ -2394,7 +2405,7 @@
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */,
-				0AEAD66025C0B93800E8A442 /* DocumentModule+Document+Flattener.swift in Sources */,
+				0AEAD66025C0B93800E8A442 /* BaseFlattener.swift in Sources */,
 				0AA00C5224CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift in Sources */,
 				0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */,
 				0A1DACCD244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift in Sources */,
@@ -2437,6 +2448,7 @@
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
+				3DCE79FE2615222300E09593 /* LoggingCategories.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
 				0A0965FA25BEF5B000C004BD /* EditorModule.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* BlockActionsService+Text+Implementation.swift in Sources */,
@@ -2455,7 +2467,6 @@
 				0A0965E525BEF5B000C004BD /* DocumentViewRouting+File.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* BlocksModelsModule+Parser+Content.swift in Sources */,
-				0A09661525C0AB1200C004BD /* DocumentModule+Document.swift in Sources */,
 				0A9D49DE244905C0007F0992 /* BlocksViews+UserEvents.swift in Sources */,
 				0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */,
 				03D1516623FB446A004027CE /* ConfigurationService.swift in Sources */,
@@ -2499,7 +2510,7 @@
 				0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */,
-				0A09661B25C0AD0800C004BD /* DocumentModule+Document+DetailsActiveModel.swift in Sources */,
+				0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* BlockActionsService+File.swift in Sources */,
 				03CB3F04230C1185003D5DFD /* ProfileServiceProtocol.swift in Sources */,
@@ -2512,6 +2523,7 @@
 				5338E7FB25DC7AF5008CB97D /* BlockActionService.swift in Sources */,
 				5338E7F525DC7345008CB97D /* ButtonBlockActionHandler.swift in Sources */,
 				0A005AAC24C4731D000520AA /* BlocksViews+New+File+File.swift in Sources */,
+				3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */,
 				0A0965E825BEF5B000C004BD /* DocumentViewRouting+Tools.swift in Sources */,
 				03D1515E23FB2B85004027CE /* ConfigurationServiceProtocol.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,

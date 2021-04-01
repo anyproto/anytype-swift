@@ -24,7 +24,7 @@ extension Namespace {
     /// Should we move it to PageBlocksViews? (?)
     ///
     class ViewModel: BlocksViews.New.Tools.Base.ViewModel {
-        typealias PageDetailsViewModel = DocumentModule.Document.DetailsActiveModel
+        typealias PageDetailsViewModel = DetailsActiveModel
         // Maybe we need also input and output subscribers.
         // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
         // We can't edit name of the block.

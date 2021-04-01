@@ -14,11 +14,11 @@ fileprivate typealias ViewModels = BlocksViews.New
 
 extension Namespace {
     class BaseConverter {
-        fileprivate let document: DocumentModule.Document.BaseDocument
-        func convert(_ blocks: [DocumentModule.Document.BaseDocument.ActiveModel]) -> [BlocksViews.New.Base.ViewModel] { [] }
-        func convert(_ block: DocumentModule.Document.BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? { nil }
+        fileprivate let document: BaseDocument
+        func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BlocksViews.New.Base.ViewModel] { [] }
+        func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? { nil }
         
-        init(_ document: DocumentModule.Document.BaseDocument) {
+        init(_ document: BaseDocument) {
             self.document = document
         }
     }
@@ -27,10 +27,10 @@ extension Namespace {
 extension Namespace {
     /// TODO: Split later into
     class CompoundConverter: BaseConverter {
-        override func convert(_ blocks: [DocumentModule.Document.BaseDocument.ActiveModel]) -> [BlocksViews.New.Base.ViewModel] {
+        override func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BlocksViews.New.Base.ViewModel] {
             blocks.compactMap(self.convert)
         }
-        override func convert(_ block: DocumentModule.Document.BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? {
+        override func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? {
             switch block.blockModel.information.content {
             case .smartblock, .layout: return nil
             case let .text(value):

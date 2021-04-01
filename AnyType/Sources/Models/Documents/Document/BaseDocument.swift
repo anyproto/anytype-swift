@@ -1,106 +1,93 @@
-//
-//  DocumentModule+Document+BaseDocument.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 26.01.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 import BlocksModels
 import Combine
 import os
 
-fileprivate typealias Namespace = DocumentModule.Document
-fileprivate typealias FileNamespace = Namespace.BaseDocument
 
 private extension Logging.Categories {
-    static let baseDocument: Self = "DocumentModule.Document.BaseDocument"
+    static let baseDocument: Self = "BaseDocument"
 }
 
-extension Namespace {
+/// TODO:
+/// Add navigation.
+/// For example, we could do the following:
+///
+/// We could keep a track of opened documents ( list of documents ids )
+/// And keep latest ( last ) document as open document.
+///
+class BaseDocument {
+    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias DetailsId = TopLevel.AliasesMap.DetailsId
+    typealias RootModel = TopLevelContainerModelProtocol
+    typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
+    typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
+
+    typealias DetailsContentKind = TopLevel.AliasesMap.DetailsContent.Kind
+    
+    typealias UserSession = BlockUserSessionModelProtocol
+    
+    /// RootId
+    private var rootId: BlockId? { self.rootModel?.rootId }
+    
     /// TODO:
-    /// Add navigation.
-    /// For example, we could do the following:
+    /// Remove it later.
+    /// We have to keep it private.
+    /// For now it is ok.
     ///
-    /// We could keep a track of opened documents ( list of documents ids )
-    /// And keep latest ( last ) document as open document.
-    ///
-    class BaseDocument {
-        typealias BlockId = TopLevel.AliasesMap.BlockId
-        typealias DetailsId = TopLevel.AliasesMap.DetailsId
-        typealias RootModel = TopLevelContainerModelProtocol
-        typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
-        typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor        
-        
-        typealias DetailsActiveModel = DocumentModule.Document.DetailsActiveModel
-        typealias DetailsContentKind = TopLevel.AliasesMap.DetailsContent.Kind
-        
-        typealias UserSession = BlockUserSessionModelProtocol
-        
-        /// RootId
-        private var rootId: BlockId? { self.rootModel?.rootId }
-        
-        /// TODO:
-        /// Remove it later.
-        /// We have to keep it private.
-        /// For now it is ok.
-        ///
-        var documentId: BlockId? { self.rootId }
-        
-        /// RootModel
-        private var rootModel: RootModel? {
-            didSet {
-                self.handleNewRootModel(self.rootModel)
-            }
+    var documentId: BlockId? { self.rootId }
+    
+    /// RootModel
+    private var rootModel: RootModel? {
+        didSet {
+            self.handleNewRootModel(self.rootModel)
         }
-        
-        /// Event Processing
-        private let eventProcessor: DocumentModule.EventProcessor = .init()
-        
-        /// Data transformer
-        private let transformer: Transformer = .defaultValue
-        
-        /// Details Active Models
-        /// But we have a lot of them, so, we should keep a list of them.
-        /// Or we could create them on the fly.
+    }
+    
+    /// Event Processing
+    private let eventProcessor: EventProcessor = .init()
+    
+    /// Data transformer
+    private let transformer: Transformer = .defaultValue
+    
+    /// Details Active Models
+    /// But we have a lot of them, so, we should keep a list of them.
+    /// Or we could create them on the fly.
+    ///
+    /// This one is active model of default ( or main ) document id (smartblock id).
+    ///
+    private var defaultDetailsActiveModel: DetailsActiveModel = .init()
+    
+    /// This event subject is a subject for events from default details active model.
+    ///
+    /// When we set details, we need to listen for returned value ( success result ).
+    /// This success result should be handled by our event processor.
+    ///
+    private var detailsEventSubject: PassthroughSubject<DetailsActiveModel.Events, Never> = .init()
+    
+    /// It is simple event subject subscription.
+    ///
+    /// We use it to subscribe on event subject.
+    ///
+    private var detailsEventSubjectSubscription: AnyCancellable?
+    
+    /// Services
+    private var smartblockService: ServiceLayerModule.Single.BlockActionsService = .init()
+    
+    init() {}
+    
+    deinit {
+        /// TODO:
+        /// Add closing document without thread.
+        /// By enhancing code generation.
         ///
-        /// This one is active model of default ( or main ) document id (smartblock id).
-        ///
-        private var defaultDetailsActiveModel: DetailsActiveModel = .init()
-        
-        /// This event subject is a subject for events from default details active model.
-        ///
-        /// When we set details, we need to listen for returned value ( success result ).
-        /// This success result should be handled by our event processor.
-        ///
-        private var detailsEventSubject: PassthroughSubject<DetailsActiveModel.Events, Never> = .init()
-        
-        /// It is simple event subject subscription.
-        ///
-        /// We use it to subscribe on event subject.
-        ///
-        private var detailsEventSubjectSubscription: AnyCancellable?
-        
-        /// Services
-        private var smartblockService: ServiceLayerModule.Single.BlockActionsService = .init()
-        
-        init() {}
-        
-        deinit {
-            /// TODO:
-            /// Add closing document without thread.
-            /// By enhancing code generation.
-            ///
-            if let rootId = self.rootId {
-                _ = self.smartblockService.close.action(contextID: rootId, blockID: rootId)
-            }
+        if let rootId = self.rootId {
+            _ = self.smartblockService.close.action(contextID: rootId, blockID: rootId)
         }
     }
 }
 
 // MARK: - Handle Open
-extension FileNamespace {
+extension BaseDocument {
     private func handleOpen(_ value: ServiceLayerModule.Success) {
         let blocks = self.eventProcessor.handleBlockShow(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
         guard let event = blocks.first else { return }
@@ -138,7 +125,7 @@ extension FileNamespace {
 }
 
 // MARK: - Configure Details
-private extension FileNamespace {
+private extension BaseDocument {
     /// Configure a subscription on events stream from details.
     /// We need it for set details success result to process it in our event processor.
     ///
@@ -168,7 +155,7 @@ private extension FileNamespace {
 }
 
 // MARK: - Handle new root model
-private extension FileNamespace {
+private extension BaseDocument {
     func handleNewRootModel(_ container: RootModel?) {
         if let container = container {
             _ = self.eventProcessor.configured(container)
@@ -178,7 +165,7 @@ private extension FileNamespace {
 }
 
 // MARK: - Get models
-extension FileNamespace {
+extension BaseDocument {
     typealias ActiveModel = BlockActiveRecordModelProtocol
     
     /// Returns a flatten list of active models of document.
@@ -193,7 +180,7 @@ extension FileNamespace {
             os_log(.debug, log: logger, "getModels. Our document is not ready yet")
             return []
         }
-        return DocumentModule.Document.BaseFlattener.flatten(root: activeModel, in: container, options: .default)
+        return BaseFlattener.flatten(root: activeModel, in: container, options: .default)
     }
     
     /// Returns a root active model.
@@ -220,8 +207,8 @@ extension FileNamespace {
 }
 
 // MARK: - Publishers
-extension FileNamespace {
-    typealias ModelsUpdates = DocumentModule.EventProcessor.EventHandler.Update
+extension BaseDocument {
+    typealias ModelsUpdates = EventHandler.Update
     struct UpdateResult {
         var updates: ModelsUpdates
         var models: [ActiveModel]
@@ -264,7 +251,7 @@ extension FileNamespace {
                let container = self.rootModel,
                let block = container.blocksContainer.choose(by: toggleId),
                block.isToggled {
-                return DocumentModule.Document.BaseFlattener.flatten(root: block, in: container, options: .default)
+                return BaseFlattener.flatten(root: block, in: container, options: .default)
             }
             if !payload.addedIds.isEmpty {
                 return self.getModels()
@@ -276,8 +263,7 @@ extension FileNamespace {
 }
 
 // MARK: - Details
-extension FileNamespace {
-    
+extension BaseDocument {
     /// Return configured details for provided id for listening events.
     ///
     /// Note.
@@ -353,7 +339,7 @@ extension FileNamespace {
 /// Now we use view models that uses only blocks.
 /// So, we have to convert our details to blocks first.
 ///
-extension FileNamespace {
+extension BaseDocument {
     /// Deprecated.
     private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsContentKind) -> ActiveModel? {
         guard let rootId = self.rootId else {
@@ -390,7 +376,7 @@ extension FileNamespace {
 
 
 // MARK: - Events
-extension FileNamespace {
+extension BaseDocument {
     typealias Events = EventListening.PackOfEvents
     
     /// Handle events initiated by user.

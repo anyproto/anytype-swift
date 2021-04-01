@@ -19,8 +19,8 @@ extension Namespace {
 
 extension FileNamespace {
     class BaseConverter {
-        fileprivate let document: DocumentModule.Document.BaseDocument
-        func convert(_ model: DocumentModule.Document.BaseDocument.ActiveModel, kind: DocumentModule.Document.BaseDocument.DetailsContentKind) -> BlocksViews.New.Page.Base.ViewModel? {
+        fileprivate let document: BaseDocument
+        func convert(_ model: BaseDocument.ActiveModel, kind: BaseDocument.DetailsContentKind) -> BlocksViews.New.Page.Base.ViewModel? {
             switch kind {
             case .title: return ViewModels.Page.Title.ViewModel.init(model)
             case .iconEmoji: return ViewModels.Page.IconEmoji.ViewModel.init(model)
@@ -29,7 +29,7 @@ extension FileNamespace {
             }
         }
         
-        init(_ document: DocumentModule.Document.BaseDocument) {
+        init(_ document: BaseDocument) {
             self.document = document
         }
     }

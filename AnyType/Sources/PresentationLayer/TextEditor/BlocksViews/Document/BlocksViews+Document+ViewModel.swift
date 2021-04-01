@@ -26,7 +26,7 @@ extension Namespace {
     /// You could subscribe on **blocks or on details of opened document** from this class.
     ///
     class ViewModel {
-        typealias Document = DocumentModule.Document.BaseDocument
+        typealias Document = BaseDocument
         private typealias ViewModelsConverter = BlocksViews.Supplement.ViewModelsConvertions.CompoundConverter
         private typealias DetailsViewModelsConverter = BlocksViews.Supplement.ViewModelsConvertions.Details.BaseConverter
         private var blocksConverter: ViewModelsConverter?
@@ -50,7 +50,7 @@ extension Namespace {
 
 // MARK: - Open
 extension FileNamespace {
-    func open(_ documentId: DocumentModule.Document.BaseDocument.BlockId) {
+    func open(_ documentId: BaseDocument.BlockId) {
         _ = self.document.open(documentId).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
@@ -60,7 +60,7 @@ extension FileNamespace {
             }
         }, receiveValue: {})
     }
-    func open(_ documentId: DocumentModule.Document.BaseDocument.BlockId) -> AnyPublisher<Void, Error> {
+    func open(_ documentId: BaseDocument.BlockId) -> AnyPublisher<Void, Error> {
         self.document.open(documentId)
     }
     func open(_ value: ServiceLayerModule.Success) {
@@ -72,11 +72,11 @@ extension FileNamespace {
 extension FileNamespace {
     typealias BlockViewModel = BlocksViews.New.Base.ViewModel
     struct UpdateResult {
-        var updates: DocumentModule.Document.BaseDocument.ModelsUpdates
+        var updates: BaseDocument.ModelsUpdates
         var models: [BlockViewModel]
     }
     
-    private func viewModels(from models: [DocumentModule.Document.BaseDocument.ActiveModel]) -> [BlockViewModel] {
+    private func viewModels(from models: [BaseDocument.ActiveModel]) -> [BlockViewModel] {
         self.blocksConverter?.convert(models) ?? []
     }
     
@@ -89,10 +89,10 @@ extension FileNamespace {
 
 // MARK: - Models
 extension FileNamespace {
-    func getRootActiveModel() -> DocumentModule.Document.BaseDocument.ActiveModel? {
+    func getRootActiveModel() -> BaseDocument.ActiveModel? {
         self.document.getRootActiveModel()
     }
-    func getUserSession() -> DocumentModule.Document.BaseDocument.UserSession? {
+    func getUserSession() -> BaseDocument.UserSession? {
         self.document.getUserSession()
     }
 }
@@ -103,15 +103,15 @@ extension FileNamespace {
         var list: [TopLevel.AliasesMap.DetailsContent.Kind] = [.iconEmoji, .title]
     }
     
-    func defaultDetails() -> DocumentModule.Document.BaseDocument.DetailsActiveModel {
+    func defaultDetails() -> DetailsActiveModel {
         self.document.getDefaultDetails()
     }
     
-    func defaultDetailsAccessor() -> DocumentModule.Document.BaseDocument.DetailsAccessor {
+    func defaultDetailsAccessor() -> BaseDocument.DetailsAccessor {
         self.document.getDefaultDetailsAccessor()
     }
     
-    func defaultDetailsAccessorPublisher() -> AnyPublisher<DocumentModule.Document.BaseDocument.DetailsAccessor, Never> {
+    func defaultDetailsAccessorPublisher() -> AnyPublisher<BaseDocument.DetailsAccessor, Never> {
         self.document.getDefaultDetailsAccessorPublisher()
     }
     
@@ -126,7 +126,7 @@ extension FileNamespace {
 
 // MARK: - Events
 extension FileNamespace {
-    typealias Events = DocumentModule.Document.BaseDocument.Events
+    typealias Events = BaseDocument.Events
     func handle(events: Events) {
         self.document.handle(events: events)
     }

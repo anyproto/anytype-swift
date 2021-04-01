@@ -11,47 +11,40 @@ import Combine
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = DocumentModule.Document
-fileprivate typealias FileNamespace = DocumentModule.Document.DetailsActiveModel
-
 private extension Logging.Categories {
     static let detailsActiveModel: Self = "DocumentModule.Document.DetailsActiveModel"
 }
 
-/// TODO: Rethink API.
-/// It is too complex now.
-extension Namespace {
-    // Sends and receives data via serivce.
-    class DetailsActiveModel {
-        typealias PageDetails = DetailsInformationModelProtocol
-        typealias Builder = TopLevel.Builder
-        typealias Details = TopLevel.AliasesMap.DetailsContent
-        typealias Events = EventListening.PackOfEvents
-        private var documentId: String?
-        
-        /// TODO:
-        /// Add DI later.
-        /// Or remove service from this model completely.
-        /// We could use events/actions and send them directly to `user interaction handler`, which will send result to `event handler`.
-        ///
-        private var service: ServiceLayerModule.SmartBlockActionsService = .init()
-        
-        // MARK: Publishers
-        @Published private(set) var currentDetails: PageDetails = TopLevel.Builder.detailsBuilder.informationBuilder.empty()
-        private(set) var wholeDetailsPublisher: AnyPublisher<PageDetails, Never> = .empty() {
-            didSet {
-                self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in
-                    self?.currentDetails = value
-                }
+// Sends and receives data via serivce.
+class DetailsActiveModel {
+    typealias PageDetails = DetailsInformationModelProtocol
+    typealias Builder = TopLevel.Builder
+    typealias Details = TopLevel.AliasesMap.DetailsContent
+    typealias Events = EventListening.PackOfEvents
+    private var documentId: String?
+    
+    /// TODO:
+    /// Add DI later.
+    /// Or remove service from this model completely.
+    /// We could use events/actions and send them directly to `user interaction handler`, which will send result to `event handler`.
+    ///
+    private var service: ServiceLayerModule.SmartBlockActionsService = .init()
+    
+    // MARK: Publishers
+    @Published private(set) var currentDetails: PageDetails = TopLevel.Builder.detailsBuilder.informationBuilder.empty()
+    private(set) var wholeDetailsPublisher: AnyPublisher<PageDetails, Never> = .empty() {
+        didSet {
+            self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in
+                self?.currentDetails = value
             }
         }
-        var currentDetailsSubscription: AnyCancellable?
-        private var eventSubject: PassthroughSubject<Events, Never> = .init()
     }
+    var currentDetailsSubscription: AnyCancellable?
+    private var eventSubject: PassthroughSubject<Events, Never> = .init()
 }
 
 // MARK: Configuration
-extension FileNamespace {
+extension DetailsActiveModel {
     func configured(documentId: String) -> Self {
         self.documentId = documentId
         return self
@@ -67,14 +60,14 @@ extension FileNamespace {
 }
 
 // MARK: Handle Events
-extension FileNamespace {
+extension DetailsActiveModel {
     private func handle(events: Events) {
         self.eventSubject.send(events)
     }
 }
 
 // MARK: Updates
-extension FileNamespace {
+extension DetailsActiveModel {
     private enum UpdateScheduler {
         static let defaultTimeInterval: RunLoop.SchedulerTimeType.Stride = 5.0
     }

@@ -109,7 +109,7 @@ extension Namespace {
         
         // MARK: Page View Models
         /// We need this model to be Published cause need handle actions from IconEmojiBlock
-        typealias PageDetailsViewModelsDictionary = [DocumentModule.Document.BaseDocument.DetailsContentKind : BlockViewBuilderProtocol]
+        typealias PageDetailsViewModelsDictionary = [BaseDocument.DetailsContentKind : BlockViewBuilderProtocol]
         @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
         lazy private(set) var detailsViewModels: PageDetailsViewModelsDictionary = [:] {
             didSet {
