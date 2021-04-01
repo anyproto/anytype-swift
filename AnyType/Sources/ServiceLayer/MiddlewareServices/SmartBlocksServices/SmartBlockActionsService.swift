@@ -17,7 +17,6 @@ import ProtobufMessages
 // MARK: - SmartBlockActionsService
 
 class SmartBlockActionsService: SmartBlockActionsServiceProtocol {
-    
     var createPage: CreatePage = .init()
     var setDetails: SetDetails = .init()
     var convertChildrenToPages: ConvertChildrenToPages = .init()
@@ -31,7 +30,6 @@ private extension SmartBlockActionsService {
 
 // MARK: - SmartBlockActionsService / CreatePage
 extension SmartBlockActionsService {
-    typealias Success = ServiceSuccess
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     struct CreatePage: SmartBlockActionsServiceProtocolCreatePage {
@@ -48,7 +46,7 @@ extension SmartBlockActionsService {
             return self.action(contextID: contextID, targetID: targetID, details: protobufStruct, position: position)
         }
         
-        private func action(contextID: String, targetID: String, details: Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
+        private func action(contextID: String, targetID: String, details: Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> AnyPublisher<ServiceSuccess, Error> {
             Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID, targetID: targetID, details: details, position: position).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
@@ -62,7 +60,7 @@ extension SmartBlockActionsService {
             return self.action(contextID: contextID, details: middlewareDetails)
         }
         
-        private func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Success, Error> {
+        private func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<ServiceSuccess, Error> {
             Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }

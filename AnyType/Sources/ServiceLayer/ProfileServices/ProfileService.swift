@@ -17,7 +17,7 @@ class ProfileService: ProfileServiceProtocol {
     
     func obtainUserInformation() -> AnyPublisher<ServiceSuccess, Error> {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
-            self.blocksActionsService.open.action(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
+            self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
         }.eraseToAnyPublisher()
     }
 }

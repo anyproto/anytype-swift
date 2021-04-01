@@ -209,7 +209,7 @@ extension HomeCollectionViewModel {
 //        guard let targetModel = self.rootModel?.blocksContainer.choose(by: id) else { return }
 //        let blockId = targetModel.blockModel.information.id
         let blockId = id
-        self.blockActionsService.delete.action(contextID: rootId, blockIds: [blockId]).sink { (value) in
+        self.blockActionsService.delete(contextID: rootId, blockIds: [blockId]).sink { (value) in
             switch value {
             case .finished: return
             case let .failure(error):

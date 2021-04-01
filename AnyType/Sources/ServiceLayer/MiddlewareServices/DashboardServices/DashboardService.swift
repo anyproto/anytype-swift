@@ -24,7 +24,9 @@ class DashboardService: DashboardServiceProtocol {
         
     func openDashboard() -> AnyPublisher<ServiceSuccess, Error> {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
-            self.blocksActionsService.open.action(contextID: configuration.homeBlockID, blockID: configuration.homeBlockID)
+            self.blocksActionsService.open(
+                contextID: configuration.homeBlockID, blockID: configuration.homeBlockID
+            )
         }.eraseToAnyPublisher()
     }
     

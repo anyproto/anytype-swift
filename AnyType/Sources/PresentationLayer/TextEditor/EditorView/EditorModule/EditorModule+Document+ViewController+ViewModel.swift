@@ -208,7 +208,7 @@ extension Namespace {
             guard let documentId = documentId else { return }
             self.internalState = .loading
                         
-            self.blockActionsService.open.action(contextID: documentId, blockID: documentId)
+            self.blockActionsService.open(contextID: documentId, blockID: documentId)
                 .receive(on: DispatchQueue.main)
                 .sink(receiveCompletion: { [weak self] (value) in
                     switch value {

@@ -81,7 +81,7 @@ class BaseDocument {
         /// By enhancing code generation.
         ///
         if let rootId = self.rootId {
-            _ = self.smartblockService.close.action(contextID: rootId, blockID: rootId)
+            _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
         }
     }
 }
@@ -108,7 +108,7 @@ extension BaseDocument {
     
     func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {
         /// What to do on open?
-        self.smartblockService.open.action(contextID: blockId, blockID: blockId).map { [weak self] (value) in
+        self.smartblockService.open(contextID: blockId, blockID: blockId).map { [weak self] (value) in
             self?.handleOpen(value)
         }.eraseToAnyPublisher()
     }

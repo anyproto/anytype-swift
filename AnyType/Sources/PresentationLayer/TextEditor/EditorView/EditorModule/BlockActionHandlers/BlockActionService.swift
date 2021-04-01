@@ -201,7 +201,7 @@ final class BlockActionService {
         let targetId = block.id
         let blockIds: [String] = [targetId]
         let position: TopLevel.AliasesMap.Position = .bottom
-        self.service.duplicate.action(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
+        self.service.duplicate(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):
@@ -275,7 +275,7 @@ private extension BlockActionService {
 
         let targetId = afterBlockId
 
-        self.service.add.action(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
+        self.service.add(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (value) in
                 switch value {
@@ -368,7 +368,7 @@ private extension BlockActionService {
     // MARK: Delete
     func _delete(block: Information, _ completion: @escaping Conversion) {
         let blockIds = [block.id]
-        self.service.delete.action(contextID: self.documentId, blockIds: blockIds)
+        self.service.delete(contextID: self.documentId, blockIds: blockIds)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (value) in
                 switch value {
