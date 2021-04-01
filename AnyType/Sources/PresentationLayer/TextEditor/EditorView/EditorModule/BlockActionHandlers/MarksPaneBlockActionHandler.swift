@@ -18,11 +18,11 @@ private extension Logging.Categories {
 final class MarksPaneBlockActionHandler {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
     typealias ActionsPayloadMarksPane = ActionsPayload.MarksPaneHolder.Action
-    typealias Conversion = (ServiceLayerModule.Success) -> (EventListening.PackOfEvents)
+    typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
     
     private let service: BlockActionService
-    private var textService: ServiceLayerModule.Text.BlockActionsService = .init()
-    private let listService: ServiceLayerModule.List.BlockActionsService = .init()
+    private var textService: BlockActionsServiceText = .init()
+    private let listService: BlockActionsServiceList = .init()
     private let contextId: String
     private var subscriptions: [AnyCancellable] = []
     private weak var subject: PassthroughSubject<BlockActionsHandlersFacade.Reaction?, Never>?

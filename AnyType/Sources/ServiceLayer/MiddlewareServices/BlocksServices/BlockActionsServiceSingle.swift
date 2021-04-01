@@ -1,41 +1,29 @@
-//
-//  BlockActionsService+Single+Implementation.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 11.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import BlocksModels
 import os
 import ProtobufMessages
 
-fileprivate typealias Namespace = ServiceLayerModule.Single
-
 private extension Logging.Categories {
     static let service: Self = "BlockActionsService.Single.Implementation"
 }
 
-extension Namespace {
-    class BlockActionsService: ServiceLayerModule_BlockActionsServiceSingleProtocol {
-        var open: Open = .init() // SmartBlock only for now? Move it to Smartblocks service later.
-        var close: Close = .init() // SmartBlock only for now? Move it to Smartblocks service later.
-        var add: Add
-        var replace: Replace = .init()
-        var delete: Delete = .init()
-        var duplicate: Duplicate = .init() // BlockList?
-        
-        /// DI
-        private var parser: BlocksModelsModule.Parser = .init()
-        init() {
-            self.add = .init(parser: self.parser)
-        }
+class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
+    var open: Open = .init() // SmartBlock only for now? Move it to Smartblocks service later.
+    var close: Close = .init() // SmartBlock only for now? Move it to Smartblocks service later.
+    var add: Add
+    var replace: Replace = .init()
+    var delete: Delete = .init()
+    var duplicate: Duplicate = .init() // BlockList?
+    
+    /// DI
+    private var parser: BlocksModelsModule.Parser = .init()
+    init() {
+        self.add = .init(parser: self.parser)
     }
 }
 
-private extension Namespace.BlockActionsService {
+private extension BlockActionsServiceSingle {
     enum PossibleError: Error {
         case addActionBlockIsNotParsed
         case addActionPositionConversionHasFailed
@@ -44,18 +32,18 @@ private extension Namespace.BlockActionsService {
 }
 
 // MARK: Actions
-extension Namespace.BlockActionsService {
-    typealias Success = ServiceLayerModule.Success
+extension BlockActionsServiceSingle {
+    typealias Success = ServiceSuccess
     
     // MARK: Open / Close
-    struct Open: ServiceLayerModule_BlockActionsServiceSingleProtocolOpen {
+    struct Open: BlockActionsServiceSingleProtocolOpen {
         func action(contextID: BlockId, blockID: BlockId) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Open.Service.invoke(contextID: contextID, blockID: blockID).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
         }
     }
     
-    struct Close: ServiceLayerModule_BlockActionsServiceSingleProtocolClose {
+    struct Close: BlockActionsServiceSingleProtocolClose {
         func action(contextID: BlockId, blockID: BlockId) -> AnyPublisher<Void, Error> {
             Anytype_Rpc.Block.Close.Service.invoke(contextID: contextID, blockID: blockID).successToVoid().subscribe(on: DispatchQueue.global())
                 .eraseToAnyPublisher()
@@ -63,7 +51,7 @@ extension Namespace.BlockActionsService {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    struct Add: ServiceLayerModule_BlockActionsServiceSingleProtocolAdd {
+    struct Add: BlockActionsServiceSingleProtocolAdd {
         typealias InformationModel = Block.Information.InformationModel
         private var parser: BlocksModelsModule.Parser
 
@@ -71,7 +59,7 @@ extension Namespace.BlockActionsService {
             self.parser = parser
         }
 
-        func action(contextID: BlockId, targetID: BlockId, block: InformationModel, position: Position) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+        func action(contextID: BlockId, targetID: BlockId, block: InformationModel, position: Position) -> AnyPublisher<ServiceSuccess, Error> {
             guard let blockInformation = self.parser.convert(information: block) else {
                 return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
             }
@@ -90,10 +78,10 @@ extension Namespace.BlockActionsService {
     
     /// TODO: Remove it or implement it.
     /// Unused.
-    struct Replace: ServiceLayerModule_BlockActionsServiceSingleProtocolReplace {
+    struct Replace: BlockActionsServiceSingleProtocolReplace {
         typealias InformationModel = Block.Information.InformationModel
 
-        func action(contextID: BlockId, blockID: BlockId, block: InformationModel) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+        func action(contextID: BlockId, blockID: BlockId, block: InformationModel) -> AnyPublisher<ServiceSuccess, Error> {
             let logger = Logging.createLogger(category: .service)
             os_log(.info, log: logger, "method is not implemented")
             return .empty()
@@ -105,7 +93,7 @@ extension Namespace.BlockActionsService {
         }
     }
     
-    struct Delete: ServiceLayerModule_BlockActionsServiceSingleProtocolDelete {
+    struct Delete: BlockActionsServiceSingleProtocolDelete {
         func action(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
@@ -114,7 +102,7 @@ extension Namespace.BlockActionsService {
     // MARK: Duplicate
     // Actually, should be used for BlockList
     struct Duplicate: ServiceLayerModule_BlockListActionsServiceProtocolDuplicate {
-        func action(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: Position) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+        func action(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: Position) -> AnyPublisher<ServiceSuccess, Error> {
             guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
                 return Fail(error: PossibleError.duplicateActionPositionConversionHasFailed).eraseToAnyPublisher()
             }

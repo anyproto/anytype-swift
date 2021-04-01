@@ -21,7 +21,7 @@ final class TextBlockActionHandler {
 
     private var subscriptions: Set<AnyCancellable> = []
     private let service: BlockActionService
-    private var textService: ServiceLayerModule.Text.BlockActionsService = .init()
+    private var textService: BlockActionsServiceText = .init()
     private let contextId: String
     private var indexWalker: LinearIndexWalker?
 

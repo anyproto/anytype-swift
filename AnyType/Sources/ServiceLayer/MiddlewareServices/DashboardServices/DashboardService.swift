@@ -13,8 +13,8 @@ import ProtobufMessages
 
 class DashboardService: DashboardServiceProtocol {
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
-    private let blocksActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
-    private let smartBlockService: ServiceLayerModule.SmartBlockActionsService = .init()
+    private let blocksActionsService: BlockActionsServiceSingle = .init()
+    private let smartBlockService: SmartBlockActionsService = .init()
     private var dashboardId: String = ""
     
     private func save(configuration: MiddlewareConfigurationService.MiddlewareConfiguration) -> MiddlewareConfigurationService.MiddlewareConfiguration {
@@ -22,13 +22,13 @@ class DashboardService: DashboardServiceProtocol {
         return configuration
     }
         
-    func openDashboard() -> AnyPublisher<ServiceLayerModule.Success, Error> {
+    func openDashboard() -> AnyPublisher<ServiceSuccess, Error> {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
             self.blocksActionsService.open.action(contextID: configuration.homeBlockID, blockID: configuration.homeBlockID)
         }.eraseToAnyPublisher()
     }
     
-    func createNewPage(contextId: String) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+    func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error> {
         let targetId: String = ""
         let details: DetailsInformationModelProtocol = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: [
             .title(.init()),

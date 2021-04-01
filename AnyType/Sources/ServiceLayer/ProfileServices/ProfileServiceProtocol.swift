@@ -15,5 +15,5 @@ protocol ProfileServiceProtocol {
     /// User avatar
     var avatar: String? {get set }
     
-    func obtainUserInformation() -> AnyPublisher<ServiceLayerModule.Success, Error>
+    func obtainUserInformation() -> AnyPublisher<ServiceSuccess, Error>
 }

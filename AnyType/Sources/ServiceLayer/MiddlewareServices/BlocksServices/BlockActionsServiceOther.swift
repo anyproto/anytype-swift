@@ -11,32 +11,27 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 
-fileprivate typealias Namespace = ServiceLayerModule.Other
-fileprivate typealias FileNamespace = Namespace.BlockActionsService
-
 /// Concrete service that adopts OtherBlock actions service.
 /// NOTE: Use it as default service IF you want to use default functionality.
 // MARK: - OtherBlockActionsService
 
-extension Namespace {
-    class BlockActionsService: ServiceLayerModule_BlockActionsServiceOtherProtocol {        
-        var setDividerStyle: SetDividerStyle = .init()
-    }
+class BlockActionsServiceOther: BlockActionsServiceOtherProtocol {
+    var setDividerStyle: SetDividerStyle = .init()
 }
 
-private extension FileNamespace {
+private extension BlockActionsServiceOther {
     enum PossibleError: Error {
         case setDividerStyleActionStyleConversionHasFailed
     }
 }
 
 // MARK: - OtherBlockActionsService / Actions
-extension FileNamespace {
-    typealias Success = ServiceLayerModule.Success
+extension BlockActionsServiceOther {
+    typealias Success = ServiceSuccess
 
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
-    struct SetDividerStyle: ServiceLayerModule_BlockActionsServiceOtherProtocolSetDividerStyle {
+    struct SetDividerStyle: BlockActionsServiceOtherProtocolSetDividerStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
             guard let style = BlocksModelsModule.Parser.Other.Divider.Style.Converter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.setDividerStyleActionStyleConversionHasFailed).eraseToAnyPublisher()

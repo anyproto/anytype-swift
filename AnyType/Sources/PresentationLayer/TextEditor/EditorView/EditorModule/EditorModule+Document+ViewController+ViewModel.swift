@@ -65,7 +65,7 @@ extension Namespace {
         weak var viewInput: EditorModuleDocumentViewInput?
 
         /// Service
-        private var blockActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
+        private var blockActionsService: BlockActionsServiceSingle = .init()
         
         /// Document ViewModel
         private(set) var documentViewModel: BlocksViews.Document.ViewModel = .init()
@@ -252,7 +252,7 @@ extension Namespace {
         }
 
         
-        private func handleOpenDocument(_ value: ServiceLayerModule.Success) {
+        private func handleOpenDocument(_ value: ServiceSuccess) {
             // sink publisher
             self.documentViewModel.updatePublisher()
                 .receive(on: DispatchQueue.main)

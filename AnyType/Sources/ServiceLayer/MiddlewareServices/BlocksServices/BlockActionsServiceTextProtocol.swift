@@ -1,11 +1,3 @@
-//
-//  BlockActionsService+Text.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 15.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import UIKit
@@ -18,7 +10,7 @@ import BlocksModels
 /// We consume middleware marks and convert them to NSAttributedString.
 /// Later, TextView update NSAttributedString and send updates back.
 ///
-protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
+protocol BlockActionsServiceTextProtocolSetText {
     typealias BlockId = TopLevel.AliasesMap.BlockId
     func action(contextID: BlockId, blockID: BlockId, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
 }
@@ -27,7 +19,7 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
 /// It is used in `TurnInto` actions in UI.
 /// When you would like to update style of block ( or turn into this block to another block ),
 /// you will use this method.
-protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
+protocol BlockActionsServiceTextProtocolSetStyle {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Style = TopLevel.AliasesMap.BlockContent.Text.ContentType
@@ -49,26 +41,26 @@ protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
 /// This protocol requires two methods to be implemented. One of them uses UIColor as Color representation.
 /// It is essential for us to use `high-level` color.
 /// In that way we are distancing from low-level API and low-level colors.
-protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
+protocol BlockActionsServiceTextProtocolSetForegroundColor {
     typealias BlockId = TopLevel.AliasesMap.BlockId
     func action(contextID: BlockId, blockID: BlockId, color: String) -> AnyPublisher<Void, Error>
 }
 
 /// Protocol for `SetAlignment` for text block. Actually, not only for text block.
 /// When you would like to set alignment of a block ( text block or not text block ), you should call method of this protocol.
-protocol ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
+protocol BlockActionsServiceTextProtocolSetAlignment {
     typealias BlockId = TopLevel.AliasesMap.BlockId
     func action(contextID: BlockId, blockIds: [BlockId], alignment: NSTextAlignment) -> AnyPublisher<Void, Error>
 }
 
-protocol ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
+protocol BlockActionsServiceTextProtocolSplit {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Style = TopLevel.AliasesMap.BlockContent.Text.ContentType
     func action(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<Success, Error>
 }
 
-protocol ServiceLayerModule_BlockActionsServiceTextProtocolMerge {
+protocol BlockActionsServiceTextProtocolMerge {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
     func action(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<Success, Error>
@@ -81,13 +73,13 @@ protocol ServiceLayerModuleBlockActionsServiceTextProtocolChecked {
 }
 
 /// Protocol for TextBlockActions service.
-protocol ServiceLayerModule_BlockActionsServiceTextProtocol {
-    associatedtype SetText: ServiceLayerModule_BlockActionsServiceTextProtocolSetText
-    associatedtype SetStyle: ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle
-    associatedtype SetForegroundColor: ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor
-    associatedtype SetAlignment: ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment
-    associatedtype Split: ServiceLayerModule_BlockActionsServiceTextProtocolSplit
-    associatedtype Merge: ServiceLayerModule_BlockActionsServiceTextProtocolMerge
+protocol BlockActionsServiceTextProtocol {
+    associatedtype SetText: BlockActionsServiceTextProtocolSetText
+    associatedtype SetStyle: BlockActionsServiceTextProtocolSetStyle
+    associatedtype SetForegroundColor: BlockActionsServiceTextProtocolSetForegroundColor
+    associatedtype SetAlignment: BlockActionsServiceTextProtocolSetAlignment
+    associatedtype Split: BlockActionsServiceTextProtocolSplit
+    associatedtype Merge: BlockActionsServiceTextProtocolMerge
     
     var setText: SetText {get}
     var setStyle: SetStyle {get}

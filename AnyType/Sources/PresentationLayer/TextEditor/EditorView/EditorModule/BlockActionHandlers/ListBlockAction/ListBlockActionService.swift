@@ -21,8 +21,8 @@ final class ListBlockActionService {
     private var documentId: String
 
     private var subscriptions: [AnyCancellable] = []
-    private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
-    private let listService: ServiceLayerModule.List.BlockActionsService = .init()
+    private let pageService: SmartBlockActionsService = .init()
+    private let listService: BlockActionsServiceList = .init()
 
     private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
 

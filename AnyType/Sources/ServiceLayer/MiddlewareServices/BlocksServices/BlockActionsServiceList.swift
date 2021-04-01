@@ -12,32 +12,27 @@ import BlocksModels
 import UIKit
 import ProtobufMessages
 
-fileprivate typealias Namespace = ServiceLayerModule.List
-fileprivate typealias FileNamespace = Namespace.BlockActionsService
-
-extension Namespace {
-    class BlockActionsService: ServiceLayerModule_BlockActionsServiceListProtocol {
-        var delete: Delete = .init()
-        var setFields: SetFields = .init()
-        var setTextStyle: SetTextStyle = .init()
-        var duplicate: Duplicate = .init()
-        var setBackgroundColor: SetBackgroundColor = .init()
-        var setAlign: SetAlign = .init()
-        var setDivStyle: SetDivStyle = .init()
-        var setPageIsArchived: SetPageIsArchived = .init()
-        var deletePage: DeletePage = .init()
-        
-        func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<Success, Error> {
-            return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color)
-                .map(\.event)
-                .map(Success.init(_:))
-                .subscribe(on: DispatchQueue.global())
-                .eraseToAnyPublisher()
-        }
+class BlockActionsServiceList: BlockActionsServiceListProtocol {
+    var delete: Delete = .init()
+    var setFields: SetFields = .init()
+    var setTextStyle: SetTextStyle = .init()
+    var duplicate: Duplicate = .init()
+    var setBackgroundColor: SetBackgroundColor = .init()
+    var setAlign: SetAlign = .init()
+    var setDivStyle: SetDivStyle = .init()
+    var setPageIsArchived: SetPageIsArchived = .init()
+    var deletePage: DeletePage = .init()
+    
+    func setBlockColor(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<Success, Error> {
+        return Anytype_Rpc.BlockList.Set.Text.Color.Service.invoke(contextID: contextID, blockIds: blockIds, color: color)
+            .map(\.event)
+            .map(Success.init(_:))
+            .subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
     }
 }
 
-extension FileNamespace {
+extension BlockActionsServiceList {
     enum PossibleError: Error {
         case setTextStyleActionStyleConversionHasFailed
         case setAlignActionAlignmentConversionHasFailed
@@ -45,16 +40,16 @@ extension FileNamespace {
     }
 }
 
-extension FileNamespace {
-    typealias Success = ServiceLayerModule.Success
+extension BlockActionsServiceList {
+    typealias Success = ServiceSuccess
     
-    struct Delete: ServiceLayerModule_BlockActionsServiceListProtocolDelete {
+    struct Delete: BlockActionsServiceListProtocolDelete {
         func action(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blocksIds).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
     
-    struct SetFields: ServiceLayerModule_BlockActionsServiceListProtocolSetFields {
+    struct SetFields: BlockActionsServiceListProtocolSetFields {
         /// TODO: Add conversion from our fields to middleware fields
         func action(contextID: BlockId, blockFields: [String]) -> AnyPublisher<Success, Error> {
             self.action(contextID: contextID, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]())
@@ -63,7 +58,7 @@ extension FileNamespace {
             Anytype_Rpc.BlockList.Set.Fields.Service.invoke(contextID: contextID, blockFields: blockFields).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
-    struct SetTextStyle: ServiceLayerModule_BlockActionsServiceListProtocolSetTextStyle {
+    struct SetTextStyle: BlockActionsServiceListProtocolSetTextStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
             guard let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.setTextStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
@@ -83,7 +78,7 @@ extension FileNamespace {
         }
     }
 
-    struct SetBackgroundColor: ServiceLayerModule_BlockActionsServiceListProtocolSetBackgroundColor {
+    struct SetBackgroundColor: BlockActionsServiceListProtocolSetBackgroundColor {
         func action(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.BlockList.Set.BackgroundColor.Service.invoke(contextID: contextID,
                                                                      blockIds: blockIds,
@@ -95,7 +90,7 @@ extension FileNamespace {
         }
     }
 
-    struct SetAlign: ServiceLayerModule_BlockActionsServiceListProtocolSetAlign {
+    struct SetAlign: BlockActionsServiceListProtocolSetAlign {
         func action(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<Success, Error> {
             guard let alignment = BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware(alignment) else {
                 return Fail.init(error: PossibleError.setAlignActionAlignmentConversionHasFailed).eraseToAnyPublisher()
@@ -108,7 +103,7 @@ extension FileNamespace {
         }
     }
 
-    struct SetDivStyle: ServiceLayerModule_BlockActionsServiceListProtocolSetDivStyle {
+    struct SetDivStyle: BlockActionsServiceListProtocolSetDivStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
             guard let style = BlocksModelsModule.Parser.Other.Divider.Style.Converter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.setDividerStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
@@ -119,14 +114,14 @@ extension FileNamespace {
             Anytype_Rpc.BlockList.Set.Div.Style.Service.invoke(contextID: contextID, blockIds: blockIds, style: style).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
-    struct SetPageIsArchived: ServiceLayerModule_BlockActionsServiceListProtocolSetPageIsArchived {
+    struct SetPageIsArchived: BlockActionsServiceListProtocolSetPageIsArchived {
         func action(contextID: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<Success, Error> {
             // TODO: Implement it correctly.
             .empty()
             //            Anytype_Rpc.BlockList.Set.Page.IsArchived.Service.invoke(contextID: contextID, blockIds: blockIds, isArchived: isArchived).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
-    struct DeletePage: ServiceLayerModule_BlockActionsServiceListProtocolDeletePage {
+    struct DeletePage: BlockActionsServiceListProtocolDeletePage {
         func action(blockIds: [String]) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.BlockList.Delete.Page.Service.invoke(blockIds: blockIds).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }

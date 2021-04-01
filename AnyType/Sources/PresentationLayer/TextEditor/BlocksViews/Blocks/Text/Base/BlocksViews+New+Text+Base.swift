@@ -82,7 +82,7 @@ extension Namespace {
         private var subscriptions: Set<AnyCancellable> = []
         
         // MARK: Services
-        private var service: ServiceLayerModule.Text.BlockActionsService = .init()
+        private var service: BlockActionsServiceText = .init()
         
         // MARK: - Life cycle
 

@@ -21,22 +21,22 @@ final class BlockActionService {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
     typealias Information = Block.Information.InformationModel
     typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Conversion = (ServiceLayerModule.Success) -> (EventListening.PackOfEvents)
+    typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
     typealias BlockContent = TopLevel.AliasesMap.BlockContent
     typealias BlockContentTypeText = BlockContent.Text.ContentType
 
     struct Converter {
         struct Default {
-            func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 .init(contextId: value.contextID, events: value.messages, ourEvents: [])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 self.default(value)
             }
         }
         struct Add {
-            func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }
 
                 guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
@@ -50,12 +50,12 @@ final class BlockActionService {
                 ])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 self.default(value)
             }
         }
         struct Split {
-            func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 /// Find added block.
                 let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }
                 guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
@@ -100,13 +100,13 @@ final class BlockActionService {
                 ])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 self.default(value)
             }
         }
         struct TurnInto {
             struct Text {
-                func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                     let textMessage = value.messages.first { $0.value == .blockSetText($0.blockSetText) }
 
                     guard let changedBlock = textMessage?.blockSetText else {
@@ -120,18 +120,18 @@ final class BlockActionService {
                     ])
                 }
                 static let `default`: Self = .init()
-                static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+                static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                     self.default(value)
                 }
             }
         }
 
         struct Delete {
-            func callAsFunction(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 .init(contextId: value.contextID, events: value.messages, ourEvents: [])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceLayerModule.Success) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
                 self.default(value)
             }
         }
@@ -140,12 +140,12 @@ final class BlockActionService {
     private var documentId: String
 
     private var subscriptions: [AnyCancellable] = []
-    private let service: ServiceLayerModule.Single.BlockActionsService = .init()
-    private let pageService: ServiceLayerModule.SmartBlockActionsService = .init()
-    private let textService: ServiceLayerModule.Text.BlockActionsService = .init()
-    private let listService: ServiceLayerModule.List.BlockActionsService = .init()
-    private let bookmarkService: ServiceLayerModule.Bookmark.BlockActionsService = .init()
-    private let fileService: ServiceLayerModule.File.BlockActionsService = .init()
+    private let service: BlockActionsServiceSingle = .init()
+    private let pageService: SmartBlockActionsService = .init()
+    private let textService: BlockActionsServiceText = .init()
+    private let listService: BlockActionsServiceList = .init()
+    private let bookmarkService: BlockActionsServiceBookmark = .init()
+    private let fileService: BlockActionsServiceFile = .init()
 
     private var didReceiveEvent: (BlockActionsHandlersFacade.ActionType?, EventListening.PackOfEvents) -> () = { _,_  in }
 
@@ -345,7 +345,7 @@ private extension BlockActionService {
 
         let documentId = self.documentId
 
-        self.textService.setText.action(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceLayerModule.Success, Error> in
+        self.textService.setText.action(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
             return self?.textService.split.action(contextID: documentId,
                                                   blockID: blockId,
                                                   range: range,

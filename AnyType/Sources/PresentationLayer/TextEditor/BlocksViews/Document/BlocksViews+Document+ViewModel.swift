@@ -11,14 +11,12 @@ import Combine
 import BlocksModels
 import os
 
-fileprivate typealias Namespace = BlocksViews.Document
-fileprivate typealias FileNamespace = BlocksViews.Document.ViewModel
 
 private extension Logging.Categories {
     static let viewModel: Self = "BlocksViews.Document.ViewModel"
 }
 
-extension Namespace {
+extension BlocksViews.Document {
     /// Purpose
     ///
     /// Subscribe on publishers of this class to receive information about state of the document.
@@ -49,7 +47,7 @@ extension Namespace {
 }
 
 // MARK: - Open
-extension FileNamespace {
+extension BlocksViews.Document.ViewModel {
     func open(_ documentId: BaseDocument.BlockId) {
         _ = self.document.open(documentId).sink(receiveCompletion: { (value) in
             switch value {
@@ -63,13 +61,13 @@ extension FileNamespace {
     func open(_ documentId: BaseDocument.BlockId) -> AnyPublisher<Void, Error> {
         self.document.open(documentId)
     }
-    func open(_ value: ServiceLayerModule.Success) {
+    func open(_ value: ServiceSuccess) {
         self.document.open(value)
     }
 }
 
 // MARK: - ViewModels
-extension FileNamespace {
+extension BlocksViews.Document.ViewModel {
     typealias BlockViewModel = BlocksViews.New.Base.ViewModel
     struct UpdateResult {
         var updates: BaseDocument.ModelsUpdates
@@ -88,7 +86,7 @@ extension FileNamespace {
 }
 
 // MARK: - Models
-extension FileNamespace {
+extension BlocksViews.Document.ViewModel {
     func getRootActiveModel() -> BaseDocument.ActiveModel? {
         self.document.getRootActiveModel()
     }
@@ -98,7 +96,7 @@ extension FileNamespace {
 }
 
 // MARK: - Details
-extension FileNamespace {
+extension BlocksViews.Document.ViewModel {
     struct Predicate {
         var list: [TopLevel.AliasesMap.DetailsContent.Kind] = [.iconEmoji, .title]
     }
@@ -125,7 +123,7 @@ extension FileNamespace {
 }
 
 // MARK: - Events
-extension FileNamespace {
+extension BlocksViews.Document.ViewModel {
     typealias Events = BaseDocument.Events
     func handle(events: Events) {
         self.document.handle(events: events)

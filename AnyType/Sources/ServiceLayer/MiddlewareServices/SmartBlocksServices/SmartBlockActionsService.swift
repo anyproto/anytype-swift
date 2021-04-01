@@ -1,50 +1,79 @@
 //
-//  SmartBlockActionsService.swift
+//  SmartBlockActionsService+Implementation.swift
 //  AnyType
 //
-//  Created by Dmitry Lobanov on 14.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
+//  Created by Dmitry Lobanov on 11.02.2021.
+//  Copyright © 2021 AnyType. All rights reserved.
 //
 
 import Foundation
 import Combine
+import SwiftProtobuf
 import BlocksModels
+import ProtobufMessages
 
-// MARK: - Actions Protocols
-/// Protocol for create page action.
-/// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
-protocol ServiceLayerModule_SmartBlockActionsServiceProtocolCreatePage {
-    associatedtype Success
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias DetailsInformation = DetailsInformationModelProtocol
-    typealias Position = TopLevel.AliasesMap.Position
-    func action(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<Success, Error>
-}
+/// Concrete service that adopts SmartBlock actions service.
+/// NOTE: Use it as default service IF you want to use desired functionality.
+// MARK: - SmartBlockActionsService
 
-/// Protocol for set details action.
-/// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
-protocol ServiceLayerModule_SmartBlockActionsServiceProtocolSetDetails {
-    associatedtype Success
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias DetailsContent = TopLevel.AliasesMap.DetailsContent
-    func action(contextID: BlockId, details: DetailsContent) -> AnyPublisher<Success, Error>
-}
-
-/// Protocol for convert children to page action.
-/// NOTE: Action supports List context.
-protocol ServiceLayerModule_SmartBlockActionsServiceProtocolConvertChildrenToPages {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    func action(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<Void, Error>
-}
-
-// MARK: - Service Protocol
-/// Protocol for SmartBlock actions services.
-protocol ServiceLayerModule_SmartBlockActionsServiceProtocol {
-    associatedtype CreatePage: ServiceLayerModule_SmartBlockActionsServiceProtocolCreatePage
-    associatedtype SetDetails: ServiceLayerModule_SmartBlockActionsServiceProtocolSetDetails
-    associatedtype ConvertChildrenToPages: ServiceLayerModule_SmartBlockActionsServiceProtocolConvertChildrenToPages
+class SmartBlockActionsService: SmartBlockActionsServiceProtocol {
     
-    var createPage: CreatePage {get}
-    var setDetails: SetDetails {get}
-    var convertChildrenToPages: ConvertChildrenToPages {get}
+    var createPage: CreatePage = .init()
+    var setDetails: SetDetails = .init()
+    var convertChildrenToPages: ConvertChildrenToPages = .init()
+}
+
+private extension SmartBlockActionsService {
+    enum PossibleError: Error {
+        case createPageActionPositionConversionHasFailed
+    }
+}
+
+// MARK: - SmartBlockActionsService / CreatePage
+extension SmartBlockActionsService {
+    typealias Success = ServiceSuccess
+    /// Structure that adopts `CreatePage` action protocol
+    /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
+    struct CreatePage: SmartBlockActionsServiceProtocolCreatePage {
+        
+        func action(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<ServiceSuccess, Error> {
+            guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
+                return Fail.init(error: PossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
+            }
+            let convertedDetails = BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: details.toList())
+            let preparedDetails = convertedDetails.map({($0.key, $0.value)})
+            let protobufDetails: [String: Google_Protobuf_Value] = .init(preparedDetails) { (lhs, rhs) in rhs }
+            let protobufStruct: Google_Protobuf_Struct = .init(fields: protobufDetails)
+            
+            return self.action(contextID: contextID, targetID: targetID, details: protobufStruct, position: position)
+        }
+        
+        private func action(contextID: String, targetID: String, details: Google_Protobuf_Struct, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID, targetID: targetID, details: details, position: position).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        }
+    }
+}
+
+// MARK: - SmartBlockActionsService / SetDetails
+extension SmartBlockActionsService {
+    struct SetDetails: SmartBlockActionsServiceProtocolSetDetails {
+        func action(contextID: BlockId, details: Self.DetailsContent) -> AnyPublisher<ServiceSuccess, Error> {
+            let middlewareDetails = BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: [details])
+            return self.action(contextID: contextID, details: middlewareDetails)
+        }
+        
+        private func action(contextID: String, details: [Anytype_Rpc.Block.Set.Details.Detail]) -> AnyPublisher<Success, Error> {
+            Anytype_Rpc.Block.Set.Details.Service.invoke(contextID: contextID, details: details, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        }
+    }
+}
+
+// MARK: - Children to page.
+// TODO: Add later.
+extension SmartBlockActionsService {
+    struct ConvertChildrenToPages: SmartBlockActionsServiceProtocolConvertChildrenToPages {
+        func action(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<Void, Error> {
+            Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        }
+    }
 }

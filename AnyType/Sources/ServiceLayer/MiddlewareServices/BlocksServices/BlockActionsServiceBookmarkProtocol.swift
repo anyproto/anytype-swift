@@ -1,24 +1,16 @@
-//
-//  BlockActionsService+Bookmark.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 27.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import BlocksModels
 
 // MARK: - Actions Protocols
 /// Protocol for fetch bookmark.
-protocol ServiceLayerModule_BlockActionsServiceBookmarkProtocolFetchBookmark {
+protocol BlockActionsServiceBookmarkProtocolFetchBookmark {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
     func action(contextID: BlockId, blockID: BlockId, url: String) -> AnyPublisher<Success, Error>
 }
 
-protocol ServiceLayerModule_BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
+protocol BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
     associatedtype Success
     typealias BlockId = TopLevel.AliasesMap.BlockId
     typealias Position = TopLevel.AliasesMap.Position
@@ -27,7 +19,7 @@ protocol ServiceLayerModule_BlockActionsServiceBookmarkProtocolCreateAndFetchBoo
 
 // MARK: - Service Protocol
 /// Protocol for Bookmark actions services.
-protocol ServiceLayerModule_BlockActionsServiceBookmarkProtocol {
-    associatedtype FetchBookmark: ServiceLayerModule_BlockActionsServiceBookmarkProtocolFetchBookmark
+protocol BlockActionsServiceBookmarkProtocol {
+    associatedtype FetchBookmark: BlockActionsServiceBookmarkProtocolFetchBookmark
     var fetchBookmark: FetchBookmark {get}
 }

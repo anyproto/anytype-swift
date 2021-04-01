@@ -11,7 +11,7 @@ import Combine
 
 /// Dashboard service
 protocol DashboardServiceProtocol {
-    func openDashboard() -> AnyPublisher<ServiceLayerModule.Success, Error>
+    func openDashboard() -> AnyPublisher<ServiceSuccess, Error>
     
-    func createNewPage(contextId: String) -> AnyPublisher<ServiceLayerModule.Success, Error>    
+    func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error>    
 }

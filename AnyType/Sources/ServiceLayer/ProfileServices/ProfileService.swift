@@ -13,9 +13,9 @@ class ProfileService: ProfileServiceProtocol {
     var avatar: String?
     
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
-    private let blocksActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
+    private let blocksActionsService: BlockActionsServiceSingle = .init()
     
-    func obtainUserInformation() -> AnyPublisher<ServiceLayerModule.Success, Error> {
+    func obtainUserInformation() -> AnyPublisher<ServiceSuccess, Error> {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
             self.blocksActionsService.open.action(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
         }.eraseToAnyPublisher()

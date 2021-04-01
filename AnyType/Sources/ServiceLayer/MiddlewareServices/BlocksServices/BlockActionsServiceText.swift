@@ -11,27 +11,22 @@ import Combine
 import UIKit
 import ProtobufMessages
 
-fileprivate typealias Namespace = ServiceLayerModule.Text
-fileprivate typealias FileNamespace = Namespace.BlockActionsService
 
 private extension Logging.Categories {
     static let service: Self = "BlockActionsService.Text.Implementation"
 }
 
-extension Namespace {
-    class BlockActionsService: ServiceLayerModule_BlockActionsServiceTextProtocol {
-        let setText: SetText = .init()
-        let setStyle: SetStyle = .init()
-        let setForegroundColor: SetForegroundColor = .init()
-        let setAlignment: SetAlignment = .init()
-        let split: Split = .init()
-        let merge: Merge = .init()
-        let checked: Checked = .init()
-        
-    }
+class BlockActionsServiceText: BlockActionsServiceTextProtocol {
+    let setText: SetText = .init()
+    let setStyle: SetStyle = .init()
+    let setForegroundColor: SetForegroundColor = .init()
+    let setAlignment: SetAlignment = .init()
+    let split: Split = .init()
+    let merge: Merge = .init()
+    let checked: Checked = .init()
 }
 
-private extension FileNamespace {
+private extension BlockActionsServiceText {
     enum PossibleError: Error {
         case setStyleActionStyleConversionHasFailed
         case setAlignmentActionAlignmentConversionHasFailed
@@ -39,10 +34,10 @@ private extension FileNamespace {
     }
 }
 
-extension FileNamespace {
-    typealias Success = ServiceLayerModule.Success
+extension BlockActionsServiceText {
+    typealias Success = ServiceSuccess
     // MARK: SetText
-    struct SetText: ServiceLayerModule_BlockActionsServiceTextProtocolSetText {
+    struct SetText: BlockActionsServiceTextProtocolSetText {
         func action(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error> {
             // convert attributed string to marks here?
             let result = BlocksModelsModule.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
@@ -57,8 +52,8 @@ extension FileNamespace {
     }
     
     // MARK: SetStyle
-    struct SetStyle: ServiceLayerModule_BlockActionsServiceTextProtocolSetStyle {
-        func action(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+    struct SetStyle: BlockActionsServiceTextProtocolSetStyle {
+        func action(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ServiceSuccess, Error> {
             guard let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.setStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
             }
@@ -71,7 +66,7 @@ extension FileNamespace {
     }
     
     // MARK: SetForegroundColor
-    struct SetForegroundColor: ServiceLayerModule_BlockActionsServiceTextProtocolSetForegroundColor {
+    struct SetForegroundColor: BlockActionsServiceTextProtocolSetForegroundColor {
         func action(contextID: String, blockID: String, color: String) -> AnyPublisher<Void, Error> {
             Anytype_Rpc.Block.Set.Text.Color.Service.invoke(contextID: contextID, blockID: blockID, color: color)
                 .successToVoid().subscribe(on: DispatchQueue.global())
@@ -80,7 +75,7 @@ extension FileNamespace {
     }
     
     // MARK: SetAlignment
-    struct SetAlignment: ServiceLayerModule_BlockActionsServiceTextProtocolSetAlignment {
+    struct SetAlignment: BlockActionsServiceTextProtocolSetAlignment {
         func action(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Void, Error> {
             let ourAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
             guard let middlewareAlignment = ourAlignment.flatMap(BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware) else {
@@ -95,7 +90,7 @@ extension FileNamespace {
     }
     
     // MARK: Split
-    struct Split: ServiceLayerModule_BlockActionsServiceTextProtocolSplit {
+    struct Split: BlockActionsServiceTextProtocolSplit {
         func action(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<Success, Error> {
             guard let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.splitActionStyleConversionHasFailed).eraseToAnyPublisher()
@@ -110,7 +105,7 @@ extension FileNamespace {
     }
 
     // MARK: Merge
-    struct Merge: ServiceLayerModule_BlockActionsServiceTextProtocolMerge {
+    struct Merge: BlockActionsServiceTextProtocolMerge {
         func action(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Merge.Service.invoke(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global())
                 .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()

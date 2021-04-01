@@ -11,31 +11,23 @@ import BlocksModels
 import Combine
 import ProtobufMessages
 
-fileprivate typealias Namespace = ServiceLayerModule.Bookmark
-fileprivate typealias FileNamespace = Namespace.BlockActionsService
-
 /// Concrete service that adopts BookmarkBlock actions service.
 /// NOTE: Use it as default service IF you want to use default functionality.
-// MARK: - BookmarkActionsService
-
-extension Namespace {
-    class BlockActionsService: ServiceLayerModule_BlockActionsServiceBookmarkProtocol {
-        
-        var fetchBookmark: FetchBookmark = .init()
-    }
+class BlockActionsServiceBookmark: BlockActionsServiceBookmarkProtocol {
+    var fetchBookmark: FetchBookmark = .init()
 }
 
-private extension FileNamespace {
+private extension BlockActionsServiceBookmark {
     enum PossibleError: Error {
         case createAndFetchBookmarkActionPositionConversionHasFailed
     }
 }
 
 // MARK: - BookmarkActionsService / Actions
-extension FileNamespace {
+extension BlockActionsServiceBookmark {
     /// Structure that adopts `FetchBookmark` action protocol
-    struct FetchBookmark: ServiceLayerModule_BlockActionsServiceBookmarkProtocolFetchBookmark {
-        typealias Success = ServiceLayerModule.Success
+    struct FetchBookmark: BlockActionsServiceBookmarkProtocolFetchBookmark {
+        typealias Success = ServiceSuccess
         func action(contextID: BlockId, blockID: BlockId, url: String) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.Block.Bookmark.Fetch.Service.invoke(contextID: contextID, blockID: blockID, url: url).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
@@ -43,9 +35,9 @@ extension FileNamespace {
     }
     
     /// Structure that adopts `CreateAndFetchBookmark` action protocol
-    struct CreateAndFetchBookmark: ServiceLayerModule_BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
-        typealias Success = ServiceLayerModule.Success
-        func action(contextID: BlockId, targetID: BlockId, position: Position, url: String) -> AnyPublisher<ServiceLayerModule.Success, Error> {
+    struct CreateAndFetchBookmark: BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
+        typealias Success = ServiceSuccess
+        func action(contextID: BlockId, targetID: BlockId, position: Position, url: String) -> AnyPublisher<ServiceSuccess, Error> {
             guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
                 return Fail.init(error: PossibleError.createAndFetchBookmarkActionPositionConversionHasFailed).eraseToAnyPublisher()
             }

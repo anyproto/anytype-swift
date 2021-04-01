@@ -33,7 +33,7 @@ class HomeCollectionViewModel: ObservableObject {
     
     /// Variables
     private let dashboardService: DashboardServiceProtocol = DashboardService()
-    private let blockActionsService: ServiceLayerModule.Single.BlockActionsService = .init()
+    private let blockActionsService: BlockActionsServiceSingle = .init()
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private var subscriptions: Set<AnyCancellable> = []
     private var testSubscriptions: Set<AnyCancellable> = []
@@ -100,15 +100,16 @@ private extension HomeCollectionViewModel {
 
 // MARK: - Handle Open Action
 private extension HomeCollectionViewModel {
-    func handleOpenDashboard(_ value: ServiceLayerModule.Success) {
+    func handleOpenDashboard(_ value: ServiceSuccess) {
         /// TODO:
         /// Decide how we should handle block opening.
         ///
         self.documentViewModel.updatePublisher().sink { [weak self] (value) in
             switch value.updates {
-            case .update(.empty): return
-            default: break
+                case .update(.empty): return
+                default: break
             }
+            
             DispatchQueue.main.async {
                 self?.update(builders: value.models)
                 switch value.updates {

@@ -71,7 +71,7 @@ class BaseDocument {
     private var detailsEventSubjectSubscription: AnyCancellable?
     
     /// Services
-    private var smartblockService: ServiceLayerModule.Single.BlockActionsService = .init()
+    private var smartblockService: BlockActionsServiceSingle = .init()
     
     init() {}
     
@@ -88,7 +88,7 @@ class BaseDocument {
 
 // MARK: - Handle Open
 extension BaseDocument {
-    private func handleOpen(_ value: ServiceLayerModule.Success) {
+    private func handleOpen(_ value: ServiceSuccess) {
         let blocks = self.eventProcessor.handleBlockShow(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
         guard let event = blocks.first else { return }
         
@@ -113,7 +113,7 @@ extension BaseDocument {
         }.eraseToAnyPublisher()
     }
     
-    func open(_ value: ServiceLayerModule.Success) {
+    func open(_ value: ServiceSuccess) {
         self.handleOpen(value)
         
         /// Why?
@@ -141,7 +141,10 @@ private extension BaseDocument {
     ///
     /// - Parameter container: A container in which this details is default.
     func configureDetails(for container: RootModel?) {
-        guard let container = container, let rootId = container.rootId, let ourModel = container.detailsContainer.choose(by: rootId) else {
+        guard let container = container,
+              let rootId = container.rootId,
+              let ourModel = container.detailsContainer.choose(by: rootId)
+        else {
             let logger = Logging.createLogger(category: .baseDocument)
             os_log(.debug, log: logger, "configureDetails(for:). Our document is not ready yet")
             return

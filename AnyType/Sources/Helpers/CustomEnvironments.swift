@@ -41,11 +41,11 @@ extension EnvironmentValues {
 }
 
 struct FileServiceKey: EnvironmentKey {
-    static let defaultValue: ServiceLayerModule.File.BlockActionsService = .init()
+    static let defaultValue: BlockActionsServiceFile = .init()
 }
 
 extension EnvironmentValues {
-    var fileService: ServiceLayerModule.File.BlockActionsService {
+    var fileService: BlockActionsServiceFile {
         get {
             self[FileServiceKey.self]
         }

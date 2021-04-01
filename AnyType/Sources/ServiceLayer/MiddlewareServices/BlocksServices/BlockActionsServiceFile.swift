@@ -11,34 +11,28 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 
-fileprivate typealias Namespace = ServiceLayerModule.File
-fileprivate typealias FileNamespace = Namespace.BlockActionsService
-
 /// Concrete service that adopts OtherBlock actions service.
 /// NOTE: Use it as default service IF you want to use default functionality.
-// MARK: - File.BlockActionsService
 
-extension Namespace {
-    class BlockActionsService: ServiceLayerModule_BlockActionsServiceFileProtocol {
-        
-        var uploadDataAtFilePath: UploadDataAtFilePath = .init()
-        var uploadFile: UploadFile = .init()
-        var fetchImageAsBlob: FetchImageAsBlob = .init()
-    }
+class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
+    
+    var uploadDataAtFilePath: UploadDataAtFilePath = .init()
+    var uploadFile: UploadFile = .init()
+    var fetchImageAsBlob: FetchImageAsBlob = .init()
 }
 
-private extension FileNamespace {
+private extension BlockActionsServiceFile {
     enum PossibleError: Error {
         case uploadFileActionContentTypeConversionHasFailed
     }
 }
 
 // MARK: - File.BlockActionsService / Actions
-extension FileNamespace {
+extension BlockActionsServiceFile {
     /// Structure that adopts `UploadDataAtFilePath` action protocol.
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
-    struct UploadDataAtFilePath: ServiceLayerModule_BlockActionsServiceFileProtocolUploadDataAtFilePath {
-        typealias Success = ServiceLayerModule.Success
+    struct UploadDataAtFilePath: BlockActionsServiceFileProtocolUploadDataAtFilePath {
+        typealias Success = ServiceSuccess
         func action(contextID: String, blockID: String, filePath: String) -> AnyPublisher<Success, Error>  {
             Anytype_Rpc.Block.Upload.Service.invoke(contextID: contextID, blockID: blockID, filePath: filePath, url: "")
                 .map(\.event).map(Success.init).subscribe(on: DispatchQueue.global())
@@ -46,7 +40,7 @@ extension FileNamespace {
         }
     }
     
-    struct UploadFile: ServiceLayerModule_BlockActionsServiceFileProtocolUploadFile {
+    struct UploadFile: BlockActionsServiceFileProtocolUploadFile {
         struct Success {
             var hash: String
             init(hash: String) {
@@ -69,7 +63,7 @@ extension FileNamespace {
         }
     }
     
-    struct FetchImageAsBlob: ServiceLayerModule_BlockActionsServiceFileProtocolFetchImageAsBlob {
+    struct FetchImageAsBlob: BlockActionsServiceFileProtocolFetchImageAsBlob {
         struct Success {
             var blob: Data
             init(blob: Data) {

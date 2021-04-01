@@ -187,7 +187,13 @@ extension Namespace.ViewModel {
 extension Namespace.ViewModel {
     func configureListening(_ pickerViewModel: CommonViews.Pickers.Image.Picker.ViewModel) {
         pickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
-            .flatMap({ServiceLayerModule.File.BlockActionsService().uploadFile.action(url: "", localPath: $0.filePath, type: .image, disableEncryption: false)})
+            .flatMap(
+                {
+                    BlockActionsServiceFile().uploadFile.action(
+                        url: "", localPath: $0.filePath, type: .image, disableEncryption: false
+                    )
+                }
+            )
             .flatMap({[weak self] value in
                 self?.pageDetailsViewModel?.update(details: .iconImage(.init(value: value.hash))) ?? .empty()
             })

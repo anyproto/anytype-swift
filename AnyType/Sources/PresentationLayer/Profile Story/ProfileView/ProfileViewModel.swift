@@ -134,7 +134,7 @@ extension FileNamespace {
 
 // MARK: - Handle Open Action
 private extension FileNamespace {
-    func handleOpenBlock(_ value: ServiceLayerModule.Success) {
+    func handleOpenBlock(_ value: ServiceSuccess) {
         self.documentViewModel.open(value)
     }
 }
