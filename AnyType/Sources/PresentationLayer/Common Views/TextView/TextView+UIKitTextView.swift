@@ -208,11 +208,7 @@ private extension TextView.UIKitTextView {
             }
         case let .auxiliary(value):
             self.textView.blockColor = value.blockColor
-
-            let textAlignment = value.textAlignment
-            if textAlignment != self.textView.textAlignment {
-                self.textView.textAlignment = textAlignment
-            }
+            self.textView.textAlignment = value.textAlignment
         case let .payload(value):
             self.onUpdate(.attributedText(value.attributedString))
             

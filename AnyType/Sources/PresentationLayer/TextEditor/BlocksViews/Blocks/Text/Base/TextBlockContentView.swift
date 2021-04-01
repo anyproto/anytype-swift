@@ -142,7 +142,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
         }
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        self.textView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor)
+        self.textView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
     }
     
     private func setupForPlainText() {

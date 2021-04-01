@@ -162,7 +162,12 @@ private extension MarksPaneBlockActionHandler {
                 .store(in: &self.subscriptions)
         case .keyboard:
             typealias ColorsConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-            self.service.setBackgroundColor(block: block.blockModel.information, color: ColorsConverter.Colors.grey.color(background: true))
+            // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
+            var keyboardColor = ColorsConverter.Colors.grey.color(background: true)
+            let backgroundColor = ColorsConverter.asModel(blockModel.information.backgroundColor, background: true)
+            keyboardColor = backgroundColor == keyboardColor ? ColorsConverter.Colors.default.color(background: true) : keyboardColor
+
+            self.service.setBackgroundColor(block: block.blockModel.information, color: keyboardColor)
         }
     }
     
