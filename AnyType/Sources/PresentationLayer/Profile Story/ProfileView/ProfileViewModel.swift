@@ -73,7 +73,7 @@ final class ProfileViewModel: ObservableObject {
     private var obtainUserInformationSubscription: AnyCancellable?
     private var subscriptions: Set<AnyCancellable> = []
     
-    private var documentViewModel: BlocksViews.Document.ViewModel = .init()
+    private var documentViewModel: BlocksViews.DocumentViewModel = .init()
     
     // MARK: - Initialization
     init(profileService: ProfileServiceProtocol, authService: AuthServiceProtocol) {

@@ -83,10 +83,8 @@ class BaseDocument {
             _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
         }
     }
-}
 
-// MARK: - Handle Open
-extension BaseDocument {
+    // MARK: - Handle Open
     private func handleOpen(_ value: ServiceSuccess) {
         let blocks = self.eventProcessor.handleBlockShow(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
         guard let event = blocks.first else { return }
@@ -121,10 +119,8 @@ extension BaseDocument {
         ///
         self.eventProcessor.handle(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
     }
-}
 
-// MARK: - Configure Details
-private extension BaseDocument {
+    // MARK: - Configure Details
     /// Configure a subscription on events stream from details.
     /// We need it for set details success result to process it in our event processor.
     ///
@@ -154,20 +150,16 @@ private extension BaseDocument {
         self.defaultDetailsActiveModel.configured(eventSubject: self.detailsEventSubject)
         self.listenDefaultDetails()
     }
-}
 
-// MARK: - Handle new root model
-private extension BaseDocument {
+    // MARK: - Handle new root model
     func handleNewRootModel(_ container: RootModel?) {
         if let container = container {
             _ = self.eventProcessor.configured(container)
         }
         self.configureDetails(for: container)
     }
-}
 
-// MARK: - Get models
-extension BaseDocument {
+    // MARK: - Get models
     typealias ActiveModel = BlockActiveRecordModelProtocol
     
     /// Returns a flatten list of active models of document.
@@ -206,10 +198,8 @@ extension BaseDocument {
 //    func getChildren(of id: BlockId) -> [BlockId] {
 //        self.rootModel?.blocksContainer.children(of: id) ?? []
 //    }
-}
 
-// MARK: - Publishers
-extension BaseDocument {
+    // MARK: - Publishers
     typealias ModelsUpdates = EventHandler.Update
     struct UpdateResult {
         var updates: ModelsUpdates
@@ -262,10 +252,7 @@ extension BaseDocument {
         }
     }
 
-}
-
-// MARK: - Details
-extension BaseDocument {
+    // MARK: - Details
     /// Return configured details for provided id for listening events.
     ///
     /// Note.
@@ -331,17 +318,15 @@ extension BaseDocument {
     func getDefaultDetailsAccessorPublisher() -> AnyPublisher<InformationAccessor, Never> {
         self.getDefaultDetails().$currentDetails.map(InformationAccessor.init).eraseToAnyPublisher()
     }
-}
 
-// MARK: - Details Conversion to Blocks.
-/// Deprecated.
-///
-/// Why?
-///
-/// Now we use view models that uses only blocks.
-/// So, we have to convert our details to blocks first.
-///
-extension BaseDocument {
+    // MARK: - Details Conversion to Blocks.
+    /// Deprecated.
+    ///
+    /// Why?
+    ///
+    /// Now we use view models that uses only blocks.
+    /// So, we have to convert our details to blocks first.
+    ///
     /// Deprecated.
     private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsContentKind) -> ActiveModel? {
         guard let rootId = self.rootId else {
@@ -374,11 +359,8 @@ extension BaseDocument {
     func getDefaultDetailsActiveModel(of kind: DetailsContentKind) -> ActiveModel? {
         self.convert(self.defaultDetailsActiveModel, of: kind)
     }
-}
 
-
-// MARK: - Events
-extension BaseDocument {
+    // MARK: - Events
     typealias Events = EventListening.PackOfEvents
     
     /// Handle events initiated by user.

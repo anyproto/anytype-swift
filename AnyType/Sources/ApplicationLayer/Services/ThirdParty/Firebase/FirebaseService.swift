@@ -42,6 +42,3 @@ extension FirebaseService {
         FirebaseApp.app() != nil
     }
 }
-
-
-

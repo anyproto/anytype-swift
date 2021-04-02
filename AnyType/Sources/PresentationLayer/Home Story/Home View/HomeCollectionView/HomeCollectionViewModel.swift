@@ -39,7 +39,7 @@ class HomeCollectionViewModel: ObservableObject {
     private var testSubscriptions: Set<AnyCancellable> = []
             
     @Published var documentsViewModels: [HomeCollectionViewCellType] = []
-    private var documentViewModel: BlocksViews.Document.ViewModel = .init()
+    private var documentViewModel: BlocksViews.DocumentViewModel = .init()
     
     @Published var error: String = ""
     

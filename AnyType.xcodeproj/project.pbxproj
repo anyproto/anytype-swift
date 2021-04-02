@@ -284,8 +284,7 @@
 		0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC356C25C196180003CF3A /* DataStructures+Stack.swift */; };
 		0ACC357125C850B80003CF3A /* BlocksViews+Supplement+ViewModelsConvertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357025C850B80003CF3A /* BlocksViews+Supplement+ViewModelsConvertions.swift */; };
 		0ACC357625C851650003CF3A /* BlocksViews+Supplement+ViewModelsConvertions+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357525C851650003CF3A /* BlocksViews+Supplement+ViewModelsConvertions+Base.swift */; };
-		0ACC357A25C878AF0003CF3A /* BlocksViews+Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357925C878AF0003CF3A /* BlocksViews+Document.swift */; };
-		0ACC357E25C885520003CF3A /* BlocksViews+Document+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357D25C885520003CF3A /* BlocksViews+Document+ViewModel.swift */; };
+		0ACC357E25C885520003CF3A /* DocumentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACC357D25C885520003CF3A /* DocumentViewModel.swift */; };
 		0ACDB06A25599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB06925599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift */; };
 		0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */; };
 		0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */; };
@@ -658,8 +657,7 @@
 		0ACC356C25C196180003CF3A /* DataStructures+Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+Stack.swift"; sourceTree = "<group>"; };
 		0ACC357025C850B80003CF3A /* BlocksViews+Supplement+ViewModelsConvertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+ViewModelsConvertions.swift"; sourceTree = "<group>"; };
 		0ACC357525C851650003CF3A /* BlocksViews+Supplement+ViewModelsConvertions+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+ViewModelsConvertions+Base.swift"; sourceTree = "<group>"; };
-		0ACC357925C878AF0003CF3A /* BlocksViews+Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Document.swift"; sourceTree = "<group>"; };
-		0ACC357D25C885520003CF3A /* BlocksViews+Document+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Document+ViewModel.swift"; sourceTree = "<group>"; };
+		0ACC357D25C885520003CF3A /* DocumentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModel.swift; sourceTree = "<group>"; };
 		0ACDB06925599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File+Base.swift"; sourceTree = "<group>"; };
 		0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceOtherProtocol.swift; sourceTree = "<group>"; };
 		0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFileProtocol.swift; sourceTree = "<group>"; };
@@ -1846,8 +1844,8 @@
 		0ACA781023E5C99A00442690 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				0ABB73A62549974300F32C6F /* ThirdParty */,
 				0ACA781123E5C99A00442690 /* Services.swift */,
+				0ABB73A62549974300F32C6F /* ThirdParty */,
 				0ACA781223E5C99A00442690 /* Appearance */,
 				0A996BAD23EDBC09000FDC9C /* DeveloperOptions */,
 			);
@@ -1899,8 +1897,7 @@
 		0ACC357825C8789C0003CF3A /* Document */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC357925C878AF0003CF3A /* BlocksViews+Document.swift */,
-				0ACC357D25C885520003CF3A /* BlocksViews+Document+ViewModel.swift */,
+				0ACC357D25C885520003CF3A /* DocumentViewModel.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -2327,7 +2324,7 @@
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
-				0ACC357E25C885520003CF3A /* BlocksViews+Document+ViewModel.swift in Sources */,
+				0ACC357E25C885520003CF3A /* DocumentViewModel.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* AssetsReader.swift in Sources */,
 				0A09660625BEF5B000C004BD /* EditorModule+Content+ViewController.swift in Sources */,
 				0A0965F625BEF5B000C004BD /* EditorModule+Content+ViewBuilder.swift in Sources */,
@@ -2459,7 +2456,6 @@
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,
 				0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift in Sources */,
-				0ACC357A25C878AF0003CF3A /* BlocksViews+Document.swift in Sources */,
 				0A09660325BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,

@@ -1,11 +1,3 @@
-//
-//  Services.swift
-//  AnyType
-//
-//  Created by Lobanov Dmitry on 19.11.19.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

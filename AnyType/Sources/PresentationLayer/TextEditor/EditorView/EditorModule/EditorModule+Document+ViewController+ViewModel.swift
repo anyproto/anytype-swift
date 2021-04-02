@@ -68,7 +68,7 @@ extension Namespace {
         private var blockActionsService: BlockActionsServiceSingle = .init()
         
         /// Document ViewModel
-        private(set) var documentViewModel: BlocksViews.Document.ViewModel = .init()
+        private(set) var documentViewModel: BlocksViews.DocumentViewModel = .init()
         
         /// User Interaction Processor
         private lazy var blockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)

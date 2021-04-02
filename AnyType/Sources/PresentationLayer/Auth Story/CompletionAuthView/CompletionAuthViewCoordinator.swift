@@ -1,11 +1,3 @@
-//
-//  CompletionAuthViewCoordinator.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 16.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 final class CompletionAuthViewCoordinator {

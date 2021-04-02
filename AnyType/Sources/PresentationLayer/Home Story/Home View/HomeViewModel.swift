@@ -62,24 +62,21 @@ class HomeViewModel: ObservableObject {
         
         return view
     }
-}
 
-// MARK: AccountInfo
-extension HomeViewModel {
+    // MARK: AccountInfo
     func obtainAccountInfo() {
         self.profileViewModel.obtainAccountInfo()
 //        self.profileViewCoordinator.viewModel.obtainAccountInfo()
     }
-}
 
-// MARK: - View events
-
-extension HomeViewModel {
-    func obtainCollectionView(showDocument: Binding<Bool>,
-                              selectedDocumentId: Binding<String>,
-                              containerSize: CGSize,
-                              homeCollectionViewModel: HomeCollectionViewModel,
-                              cellsModels: Binding<[HomeCollectionViewCellType]>) -> some View {
+    // MARK: - View events
+    func obtainCollectionView(
+        showDocument: Binding<Bool>,
+        selectedDocumentId: Binding<String>,
+        containerSize: CGSize,
+        homeCollectionViewModel: HomeCollectionViewModel,
+        cellsModels: Binding<[HomeCollectionViewCellType]>
+    ) -> some View {
         self.homeCollectionViewAssembly.createHomeCollectionView(showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize, cellsModels: cellsModels).environmentObject(homeCollectionViewModel)
     }
 }
