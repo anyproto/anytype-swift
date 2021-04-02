@@ -25,7 +25,7 @@ extension Namespace {
     
     class ViewModel: BlocksViews.New.Page.Base.ViewModel {
         
-        typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
+        typealias DetailsAccessor = InformationAccessor
         private var subscriptions: Set<AnyCancellable> = []
         
         @Published var toViewEmoji: String = ""

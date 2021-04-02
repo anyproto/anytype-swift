@@ -1,11 +1,3 @@
-//
-//  BlocksViews+Document+ViewModel.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 01.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import BlocksModels
@@ -105,11 +97,11 @@ extension BlocksViews.Document.ViewModel {
         self.document.getDefaultDetails()
     }
     
-    func defaultDetailsAccessor() -> BaseDocument.DetailsAccessor {
+    func defaultDetailsAccessor() -> InformationAccessor {
         self.document.getDefaultDetailsAccessor()
     }
     
-    func defaultDetailsAccessorPublisher() -> AnyPublisher<BaseDocument.DetailsAccessor, Never> {
+    func defaultDetailsAccessorPublisher() -> AnyPublisher<InformationAccessor, Never> {
         self.document.getDefaultDetailsAccessorPublisher()
     }
     

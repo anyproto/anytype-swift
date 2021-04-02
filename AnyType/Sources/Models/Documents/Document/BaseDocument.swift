@@ -20,7 +20,6 @@ class BaseDocument {
     typealias DetailsId = TopLevel.AliasesMap.DetailsId
     typealias RootModel = TopLevelContainerModelProtocol
     typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
-    typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
 
     typealias DetailsContentKind = TopLevel.AliasesMap.DetailsContent.Kind
     
@@ -293,8 +292,8 @@ extension BaseDocument {
     ///
     /// - Parameter id: Id of details
     /// - Returns: Details accessor of this details.
-    func getDetailsAccessor(by id: DetailsId) -> DetailsAccessor? {
-        self.getDetails(by: id).map(\.currentDetails).map(DetailsAccessor.init)
+    func getDetailsAccessor(by id: DetailsId) -> InformationAccessor? {
+        self.getDetails(by: id).map(\.currentDetails).map(InformationAccessor.init)
     }
     
     /// Convenient publisher for accessing details properties by typed enum.
@@ -305,8 +304,8 @@ extension BaseDocument {
     ///
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: Publisher of default details properties.
-    func getDetailsAccessorPublisher(by id: DetailsId) -> AnyPublisher<DetailsAccessor, Never>? {
-        self.getDetails(by: id)?.$currentDetails.map(DetailsAccessor.init).eraseToAnyPublisher()
+    func getDetailsAccessorPublisher(by id: DetailsId) -> AnyPublisher<InformationAccessor, Never>? {
+        self.getDetails(by: id)?.$currentDetails.map(InformationAccessor.init).eraseToAnyPublisher()
     }
     
     /// Return configured details for listening events.
@@ -323,14 +322,14 @@ extension BaseDocument {
     /// This details accessor associated with default details.
     ///
     /// - Returns: Details accessor of this details.
-    func getDefaultDetailsAccessor() -> DetailsAccessor {
+    func getDefaultDetailsAccessor() -> InformationAccessor {
         .init(value: self.defaultDetailsActiveModel.currentDetails)
     }
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
-    func getDefaultDetailsAccessorPublisher() -> AnyPublisher<DetailsAccessor, Never> {
-        self.getDefaultDetails().$currentDetails.map(DetailsAccessor.init).eraseToAnyPublisher()
+    func getDefaultDetailsAccessorPublisher() -> AnyPublisher<InformationAccessor, Never> {
+        self.getDefaultDetails().$currentDetails.map(InformationAccessor.init).eraseToAnyPublisher()
     }
 }
 
@@ -351,7 +350,7 @@ extension BaseDocument {
             return nil
         }
         
-        let accessor = DetailsAccessor.init(value: detailsActiveModel.currentDetails)
+        let accessor = InformationAccessor(value: detailsActiveModel.currentDetails)
         
         let block: BlockModelProtocol
         switch kind {

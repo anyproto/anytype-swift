@@ -30,7 +30,6 @@ public extension Namespace.AliasesMap {
     
     typealias BlockTools = Block.Tools
     typealias BlockUtilities = Block.Utilities
-    typealias DetailsUtilities = Details.Utilities
     
     //TODO: Remove when possible.
     /// Deprecated.

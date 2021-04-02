@@ -26,7 +26,7 @@ extension BlocksViews.New.Page.Title {
         // We can't edit name of the block.
         // Add subscription on event.
         
-        typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
+        typealias DetailsAccessor = InformationAccessor
         
         private var subscriptions: Set<AnyCancellable> = []
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()

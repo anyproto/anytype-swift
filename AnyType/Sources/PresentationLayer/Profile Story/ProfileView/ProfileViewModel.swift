@@ -11,16 +11,13 @@ import SwiftUI
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = ProfileViewModel
-fileprivate typealias FileNamespace = Namespace
-
 private extension Logging.Categories {
     static let storiesProfileViewModel: Self = "Stories.Profile.ViewModel"
 }
 
 final class ProfileViewModel: ObservableObject {
     /// Typealiases
-    typealias DetailsAccessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor
+    typealias DetailsAccessor = InformationAccessor
     
     /// Variables / Services
     private var profileService: ProfileServiceProtocol
@@ -84,10 +81,8 @@ final class ProfileViewModel: ObservableObject {
         self.authService = authService
         self.setupSubscriptions()
     }
-}
 
-// MARK: - Obtain Account Info
-extension FileNamespace {
+    // MARK: - Obtain Account Info
     func obtainAccountInfo() {
         self.obtainUserInformationSubscription = self.profileService.obtainUserInformation().sink(receiveCompletion: { (value) in
             switch value {
@@ -100,10 +95,8 @@ extension FileNamespace {
             self?.handleOpenBlock(value)
         }
     }
-}
 
-// MARK: - Setup Subscriptions
-extension FileNamespace {
+    // MARK: - Setup Subscriptions
     func setupSubscriptions() {
         let publisher = self.documentViewModel.defaultDetailsAccessorPublisher()
         
@@ -120,20 +113,16 @@ extension FileNamespace {
                 self?.accountAvatar = value
         }.store(in: &self.subscriptions)
     }
-}
 
-// MARK: - Logout
-extension FileNamespace {
+    // MARK: - Logout
     func logout() {
         self.authService.logout() {
             let view = MainAuthView(viewModel: MainAuthViewModel())
             applicationCoordinator?.startNewRootView(content: view)
         }
     }
-}
 
-// MARK: - Handle Open Action
-private extension FileNamespace {
+    // MARK: - Handle Open Action
     func handleOpenBlock(_ value: ServiceSuccess) {
         self.documentViewModel.open(value)
     }

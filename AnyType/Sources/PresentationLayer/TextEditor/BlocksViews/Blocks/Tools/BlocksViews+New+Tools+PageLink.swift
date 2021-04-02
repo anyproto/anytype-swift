@@ -165,7 +165,7 @@ extension Namespace.State {
         static func asOurModel(_ pageDetails: Model) -> OurModel {
             let archived = false
             var hasContent = false
-            let accessor = TopLevel.AliasesMap.DetailsUtilities.InformationAccessor.init(value: pageDetails)
+            let accessor = InformationAccessor.init(value: pageDetails)
             let title = accessor.title?.value
             let emoji = accessor.iconEmoji?.value
             hasContent = emoji != nil
