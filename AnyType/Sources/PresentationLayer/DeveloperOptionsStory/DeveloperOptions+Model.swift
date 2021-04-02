@@ -1,19 +1,18 @@
 import Foundation
 
-extension DeveloperOptions {
-    struct Settings: CodableAndDictionary {
-        let debug: Debug
-        let workflow: Workflow
-        private init() {
-            self.debug = .init(enabled: false)
-            self.workflow = .init(authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""), dashboard: .init(cellsHaveActionsOnLongTap: false),
-                                  mainDocumentEditor: .init(textEditor: .init(), listView: .init()))
-        }
-        static let `default`: Self = .init()
+struct DeveloperOptionsSettings: CodableAndDictionary {
+    let debug: Debug
+    let workflow: Workflow
+    private init() {
+        self.debug = .init(enabled: false)
+        self.workflow = .init(
+            authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""),
+            dashboard: .init(cellsHaveActionsOnLongTap: false),
+            mainDocumentEditor: .init(textEditor: .init(), listView: .init())
+        )
     }
-}
+    static let `default`: Self = .init()
 
-extension DeveloperOptions.Settings {
     struct Debug: CodableAndDictionary {
         let enabled: Bool // should be set to true to allow other options.
     }

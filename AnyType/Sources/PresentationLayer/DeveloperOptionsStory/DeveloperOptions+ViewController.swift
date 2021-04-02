@@ -112,7 +112,7 @@ extension DeveloperOptions.ViewController {
 //}
 
 extension DeveloperOptions.ViewController {
-    typealias ViewModel = DeveloperOptions.ViewModel
+    typealias ViewModel = DeveloperOptionsViewModel
     func configured(_ model: ViewModel) -> Self {
         self.model = model
         self.setupSubscriptions()
@@ -253,7 +253,7 @@ class BaseTableViewCell: UITableViewCell {
 extension DeveloperOptions.ViewController {
     class CellWithItem: BaseTableViewCell {
         weak var delegate: Developer_ViewModel_ViewController_CellsUpdateProtocol?
-        var cellType: DeveloperOptions.ViewModel.Row.CellType?
+        var cellType: DeveloperOptionsViewModel.Row.CellType?
         var identifier: String?
         
         func configured(delegate: Developer_ViewModel_ViewController_CellsUpdateProtocol?) -> Self {
@@ -266,7 +266,7 @@ extension DeveloperOptions.ViewController {
             return self
         }
         
-        func configured(cellType: DeveloperOptions.ViewModel.Row.CellType?) -> Self {
+        func configured(cellType: DeveloperOptionsViewModel.Row.CellType?) -> Self {
             self.cellType = cellType
             return self
         }

@@ -14,16 +14,14 @@ private extension Logging.Categories {
     static let servicesFirebaseService: Self = "ServicesLayer.FirebaseService"
 }
 
-class FirebaseService: BaseService {
+class FirebaseService: ServicesSetupProtocol {
     private static let defaultSettingsFile = "GoogleService-Info"
     let settingsFile: String
-    override init() {
+    init() {
         self.settingsFile = Self.defaultSettingsFile
     }
-}
 
-extension FirebaseService {
-    override func setup() {
+    func setup() {
         let path = Bundle(for: Self.self).path(forResource: self.settingsFile, ofType: "plist")
         if let path = path, let options = FirebaseOptions.init(contentsOfFile: path) {
             DispatchQueue.main.async {
@@ -34,11 +32,5 @@ extension FirebaseService {
             let logger = Logging.createLogger(category: .servicesFirebaseService)
             os_log(.error, log: logger, "Can't create options with file at path: %@", String(describing: self.settingsFile))
         }
-    }
-}
-
-extension FirebaseService {
-    override var health: Bool {
-        FirebaseApp.app() != nil
     }
 }

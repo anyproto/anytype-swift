@@ -8,64 +8,61 @@
 
 import Foundation
 import Combine
-
-extension DeveloperOptions {
     
-    class ViewModel {
-        // to show we need settings at least.
-        private var service: Service?
-        private var settings: Settings {
-            didSet {
-                self.syncCells()
-            }
-        }
-        private var shouldReloadCellsSubject: PassthroughSubject<Void, Never> = .init()
-        private(set) var shouldReloadCellsPublisher: AnyPublisher<Void, Never> = .empty()
-        private var subscription: AnyCancellable?
-        private var cells: [Cell] = []
-        private var updatedCells: [Cell] = []
-        
-        init(settings: Settings) {
-            self.settings = settings
+class DeveloperOptionsViewModel {
+    // to show we need settings at least.
+    private var service: DeveloperOptionsService?
+    private var settings: DeveloperOptionsSettings {
+        didSet {
             self.syncCells()
         }
-        
-        private func syncCells() {
-            let (_, entries) = SettingsSerialization.plaintify(settings: self.settings)
-            
-            self.cells = entries.map { (item) in
-                var cell = Cell(keypath: item.keypath)
-                cell.title = item.title
-                
-                if let theValue = item.value {
-                    switch theValue {
-                    case .bool(let value): cell.value = .bool(value)
-                    case .int(let value): cell.value = .int(value)
-                    case .string(let value): cell.value = .string(value)
-                    }
-                }
-                return cell
-            }.sorted { $0.keypath < $1.keypath }
-            self.updatedCells = self.cells
-            self.shouldReloadCellsSubject.send()
-        }
-        
-        private func setupSubscriptions() {
-            self.shouldReloadCellsPublisher = self.shouldReloadCellsSubject.eraseToAnyPublisher()
-            self.subscription = self.service?.settingsDidChangePublisher.sink(receiveValue: { [weak self] (value) in
-                self?.settings = value
-            })
-        }
-        //        class ChildViewModel {
-        //            weak var parent: ViewModel?
-        //            init(parent: ViewModel?) {
-        //                self.parent = parent
-        //            }
-        //        }
     }
+    private var shouldReloadCellsSubject: PassthroughSubject<Void, Never> = .init()
+    private(set) var shouldReloadCellsPublisher: AnyPublisher<Void, Never> = .empty()
+    private var subscription: AnyCancellable?
+    private var cells: [Cell] = []
+    private var updatedCells: [Cell] = []
+    
+    init(settings: DeveloperOptionsSettings) {
+        self.settings = settings
+        self.syncCells()
+    }
+    
+    private func syncCells() {
+        let (_, entries) = DeveloperOptionsSettingsSerialization.plaintify(settings: self.settings)
+        
+        self.cells = entries.map { (item) in
+            var cell = Cell(keypath: item.keypath)
+            cell.title = item.title
+            
+            if let theValue = item.value {
+                switch theValue {
+                case .bool(let value): cell.value = .bool(value)
+                case .int(let value): cell.value = .int(value)
+                case .string(let value): cell.value = .string(value)
+                }
+            }
+            return cell
+        }.sorted { $0.keypath < $1.keypath }
+        self.updatedCells = self.cells
+        self.shouldReloadCellsSubject.send()
+    }
+    
+    private func setupSubscriptions() {
+        self.shouldReloadCellsPublisher = self.shouldReloadCellsSubject.eraseToAnyPublisher()
+        self.subscription = self.service?.settingsDidChangePublisher.sink(receiveValue: { [weak self] (value) in
+            self?.settings = value
+        })
+    }
+    //        class ChildViewModel {
+    //            weak var parent: ViewModel?
+    //            init(parent: ViewModel?) {
+    //                self.parent = parent
+    //            }
+    //        }
 }
 
-extension DeveloperOptions.ViewModel {
+extension DeveloperOptionsViewModel {
     
     struct Cell {
         enum Value {
@@ -104,7 +101,7 @@ extension DeveloperOptions.ViewModel {
     }
 }
 
-extension DeveloperOptions.ViewModel {
+extension DeveloperOptionsViewModel {
     struct Section {
         var title: String?
     }
@@ -152,10 +149,8 @@ extension DeveloperOptions.ViewModel {
 }
 
 // MARK: Save
-extension DeveloperOptions.ViewModel {
-    typealias Service = DeveloperOptions.Service
-    typealias SettingsSerialization = DeveloperOptions.SettingsSerialization
-    typealias Entry = SettingsSerialization.Entry
+extension DeveloperOptionsViewModel {
+    typealias Entry = DeveloperOptionsSettingsSerialization.Entry
     func updated(value: Cell.Value, with identifier: String?) {
         let index = self.updatedCells.firstIndex { (cell) -> Bool in
             return cell.keypath == identifier
@@ -186,7 +181,7 @@ extension DeveloperOptions.ViewModel {
             return to
         }
         
-        let settings = SettingsSerialization.immerse(entries: entries, into: self.settings)
+        let settings = DeveloperOptionsSettingsSerialization.immerse(entries: entries, into: self.settings)
         self.service?.update(settings: settings)
     }
     func resetToDefaults() {
@@ -195,8 +190,8 @@ extension DeveloperOptions.ViewModel {
 }
 
 // MARK: Configuration
-extension DeveloperOptions.ViewModel {
-    func configured(service: Service?) -> Self {
+extension DeveloperOptionsViewModel {
+    func configured(service: DeveloperOptionsService?) -> Self {
         self.service = service
         self.setupSubscriptions()
         return self

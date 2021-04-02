@@ -1,11 +1,3 @@
-//
-//  ApplicationCoordinator+ShakeHandler.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 07.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import SwiftUI
@@ -93,7 +85,7 @@ extension ApplicationCoordinator.ShakeHandler {
         
         let settings = self.developerOptions.current
         
-        let model = DeveloperOptions.ViewModel(settings: settings).configured(service: self.developerOptions)
+        let model = DeveloperOptionsViewModel(settings: settings).configured(service: self.developerOptions)
         let controller = DeveloperOptions.ViewController().configured(model)
                 
         let navigation = UINavigationController(navigationBarClass: DeveloperOptions.ViewController.NavigationBar.self, toolbarClass: nil)

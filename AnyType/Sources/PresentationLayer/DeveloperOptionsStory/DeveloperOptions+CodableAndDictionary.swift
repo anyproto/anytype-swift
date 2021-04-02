@@ -1,95 +1,56 @@
-//
-//  DeveloperOptions+CodableAndDictionary.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 07.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 
-protocol CodableAndDictionary: Codable {}
-
-extension CodableAndDictionary {
-    static func create(dictionary: [String : AnyObject]) throws -> Self {
-        let data = try JSONSerialization.data(withJSONObject: dictionary, options: [])
-        return try JSONDecoder().decode(Self.self, from: data)
-        //self.init(from: JSONDecoder.self)
-    }
+enum DeveloperOptionsList<T> {
+    case empty
+    case head(T)
+    case headAndTail(T, ArraySlice<T>)
     
-    func dictionary() -> [String : AnyObject]? {
-        guard let data = try? JSONEncoder().encode(self) else {
-            return nil
-        }
-        
-        guard let result = try? JSONSerialization.jsonObject(with: data, options: []) else {
-            return nil
-        }
-        
-        return result as? [String : AnyObject]
-    }
-}
-
-extension DeveloperOptions {
-    class SettingsSerialization {
-        struct Entry {
-            enum Value {
-                case bool(Bool)
-                case int(Int)
-                case string(String)
-                
-                init?(value: AnyObject) {
-                    switch value {
-                    case let v as Bool: self = .bool(v)
-                    case let v as Int: self = .int(v)
-                    case let v as String: self = .string(v)
-                    default: return nil
-                    }
-                }
-            }
-            
-            var title: String?
-            var value: Value?
-            var keypath: String
-            
-            var anyValue: AnyObject? {
-                guard let theValue = value else {
-                    return nil
-                }
-                switch theValue {
-                case .bool(let value): return value as AnyObject
-                case .int(let value): return value as AnyObject
-                case .string(let value): return value as AnyObject
-                }
-            }
-            
-            init(keypath: String) {
-                self.keypath = keypath
-            }
+    init(_ array: ArraySlice<T>) {
+        switch array.count {
+        case 0: self = .empty
+        case 1: self = .head(array[array.startIndex])
+        default: self = .headAndTail(array[array.startIndex], array.dropFirst())
         }
     }
 }
 
-extension DeveloperOptions {
-    enum List<T> {
-        case empty
-        case head(T)
-        case headAndTail(T, ArraySlice<T>)
-        
-        init(_ array: ArraySlice<T>) {
-            switch array.count {
-            case 0: self = .empty
-            case 1: self = .head(array[array.startIndex])
-            default: self = .headAndTail(array[array.startIndex], array.dropFirst())
+class DeveloperOptionsSettingsSerialization {
+    struct Entry {
+        enum Value {
+            case bool(Bool)
+            case int(Int)
+            case string(String)
+            
+            init?(value: AnyObject) {
+                switch value {
+                case let v as Bool: self = .bool(v)
+                case let v as Int: self = .int(v)
+                case let v as String: self = .string(v)
+                default: return nil
+                }
             }
         }
+        
+        var title: String?
+        var value: Value?
+        var keypath: String
+        
+        var anyValue: AnyObject? {
+            guard let theValue = value else {
+                return nil
+            }
+            switch theValue {
+            case .bool(let value): return value as AnyObject
+            case .int(let value): return value as AnyObject
+            case .string(let value): return value as AnyObject
+            }
+        }
+        
+        init(keypath: String) {
+            self.keypath = keypath
+        }
     }
-}
 
-extension DeveloperOptions.SettingsSerialization {
-    typealias Settings = DeveloperOptions.Settings
-    typealias List = DeveloperOptions.List
-    
     class func plaintify(dictionary: [String : AnyObject]) -> [Entry] {
         func plaintify(dictionary: [String : AnyObject], key: String) -> [Entry] {
             func createKeypath(lhs: String, rhs: String) -> String {
@@ -117,7 +78,7 @@ extension DeveloperOptions.SettingsSerialization {
         return plaintify(dictionary: dictionary, key: "")
     }
     
-    class func plaintify(settings: Settings) -> ([String : AnyObject], [Entry]) {
+    class func plaintify(settings: DeveloperOptionsSettings) -> ([String : AnyObject], [Entry]) {
         guard let dictionary = settings.dictionary() else {
             return ([:], [])
         }
@@ -137,7 +98,7 @@ extension DeveloperOptions.SettingsSerialization {
     class func updated(dictionary: [String : AnyObject], keypath: [String], value: AnyObject) -> [String : AnyObject] {
         var dictionary = dictionary
         
-        switch List(ArraySlice(keypath)) {
+        switch DeveloperOptionsList(ArraySlice(keypath)) {
         case .empty: break
         case let .head(head): dictionary[head] = value
         case let .headAndTail(head, tail):
@@ -149,7 +110,7 @@ extension DeveloperOptions.SettingsSerialization {
         return dictionary
     }
     
-    class func immerse(entries: [Entry], into settings: Settings) -> Settings {
+    class func immerse(entries: [Entry], into settings: DeveloperOptionsSettings) -> DeveloperOptionsSettings {
         let dictionary = settings.dictionary() ?? [:]
         
         let resultDictionary = entries.reduce(dictionary) { (result, entry) in
@@ -162,7 +123,7 @@ extension DeveloperOptions.SettingsSerialization {
             return self.updated(dictionary: result, keypath: items, value: value)
         }
         
-        guard let result = try? Settings.create(dictionary: resultDictionary) else {
+        guard let result = try? DeveloperOptionsSettings.create(dictionary: resultDictionary) else {
             return settings
         }
         
