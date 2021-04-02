@@ -249,9 +249,11 @@ final class BlockActionService {
     ///   - block: Block to change checkbox state
     ///   - newValue: New value of checkbox
     func checked(block: BlockActiveRecordModelProtocol, newValue: Bool) {
-        self.textService.checked.action(contextId: self.documentId,
-                                        blockId: block.blockModel.information.id,
-                                        newValue: newValue)
+        self.textService.checked(
+            contextId: self.documentId,
+            blockId: block.blockModel.information.id,
+            newValue: newValue
+        )
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { value in
                 switch value {
@@ -308,7 +310,7 @@ private extension BlockActionService {
 
         let range: NSRange = .init(location: position, length: 0)
 
-        self.textService.split.action(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
+        self.textService.split(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (value) in
                 switch value {
@@ -345,11 +347,12 @@ private extension BlockActionService {
 
         let documentId = self.documentId
 
-        self.textService.setText.action(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
-            return self?.textService.split.action(contextID: documentId,
-                                                  blockID: blockId,
-                                                  range: range,
-                                                  style: newBlockContentType) ?? .empty()
+        self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
+            return self?.textService.split(
+                contextID: documentId,
+                blockID: blockId,
+                range: range,
+                style: newBlockContentType) ?? .empty()
         }).sink { (value) in
             switch value {
             case .finished: return
@@ -446,7 +449,7 @@ private extension BlockActionService {
             return
         }
 
-        self.textService.setStyle.action(contextID: self.documentId, blockID: blockId, style: text.contentType)
+        self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: text.contentType)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (value) in
                 switch value {
@@ -473,7 +476,7 @@ extension BlockActionService {
         let firstBlockId = firstBlock.id
         let secondBlockId = secondBlock.id
 
-        self.textService.merge.action(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
+        self.textService.merge(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { value in
                 switch value {

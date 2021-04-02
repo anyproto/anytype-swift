@@ -8,11 +8,6 @@ private extension Logging.Categories {
     static let service: Self = "BlockActionsService.Single.Implementation"
 }
 
-class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
-    /// DI
-    private var parser: BlocksModelsModule.Parser = .init()
-}
-
 private extension BlockActionsServiceSingle {
     enum PossibleError: Error {
         case addActionBlockIsNotParsed
@@ -22,7 +17,10 @@ private extension BlockActionsServiceSingle {
 }
 
 // MARK: Actions
-extension BlockActionsServiceSingle {
+final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
+    /// DI
+    private var parser: BlocksModelsModule.Parser = .init()
+    
     typealias Success = ServiceSuccess
     
     // MARK: Open / Close

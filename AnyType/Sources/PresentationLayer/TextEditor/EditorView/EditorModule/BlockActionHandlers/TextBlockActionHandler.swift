@@ -57,7 +57,7 @@ final class TextBlockActionHandler {
             textContentType.attributedText = attributedText
             blockModel.information.content = .text(textContentType)
 
-            self.textService.setText.action(contextID: self.contextId, blockID: blockId, attributedString: attributedText)
+            self.textService.setText(contextID: self.contextId, blockID: blockId, attributedString: attributedText)
                 .sink(receiveCompletion: { value in
                     switch value {
                     case .finished: return

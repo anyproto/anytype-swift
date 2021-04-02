@@ -1596,14 +1596,13 @@
 		0A66456924085A1E008392AF /* BlocksServices */ = {
 			isa = PBXGroup;
 			children = (
+				3D9D401E26161DC000B817FD /* Text */,
 				3D9D401B2616036B00B817FD /* Single */,
 				0ACFCCF8249C17DC002E0477 /* ServiceSuccess.swift */,
-				0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */,
 				0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */,
 				0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */,
 				0ACDB077255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift */,
 				0ACDB07B255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift */,
-				0AD7694B25D57F2D00669F8C /* BlockActionsServiceText.swift */,
 				0AD7694F25D5854700669F8C /* BlockActionsServiceList.swift */,
 				0AD7695225D58D6000669F8C /* BlockActionsServiceBookmark.swift */,
 				0AD7695525D58F1700669F8C /* BlockActionsServiceOther.swift */,
@@ -1937,6 +1936,15 @@
 				0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */,
 			);
 			path = Single;
+			sourceTree = "<group>";
+		};
+		3D9D401E26161DC000B817FD /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				0AD7694B25D57F2D00669F8C /* BlockActionsServiceText.swift */,
+				0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */,
+			);
+			path = Text;
 			sourceTree = "<group>";
 		};
 		3DCE7A092615248A00E09593 /* Flattener */ = {

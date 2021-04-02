@@ -134,7 +134,7 @@ private extension MarksPaneBlockActionHandler {
             blockModel.information.content = .text(textContentType)
             self.documentViewInteraction?.updateBlocks(with: [blockModel.information.id])
 
-            self.textService.setText.action(contextID: self.contextId,
+            self.textService.setText(contextID: self.contextId,
                                             blockID: blockModel.information.id,
                                             attributedString: newAttributedString)
                 .sink(receiveCompletion: {_ in }, receiveValue: {})
@@ -155,7 +155,7 @@ private extension MarksPaneBlockActionHandler {
             textContentType.attributedText = newAttributedString
             blockModel.information.content = .text(textContentType)
             self.documentViewInteraction?.updateBlocks(with: [blockModel.information.id])
-            self.textService.setText.action(contextID: self.contextId,
+            self.textService.setText(contextID: self.contextId,
                                             blockID: blockModel.information.id,
                                             attributedString: newAttributedString)
                 .sink(receiveCompletion: {_ in }, receiveValue: {})

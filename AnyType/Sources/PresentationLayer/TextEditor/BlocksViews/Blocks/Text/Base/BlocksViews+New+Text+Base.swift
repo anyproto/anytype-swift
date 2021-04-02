@@ -317,7 +317,7 @@ private extension Namespace.ViewModel {
         let block = self.getBlock()
         guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
         let blocksIds = [block.blockModel.information.id]
-        return self.service.setAlignment.action(contextID: contextID, blockIds: blocksIds, alignment: alignment)
+        return self.service.setAlignment(contextID: contextID, blockIds: blocksIds, alignment: alignment)
     }
 
     func apply(update: TextView.UIKitTextView.ViewModel.Update) {
