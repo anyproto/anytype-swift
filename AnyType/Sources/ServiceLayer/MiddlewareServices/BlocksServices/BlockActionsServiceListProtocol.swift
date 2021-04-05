@@ -5,14 +5,12 @@ import UIKit
 
 protocol BlockActionsServiceListProtocolDelete {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     func action(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<Success, Error>
 }
 
 /// We don't support fields now.
 protocol BlockActionsServiceListProtocolSetFields {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     /// TODO: Add our fields model.
     typealias Field = String
     func action(contextID: BlockId, blockFields: [String]) -> AnyPublisher<Success, Error>
@@ -21,7 +19,6 @@ protocol BlockActionsServiceListProtocolSetFields {
 
 protocol BlockActionsServiceListProtocolSetTextStyle {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     typealias Style = TopLevel.BlockContent.Text.ContentType
     func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error>
 }
@@ -32,29 +29,24 @@ protocol BlockActionsServiceListProtocolSetTextStyle {
 //}
 protocol BlockActionsServiceListProtocolSetBackgroundColor {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     func action(contextID: BlockId, blockIds: [BlockId], color: String) -> AnyPublisher<Success, Error>
 }
 protocol BlockActionsServiceListProtocolSetAlign {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     typealias Alignment = TopLevel.Alignment
     func action(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<Success, Error>
 }
 protocol BlockActionsServiceListProtocolSetDivStyle {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     typealias Style = TopLevel.BlockContent.Divider.Style
     func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error>
 }
 protocol BlockActionsServiceListProtocolSetPageIsArchived {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     func action(contextID: BlockId, blockIds: [BlockId], isArchived: Bool) -> AnyPublisher<Success, Error>
 }
 protocol BlockActionsServiceListProtocolDeletePage {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     func action(blockIds: [String]) -> AnyPublisher<Success, Error>
 }
 
@@ -80,7 +72,6 @@ protocol BlockActionsServiceListProtocol {
     var setPageIsArchived: SetPageIsArchived {get}
     var deletePage: DeletePage {get}
 
-    typealias BlockId = TopLevel.BlockId
 
     /// Set block  color
     /// - Parameters:

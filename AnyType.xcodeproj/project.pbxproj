@@ -273,7 +273,7 @@
 		0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */; };
 		0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA780423E5C96700442690 /* TextView+MarkStyle.swift */; };
 		0ACA780E23E5C96700442690 /* TextView+BaseToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA780823E5C96700442690 /* TextView+BaseToolbarView.swift */; };
-		0ACA781623E5C99A00442690 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781123E5C99A00442690 /* Service.swift */; };
+		0ACA781623E5C99A00442690 /* Setuppable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781123E5C99A00442690 /* Setuppable.swift */; };
 		0ACA781723E5C99A00442690 /* AppearanceService+Schemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781323E5C99A00442690 /* AppearanceService+Schemes.swift */; };
 		0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */; };
 		0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA781523E5C99A00442690 /* AppearanceService.swift */; };
@@ -665,7 +665,7 @@
 		0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+UserAction.swift"; sourceTree = "<group>"; };
 		0ACA780423E5C96700442690 /* TextView+MarkStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+MarkStyle.swift"; sourceTree = "<group>"; };
 		0ACA780823E5C96700442690 /* TextView+BaseToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+BaseToolbarView.swift"; sourceTree = "<group>"; };
-		0ACA781123E5C99A00442690 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		0ACA781123E5C99A00442690 /* Setuppable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setuppable.swift; sourceTree = "<group>"; };
 		0ACA781323E5C99A00442690 /* AppearanceService+Schemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceService+Schemes.swift"; sourceTree = "<group>"; };
 		0ACA781423E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppearanceServices+Schemes+Domains+Auth.swift"; sourceTree = "<group>"; };
 		0ACA781523E5C99A00442690 /* AppearanceService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceService.swift; sourceTree = "<group>"; };
@@ -1883,7 +1883,7 @@
 			isa = PBXGroup;
 			children = (
 				3DE2964126173C6700EADB0A /* DeveloperOptionsService */,
-				0ACA781123E5C99A00442690 /* Service.swift */,
+				0ACA781123E5C99A00442690 /* Setuppable.swift */,
 				3DE296462617439C00EADB0A /* ServiceLocator.swift */,
 				0ABB73A62549974300F32C6F /* ThirdParty */,
 				0ACA781223E5C99A00442690 /* Appearance */,
@@ -2382,7 +2382,7 @@
 				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
 				034A303F24045B75002599E2 /* HomeViewAssembly.swift in Sources */,
 				03CB3F08230C1EDE003D5DFD /* UIViewExtension.swift in Sources */,
-				0ACA781623E5C99A00442690 /* Service.swift in Sources */,
+				0ACA781623E5C99A00442690 /* Setuppable.swift in Sources */,
 				EADA96C8260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* BlocksModelsModule+Parser.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,

@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import UIKit
 import ProtobufMessages
+import BlocksModels
 
 
 private extension Logging.Categories {
@@ -84,9 +85,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     }
     
     // MARK: Checked
-    func checked(contextId: BlockId,
-                blockId: BlockId,
-                newValue: Bool) -> AnyPublisher<Success, Error> {
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<Success, Error> {
         Anytype_Rpc.Block.Set.Text.Checked.Service.invoke(
             contextID: contextId,
             blockID: blockId,

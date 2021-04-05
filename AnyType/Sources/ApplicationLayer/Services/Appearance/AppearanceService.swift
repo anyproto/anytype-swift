@@ -13,7 +13,7 @@ protocol AppearanceService_ColorSchemes_Base {
     func apply()
 }
 
-class AppearanceService: ServicesSetupProtocol {
+class AppearanceService: Setuppable {
     let assets = AssetsStorage.Local()
     let schemes = Schemes()
 

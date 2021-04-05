@@ -55,7 +55,6 @@ extension Namespace {
     class ViewModel: ObservableObject {
         // MARK: Aliases
         typealias RootModel = TopLevelContainerModelProtocol
-        typealias BlockId = TopLevel.BlockId
         typealias InformationModel = Block.Information.InformationModel
         typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
         typealias BlocksUserAction = BlocksViews.UserAction
@@ -424,7 +423,6 @@ private extension FileNamespace {
 
 extension FileNamespace {
     enum ActionsPayload {
-        typealias BlockId = TopLevel.BlockId
         typealias ListModel = [BlockId]
 
         struct Toolbar {

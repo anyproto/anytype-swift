@@ -12,7 +12,7 @@ class ApplicationCoordinator {
     private let window: UIWindow
     private let keychainStore = KeychainStoreService()
     private let pageScrollViewLayout = GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout()
-    private var shakeHandler: ShakeHandler?
+    private let shakeHandler: ShakeHandler
     // MARK: - Lifecycle
     
     init(window: UIWindow) {

@@ -3,8 +3,6 @@ import BlocksModels
 /// Flattener to set numbers for numbered blocks
 final class NumberedFlattener {
     
-    typealias BlockId = TopLevel.BlockId
-    
     /// Change content of  children with ids
     ///
     /// - Parameters:

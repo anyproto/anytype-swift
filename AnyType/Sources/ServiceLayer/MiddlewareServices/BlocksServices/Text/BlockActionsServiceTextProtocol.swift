@@ -6,7 +6,6 @@ import BlocksModels
 
 /// Protocol for TextBlockActions service.
 protocol BlockActionsServiceTextProtocol {
-    typealias BlockId = TopLevel.BlockId
     typealias Style = TopLevel.BlockContent.Text.ContentType
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ServiceSuccess, Error>

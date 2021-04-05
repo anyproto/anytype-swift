@@ -37,7 +37,7 @@ extension BlocksViews {
         }
 
         // MARK: - Open
-        func open(_ documentId: BaseDocument.BlockId) {
+        func open(_ documentId: BlockId) {
             _ = self.document.open(documentId).sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: return
@@ -47,7 +47,7 @@ extension BlocksViews {
                 }
             }, receiveValue: {})
         }
-        func open(_ documentId: BaseDocument.BlockId) -> AnyPublisher<Void, Error> {
+        func open(_ documentId: BlockId) -> AnyPublisher<Void, Error> {
             self.document.open(documentId)
         }
         func open(_ value: ServiceSuccess) {

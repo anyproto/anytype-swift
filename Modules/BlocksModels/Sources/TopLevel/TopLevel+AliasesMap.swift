@@ -1,15 +1,9 @@
-//
-//  TopLevel+AliasesMap.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 
+public typealias BlockId = String
+public typealias DetailsId = String
+
 public extension TopLevel {
-    typealias BlockId = String
     typealias BlockContent = Block.Content.ContentType
     typealias ChildrenIds = [BlockId]
     typealias BackgroundColor = String
@@ -19,7 +13,6 @@ public extension TopLevel {
     typealias BlockKind = Block.Common.Kind
     typealias FocusPosition = Block.Common.Focus.Position
 
-    typealias DetailsId = String
     typealias DetailsContent = Details.Information.Content
     
     typealias BlockTools = Block.Tools

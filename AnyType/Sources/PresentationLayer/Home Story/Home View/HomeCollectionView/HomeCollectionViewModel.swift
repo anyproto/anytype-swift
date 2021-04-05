@@ -199,7 +199,6 @@ extension HomeCollectionViewModel {
 
 // MARK: - view events
 extension HomeCollectionViewModel {
-    typealias BlockId = TopLevel.BlockId
     
     /// TODO: Add
     /// Add interaction handlers?

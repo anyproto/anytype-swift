@@ -19,7 +19,6 @@ public extension Namespace {
     enum Transformer {
         public typealias Model = BlockModelProtocol
         public typealias ActiveRecord = BlockActiveRecordModelProtocol
-        public typealias BlockId = TopLevel.BlockId
         public typealias Container = BlockContainerModelProtocol
         
         /// Internal only. Implementation.

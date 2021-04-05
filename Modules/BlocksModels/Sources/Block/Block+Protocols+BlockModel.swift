@@ -16,7 +16,6 @@ public protocol BlockHasInformationProtocol {
 }
 
 public protocol BlockHasParentProtocol {
-    typealias BlockId = TopLevel.BlockId
     var parent: BlockId? {get set}
 }
 

@@ -15,7 +15,6 @@ private extension Logging.Categories {
 }
 
 final class ListBlockActionService {
-    typealias BlockId = TopLevel.BlockId
     typealias ListIds = [BlockId]
 
     private var documentId: String

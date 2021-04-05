@@ -160,7 +160,7 @@ public extension FileNamespace {
     ///
     enum DetailsInspector {
         public typealias Kind = TopLevel.DetailsContent.Kind
-        public typealias Id = TopLevel.BlockId
+        public typealias Id = BlockId
         public typealias Details = TopLevel.DetailsContent
         /// It parses identifier and try to figure our the kind of a detail.
         /// - Parameter id: Id of Information that is built from detail.

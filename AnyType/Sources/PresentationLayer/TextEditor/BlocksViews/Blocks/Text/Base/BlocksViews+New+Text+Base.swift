@@ -53,7 +53,7 @@ private extension Namespace {
 extension Namespace {
     class ViewModel: BlocksViews.New.Base.ViewModel {
         typealias BlocksModelsUpdater = TopLevel.BlockTools.Updater
-        typealias BlockModelId = TopLevel.BlockId
+        typealias BlockModelId = BlockId
         typealias FocusPosition = TopLevel.FocusPosition
 
         private var serialQueue = DispatchQueue(label: "BlocksViews.New.Text.Base.SerialQueue")

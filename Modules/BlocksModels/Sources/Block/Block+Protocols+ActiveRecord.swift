@@ -38,7 +38,6 @@ public protocol BlockActiveRecordFindParentAndRootProtocol {
 
 // MARK: - BlockActiveRecord / Children
 public protocol BlockActiveRecordFindChildProtocol {
-    typealias BlockId = TopLevel.BlockId
     func childrenIds() -> [BlockId]
     func findChild(by id: BlockId) -> Self?
 }

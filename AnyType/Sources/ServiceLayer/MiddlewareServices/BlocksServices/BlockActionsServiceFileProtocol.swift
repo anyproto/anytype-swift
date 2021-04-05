@@ -14,7 +14,6 @@ import BlocksModels
 /// Protocol for upload data at filePath.
 protocol BlockActionsServiceFileProtocolUploadDataAtFilePath {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     func action(contextID: BlockId, blockID: BlockId, filePath: String) -> AnyPublisher<Success, Error>
 }
 

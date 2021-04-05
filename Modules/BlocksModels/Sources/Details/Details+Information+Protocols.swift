@@ -9,7 +9,6 @@
 import Foundation
 
 public protocol DetailsInformationModelProtocol {
-    typealias DetailsId = TopLevel.DetailsId
     typealias DetailsContent = TopLevel.DetailsContent
     
     var details: [DetailsId : DetailsContent] {get set}

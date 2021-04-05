@@ -11,7 +11,6 @@ import Combine
 import BlocksModels
 
 protocol BlockActionsServiceSingleProtocol {
-    typealias BlockId = TopLevel.BlockId
     typealias Position = TopLevel.Position
     
     func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ServiceSuccess, Error>

@@ -17,7 +17,6 @@ public protocol BlockHasDetailsContainerModelProtocol {
 
 // MARK: - DetailsContainer
 public protocol DetailsContainerModelProtocol {
-    typealias DetailsId = TopLevel.DetailsId
     // MARK: - Operations / List
     func list() -> AnyIterator<DetailsId>
     // MARK: - Operations / Choose
@@ -41,7 +40,6 @@ public protocol DetailsHasInformationProtocol {
 
 // MARK: DetailsModel / Has DetailsParent
 public protocol DetailsHasParentProtocol {
-    typealias DetailsId = TopLevel.DetailsId
     var parent: DetailsId? {get set}
 }
 

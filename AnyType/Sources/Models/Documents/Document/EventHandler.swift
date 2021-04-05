@@ -6,7 +6,6 @@ import ProtobufMessages
 
 class EventHandler: NewEventHandler {
     typealias EventsContainer = EventListening.PackOfEvents
-    typealias BlockId = TopLevel.BlockId
             
     private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
     var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()

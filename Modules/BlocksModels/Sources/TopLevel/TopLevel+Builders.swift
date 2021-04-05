@@ -11,7 +11,6 @@ import Foundation
 public extension TopLevel {
     enum Builder: TopLevelBuilder {
         typealias Model = Container
-        public typealias BlockId = TopLevel.BlockId
         public static var blockBuilder: BlockBuilderProtocol = Block.Builder.init()
         public static var detailsBuilder: DetailsBuilderProtocol = Details.Builder.init()
         

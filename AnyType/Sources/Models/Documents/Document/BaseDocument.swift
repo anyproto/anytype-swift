@@ -16,8 +16,6 @@ private extension Logging.Categories {
 /// And keep latest ( last ) document as open document.
 ///
 class BaseDocument {
-    typealias BlockId = TopLevel.BlockId
-    typealias DetailsId = TopLevel.DetailsId
     typealias RootModel = TopLevelContainerModelProtocol
     typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
 

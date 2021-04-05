@@ -14,7 +14,7 @@ private extension Logging.Categories {
     static let servicesFirebaseService: Self = "ServicesLayer.FirebaseService"
 }
 
-class FirebaseService: ServicesSetupProtocol {
+class FirebaseService: Setuppable {
     private static let defaultSettingsFile = "GoogleService-Info"
     let settingsFile: String
     init() {

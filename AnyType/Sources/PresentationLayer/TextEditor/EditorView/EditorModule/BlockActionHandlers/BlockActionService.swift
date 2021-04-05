@@ -20,7 +20,6 @@ private extension Logging.Categories {
 final class BlockActionService {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
     typealias Information = Block.Information.InformationModel
-    typealias BlockId = TopLevel.BlockId
     typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
     typealias BlockContent = TopLevel.BlockContent
     typealias BlockContentTypeText = BlockContent.Text.ContentType

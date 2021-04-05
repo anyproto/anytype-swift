@@ -6,7 +6,6 @@ import BlocksModels
 /// Protocol for set divider style.
 protocol BlockActionsServiceOtherProtocolSetDividerStyle {
     associatedtype Success
-    typealias BlockId = TopLevel.BlockId
     typealias Style = TopLevel.BlockContent.Divider.Style
     func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error>
 }

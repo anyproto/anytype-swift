@@ -17,7 +17,6 @@ private extension Logging.Categories {
 
 /// Interaction with document view
 protocol DocumentViewInteraction: AnyObject {
-    typealias BlockId = TopLevel.BlockId
     /// Update blocks by ids
     /// - Parameter ids: blocks ids
     func updateBlocks(with ids: [BlockId])
@@ -41,7 +40,7 @@ final class BlockActionsHandlersFacade {
     }
 
     enum Reaction {
-        typealias Id = TopLevel.BlockId
+        typealias Id = BlockId
 
         struct ShouldOpenPage {
             struct Payload {
@@ -258,7 +257,6 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
 /// This class should be moved to Middleware.
 /// We don't care about business logic on THIS level.
 struct BlockBuilder {
-    typealias BlockId = TopLevel.BlockId
     typealias Content = TopLevel.BlockContent
     typealias Information = Block.Information.InformationModel
 

@@ -17,7 +17,6 @@ private extension Logging.Categories {
 
 public extension Namespace {
     class Updater {
-        public typealias BlockId = TopLevel.BlockId
         public typealias Key = BlockId
         public typealias Container = BlockContainerModelProtocol
         public typealias Model = BlockModelProtocol

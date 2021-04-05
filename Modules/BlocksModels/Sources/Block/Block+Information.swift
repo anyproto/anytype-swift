@@ -16,7 +16,6 @@ extension Block {
 
 extension Namespace {
     public struct InformationModel {
-        public typealias BlockId = TopLevel.BlockId
         public typealias Content = TopLevel.BlockContent
         public typealias ChildrenIds = TopLevel.ChildrenIds
         public typealias BackgroundColor = TopLevel.BackgroundColor
@@ -75,7 +74,6 @@ extension Namespace {
     /// What happens here?
     /// We convert details ( PageDetails ) to ready-to-use information.
     struct DetailsAsInformationConverter {
-        typealias BlockId = TopLevel.BlockId
         typealias Content = TopLevel.BlockContent
         typealias Details = TopLevel.DetailsContent
         var blockId: BlockId
@@ -102,8 +100,6 @@ extension Namespace {
 public extension Namespace.DetailsAsBlockConverter {
     struct IdentifierBuilder {
         public typealias Details = TopLevel.DetailsContent
-        public typealias DetailsId = TopLevel.DetailsId
-        public typealias BlockId = TopLevel.BlockId
         static var separator: Character = "/"
         public static func asBlockId(_ blockId: BlockId, _ id: DetailsId) -> BlockId {
             blockId + "\(self.separator)" + id
@@ -133,7 +129,6 @@ public extension Namespace {
     struct DetailsAsBlockConverter {
         public typealias Details = TopLevel.DetailsContent
         public typealias BlockModel = BlockModelProtocol
-        public typealias BlockId = TopLevel.BlockId
         
         var blockId: BlockId
 
