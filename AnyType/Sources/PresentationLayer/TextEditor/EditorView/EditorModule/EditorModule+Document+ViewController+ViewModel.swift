@@ -266,7 +266,9 @@ extension Namespace {
                         if !update.addedIds.isEmpty {
                             self?.update(builders: value.models)
                         }
-                        if !update.updatedIds.isEmpty {
+                        if !update.updatedIds.isEmpty && update.addedIds.isEmpty && update.deletedIds.isEmpty {
+                            // During split or merge neighborhood blocks will update automaticaly because of
+                            // calculating diff in data source
                             self?.updateElementsSubject.send(update.updatedIds)
                         }
                         if !update.deletedIds.isEmpty {

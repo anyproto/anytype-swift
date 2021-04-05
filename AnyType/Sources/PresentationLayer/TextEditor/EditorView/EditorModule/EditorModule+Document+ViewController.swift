@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftUI
 import Combine
 
 fileprivate typealias Namespace = EditorModule.Document
@@ -21,7 +20,6 @@ extension Namespace {
             static let cellReuseId: String = UICollectionViewListCell.cellReuseIdentifier()
         }
         
-        @Environment(\.developerOptions) private var developerOptions
         private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BlocksViews.New.Base.ViewModel>?
         private let viewModel: ViewModel
         private weak var headerViewModel: HeaderView.ViewModel?
