@@ -1443,15 +1443,17 @@ extension Anytype_Rpc.Config.Get.Response.Error {
 }
 
 extension Anytype_Rpc.Debug.Sync.Request {
-  public init(recordsTraverseLimit: Int32) {
+  public init(recordsTraverseLimit: Int32, skipEmptyLogs: Bool, tryToDownloadRemoteRecords: Bool) {
     self.recordsTraverseLimit = recordsTraverseLimit
+    self.skipEmptyLogs = skipEmptyLogs
+    self.tryToDownloadRemoteRecords = tryToDownloadRemoteRecords
   }
 }
 
 extension Anytype_Rpc.Debug.Sync.Response {
   public init(
-    error: Anytype_Rpc.Debug.Sync.Response.Error, threads: [Anytype_Rpc.Debug.Sync.Response.thread], deviceID: String, totalThreads: Int32, threadsWithoutReplInOwnLog: Int32,
-    threadsWithoutHeadDownloaded: Int32
+    error: Anytype_Rpc.Debug.Sync.Response.Error, threads: [Anytype_Rpc.Debug.threadInfo], deviceID: String, totalThreads: Int32, threadsWithoutReplInOwnLog: Int32,
+    threadsWithoutHeadDownloaded: Int32, totalRecords: Int32, totalSize: Int32
   ) {
     self.error = error
     self.threads = threads
@@ -1459,6 +1461,8 @@ extension Anytype_Rpc.Debug.Sync.Response {
     self.totalThreads = totalThreads
     self.threadsWithoutReplInOwnLog = threadsWithoutReplInOwnLog
     self.threadsWithoutHeadDownloaded = threadsWithoutHeadDownloaded
+    self.totalRecords = totalRecords
+    self.totalSize = totalSize
   }
 }
 
@@ -1469,32 +1473,65 @@ extension Anytype_Rpc.Debug.Sync.Response.Error {
   }
 }
 
-extension Anytype_Rpc.Debug.Sync.Response.log {
-  public init(id: String, head: String, headDownloaded: Bool, totalRecords: Int32, firstRecordTs: Int32, firstRecordVer: Int32, lastRecordTs: Int32, lastRecordVer: Int32) {
+extension Anytype_Rpc.Debug.Thread.Request {
+  public init(threadID: String, skipEmptyLogs: Bool, tryToDownloadRemoteRecords: Bool) {
+    self.threadID = threadID
+    self.skipEmptyLogs = skipEmptyLogs
+    self.tryToDownloadRemoteRecords = tryToDownloadRemoteRecords
+  }
+}
+
+extension Anytype_Rpc.Debug.Thread.Response {
+  public init(error: Anytype_Rpc.Debug.Thread.Response.Error, info: Anytype_Rpc.Debug.threadInfo) {
+    self.error = error
+    self.info = info
+  }
+}
+
+extension Anytype_Rpc.Debug.Thread.Response.Error {
+  public init(code: Anytype_Rpc.Debug.Thread.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Debug.logInfo {
+  public init(
+    id: String, head: String, headDownloaded: Bool, totalRecords: Int32, totalSize: Int32, firstRecordTs: Int32, firstRecordVer: Int32, lastRecordTs: Int32, lastRecordVer: Int32,
+    lastPullSecAgo: Int32, upStatus: String, downStatus: String, error: String
+  ) {
     self.id = id
     self.head = head
     self.headDownloaded = headDownloaded
     self.totalRecords = totalRecords
+    self.totalSize = totalSize
     self.firstRecordTs = firstRecordTs
     self.firstRecordVer = firstRecordVer
     self.lastRecordTs = lastRecordTs
     self.lastRecordVer = lastRecordVer
-  }
-}
-
-extension Anytype_Rpc.Debug.Sync.Response.thread {
-  public init(
-    id: String, logsWithDownloadedHead: Int32, logs: [Anytype_Rpc.Debug.Sync.Response.log], ownLogHasCafeReplicator: Bool, lastPullSecAgo: Int32, upStatus: String, downStatus: String,
-    totalRecords: Int32
-  ) {
-    self.id = id
-    self.logsWithDownloadedHead = logsWithDownloadedHead
-    self.logs = logs
-    self.ownLogHasCafeReplicator = ownLogHasCafeReplicator
     self.lastPullSecAgo = lastPullSecAgo
     self.upStatus = upStatus
     self.downStatus = downStatus
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Debug.threadInfo {
+  public init(
+    id: String, logsWithDownloadedHead: Int32, logsWithWholeTreeDownloaded: Int32, logs: [Anytype_Rpc.Debug.logInfo], ownLogHasCafeReplicator: Bool, cafeLastPullSecAgo: Int32, cafeUpStatus: String,
+    cafeDownStatus: String, totalRecords: Int32, totalSize: Int32, error: String
+  ) {
+    self.id = id
+    self.logsWithDownloadedHead = logsWithDownloadedHead
+    self.logsWithWholeTreeDownloaded = logsWithWholeTreeDownloaded
+    self.logs = logs
+    self.ownLogHasCafeReplicator = ownLogHasCafeReplicator
+    self.cafeLastPullSecAgo = cafeLastPullSecAgo
+    self.cafeUpStatus = cafeUpStatus
+    self.cafeDownStatus = cafeDownStatus
     self.totalRecords = totalRecords
+    self.totalSize = totalSize
+    self.error = error
   }
 }
 

@@ -2406,41 +2406,79 @@ message Rpc {
     }
 
     message Debug {
+        message logInfo  {
+            string id = 1;
+            string head = 2;
+            bool headDownloaded = 3;
+            int32 totalRecords = 4;
+            int32 totalSize = 5;
+            int32 firstRecordTs = 6;
+            int32 firstRecordVer = 7;
+            int32 lastRecordTs = 8;
+            int32 lastRecordVer = 9;
+            int32 lastPullSecAgo = 10;
+            string upStatus = 11;
+            string downStatus = 12;
+            string error = 13;
+        }
+
+        message threadInfo {
+            string id = 1;
+            int32 logsWithDownloadedHead = 2;
+            int32 logsWithWholeTreeDownloaded = 3;
+
+            repeated logInfo logs = 4;
+            bool ownLogHasCafeReplicator = 5;
+            int32 cafeLastPullSecAgo = 6;
+            string cafeUpStatus = 7;
+            string cafeDownStatus = 8;
+            int32 totalRecords = 9;
+            int32 totalSize = 10;
+            string error = 11;
+
+        }
+
         message Sync {
             message Request {
-                int32 recordsTraverseLimit = 1;
+                int32 recordsTraverseLimit = 1; // 0 means no limit
+                bool skipEmptyLogs = 2; // do not set if you want the whole picture
+                bool tryToDownloadRemoteRecords = 3; // if try we will try to download remote records in case missing
             }
 
             message Response {
                 Error error = 1;
-                repeated thread threads =2 ;
+                repeated threadInfo threads =2 ;
                 string deviceId = 3;
                 int32 totalThreads = 4;
                 int32 threadsWithoutReplInOwnLog = 5;
                 int32 threadsWithoutHeadDownloaded = 6;
+                int32 totalRecords = 7;
+                int32 totalSize = 8;
 
-                message thread {
-                    string id = 1;
-                    int32 logsWithDownloadedHead = 2;
-                    repeated log logs = 3;
-                    bool ownLogHasCafeReplicator = 4;
-                    int32 lastPullSecAgo = 5;
-                    string upStatus = 6;
-                    string downStatus = 7;
-                    int32 totalRecords = 8;
+                message Error {
+                    Code code = 1;
+                    string description = 2;
 
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
                 }
+            }
+        }
 
-                message log  {
-                    string id = 1;
-                    string head = 2;
-                    bool headDownloaded = 3;
-                    int32 totalRecords = 4;
-                    int32 firstRecordTs = 5;
-                    int32 firstRecordVer = 6;
-                    int32 lastRecordTs = 7;
-                    int32 lastRecordVer = 8;
-                }
+        message Thread {
+            message Request {
+                string threadId = 1;
+                bool skipEmptyLogs = 2;  // do not set if you want the whole picture
+                bool tryToDownloadRemoteRecords = 3; // if try we will try to download remote records in case missing
+            }
+
+            message Response {
+                Error error = 1;
+                threadInfo info = 2;
 
                 message Error {
                     Code code = 1;

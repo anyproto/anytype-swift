@@ -9673,6 +9673,74 @@ public struct Anytype_Rpc {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+    public struct logInfo {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var head: String = String()
+
+      public var headDownloaded: Bool = false
+
+      public var totalRecords: Int32 = 0
+
+      public var totalSize: Int32 = 0
+
+      public var firstRecordTs: Int32 = 0
+
+      public var firstRecordVer: Int32 = 0
+
+      public var lastRecordTs: Int32 = 0
+
+      public var lastRecordVer: Int32 = 0
+
+      public var lastPullSecAgo: Int32 = 0
+
+      public var upStatus: String = String()
+
+      public var downStatus: String = String()
+
+      public var error: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct threadInfo {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var logsWithDownloadedHead: Int32 = 0
+
+      public var logsWithWholeTreeDownloaded: Int32 = 0
+
+      public var logs: [Anytype_Rpc.Debug.logInfo] = []
+
+      public var ownLogHasCafeReplicator: Bool = false
+
+      public var cafeLastPullSecAgo: Int32 = 0
+
+      public var cafeUpStatus: String = String()
+
+      public var cafeDownStatus: String = String()
+
+      public var totalRecords: Int32 = 0
+
+      public var totalSize: Int32 = 0
+
+      public var error: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public struct Sync {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -9685,7 +9753,14 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// 0 means no limit
         public var recordsTraverseLimit: Int32 = 0
+
+        /// do not set if you want the whole picture
+        public var skipEmptyLogs: Bool = false
+
+        /// if try we will try to download remote records in case missing
+        public var tryToDownloadRemoteRecords: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -9706,7 +9781,7 @@ public struct Anytype_Rpc {
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
         public mutating func clearError() {self._error = nil}
 
-        public var threads: [Anytype_Rpc.Debug.Sync.Response.thread] = []
+        public var threads: [Anytype_Rpc.Debug.threadInfo] = []
 
         public var deviceID: String = String()
 
@@ -9716,59 +9791,11 @@ public struct Anytype_Rpc {
 
         public var threadsWithoutHeadDownloaded: Int32 = 0
 
+        public var totalRecords: Int32 = 0
+
+        public var totalSize: Int32 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-        public struct thread {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var id: String = String()
-
-          public var logsWithDownloadedHead: Int32 = 0
-
-          public var logs: [Anytype_Rpc.Debug.Sync.Response.log] = []
-
-          public var ownLogHasCafeReplicator: Bool = false
-
-          public var lastPullSecAgo: Int32 = 0
-
-          public var upStatus: String = String()
-
-          public var downStatus: String = String()
-
-          public var totalRecords: Int32 = 0
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct log {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var id: String = String()
-
-          public var head: String = String()
-
-          public var headDownloaded: Bool = false
-
-          public var totalRecords: Int32 = 0
-
-          public var firstRecordTs: Int32 = 0
-
-          public var firstRecordVer: Int32 = 0
-
-          public var lastRecordTs: Int32 = 0
-
-          public var lastRecordVer: Int32 = 0
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
 
         public struct Error {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -9820,6 +9847,112 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Debug.Sync.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct Thread {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var threadID: String = String()
+
+        /// do not set if you want the whole picture
+        public var skipEmptyLogs: Bool = false
+
+        /// if try we will try to download remote records in case missing
+        public var tryToDownloadRemoteRecords: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Debug.Thread.Response.Error {
+          get {return _error ?? Anytype_Rpc.Debug.Thread.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var info: Anytype_Rpc.Debug.threadInfo {
+          get {return _info ?? Anytype_Rpc.Debug.threadInfo()}
+          set {_info = newValue}
+        }
+        /// Returns true if `info` has been explicitly set.
+        public var hasInfo: Bool {return self._info != nil}
+        /// Clears the value of `info`. Subsequent reads from it will return its default value.
+        public mutating func clearInfo() {self._info = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Debug.Thread.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+
+            /// ...
+            case badInput // = 2
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Debug.Thread.Response.Error? = nil
+        fileprivate var _info: Anytype_Rpc.Debug.threadInfo? = nil
       }
 
       public init() {}
@@ -10676,6 +10809,15 @@ extension Anytype_Rpc.Page.Create.Response.Error.Code: CaseIterable {
 extension Anytype_Rpc.Debug.Sync.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Rpc.Debug.Sync.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+  ]
+}
+
+extension Anytype_Rpc.Debug.Thread.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Debug.Thread.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -24093,6 +24235,202 @@ extension Anytype_Rpc.Debug: SwiftProtobuf.Message, SwiftProtobuf._MessageImplem
   }
 }
 
+extension Anytype_Rpc.Debug.logInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".logInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "head"),
+    3: .same(proto: "headDownloaded"),
+    4: .same(proto: "totalRecords"),
+    5: .same(proto: "totalSize"),
+    6: .same(proto: "firstRecordTs"),
+    7: .same(proto: "firstRecordVer"),
+    8: .same(proto: "lastRecordTs"),
+    9: .same(proto: "lastRecordVer"),
+    10: .same(proto: "lastPullSecAgo"),
+    11: .same(proto: "upStatus"),
+    12: .same(proto: "downStatus"),
+    13: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.head) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.headDownloaded) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.totalRecords) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.totalSize) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.firstRecordTs) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.firstRecordVer) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.lastRecordTs) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.lastRecordVer) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.lastPullSecAgo) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.upStatus) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.downStatus) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.head.isEmpty {
+      try visitor.visitSingularStringField(value: self.head, fieldNumber: 2)
+    }
+    if self.headDownloaded != false {
+      try visitor.visitSingularBoolField(value: self.headDownloaded, fieldNumber: 3)
+    }
+    if self.totalRecords != 0 {
+      try visitor.visitSingularInt32Field(value: self.totalRecords, fieldNumber: 4)
+    }
+    if self.totalSize != 0 {
+      try visitor.visitSingularInt32Field(value: self.totalSize, fieldNumber: 5)
+    }
+    if self.firstRecordTs != 0 {
+      try visitor.visitSingularInt32Field(value: self.firstRecordTs, fieldNumber: 6)
+    }
+    if self.firstRecordVer != 0 {
+      try visitor.visitSingularInt32Field(value: self.firstRecordVer, fieldNumber: 7)
+    }
+    if self.lastRecordTs != 0 {
+      try visitor.visitSingularInt32Field(value: self.lastRecordTs, fieldNumber: 8)
+    }
+    if self.lastRecordVer != 0 {
+      try visitor.visitSingularInt32Field(value: self.lastRecordVer, fieldNumber: 9)
+    }
+    if self.lastPullSecAgo != 0 {
+      try visitor.visitSingularInt32Field(value: self.lastPullSecAgo, fieldNumber: 10)
+    }
+    if !self.upStatus.isEmpty {
+      try visitor.visitSingularStringField(value: self.upStatus, fieldNumber: 11)
+    }
+    if !self.downStatus.isEmpty {
+      try visitor.visitSingularStringField(value: self.downStatus, fieldNumber: 12)
+    }
+    if !self.error.isEmpty {
+      try visitor.visitSingularStringField(value: self.error, fieldNumber: 13)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Debug.logInfo, rhs: Anytype_Rpc.Debug.logInfo) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.head != rhs.head {return false}
+    if lhs.headDownloaded != rhs.headDownloaded {return false}
+    if lhs.totalRecords != rhs.totalRecords {return false}
+    if lhs.totalSize != rhs.totalSize {return false}
+    if lhs.firstRecordTs != rhs.firstRecordTs {return false}
+    if lhs.firstRecordVer != rhs.firstRecordVer {return false}
+    if lhs.lastRecordTs != rhs.lastRecordTs {return false}
+    if lhs.lastRecordVer != rhs.lastRecordVer {return false}
+    if lhs.lastPullSecAgo != rhs.lastPullSecAgo {return false}
+    if lhs.upStatus != rhs.upStatus {return false}
+    if lhs.downStatus != rhs.downStatus {return false}
+    if lhs.error != rhs.error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Debug.threadInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".threadInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "logsWithDownloadedHead"),
+    3: .same(proto: "logsWithWholeTreeDownloaded"),
+    4: .same(proto: "logs"),
+    5: .same(proto: "ownLogHasCafeReplicator"),
+    6: .same(proto: "cafeLastPullSecAgo"),
+    7: .same(proto: "cafeUpStatus"),
+    8: .same(proto: "cafeDownStatus"),
+    9: .same(proto: "totalRecords"),
+    10: .same(proto: "totalSize"),
+    11: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.logsWithDownloadedHead) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.logsWithWholeTreeDownloaded) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.logs) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.ownLogHasCafeReplicator) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.cafeLastPullSecAgo) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.cafeUpStatus) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.cafeDownStatus) }()
+      case 9: try { try decoder.decodeSingularInt32Field(value: &self.totalRecords) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.totalSize) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if self.logsWithDownloadedHead != 0 {
+      try visitor.visitSingularInt32Field(value: self.logsWithDownloadedHead, fieldNumber: 2)
+    }
+    if self.logsWithWholeTreeDownloaded != 0 {
+      try visitor.visitSingularInt32Field(value: self.logsWithWholeTreeDownloaded, fieldNumber: 3)
+    }
+    if !self.logs.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.logs, fieldNumber: 4)
+    }
+    if self.ownLogHasCafeReplicator != false {
+      try visitor.visitSingularBoolField(value: self.ownLogHasCafeReplicator, fieldNumber: 5)
+    }
+    if self.cafeLastPullSecAgo != 0 {
+      try visitor.visitSingularInt32Field(value: self.cafeLastPullSecAgo, fieldNumber: 6)
+    }
+    if !self.cafeUpStatus.isEmpty {
+      try visitor.visitSingularStringField(value: self.cafeUpStatus, fieldNumber: 7)
+    }
+    if !self.cafeDownStatus.isEmpty {
+      try visitor.visitSingularStringField(value: self.cafeDownStatus, fieldNumber: 8)
+    }
+    if self.totalRecords != 0 {
+      try visitor.visitSingularInt32Field(value: self.totalRecords, fieldNumber: 9)
+    }
+    if self.totalSize != 0 {
+      try visitor.visitSingularInt32Field(value: self.totalSize, fieldNumber: 10)
+    }
+    if !self.error.isEmpty {
+      try visitor.visitSingularStringField(value: self.error, fieldNumber: 11)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Debug.threadInfo, rhs: Anytype_Rpc.Debug.threadInfo) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.logsWithDownloadedHead != rhs.logsWithDownloadedHead {return false}
+    if lhs.logsWithWholeTreeDownloaded != rhs.logsWithWholeTreeDownloaded {return false}
+    if lhs.logs != rhs.logs {return false}
+    if lhs.ownLogHasCafeReplicator != rhs.ownLogHasCafeReplicator {return false}
+    if lhs.cafeLastPullSecAgo != rhs.cafeLastPullSecAgo {return false}
+    if lhs.cafeUpStatus != rhs.cafeUpStatus {return false}
+    if lhs.cafeDownStatus != rhs.cafeDownStatus {return false}
+    if lhs.totalRecords != rhs.totalRecords {return false}
+    if lhs.totalSize != rhs.totalSize {return false}
+    if lhs.error != rhs.error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Rpc.Debug.Sync: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".Sync"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -24116,6 +24454,8 @@ extension Anytype_Rpc.Debug.Sync.Request: SwiftProtobuf.Message, SwiftProtobuf._
   public static let protoMessageName: String = Anytype_Rpc.Debug.Sync.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "recordsTraverseLimit"),
+    2: .same(proto: "skipEmptyLogs"),
+    3: .same(proto: "tryToDownloadRemoteRecords"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -24125,6 +24465,8 @@ extension Anytype_Rpc.Debug.Sync.Request: SwiftProtobuf.Message, SwiftProtobuf._
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularInt32Field(value: &self.recordsTraverseLimit) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.skipEmptyLogs) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.tryToDownloadRemoteRecords) }()
       default: break
       }
     }
@@ -24134,11 +24476,19 @@ extension Anytype_Rpc.Debug.Sync.Request: SwiftProtobuf.Message, SwiftProtobuf._
     if self.recordsTraverseLimit != 0 {
       try visitor.visitSingularInt32Field(value: self.recordsTraverseLimit, fieldNumber: 1)
     }
+    if self.skipEmptyLogs != false {
+      try visitor.visitSingularBoolField(value: self.skipEmptyLogs, fieldNumber: 2)
+    }
+    if self.tryToDownloadRemoteRecords != false {
+      try visitor.visitSingularBoolField(value: self.tryToDownloadRemoteRecords, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Debug.Sync.Request, rhs: Anytype_Rpc.Debug.Sync.Request) -> Bool {
     if lhs.recordsTraverseLimit != rhs.recordsTraverseLimit {return false}
+    if lhs.skipEmptyLogs != rhs.skipEmptyLogs {return false}
+    if lhs.tryToDownloadRemoteRecords != rhs.tryToDownloadRemoteRecords {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -24153,6 +24503,8 @@ extension Anytype_Rpc.Debug.Sync.Response: SwiftProtobuf.Message, SwiftProtobuf.
     4: .same(proto: "totalThreads"),
     5: .same(proto: "threadsWithoutReplInOwnLog"),
     6: .same(proto: "threadsWithoutHeadDownloaded"),
+    7: .same(proto: "totalRecords"),
+    8: .same(proto: "totalSize"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -24167,6 +24519,8 @@ extension Anytype_Rpc.Debug.Sync.Response: SwiftProtobuf.Message, SwiftProtobuf.
       case 4: try { try decoder.decodeSingularInt32Field(value: &self.totalThreads) }()
       case 5: try { try decoder.decodeSingularInt32Field(value: &self.threadsWithoutReplInOwnLog) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self.threadsWithoutHeadDownloaded) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.totalRecords) }()
+      case 8: try { try decoder.decodeSingularInt32Field(value: &self.totalSize) }()
       default: break
       }
     }
@@ -24191,6 +24545,12 @@ extension Anytype_Rpc.Debug.Sync.Response: SwiftProtobuf.Message, SwiftProtobuf.
     if self.threadsWithoutHeadDownloaded != 0 {
       try visitor.visitSingularInt32Field(value: self.threadsWithoutHeadDownloaded, fieldNumber: 6)
     }
+    if self.totalRecords != 0 {
+      try visitor.visitSingularInt32Field(value: self.totalRecords, fieldNumber: 7)
+    }
+    if self.totalSize != 0 {
+      try visitor.visitSingularInt32Field(value: self.totalSize, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -24201,154 +24561,8 @@ extension Anytype_Rpc.Debug.Sync.Response: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.totalThreads != rhs.totalThreads {return false}
     if lhs.threadsWithoutReplInOwnLog != rhs.threadsWithoutReplInOwnLog {return false}
     if lhs.threadsWithoutHeadDownloaded != rhs.threadsWithoutHeadDownloaded {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Debug.Sync.Response.thread: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.Sync.Response.protoMessageName + ".thread"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "logsWithDownloadedHead"),
-    3: .same(proto: "logs"),
-    4: .same(proto: "ownLogHasCafeReplicator"),
-    5: .same(proto: "lastPullSecAgo"),
-    6: .same(proto: "upStatus"),
-    7: .same(proto: "downStatus"),
-    8: .same(proto: "totalRecords"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularInt32Field(value: &self.logsWithDownloadedHead) }()
-      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.logs) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self.ownLogHasCafeReplicator) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.lastPullSecAgo) }()
-      case 6: try { try decoder.decodeSingularStringField(value: &self.upStatus) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.downStatus) }()
-      case 8: try { try decoder.decodeSingularInt32Field(value: &self.totalRecords) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if self.logsWithDownloadedHead != 0 {
-      try visitor.visitSingularInt32Field(value: self.logsWithDownloadedHead, fieldNumber: 2)
-    }
-    if !self.logs.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.logs, fieldNumber: 3)
-    }
-    if self.ownLogHasCafeReplicator != false {
-      try visitor.visitSingularBoolField(value: self.ownLogHasCafeReplicator, fieldNumber: 4)
-    }
-    if self.lastPullSecAgo != 0 {
-      try visitor.visitSingularInt32Field(value: self.lastPullSecAgo, fieldNumber: 5)
-    }
-    if !self.upStatus.isEmpty {
-      try visitor.visitSingularStringField(value: self.upStatus, fieldNumber: 6)
-    }
-    if !self.downStatus.isEmpty {
-      try visitor.visitSingularStringField(value: self.downStatus, fieldNumber: 7)
-    }
-    if self.totalRecords != 0 {
-      try visitor.visitSingularInt32Field(value: self.totalRecords, fieldNumber: 8)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Debug.Sync.Response.thread, rhs: Anytype_Rpc.Debug.Sync.Response.thread) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.logsWithDownloadedHead != rhs.logsWithDownloadedHead {return false}
-    if lhs.logs != rhs.logs {return false}
-    if lhs.ownLogHasCafeReplicator != rhs.ownLogHasCafeReplicator {return false}
-    if lhs.lastPullSecAgo != rhs.lastPullSecAgo {return false}
-    if lhs.upStatus != rhs.upStatus {return false}
-    if lhs.downStatus != rhs.downStatus {return false}
     if lhs.totalRecords != rhs.totalRecords {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Debug.Sync.Response.log: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Debug.Sync.Response.protoMessageName + ".log"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "head"),
-    3: .same(proto: "headDownloaded"),
-    4: .same(proto: "totalRecords"),
-    5: .same(proto: "firstRecordTs"),
-    6: .same(proto: "firstRecordVer"),
-    7: .same(proto: "lastRecordTs"),
-    8: .same(proto: "lastRecordVer"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.head) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.headDownloaded) }()
-      case 4: try { try decoder.decodeSingularInt32Field(value: &self.totalRecords) }()
-      case 5: try { try decoder.decodeSingularInt32Field(value: &self.firstRecordTs) }()
-      case 6: try { try decoder.decodeSingularInt32Field(value: &self.firstRecordVer) }()
-      case 7: try { try decoder.decodeSingularInt32Field(value: &self.lastRecordTs) }()
-      case 8: try { try decoder.decodeSingularInt32Field(value: &self.lastRecordVer) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
-    }
-    if !self.head.isEmpty {
-      try visitor.visitSingularStringField(value: self.head, fieldNumber: 2)
-    }
-    if self.headDownloaded != false {
-      try visitor.visitSingularBoolField(value: self.headDownloaded, fieldNumber: 3)
-    }
-    if self.totalRecords != 0 {
-      try visitor.visitSingularInt32Field(value: self.totalRecords, fieldNumber: 4)
-    }
-    if self.firstRecordTs != 0 {
-      try visitor.visitSingularInt32Field(value: self.firstRecordTs, fieldNumber: 5)
-    }
-    if self.firstRecordVer != 0 {
-      try visitor.visitSingularInt32Field(value: self.firstRecordVer, fieldNumber: 6)
-    }
-    if self.lastRecordTs != 0 {
-      try visitor.visitSingularInt32Field(value: self.lastRecordTs, fieldNumber: 7)
-    }
-    if self.lastRecordVer != 0 {
-      try visitor.visitSingularInt32Field(value: self.lastRecordVer, fieldNumber: 8)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Debug.Sync.Response.log, rhs: Anytype_Rpc.Debug.Sync.Response.log) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.head != rhs.head {return false}
-    if lhs.headDownloaded != rhs.headDownloaded {return false}
-    if lhs.totalRecords != rhs.totalRecords {return false}
-    if lhs.firstRecordTs != rhs.firstRecordTs {return false}
-    if lhs.firstRecordVer != rhs.firstRecordVer {return false}
-    if lhs.lastRecordTs != rhs.lastRecordTs {return false}
-    if lhs.lastRecordVer != rhs.lastRecordVer {return false}
+    if lhs.totalSize != rhs.totalSize {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -24393,6 +24607,153 @@ extension Anytype_Rpc.Debug.Sync.Response.Error: SwiftProtobuf.Message, SwiftPro
 }
 
 extension Anytype_Rpc.Debug.Sync.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+  ]
+}
+
+extension Anytype_Rpc.Debug.Thread: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.protoMessageName + ".Thread"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Debug.Thread, rhs: Anytype_Rpc.Debug.Thread) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Debug.Thread.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.Thread.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "threadId"),
+    2: .same(proto: "skipEmptyLogs"),
+    3: .same(proto: "tryToDownloadRemoteRecords"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.threadID) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.skipEmptyLogs) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.tryToDownloadRemoteRecords) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.threadID.isEmpty {
+      try visitor.visitSingularStringField(value: self.threadID, fieldNumber: 1)
+    }
+    if self.skipEmptyLogs != false {
+      try visitor.visitSingularBoolField(value: self.skipEmptyLogs, fieldNumber: 2)
+    }
+    if self.tryToDownloadRemoteRecords != false {
+      try visitor.visitSingularBoolField(value: self.tryToDownloadRemoteRecords, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Debug.Thread.Request, rhs: Anytype_Rpc.Debug.Thread.Request) -> Bool {
+    if lhs.threadID != rhs.threadID {return false}
+    if lhs.skipEmptyLogs != rhs.skipEmptyLogs {return false}
+    if lhs.tryToDownloadRemoteRecords != rhs.tryToDownloadRemoteRecords {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Debug.Thread.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.Thread.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "info"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._info) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    }
+    if let v = self._info {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Debug.Thread.Response, rhs: Anytype_Rpc.Debug.Thread.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs._info != rhs._info {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Debug.Thread.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Debug.Thread.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Debug.Thread.Response.Error, rhs: Anytype_Rpc.Debug.Thread.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Debug.Thread.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
