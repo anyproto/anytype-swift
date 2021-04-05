@@ -5,13 +5,13 @@ enum HomeCollectionViewSection {
     case main
 }
 
-// MARK: - UIViewRepresentable
 struct HomeCollectionView: UIViewRepresentable {
-        
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
-    @EnvironmentObject var viewModel: HomeCollectionViewModel
     @Binding var documentsCell: [HomeCollectionViewCellType]
+    
+    @EnvironmentObject var viewModel: HomeCollectionViewModel
+    
     class SubscriptionStorage: ObservableObject {
         var userActionsSubscription: AnyCancellable?
     }

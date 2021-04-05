@@ -85,7 +85,7 @@ extension ListBlockActionService {
 
         let blocksIds = blocks
 
-        self.pageService.convertChildrenToPages.action(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
+        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):

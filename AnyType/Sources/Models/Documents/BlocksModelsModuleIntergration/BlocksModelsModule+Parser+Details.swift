@@ -14,7 +14,7 @@ import os
 import BlocksModels
 
 fileprivate typealias Namespace = BlocksModelsModule.Parser
-fileprivate typealias ModelsNamespace = TopLevel.DetailsContent
+fileprivate typealias ModelsNamespace = DetailsContent
 private extension Logging.Categories {
     static let blocksModelsModuleParserDetails: Self = "BlocksModelsModule.Parser.Details"
 }
@@ -46,7 +46,7 @@ extension Namespace.Details {
     ///
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
         
-        typealias Model = TopLevel.DetailsContent
+        typealias Model = DetailsContent
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             switch model {
             case let .title(value): return Model.Title.Converter.asMiddleware(model: value)
@@ -82,7 +82,7 @@ private extension ModelsNamespace.Title {
 // MARK: Details / Title / Converter
 private extension ModelsNamespace.Title {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = TopLevel.DetailsContent.Title
+        typealias Model = DetailsContent.Title
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             .init(key: model.key(), value: model.value())
         }
@@ -112,7 +112,7 @@ private extension ModelsNamespace.Emoji {
 // MARK: Details / Emoji / Converter
 private extension ModelsNamespace.Emoji {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = TopLevel.DetailsContent.Emoji
+        typealias Model = DetailsContent.Emoji
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             .init(key: model.key(), value: model.value())
         }
@@ -142,7 +142,7 @@ private extension ModelsNamespace.OurHexColor {
 // MARK: Details / OurHexColor / Converter
 private extension ModelsNamespace.OurHexColor {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = TopLevel.DetailsContent.OurHexColor
+        typealias Model = DetailsContent.OurHexColor
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             .init(key: model.key(), value: model.value())
         }
@@ -172,7 +172,7 @@ private extension ModelsNamespace.ImageId {
 // MARK: Details / ImageId / Converter
 private extension ModelsNamespace.ImageId {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = TopLevel.DetailsContent.ImageId
+        typealias Model = DetailsContent.ImageId
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             .init(key: model.key(), value: model.value())
         }

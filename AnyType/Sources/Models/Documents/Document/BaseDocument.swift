@@ -19,7 +19,7 @@ class BaseDocument {
     typealias RootModel = TopLevelContainerModelProtocol
     typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
 
-    typealias DetailsContentKind = TopLevel.DetailsContent.Kind
+    typealias DetailsContentKind = DetailsContent.Kind
     
     typealias UserSession = BlockUserSessionModelProtocol
     

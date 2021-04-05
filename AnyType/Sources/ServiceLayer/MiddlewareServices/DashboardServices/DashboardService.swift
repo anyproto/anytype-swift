@@ -37,6 +37,6 @@ class DashboardService: DashboardServiceProtocol {
             .iconEmoji(.init())
         ])
                 
-        return self.smartBlockService.createPage.action(contextID: contextId, targetID: targetId, details: details, position: .bottom)
+        return self.smartBlockService.createPage(contextID: contextId, targetID: targetId, details: details, position: .bottom)
     }
 }

@@ -220,7 +220,7 @@ final class BlockActionService {
             .iconEmoji(.init())
         ])
 
-        self.pageService.createPage.action(contextID: self.documentId, targetID: targetId, details: details, position: position)
+        self.pageService.createPage(contextID: self.documentId, targetID: targetId, details: details, position: position)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { (value) in
                 switch value {
@@ -429,7 +429,7 @@ private extension BlockActionService {
 
         let blocksIds = [blockId]
 
-        self.pageService.convertChildrenToPages.action(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
+        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):

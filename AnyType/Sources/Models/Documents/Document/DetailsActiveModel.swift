@@ -19,7 +19,7 @@ private extension Logging.Categories {
 class DetailsActiveModel {
     typealias PageDetails = DetailsInformationModelProtocol
     typealias Builder = TopLevel.Builder
-    typealias Details = TopLevel.DetailsContent
+    typealias Details = DetailsContent
     typealias Events = EventListening.PackOfEvents
     private var documentId: String?
     
@@ -80,7 +80,7 @@ extension DetailsActiveModel {
             return nil
         }
         
-        return self.service.setDetails.action(contextID: documentId, details: details).handleEvents(receiveOutput: { [weak self] (value) in
+        return self.service.setDetails(contextID: documentId, details: details).handleEvents(receiveOutput: { [weak self] (value) in
             self?.handle(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
         }).successToVoid().eraseToAnyPublisher()
     }

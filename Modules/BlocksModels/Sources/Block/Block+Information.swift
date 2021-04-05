@@ -75,7 +75,7 @@ extension Namespace {
     /// We convert details ( PageDetails ) to ready-to-use information.
     struct DetailsAsInformationConverter {
         typealias Content = TopLevel.BlockContent
-        typealias Details = TopLevel.DetailsContent
+        typealias Details = DetailsContent
         var blockId: BlockId
 
         private func detailsAsInformation(_ blockId: BlockId, _ details: Details) -> InformationModel {
@@ -99,7 +99,7 @@ extension Namespace {
 /// TODO: Time to remove Details Crutches.
 public extension Namespace.DetailsAsBlockConverter {
     struct IdentifierBuilder {
-        public typealias Details = TopLevel.DetailsContent
+        public typealias Details = DetailsContent
         static var separator: Character = "/"
         public static func asBlockId(_ blockId: BlockId, _ id: DetailsId) -> BlockId {
             blockId + "\(self.separator)" + id
@@ -127,7 +127,7 @@ public extension Namespace {
     /// We need it to get block and later configure blocks views with this block and then render them.
     ///
     struct DetailsAsBlockConverter {
-        public typealias Details = TopLevel.DetailsContent
+        public typealias Details = DetailsContent
         public typealias BlockModel = BlockModelProtocol
         
         var blockId: BlockId
