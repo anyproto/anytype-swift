@@ -27,7 +27,7 @@ extension Namespace.Parser {
 extension Namespace.Parser.Common.Alignment {
     /// Alignment: Conversion between model between middleware and our model.
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.Alignment
+        typealias Model = TopLevel.Alignment
         typealias MiddlewareModel = Anytype_Model_Block.Align
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {
@@ -50,7 +50,7 @@ extension Namespace.Parser.Common.Alignment {
     /// Alignment: Conversion between our model and UIKit textAlignment.
     /// Later it will be separated into textAlignment and contentMode.
     enum UIKitConverter {
-        typealias Model = TopLevel.AliasesMap.Alignment
+        typealias Model = TopLevel.Alignment
         typealias UIKitModel = NSTextAlignment
         static func asModel(_ value: UIKitModel) -> Model? {
             switch value {
@@ -78,7 +78,7 @@ extension Namespace.Parser.Common.Position {
         /// TODO: Rethink.
         /// Maybe we will move Position and Common structures to `BlocksModels`.
         ///
-        typealias Model = TopLevel.AliasesMap.Position
+        typealias Model = TopLevel.Position
         typealias MiddlewareModel = Anytype_Model_Block.Position
         
         static func asModel(_ value: MiddlewareModel) -> Model? {

@@ -81,7 +81,7 @@ extension BlocksViews {
 
         // MARK: - Details
         struct Predicate {
-            var list: [TopLevel.AliasesMap.DetailsContent.Kind] = [.iconEmoji, .title]
+            var list: [TopLevel.DetailsContent.Kind] = [.iconEmoji, .title]
         }
         
         func defaultDetails() -> DetailsActiveModel {

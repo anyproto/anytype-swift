@@ -16,12 +16,12 @@ private extension Logging.Categories {
 /// And keep latest ( last ) document as open document.
 ///
 class BaseDocument {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias DetailsId = TopLevel.AliasesMap.DetailsId
+    typealias BlockId = TopLevel.BlockId
+    typealias DetailsId = TopLevel.DetailsId
     typealias RootModel = TopLevelContainerModelProtocol
-    typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
+    typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
 
-    typealias DetailsContentKind = TopLevel.AliasesMap.DetailsContent.Kind
+    typealias DetailsContentKind = TopLevel.DetailsContent.Kind
     
     typealias UserSession = BlockUserSessionModelProtocol
     
@@ -339,10 +339,10 @@ class BaseDocument {
         
         let block: BlockModelProtocol
         switch kind {
-        case .title: block = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.title(accessor.title ?? .init(value: "")))
-        case .iconEmoji: block = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconEmoji(accessor.iconEmoji ?? .init(value: "")))
-        case .iconColor: block = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconColor(accessor.iconColor ?? .init(value: "")))
-        case .iconImage: block = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconImage(accessor.iconImage ?? .init(value: "")))
+        case .title: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.title(accessor.title ?? .init(value: "")))
+        case .iconEmoji: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconEmoji(accessor.iconEmoji ?? .init(value: "")))
+        case .iconColor: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconColor(accessor.iconColor ?? .init(value: "")))
+        case .iconImage: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconImage(accessor.iconImage ?? .init(value: "")))
         }
         
         if self.rootModel?.blocksContainer.get(by: block.information.id) != nil {

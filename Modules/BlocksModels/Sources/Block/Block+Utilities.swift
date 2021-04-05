@@ -117,7 +117,7 @@ public extension FileNamespace {
 /// But it is fine to use `String` here.
 public extension FileNamespace {
     enum ContentTypeIdentifier {
-        public typealias Content = TopLevel.AliasesMap.BlockContent
+        public typealias Content = TopLevel.BlockContent
         public typealias Identifier = String
         private static func subIdentifier(_ content: Content.Text) -> Identifier {
             switch content.contentType {
@@ -159,9 +159,9 @@ public extension FileNamespace {
     /// 1. Build Information from Details.
     ///
     enum DetailsInspector {
-        public typealias Kind = TopLevel.AliasesMap.DetailsContent.Kind
-        public typealias Id = TopLevel.AliasesMap.BlockId
-        public typealias Details = TopLevel.AliasesMap.DetailsContent
+        public typealias Kind = TopLevel.DetailsContent.Kind
+        public typealias Id = TopLevel.BlockId
+        public typealias Details = TopLevel.DetailsContent
         /// It parses identifier and try to figure our the kind of a detail.
         /// - Parameter id: Id of Information that is built from detail.
         /// - Returns: Kind of detail.

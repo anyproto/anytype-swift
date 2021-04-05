@@ -39,7 +39,7 @@ class EventProcessor {
         self.eventPublisher?.receive(contextId: contextId)
     }
     
-    func configured(contextId: TopLevel.AliasesMap.BlockId) -> Self {
+    func configured(contextId: TopLevel.BlockId) -> Self {
         self.startListening(contextId: contextId)
         return self
     }

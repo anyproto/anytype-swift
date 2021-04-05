@@ -39,7 +39,7 @@ extension Namespace.ViewModel {
         }
         
         static func asOurModel(_ value: Model) -> OurModel? {
-            let content = TopLevel.AliasesMap.BlockUtilities.ContentTypeIdentifier.identifier(value.content)
+            let content = TopLevel.BlockUtilities.ContentTypeIdentifier.identifier(value.content)
             return .init(blockName: value.id, blockType: content)
         }
     }

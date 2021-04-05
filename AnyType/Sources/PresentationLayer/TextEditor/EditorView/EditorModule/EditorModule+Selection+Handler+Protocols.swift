@@ -11,7 +11,7 @@ import Combine
 import BlocksModels
 
 protocol EditorModuleSelectionHandlerListProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     typealias SelectionEvent = EditorModule.Selection.IncomingEvent
     typealias SelectionCellEvent = EditorModule.Selection.IncomingCellEvent
     func selectionEnabled() -> Bool
@@ -28,7 +28,7 @@ protocol EditorModuleSelectionHandlerListProtocol {
 }
 
 protocol EditorModuleSelectionHandlerCellProtocol: class {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     func set(selected: Bool, id: BlockId)
     func selected(id: BlockId) -> Bool
 
@@ -41,7 +41,7 @@ protocol EditorModuleSelectionHandlerProtocol: EditorModuleSelectionHandlerListP
 // MARK: Selection / Cell Protocol
 /// Adopt this protocol by a cell or a cell (view?) model.
 protocol EditorModuleSelectionCellProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     func getSelectionKey() -> BlockId?
     var selectionHandler: EditorModuleSelectionHandlerCellProtocol? {get}
 }

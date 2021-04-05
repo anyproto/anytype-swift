@@ -23,7 +23,7 @@ public protocol DetailsBuilderProtocol {
 extension Details {
     class Builder: DetailsBuilderProtocol {
         
-        typealias BlockId = TopLevel.AliasesMap.DetailsId
+        typealias BlockId = TopLevel.DetailsId
         typealias Model = DetailsModel
         typealias CurrentContainer = Container
                 

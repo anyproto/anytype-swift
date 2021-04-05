@@ -110,7 +110,7 @@ extension MarksPane.Panes.StylePane.Alignment {
 
         /// Convert marks pane alignment model to block model
         /// - Returns: Alignment in block model
-        func asModel() -> TopLevel.AliasesMap.Alignment {
+        func asModel() -> TopLevel.Alignment {
             switch self {
             case .left: return .left
             case .center: return .center

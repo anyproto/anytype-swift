@@ -17,7 +17,7 @@ private extension Logging.Categories {
 final class TextBlockActionHandler {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
     typealias ActionsPayloadTextViewTextView = ActionsPayload.TextBlocksViewsUserInteraction.Action.TextViewUserAction
-    typealias DetailsInspector = TopLevel.AliasesMap.BlockUtilities.DetailsInspector
+    typealias DetailsInspector = TopLevel.BlockUtilities.DetailsInspector
 
     private var subscriptions: Set<AnyCancellable> = []
     private let service: BlockActionService
@@ -42,7 +42,7 @@ final class TextBlockActionHandler {
     }
 
     func model(beforeModel: BlockActiveRecordModelProtocol, includeParent: Bool) -> BlockActiveRecordModelProtocol? {
-        //        TopLevel.AliasesMap.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
+        //        TopLevel.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
         self.indexWalker?.renew()
         return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
@@ -81,7 +81,7 @@ final class TextBlockActionHandler {
                 switch keyAction {
                 case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
                     let id = block.blockModel.information.id
-                    let (blockId, _) = TopLevel.AliasesMap.InformationUtilitiesDetailsBlockConverter.IdentifierBuilder.asDetails(id)
+                    let (blockId, _) = TopLevel.InformationUtilitiesDetailsBlockConverter.IdentifierBuilder.asDetails(id)
                     let block = block.container?.choose(by: blockId)
                     let parentId = block?.blockModel.information.id
 

@@ -6,14 +6,14 @@ import ProtobufMessages
 
 class EventHandler: NewEventHandler {
     typealias EventsContainer = EventListening.PackOfEvents
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
             
     private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
     var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()
     
     
     private typealias Builder = TopLevel.Builder
-    private typealias Updater = TopLevel.AliasesMap.BlockTools.Updater
+    private typealias Updater = TopLevel.BlockTools.Updater
     private typealias Container = TopLevelContainerModelProtocol
     
     private weak var container: Container?
@@ -480,7 +480,7 @@ private extension EventHandler {
 
 private extension EventHandler.Focus {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.FocusPosition
+        typealias Model = TopLevel.FocusPosition
         typealias EventModel = EventListening.PackOfEvents.OurEvent.Focus.Payload.Position
         static func asModel(_ value: EventModel) -> Model? {
             switch value {

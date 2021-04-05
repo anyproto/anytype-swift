@@ -97,35 +97,10 @@
 		0A6D536A25D9C99E002F3F82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				3D70BF20261B0570008CED9E /* TopLevel */,
+				3D70BF1F261B055E008CED9E /* Details */,
+				3D70BF1E261B0551008CED9E /* Block */,
 				0A55D82625DAC2940043CB5E /* Logging.swift */,
-				0A6D537725D9C99E002F3F82 /* Block.swift */,
-				0A6D536C25D9C99E002F3F82 /* Block+Builders.swift */,
-				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
-				0A6D537225D9C99E002F3F82 /* Block+Content.swift */,
-				0A6D537E25D9C99E002F3F82 /* Block+Implementation.swift */,
-				0A6D537425D9C99E002F3F82 /* Block+Information.swift */,
-				0A6D537325D9C99E002F3F82 /* Block+Information+Builders.swift */,
-				0A6D537F25D9C99E002F3F82 /* Block+Protocols.swift */,
-				0A6D537B25D9C99E002F3F82 /* Block+Protocols+ActiveRecord.swift */,
-				0A6D537825D9C99E002F3F82 /* Block+Protocols+BlockModel.swift */,
-				0A6D537625D9C99E002F3F82 /* Block+Tools.swift */,
-				0A6D538625D9C99F002F3F82 /* Block+Tools+Transformer.swift */,
-				0A6D536F25D9C99E002F3F82 /* Block+Tools+Updater.swift */,
-				0A6D536D25D9C99E002F3F82 /* Block+Utilities.swift */,
-				0A6D537025D9C99E002F3F82 /* Details.swift */,
-				0A6D538425D9C99F002F3F82 /* Details+Builders.swift */,
-				0A6D536E25D9C99E002F3F82 /* Details+Implementation.swift */,
-				0A6D538025D9C99E002F3F82 /* Details+Information.swift */,
-				0A6D538125D9C99F002F3F82 /* Details+Information+Builders.swift */,
-				0A6D538825D9C99F002F3F82 /* Details+Information+Content.swift */,
-				0A6D536B25D9C99E002F3F82 /* Details+Information+Protocols.swift */,
-				0A6D537A25D9C99E002F3F82 /* Details+Protocols.swift */,
-				0A6D538225D9C99F002F3F82 /* Details+Utilities.swift */,
-				0A6D538525D9C99F002F3F82 /* TopLevel.swift */,
-				0A6D537D25D9C99E002F3F82 /* TopLevel+AliasesMap.swift */,
-				0A6D537125D9C99E002F3F82 /* TopLevel+Builders.swift */,
-				0A6D538725D9C99F002F3F82 /* TopLevel+Container.swift */,
-				0A6D537525D9C99E002F3F82 /* TopLevel+Protocols.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -145,6 +120,55 @@
 				0A7831D224B8672D00A1B6F6 /* BlocksModels.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3D70BF1E261B0551008CED9E /* Block */ = {
+			isa = PBXGroup;
+			children = (
+				0A6D537725D9C99E002F3F82 /* Block.swift */,
+				0A6D536C25D9C99E002F3F82 /* Block+Builders.swift */,
+				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
+				0A6D537225D9C99E002F3F82 /* Block+Content.swift */,
+				0A6D537E25D9C99E002F3F82 /* Block+Implementation.swift */,
+				0A6D537425D9C99E002F3F82 /* Block+Information.swift */,
+				0A6D537325D9C99E002F3F82 /* Block+Information+Builders.swift */,
+				0A6D537F25D9C99E002F3F82 /* Block+Protocols.swift */,
+				0A6D537B25D9C99E002F3F82 /* Block+Protocols+ActiveRecord.swift */,
+				0A6D537825D9C99E002F3F82 /* Block+Protocols+BlockModel.swift */,
+				0A6D537625D9C99E002F3F82 /* Block+Tools.swift */,
+				0A6D538625D9C99F002F3F82 /* Block+Tools+Transformer.swift */,
+				0A6D536F25D9C99E002F3F82 /* Block+Tools+Updater.swift */,
+				0A6D536D25D9C99E002F3F82 /* Block+Utilities.swift */,
+			);
+			path = Block;
+			sourceTree = "<group>";
+		};
+		3D70BF1F261B055E008CED9E /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				0A6D537025D9C99E002F3F82 /* Details.swift */,
+				0A6D538425D9C99F002F3F82 /* Details+Builders.swift */,
+				0A6D536E25D9C99E002F3F82 /* Details+Implementation.swift */,
+				0A6D538025D9C99E002F3F82 /* Details+Information.swift */,
+				0A6D538125D9C99F002F3F82 /* Details+Information+Builders.swift */,
+				0A6D538825D9C99F002F3F82 /* Details+Information+Content.swift */,
+				0A6D536B25D9C99E002F3F82 /* Details+Information+Protocols.swift */,
+				0A6D537A25D9C99E002F3F82 /* Details+Protocols.swift */,
+				0A6D538225D9C99F002F3F82 /* Details+Utilities.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		3D70BF20261B0570008CED9E /* TopLevel */ = {
+			isa = PBXGroup;
+			children = (
+				0A6D538525D9C99F002F3F82 /* TopLevel.swift */,
+				0A6D537D25D9C99E002F3F82 /* TopLevel+AliasesMap.swift */,
+				0A6D537125D9C99E002F3F82 /* TopLevel+Builders.swift */,
+				0A6D538725D9C99F002F3F82 /* TopLevel+Container.swift */,
+				0A6D537525D9C99E002F3F82 /* TopLevel+Protocols.swift */,
+			);
+			path = TopLevel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

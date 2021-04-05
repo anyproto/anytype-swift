@@ -17,7 +17,7 @@ private extension Logging.Categories {
 // MARK: DetailsContainer
 extension Details {
     final class Container {
-        typealias DetailsId = TopLevel.AliasesMap.BlockId
+        typealias DetailsId = TopLevel.BlockId
         typealias Model = DetailsModel
         
         private var models: [DetailsId: Model] = [:]
@@ -94,7 +94,7 @@ extension Details {
     class ActiveRecord {
         /// Represents chosen details over this container.
         /// Can switch to another details if needed. (?)
-        typealias DetailsId = TopLevel.AliasesMap.BlockId
+        typealias DetailsId = TopLevel.BlockId
         typealias Container = Details.Container
         typealias NestedModel = DetailsModel
         private weak var _container: Container?

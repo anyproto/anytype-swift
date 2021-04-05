@@ -25,7 +25,7 @@ extension Namespace {
                 
         private var subscription: AnyCancellable?
         @Published private var statePublished: UIKitView.State?
-        private var publisher: AnyPublisher<TopLevel.AliasesMap.BlockContent.Divider, Never> = .empty()
+        private var publisher: AnyPublisher<TopLevel.BlockContent.Divider, Never> = .empty()
         
         override func makeUIView() -> UIView {
             UIKitView().configured(publisher: self.$statePublished.eraseToAnyPublisher())
@@ -49,7 +49,7 @@ extension Namespace {
         }
         
         func setupSubscribers() {
-            let publisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.Divider? in
+            let publisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.BlockContent.Divider? in
                 switch value.content {
                 case let .divider(value): return value
                 default: return nil
@@ -100,7 +100,7 @@ extension Namespace {
 // MARK: - Conversion
 private extension Namespace.UIKitView {
     struct StateConverter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.Divider.Style
+        typealias Model = TopLevel.BlockContent.Divider.Style
         typealias OurModel = State.Style
         
         static func asModel(_ value: OurModel) -> Model? {

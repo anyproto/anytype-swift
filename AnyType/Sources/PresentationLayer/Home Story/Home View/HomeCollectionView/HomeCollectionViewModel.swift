@@ -25,7 +25,7 @@ class HomeCollectionViewModel: ObservableObject {
     
     /// Typealiases
     typealias RootModel = TopLevelContainerModelProtocol
-    typealias Transformer = TopLevel.AliasesMap.BlockTools.Transformer.FinalTransformer
+    typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
     
     typealias DetailsAccessor = InformationAccessor
     
@@ -199,7 +199,7 @@ extension HomeCollectionViewModel {
 
 // MARK: - view events
 extension HomeCollectionViewModel {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     
     /// TODO: Add
     /// Add interaction handlers?

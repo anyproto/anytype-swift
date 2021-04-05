@@ -15,9 +15,9 @@ import BlocksModels
 /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
 protocol SmartBlockActionsServiceProtocolCreatePage {
     associatedtype Success
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     typealias DetailsInformation = DetailsInformationModelProtocol
-    typealias Position = TopLevel.AliasesMap.Position
+    typealias Position = TopLevel.Position
     func action(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<Success, Error>
 }
 
@@ -25,15 +25,15 @@ protocol SmartBlockActionsServiceProtocolCreatePage {
 /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
 protocol SmartBlockActionsServiceProtocolSetDetails {
     associatedtype Success
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias DetailsContent = TopLevel.AliasesMap.DetailsContent
+    typealias BlockId = TopLevel.BlockId
+    typealias DetailsContent = TopLevel.DetailsContent
     func action(contextID: BlockId, details: DetailsContent) -> AnyPublisher<Success, Error>
 }
 
 /// Protocol for convert children to page action.
 /// NOTE: Action supports List context.
 protocol SmartBlockActionsServiceProtocolConvertChildrenToPages {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     func action(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<Void, Error>
 }
 

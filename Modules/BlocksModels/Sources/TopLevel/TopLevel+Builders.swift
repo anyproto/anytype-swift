@@ -8,12 +8,10 @@
 
 import Foundation
 
-fileprivate typealias Namespace = TopLevel
-
-public extension Namespace {
+public extension TopLevel {
     enum Builder: TopLevelBuilder {
         typealias Model = Container
-        public typealias BlockId = TopLevel.AliasesMap.BlockId
+        public typealias BlockId = TopLevel.BlockId
         public static var blockBuilder: BlockBuilderProtocol = Block.Builder.init()
         public static var detailsBuilder: DetailsBuilderProtocol = Details.Builder.init()
         

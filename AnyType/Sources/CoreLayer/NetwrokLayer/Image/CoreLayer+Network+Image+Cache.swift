@@ -1,14 +1,5 @@
-//
-//  CoreLayer+Network+Image+Cache.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 26.10.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Combine
 import UIKit
-import URLComponentsCoder
 
 fileprivate typealias Namespace = CoreLayer.Network.Image
 
@@ -62,7 +53,7 @@ extension Namespace.Cache {
             let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
             let id = url.lastPathComponent
             let parameters: Parameters
-            if let items = components?.queryItems, let result = try? URLComponentsCoder.TopLevel.AliasesMap.Decoder.init().decode(Parameters.self, from: items) {
+            if let items = components?.queryItems, let result = try? URLComponentsDecoder().decode(Parameters.self, from: items) {
                 parameters = result
             }
             else {

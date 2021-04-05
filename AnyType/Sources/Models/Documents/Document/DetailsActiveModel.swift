@@ -19,7 +19,7 @@ private extension Logging.Categories {
 class DetailsActiveModel {
     typealias PageDetails = DetailsInformationModelProtocol
     typealias Builder = TopLevel.Builder
-    typealias Details = TopLevel.AliasesMap.DetailsContent
+    typealias Details = TopLevel.DetailsContent
     typealias Events = EventListening.PackOfEvents
     private var documentId: String?
     

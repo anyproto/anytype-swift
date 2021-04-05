@@ -14,14 +14,14 @@ import BlocksModels
 /// Protocol for upload data at filePath.
 protocol BlockActionsServiceFileProtocolUploadDataAtFilePath {
     associatedtype Success
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     func action(contextID: BlockId, blockID: BlockId, filePath: String) -> AnyPublisher<Success, Error>
 }
 
 /// Protocol for upload data at filePath.
 protocol BlockActionsServiceFileProtocolUploadFile {
     associatedtype Success
-    typealias ContentType = TopLevel.AliasesMap.BlockContent.File.ContentType
+    typealias ContentType = TopLevel.BlockContent.File.ContentType
     func action(url: String, localPath: String, type: ContentType, disableEncryption: Bool) -> AnyPublisher<Success, Error>
 }
 

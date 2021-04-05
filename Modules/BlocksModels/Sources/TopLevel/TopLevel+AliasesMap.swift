@@ -8,13 +8,7 @@
 
 import Foundation
 
-fileprivate typealias Namespace = TopLevel
-
-public extension Namespace {
-    enum AliasesMap {} //: TopLevelAliasesMapProtocol {}
-}
-
-public extension Namespace.AliasesMap {
+public extension TopLevel {
     typealias BlockId = String
     typealias BlockContent = Block.Content.ContentType
     typealias ChildrenIds = [BlockId]

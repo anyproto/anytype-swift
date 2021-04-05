@@ -88,7 +88,7 @@ extension Namespace.UserSession: BlockUserSessionModelProtocol {
 // MARK: - Container
 extension Namespace {
     final class Container {
-        typealias BlockId = TopLevel.AliasesMap.BlockId
+        typealias BlockId = TopLevel.BlockId
         typealias Model = BlockModel
         
         private var _rootId: BlockId?
@@ -292,7 +292,7 @@ extension Namespace.Container: BlockContainerModelProtocol {
 
 extension Namespace {
     final class ActiveRecord {
-        typealias BlockId = TopLevel.AliasesMap.BlockId
+        typealias BlockId = TopLevel.BlockId
         typealias NestedModel = BlockModel
         private weak var _container: Container?
         private var _nestedModel: NestedModel

@@ -29,7 +29,7 @@ final class ListBlockActionHandler {
     typealias ActionsPayload = EditorModule.Document.ViewController.ViewModel.ActionsPayload
     typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     typealias ListModel = [BlockId]
 
     private var documentId: String = ""

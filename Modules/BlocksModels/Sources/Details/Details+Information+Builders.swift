@@ -11,8 +11,8 @@ import Foundation
 fileprivate typealias Namespace = Details.Information
 
 public protocol DetailsInformationBuilderProtocol {
-    typealias DetailsId = TopLevel.AliasesMap.DetailsId
-    typealias Content = TopLevel.AliasesMap.DetailsContent
+    typealias DetailsId = TopLevel.DetailsId
+    typealias Content = TopLevel.DetailsContent
     func empty() -> DetailsInformationModelProtocol
     func build(list: [Content]) -> DetailsInformationModelProtocol
     func build(information: DetailsInformationModelProtocol) -> DetailsInformationModelProtocol

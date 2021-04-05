@@ -1,14 +1,5 @@
-//
-//  CoreLayer+Network+Image+URLResolver.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 26.10.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
-import URLComponentsCoder
 
 fileprivate typealias Namespace = CoreLayer.Network.Image
 
@@ -26,7 +17,7 @@ extension Namespace {
             /// Get components.
             var components = URLComponents(string: string)
             if let parameters = parameters {
-                components?.queryItems = try? TopLevel.AliasesMap.Encoder.init().encode(parameters)
+                components?.queryItems = try? URLComponentsEncoder().encode(parameters)
             }
             
             return components?.url

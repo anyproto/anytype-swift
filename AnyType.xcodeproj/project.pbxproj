@@ -222,7 +222,6 @@
 		0A78328A24BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328924BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift */; };
 		0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328B24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift */; };
 		0A78328E24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328D24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift */; };
-		0A7D91002539BB49000714F5 /* URLComponentsCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 0A7D90FF2539BB49000714F5 /* URLComponentsCoder */; };
 		0A83081125D562AC0067EEC9 /* SmartBlockActionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081025D562AC0067EEC9 /* SmartBlockActionsService.swift */; };
 		0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A83081425D572630067EEC9 /* BlockActionsServiceSingle.swift */; };
 		0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BAE23EDBC14000FDC9C /* DeveloperOptions.swift */; };
@@ -305,6 +304,21 @@
 		0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */; };
 		0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */; };
 		0AEAD66025C0B93800E8A442 /* BaseFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */; };
+		3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */; };
+		3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF3261B0E9C005E523C /* Encoder.swift */; };
+		3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */; };
+		3DB27C04261B0E9C005E523C /* KeyedEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF5261B0E9C005E523C /* KeyedEncodingContainer.swift */; };
+		3DB27C05261B0E9C005E523C /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF7261B0E9C005E523C /* Decoder.swift */; };
+		3DB27C06261B0E9C005E523C /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF8261B0E9C005E523C /* KeyedDecodingContainer.swift */; };
+		3DB27C07261B0E9C005E523C /* Decoder+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF9261B0E9C005E523C /* Decoder+Protocols.swift */; };
+		3DB27C08261B0E9C005E523C /* SingleValueDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BFA261B0E9C005E523C /* SingleValueDecodingContainer.swift */; };
+		3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BFC261B0E9C005E523C /* UnkeyedDecodingContainer.swift */; };
+		3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C00261B0E9C005E523C /* AnyCodingKey.swift */; };
+		3DB27C13261B0EA5005E523C /* EncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C0F261B0EA5005E523C /* EncodingTests.swift */; };
+		3DB27C14261B0EA5005E523C /* URLComponentsCoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C10261B0EA5005E523C /* URLComponentsCoderTests.swift */; };
+		3DB27C15261B0EA5005E523C /* DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C11261B0EA5005E523C /* DecodingTests.swift */; };
+		3DB27C16261B0EA5005E523C /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C12261B0EA5005E523C /* XCTestManifests.swift */; };
+		3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DCE79FE2615222300E09593 /* LoggingCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79FD2615222300E09593 /* LoggingCategories.swift */; };
 		3DE2964426173D1300EADB0A /* DeveloperOptionsDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */; };
@@ -682,6 +696,21 @@
 		0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Tools.swift"; sourceTree = "<group>"; };
 		0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Protocols.swift"; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFlattener.swift; sourceTree = "<group>"; };
+		3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainer.swift; sourceTree = "<group>"; };
+		3DB27BF3261B0E9C005E523C /* Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
+		3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleValueEncodingContainer.swift; sourceTree = "<group>"; };
+		3DB27BF5261B0E9C005E523C /* KeyedEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedEncodingContainer.swift; sourceTree = "<group>"; };
+		3DB27BF7261B0E9C005E523C /* Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
+		3DB27BF8261B0E9C005E523C /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.swift; sourceTree = "<group>"; };
+		3DB27BF9261B0E9C005E523C /* Decoder+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Decoder+Protocols.swift"; sourceTree = "<group>"; };
+		3DB27BFA261B0E9C005E523C /* SingleValueDecodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleValueDecodingContainer.swift; sourceTree = "<group>"; };
+		3DB27BFC261B0E9C005E523C /* UnkeyedDecodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedDecodingContainer.swift; sourceTree = "<group>"; };
+		3DB27C00261B0E9C005E523C /* AnyCodingKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyCodingKey.swift; sourceTree = "<group>"; };
+		3DB27C0F261B0EA5005E523C /* EncodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodingTests.swift; sourceTree = "<group>"; };
+		3DB27C10261B0EA5005E523C /* URLComponentsCoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLComponentsCoderTests.swift; sourceTree = "<group>"; };
+		3DB27C11261B0EA5005E523C /* DecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingTests.swift; sourceTree = "<group>"; };
+		3DB27C12261B0EA5005E523C /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
+		3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingPathConverter.swift; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DCE79FD2615222300E09593 /* LoggingCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingCategories.swift; sourceTree = "<group>"; };
 		3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptionsDriver.swift; sourceTree = "<group>"; };
@@ -733,7 +762,6 @@
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				0A73B85F25E53E77009676C1 /* FirebaseCrashlytics in Frameworks */,
-				0A7D91002539BB49000714F5 /* URLComponentsCoder in Frameworks */,
 				0A5E017C25DBD5ED00E64A70 /* ProtobufMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1273,6 +1301,7 @@
 		03C5C54122DFD90C00DD91DE /* AnyTypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				3DB27C0E261B0EA5005E523C /* URLComponentsCoder */,
 				0A0AA73C23FD843A003A2935 /* Models */,
 				03C5C54222DFD90C00DD91DE /* AnyTypeTests.swift */,
 				03C5C54422DFD90C00DD91DE /* Info.plist */,
@@ -1876,6 +1905,7 @@
 		0ACA781A23E5C9A300442690 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				3DB27BF0261B0E9C005E523C /* URLComponentsCoder */,
 				0A996BD023F0342A000FDC9C /* PlistReader.swift */,
 				0ACA781B23E5C9A300442690 /* AssetsReader.swift */,
 				0A0AA75624018631003A2935 /* DataStructures.swift */,
@@ -1953,6 +1983,59 @@
 				0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */,
 			);
 			path = Text;
+			sourceTree = "<group>";
+		};
+		3DB27BF0261B0E9C005E523C /* URLComponentsCoder */ = {
+			isa = PBXGroup;
+			children = (
+				3DB27BF1261B0E9C005E523C /* Encoder */,
+				3DB27BF6261B0E9C005E523C /* Decoder */,
+				3DB27BFF261B0E9C005E523C /* AnyCoding */,
+			);
+			path = URLComponentsCoder;
+			sourceTree = "<group>";
+		};
+		3DB27BF1261B0E9C005E523C /* Encoder */ = {
+			isa = PBXGroup;
+			children = (
+				3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */,
+				3DB27BF3261B0E9C005E523C /* Encoder.swift */,
+				3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */,
+				3DB27BF5261B0E9C005E523C /* KeyedEncodingContainer.swift */,
+			);
+			path = Encoder;
+			sourceTree = "<group>";
+		};
+		3DB27BF6261B0E9C005E523C /* Decoder */ = {
+			isa = PBXGroup;
+			children = (
+				3DB27BF7261B0E9C005E523C /* Decoder.swift */,
+				3DB27BF8261B0E9C005E523C /* KeyedDecodingContainer.swift */,
+				3DB27BF9261B0E9C005E523C /* Decoder+Protocols.swift */,
+				3DB27BFA261B0E9C005E523C /* SingleValueDecodingContainer.swift */,
+				3DB27BFC261B0E9C005E523C /* UnkeyedDecodingContainer.swift */,
+			);
+			path = Decoder;
+			sourceTree = "<group>";
+		};
+		3DB27BFF261B0E9C005E523C /* AnyCoding */ = {
+			isa = PBXGroup;
+			children = (
+				3DB27C00261B0E9C005E523C /* AnyCodingKey.swift */,
+				3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */,
+			);
+			path = AnyCoding;
+			sourceTree = "<group>";
+		};
+		3DB27C0E261B0EA5005E523C /* URLComponentsCoder */ = {
+			isa = PBXGroup;
+			children = (
+				3DB27C0F261B0EA5005E523C /* EncodingTests.swift */,
+				3DB27C10261B0EA5005E523C /* URLComponentsCoderTests.swift */,
+				3DB27C11261B0EA5005E523C /* DecodingTests.swift */,
+				3DB27C12261B0EA5005E523C /* XCTestManifests.swift */,
+			);
+			path = URLComponentsCoder;
 			sourceTree = "<group>";
 		};
 		3DCE7A092615248A00E09593 /* Flattener */ = {
@@ -2124,7 +2207,6 @@
 			);
 			name = AnyType;
 			packageProductDependencies = (
-				0A7D90FF2539BB49000714F5 /* URLComponentsCoder */,
 				0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */,
 			);
 			productName = AnyType;
@@ -2178,7 +2260,6 @@
 			);
 			mainGroup = 0303ECF222D8EDAA005C552B;
 			packageReferences = (
-				0A7D90FE2539BB49000714F5 /* XCRemoteSwiftPackageReference "URLComponentsCoder" */,
 				0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
@@ -2274,6 +2355,7 @@
 				5338E7EF25DC72AD008CB97D /* ToolbarBlockActionHandler.swift in Sources */,
 				A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
+				3DB27C08261B0E9C005E523C /* SingleValueDecodingContainer.swift in Sources */,
 				0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */,
 				A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */,
 				034A303D240457A8002599E2 /* HomeCollectionViewAssembly.swift in Sources */,
@@ -2310,6 +2392,7 @@
 				0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
+				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
 				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
 				EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */,
@@ -2318,6 +2401,7 @@
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
+				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
 				0AA9B042249CF68700F2962C /* MultiSelectionPane+Panes+ToolsPane.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
@@ -2366,6 +2450,7 @@
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift in Sources */,
 				0A72751324AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift in Sources */,
+				3DB27C06261B0E9C005E523C /* KeyedDecodingContainer.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				0AA9B04E249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift in Sources */,
@@ -2393,6 +2478,7 @@
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				0A996BB723EDC3C7000FDC9C /* DeveloperOptions+ViewModel.swift in Sources */,
+				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */,
 				0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */,
@@ -2406,6 +2492,7 @@
 				0A0AA74C240156F7003A2935 /* Logging.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				0A0965F025BEF5B000C004BD /* EditorModule+Container+ViewController.swift in Sources */,
+				3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */,
 				0A10CC78248EC5EC000FF498 /* BlocksViews+New+Text+Base.swift in Sources */,
 				0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
@@ -2418,6 +2505,7 @@
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
 				0A09660525BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift in Sources */,
 				A3940BB7245AB47700CD6F37 /* EmojiPicker+ViewController.swift in Sources */,
+				3DB27C04261B0E9C005E523C /* KeyedEncodingContainer.swift in Sources */,
 				0A3EE0D624EAC6450074DCDF /* CoreLayer+Network+Image.swift in Sources */,
 				0A08D4C424AF824D0088ECC2 /* CommonViews+ViewControllers.swift in Sources */,
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
@@ -2445,6 +2533,7 @@
 				0AA00C5224CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift in Sources */,
 				0350A2E223293CE900E00FB5 /* HomeCollectionView.swift in Sources */,
 				0A1DACCD244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift in Sources */,
+				3DB27C05261B0E9C005E523C /* Decoder.swift in Sources */,
 				EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				0A0965E725BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift in Sources */,
@@ -2482,6 +2571,7 @@
 				0A09660325BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,
+				3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
 				3DCE79FE2615222300E09593 /* LoggingCategories.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
@@ -2500,7 +2590,9 @@
 				0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */,
 				0A2C0D6A247145BD008ADD86 /* TextView+ActionsAccessoryView.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* DocumentViewRouting+File.swift in Sources */,
+				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,
+				3DB27C07261B0E9C005E523C /* Decoder+Protocols.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* BlocksModelsModule+Parser+Content.swift in Sources */,
 				0A9D49DE244905C0007F0992 /* BlocksViews+UserEvents.swift in Sources */,
 				0A74E4FF23A90ED900B6C406 /* CompletionAuthView.swift in Sources */,
@@ -2572,7 +2664,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				03C5C54322DFD90C00DD91DE /* AnyTypeTests.swift in Sources */,
+				3DB27C15261B0EA5005E523C /* DecodingTests.swift in Sources */,
+				3DB27C14261B0EA5005E523C /* URLComponentsCoderTests.swift in Sources */,
+				3DB27C13261B0EA5005E523C /* EncodingTests.swift in Sources */,
 				0A0AA73E23FD8446003A2935 /* BlockModelTests.swift in Sources */,
+				3DB27C16261B0EA5005E523C /* XCTestManifests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2795,6 +2891,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6SFR4648FW;
 				INFOPLIST_FILE = AnyTypeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2814,6 +2911,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6SFR4648FW;
 				INFOPLIST_FILE = AnyTypeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2861,14 +2959,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0A7D90FE2539BB49000714F5 /* XCRemoteSwiftPackageReference "URLComponentsCoder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:lolgear/URLComponentsCoder.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.1;
-			};
-		};
 		0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:firebase/firebase-ios-sdk.git";
@@ -2880,11 +2970,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		0A7D90FF2539BB49000714F5 /* URLComponentsCoder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A7D90FE2539BB49000714F5 /* XCRemoteSwiftPackageReference "URLComponentsCoder" */;
-			productName = URLComponentsCoder;
-		};
 		0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

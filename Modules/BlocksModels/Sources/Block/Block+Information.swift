@@ -16,11 +16,11 @@ extension Block {
 
 extension Namespace {
     public struct InformationModel {
-        public typealias BlockId = TopLevel.AliasesMap.BlockId
-        public typealias Content = TopLevel.AliasesMap.BlockContent
-        public typealias ChildrenIds = TopLevel.AliasesMap.ChildrenIds
-        public typealias BackgroundColor = TopLevel.AliasesMap.BackgroundColor
-        public typealias Alignment = TopLevel.AliasesMap.Alignment
+        public typealias BlockId = TopLevel.BlockId
+        public typealias Content = TopLevel.BlockContent
+        public typealias ChildrenIds = TopLevel.ChildrenIds
+        public typealias BackgroundColor = TopLevel.BackgroundColor
+        public typealias Alignment = TopLevel.Alignment
 
         public var id: BlockId
         public var childrenIds: ChildrenIds = []
@@ -75,9 +75,9 @@ extension Namespace {
     /// What happens here?
     /// We convert details ( PageDetails ) to ready-to-use information.
     struct DetailsAsInformationConverter {
-        typealias BlockId = TopLevel.AliasesMap.BlockId
-        typealias Content = TopLevel.AliasesMap.BlockContent
-        typealias Details = TopLevel.AliasesMap.DetailsContent
+        typealias BlockId = TopLevel.BlockId
+        typealias Content = TopLevel.BlockContent
+        typealias Details = TopLevel.DetailsContent
         var blockId: BlockId
 
         private func detailsAsInformation(_ blockId: BlockId, _ details: Details) -> InformationModel {
@@ -101,9 +101,9 @@ extension Namespace {
 /// TODO: Time to remove Details Crutches.
 public extension Namespace.DetailsAsBlockConverter {
     struct IdentifierBuilder {
-        public typealias Details = TopLevel.AliasesMap.DetailsContent
-        public typealias DetailsId = TopLevel.AliasesMap.DetailsId
-        public typealias BlockId = TopLevel.AliasesMap.BlockId
+        public typealias Details = TopLevel.DetailsContent
+        public typealias DetailsId = TopLevel.DetailsId
+        public typealias BlockId = TopLevel.BlockId
         static var separator: Character = "/"
         public static func asBlockId(_ blockId: BlockId, _ id: DetailsId) -> BlockId {
             blockId + "\(self.separator)" + id
@@ -131,9 +131,9 @@ public extension Namespace {
     /// We need it to get block and later configure blocks views with this block and then render them.
     ///
     struct DetailsAsBlockConverter {
-        public typealias Details = TopLevel.AliasesMap.DetailsContent
+        public typealias Details = TopLevel.DetailsContent
         public typealias BlockModel = BlockModelProtocol
-        public typealias BlockId = TopLevel.AliasesMap.BlockId
+        public typealias BlockId = TopLevel.BlockId
         
         var blockId: BlockId
 

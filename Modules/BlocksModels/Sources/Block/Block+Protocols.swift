@@ -14,8 +14,8 @@ public protocol BlockModelProtocol: BlockHasInformationProtocol, BlockHasParentP
 
 // MARK: - UserSession
 public protocol BlockUserSessionModelProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Position = TopLevel.AliasesMap.FocusPosition
+    typealias BlockId = TopLevel.BlockId
+    typealias Position = TopLevel.FocusPosition
     /// Get toggled state for block
     ///
     /// - Parameters:
@@ -52,7 +52,7 @@ public protocol BlockHasUserSessionProtocol {
 }
 
 public protocol BlockHasRootIdProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     var rootId: BlockId? {get set}
 }
 public protocol BlockContainerModelProtocol: class, BlockHasRootIdProtocol, BlockHasUserSessionProtocol {

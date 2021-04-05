@@ -11,8 +11,8 @@ import Foundation
 fileprivate typealias Namespace = Block.Information
 
 public protocol BlockInformationBuilderProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Content = TopLevel.AliasesMap.BlockContent
+    typealias BlockId = TopLevel.BlockId
+    typealias Content = TopLevel.BlockContent
     func build(id: BlockId, content: Content) -> Block.Information.InformationModel
     func build(information: Block.Information.InformationModel) -> Block.Information.InformationModel
 }

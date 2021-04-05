@@ -15,7 +15,7 @@ fileprivate typealias Namespace = TextView.UIKitTextView
 
 extension Namespace.ViewModel {
     struct Focus {
-        typealias Position = TopLevel.AliasesMap.FocusPosition
+        typealias Position = TopLevel.FocusPosition
         var position: Position?
         
         /// We should call completion when we are done with set focus.

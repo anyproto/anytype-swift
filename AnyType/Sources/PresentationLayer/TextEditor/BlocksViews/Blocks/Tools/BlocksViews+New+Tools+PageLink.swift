@@ -159,7 +159,7 @@ private extension Logging.Categories {
 // MARK: - Converter PageDetails to State
 extension Namespace.State {
     enum Converter {
-        typealias T = TopLevel.AliasesMap
+        typealias T = TopLevel
         typealias Model = DetailsInformationModelProtocol
         typealias OurModel = BlocksViews.New.Tools.PageLink.State
         static func asOurModel(_ pageDetails: Model) -> OurModel {

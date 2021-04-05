@@ -20,9 +20,9 @@ private extension Logging.Categories {
 final class BlockActionService {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
     typealias Information = Block.Information.InformationModel
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
-    typealias BlockContent = TopLevel.AliasesMap.BlockContent
+    typealias BlockContent = TopLevel.BlockContent
     typealias BlockContentTypeText = BlockContent.Text.ContentType
 
     struct Converter {
@@ -181,7 +181,7 @@ final class BlockActionService {
         self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
     }
 
-    func add(newBlock: Information, afterBlockId: BlockId, position: TopLevel.AliasesMap.Position = .bottom, shouldSetFocusOnUpdate: Bool) {
+    func add(newBlock: Information, afterBlockId: BlockId, position: TopLevel.Position = .bottom, shouldSetFocusOnUpdate: Bool) {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Add.convert : Converter.Default.convert
         _add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
     }
@@ -200,7 +200,7 @@ final class BlockActionService {
     func duplicate(block: Information) {
         let targetId = block.id
         let blockIds: [String] = [targetId]
-        let position: TopLevel.AliasesMap.Position = .bottom
+        let position: TopLevel.Position = .bottom
         self.service.duplicate(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
@@ -213,7 +213,7 @@ final class BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    func createPage(afterBlock: Information, position: TopLevel.AliasesMap.Position = .bottom) {
+    func createPage(afterBlock: Information, position: TopLevel.Position = .bottom) {
 
         let targetId = ""
         let details: DetailsInformationModelProtocol = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: [
@@ -268,7 +268,7 @@ final class BlockActionService {
 }
 
 private extension BlockActionService {
-    func _add(newBlock: Information, afterBlockId: BlockId, position: TopLevel.AliasesMap.Position = .bottom, _ completion: @escaping Conversion) {
+    func _add(newBlock: Information, afterBlockId: BlockId, position: TopLevel.Position = .bottom, _ completion: @escaping Conversion) {
 
         // insert block after block
         // we could catch events and update model.

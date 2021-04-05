@@ -26,7 +26,7 @@ final class ToolbarBlockActionHandler {
     }
 
     func model(beforeModel: BlockActiveRecordModelProtocol, includeParent: Bool) -> BlockActiveRecordModelProtocol? {
-        //        TopLevel.AliasesMap.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
+        //        TopLevel.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
         self.indexWalker?.renew()
         return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }

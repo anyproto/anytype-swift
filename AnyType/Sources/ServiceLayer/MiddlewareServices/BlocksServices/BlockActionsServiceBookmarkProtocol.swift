@@ -6,14 +6,14 @@ import BlocksModels
 /// Protocol for fetch bookmark.
 protocol BlockActionsServiceBookmarkProtocolFetchBookmark {
     associatedtype Success
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     func action(contextID: BlockId, blockID: BlockId, url: String) -> AnyPublisher<Success, Error>
 }
 
 protocol BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
     associatedtype Success
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Position = TopLevel.AliasesMap.Position
+    typealias BlockId = TopLevel.BlockId
+    typealias Position = TopLevel.Position
     func action(contextID: BlockId, targetID: BlockId, position: Position, url: String) -> AnyPublisher<Success, Error>
 }
 

@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol TopLevelContainerModelHasRootIdProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     var rootId: BlockId? {get set}
 }
 

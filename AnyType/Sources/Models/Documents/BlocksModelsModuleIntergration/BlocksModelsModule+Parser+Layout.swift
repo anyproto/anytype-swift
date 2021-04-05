@@ -22,7 +22,7 @@ extension Namespace.Layout {
 
 extension Namespace.Layout.Style {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.Layout.Style
+        typealias Model = TopLevel.BlockContent.Layout.Style
         typealias MiddlewareModel = Anytype_Model_Block.Content.Layout.Style
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {

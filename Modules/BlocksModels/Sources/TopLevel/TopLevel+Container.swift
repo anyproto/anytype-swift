@@ -8,9 +8,8 @@
 
 import Foundation
 
-fileprivate typealias Namespace = TopLevel
 
-extension Namespace {
+extension TopLevel {
     /// The main intention of this class is to store rootId and store all containers together.
     /// As soon as we don't use rootId in `Block.Container`, it is safe to transfer it here.
     ///
@@ -21,7 +20,7 @@ extension Namespace {
     }
 }
 
-extension Namespace.Container: TopLevelContainerModelProtocol {
+extension TopLevel.Container: TopLevelContainerModelProtocol {
     var rootId: BlockId? {
         get {
             self._rootId

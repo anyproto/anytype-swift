@@ -23,7 +23,7 @@ extension Namespace.Text {
 
 extension Namespace.Text.ContentType {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.Text.ContentType
+        typealias Model = TopLevel.BlockContent.Text.ContentType
         typealias MiddlewareModel = Anytype_Model_Block.Content.Text.Style
 
         static func asModel(_ value: MiddlewareModel) -> Model? {

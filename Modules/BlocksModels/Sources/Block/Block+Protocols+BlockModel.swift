@@ -16,11 +16,11 @@ public protocol BlockHasInformationProtocol {
 }
 
 public protocol BlockHasParentProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     var parent: BlockId? {get set}
 }
 
 public protocol BlockHasKindProtocol {
-    typealias BlockKind = TopLevel.AliasesMap.BlockKind
+    typealias BlockKind = TopLevel.BlockKind
     var kind: BlockKind {get}
 }

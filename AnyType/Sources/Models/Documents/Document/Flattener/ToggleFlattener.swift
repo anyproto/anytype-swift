@@ -11,7 +11,7 @@ import BlocksModels
 /// Flattener for toggle block
 final class ToggleFlattener {
     
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     
     private let shouldCheckToggleFlag: Bool
     

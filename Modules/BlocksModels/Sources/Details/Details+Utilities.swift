@@ -2,7 +2,7 @@ import Foundation
 
 public struct InformationAccessor {
     public typealias T = DetailsInformationModelProtocol
-    public typealias Content = TopLevel.AliasesMap.DetailsContent
+    public typealias Content = TopLevel.DetailsContent
     private var value: T
     
     public var title: Content.Title? {

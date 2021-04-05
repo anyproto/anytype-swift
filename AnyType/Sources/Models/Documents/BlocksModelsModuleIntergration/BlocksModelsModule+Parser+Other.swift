@@ -26,7 +26,7 @@ extension Namespace.Other.Divider {
 
 extension Namespace.Other.Divider.Style {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.Divider.Style
+        typealias Model = TopLevel.BlockContent.Divider.Style
         typealias MiddlewareModel = Anytype_Model_Block.Content.Div.Style
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {

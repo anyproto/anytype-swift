@@ -22,7 +22,7 @@ extension Namespace.Link {
 
 extension Namespace.Link.Style {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.Link.Style
+        typealias Model = TopLevel.BlockContent.Link.Style
         typealias MiddlewareModel = Anytype_Model_Block.Content.Link.Style
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {

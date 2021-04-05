@@ -24,7 +24,7 @@ extension Namespace {
     class Parser {
         typealias Information = Block.Information.InformationModel
         typealias Model = BlockModelProtocol
-        typealias OurContent = TopLevel.AliasesMap.BlockContent
+        typealias OurContent = TopLevel.BlockContent
         typealias Builder = TopLevel.Builder
     }
 }

@@ -11,8 +11,8 @@ import Combine
 import BlocksModels
 
 protocol BlockActionsServiceSingleProtocol {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
-    typealias Position = TopLevel.AliasesMap.Position
+    typealias BlockId = TopLevel.BlockId
+    typealias Position = TopLevel.Position
     
     func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ServiceSuccess, Error>
     func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: Position) -> AnyPublisher<ServiceSuccess, Error>

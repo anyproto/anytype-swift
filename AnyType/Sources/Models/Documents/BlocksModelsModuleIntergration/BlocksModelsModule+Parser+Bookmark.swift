@@ -22,7 +22,7 @@ extension Namespace.Bookmark {
 
 extension Namespace.Bookmark.TypeEnum {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.Bookmark.TypeEnum
+        typealias Model = TopLevel.BlockContent.Bookmark.TypeEnum
         typealias MiddlewareModel = Anytype_Model_LinkPreview.TypeEnum
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {

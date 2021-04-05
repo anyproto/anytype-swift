@@ -1,15 +1,6 @@
-//
-//  CoreLayer+Network+Image+Property.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 26.10.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Combine
 import UIKit
 import os
-import URLComponentsCoder
 
 fileprivate typealias Namespace = CoreLayer.Network.Image
 

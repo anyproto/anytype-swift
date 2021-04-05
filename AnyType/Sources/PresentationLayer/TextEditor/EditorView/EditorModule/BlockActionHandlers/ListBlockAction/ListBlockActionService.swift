@@ -15,7 +15,7 @@ private extension Logging.Categories {
 }
 
 final class ListBlockActionService {
-    typealias BlockId = TopLevel.AliasesMap.BlockId
+    typealias BlockId = TopLevel.BlockId
     typealias ListIds = [BlockId]
 
     private var documentId: String
@@ -65,7 +65,7 @@ extension ListBlockActionService {
 
 /// TODO: Add Div and ConvertChildrenToPages
 extension ListBlockActionService {
-    typealias BlockContent = TopLevel.AliasesMap.BlockContent
+    typealias BlockContent = TopLevel.BlockContent
 
     func turnInto(blocks: ListIds, type: BlockContent) {
         switch type {

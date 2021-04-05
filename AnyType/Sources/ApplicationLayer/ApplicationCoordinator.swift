@@ -38,10 +38,8 @@ class ApplicationCoordinator {
             self.login(id: UserDefaultsConfig.usersIdKey)
         }
     }
-}
 
-// MARK: Start Preparation.
-extension ApplicationCoordinator {
+    // MARK: Start Preparation.
     func runAtFirstTime() {
         if UserDefaultsConfig.installedAtDate == nil {
             UserDefaultsConfig.installedAtDate = .init()
@@ -53,10 +51,8 @@ extension ApplicationCoordinator {
         self.runAtFirstTime()
         completed(true)
     }
-}
 
-// MARK: Start new root
-extension ApplicationCoordinator {
+    // MARK: Start new root
     func startNewRootView<Content: View>(content: Content) {
         window.rootViewController = UIHostingController(rootView: content.environmentObject(self.pageScrollViewLayout))
         window.makeKeyAndVisible()
@@ -66,10 +62,8 @@ extension ApplicationCoordinator {
         window.rootViewController = controller
         window.makeKeyAndVisible()
     }
-}
 
-// MARK: Login
-extension ApplicationCoordinator {
+    // MARK: Login
     private func processLogin(result: Result<String, AuthServiceError>) {
         if self.developerOptions.current.workflow.authentication.shouldShowFocusedPageId && !self.developerOptions.current.workflow.authentication.focusedPageId.isEmpty {
             let pageId = self.developerOptions.current.workflow.authentication.focusedPageId
@@ -87,6 +81,7 @@ extension ApplicationCoordinator {
             self.startNewRootView(content: view)
         }
     }
+    
     private func login(id: String) {
         guard id.isEmpty == false else {
             self.processLogin(result: .failure(.loginError(message: "")))

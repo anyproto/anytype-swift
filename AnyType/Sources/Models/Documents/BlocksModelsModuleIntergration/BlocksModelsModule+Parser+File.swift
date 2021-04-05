@@ -25,7 +25,7 @@ extension Namespace.File {
 // MARK: - State / Converter
 extension Namespace.File.State {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.File.State
+        typealias Model = TopLevel.BlockContent.File.State
         typealias MiddlewareModel = Anytype_Model_Block.Content.File.State
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {
@@ -56,7 +56,7 @@ extension Namespace.File {
 // MARK: - Type / Converter
 extension Namespace.File.ContentType {
     enum Converter {
-        typealias Model = TopLevel.AliasesMap.BlockContent.File.ContentType
+        typealias Model = TopLevel.BlockContent.File.ContentType
         typealias MiddlewareModel = Anytype_Model_Block.Content.File.TypeEnum
         static func asModel(_ value: MiddlewareModel) -> Model? {
             switch value {

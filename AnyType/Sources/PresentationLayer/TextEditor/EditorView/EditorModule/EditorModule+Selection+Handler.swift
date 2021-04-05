@@ -19,7 +19,7 @@ fileprivate typealias Namespace = EditorModule.Selection
 
 extension Namespace.Handler {
     struct Storage {
-        typealias Id = TopLevel.AliasesMap.BlockId
+        typealias Id = TopLevel.BlockId
         typealias Ids = Set<Id>
         /// Selected ids that user has selected.
         private var selectedIds: Ids = .init()

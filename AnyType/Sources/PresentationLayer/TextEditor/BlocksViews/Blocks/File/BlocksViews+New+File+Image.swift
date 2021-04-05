@@ -65,7 +65,7 @@ extension Namespace {
         }
         
         func setupSubscribers() {
-            let fileContentPublisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.File? in
+            let fileContentPublisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.BlockContent.File? in
                 switch value.content {
                 case let .file(value): return value
                 default: return nil
@@ -265,7 +265,7 @@ private extension Namespace {
             }
         }
         
-        func setupImage(_ file: TopLevel.AliasesMap.BlockContent.File) {
+        func setupImage(_ file: TopLevel.BlockContent.File) {
             guard !file.metadata.hash.isEmpty else { return }
             let imageId = file.metadata.hash
             
@@ -291,7 +291,7 @@ private extension Namespace {
             }
         }
         
-        private func handleFile(_ file: TopLevel.AliasesMap.BlockContent.File) {
+        private func handleFile(_ file: TopLevel.BlockContent.File) {
             self.removeViewsIfExist()
             
             switch file.state  {
@@ -314,7 +314,7 @@ private extension Namespace {
             }
         }
         
-        func configured(publisher: AnyPublisher<TopLevel.AliasesMap.BlockContent.File, Never>) -> Self {
+        func configured(publisher: AnyPublisher<TopLevel.BlockContent.File, Never>) -> Self {
             self.subscription = publisher.receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.handleFile(value)
             }
@@ -484,7 +484,7 @@ private extension Namespace.ViewModel {
             }
         }
         
-        func setupImage(_ file: TopLevel.AliasesMap.BlockContent.File, _ oldFile: TopLevel.AliasesMap.BlockContent.File?) {
+        func setupImage(_ file: TopLevel.BlockContent.File, _ oldFile: TopLevel.BlockContent.File?) {
             guard !file.metadata.hash.isEmpty else { return }
             let imageId = file.metadata.hash
             guard imageId != oldFile?.metadata.hash else { return }
@@ -511,7 +511,7 @@ private extension Namespace.ViewModel {
             self.imageLoader.cleanupSubscription()
         }
         /// Handle new value
-        private func handleFile(_ file: TopLevel.AliasesMap.BlockContent.File, _ oldFile: TopLevel.AliasesMap.BlockContent.File?) {
+        private func handleFile(_ file: TopLevel.BlockContent.File, _ oldFile: TopLevel.BlockContent.File?) {
 //            self.removeViewsIfExist()
             
             switch file.state {

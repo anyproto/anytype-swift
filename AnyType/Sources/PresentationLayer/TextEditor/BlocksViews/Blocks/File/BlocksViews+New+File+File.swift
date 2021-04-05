@@ -68,7 +68,7 @@ extension Namespace {
         }
         
         func setupSubscribers() {
-            let fileContentPublisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.AliasesMap.BlockContent.File? in
+            let fileContentPublisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.BlockContent.File? in
                 switch value.content {
                 case let .file(value): return value
                 default: return nil
@@ -410,7 +410,7 @@ private extension Namespace {
             }
         }
                         
-        private func handle(_ file: TopLevel.AliasesMap.BlockContent.File) {
+        private func handle(_ file: TopLevel.BlockContent.File) {
             
             switch file.state  {
             case .empty:
@@ -431,7 +431,7 @@ private extension Namespace {
 
         }
                 
-        func configured(publisher: AnyPublisher<TopLevel.AliasesMap.BlockContent.File, Never>) -> Self {
+        func configured(publisher: AnyPublisher<TopLevel.BlockContent.File, Never>) -> Self {
             self.subscription = publisher.receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.handle(value)
             }
@@ -446,14 +446,14 @@ private extension Namespace {
 }
 
 fileprivate extension Namespace.UIKitView {
-    func process(_ file: TopLevel.AliasesMap.BlockContent.File) {
+    func process(_ file: TopLevel.BlockContent.File) {
         self.handle(file)
     }
     
     func process(_ resource: Namespace.UIKitViewWithFile.Resource?) {
         self.fileView.handle(resource)
     }
-    func apply(_ file: TopLevel.AliasesMap.BlockContent.File) {
+    func apply(_ file: TopLevel.BlockContent.File) {
         self.process(file)
         let resource: Namespace.UIKitViewWithFile.Resource?
         switch file.contentType {

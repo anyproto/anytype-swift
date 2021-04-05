@@ -52,9 +52,9 @@ private extension Namespace {
 // MARK: - Base / ViewModel
 extension Namespace {
     class ViewModel: BlocksViews.New.Base.ViewModel {
-        typealias BlocksModelsUpdater = TopLevel.AliasesMap.BlockTools.Updater
-        typealias BlockModelId = TopLevel.AliasesMap.BlockId
-        typealias FocusPosition = TopLevel.AliasesMap.FocusPosition
+        typealias BlocksModelsUpdater = TopLevel.BlockTools.Updater
+        typealias BlockModelId = TopLevel.BlockId
+        typealias FocusPosition = TopLevel.FocusPosition
 
         private var serialQueue = DispatchQueue(label: "BlocksViews.New.Text.Base.SerialQueue")
         
@@ -223,7 +223,7 @@ private extension Namespace.ViewModel {
         // We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
         // If we listen `didChangeInformationPublisher()`, we will receive whole data from every change.
         let modelDidChangeOnMergePublisher = self.getBlock().didChangePublisher().receive(on: serialQueue)
-            .map { [weak self] _ -> TopLevel.AliasesMap.BlockContent.Text? in
+            .map { [weak self] _ -> TopLevel.BlockContent.Text? in
                 let value = self?.getBlock().blockModel.information
                 switch value?.content {
                 case let .text(value): return value

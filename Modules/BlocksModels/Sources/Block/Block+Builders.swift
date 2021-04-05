@@ -23,7 +23,7 @@ public protocol BlockBuilderProtocol {
 
 extension Block {
     class Builder: BlockBuilderProtocol {
-        typealias BlockId = TopLevel.AliasesMap.BlockId
+        typealias BlockId = TopLevel.BlockId
         typealias Model = BlockModel
         typealias CurrentContainer = Container
         typealias InformationBuilder = Information.Builder

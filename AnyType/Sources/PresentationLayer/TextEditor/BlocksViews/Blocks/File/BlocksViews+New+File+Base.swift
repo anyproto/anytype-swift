@@ -15,7 +15,7 @@ fileprivate typealias Namespace = BlocksViews.New.File.Base
 
 extension Namespace {
     class ViewModel: BlocksViews.New.Base.ViewModel {
-        typealias File = TopLevel.AliasesMap.BlockContent.File
+        typealias File = TopLevel.BlockContent.File
         typealias State = File.State
         var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }
