@@ -12,9 +12,8 @@ import SwiftUI
 
 class MainAuthViewModel: ObservableObject {
     private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
-    
-    private var authService: AuthServiceProtocol = AuthService()
-    private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
+    private let authService: AuthServiceProtocol = ServiceLocator.shared.resolve()
+    private let storeService: SecureStoreServiceProtocol = ServiceLocator.shared.resolve()
     
     @Published var error: String = "" {
         didSet {

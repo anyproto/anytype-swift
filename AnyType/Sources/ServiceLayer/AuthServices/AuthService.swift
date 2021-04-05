@@ -18,8 +18,16 @@ private extension Logging.Categories {
 
 // rewrite it on top of Middleware services.
 final class AuthService: NSObject, AuthServiceProtocol {
-    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
-    private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
+    private let localRepoService: LocalRepoService
+    private let storeService: SecureStoreServiceProtocol
+    
+    init(
+        localRepoService: LocalRepoService,
+        storeService: SecureStoreServiceProtocol
+    ) {
+        self.localRepoService = localRepoService
+        self.storeService = storeService
+    }
 
     func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {
 

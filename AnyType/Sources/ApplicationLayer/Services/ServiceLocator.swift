@@ -1,15 +1,21 @@
 import Foundation
 import UIKit
 
-class ServiceLocator: NSObject {
-    //MARK: Shared
+
+class ServiceLocator {
     static let shared: ServiceLocator = .init()
     
     private let services: [AnyObject] = [
         AppearanceService(),
         FirebaseService(),
         DeveloperOptionsService(),
-        LocalRepoService()
+        LocalRepoService(),
+        KeychainStoreService(),
+        ProfileService(),
+        AuthService(
+            localRepoService: LocalRepoService(),
+            storeService: KeychainStoreService()
+        )
     ]
 
     func setup() {
@@ -20,7 +26,6 @@ class ServiceLocator: NSObject {
         }
     }
 
-    //MARK: Accessors
     func resolve<T>() -> T {
         return services.first { service in
             return service is T

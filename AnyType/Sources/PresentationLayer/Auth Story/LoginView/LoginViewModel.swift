@@ -10,7 +10,7 @@ import SwiftUI
 
 
 class LoginViewModel: ObservableObject {
-    @Environment(\.authService) private var authService
+    private let authService: AuthService = ServiceLocator.shared.resolve()
     private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
     
     @Published var seed: String = ""

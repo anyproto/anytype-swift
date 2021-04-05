@@ -20,9 +20,3 @@ struct WaitingViewOnCreatAccount: View {
         }
     }
 }
-
-struct WaitingViewOnCreatAccount_Previews: PreviewProvider {
-    static var previews: some View {
-        WaitingViewOnCreatAccount(viewModel: WaitingViewOnCreatAccountModel(userName: "Stoya", image: nil))
-    }
-}

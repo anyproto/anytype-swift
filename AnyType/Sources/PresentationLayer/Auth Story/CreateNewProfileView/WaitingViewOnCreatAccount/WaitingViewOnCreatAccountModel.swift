@@ -10,10 +10,12 @@ import SwiftUI
 
 
 class WaitingViewOnCreatAccountModel: ObservableObject {
-    let developerOptionsService: DeveloperOptionsService = ServiceLocator.shared.resolve()
-    private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
-    private var authService = AuthService()
+    private let developerOptionsService: DeveloperOptionsService = ServiceLocator.shared.resolve()
+    private let storeService: SecureStoreServiceProtocol = ServiceLocator.shared.resolve()
+    private let authService: AuthService = ServiceLocator.shared.resolve()
+    
     private var diskStorage = DiskStorage()
+    
     var userName: String
     var image: UIImage?
     var alphaInviteCode: String {

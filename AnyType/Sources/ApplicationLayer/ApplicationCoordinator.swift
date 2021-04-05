@@ -5,24 +5,29 @@ import Combine
 
 /// First coordinator that start ui flow
 class ApplicationCoordinator {
-    @Environment(\.authService) private var authService
-    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
-    
     private let window: UIWindow
-    private let keychainStore = KeychainStoreService()
     private let pageScrollViewLayout = GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout()
     private let shakeHandler: ShakeHandler
     
     private let developerOptionsService: DeveloperOptionsService
+    private let localRepoService: LocalRepoService
+    private let keychainStoreService: KeychainStoreService
+    private let authService: AuthService
     
     init(
         window: UIWindow,
-        developerOptionsService: DeveloperOptionsService
+        developerOptionsService: DeveloperOptionsService,
+        localRepoService: LocalRepoService,
+        keychainStoreService: KeychainStoreService,
+        authService: AuthService
     ) {
         self.window = window
         self.shakeHandler = .init(window)
         
         self.developerOptionsService = developerOptionsService
+        self.localRepoService = localRepoService
+        self.keychainStoreService = keychainStoreService
+        self.authService = authService
     }
 
     func start() {

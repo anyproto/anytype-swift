@@ -19,7 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             applicationCoordinator = ApplicationCoordinator(
                 window: window,
-                developerOptionsService: ServiceLocator.shared.resolve()
+                developerOptionsService: ServiceLocator.shared.resolve(),
+                localRepoService: ServiceLocator.shared.resolve(),
+                keychainStoreService: ServiceLocator.shared.resolve(),
+                authService: ServiceLocator.shared.resolve()
             )
             applicationCoordinator?.start()
         }

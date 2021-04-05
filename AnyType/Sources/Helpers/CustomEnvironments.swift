@@ -1,21 +1,6 @@
 import SwiftUI
 
 
-struct AuthServiceKey: EnvironmentKey {
-    static let defaultValue: AuthService = .init()
-}
-
-extension EnvironmentValues {
-    var authService: AuthService {
-        get {
-            self[AuthServiceKey.self]
-        }
-        set {
-            self[AuthServiceKey.self] = newValue
-        }
-    }
-}
-
 struct FileServiceKey: EnvironmentKey {
     static let defaultValue: BlockActionsServiceFile = .init()
 }
