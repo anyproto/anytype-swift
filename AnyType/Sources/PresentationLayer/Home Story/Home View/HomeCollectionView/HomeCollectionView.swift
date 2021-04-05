@@ -1,11 +1,3 @@
-//
-//  HomeCollectionView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 11.09.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 import Combine
 
@@ -56,19 +48,14 @@ struct HomeCollectionView: UIViewRepresentable {
         snapshot.appendItems(self.documentsCell)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
-}
 
-// MARK: - Show Page
-extension HomeCollectionView {
+    // MARK: - Show Page
     func showPage(with blockId: String) {
         self.showDocument = true
         self.selectedDocumentId = blockId
     }
-}
 
-// MARK: - Private HomeCollectionView
-extension HomeCollectionView {
-    
+    // MARK: - Private HomeCollectionView
     private func configureCollectionView() -> UICollectionView {
         let rect = CGRect(origin: .zero, size: containerSize)
         let collectionView = UICollectionView(frame: rect, collectionViewLayout: createCollectionLayout())
@@ -114,47 +101,5 @@ extension HomeCollectionView {
         }
         
         return layout
-    }
-    
-}
-
-// MARK: - Coordinator
-
-class HomeCollectionViewCoordinator: NSObject {
-    var parent: HomeCollectionView
-    var dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?
-    var userActionSubscription: AnyCancellable?
-    var documentCellsSubscription: AnyCancellable?
-    
-    init(_ collectionView: HomeCollectionView, viewModel: HomeCollectionViewModel) {
-        self.parent = collectionView
-        super.init()
-        self.configured(viewModel: viewModel)
-    }
-    
-    private func configured(viewModel: HomeCollectionViewModel) {
-        self.userActionSubscription = viewModel.userActionsPublisher.sink { [weak self] value in
-            switch value {
-            case let .showPage(value): self?.parent.showPage(with: value)
-            }
-        }
-        self.documentCellsSubscription = viewModel.$documentsViewModels.receive(on: RunLoop.main).sink{ [weak self] (value) in
-            self?.populate(dataSource: self?.dataSource, models: value)
-        }
-    }
-    
-    private func populate(dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>?, models: [HomeCollectionViewCellType]) {
-        var snapshot = NSDiffableDataSourceSnapshot<HomeCollectionViewSection, HomeCollectionViewCellType>()
-        snapshot.appendSections([.main])
-        
-        snapshot.appendItems(models)
-        dataSource?.apply(snapshot, animatingDifferences: false)
-    }
-}
-
-extension HomeCollectionViewCoordinator: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        parent.viewModel.didSelectPage(with: indexPath)
     }
 }

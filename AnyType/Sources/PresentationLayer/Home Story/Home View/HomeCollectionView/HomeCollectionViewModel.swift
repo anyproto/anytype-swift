@@ -1,11 +1,3 @@
-//
-//  HomeCollectionViewModel.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 13.09.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import SwiftUI
@@ -227,6 +219,7 @@ extension HomeCollectionViewModel {
 //        let blockId = link.targetBlockID
         self.send(.showPage(id))
     }
+    
     func didSelectPage(with index: IndexPath) {        
         switch self.documentsViewModels[index.row] {
         case let .document(value):
@@ -246,6 +239,3 @@ extension HomeCollectionViewModel {
         }
     }
 }
-
-// MARK: - Contextual menu Interaction
-

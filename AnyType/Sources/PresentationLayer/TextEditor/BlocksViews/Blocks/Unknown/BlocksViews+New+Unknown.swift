@@ -22,9 +22,7 @@ extension Namespace {
 }
 
 extension Namespace.Base {
-    class ViewModel: BlocksViews.New.Base.ViewModel {
-        @Environment(\.developerOptions) var developerOptions
-    }
+    class ViewModel: BlocksViews.New.Base.ViewModel {}
 }
 
 

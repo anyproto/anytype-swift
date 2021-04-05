@@ -32,7 +32,6 @@ extension BlocksViews.New.Page.Base {
         /// This DetailsViewModel could be extracted somewhere.
         /// Somewhere near EventHandler.
         typealias PageDetailsViewModel = DetailsActiveModel
-        @Environment(\.developerOptions) var developerOptions
         private(set) var pageDetailsViewModel: PageDetailsViewModel?
         
         // MARK: Subclassing

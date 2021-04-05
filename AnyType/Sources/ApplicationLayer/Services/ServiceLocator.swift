@@ -5,14 +5,18 @@ class ServiceLocator: NSObject {
     //MARK: Shared
     static let shared: ServiceLocator = .init()
     
-    private let services: [Setuppable] = [
+    private let services: [AnyObject] = [
         AppearanceService(),
-        FirebaseService()
+        FirebaseService(),
+        DeveloperOptionsService(),
+        LocalRepoService()
     ]
 
     func setup() {
         for service in services {
-            service.setup()
+            if let service = service as? Setuppable {
+                service.setup()
+            }
         }
     }
 

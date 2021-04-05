@@ -8,7 +8,7 @@ import os
 extension ApplicationCoordinator {
     class ShakeHandler {
         var window: UIWindow?
-        @Environment(\.developerOptions) private var developerOptions
+        let developerOptionsService: DeveloperOptionsService = ServiceLocator.shared.resolve()
         private var shakeSubscription: AnyCancellable?
         func configured() -> Self {
             self.shakeSubscription = NotificationCenter.default.publisher(for: .DeviceDidShaked).sink { [weak self] (value) in
@@ -83,9 +83,11 @@ extension ApplicationCoordinator.ShakeHandler {
 //            return
 //        }
         
-        let settings = self.developerOptions.current
+        let settings = developerOptionsService.current
         
-        let model = DeveloperOptionsViewModel(settings: settings).configured(service: self.developerOptions)
+        let model = DeveloperOptionsViewModel(settings: settings).configured(
+            service: developerOptionsService
+        )
         let controller = DeveloperOptions.ViewController().configured(model)
                 
         let navigation = UINavigationController(navigationBarClass: DeveloperOptions.ViewController.NavigationBar.self, toolbarClass: nil)

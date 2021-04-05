@@ -1,22 +1,6 @@
 import SwiftUI
 
 
-struct LocalRepoServiceKey: EnvironmentKey {
-    static let defaultValue: LocalRepoService = .init()
-}
-
-extension EnvironmentValues {
-    var localRepoService: LocalRepoService {
-        get {
-            self[LocalRepoServiceKey.self]
-        }
-        set {
-            self[LocalRepoServiceKey.self] = newValue
-        }
-    }
-}
-
-
 struct AuthServiceKey: EnvironmentKey {
     static let defaultValue: AuthService = .init()
 }
@@ -90,21 +74,6 @@ extension EnvironmentValues {
         }
         set {
             self[TimingTimerKey.self] = newValue
-        }
-    }
-}
-
-struct DeveloperOptionsKey: EnvironmentKey {
-    static let defaultValue: DeveloperOptionsService = .init()
-}
-
-extension EnvironmentValues {
-    var developerOptions: DeveloperOptionsService {
-        get {
-            self[DeveloperOptionsKey.self]
-        }
-        set {
-            self[DeveloperOptionsKey.self] = newValue
         }
     }
 }

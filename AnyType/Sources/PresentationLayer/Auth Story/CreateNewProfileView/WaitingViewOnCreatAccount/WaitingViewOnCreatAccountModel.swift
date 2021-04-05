@@ -10,14 +10,14 @@ import SwiftUI
 
 
 class WaitingViewOnCreatAccountModel: ObservableObject {
-    @Environment(\.developerOptions) var developerOptions
+    let developerOptionsService: DeveloperOptionsService = ServiceLocator.shared.resolve()
     private let storeService: SecureStoreServiceProtocol = KeychainStoreService()
     private var authService = AuthService()
     private var diskStorage = DiskStorage()
     var userName: String
     var image: UIImage?
     var alphaInviteCode: String {
-        self.developerOptions.current.workflow.authentication.alphaInvitePasscode
+        developerOptionsService.current.workflow.authentication.alphaInvitePasscode
     }
     
     @Published var error: String?

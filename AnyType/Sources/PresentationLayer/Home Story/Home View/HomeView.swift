@@ -10,8 +10,6 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    @Environment(\.developerOptions) private var developerOptions
-
     // TODO: workaround - HomeCollectionView view model here due to SwiftUI doesn't update
     // view when it's UIViewRepresentable
     // https://forums.swift.org/t/uiviewrepresentable-not-updated-when-observed-object-changed/33890/9
@@ -32,8 +30,8 @@ struct HomeView: View {
                 NavigationLink(
                     destination: self.documentView(hasCustomModalView: false).edgesIgnoringSafeArea(.all),
                     isActive: self.$showDocument,
-                    label: { EmptyView() })
-
+                    label: { EmptyView() }
+                )
                 self.topView
                 self.collectionView
             }
@@ -52,7 +50,11 @@ struct HomeView: View {
                 .font(.title)
             Spacer()
             NavigationLink(destination: self.viewModel.profileViewCoordinator.profileView) {
-                UserIconView(image: self.viewModel.profileViewModel.accountAvatar, color: self.viewModel.profileViewModel.visibleSelectedColor, name: self.viewModel.profileViewModel.visibleAccountName).frame(width: 43, height: 43)
+                UserIconView(
+                    image: self.viewModel.profileViewModel.accountAvatar,
+                    color: self.viewModel.profileViewModel.visibleSelectedColor,
+                    name: self.viewModel.profileViewModel.visibleAccountName
+                ).frame(width: 43, height: 43)
             }
         }
         .padding([.top, .trailing, .leading], 20)
@@ -60,12 +62,13 @@ struct HomeView: View {
     
     var collectionView: some View {
         GeometryReader { geometry in
-            self.viewModel.obtainCollectionView(showDocument: self.$showDocument,
-                                                selectedDocumentId: self.$selectedDocumentId,
-                                                containerSize: geometry.size,
-                                                homeCollectionViewModel: self.collectionViewModel,
-                                                cellsModels: self.$collectionViewModel.documentsViewModels)
-                .padding()
+            self.viewModel.obtainCollectionView(
+                showDocument: self.$showDocument,
+                selectedDocumentId: self.$selectedDocumentId,
+                containerSize: geometry.size,
+                homeCollectionViewModel: self.collectionViewModel,
+                cellsModels: self.$collectionViewModel.documentsViewModels
+            ).padding()
         }
     }
     

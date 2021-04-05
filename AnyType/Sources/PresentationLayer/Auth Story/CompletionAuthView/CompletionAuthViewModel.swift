@@ -8,16 +8,14 @@
 
 import SwiftUI
 
-class CompletionAuthViewModel: ObservableObject {
+class CompletionAuthViewModel: ObservableObject, CompletionAuthViewDelegate {
     var coordinator: CompletionAuthViewCoordinator
     
     init(coordinator: CompletionAuthViewCoordinator) {
         self.coordinator = coordinator
     }
-}
 
-// MARK: - CompletionAuthViewDelegate
-extension CompletionAuthViewModel: CompletionAuthViewDelegate {
+    // MARK: - CompletionAuthViewDelegate
     func showDashboardDidTap() {
         coordinator.routeToHomeView()
     }

@@ -58,7 +58,6 @@ extension Namespace {
 
         private var serialQueue = DispatchQueue(label: "BlocksViews.New.Text.Base.SerialQueue")
         
-        @Environment(\.developerOptions) var developerOptions
         private var textOptions: Namespace.Options = .init()
         
         /// TODO: Begin to use publishers and values in this view.

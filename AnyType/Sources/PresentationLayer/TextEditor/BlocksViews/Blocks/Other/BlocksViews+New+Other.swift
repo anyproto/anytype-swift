@@ -25,7 +25,5 @@ extension BlocksViews.New.Other.Base {
     /// Base View Model that all ToolsBlocksViews.BlockViewModel will inherit from.
     /// Add common behavior to this class.
     ///
-    class ViewModel: BlocksViews.New.Base.ViewModel {
-        @Environment(\.developerOptions) var developerOptions
-    }
+    class ViewModel: BlocksViews.New.Base.ViewModel {}
 }

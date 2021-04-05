@@ -11,7 +11,7 @@ import SwiftUI
 
 
 class MainAuthViewModel: ObservableObject {
-    @Environment(\.localRepoService) private var localRepoService
+    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
     
     private var authService: AuthServiceProtocol = AuthService()
     private let storeService: SecureStoreServiceProtocol = KeychainStoreService()

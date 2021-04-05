@@ -11,7 +11,7 @@ import SwiftUI
 
 class LoginViewModel: ObservableObject {
     @Environment(\.authService) private var authService
-    @Environment(\.localRepoService) private var localRepoService
+    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
     
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false

@@ -1,26 +1,16 @@
-//
-//  HomeViewModel.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 13.09.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 import Combine
 import BlocksModels
 
 class HomeViewModel: ObservableObject {
-    @Environment(\.developerOptions) private var developerOptions
-    var homeCollectionViewAssembly: HomeCollectionViewAssembly
     @ObservedObject var profileViewModel: ProfileViewModel
     private var profileViewModelObjectWillChange: AnyCancellable?
-//    var profileViewModel: ProfileViewModel {
-//        self.profileViewCoordinator.viewModel
-//    }
-    var profileViewCoordinator: ProfileViewCoordinator
+    
     var cachedDocumentView: AnyView?
     var documentViewId: String = ""
+    
+    let profileViewCoordinator: ProfileViewCoordinator
+    private let homeCollectionViewAssembly: HomeCollectionViewAssembly
 
     init(homeCollectionViewAssembly: HomeCollectionViewAssembly, profileViewCoordinator: ProfileViewCoordinator) {
         self.homeCollectionViewAssembly = homeCollectionViewAssembly
@@ -77,6 +67,8 @@ class HomeViewModel: ObservableObject {
         homeCollectionViewModel: HomeCollectionViewModel,
         cellsModels: Binding<[HomeCollectionViewCellType]>
     ) -> some View {
-        self.homeCollectionViewAssembly.createHomeCollectionView(showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize, cellsModels: cellsModels).environmentObject(homeCollectionViewModel)
+        self.homeCollectionViewAssembly.createHomeCollectionView(
+            showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize, cellsModels: cellsModels
+        ).environmentObject(homeCollectionViewModel)
     }
 }

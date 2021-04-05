@@ -11,7 +11,8 @@ import SwiftUI
 
 
 struct ProfileModel {
-    @Environment(\.localRepoService) var localRepoService
+    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
+    
     let profiles: [ProfileModel]
     
     enum Avatar {

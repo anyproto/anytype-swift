@@ -17,7 +17,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             guard let window = window else { return }
             
-            applicationCoordinator = ApplicationCoordinator(window: window)
+            applicationCoordinator = ApplicationCoordinator(
+                window: window,
+                developerOptionsService: ServiceLocator.shared.resolve()
+            )
             applicationCoordinator?.start()
         }
     }
