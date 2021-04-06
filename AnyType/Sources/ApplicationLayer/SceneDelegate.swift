@@ -18,15 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = MainWindow(windowScene: windowScene)
         self.window = window
         
-        let applicationCoordinator = ApplicationCoordinator(
-            window: window,
-            developerOptionsService: ServiceLocator.shared.resolve(),
-            localRepoService: ServiceLocator.shared.resolve(),
-            keychainStoreService: ServiceLocator.shared.resolve(),
-            authService: ServiceLocator.shared.resolve(),
-            appearanceService: ServiceLocator.shared.resolve(),
-            firebaseService: ServiceLocator.shared.resolve()
-        )
+        let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
         applicationCoordinator.start()
         windowHolder = applicationCoordinator
     }

@@ -14,7 +14,6 @@ class ApplicationCoordinator: MainWindowHolder {
     
     private let developerOptionsService: DeveloperOptionsService
     private let localRepoService: LocalRepoService
-    private let keychainStoreService: KeychainStoreService
     private let authService: AuthService
     private let appearanceService: AppearanceService
     private let firebaseService: FirebaseService
@@ -23,7 +22,6 @@ class ApplicationCoordinator: MainWindowHolder {
         window: MainWindow,
         developerOptionsService: DeveloperOptionsService,
         localRepoService: LocalRepoService,
-        keychainStoreService: KeychainStoreService,
         authService: AuthService,
         appearanceService: AppearanceService,
         firebaseService: FirebaseService
@@ -33,7 +31,6 @@ class ApplicationCoordinator: MainWindowHolder {
         
         self.developerOptionsService = developerOptionsService
         self.localRepoService = localRepoService
-        self.keychainStoreService = keychainStoreService
         self.authService = authService
         self.appearanceService = appearanceService
         self.firebaseService = firebaseService

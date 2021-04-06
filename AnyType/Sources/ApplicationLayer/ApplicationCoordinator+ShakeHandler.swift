@@ -8,8 +8,10 @@ import os
 extension ApplicationCoordinator {
     class ShakeHandler {
         var window: UIWindow?
-        let developerOptionsService: DeveloperOptionsService = ServiceLocator.shared.resolve()
+        
+        private let developerOptionsService = ServiceLocator.shared.developerOptionsService()
         private var shakeSubscription: AnyCancellable?
+        
         func configured() -> Self {
             self.shakeSubscription = NotificationCenter.default.publisher(for: .DeviceDidShaked).sink { [weak self] (value) in
                 self?.handle()

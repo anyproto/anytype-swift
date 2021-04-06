@@ -11,7 +11,7 @@ import SwiftUI
 
 
 struct ProfileModel {
-    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
+    private let localRepoService = ServiceLocator.shared.localRepoService()
     
     let profiles: [ProfileModel]
     

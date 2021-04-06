@@ -62,18 +62,3 @@ extension EnvironmentValues {
         }
     }
 }
-
-struct KeychainStoreServiceKey: EnvironmentKey {
-    static let defaultValue: KeychainStoreService = .init()
-}
-
-extension EnvironmentValues {
-    var keychainStoreService: KeychainStoreService {
-        get {
-            self[KeychainStoreServiceKey.self]
-        }
-        set {
-            self[KeychainStoreServiceKey.self] = newValue
-        }
-    }
-}

@@ -10,9 +10,9 @@ import SwiftUI
 
 
 class LoginViewModel: ObservableObject {
-    private let authService: AuthService = ServiceLocator.shared.resolve()
-    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
-    
+    private let authService = ServiceLocator.shared.authService()
+    private let localRepoService = ServiceLocator.shared.localRepoService()
+
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
     @Published var error: String? {

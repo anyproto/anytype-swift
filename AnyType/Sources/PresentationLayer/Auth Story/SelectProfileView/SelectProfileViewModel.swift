@@ -26,8 +26,8 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
 class SelectProfileViewModel: ObservableObject {
     let isMultipleAccountsEnabled = false // Not supported yet
     
-    private let localRepoService: LocalRepoService  = ServiceLocator.shared.resolve()
-    private let authService: AuthService  = ServiceLocator.shared.resolve()
+    private let localRepoService  = ServiceLocator.shared.localRepoService()
+    private let authService  = ServiceLocator.shared.authService()
 
     @Environment(\.fileService) private var fileService
     

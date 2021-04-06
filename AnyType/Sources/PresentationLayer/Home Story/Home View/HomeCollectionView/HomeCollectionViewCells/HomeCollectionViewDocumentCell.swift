@@ -177,7 +177,7 @@ extension HomeCollectionViewDocumentCell.ContextualMenuHandler {
 final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     static let reuseIdentifer = "homeCollectionViewDocumentCellReuseIdentifier"
     
-    let developerOptionsService: DeveloperOptionsService = ServiceLocator.shared.resolve()
+    let developerOptionsService = ServiceLocator.shared.developerOptionsService()
     
     let titleLabel: UILabel = .init()
     let emoji: UILabel = .init()

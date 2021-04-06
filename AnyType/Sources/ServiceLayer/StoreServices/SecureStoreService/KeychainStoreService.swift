@@ -1,27 +1,14 @@
-//
-//  KeychainStoreService.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 20.08.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
-
 private enum StoreServiceConstants {
     static let serviceName = "com.AnyType.seed"
     static let defaultName = "defaultAnyTypeSeed"
 }
 
 /// Keychain store serivce
-final class KeychainStoreService {
-    static let shared = KeychainStoreService()
-    
-    private let keychainStore = KeychainStore()
-}
-
-// MARK: - SecureStoreServiceProtocol implementaion
-
-extension KeychainStoreService: SecureStoreServiceProtocol {
+final class KeychainStoreService: SecureStoreServiceProtocol {
+    private let keychainStore: KeychainStore
+    init(keychainStore: KeychainStore) {
+        self.keychainStore = keychainStore
+    }
     
     func containsSeed(for publicKey: String?) -> Bool {
         let seedQuery = GenericPasswordQueryable(account: publicKey ?? StoreServiceConstants.defaultName, service: StoreServiceConstants.serviceName)

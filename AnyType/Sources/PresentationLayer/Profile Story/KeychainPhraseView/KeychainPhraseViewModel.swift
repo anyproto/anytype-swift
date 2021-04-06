@@ -1,16 +1,7 @@
-//
-//  KeychainPhraseViewModel.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 25.03.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
-import Foundation
 import SwiftUI
 
 class KeychainPhraseViewModel: ObservableObject {
-    @Environment(\.keychainStoreService) private var keychainStoreService
+    private let keychainStoreService = ServiceLocator.shared.keychainStoreService()
 
     @Published var recoveryPhrase: String = ""
     @Published var copySeedAction: Void = () {

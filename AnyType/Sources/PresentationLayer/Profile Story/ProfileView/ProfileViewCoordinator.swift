@@ -1,8 +1,8 @@
 import SwiftUI
 
 final class ProfileViewCoordinator {
-    private let profileService: ProfileService = ServiceLocator.shared.resolve()
-    private let authService: AuthService = ServiceLocator.shared.resolve()
+    private let profileService = ServiceLocator.shared.profileService()
+    private let authService = ServiceLocator.shared.authService()
     
     lazy private(set) var viewModel = ProfileViewModel(
         profileService: self.profileService,

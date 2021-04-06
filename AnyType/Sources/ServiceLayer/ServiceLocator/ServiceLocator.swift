@@ -2,25 +2,60 @@ import Foundation
 import UIKit
 
 
-class ServiceLocator {
+final class ServiceLocator {
     static let shared = ServiceLocator()
     
-    private let services: [AnyObject] = [
-        AppearanceService(),
-        FirebaseService(),
-        DeveloperOptionsService(),
-        LocalRepoService(),
-        KeychainStoreService(),
-        ProfileService(),
-        AuthService(
-            localRepoService: LocalRepoService(),
-            storeService: KeychainStoreService()
+    // MARK: - Services
+    /// creates new appearanceService
+    func appearanceService() -> AppearanceService {
+        AppearanceService()
+    }
+    
+    /// creates new firebaseService
+    func firebaseService() -> FirebaseService {
+        FirebaseService()
+    }
+    
+    /// creates new developerOptionsService
+    func developerOptionsService() -> DeveloperOptionsService {
+        DeveloperOptionsService()
+    }
+    
+    /// creates new localRepoService
+    func localRepoService() -> LocalRepoService {
+        LocalRepoService()
+    }
+    
+    /// creates new keychainStoreService
+    func keychainStoreService() -> SecureStoreServiceProtocol {
+        KeychainStoreService(
+            keychainStore: KeychainStore()
         )
-    ]
-
-    func resolve<T>() -> T {
-        return services.first { service in
-            return service is T
-        } as! T
+    }
+    
+    /// creates new profileService
+    func profileService() -> ProfileService {
+        ProfileService()
+    }
+    
+    /// creates new authService
+    func authService() -> AuthService {
+        AuthService(
+            localRepoService: localRepoService(),
+            storeService: keychainStoreService()
+        )
+    }
+    
+    // MARK: - Coodrdinators
+    /// creates new applicationCoordinator
+    func applicationCoordinator(window: MainWindow) -> ApplicationCoordinator {
+        ApplicationCoordinator(
+            window: window,
+            developerOptionsService: developerOptionsService(),
+            localRepoService: localRepoService(),
+            authService: authService(),
+            appearanceService: appearanceService(),
+            firebaseService: firebaseService()
+        )
     }
 }

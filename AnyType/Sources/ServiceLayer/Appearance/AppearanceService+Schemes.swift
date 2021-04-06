@@ -153,9 +153,9 @@ extension AppearanceService.Schemes.Supplement {
     // edit scheme if needed...
     // and apply it...
     struct SingleModifier<Scheme: UpperBound>: ViewModifier {
-        @Environment(\.servicesAppearance) var appearance
+        let appearanceService = ServiceLocator.shared.appearanceService()
         var storedScheme: Scheme? {
-            return self.appearance.schemes.scheme(for: Scheme.self)!
+            return appearanceService.schemes.scheme(for: Scheme.self)!
         }
         init(_ scheme: Scheme? = nil) {}
         func body(content: Content) -> some View {
@@ -174,9 +174,9 @@ extension AppearanceService.Schemes.Supplement {
     // in modifier:
     // content.modifier(modifier)
     struct AppearanceStackModifier<Scheme: UpperBound>: ViewModifier {
-        @Environment(\.servicesAppearance) var appearance
+        let appearanceService = ServiceLocator.shared.appearanceService()
         var storedScheme: Scheme? {
-            return self.appearance.schemes.scheme(for: Scheme.self)
+            return appearanceService.schemes.scheme(for: Scheme.self)
         }
         var stack: Stack<Scheme> = .init()
         init(_ scheme: Scheme? = nil) {
@@ -214,9 +214,10 @@ extension AppearanceService.Schemes.Supplement {
     }
 
     struct AppearanceDualModifier<Scheme: UpperBound>: ViewModifier {
-        @Environment(\.servicesAppearance) var appearance
+        private let appearanceService = ServiceLocator.shared.appearanceService()
+        
         var storedScheme: Scheme? {
-            return self.appearance.schemes.scheme(for: Scheme.self)
+            return appearanceService.schemes.scheme(for: Scheme.self)
         }
         private var dualScheme: (Scheme?, Scheme?)
         private var left: Scheme? {

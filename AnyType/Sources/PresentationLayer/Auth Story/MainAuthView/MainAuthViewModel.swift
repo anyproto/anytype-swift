@@ -11,9 +11,9 @@ import SwiftUI
 
 
 class MainAuthViewModel: ObservableObject {
-    private let localRepoService: LocalRepoService = ServiceLocator.shared.resolve()
-    private let authService: AuthServiceProtocol = ServiceLocator.shared.resolve()
-    private let storeService: SecureStoreServiceProtocol = ServiceLocator.shared.resolve()
+    private let localRepoService = ServiceLocator.shared.localRepoService()
+    private let authService = ServiceLocator.shared.authService()
+    private let storeService = ServiceLocator.shared.keychainStoreService()
     
     @Published var error: String = "" {
         didSet {
@@ -45,7 +45,6 @@ class MainAuthViewModel: ObservableObject {
     }
     
     // MARK: - Coordinator
-    
     func showCreateProfileView() -> some View {
         return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
     }
