@@ -20,6 +20,7 @@ class ApplicationCoordinator: MainWindowHolder {
     
     init(
         window: MainWindow,
+        shakeHandler: ShakeHandler,
         developerOptionsService: DeveloperOptionsService,
         localRepoService: LocalRepoService,
         authService: AuthService,
@@ -27,7 +28,7 @@ class ApplicationCoordinator: MainWindowHolder {
         firebaseService: FirebaseService
     ) {
         self.window = window
-        self.shakeHandler = .init(window)
+        self.shakeHandler = shakeHandler
         
         self.developerOptionsService = developerOptionsService
         self.localRepoService = localRepoService
@@ -52,6 +53,7 @@ class ApplicationCoordinator: MainWindowHolder {
     }
     
     private func runServicesOnStartup() {
+        shakeHandler.run()
         appearanceService.resetToDefaults()
         firebaseService.setup()
     }

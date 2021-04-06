@@ -231,7 +231,7 @@
 		0A996BB723EDC3C7000FDC9C /* DeveloperOptions+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BB623EDC3C7000FDC9C /* DeveloperOptions+ViewModel.swift */; };
 		0A996BB923EDC541000FDC9C /* DeveloperOptions+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BB823EDC541000FDC9C /* DeveloperOptions+ViewController.swift */; };
 		0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BBA23EDD102000FDC9C /* MainWindow.swift */; };
-		0A996BBD23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BBC23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift */; };
+		0A996BBD23EDE790000FDC9C /* ShakeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BBC23EDE790000FDC9C /* ShakeHandler.swift */; };
 		0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A996BD023F0342A000FDC9C /* PlistReader.swift */; };
 		0A996BD823F042C4000FDC9C /* DeveloperOptions.Debug.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A996BD623F042C4000FDC9C /* DeveloperOptions.Debug.plist */; };
 		0A996BD923F042C4000FDC9C /* DeveloperOptions.Release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A996BD723F042C4000FDC9C /* DeveloperOptions.Release.plist */; };
@@ -631,7 +631,7 @@
 		0A996BB623EDC3C7000FDC9C /* DeveloperOptions+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeveloperOptions+ViewModel.swift"; sourceTree = "<group>"; };
 		0A996BB823EDC541000FDC9C /* DeveloperOptions+ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DeveloperOptions+ViewController.swift"; sourceTree = "<group>"; };
 		0A996BBA23EDD102000FDC9C /* MainWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindow.swift; sourceTree = "<group>"; };
-		0A996BBC23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApplicationCoordinator+ShakeHandler.swift"; sourceTree = "<group>"; };
+		0A996BBC23EDE790000FDC9C /* ShakeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShakeHandler.swift; sourceTree = "<group>"; };
 		0A996BD023F0342A000FDC9C /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		0A996BD623F042C4000FDC9C /* DeveloperOptions.Debug.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DeveloperOptions.Debug.plist; sourceTree = "<group>"; };
 		0A996BD723F042C4000FDC9C /* DeveloperOptions.Release.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = DeveloperOptions.Release.plist; sourceTree = "<group>"; };
@@ -1154,7 +1154,6 @@
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
 				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
 				0A996BBA23EDD102000FDC9C /* MainWindow.swift */,
-				0A996BBC23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -1162,6 +1161,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3D07ED0A261C92A800C007E2 /* Shake */,
 				0ACA781023E5C99A00442690 /* ServiceLocator */,
 				0ACA781223E5C99A00442690 /* Appearance */,
 				0ABB73A72549974300F32C6F /* Firebase */,
@@ -2021,6 +2021,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		3D07ED0A261C92A800C007E2 /* Shake */ = {
+			isa = PBXGroup;
+			children = (
+				0A996BBC23EDE790000FDC9C /* ShakeHandler.swift */,
+			);
+			path = Shake;
+			sourceTree = "<group>";
+		};
 		3D9D401B2616036B00B817FD /* Single */ = {
 			isa = PBXGroup;
 			children = (
@@ -2720,7 +2728,7 @@
 				0A09660225BEF5B000C004BD /* EditorModule+Document+ViewController+HeaderView.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				0ACFCCF9249C17DC002E0477 /* ServiceSuccess.swift in Sources */,
-				0A996BBD23EDE790000FDC9C /* ApplicationCoordinator+ShakeHandler.swift in Sources */,
+				0A996BBD23EDE790000FDC9C /* ShakeHandler.swift in Sources */,
 				0A0965FC25BEF5B000C004BD /* EditorModule+ViewControllers.swift in Sources */,
 				0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,

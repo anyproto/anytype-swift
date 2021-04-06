@@ -4,37 +4,31 @@ import SwiftUI
 import Combine
 import os
 
-// MARK: Shake Handler
-extension ApplicationCoordinator {
-    class ShakeHandler {
-        var window: UIWindow?
-        
-        private let developerOptionsService = ServiceLocator.shared.developerOptionsService()
-        private var shakeSubscription: AnyCancellable?
-        
-        func configured() -> Self {
-            self.shakeSubscription = NotificationCenter.default.publisher(for: .DeviceDidShaked).sink { [weak self] (value) in
-                self?.handle()
-            }
-            // TODO: Integrate Appearance!
-            DispatchQueue.main.async {
-                let appearance = DeveloperOptions.ViewController.NavigationBar.appearance()
-                appearance.tintColor = .black
-                appearance.backgroundColor = .white
-                appearance.isTranslucent = false
-            }
-            return self
+final class ShakeHandler {
+    var window: UIWindow?
+    
+    private let developerOptionsService = ServiceLocator.shared.developerOptionsService()
+    private var shakeSubscription: AnyCancellable?
+    
+    init(_ window: UIWindow?) {
+        self.window = window
+    }
+    
+    func run() {
+        self.shakeSubscription = NotificationCenter.default.publisher(for: .DeviceDidShaked).sink { [weak self] (value) in
+            self?.handle()
         }
-        init(_ window: UIWindow?) {
-            self.window = window
-            _ = self.configured()
+        // TODO: Integrate Appearance!
+        DispatchQueue.main.async {
+            let appearance = DeveloperOptions.ViewController.NavigationBar.appearance()
+            appearance.tintColor = .black
+            appearance.backgroundColor = .white
+            appearance.isTranslucent = false
         }
     }
-}
 
-// MARK: Shake Handler / Helpers
-extension ApplicationCoordinator.ShakeHandler {
-    func isPresented<T>(asTopMost topMostPresented: UIViewController, of type: T.Type) -> Bool where T: UIViewController {
+    // MARK: Shake Handler / Helpers
+    private func isPresented<T>(asTopMost topMostPresented: UIViewController, of type: T.Type) -> Bool where T: UIViewController {
         if let container = topMostPresented as? UINavigationController {
             guard let first = container.viewControllers.first else {
                 return false
@@ -46,11 +40,9 @@ extension ApplicationCoordinator.ShakeHandler {
     func topPresentedController(for controller: UIViewController) -> UIViewController? {
         return sequence(first: controller, next: (\.presentedViewController)).compactMap{$0}.last
     }
-}
 
-// MARK: Shake Handler / Handle Action
-extension ApplicationCoordinator.ShakeHandler {
-    func handle() {
+    // MARK: Shake Handler / Handle Action
+    private func handle() {
         // check release configuration
 //        guard
 //            let configuration = PlistReader.BuildConfiguration.create()?.buildConfiguration,
