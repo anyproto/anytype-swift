@@ -1,31 +1,22 @@
-//
-//  SmartBlockActionsService+Implementation.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 11.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import SwiftProtobuf
 import BlocksModels
 import ProtobufMessages
 
-enum SmartBlockActionsServicePossibleError: Error {
+enum ObjectActionsServicePossibleError: Error {
     case createPageActionPositionConversionHasFailed
 }
 
-/// Concrete service that adopts SmartBlock actions service.
+/// Concrete service that adopts Object actions service.
 /// NOTE: Use it as default service IF you want to use desired functionality.
-// MARK: - SmartBlockActionsService
-class SmartBlockActionsService: SmartBlockActionsServiceProtocol {
-    // MARK: - SmartBlockActionsService / CreatePage
+final class ObjectActionsService: ObjectActionsServiceProtocol {
+    // MARK: - ObjectActionsService / CreatePage
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     func createPage(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<ServiceSuccess, Error> {
         guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
-            return Fail.init(error: SmartBlockActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
+            return Fail.init(error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
         let convertedDetails = BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: details.toList())
         let preparedDetails = convertedDetails.map({($0.key, $0.value)})
@@ -39,7 +30,7 @@ class SmartBlockActionsService: SmartBlockActionsServiceProtocol {
         Anytype_Rpc.Block.CreatePage.Service.invoke(contextID: contextID, targetID: targetID, details: details, position: position).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
 
-    // MARK: - SmartBlockActionsService / SetDetails
+    // MARK: - ObjectActionsService / SetDetails
     func setDetails(contextID: BlockId, details: DetailsContent) -> AnyPublisher<ServiceSuccess, Error> {
         let middlewareDetails = BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: [details])
         return setDetails(contextID: contextID, details: middlewareDetails)

@@ -140,7 +140,7 @@ final class BlockActionService {
 
     private var subscriptions: [AnyCancellable] = []
     private let service: BlockActionsServiceSingle = .init()
-    private let pageService: SmartBlockActionsService = .init()
+    private let pageService: ObjectActionsService = .init()
     private let textService: BlockActionsServiceText = .init()
     private let listService: BlockActionsServiceList = .init()
     private let bookmarkService: BlockActionsServiceBookmark = .init()

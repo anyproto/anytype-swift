@@ -178,7 +178,7 @@ extension FileNamespace {
 // MARK: - Converters / Common
 private extension FileNamespace.Converters {
     /// It is a Converters Factory, actually.
-    private static var contentSmartBlockAsEmptyPage: ContentSmartBlockAsEmptyPage = .init()
+    private static var contentObjectAsEmptyPage: ContentObjectAsEmptyPage = .init()
     private static var contentLink: ContentLink = .init()
     private static var contentText: ContentText = .init()
     private static var contentFile: ContentFile = .init()
@@ -188,7 +188,7 @@ private extension FileNamespace.Converters {
     
     static func convert(middleware: Anytype_Model_Block.OneOf_Content?) -> BaseContentConverter? {
         switch middleware {
-        case .smartblock: return self.contentSmartBlockAsEmptyPage
+        case .smartblock: return self.contentObjectAsEmptyPage
         case .link: return self.contentLink
         case .text: return self.contentText
         case .file: return self.contentFile
@@ -200,7 +200,7 @@ private extension FileNamespace.Converters {
     }
     static func convert(block: BlockType?) -> BaseContentConverter? {
         switch block {
-        case .smartblock: return self.contentSmartBlockAsEmptyPage
+        case .smartblock: return self.contentObjectAsEmptyPage
         case .link: return self.contentLink
         case .text: return self.contentText
         case .file: return self.contentFile

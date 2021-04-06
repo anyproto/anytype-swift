@@ -14,7 +14,7 @@ import ProtobufMessages
 class DashboardService: DashboardServiceProtocol {
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private let blocksActionsService: BlockActionsServiceSingle = .init()
-    private let smartBlockService: SmartBlockActionsService = .init()
+    private let objectsService: ObjectActionsService = .init()
     private var dashboardId: String = ""
     
     private func save(configuration: MiddlewareConfigurationService.MiddlewareConfiguration) -> MiddlewareConfigurationService.MiddlewareConfiguration {
@@ -37,6 +37,6 @@ class DashboardService: DashboardServiceProtocol {
             .iconEmoji(.init())
         ])
                 
-        return self.smartBlockService.createPage(contextID: contextId, targetID: targetId, details: details, position: .bottom)
+        return objectsService.createPage(contextID: contextId, targetID: targetId, details: details, position: .bottom)
     }
 }

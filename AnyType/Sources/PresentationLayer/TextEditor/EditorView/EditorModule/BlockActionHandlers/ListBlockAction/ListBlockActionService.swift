@@ -20,7 +20,7 @@ final class ListBlockActionService {
     private var documentId: String
 
     private var subscriptions: [AnyCancellable] = []
-    private let pageService: SmartBlockActionsService = .init()
+    private let pageService: ObjectActionsService = .init()
     private let listService: BlockActionsServiceList = .init()
 
     private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }

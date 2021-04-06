@@ -92,9 +92,8 @@ extension FileNamespace.Converters {
 /// TODO: Rethink parsing.
 /// We should process Smartblocks correctly.
 /// For now we are mapping them to our content type `.page` with style `.empty`
-// MARK: ContentSmartBlock
 extension FileNamespace.Converters {
-    class ContentSmartBlockAsEmptyPage: BaseContentConverter {
+    final class ContentObjectAsEmptyPage: BaseContentConverter {
         func contentType(_ from: Anytype_Model_Block.Content.Smartblock) -> BlockType.Smartblock.Style? {
             .page
         }

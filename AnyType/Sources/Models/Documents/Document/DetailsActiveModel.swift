@@ -28,7 +28,7 @@ class DetailsActiveModel {
     /// Or remove service from this model completely.
     /// We could use events/actions and send them directly to `user interaction handler`, which will send result to `event handler`.
     ///
-    private var service: SmartBlockActionsService = .init()
+    private var service: ObjectActionsService = .init()
     
     // MARK: Publishers
     @Published private(set) var currentDetails: PageDetails = TopLevel.Builder.detailsBuilder.informationBuilder.empty()
