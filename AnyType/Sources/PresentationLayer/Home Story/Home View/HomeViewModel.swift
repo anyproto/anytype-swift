@@ -4,56 +4,35 @@ import BlocksModels
 
 class HomeViewModel: ObservableObject {
     @ObservedObject var profileViewModel: ProfileViewModel
-    private var profileViewModelObjectWillChange: AnyCancellable?
     
     var cachedDocumentView: AnyView?
     var documentViewId: String = ""
     
-    let profileViewCoordinator: ProfileViewCoordinator
+    
+    private var profileViewModelObjectWillChange: AnyCancellable?
+    
+    var profileView: some View {
+        profileViewCoordinator.profileView
+    }
+    
+    private let profileViewCoordinator: ProfileViewCoordinator
     private let homeCollectionViewAssembly: HomeCollectionViewAssembly
+    
+    
 
-    init(homeCollectionViewAssembly: HomeCollectionViewAssembly, profileViewCoordinator: ProfileViewCoordinator) {
+    init(
+        homeCollectionViewAssembly: HomeCollectionViewAssembly,
+        profileViewCoordinator: ProfileViewCoordinator
+    ) {
         self.homeCollectionViewAssembly = homeCollectionViewAssembly
         self.profileViewCoordinator = profileViewCoordinator
-        self.profileViewModel = self.profileViewCoordinator.viewModel
-        self.profileViewModelObjectWillChange = self.profileViewModel.objectWillChange.sink { [weak self] in
+        self.profileViewModel = profileViewCoordinator.viewModel
+        
+        self.profileViewModelObjectWillChange = profileViewCoordinator.viewModel.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
         }
     }
     
-    func createDocumentView(documentId: String) -> some View {
-        EditorModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
-    }
-    
-    func createDocumentView(documentId: String, shouldShowDocument: Binding<Bool>) -> some View {
-        EditorModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId), shouldShowDocument: shouldShowDocument)
-    }
-    
-    func documentView(selectedDocumentId: String) -> some View {
-        if let view = cachedDocumentView, self.documentViewId == selectedDocumentId {
-          return view
-        }
-        
-        let view: AnyView = .init(self.createDocumentView(documentId: selectedDocumentId))
-        self.documentViewId = selectedDocumentId
-        cachedDocumentView = view
-        
-        return view
-    }
-    
-    func documentView(selectedDocumentId: String, shouldShowDocument: Binding<Bool>) -> some View {
-        if let view = cachedDocumentView, self.documentViewId == selectedDocumentId {
-          return view
-        }
-        
-        let view: AnyView = .init(self.createDocumentView(documentId: selectedDocumentId, shouldShowDocument: shouldShowDocument))
-        self.documentViewId = selectedDocumentId
-        cachedDocumentView = view
-        
-        return view
-    }
-
-    // MARK: AccountInfo
     func obtainAccountInfo() {
         self.profileViewModel.obtainAccountInfo()
 //        self.profileViewCoordinator.viewModel.obtainAccountInfo()
@@ -70,5 +49,41 @@ class HomeViewModel: ObservableObject {
         self.homeCollectionViewAssembly.createHomeCollectionView(
             showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize, cellsModels: cellsModels
         ).environmentObject(homeCollectionViewModel)
+    }
+    
+    func documentView(selectedDocumentId: String, shouldShowDocument: Binding<Bool>) -> some View {
+        if let view = cachedDocumentView, self.documentViewId == selectedDocumentId {
+          return view
+        }
+        
+        let view = AnyView(
+            self.createDocumentView(documentId: selectedDocumentId, shouldShowDocument: shouldShowDocument)
+        )
+        self.documentViewId = selectedDocumentId
+        cachedDocumentView = view
+        
+        return view
+    }
+    
+    private func documentView(selectedDocumentId: String) -> some View {
+        if let view = cachedDocumentView, self.documentViewId == selectedDocumentId {
+          return view
+        }
+        
+        let view: AnyView = .init(self.createDocumentView(documentId: selectedDocumentId))
+        self.documentViewId = selectedDocumentId
+        cachedDocumentView = view
+        
+        return view
+    }
+    
+    private func createDocumentView(documentId: String) -> some View {
+        EditorModule.TopLevelBuilder.SwiftUIBuilder.documentView(by: .init(id: documentId))
+    }
+    
+    private func createDocumentView(documentId: String, shouldShowDocument: Binding<Bool>) -> some View {
+        EditorModule.TopLevelBuilder.SwiftUIBuilder.documentView(
+            by: .init(id: documentId), shouldShowDocument: shouldShowDocument
+        )
     }
 }
