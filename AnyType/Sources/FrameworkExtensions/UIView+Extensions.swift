@@ -29,6 +29,21 @@ extension UIView {
         let logger = Logging.createLogger(category: .uikitUIViewExtensions)
         os_log(.debug, log: logger, "%s chain: %s", "\(self)", "\(chain)")
     }
+    
+    /// Add constraints to superview
+    ///
+    /// - Parameters:
+    ///   - insets: Insets
+    func edgesToSuperview(insets: UIEdgeInsets = .zero) {
+        guard let superview = self.superview else { return }
+        self.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            self.topAnchor.constraint(equalTo: superview.topAnchor, constant: insets.top),
+            self.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: insets.left),
+            self.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -insets.right),
+            self.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -insets.bottom)
+        ])
+    }
 }
 
 extension UIView {

@@ -103,17 +103,11 @@ extension Namespace {
             var configuration: UIContentConfiguration?
             if case let .text(text) = self.getBlock().blockModel.information.content,
                text.contentType == .toggle {
-                configuration = makeToggleBlockConfiguration()
+                configuration = ToggleBlockContentConfiguration(self)
             } else {
                 configuration = makeTextBlockConfiguration()
             }
             return configuration ?? super.makeContentConfiguration()
-        }
-        
-        private func makeToggleBlockConfiguration() -> UIContentConfiguration? {
-            var configuration = ToggleBlockContentConfiguration(self)
-            configuration?.contextMenuHolder = self
-            return configuration
         }
         
         private func makeTextBlockConfiguration() -> UIContentConfiguration? {

@@ -31,7 +31,7 @@ extension BlocksViews.UserAction {
     ///
     enum SpecificAction {
         case tool(Tools.UserAction)
-        case file(File.UserAction)
+        case file(File.FileAction)
         case page(Page.UserAction)
     }
 }

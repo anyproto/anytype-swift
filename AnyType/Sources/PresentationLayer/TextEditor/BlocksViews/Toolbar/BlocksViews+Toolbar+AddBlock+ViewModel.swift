@@ -19,7 +19,7 @@ extension BlocksViews.Toolbar.AddBlock {
             _ = viewModel.nestedCategories.allList()
 //            _ = viewModel.nestedCategories.allObjects()
 //            _ = viewModel.nestedCategories.allOther()
-            _ = viewModel.nestedCategories.objects([.page, .file, .picture, .bookmark])
+            _ = viewModel.nestedCategories.objects([.page, .file, .picture, .video, .bookmark])
             _ = viewModel.nestedCategories.other([.lineDivider, .dotsDivider])
 //            _ = viewModel.nestedCategories.page([.page])
 //            _ = viewModel.nestedCategories.media([.picture, .file, .bookmark])

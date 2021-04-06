@@ -6,19 +6,9 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
-import Foundation
 import PhotosUI
 
-fileprivate typealias Namespace = CommonViews.Pickers.Image
-
-extension CommonViews.Pickers {
-    enum Image {}
-}
-
-// MARK: - Custom
-private extension Namespace.Picker {
-    typealias UIKitPickerViewController = PHPickerViewController
-}
+fileprivate typealias Namespace = CommonViews.Pickers
 
 // MARK: - FilePicker
 
@@ -52,11 +42,10 @@ private extension Namespace.Picker {
 // MARK: Controller
 private extension Namespace.Picker {
     func createPickerController() -> UIViewController {
-        // TODO: Move to Mime Type Provider.
         var configuration: PHPickerConfiguration = .init()
-        configuration.filter = .images
+        configuration.filter = self.viewModel.type.filter
         configuration.selectionLimit = 1
-        let picker = UIKitPickerViewController.init(configuration: configuration)
+        let picker = PHPickerViewController.init(configuration: configuration)
         picker.delegate = self
         return picker
     }
@@ -70,7 +59,7 @@ private extension Namespace.Picker {
 
         self.addChild(controller)
         self.addLayout(for: controller)
-        self.didMove(toParent: controller)
+        controller.didMove(toParent: self)
     }
 
     func addLayout(for controller: UIViewController) {
@@ -104,35 +93,21 @@ extension Namespace.Picker {
 
 // MARK: - ViewModel
 extension Namespace.Picker {
-    class ViewModel {
-        fileprivate var types: [UTType] = [.image]
-        @Published var resultInformation: ResultInformation?
+    final class ViewModel: BaseFilePickerViewModel {
+        fileprivate let type: PickerContentType
         
-        init() {}
-        
-        func process(_ information: [URL]) {
-            guard !information.isEmpty else { return }
-            let url = information[0]
-            self.resultInformation = .init(documentUrl: url)
+        init(type: PickerContentType) {
+            self.type = type
         }
-    }
-}
-
-// MARK: - Information
-extension Namespace.Picker {
-    struct ResultInformation {
-        var documentUrl: URL
-        var filePath: String { self.documentUrl.relativePath }
     }
 }
 
 // MARK: - Process
 extension Namespace.Picker {
     func process(chosen itemProvider: NSItemProvider) {
-        if self.viewModel.types.map(\.identifier).first(where: itemProvider.hasItemConformingToTypeIdentifier) != nil {
-            itemProvider.loadFileRepresentation(forTypeIdentifier: self.viewModel.types[0].identifier) { [weak self] (value, error) in
-                self?.viewModel.process([value].compactMap({$0}))
-            }
+        guard let identifier = itemProvider.registeredTypeIdentifiers.first else { return }
+        itemProvider.loadFileRepresentation(forTypeIdentifier: identifier) { [weak self] (value, error) in
+            self?.viewModel.process([value].compactMap({$0}))
         }
     }
 }

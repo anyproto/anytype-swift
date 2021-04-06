@@ -15,41 +15,36 @@ extension Namespace {
 }
 
 extension Namespace.File {
-    /// It is specific `UserAction` for FileBlocks.
-    /// It contains specific cases for each subtype of specific BlocksViews.
-    /// In our case we have entries referred to `.image`, `.video` and `.file` blocks.
+    
+    /// Actions for file bocks
     ///
-    enum UserAction {
-        case file(FileAction)
-        case image(ImageAction)
-    }
-}
-
-extension Namespace.File.UserAction {
+    /// - shouldShowFilePicker:  Show picker for files arbitrary types
+    /// - shouldShowImagePicker: Show picker to pick content from gallery
+    /// - shouldUploadFile: Upload selected file to middle
+    /// - shouldSaveFile: Show system view controller to save file to Files app
     enum FileAction {
+        
         struct ShouldShowFilePicker {
             typealias Model = CommonViews.Pickers.File.Picker.ViewModel
             var model: Model
         }
+        
+        struct ShouldShowImagePicker {
+            typealias Model = CommonViews.Pickers.Picker.ViewModel
+            var model: Model
+        }
+        
         struct ShouldUploadFile {
             var filePath: String
         }
+        
+        struct ShouldSaveFile {
+            var filrURL: URL
+        }
+        
         case shouldShowFilePicker(ShouldShowFilePicker)
-        case shouldUploadFile(ShouldUploadFile)
-    }
-}
-
-extension Namespace.File.UserAction {
-    enum ImageAction {
-        struct ShouldShowImagePicker {
-            typealias Model = CommonViews.Pickers.Image.Picker.ViewModel
-            var model: Model
-        }
-        struct ShouldUploadImage {
-            var filePath: String
-        }
         case shouldShowImagePicker(ShouldShowImagePicker)
-        case shouldUploadImage(ShouldUploadImage)
+        case shouldUploadFile(ShouldUploadFile)
+        case shouldSaveFile(ShouldSaveFile)
     }
 }
-

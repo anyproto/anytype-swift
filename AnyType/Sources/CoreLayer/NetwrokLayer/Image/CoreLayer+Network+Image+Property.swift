@@ -34,7 +34,7 @@ extension Namespace {
         func loading() {
             if self.property == nil {
                 // start loading
-                self.loadingSubscription = Namespace.URLResolver.init().transform(imageId: self.imageId, self.parameters).safelyUnwrapOptionals().ignoreFailure().flatMap({
+                self.loadingSubscription = URLResolver.init().obtainImageURL(imageId: self.imageId, self.parameters).safelyUnwrapOptionals().ignoreFailure().flatMap({
                     Namespace.Loader.init($0).imagePublisher
                 }).receive(on: RunLoop.main).sink { _ in }
             }

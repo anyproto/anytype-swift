@@ -83,7 +83,7 @@ class HomeCollectionViewDocumentCellModel {
     
     func configured(imagePublisher: AnyPublisher<String?, Never>) {
         self.imagePublisher = imagePublisher.safelyUnwrapOptionals()
-            .flatMap({value in CoreLayer.Network.Image.URLResolver.init().transform(imageId: value).ignoreFailure()})
+            .flatMap({value in URLResolver.init().obtainImageURL(imageId: value).ignoreFailure()})
             .safelyUnwrapOptionals()
             .flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher})
             .eraseToAnyPublisher()

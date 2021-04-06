@@ -6,10 +6,9 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
-import Foundation
-import SwiftUI
 import Combine
 import BlocksModels
+import UIKit
 
 fileprivate typealias Namespace = BlocksViews.New.File.Base
 
@@ -17,8 +16,87 @@ extension Namespace {
     class ViewModel: BlocksViews.New.Base.ViewModel {
         typealias File = TopLevel.BlockContent.File
         typealias State = File.State
-        var subscriptions: Set<AnyCancellable> = []
+        
+        private var subscription: AnyCancellable?
+        
+        private var fileContentPublisher: AnyPublisher<File, Never> = .empty()
+        
+        @Published private(set) var fileResource: BlocksViews.New.File.File.UIKitViewWithFile.Resource?
+        private var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }
+        
+        override init(_ block: BlockModel) {
+            super.init(block)
+            self.setupSubscribers()
+        }
+        
+        override func makeDiffable() -> AnyHashable {
+            let diffable = super.makeDiffable()
+            if case let .file(value) = self.getBlock().blockModel.information.content {
+                let newDiffable: [String: AnyHashable] = [
+                    "parent": diffable,
+                    "fileState": value.state
+                ]
+                return .init(newDiffable)
+            }
+            return diffable
+        }
+        
+        override func handle(event: BlocksViews.UserEvent) {
+            switch event {
+            case .didSelectRowInTableView:
+                if self.state == .uploading {
+                    return
+                }
+                self.handleReplace()
+            }
+        }
+        
+        override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+            .init(title: "", children: [
+                .create(action: .general(.addBlockBelow)),
+                .create(action: .general(.delete)),
+                .create(action: .general(.duplicate)),
+                .create(action: .specific(.download)),
+                .create(action: .specific(.replace)),
+                .create(action: .general(.moveTo)),
+            ])
+        }
+        
+        /// Add observer to file picker
+        ///
+        /// - Parameters:
+        ///   - pickerViewModel: Model with information about picked file
+        func configureListening(_ pickerViewModel: BaseFilePickerViewModel) {
+            pickerViewModel.$resultInformation.safelyUnwrapOptionals().sink { [weak self] (value) in
+                self?.sendFile(at: value.filePath)
+            }.store(in: &self.subscriptions)
+        }
+        
+        private func setupSubscribers() {
+            let fileContentPublisher = self.getBlock().didChangeInformationPublisher().map({ value -> File? in
+                switch value.content {
+                case let .file(value): return value
+                default: return nil
+                }
+            }).safelyUnwrapOptionals().eraseToAnyPublisher()
+            /// Should we store it (?)
+            self.fileContentPublisher = fileContentPublisher
+            
+            self.subscription = self.fileContentPublisher.sink(receiveValue: { [weak self] (value) in
+                self?.state = value.state
+                
+                let metadata = value.metadata
+                self?.fileResource = .init(size: BlocksViews.New.File.File.SizeConverter.convert(size: Int(metadata.size)),
+                                           name: metadata.name,
+                                           mime: BlocksViews.New.File.File.MimeConverter.convert(mime: metadata.mime))
+            })
+        }
+        
+        private func sendFile(at filePath: String) {
+            self.send(actionsPayload: .userAction(.init(model: self.getBlock(),
+                                                        action: .specific(.file(.shouldUploadFile(.init(filePath: filePath)))))))
+        }
     }
 }
 

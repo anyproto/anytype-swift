@@ -163,7 +163,7 @@
 		0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */; };
 		0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */; };
 		0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */; };
-		0A203A8225470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A8125470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift */; };
+		0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A8125470F0B00D3729A /* URLResolver.swift */; };
 		0A203A8625470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A8525470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift */; };
 		0A203A8A2547106100D3729A /* CoreLayer+Network+Image+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A892547106100D3729A /* CoreLayer+Network+Image+Property.swift */; };
 		0A20E64625CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A20E64525CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift */; };
@@ -241,7 +241,6 @@
 		0AA00C4424CB02D400870C18 /* BlocksViews+New+Other+Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4324CB02D400870C18 /* BlocksViews+New+Other+Divider.swift */; };
 		0AA00C4824CDB65F00870C18 /* BlocksModelsModule+Parser+Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C4724CDB65E00870C18 /* BlocksModelsModule+Parser+Other.swift */; };
 		0AA00C5224CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA00C5124CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift */; };
-		0AA168DA254060CE0097CB23 /* ImagePickerUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168D9254060CE0097CB23 /* ImagePickerUIKit.swift */; };
 		0AA168DD254060E40097CB23 /* CommonViews+Pickers+Image+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168DC254060E40097CB23 /* CommonViews+Pickers+Image+UIKit.swift */; };
 		0AA9401324C192BE006B1774 /* BlocksModelsModule+Parser+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsModule+Parser+File.swift */; };
 		0AA9B040249CF5D300F2962C /* MultiSelectionPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9B03F249CF5D300F2962C /* MultiSelectionPane.swift */; };
@@ -350,6 +349,13 @@
 		A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */; };
 		A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */; };
 		EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */; };
+		EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDCC2612288400DBA9FE /* VideoBlockViewModel.swift */; };
+		EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */; };
+		EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDD826122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift */; };
+		EA20CE032613703B00DBA9FE /* PickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE022613703B00DBA9FE /* PickerContentType.swift */; };
+		EA20CE0C2613823F00DBA9FE /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE0B2613823F00DBA9FE /* FilePickerResultInformation.swift */; };
+		EA20CE112613825C00DBA9FE /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE102613825C00DBA9FE /* BaseFilePickerViewModel.swift */; };
+		EA20CE1C2614F13C00DBA9FE /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE1B2614F13C00DBA9FE /* FileLoader.swift */; };
 		EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
 		EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */; };
@@ -567,7 +573,7 @@
 		0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock.swift"; sourceTree = "<group>"; };
 		0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileStory+AboutView.swift"; sourceTree = "<group>"; };
-		0A203A8125470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+URLResolver.swift"; sourceTree = "<group>"; };
+		0A203A8125470F0B00D3729A /* URLResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLResolver.swift; sourceTree = "<group>"; };
 		0A203A8525470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+Cache.swift"; sourceTree = "<group>"; };
 		0A203A892547106100D3729A /* CoreLayer+Network+Image+Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLayer+Network+Image+Property.swift"; sourceTree = "<group>"; };
 		0A20E64525CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Supplement+ViewModelsConvertions+Details.swift"; sourceTree = "<group>"; };
@@ -636,7 +642,6 @@
 		0AA00C4324CB02D400870C18 /* BlocksViews+New+Other+Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Other+Divider.swift"; sourceTree = "<group>"; };
 		0AA00C4724CDB65E00870C18 /* BlocksModelsModule+Parser+Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+Other.swift"; sourceTree = "<group>"; };
 		0AA00C5124CF057300870C18 /* BlocksModelsModule+Parser+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+Bookmark.swift"; sourceTree = "<group>"; };
-		0AA168D9254060CE0097CB23 /* ImagePickerUIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerUIKit.swift; sourceTree = "<group>"; };
 		0AA168DC254060E40097CB23 /* CommonViews+Pickers+Image+UIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonViews+Pickers+Image+UIKit.swift"; sourceTree = "<group>"; };
 		0AA9401224C192BE006B1774 /* BlocksModelsModule+Parser+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksModelsModule+Parser+File.swift"; sourceTree = "<group>"; };
 		0AA9B03F249CF5D300F2962C /* MultiSelectionPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPane.swift; sourceTree = "<group>"; };
@@ -745,6 +750,13 @@
 		A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Cell.swift"; sourceTree = "<group>"; };
 		A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+HeaderCollectionReusableView.swift"; sourceTree = "<group>"; };
 		EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChecker.swift; sourceTree = "<group>"; };
+		EA20CDCC2612288400DBA9FE /* VideoBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockViewModel.swift; sourceTree = "<group>"; };
+		EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockContentView.swift; sourceTree = "<group>"; };
+		EA20CDD826122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockContentViewConfiguration.swift; sourceTree = "<group>"; };
+		EA20CE022613703B00DBA9FE /* PickerContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerContentType.swift; sourceTree = "<group>"; };
+		EA20CE0B2613823F00DBA9FE /* FilePickerResultInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerResultInformation.swift; sourceTree = "<group>"; };
+		EA20CE102613825C00DBA9FE /* BaseFilePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFilePickerViewModel.swift; sourceTree = "<group>"; };
+		EA20CE1B2614F13C00DBA9FE /* FileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentView.swift; sourceTree = "<group>"; };
 		EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedFlattener.swift; sourceTree = "<group>"; };
@@ -1354,7 +1366,7 @@
 				0A3EE0D524EAC6450074DCDF /* CoreLayer+Network+Image.swift */,
 				03CB3F0C230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift */,
 				03CB3F0F230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift */,
-				0A203A8125470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift */,
+				0A203A8125470F0B00D3729A /* URLResolver.swift */,
 				0A203A8525470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift */,
 				0A203A892547106100D3729A /* CoreLayer+Network+Image+Property.swift */,
 			);
@@ -1425,6 +1437,8 @@
 			isa = PBXGroup;
 			children = (
 				0A005AB624C5D341000520AA /* CommonViews+Pickers+File+UIKit.swift */,
+				EA20CE0B2613823F00DBA9FE /* FilePickerResultInformation.swift */,
+				EA20CE102613825C00DBA9FE /* BaseFilePickerViewModel.swift */,
 			);
 			path = File;
 			sourceTree = "<group>";
@@ -1432,9 +1446,9 @@
 		0A005AAF24C5D2F1000520AA /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				0AA168D9254060CE0097CB23 /* ImagePickerUIKit.swift */,
 				0A005AB024C5D2F1000520AA /* ImagePicker.swift */,
 				0AA168DC254060E40097CB23 /* CommonViews+Pickers+Image+UIKit.swift */,
+				EA20CE022613703B00DBA9FE /* PickerContentType.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -1490,6 +1504,7 @@
 				0A0965C425BEF5B000C004BD /* DocumentViewRouting+Tools.swift */,
 				0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */,
 				0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */,
+				EA20CE1B2614F13C00DBA9FE /* FileLoader.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -1564,9 +1579,10 @@
 		0A10CC5C248EC305000FF498 /* File */ = {
 			isa = PBXGroup;
 			children = (
+				EA20CDD326122C6900DBA9FE /* File */,
+				EA20CDD226122C6400DBA9FE /* Video */,
+				EA20CDD126122C5D00DBA9FE /* Image */,
 				0A10CC7D248ED08C000FF498 /* BlocksViews+New+File.swift */,
-				0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */,
-				0A005AAB24C4731D000520AA /* BlocksViews+New+File+File.swift */,
 				0ACDB06925599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift */,
 			);
 			path = File;
@@ -2178,6 +2194,32 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		EA20CDD126122C5D00DBA9FE /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		EA20CDD226122C6400DBA9FE /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				EA20CDCC2612288400DBA9FE /* VideoBlockViewModel.swift */,
+				EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */,
+				EA20CDD826122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		EA20CDD326122C6900DBA9FE /* File */ = {
+			isa = PBXGroup;
+			children = (
+				0A005AAB24C4731D000520AA /* BlocksViews+New+File+File.swift */,
+			);
+			path = File;
+			sourceTree = "<group>";
+		};
 		EA6EC91925ED3DBD00740B31 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2460,7 +2502,6 @@
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				0A10CC76248EC517000FF498 /* BlocksViews+New+Text.swift in Sources */,
-				0AA168DA254060CE0097CB23 /* ImagePickerUIKit.swift in Sources */,
 				0A2C0D6B247145BD008ADD86 /* TextView+HighlightedToolbar.swift in Sources */,
 				0A78328A24BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
@@ -2468,6 +2509,7 @@
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */,
 				0A005AB224C5D2F1000520AA /* ImagePicker.swift in Sources */,
+				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
@@ -2496,6 +2538,7 @@
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				0AA9B04E249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift in Sources */,
+				EA20CE0C2613823F00DBA9FE /* FilePickerResultInformation.swift in Sources */,
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
 				0A0965EB25BEF5B000C004BD /* EditorModule+Content.swift in Sources */,
 				0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */,
@@ -2585,6 +2628,7 @@
 				0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */,
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
+				EA20CE032613703B00DBA9FE /* PickerContentType.swift in Sources */,
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
 				EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */,
@@ -2594,8 +2638,9 @@
 				0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
 				0A20E64625CD5F1A00D25C15 /* BlocksViews+Supplement+ViewModelsConvertions+Details.swift in Sources */,
-				0A203A8225470F0B00D3729A /* CoreLayer+Network+Image+URLResolver.swift in Sources */,
-				0A996BB523EDC0CD000FDC9C /* DeveloperOptionsService.swift in Sources */,
+				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
+				0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */,
+				0A996BB523EDC0CD000FDC9C /* DeveloperOptions+Service.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0A78328E24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift in Sources */,
 				0A005AC424C86E1A000520AA /* BlocksViews+New+Other.swift in Sources */,
@@ -2611,6 +2656,8 @@
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,
 				0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift in Sources */,
+				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
+				0ACC357A25C878AF0003CF3A /* BlocksViews+Document.swift in Sources */,
 				0A09660325BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Colors+Gradients.swift in Sources */,
@@ -2670,6 +2717,7 @@
 				0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */,
 				0A09660D25BF176700C004BD /* DocumentModule.swift in Sources */,
 				0A2ADCE02496921500FA135D /* EventListening.swift in Sources */,
+				EA20CE1C2614F13C00DBA9FE /* FileLoader.swift in Sources */,
 				0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */,
 				0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */,
 				0A996BB123EDBCB8000FDC9C /* DeveloperOptions+Model.swift in Sources */,
@@ -2685,6 +2733,7 @@
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */,
 				03CB3F04230C1185003D5DFD /* ProfileServiceProtocol.swift in Sources */,
+				EA20CE112613825C00DBA9FE /* BaseFilePickerViewModel.swift in Sources */,
 				0A996BB323EDBDA5000FDC9C /* DeveloperOptions+CodableAndDictionary.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,

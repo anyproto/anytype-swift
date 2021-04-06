@@ -21,10 +21,7 @@ struct ToggleBlockContentConfiguration {
     let hasChildren: Bool
     
     /// Block view model value
-    let blockViewModel: BlocksViews.New.Text.Base.ViewModel
-    
-    /// Entity for context menu
-    weak var contextMenuHolder: BlocksViews.New.Text.Base.ViewModel?
+    weak var blockViewModel: BlocksViews.New.Text.Base.ViewModel?
     
     init?(_ blockViewModel: BlocksViews.New.Text.Base.ViewModel) {
         if case let .text(text) = blockViewModel.getBlock().blockModel.information.content,
@@ -42,7 +39,7 @@ extension ToggleBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         let view: ToggleBlockContentView = .init(configuration: self)
-        self.contextMenuHolder?.addContextMenuIfNeeded(view)
+        self.blockViewModel?.addContextMenuIfNeeded(view)
         return view
     }
     
@@ -55,14 +52,14 @@ extension ToggleBlockContentConfiguration: Hashable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.information == rhs.information &&
-        lhs.blockViewModel.getBlock().isToggled == rhs.blockViewModel.getBlock().isToggled &&
+        lhs.blockViewModel?.getBlock().isToggled == rhs.blockViewModel?.getBlock().isToggled &&
         lhs.hasChildren == rhs.hasChildren
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.information.id)
         hasher.combine(self.information.content)
-        hasher.combine(self.blockViewModel.getBlock().isToggled)
+        hasher.combine(self.blockViewModel?.getBlock().isToggled)
         hasher.combine(self.hasChildren)
     }
 }

@@ -185,7 +185,7 @@ private extension Namespace {
             guard !file.metadata.hash.isEmpty else { return }
             let imageId = file.metadata.hash
             
-            self.setupImageSubscription = CoreLayer.Network.Image.URLResolver.init().transform(imageId: imageId).safelyUnwrapOptionals().ignoreFailure().flatMap({
+            self.setupImageSubscription = URLResolver.init().obtainImageURL(imageId: imageId).safelyUnwrapOptionals().ignoreFailure().flatMap({
                 CoreLayer.Network.Image.Loader.init($0).imagePublisher
             }).receive(on: RunLoop.main).sink { [weak self] (value) in
                 if let imageView = self?.imageView {
@@ -230,7 +230,7 @@ private extension Namespace {
             }
         }
         
-        func configured(publisher: AnyPublisher<TopLevel.BlockContent.File, Never>) -> Self {
+        func configured(publisher: AnyPublisher<File, Never>) -> Self {
             self.subscription = publisher.receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.handleFile(value)
             }
@@ -400,7 +400,7 @@ private extension Namespace.ViewModel {
             }
         }
         
-        func setupImage(_ file: TopLevel.BlockContent.File, _ oldFile: TopLevel.BlockContent.File?) {
+        func setupImage(_ file: File, _ oldFile: File?) {
             guard !file.metadata.hash.isEmpty else { return }
             let imageId = file.metadata.hash
             guard imageId != oldFile?.metadata.hash else { return }
@@ -427,7 +427,7 @@ private extension Namespace.ViewModel {
             self.imageLoader.cleanupSubscription()
         }
         /// Handle new value
-        private func handleFile(_ file: TopLevel.BlockContent.File, _ oldFile: TopLevel.BlockContent.File?) {
+        private func handleFile(_ file: File, _ oldFile: File?) {
 //            self.removeViewsIfExist()
             
             switch file.state {

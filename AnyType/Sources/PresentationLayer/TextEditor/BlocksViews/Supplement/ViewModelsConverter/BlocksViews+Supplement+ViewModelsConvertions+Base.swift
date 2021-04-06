@@ -44,7 +44,7 @@ extension Namespace {
                 case .file: return ViewModels.File.File.ViewModel.init(block)
                 case .none: return ViewModels.Unknown.Label.ViewModel.init(block)
                 case .image: return ViewModels.File.Image.ViewModel.init(block)
-                case .video: return ViewModels.Unknown.Label.ViewModel.init(block)
+                case .video: return VideoBlockViewModel(block)
                 }
             case .divider: return ViewModels.Other.Divider.ViewModel.init(block)
             case .bookmark: return ViewModels.Bookmark.Bookmark.ViewModel.init(block)

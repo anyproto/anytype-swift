@@ -160,7 +160,7 @@ extension Namespace.Picker {
 
 // MARK: - ViewModel
 extension Namespace.Picker {
-    class ViewModel {        
+    final class ViewModel: BaseFilePickerViewModel {
         // TODO: Move to Mime Type Provider.
         private(set) var types: [UTType] = [
             .text,
@@ -172,24 +172,6 @@ extension Namespace.Picker {
             .video,
             .archive
         ]
-        @Published var resultInformation: ResultInformation?
-        
-        init() {}
-        
-        func process(_ information: [URL]) {
-            guard !information.isEmpty else { return }
-            let url = information[0]
-            self.resultInformation = .init(documentUrl: url)
-        }
-    }
-}
-
-// MARK: - Information
-extension Namespace.Picker {
-    struct ResultInformation {
-//        var documentsUrls: [URL] = []
-        var documentUrl: URL
-        var filePath: String { self.documentUrl.relativePath }
     }
 }
 

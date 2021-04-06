@@ -239,10 +239,13 @@ extension Namespace.ViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let viewModel = self.viewModel.builders[indexPath.row]
-        if case .text = viewModel.getBlock().blockModel.information.content {
+        guard let viewModel = self.dataSource?.itemIdentifier(for: indexPath) else { return false }
+        switch viewModel.getBlock().blockModel.information.content {
+        case .text:
             return false
-        } else {
+        case let .file(file) where [.done, .uploading].contains(file.state):
+            return false
+        default:
             return true
         }
     }

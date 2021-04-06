@@ -20,9 +20,7 @@ final class UserActionHandler {
 
     func handlingUserAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadUserAction) {
         switch action {
-        case let .specific(.file(.file(.shouldUploadFile(value)))):
-            self.service.upload(block: block.blockModel.information, filePath: value.filePath)
-        case let .specific(.file(.image(.shouldUploadImage(value)))):
+        case let .specific(.file(.shouldUploadFile(value))):
             self.service.upload(block: block.blockModel.information, filePath: value.filePath)
         default: return
         }

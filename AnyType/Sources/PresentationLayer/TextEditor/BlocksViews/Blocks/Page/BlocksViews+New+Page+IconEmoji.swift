@@ -67,7 +67,7 @@ extension Namespace {
                     value.flatMap({self?.toViewEmoji = $0.value})
                 }).store(in: &self.subscriptions)
                 
-                detailsAccessor?.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.URLResolver.init().transform(imageId: value).ignoreFailure()})
+                detailsAccessor?.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURL(imageId: value).ignoreFailure()})
                     .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
                         self?.toViewImage = value
                 }.store(in: &self.subscriptions)
@@ -178,14 +178,14 @@ extension Namespace.ViewModel {
     }
     
     func upload() {
-        let model: CommonViews.Pickers.Image.Picker.ViewModel = .init()
+        let model: CommonViews.Pickers.Picker.ViewModel = .init(type: .images)
         self.configureListening(model)
-        self.send(userAction: .specific(.file(.image(.shouldShowImagePicker(.init(model: model))))))
+        self.send(userAction: .specific(.file(.shouldShowImagePicker(.init(model: model)))))
     }
 }
 
 extension Namespace.ViewModel {
-    func configureListening(_ pickerViewModel: CommonViews.Pickers.Image.Picker.ViewModel) {
+    func configureListening(_ pickerViewModel: CommonViews.Pickers.Picker.ViewModel) {
         pickerViewModel.$resultInformation.safelyUnwrapOptionals().notableError()
             .flatMap(
                 {
