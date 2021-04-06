@@ -3,7 +3,7 @@ import UIKit
 
 
 class ServiceLocator {
-    static let shared: ServiceLocator = .init()
+    static let shared = ServiceLocator()
     
     private let services: [AnyObject] = [
         AppearanceService(),
@@ -17,14 +17,6 @@ class ServiceLocator {
             storeService: KeychainStoreService()
         )
     ]
-
-    func setup() {
-        for service in services {
-            if let service = service as? Setuppable {
-                service.setup()
-            }
-        }
-    }
 
     func resolve<T>() -> T {
         return services.first { service in

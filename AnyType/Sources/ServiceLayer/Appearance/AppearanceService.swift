@@ -1,19 +1,6 @@
-//
-//  AppearanceService.swift
-//  AnyType
-//
-//  Created by Lobanov Dmitry on 19.11.19.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
-import Foundation
 import UIKit
 
-protocol AppearanceService_ColorSchemes_Base {
-    func apply()
-}
-
-class AppearanceService: Setuppable {
+class AppearanceService {
     let assets = AssetsStorage.Local()
     let schemes = Schemes()
 
@@ -27,9 +14,5 @@ class AppearanceService: Setuppable {
         if let scheme = schemes.scheme(for: Schemes.Global.Appearance.BaseNavigationBar.self) {
             scheme.barTintColor = UIColor.green
         }
-    }
-
-    func setup() {
-        resetToDefaults()
     }
 }

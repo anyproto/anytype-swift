@@ -48,7 +48,7 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
                     case .failure(let error):
                         stronSelf.error = error.localizedDescription
                     case .success:
-                        applicationCoordinator?.startNewRootView(content: stronSelf.obtainCompletionView())
+                        windowHolder?.startNewRootView(stronSelf.obtainCompletionView())
                     }
                 }
             }

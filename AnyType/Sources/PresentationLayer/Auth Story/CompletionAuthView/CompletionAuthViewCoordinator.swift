@@ -4,7 +4,7 @@ final class CompletionAuthViewCoordinator {
     
     func routeToHomeView() {
         let homeViewAssembly = HomeViewAssembly()
-        applicationCoordinator?.startNewRootView(content: homeViewAssembly.createHomeView())
+        windowHolder?.startNewRootView(homeViewAssembly.createHomeView())
     }
     
     // Used as assembly

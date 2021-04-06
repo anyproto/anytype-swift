@@ -35,7 +35,7 @@ class LoginViewModel: ObservableObject {
             }
             
             DispatchQueue.main.async {
-                applicationCoordinator?.startNewRootView(content: SelectProfileView(viewModel: SelectProfileViewModel()))
+                windowHolder?.startNewRootView(SelectProfileView(viewModel: SelectProfileViewModel()))
             }
         }
     }

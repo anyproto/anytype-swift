@@ -145,6 +145,6 @@ class SelectProfileViewModel: ObservableObject {
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()
-        applicationCoordinator?.startNewRootView(content: homeAssembly.createHomeView())
+        windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
 }

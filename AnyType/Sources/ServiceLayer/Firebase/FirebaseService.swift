@@ -6,13 +6,9 @@ private extension Logging.Categories {
     static let servicesFirebaseService: Self = "ServicesLayer.FirebaseService"
 }
 
-class FirebaseService: Setuppable {
-    private static let defaultSettingsFile = "GoogleService-Info"
-    let settingsFile: String
-    init() {
-        self.settingsFile = Self.defaultSettingsFile
-    }
-
+class FirebaseService {
+    private let settingsFile = "GoogleService-Info"
+    
     func setup() {
         let path = Bundle(for: Self.self).path(forResource: self.settingsFile, ofType: "plist")
         if let path = path, let options = FirebaseOptions.init(contentsOfFile: path) {

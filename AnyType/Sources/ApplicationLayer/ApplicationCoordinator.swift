@@ -2,10 +2,13 @@ import UIKit
 import SwiftUI
 import Combine
 
+protocol MainWindowHolder {
+    func startNewRootView<ViewType: View>(_ view: ViewType)
+}
 
-/// First coordinator that start ui flow
-class ApplicationCoordinator {
-    private let window: UIWindow
+class ApplicationCoordinator: MainWindowHolder {
+    private let window: MainWindow
+    
     private let pageScrollViewLayout = GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout()
     private let shakeHandler: ShakeHandler
     
@@ -13,13 +16,17 @@ class ApplicationCoordinator {
     private let localRepoService: LocalRepoService
     private let keychainStoreService: KeychainStoreService
     private let authService: AuthService
+    private let appearanceService: AppearanceService
+    private let firebaseService: FirebaseService
     
     init(
-        window: UIWindow,
+        window: MainWindow,
         developerOptionsService: DeveloperOptionsService,
         localRepoService: LocalRepoService,
         keychainStoreService: KeychainStoreService,
-        authService: AuthService
+        authService: AuthService,
+        appearanceService: AppearanceService,
+        firebaseService: FirebaseService
     ) {
         self.window = window
         self.shakeHandler = .init(window)
@@ -28,66 +35,83 @@ class ApplicationCoordinator {
         self.localRepoService = localRepoService
         self.keychainStoreService = keychainStoreService
         self.authService = authService
+        self.appearanceService = appearanceService
+        self.firebaseService = firebaseService
     }
 
     func start() {
-        self.runAtFirstTime()
+        runAtFirstLaunch()
+        runServicesOnStartup()
         
-        if developerOptionsService.current.workflow.authentication.shouldSkipLogin {
-            let homeAssembly = HomeViewAssembly()
-            let view = homeAssembly.createHomeView()
-            self.startNewRootView(content: view)
-        }
-        else {
-            self.login(id: UserDefaultsConfig.usersIdKey)
-        }
+        let shouldSkipLogin = developerOptionsService.current.workflow.authentication.shouldSkipLogin
+        shouldSkipLogin ? showHomeScreen() : login()
     }
     
-    func startNewRootView<Content: View>(content: Content) {
-        window.rootViewController = UIHostingController(rootView: content.environmentObject(self.pageScrollViewLayout))
-        window.makeKeyAndVisible()
-    }
-    
-    private func runAtFirstTime() {
+    private func runAtFirstLaunch() {
         if UserDefaultsConfig.installedAtDate == nil {
             UserDefaultsConfig.installedAtDate = Date()
             developerOptionsService.runAtFirstTime()
         }
     }
+    
+    private func runServicesOnStartup() {
+        appearanceService.resetToDefaults()
+        firebaseService.setup()
+    }
 
     // MARK: Login
-    private func login(id: String) {
-        guard id.isEmpty == false else {
-            self.processLogin(result: .failure(.loginError(message: "")))
+    private func login() {
+        if shouldShowFocusedPage() {
+            showFocusedPage()
             return
         }
         
-        self.authService.selectAccount(id: id, path: localRepoService.middlewareRepoPath) { [weak self] result in
-            self?.processLogin(result: result)
+        let userId = UserDefaultsConfig.usersIdKey // TODO: Remove static
+        guard userId.isEmpty == false else {
+            showAuthScreen()
+            return
+        }
+        
+        self.authService.selectAccount(id: userId, path: localRepoService.middlewareRepoPath) { [weak self] result in
+            switch result {
+            case .success:
+                self?.showHomeScreen()
+            case .failure:
+                self?.showAuthScreen()
+            }
         }
     }
     
-    private func processLogin(result: Result<String, AuthServiceError>) {
-        if developerOptionsService.current.workflow.authentication.shouldShowFocusedPageId && !developerOptionsService.current.workflow.authentication.focusedPageId.isEmpty {
-            let pageId = developerOptionsService.current.workflow.authentication.focusedPageId
-            let controller = EditorModule.Container.ViewBuilder.UIKitBuilder.view(by: .init(id: pageId))
-            self.startNewRootViewController(controller)
-            return
-        }
-        
-        switch result {
-        case .success:
-            let homeAssembly = HomeViewAssembly()
-            let view = homeAssembly.createHomeView()
-            self.startNewRootView(content: view)
-        case .failure:
-            let view = MainAuthView(viewModel: MainAuthViewModel())
-            self.startNewRootView(content: view)
-        }
+    private func shouldShowFocusedPage() -> Bool {
+        let shouldShowFocusedPageId = developerOptionsService.current.workflow.authentication.shouldShowFocusedPageId
+        let focusedPageIdExists = developerOptionsService.current.workflow.authentication.focusedPageId.isEmpty == false
+        return shouldShowFocusedPageId && focusedPageIdExists
+    }
+    
+    private func showFocusedPage() {
+        let pageId = developerOptionsService.current.workflow.authentication.focusedPageId
+        let controller = EditorModule.Container.ViewBuilder.UIKitBuilder.view(by: .init(id: pageId))
+        self.startNewRootViewController(controller)
+    }
+    
+    private func showHomeScreen() {
+        let homeAssembly = HomeViewAssembly()
+        let view = homeAssembly.createHomeView()
+        self.startNewRootView(view)
+    }
+    
+    private func showAuthScreen() {
+        startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
     }
     
     private func startNewRootViewController(_ controller: UIViewController) {
         window.rootViewController = controller
+        window.makeKeyAndVisible()
+    }
+    
+    // MARK: - MainWindowHolder
+    func startNewRootView<ViewType: View>(_ view: ViewType) {
+        window.rootViewController = UIHostingController(rootView: view.environmentObject(self.pageScrollViewLayout))
         window.makeKeyAndVisible()
     }
 }
