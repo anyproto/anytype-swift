@@ -52,7 +52,7 @@ extension BlockActionsServiceFile {
         }
         
         func action(url: String, localPath: String, type: ContentType, disableEncryption: Bool) -> AnyPublisher<Success, Error> {
-            guard let contentType = BlocksModelsModule.Parser.File.ContentType.Converter.asMiddleware(type) else {
+            guard let contentType = BlocksModelsParserFileContentTypeConverter.asMiddleware(type) else {
                 return Fail.init(error: PossibleError.uploadFileActionContentTypeConversionHasFailed).eraseToAnyPublisher()
             }
             return self.action(url: url, localPath: localPath, type: contentType, disableEncryption: disableEncryption)

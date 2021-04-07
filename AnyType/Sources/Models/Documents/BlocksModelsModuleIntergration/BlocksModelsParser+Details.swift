@@ -13,14 +13,13 @@ import Combine
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksModelsModule.Parser
 fileprivate typealias ModelsNamespace = DetailsContent
 private extension Logging.Categories {
-    static let blocksModelsModuleParserDetails: Self = "BlocksModelsModule.Parser.Details"
+    static let blocksModelsModuleParserDetails: Self = "BlocksModelsParser.Details"
 }
 
 // MARK: Details
-extension Namespace {
+extension BlocksModelsParser {
     enum Details {}
 }
 
@@ -41,7 +40,7 @@ extension _BlocksModelsParserDetailsConverterProtocol {
 }
 
 // MARK: Details / Converter
-extension Namespace.Details {
+extension BlocksModelsParser.Details {
     /// Top converter which convert all details to and from protobuf.
     ///
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {

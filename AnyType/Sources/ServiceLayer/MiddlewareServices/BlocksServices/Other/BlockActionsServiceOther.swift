@@ -33,7 +33,7 @@ extension BlockActionsServiceOther {
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     struct SetDividerStyle: BlockActionsServiceOtherProtocolSetDividerStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
-            guard let style = BlocksModelsModule.Parser.Other.Divider.Style.Converter.asMiddleware(style) else {
+            guard let style = BlocksModelsParserOtherDividerStyleConverter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.setDividerStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
             }
             return self.action(contextID: contextID, blockIds: blockIds, style: style)

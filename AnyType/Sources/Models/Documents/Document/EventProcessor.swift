@@ -62,7 +62,7 @@ class EventProcessor {
     }
     
     // MARK: Block Show
-    func handleBlockShow(events: EventHandler.EventsContainer) -> [BlocksModelsModule.Parser.PageEvent] {
+    func handleBlockShow(events: EventHandler.EventsContainer) -> [BlocksModelsParser.PageEvent] {
         self.eventHandler.handleBlockShow(events: events)
     }
 }
@@ -70,13 +70,13 @@ class EventProcessor {
 
 // MARK: Block Show
 extension EventHandler {
-    func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> BlocksModelsModule.Parser.PageEvent {
+    func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> BlocksModelsParser.PageEvent {
         switch event {
         case let .blockShow(value): return self.parser.parse(blocks: value.blocks, details: value.details, smartblockType: value.type)
         default: return .empty()
         }
     }
-    func handleBlockShow(events: EventsContainer) -> [BlocksModelsModule.Parser.PageEvent] {
+    func handleBlockShow(events: EventsContainer) -> [BlocksModelsParser.PageEvent] {
         events.events.compactMap(\.value).compactMap(self.handleBlockShow(event:))
     }
 }

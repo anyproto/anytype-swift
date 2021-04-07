@@ -22,7 +22,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     // MARK: SetText
     func setText(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error> {
         // convert attributed string to marks here?
-        let result = BlocksModelsModule.Parser.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
+        let result = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
         return setText(contextID: contextID, blockID: blockID, text: result.text, marks: result.marks)
     }
     private func setText(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Void, Error> {
@@ -33,7 +33,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     
     // MARK: SetStyle
     func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(style) else {
+        guard let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style) else {
             return Fail.init(error: PossibleError.setStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
         }
         return setStyle(contextID: contextID, blockID: blockID, style: style)
@@ -52,8 +52,8 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     
     // MARK: SetAlignment
     func setAlignment(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Void, Error> {
-        let ourAlignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asModel(alignment)
-        guard let middlewareAlignment = ourAlignment.flatMap(BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware) else {
+        let ourAlignment = BlocksModelsParserCommonAlignmentUIKitConverter.asModel(alignment)
+        guard let middlewareAlignment = ourAlignment.flatMap(BlocksModelsParserCommonAlignmentConverter.asMiddleware) else {
             return Fail.init(error: PossibleError.setAlignmentActionAlignmentConversionHasFailed).eraseToAnyPublisher()
         }
         return setAlignment(contextID: contextID, blockIds: blockIds, align: middlewareAlignment)
@@ -65,10 +65,10 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     
     // MARK: Split
     func split(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<Success, Error> {
-        guard let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(style) else {
+        guard let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style) else {
             return Fail.init(error: PossibleError.splitActionStyleConversionHasFailed).eraseToAnyPublisher()
         }
-        let middlewareRange = BlocksModelsModule.Parser.Text.AttributedText.RangeConverter.asMiddleware(range)
+        let middlewareRange = MiddlewareModelsModule.Parsers.Text.AttributedText.RangeConverter.asMiddleware(range)
         return split(contextID: contextID, blockID: blockID, range: middlewareRange, style: style)
     }
     private func split(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {

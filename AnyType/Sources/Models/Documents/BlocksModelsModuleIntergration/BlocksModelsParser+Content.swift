@@ -1,26 +1,15 @@
-//
-//  BlocksModelsModule+Parser+Content.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 27.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftProtobuf
 import os
 import BlocksModels
 import ProtobufMessages
 
-fileprivate typealias Namespace = BlocksModelsModule
-fileprivate typealias FileNamespace = BlocksModelsModule.Parser
-
 private extension Logging.Categories {
     static let blockModelsParser: Self = "BlocksModels.Module.Parser"
 }
 
 // MARK: Helper Converters / GoogleProtobufStructuresConverter
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     /// Convert (GoogleProtobufStruct) <-> (Dictionary<String, T>)
     /// NOTE: You should define `T` generic parameter. `Any` type for that purpose is bad.
     ///
@@ -78,7 +67,7 @@ extension FileNamespace.Converters {
 }
 
 // MARK: Helper Converters / Details Converter
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     /// It seems that Middleware can't provide good model.
     /// So, we need to convert this models by ourselves.
     ///
@@ -92,7 +81,7 @@ extension FileNamespace.Converters {
 /// TODO: Rethink parsing.
 /// We should process Smartblocks correctly.
 /// For now we are mapping them to our content type `.page` with style `.empty`
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     final class ContentObjectAsEmptyPage: BaseContentConverter {
         func contentType(_ from: Anytype_Model_Block.Content.Smartblock) -> BlockType.Smartblock.Style? {
             .page
@@ -161,17 +150,14 @@ extension FileNamespace.Converters {
 //}
 
 // MARK: ContentLink
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     /// Convert (Anytype_Model_Block.OneOf_Content) <-> (BlockType) for contentType `.link(_)`.
     class ContentLink: BaseContentConverter {
-        fileprivate typealias Link = FileNamespace.Link
-        fileprivate typealias StyleConverter = Link.Style.Converter
-        
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
             case let .link(value):
                 let fields = GoogleProtobufStructuresConverter.HashableConverter.dictionary(value.fields)
-                return StyleConverter.asModel(value.style)
+                return BlocksModelsParserLinkStyleConverter.asModel(value.style)
                     .flatMap({.link(.init(targetBlockID: value.targetBlockID, style: $0, fields: fields))})
             default: return nil
             }
@@ -180,7 +166,7 @@ extension FileNamespace.Converters {
             switch from {
             case let .link(value):
                 let fields = GoogleProtobufStructuresConverter.structure(value.fields)
-                return StyleConverter.asMiddleware(value.style)
+                return BlocksModelsParserLinkStyleConverter.asMiddleware(value.style)
                     .flatMap({.link(.init(targetBlockID: value.targetBlockID, style: $0, fields: fields))})
             default: return nil
             }
@@ -190,21 +176,23 @@ extension FileNamespace.Converters {
 
 // MARK: - ContentText
 
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     class ContentText: BaseContentConverter {
-        fileprivate typealias TextConverter = FileNamespace.Text
-        fileprivate typealias ContentTypeConverter = TextConverter.ContentType.Converter
         
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
             case let .text(value):
-                return ContentTypeConverter.asModel(value.style).flatMap {
+                return BlocksModelsParserTextContentTypeConverter.asModel(value.style).flatMap {
                     typealias Text = Block.Content.ContentType.Text
-                    let attributedString = TextConverter.AttributedText.Converter.asModel(text: value.text,
-                                                                                          marks: value.marks,
-                                                                                          color: value.color,
-                                                                                          style: value.style)
-                    let textContent: Text = .init(attributedText: attributedString, color: value.color, contentType: $0, checked: value.checked)
+                    let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(
+                        text: value.text,
+                        marks: value.marks,
+                        color: value.color,
+                        style: value.style
+                    )
+                    let textContent: Text = .init(
+                        attributedText: attributedString, color: value.color, contentType: $0, checked: value.checked
+                    )
                     return .text(textContent)
                 }
             default: return nil
@@ -213,8 +201,17 @@ extension FileNamespace.Converters {
         
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
-            case let .text(value): return ContentTypeConverter.asMiddleware(value.contentType).flatMap({
-                .text(.init(text: value.attributedText.string, style: $0, marks: FileNamespace.Text.AttributedText.Converter.asMiddleware(attributedText: value.attributedText).marks, checked: value.checked, color: value.color))
+            case let .text(value): return BlocksModelsParserTextContentTypeConverter.asMiddleware(value.contentType).flatMap({
+                .text(
+                    .init(
+                        text: value.attributedText.string,
+                        style: $0,
+                        marks: MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(
+                            attributedText: value.attributedText
+                        ).marks,
+                        checked: value.checked,
+                        color: value.color
+                    ))
                 })
             default: return nil
             }
@@ -223,17 +220,24 @@ extension FileNamespace.Converters {
 }
 
 // MARK: ContentFile
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     class ContentFile: BaseContentConverter {
-        fileprivate typealias File = FileNamespace.File
-        fileprivate typealias TypeEnumConverter = File.ContentType.Converter
-        fileprivate typealias StateConverter = File.State.Converter
-    
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
                 case let .file(value):
-                    guard let state = StateConverter.asModel(value.state) else { return nil }
-                    return TypeEnumConverter.asModel(value.type).flatMap({.file(.init(metadata: .init(name: value.name, size: value.size, hash: value.hash, mime: value.mime, addedAt: value.addedAt), contentType: $0, state: state))})
+                    guard let state = BlocksModelsParserFileStateConverter.asModel(value.state) else { return nil }
+                    return BlocksModelsParserFileContentTypeConverter.asModel(value.type).flatMap(
+                        {.file(.init(
+                                metadata: .init(
+                                    name: value.name,
+                                    size: value.size,
+                                    hash: value.hash,
+                                    mime: value.mime,
+                                    addedAt: value.addedAt
+                                ),
+                                contentType: $0, state: state)
+                        )}
+                    )
                 default: return nil
             }
         }
@@ -242,8 +246,18 @@ extension FileNamespace.Converters {
             switch from {
                 case let .file(value):
                     let metadata = value.metadata
-                    guard let state = StateConverter.asMiddleware(value.state) else { return nil }
-                    return TypeEnumConverter.asMiddleware(value.contentType).flatMap({.file(.init(hash: metadata.hash, name: metadata.name, type: $0, mime: metadata.mime, size: metadata.size, addedAt: 0, state: state))})
+                    guard let state = BlocksModelsParserFileStateConverter.asMiddleware(value.state) else { return nil }
+                    return BlocksModelsParserFileContentTypeConverter.asMiddleware(value.contentType).flatMap(
+                        {.file(.init(
+                                hash: metadata.hash,
+                                name: metadata.name,
+                                type: $0,
+                                mime: metadata.mime,
+                                size: metadata.size,
+                                addedAt: 0,
+                                state: state
+                        ))}
+                    )
                 default: return nil
             }
         }
@@ -252,21 +266,24 @@ extension FileNamespace.Converters {
 }
 
 // MARK: ContentBookmark
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     class ContentBookmark: BaseContentConverter {
-        fileprivate typealias Bookmark = FileNamespace.Bookmark
-        fileprivate typealias TypeEnumConverter = Bookmark.TypeEnum.Converter
-        
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .bookmark(value): return TypeEnumConverter.asModel(value.type).flatMap({.bookmark(.init(url: value.url, title: value.title, theDescription: value.description_p, imageHash: value.imageHash, faviconHash: value.faviconHash, type: $0))})
+            case let .bookmark(value):
+                return BlocksModelsParserBookmarkTypeEnumConverter.asModel(value.type).flatMap(
+                    {.bookmark(.init(url: value.url, title: value.title, theDescription: value.description_p, imageHash: value.imageHash, faviconHash: value.faviconHash, type: $0))}
+                )
             default: return nil
             }
         }
         
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
-            case let .bookmark(value): return TypeEnumConverter.asMiddleware(value.type).flatMap({.bookmark(.init(url: value.url, title: value.title, description_p: value.theDescription, imageHash: value.imageHash, faviconHash: value.faviconHash, type: $0))})
+            case let .bookmark(value):
+                return BlocksModelsParserBookmarkTypeEnumConverter.asMiddleware(value.type).flatMap(
+                    {.bookmark(.init(url: value.url, title: value.title, description_p: value.theDescription, imageHash: value.imageHash, faviconHash: value.faviconHash, type: $0))}
+                )
             default: return nil
             }
         }
@@ -274,21 +291,18 @@ extension FileNamespace.Converters {
 }
 
 // MARK: ContentDivider
-extension FileNamespace.Converters {
+extension BlocksModelsParser.Converters {
     class ContentDivider: BaseContentConverter {
-        fileprivate typealias Divider = FileNamespace.Other.Divider
-        fileprivate typealias StyleConverter = Divider.Style.Converter
-        
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .div(value): return StyleConverter.asModel(value.style).flatMap({ .divider(.init(style: $0)) })
+            case let .div(value): return BlocksModelsParserOtherDividerStyleConverter.asModel(value.style).flatMap({ .divider(.init(style: $0)) })
             default: return nil
             }
         }
         
         override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
-            case let .divider(value): return StyleConverter.asMiddleware(value.style).flatMap({ .div(.init(style: $0)) })
+            case let .divider(value): return BlocksModelsParserOtherDividerStyleConverter.asMiddleware(value.style).flatMap({ .div(.init(style: $0)) })
             default: return nil
             }
         }
@@ -296,21 +310,20 @@ extension FileNamespace.Converters {
 }
 
 // MARK: ContentLayout
-extension FileNamespace.Converters {
-    class ContentLayout: BaseContentConverter {
-        fileprivate typealias Layout = FileNamespace.Layout
-        fileprivate typealias StyleConverter = Layout.Style.Converter
-        
+extension BlocksModelsParser.Converters {
+    class ContentLayout: BaseContentConverter {        
         override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
             switch from {
-            case let .layout(value): return StyleConverter.asModel(value.style).flatMap({ .layout(.init(style: $0)) })
+            case let .layout(value):
+                return BlocksModelsParserLayoutStyleConverter.asModel(value.style).flatMap({ .layout(.init(style: $0)) })
             default: return nil
             }
         }
         
-        override func middleware(_ from: BlocksModelsModule.Parser.Converters.BlockType?) -> Anytype_Model_Block.OneOf_Content? {
+        override func middleware(_ from: BlocksModelsParser.Converters.BlockType?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
-            case let .layout(value): return StyleConverter.asMiddleware(value.style).flatMap({ .layout(.init(style: $0)) })
+            case let .layout(value):
+                return BlocksModelsParserLayoutStyleConverter.asMiddleware(value.style).flatMap({ .layout(.init(style: $0)) })
             default: return nil
             }
         }

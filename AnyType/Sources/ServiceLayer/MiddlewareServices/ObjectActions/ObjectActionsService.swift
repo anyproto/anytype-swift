@@ -15,10 +15,10 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     func createPage(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
+        guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail.init(error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
-        let convertedDetails = BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: details.toList())
+        let convertedDetails = BlocksModelsParser.Details.Converter.asMiddleware(models: details.toList())
         let preparedDetails = convertedDetails.map({($0.key, $0.value)})
         let protobufDetails: [String: Google_Protobuf_Value] = .init(preparedDetails) { (lhs, rhs) in rhs }
         let protobufStruct: Google_Protobuf_Struct = .init(fields: protobufDetails)
@@ -32,7 +32,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     func setDetails(contextID: BlockId, details: DetailsContent) -> AnyPublisher<ServiceSuccess, Error> {
-        let middlewareDetails = BlocksModelsModule.Parser.Details.Converter.asMiddleware(models: [details])
+        let middlewareDetails = BlocksModelsParser.Details.Converter.asMiddleware(models: [details])
         return setDetails(contextID: contextID, details: middlewareDetails)
     }
     

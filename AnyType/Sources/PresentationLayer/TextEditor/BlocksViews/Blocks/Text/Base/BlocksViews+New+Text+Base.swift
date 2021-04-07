@@ -125,7 +125,7 @@ extension Namespace {
                 .map(\.backgroundColor)
                 .removeDuplicates()
                 .map {value in
-                    BlocksModelsModule.Parser.Text.Color.Converter.asModel(value, background: true)
+                    MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(value, background: true)
                 }
                 .map {
                     TopWithChildUIKitView.Resource.init(backgroundColor: $0)
@@ -166,7 +166,7 @@ extension Namespace.ViewModel {
         case let .text(blockType):
             let attributedText = blockType.attributedText
 
-            let alignment = BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel(information.alignment)
+            let alignment = BlocksModelsParserCommonAlignmentUIKitConverter.asUIKitModel(information.alignment)
             let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(blockType.color)
 
             textViewModel.update = .payload(.init(attributedString: attributedText,
@@ -207,7 +207,7 @@ private extension Namespace.ViewModel {
         // ToView
         let alignmentPublisher = self.getBlock().didChangeInformationPublisher()
             .map(\.alignment)
-            .map(BlocksModelsModule.Parser.Common.Alignment.UIKitConverter.asUIKitModel)
+            .map(BlocksModelsParserCommonAlignmentUIKitConverter.asUIKitModel)
             .removeDuplicates()
             .safelyUnwrapOptionals()
 

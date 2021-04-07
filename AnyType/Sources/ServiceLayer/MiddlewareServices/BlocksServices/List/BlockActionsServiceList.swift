@@ -60,7 +60,7 @@ extension BlockActionsServiceList {
     }
     struct SetTextStyle: BlockActionsServiceListProtocolSetTextStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
-            guard let style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(style) else {
+            guard let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.setTextStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
             }
             return self.action(contextID: contextID, blockIds: blockIds, style: style)
@@ -92,7 +92,7 @@ extension BlockActionsServiceList {
 
     struct SetAlign: BlockActionsServiceListProtocolSetAlign {
         func action(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<Success, Error> {
-            guard let alignment = BlocksModelsModule.Parser.Common.Alignment.Converter.asMiddleware(alignment) else {
+            guard let alignment = BlocksModelsParserCommonAlignmentConverter.asMiddleware(alignment) else {
                 return Fail.init(error: PossibleError.setAlignActionAlignmentConversionHasFailed).eraseToAnyPublisher()
             }
             return self.action(contextID: contextID, blockIds: blockIds, align: alignment)
@@ -105,7 +105,7 @@ extension BlockActionsServiceList {
 
     struct SetDivStyle: BlockActionsServiceListProtocolSetDivStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
-            guard let style = BlocksModelsModule.Parser.Other.Divider.Style.Converter.asMiddleware(style) else {
+            guard let style = BlocksModelsParserOtherDividerStyleConverter.asMiddleware(style) else {
                 return Fail.init(error: PossibleError.setDividerStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
             }
             return self.action(contextID: contextID, blockIds: blockIds, style: style)

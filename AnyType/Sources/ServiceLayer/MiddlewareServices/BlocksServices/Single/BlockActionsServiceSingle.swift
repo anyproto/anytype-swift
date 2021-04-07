@@ -19,7 +19,7 @@ private extension BlockActionsServiceSingle {
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     /// DI
-    private var parser: BlocksModelsModule.Parser = .init()
+    private var parser: BlocksModelsParser = .init()
     
     typealias Success = ServiceSuccess
     
@@ -44,7 +44,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         guard let blockInformation = self.parser.convert(information: block) else {
             return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
         }
-        guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
+        guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail(error: PossibleError.addActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
         return self.action(contextID: contextID, targetID: targetID, block: blockInformation, position: position)
@@ -77,7 +77,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     // MARK: Duplicate
     // Actually, should be used for BlockList
     func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: Position) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
+        guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail(error: PossibleError.duplicateActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
         return self.action(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position)

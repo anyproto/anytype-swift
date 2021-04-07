@@ -1,45 +1,27 @@
-//
-//  BlocksModelsModule+Parser.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftProtobuf
 import os
 import BlocksModels
 import ProtobufMessages
 
-fileprivate typealias Namespace = BlocksModelsModule
-fileprivate typealias FileNamespace = BlocksModelsModule.Parser
-
 private extension Logging.Categories {
     static let blockModelsParser: Self = "BlocksModels.Module.Parser"
 }
 
 // MARK: - Parser
-extension Namespace {
-    class Parser {
-        typealias Information = Block.Information.InformationModel
-        typealias Model = BlockModelProtocol
-        typealias OurContent = TopLevel.BlockContent
-        typealias Builder = TopLevel.Builder
-    }
-}
-
-extension Namespace.Parser {
+class BlocksModelsParser {
+    typealias Information = Block.Information.InformationModel
+    typealias Model = BlockModelProtocol
+    typealias OurContent = TopLevel.BlockContent
+    typealias Builder = TopLevel.Builder
+    
     struct PageEvent {
         var rootId: String
         var blocks: [Block.Information.InformationModel] = []
         var details: [DetailsInformationModelProtocol] = []
         static func empty() -> Self { .init(rootId: "") }
     }
-}
 
-// MARK: - Parser / Parse
-extension Namespace.Parser {
     /// Also add methods that convert intrenal models to our models.
     /// We should provide operations in Updater which rely on block.id.
     /// This allows us to build a tree and later insert subtree in our tree.
@@ -86,10 +68,8 @@ extension Namespace.Parser {
         
         return .init(rootId: rootId, blocks: parsedBlocks, details: parsedDetails)
     }
-}
 
-// MARK: - Parser / Convert
-extension Namespace.Parser {
+    // MARK: - Parser / Convert
     // MARK: - Blocks
     /// Converting Middleware model -> Our model
     ///
@@ -106,7 +86,7 @@ extension Namespace.Parser {
         os_log(.debug, log: logger, "Add fields and restrictions into our model.")
         information.childrenIds = block.childrenIds
         information.backgroundColor = block.backgroundColor
-        if let alignment = Common.Alignment.Converter.asModel(block.align) {
+        if let alignment = BlocksModelsParserCommonAlignmentConverter.asModel(block.align) {
             information.alignment = alignment
         }
         return information
@@ -128,7 +108,7 @@ extension Namespace.Parser {
         let backgroundColor = information.backgroundColor
         
         var alignment: Anytype_Model_Block.Align = .left
-        if let value = Common.Alignment.Converter.asMiddleware(information.alignment) {
+        if let value = BlocksModelsParserCommonAlignmentConverter.asMiddleware(information.alignment) {
             alignment = value
         }
 
@@ -150,64 +130,5 @@ extension Namespace.Parser {
     /// - Returns: Middleware Content
     func convert(content: OurContent) -> Anytype_Model_Block.OneOf_Content? {
         Converters.convert(block: content)?.middleware(content)
-    }
-}
-
-// MARK: - Converters
-// MARK: - Public
-extension FileNamespace {
-    enum PublicConverters {
-        enum EventsDetails {
-            static func convert(event: Anytype_Event.Block.Set.Details) -> [Anytype_Rpc.Block.Set.Details.Detail] {
-                Converters.EventDetailsAndSetDetailsConverter.convert(event: event)
-            }
-        }
-    }
-}
-
-extension FileNamespace {
-    enum Converters {
-        typealias BlockType = OurContent
-        class BaseContentConverter {
-            open func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? { nil }
-            open func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? { nil }
-        }
-    }
-}
-
-// MARK: - Converters / Common
-private extension FileNamespace.Converters {
-    /// It is a Converters Factory, actually.
-    private static var contentObjectAsEmptyPage: ContentObjectAsEmptyPage = .init()
-    private static var contentLink: ContentLink = .init()
-    private static var contentText: ContentText = .init()
-    private static var contentFile: ContentFile = .init()
-    private static var contentBookmark: ContentBookmark = .init()
-    private static var contentDivider: ContentDivider = .init()
-    private static var contentLayout: ContentLayout = .init()
-    
-    static func convert(middleware: Anytype_Model_Block.OneOf_Content?) -> BaseContentConverter? {
-        switch middleware {
-        case .smartblock: return self.contentObjectAsEmptyPage
-        case .link: return self.contentLink
-        case .text: return self.contentText
-        case .file: return self.contentFile
-        case .bookmark: return self.contentBookmark
-        case .div: return self.contentDivider
-        case .layout: return self.contentLayout
-        default: return nil
-        }
-    }
-    static func convert(block: BlockType?) -> BaseContentConverter? {
-        switch block {
-        case .smartblock: return self.contentObjectAsEmptyPage
-        case .link: return self.contentLink
-        case .text: return self.contentText
-        case .file: return self.contentFile
-        case .bookmark: return self.contentBookmark
-        case .divider: return self.contentDivider
-        case .layout: return self.contentLayout
-        default: return nil
-        }
     }
 }

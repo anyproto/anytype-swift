@@ -38,7 +38,7 @@ extension BlockActionsServiceBookmark {
     struct CreateAndFetchBookmark: BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
         typealias Success = ServiceSuccess
         func action(contextID: BlockId, targetID: BlockId, position: Position, url: String) -> AnyPublisher<ServiceSuccess, Error> {
-            guard let position = BlocksModelsModule.Parser.Common.Position.Converter.asMiddleware(position) else {
+            guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
                 return Fail.init(error: PossibleError.createAndFetchBookmarkActionPositionConversionHasFailed).eraseToAnyPublisher()
             }
             return self.action(contextID: contextID, targetID: targetID, position: position, url: url)

@@ -17,7 +17,7 @@ class EventHandler: NewEventHandler {
     
     private weak var container: Container?
     
-    var parser: BlocksModelsModule.Parser = .init()
+    var parser: BlocksModelsParser = .init()
     private var updater: Updater?
     
     init() {
@@ -175,7 +175,7 @@ private extension EventHandler {
             if value.hasStyle {
                 style = value.style.value
             } else {
-                style = BlocksModelsModule.Parser.Text.ContentType.Converter.asMiddleware(oldText.contentType) ?? value.style.value
+                style = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType) ?? value.style.value
             }
             let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
                                                                       style: style,
@@ -208,7 +208,7 @@ private extension EventHandler {
         case let .blockSetAlign(value):
             let blockId = value.id
             let alignment = value.align
-            guard let modelAlignment = BlocksModelsModule.Parser.Common.Alignment.Converter.asModel(alignment) else {
+            guard let modelAlignment = BlocksModelsParserCommonAlignmentConverter.asModel(alignment) else {
                 let logger = Logging.createLogger(category: .eventProcessor)
                 os_log(.debug, log: logger, "We cannot parse alignment: %@", String(describing: value))
                 return .general
@@ -226,8 +226,8 @@ private extension EventHandler {
             }
             let detailsId = value.id
             let details = value.details
-            let eventsDetails = BlocksModelsModule.Parser.PublicConverters.EventsDetails.convert(event: .init(id: detailsId, details: details))
-            let detailsModels = BlocksModelsModule.Parser.Details.Converter.asModel(details: eventsDetails)
+            let eventsDetails = BlocksModelsParser.PublicConverters.EventsDetails.convert(event: .init(id: detailsId, details: details))
+            let detailsModels = BlocksModelsParser.Details.Converter.asModel(details: eventsDetails)
             let detailsInformationModel = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
             
             if let detailsModel = self.container?.detailsContainer.choose(by: detailsId) {
@@ -265,13 +265,13 @@ private extension EventHandler {
                     var value = value
 
                     if newUpdate.hasType {
-                        if let contentType = BlocksModelsModule.Parser.File.ContentType.Converter.asModel(newUpdate.type.value) {
+                        if let contentType = BlocksModelsParserFileContentTypeConverter.asModel(newUpdate.type.value) {
                             value.contentType = contentType
                         }
                     }
 
                     if newUpdate.hasState {
-                        if let state = BlocksModelsModule.Parser.File.State.Converter.asModel(newUpdate.state.value) {
+                        if let state = BlocksModelsParserFileStateConverter.asModel(newUpdate.state.value) {
                             value.state = state
                         }
                     }
@@ -329,7 +329,7 @@ private extension EventHandler {
                     }
 
                     if newUpdate.hasType {
-                        if let type = BlocksModelsModule.Parser.Bookmark.TypeEnum.Converter.asModel(newUpdate.type.value) {
+                        if let type = BlocksModelsParserBookmarkTypeEnumConverter.asModel(newUpdate.type.value) {
                             value.type = type
                         }
                     }
@@ -355,7 +355,7 @@ private extension EventHandler {
                 case let .divider(value):
                     var value = value
                                         
-                    if let style = BlocksModelsModule.Parser.Other.Divider.Style.Converter.asModel(newUpdate.style.value) {
+                    if let style = BlocksModelsParserOtherDividerStyleConverter.asModel(newUpdate.style.value) {
                         value.style = style
                     }
                     

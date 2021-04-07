@@ -62,7 +62,7 @@ private extension MarksPaneBlockActionHandler {
 
     func setBlockColor(block: Block.Information.InformationModel, color: UIColor) {
         // Important: we don't send command if color is wrong
-        guard let color = BlocksModelsModule.Parser.Text.Color.Converter.asMiddleware(color, background: false) else {
+        guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(color, background: false) else {
             assertionFailure("Wrong UIColor for setBlockColor command")
             return
         }
