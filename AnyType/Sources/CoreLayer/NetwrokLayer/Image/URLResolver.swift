@@ -36,9 +36,11 @@ struct URLResolver {
     ///
     /// - Parameters:
     ///   - fileId: file hash
-    func obtainFileURL(fileId: String) -> AnyPublisher<URL?, Error> {
-        self.configurationService.obtainConfiguration().map { self.fileURL(configuration: $0,
-                                                                           fileId: fileId) }.eraseToAnyPublisher()
+    func obtainFileURLPublisher(fileId: String) -> AnyPublisher<URL?, Error> {
+        self.configurationService.obtainConfiguration().map {
+            self.fileURL(configuration: $0, fileId: fileId)
+        }
+        .eraseToAnyPublisher()
     }
     
     /// Obtain url for image with hash
@@ -46,7 +48,7 @@ struct URLResolver {
     /// - Parameters:
     ///   - imageId: image hash
     ///   - parameters: Image parameters
-    func obtainImageURL(imageId: String,
+    func obtainImageURLPublisher(imageId: String,
                    _ parameters: CoreLayer.Network.Image.ImageParameters? = nil) -> AnyPublisher<URL?, Error> {
         self.configurationService.obtainConfiguration().map({self.imageURL(configuration: $0,
                                                                            subpath: imageId,

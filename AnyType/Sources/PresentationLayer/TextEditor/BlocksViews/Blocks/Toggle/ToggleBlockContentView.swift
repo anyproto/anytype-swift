@@ -28,10 +28,10 @@ final class ToggleBlockContentView: UIView & UIContentView {
     private let textView: TextView.UIKitTextView = .init()
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
-            guard let self = self,
-                  let block = self.currentConfiguration.blockViewModel?.getBlock() else { return }
+            guard let self = self else { return }
+            let block = self.currentConfiguration.blockViewModel.getBlock()
             self.createChildBlockButton.isHidden = true
-            self.currentConfiguration.blockViewModel?.send(actionsPayload: .textView(.init(model: block,
+            self.currentConfiguration.blockViewModel.send(actionsPayload: .textView(.init(model: block,
                                                       action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -52,16 +52,17 @@ final class ToggleBlockContentView: UIView & UIContentView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.addAction(.init(handler: { [weak self] _ in
-            guard let self = self, let blockVM = self.currentConfiguration.blockViewModel else { return }
+            guard let self = self else { return }
+            let blockViewModel = self.currentConfiguration.blockViewModel
             self.toggleButton.isSelected.toggle()
-            blockVM.update { $0.isToggled.toggle() }
-            let toggled = blockVM.getBlock().isToggled
-            blockVM.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
+            blockViewModel.update { $0.isToggled.toggle() }
+            let toggled = blockViewModel.getBlock().isToggled
+            blockViewModel.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
             let oldValue = self.createChildBlockButton.isHidden
             self.updateCreateChildButtonState(toggled: toggled,
-                                              hasChildren: !blockVM.getBlock().childrenIds().isEmpty)
+                                              hasChildren: !blockViewModel.getBlock().childrenIds().isEmpty)
             if oldValue != self.createChildBlockButton.isHidden {
-                blockVM.send(sizeDidChange: .zero)
+                blockViewModel.send(sizeDidChange: .zero)
             }
         }), for: .touchUpInside)
         return button
@@ -132,19 +133,17 @@ final class ToggleBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
-        self.currentConfiguration.blockViewModel?.addContextMenuIfNeeded(self)
-
+        self.currentConfiguration.blockViewModel.addContextMenuIfNeeded(self)
         // it's important to clean old attributed string
         self.textView.textView.attributedText = nil
 
-        if let textViewModel = self.currentConfiguration.blockViewModel?.getUIKitViewModel() {
-            textViewModel.update = .unknown
-            _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
-            self.currentConfiguration.blockViewModel?.refreshTextViewModel(textViewModel)
-        }
-        let toggled = self.currentConfiguration.blockViewModel?.getBlock().isToggled ?? false
+        let textViewModel = self.currentConfiguration.blockViewModel.getUIKitViewModel()
+        textViewModel.update = .unknown
+        _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
+        self.currentConfiguration.blockViewModel.refreshTextViewModel(textViewModel)
+        let toggled = self.currentConfiguration.blockViewModel.getBlock().isToggled
         toggleButton.isSelected = toggled
-        let hasChildren = self.currentConfiguration.blockViewModel?.getBlock().childrenIds().isEmpty ?? true
+        let hasChildren = self.currentConfiguration.blockViewModel.getBlock().childrenIds().isEmpty
         self.updateCreateChildButtonState(toggled: toggled, hasChildren: hasChildren)
 
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter

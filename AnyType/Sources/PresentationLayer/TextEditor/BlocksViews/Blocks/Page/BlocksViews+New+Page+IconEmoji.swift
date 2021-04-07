@@ -67,7 +67,7 @@ extension Namespace {
                     value.flatMap({self?.toViewEmoji = $0.value})
                 }).store(in: &self.subscriptions)
                 
-                detailsAccessor?.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURL(imageId: value).ignoreFailure()})
+                detailsAccessor?.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
                     .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
                         self?.toViewImage = value
                 }.store(in: &self.subscriptions)

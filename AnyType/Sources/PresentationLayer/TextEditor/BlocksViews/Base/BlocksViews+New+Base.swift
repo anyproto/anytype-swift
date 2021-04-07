@@ -263,32 +263,8 @@ extension BlocksViews.New.Base {
                 case .backgroundColor:
                     let color = BlocksModelsModule.Parser.Text.Color.Converter.asModel(self.getBlock().blockModel.information.backgroundColor, background: true) ?? .defaultColor
                     self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: .init(backgroundColor: color), section: .backgroundColor, shouldPluginOutputIntoInput: true))))))
-                case .download:
-                    self.downloadFile()
-                case .replace:
-                    self.handleReplace()
-                case .addCaption, .rename:
-                    return
+                default: return
                 }
-            }
-        }
-        
-        /// Handle replace menu action
-        func handleReplace() {
-        }
-        
-        private func downloadFile() {
-            guard case let .file(file) = self.getBlock().blockModel.information.content else { return }
-            switch file.contentType {
-            case .image:
-                return
-            case .video, .file:
-                self.getFileURLSubscription = URLResolver().obtainFileURL(fileId: file.metadata.hash).sink(receiveCompletion: { _ in }, receiveValue: { [weak self] url in
-                    guard let url = url else { return }
-                    self?.send(userAction: .specific(.file(.shouldSaveFile(.init(filrURL: url)))))
-                })
-            case .none:
-                return
             }
         }
     }

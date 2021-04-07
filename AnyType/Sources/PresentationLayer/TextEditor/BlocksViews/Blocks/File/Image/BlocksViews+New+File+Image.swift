@@ -185,7 +185,7 @@ private extension Namespace {
             guard !file.metadata.hash.isEmpty else { return }
             let imageId = file.metadata.hash
             
-            self.setupImageSubscription = URLResolver.init().obtainImageURL(imageId: imageId).safelyUnwrapOptionals().ignoreFailure().flatMap({
+            self.setupImageSubscription = URLResolver.init().obtainImageURLPublisher(imageId: imageId).safelyUnwrapOptionals().ignoreFailure().flatMap({
                 CoreLayer.Network.Image.Loader.init($0).imagePublisher
             }).receive(on: RunLoop.main).sink { [weak self] (value) in
                 if let imageView = self?.imageView {

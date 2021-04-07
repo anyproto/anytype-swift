@@ -39,7 +39,7 @@ extension Namespace.File {
         }
         
         struct ShouldSaveFile {
-            var filrURL: URL
+            var fileURL: URL
         }
         
         case shouldShowFilePicker(ShouldShowFilePicker)

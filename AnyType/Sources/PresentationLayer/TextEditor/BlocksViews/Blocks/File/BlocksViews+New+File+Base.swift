@@ -63,6 +63,28 @@ extension Namespace {
             ])
         }
         
+        override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
+            switch contextualMenuAction {
+            case let .specific(specificAction):
+                switch specificAction {
+                case .replace:
+                    self.handleReplace()
+                case.download:
+                    self.downloadFile()
+                default:
+                    break
+                }
+            default:
+                break
+            }
+            super.handle(contextualMenuAction: contextualMenuAction)
+        }
+        
+        /// Handle replace contextual menu action
+        func handleReplace() {
+            
+        }
+        
         /// Add observer to file picker
         ///
         /// - Parameters:
@@ -71,6 +93,21 @@ extension Namespace {
             pickerViewModel.$resultInformation.safelyUnwrapOptionals().sink { [weak self] (value) in
                 self?.sendFile(at: value.filePath)
             }.store(in: &self.subscriptions)
+        }
+        
+        private func downloadFile() {
+            guard case let .file(file) = self.getBlock().blockModel.information.content else { return }
+            switch file.contentType {
+            case .image:
+                return
+            case .video, .file:
+                URLResolver().obtainFileURLPublisher(fileId: file.metadata.hash).sink(receiveCompletion: { _ in }, receiveValue: { [weak self] url in
+                    guard let url = url else { return }
+                    self?.send(userAction: .specific(.file(.shouldSaveFile(.init(fileURL: url)))))
+                }).store(in: &self.subscriptions)
+            case .none:
+                return
+            }
         }
         
         private func setupSubscribers() {

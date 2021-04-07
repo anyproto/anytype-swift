@@ -108,7 +108,7 @@ final class ProfileViewModel: ObservableObject {
             self?.selectedColor = .init(hexString: value)
         }.store(in: &self.subscriptions)
         
-        publisher.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURL(imageId: value).ignoreFailure()})
+        publisher.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
             .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
                 self?.accountAvatar = value
         }.store(in: &self.subscriptions)

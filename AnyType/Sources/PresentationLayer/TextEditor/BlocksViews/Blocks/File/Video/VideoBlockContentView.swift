@@ -68,7 +68,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func setVideoURL() {
-        self.subscription = URLResolver.init().obtainFileURL(fileId: self.currentConfiguration.metadata.hash).sink { _ in
+        self.subscription = URLResolver.init().obtainFileURLPublisher(fileId: self.currentConfiguration.metadata.hash).sink { _ in
         } receiveValue: { [weak self] url in
             guard let url = url else { return }
             self?.videoVC.player = .init(url: url)
@@ -106,12 +106,12 @@ final class VideoBlockContentView: UIView, UIContentView {
     private func applyNewConfiguration(oldState: VideoBlockContentViewConfiguration.State) {
         self.currentConfiguration.blockViewModel?.addContextMenuIfNeeded(self)
         switch (oldState, self.currentConfiguration.state) {
-        case (.done, .empty), (.done, .uploading), (.done, .error):
-            self.addEmptyViewAndRemoveVideoView()
-        case (.empty, .done), (.uploading, .done), (.error, .done):
-            self.addVideoViewAndRemoveEmptyView()
         case (.done, .done):
             self.setVideoURL()
+        case (.done, _):
+            self.addEmptyViewAndRemoveVideoView()
+        case (_, .done):
+            self.addVideoViewAndRemoveEmptyView()
         default:
             self.changeEmptyViewState()
         }

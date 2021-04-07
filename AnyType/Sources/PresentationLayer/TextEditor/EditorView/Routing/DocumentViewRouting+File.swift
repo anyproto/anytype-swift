@@ -6,13 +6,13 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
-import os
+import Combine
 import UIKit
 
 // MARK: FileBlocksViewsRouter
 extension DocumentViewRouting {
     class FileBlocksViewsRouter: BaseCompoundRouter {
-         
+        
         // MARK: Subclassing
         override func match(action: BlocksViews.UserAction) -> BaseRouter? {
             switch action {
@@ -21,7 +21,7 @@ extension DocumentViewRouting {
             }
         }
         override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [FileRouter()]
+            [FileRouter(fileLoader: FileLoader())]
         }
     }
 }
@@ -32,9 +32,14 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
 
 // MARK: FileBlocksViewsRouter / ImageRouter
 extension DocumentViewRouting.FileBlocksViewsRouter {
-    class FileRouter: BaseRouter {
+    final class FileRouter: BaseRouter {
         
-        private var fileLoader: FileLoader?
+        private let fileLoader: FileLoader
+        private var subscription: AnyCancellable?
+        
+        init(fileLoader: FileLoader) {
+            self.fileLoader = fileLoader
+        }
         
         private func handle(action: BlocksViews.UserAction.File.FileAction) {
             switch action {
@@ -49,13 +54,27 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
         }
         
         private func saveFile(model: BlocksViews.UserAction.File.FileAction.ShouldSaveFile) {
-            self.fileLoader = .init(remoteFileURL: model.filrURL)
-            self.fileLoader?.loadFile(completion: { url in
-                DispatchQueue.main.async {
-                    let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
-                    self.send(event: .general(.show(controller)))
-                }
-            })
+            let value = self.fileLoader.loadFile(remoteFileURL: model.fileURL)
+            let informationText = NSLocalizedString("Loading, please wait", comment: "")
+            let cancelHandler: () -> Void = { value.task.cancel() }
+            let progressValuePublisher = value.progressPublisher.map { $0.percentComplete }
+                .eraseToAnyPublisher()
+            let loadingVC = LoadingViewController(progressPublisher: progressValuePublisher,
+                                                  informationText: informationText,
+                                                  cancelHandler: cancelHandler)
+            let resultPublisher = value.progressPublisher.map { $0.fileURL }
+                .safelyUnwrapOptionals()
+                .eraseToAnyPublisher()
+            self.subscription = resultPublisher
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { _ in },
+                      receiveValue: { url in
+                        loadingVC.dismiss(animated: true) { [weak self] in
+                            let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
+                            self?.send(event: .general(.show(controller)))
+                        }
+                      })
+            self.send(event: .general(.show(loadingVC)))
         }
         
         override func receive(action: BlocksViews.UserAction) {
@@ -64,7 +83,5 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
             default: return
             }
         }
-        
-        
     }
 }
