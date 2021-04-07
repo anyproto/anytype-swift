@@ -36,7 +36,7 @@ final class EncodingTests: XCTestCase {
             URLQueryItem(name: "width", value: 11.description),
             URLQueryItem(name: "height", value: 12.description)
         ]
-        XCTAssertEqual(value, result)
+        XCTAssertEqual(Set(value), Set(result))
     }
 }
 

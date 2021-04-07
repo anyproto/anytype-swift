@@ -1,6 +1,4 @@
-# Build action. Just build an app for an provided platform.
-
-name: Build action
+name: Build and test action
 
 # Controls when the action will run. 
 on:
@@ -19,34 +17,33 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: macOS-latest
+    timeout-minutes: 30
     
     # Define a matrix of values. It produces cartesian product of values for which we would run this job.
     strategy:
       matrix:
+        project:
+          - ./Anytype.xcodeproj
         scheme:
           - AnyType
         destination: ['']
         sdk: ['iphoneos']
-    # Steps represent a sequence of tasks that will be executed as part of the job
+
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Install SSH key for access to repository.
       - name: Install SSH key for access to repository.
         uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      # Install xcpretty.
       - name: Install xcpretty
         run: gem install xcpretty
 
-      # Select Xcode
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
 
-      # Import certificate
       - name: Import certificate
         uses: Apple-Actions/import-codesign-certs@v1
         with:
@@ -66,14 +63,14 @@ jobs:
           api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           api-private-key: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
 
-      # Download Middleware
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      # Change git config to force use ssh instead of https.
       - name: Change git config to force use ssh instead of https
         run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
-      # Xcodebuild action
-      - name: Xcodebuild action
+      - name: Build
         run: xcodebuild build -project ./Anytype.xcodeproj -scheme "${{ matrix.scheme }}" -sdk "${{ matrix.sdk }}" -configuration Release -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
+
+      - name: Run tests
+        run: xcodebuild test -project "${{ matrix.project }}" -scheme "${{ matrix.scheme }}" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12,OS=14.4" | xcpretty && exit ${PIPESTATUS[0]}

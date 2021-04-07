@@ -1,15 +1,18 @@
 name: Deploy
 
 on:
-  push: # change to develop or release branch.
-    branches: ['develop']
-    # Allows you to run this workflow manually from the Actions tab
+  schedule:
+    # Triggers the workflow every day at 00:00 UTC:
+    - cron:  '0 0 * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   # Also add tests.
   archive_and_upload:
     runs-on: macOS-latest
+    timeout-minutes: 30
 
     strategy:
       matrix:
@@ -21,18 +24,17 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          ref: develop
 
-      # Install SSH key for access to repository.
       - name: Install SSH key for access to repository.
         uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      # Install xcpretty.
       - name: Install xcpretty
         run: gem install xcpretty
 
-      # Select Xcode
       - name: Select Xcode
         run: sh ./Scripts/ci_select_xcode.sh
 
@@ -71,36 +73,28 @@ jobs:
           api-key-id: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           api-private-key: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
 
-      # Download Middleware
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      # Change git config to force use ssh instead of https.
       - name: Change git config to force use ssh instead of https
         run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
-      # Update version number
       - name: Update version number
         run: /usr/libexec/PlistBuddy -c "Set :CFBundleVersion '${RUN_NUMBER}'" ./AnyType/Supporting\ Files/Info.plist
         env:
           RUN_NUMBER: ${{ github.run_number }}
 
-      # Archive
       - name: Build archive # add later bundle version
         run: xcodebuild archive -scheme "AnyType" -archivePath ".build/AnyType.xcarchive" -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
 
-      # Prepare export options
       - name: Prepare export options
         run: /usr/libexec/PlistBuddy -c "Set :teamID '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'" ./Distribution/ExportOptions.plist
 
-      # Export
       - name: Export
         run: xcodebuild -exportArchive -exportOptionsPlist "./Distribution/ExportOptions.plist" -archivePath ".build/AnyType.xcarchive" -exportPath ".build/ExportedPackage" -usePackageSupportBuiltinSCM
 
-      # Prepare app store connect keys for upload
       - name: Prepare app store connect keys for upload
         run: mkdir ~/.private_keys/ 2>/dev/null; echo "${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}" > ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
 
-      # Upload to TestFlight
       - name: Upload to TestFlight
         run: xcrun altool --upload-app -f ".build/ExportedPackage/AnyType.ipa" -t ios --apiKey "${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}" --apiIssuer "${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}"
