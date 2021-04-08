@@ -13,14 +13,14 @@ import os
 import BlocksModels
 import UniformTypeIdentifiers
 
-fileprivate typealias Namespace = BlocksViews.New.File.File
+fileprivate typealias Namespace = BlocksViews.File.File
 
 private extension Logging.Categories {
-    static let blocksViewsNewFileFile: Self = "BlocksViews.New.File.File"
+    static let blocksViewsNewFileFile: Self = "BlocksViews.File.File"
 }
 
 extension Namespace {
-    final class ViewModel: BlocksViews.New.File.Base.ViewModel {
+    final class ViewModel: BlocksViews.File.Base.ViewModel {
         
         override func makeContentConfiguration() -> UIContentConfiguration {
             var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
@@ -211,9 +211,9 @@ extension Namespace {
 private extension Namespace {
     class UIKitView: UIView {
         
-        typealias File = BlocksViews.New.File.Base.ViewModel.File
+        typealias File = BlocksViews.File.Base.ViewModel.File
         typealias State = File.State
-        typealias EmptyView = BlocksViews.New.File.Base.TopUIKitEmptyView
+        typealias EmptyView = BlocksViews.File.Base.TopUIKitEmptyView
         
         struct Layout {
             var imageContentViewDefaultHeight: CGFloat = 250

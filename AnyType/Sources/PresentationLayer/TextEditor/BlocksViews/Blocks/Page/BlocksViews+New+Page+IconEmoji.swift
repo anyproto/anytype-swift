@@ -14,7 +14,7 @@ import SwiftUI
 import BlocksModels
 
 // TODO: Rename to Icon.
-fileprivate typealias Namespace = BlocksViews.New.Page.IconEmoji
+fileprivate typealias Namespace = BlocksViews.Page.IconEmoji
 
 private extension Logging.Categories {
     static let pageBlocksViewsIconEmoji: Self = "TextEditor.BlocksViews.PageBlocksViews.IconEmoji"
@@ -23,7 +23,7 @@ private extension Logging.Categories {
 // MARK: - ViewModel
 extension Namespace {
     
-    class ViewModel: BlocksViews.New.Page.Base.ViewModel {
+    class ViewModel: BlocksViews.Page.Base.ViewModel {
         
         typealias DetailsAccessor = InformationAccessor
         private var subscriptions: Set<AnyCancellable> = []
@@ -57,7 +57,7 @@ extension Namespace {
         }
         
         // MARK: Subclassing / Events
-        override func onIncoming(event: BlocksViews.New.Page.Base.Events) {
+        override func onIncoming(event: BlocksViews.Page.Base.Events) {
             switch event {
             case .pageDetailsViewModelDidSet:
                 

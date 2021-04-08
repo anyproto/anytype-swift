@@ -15,7 +15,7 @@ import BlocksModels
 
 
 private extension Logging.Categories {
-    static let textBlocksViewsBase: Self = "BlocksViews.New.Text.Base"
+    static let textBlocksViewsBase: Self = "BlocksViews.Text.Base"
 }
 
 private final class TextViewModelHolder {
@@ -38,7 +38,7 @@ private final class TextViewModelHolder {
 
 // MARK: - Base / ViewModel
 
-final class TextBlockViewModel: BlocksViews.New.Base.ViewModel {
+final class TextBlockViewModel: BlocksViews.Base.ViewModel {
     typealias BlocksModelsUpdater = TopLevel.BlockTools.Updater
     typealias BlockModelId = BlockId
     typealias FocusPosition = TopLevel.FocusPosition
@@ -49,7 +49,7 @@ final class TextBlockViewModel: BlocksViews.New.Base.ViewModel {
         var shouldStopSetupTextViewModel: Bool = false
     }
 
-    private var serialQueue = DispatchQueue(label: "BlocksViews.New.Text.Base.SerialQueue")
+    private var serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
     private var textOptions: Options = .init()
 
     /// TODO: Begin to use publishers and values in this view.

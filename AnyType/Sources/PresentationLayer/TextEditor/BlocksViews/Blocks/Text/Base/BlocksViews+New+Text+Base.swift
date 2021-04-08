@@ -13,13 +13,13 @@ import UIKit
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.New.Text.Base
+fileprivate typealias Namespace = BlocksViews.Text.Base
 
 private extension Logging.Categories {
-    static let textBlocksViewsBase: Self = "BlocksViews.New.Text.Base"
+    static let textBlocksViewsBase: Self = "BlocksViews.Text.Base"
 }
 
-extension BlocksViews.New.Text {
+extension BlocksViews.Text {
     enum Base {}
 }
 
@@ -51,12 +51,12 @@ private extension Namespace {
 
 // MARK: - Base / ViewModel
 extension Namespace {
-    class ViewModel: BlocksViews.New.Base.ViewModel {
+    class ViewModel: BlocksViews.Base.ViewModel {
         typealias BlocksModelsUpdater = TopLevel.BlockTools.Updater
         typealias BlockModelId = BlockId
         typealias FocusPosition = TopLevel.FocusPosition
 
-        private var serialQueue = DispatchQueue(label: "BlocksViews.New.Text.Base.SerialQueue")
+        private var serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
         
         private var textOptions: Namespace.Options = .init()
         
@@ -283,7 +283,7 @@ extension Namespace.ViewModel {
 // MARK: - Actions Payload Legacy
 
 extension Namespace.ViewModel {
-    func send(textViewAction: BlocksViews.New.Text.UserInteraction) {
+    func send(textViewAction: BlocksViews.Text.UserInteraction) {
         self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: textViewAction)))
     }
 }

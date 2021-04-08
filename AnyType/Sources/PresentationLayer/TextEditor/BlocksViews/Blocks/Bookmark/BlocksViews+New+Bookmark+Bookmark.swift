@@ -13,10 +13,10 @@ import os
 import BlocksModels
 import MobileCoreServices
 
-fileprivate typealias Namespace = BlocksViews.New.Bookmark.Bookmark
+fileprivate typealias Namespace = BlocksViews.Bookmark.Bookmark
 
 private extension Logging.Categories {
-    static let blocksViewsNewBookmarkBookmark: Self = "BlocksViews.New.Bookmark.Bookmark"
+    static let blocksViewsNewBookmarkBookmark: Self = "BlocksViews.Bookmark.Bookmark"
 }
 
 // TODO: Rethink.
@@ -25,7 +25,7 @@ private extension Logging.Categories {
 
 // MARK: ViewModel
 extension Namespace {
-    class ViewModel: BlocksViews.New.Bookmark.Base.ViewModel {
+    class ViewModel: BlocksViews.Bookmark.Base.ViewModel {
         private var service: BlockActionsServiceBookmark = .init()
         
         private var subscription: AnyCancellable?
@@ -551,7 +551,7 @@ private extension Namespace.UIKitView {
 private extension Namespace {
     class UIKitView: UIView {
         
-        typealias EmptyView = BlocksViews.New.File.Base.TopUIKitEmptyView
+        typealias EmptyView = BlocksViews.File.Base.TopUIKitEmptyView
                         
         var subscription: AnyCancellable?
         

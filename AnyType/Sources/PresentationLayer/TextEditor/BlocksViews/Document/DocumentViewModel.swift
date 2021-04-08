@@ -55,7 +55,7 @@ extension BlocksViews {
         }
 
         // MARK: - ViewModels
-        typealias BlockViewModel = BlocksViews.New.Base.ViewModel
+        typealias BlockViewModel = BlocksViews.Base.ViewModel
         struct UpdateResult {
             var updates: BaseDocument.ModelsUpdates
             var models: [BlockViewModel]

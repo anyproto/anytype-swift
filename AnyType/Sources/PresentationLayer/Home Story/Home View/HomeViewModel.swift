@@ -18,7 +18,6 @@ class HomeViewModel: ObservableObject {
     private let profileViewCoordinator: ProfileViewCoordinator
     private let homeCollectionViewAssembly: HomeCollectionViewAssembly
     
-    
 
     init(
         homeCollectionViewAssembly: HomeCollectionViewAssembly,

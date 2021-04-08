@@ -18,7 +18,7 @@ private extension Logging.Categories {
 /// Each method should return not a block, but a response.
 /// Next, this response would be proceed by event handler.
 final class BlockActionService {
-    typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
     typealias Information = Block.Information.InformationModel
     typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
     typealias BlockContent = TopLevel.BlockContent

@@ -16,14 +16,14 @@ private extension Logging.Categories {
 }
 
 // MARK: Options
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     /// Actually, `feature flags`.
     struct Options {
         var shouldAddContextualMenu: Bool = true
     }
 }
 
-extension BlocksViews.New.Base {
+extension BlocksViews.Base {
     class ViewModel: ObservableObject {
         
         private enum Constants {
@@ -270,8 +270,8 @@ extension BlocksViews.New.Base {
     }
 }
 
-extension BlocksViews.New.Base.ViewModel: Hashable {
-    static func == (lhs: BlocksViews.New.Base.ViewModel, rhs: BlocksViews.New.Base.ViewModel) -> Bool {
+extension BlocksViews.Base.ViewModel: Hashable {
+    static func == (lhs: BlocksViews.Base.ViewModel, rhs: BlocksViews.Base.ViewModel) -> Bool {
         lhs.blockId == rhs.blockId
     }
     
@@ -281,7 +281,7 @@ extension BlocksViews.New.Base.ViewModel: Hashable {
 }
 
 // MARK: Configurations
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     /// TODO: Remove later. Maybe we don't need this publisher.
     func configured(sizeDidChangeSubject: PassthroughSubject<CGSize, Never>) -> Self {
         self.sizeDidChangeSubject = sizeDidChangeSubject
@@ -329,7 +329,7 @@ extension BlocksViews.New.Base.ViewModel {
 }
 
 // MARK: OuterWorld Publishers and Subjects
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     /// This AactionsPayload describes all actions that user can do with BlocksViewsModels.
     /// For example, user can press long-tap and active toolbar.
     /// Or user could interact with text view.
@@ -400,7 +400,7 @@ extension BlocksViews.New.Base.ViewModel {
 }
 
 // MARK: Options
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     func configured(_ options: Options) -> Self {
         self.options = options
         return self
@@ -408,7 +408,7 @@ extension BlocksViews.New.Base.ViewModel {
 }
 
 // MARK: Contextual Menu
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     func buildContextualMenu() -> BlocksViews.ContextualMenu {
         self.makeContextualMenu()
     }
@@ -416,7 +416,7 @@ extension BlocksViews.New.Base.ViewModel {
 
 // MARK: - UIContextMenuInteractionDelegate
 
-private extension BlocksViews.New.Base.ViewModel {
+private extension BlocksViews.Base.ViewModel {
     class ContextualMenuInteractor: NSObject, UIContextMenuInteractionDelegate {
         // MARK: Conversion BlocksViews.ContextualMenu.MenuAction <-> UIAction.Identifier
         enum IdentifierConverter {
@@ -430,7 +430,7 @@ private extension BlocksViews.New.Base.ViewModel {
         
         // MARK: Provider
         /// Actually, Self
-        typealias Provider = BlocksViews.New.Base.ViewModel
+        typealias Provider = BlocksViews.Base.ViewModel
         weak var provider: Provider?
         
         // MARK: Subject ( Subsribe on it ).
@@ -463,7 +463,7 @@ private extension BlocksViews.New.Base.ViewModel {
 }
 
 // MARK: UIKit / Context menu embedding
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     class OurContextMenuInteraction: UIContextMenuInteraction {
         /// Uncomment later if needed.
         /// Also, you should update delegate by `update(delegate:)` when view apply(configuration:) method has been called.
@@ -522,7 +522,7 @@ extension BlocksViews.New.Base.ViewModel {
 }
 
 // MARK: UIKit / ContentConfiguration
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     func buildContentConfiguration() -> UIContentConfiguration { self.makeContentConfiguration() }
     
     private struct ContentConfiguration: UIContentConfiguration {
@@ -546,7 +546,7 @@ extension BlocksViews.New.Base.ViewModel {
 }
 
 // MARK: Updates ( could be proposed in further releases ).
-extension BlocksViews.New.Base.ViewModel {
+extension BlocksViews.Base.ViewModel {
     /// Update structure in natural `.with` way.
     /// - Parameters:
     ///   - value: a struct that you want to update
@@ -561,11 +561,11 @@ extension BlocksViews.New.Base.ViewModel {
 
 /// Requirement: `Identifiable` is necessary for view model.
 /// We use these models in plain way in `SwiftUI`.
-extension BlocksViews.New.Base.ViewModel: Identifiable {}
+extension BlocksViews.Base.ViewModel: Identifiable {}
 
 /// Requirement: `BlockViewBuilderProtocol` is necessary for view model.
 /// We use these models in wrapped (Row contains viewModel) way in `UIKit`.
-extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
+extension BlocksViews.Base.ViewModel: BlockViewBuilderProtocol {
     var blockId: BlockID { self.getBlock().blockModel.information.id }
     
 //    var id: IndexID { .init() } // Unused, actually, so, conform as you want.
@@ -582,7 +582,7 @@ extension BlocksViews.New.Base.ViewModel: BlockViewBuilderProtocol {
 /// Requirement: `Block sViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.
 /// We could send events to `userActionPublisher`.
 ///
-extension BlocksViews.New.Base.ViewModel: BlocksViewsUserActionsEmittingProtocol {
+extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsEmittingProtocol {
     func send(userAction: BlocksViews.UserAction) {
         self.userActionSubject.send(userAction)
     }
@@ -591,12 +591,12 @@ extension BlocksViews.New.Base.ViewModel: BlocksViewsUserActionsEmittingProtocol
 /// Requirement: `BlocksViewsUserActionsSubscribingProtocol` is necessary for routing and outer world.
 /// We could subscribe on `userActionPublisher` and react on changes.
 ///
-extension BlocksViews.New.Base.ViewModel: BlocksViewsUserActionsSubscribingProtocol {}
+extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsSubscribingProtocol {}
 
 /// Requirement: `BlocksViewsUserActionsReceivingProtocol` is necessary for communication from outer space.
 /// We could send events to blocks views to perform actions and get reactions.
 ///
-extension BlocksViews.New.Base.ViewModel: BlocksViewsUserActionsReceivingProtocol {
+extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsReceivingProtocol {
     func receive(event: BlocksViews.UserEvent) {
         self.handle(event: event)
     }

@@ -10,13 +10,13 @@ import Foundation
 
 fileprivate typealias Namespace = BlocksViews.Supplement.ViewModelsConvertions
 fileprivate typealias FileNamespace = BlocksViews.Supplement.ViewModelsConvertions.BaseConverter
-fileprivate typealias ViewModels = BlocksViews.New
+fileprivate typealias ViewModels = BlocksViews
 
 extension Namespace {
     class BaseConverter {
         fileprivate let document: BaseDocument
-        func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BlocksViews.New.Base.ViewModel] { [] }
-        func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? { nil }
+        func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BlocksViews.Base.ViewModel] { [] }
+        func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.Base.ViewModel? { nil }
         
         init(_ document: BaseDocument) {
             self.document = document
@@ -27,10 +27,10 @@ extension Namespace {
 extension Namespace {
     /// TODO: Split later into
     class CompoundConverter: BaseConverter {
-        override func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BlocksViews.New.Base.ViewModel] {
+        override func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BlocksViews.Base.ViewModel] {
             blocks.compactMap(self.convert)
         }
-        override func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? {
+        override func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.Base.ViewModel? {
             switch block.blockModel.information.content {
             case .smartblock, .layout: return nil
             case .text:

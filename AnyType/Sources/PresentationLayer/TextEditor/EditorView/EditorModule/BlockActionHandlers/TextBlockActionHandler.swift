@@ -15,7 +15,7 @@ private extension Logging.Categories {
 }
 
 final class TextBlockActionHandler {
-    typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
     typealias DetailsInspector = TopLevel.BlockUtilities.DetailsInspector
 
     private var subscriptions: Set<AnyCancellable> = []

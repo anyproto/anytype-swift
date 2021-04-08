@@ -16,14 +16,14 @@ import SwiftUI
 /// When you are ready or about to start, please, add new `enum` entry as `enum NewTool` into list.
 /// Implement it.
 ///
-extension BlocksViews.New.Tools {
+extension BlocksViews.Tools {
     enum PageLink {} // -> New Page. Holding link.
     enum Base {} // Base ViewModel
 }
 
-extension BlocksViews.New.Tools.Base {
+extension BlocksViews.Tools.Base {
     /// Base View Model that all ToolsBlocksViews.BlockViewModel will inherit from.
     /// Add common behavior to this class.
     ///
-    class ViewModel: BlocksViews.New.Base.ViewModel { }
+    class ViewModel: BlocksViews.Base.ViewModel { }
 }

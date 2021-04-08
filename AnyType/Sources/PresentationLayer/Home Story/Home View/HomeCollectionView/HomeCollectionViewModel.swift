@@ -82,7 +82,7 @@ private extension HomeCollectionViewModel {
     // TODO: Add caching?
     private func update(builders: [BlockViewBuilderProtocol]) {
         /// We should add caching, otherwise, we will miss updates from long-playing views as file uploading or downloading views.
-        let newBuilders = builders.compactMap({$0 as? BlocksViews.New.Tools.PageLink.ViewModel})
+        let newBuilders = builders.compactMap({$0 as? BlocksViews.Tools.PageLink.ViewModel})
         self.createViewModels(from: newBuilders)
     }
 }
@@ -118,7 +118,7 @@ private extension HomeCollectionViewModel {
 // MARK: - Private
 extension HomeCollectionViewModel {
         
-    private func createViewModels(from pages: [BlocksViews.New.Tools.PageLink.ViewModel]) {
+    private func createViewModels(from pages: [BlocksViews.Tools.PageLink.ViewModel]) {
         self.testSubscriptions = []
         let links = pages.compactMap({ value -> HomeCollectionViewDocumentCellModel? in
             let model: HomeCollectionViewDocumentCellModel

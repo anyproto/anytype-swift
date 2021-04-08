@@ -1,38 +1,9 @@
-//
-//  HomeCollectionViewCell.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 11.09.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import UIKit
 import Combine
 import SwiftUI
 
-enum HomeStoriesModule {}
 
-fileprivate typealias Namespace = HomeStoriesModule
-
-extension HomeCollectionViewDocumentCellModel {
-    struct DashboardPage: Hashable {
-        var id: String
-        var targetBlockId: String
-        static var empty: Self = .init(id: "", targetBlockId: "")
-    }
-}
-
-extension HomeCollectionViewDocumentCellModel: Hashable {
-    static func == (lhs: HomeCollectionViewDocumentCellModel, rhs: HomeCollectionViewDocumentCellModel) -> Bool {
-        lhs.page.id == rhs.page.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.page.id)
-    }
-}
-
-class HomeCollectionViewDocumentCellModel {
+class HomeCollectionViewDocumentCellModel: Hashable {
     internal init(page: DashboardPage, title: String, image: URL?, emoji: String?, subscriptions: Set<AnyCancellable> = []) {
         self.page = page
         self.title = title
@@ -87,6 +58,15 @@ class HomeCollectionViewDocumentCellModel {
             .safelyUnwrapOptionals()
             .flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher})
             .eraseToAnyPublisher()
+    }
+    
+    // MARK: - Hashable
+    static func == (lhs: HomeCollectionViewDocumentCellModel, rhs: HomeCollectionViewDocumentCellModel) -> Bool {
+        lhs.page.id == rhs.page.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.page.id)
     }
 }
 
@@ -188,7 +168,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     private var style: Style = .presentation
     private var contextualMenuHandler: ContextualMenuHandler = .init()
     
-    private var storedPage: HomeCollectionViewDocumentCellModel.DashboardPage = .empty
+    private var storedPage: DashboardPage = .empty
     
     var titleSubscription: AnyCancellable?
     var emojiSubscription: AnyCancellable?

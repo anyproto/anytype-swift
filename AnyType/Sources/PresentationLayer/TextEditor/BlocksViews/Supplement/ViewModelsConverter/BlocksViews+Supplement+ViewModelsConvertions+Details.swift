@@ -11,7 +11,7 @@ import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.Supplement.ViewModelsConvertions
 fileprivate typealias FileNamespace = BlocksViews.Supplement.ViewModelsConvertions.Details
-fileprivate typealias ViewModels = BlocksViews.New
+fileprivate typealias ViewModels = BlocksViews
 
 extension Namespace {
     enum Details {}
@@ -20,7 +20,7 @@ extension Namespace {
 extension FileNamespace {
     class BaseConverter {
         fileprivate let document: BaseDocument
-        func convert(_ model: BaseDocument.ActiveModel, kind: BaseDocument.DetailsContentKind) -> BlocksViews.New.Page.Base.ViewModel? {
+        func convert(_ model: BaseDocument.ActiveModel, kind: BaseDocument.DetailsContentKind) -> BlocksViews.Page.Base.ViewModel? {
             switch kind {
             case .title: return ViewModels.Page.Title.ViewModel.init(model)
             case .iconEmoji: return ViewModels.Page.IconEmoji.ViewModel.init(model)

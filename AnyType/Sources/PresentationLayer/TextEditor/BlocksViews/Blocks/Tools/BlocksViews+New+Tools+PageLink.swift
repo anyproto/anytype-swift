@@ -12,10 +12,10 @@ import Combine
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.New.Tools.PageLink
+fileprivate typealias Namespace = BlocksViews.Tools.PageLink
 
 private extension Logging.Categories {
-    static let blocksViewsNewToolsPageLink: Self = "BlocksViews.New.Tools.PageLink"
+    static let blocksViewsNewToolsPageLink: Self = "BlocksViews.Tools.PageLink"
 }
 
 // MARK: - ViewModel
@@ -23,7 +23,7 @@ extension Namespace {
     /// ViewModel for type `.link()` with style `.page`
     /// Should we move it to PageBlocksViews? (?)
     ///
-    class ViewModel: BlocksViews.New.Tools.Base.ViewModel {
+    class ViewModel: BlocksViews.Tools.Base.ViewModel {
         typealias PageDetailsViewModel = DetailsActiveModel
         // Maybe we need also input and output subscribers.
         // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
@@ -161,7 +161,7 @@ extension Namespace.State {
     enum Converter {
         typealias T = TopLevel
         typealias Model = DetailsInformationModelProtocol
-        typealias OurModel = BlocksViews.New.Tools.PageLink.State
+        typealias OurModel = BlocksViews.Tools.PageLink.State
         static func asOurModel(_ pageDetails: Model) -> OurModel {
             let archived = false
             var hasContent = false

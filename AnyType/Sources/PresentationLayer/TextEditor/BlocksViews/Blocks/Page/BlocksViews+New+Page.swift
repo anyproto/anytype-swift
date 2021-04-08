@@ -15,20 +15,20 @@ import SwiftUI
 /// When you are ready or about to start, please, add new `enum` entry as `enum NewPageEntry` into list.
 /// Implement it.
 ///
-extension BlocksViews.New.Page {
+extension BlocksViews.Page {
     enum Title {}
     enum IconEmoji {}
 }
 
-extension BlocksViews.New.Page {
+extension BlocksViews.Page {
     enum Base {} // Base ViewModel
 }
 
-extension BlocksViews.New.Page.Base {
+extension BlocksViews.Page.Base {
     /// Base View Model that all ToolsBlocksViews.BlockViewModel will inherit from.
     /// Add common behavior to this class.
     ///
-    class ViewModel: BlocksViews.New.Base.ViewModel {
+    class ViewModel: BlocksViews.Base.ViewModel {
         /// This DetailsViewModel could be extracted somewhere.
         /// Somewhere near EventHandler.
         typealias PageDetailsViewModel = DetailsActiveModel
@@ -39,13 +39,13 @@ extension BlocksViews.New.Page.Base {
     }
 }
 
-extension BlocksViews.New.Page.Base {
+extension BlocksViews.Page.Base {
     enum Events {
         case pageDetailsViewModelDidSet
     }
 }
 
-extension BlocksViews.New.Page.Base.ViewModel {
+extension BlocksViews.Page.Base.ViewModel {
     func configured(pageDetailsViewModel: PageDetailsViewModel?) -> Self {
         self.pageDetailsViewModel = pageDetailsViewModel
         self.onIncoming(event: .pageDetailsViewModelDidSet)

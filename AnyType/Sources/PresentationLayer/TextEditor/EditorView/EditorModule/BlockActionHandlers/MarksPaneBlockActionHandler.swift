@@ -16,7 +16,7 @@ private extension Logging.Categories {
 }
 
 final class MarksPaneBlockActionHandler {
-    typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
     typealias ActionsPayloadMarksPane = ActionsPayload.MarksPaneHolder.Action
     typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
     

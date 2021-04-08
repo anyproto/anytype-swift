@@ -23,7 +23,7 @@ protocol DocumentViewInteraction: AnyObject {
 }
 
 final class BlockActionsHandlersFacade {
-    typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
     // TODO: remove when possible
     typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 
@@ -93,7 +93,7 @@ final class BlockActionsHandlersFacade {
         }
     }
 
-    /// Attaches subscriber to base blocks views (BlocksViews.New.Base) publisher
+    /// Attaches subscriber to base blocks views (BlocksViews.Base) publisher
     /// - Parameter publisher: Publisher that send action from block view to this handler
     /// - Returns: self
     func configured(_ publisher: AnyPublisher<ActionsPayload, Never>) -> Self {

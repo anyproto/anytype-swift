@@ -12,15 +12,15 @@ import Combine
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.New.File.Image
+fileprivate typealias Namespace = BlocksViews.File.Image
 
 private extension Logging.Categories {
-    static let fileBlocksViewsImage: Self = "BlocksViews.New.File.Image"
+    static let fileBlocksViewsImage: Self = "BlocksViews.File.Image"
 }
 
 // MARK: ViewModel
 extension Namespace {
-    final class ViewModel: BlocksViews.New.File.Base.ViewModel {
+    final class ViewModel: BlocksViews.File.Base.ViewModel {
         
         override func makeContentConfiguration() -> UIContentConfiguration {
             var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
@@ -40,9 +40,9 @@ extension Namespace {
 private extension Namespace {
     class UIKitView: UIView {
         
-        typealias File = BlocksViews.New.File.Image.ViewModel.File
+        typealias File = BlocksViews.File.Image.ViewModel.File
         typealias State = File.State
-        typealias EmptyView = BlocksViews.New.File.Base.TopUIKitEmptyView
+        typealias EmptyView = BlocksViews.File.Base.TopUIKitEmptyView
         
         struct Layout {
             var imageContentViewDefaultHeight: CGFloat = 250

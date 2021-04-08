@@ -17,10 +17,10 @@ private extension Logging.Categories {
 }
 
 // MARK: - ViewModel
-extension BlocksViews.New.Page.Title {
+extension BlocksViews.Page.Title {
     /// ViewModel for type `.link()` with style `.page`
     ///
-    class ViewModel: BlocksViews.New.Page.Base.ViewModel {
+    class ViewModel: BlocksViews.Page.Base.ViewModel {
         // Maybe we need also input and output subscribers.
         // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
         // We can't edit name of the block.
@@ -104,7 +104,7 @@ extension BlocksViews.New.Page.Title {
         }
         
         // MARK: Subclassing / Events
-        override func onIncoming(event: BlocksViews.New.Page.Base.Events) {
+        override func onIncoming(event: BlocksViews.Page.Base.Events) {
             switch event {
             case .pageDetailsViewModelDidSet:
                 /// Here we must subscribe on values from this model and filter values.
@@ -136,7 +136,7 @@ extension BlocksViews.New.Page.Title {
 }
 
 // MARK: - TextViewEvents
-extension BlocksViews.New.Page.Title.ViewModel: TextViewUserInteractionProtocol {
+extension BlocksViews.Page.Title.ViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: TextView.UserAction) {
         switch action {
 //        case let .addBlockAction(value):
@@ -159,7 +159,7 @@ private extension Logging.Categories {
 }
 
 // MARK: - State
-extension BlocksViews.New.Page.Title {
+extension BlocksViews.Page.Title {
     /// Struct State that will take care of all flags and data.
     /// It is equal semantically to `Payload` that will delivered from outworld ( view model ).
     /// It contains necessary information for view as emoji, title, archived, etc.
@@ -181,7 +181,7 @@ extension BlocksViews.New.Page.Title {
     }
 }
 
-extension BlocksViews.New.Page.Title.State {
+extension BlocksViews.Page.Title.State {
     /// Visual style of left view ( image or label with emoji ).
     enum Style {
         typealias Emoji = String
@@ -199,7 +199,7 @@ extension BlocksViews.New.Page.Title.State {
 }
 
 // MARK: - UIView
-private extension BlocksViews.New.Page.Title {
+private extension BlocksViews.Page.Title {
     class UIKitView: UIView {
         // MARK: Views
         // |    topView    | : | leftView | textView |

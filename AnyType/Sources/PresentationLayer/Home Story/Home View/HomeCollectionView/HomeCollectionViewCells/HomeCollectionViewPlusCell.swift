@@ -1,11 +1,3 @@
-//
-//  HomeCollectionViewPlusCell.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 11.09.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import UIKit
 
 class HomeCollectionViewPlusCell: UICollectionViewCell {
@@ -22,9 +14,6 @@ class HomeCollectionViewPlusCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension HomeCollectionViewPlusCell {
     
     private func configure() {
         backgroundColor = .clear

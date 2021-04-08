@@ -9,7 +9,7 @@
 import BlocksModels
 
 final class UserActionHandler {
-    typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
     typealias ActionsPayloadUserAction = ActionsPayload.UserActionHolder.Action
 
     private let service: BlockActionService

@@ -11,7 +11,7 @@ import SwiftUI
 import Combine
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.New.File
+fileprivate typealias Namespace = BlocksViews.File
 
 extension Namespace {
     enum File {} // -> File.ContentType.file

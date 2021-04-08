@@ -1,26 +1,16 @@
-//
-//  BlocksViews+New+Unknown+Label.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 05.11.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = BlocksViews.New.Unknown.Label
-
 private extension Logging.Categories {
-    static let blocksViewsNewUnknownLabel: Self = "BlocksViews.New.Unknown.Label"
+    static let blocksViewsNewUnknownLabel: Self = "BlocksViews.Unknown.Label"
 }
 
 // MARK: ViewModel
-extension Namespace {
-    class ViewModel: BlocksViews.New.Unknown.Base.ViewModel {
+extension BlocksViews.Unknown.Label {
+    class ViewModel: BlocksViews.Unknown.Base.ViewModel {
         override func makeContentConfiguration() -> UIContentConfiguration {
             var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
             configuration.contextMenuHolder = self
@@ -30,7 +20,7 @@ extension Namespace {
 }
 
 // MARK: - State Converter
-extension Namespace.ViewModel {
+extension BlocksViews.Unknown.Label.ViewModel {
     enum ResourceConverter {
         typealias Model = Block.Information.InformationModel
         typealias OurModel = Resource
@@ -46,7 +36,7 @@ extension Namespace.ViewModel {
 }
 
 // MARK: - Resource
-extension Namespace.ViewModel {
+extension BlocksViews.Unknown.Label.ViewModel {
     struct Resource: CustomStringConvertible {
         var description: String {
             "\(self.blockType) -> \(self.blockName)"
@@ -62,7 +52,7 @@ extension Namespace.ViewModel {
 // So, we only care about ContentConfiguration :D
 
 // MARK: ContentConfiguration
-extension Namespace.ViewModel {
+extension BlocksViews.Unknown.Label.ViewModel {
     
     /// As soon as we have builder in this type ( makeContentView )
     /// We could map all states ( for example, image has several states ) to several different ContentViews.
@@ -76,7 +66,7 @@ extension Namespace.ViewModel {
         }
         
         var information: Block.Information.InformationModel
-        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
+        fileprivate weak var contextMenuHolder: BlocksViews.Unknown.Label.ViewModel?
         
         init(_ information: Information) {
             /// We could store somewhere which type we could treat as `Unknown`...
@@ -112,7 +102,7 @@ extension Namespace.ViewModel {
 }
 
 // MARK: - ContentView
-private extension Namespace.ViewModel {
+private extension BlocksViews.Unknown.Label.ViewModel {
     class ContentView: UIView & UIContentView {
         
         struct Layout {
@@ -176,22 +166,22 @@ private extension Namespace.ViewModel {
         }
         
         /// Apply To View
-        private func applyToTopView(_ value: Namespace.ViewModel.Resource?) {
+        private func applyToTopView(_ value: BlocksViews.Unknown.Label.ViewModel.Resource?) {
             self.topView.text = value?.description
         }
         
         /// Handle
-        private func handle(_ value: Namespace.ViewModel.Resource?) {
+        private func handle(_ value: BlocksViews.Unknown.Label.ViewModel.Resource?) {
             self.applyToTopView(value)
         }
         
-        private func handle(_ value: Namespace.ViewModel.ResourceConverter.Model) {
+        private func handle(_ value: BlocksViews.Unknown.Label.ViewModel.ResourceConverter.Model) {
             /// Do something
             /// We should reload data if text are not equal
             ///
             ///
             // configure resource and subscribe on it.
-            let model = Namespace.ViewModel.ResourceConverter.asOurModel(value)
+            let model = BlocksViews.Unknown.Label.ViewModel.ResourceConverter.asOurModel(value)
             self.handle(model)
         }
         

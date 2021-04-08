@@ -13,15 +13,15 @@ import os
 import BlocksModels
 import MobileCoreServices
 
-fileprivate typealias Namespace = BlocksViews.New.Other.Divider
+fileprivate typealias Namespace = BlocksViews.Other.Divider
 
 private extension Logging.Categories {
-    static let blocksViewsNewOtherDivider: Self = "BlocksViews.New.Other.Divider"
+    static let blocksViewsNewOtherDivider: Self = "BlocksViews.Other.Divider"
 }
 
 // MARK: ViewModel
 extension Namespace {
-    class ViewModel: BlocksViews.New.Other.Base.ViewModel {
+    class ViewModel: BlocksViews.Other.Base.ViewModel {
                 
         private var subscription: AnyCancellable?
         @Published private var statePublished: UIKitView.State?

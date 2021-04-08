@@ -16,14 +16,14 @@ import SwiftUI
 /// When you are ready or about to start, please, add new `enum` entry as `enum NewEntry` into list.
 /// Don't forget to implement it.
 ///
-extension BlocksViews.New.Bookmark {
+extension BlocksViews.Bookmark {
     enum Bookmark {} // -> Bookmark. Has Styles.
     enum Base {} // Base ViewModel
 }
 
-extension BlocksViews.New.Bookmark.Base {
+extension BlocksViews.Bookmark.Base {
     /// Base View Model that all ToolsBlocksViews.BlockViewModel will inherit from.
     /// Add common behavior to this class.
     ///
-    class ViewModel: BlocksViews.New.Base.ViewModel {}
+    class ViewModel: BlocksViews.Base.ViewModel {}
 }

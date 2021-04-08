@@ -10,10 +10,10 @@ import Combine
 import BlocksModels
 import UIKit
 
-fileprivate typealias Namespace = BlocksViews.New.File.Base
+fileprivate typealias Namespace = BlocksViews.File.Base
 
 extension Namespace {
-    class ViewModel: BlocksViews.New.Base.ViewModel {
+    class ViewModel: BlocksViews.Base.ViewModel {
         typealias File = TopLevel.BlockContent.File
         typealias State = File.State
         
@@ -21,7 +21,7 @@ extension Namespace {
         
         private var fileContentPublisher: AnyPublisher<File, Never> = .empty()
         
-        @Published private(set) var fileResource: BlocksViews.New.File.File.UIKitViewWithFile.Resource?
+        @Published private(set) var fileResource: BlocksViews.File.File.UIKitViewWithFile.Resource?
         private var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }
         
@@ -124,9 +124,9 @@ extension Namespace {
                 self?.state = value.state
                 
                 let metadata = value.metadata
-                self?.fileResource = .init(size: BlocksViews.New.File.File.SizeConverter.convert(size: Int(metadata.size)),
+                self?.fileResource = .init(size: BlocksViews.File.File.SizeConverter.convert(size: Int(metadata.size)),
                                            name: metadata.name,
-                                           mime: BlocksViews.New.File.File.MimeConverter.convert(mime: metadata.mime))
+                                           mime: BlocksViews.File.File.MimeConverter.convert(mime: metadata.mime))
             })
         }
         

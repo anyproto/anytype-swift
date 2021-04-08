@@ -57,7 +57,7 @@ extension Namespace {
         typealias RootModel = TopLevelContainerModelProtocol
         typealias InformationModel = Block.Information.InformationModel
         typealias BlocksUserAction = BlocksViews.UserAction
-        typealias BlocksViewsNamespace = BlocksViews.New
+        typealias BlocksViewsNamespace = BlocksViews
 
         /// View Input
         weak var viewInput: EditorModuleDocumentViewInput?
@@ -117,7 +117,7 @@ extension Namespace {
         }
         
         /// Builders to build block views
-        @Published private(set) var builders: [BlocksViews.New.Base.ViewModel] = [] {
+        @Published private(set) var builders: [BlocksViews.Base.ViewModel] = [] {
             didSet {
                 if self.builders.isEmpty {
                     self.set(selectionEnabled: false)
@@ -194,7 +194,7 @@ extension Namespace {
         }
         
         // TODO: Add caching?
-        private func update(builders: [BlocksViews.New.Base.ViewModel]) {
+        private func update(builders: [BlocksViews.Base.ViewModel]) {
             let difference = builders.difference(from: self.builders) {$0.diffable == $1.diffable}
             if !difference.isEmpty, let result = self.builders.applying(difference) {
                 self.builders = result
@@ -223,7 +223,7 @@ extension Namespace {
         private func remove(buildersWith ids: [BlockId]) {
             let targetIds: Set<BlockId> = .init(ids)
             var indexSet: IndexSet = .init()
-            var itemsToDelete: [BlocksViews.New.Base.ViewModel] = []
+            var itemsToDelete: [BlocksViews.Base.ViewModel] = []
             
             let startIndex = self.builders.startIndex
             let endIndex = self.builders.endIndex
@@ -242,7 +242,7 @@ extension Namespace {
             self.viewInput?.delete(rows: itemsToDelete)
         }
         
-        private func insert(builders: [BlocksViews.New.Base.ViewModel], after blockId: BlockId) {
+        private func insert(builders: [BlocksViews.Base.ViewModel], after blockId: BlockId) {
             guard let index = self.builders.firstIndex(where: { $0.blockId == blockId }) else { return }
             let builder = self.builders[index]
             self.builders.insert(contentsOf: builders, at: index + 1)
@@ -366,7 +366,7 @@ extension FileNamespace {
         self.element(at: index)?.receive(event: .didSelectRowInTableView)
     }
 
-    private func element(at: IndexPath) -> BlocksViews.New.Base.ViewModel? {
+    private func element(at: IndexPath) -> BlocksViews.Base.ViewModel? {
         guard self.builders.indices.contains(at.row) else {
             assertionFailure("Row doesn't exist")
             return nil

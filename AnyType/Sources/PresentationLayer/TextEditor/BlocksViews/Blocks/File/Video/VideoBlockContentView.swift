@@ -24,8 +24,8 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     private var currentConfiguration: VideoBlockContentViewConfiguration
     private lazy var videoVC: AVPlayerViewController = .init()
-    private lazy var emptyView: BlocksViews.New.File.Base.TopUIKitEmptyView = {
-        let view: BlocksViews.New.File.Base.TopUIKitEmptyView = .init()
+    private lazy var emptyView: BlocksViews.File.Base.TopUIKitEmptyView = {
+        let view: BlocksViews.File.Base.TopUIKitEmptyView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.resource = .init(placeholderText: NSLocalizedString("Enter video URL", comment: ""),
                               imagePath: Constants.emptyImagePath)
