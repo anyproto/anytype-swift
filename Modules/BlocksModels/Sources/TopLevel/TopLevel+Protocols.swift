@@ -21,7 +21,7 @@ public protocol TopLevelBuilder {
     static var blockBuilder: BlockBuilderProtocol {get}
     static var detailsBuilder: DetailsBuilderProtocol {get}
     static func emptyContainer() -> TopLevelContainerModelProtocol
-    static func build(rootId: String?, blockContainer: BlockContainerModelProtocol, detailsContainer: DetailsContainerModelProtocol) -> TopLevelContainerModelProtocol
+    static func createRootContainer(rootId: String?, blockContainer: BlockContainerModelProtocol, detailsContainer: DetailsContainerModelProtocol) -> TopLevelContainerModelProtocol
 }
 
 public protocol TopLevelAliasesMapProtocol {

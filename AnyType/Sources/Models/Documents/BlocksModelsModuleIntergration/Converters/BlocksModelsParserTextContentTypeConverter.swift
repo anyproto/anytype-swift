@@ -16,7 +16,7 @@ final class BlocksModelsParserTextContentTypeConverter {
         case .header3: return .header3
         case .header4: return .header4
         case .quote: return .quote
-        case .code: return nil
+        case .code: return .code
         case .checkbox: return .checkbox
         case .marked: return .bulleted
         case .numbered: return .numbered
@@ -38,7 +38,7 @@ final class BlocksModelsParserTextContentTypeConverter {
         case .bulleted: return .marked
         case .numbered: return .numbered
         case .toggle: return .toggle
-        default: return nil
+        case .code: return .code
         }
     }
 }

@@ -119,6 +119,7 @@ public extension FileNamespace {
     enum ContentTypeIdentifier {
         public typealias Content = TopLevel.BlockContent
         public typealias Identifier = String
+
         private static func subIdentifier(_ content: Content.Text) -> Identifier {
             switch content.contentType {
             case .title: return ".title"
@@ -132,9 +133,10 @@ public extension FileNamespace {
             case .bulleted: return ".bulleted"
             case .numbered: return ".numbered"
             case .toggle: return ".toggle"
-            case .callout: return ".callout"
+            case .code: return ".code"
             }
         }
+
         public static func identifier(_ content: Content) -> Identifier {
             switch content {
             case .smartblock(_): return ".smartblock"

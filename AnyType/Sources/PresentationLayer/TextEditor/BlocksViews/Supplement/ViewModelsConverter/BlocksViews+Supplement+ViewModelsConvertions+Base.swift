@@ -33,12 +33,8 @@ extension Namespace {
         override func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.New.Base.ViewModel? {
             switch block.blockModel.information.content {
             case .smartblock, .layout: return nil
-            case let .text(value):
-                switch value.contentType {
-                case .title, .text, .quote, .checkbox, .bulleted, .numbered, .toggle, .header, .header2, .header3, .header4:
-                    return ViewModels.Text.Base.ViewModel(block)
-                case .callout: return ViewModels.Unknown.Label.ViewModel.init(block)
-                }
+            case .text:
+                return TextBlockViewModel(block)
             case let .file(value):
                 switch value.contentType {
                 case .file: return ViewModels.File.File.ViewModel.init(block)

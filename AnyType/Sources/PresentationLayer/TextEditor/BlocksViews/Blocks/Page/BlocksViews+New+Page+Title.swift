@@ -201,14 +201,12 @@ extension BlocksViews.New.Page.Title.State {
 // MARK: - UIView
 private extension BlocksViews.New.Page.Title {
     class UIKitView: UIView {
-        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
-
         // MARK: Views
         // |    topView    | : | leftView | textView |
         // |   leftView    | : |  button  |
 
         var contentView: UIView!
-        var topView: TopView!
+        var topView: TopWithChildUIKitView!
 
         // MARK: Initialization
         override init(frame: CGRect) {
@@ -238,7 +236,7 @@ private extension BlocksViews.New.Page.Title {
             }()
 
             self.topView = {
-                let view = TopView()
+                let view = TopWithChildUIKitView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()

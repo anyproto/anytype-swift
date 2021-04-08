@@ -218,8 +218,6 @@ extension Namespace.State {
 // MARK: - UIView
 private extension Namespace {
     class UIKitView: UIView {
-        typealias TopView = BlocksViews.New.Text.Base.TopWithChildUIKitView
-        
         // MARK: Publishers
         private var subscriptions: Set<AnyCancellable> = []
         private var stateStream: AnyPublisher<State, Never> = .empty() {
@@ -239,7 +237,7 @@ private extension Namespace {
         // |   leftView    | : |  button  |
         
         var contentView: UIView!
-        var topView: TopView!
+        var topView: TopWithChildUIKitView!
                 
         // MARK: Initialization
         override init(frame: CGRect) {
@@ -270,7 +268,7 @@ private extension Namespace {
             }()
             
             self.topView = {
-                let view = TopView()
+                let view = TopWithChildUIKitView()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()

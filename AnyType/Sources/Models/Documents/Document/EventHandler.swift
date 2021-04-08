@@ -5,8 +5,6 @@ import BlocksModels
 import ProtobufMessages
 
 class EventHandler: NewEventHandler {
-    typealias EventsContainer = EventListening.PackOfEvents
-            
     private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
     var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()
     
@@ -43,7 +41,7 @@ class EventHandler: NewEventHandler {
         self.didProcessEventsSubject.send(update)
     }
     
-    func handle(events: EventsContainer) {
+    func handle(events: EventListening.PackOfEvents) {
         let innerUpdates = events.events.compactMap(\.value).compactMap(self.handleInnerEvent(_:))
         let ourUpdates = events.ourEvents.compactMap(self.handleOurEvent(_:))
         self.finalize(innerUpdates + ourUpdates)
@@ -123,7 +121,7 @@ private extension EventHandler {
             value.blocks
                 .compactMap(self.parser.convert(block:))
                 .map(Builder.blockBuilder.informationBuilder.build(information:))
-                .map(Builder.blockBuilder.build(information:))
+                .map(Builder.blockBuilder.createBlockModel)
                 .forEach { (value) in
                     self.updater?.insert(block: value)
                 }
@@ -381,7 +379,7 @@ private extension EventHandler {
 
 // MARK: Events Handling / OurEvent
 private extension EventHandler {
-    func handleOurEvent(_ event: EventListening.PackOfEvents.OurEvent) -> Update? {
+    func handleOurEvent(_ event: EventListening.OurEvent) -> Update? {
         switch event {
         case let .setFocus(value):
             let blockId = value.payload.blockId
@@ -480,7 +478,7 @@ private extension EventHandler {
 private extension EventHandler.Focus {
     enum Converter {
         typealias Model = TopLevel.FocusPosition
-        typealias EventModel = EventListening.PackOfEvents.OurEvent.Focus.Payload.Position
+        typealias EventModel = EventListening.OurEvent.Focus.Payload.Position
         static func asModel(_ value: EventModel) -> Model? {
             switch value {
             case .unknown: return .unknown

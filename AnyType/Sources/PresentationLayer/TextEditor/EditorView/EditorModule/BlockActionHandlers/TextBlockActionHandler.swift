@@ -16,7 +16,6 @@ private extension Logging.Categories {
 
 final class TextBlockActionHandler {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
-    typealias ActionsPayloadTextViewTextView = ActionsPayload.TextBlocksViewsUserInteraction.Action.TextViewUserAction
     typealias DetailsInspector = TopLevel.BlockUtilities.DetailsInspector
 
     private var subscriptions: Set<AnyCancellable> = []
@@ -31,7 +30,7 @@ final class TextBlockActionHandler {
         self.indexWalker = indexWalker
     }
 
-    func handlingTextViewAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadTextViewTextView) {
+    func handlingTextViewAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction) {
         switch action {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
         case let .inputAction(value): self.handlingInputAction(block, value)
@@ -199,7 +198,7 @@ final class TextBlockActionHandler {
                 }
 
                 let previousBlockId = previousModel.blockModel.information.id
-                let position: EventListening.PackOfEvents.OurEvent.Focus.Payload.Position
+                let position: EventListening.OurEvent.Focus.Payload.Position
 
                 switch previousModel.blockModel.information.content {
                 case let .text(value):

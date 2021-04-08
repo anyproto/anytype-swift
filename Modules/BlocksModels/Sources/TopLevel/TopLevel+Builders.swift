@@ -10,21 +10,21 @@ import Foundation
 
 public extension TopLevel {
     enum Builder: TopLevelBuilder {
-        typealias Model = Container
         public static var blockBuilder: BlockBuilderProtocol = Block.Builder.init()
         public static var detailsBuilder: DetailsBuilderProtocol = Details.Builder.init()
         
         public static func emptyContainer() -> TopLevelContainerModelProtocol {
-            Model.init()
+            RootBlocksContainer()
         }
         
-        public static func build(rootId: BlockId?, blockContainer: BlockContainerModelProtocol, detailsContainer: DetailsContainerModelProtocol) -> TopLevelContainerModelProtocol {
-            let model = Model.init()
-            model.rootId = rootId
-            model.blocksContainer = blockContainer
-            model.detailsContainer = detailsContainer
-            return model
+        public static func createRootContainer(rootId: BlockId?,
+                                 blockContainer: BlockContainerModelProtocol,
+                                 detailsContainer: DetailsContainerModelProtocol) -> TopLevelContainerModelProtocol {
+            let container = RootBlocksContainer()
+            container.rootId = rootId
+            container.blocksContainer = blockContainer
+            container.detailsContainer = detailsContainer
+            return container
         }
-
     }
 }

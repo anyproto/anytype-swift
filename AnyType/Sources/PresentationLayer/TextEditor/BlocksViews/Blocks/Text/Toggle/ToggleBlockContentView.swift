@@ -24,7 +24,7 @@ final class ToggleBlockContentView: UIView & UIContentView {
     }
 
     private var currentConfiguration: ToggleBlockContentConfiguration
-    private let topView: BlocksViews.New.Text.Base.TopWithChildUIKitView = .init()
+    private let topView: TopWithChildUIKitView = .init()
     private let textView: TextView.UIKitTextView = .init()
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in

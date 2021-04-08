@@ -15,19 +15,14 @@ struct TextBlockContentConfiguration {
     let checkedAction: (Bool) -> Void
     
     /// Entity for context menu
-    weak var contextMenuHolder: BlocksViews.New.Text.Base.ViewModel?
+    weak var contextMenuHolder: TextBlockViewModel?
     
     /// Block information
     var information: Block.Information.InformationModel
     
-    init?(_ block: BlockActiveRecordModelProtocol,
-          checkedAction: @escaping(Bool) -> Void) {
-        if case .text = block.blockModel.information.content {
-            self.information = .init(information: block.blockModel.information)
-            self.checkedAction = checkedAction
-        } else {
-            return nil
-        }
+    init(_ block: BlockActiveRecordModelProtocol, checkedAction: @escaping(Bool) -> Void) {
+        self.information = .init(information: block.blockModel.information)
+        self.checkedAction = checkedAction
     }
 }
 

@@ -11,8 +11,6 @@ import ProtobufMessages
 import Combine
 import os
 
-fileprivate typealias Namespace = EventListening
-
 private extension Logging.Categories {
     static let eventListening: Self = "EventListening"
 }
@@ -21,7 +19,7 @@ enum EventListening {
     typealias ContextId = String
 }
 
-extension Namespace {
+extension EventListening {
     /// Recive events from middleware and broadcast throught notification center
     class RawListener: NSObject {
         private var wrapper: ProtobufMessages.ServiceMessageHandlerAdapter = .init()
@@ -32,11 +30,8 @@ extension Namespace {
     }
 }
 
-extension Namespace.RawListener: ProtobufMessages.ServiceEventsHandlerProtocol {
-    
-    /// TODO:
-    /// Don't forget to remove it. We only add this method to hide logs from thread status.
-    ///
+extension EventListening.RawListener: ProtobufMessages.ServiceEventsHandlerProtocol {
+    // TODO: Don't forget to remove it. We only add this method to hide logs from thread status.
     private func filterNecessary(_ event: Anytype_Event.Message) -> Bool {
         guard let value = event.value else { return false }
         switch value {
@@ -56,14 +51,12 @@ extension Namespace.RawListener: ProtobufMessages.ServiceEventsHandlerProtocol {
         // TODO: Add filter by messages here???
         NotificationCenter.default.post(name: .middlewareEvent, object: event)
     }
-    
 }
 
-extension Namespace {
+extension EventListening {
     /// Default model of events.
     /// Use it when you would like to handle events.
     /// Plain `Anytype_Event*` events are deprecated.
-    ///
     struct PackOfEvents {
         var contextId: String
         var events: [Anytype_Event.Message] = []
@@ -79,7 +72,7 @@ extension Namespace {
     }
 }
 
-extension Namespace.PackOfEvents.OurEvent {
+extension EventListening.OurEvent {
     // TODO: remove all payload as it unnecessary struct
     struct Focus {
         struct Payload {
@@ -117,7 +110,7 @@ extension Namespace.PackOfEvents.OurEvent {
     }
 }
 
-extension Namespace.PackOfEvents {
+extension EventListening {
     enum OurEvent {
         case setFocus(Focus)
         case setText(Text)
@@ -138,4 +131,3 @@ protocol NewEventListener {
     var handler: Self.Handler? { get }
     func receive(contextId: ContextID)
 }
-

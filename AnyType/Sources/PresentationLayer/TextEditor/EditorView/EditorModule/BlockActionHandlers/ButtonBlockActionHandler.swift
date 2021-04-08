@@ -10,15 +10,13 @@ import BlocksModels
 
 
 final class ButtonBlockActionHandler {
-    typealias ActionsPayloadTextViewButtonView = BlocksViews.New.Base.ViewModel.ActionsPayload.TextBlocksViewsUserInteraction.Action.ButtonViewUserAction
-
     private let service: BlockActionService
 
     init(service: BlockActionService) {
         self.service = service
     }
 
-    func handlingButtonViewAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadTextViewButtonView) {
+    func handlingButtonViewAction(_ block: BlockActiveRecordModelProtocol, _ action: TextBlockUserInteraction.ButtonView.UserAction) {
         switch action {
         case .toggle(.toggled):
             self.service.receiveOurEvents([.setToggled(.init(payload: .init(blockId: block.blockModel.information.id)))])

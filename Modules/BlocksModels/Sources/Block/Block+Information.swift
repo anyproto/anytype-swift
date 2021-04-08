@@ -133,7 +133,7 @@ public extension Namespace {
         var blockId: BlockId
 
         private func detailsAsBlock(_ details: Details) -> BlockModel {
-            TopLevel.Builder.blockBuilder.build(information: DetailsAsInformationConverter(blockId: self.blockId)(details))
+            TopLevel.Builder.blockBuilder.createBlockModel(with: DetailsAsInformationConverter(blockId: self.blockId)(details))
         }
 
         public func callAsFunction(_ details: Details) -> BlockModelProtocol {

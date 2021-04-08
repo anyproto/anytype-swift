@@ -24,18 +24,13 @@ struct ToggleBlockContentConfiguration {
     let isToggled: Bool
     
     /// Block view model value
-    let blockViewModel: BlocksViews.New.Text.Base.ViewModel
+    let blockViewModel: TextBlockViewModel
     
-    init?(_ blockViewModel: BlocksViews.New.Text.Base.ViewModel) {
-        if case let .text(text) = blockViewModel.getBlock().blockModel.information.content,
-           text.contentType == .toggle {
-            self.blockViewModel = blockViewModel
-            self.information = blockViewModel.getBlock().blockModel.information
-            self.hasChildren = !blockViewModel.getBlock().childrenIds().isEmpty
-            self.isToggled = blockViewModel.getBlock().isToggled
-        } else {
-            return nil
-        }
+    init(_ blockViewModel: TextBlockViewModel) {
+        self.blockViewModel = blockViewModel
+        self.information = blockViewModel.getBlock().blockModel.information
+        self.hasChildren = !blockViewModel.getBlock().childrenIds().isEmpty
+        self.isToggled = blockViewModel.getBlock().isToggled
     }
 }
 

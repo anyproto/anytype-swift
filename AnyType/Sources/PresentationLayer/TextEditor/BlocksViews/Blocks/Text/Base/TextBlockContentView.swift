@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Combine
+
 
 final class TextBlockContentView: UIView & UIContentView {
-
     struct Layout {
         let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: 1, right: 20)
     }
@@ -49,7 +50,7 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     private let layout: Layout = .init()
     /// Views
-    private let topView: BlocksViews.New.Text.Base.TopWithChildUIKitView = .init()
+    private let topView: TopWithChildUIKitView = .init()
     private let textView: TextView.UIKitTextView = .init()
     
     private var currentConfiguration: TextBlockContentConfiguration
@@ -136,7 +137,7 @@ final class TextBlockContentView: UIView & UIContentView {
                 self.setupForHeader2()
             case .header3:
                 self.setupForHeader3()
-            case .header4, .callout, .toggle:
+            case .header4, .code, .toggle:
                 break
             }
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
@@ -281,5 +282,296 @@ final class TextBlockContentView: UIView & UIContentView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: Constants.Quote.viewWidth).isActive = true
         _ = self.topView.configured(leftChild: view, setConstraints: true)
+    }
+}
+
+// MARK: - UIKitView / TopView
+class TopUIKitView: UIView {
+    // TODO: Refactor
+    // OR
+    // We could do it on toggle level or on block parsing level?
+    struct Layout {
+        var containedViewInset = 8
+        var indentationWidth = 8
+        var boundaryWidth = 2
+    }
+
+    var layout: Layout = .init()
+
+    // MARK: Views
+    // |    contentView    | : | leftView | textView |
+
+    var contentView: UIView!
+    var leftView: UIView!
+    var textView: UIView!
+
+    // MARK: Initialization
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setup()
+    }
+
+    // MARK: Setup
+    func setup() {
+        self.setupUIElements()
+        self.addLayout()
+    }
+
+    // MARK: UI Elements
+    func setupUIElements() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+
+        self.leftView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        self.textView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        self.contentView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        self.contentView.addSubview(leftView)
+        self.contentView.addSubview(textView)
+
+        self.addSubview(contentView)
+    }
+
+    // MARK: Layout
+    func addLayout() {
+        if let view = self.leftView, let superview = view.superview {
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+        if let view = self.textView, let superview = view.superview, let leftView = self.leftView {
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+        if let view = self.contentView, let superview = view.superview {
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+    }
+
+    // MARK: Update / (Could be placed in `layoutSubviews()`)
+    func updateView() {
+        // toggle animation also
+    }
+
+    func updateIfNeeded(leftViewSubview: UIView?, _ setConstraints: Bool = true) {
+        guard let leftViewSubview = leftViewSubview else { return }
+        for view in self.leftView.subviews {
+            view.removeFromSuperview()
+        }
+        self.leftView.addSubview(leftViewSubview)
+        let view = leftViewSubview
+        if setConstraints, let superview = view.superview {
+            view.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+    }
+
+    func updateIfNeeded(rightView: UIView?) {
+        guard let textView = rightView else { return }
+        for view in self.textView.subviews {
+            view.removeFromSuperview()
+        }
+        self.textView.addSubview(textView)
+        let view = textView
+        if let superview = view.superview {
+            view.translatesAutoresizingMaskIntoConstraints = false
+
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+    }
+
+    // MARK: Configured
+    func configured(textView: TextView.UIKitTextView?) -> Self {
+        self.updateIfNeeded(rightView: textView)
+        return self
+    }
+
+    func configured(rightView: UIView?) -> Self {
+        self.updateIfNeeded(rightView: rightView)
+        return self
+    }
+}
+
+// MARK: - UIKitView / TopWithChild
+class TopWithChildUIKitView: UIView {
+    struct Resource {
+        var textColor: UIColor?
+        var backgroundColor: UIColor?
+    }
+
+    private var resourceSubscription: AnyCancellable?
+
+    // TODO: Refactor
+    // OR
+    // We could do it on toggle level or on block parsing level?
+    struct Layout {
+        var containedViewInset = 8
+        var indentationWidth = 8
+        var boundaryWidth = 2
+    }
+
+    // MARK: Views
+    // |    topView    | : | leftView | textView |
+    // |   leftView    | : |  button  |
+
+    var contentView: UIView!
+    var topView: TopUIKitView!
+    var leftView: UIView!
+    var onLeftChildWillLayout: (UIView?) -> () = { view in
+        if let view = view, let superview = view.superview {
+            var constraints = [
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor),
+            ]
+            if view.intrinsicContentSize.width != UIView.noIntrinsicMetric {
+                constraints.append(view.widthAnchor.constraint(equalToConstant: view.intrinsicContentSize.width))
+            }
+            if view.intrinsicContentSize.height != UIView.noIntrinsicMetric {
+                constraints.append(view.heightAnchor.constraint(equalToConstant: view.intrinsicContentSize.height))
+            }
+            NSLayoutConstraint.activate(constraints)
+        }
+    }
+
+    // MARK: Initialization
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setup()
+    }
+
+    // MARK: Setup
+    func setup() {
+        self.setupUIElements()
+        self.addLayout()
+    }
+
+    // MARK: UI Elements
+    func setupUIElements() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+
+        self.contentView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        self.topView = {
+            let view = TopUIKitView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        self.leftView = {
+            let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        self.contentView.addSubview(topView)
+
+        self.addSubview(contentView)
+    }
+
+    // MARK: Layout
+    func addLayout() {
+        if let view = self.topView, let superview = view.superview {
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+        if let view = self.contentView, let superview = view.superview {
+            NSLayoutConstraint.activate([
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                view.topAnchor.constraint(equalTo: superview.topAnchor),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+            ])
+        }
+    }
+
+    // MARK: Update / (Could be placed in `layoutSubviews()`)
+    func updateView() {
+        // toggle animation also
+    }
+
+    func updateIfNeeded(leftChild: UIView?, setConstraints: Bool = false) {
+        guard let leftChild = leftChild else { return }
+        self.topView.updateIfNeeded(leftViewSubview: leftChild, setConstraints)
+        leftChild.translatesAutoresizingMaskIntoConstraints = false
+        self.leftView = leftChild
+        self.onLeftChildWillLayout(leftChild)
+    }
+
+    // MARK: Configured
+    func configured(leftChild: UIView?, setConstraints: Bool = false) -> Self {
+        self.updateIfNeeded(leftChild: leftChild, setConstraints: setConstraints)
+        return self
+    }
+
+    func configured(textView: TextView.UIKitTextView?) -> Self {
+        _ = self.topView.configured(textView: textView)
+        return self
+    }
+
+    func configured(rightView: UIView?) -> Self {
+        _ = self.topView.configured(rightView: rightView)
+        return self
+    }
+
+    func configured(_ resourceStream: AnyPublisher<Resource, Never>) -> Self {
+        self.resourceSubscription = resourceStream.receive(on: DispatchQueue.main).sink { [weak self] (value) in
+            self?.backgroundColor = value.backgroundColor
+        }
+        return self
     }
 }

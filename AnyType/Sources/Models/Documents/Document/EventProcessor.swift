@@ -30,22 +30,24 @@ import ProtobufMessages
 class EventProcessor {
     private var eventHandler: EventHandler
     private var eventPublisher: EventListening.NotificationEventListener<EventHandler>?
+    
+    // MARK: EventHandler interface
+    var didProcessEventsPublisher: AnyPublisher<EventHandler.Update, Never> { self.eventHandler.didProcessEventsPublisher }
+
     init() {
         self.eventHandler = .init()
         self.eventPublisher = .init(handler: self.eventHandler)
     }
-    
+
     private func startListening(contextId: String) {
         self.eventPublisher?.receive(contextId: contextId)
     }
-    
+
     func configured(contextId: BlockId) -> Self {
         self.startListening(contextId: contextId)
         return self
     }
-    
-    // MARK: EventHandler interface
-    var didProcessEventsPublisher: AnyPublisher<EventHandler.Update, Never> { self.eventHandler.didProcessEventsPublisher }
+
     func configured(_ container: TopLevelContainerModelProtocol) -> Self {
         _ = self.eventHandler.configured(container)
         if let rootId = container.rootId {
@@ -57,6 +59,7 @@ class EventProcessor {
         }
         return self
     }
+
     func handle(events: EventHandler.EventsContainer) {
         self.eventHandler.handle(events: events)
     }
@@ -76,6 +79,7 @@ extension EventHandler {
         default: return .empty()
         }
     }
+
     func handleBlockShow(events: EventsContainer) -> [BlocksModelsParser.PageEvent] {
         events.events.compactMap(\.value).compactMap(self.handleBlockShow(event:))
     }

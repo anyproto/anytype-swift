@@ -139,7 +139,7 @@ public extension Namespace.ContentType.Text {
         case bulleted
         case numbered
         case toggle
-        case callout
+        case code
         
         /// Returns true in case of content type is list, otherwise returns false
         public var isList: Bool {

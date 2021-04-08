@@ -25,7 +25,6 @@ protocol DocumentViewInteraction: AnyObject {
 final class BlockActionsHandlersFacade {
     typealias ActionsPayload = BlocksViews.New.Base.ViewModel.ActionsPayload
     // TODO: remove when possible
-    typealias ActionsPayloadTextViewTextView = ActionsPayload.TextBlocksViewsUserInteraction.Action.TextViewUserAction
     typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 
     /// Action type that happens with block.
@@ -262,7 +261,7 @@ struct BlockBuilder {
 
     typealias Builder = TopLevel.Builder
 
-    typealias KeyboardAction = BlockActionsHandlersFacade.ActionsPayloadTextViewTextView.KeyboardAction
+    typealias KeyboardAction = TextView.UserAction.KeyboardAction
     typealias ToolbarAction = BlockActionsHandlersFacade.ActionsPayloadToolbar
 
     static func newBlockId() -> BlockId { "" }

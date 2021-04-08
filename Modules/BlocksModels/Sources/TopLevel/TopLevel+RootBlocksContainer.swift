@@ -1,5 +1,5 @@
 //
-//  TopLevel+Container.swift
+//  TopLevel+RootBlocksContainer.swift
 //  BlocksModels
 //
 //  Created by Dmitry Lobanov on 10.07.2020.
@@ -12,15 +12,14 @@ import Foundation
 extension TopLevel {
     /// The main intention of this class is to store rootId and store all containers together.
     /// As soon as we don't use rootId in `Block.Container`, it is safe to transfer it here.
-    ///
-    final class Container {
+    final class RootBlocksContainer {
         private var _rootId: BlockId?
         private var _blocksContainer: BlockContainerModelProtocol = Builder.blockBuilder.emptyContainer()
         private var _detailsContainer: DetailsContainerModelProtocol = Builder.detailsBuilder.emptyContainer()
     }
 }
 
-extension TopLevel.Container: TopLevelContainerModelProtocol {
+extension TopLevel.RootBlocksContainer: TopLevelContainerModelProtocol {
     var rootId: BlockId? {
         get {
             self._rootId

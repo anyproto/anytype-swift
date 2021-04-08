@@ -198,7 +198,7 @@ extension Namespace.ViewController {
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
                 value.blockId == id
             }) {
-                (itemIdentifiers[index] as? BlocksViews.New.Text.Base.ViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
+                (itemIdentifiers[index] as? TextBlockViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
                 userSession?.unsetFocusAt()
                 userSession?.unsetFirstResponder()
             }
@@ -263,7 +263,7 @@ extension Namespace.ViewController: EditorModuleDocumentViewInput {
         guard !self.viewModel.selectionEnabled() else { return }
         guard let snapshot = self.dataSource?.snapshot() else { return }
         let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
-        if let textItem = itemIdentifiers[index] as? ViewModel.BlocksViewsNamespace.Text.Base.ViewModel {
+        if let textItem = itemIdentifiers[index] as? TextBlockViewModel {
             let userSession = self.viewModel.documentViewModel.getUserSession()
             textItem.set(focus: .init(position: userSession?.focusAt() ?? .end, completion: {_ in }))
         }

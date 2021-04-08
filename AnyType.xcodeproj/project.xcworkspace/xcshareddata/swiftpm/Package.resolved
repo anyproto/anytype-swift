@@ -47,6 +47,15 @@
         }
       },
       {
+        "package": "Highlightr",
+        "repositoryURL": "git@github.com:anytypeio/Highlightr.git",
+        "state": {
+          "branch": "master",
+          "revision": "bb1e5f354c287478c3c59b1599b8852e564fedd7",
+          "version": null
+        }
+      },
+      {
         "package": "leveldb",
         "repositoryURL": "https://github.com/firebase/leveldb.git",
         "state": {

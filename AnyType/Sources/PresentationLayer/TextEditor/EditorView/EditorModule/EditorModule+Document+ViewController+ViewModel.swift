@@ -56,7 +56,6 @@ extension Namespace {
         // MARK: Aliases
         typealias RootModel = TopLevelContainerModelProtocol
         typealias InformationModel = Block.Information.InformationModel
-        typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
         typealias BlocksUserAction = BlocksViews.UserAction
         typealias BlocksViewsNamespace = BlocksViews.New
 

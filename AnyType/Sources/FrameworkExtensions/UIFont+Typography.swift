@@ -16,6 +16,10 @@ extension UIFont {
         static let graphikLCGSemibold = "GraphikLCG-Semibold"
     }
 
+    private enum IBMPlexMono {
+        static let regular = "IBMPlexMono-Regular"
+    }
+
     private enum Inter {
         static let family = "Inter"
         static let regularFace = "Regular"
@@ -48,6 +52,10 @@ extension UIFont {
         let fontDescription = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.regularFace])
         return UIFont(descriptor: fontDescription, size: 15.0)
     }
+
+    static var codeFont: UIFont {
+        UIFont(name: IBMPlexMono.regular, size: 15) ?? .preferredFont(forTextStyle: .body)
+    }
     
     /// Get font for for text block type
     ///
@@ -65,7 +73,7 @@ extension UIFont {
             return .header1Font
         case .quote:
             return .highlightFont
-        case .text, .checkbox, .bulleted, .numbered, .toggle, .callout, .header4:
+        case .text, .checkbox, .bulleted, .numbered, .toggle, .code, .header4:
             return .bodyFont
         }
     }

@@ -17,10 +17,7 @@ class HomeCollectionViewModel: ObservableObject {
     
     /// Typealiases
     typealias RootModel = TopLevelContainerModelProtocol
-    typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
-    
     typealias DetailsAccessor = InformationAccessor
-    
     typealias CellUserAction = HomeCollectionViewDocumentCellModel.UserActionPayload
     
     /// Variables

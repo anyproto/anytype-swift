@@ -17,10 +17,7 @@ private extension Logging.Categories {
 ///
 class BaseDocument {
     typealias RootModel = TopLevelContainerModelProtocol
-    typealias Transformer = TopLevel.BlockTools.Transformer.FinalTransformer
-
     typealias DetailsContentKind = DetailsContent.Kind
-    
     typealias UserSession = BlockUserSessionModelProtocol
     
     /// RootId
@@ -44,7 +41,7 @@ class BaseDocument {
     private let eventProcessor: EventProcessor = .init()
     
     /// Data transformer
-    private let transformer: Transformer = .defaultValue
+    private let transformer: TreeBlockBuilder = .defaultValue
     
     /// Details Active Models
     /// But we have a lot of them, so, we should keep a list of them.
@@ -73,36 +70,33 @@ class BaseDocument {
     init() {}
     
     deinit {
-        /// TODO:
-        /// Add closing document without thread.
-        /// By enhancing code generation.
-        ///
+        // TODO:
+        // Add closing document without thread.
+        // By enhancing code generation.
         if let rootId = self.rootId {
             _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
         }
     }
 
     // MARK: - Handle Open
+
     private func handleOpen(_ value: ServiceSuccess) {
         let blocks = self.eventProcessor.handleBlockShow(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
         guard let event = blocks.first else { return }
         
-        /// Now transform and create new container.
-        ///
-        /// And then, sync builders...
-        
+        // Build blocks tree and create new container
+        // And then, sync builders
         let rootId = value.contextID
         
-        let blocksContainer = self.transformer.transform(event.blocks, rootId: rootId)
+        let blocksContainer = self.transformer.buildBlocksTree(from: event.blocks, with: rootId)
         let parsedDetails = event.details.map(TopLevel.Builder.detailsBuilder.build(information:))
         let detailsContainer = TopLevel.Builder.detailsBuilder.build(list: parsedDetails)
         
-        /// Add details models to process.
-        self.rootModel = TopLevel.Builder.build(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
+        // Add details models to process.
+        self.rootModel = TopLevel.Builder.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
     }
     
     func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {
-        /// What to do on open?
         self.smartblockService.open(contextID: blockId, blockID: blockId).map { [weak self] (value) in
             self?.handleOpen(value)
         }.eraseToAnyPublisher()
@@ -111,17 +105,17 @@ class BaseDocument {
     func open(_ value: ServiceSuccess) {
         self.handleOpen(value)
         
-        /// Why?
-        /// Event processor must receive event to send updates to subscribers.
-        /// Events are `blockShow`, actually.
-        ///
-        self.eventProcessor.handle(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
+        // Event processor must receive event to send updates to subscribers.
+        // Events are `blockShow`, actually.
+        self.eventProcessor.handle(events: EventListening.PackOfEvents(contextId: value.contextID,
+                                                                       events: value.messages,
+                                                                       ourEvents: []))
     }
 
     // MARK: - Configure Details
-    /// Configure a subscription on events stream from details.
-    /// We need it for set details success result to process it in our event processor.
-    ///
+
+    // Configure a subscription on events stream from details.
+    // We need it for set details success result to process it in our event processor.
     private func listenDefaultDetails() {
         self.detailsEventSubjectSubscription = self.detailsEventSubject.sink(receiveValue: { [weak self] (value) in
             self?.handle(events: value)

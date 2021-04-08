@@ -353,7 +353,7 @@ extension BlocksViews.New.Base.ViewModel {
         /// For backward compatibility.
         struct TextBlocksViewsUserInteraction {
             typealias Model = BlockModel
-            typealias Action = BlocksViews.New.Text.UserInteraction
+            typealias Action = TextBlockUserInteraction
             var model: Model
             var action: Action
         }

@@ -159,7 +159,7 @@ final class BlockActionService {
     ///
     /// - Parameters:
     ///   - events: Event to handle
-    func receiveOurEvents(_ events: [EventListening.PackOfEvents.OurEvent]) {
+    func receiveOurEvents(_ events: [EventListening.OurEvent]) {
         self.didReceiveEvent(nil, .init(contextId: documentId, events: [], ourEvents: events))
     }
 
