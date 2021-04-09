@@ -179,8 +179,8 @@ extension Namespace {
             /// We don't care about text anymore. We use debounce technique to sync document.
             /// For that, we need only access to parts of textView.
             /// For example, we could do it by getters (?)
-            let logger = Logging.createLogger(category: .todo(.improve("Performance issues")))
-            os_log(.debug, log: logger, "We intentionally disable publisher. We could live without this publisher and only debounce our work.")
+            
+            //"We intentionally disable publisher. We could live without this publisher and only debounce our work
 //            self.textStorageEventsPublisher = .empty()
             self.contextualMenuPublisher = self.contextualMenuSubject.eraseToAnyPublisher()
             

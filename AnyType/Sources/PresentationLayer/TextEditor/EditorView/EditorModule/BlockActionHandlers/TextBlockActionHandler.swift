@@ -151,8 +151,7 @@ final class TextBlockActionHandler {
                         /// TODO:
                         /// Uncomment when you are ready.
                         //                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
-                        let logger = Logging.createLogger(category: .todo(.remove("Remove after refactoring of set focus.")))
-                        os_log(.debug, log: logger, "We should not use self.service.split here. Instead, we should self.service.add block. It is possible to swap them only after set focus total cleanup. Redo it.")
+                        // "We should not use self.service.split here. Instead, we should self.service.add block. It is possible to swap them only after set focus total cleanup. Redo it."
 
                         switch block.blockModel.information.content {
                         case let .text(payload):

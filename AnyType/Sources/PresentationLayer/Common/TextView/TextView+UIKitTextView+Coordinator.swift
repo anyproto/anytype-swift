@@ -91,8 +91,7 @@ extension Namespace {
         override init() {
             super.init()
             if self.options.shouldStopSetupSubscribers {
-                let logger = Logging.createLogger(category: .todo(.refactor(String(reflecting: Self.self))))
-                os_log(.debug, log: logger, "Initialization process has been cut down. You have to call 'self.setup' method.")
+                assertionFailure("Initialization process has been cut down. You have to call 'self.setup' method.")
                 return;
             }
         }
@@ -212,8 +211,7 @@ private extension FileNamespace {
     func configureKeyboardNotificationsListening() {
         /// TODO: Refactor
         /// Shit. You can't `observe` `Published` value. It will be observed on the same thread. Instead, you have to `receive(on:)` it on main/background thread.
-        let logger = Logging.createLogger(category: .todo(.refactor(String(reflecting: Self.self))))
-        os_log(.debug, log: logger, "Keyboard observing is incorrect. You have to either change it by modifier .receive(on:) or you have to cache it in more 'mutable' way.")
+        // "Keyboard observing is incorrect. You have to either change it by modifier .receive(on:) or you have to cache it in more 'mutable' way.")
         self.keyboardObserverHandler = KeyboardObserver.default.$keyboardInformation.map(\.keyboardRect).filter({
             [weak self] value in
             value != .zero && self?.defaultKeyboardRect == .zero
@@ -599,8 +597,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
                 ///
                 /// TODO: Uncomment when you set split to type `.bottom`, not `.top`.
                 /// textView.text = ""
-                let logger = Logging.createLogger(category: .todo(.refactor("Uncomment when needed. Read above.")))
-                os_log(.debug, log: logger, "We only should remove text if our split operation will insert blocks at bottom, not a top. At top it works without resetting text.")
+                // "We only should remove text if our split operation will insert blocks at bottom, not a top. At top it works without resetting text."
                 return false
             case let (source, at) where source?.count == at.location + at.length:
                 return false
@@ -623,8 +620,8 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         /// TODO: Refactor it later.
         self.textSize = textView.intrinsicContentSize
-        let logger = Logging.createLogger(category: .todo(.refactor("TextView.Coordinator")))
-        os_log(.debug, log: logger, "We should enable our coordinator later, because for now it corrupts typing. So. Disable it.")
+        
+        // TODO: "We should enable our coordinator later, because for now it corrupts typing. So. Disable it."
         if textView.inputAccessoryView == nil {
             textView.inputAccessoryView = self.actionsToolbarAccessoryView
             textView.reloadInputViews()

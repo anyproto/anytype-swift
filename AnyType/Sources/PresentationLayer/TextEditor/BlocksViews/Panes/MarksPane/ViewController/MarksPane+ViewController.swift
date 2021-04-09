@@ -56,8 +56,7 @@ extension MarksPane.ViewController {
         // TODO: Remove it later and put somewhere else?
         // Bad style, but ok for now.
         if let payload = chosenData.payload {
-            let logger = Logging.createLogger(category: .todo(.refactor("Refactor later")))
-            os_log(.debug, log: logger, "We should not inject title via Apple bad design of view controllers. Don't use navigation item.")
+            assertionFailure("We should not inject title via Apple bad design of view controllers. Don't use navigation item.")
             self.navigationItem.title = payload.title
         }
     }

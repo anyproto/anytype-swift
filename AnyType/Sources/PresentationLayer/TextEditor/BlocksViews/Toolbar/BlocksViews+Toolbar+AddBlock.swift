@@ -134,8 +134,7 @@ extension BlocksViews.Toolbar.AddBlock {
                 }
             }.onAppear {
                 /// Thanks! https://stackoverflow.com/a/58474518
-                let logger = Logging.createLogger(category: .todo(.workaround(.os14, "Fix it.")))
-                os_log(.debug, log: logger, "We should remove all appearances to global UIKit classes.")
+                // TODO: We should remove all appearances to global UIKit classes
                 UITableView.appearance().tableFooterView = .init()
                 UITableViewHeaderFooterView.appearance().tintColor = .clear
             }

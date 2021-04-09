@@ -80,9 +80,8 @@ final class TextBlockViewModel: BlocksViews.Base.ViewModel {
     override init(_ block: BlockModel) {
         super.init(block)
         if self.textOptions.shouldStopSetupTextViewModel {
-            let logger = Logging.createLogger(category: .todo(.refactor(String(reflecting: Self.self))))
-            os_log(.debug, log: logger, "Initialization process has been cut down. You have to call 'self.setup' method.")
-            return;
+            assertionFailure("Initialization process has been cut down. You have to call 'self.setup' method.")
+            return
         }
         self.setup()
     }

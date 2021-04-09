@@ -71,8 +71,7 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
                     ///
                     /// [a, b, c].map(\.publisher) + [d, a, b, c].map(\.publisher)
                     ///
-                    let logger = Logging.createLogger(category: .todo(.refactor("Technical Debt, actually")))
-                    os_log(.debug, log: logger, "Surely, It should be fixed in another way, but, it is ok for now.")
+                    assertionFailure("Surely, It should be fixed in another way, but, it is ok for now.")
                     return
                 }
                 

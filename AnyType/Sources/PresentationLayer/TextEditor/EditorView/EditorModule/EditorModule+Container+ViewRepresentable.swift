@@ -54,9 +54,8 @@ extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
         // well, we should calculate diffs.
         // But not now.
         // later.
-
-        let logger = Logging.createLogger(category: .todo(.improve("Discuss what we should do")))
-        os_log(.debug, log: logger, "Do we need to reload table view data here?")
+        
+        // Do we need to reload table view data here?
         //        DispatchQueue.main.async {
         //            uiViewController.tableView?.tableView.reloadData()
         //        }

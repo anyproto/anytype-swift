@@ -15,16 +15,9 @@ import OSLog
 //    static let customCategory: Self = "yourDesiredValue"
 //}
 
-/// TODO: Move to separate project.
 enum Logging {
-    private enum Subsystems {
-        static let iOSApp = "org.anytype.anytype"
-    }
-    private static let subsystem = Subsystems.iOSApp
+    private static let subsystem = Bundle.main.bundleIdentifier ?? "AnyTypeLogger"
     
-    // NOTE: `OSLog.init(subsystem:category:)` is thread-safe AND cheap.
-    // It will `findOrCreate` new logger, cause every logger is signleton.
-    // For further information look at os_log documentation.
     static func createLogger(category: Categories) -> OSLog {
         self.createLogger(category: category.category)
     }
@@ -50,32 +43,6 @@ extension Logging {
         init(stringLiteral value: String) {
             self = .init(category: value)
         }
-    }
-}
-
-extension Logging.Categories {
-    enum TODO {
-        enum OS: String {
-            case os14
-        }
-        case `default`(String)
-        case remove(String)
-        case improve(String)
-        case refactor(String)
-        case workaround(OS, String)
-        var category: String {
-            switch self {
-            case let .default(value): return "TODO: \(value)"
-            case let .remove(value): return "TODO: Remove \(value)"
-            case let .improve(value): return "TODO: Improve \(value)"
-            case let .refactor(value): return "TODO: Refactor \(value)"
-            case let .workaround(os, value): return "TODO: Workaround for OS below \(os). Read it. \(value)"
-            }
-        }
-    }
-    
-    static func todo(_ todo: TODO) -> Self {
-        .init(category: todo.category)
     }
 }
 

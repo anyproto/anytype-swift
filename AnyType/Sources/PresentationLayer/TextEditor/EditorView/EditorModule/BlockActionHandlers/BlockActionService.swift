@@ -293,8 +293,7 @@ private extension BlockActionService {
 
 
     func _split(block: Information, oldText: String, _ completion: @escaping Conversion) {
-        let improve = Logging.createLogger(category: .todo(.improve("Markup")))
-        os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
+        // TODO: You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`
 
         // We are using old text as a cursor position.
         let blockId = block.id
@@ -328,8 +327,7 @@ private extension BlockActionService {
                           oldText: String,
                           newBlockContentType: BlockContentTypeText,
                           _ completion: @escaping Conversion) {
-        let improve = Logging.createLogger(category: .todo(.improve("Markup")))
-        os_log(.debug, log: improve, "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
+        // TODO: "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
 
         let blockId = block.id
         // We are using old text as a cursor position.

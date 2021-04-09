@@ -72,5 +72,8 @@ jobs:
       - name: Build
         run: xcodebuild build -project ./Anytype.xcodeproj -scheme "${{ matrix.scheme }}" -sdk "${{ matrix.sdk }}" -configuration Release -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
 
-      - name: Run tests
-        run: xcodebuild test -project "${{ matrix.project }}" -scheme "${{ matrix.scheme }}" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12,OS=14.4" | xcpretty && exit ${PIPESTATUS[0]}
+
+      # Enable when we will have tests
+      #
+      # - name: Run tests
+      #   run: xcodebuild test -project "${{ matrix.project }}" -scheme "${{ matrix.scheme }}" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 12,OS=14.4" | xcpretty && exit ${PIPESTATUS[0]}

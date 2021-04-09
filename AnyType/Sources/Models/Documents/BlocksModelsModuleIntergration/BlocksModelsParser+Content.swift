@@ -59,8 +59,7 @@ extension BlocksModelsParser.Converters {
             /// We should use either our replica of GoogleProtobufStruct or we could use GoogleProtobufStruct directly.
             /// Look at GoogleProtobufStruct.kind property type. It has indirect cases which are impossible to store without full support of same Struct type.
             ///
-            let logger = Logging.createLogger(category: .todo(.improve("")))
-            os_log(.debug, log: logger, "Do not forget to add conversion from our model to protobuf sutrcture: %@", String(describing: from))
+            assertionFailure("Do not forget to add conversion from our model to protobuf sutrcture: \(from)")
             return [:]
         }
     }

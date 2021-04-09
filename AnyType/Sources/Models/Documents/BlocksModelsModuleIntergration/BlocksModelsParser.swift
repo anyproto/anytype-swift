@@ -82,8 +82,7 @@ class BlocksModelsParser {
 
         // TODO: Add fields and restrictions.
         // Add parsers for them and model.
-        let logger = Logging.createLogger(category: .todo(.improve("")))
-        os_log(.debug, log: logger, "Add fields and restrictions into our model.")
+        // "Add fields and restrictions into our model."
         information.childrenIds = block.childrenIds
         information.backgroundColor = block.backgroundColor
         if let alignment = BlocksModelsParserCommonAlignmentConverter.asModel(block.align) {
@@ -112,8 +111,6 @@ class BlocksModelsParser {
             alignment = value
         }
 
-        let logger = Logging.createLogger(category: .todo(.improve("")))
-        os_log(.debug, log: logger, "Add fields and restrictions into our model.")
         return .init(id: id, fields: fields, restrictions: restrictions, childrenIds: childrenIds, backgroundColor: backgroundColor, align: alignment, content: content)
     }
     
