@@ -1,11 +1,3 @@
-//
-//  StandardButton.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 29.07.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 typealias StandardButtonAction = () -> Void
@@ -19,7 +11,7 @@ enum StandardButtonStyle {
         case .white:
             return Color.white
         case .yellow:
-            return Color.yellow
+            return Color.anytypeOrange
         }
     }
     
@@ -31,6 +23,15 @@ enum StandardButtonStyle {
             return Color.white
         }
     }
+    
+    func borderColor() -> Color? {
+        switch self {
+        case .white:
+            return Color.anytypeGray
+        case .yellow:
+            return nil
+        }
+    }
 }
 
 struct StandardButton: View {
@@ -40,7 +41,7 @@ struct StandardButton: View {
     var action: StandardButtonAction
     
     var body: some View {
-        Button(action: {
+        var button = Button(action: {
             self.action()
         }) {
             Text(text).font(.headline)
@@ -51,6 +52,15 @@ struct StandardButton: View {
                 .cornerRadius(8.0)
         }
         .disabled(disabled)
+        .eraseToAnyView()
+        
+        if let borderColor = style.borderColor(){
+            button = button.overlay(
+                RoundedRectangle(cornerRadius: 8.0).stroke(borderColor, lineWidth: 1)
+            ).eraseToAnyView()
+        }
+        
+        return button
     }
 }
 
