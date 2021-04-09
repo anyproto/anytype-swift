@@ -19,7 +19,7 @@ struct CompletionAuthView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
             .edgesIgnoringSafeArea(.all)
             VStack {
                 Spacer()

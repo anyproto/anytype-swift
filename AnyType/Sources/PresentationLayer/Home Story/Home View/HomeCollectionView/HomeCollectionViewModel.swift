@@ -14,13 +14,9 @@ enum HomeCollectionViewCellType: Hashable {
 }
 
 class HomeCollectionViewModel: ObservableObject {
-    
-    /// Typealiases
     typealias RootModel = TopLevelContainerModelProtocol
-    typealias DetailsAccessor = InformationAccessor
     typealias CellUserAction = HomeCollectionViewDocumentCellModel.UserActionPayload
     
-    /// Variables
     private let dashboardService: DashboardServiceProtocol = DashboardService()
     private let blockActionsService: BlockActionsServiceSingle = .init()
     private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
@@ -32,18 +28,20 @@ class HomeCollectionViewModel: ObservableObject {
     
     @Published var error: String = ""
     
-    // TODO: Revise this later. Just in case, save rootId - used for filtering events from middle for main dashboard
-//    var rootId: String?
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
-    
     private var cellUserActionSubject: PassthroughSubject<CellUserAction, Never> = .init()
+    
+    // MARK: - Lifecycle
+    init() {
+        self.setupSubscribers()
+        self.setupDashboard()
+    }
     
     // MARK: - Setup
     func setupDashboard() {
-        self.dashboardService.openDashboard().receive(on: RunLoop.main)
-        .sink(receiveCompletion: { (value) in
-            switch value {
+        self.dashboardService.openDashboard().receive(on: RunLoop.main).sink(receiveCompletion: { completion in
+            switch completion {
             case .finished: return
             case let .failure(error):
                 let logger = Logging.createLogger(category: .homeCollectionViewModel)
@@ -64,16 +62,6 @@ class HomeCollectionViewModel: ObservableObject {
         }).sink { [weak self] (value) in
             self?.receive(value)
         }.store(in: &self.subscriptions)
-    }
-    
-    func setup() {
-        self.setupSubscribers()
-        self.setupDashboard()
-    }
-    
-    // MARK: - Lifecycle
-    init() {
-        self.setup()
     }
 }
 
@@ -125,7 +113,7 @@ extension HomeCollectionViewModel {
             let detailsModel = value.getDetailsViewModel()
 
             let details = detailsModel.currentDetails
-            let detailsAcccessor = DetailsAccessor.init(value: details)
+            let detailsAcccessor = InformationAccessor.init(value: details)
             let targetBlockId: String
             if case let .link(link) = value.getBlock().blockModel.information.content {
                 targetBlockId = link.targetBlockID
@@ -135,7 +123,7 @@ extension HomeCollectionViewModel {
             }
             model = .init(page: .init(id: value.blockId, targetBlockId: targetBlockId), title: detailsAcccessor.title?.value ?? "", image: nil, emoji: detailsAcccessor.iconEmoji?.value)
 
-            let accessorPublisher = detailsModel.wholeDetailsPublisher.map(DetailsAccessor.init)
+            let accessorPublisher = detailsModel.wholeDetailsPublisher.map(InformationAccessor.init)
             
             let title = accessorPublisher.map(\.title).map({$0?.value}).eraseToAnyPublisher()
             let emoji = accessorPublisher.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()

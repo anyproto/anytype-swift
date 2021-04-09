@@ -34,7 +34,6 @@ class HomeViewModel: ObservableObject {
     
     func obtainAccountInfo() {
         self.profileViewModel.obtainAccountInfo()
-//        self.profileViewCoordinator.viewModel.obtainAccountInfo()
     }
 
     // MARK: - View events

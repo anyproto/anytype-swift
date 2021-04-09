@@ -25,7 +25,7 @@ struct ProfileView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.LoginBackground.gradient, startPoint: .top, endPoint: .bottom)
+            LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
             ScrollView {
                 self.contentView.padding(.bottom, 10)

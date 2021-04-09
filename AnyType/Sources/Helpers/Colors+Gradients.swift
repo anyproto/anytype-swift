@@ -1,14 +1,7 @@
-import Foundation
 import SwiftUI
 
-
-enum Gradients {
-    enum LoginBackground{}
-}
-
-extension Gradients.LoginBackground {
-    
-    static let gradient: Gradient = {
+final class Gradients {
+    static let loginBackground: Gradient = {
         let color1 = Color(red: 0.57, green: 0.71, blue: 0.76)
         let color2 = Color(red: 0.72, green: 0.84, blue: 0.86)
         let color3 = Color(red: 0.81, green: 0.79, blue: 0.75)
@@ -20,5 +13,9 @@ extension Gradients.LoginBackground {
         let gradient = Gradient(stops: [gradient1, gradient2, gradient3, gradient4])
         
         return gradient
+    }()
+    
+    static let homeBackground: Gradient = {
+        Gradient(colors: [Color.red, Color.blue])
     }()
 }

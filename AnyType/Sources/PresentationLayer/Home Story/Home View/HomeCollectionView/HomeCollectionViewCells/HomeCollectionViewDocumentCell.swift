@@ -2,6 +2,12 @@ import UIKit
 import Combine
 import SwiftUI
 
+struct DashboardPage: Hashable {
+    var id: String
+    var targetBlockId: String
+    
+    static var empty: Self = .init(id: "", targetBlockId: "")
+}
 
 class HomeCollectionViewDocumentCellModel: Hashable {
     internal init(page: DashboardPage, title: String, image: URL?, emoji: String?, subscriptions: Set<AnyCancellable> = []) {

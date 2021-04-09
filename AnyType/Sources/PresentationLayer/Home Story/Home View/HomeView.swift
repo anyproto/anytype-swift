@@ -29,7 +29,7 @@ struct HomeView: View {
             }
             .background(
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing
+                    gradient: Gradients.homeBackground, startPoint: .leading, endPoint: .trailing
                 ).edgesIgnoringSafeArea(.all)
             )
             .navigationBarTitleDisplayMode(.inline)

@@ -42,7 +42,7 @@ extension Namespace {
                 case .image: return ViewModels.File.Image.ViewModel.init(block)
                 case .video: return VideoBlockViewModel(block)
                 }
-            case .divider: return ViewModels.Other.Divider.ViewModel.init(block)
+            case .divider: return DividerBlockViewModel.init(block)
             case .bookmark: return ViewModels.Bookmark.Bookmark.ViewModel.init(block)
             case let .link(value):
                 let result = ViewModels.Tools.PageLink.ViewModel(block)
