@@ -18,12 +18,11 @@ private extension Logging.Categories {
 public extension Namespace {
     class Updater {
         public typealias Key = BlockId
-        public typealias Container = BlockContainerModelProtocol
         public typealias Model = BlockModelProtocol
 
-        private var container: Container
+        private var container: TopLevelContainerModelProtocol
 
-        public init(_ container: Container) {
+        public init(_ container: TopLevelContainerModelProtocol) {
             self.container = container
         }
     }
@@ -35,7 +34,7 @@ public extension Namespace.Updater {
     /// Delete entry from a container
     /// - Parameter at: at is an associated key to this entry.
     func delete(at: Key) {
-        self.container.remove(at)
+        self.container.blocksContainer.remove(at)
     }
 }
 
@@ -57,8 +56,8 @@ public extension Namespace.Updater {
     ///   - block: A model that we would like to insert in our container.
     ///   - at: an associated key to an entry.
     func insert(block: Model, at: Key) {
-        self.container.add(block)
-        self.container.add(child: block.information.id, beforeChild: at)
+        self.insert(block: block)
+        self.container.blocksContainer.add(child: block.information.id, beforeChild: at)
     }
     
     /// Like a method above, it do the same with the same warnings and notes.
@@ -69,15 +68,24 @@ public extension Namespace.Updater {
     ///   - block: A model that we would like to insert in our container.
     ///   - at: an associated key to an entry.
     func insert(block: Model, afterblock at: Key) {
-        self.container.add(block)
-        self.container.add(child: block.information.id, afterChild: at)
+        self.insert(block: block)
+        self.container.blocksContainer.add(child: block.information.id, afterChild: at)
     }
     
     /// Unlike other methods, this method only insert a model into a container.
     /// To build correct container, you should run method `buildTree` of a `BuilderProtocol` entry.
     /// - Parameter block: A model that we would like to insert in our container.
     func insert(block: Model) {
-        self.container.add(block)
+        self.container.blocksContainer.add(block)
+        /// When we store new page link block, we also need to add details information with identifier from this page link block
+        /// Then we can update our page link block view, when details will be updated with .blockSetDetails event
+        /// We receive this two events (blockAdd and blockSetDetails) in different messages
+        if case let .link(link) = block.information.content {
+            var details = Details.Information.InformationModel([])
+            details.parentId = link.targetBlockID
+            let model = Details.DetailsModel(details: details)
+            self.container.detailsContainer.add(model)
+        }
     }
 }
 
@@ -90,7 +98,7 @@ public extension Namespace.Updater {
     ///   - children: new associated keys of children that will be set to parent.
     ///   - parent: an associated key to parent entry.
     func set(children: [Key], parent: Key) {
-        self.container.replace(childrenIds: children, parentId: parent, shouldSkipGuardAgainstMissingIds: true)
+        self.container.blocksContainer.replace(childrenIds: children, parentId: parent, shouldSkipGuardAgainstMissingIds: true)
     }
 }
 
@@ -103,7 +111,7 @@ public extension Namespace.Updater {
     ///   - update: update-closure that we would like to apply to an entry.
     /// - Returns: Nothing, heh
     func update(entry key: Key, update: @escaping (Model) -> ()) {
-        guard let entry = self.container.get(by: key) else {
+        guard let entry = self.container.blocksContainer.get(by: key) else {
             let logger = Logging.createLogger(category: .blocksModelsToolsUpdater)
             os_log(.debug, log: logger, "We haven't found an entry by key: %@", key)
             return

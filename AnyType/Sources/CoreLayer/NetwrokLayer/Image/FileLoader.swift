@@ -36,6 +36,7 @@ final class FileLoader: NSObject {
             do {
                 try FileManager.default.moveItem(at: tempURL, to: localURL)
                 self?.progressSubject.send(.loaded(localURL))
+                self?.progressSubject.send(completion: .finished)
             } catch {
                 assertionFailure(error.localizedDescription)
                 self?.progressSubject.send(completion: .failure(error))

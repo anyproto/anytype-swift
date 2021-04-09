@@ -137,14 +137,20 @@ extension Namespace {
         
         // MARK: Contextual Menu
         override func makeContextualMenu() -> BlocksViews.ContextualMenu {
-            .init(title: "", children: [
-                .create(action: .general(.addBlockBelow)),
-                .create(action: .specific(.turnInto)),
-                .create(action: .general(.delete)),
-                .create(action: .general(.duplicate)),
-                .create(action: .general(.moveTo)),
-                .create(action: .specific(.style)),
-            ])
+            guard case let .text(text) = self.getBlock().blockModel.information.content else {
+                return .init(title: "", children: [])
+            }
+            var actions: [BlocksViews.ContextualMenu.MenuAction] = [.create(action: .general(.addBlockBelow))]
+            if text.contentType != .title {
+                actions.append(contentsOf: [
+                    .create(action: .specific(.turnInto)),
+                    .create(action: .general(.delete)),
+                    .create(action: .general(.duplicate)),
+                    .create(action: .general(.moveTo))
+                ])
+            }
+            actions.append(.create(action: .specific(.style)))
+            return .init(title: "", children: actions)
         }
     }
 }

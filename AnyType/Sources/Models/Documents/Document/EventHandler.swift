@@ -58,7 +58,7 @@ private extension EventHandler {
 // MARK: Configurations
 extension EventHandler {
     func configured(_ container: TopLevelContainerModelProtocol) -> Self {
-        self.updater = .init(container.blocksContainer)
+        self.updater = .init(container)
         self.container = container
         return self
     }
