@@ -1,20 +1,8 @@
-//
-//  MiddlewareModelsModule+Parsers+Text+Color.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 14.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import os
 
 fileprivate typealias Namespace = MiddlewareModelsModule.Parsers.Text
-
-private extension Logging.Categories {
-    static let middlewareModelsModuleParsersTextColor: Self = "MiddlewareModelsModule.Parsers.Text.Color"
-}
 
 extension Namespace.Color {
     /// This is Converter between our high-level `UIColor` representation of color and middleware color names as String.

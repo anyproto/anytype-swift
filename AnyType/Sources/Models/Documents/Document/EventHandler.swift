@@ -28,8 +28,7 @@ class EventHandler: NewEventHandler {
         let update: Update = updates.reduce(.general) { (result, value) in .merged(lhs: result, rhs: value) }
         
         guard let container = self.container else {
-            let logger = Logging.createLogger(category: .eventProcessor)
-            os_log(.debug, log: logger, "Container is nil in event handler. Something went wrong.")
+            assertionFailure("Container is nil in event handler. Something went wrong.")
             return
         }
 
@@ -144,17 +143,16 @@ private extension EventHandler {
             /// Our middleware doesn't send current text to us ( ok ), so, we should somehow find it in our model.
             ///
         case let .blockSetText(value):
-            let logger = Logging.createLogger(category: .eventProcessor)
             let blockId = value.id
 
             guard var blockModel = self.container?.blocksContainer.get(by: blockId) else {
-                os_log(.debug, log: logger, "We cannot parse style from value: %@ reason: block model not found", String(describing: value))
+                assertionFailure("We cannot parse style from value: \(value)\n reason: block model not found")
                 return .general
             }
 
             // TODO: We need introduce Textable protocol for blocks that would support text
             guard case let .text(oldText) = blockModel.information.content else {
-                os_log(.debug, log: logger, "We cannot parse style from value: %@ reason: block model doesn't support text", String(describing: value))
+                assertionFailure("We cannot parse style from value: \(value)\n reason: block model doesn't support text")
                 return .general
             }
             let newText = value.hasText ? value.text.value : oldText.attributedText.string
@@ -183,7 +181,7 @@ private extension EventHandler {
 
             guard let blockContent = self.parser.convert(middlewareContent: .text(textContent)),
                   case var .text(newTextBlockContentType) = blockContent else {
-                os_log(.debug, log: logger, "We cannot parse style from value: %@", String(describing: value))
+                assertionFailure("We cannot parse style from value: \(value)")
                 return .general
             }
             if !value.hasStyle {
@@ -207,8 +205,7 @@ private extension EventHandler {
             let blockId = value.id
             let alignment = value.align
             guard let modelAlignment = BlocksModelsParserCommonAlignmentConverter.asModel(alignment) else {
-                let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "We cannot parse alignment: %@", String(describing: value))
+                assertionFailure("We cannot parse alignment: \(value)")
                 return .general
             }
             
@@ -384,8 +381,7 @@ private extension EventHandler {
         case let .setFocus(value):
             let blockId = value.payload.blockId
             guard var model = self.container?.blocksContainer.choose(by: blockId) else {
-                let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "setFocus. We can't find model by id %@", String(describing: blockId))
+                assertionFailure("setFocus. We can't find model by id \(blockId)")
                 return nil
             }
             model.isFirstResponder = true
@@ -440,8 +436,7 @@ private extension EventHandler {
         case let .setTextMerge(value):
             let blockId = value.payload.blockId
             guard let model = self.container?.blocksContainer.choose(by: blockId) else {
-                let logger = Logging.createLogger(category: .eventProcessor)
-                os_log(.debug, log: logger, "setTextMerge. We can't find model by id %@", String(describing: blockId))
+                assertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil
             }
             

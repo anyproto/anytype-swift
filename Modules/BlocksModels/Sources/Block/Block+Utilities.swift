@@ -1,17 +1,5 @@
-//
-//  Block+Utilities.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
-
-private extension Logging.Categories {
-    static let blocksModelsIndexWalker: Self = "BlocksModels.Utilities.IndexWalker"
-}
 
 fileprivate typealias Namespace = Block
 fileprivate typealias FileNamespace = Namespace.Utilities
@@ -48,9 +36,8 @@ public extension FileNamespace {
         
         public static func model(beforeModel model: Model, includeParent: Bool, onlyFocused: Bool = true) -> Model? {
             guard let parent = model.findParent() else {
-                // hm.. we don't have parent?
-                let logger = Logging.createLogger(category: .blocksModelsIndexWalker)
-                os_log(.debug, log: logger, "We don't have parent for model %@, so, we should return something?", "\(model.blockModel.information.id)")
+                
+                assertionFailure("We don't have parent for model \(model.blockModel.information.id)")
                 return nil
             }
             
@@ -58,9 +45,7 @@ public extension FileNamespace {
             let childrenIds = parent.childrenIds()
             
             guard let childIndex = childrenIds.firstIndex(where: {$0 == id}) else {
-                // Heh, again, we can't find ourselves in parent.
-                let logger = Logging.createLogger(category: .blocksModelsIndexWalker)
-                os_log(.debug, log: logger, "We can't find ourselves (%@) in parent, so, skip it.", "\(model.blockModel.information.id)")
+                assertionFailure("We can't find ourselves \(model.blockModel.information.id) in parent, so, skip it.")
                 return nil
             }
 

@@ -4,11 +4,7 @@ import os
 
 fileprivate typealias Namespace = CoreLayer.Network.Image
 
-private extension Logging.Categories {
-    static let coreLayerNetworkingImageLoader: Self = "CoreLayer.Network.Image.Loader"
-}
 
-// MARK: - Loader
 extension Namespace {
     class Loader: ObservableObject {
         private let imageService: Service = .init()

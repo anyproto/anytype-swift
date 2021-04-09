@@ -4,10 +4,6 @@ import BlocksModels
 import os
 
 
-private extension Logging.Categories {
-    static let viewModel: Self = "BlocksViews.DocumentViewModel"
-}
-
 extension BlocksViews {
     /// Purpose
     ///
@@ -42,8 +38,7 @@ extension BlocksViews {
                 switch value {
                 case .finished: return
                 case let .failure(value):
-                    let logger = Logging.createLogger(category: .viewModel)
-                    os_log(.debug, log: logger, "open(_ documentId). Error has occurred. %@", "\(value)")
+                    assertionFailure("open(_ documentId). Error has occurred. \(value)")
                 }
             }, receiveValue: {})
         }

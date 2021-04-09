@@ -1,11 +1,3 @@
-//
-//  BlocksViews+New+Page+IconEmoji.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 08.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
@@ -16,11 +8,7 @@ import BlocksModels
 // TODO: Rename to Icon.
 fileprivate typealias Namespace = BlocksViews.Page.IconEmoji
 
-private extension Logging.Categories {
-    static let pageBlocksViewsIconEmoji: Self = "TextEditor.BlocksViews.PageBlocksViews.IconEmoji"
-}
 
-// MARK: - ViewModel
 extension Namespace {
     
     class ViewModel: BlocksViews.Page.Base.ViewModel {
@@ -78,8 +66,7 @@ extension Namespace {
                     switch value {
                     case .finished: return
                     case let .failure(error):
-                        let logger = Logging.createLogger(category: .pageBlocksViewsIconEmoji)
-                        os_log(.debug, log: logger, "PageBlocksViews emoji setDetails error has occured. %@", String(describing: error))
+                        assertionFailure("PageBlocksViews emoji setDetails error has occured.\n\(error)")
                     }
                 }, receiveValue: {}).store(in: &self.subscriptions)
             }
@@ -166,8 +153,7 @@ extension Namespace.ViewModel {
                 switch value {
                 case .finished: self?.toViewImage = nil
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .pageBlocksViewsIconEmoji)
-                    os_log(.debug, log: logger, "PageBlocksViews emoji setDetails removeImage error has occured. %@", String(describing: error))
+                    assertionFailure("PageBlocksViews emoji setDetails removeImage error has occured.\n \(error)")
                 }
             }, receiveValue: {_ in }).store(in: &self.subscriptions)
         }
@@ -201,8 +187,7 @@ extension Namespace.ViewModel {
                 switch value {
                 case .finished: break
                 case let .failure(value):
-                    let logger = Logging.createLogger(category: .pageBlocksViewsIconEmoji)
-                    os_log(.error, log: logger, "uploading image error %@ on %@", String(describing: value), String(describing: self))
+                    assertionFailure("uploading image error \(value) on \(self)")
                 }
             }) { _ in }
             .store(in: &self.subscriptions)

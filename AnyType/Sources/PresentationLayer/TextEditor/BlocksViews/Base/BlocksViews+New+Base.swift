@@ -1,17 +1,9 @@
-//
-//  BlocksViews+Base+New.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 08.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import UIKit
 import Combine
 import os
 import BlocksModels
 
-private extension Logging.Categories {
+private extension LoggerCategory {
     static let blocksViewsBase: Self = "TextEditor.BlocksViews.Base"
 }
 
@@ -45,16 +37,16 @@ extension BlocksViews.Base {
                 
         // MARK: Deinitialization
         deinit {
-            let logger = Logging.createLogger(category: .blocksViewsBase)
-            os_log(.debug, log: logger, "%@ has been deinitialized: %@", "\(String(describing: self))", "-> \(self.getBlock().blockModel.information.id)")
+            Logger.create(.blocksViewsBase).debug(
+                "\(String(describing: self)) has been deinitialized: -> \(self.getBlock().blockModel.information.id)"
+            )
         }
         
         // MARK: Initialization
         init(_ block: BlockModel) {
             self.block = block
             self._diffableStorage = self.makeDiffable()
-            let logger = Logging.createLogger(category: .blocksViewsBase)
-            os_log(.debug, log: logger, "%@ has been initialized: %@", "\(String(describing: self))", "-> \(self.getBlock().blockModel.information.id)")
+            Logger.create(.blocksViewsBase).debug("\(String(describing: self)) has been initialized: \(self.getBlock().blockModel.information.id)")
             self.configure()
         }
         
@@ -63,8 +55,7 @@ extension BlocksViews.Base {
         func configure() {
             self.setupPublishers()
             self.setupSubscriptions()
-            let logger = Logging.createLogger(category: .blocksViewsBase)
-            os_log(.debug, log: logger, "%@ has been configured: %@", "\(String(describing: self))", "-> \(self.getBlock().blockModel.information.id)")
+            Logger.create(.blocksViewsBase).debug("\(String(describing: self)) has been configured: \(self.getBlock().blockModel.information.id)")
         }
                 
         // MARK: Subclass / Blocks

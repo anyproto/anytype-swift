@@ -1,19 +1,8 @@
-//
-//  ProfileStory+AboutView.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 28.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import SwiftUI
 import os
 
-private extension Logging.Categories {
-    static let profileStoryAboutView: Self = "ProfileStory.AboutView"
-}
 
 extension ProfileView {
     struct AboutView: View {
@@ -60,8 +49,7 @@ extension ProfileView.AboutView {
                 switch value {
                 case .finished: break
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .profileStoryAboutView)
-                    os_log(.debug, log: logger, "Obtain library version error has occured: %@", String(describing: error))
+                    assertionFailure("Obtain library version error has occured: \(error)")
                 }
             }, receiveValue: { [weak self] value in
                 self?.libraryVersion = value.version

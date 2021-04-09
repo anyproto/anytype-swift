@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A55D82725DAC2940043CB5E /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A55D82625DAC2940043CB5E /* Logging.swift */; };
 		0A6D538925D9C99F002F3F82 /* BlocksModels.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A6D536825D9C99E002F3F82 /* BlocksModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A6D538B25D9C99F002F3F82 /* Details+Information+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536B25D9C99E002F3F82 /* Details+Information+Protocols.swift */; };
 		0A6D538C25D9C99F002F3F82 /* Block+Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536C25D9C99E002F3F82 /* Block+Builders.swift */; };
@@ -40,7 +39,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A55D82625DAC2940043CB5E /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logging.swift; path = ../../../AnyType/Sources/Helpers/Logging.swift; sourceTree = "<group>"; };
 		0A6D536825D9C99E002F3F82 /* BlocksModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksModels.h; sourceTree = "<group>"; };
 		0A6D536925D9C99E002F3F82 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A6D536B25D9C99E002F3F82 /* Details+Information+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Details+Information+Protocols.swift"; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 				3D70BF20261B0570008CED9E /* TopLevel */,
 				3D70BF1F261B055E008CED9E /* Details */,
 				3D70BF1E261B0551008CED9E /* Block */,
-				0A55D82625DAC2940043CB5E /* Logging.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -276,7 +273,6 @@
 				0A6D53A825D9C99F002F3F82 /* Details+Information+Content.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* Block+Builders.swift in Sources */,
 				0A6D53A125D9C99F002F3F82 /* Details+Information+Builders.swift in Sources */,
-				0A55D82725DAC2940043CB5E /* Logging.swift in Sources */,
 				0A6D539125D9C99F002F3F82 /* TopLevel+Builders.swift in Sources */,
 				0A6D539225D9C99F002F3F82 /* Block+Content.swift in Sources */,
 				0A6D53A225D9C99F002F3F82 /* Details+Utilities.swift in Sources */,

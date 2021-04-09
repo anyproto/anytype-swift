@@ -1,26 +1,13 @@
-//
-//  Details+Information.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
 
-private extension Logging.Categories {
-    static let pageDetails: Self = "BlocksModels.Details.Information"
-}
 
-fileprivate typealias Namespace = Details
-
-public extension Namespace {
+public extension Details {
     enum Information {}
 }
 
 // MARK: Details
-extension Namespace.Information {
+extension Details.Information {
     struct InformationModel {
         // MARK: Properties
         /// By default, we use `Details.id()` as a `Key` in this dictionary.
@@ -57,7 +44,7 @@ extension Namespace.Information {
     }
 }
 
-extension Namespace.Information.InformationModel: DetailsInformationModelProtocol {
+extension Details.Information.InformationModel: DetailsInformationModelProtocol {
     var details: [DetailsId : DetailsContent] {
         get {
             self._details
@@ -82,5 +69,5 @@ extension Namespace.Information.InformationModel: DetailsInformationModelProtoco
 }
 
 // MARK: Hashable
-extension Namespace.Information.InformationModel: Hashable {}
+extension Details.Information.InformationModel: Hashable {}
 

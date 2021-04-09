@@ -1,18 +1,7 @@
-//
-//  EmojiPickerViewController.swift
-//  AnyType
-//
-//  Created by Valentine Eyiubolu on 4/27/20.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import UIKit
 import Combine
 import os
 
-private extension Logging.Categories {
-    static let emojiPickerViewController: Self = "EmojiPicker.ViewController"
-}
 
 enum EmojiPicker {
     
@@ -95,8 +84,7 @@ enum EmojiPicker {
                 case .shouldDismiss:
                     self?.dismiss(animated: true, completion: nil)
                 default:
-                    let logger = Logging.createLogger(category: .emojiPickerViewController)
-                    os_log(.debug, log: logger, "We don't handle this event: %@", String(describing: event))
+                    assertionFailure("We don't handle this event: \(String(describing: event))")
                 }
             }.store(in: &subscriptions)
         }

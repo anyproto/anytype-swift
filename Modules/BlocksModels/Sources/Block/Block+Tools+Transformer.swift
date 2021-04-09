@@ -1,19 +1,5 @@
-//
-//  Block+Tools+Transformer.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
-
-private extension Logging.Categories {
-    static let blocksModelsToolsTransformer: Self = "BlocksModels.Tools.Transformer"
-}
-
-// MARK: - From middleware list to tree
 
 public struct TreeBlockBuilder {
     private var builder: BlockBuilderProtocol
@@ -55,16 +41,14 @@ public struct TreeBlockBuilder {
         let roots = models.filter(isRoot)
 
         guard roots.count != 0 else {
-            let logger = Logging.createLogger(category: .blocksModelsToolsTransformer)
-            os_log(.error, log: logger, "Unknown situation. We can't have zero roots.")
+            assertionFailure("Unknown situation. We can't have zero roots.")
             return self.builder.emptyContainer()
         }
 
         // 3. If we have several roots, so, notify about it.
         if roots.count != 1 {
             // this situation is not possible, but, let handle it.
-            let logger = Logging.createLogger(category: .blocksModelsToolsTransformer)
-            os_log(.debug, log: logger, "We have several roots for our rootId. Not possible, but let us handle it.")
+            assertionFailure("We have several roots for our rootId. Not possible, but let us handle it.")
         }
 
         // 4. find root id as first element in roots. No matter, how much roots we have.

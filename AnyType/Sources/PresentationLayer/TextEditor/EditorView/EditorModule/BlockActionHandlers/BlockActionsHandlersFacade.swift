@@ -1,19 +1,7 @@
-//
-//  BlockActionsHandlersFacade.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 16.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Combine
 import BlocksModels
 import os
 
-
-private extension Logging.Categories {
-    static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
-}
 
 /// Interaction with document view
 protocol DocumentViewInteraction: AnyObject {
@@ -145,27 +133,23 @@ extension BlockActionsHandlersFacade {
             //
             guard let parentModel = parentModel else {
                 // We don't have parentModel, so, we can't proceed.
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. We don't have parent model.")
+                assertionFailure("createEmptyBlock.listIsEmpty. We don't have parent model.")
                 return
             }
             guard let lastChildId = parentModel.childrenIds().last else {
                 // We don't have children, let's do nothing.
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. Children are empty.")
+                assertionFailure("createEmptyBlock.listIsEmpty. Children are empty.")
                 return
             }
             guard let lastChild = parentModel.container?.choose(by: lastChildId) else {
                 // No child - nothing to do.
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. Last child doesn't exist.")
+                assertionFailure("createEmptyBlock.listIsEmpty. Last child doesn't exist.")
                 return
             }
 
             switch lastChild.blockModel.information.content {
             case let .text(value) where value.attributedText.length == 0:
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.debug, log: logger, "createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
+                assertionFailure("createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
                 return
             default:
                 if let defaultBlock = BlockBuilder.createDefaultInformation() {

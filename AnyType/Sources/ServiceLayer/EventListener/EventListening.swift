@@ -1,17 +1,9 @@
-//
-//  EventListening.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 20.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import ProtobufMessages
 import Combine
 import os
 
-private extension Logging.Categories {
+private extension LoggerCategory {
     static let eventListening: Self = "EventListening"
 }
 
@@ -45,8 +37,7 @@ extension EventListening.RawListener: ProtobufMessages.ServiceEventsHandlerProto
             let event = try? Anytype_Event(serializedData: rawEvent) else { return }
         
         let necessaryEvents = event.messages.filter(self.filterNecessary)
-        let logger = Logging.createLogger(category: .eventListening)
-        os_log(.debug, log: logger, "handleEvents. Necessary events are %@", "\(necessaryEvents)")
+        Logger.create(.eventListening).debug("handleEvents. Necessary events are \(necessaryEvents)")
         
         // TODO: Add filter by messages here???
         NotificationCenter.default.post(name: .middlewareEvent, object: event)

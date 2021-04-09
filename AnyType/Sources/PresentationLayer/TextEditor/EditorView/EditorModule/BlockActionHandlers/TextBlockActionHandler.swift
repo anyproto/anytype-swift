@@ -1,18 +1,7 @@
-//
-//  TextBlockActionHandler.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 17.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import BlocksModels
 import os
 import Combine
 
-private extension Logging.Categories {
-    static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
-}
 
 final class TextBlockActionHandler {
     typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
@@ -35,8 +24,7 @@ final class TextBlockActionHandler {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
         case let .inputAction(value): self.handlingInputAction(block, value)
         default:
-            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-            os_log(.debug, log: logger, "Unexpected: %@", String(describing: action))
+            assertionFailure("Unexpected: \(action)")
         }
     }
 
@@ -61,13 +49,13 @@ final class TextBlockActionHandler {
                     switch value {
                     case .finished: return
                     case let .failure(error):
-                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                        os_log(.debug,
-                               log: logger,
-                               "TextBlocksViews setBlockText error has occured. %@. ParentId: %@ BlockId: %@",
-                               String(describing: error),
-                               String(describing: blockModel.parent),
-                               String(describing: blockModel.information.id))
+                        assertionFailure("""
+                            TextBlocksViews setBlockText error has occured.
+                            \(error)
+                            ParentId: \(blockModel.parent)
+                            BlockId: \(blockModel.information.id)
+                            """
+                        )
                     }
                 }, receiveValue: { _ in }).store(in: &self.subscriptions)
         }
@@ -190,8 +178,12 @@ final class TextBlockActionHandler {
                 // Add get previous block
 
                 guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.debug, log: logger, "We can't find previous block to focus on at command .deleteWithPayload for block %@. Moving to .delete command.", block.blockModel.information.id)
+                    assertionFailure("""
+                        We can't find previous block to focus on at command .deleteWithPayload
+                        Block: \(block.blockModel.information.id)
+                        Moving to .delete command.
+                        """
+                    )
                     self.handlingKeyboardAction(block, .pressKey(.deleteOnEmptyContent))
                     return
                 }
@@ -217,8 +209,9 @@ final class TextBlockActionHandler {
             case .deleteOnEmptyContent:
                 self.service.delete(block: block.blockModel.information) { value in
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
-                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                        os_log(.debug, log: logger, "We can't find previous block to focus on at command .delete for block %@", block.blockModel.information.id)
+                        assertionFailure(
+                            "We can't find previous block to focus on at command .delete for block \(block.blockModel.information.id)"
+                        )
                         return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                     }
                     let previousBlockId = previousModel.blockModel.information.id

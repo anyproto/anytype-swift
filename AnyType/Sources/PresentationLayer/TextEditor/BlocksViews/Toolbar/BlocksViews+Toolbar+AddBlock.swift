@@ -1,21 +1,9 @@
-//
-//  BlocksViews+Toolbar+AddBlock.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 20.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
 import os
 
-private extension Logging.Categories {
-    static let blocksViewsToolbarAddBlock: Self = "BlocksViews.Toolbar.AddBlock"
-}
 
-// MARK: AddBlock
 extension BlocksViews.Toolbar {
     enum AddBlock {
         typealias BlocksTypes = BlocksViews.Toolbar.BlocksTypes

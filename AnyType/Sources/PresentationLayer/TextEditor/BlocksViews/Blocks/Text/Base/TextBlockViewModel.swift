@@ -1,11 +1,3 @@
-//
-//  TextBlockViewModel.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 06.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
@@ -13,10 +5,6 @@ import UIKit
 import os
 import BlocksModels
 
-
-private extension Logging.Categories {
-    static let textBlocksViewsBase: Self = "BlocksViews.Text.Base"
-}
 
 private final class TextViewModelHolder {
     private var viewModel: TextView.UIKitTextView.ViewModel?
@@ -262,8 +250,7 @@ private extension TextBlockViewModel {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textBlocksViewsBase)
-                os_log(.debug, log: logger, "TextBlocksViews setAlignment error has occured. %@", String(describing: error))
+                assertionFailure("TextBlocksViews setAlignment error has occured. \(error)")
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
 

@@ -1,17 +1,9 @@
-//
-//  TextView+BlocksAccessoryView.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 10.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import SwiftUI
 import os
 
-private extension Logging.Categories {
+private extension LoggerCategory {
     static let textViewBlocksAccessoryView: Self = "TextView.BlocksAccessoryView"
 }
 
@@ -270,8 +262,7 @@ extension TextView.BlockToolbar {
             }
             
             self.allInOneStreamDescription = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).sink { value in
-                let logger = Logging.createLogger(category: .textViewBlocksAccessoryView)
-                os_log(.debug, log: logger, "underlying action %@", "\(String(describing: value))")
+                Logger.create(.textViewBlocksAccessoryView).debug("underlying action \(String(describing: value))")
             }
             self.allInOnePublisher = Publishers.Merge4(addBlock, turnIntoBlock, changeColor, editBlock).eraseToAnyPublisher()
         }

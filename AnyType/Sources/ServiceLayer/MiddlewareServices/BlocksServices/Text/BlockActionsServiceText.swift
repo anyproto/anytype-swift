@@ -5,10 +5,6 @@ import ProtobufMessages
 import BlocksModels
 
 
-private extension Logging.Categories {
-    static let service: Self = "BlockActionsService.Text.Implementation"
-}
-
 private extension BlockActionsServiceText {
     enum PossibleError: Error {
         case setStyleActionStyleConversionHasFailed

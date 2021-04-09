@@ -1,19 +1,7 @@
-//
-//  Block+Tools+Updater.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
 
 fileprivate typealias Namespace = Block.Tools
-
-private extension Logging.Categories {
-    static let blocksModelsToolsUpdater: Self = "BlocksModels.Tools.Updater"
-}
 
 public extension Namespace {
     class Updater {
@@ -112,8 +100,7 @@ public extension Namespace.Updater {
     /// - Returns: Nothing, heh
     func update(entry key: Key, update: @escaping (Model) -> ()) {
         guard let entry = self.container.blocksContainer.get(by: key) else {
-            let logger = Logging.createLogger(category: .blocksModelsToolsUpdater)
-            os_log(.debug, log: logger, "We haven't found an entry by key: %@", key)
+        assertionFailure("We haven't found an entry by key: \(key)")
             return
         }
         update(entry)

@@ -1,17 +1,5 @@
-//
-//  Details+Builders.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
-
-private extension Logging.Categories {
-    static let blocksModelsDetailsBuilder: Self = "BlocksModels.Details.Builder"
-}
 
 public protocol DetailsBuilderProtocol {
     func build(list: [DetailsModelProtocol]) -> DetailsContainerModelProtocol

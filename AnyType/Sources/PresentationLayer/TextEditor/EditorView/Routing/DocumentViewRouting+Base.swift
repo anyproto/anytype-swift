@@ -1,19 +1,7 @@
-//
-//  DocumentViewRouting+Base.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 17.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import os
-
-private extension Logging.Categories {
-    static let documentViewRoutingBase: Self = "TextEditor.DocumentViewRouting.BaseRouter"
-}
 
 enum DocumentViewRouting {
     /// Base Router.

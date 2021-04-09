@@ -1,18 +1,10 @@
-//
-//  BlockActionService.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 17.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Combine
 import BlocksModels
 import os
 import UIKit
 
-private extension Logging.Categories {
-    static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
+extension LoggerCategory {
+    static let textEditorUserInteractor: Self = "TextEditor.UserInteraction"
 }
 
 /// Each method should return not a block, but a response.
@@ -58,16 +50,14 @@ final class BlockActionService {
                 /// Find added block.
                 let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }
                 guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.debug, log: logger, "blocks.split.afterUpdate can't find added block")
+                    assertionFailure("blocks.split.afterUpdate can't find added block")
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                 }
 
                 /// Find set children ids.
                 let setChildrenMessage = value.messages.first { $0.value == .blockSetChildrenIds($0.blockSetChildrenIds)}
                 guard let setChildrenEvent = setChildrenMessage?.blockSetChildrenIds else {
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.debug, log: logger, "blocks.split.afterUpdate can't find set children event")
+                    assertionFailure("blocks.split.afterUpdate can't find set children event")
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                 }
 
@@ -75,8 +65,7 @@ final class BlockActionService {
 
                 /// Find a block after added block, because we insert previous block.
                 guard let addedBlockIndex = setChildrenEvent.childrenIds.firstIndex(where: { $0 == addedBlockId }) else {
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.debug, log: logger, "blocks.split.afterUpdate can't find index of added block in children ids.")
+                    assertionFailure("blocks.split.afterUpdate can't find index of added block in children ids.")
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                 }
 
@@ -87,8 +76,7 @@ final class BlockActionService {
 
                 /// Check that our childrenIds collection indices contains index.
                 guard setChildrenEvent.childrenIds.indices.contains(focusedIndex) else {
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.debug, log: logger, "blocks.split.afterUpdate children ids doesn't contain index of focused block.")
+                    assertionFailure("blocks.split.afterUpdate children ids doesn't contain index of focused block.")
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                 }
 
@@ -204,8 +192,7 @@ final class BlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.duplicate got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.duplicate got error: \(error)")
             }
         }) { [weak self] (value) in
             self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
@@ -226,8 +213,7 @@ final class BlockActionService {
                 switch value {
                 case .finished: return // move to this page
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "blocksActions.service.createPage with payload got error: %@", "\(error)")
+                    assertionFailure("blocksActions.service.createPage with payload got error: \(error)")
                 }
             }) { [weak self] (value) in
                 self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
@@ -282,8 +268,7 @@ private extension BlockActionService {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "blocksActions.service.add got error: %@", "\(error)")
+                    assertionFailure("blocksActions.service.add got error: \(error)")
                 }
             }) { [weak self] (value) in
                 let value = completion(value)
@@ -301,8 +286,7 @@ private extension BlockActionService {
 
         let content = block.content
         guard case let .text(type) = content else {
-            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-            os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
+            assertionFailure("We have unsupported content type: \(content)")
             return
         }
 
@@ -314,8 +298,7 @@ private extension BlockActionService {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "blocksActions.service.split without payload got error: %@", "\(error)")
+                    assertionFailure("blocksActions.service.split without payload got error: \(error)")
                 }
             }, receiveValue: { [weak self] (value) in
                 let value = completion(value)
@@ -335,8 +318,7 @@ private extension BlockActionService {
 
         let content = block.content
         guard case let .text(type) = content else {
-            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-            os_log(.error, log: logger, "We have unsupported content type: %@", "\(String(describing: content))")
+            assertionFailure("We have unsupported content type: \(content)")
             return
         }
 
@@ -354,8 +336,7 @@ private extension BlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.setTextAndSplit got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.setTextAndSplit got error: \(error)")
             }
         } receiveValue: { [weak self] (value) in
             let value = completion(value)
@@ -374,8 +355,10 @@ private extension BlockActionService {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
+                    // It occurs if you press delete at the beginning of title block
+                    Logger.create(.textEditorUserInteractor).debug(
+                        "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
+                    )
                 }
             }, receiveValue: { [weak self] value in
                 let value = completion(value)
@@ -396,8 +379,7 @@ private extension BlockActionService {
     private func setDividerStyle(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
         guard case let .divider(value) = type else {
-            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-            os_log(.error, log: logger, "SetDividerStyle content is not divider: %@", "\(String(describing: type))")
+            assertionFailure("SetDividerStyle content is not divider: \(type)")
             return
         }
 
@@ -407,8 +389,7 @@ private extension BlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.turnInto.setDivStyle got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.turnInto.setDivStyle got error: \(error)")
             }
         }) { [weak self] (value) in
             let value = completion(value)
@@ -420,8 +401,7 @@ private extension BlockActionService {
         let blockId = block.id
 
         guard case .smartblock = type else {
-            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-            os_log(.error, log: logger, "Set Page style cannot convert type: %@", "\(String(describing: type))")
+            assertionFailure("Set Page style cannot convert type: \(type)")
             return
         }
 
@@ -431,8 +411,7 @@ private extension BlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.turnInto.convertChildrenToPages got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.turnInto.convertChildrenToPages got error: \(error)")
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
     }
@@ -441,8 +420,7 @@ private extension BlockActionService {
         let blockId = block.id
 
         guard case let .text(text) = type else {
-            let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-            os_log(.error, log: logger, "Set Text style content is not text style: %@", "\(String(describing: type))")
+            assertionFailure("Set Text style content is not text style: \(type)")
             return
         }
 
@@ -452,8 +430,7 @@ private extension BlockActionService {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle got error: %@", "\(error)")
+                    assertionFailure("blocksActions.service.turnInto.setTextStyle got error: \(error)")
                 }
             }) { [weak self] (value) in
                 let value = completion(value)
@@ -479,8 +456,7 @@ extension BlockActionService {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "blocksActions.service.merge with payload got error: %@", "\(error)")
+                    assertionFailure("blocksActions.service.merge with payload got error: \(error)")
                 }
             }, receiveValue: { [weak self] value in
                 let value = completion(value)
@@ -498,8 +474,7 @@ extension BlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.bookmarkFetch got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.bookmarkFetch got error: \(error)")
             }
         }) { [weak self] (value) in
             let value = completion(value)
@@ -529,8 +504,7 @@ extension BlockActionService {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                    os_log(.error, log: logger, "listService.setBackgroundColor got error: %@", "\(error)")
+                    assertionFailure("listService.setBackgroundColor got error: \(error)")
                 }
             } receiveValue: { [weak self] (value) in
                 let value = completion(value)
@@ -553,8 +527,7 @@ extension BlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.error, log: logger, "fileService.uploadDataAtFilePath got error: %@", "\(error)")
+                assertionFailure("fileService.uploadDataAtFilePath got error: \(error)")
             }
         } receiveValue: { [weak self] (value) in
             let value = completion(value)

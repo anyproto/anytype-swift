@@ -3,9 +3,6 @@ import SwiftUI
 import os
 import BlocksModels
 
-private extension Logging.Categories {
-    static let storiesProfileViewModel: Self = "Stories.Profile.ViewModel"
-}
 
 final class ProfileViewModel: ObservableObject {
     private var profileService: ProfileServiceProtocol
@@ -76,8 +73,7 @@ final class ProfileViewModel: ObservableObject {
             switch value {
             case .finished: break
             case let .failure(error):
-                let logger = Logging.createLogger(category: .storiesProfileViewModel)
-                os_log(.debug, log: logger, "obtainAccountInfo. Error has occured. %@", String(describing: error))
+                assertionFailure("obtainAccountInfo. Error has occured. \(error)")
             }
         }) { [weak self] (value) in
             self?.handleOpenBlock(value)

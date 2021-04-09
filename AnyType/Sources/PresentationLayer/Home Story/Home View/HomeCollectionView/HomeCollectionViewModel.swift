@@ -4,9 +4,6 @@ import SwiftUI
 import os
 import BlocksModels
 
-private extension Logging.Categories {
-    static let homeCollectionViewModel: Self = "HomeCollectionViewModel"
-}
 
 enum HomeCollectionViewCellType: Hashable {
     case plus
@@ -44,8 +41,7 @@ class HomeCollectionViewModel: ObservableObject {
             switch completion {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .homeCollectionViewModel)
-                os_log(.error, log: logger, "Subscribe dashboard events error %@", String(describing: error))
+                assertionFailure("Subscribe dashboard events error \(error)")
             }
         }) { [weak self] value in
             self?.handleOpenDashboard(value)
@@ -167,8 +163,7 @@ extension HomeCollectionViewModel {
             switch event.action {
             case .editBlock(.delete): self.removePage(with: event.model)
             default:
-                let logger = Logging.createLogger(category: .homeCollectionViewModel)
-                os_log(.debug, log: logger, "Skipping event: %@. We are only handling actions above. Do not forget to process all actions.", String(describing: event))
+                assertionFailure("Skipping event: \(event)\n We are only handling actions above. Do not forget to process all actions.")
             }
         }
     }
@@ -189,8 +184,7 @@ extension HomeCollectionViewModel {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .homeCollectionViewModel)
-                os_log(.error, log: logger, "Remove page error %@", String(describing: error))
+                assertionFailure("Remove page error \(error)")
             }
         } receiveValue: { [weak self] value in
             self?.documentViewModel.handle(events: .init(contextId: value.contextID, events: value.messages))
@@ -215,8 +209,7 @@ extension HomeCollectionViewModel {
                 switch result {
                 case .finished: return
                 case let .failure(error):
-                    let logger = Logging.createLogger(category: .homeCollectionViewModel)
-                    os_log(.error, log: logger, "Create page error %@", String(describing: error))
+                    assertionFailure("Create page error \(error)")
                 }
             }) { [weak self] value in
                 self?.documentViewModel.handle(events: .init(contextId: value.contextID, events: value.messages))

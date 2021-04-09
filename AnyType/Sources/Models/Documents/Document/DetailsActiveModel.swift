@@ -1,19 +1,8 @@
-//
-//  DocumentModule+Document+DetailsActiveModel.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 26.01.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import os
 import BlocksModels
 
-private extension Logging.Categories {
-    static let detailsActiveModel: Self = "DocumentModule.Document.DetailsActiveModel"
-}
 
 // Sends and receives data via serivce.
 class DetailsActiveModel {
@@ -75,8 +64,7 @@ extension DetailsActiveModel {
     /// Maybe add AnyPublisher as Return result?
     func update(details: Details) -> AnyPublisher<Void, Error>? {
         guard let documentId = self.documentId else {
-            let logger = Logging.createLogger(category: .detailsActiveModel)
-            os_log(.debug, log: logger, "update(details:). Our document is not ready yet")
+            assertionFailure("update(details:). Our document is not ready yet")
             return nil
         }
         

@@ -4,11 +4,7 @@ import os
 import BlocksModels
 import ProtobufMessages
 
-private extension Logging.Categories {
-    static let blockModelsParser: Self = "BlocksModels.Module.Parser"
-}
 
-// MARK: - Parser
 class BlocksModelsParser {
     typealias Information = Block.Information.InformationModel
     typealias Model = BlockModelProtocol

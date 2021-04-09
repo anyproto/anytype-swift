@@ -6,10 +6,6 @@ import BlocksModels
 import MobileCoreServices
 
 
-private extension Logging.Categories {
-    static let blocksViewsNewOtherDivider: Self = "BlocksViews.Other.Divider"
-}
-    
 /// As soon as we have builder in this type ( makeContentView )
 /// We could map all states ( for example, image has several states ) to several different ContentViews.
 ///
@@ -35,8 +31,7 @@ struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
         switch information.content {
         case .divider: break
         default:
-            let logger = Logging.createLogger(category: .blocksViewsNewOtherDivider)
-            os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+            assertionFailure("Can't create content configuration for content: \(information.content)")
             break
         }
         

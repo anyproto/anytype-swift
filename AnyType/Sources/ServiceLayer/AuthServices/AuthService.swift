@@ -1,18 +1,10 @@
-//
-//  AuthService.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 04.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import SwiftUI
 import os
 import ProtobufMessages
 
-private extension Logging.Categories {
+private extension LoggerCategory {
     static let servicesAuthService: Self = "Services.AuthService"
 }
 
@@ -54,8 +46,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
             case .failure(_): onCompletion(.failure(.createWalletError()))
             }
         }) { [weak self] (value) in
-            let logger = Logging.createLogger(category: .servicesAuthService)
-            os_log(.debug, log: logger, "seed: %{PRIVATE}@", value.mnemonic)
+            Logger.create(.servicesAuthService).debug("seed: \(value.mnemonic, privacy: .private)")
             try? self?.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keyChainPassword: .none)
             onCompletion(.success(()))
         }
@@ -74,9 +65,6 @@ final class AuthService: NSObject, AuthServiceProtocol {
         let avatar = transform(profile.avatar)
 
         // TODO: Add screen to set AlphaInviteCode.
-        // tell that we should set alphaInviteCode first.
-        let logger = Logging.createLogger(category: .servicesAuthService)
-        os_log(.debug, log: logger , "You should set alphaInviteCode first! Add screen for it.")
 
         _ = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode).sink(receiveCompletion: { result in
             switch result {

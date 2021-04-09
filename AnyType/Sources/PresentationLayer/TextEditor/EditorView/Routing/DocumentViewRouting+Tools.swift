@@ -1,18 +1,7 @@
-//
-//  DocumentViewRouting+Tools.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 06.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import os
 
-private extension Logging.Categories {
-    static let documentViewRoutingToolsPageLink: Self = "DocumentViewRouting.Tools.PageLink"
-}
 
 // MARK: ToolsBlocksViewsRouter
 extension DocumentViewRouting {

@@ -1,18 +1,7 @@
-//
-//  ListBlockActionService.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 17.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import BlocksModels
 import Combine
 import os
 
-private extension Logging.Categories {
-    static let textEditorListUserInteractorHandler: Self = "TextEditor.ListUserInteractionHandler"
-}
 
 final class ListBlockActionService {
     typealias ListIds = [BlockId]
@@ -51,8 +40,7 @@ extension ListBlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.delete without payload got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.delete without payload got error: \(error)")
             }
         }, receiveValue: { [weak self] value in
             self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
@@ -78,8 +66,7 @@ extension ListBlockActionService {
     private func setPageStyle(blocks: ListIds, type: BlockContent) {
 
         guard case .smartblock = type else {
-            let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-            os_log(.error, log: logger, "Set Page style cannot convert type: %@", "\(String(describing: type))")
+            assertionFailure("Set Page style cannot convert type: \(type)")
             return
         }
 
@@ -89,8 +76,7 @@ extension ListBlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.turnInto.convertChildrenToPages got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.turnInto.convertChildrenToPages got error: \(error)")
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
     }
@@ -99,8 +85,7 @@ extension ListBlockActionService {
         let blocksIds = blocks
 
         guard case let .text(text) = type else {
-            let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-            os_log(.error, log: logger, "Set Text style content is not text style: %@", "\(String(describing: type))")
+            assertionFailure("Set Text style content is not text style: \(type)")
             return
         }
 
@@ -108,8 +93,7 @@ extension ListBlockActionService {
             switch value {
             case .finished: return
             case let .failure(error):
-                let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-                os_log(.error, log: logger, "blocksActions.service.turnInto.setTextStyle with payload got error: %@", "\(error)")
+                assertionFailure("blocksActions.service.turnInto.setTextStyle with payload got error: \(error)")
             }
         }) { [weak self] (value) in
             self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))

@@ -1,11 +1,3 @@
-//
-//  TextView+UIKitTextView+TextView.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 05.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
@@ -13,9 +5,6 @@ import os
 
 fileprivate typealias Namespace = TextView.UIKitTextView
 
-private extension Logging.Categories {
-    static let textViewUIKitTextView: Self = "TextView.UIKitTextView"
-}
 
 extension Namespace {
     enum ContextualMenu {}

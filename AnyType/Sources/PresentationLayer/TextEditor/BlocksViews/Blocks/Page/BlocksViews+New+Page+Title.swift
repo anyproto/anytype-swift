@@ -1,20 +1,9 @@
-//
-//  BlocksViews+New+Page+Title.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 08.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import os
 import BlocksModels
 
-private extension Logging.Categories {
-    static let pageBlocksViewsTitle: Self = "TextEditor.BlocksViews.PageBlocksViews.Title"
-}
 
 // MARK: - ViewModel
 extension BlocksViews.Page.Title {
@@ -121,8 +110,7 @@ extension BlocksViews.Page.Title {
                     switch value {
                     case .finished: return
                     case let .failure(error):
-                        let logger = Logging.createLogger(category: .pageBlocksViewsTitle)
-                        os_log(.debug, log: logger, "PageBlocksViews title setDetails error has occured. %@", String(describing: error))
+                        assertionFailure("PageBlocksViews title setDetails error has occured \(error)")
                     }
                 }, receiveValue: {}).store(in: &self.subscriptions)
             }
@@ -153,12 +141,7 @@ extension BlocksViews.Page.Title.ViewModel: TextViewUserInteractionProtocol {
     }
 }
 
-// MARK: - Events
-private extension Logging.Categories {
-  static let eventHandler: Self = "Presentation.TextEditor.BlocksViews.Pages.Title.EventHandler"
-}
 
-// MARK: - State
 extension BlocksViews.Page.Title {
     /// Struct State that will take care of all flags and data.
     /// It is equal semantically to `Payload` that will delivered from outworld ( view model ).

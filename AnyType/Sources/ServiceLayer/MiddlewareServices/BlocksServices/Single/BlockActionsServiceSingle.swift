@@ -4,9 +4,6 @@ import BlocksModels
 import os
 import ProtobufMessages
 
-private extension Logging.Categories {
-    static let service: Self = "BlockActionsService.Single.Implementation"
-}
 
 private extension BlockActionsServiceSingle {
     enum PossibleError: Error {
@@ -60,8 +57,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     /// Unused.
 
     func replace(contextID: BlockId, blockID: BlockId, block: Block.Information.InformationModel) -> AnyPublisher<ServiceSuccess, Error> {
-        let logger = Logging.createLogger(category: .service)
-        os_log(.info, log: logger, "method is not implemented")
+        assertionFailure("method is not implemented")
         return .empty()
     }
     

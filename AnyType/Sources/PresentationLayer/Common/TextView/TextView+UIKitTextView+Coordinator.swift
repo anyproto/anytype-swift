@@ -14,7 +14,7 @@ import os
 fileprivate typealias Namespace = TextView.UIKitTextView
 fileprivate typealias FileNamespace = Namespace.Coordinator
 
-private extension Logging.Categories {
+private extension LoggerCategory {
     static let textViewUIKitTextViewCoordinator: Self = "TextView.UIKitTextView.Coordinator"
 }
 
@@ -117,8 +117,12 @@ extension FileNamespace {
             
             guard action.action != .keyboardDismiss else {
                 guard textView.isFirstResponder else {
-                    let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
-                    os_log(.debug, log: logger, "text view keyboardDismiss is disabled. Our view is not first responder. Fixing it by invoking UIApplication.resignFirstResponder")
+                    Logger.create(.textViewUIKitTextViewCoordinator).debug(
+                        """
+                        Text view keyboardDismiss is disabled. Our view is not first responder.
+                        Fixing it by invoking UIApplication.resignFirstResponder
+                        """
+                    )
                     UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
                     return
                 }
@@ -155,8 +159,7 @@ extension FileNamespace {
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
-            let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
-            os_log(.debug, log: logger, "MarksPane action %@", "\(action)")
+            Logger.create(.textViewUIKitTextViewCoordinator).debug("MarksPane action \(String.init(describing: action))")
             
             switch action {
             case let .style(range, attribute):
@@ -272,8 +275,7 @@ private extension FileNamespace {
             let attributedText = textView.textStorage
             let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
-            let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
-            os_log(.debug, log: logger, "configureMarkStylePublisher %@", "\(action)")
+            Logger.create(.textViewUIKitTextViewCoordinator).debug("configureMarkStylePublisher \(String.init(describing: action))")
             
             switch action {
             case .keyboardDismiss: textView.endEditing(false)
@@ -687,8 +689,7 @@ extension TextView.UIKitTextView.Coordinator: UIGestureRecognizerDelegate {
         default: break
         }
         
-        let logger = Logging.createLogger(category: .textViewUIKitTextViewCoordinator)
-        os_log(.debug, log: logger, "%s tap: %s", "\(self)", "\(message(gestureRecognizer.state))")
+        Logger.create(.textViewUIKitTextViewCoordinator).debug("\(self) tap: \(message(gestureRecognizer.state))")
     }
 }
 

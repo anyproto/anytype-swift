@@ -1,11 +1,3 @@
-//
-//  MarksPane+Panes+StylePane+AlignmentModel.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 27.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
@@ -13,10 +5,6 @@ import SwiftUI
 import os
 import BlocksModels
 
-
-private extension Logging.Categories {
-    static let textViewMarksPanePanesStylePaneAlignment: Self = "MarksPane.Panes.StylePane"
-}
 
 // MARK: StylePane / Alignment
 extension MarksPane.Panes.StylePane {
@@ -60,8 +48,7 @@ extension MarksPane.Panes.StylePane.Alignment {
         private static func descriptive(_ style: NSTextAlignment) -> Attribute? {
             let result = self.state(style)
             if result == nil {
-                let logger = Logging.createLogger(category: .textViewMarksPanePanesStylePaneAlignment)
-                os_log(.debug, log: logger, "We receive uncommon result. We should map it to correct attribute != nil. Style is: %@", String(describing: style))
+                assertionFailure("We receive uncommon result. We should map it to correct attribute != nil. Style is: \(style)")
             }
             return result
         }

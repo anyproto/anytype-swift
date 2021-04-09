@@ -1,11 +1,3 @@
-//
-//  DocumentViewModel+New.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 09.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
@@ -15,11 +7,7 @@ import BlocksModels
 fileprivate typealias Namespace = EditorModule.Document.ViewController
 fileprivate typealias FileNamespace = Namespace.ViewModel
 
-private extension Logging.Categories {
-    static let editorDocumentViewModel: Self = "EditorModule.Document.ViewModel"
-}
 
-// MARK: State
 extension FileNamespace {
     enum State {
         case loading
@@ -137,12 +125,8 @@ extension Namespace {
 
         init(documentId: String?, options: Options) {
             // TODO: Add failable init.
-            let logger = Logging.createLogger(category: .editorDocumentViewModel)
-            os_log(.debug, log: logger, "Don't forget to change to failable init?()")
-            
             guard let documentId = documentId else {
-                let logger = Logging.createLogger(category: .editorDocumentViewModel)
-                os_log(.debug, log: logger, "Don't pass nil documentId to DocumentViewModel.init()")
+                assertionFailure("Don't pass nil documentId to DocumentViewModel.init()")
                 return
             }
             
@@ -283,8 +267,7 @@ extension Namespace {
         
         private func configureInteractions(_ documentId: BlockId?) {
             guard let documentId = documentId else {
-                let logger = Logging.createLogger(category: .editorDocumentViewModel)
-                os_log(.debug, log: logger, "configureInteractions(_:). DocumentId is not configured.")
+                assertionFailure("configureInteractions(_:). DocumentId is not configured.")
                 return
             }
             _ = self.blockActionHandler.configured(documentId: documentId).configured(self)

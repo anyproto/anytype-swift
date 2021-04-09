@@ -1,22 +1,10 @@
-//
-//  TextView+UIKitTextView.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 13.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import os
 
-
 enum TextView {}
 
-private extension Logging.Categories {
-    static let textViewUIKitTextView: Self = "TextView.UIKitTextView"
-}
 
 extension TextView {
     class UIKitTextView: UIView {
@@ -163,8 +151,6 @@ private extension TextView.UIKitTextView {
             // There is no way to set attributes for text, becasue it is inherited from attributes that are assigned to first character, that will be replaced.
             guard value != self.textView.textStorage.string else {
                 /// Skip updating row without
-                let logger = Logging.createLogger(category: .textViewUIKitTextView)
-                os_log(.debug, log: logger, "Update is equal to our textStorage. Skip it.")
                 return
             }
             if self.textView.textStorage.length == 0 {
@@ -190,8 +176,6 @@ private extension TextView.UIKitTextView {
             /// text.addAttributes([.font : font], range: .init(location: 0, length: text.length))
             ///
             guard text != self.textView.textStorage else {
-                let logger = Logging.createLogger(category: .textViewUIKitTextView)
-                os_log(.debug, log: logger, "Update is equal to our textStorage. Skip it.")
                 return
             }
             if self.textView.textStorage.length == 0 {

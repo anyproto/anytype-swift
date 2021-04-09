@@ -1,11 +1,3 @@
-//
-//  BlocksViews+New+Tools+PageLink.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 08.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import UIKit
 import Combine
 import BlocksModels

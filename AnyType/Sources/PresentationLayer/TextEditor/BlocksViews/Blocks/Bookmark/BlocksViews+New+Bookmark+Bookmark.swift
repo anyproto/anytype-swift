@@ -1,11 +1,3 @@
-//
-//  BlocksViews+New+Bookmark+Bookmark.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 27.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
@@ -15,9 +7,6 @@ import MobileCoreServices
 
 fileprivate typealias Namespace = BlocksViews.Bookmark.Bookmark
 
-private extension Logging.Categories {
-    static let blocksViewsNewBookmarkBookmark: Self = "BlocksViews.Bookmark.Bookmark"
-}
 
 // TODO: Rethink.
 // Maybe we should use SwiftUI which will be embedded in UIKit.
@@ -60,8 +49,7 @@ extension Namespace {
                 // Think what we should check...
                 // Empty URL?
                 if case let .bookmark(value) = self.getBlock().blockModel.information.content, !value.url.isEmpty {
-                    let logger = Logging.createLogger(category: .blocksViewsNewBookmarkBookmark)
-                    os_log(.info, log: logger, "User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
+                    assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
                     return
                 }
                                 
@@ -726,8 +714,7 @@ extension Namespace.ViewModel {
             switch information.content {
             case .bookmark: break
             default:
-                let logger = Logging.createLogger(category: .blocksViewsNewBookmarkBookmark)
-                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+                assertionFailure("Can't create content configuration for content: \(information.content)")
                 break
             }
             

@@ -4,9 +4,6 @@ import os
 import BlocksModels
 import ProtobufMessages
 
-private extension Logging.Categories {
-    static let blockModelsParser: Self = "BlocksModels.Module.Parser"
-}
 
 // MARK: Helper Converters / GoogleProtobufStructuresConverter
 extension BlocksModelsParser.Converters {

@@ -1,18 +1,10 @@
-//
-//  TextView+ActionsAccessoryView.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 23.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import SwiftUI
 import os
 
-private extension Logging.Categories {
+private extension LoggerCategory {
     static let textViewActionsToolbar: Self = "TextView.ActionsToolbar"
 }
 
@@ -226,8 +218,9 @@ extension TextView.ActionsToolbar {
                 }
             }.eraseToAnyPublisher()
             self.allInOneStreamDescription = self.allInOnePublisher.sink { value in
-                let logger = Logging.createLogger(category: .textViewActionsToolbar)
-                os_log(.debug, log: logger, "ActionsToolbarViewModel underlying action %@", "\(String(describing: value))")
+                Logger.create(.textViewActionsToolbar).debug(
+                    "ActionsToolbarViewModel underlying action \(String(describing: value))"
+                )
             }
         }
 

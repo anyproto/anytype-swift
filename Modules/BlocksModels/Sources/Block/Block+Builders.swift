@@ -1,17 +1,5 @@
-//
-//  Block+Builders.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
-
-private extension Logging.Categories {
-    static let blocksModelsBlockBuilder: Self = "BlocksModels.Block.Builder"
-}
 
 public protocol BlockBuilderProtocol {
     func build(list: [BlockModelProtocol]) -> BlockContainerModelProtocol
@@ -52,8 +40,7 @@ extension Block {
                 self.buildTreeRecursively(container: container, id: rootId)
             }
             else {
-                let logger = Logging.createLogger(category: .blocksModelsBlockBuilder)
-                os_log(.debug, log: logger, "Can't build tree. RootId is nil")
+                assertionFailure("Can't build tree. RootId is nil")
             }
         }
         

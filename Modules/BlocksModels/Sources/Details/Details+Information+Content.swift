@@ -1,22 +1,9 @@
-//
-//  Details+Information+Content.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
 
-private extension Logging.Categories {
-    static let pageDetails: Self = "BlocksModels.Block.Information.PageDetails"
-}
-
-fileprivate typealias Namespace = Details.Information
 
 // MARK: Content
-public extension Namespace {
+public extension Details.Information {
     enum Content {
         case title(Title)
         case iconEmoji(Emoji)
@@ -26,7 +13,7 @@ public extension Namespace {
 }
 
 // MARK: Content / Properties
-public extension Namespace.Content {
+public extension Details.Information.Content {
     /// This function returns an id for a `case`.
     /// This key we use for middleware details keys and also we use it to store our details in `[String : Content]` above in PageDetails.
     /// But it is still a key.
@@ -56,7 +43,7 @@ public extension Namespace.Content {
 
 // MARK: DetailsMatching
 // TODO: Rethink later. It should be done via Keys.
-public extension Namespace.Content {
+public extension Details.Information.Content {
     /// Actually, we could done this in the same way as EnvironemntKey and EnvironmentValues.
     enum Kind {
         case title
@@ -73,7 +60,7 @@ private protocol DetailsEntryIdentifiable {
 }
 
 // MARK: Content / Title
-public extension Namespace.Content {
+public extension Details.Information.Content {
     /// It is a custom detail.
     /// This detail refers to a `Title` that is coming in middleware `details`.
     /// Its id has value "name".
@@ -93,12 +80,12 @@ public extension Namespace.Content {
 }
 
 // MARK: Content / Title / Key
-extension Namespace.Content.Title: DetailsEntryIdentifiable {
+extension Details.Information.Content.Title: DetailsEntryIdentifiable {
     public static var id: String = "name"
 }
 
 // MARK: Content / IconEmoji
-public extension Namespace.Content {
+public extension Details.Information.Content {
     struct Emoji {
         public private(set) var value: String = ""
         public private(set) var id: String = Self.id
@@ -112,12 +99,12 @@ public extension Namespace.Content {
 }
 
 // MARK: Content / IconEmoji / Key
-extension Namespace.Content.Emoji: DetailsEntryIdentifiable {
+extension Details.Information.Content.Emoji: DetailsEntryIdentifiable {
     public static var id: String = "iconEmoji"
 }
 
 // MARK: Content / IconColor
-public extension Namespace.Content {
+public extension Details.Information.Content {
     struct OurHexColor {
         public private(set) var value: String = ""
         public private(set) var id: String = Self.id
@@ -131,12 +118,12 @@ public extension Namespace.Content {
 }
 
 // MARK: Content / IconColor / Key
-extension Namespace.Content.OurHexColor: DetailsEntryIdentifiable {
+extension Details.Information.Content.OurHexColor: DetailsEntryIdentifiable {
     public static var id: String = "iconColor"
 }
 
 // MARK: Content / IconColor
-public extension Namespace.Content {
+public extension Details.Information.Content {
     struct ImageId {
         public private(set) var value: String = ""
         public private(set) var id: String = Self.id
@@ -150,13 +137,13 @@ public extension Namespace.Content {
 }
 
 // MARK: Content / IconColor / Key
-extension Namespace.Content.ImageId: DetailsEntryIdentifiable {
+extension Details.Information.Content.ImageId: DetailsEntryIdentifiable {
     public static var id: String = "iconImage"
 }
 
 // MARK: Hashable
-extension Namespace.Content: Hashable {}
-extension Namespace.Content.Title: Hashable {}
-extension Namespace.Content.Emoji: Hashable {}
-extension Namespace.Content.OurHexColor: Hashable {}
-extension Namespace.Content.ImageId: Hashable {}
+extension Details.Information.Content: Hashable {}
+extension Details.Information.Content.Title: Hashable {}
+extension Details.Information.Content.Emoji: Hashable {}
+extension Details.Information.Content.OurHexColor: Hashable {}
+extension Details.Information.Content.ImageId: Hashable {}

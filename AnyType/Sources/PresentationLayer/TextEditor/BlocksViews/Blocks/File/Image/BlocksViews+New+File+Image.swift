@@ -1,11 +1,3 @@
-//
-//  BlocksViews+New+File+Image.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 08.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
@@ -14,11 +6,7 @@ import BlocksModels
 
 fileprivate typealias Namespace = BlocksViews.File.Image
 
-private extension Logging.Categories {
-    static let fileBlocksViewsImage: Self = "BlocksViews.File.Image"
-}
 
-// MARK: ViewModel
 extension Namespace {
     final class ViewModel: BlocksViews.File.Base.ViewModel {
         
@@ -264,8 +252,7 @@ extension Namespace.ViewModel {
             switch information.content {
             case let .file(value) where value.contentType == .image: break
             default:
-                let logger = Logging.createLogger(category: .fileBlocksViewsImage)
-                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+                assertionFailure("Can't create content configuration for content:\(information.content)")
                 break
             }
             

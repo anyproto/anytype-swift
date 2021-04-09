@@ -1,19 +1,7 @@
-//
-//  EditorModule+Selection+Handler.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 17.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import os
 import BlocksModels
-
-private extension Logging.Categories {
-    static let selectionHandler: Self = "EditorModule.DocumentViewModel.SelectionHandler"
-}
 
 fileprivate typealias Namespace = EditorModule.Selection
 

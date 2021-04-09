@@ -1,18 +1,7 @@
-//
-//  ListBlockActionHandler.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 17.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import os
 import Combine
 import BlocksModels
 
-private extension Logging.Categories {
-    static let textEditorListUserInteractorHandler: Self = "TextEditor.ListUserInteractionHandler"
-}
 
 final class ListBlockActionHandler {
     enum Reaction {
@@ -102,8 +91,7 @@ final class ListBlockActionHandler {
                 let type: BlockActionService.BlockContent = .smartblock(.init(style: .page))
                 self.service.turnInto(blocks: model, type: type)
             default:
-                let logger = Logging.createLogger(category: .textEditorListUserInteractorHandler)
-                os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
+                assertionFailure("TurnInto for that style is not implemented \(action)")
             }
 
         case let .editBlock(value):

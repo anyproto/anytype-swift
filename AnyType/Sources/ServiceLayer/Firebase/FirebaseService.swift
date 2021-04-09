@@ -2,10 +2,6 @@ import Foundation
 import Firebase
 import os
 
-private extension Logging.Categories {
-    static let servicesFirebaseService: Self = "ServicesLayer.FirebaseService"
-}
-
 class FirebaseService {
     private let settingsFile = "GoogleService-Info"
     
@@ -17,8 +13,7 @@ class FirebaseService {
             }
         }
         else {
-            let logger = Logging.createLogger(category: .servicesFirebaseService)
-            os_log(.error, log: logger, "Can't create options with file at path: %@", String(describing: self.settingsFile))
+            assertionFailure("Can't create options with file at path: \(settingsFile)")
         }
     }
 }

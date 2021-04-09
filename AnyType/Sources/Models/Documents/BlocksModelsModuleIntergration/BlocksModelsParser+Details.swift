@@ -1,11 +1,3 @@
-//
-//  BlocksModelsModule+Parser+Details.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 13.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftProtobuf
 import ProtobufMessages
@@ -13,10 +5,6 @@ import Combine
 import os
 import BlocksModels
 
-fileprivate typealias ModelsNamespace = DetailsContent
-private extension Logging.Categories {
-    static let blocksModelsModuleParserDetails: Self = "BlocksModelsParser.Details"
-}
 
 // MARK: Details
 extension BlocksModelsParser {
@@ -63,9 +51,7 @@ extension BlocksModelsParser.Details {
             case Model.OurHexColor.id: return Model.OurHexColor.Converter.asModel(detail: detail).flatMap(Model.iconColor)
             case Model.ImageId.id: return Model.ImageId.Converter.asModel(detail: detail).flatMap(Model.iconImage)
             default:
-                let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                os_log(.debug, log: logger, "Add converters for this type: (%@) ", detail.key)
-
+                assertionFailure("Add converters for this type: \(detail.key)")
                 return nil
             }
         }
@@ -73,13 +59,13 @@ extension BlocksModelsParser.Details {
 }
 
 // MARK: Details / Title / Accessors
-private extension ModelsNamespace.Title {
+private extension DetailsContent.Title {
     func key() -> String { id }
     func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
 }
 
 // MARK: Details / Title / Converter
-private extension ModelsNamespace.Title {
+private extension DetailsContent.Title {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
         typealias Model = DetailsContent.Title
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
@@ -87,15 +73,13 @@ private extension ModelsNamespace.Title {
         }
         static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
             guard detail.key == Model.id else {
-                let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                assertionFailure("Can't proceed detail with key \(detail.key) for predefined suffix. \(Model.id)")
                 return nil
             }
             switch detail.value.kind {
                 case let .stringValue(string): return .init(value: string)
                 default:
-                    let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
                     return nil
             }
         }
@@ -103,13 +87,13 @@ private extension ModelsNamespace.Title {
 }
 
 // MARK: Details / Emoji / Accessors
-private extension ModelsNamespace.Emoji {
+private extension DetailsContent.Emoji {
     func key() -> String { id }
     func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
 }
 
 // MARK: Details / Emoji / Converter
-private extension ModelsNamespace.Emoji {
+private extension DetailsContent.Emoji {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
         typealias Model = DetailsContent.Emoji
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
@@ -117,15 +101,13 @@ private extension ModelsNamespace.Emoji {
         }
         static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
             guard detail.key == Model.id else {
-                let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                assertionFailure("Can't proceed detail with key \(detail.key) for predefined suffix. \(Model.id)")
                 return nil
             }
             switch detail.value.kind {
                 case let .stringValue(string): return .init(value: string)
                 default:
-                    let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
                     return nil
             }
         }
@@ -133,13 +115,13 @@ private extension ModelsNamespace.Emoji {
 }
 
 // MARK: Details / OurHexColor / Accessors
-private extension ModelsNamespace.OurHexColor {
+private extension DetailsContent.OurHexColor {
     func key() -> String { id }
     func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
 }
 
 // MARK: Details / OurHexColor / Converter
-private extension ModelsNamespace.OurHexColor {
+private extension DetailsContent.OurHexColor {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
         typealias Model = DetailsContent.OurHexColor
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
@@ -147,15 +129,13 @@ private extension ModelsNamespace.OurHexColor {
         }
         static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
             guard detail.key == Model.id else {
-                let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                assertionFailure("Can't proceed detail with key \(detail.key) for predefined suffix. \(Model.id)")
                 return nil
             }
             switch detail.value.kind {
                 case let .stringValue(string): return .init(value: string)
                 default:
-                    let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
                     return nil
             }
         }
@@ -163,13 +143,13 @@ private extension ModelsNamespace.OurHexColor {
 }
 
 // MARK: Details / ImageId / Accessors
-private extension ModelsNamespace.ImageId {
+private extension DetailsContent.ImageId {
     func key() -> String { id }
     func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
 }
 
 // MARK: Details / ImageId / Converter
-private extension ModelsNamespace.ImageId {
+private extension DetailsContent.ImageId {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
         typealias Model = DetailsContent.ImageId
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
@@ -177,15 +157,13 @@ private extension ModelsNamespace.ImageId {
         }
         static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
             guard detail.key == Model.id else {
-                let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                os_log(.debug, log: logger, "Can't proceed detail with key (%@) for predefined suffix. (%@)", detail.key, Model.id)
+                assertionFailure("Can't proceed detail with key \(detail.key) for predefined suffix. \(Model.id)")
                 return nil
             }
             switch detail.value.kind {
                 case let .stringValue(string): return .init(value: string)
                 default:
-                    let logger = Logging.createLogger(category: .blocksModelsModuleParserDetails)
-                    os_log(.debug, log: logger, "Unknown value (%@) for predefined suffix. %@", String(describing: detail), Model.id)
+                    assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
                     return nil
             }
         }

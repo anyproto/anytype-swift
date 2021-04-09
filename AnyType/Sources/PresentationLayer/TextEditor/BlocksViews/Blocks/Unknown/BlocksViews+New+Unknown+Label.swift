@@ -4,10 +4,6 @@ import Combine
 import os
 import BlocksModels
 
-private extension Logging.Categories {
-    static let blocksViewsNewUnknownLabel: Self = "BlocksViews.Unknown.Label"
-}
-
 // MARK: ViewModel
 extension BlocksViews.Unknown.Label {
     class ViewModel: BlocksViews.Unknown.Base.ViewModel {

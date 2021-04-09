@@ -1,17 +1,6 @@
-//
-//  ToolbarBlockActionHandler.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 17.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import BlocksModels
 import os
 
-private extension Logging.Categories {
-    static let textEditorUserInteractorHandler: Self = "TextEditor.UserInteractionHandler"
-}
 
 final class ToolbarBlockActionHandler {
     typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
@@ -87,8 +76,7 @@ final class ToolbarBlockActionHandler {
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
 
             default:
-                let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                os_log(.debug, log: logger, "TurnInto for that style is not implemented %@", String(describing: action))
+                assertionFailure("TurnInto for that style is not implemented \(String(describing: action))")
             }
 
         case let .editBlock(value):
@@ -98,8 +86,9 @@ final class ToolbarBlockActionHandler {
                 // self.handlingKeyboardAction(block, .pressKey(.delete))
                 self.service.delete(block: block.blockModel.information) { value in
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
-                        let logger = Logging.createLogger(category: .textEditorUserInteractorHandler)
-                        os_log(.debug, log: logger, "We can't find previous block to focus on at command .delete for block %@", block.blockModel.information.id)
+                        assertionFailure(
+                            "We can't find previous block to focus on at command .delete for block \(block.blockModel.information.id)"
+                        )
                         return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                     }
                     let previousBlockId = previousModel.blockModel.information.id

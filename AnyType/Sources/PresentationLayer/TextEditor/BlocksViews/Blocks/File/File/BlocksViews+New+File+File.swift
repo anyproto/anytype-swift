@@ -1,11 +1,3 @@
-//
-//  BlocksViews+New+File+File.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 19.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
@@ -15,9 +7,6 @@ import UniformTypeIdentifiers
 
 fileprivate typealias Namespace = BlocksViews.File.File
 
-private extension Logging.Categories {
-    static let blocksViewsNewFileFile: Self = "BlocksViews.File.File"
-}
 
 extension Namespace {
     final class ViewModel: BlocksViews.File.Base.ViewModel {
@@ -448,8 +437,7 @@ extension Namespace.ViewModel {
             switch information.content {
             case let .file(value) where value.contentType == .file: break
             default:
-                let logger = Logging.createLogger(category: .blocksViewsNewFileFile)
-                os_log(.error, log: logger, "Can't create content configuration for content: %@", String(describing: information.content))
+                assertionFailure("Can't create content configuration for content: \(information.content)")
                 break
             }
             

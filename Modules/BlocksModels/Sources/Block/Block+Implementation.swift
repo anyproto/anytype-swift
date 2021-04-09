@@ -1,20 +1,8 @@
-//
-//  Block+Implementation.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import Combine
 import os
 
 fileprivate typealias Namespace = Block
-
-private extension Logging.Categories {
-    static let blocksModelsBlock: Self = "BlocksModels.Block"
-}
 
 // MARK: - BlockModel
 extension Namespace {
@@ -109,9 +97,7 @@ extension Namespace {
         
         private func _add(_ block: Model) {
             if self._models[block.information.id] != nil {
-                // tell thta
-                let logger = Logging.createLogger(category: .blocksModelsBlock)
-                os_log(.debug, log: logger, "We shouldn't replace block by add operation. Skipping...")
+                assertionFailure("We shouldn't replace block by add operation. Skipping...")
                 return
             }
             self._models[block.information.id] = block
@@ -172,13 +158,11 @@ extension Namespace.Container: BlockContainerModelProtocol {
     // MARK: - Children / Append
     func append(childId: BlockId, parentId: BlockId) {
         guard let child = self.choose(by: childId) else {
-            let logger = Logging.createLogger(category: .blocksModelsBlock)
-            os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+            assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
         guard let parent = self.choose(by: parentId) else {
-            let logger = Logging.createLogger(category: .blocksModelsBlock)
-            os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+            assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
         
@@ -193,14 +177,12 @@ extension Namespace.Container: BlockContainerModelProtocol {
     // MARK: - Children / Add Before
     private func insert(childId: BlockId, parentId: BlockId, at index: Int) {
         guard let parentModel = self.choose(by: parentId) else {
-            let logger = Logging.createLogger(category: .blocksModelsBlock)
-            os_log(.debug, log: logger, "I can't find parent with id: %@", parentId)
+            assertionFailure("I can't find parent with id: \(parentId)")
             return
         }
         
         guard var childModel = self.get(by: childId) else {
-            let logger = Logging.createLogger(category: .blocksModelsBlock)
-            os_log(.debug, log: logger, "I can't find child with id: %@", childId)
+            assertionFailure("I can't find child with id: \(childId)")
             return
         }
         
@@ -215,8 +197,7 @@ extension Namespace.Container: BlockContainerModelProtocol {
     func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
         guard let parent = self.choose(by: beforeChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: beforeChild) else {
-            let logger = Logging.createLogger(category: .blocksModelsBlock)
-            os_log(.debug, log: logger, "I can't find either parent or block itself with id: %@", beforeChild)
+            assertionFailure("I can't find either parent or block itself with id: \(beforeChild)")
             return
         }
         
@@ -228,8 +209,7 @@ extension Namespace.Container: BlockContainerModelProtocol {
     func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
         guard let parent = self.choose(by: afterChild)?.findParent(), let index = parent.childrenIds().firstIndex(of: afterChild) else {
-            let logger = Logging.createLogger(category: .blocksModelsBlock)
-            os_log(.debug, log: logger, "I can't find either parent or block itself with id: %@", afterChild)
+            assertionFailure("I can't find either parent or block itself with id: \(afterChild)")
             return
         }
         
@@ -257,8 +237,7 @@ extension Namespace.Container: BlockContainerModelProtocol {
     func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool = false) {
         
         guard let parent = self.choose(by: parentId) else {
-            let logger = Logging.createLogger(category: .blocksModelsBlock)
-            os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+            assertionFailure("I can't find entry with id: \(parentId)")
             return
         }
                 
@@ -267,8 +246,7 @@ extension Namespace.Container: BlockContainerModelProtocol {
                 return true
             }
             else {
-                let logger = Logging.createLogger(category: .blocksModelsBlock)
-                os_log(.debug, log: logger, "I can't find entry with id: %@", parentId)
+                assertionFailure("I can't find entry with id: \(parentId)")
                 return false
             }
         } : childrenIds

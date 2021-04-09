@@ -1,19 +1,8 @@
-//
-//  MarksPaneBlockActionHandler.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 17.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
 import Combine
 import OSLog
 import BlocksModels
 
-private extension Logging.Categories {
-   static let marksPaneBlockActionHandler: Self = "MarksPaneBlockActionHandler"
-}
 
 final class MarksPaneBlockActionHandler {
     typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
@@ -73,8 +62,7 @@ private extension MarksPaneBlockActionHandler {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger: Logger = Logging.createOSLogger(category: .marksPaneBlockActionHandler)
-                    logger.error("setBlockColor: \(error.localizedDescription)")
+                    assertionFailure("setBlockColor: \(error.localizedDescription)")
                 }
             }) { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
@@ -91,8 +79,7 @@ private extension MarksPaneBlockActionHandler {
                 switch value {
                 case .finished: return
                 case let .failure(error):
-                    let logger: Logger = Logging.createOSLogger(category: .marksPaneBlockActionHandler)
-                    logger.error("setAlignment: \(error.localizedDescription)")
+                    assertionFailure("setAlignment: \(error.localizedDescription)")
                 }
             }) { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])

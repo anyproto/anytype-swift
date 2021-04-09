@@ -1,20 +1,7 @@
-//
-//  Details+Implementation.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 import os
 import Combine
 
-private extension Logging.Categories {
-    static let blocksModelsDetails: Self = "BlocksModels.Details"
-}
-
-// MARK: DetailsContainer
 extension Details {
     final class Container {
         typealias DetailsId = BlockId
@@ -37,16 +24,12 @@ extension Details {
         
         private func _add(_ model: Model) {
             guard let parent = model.parent else {
-                /// TODO: Add Logging
-                /// We can't add details without parent. ( or block with details )
-                let logger = Logging.createLogger(category: .blocksModelsDetails)
-                os_log(.debug, log: logger, "We shouldn't add details with empty parent id. Skipping...")
+                assertionFailure("We shouldn't add details with empty parent id. Skipping...")
                 return
             }
             
             if self.models[parent] != nil {
-                let logger = Logging.createLogger(category: .blocksModelsDetails)
-                os_log(.debug, log: logger, "We shouldn't replace details by add operation. Skipping...")
+                assertionFailure("We shouldn't replace details by add operation. Skipping...")
                 return
             }
             self.models[parent] = model
@@ -54,8 +37,7 @@ extension Details {
         
         private func _remove(by id: DetailsId) {
             guard self.models.keys.contains(id) else {
-                let logger = Logging.createLogger(category: .blocksModelsDetails)
-                os_log(.debug, log: logger, "We shouldn't delete models if they are not in the collection. Skipping...")
+                assertionFailure("We shouldn't delete models if they are not in the collection. Skipping...")
                 return
             }
             self.models.removeValue(forKey: id)

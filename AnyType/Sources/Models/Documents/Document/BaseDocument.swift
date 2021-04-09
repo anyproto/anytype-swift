@@ -4,7 +4,7 @@ import Combine
 import os
 
 
-private extension Logging.Categories {
+private extension LoggerCategory {
     static let baseDocument: Self = "BaseDocument"
 }
 
@@ -132,8 +132,7 @@ class BaseDocument {
               let rootId = container.rootId,
               let ourModel = container.detailsContainer.choose(by: rootId)
         else {
-            let logger = Logging.createLogger(category: .baseDocument)
-            os_log(.debug, log: logger, "configureDetails(for:). Our document is not ready yet")
+            Logger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
             return
         }
         let publisher = ourModel.didChangeInformationPublisher()
@@ -162,8 +161,7 @@ class BaseDocument {
     /// - Returns: A list of active models.
     func getModels() -> [ActiveModel] {
         guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.choose(by: rootId) else {
-            let logger = Logging.createLogger(category: .baseDocument)
-            os_log(.debug, log: logger, "getModels. Our document is not ready yet")
+            Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }
         return BaseFlattener.flatten(root: activeModel, in: container, options: .default)
@@ -257,8 +255,7 @@ class BaseDocument {
     ///
     func getDetails(by id: DetailsId) -> DetailsActiveModel? {
         guard let value = self.rootModel?.detailsContainer.choose(by: id) else {
-            let logger = Logging.createLogger(category: .baseDocument)
-            os_log(.debug, log: logger, "getDetails(by:). Our document is not ready yet")
+            Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }
         let result: DetailsActiveModel = .init()
@@ -322,8 +319,7 @@ class BaseDocument {
     /// Deprecated.
     private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsContentKind) -> ActiveModel? {
         guard let rootId = self.rootId else {
-            let logger = Logging.createLogger(category: .baseDocument)
-            os_log(.debug, log: logger, "convert(_:of:). Our document is not ready yet.")
+            Logger.create(.baseDocument).debug("convert(_:of:). Our document is not ready yet.")
             return nil
         }
         
@@ -338,8 +334,7 @@ class BaseDocument {
         }
         
         if self.rootModel?.blocksContainer.get(by: block.information.id) != nil {
-            let logger = Logging.createLogger(category: .baseDocument)
-            os_log(.debug, log: logger, "convert(_:of:). We have already added details with id: %@", "\(block.information.id)")
+            Logger.create(.baseDocument).debug("convert(_:of:). We have already added details with id: \(block.information.id)")
         }
         else {
             self.rootModel?.blocksContainer.add(block)

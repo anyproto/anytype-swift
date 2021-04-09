@@ -1,11 +1,3 @@
-//
-//  BlocksViews+Toolbar+Bookmark.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 27.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
@@ -13,9 +5,6 @@ import os
 
 fileprivate typealias Namespace = BlocksViews.Toolbar.Bookmark
 
-private extension Logging.Categories {
-    static let blocksViewsToolbarBookmark: Self = "BlocksViews.Toolbar.Bookmark"
-}
 
 // MARK: AddBlock
 extension BlocksViews.Toolbar {

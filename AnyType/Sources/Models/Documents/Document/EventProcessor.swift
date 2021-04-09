@@ -54,8 +54,7 @@ class EventProcessor {
             self.startListening(contextId: rootId)
         }
         else {
-            let logger = Logging.createLogger(category: .eventProcessor)
-            os_log(.debug, log: logger, "We can't start listening rootId (%@) of container: (%@)", String(describing: container.rootId), String(describing: container))
+            assertionFailure("We can't start listening rootId \(container.rootId) of container: \(container)")
         }
         return self
     }
