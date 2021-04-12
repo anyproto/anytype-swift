@@ -308,6 +308,10 @@
 		3D07ED6F261F4A7E00C007E2 /* DividerBlockUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */; };
 		3D07ED72261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */; };
 		3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */; };
+		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
+		3D680B942624941200FFD844 /* SettingsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B932624941200FFD844 /* SettingsSectionView.swift */; };
+		3D680B972624949A00FFD844 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B962624949A00FFD844 /* SettingsSectionItemView.swift */; };
+		3D680B9A262494B900FFD844 /* ProfileSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B99262494B900FFD844 /* ProfileSectionView.swift */; };
 		3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */; };
 		3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF3261B0E9C005E523C /* Encoder.swift */; };
 		3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */; };
@@ -724,6 +728,10 @@
 		3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitView.swift; sourceTree = "<group>"; };
 		3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitViewWithDivider.swift; sourceTree = "<group>"; };
 		3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentView.swift; sourceTree = "<group>"; };
+		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		3D680B932624941200FFD844 /* SettingsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionView.swift; sourceTree = "<group>"; };
+		3D680B962624949A00FFD844 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
+		3D680B99262494B900FFD844 /* ProfileSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSectionView.swift; sourceTree = "<group>"; };
 		3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainer.swift; sourceTree = "<group>"; };
 		3DB27BF3261B0E9C005E523C /* Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
 		3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleValueEncodingContainer.swift; sourceTree = "<group>"; };
@@ -1113,6 +1121,7 @@
 		03746CF722DE504600380AA1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3D5321DD262445B200F0D4FF /* Localization.swift */,
 				03746CF822DE506200380AA1 /* Constants.swift */,
 				039F6D79239591C80097560A /* Gradients.swift */,
 				03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */,
@@ -1255,6 +1264,7 @@
 		03913E51230B48120040CD4B /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
+				3D680B902624940C00FFD844 /* View */,
 				0303ED0222D8EDAA005C552B /* ProfileView.swift */,
 				0311612D22DE0D1700885211 /* ProfileViewModel.swift */,
 				03C50829230AE32900A1BD9D /* ProfileViewCoordinator.swift */,
@@ -2073,6 +2083,16 @@
 			path = Converters;
 			sourceTree = "<group>";
 		};
+		3D680B902624940C00FFD844 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3D680B932624941200FFD844 /* SettingsSectionView.swift */,
+				3D680B962624949A00FFD844 /* SettingsSectionItemView.swift */,
+				3D680B99262494B900FFD844 /* ProfileSectionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3D9D401B2616036B00B817FD /* Single */ = {
 			isa = PBXGroup;
 			children = (
@@ -2501,6 +2521,7 @@
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				0AA9B040249CF5D300F2962C /* MultiSelectionPane.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
+				3D680B9A262494B900FFD844 /* ProfileSectionView.swift in Sources */,
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
@@ -2603,6 +2624,7 @@
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
+				3D680B972624949A00FFD844 /* SettingsSectionItemView.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				0ABB2A432480205F00A7144A /* MarksPane+ViewController.swift in Sources */,
 				0A6F900E2554826700B94AED /* BlocksViews+New+Unknown+Label.swift in Sources */,
@@ -2660,6 +2682,7 @@
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
+				3D680B942624941200FFD844 /* SettingsSectionView.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* BlocksViews+New+Page+Title.swift in Sources */,
 				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
@@ -2743,6 +2766,7 @@
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
 				3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */,
+				3D5321E0262445B200F0D4FF /* Localization.swift in Sources */,
 				03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
 				0A0965FA25BEF5B000C004BD /* EditorModule.swift in Sources */,

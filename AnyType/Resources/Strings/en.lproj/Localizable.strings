@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  AnyType
-
-  Created by Denis Batvinkin on 29.07.2019.
-  Copyright © 2019 AnyType. All rights reserved.
-*/
-
 "Welcome to AnyType!" = "Welcome to AnyType!";
 "Enter account seed" = "Enter account seed";
 "AnyTypeShortDescription" = "Anytype is a beautiful way to organize your life and work";
@@ -37,6 +29,13 @@
 "Enter video URL" = "Enter video URL";
 "Loading, please wait" = "Loading, please wait";
 "Untitled" = "Untitled";
+
+// Settings
+"Your public page" = "Your public page";
+"Wallpaper" = "Wallpaper";
+"Keychain phrase" = "Keychain phrase";
+"Pin code" = "Pin code";
+
 
 // Auth
 
