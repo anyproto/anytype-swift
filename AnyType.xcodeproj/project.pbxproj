@@ -363,6 +363,8 @@
 		A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB4245AB47700CD6F37 /* EmojiPicker+ViewModel.swift */; };
 		A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */; };
 		A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */; };
+		EA02610D2624A22700AE6D86 /* TurnIntableBlockProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA02610C2624A22700AE6D86 /* TurnIntableBlockProtocol.swift */; };
+		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProviderProtocol.swift */; };
 		EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */; };
 		EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDCC2612288400DBA9FE /* VideoBlockViewModel.swift */; };
 		EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */; };
@@ -381,6 +383,10 @@
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
+		EAC5728426208CB600F25949 /* DocumentViewCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728326208CB600F25949 /* DocumentViewCellFactory.swift */; };
+		EAC5728726208CD100F25949 /* DocumentViewCellFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728626208CD100F25949 /* DocumentViewCellFactoryProtocol.swift */; };
+		EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */; };
+		EAC5728D2621D38A00F25949 /* UIApplication+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728C2621D38A00F25949 /* UIApplication+Convenience.swift */; };
 		EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */; };
 		EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */; };
 		EADA96C8260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */; };
@@ -782,6 +788,8 @@
 		A3940BB4245AB47700CD6F37 /* EmojiPicker+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewModel.swift"; sourceTree = "<group>"; };
 		A3940BB6245AB47700CD6F37 /* EmojiPicker+Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Cell.swift"; sourceTree = "<group>"; };
 		A3940BBA245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+HeaderCollectionReusableView.swift"; sourceTree = "<group>"; };
+		EA02610C2624A22700AE6D86 /* TurnIntableBlockProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnIntableBlockProtocol.swift; sourceTree = "<group>"; };
+		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProviderProtocol.swift; sourceTree = "<group>"; };
 		EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeChecker.swift; sourceTree = "<group>"; };
 		EA20CDCC2612288400DBA9FE /* VideoBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockViewModel.swift; sourceTree = "<group>"; };
 		EA20CDD426122C9200DBA9FE /* VideoBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBlockContentView.swift; sourceTree = "<group>"; };
@@ -800,6 +808,10 @@
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
+		EAC5728326208CB600F25949 /* DocumentViewCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewCellFactory.swift; sourceTree = "<group>"; };
+		EAC5728626208CD100F25949 /* DocumentViewCellFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewCellFactoryProtocol.swift; sourceTree = "<group>"; };
+		EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Convenience.swift"; sourceTree = "<group>"; };
+		EAC5728C2621D38A00F25949 /* UIApplication+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Convenience.swift"; sourceTree = "<group>"; };
 		EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentView.swift; sourceTree = "<group>"; };
 		EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorModuleDocumentViewInput.swift; sourceTree = "<group>"; };
@@ -1257,6 +1269,9 @@
 				0A0AA749240146B5003A2935 /* UIView+Extensions.swift */,
 				EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */,
 				538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */,
+				EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */,
+				EAC5728C2621D38A00F25949 /* UIApplication+Convenience.swift */,
+				EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProviderProtocol.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -1590,6 +1605,8 @@
 				0A0965DE25BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift */,
 				0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */,
 				EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */,
+				EAC5728326208CB600F25949 /* DocumentViewCellFactory.swift */,
+				EAC5728626208CD100F25949 /* DocumentViewCellFactoryProtocol.swift */,
 			);
 			path = EditorModule;
 			sourceTree = "<group>";
@@ -1662,6 +1679,7 @@
 			isa = PBXGroup;
 			children = (
 				0A10CC58248EB5EC000FF498 /* BlocksViews+New+Base.swift */,
+				EA02610C2624A22700AE6D86 /* TurnIntableBlockProtocol.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -2533,6 +2551,7 @@
 				3DB27C08261B0E9C005E523C /* SingleValueDecodingContainer.swift in Sources */,
 				0A996BAF23EDBC14000FDC9C /* DeveloperOptions.swift in Sources */,
 				A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */,
+				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
 				034A303D240457A8002599E2 /* HomeCollectionViewAssembly.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				0A2C0D59247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift in Sources */,
@@ -2610,6 +2629,7 @@
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
+				EAC5728D2621D38A00F25949 /* UIApplication+Convenience.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
 				0ACC357E25C885520003CF3A /* DocumentViewModel.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* Assets.swift in Sources */,
@@ -2666,6 +2686,7 @@
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */,
+				EA02610D2624A22700AE6D86 /* TurnIntableBlockProtocol.swift in Sources */,
 				0ACA781923E5C99A00442690 /* AppearanceService.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
@@ -2673,6 +2694,7 @@
 				0A0965EE25BEF5B000C004BD /* EditorModule+Document+ViewController+ViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
+				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProviderProtocol.swift in Sources */,
 				0A996BB923EDC541000FDC9C /* DeveloperOptions+ViewController.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
@@ -2697,6 +2719,7 @@
 				0A3EE0D624EAC6450074DCDF /* CoreLayer+Network+Image.swift in Sources */,
 				0A08D4C424AF824D0088ECC2 /* CommonViews+ViewControllers.swift in Sources */,
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
+				EAC5728726208CD100F25949 /* DocumentViewCellFactoryProtocol.swift in Sources */,
 				0A0965F525BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
@@ -2847,6 +2870,7 @@
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
 				0A10CC98248FFDE7000FF498 /* BlocksViews+New+Tools+PageLink.swift in Sources */,
 				3D07ECE1261B720400C007E2 /* DocumentViewWrapper.swift in Sources */,
+				EAC5728426208CB600F25949 /* DocumentViewCellFactory.swift in Sources */,
 				0ACA781723E5C99A00442690 /* AppearanceService+Schemes.swift in Sources */,
 				5338E7FB25DC7AF5008CB97D /* BlockActionService.swift in Sources */,
 				5338E7F525DC7345008CB97D /* ButtonBlockActionHandler.swift in Sources */,

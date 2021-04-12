@@ -62,37 +62,22 @@ extension BlocksViews.Toolbar {
 extension BlocksViews.Toolbar.BlocksTypes {
     enum Text: CaseIterable {
         case text, h1, h2, h3, highlighted
-        static var allCases: [Self] = [.text, .h1, .h2, .h3, .highlighted]
     }
 
     enum List: CaseIterable {
         case checkbox, bulleted, numbered, toggle
-        static var allCases: [Self] = [.checkbox, .bulleted, .numbered, .toggle]
     }
-
-//    enum Page: CaseIterable {
-//        case page, existingTool
-//        static var allCases: [Self] = [.page, .existingTool]
-//    }
-
-//    enum Media: CaseIterable {
-//        case file, picture, video, bookmark, code
-//        static var allCases: [Self] = [.file, .picture, .video, .bookmark, .code]
-//    }
     
     enum Objects: CaseIterable {
         case page, file, picture, video, bookmark, linkToObject
-        static var allCases: [Self] = [.page, .file, .picture, .video, .bookmark, .linkToObject]
     }
 
     enum Tool: CaseIterable {
         case contact, database, set, task
-        static var allCases: [Self] = [.contact, .database, .set, .task]
     }
 
     enum Other: CaseIterable {
         case lineDivider, dotsDivider, code
-        static var allCases: [Self] = [.lineDivider, .dotsDivider, .code]
     }
 }
 

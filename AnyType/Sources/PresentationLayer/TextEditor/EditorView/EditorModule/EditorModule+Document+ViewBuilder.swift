@@ -39,6 +39,10 @@ extension Namespace.ViewBuilder {
 
 extension Namespace.ViewBuilder {
     enum UIKitBuilder {
+        
+        private enum Constants {
+            static let selectedViewCornerRadius: CGFloat = 8
+        }
         /// Interesting part.
         /// We define relationship between `Child` and `Self` components.
         /// Child component has a builder.
@@ -66,7 +70,9 @@ extension Namespace.ViewBuilder {
         
         static func selfComponent(by request: Request) -> SelfComponent {
             let viewModel: ViewModel = .init(documentId: request.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
-            let view: ViewController = .init(viewModel: viewModel)
+            let viewCellFactory = DocumentViewCellFactory(selectedViewColor: .selectedItemColor,
+                                                  selectedViewCornerRadius: Constants.selectedViewCornerRadius)
+            let view: ViewController = .init(viewModel: viewModel, viewCellFactory: viewCellFactory)
             viewModel.viewInput = view
             
             return (view, viewModel, self.childComponent(by: request))

@@ -23,6 +23,7 @@ extension Namespace {
         
         private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BlocksViews.Base.ViewModel>?
         private let viewModel: ViewModel
+        private let viewCellFactory: DocumentViewCellFactoryProtocol
         private weak var headerViewModel: HeaderView.ViewModel?
         private(set) lazy var headerViewModelPublisher: AnyPublisher<HeaderView.UserAction, Never>? = self.headerViewModel?.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
                 
@@ -34,8 +35,9 @@ extension Namespace {
             return recognizer
         }()
 
-        init(viewModel: ViewModel) {
+        init(viewModel: ViewModel, viewCellFactory: DocumentViewCellFactoryProtocol) {
             self.viewModel = viewModel
+            self.viewCellFactory = viewCellFactory
             var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
             listConfiguration.headerMode = .supplementary
             listConfiguration.backgroundColor = .white
@@ -61,6 +63,7 @@ extension Namespace {
         
         private func setupUI() {
             self.setupCollectionViewDataSource()
+            self.collectionView?.allowsMultipleSelection = true
             self.collectionView?.backgroundColor = .systemBackground
             self.collectionView?.addGestureRecognizer(self.listViewTapGestureRecognizer)
             self.setupInteractions()
@@ -77,13 +80,17 @@ extension Namespace {
             
             listView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: Constants.cellReuseId)
             
-            self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView) { (view, indexPath, item) -> UICollectionViewCell? in
+            self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView) { [weak self] (view, indexPath, item) -> UICollectionViewCell? in
+                guard let self = self else { return UICollectionViewListCell() }
                 let cell = view.dequeueReusableCell(withReuseIdentifier: Constants.cellReuseId,
                                                     for: indexPath) as? UICollectionViewListCell
                 cell?.contentConfiguration = item.buildContentConfiguration()
                 cell?.indentationWidth = Constants.cellIndentationWidth
                 cell?.indentationLevel = item.indentationLevel()
-
+                if cell?.selectedBackgroundView == nil {
+                    cell?.selectedBackgroundView = self.viewCellFactory.makeSelectedBackgroundViewForBlockCell()
+                }
+                cell?.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
                 return cell
             }
 
@@ -135,6 +142,30 @@ extension Namespace {
                 snapshot.reloadItems(itemsForUpdate)
                 self?.apply(snapshot)
             }.store(in: &self.subscriptions)
+            
+            self.viewModel.selectionHandler?.selectionEventPublisher().sink(receiveValue: { [weak self] value in
+                guard let self = self else { return }
+                switch value {
+                case .selectionDisabled:
+                    self.deselectAllBlocks()
+                case let .selectionEnabled(event):
+                    switch event {
+                    case .isEmpty:
+                        self.deselectAllBlocks()
+                    case let .nonEmpty(count, _):
+                        if count != self.collectionView.numberOfItems(inSection: 0) {
+                            return
+                        }
+                        self.collectionView.selectAllItems()
+                    }
+                    self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
+                }
+            }).store(in: &self.subscriptions)
+        }
+        
+        private func deselectAllBlocks() {
+            self.collectionView.deselectAllSelectedItems()
+            self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
         }
 
         /// Method called when viewmodel options updated
@@ -236,10 +267,23 @@ extension Namespace.ViewController {
 extension Namespace.ViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel.didSelectBlock(at: indexPath)
-        collectionView.deselectItem(at: indexPath, animated: true)
+        if self.viewModel.selectionEnabled() {
+            return
+        }
+        collectionView.deselectItem(at: indexPath, animated: false)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if !self.viewModel.selectionEnabled() {
+            return
+        }
+        self.viewModel.didSelectBlock(at: indexPath)
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        if self.viewModel.selectionEnabled() {
+            return true
+        }
         guard let viewModel = self.dataSource?.itemIdentifier(for: indexPath) else { return false }
         switch viewModel.getBlock().blockModel.information.content {
         case .text:

@@ -33,7 +33,9 @@ extension BlocksViews.Base {
         /// Options that handle a behavior of view model.
         private var options: Options = .init()
         
-        private var getFileURLSubscription: AnyCancellable?
+        var availableTurnIntoTypes: [BlocksViews.Toolbar.BlocksTypes] {
+            []
+        }
                 
         // MARK: Deinitialization
         deinit {
@@ -597,4 +599,6 @@ extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsReceivingProtocol {
         self.handle(event: event)
     }
 }
+
+extension BlocksViews.Base.ViewModel: TurnIntableBlockProtocol {}
 

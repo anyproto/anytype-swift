@@ -23,6 +23,8 @@ final class TextBlockActionHandler {
         switch action {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
         case let .inputAction(value): self.handlingInputAction(block, value)
+        case .showMultiActionMenuAction:
+            break
         default:
             assertionFailure("Unexpected: \(action)")
         }

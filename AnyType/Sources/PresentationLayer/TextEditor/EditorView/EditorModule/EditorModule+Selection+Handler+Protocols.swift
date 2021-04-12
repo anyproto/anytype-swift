@@ -27,7 +27,7 @@ protocol EditorModuleSelectionHandlerListProtocol {
 }
 
 protocol EditorModuleSelectionHandlerCellProtocol: class {
-    func set(selected: Bool, id: BlockId)
+    func set(selected: Bool, id: BlockId, hasTurnIntoOption: Bool)
     func selected(id: BlockId) -> Bool
 
     func selectionCellEvent(_ id: BlockId) -> EditorModule.Selection.IncomingCellEvent
@@ -51,22 +51,6 @@ extension EditorModuleSelectionCellProtocol {
     var selectionCellEventPublisher: AnyPublisher<EditorModule.Selection.IncomingCellEvent, Never> {
         guard let handler = self.selectionHandler, let id = self.getSelectionKey() else { return .empty() }
         return handler.selectionCellEventPublisher(id)
-    }
-}
-
-extension EditorModuleSelectionCellProtocol {
-    var isSelected: Bool {
-        get {
-            if let key = self.getSelectionKey(), let handler = self.selectionHandler {
-                return handler.selected(id: key)
-            }
-            return false
-        }
-        set {
-            if let key = self.getSelectionKey(), let handler = self.selectionHandler {
-                handler.set(selected: newValue, id: key)
-            }
-        }
     }
 }
 
@@ -108,8 +92,12 @@ extension EditorModuleHasSelectionHandlerProtocol {
         self.selectionHandler?.selectionEventPublisher() ?? .empty()
     }
     
-    func set(selected: Bool, id: BlockId) {
-        self.selectionHandler?.set(selected: selected, id: id)
+    func set(selected: Bool,
+             id: BlockId,
+             hasTurnIntoOption: Bool) {
+        self.selectionHandler?.set(selected: selected,
+                                   id: id,
+                                   hasTurnIntoOption: hasTurnIntoOption)
     }
     
     func selected(id: BlockId) -> Bool {

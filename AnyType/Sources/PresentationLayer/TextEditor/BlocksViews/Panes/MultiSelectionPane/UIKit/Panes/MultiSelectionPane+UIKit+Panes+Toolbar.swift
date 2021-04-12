@@ -6,11 +6,8 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Combine
-import SwiftUI
-import os
 
 fileprivate typealias Namespace = MultiSelectionPane.UIKit.Panes
 fileprivate typealias FileNamespace = Namespace.Toolbar
@@ -22,9 +19,12 @@ extension Namespace {
 // MARK: View
 extension FileNamespace {
     class View: UIView {
+        
         // MARK: Aliases
         typealias BaseToolbarView = TextView.BaseSingleToolbarView
         typealias Style = TextView.Style
+        
+        private let insets: UIEdgeInsets
 
         // MARK: Variables
         var style: Style = .default
@@ -32,50 +32,45 @@ extension FileNamespace {
         var subscription: AnyCancellable?
 
         // MARK: Initialization
-        override init(frame: CGRect) {
+        init(frame: CGRect,
+             applicationWindowInsetsProvider: ApplicationWindowInsetsProviderProtocol = UIApplication.shared) {
+            self.insets = UIEdgeInsets(top: 10,
+                                       left: 10,
+                                       bottom: applicationWindowInsetsProvider.mainWindowInsets.bottom,
+                                       right: 10)
             super.init(frame: frame)
             self.setup()
         }
-
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
+        
+        init(viewModel: ViewModel,
+             applicationWindowInsetsProvider: ApplicationWindowInsetsProviderProtocol = UIApplication.shared) {
+            self.model = viewModel
+            self.insets = UIEdgeInsets(top: 10,
+                                       left: 10,
+                                       bottom: applicationWindowInsetsProvider.mainWindowInsets.bottom,
+                                       right: 10)
+            super.init(frame: .zero)
             self.setup()
         }
         
-        init(viewModel: ViewModel) {
-            self.model = viewModel
-            super.init(frame: .zero)
-            self.setup()
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
         
         // MARK: Actions
         private func update(response: UserResponse) {
             switch response {
             case .isEmpty:
-                self.titleLabel.text = "Select or drag and drop blocks"
-                self.stackView.isHidden = true
-                self.stackViewLeadingConstraint?.isActive = false
-            case let .nonEmpty(value):
-                self.titleLabel.text = "\(value) blocks selected"
-                self.stackView.isHidden = false
-                self.stackViewLeadingConstraint?.isActive = true
+                self.titleLabel.text = NSLocalizedString("Select or drag and drop blocks", comment: "")
+                self.turnIntoButton.isHidden = true
+                self.copyButton.isHidden = true
+                self.deleteButton.isHidden = true
+            case let .nonEmpty(count, showTurnInto):
+                self.titleLabel.text = String(count) + " " + NSLocalizedString("Blocks selected", comment: "")
+                self.turnIntoButton.isHidden = !showTurnInto
+                self.copyButton.isHidden = false
+                self.deleteButton.isHidden = false
             }
-        }
-        
-        @objc private func processTurnInto() {
-            process(.turnInto)
-        }
-
-        @objc private func processDelete() {
-            process(.delete)
-        }
-
-        @objc private func processCopy() {
-            process(.copy)
-        }
-
-        private func process(_ action: Action) {
-            self.model.process(action: action)
         }
 
         // MARK: Public API Configurations
@@ -87,10 +82,15 @@ extension FileNamespace {
             for button in [self.turnIntoButton, self.deleteButton, self.copyButton] {
                 button?.tintColor = self.style.normalColor()
             }
-
-            self.turnIntoButton.addTarget(self, action: #selector(Self.processTurnInto), for: .touchUpInside)
-            self.deleteButton.addTarget(self, action: #selector(Self.processDelete), for: .touchUpInside)
-            self.copyButton.addTarget(self, action: #selector(Self.processCopy), for: .touchUpInside)
+            self.turnIntoButton.addAction(UIAction(handler: { [weak self] _ in
+                self?.model.process(action: .turnInto)
+            }), for: .touchUpInside)
+            self.deleteButton.addAction(UIAction(handler: { [weak self] _ in
+                self?.model.process(action: .delete)
+            }), for: .touchUpInside)
+            self.copyButton.addAction(UIAction(handler: { [weak self] _ in
+                self?.model.process(action: .copy)
+            }), for: .touchUpInside)
         }
 
         private func setupInteraction() {
@@ -102,7 +102,6 @@ extension FileNamespace {
         // MARK: Setup
         private func setup() {
             self.setupUIElements()
-            self.addLayout()
             self.setupCustomization()
             self.setupInteraction()
         }
@@ -113,17 +112,12 @@ extension FileNamespace {
         private var deleteButton: UIButton!
         private var copyButton: UIButton!
 
-        private var stackView: UIStackView!
-        private var contentView: UIView!
-        
-        // MARK: Layout
-        private var stackViewLeadingConstraint: NSLayoutConstraint?
-
         // MARK: Setup UI Elements
-        func setupUIElements() {
+        private func setupUIElements() {
             self.translatesAutoresizingMaskIntoConstraints = false
             self.titleLabel = {
                 let view = UILabel()
+                view.textColor = .accentItemColor
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
@@ -148,57 +142,23 @@ extension FileNamespace {
                 view.setImage(UIImage(named: "TextEditor/Panes/MultiSelection/Toolbar/More"), for: .normal)
                 return view
             }()
-
-            self.stackView = {
-                let view = UIStackView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                view.axis = .horizontal
-                view.distribution = .fillProportionally
-                return view
-            }()
-
-            for view in [self.turnIntoButton, self.deleteButton, self.copyButton].compactMap({$0}) {
-                self.stackView.addArrangedSubview(view)
-            }
-
-            self.contentView = {
-                let view = UIView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                return view
-            }()
-
-            self.contentView.addSubview(self.titleLabel)
-            self.contentView.addSubview(self.stackView)
-            self.addSubview(self.contentView)
-        }
-
-        // MARK: Layout
-        func addLayout() {
-            let offset: CGFloat = 10
-            if let view = self.titleLabel, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: offset).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-            }
             
-            if let view = self.stackView, let superview = view.superview, let leftView = self.titleLabel {
-                self.stackViewLeadingConstraint = view.leadingAnchor.constraint(equalTo: superview.centerXAnchor)
-                view.leadingAnchor.constraint(greaterThanOrEqualTo: leftView.trailingAnchor).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -offset).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-            }
+            let flexibleView = UIView()
+            flexibleView.translatesAutoresizingMaskIntoConstraints = false
+            flexibleView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            flexibleView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
-            if let view = self.contentView, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-            }
-        }
+            let stackView = UIStackView(arrangedSubviews: [self.titleLabel,
+                                                           flexibleView,
+                                                           self.turnIntoButton,
+                                                           self.deleteButton,
+                                                           self.copyButton])
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .horizontal
+            stackView.distribution = .fillProportionally
 
-        override var intrinsicContentSize: CGSize {
-            return .zero
+            self.addSubview(stackView)
+            stackView.edgesToSuperview(insets: insets)
         }
     }
 }
@@ -218,7 +178,7 @@ extension FileNamespace {
     ///
     enum UserResponse {
         case isEmpty
-        case nonEmpty(UInt)
+        case nonEmpty(count: UInt, showTurnInto: Bool)
     }
 }
 
@@ -255,17 +215,18 @@ extension FileNamespace {
         // MARK: Public Setters
         /// Use this method from outside to update value.
         ///
-        func handle(countOfObjects: Int) {
-            self.userResponseSubject.send(countOfObjects <= 0 ? .isEmpty : .nonEmpty(.init(countOfObjects)))
+        func handle(countOfObjects: Int, hasTurnIntoCommand: Bool) {
+            self.userResponseSubject.send(countOfObjects <= 0 ? .isEmpty : .nonEmpty(count: .init(countOfObjects), showTurnInto: hasTurnIntoCommand))
         }
         
-        func subscribe(on userResponse: AnyPublisher<Int, Never>) {
+        func subscribe(on userResponse: AnyPublisher<MultiSelectionPane.UIKit.Main.UserResponse, Never>) {
             self.subscription = userResponse.sink(receiveValue: { [weak self] (value) in
-                self?.handle(countOfObjects: value)
+                self?.handle(countOfObjects: value.selectedItemsCount,
+                             hasTurnIntoCommand: value.hasTurnIntoCommand)
             })
         }
         
-        func configured(userResponseStream: AnyPublisher<Int, Never>) -> Self {
+        func configured(userResponseStream: AnyPublisher<MultiSelectionPane.UIKit.Main.UserResponse, Never>) -> Self {
             self.subscribe(on: userResponseStream)
             return self
         }

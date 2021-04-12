@@ -50,6 +50,7 @@ extension Namespace {
         private var subscription: AnyCancellable?
         private var storageEventsSubject: PassthroughSubject<SelectionEvent, Never> = .init()
         private var storageEventsPublisher: AnyPublisher<SelectionEvent, Never> = .empty()
+        private var idsWithoutTurnIntoOption = Set<BlockId>()
         /// Storage
         private var storage: Storage = .init() {
             didSet {
@@ -69,7 +70,8 @@ extension Namespace {
             if storage.isEmpty() {
                 return .selectionEnabled
             }
-            return .selectionEnabled(.nonEmpty(.init(storage.count())))
+            return .selectionEnabled(.nonEmpty(.init(storage.count()),
+                                               idsCountWithoutTurnInto: self.idsWithoutTurnIntoOption.count))
         }
         
         private func handle(_ storageUpdate: Storage) {
@@ -110,9 +112,9 @@ extension Namespace {
         enum CountEvent {
             static var `default`: Self = .isEmpty
             case isEmpty
-            case nonEmpty(UInt)
-            static func from(_ value: Int) -> Self {
-                value <= 0 ? .isEmpty : nonEmpty(.init(value))
+            case nonEmpty(UInt, idsCountWithoutTurnInto: Int)
+            static func from(_ value: Int, idsCountWithoutTurnInto: Int) -> Self {
+                value <= 0 ? .isEmpty : nonEmpty(.init(value), idsCountWithoutTurnInto: idsCountWithoutTurnInto)
             }
         }
         case selectionDisabled
@@ -137,7 +139,7 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     ///
     func deselect(ids: Set<BlockId>) {
         guard self.selectionEnabled() else { return }
-        
+        ids.forEach { self.idsWithoutTurnIntoOption.remove($0) }
         self.storage.remove(ids: ids)
     }
         
@@ -157,7 +159,9 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     ///
     func toggle(_ id: BlockId) {
         guard self.selectionEnabled() else { return }
-        
+        if self.idsWithoutTurnIntoOption.contains(id) {
+            self.idsWithoutTurnIntoOption.remove(id)
+        }
         self.storage.toggle(id: id)
     }
     
@@ -171,6 +175,7 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     /// But, we still `CAN` clear storage without checking if selection is enabled.
     ///
     func clear() {
+        self.idsWithoutTurnIntoOption.removeAll()
         self.storage.clear()
     }
     
@@ -181,8 +186,15 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     /// We should fire events only if selection is enabled.
     /// Otherwise, we can't remove or selected ids.
     ///
-    func set(selected: Bool, id: BlockId) {
+    func set(selected: Bool, id: BlockId, hasTurnIntoOption: Bool) {
         guard self.selectionEnabled() else { return }
+        if !hasTurnIntoOption {
+            if selected {
+                self.idsWithoutTurnIntoOption.insert(id)
+            } else {
+                self.idsWithoutTurnIntoOption.remove(id)
+            }
+        }
         let contains = self.storage.contains(id: id)
         if contains != selected {
             self.storage.toggle(id: id)

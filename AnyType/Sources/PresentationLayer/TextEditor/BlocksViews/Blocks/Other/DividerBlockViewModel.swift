@@ -11,6 +11,10 @@ class DividerBlockViewModel: BlocksViews.Base.ViewModel {
     @Published private var statePublished: DividerBlockUIKitView.State?
     private var publisher: AnyPublisher<TopLevel.BlockContent.Divider, Never> = .empty()
     
+    override var availableTurnIntoTypes: [BlocksViews.Toolbar.BlocksTypes] {
+        [.other(.lineDivider), .other(.dotsDivider)]
+    }
+    
     override func makeUIView() -> UIView {
         DividerBlockUIKitView().configured(publisher: self.$statePublished.eraseToAnyPublisher())
     }

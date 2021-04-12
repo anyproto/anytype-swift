@@ -177,8 +177,7 @@ final class TextBlockContentView: UIView & UIContentView {
         self.setupText(placeholer: NSLocalizedString("Header 3", comment: ""), font: .header3Font)
     }
     
-    private func setupText(placeholer: String, font: UIFont, backgroundColor: UIColor = .systemBackground) {
-        self.backgroundColor = backgroundColor
+    private func setupText(placeholer: String, font: UIFont) {
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
                                                          .foregroundColor: UIColor.secondaryTextColor]
 

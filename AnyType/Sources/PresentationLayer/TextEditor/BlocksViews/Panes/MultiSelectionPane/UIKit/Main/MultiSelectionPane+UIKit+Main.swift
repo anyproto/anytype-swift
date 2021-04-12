@@ -35,7 +35,10 @@ extension FileNamespace {
     /// Internal State for View.
     /// For example, if you press button which doesn't hide keyboard, by design, this button could be highlighted.
     ///
-    typealias UserResponse = Int
+    struct UserResponse {
+        var selectedItemsCount: Int
+        var hasTurnIntoCommand: Bool
+    }
 }
 
 // MARK: ViewModel
@@ -53,7 +56,7 @@ extension FileNamespace {
             self.userResponse = self.userResponseSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
             
             _ = self._toolbarViewModel.configured(userResponseStream: self.userResponse)
-            _ = self._selectionViewModel.configured(userResponseStream: self.userResponse)
+            _ = self._selectionViewModel.configured(userResponseStream: self.userResponse.map(\.selectedItemsCount).eraseToAnyPublisher())
             
             // To OuterWorld
             self.userAction = Publishers.Merge(self._toolbarViewModel.userAction.map(Action.toolbar), self._selectionViewModel.userAction.map(Action.selection)).eraseToAnyPublisher()
@@ -75,8 +78,9 @@ extension FileNamespace {
         // MARK: Public Setters
         /// Use this method from outside to update value.
         ///
-        func handle(countOfObjects: Int) {
-            self.userResponseSubject.send(countOfObjects)
+        func handle(countOfObjects: Int, hasTurnIntoCommand: Bool) {
+            self.userResponseSubject.send(UserResponse(selectedItemsCount: countOfObjects,
+                                                       hasTurnIntoCommand: hasTurnIntoCommand))
         }
     }
 }

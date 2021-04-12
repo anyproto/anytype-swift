@@ -56,6 +56,14 @@ extension UIColor {
     static var secondaryTextColor: UIColor {
         .init(red: 172.0/255.0, green: 169.0/255.0, blue: 150.0/255.0, alpha: 1)
     }
+    
+    static var selectedItemColor: UIColor {
+        .init(red: 229.0/255.0, green: 239.0/255.0, blue: 249.0/255.0, alpha: 1)
+    }
+    
+    static var accentItemColor: UIColor {
+        .orange
+    }
 
     /// Color that can be used in case if we couldn't parse color from middleware
     static var defaultColor: UIColor {

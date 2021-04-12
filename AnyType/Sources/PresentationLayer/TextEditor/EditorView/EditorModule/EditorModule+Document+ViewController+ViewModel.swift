@@ -359,7 +359,9 @@ extension FileNamespace {
 
     private func didSelect(atIndex: IndexPath) {
         guard let item = element(at: atIndex) else { return }
-        self.set(selected: !self.selected(id: item.blockId), id: item.blockId)
+        self.set(selected: !self.selected(id: item.blockId),
+                 id: item.blockId,
+                 hasTurnIntoOption: !item.availableTurnIntoTypes.isEmpty)
     }
 }
 
