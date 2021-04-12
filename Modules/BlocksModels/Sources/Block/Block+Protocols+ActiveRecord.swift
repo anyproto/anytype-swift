@@ -55,8 +55,7 @@ public protocol BlockActiveRecordCanBeToggledProtocol {
 
 // MARK: - BlockActiveRecord / FocusAt
 public protocol BlockActiveRecordCanHaveFocusAtProtocol {
-    typealias Position = TopLevel.FocusPosition
-    var focusAt: Position? {get set}
+    var focusAt: Block.Common.Focus.Position? {get set}
 }
 
 public extension BlockActiveRecordCanHaveFocusAtProtocol {

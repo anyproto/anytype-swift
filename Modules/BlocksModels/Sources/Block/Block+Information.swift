@@ -1,11 +1,3 @@
-//
-//  Block+Information.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 
 fileprivate typealias Namespace = Block.Information
@@ -15,10 +7,11 @@ extension Block {
 }
 
 extension Namespace {
+    public typealias BackgroundColor = String
+    
     public struct InformationModel {
         public typealias Content = TopLevel.BlockContent
-        public typealias ChildrenIds = TopLevel.ChildrenIds
-        public typealias BackgroundColor = TopLevel.BackgroundColor
+        public typealias ChildrenIds = [BlockId]
         public typealias Alignment = TopLevel.Alignment
 
         public var id: BlockId
@@ -133,7 +126,7 @@ public extension Namespace {
         var blockId: BlockId
 
         private func detailsAsBlock(_ details: Details) -> BlockModel {
-            TopLevel.Builder.blockBuilder.createBlockModel(with: DetailsAsInformationConverter(blockId: self.blockId)(details))
+            TopLevelBuilderImpl.blockBuilder.createBlockModel(with: DetailsAsInformationConverter(blockId: self.blockId)(details))
         }
 
         public func callAsFunction(_ details: Details) -> BlockModelProtocol {

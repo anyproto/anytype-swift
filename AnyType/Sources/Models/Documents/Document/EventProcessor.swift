@@ -48,7 +48,7 @@ class EventProcessor {
         return self
     }
 
-    func configured(_ container: TopLevelContainerModelProtocol) -> Self {
+    func configured(_ container: ContainerModel) -> Self {
         _ = self.eventHandler.configured(container)
         if let rootId = container.rootId {
             self.startListening(contextId: rootId)

@@ -11,7 +11,7 @@ enum HomeCollectionViewCellType: Hashable {
 }
 
 class HomeCollectionViewModel: ObservableObject {
-    typealias RootModel = TopLevelContainerModelProtocol
+    typealias RootModel = ContainerModel
     typealias CellUserAction = HomeCollectionViewDocumentCellModel.UserActionPayload
     
     private let dashboardService: DashboardServiceProtocol = DashboardService()

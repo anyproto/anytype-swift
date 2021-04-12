@@ -8,9 +8,9 @@ public extension Namespace {
         public typealias Key = BlockId
         public typealias Model = BlockModelProtocol
 
-        private var container: TopLevelContainerModelProtocol
+        private var container: ContainerModel
 
-        public init(_ container: TopLevelContainerModelProtocol) {
+        public init(_ container: ContainerModel) {
             self.container = container
         }
     }

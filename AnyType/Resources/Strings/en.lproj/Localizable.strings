@@ -32,6 +32,7 @@
 "Select or drag and drop blocks" = "Select or drag and drop blocks";
 "Blocks selected" = "blocks selected";
 
+
 // Settings
 "Your public page" = "Your public page";
 "Wallpaper" = "Wallpaper";
@@ -40,7 +41,6 @@
 
 
 // Auth
-
 "Organize everything" = "Organize everything";
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks, share files and save important content from the web.";
 "Sign up" = "Sign up";

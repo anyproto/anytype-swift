@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import Combine
 import os
+import BlocksModels
 
 enum TextView {}
 
@@ -217,7 +218,7 @@ private extension TextView.UIKitTextView {
 // MARK: - Focus
 
 private extension TextView.UIKitTextView {
-    func setFocus(_ value: ViewModel.Focus.Position) {
+    func setFocus(_ value: Block.Common.Focus.Position) {
         let position = value
         switch position {
         case .unknown: break

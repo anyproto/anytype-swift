@@ -8,10 +8,8 @@ class EventHandler: NewEventHandler {
     private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
     var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()
     
-    
-    private typealias Builder = TopLevel.Builder
-    private typealias Updater = TopLevel.BlockTools.Updater
-    private typealias Container = TopLevelContainerModelProtocol
+    private typealias Updater = Block.Tools.Updater
+    private typealias Container = ContainerModel
     
     private weak var container: Container?
     
@@ -33,7 +31,7 @@ class EventHandler: NewEventHandler {
         }
 
         if update.hasUpdate {
-            Builder.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
+            TopLevelBuilderImpl.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
         }
 
         // Notify about updates if needed.
@@ -56,7 +54,7 @@ private extension EventHandler {
 
 // MARK: Configurations
 extension EventHandler {
-    func configured(_ container: TopLevelContainerModelProtocol) -> Self {
+    func configured(_ container: ContainerModel) -> Self {
         self.updater = .init(container)
         self.container = container
         return self
@@ -119,8 +117,8 @@ private extension EventHandler {
         case let .blockAdd(value):
             value.blocks
                 .compactMap(self.parser.convert(block:))
-                .map(Builder.blockBuilder.informationBuilder.build(information:))
-                .map(Builder.blockBuilder.createBlockModel)
+                .map(TopLevelBuilderImpl.blockBuilder.informationBuilder.build(information:))
+                .map(TopLevelBuilderImpl.blockBuilder.createBlockModel)
                 .forEach { (value) in
                     self.updater?.insert(block: value)
                 }
@@ -223,16 +221,16 @@ private extension EventHandler {
             let details = value.details
             let eventsDetails = BlocksModelsParser.PublicConverters.EventsDetails.convert(event: .init(id: detailsId, details: details))
             let detailsModels = BlocksModelsParser.Details.Converter.asModel(details: eventsDetails)
-            let detailsInformationModel = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+            let detailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: detailsModels)
             
             if let detailsModel = self.container?.detailsContainer.choose(by: detailsId) {
                 var model = detailsModel.detailsModel
-                var resultDetails = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: detailsModels)
+                var resultDetails = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: detailsModels)
                 resultDetails.parentId = detailsId
                 model.details = resultDetails
             }
             else {
-                var newDetailsModel = TopLevel.Builder.detailsBuilder.build(information: detailsInformationModel)
+                var newDetailsModel = TopLevelBuilderImpl.detailsBuilder.build(information: detailsInformationModel)
                 newDetailsModel.parent = detailsId
                 self.container?.detailsContainer.add(newDetailsModel)
             }
@@ -472,9 +470,8 @@ private extension EventHandler {
 
 private extension EventHandler.Focus {
     enum Converter {
-        typealias Model = TopLevel.FocusPosition
         typealias EventModel = EventListening.OurEvent.Focus.Payload.Position
-        static func asModel(_ value: EventModel) -> Model? {
+        static func asModel(_ value: EventModel) -> Block.Common.Focus.Position? {
             switch value {
             case .unknown: return .unknown
             case .beginning: return .beginning
@@ -483,7 +480,7 @@ private extension EventHandler.Focus {
             }
         }
         
-        static func asEventModel(_ value: Model) -> EventModel? {
+        static func asEventModel(_ value: Block.Common.Focus.Position) -> EventModel? {
             switch value {
             case .unknown: return .unknown
             case .beginning: return .beginning

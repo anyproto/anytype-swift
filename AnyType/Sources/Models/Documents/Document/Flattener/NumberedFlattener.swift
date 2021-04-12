@@ -8,7 +8,7 @@ final class NumberedFlattener {
     /// - Parameters:
     ///   - ids: Children ids to change
     ///   - container: Container with all blocks
-    func process(_ ids: [BlockId], in container: TopLevelContainerModelProtocol) {
+    func process(_ ids: [BlockId], in container: ContainerModel) {
         var number: Int = 0
         for id in ids {
             if let model = container.blocksContainer.choose(by: id) {

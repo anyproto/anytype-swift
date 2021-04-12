@@ -16,7 +16,7 @@ private extension LoggerCategory {
 /// And keep latest ( last ) document as open document.
 ///
 class BaseDocument {
-    typealias RootModel = TopLevelContainerModelProtocol
+    typealias RootModel = ContainerModel
     typealias DetailsContentKind = DetailsContent.Kind
     typealias UserSession = BlockUserSessionModelProtocol
     
@@ -89,11 +89,11 @@ class BaseDocument {
         let rootId = value.contextID
         
         let blocksContainer = self.transformer.buildBlocksTree(from: event.blocks, with: rootId)
-        let parsedDetails = event.details.map(TopLevel.Builder.detailsBuilder.build(information:))
-        let detailsContainer = TopLevel.Builder.detailsBuilder.build(list: parsedDetails)
+        let parsedDetails = event.details.map(TopLevelBuilderImpl.detailsBuilder.build(information:))
+        let detailsContainer = TopLevelBuilderImpl.detailsBuilder.build(list: parsedDetails)
         
         // Add details models to process.
-        self.rootModel = TopLevel.Builder.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
+        self.rootModel = TopLevelBuilderImpl.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
     }
     
     func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {

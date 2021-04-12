@@ -14,7 +14,7 @@ public protocol BlockModelProtocol: BlockHasInformationProtocol, BlockHasParentP
 
 // MARK: - UserSession
 public protocol BlockUserSessionModelProtocol {
-    typealias Position = TopLevel.FocusPosition
+    typealias Position = Block.Common.Focus.Position
     /// Get toggled state for block
     ///
     /// - Parameters:

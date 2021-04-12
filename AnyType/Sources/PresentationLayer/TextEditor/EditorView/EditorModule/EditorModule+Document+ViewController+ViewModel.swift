@@ -42,7 +42,7 @@ extension Namespace {
     
     class ViewModel: ObservableObject {
         // MARK: Aliases
-        typealias RootModel = TopLevelContainerModelProtocol
+        typealias RootModel = ContainerModel
         typealias InformationModel = Block.Information.InformationModel
         typealias BlocksUserAction = BlocksViews.UserAction
         typealias BlocksViewsNamespace = BlocksViews

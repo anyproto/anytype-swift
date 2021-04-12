@@ -50,7 +50,7 @@ extension BaseFlattener {
 ///
 class BaseFlattener {
     typealias ActiveModel = BlockActiveRecordModelProtocol
-    typealias Container = TopLevelContainerModelProtocol
+    typealias Container = ContainerModel
     
     /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
     /// It is like a "opening all nested folders" in a parent folder.

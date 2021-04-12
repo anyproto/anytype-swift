@@ -20,6 +20,5 @@ public protocol BlockHasParentProtocol {
 }
 
 public protocol BlockHasKindProtocol {
-    typealias BlockKind = TopLevel.BlockKind
-    var kind: BlockKind {get}
+    var kind: Block.Common.Kind {get}
 }

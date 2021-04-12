@@ -27,9 +27,8 @@ private final class TextViewModelHolder {
 // MARK: - Base / ViewModel
 
 final class TextBlockViewModel: BlocksViews.Base.ViewModel {
-    typealias BlocksModelsUpdater = TopLevel.BlockTools.Updater
+    typealias BlocksModelsUpdater = Block.Tools.Updater
     typealias BlockModelId = BlockId
-    typealias FocusPosition = TopLevel.FocusPosition
 
     private struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)

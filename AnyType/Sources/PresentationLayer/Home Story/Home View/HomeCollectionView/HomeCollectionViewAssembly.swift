@@ -1,9 +1,6 @@
 import SwiftUI
 
 class HomeCollectionViewAssembly {
-    
-    // MARK: - Public methods
-    
     // TODO: workaround - we need inject viewmodel and documentsCell from outer env due to fucking swiftui doesn't update
     // UIViewRepresentable views when ObservedObject changed
     func createHomeCollectionView(

@@ -9,7 +9,7 @@ extension Namespace {
     final class BlockModel: ObservableObject {
         @Published private var _information: Block.Information.InformationModel
         private var _parent: BlockId?
-        private var _kind: BlockKind {
+        private var _kind: Block.Common.Kind {
             switch self._information.content {
             case .smartblock, .divider: return .meta
             case let .layout(layout) where layout.style == .div: return .meta
@@ -38,7 +38,7 @@ extension Namespace.BlockModel: BlockModelProtocol {
         set { self._parent = newValue }
     }
     
-    var kind: BlockKind { self._kind }
+    var kind: Block.Common.Kind { self._kind }
     
     func didChangePublisher() -> AnyPublisher<Void, Never> { self._didChangePublisher }
     func didChange() { self._didChangeSubject.send() }
@@ -360,7 +360,7 @@ extension Namespace.ActiveRecord: ObservableObject, BlockActiveRecordModelProtoc
         }
     }
     
-    var focusAt: Position? {
+    var focusAt: Block.Common.Focus.Position? {
         get {
             guard self.container?.userSession.firstResponder() == self._nestedModel.information.id else { return nil }
             return self.container?.userSession.focusAt()

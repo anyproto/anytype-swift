@@ -9,7 +9,6 @@ class BlocksModelsParser {
     typealias Information = Block.Information.InformationModel
     typealias Model = BlockModelProtocol
     typealias OurContent = TopLevel.BlockContent
-    typealias Builder = TopLevel.Builder
     
     struct PageEvent {
         var rootId: String
@@ -53,7 +52,7 @@ class BlocksModelsParser {
         let parsedDetails = details.map { (value) -> DetailsInformationModelProtocol in
             let corrected = Converters.EventDetailsAndSetDetailsConverter.convert(event: value)
             let contentList = Details.Converter.asModel(details: corrected)
-            var result = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: contentList)
+            var result = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: contentList)
             result.parentId = value.id
             return result
         }
@@ -74,7 +73,7 @@ class BlocksModelsParser {
         guard let content = block.content, let converter = Converters.convert(middleware: content) else { return nil }
         guard let blockType = converter.blockType(content) else { return nil }
         
-        var information = Builder.blockBuilder.informationBuilder.build(id: block.id, content: blockType)
+        var information = TopLevelBuilderImpl.blockBuilder.informationBuilder.build(id: block.id, content: blockType)
 
         // TODO: Add fields and restrictions.
         // Add parsers for them and model.

@@ -7,7 +7,6 @@ import BlocksModels
 // Sends and receives data via serivce.
 class DetailsActiveModel {
     typealias PageDetails = DetailsInformationModelProtocol
-    typealias Builder = TopLevel.Builder
     typealias Details = DetailsContent
     typealias Events = EventListening.PackOfEvents
     private var documentId: String?
@@ -20,7 +19,7 @@ class DetailsActiveModel {
     private var service: ObjectActionsService = .init()
     
     // MARK: Publishers
-    @Published private(set) var currentDetails: PageDetails = TopLevel.Builder.detailsBuilder.informationBuilder.empty()
+    @Published private(set) var currentDetails: PageDetails = TopLevelBuilderImpl.detailsBuilder.informationBuilder.empty()
     private(set) var wholeDetailsPublisher: AnyPublisher<PageDetails, Never> = .empty() {
         didSet {
             self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in

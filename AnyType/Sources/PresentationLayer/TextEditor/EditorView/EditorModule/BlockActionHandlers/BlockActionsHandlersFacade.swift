@@ -251,8 +251,6 @@ struct BlockBuilder {
     typealias Content = TopLevel.BlockContent
     typealias Information = Block.Information.InformationModel
 
-    typealias Builder = TopLevel.Builder
-
     typealias KeyboardAction = TextView.UserAction.KeyboardAction
     typealias ToolbarAction = BlockActionsHandlersFacade.ActionsPayloadToolbar
 
@@ -261,7 +259,7 @@ struct BlockBuilder {
     static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> Information? {
         switch block.blockModel.information.content {
         case .text:
-            return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Builder.blockBuilder.informationBuilder.build)
+            return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(TopLevelBuilderImpl.blockBuilder.informationBuilder.build)
         default: return nil
         }
     }
@@ -271,22 +269,22 @@ struct BlockBuilder {
         case .addBlock:
             return self.createContentType(block: block, action: action, textPayload: textPayload)
                 .flatMap { (newBlockId(), $0) }
-                .map(Builder.blockBuilder.informationBuilder.build)
+                .map(TopLevelBuilderImpl.blockBuilder.informationBuilder.build)
         default: return nil
         }
     }
 
     static func createDefaultInformation(block: BlockActiveRecordModelProtocol? = nil) -> Information? {
         guard let block = block else {
-            return Builder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            return TopLevelBuilderImpl.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
         }
         switch block.blockModel.information.content {
         case let .text(value):
             switch value.contentType {
-            case .toggle: return Builder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            case .toggle: return TopLevelBuilderImpl.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
             default: return nil
             }
-        case .smartblock: return Builder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+        case .smartblock: return TopLevelBuilderImpl.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
         default: return nil
         }
     }

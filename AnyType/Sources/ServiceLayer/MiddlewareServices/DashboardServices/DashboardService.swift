@@ -32,7 +32,7 @@ class DashboardService: DashboardServiceProtocol {
     
     func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error> {
         let targetId: String = ""
-        let details: DetailsInformationModelProtocol = TopLevel.Builder.detailsBuilder.informationBuilder.build(list: [
+        let details: DetailsInformationModelProtocol = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: [
             .title(.init()),
             .iconEmoji(.init())
         ])
