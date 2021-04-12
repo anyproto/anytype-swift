@@ -268,7 +268,10 @@ struct BlockBuilder {
 
     static func createInformation(block: BlockActiveRecordModelProtocol, action: ToolbarAction, textPayload: String = "") -> Information? {
         switch action {
-        case .addBlock: return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(Builder.blockBuilder.informationBuilder.build)
+        case .addBlock:
+            return self.createContentType(block: block, action: action, textPayload: textPayload)
+                .flatMap { (newBlockId(), $0) }
+                .map(Builder.blockBuilder.informationBuilder.build)
         default: return nil
         }
     }
@@ -335,7 +338,7 @@ struct BlockBuilder {
                 switch value {
                 case .lineDivider: return .divider(.init(style: .line))
                 case .dotsDivider: return .divider(.init(style: .dots))
-                case .code: return nil
+                case .code: return .text(Block.Content.ContentType.Text(contentType: .code))
                 }
             default: return nil
             }

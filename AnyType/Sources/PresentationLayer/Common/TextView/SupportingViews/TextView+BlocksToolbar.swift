@@ -31,6 +31,10 @@ extension TextView.BlockToolbar {
         static func resolvedPath(_ subpath: String) -> String {
             typesPath + subpath
         }
+        static var allCases: [Self] = [.text(.text), .list(.bulleted), .media(.bookmark), .tool(.contact), .other(.divider)]
+
+        case text(Text), list(List), media(Media), tool(Tool), other(Other)
+
         enum Text: CaseIterable {
             case text, h1, h2, h3, highlighted
             func path() -> String {
@@ -47,6 +51,7 @@ extension TextView.BlockToolbar {
             }
             static var allCases: [Self] = [.text, .h1, .h2, .h3, .highlighted]
         }
+
         enum List: CaseIterable {
             case bulleted, checkbox, numbered, toggle
             func path() -> String {
@@ -62,6 +67,7 @@ extension TextView.BlockToolbar {
             }
             static var allCases: [Self] = [.bulleted, .checkbox, .numbered, .toggle]
         }
+
         enum Media: CaseIterable {
             case bookmark, code, file, picture, video
             func path() -> String {
@@ -78,6 +84,7 @@ extension TextView.BlockToolbar {
             }
             static var allCases: [Self] = [.bookmark, .code, .file, .picture, .video]
         }
+
         enum Tool: CaseIterable {
             case contact, database, existingTool, set, page, task
             func path() -> String {
@@ -95,19 +102,23 @@ extension TextView.BlockToolbar {
             }
             static var allCases: [Self] = [.contact, .database, .existingTool, .set, .page, .task]
         }
+
         enum Other: CaseIterable {
+            static var allCases: [Self] = [.divider]
+
             case divider
+
             func path() -> String {
                 switch self {
                 case .divider: return BlocksTypes.resolvedPath("Other/Divider")
                 }
             }
+
             func title() -> String {
                 return self.path().components(separatedBy: "/").last ?? ""
             }
-            static var allCases: [Self] = [.divider]
         }
-        case text(Text), list(List), media(Media), tool(Tool), other(Other)
+
         func title() -> String {
             switch self {
             case .text: return "Text"
@@ -117,8 +128,8 @@ extension TextView.BlockToolbar {
             case .other: return "Other"
             }
         }
-        static var allCases: [Self] = [.text(.text), .list(.bulleted), .media(.bookmark), .tool(.contact), .other(.divider)]
     }
+
     class BlockTypesColors {
         static let path = "TextEditor/Toolbar/Blocks/Types/TypesColors/"
         static func color(for type: BlocksTypes) -> UIColor {

@@ -20,7 +20,7 @@ extension BlocksViews.Toolbar.AddBlock {
 //            _ = viewModel.nestedCategories.allObjects()
 //            _ = viewModel.nestedCategories.allOther()
             _ = viewModel.nestedCategories.objects([.page, .file, .picture, .video, .bookmark])
-            _ = viewModel.nestedCategories.other([.lineDivider, .dotsDivider])
+            _ = viewModel.nestedCategories.other([.lineDivider, .dotsDivider, .code])
 //            _ = viewModel.nestedCategories.page([.page])
 //            _ = viewModel.nestedCategories.media([.picture, .file, .bookmark])
 //            _ = viewModel.nestedCategories.other([.divider, .dots])
@@ -199,7 +199,9 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
         func extractedChosenTypes(_ types: [BlocksViewsToolbarBlocksTypesProtocol]) -> [ChosenType] {
             types.compactMap{($0.title, $0.subtitle, $0.image)}.map(ChosenType.init(title:subtitle:image:))
         }
+
         guard let category = category else { return [] }
+
         switch self.categories[category] {
         case .text: return extractedChosenTypes(self.nestedCategories.text)
         case .list: return extractedChosenTypes(self.nestedCategories.list)
