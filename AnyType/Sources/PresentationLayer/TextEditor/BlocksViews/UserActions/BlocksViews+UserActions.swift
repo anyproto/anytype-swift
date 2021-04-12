@@ -14,7 +14,6 @@ extension BlocksViews {
     typealias Model = String
     /// Top-level user action.
     /// All parsing is starting from this enumeration.
-    ///
     enum UserAction {
         // when a model is about to update.
         case updated(Model)
@@ -28,7 +27,6 @@ extension BlocksViews.UserAction {
     /// Specific action for each specific blocks views type.
     /// You should define a `.UserAction` payload enumeration in each namespace.
     /// After that you could add it as an entry of this enum.
-    ///
     enum SpecificAction {
         case tool(Tools.UserAction)
         case file(File.FileAction)
@@ -41,7 +39,6 @@ extension BlocksViews.UserAction {
     /// Toolbar Open action.
     /// When you would like to open specific toolbar, you should add new entry in enumeration.
     /// After that you need to process this entry in specific ToolbarRouter.
-    ///
     enum ToolbarOpenAction: Equatable {
         static func == (lhs: BlocksViews.UserAction.ToolbarOpenAction, rhs: BlocksViews.UserAction.ToolbarOpenAction) -> Bool {
             switch (lhs, rhs) {

@@ -9,6 +9,7 @@
 import UIKit
 import Combine
 
+
 fileprivate typealias Namespace = EditorModule.Document
 
 extension Namespace {
@@ -290,4 +291,9 @@ extension Namespace.ViewController: EditorModuleDocumentViewInput {
         self.apply(snapshot)
     }
 
+    func showCodeLanguageView(with languages: [String], completion: @escaping (String) -> Void) {
+        let searchListViewController = SearchListViewController(items: languages, completion: completion)
+        modalPresentationStyle = .pageSheet
+        present(searchListViewController, animated: true)
+    }
 }

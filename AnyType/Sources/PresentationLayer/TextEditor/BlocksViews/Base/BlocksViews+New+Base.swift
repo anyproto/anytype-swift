@@ -152,8 +152,7 @@ extension BlocksViews.Base {
         /// DidChange Size Subject.
         /// Whenever item changes size ( or thinking so ), we have to notify our document view model about it.
         /// This can be done via "PassthroughSubject as Delegate" technique.
-        private var sizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
-        public private(set) var sizeDidChangePublisher: AnyPublisher<CGSize, Never> = .empty()
+        private var sizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
         
         // MARK: - Handle events
         func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
@@ -271,19 +270,21 @@ extension BlocksViews.Base.ViewModel: Hashable {
     }
 }
 
-// MARK: Configurations
+// MARK: - Configurations
+
 extension BlocksViews.Base.ViewModel {
     /// TODO: Remove later. Maybe we don't need this publisher.
-    func configured(sizeDidChangeSubject: PassthroughSubject<CGSize, Never>) -> Self {
+    func configured(sizeDidChangeSubject: PassthroughSubject<Void, Never>) -> Self {
         self.sizeDidChangeSubject = sizeDidChangeSubject
-        self.sizeDidChangePublisher = self.sizeDidChangeSubject.eraseToAnyPublisher()
         return self
     }
+
     func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) -> Self {
         self.userActionSubject = userActionSubject
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
         return self
     }
+    
     func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) -> Self {
         self.actionsPayloadSubject = actionsPayloadSubject
         /// Discussion:
@@ -309,7 +310,6 @@ extension BlocksViews.Base.ViewModel {
         /// Do we have here retain cycle?
         /// `toolbarPublisher` is stored in our property, yes.
         /// However, we use some transforms on our publisher.
-        ///
 //        self.actionsPayloadSubjectSubscription = toolbarPublisher.subscribe(self.actionsPayloadSubject)
         let allInOnePublisher = Publishers.Merge(toolbarPublisher, marksPanePublisher)
         self.actionsPayloadSubjectSubscription = allInOnePublisher.sink(receiveValue: { [weak self] (value) in
@@ -319,41 +319,37 @@ extension BlocksViews.Base.ViewModel {
     }
 }
 
-// MARK: OuterWorld Publishers and Subjects
+// MARK: - OuterWorld Publishers and Subjects
+
 extension BlocksViews.Base.ViewModel {
     /// This AactionsPayload describes all actions that user can do with BlocksViewsModels.
     /// For example, user can press long-tap and active toolbar.
     /// Or user could interact with text view.
     /// Possibly, that we need to separate text view actions.
-    ///
     enum ActionsPayload {
         struct Toolbar {
-            typealias Model = BlockModel
             typealias Action = BlocksViews.Toolbar.UnderlyingAction
-            var model: Model
+            var model: BlockModel
             var action: Action
         }
         
         struct MarksPaneHolder {
-            typealias Model = BlockModel
             typealias Action = MarksPane.Main.Action
-            var model: Model
+            var model: BlockModel
             var action: Action
         }
         
         /// For backward compatibility.
         struct TextBlocksViewsUserInteraction {
-            typealias Model = BlockModel
             typealias Action = TextBlockUserInteraction
-            var model: Model
+            var model: BlockModel
             var action: Action
         }
         
         /// For seamless usage of UserAction as "Payload"
         struct UserActionHolder {
-            typealias Model = BlockModel
             typealias Action = BlocksViews.UserAction
-            var model: Model
+            var model: BlockModel
             var action: Action
         }
         
@@ -361,14 +357,13 @@ extension BlocksViews.Base.ViewModel {
         /// It should hold also toggle from `TextBlocksViewsUserInteraction`.
         /// Name it properly.
         struct TextBlockViewModelPayload {
-            typealias Model = BlockModel
             enum Action {
                 case text(NSAttributedString)
                 case alignment(NSTextAlignment)
                 case checked(Bool)                
             }
             
-            var model: Model
+            var model: BlockModel
             var action: Action
         }
         
@@ -376,21 +371,25 @@ extension BlocksViews.Base.ViewModel {
         case marksPane(MarksPaneHolder)
         case textView(TextBlocksViewsUserInteraction)
         case userAction(UserActionHolder)
-//        case textBlocksViewModel(TextBlockViewModelPayload)
+        /// show code language view
+        case showCodeLanguageView(languages: [String], completion: (String) -> Void)
     }
     
     // Send actions payload
     func send(actionsPayload: ActionsPayload) {
         self.actionsPayloadSubject.send(actionsPayload)
     }
-    
-    // Send did change size
-    func send(sizeDidChange: CGSize) {
-        self.sizeDidChangeSubject.send(sizeDidChange)
+
+    /// Ask update layout
+    ///
+    /// View could ask to update layout due to some inner layout events (view could changed its size, position or similar)
+    func needsUpdateLayout() {
+        self.sizeDidChangeSubject.send()
     }
 }
 
-// MARK: Options
+// MARK: - Options
+
 extension BlocksViews.Base.ViewModel {
     func configured(_ options: Options) -> Self {
         self.options = options
@@ -398,7 +397,8 @@ extension BlocksViews.Base.ViewModel {
     }
 }
 
-// MARK: Contextual Menu
+// MARK: - Contextual Menu
+
 extension BlocksViews.Base.ViewModel {
     func buildContextualMenu() -> BlocksViews.ContextualMenu {
         self.makeContextualMenu()
@@ -453,12 +453,14 @@ private extension BlocksViews.Base.ViewModel {
     }
 }
 
-// MARK: UIKit / Context menu embedding
+// MARK: - UIKit / Context menu embedding
+
 extension BlocksViews.Base.ViewModel {
     class OurContextMenuInteraction: UIContextMenuInteraction {
         /// Uncomment later if needed.
         /// Also, you should update delegate by `update(delegate:)` when view apply(configuration:) method has been called.
         typealias Delegate = UIContextMenuInteractionDelegate
+
         class ProxyChain: NSObject, Delegate {
             private var delegate: Delegate?
             func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
@@ -468,12 +470,10 @@ extension BlocksViews.Base.ViewModel {
                 self.delegate = delegate
             }
         }
+
         /// Proxy
         private var proxyChain: ProxyChain = .init()
         private var ourDelegate: Delegate { self.proxyChain }
-        func update(delegate: Delegate) {
-            self.proxyChain.update(delegate)
-        }
 
         /// Initialization
         override init(delegate: Delegate) {
@@ -481,25 +481,31 @@ extension BlocksViews.Base.ViewModel {
             super.init(delegate: self.proxyChain)
         }
 
+        func update(delegate: Delegate) {
+            self.proxyChain.update(delegate)
+        }
+
         /// UIContextMenuInteractionDelegate
         func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
             self.ourDelegate.contextMenuInteraction(interaction, configurationForMenuAtLocation: location)
         }
     }
+
     /// We need this method, because it goes insane if you add hundreds of interactions.
     /// True story.
     ///
     /// HINT: We could add setter/getter `self.delegate` for `OurContextMenuInteraction` and update only delegate instead of add/removing.
-    ///
     func addContextMenuIfNeeded(_ view: UIView) {
         self.updateContextMenu(view)
     }
+
     private func addContextMenu(_ view: UIView) {
         if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
             let interaction = OurContextMenuInteraction.init(delegate: delegate)
             view.addInteraction(interaction)
         }
     }
+
     private func updateContextMenu(_ view: UIView) {
         if let interaction = view.interactions.first(where: {$0 is OurContextMenuInteraction}) as? OurContextMenuInteraction {
             if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
@@ -512,7 +518,8 @@ extension BlocksViews.Base.ViewModel {
     }
 }
 
-// MARK: UIKit / ContentConfiguration
+// MARK: - UIKit / ContentConfiguration
+
 extension BlocksViews.Base.ViewModel {
     func buildContentConfiguration() -> UIContentConfiguration { self.makeContentConfiguration() }
     
@@ -536,7 +543,8 @@ extension BlocksViews.Base.ViewModel {
     }
 }
 
-// MARK: Updates ( could be proposed in further releases ).
+// MARK: - Updates (could be proposed in further releases)
+
 extension BlocksViews.Base.ViewModel {
     /// Update structure in natural `.with` way.
     /// - Parameters:
@@ -572,7 +580,6 @@ extension BlocksViews.Base.ViewModel: BlockViewBuilderProtocol {
 
 /// Requirement: `Block sViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.
 /// We could send events to `userActionPublisher`.
-///
 extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsEmittingProtocol {
     func send(userAction: BlocksViews.UserAction) {
         self.userActionSubject.send(userAction)
@@ -581,12 +588,10 @@ extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsEmittingProtocol {
 
 /// Requirement: `BlocksViewsUserActionsSubscribingProtocol` is necessary for routing and outer world.
 /// We could subscribe on `userActionPublisher` and react on changes.
-///
 extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsSubscribingProtocol {}
 
 /// Requirement: `BlocksViewsUserActionsReceivingProtocol` is necessary for communication from outer space.
 /// We could send events to blocks views to perform actions and get reactions.
-///
 extension BlocksViews.Base.ViewModel: BlocksViewsUserActionsReceivingProtocol {
     func receive(event: BlocksViews.UserEvent) {
         self.handle(event: event)

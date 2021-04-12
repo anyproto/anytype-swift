@@ -74,8 +74,8 @@ extension Namespace {
         private var publicActionsPayloadSubject: PassthroughSubject<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = .init()
         lazy var publicActionsPayloadPublisher: AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
         
-        private var publicSizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
-        lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<CGSize, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
+        private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
+        lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
         
         private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
         lazy private var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
@@ -374,6 +374,9 @@ private extension FileNamespace {
                 self.set(selectionEnabled: true)
             default: return
             }
+        // TODO: we need coordinator(router) here that show this view https://app.clickup.com/t/h13ytp
+        case let .showCodeLanguageView(languages, completion):
+            self.viewInput?.showCodeLanguageView(with: languages, completion: completion)
         default: return
         }
     }

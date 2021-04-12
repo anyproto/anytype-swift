@@ -337,6 +337,8 @@
 		5338E7FB25DC7AF5008CB97D /* BlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */; };
 		5338E7FE25DD2F74008CB97D /* ListBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */; };
 		5338E80225DD3090008CB97D /* ListBlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E80125DD3090008CB97D /* ListBlockActionService.swift */; };
+		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
+		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
 		538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
 		5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */; };
@@ -747,6 +749,8 @@
 		5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionService.swift; sourceTree = "<group>"; };
 		5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E80125DD3090008CB97D /* ListBlockActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionService.swift; sourceTree = "<group>"; };
+		534D19C62623A7220080AEF0 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
+		534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
 		5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayoutManager.swift; sourceTree = "<group>"; };
@@ -984,6 +988,7 @@
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
+				534D19C62623A7220080AEF0 /* SearchListViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1005,6 +1010,7 @@
 			children = (
 				03F7BD1D22F7A50400F47583 /* StandardButton.swift */,
 				037CC4E423154AF900D5AB62 /* NavigationButtonView.swift */,
+				534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -2661,6 +2667,7 @@
 				EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
 				0A203A8625470FAE00D3729A /* CoreLayer+Network+Image+Cache.swift in Sources */,
+				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
 				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */,
@@ -2778,6 +2785,7 @@
 				0A996BBD23EDE790000FDC9C /* ShakeHandler.swift in Sources */,
 				0A0965FC25BEF5B000C004BD /* EditorModule+ViewControllers.swift in Sources */,
 				0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */,
+				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileViewCoordinator.swift in Sources */,
 				0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */,

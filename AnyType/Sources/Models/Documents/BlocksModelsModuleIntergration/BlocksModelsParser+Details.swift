@@ -6,6 +6,10 @@ import os
 import BlocksModels
 
 
+private extension LoggerCategory {
+    static let blocksModelsParser: Self = "BlocksModelsParser"
+}
+
 // MARK: Details
 extension BlocksModelsParser {
     enum Details {}
@@ -51,7 +55,10 @@ extension BlocksModelsParser.Details {
             case Model.OurHexColor.id: return Model.OurHexColor.Converter.asModel(detail: detail).flatMap(Model.iconColor)
             case Model.ImageId.id: return Model.ImageId.Converter.asModel(detail: detail).flatMap(Model.iconImage)
             default:
-                assertionFailure("Add converters for this type: \(detail.key)")
+                // TODO: Add assertionFailure for debug when all converters will be added
+                // TASK: https://app.clickup.com/t/h137nr
+                Logger.create(.blocksModelsParser).error("Add converters for this type: \(detail.key)")
+//                assertionFailure("Add converters for this type: \(detail.key)")
                 return nil
             }
         }

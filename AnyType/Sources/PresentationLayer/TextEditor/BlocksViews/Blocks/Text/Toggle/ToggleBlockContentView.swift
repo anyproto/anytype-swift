@@ -62,7 +62,7 @@ final class ToggleBlockContentView: UIView & UIContentView {
             self.updateCreateChildButtonState(toggled: toggled,
                                               hasChildren: !blockViewModel.getBlock().childrenIds().isEmpty)
             if oldValue != self.createChildBlockButton.isHidden {
-                blockViewModel.send(sizeDidChange: .zero)
+                blockViewModel.needsUpdateLayout()
             }
         }), for: .touchUpInside)
         return button

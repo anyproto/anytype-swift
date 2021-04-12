@@ -3,6 +3,10 @@ import BlocksModels
 import os
 
 
+private extension LoggerCategory {
+    static let blockActionsHandlersFacade: Self = "BlockActionsHandlersFacade"
+}
+
 /// Interaction with document view
 protocol DocumentViewInteraction: AnyObject {
     /// Update blocks by ids
@@ -114,6 +118,7 @@ final class BlockActionsHandlersFacade {
                 self.buttonBlockActionHandler.handlingButtonViewAction(value.model, action)
             }
         case let .userAction(value): self.userActionHandler.handlingUserAction(value.model, value.action)
+        case .showCodeLanguageView: return
         }
     }
 }
@@ -149,7 +154,10 @@ extension BlockActionsHandlersFacade {
 
             switch lastChild.blockModel.information.content {
             case let .text(value) where value.attributedText.length == 0:
-                assertionFailure("createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
+                // TODO: Add assertionFailure for debug when all converters will be added
+                // TASK: https://app.clickup.com/t/h138gt
+                Logger.create(.blockActionsHandlersFacade).error("createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
+//                assertionFailure("createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
                 return
             default:
                 if let defaultBlock = BlockBuilder.createDefaultInformation() {

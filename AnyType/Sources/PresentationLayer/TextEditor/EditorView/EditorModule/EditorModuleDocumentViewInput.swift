@@ -32,4 +32,11 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     ///   - rows: New rows to insert
     ///   - row: Row after wich to insert new rows
     func insert(rows: [BlocksViews.Base.ViewModel], after row: BlocksViews.Base.ViewModel)
+
+    /// Show code language view selection.
+    /// 
+    /// - Parameters:
+    ///   - languages: List of code languages
+    ///   - completion: Return selected language as String type
+    func showCodeLanguageView(with languages: [String], completion: @escaping (_ language: String) -> Void)
 }

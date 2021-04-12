@@ -52,7 +52,6 @@ final class TextBlockViewModel: BlocksViews.Base.ViewModel {
     // TODO: Rethink. We only need one (?) publisher to a model?
     private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
     private var toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
-    private var toModelSizeDidChangeSubject: PassthroughSubject<CGSize, Never> = .init()
 
     // For OuterWorld.
     // We should notify about user input.
@@ -140,17 +139,9 @@ final class TextBlockViewModel: BlocksViews.Base.ViewModel {
     }
 }
 
-// MARK: - TextViewModel
+// MARK: - Methods called by View
 
 extension TextBlockViewModel {
-    private func cleanup() {
-        self.subscriptions = []
-    }
-    
-    private func cleanupTextViewModel() {
-        self.textViewModelHolder.cleanup()
-        self.textViewModelSubscriptions = []
-    }
 
     func refreshTextViewModel(_ textViewModel: TextView.UIKitTextView.ViewModel) {
         let block = self.getBlock()
@@ -168,16 +159,22 @@ extension TextBlockViewModel {
         default: return
         }
     }
+
+    /// Show view with code language selection
+    /// - Parameter completion: Return in completion selected code language as `String` type
+    func needsShowCodeLanguageView(with languages: [String], completion: @escaping (_ language: String) -> Void) {
+        self.send(actionsPayload: .showCodeLanguageView(languages: languages, completion: completion))
+    }
 }
 
 // MARK: - Setup
 
 private extension TextBlockViewModel {
-    private func setupTextViewModel() {
+    func setupTextViewModel() {
         _ = self.textViewModel.configured(self)
     }
 
-    private func setupTextViewModelSubscribers() {
+    func setupTextViewModelSubscribers() {
         /// FromView
         self.getUIKitViewModel().richUpdatePublisher.sink { [weak self] (value) in
             switch value {
@@ -194,11 +191,11 @@ private extension TextBlockViewModel {
         }.store(in: &self.textViewModelSubscriptions)
 
         self.getUIKitViewModel().sizePublisher.sink { [weak self] (value) in
-            self?.toModelSizeDidChangeSubject.send(value)
+            self?.needsUpdateLayout()
         }.store(in: &self.textViewModelSubscriptions)
     }
 
-    private func setupSubscribers() {
+    func setupSubscribers() {
         // ToView
         let alignmentPublisher = self.getBlock().didChangeInformationPublisher()
             .map(\.alignment)
@@ -253,14 +250,10 @@ private extension TextBlockViewModel {
                 assertionFailure("TextBlocksViews setAlignment error has occured. \(error)")
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
-
-        self.toModelSizeDidChangeSubject.eraseToAnyPublisher().sink { [weak self] (value) in
-            self?.send(sizeDidChange: value)
-        }.store(in: &self.subscriptions)
     }
 
     // MARK: - Setup
-    private func setup() {
+    func setup() {
         self.setupTextViewModel()
         self.setupTextViewModelSubscribers()
         self.setupSubscribers()

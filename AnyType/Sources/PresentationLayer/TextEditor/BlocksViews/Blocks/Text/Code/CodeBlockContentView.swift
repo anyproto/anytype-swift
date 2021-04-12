@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Highlightr
+
 
 /// Content view for code block
 final class CodeBlockContentView: UIView & UIContentView {
@@ -14,11 +16,46 @@ final class CodeBlockContentView: UIView & UIContentView {
     // MARK: - Constants
 
     private enum Constants {
-        static let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: 1, right: 20)
+        static let insets: UIEdgeInsets = .init(top: 6, left: 0, bottom: 6, right: 0)
+        static let textInsets: UIEdgeInsets = .init(top: 50, left: 20, bottom: 24, right: 20)
+        static let defaultLanguage: String = "Swift"
+        static let defaultTheme: String = "github-gist"
     }
 
+    let textStorage = CodeAttributedString()
+
     // MARK: - Properties
-    private let textView: TextView.UIKitTextView = .init()
+
+    private lazy var textView: UITextView = {
+        textStorage.language = Constants.defaultLanguage
+        textStorage.highlightr.setTheme(to: Constants.defaultTheme)
+        codeSelectButton.label.text = Constants.defaultLanguage
+
+        let layoutManager = NSLayoutManager()
+        textStorage.addLayoutManager(layoutManager)
+
+        let textContainer = NSTextContainer()
+        layoutManager.addTextContainer(textContainer)
+
+        let textView = UITextView(frame: bounds, textContainer: textContainer)
+        textView.isScrollEnabled = false
+        textView.backgroundColor = .clear
+
+        return textView
+    }()
+
+    private var codeSelectButton: ButtonWithImage = {
+        let button = ButtonWithImage()
+        button.translatesAutoresizingMaskIntoConstraints = false
+
+        button.label.font = UIFont.bodyFont
+        button.label.textColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.Colors.grey.color()
+        let image = UIImage(named: "TextEditor/Toolbar/turn_into_arrow")
+        button.imageView.image = image
+
+        return button
+    }()
+
     private var currentConfiguration: CodeBlockContentConfiguration
 
     /// Block content configuration
@@ -46,17 +83,28 @@ final class CodeBlockContentView: UIView & UIContentView {
     }
 
     private func setup() {
-        self.addSubview(textView)
+        textView.delegate = self
+        textView.textContainerInset = Constants.textInsets
+
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(textView)
+        addSubview(codeSelectButton)
+
+        textView.edgesToSuperview(insets: Constants.insets)
 
         NSLayoutConstraint.activate([
-            textView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.insets.left),
-            textView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constants.insets.right),
-            textView.topAnchor.constraint(equalTo: self.topAnchor, constant: Constants.insets.top),
-            textView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constants.insets.bottom),
+            codeSelectButton.topAnchor.constraint(equalTo: topAnchor, constant: 13),
+            codeSelectButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
         ])
 
-        self.textView.textView.font = .bodyFont
-        self.textView.textView?.defaultFontColor = .textColor
+        codeSelectButton.addAction(UIAction(handler: { [weak self] action in
+            guard let codeLanguages = self?.textStorage.highlightr.supportedLanguages() else { return }
+
+            self?.currentConfiguration.contextMenuHolder?.needsShowCodeLanguageView(with: codeLanguages) { language in
+                self?.textStorage.language = language
+                self?.codeSelectButton.label.text = language
+            }
+        }), for: .touchUpInside)
     }
 
     // MARK: - Apply configuration
@@ -70,16 +118,23 @@ final class CodeBlockContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
 
-        // it's important to clean old attributed string
-        self.textView.textView.attributedText = nil
-
-        if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
-            textViewModel.update = .unknown
-            _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
-            self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
+        if case let .text(content) = self.currentConfiguration.information.content {
+            self.textView.text = content.attributedText.string
         }
-
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        self.textView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor)
+        self.textView.backgroundColor = ColorConverter.Colors.grey.color(background: true)
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension CodeBlockContentView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let currentSize = textView.bounds.size
+        let newSize = textView.attributedText.size()
+        
+        if newSize.height != currentSize.height {
+            self.currentConfiguration.contextMenuHolder?.needsUpdateLayout()
+        }
     }
 }

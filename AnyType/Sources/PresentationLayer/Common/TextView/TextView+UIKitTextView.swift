@@ -98,7 +98,7 @@ extension TextView {
             self.translatesAutoresizingMaskIntoConstraints = false
             
             self.textView = {
-                let view = TextView.UIKitTextView.TextViewWithPlaceholder.init()
+                let view = TextView.UIKitTextView.TextViewWithPlaceholder()
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
