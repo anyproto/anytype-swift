@@ -40,16 +40,16 @@ struct HomeView: View {
 
     private var topView: some View {
         HStack {
-            Text("Hi, \(self.viewModel.profileViewModel.visibleAccountName)")
+            Text("Hi, \(self.viewModel.accountData.visibleAccountName)")
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .font(.title)
             Spacer()
-            NavigationLink(destination: self.viewModel.profileView) {
+            NavigationLink(destination: self.viewModel.coordinator.profileView()) {
                 UserIconView(
-                    image: self.viewModel.profileViewModel.accountAvatar,
-                    color: self.viewModel.profileViewModel.visibleSelectedColor,
-                    name: self.viewModel.profileViewModel.visibleAccountName
+                    image: self.viewModel.accountData.accountAvatar,
+                    color: self.viewModel.accountData.visibleSelectedColor,
+                    name: self.viewModel.accountData.visibleAccountName
                 ).frame(width: 43, height: 43)
             }
         }

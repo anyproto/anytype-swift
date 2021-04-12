@@ -56,7 +56,13 @@ final class ServiceLocator {
             localRepoService: localRepoService(),
             authService: authService(),
             appearanceService: appearanceService(),
-            firebaseService: firebaseService()
+            firebaseService: firebaseService(),
+            authAssembly: authAssembly()
         )
+    }
+    
+    // MARK: - Assembly
+    func authAssembly() -> AuthAssembly {
+        AuthAssembly()
     }
 }

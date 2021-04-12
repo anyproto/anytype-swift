@@ -1,11 +1,3 @@
-//
-//  ProfileView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 12.07.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 struct ProfileView: View {
@@ -43,12 +35,16 @@ struct ProfileSectionView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            UserIconView(image: self.model.accountAvatar, color: self.model.visibleSelectedColor, name: self.model.visibleAccountName)
+            UserIconView(
+                image: self.model.accountData.accountAvatar,
+                color: self.model.accountData.visibleSelectedColor,
+                name: self.model.accountData.visibleAccountName
+            )
             .frame(width: 64, height: 64)
             .padding([.top], 20)
 
             HStack(spacing: 0) {
-                Text(self.model.visibleAccountName)
+                Text(self.model.accountData.visibleAccountName)
                     .font(.title)
                 Spacer()
                 Image("arrowForward")

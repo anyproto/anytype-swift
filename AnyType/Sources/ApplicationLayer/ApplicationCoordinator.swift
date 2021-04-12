@@ -18,6 +18,8 @@ class ApplicationCoordinator: MainWindowHolder {
     private let appearanceService: AppearanceService
     private let firebaseService: FirebaseService
     
+    private let authAssembly: AuthAssembly
+    
     init(
         window: MainWindow,
         shakeHandler: ShakeHandler,
@@ -25,7 +27,8 @@ class ApplicationCoordinator: MainWindowHolder {
         localRepoService: LocalRepoService,
         authService: AuthService,
         appearanceService: AppearanceService,
-        firebaseService: FirebaseService
+        firebaseService: FirebaseService,
+        authAssembly: AuthAssembly
     ) {
         self.window = window
         self.shakeHandler = shakeHandler
@@ -35,6 +38,8 @@ class ApplicationCoordinator: MainWindowHolder {
         self.authService = authService
         self.appearanceService = appearanceService
         self.firebaseService = firebaseService
+        
+        self.authAssembly = authAssembly
     }
 
     func start() {
@@ -100,7 +105,7 @@ class ApplicationCoordinator: MainWindowHolder {
     }
     
     private func showAuthScreen() {
-        startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
+        startNewRootView(authAssembly.authView())
     }
     
     private func startNewRootViewController(_ controller: UIViewController) {

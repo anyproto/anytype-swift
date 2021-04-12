@@ -1,11 +1,3 @@
-//
-//  MainAuthView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 02.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 
@@ -32,7 +24,8 @@ struct MainAuthView: View {
                             .padding([.leading, .trailing, .bottom], 20)
                         
                         HStack(spacing: 0) {
-                            NavigationLink(destination: viewModel.showCreateProfileView(), isActive: $viewModel.shouldShowCreateProfileView) {
+                            NavigationLink(destination: viewModel.showCreateProfileView(),
+                                           isActive: $viewModel.shouldShowCreateProfileView) {
                                 EmptyView()
                             }
                             StandardButton(disabled: false, text: "Sign up", style: .white) {

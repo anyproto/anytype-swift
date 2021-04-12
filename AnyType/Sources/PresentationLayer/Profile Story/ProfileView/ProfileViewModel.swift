@@ -5,8 +5,10 @@ import BlocksModels
 
 
 final class ProfileViewModel: ObservableObject {
-    private var profileService: ProfileServiceProtocol
+    let accountData = AccountInfoDataAccessor(profileService: ProfileService())
+    
     private var authService: AuthServiceProtocol
+    
     
     /// Variables / Error
     @Published var error: String = "" {
@@ -15,22 +17,6 @@ final class ProfileViewModel: ObservableObject {
         }
     }
     @Published var isShowingError: Bool = false
-    
-    var visibleAccountName: String {
-        guard let name = self.accountName, !name.isEmpty else {
-            return "Anytype User"
-        }
-        return name
-    }
-    
-    var visibleSelectedColor: UIColor {
-        self.selectedColor ?? .clear
-    }
-    
-    /// User Model
-    @Published var accountName: String?
-    @Published var accountAvatar: UIImage?
-    @Published var selectedColor: UIColor?
     
     /// Device Model
     @Published var updates: Bool = UserDefaultsConfig.notificationUpdates {
@@ -54,48 +40,18 @@ final class ProfileViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Model
-    private var obtainUserInformationSubscription: AnyCancellable?
-    private var subscriptions: Set<AnyCancellable> = []
+    private var profileViewModelObjectWillChange: AnyCancellable?
     
-    private var documentViewModel: BlocksViews.DocumentViewModel = .init()
-    
-    // MARK: - Initialization
-    init(profileService: ProfileServiceProtocol, authService: AuthServiceProtocol) {
-        self.profileService = profileService
+    init(authService: AuthServiceProtocol) {
         self.authService = authService
-        self.setupSubscriptions()
-    }
-
-    // MARK: - Obtain Account Info
-    func obtainAccountInfo() {
-        self.obtainUserInformationSubscription = self.profileService.obtainUserInformation().sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: break
-            case let .failure(error):
-                assertionFailure("obtainAccountInfo. Error has occured. \(error)")
-            }
-        }) { [weak self] (value) in
-            self?.handleOpenBlock(value)
+        
+        self.profileViewModelObjectWillChange = accountData.objectWillChange.sink { [weak self] in
+            self?.objectWillChange.send()
         }
     }
 
-    // MARK: - Setup Subscriptions
-    func setupSubscriptions() {
-        let publisher = self.documentViewModel.defaultDetailsAccessorPublisher()
-        
-        publisher.map(\.title).map({$0?.value}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
-            self?.accountName = value
-        }.store(in: &self.subscriptions)
-        
-        publisher.map(\.iconColor).map({$0?.value}).safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
-            self?.selectedColor = .init(hexString: value)
-        }.store(in: &self.subscriptions)
-        
-        publisher.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
-            .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
-                self?.accountAvatar = value
-        }.store(in: &self.subscriptions)
+    func obtainAccountInfo() {
+        accountData.obtainAccountInfo()
     }
 
     // MARK: - Logout
@@ -103,10 +59,5 @@ final class ProfileViewModel: ObservableObject {
         self.authService.logout() {
             windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
         }
-    }
-
-    // MARK: - Handle Open Action
-    func handleOpenBlock(_ value: ServiceSuccess) {
-        self.documentViewModel.open(value)
     }
 }

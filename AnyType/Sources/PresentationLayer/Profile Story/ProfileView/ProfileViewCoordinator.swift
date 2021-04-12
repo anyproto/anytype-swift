@@ -5,7 +5,6 @@ final class ProfileViewCoordinator {
     private let authService = ServiceLocator.shared.authService()
     
     lazy private(set) var viewModel = ProfileViewModel(
-        profileService: self.profileService,
         authService: self.authService
     )
     

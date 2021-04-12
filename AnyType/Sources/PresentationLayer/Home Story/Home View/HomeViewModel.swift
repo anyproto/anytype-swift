@@ -3,37 +3,27 @@ import Combine
 import BlocksModels
 
 class HomeViewModel: ObservableObject {
-    @ObservedObject var profileViewModel: ProfileViewModel
+    @ObservedObject var accountData = AccountInfoDataAccessor(profileService: ProfileService())
     
     var cachedDocumentView: AnyView?
     var documentViewId: String = ""
     
     
     private var profileViewModelObjectWillChange: AnyCancellable?
-    
-    var profileView: some View {
-        profileViewCoordinator.profileView
-    }
-    
-    private let profileViewCoordinator: ProfileViewCoordinator
-    private let homeCollectionViewAssembly: HomeCollectionViewAssembly
-    
 
-    init(
-        homeCollectionViewAssembly: HomeCollectionViewAssembly,
-        profileViewCoordinator: ProfileViewCoordinator
-    ) {
+    private let homeCollectionViewAssembly: HomeCollectionViewAssembly
+    let coordinator = HomeViewCoordinator(profileAssembly: ProfileAssembly())
+
+    init(homeCollectionViewAssembly: HomeCollectionViewAssembly) {
         self.homeCollectionViewAssembly = homeCollectionViewAssembly
-        self.profileViewCoordinator = profileViewCoordinator
-        self.profileViewModel = profileViewCoordinator.viewModel
         
-        self.profileViewModelObjectWillChange = profileViewCoordinator.viewModel.objectWillChange.sink { [weak self] in
+        self.profileViewModelObjectWillChange = accountData.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
         }
     }
     
     func obtainAccountInfo() {
-        self.profileViewModel.obtainAccountInfo()
+        self.accountData.obtainAccountInfo()
     }
 
     // MARK: - View events
