@@ -11,7 +11,7 @@ enum StandardButtonStyle {
         case .white:
             return Color.white
         case .yellow:
-            return Color.anytypeOrange
+            return ColorPalette.yellow
         }
     }
     
@@ -27,7 +27,7 @@ enum StandardButtonStyle {
     func borderColor() -> Color? {
         switch self {
         case .white:
-            return Color.anytypeGray
+            return ColorPalette.grayText
         case .yellow:
             return nil
         }

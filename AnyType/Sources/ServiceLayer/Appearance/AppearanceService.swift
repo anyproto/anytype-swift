@@ -1,12 +1,11 @@
 import UIKit
 
 class AppearanceService {
-    let assets = AssetsStorage.Local()
     let schemes = Schemes()
 
     func resetToDefaults() {
         if let scheme = schemes.scheme(for: Schemes.Global.SwiftUI.BaseText.self) {
-            scheme.foregroundColor = assets.colors.main.yellow.value
+            scheme.foregroundColor = ColorPalette.yellow
             scheme.font = .body
             scheme.fontWeight = .medium
         }

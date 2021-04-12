@@ -59,10 +59,8 @@ struct ProfileSectionView: View {
             }
 
             HStack(spacing: 6) {
-                Circle()
-                    .frame(width: 8, height: 8)
-                    .foregroundColor(Color.green)
-                Text("Synced with 32 peers")
+                Text("Your public page")
+                    .foregroundColor(ColorPalette.grayText)
             }
             .padding([.top], 1)
 
