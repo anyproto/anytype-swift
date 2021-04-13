@@ -20,7 +20,10 @@ struct HomeView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 NavigationLink(
-                    destination: self.documentView(hasCustomModalView: false).edgesIgnoringSafeArea(.all),
+                    destination: self.viewModel.coordinator.documentView(
+                        selectedDocumentId: self.selectedDocumentId,
+                        shouldShowDocument: self.$showDocument
+                    ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
                     isActive: self.$showDocument,
                     label: { EmptyView() }
                 )
@@ -68,12 +71,6 @@ struct HomeView: View {
         }
     }
     
-    private func documentView(hasCustomModalView: Bool = false) -> some View {
-        DocumentViewWrapper(
-            viewModel: self.viewModel, selectedDocumentId: self.$selectedDocumentId, shouldShowDocument: self.$showDocument
-        )
-    }
-
     private func onAppear() {
         self.viewModel.obtainAccountInfo()
         makeNavigationBarTransparent()

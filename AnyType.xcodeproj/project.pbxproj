@@ -299,7 +299,6 @@
 		0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */; };
 		0AEAD66025C0B93800E8A442 /* BaseFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */; };
 		3D07ECCB261B4A7900C007E2 /* HomeCollectionViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECCA261B4A7900C007E2 /* HomeCollectionViewCoordinator.swift */; };
-		3D07ECE1261B720400C007E2 /* DocumentViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE0261B720400C007E2 /* DocumentViewWrapper.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* Converters.swift */; };
 		3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */; };
@@ -331,7 +330,7 @@
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
 		3DD2FC49262085DF00C65466 /* ProfileViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* ProfileViewAssembly.swift */; };
 		3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC4E2620884300C65466 /* AccountInfoDataAccessor.swift */; };
-		3DD2FC5A26208F5E00C65466 /* HomeViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC5926208F5E00C65466 /* HomeViewCoordinator.swift */; };
+		3DD2FC5A26208F5E00C65466 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC5926208F5E00C65466 /* HomeCoordinator.swift */; };
 		3DE2964426173D1300EADB0A /* DeveloperOptionsDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */; };
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
@@ -725,7 +724,6 @@
 		0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Protocols.swift"; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFlattener.swift; sourceTree = "<group>"; };
 		3D07ECCA261B4A7900C007E2 /* HomeCollectionViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCoordinator.swift; sourceTree = "<group>"; };
-		3D07ECE0261B720400C007E2 /* DocumentViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewWrapper.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* Converters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converters.swift; sourceTree = "<group>"; };
 		3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileStateConverter.swift; sourceTree = "<group>"; };
@@ -757,7 +755,7 @@
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC48262085DF00C65466 /* ProfileViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC4E2620884300C65466 /* AccountInfoDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoDataAccessor.swift; sourceTree = "<group>"; };
-		3DD2FC5926208F5E00C65466 /* HomeViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewCoordinator.swift; sourceTree = "<group>"; };
+		3DD2FC5926208F5E00C65466 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptionsDriver.swift; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
@@ -1355,10 +1353,9 @@
 			children = (
 				0350A2E323295E0000E00FB5 /* HomeCollectionView */,
 				03B42F29232910AB000F2BA2 /* HomeView.swift */,
-				3D07ECE0261B720400C007E2 /* DocumentViewWrapper.swift */,
 				0327B0AF232BB876007DB8A7 /* HomeViewModel.swift */,
 				034A303E24045B75002599E2 /* HomeViewAssembly.swift */,
-				3DD2FC5926208F5E00C65466 /* HomeViewCoordinator.swift */,
+				3DD2FC5926208F5E00C65466 /* HomeCoordinator.swift */,
 			);
 			path = "Home View";
 			sourceTree = "<group>";
@@ -2845,7 +2842,7 @@
 				0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */,
 				0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */,
 				0A09660D25BF176700C004BD /* DocumentModule.swift in Sources */,
-				3DD2FC5A26208F5E00C65466 /* HomeViewCoordinator.swift in Sources */,
+				3DD2FC5A26208F5E00C65466 /* HomeCoordinator.swift in Sources */,
 				0A2ADCE02496921500FA135D /* EventListening.swift in Sources */,
 				0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */,
 				0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */,
