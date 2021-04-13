@@ -18,13 +18,11 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     /// DI
     private var parser: BlocksModelsParser = .init()
     
-    typealias Success = ServiceSuccess
-    
     // MARK: Open / Close
-    func open(contextID: BlockId, blockID: BlockId) -> AnyPublisher<Success, Error> {
+    func open(contextID: BlockId, blockID: BlockId) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Open.Service.invoke(
             contextID: contextID, blockID: blockID
-        ).map(\.event).map(Success.init(_:))
+        ).map(\.event).map(ServiceSuccess.init(_:))
         .subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
@@ -47,9 +45,9 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return self.action(contextID: contextID, targetID: targetID, block: blockInformation, position: position)
     }
 
-    private func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
+    private func action(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Create.Service.invoke(contextID: contextID, targetID: targetID, block: block, position: position)
-            .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+            .map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
     
@@ -61,13 +59,13 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return .empty()
     }
     
-    private func replace(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<Success, Error> {
-        Anytype_Rpc.Block.Replace.Service.invoke(contextID: contextID, blockID: blockID, block: block).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+    private func replace(contextID: String, blockID: String, block: Anytype_Model_Block) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.Block.Replace.Service.invoke(contextID: contextID, blockID: blockID, block: block).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
     
-    func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<Success, Error> {
-        Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+    func delete(contextID: BlockId, blockIds: [BlockId]) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextID, blockIds: blockIds).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
     
     // MARK: Duplicate
@@ -79,8 +77,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return self.action(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position)
     }
     
-    private func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<Success, Error> {
-        Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+    private func action(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.BlockList.Duplicate.Service.invoke(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
 }

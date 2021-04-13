@@ -3,12 +3,14 @@ import Combine
 import BlocksModels
 
 class HomeViewModel: ObservableObject {
-    @ObservedObject var accountData = AccountInfoDataAccessor(profileService: ProfileService())
+    @ObservedObject var accountData = AccountInfoDataAccessor()
     private var accountDataWillChange: AnyCancellable?
 
-    let coordinator = HomeCoordinator(profileAssembly: ProfileAssembly())
+    let coordinator: HomeCoordinator
 
-    init() {
+    init(coordinator: HomeCoordinator) {
+        self.coordinator = coordinator
+        
         self.accountDataWillChange = accountData.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
         }

@@ -25,23 +25,12 @@ struct HomeTopView: View {
 
 import Combine
 struct TopView_Previews: PreviewProvider {
-    class ProfileServiceMock: ProfileServiceProtocol {
-        var name: String? = "UserName"
-        
-        var avatar: String? = "Avatar"
-        
-        func obtainUserInformation() -> AnyPublisher<ServiceSuccess, Error> {
-            return .empty()
-        }
-    }
-    
     static var previews: some View {
         HomeTopView(
-            accountData: AccountInfoDataAccessor(
-                profileService: ProfileServiceMock()
-            ),
+            accountData: AccountInfoDataAccessor(),
             coordinator: HomeCoordinator(
-                profileAssembly: ProfileAssembly()
+                profileAssembly: ProfileAssembly(),
+                editorAssembly: EditorAssembly()
             )
         )
     }

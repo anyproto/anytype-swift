@@ -1,18 +1,9 @@
-//
-//  EditorModule+Container+ViewBuilder.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 01.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import SwiftUI
 
-fileprivate typealias Namespace = EditorModule.Container
 
-extension Namespace {
+extension EditorModule.Container {
     /// This is a builder for Namespace.ContainerViewController. (EditorModule.ContainerViewController)
     /// It provides several builders which could build both `SwiftUI` (`SwiftUIBuilder`) and `UIKit` (`UIKitBuilder`) components.
     ///
@@ -28,30 +19,7 @@ extension Namespace {
     }
 }
 
-extension Namespace.ViewBuilder {
-    /// `SwiftUI` builder.
-    /// It builds component for `SwiftUI`.
-    enum SwiftUIBuilder {
-        private typealias CurrentViewRepresentable = Namespace.ViewRepresentable
-        private static func create(by request: Request) -> AnyView {
-            .init(CurrentViewRepresentable.create(documentId: request.id))
-        }
-        
-        private static func create(by request: Request, shouldShowDocument: Binding<Bool>) -> AnyView {
-            .init(CurrentViewRepresentable.create(documentId: request.id, shouldShowDocument: shouldShowDocument))
-        }
-
-        static func documentView(by request: Request) -> some View {
-            self.create(by: request)
-        }
-        
-        static func documentView(by request: Request, shouldShowDocument: Binding<Bool>) -> some View {
-            self.create(by: request, shouldShowDocument: shouldShowDocument)
-        }
-    }
-}
-
-extension Namespace.ViewBuilder {
+extension EditorModule.Container.ViewBuilder {
     /// `UIKit` builder.
     /// It builds component for `UIKit`.
     enum UIKitBuilder {
@@ -104,7 +72,7 @@ extension Namespace.ViewBuilder {
             let childViewController = childComponent.0
             
             /// Configure Navigation Controller
-            let navigationController: UINavigationController = .init(navigationBarClass: Namespace.ViewBuilder.NavigationBar.self, toolbarClass: nil)
+            let navigationController: UINavigationController = .init(navigationBarClass: EditorModule.Container.ViewBuilder.NavigationBar.self, toolbarClass: nil)
             NavigationBar.applyAppearance()
             navigationController.setViewControllers([childViewController], animated: false)
             navigationController.navigationBar.isTranslucent = false
@@ -148,7 +116,7 @@ extension Namespace.ViewBuilder {
 
 // MARK: Custom Appearance
 /// TODO: Move it somewhere
-private extension Namespace.ViewBuilder {
+private extension EditorModule.Container.ViewBuilder {
     class NavigationBar: UINavigationBar {
         static func applyAppearance() {
             let appearance = Self.appearance()

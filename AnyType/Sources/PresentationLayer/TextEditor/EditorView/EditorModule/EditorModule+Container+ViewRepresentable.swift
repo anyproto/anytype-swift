@@ -1,19 +1,9 @@
-//
-//  EditorModule+Container+ViewRepresentable.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 01.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
 import os
 
-fileprivate typealias Namespace = EditorModule.Container
-
-extension Namespace {
+extension EditorModule.Container {
     struct ViewRepresentable {
         @Environment(\.presentationMode) var presentationMode
         private(set) var documentId: String
@@ -22,9 +12,9 @@ extension Namespace {
 }
 
 // MARK: - ContentViewRepresentable
-extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
+extension EditorModule.Container.ViewRepresentable: UIViewControllerRepresentable {
     
-    private typealias ViewBuilder = Namespace.ViewBuilder
+    private typealias ViewBuilder = EditorModule.Container.ViewBuilder
     typealias ViewController = EditorModule.Container.ViewController
     typealias Me = EditorModule.Container.ViewRepresentable
     
@@ -70,7 +60,7 @@ extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
     }
 }
 
-extension Namespace.ViewRepresentable {
+extension EditorModule.Container.ViewRepresentable {
     class Coordinator {
         typealias Parent = EditorModule.Container.ViewRepresentable
         typealias IncomingAction = EditorModule.Container.ViewController.UserAction

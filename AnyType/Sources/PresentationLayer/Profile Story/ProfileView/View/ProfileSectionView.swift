@@ -1,30 +1,31 @@
 import SwiftUI
 
 struct ProfileSectionView: View {
-    @ObservedObject var model: ProfileViewModel
+    @ObservedObject var accountData: AccountInfoDataAccessor
+    var coordinator: ProfileCoordinator
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             UserIconView(
-                image: self.model.accountData.accountAvatar,
-                color: self.model.accountData.visibleSelectedColor,
-                name: self.model.accountData.visibleAccountName
+                image: accountData.accountAvatar,
+                color: accountData.visibleSelectedColor,
+                name: accountData.visibleAccountName
             )
             .frame(width: 64, height: 64)
             .padding([.top], 20)
 
             HStack(spacing: 0) {
-                Text(self.model.accountData.visibleAccountName)
+                Text(accountData.visibleAccountName)
                     .font(.title)
                 Spacer()
                 Image("arrowForward")
             }
             .padding([.top], 11)
             .onTapGesture {
-                // TODO: go to profile
+//                coordinator.showProfile()
             }
 
-            Text("Your public page".localized).foregroundColor(ColorPalette.grayText)
+            Text("Your public page").foregroundColor(ColorPalette.grayText)
         }
         .padding([.leading, .trailing], 20)
         .padding(.bottom, 9)

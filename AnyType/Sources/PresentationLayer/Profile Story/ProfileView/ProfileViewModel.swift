@@ -5,7 +5,8 @@ import BlocksModels
 
 
 final class ProfileViewModel: ObservableObject {
-    let accountData = AccountInfoDataAccessor(profileService: ProfileService())
+    let accountData = AccountInfoDataAccessor()
+    let coordinator = ProfileCoordinator(editorAssembly: EditorAssembly())
     
     private var authService: AuthServiceProtocol
     

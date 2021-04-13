@@ -33,11 +33,6 @@ final class ServiceLocator {
         )
     }
     
-    /// creates new profileService
-    func profileService() -> ProfileServiceProtocol {
-        ProfileService()
-    }
-    
     /// creates new authService
     func authService() -> AuthServiceProtocol {
         AuthService(

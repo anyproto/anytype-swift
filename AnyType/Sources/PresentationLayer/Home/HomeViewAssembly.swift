@@ -5,6 +5,14 @@ class HomeViewAssembly {
             blockActionsService: ServiceLocator.shared.blockActionsServiceSingle()
         )
         
-        return HomeView(viewModel: HomeViewModel(), collectionViewModel: collectionViewModel)
+        let coordinator = HomeCoordinator(
+            profileAssembly: ProfileAssembly(),
+            editorAssembly: EditorAssembly()
+        )
+        
+        return HomeView(
+            viewModel: HomeViewModel(coordinator: coordinator),
+            collectionViewModel: collectionViewModel
+        )
     }
 }

@@ -107,9 +107,13 @@ class BaseDocument {
         
         // Event processor must receive event to send updates to subscribers.
         // Events are `blockShow`, actually.
-        self.eventProcessor.handle(events: EventListening.PackOfEvents(contextId: value.contextID,
-                                                                       events: value.messages,
-                                                                       ourEvents: []))
+        self.eventProcessor.handle(
+            events: EventListening.PackOfEvents(
+                contextId: value.contextID,
+                events: value.messages,
+                ourEvents: []
+            )
+        )
     }
 
     // MARK: - Configure Details

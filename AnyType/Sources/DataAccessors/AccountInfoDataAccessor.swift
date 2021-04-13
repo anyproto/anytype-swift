@@ -22,10 +22,11 @@ final class AccountInfoDataAccessor: ObservableObject {
     private let documentViewModel = BlocksViews.DocumentViewModel()
     private var subscriptions: Set<AnyCancellable> = []
     
-    private let profileService: ProfileServiceProtocol
+    private let middlewareConfigurationService = MiddlewareConfigurationService()
+    private let blocksActionsService = BlockActionsServiceSingle()
     
-    init(profileService: ProfileServiceProtocol) {
-        self.profileService = profileService
+    
+    init() {
         setupSubscriptions()
     }
     
@@ -47,7 +48,9 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     func obtainAccountInfo() {
-        self.obtainUserInformationSubscription = profileService.obtainUserInformation().sink(receiveCompletion: { (value) in
+        self.obtainUserInformationSubscription = self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
+            self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
+        }.sink(receiveCompletion: { (value) in
             switch value {
             case .finished: break
             case let .failure(error):

@@ -2,8 +2,13 @@ import SwiftUI
 
 final class HomeCoordinator {
     private let profileAssembly: ProfileAssembly
-    init(profileAssembly: ProfileAssembly) {
+    private let editorAssembly: EditorAssembly
+    init(
+        profileAssembly: ProfileAssembly,
+        editorAssembly: EditorAssembly
+    ) {
         self.profileAssembly = profileAssembly
+        self.editorAssembly = editorAssembly
     }
     
     func profileView() -> some View {
@@ -30,8 +35,9 @@ final class HomeCoordinator {
     }
         
     private func createDocumentView(documentId: String, shouldShowDocument: Binding<Bool>) -> some View {
-        EditorModule.TopLevelBuilder.SwiftUIBuilder.documentView(
-            by: .init(id: documentId), shouldShowDocument: shouldShowDocument
+        return editorAssembly.documentView(
+            by: .init(id: documentId),
+            shouldShowDocument: shouldShowDocument
         )
     }    
 }

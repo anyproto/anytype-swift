@@ -5,7 +5,7 @@ struct ProfileView: View {
     
     var contentView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            ProfileSectionView(model: model)
+            ProfileSectionView(accountData: model.accountData, coordinator: model.coordinator)
             SettingsSectionView()
             StandardButton(disabled: false, text: "Log out", style: .white) {
                 self.model.logout()
