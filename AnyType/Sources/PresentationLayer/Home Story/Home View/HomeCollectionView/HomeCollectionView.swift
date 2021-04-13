@@ -6,18 +6,33 @@ enum HomeCollectionViewSection {
 }
 
 struct HomeCollectionView: UIViewRepresentable {
+    @ObservedObject var viewModel: HomeCollectionViewModel
+    
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
     @Binding var documentsCell: [HomeCollectionViewCellType]
     
-    @EnvironmentObject var viewModel: HomeCollectionViewModel
+    let containerSize: CGSize
     
+    init(
+        viewModel: HomeCollectionViewModel,
+        showDocument: Binding<Bool>,
+        selectedDocumentId: Binding<String>,
+        cellsModels: Binding<[HomeCollectionViewCellType]>,
+        containerSize: CGSize
+    ) {
+        self.viewModel = viewModel
+        self._showDocument = showDocument
+        self._selectedDocumentId = selectedDocumentId
+        self.containerSize = containerSize
+        self._documentsCell = cellsModels
+    }
+        
     class SubscriptionStorage: ObservableObject {
         var userActionsSubscription: AnyCancellable?
     }
     @ObservedObject private var subscriptionStorage: SubscriptionStorage = .init()
-    
-    let containerSize: CGSize
+
     
     func makeCoordinator() -> HomeCollectionViewCoordinator {
         .init(self, viewModel: self.viewModel)

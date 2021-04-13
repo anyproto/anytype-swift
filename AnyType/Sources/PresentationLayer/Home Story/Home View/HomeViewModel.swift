@@ -7,12 +7,9 @@ class HomeViewModel: ObservableObject {
     
     private var profileViewModelObjectWillChange: AnyCancellable?
 
-    private let homeCollectionViewAssembly: HomeCollectionViewAssembly
     let coordinator = HomeCoordinator(profileAssembly: ProfileAssembly())
 
-    init(homeCollectionViewAssembly: HomeCollectionViewAssembly) {
-        self.homeCollectionViewAssembly = homeCollectionViewAssembly
-        
+    init() {
         self.profileViewModelObjectWillChange = accountData.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
         }
@@ -20,18 +17,5 @@ class HomeViewModel: ObservableObject {
     
     func obtainAccountInfo() {
         self.accountData.obtainAccountInfo()
-    }
-
-    // MARK: - View events
-    func obtainCollectionView(
-        showDocument: Binding<Bool>,
-        selectedDocumentId: Binding<String>,
-        containerSize: CGSize,
-        homeCollectionViewModel: HomeCollectionViewModel,
-        cellsModels: Binding<[HomeCollectionViewCellType]>
-    ) -> some View {
-        self.homeCollectionViewAssembly.createHomeCollectionView(
-            showDocument: showDocument, selectedDocumentId: selectedDocumentId, containerSize: containerSize, cellsModels: cellsModels
-        ).environmentObject(homeCollectionViewModel)
     }
 }
