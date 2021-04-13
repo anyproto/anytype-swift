@@ -10,7 +10,8 @@ final class VideoBlockContentView: UIView, UIContentView {
         static let emptyImagePath: String = "TextEditor/Style/File/Empty/Video"
         static let emptyViewHeight: CGFloat = 52
         static let videoViewHeight: CGFloat = 250
-        static let videoViewInsets: UIEdgeInsets = .init(top: 5, left: 0, bottom: 5, right: 0)
+        static let videoViewInsets: UIEdgeInsets = .init(top: 10, left: 20, bottom: 10, right: 20)
+        static let emptyViewInsets: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: 20)
     }
     
     var configuration: UIContentConfiguration {
@@ -27,7 +28,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     private lazy var emptyView: BlocksViews.File.Base.TopUIKitEmptyView = {
         let view: BlocksViews.File.Base.TopUIKitEmptyView = .init()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.resource = .init(placeholderText: NSLocalizedString("Enter video URL", comment: ""),
+        view.resource = .init(placeholderText: "Upload a video".localized,
                               imagePath: Constants.emptyImagePath)
         return view
     }()
@@ -78,7 +79,7 @@ final class VideoBlockContentView: UIView, UIContentView {
     private func addEmptyViewAndRemoveVideoView() {
         self.videoVC.view.removeFromSuperview()
         self.addSubview(self.emptyView)
-        self.emptyView.edgesToSuperview()
+        self.emptyView.edgesToSuperview(insets: Constants.emptyViewInsets)
         self.emptyView.heightAnchor.constraint(equalToConstant: Constants.emptyViewHeight).isActive = true
         self.changeEmptyViewState()
     }

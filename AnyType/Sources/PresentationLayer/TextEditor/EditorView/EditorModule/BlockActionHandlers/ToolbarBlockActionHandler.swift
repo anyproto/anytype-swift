@@ -86,9 +86,6 @@ final class ToolbarBlockActionHandler {
                 // self.handlingKeyboardAction(block, .pressKey(.delete))
                 self.service.delete(block: block.blockModel.information) { value in
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
-                        assertionFailure(
-                            "We can't find previous block to focus on at command .delete for block \(block.blockModel.information.id)"
-                        )
                         return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                     }
                     let previousBlockId = previousModel.blockModel.information.id
