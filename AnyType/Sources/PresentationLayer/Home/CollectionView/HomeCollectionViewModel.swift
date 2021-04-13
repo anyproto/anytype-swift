@@ -139,8 +139,6 @@ extension HomeCollectionViewModel {
 
 // MARK: Events
 extension HomeCollectionViewModel {
-    typealias Input = UserEvent
-    typealias Output = UserAction
     enum UserAction {
         case showPage(BlockId)
         
