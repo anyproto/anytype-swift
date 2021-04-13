@@ -4,13 +4,12 @@ import BlocksModels
 
 class HomeViewModel: ObservableObject {
     @ObservedObject var accountData = AccountInfoDataAccessor(profileService: ProfileService())
-    
-    private var profileViewModelObjectWillChange: AnyCancellable?
+    private var accountDataWillChange: AnyCancellable?
 
     let coordinator = HomeCoordinator(profileAssembly: ProfileAssembly())
 
     init() {
-        self.profileViewModelObjectWillChange = accountData.objectWillChange.sink { [weak self] in
+        self.accountDataWillChange = accountData.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
         }
     }

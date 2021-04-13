@@ -22,7 +22,7 @@ final class ServiceLocator {
     }
     
     /// creates new localRepoService
-    func localRepoService() -> LocalRepoService {
+    func localRepoService() -> LocalRepoServiceProtocol {
         LocalRepoService()
     }
     
@@ -34,16 +34,24 @@ final class ServiceLocator {
     }
     
     /// creates new profileService
-    func profileService() -> ProfileService {
+    func profileService() -> ProfileServiceProtocol {
         ProfileService()
     }
     
     /// creates new authService
-    func authService() -> AuthService {
+    func authService() -> AuthServiceProtocol {
         AuthService(
             localRepoService: localRepoService(),
             storeService: keychainStoreService()
         )
+    }
+    
+    func dashboardService() -> DashboardServiceProtocol {
+        DashboardService()
+    }
+    
+    func blockActionsServiceSingle() -> BlockActionsServiceSingleProtocol {
+        BlockActionsServiceSingle()
     }
     
     // MARK: - Coodrdinators

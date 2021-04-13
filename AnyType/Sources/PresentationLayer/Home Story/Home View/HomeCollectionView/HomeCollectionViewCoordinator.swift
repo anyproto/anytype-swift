@@ -19,7 +19,7 @@ class HomeCollectionViewCoordinator: NSObject, UICollectionViewDelegate {
             case let .showPage(value): self?.parent.showPage(with: value)
             }
         }
-        self.documentCellsSubscription = viewModel.$documentsViewModels.receive(on: RunLoop.main).sink{ [weak self] (value) in
+        self.documentCellsSubscription = viewModel.$cellViewModels.receive(on: RunLoop.main).sink{ [weak self] (value) in
             self?.populate(dataSource: self?.dataSource, models: value)
         }
     }

@@ -13,8 +13,8 @@ class ApplicationCoordinator: MainWindowHolder {
     private let shakeHandler: ShakeHandler
     
     private let developerOptionsService: DeveloperOptionsService
-    private let localRepoService: LocalRepoService
-    private let authService: AuthService
+    private let localRepoService: LocalRepoServiceProtocol
+    private let authService: AuthServiceProtocol
     private let appearanceService: AppearanceService
     private let firebaseService: FirebaseService
     
@@ -24,8 +24,8 @@ class ApplicationCoordinator: MainWindowHolder {
         window: MainWindow,
         shakeHandler: ShakeHandler,
         developerOptionsService: DeveloperOptionsService,
-        localRepoService: LocalRepoService,
-        authService: AuthService,
+        localRepoService: LocalRepoServiceProtocol,
+        authService: AuthServiceProtocol,
         appearanceService: AppearanceService,
         firebaseService: FirebaseService,
         authAssembly: AuthAssembly

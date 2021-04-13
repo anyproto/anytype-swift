@@ -11,26 +11,28 @@ enum HomeCollectionViewCellType: Hashable {
 }
 
 class HomeCollectionViewModel: ObservableObject {
-    typealias RootModel = ContainerModel
-    typealias CellUserAction = HomeCollectionViewDocumentCellModel.UserActionPayload
+    private let dashboardService: DashboardServiceProtocol
+    private let blockActionsService: BlockActionsServiceSingleProtocol
     
-    private let dashboardService: DashboardServiceProtocol = DashboardService()
-    private let blockActionsService: BlockActionsServiceSingle = .init()
-    private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
     private var subscriptions: Set<AnyCancellable> = []
     private var testSubscriptions: Set<AnyCancellable> = []
             
-    @Published var documentsViewModels: [HomeCollectionViewCellType] = []
+    @Published var cellViewModels: [HomeCollectionViewCellType] = []
     private var documentViewModel: BlocksViews.DocumentViewModel = .init()
-    
-    @Published var error: String = ""
     
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
+    
+    typealias CellUserAction = HomeCollectionViewDocumentCellModel.UserActionPayload
     private var cellUserActionSubject: PassthroughSubject<CellUserAction, Never> = .init()
     
-    // MARK: - Lifecycle
-    init() {
+    init(
+        dashboardService: DashboardServiceProtocol,
+        blockActionsService: BlockActionsServiceSingleProtocol
+    ) {
+        self.dashboardService = dashboardService
+        self.blockActionsService = blockActionsService
+        
         self.setupSubscribers()
         self.setupDashboard()
     }
@@ -131,7 +133,7 @@ extension HomeCollectionViewModel {
             model.configured(userActionSubject: self.cellUserActionSubject)
             return model
         }).map(HomeCollectionViewCellType.document)
-        self.documentsViewModels = links + [.plus]
+        self.cellViewModels = links + [.plus]
     }
 }
 
@@ -200,7 +202,7 @@ extension HomeCollectionViewModel {
     }
     
     func didSelectPage(with index: IndexPath) {        
-        switch self.documentsViewModels[index.row] {
+        switch self.cellViewModels[index.row] {
         case let .document(value):
             self.openPage(with: value.page.targetBlockId)
         case .plus:

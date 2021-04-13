@@ -10,7 +10,7 @@ struct HomeCollectionView: UIViewRepresentable {
     
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
-    @Binding var documentsCell: [HomeCollectionViewCellType]
+    @Binding var cellModels: [HomeCollectionViewCellType]
     
     let containerSize: CGSize
     
@@ -22,17 +22,13 @@ struct HomeCollectionView: UIViewRepresentable {
         containerSize: CGSize
     ) {
         self.viewModel = viewModel
+        
         self._showDocument = showDocument
         self._selectedDocumentId = selectedDocumentId
-        self.containerSize = containerSize
-        self._documentsCell = cellsModels
-    }
+        self._cellModels = cellsModels
         
-    class SubscriptionStorage: ObservableObject {
-        var userActionsSubscription: AnyCancellable?
+        self.containerSize = containerSize
     }
-    @ObservedObject private var subscriptionStorage: SubscriptionStorage = .init()
-
     
     func makeCoordinator() -> HomeCollectionViewCoordinator {
         .init(self, viewModel: self.viewModel)
@@ -60,7 +56,7 @@ struct HomeCollectionView: UIViewRepresentable {
         var snapshot = NSDiffableDataSourceSnapshot<HomeCollectionViewSection, HomeCollectionViewCellType>()
         snapshot.appendSections([.main])
         
-        snapshot.appendItems(self.documentsCell)
+        snapshot.appendItems(self.cellModels)
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 

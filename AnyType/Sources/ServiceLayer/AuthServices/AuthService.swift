@@ -10,11 +10,11 @@ private extension LoggerCategory {
 
 // rewrite it on top of Middleware services.
 final class AuthService: NSObject, AuthServiceProtocol {
-    private let localRepoService: LocalRepoService
+    private let localRepoService: LocalRepoServiceProtocol
     private let storeService: SecureStoreServiceProtocol
     
     init(
-        localRepoService: LocalRepoService,
+        localRepoService: LocalRepoServiceProtocol,
         storeService: SecureStoreServiceProtocol
     ) {
         self.localRepoService = localRepoService

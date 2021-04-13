@@ -333,7 +333,7 @@
 		3DE2964426173D1300EADB0A /* DeveloperOptionsDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */; };
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
-		3DF89C7A26259A890073A523 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF89C7926259A890073A523 /* TopView.swift */; };
+		3DF89C7A26259A890073A523 /* HomeTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF89C7926259A890073A523 /* HomeTopView.swift */; };
 		53178879260A29FC004F9F68 /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53178878260A29FC004F9F68 /* Inter.ttf */; };
 		5338E7E725DC3352008CB97D /* BlockActionsHandlersFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
@@ -758,7 +758,7 @@
 		3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptionsDriver.swift; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
-		3DF89C7926259A890073A523 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		3DF89C7926259A890073A523 /* HomeTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTopView.swift; sourceTree = "<group>"; };
 		53178878260A29FC004F9F68 /* Inter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttf; sourceTree = "<group>"; };
 		5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsHandlersFacade.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
@@ -2209,7 +2209,7 @@
 		3DF89C7626259A6F0073A523 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3DF89C7926259A890073A523 /* TopView.swift */,
+				3DF89C7926259A890073A523 /* HomeTopView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2685,7 +2685,7 @@
 				0A10CC82248ED45C000FF498 /* BlocksViews+New+Page.swift in Sources */,
 				EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
-				3DF89C7A26259A890073A523 /* TopView.swift in Sources */,
+				3DF89C7A26259A890073A523 /* HomeTopView.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				0A996BB723EDC3C7000FDC9C /* DeveloperOptions+ViewModel.swift in Sources */,
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,

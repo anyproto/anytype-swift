@@ -2,8 +2,7 @@ import SwiftUI
 import Combine
 
 struct HomeView: View {
-    // HomeCollectionView view model here due to SwiftUI doesn't update
-    // view when it's UIViewRepresentable
+    // HomeCollectionViewModel here due to SwiftUI doesn't update view when it's UIViewRepresentable
     // https://forums.swift.org/t/uiviewrepresentable-not-updated-when-observed-object-changed/33890/9
     @ObservedObject private var collectionViewModel: HomeCollectionViewModel
     @ObservedObject private var viewModel: HomeViewModel
@@ -19,26 +18,29 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
-                NavigationLink(
-                    destination: self.viewModel.coordinator.documentView(
-                        selectedDocumentId: self.selectedDocumentId,
-                        shouldShowDocument: self.$showDocument
-                    ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
-                    isActive: self.$showDocument,
-                    label: { EmptyView() }
-                )
+                self.settingsNavigation
                 HomeTopView(accountData: viewModel.accountData, coordinator: viewModel.coordinator)
                 self.collectionView
             }
             .background(
-                LinearGradient(
-                    gradient: Gradients.homeBackground, startPoint: .leading, endPoint: .trailing
-                ).edgesIgnoringSafeArea(.all)
+                LinearGradient(gradient: Gradients.homeBackground, startPoint: .leading, endPoint: .trailing)
+                    .edgesIgnoringSafeArea(.all)
             )
             .navigationBarTitleDisplayMode(.inline)
         }
         .accentColor(.gray)
         .onAppear(perform: onAppear)
+    }
+    
+    private var settingsNavigation: some View {
+        NavigationLink(
+            destination: self.viewModel.coordinator.documentView(
+                selectedDocumentId: self.selectedDocumentId,
+                shouldShowDocument: self.$showDocument
+            ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
+            isActive: self.$showDocument,
+            label: { EmptyView() }
+        )
     }
     
     private var collectionView: some View {
@@ -47,7 +49,7 @@ struct HomeView: View {
                 viewModel: collectionViewModel,
                 showDocument: $showDocument,
                 selectedDocumentId: $selectedDocumentId,
-                cellsModels: $collectionViewModel.documentsViewModels,
+                cellsModels: $collectionViewModel.cellViewModels,
                 containerSize: geometry.size
             ).padding()
         }

@@ -1,5 +1,10 @@
 class HomeViewAssembly {
     func createHomeView() -> HomeView {
-        return HomeView(viewModel: HomeViewModel(), collectionViewModel: HomeCollectionViewModel())
+        let collectionViewModel = HomeCollectionViewModel(
+            dashboardService: ServiceLocator.shared.dashboardService(),
+            blockActionsService: ServiceLocator.shared.blockActionsServiceSingle()
+        )
+        
+        return HomeView(viewModel: HomeViewModel(), collectionViewModel: collectionViewModel)
     }
 }
