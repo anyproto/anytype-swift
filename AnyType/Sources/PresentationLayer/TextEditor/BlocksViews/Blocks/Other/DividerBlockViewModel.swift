@@ -9,7 +9,7 @@ import MobileCoreServices
 class DividerBlockViewModel: BlocksViews.Base.ViewModel {
     private var subscription: AnyCancellable?
     @Published private var statePublished: DividerBlockUIKitView.State?
-    private var publisher: AnyPublisher<TopLevel.BlockContent.Divider, Never> = .empty()
+    private var publisher: AnyPublisher<BlockContent.Divider, Never> = .empty()
     
     override var availableTurnIntoTypes: [BlocksViews.Toolbar.BlocksTypes] {
         [.other(.lineDivider), .other(.dotsDivider)]
@@ -37,7 +37,7 @@ class DividerBlockViewModel: BlocksViews.Base.ViewModel {
     }
     
     func setupSubscribers() {
-        let publisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.BlockContent.Divider? in
+        let publisher = self.getBlock().didChangeInformationPublisher().map({ value -> BlockContent.Divider? in
             switch value.content {
             case let .divider(value): return value
             default: return nil

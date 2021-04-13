@@ -1,39 +1,22 @@
-//
-//  Block+Content.swift
-//  BlocksModels
-//
-//  Created by Dmitry Lobanov on 10.07.2020.
-//  Copyright © 2020 Dmitry Lobanov. All rights reserved.
-//
-
 import Foundation
 
-fileprivate typealias Namespace = Block.Content
-
-public extension Block {
-    enum Content {}
-}
-
-///
-public extension Namespace {
-    enum ContentType {
-        case smartblock(Smartblock)
-        case text(Text)
-        case file(File)
-        case divider(Divider)
-        case bookmark(Bookmark)
-        case link(Link)
-        case layout(Layout)
-    }
+public enum BlockContent {
+    case smartblock(Smartblock)
+    case text(Text)
+    case file(File)
+    case divider(Divider)
+    case bookmark(Bookmark)
+    case link(Link)
+    case layout(Layout)
 }
 
 /// ContentType / Cases
-public extension Namespace.ContentType {
+public extension BlockContent {
     var kind: Kind { .init(attribute: self, strategy: .topLevel) }
     var deepKind: Kind { .init(attribute: self, strategy: .levelOne) }
 }
 
-public extension Namespace.ContentType {
+public extension BlockContent {
     struct KindComparator: Equatable {
         fileprivate enum Strategy {
             case topLevel
@@ -63,7 +46,7 @@ public extension Namespace.ContentType {
             }
         }
         
-        typealias Element = Block.Content.ContentType
+        typealias Element = BlockContent
         
         var attribute: Element
         fileprivate var strategy: Strategy = .topLevel
@@ -87,7 +70,7 @@ public extension Namespace.ContentType {
 }
 
 // MARK: ContentType / Text
-public extension Namespace.ContentType {
+public extension BlockContent {
     struct Text {
         private static var defaultChecked = false
         private static var defaultColor = ""
@@ -111,7 +94,7 @@ public extension Namespace.ContentType {
 }
 
 // MARK: ContentType / Text / Supplements
-public extension Namespace.ContentType.Text {
+public extension BlockContent.Text {
     init(contentType: ContentType) {
         self.init(attributedText: .init(), color: Self.defaultColor, contentType: contentType, checked: Self.defaultChecked)
     }
@@ -126,7 +109,7 @@ public extension Namespace.ContentType.Text {
 }
 
 // MARK: ContentType / Text / ContentType
-public extension Namespace.ContentType.Text {
+public extension BlockContent.Text {
     enum ContentType {
         case title
         case text
@@ -164,19 +147,19 @@ public extension Namespace.ContentType.Text {
 }
 
 // MARK: ContentType / Smartblock
-public extension Namespace.ContentType {
+public extension BlockContent {
     struct Smartblock {
         public var style: Style = .page
         
         // MARK: - Memberwise initializer
-        public init(style: Block.Content.ContentType.Smartblock.Style = .page) {
+        public init(style: BlockContent.Smartblock.Style = .page) {
             self.style = style
         }
     }
 }
 
 // MARK: ContentType / Smartblock / Style
-public extension Namespace.ContentType.Smartblock {
+public extension BlockContent.Smartblock {
     enum Style {
         case page
         case home
@@ -187,7 +170,7 @@ public extension Namespace.ContentType.Smartblock {
 }
 
 // MARK: ContentType / File
-public extension Namespace.ContentType {
+public extension BlockContent {
     struct File {
         public var metadata: Metadata
 
@@ -210,7 +193,7 @@ public extension Namespace.ContentType {
 }
 
 // MARK: ContentType / File / Metadata
-public extension Namespace.ContentType.File {
+public extension BlockContent.File {
     struct Metadata {
         public var name: String
         public var size: Int64
@@ -234,7 +217,7 @@ public extension Namespace.ContentType.File {
 }
 
 // MARK: ContentType / File / ContentType
-public extension Namespace.ContentType.File {
+public extension BlockContent.File {
     enum ContentType {
         case none
         case file
@@ -244,7 +227,7 @@ public extension Namespace.ContentType.File {
 }
 
 // MARK: ContentType / File / State
-public extension Namespace.ContentType.File {
+public extension BlockContent.File {
     enum State {
         /// There is no file and preview, it's an empty block, that waits files.
         case empty
@@ -258,7 +241,7 @@ public extension Namespace.ContentType.File {
 }
 
 // MARK: ContentType / Divider
-public extension Namespace.ContentType {
+public extension BlockContent {
     // TODO: Add style to Div.
     struct Divider {
         public var style: Style
@@ -270,7 +253,7 @@ public extension Namespace.ContentType {
 }
 
 // MARK: ContentType / Divider / Style
-public extension Namespace.ContentType.Divider {
+public extension BlockContent.Divider {
     enum Style {
         case line // Line separator style
         case dots // Dots separator style
@@ -278,7 +261,7 @@ public extension Namespace.ContentType.Divider {
 }
 
 // MARK: ContentType / Bookmark
-public extension Namespace.ContentType {
+public extension BlockContent {
     // Bookmark has something, maybe add it later.
     struct Bookmark {
         public var url: String
@@ -306,7 +289,7 @@ public extension Namespace.ContentType {
 }
 
 // MARK: ContentType / Bookmark / TypeEnum
-public extension Namespace.ContentType.Bookmark {
+public extension BlockContent.Bookmark {
     enum TypeEnum {
         case unknown
         case page
@@ -316,7 +299,7 @@ public extension Namespace.ContentType.Bookmark {
 }
 
 // MARK: ContentType / Link
-public extension Namespace.ContentType {
+public extension BlockContent {
     struct Link {
         public var targetBlockID: String
         public var style: Style
@@ -337,7 +320,7 @@ public extension Namespace.ContentType {
 }
 
 // MARK: ContentType / Link / Style
-public extension Namespace.ContentType.Link {
+public extension BlockContent.Link {
     enum Style {
         case page
         case dataview
@@ -346,7 +329,7 @@ public extension Namespace.ContentType.Link {
 }
 
 // MARK: ContentType / Layout
-public extension Namespace.ContentType {
+public extension BlockContent {
     struct Layout {
         public var style: Style
         // MARK: - Memberwise initializer
@@ -357,7 +340,7 @@ public extension Namespace.ContentType {
 }
 
 // MARK: ContentType / Layout / Style
-public extension Namespace.ContentType.Layout {
+public extension BlockContent.Layout {
     enum Style {
         case row
         case column
@@ -367,12 +350,12 @@ public extension Namespace.ContentType.Layout {
 }
 
 // MARK: - ContentType / Hashable
-extension Namespace.ContentType: Hashable {}
-extension Namespace.ContentType.Smartblock: Hashable {}
-extension Namespace.ContentType.Text: Hashable {}
-extension Namespace.ContentType.File: Hashable {}
-extension Namespace.ContentType.File.Metadata: Hashable {}
-extension Namespace.ContentType.Divider: Hashable {}
-extension Namespace.ContentType.Bookmark: Hashable {}
-extension Namespace.ContentType.Link: Hashable {}
-extension Namespace.ContentType.Layout: Hashable {}
+extension BlockContent: Hashable {}
+extension BlockContent.Smartblock: Hashable {}
+extension BlockContent.Text: Hashable {}
+extension BlockContent.File: Hashable {}
+extension BlockContent.File.Metadata: Hashable {}
+extension BlockContent.Divider: Hashable {}
+extension BlockContent.Bookmark: Hashable {}
+extension BlockContent.Link: Hashable {}
+extension BlockContent.Layout: Hashable {}

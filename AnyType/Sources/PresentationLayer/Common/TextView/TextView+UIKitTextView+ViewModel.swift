@@ -15,7 +15,7 @@ fileprivate typealias Namespace = TextView.UIKitTextView
 
 extension Namespace.ViewModel {
     struct Focus {
-        var position: Block.Common.Focus.Position?
+        var position: BlockFocusPosition?
         
         /// We should call completion when we are done with set focus.
         var completion: (Bool) -> () = { _ in }

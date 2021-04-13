@@ -3,7 +3,7 @@ import BlocksModels
 import ProtobufMessages
 
 final class BlocksModelsParserLinkStyleConverter {
-    typealias Model = TopLevel.BlockContent.Link.Style
+    typealias Model = BlockContent.Link.Style
     typealias MiddlewareModel = Anytype_Model_Block.Content.Link.Style
 
     static func asModel(_ value: MiddlewareModel) -> Model? {

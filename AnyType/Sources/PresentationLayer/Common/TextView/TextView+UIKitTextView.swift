@@ -218,7 +218,7 @@ private extension TextView.UIKitTextView {
 // MARK: - Focus
 
 private extension TextView.UIKitTextView {
-    func setFocus(_ value: Block.Common.Focus.Position) {
+    func setFocus(_ value: BlockFocusPosition) {
         let position = value
         switch position {
         case .unknown: break

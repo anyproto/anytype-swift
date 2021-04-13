@@ -18,7 +18,7 @@ struct TextBlockContentConfiguration {
     weak var contextMenuHolder: TextBlockViewModel?
     
     /// Block information
-    var information: Block.Information.InformationModel
+    var information: BlockInformation.InformationModel
     
     init(_ block: BlockActiveRecordModelProtocol, checkedAction: @escaping(Bool) -> Void) {
         self.information = .init(information: block.blockModel.information)

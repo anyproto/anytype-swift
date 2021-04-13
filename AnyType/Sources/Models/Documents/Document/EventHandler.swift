@@ -471,7 +471,7 @@ private extension EventHandler {
 private extension EventHandler.Focus {
     enum Converter {
         typealias EventModel = EventListening.OurEvent.Focus.Payload.Position
-        static func asModel(_ value: EventModel) -> Block.Common.Focus.Position? {
+        static func asModel(_ value: EventModel) -> BlockFocusPosition? {
             switch value {
             case .unknown: return .unknown
             case .beginning: return .beginning
@@ -480,7 +480,7 @@ private extension EventHandler.Focus {
             }
         }
         
-        static func asEventModel(_ value: Block.Common.Focus.Position) -> EventModel? {
+        static func asEventModel(_ value: BlockFocusPosition) -> EventModel? {
             switch value {
             case .unknown: return .unknown
             case .beginning: return .beginning

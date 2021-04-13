@@ -55,7 +55,7 @@ public protocol BlockActiveRecordCanBeToggledProtocol {
 
 // MARK: - BlockActiveRecord / FocusAt
 public protocol BlockActiveRecordCanHaveFocusAtProtocol {
-    var focusAt: Block.Common.Focus.Position? {get set}
+    var focusAt: BlockFocusPosition? {get set}
 }
 
 public extension BlockActiveRecordCanHaveFocusAtProtocol {
@@ -70,5 +70,5 @@ public protocol BlockHasDidChangePublisherProtocol {
 }
 
 public protocol BlockHasDidChangeInformationPublisherProtocol {
-    func didChangeInformationPublisher() -> AnyPublisher<Block.Information.InformationModel, Never>
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformation.InformationModel, Never>
 }

@@ -526,7 +526,7 @@ private extension Namespace.ViewModel {
         }
         
         /// Handle
-        private func handle(_ value: Block.Content.ContentType.File) {
+        private func handle(_ value: BlockContent.File) {
             /// Do something
             /// We should reload data if text are not equal
             ///

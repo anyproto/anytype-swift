@@ -20,7 +20,7 @@ protocol BlockActionsServiceFileProtocolUploadDataAtFilePath {
 /// Protocol for upload data at filePath.
 protocol BlockActionsServiceFileProtocolUploadFile {
     associatedtype Success
-    typealias ContentType = TopLevel.BlockContent.File.ContentType
+    typealias ContentType = BlockContent.File.ContentType
     func action(url: String, localPath: String, type: ContentType, disableEncryption: Bool) -> AnyPublisher<Success, Error>
 }
 

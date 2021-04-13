@@ -14,7 +14,7 @@ fileprivate typealias Namespace = BlocksViews.File.Base
 
 extension Namespace {
     class ViewModel: BlocksViews.Base.ViewModel {
-        typealias File = TopLevel.BlockContent.File
+        typealias File = BlockContent.File
         typealias State = File.State
         
         private var subscription: AnyCancellable?

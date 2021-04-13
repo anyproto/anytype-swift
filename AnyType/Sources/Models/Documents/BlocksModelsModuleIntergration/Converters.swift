@@ -13,10 +13,9 @@ extension BlocksModelsParser {
 
 extension BlocksModelsParser {
     enum Converters {
-        typealias BlockType = OurContent
         class BaseContentConverter {
-            open func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? { nil }
-            open func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? { nil }
+            open func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? { nil }
+            open func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? { nil }
         }
     }
 }
@@ -44,7 +43,7 @@ extension BlocksModelsParser.Converters {
         default: return nil
         }
     }
-    static func convert(block: BlockType?) -> BaseContentConverter? {
+    static func convert(block: BlockContent?) -> BaseContentConverter? {
         switch block {
         case .smartblock: return self.contentObjectAsEmptyPage
         case .link: return self.contentLink

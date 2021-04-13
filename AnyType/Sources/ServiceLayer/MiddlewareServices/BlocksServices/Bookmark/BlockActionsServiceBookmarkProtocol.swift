@@ -11,8 +11,7 @@ protocol BlockActionsServiceBookmarkProtocolFetchBookmark {
 
 protocol BlockActionsServiceBookmarkProtocolCreateAndFetchBookmark {
     associatedtype Success
-    typealias Position = TopLevel.Position
-    func action(contextID: BlockId, targetID: BlockId, position: Position, url: String) -> AnyPublisher<Success, Error>
+    func action(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) -> AnyPublisher<Success, Error>
 }
 
 // MARK: - Service Protocol

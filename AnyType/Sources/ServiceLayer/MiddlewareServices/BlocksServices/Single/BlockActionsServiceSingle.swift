@@ -37,7 +37,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    func add(contextID: BlockId, targetID: BlockId, block: Block.Information.InformationModel, position: Position) -> AnyPublisher<ServiceSuccess, Error> {
+    func add(contextID: BlockId, targetID: BlockId, block: BlockInformation.InformationModel, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
         guard let blockInformation = self.parser.convert(information: block) else {
             return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
         }
@@ -56,7 +56,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     /// TODO: Remove it or implement it.
     /// Unused.
 
-    func replace(contextID: BlockId, blockID: BlockId, block: Block.Information.InformationModel) -> AnyPublisher<ServiceSuccess, Error> {
+    func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation.InformationModel) -> AnyPublisher<ServiceSuccess, Error> {
         assertionFailure("method is not implemented")
         return .empty()
     }
@@ -72,7 +72,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     
     // MARK: Duplicate
     // Actually, should be used for BlockList
-    func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: Position) -> AnyPublisher<ServiceSuccess, Error> {
+    func duplicate(contextID: BlockId, targetID: BlockId, blockIds: [BlockId], position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail(error: PossibleError.duplicateActionPositionConversionHasFailed).eraseToAnyPublisher()
         }

@@ -4,7 +4,7 @@ import ProtobufMessages
 
 
 final class BlocksModelsParserTextContentTypeConverter {
-    typealias Model = TopLevel.BlockContent.Text.ContentType
+    typealias Model = BlockContent.Text.ContentType
     typealias MiddlewareModel = Anytype_Model_Block.Content.Text.Style
 
     static func asModel(_ value: MiddlewareModel) -> Model? {

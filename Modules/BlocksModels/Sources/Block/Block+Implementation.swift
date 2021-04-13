@@ -7,9 +7,9 @@ fileprivate typealias Namespace = Block
 // MARK: - BlockModel
 extension Namespace {
     final class BlockModel: ObservableObject {
-        @Published private var _information: Block.Information.InformationModel
+        @Published private var _information: BlockInformation.InformationModel
         private var _parent: BlockId?
-        private var _kind: Block.Common.Kind {
+        private var _kind: BlockKind {
             switch self._information.content {
             case .smartblock, .divider: return .meta
             case let .layout(layout) where layout.style == .div: return .meta
@@ -20,7 +20,7 @@ extension Namespace {
         private var _didChangeSubject: PassthroughSubject<Void, Never> = .init()
         private var _didChangePublisher: AnyPublisher<Void, Never>
 
-        required init(information: Block.Information.InformationModel) {
+        required init(information: BlockInformation.InformationModel) {
             self._information = information
             self._didChangePublisher = self._didChangeSubject.eraseToAnyPublisher()
         }
@@ -28,7 +28,7 @@ extension Namespace {
 }
 
 extension Namespace.BlockModel: BlockModelProtocol {
-    var information: Block.Information.InformationModel {
+    var information: BlockInformation.InformationModel {
         get { self._information }
         set { self._information = newValue }
     }
@@ -38,12 +38,12 @@ extension Namespace.BlockModel: BlockModelProtocol {
         set { self._parent = newValue }
     }
     
-    var kind: Block.Common.Kind { self._kind }
+    var kind: BlockKind { self._kind }
     
     func didChangePublisher() -> AnyPublisher<Void, Never> { self._didChangePublisher }
     func didChange() { self._didChangeSubject.send() }
     
-    func didChangeInformationPublisher() -> AnyPublisher<Block.Information.InformationModel, Never> {
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformation.InformationModel, Never> {
         self.$_information.eraseToAnyPublisher()
     }
 }
@@ -360,7 +360,7 @@ extension Namespace.ActiveRecord: ObservableObject, BlockActiveRecordModelProtoc
         }
     }
     
-    var focusAt: Block.Common.Focus.Position? {
+    var focusAt: BlockFocusPosition? {
         get {
             guard self.container?.userSession.firstResponder() == self._nestedModel.information.id else { return nil }
             return self.container?.userSession.focusAt()
@@ -379,5 +379,5 @@ extension Namespace.ActiveRecord: ObservableObject, BlockActiveRecordModelProtoc
     func didChangePublisher() -> AnyPublisher<Void, Never> { self.blockModel.didChangePublisher() }
     func didChange() { self.blockModel.didChange() }
     
-    func didChangeInformationPublisher() -> AnyPublisher<Block.Information.InformationModel, Never> { self.blockModel.didChangeInformationPublisher() }
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformation.InformationModel, Never> { self.blockModel.didChangeInformationPublisher() }
 }

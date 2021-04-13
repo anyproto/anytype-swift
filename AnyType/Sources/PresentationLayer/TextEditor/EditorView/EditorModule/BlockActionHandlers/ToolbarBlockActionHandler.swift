@@ -42,7 +42,7 @@ final class ToolbarBlockActionHandler {
             // TODO: Add turn into
             switch value {
             case let .text(value): // Set Text Style
-                let type: BlockActionService.BlockContent
+                let type: BlockContent
                 switch value {
                 case .text: type = .text(.empty())
                 case .h1: type = .text(.init(contentType: .header))
@@ -53,7 +53,7 @@ final class ToolbarBlockActionHandler {
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
 
             case let .list(value): // Set Text Style
-                let type: BlockActionService.BlockContent
+                let type: BlockContent
                 switch value {
                 case .bulleted: type = .text(.init(contentType: .bulleted))
                 case .checkbox: type = .text(.init(contentType: .checkbox))
@@ -63,7 +63,7 @@ final class ToolbarBlockActionHandler {
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
 
             case let .other(value): // Change divider style.
-                let type: BlockActionService.BlockContent
+                let type: BlockContent
                 switch value {
                 case .lineDivider: type = .divider(.init(style: .line))
                 case .dotsDivider: type = .divider(.init(style: .dots))
@@ -72,7 +72,7 @@ final class ToolbarBlockActionHandler {
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
 
             case .objects(.page):
-                let type: BlockActionService.BlockContent = .smartblock(.init(style: .page))
+                let type: BlockContent = .smartblock(.init(style: .page))
                 self.service.turnInto(block: block.blockModel.information, type: type, shouldSetFocusOnUpdate: false)
 
             default:

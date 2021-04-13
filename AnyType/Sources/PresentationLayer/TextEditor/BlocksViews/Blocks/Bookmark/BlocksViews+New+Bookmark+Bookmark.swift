@@ -21,7 +21,7 @@ extension Namespace {
         private var toolbarSubscription: AnyCancellable?
         @Published private var resourcePublished: Resource?
         var imagesPublished: Resource.ImageLoader = .init()
-        private var publisher: AnyPublisher<TopLevel.BlockContent.Bookmark, Never> = .empty()
+        private var publisher: AnyPublisher<BlockContent.Bookmark, Never> = .empty()
         
         override func makeUIView() -> UIView {
             UIKitView().configured(publisher: self.$resourcePublished.eraseToAnyPublisher())
@@ -101,7 +101,7 @@ extension Namespace {
 //            self.toolbarSubscription = self.toolbarActionSubject.sink { [weak self] (value) in
 //                self?.handle(toolbarAction: value)
 //            }
-            self.publisher = self.getBlock().didChangeInformationPublisher().map({ value -> TopLevel.BlockContent.Bookmark? in
+            self.publisher = self.getBlock().didChangeInformationPublisher().map({ value -> BlockContent.Bookmark? in
                 switch value.content {
                 case let .bookmark(value): return value
                 default: return nil
@@ -151,7 +151,7 @@ extension Namespace {
 // MARK: - State Converter
 extension Namespace.ViewModel {
     enum ResourceConverter {
-        typealias Model = TopLevel.BlockContent.Bookmark
+        typealias Model = BlockContent.Bookmark
         typealias OurModel = Resource
         static func asModel(_ value: OurModel) -> Model? {
             return nil
@@ -683,7 +683,7 @@ extension Namespace.UIKitView {
         self.bookmarkView.apply(value)
         self.handle(value)
     }
-    func apply(_ value: TopLevel.BlockContent.Bookmark) {
+    func apply(_ value: BlockContent.Bookmark) {
         let model = Namespace.ViewModel.ResourceConverter.asOurModel(value)
         self.apply(model)
     }
@@ -810,7 +810,7 @@ private extension Namespace.ViewModel {
             self.topView.apply(value)
         }
         
-        private func handle(_ value: Block.Content.ContentType.Bookmark) {
+        private func handle(_ value: BlockContent.Bookmark) {
             /// Do something
             /// We should reload data if text are not equal
             ///

@@ -52,8 +52,6 @@ extension ListBlockActionService {
 
 /// TODO: Add Div and ConvertChildrenToPages
 extension ListBlockActionService {
-    typealias BlockContent = TopLevel.BlockContent
-
     func turnInto(blocks: ListIds, type: BlockContent) {
         switch type {
         case .text: self.setTextStyle(blocks: blocks, type: type)

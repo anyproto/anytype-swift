@@ -10,7 +10,7 @@ import UIKit
 import BlocksModels
 
 extension UIFont {
-    typealias TextBlockContentType = TopLevel.BlockContent.Text.ContentType
+    typealias TextBlockContentType = BlockContent.Text.ContentType
 
     private enum Graphik {
         static let graphikLCGSemibold = "GraphikLCG-Semibold"

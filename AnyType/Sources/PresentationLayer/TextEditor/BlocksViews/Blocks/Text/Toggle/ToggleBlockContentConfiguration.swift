@@ -15,7 +15,7 @@ struct ToggleBlockContentConfiguration {
     /// Content value
     /// Because block is a reference type, it will always contains actual information
     /// We need this property to compare old information with new to detect changes
-    let information: Block.Information.InformationModel
+    let information: BlockInformation.InformationModel
     
     /// Does block have children
     let hasChildren: Bool

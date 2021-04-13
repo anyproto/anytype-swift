@@ -4,8 +4,8 @@ import UIKit
 
 struct VideoBlockContentViewConfiguration {
     
-    typealias State = Block.Content.ContentType.File.State
-    typealias Metadata = Block.Content.ContentType.File.Metadata
+    typealias State = BlockContent.File.State
+    typealias Metadata = BlockContent.File.Metadata
     
     let state: State
     let metadata: Metadata

@@ -65,7 +65,7 @@ final class ListBlockActionHandler {
             // TODO: Add turn into
             switch value {
             case let .text(value): // Set Text Style
-                let type: BlockActionService.BlockContent
+                let type: BlockContent
                 switch value {
                 case .text: type = .text(.empty())
                 case .h1: type = .text(.init(contentType: .header))
@@ -76,7 +76,7 @@ final class ListBlockActionHandler {
                 self.service.turnInto(blocks: model, type: type)
 
             case let .list(value): // Set Text Style
-                let type: BlockActionService.BlockContent
+                let type: BlockContent
                 switch value {
                 case .bulleted: type = .text(.init(contentType: .bulleted))
                 case .checkbox: type = .text(.init(contentType: .checkbox))
@@ -88,7 +88,7 @@ final class ListBlockActionHandler {
             case .other: // Change divider style.
                 break
             case .objects(.page): // Convert children to pages.
-                let type: BlockActionService.BlockContent = .smartblock(.init(style: .page))
+                let type: BlockContent = .smartblock(.init(style: .page))
                 self.service.turnInto(blocks: model, type: type)
             default:
                 assertionFailure("TurnInto for that style is not implemented \(action)")

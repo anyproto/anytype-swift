@@ -1,22 +1,14 @@
 import Foundation
 
-fileprivate typealias Namespace = Block.Information
-
-extension Block {
-    public enum Information {}
-}
-
-extension Namespace {
+public enum BlockInformation {
     public typealias BackgroundColor = String
     
     public struct InformationModel {
-        public typealias Content = TopLevel.BlockContent
         public typealias ChildrenIds = [BlockId]
-        public typealias Alignment = TopLevel.Alignment
 
         public var id: BlockId
         public var childrenIds: ChildrenIds = []
-        public var content: Content
+        public var content: BlockContent
         
         public var fields: [String : AnyHashable] = [:]
         var restrictions: [String] = []
@@ -26,7 +18,7 @@ extension Namespace {
                 
         static func defaultValue() -> Self { .default }
         
-        public init(id: BlockId, content: Content) {
+        public init(id: BlockId, content: BlockContent) {
             self.id = id
             self.content = content
         }
@@ -44,30 +36,29 @@ extension Namespace {
         }
         
         private static let `defaultId`: BlockId = "DefaultIdentifier"
-        private static let `defaultBlockType`: Content = .text(.createDefault(text: "DefaultText"))
+        private static let `defaultBlockType`: BlockContent = .text(.createDefault(text: "DefaultText"))
         private static let `default`: Self = .init(id: Self.defaultId, content: Self.defaultBlockType)
     }
 }
 
 // MARK: Hashable
-extension Namespace.InformationModel: Hashable {
+extension BlockInformation.InformationModel: Hashable {
 
 }
-extension Namespace.Alignment: Hashable {}
+extension BlockInformation.Alignment: Hashable {}
 
 // MARK: Alignment
-extension Namespace {
+extension BlockInformation {
     public enum Alignment {
         case left, center, right
     }
 }
 
 // MARK: Details as Information
-extension Namespace {
+extension BlockInformation {
     /// What happens here?
     /// We convert details ( PageDetails ) to ready-to-use information.
     struct DetailsAsInformationConverter {
-        typealias Content = TopLevel.BlockContent
         typealias Details = DetailsContent
         var blockId: BlockId
 
@@ -75,12 +66,12 @@ extension Namespace {
             /// Our ID is <ID>/<Details.key>.
             /// Look at implementation in `IdentifierBuilder`
             
-            let id = Namespace.DetailsAsBlockConverter.IdentifierBuilder.asBlockId(blockId, details.id())
+            let id = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asBlockId(blockId, details.id())
 
             /// Actually, we don't care about block type.
             /// We only take care about "distinct" block model.
-            let content: Content = .text(.empty())
-            return InformationModel.init(id: id, content: content)
+            let content: BlockContent = .text(.empty())
+            return InformationModel(id: id, content: content)
         }
 
         func callAsFunction(_ details: Details) -> InformationModel {
@@ -90,7 +81,7 @@ extension Namespace {
 }
 
 /// TODO: Time to remove Details Crutches.
-public extension Namespace.DetailsAsBlockConverter {
+public extension BlockInformation.DetailsAsBlockConverter {
     struct IdentifierBuilder {
         public typealias Details = DetailsContent
         static var separator: Character = "/"
@@ -111,7 +102,7 @@ public extension Namespace.DetailsAsBlockConverter {
 }
 
 // MARK: Details as Block
-public extension Namespace {
+public extension BlockInformation {
     /// We need this converter to convert our details into a block.
     /// First, we convert them to an Information structure.
     /// Then, we convert it to block.

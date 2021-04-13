@@ -15,9 +15,9 @@
 		0A6D538F25D9C99F002F3F82 /* Block+Tools+Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536F25D9C99E002F3F82 /* Block+Tools+Updater.swift */; };
 		0A6D539025D9C99F002F3F82 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537025D9C99E002F3F82 /* Details.swift */; };
 		0A6D539125D9C99F002F3F82 /* TopLevelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537125D9C99E002F3F82 /* TopLevelBuilder.swift */; };
-		0A6D539225D9C99F002F3F82 /* Block+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537225D9C99E002F3F82 /* Block+Content.swift */; };
+		0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537225D9C99E002F3F82 /* BlockContent.swift */; };
 		0A6D539325D9C99F002F3F82 /* Block+Information+Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537325D9C99E002F3F82 /* Block+Information+Builders.swift */; };
-		0A6D539425D9C99F002F3F82 /* Block+Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537425D9C99E002F3F82 /* Block+Information.swift */; };
+		0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537425D9C99E002F3F82 /* BlockInformation.swift */; };
 		0A6D539525D9C99F002F3F82 /* ContainerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537525D9C99E002F3F82 /* ContainerModel.swift */; };
 		0A6D539625D9C99F002F3F82 /* Block+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537625D9C99E002F3F82 /* Block+Tools.swift */; };
 		0A6D539725D9C99F002F3F82 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537725D9C99E002F3F82 /* Block.swift */; };
@@ -48,9 +48,9 @@
 		0A6D536F25D9C99E002F3F82 /* Block+Tools+Updater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+Tools+Updater.swift"; sourceTree = "<group>"; };
 		0A6D537025D9C99E002F3F82 /* Details.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 		0A6D537125D9C99E002F3F82 /* TopLevelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopLevelBuilder.swift; sourceTree = "<group>"; };
-		0A6D537225D9C99E002F3F82 /* Block+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+Content.swift"; sourceTree = "<group>"; };
+		0A6D537225D9C99E002F3F82 /* BlockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockContent.swift; sourceTree = "<group>"; };
 		0A6D537325D9C99E002F3F82 /* Block+Information+Builders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+Information+Builders.swift"; sourceTree = "<group>"; };
-		0A6D537425D9C99E002F3F82 /* Block+Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+Information.swift"; sourceTree = "<group>"; };
+		0A6D537425D9C99E002F3F82 /* BlockInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformation.swift; sourceTree = "<group>"; };
 		0A6D537525D9C99E002F3F82 /* ContainerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerModel.swift; sourceTree = "<group>"; };
 		0A6D537625D9C99E002F3F82 /* Block+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+Tools.swift"; sourceTree = "<group>"; };
 		0A6D537725D9C99E002F3F82 /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
@@ -125,9 +125,9 @@
 				0A6D537725D9C99E002F3F82 /* Block.swift */,
 				0A6D536C25D9C99E002F3F82 /* Block+Builders.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
-				0A6D537225D9C99E002F3F82 /* Block+Content.swift */,
+				0A6D537225D9C99E002F3F82 /* BlockContent.swift */,
 				0A6D537E25D9C99E002F3F82 /* Block+Implementation.swift */,
-				0A6D537425D9C99E002F3F82 /* Block+Information.swift */,
+				0A6D537425D9C99E002F3F82 /* BlockInformation.swift */,
 				0A6D537325D9C99E002F3F82 /* Block+Information+Builders.swift */,
 				0A6D537F25D9C99E002F3F82 /* Block+Protocols.swift */,
 				0A6D537B25D9C99E002F3F82 /* Block+Protocols+ActiveRecord.swift */,
@@ -251,7 +251,7 @@
 				0A6D539525D9C99F002F3F82 /* ContainerModel.swift in Sources */,
 				0A6D539E25D9C99F002F3F82 /* Block+Implementation.swift in Sources */,
 				0A6D539B25D9C99F002F3F82 /* Block+Protocols+ActiveRecord.swift in Sources */,
-				0A6D539425D9C99F002F3F82 /* Block+Information.swift in Sources */,
+				0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */,
 				0A6D53A425D9C99F002F3F82 /* Details+Builders.swift in Sources */,
 				0A6D53A625D9C99F002F3F82 /* Block+Tools+Transformer.swift in Sources */,
 				0A6D53A725D9C99F002F3F82 /* RootBlocksContainer.swift in Sources */,
@@ -274,7 +274,7 @@
 				0A6D538C25D9C99F002F3F82 /* Block+Builders.swift in Sources */,
 				0A6D53A125D9C99F002F3F82 /* Details+Information+Builders.swift in Sources */,
 				0A6D539125D9C99F002F3F82 /* TopLevelBuilder.swift in Sources */,
-				0A6D539225D9C99F002F3F82 /* Block+Content.swift in Sources */,
+				0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */,
 				0A6D53A225D9C99F002F3F82 /* Details+Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

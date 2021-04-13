@@ -5,14 +5,14 @@ public protocol BlockBuilderProtocol {
     func build(list: [BlockModelProtocol]) -> BlockContainerModelProtocol
     func buildTree(container: BlockContainerModelProtocol, rootId: String?)
     func emptyContainer() -> BlockContainerModelProtocol
-    func createBlockModel(with information: Block.Information.InformationModel) -> BlockModelProtocol
+    func createBlockModel(with information: BlockInformation.InformationModel) -> BlockModelProtocol
     var informationBuilder: BlockInformationBuilderProtocol {get}
 }
 
 extension Block {
     class Builder: BlockBuilderProtocol {
         typealias CurrentContainer = Container
-        typealias InformationBuilder = Information.Builder
+        typealias InformationBuilder = BlockInformation.Builder
         
         func build(list: [BlockModelProtocol]) -> BlockContainerModelProtocol {
             let container: CurrentContainer = .init()
@@ -44,7 +44,7 @@ extension Block {
             }
         }
         
-        func createBlockModel(with information: Block.Information.InformationModel) -> BlockModelProtocol {
+        func createBlockModel(with information: BlockInformation.InformationModel) -> BlockModelProtocol {
             BlockModel(information: information)
         }
         

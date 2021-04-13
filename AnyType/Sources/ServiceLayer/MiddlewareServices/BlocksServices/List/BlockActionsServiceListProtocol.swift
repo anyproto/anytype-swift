@@ -19,7 +19,7 @@ protocol BlockActionsServiceListProtocolSetFields {
 
 protocol BlockActionsServiceListProtocolSetTextStyle {
     associatedtype Success
-    typealias Style = TopLevel.BlockContent.Text.ContentType
+    typealias Style = BlockContent.Text.ContentType
     func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error>
 }
 // TODO: Later enable it and remove old services that works with Duplicates.
@@ -33,12 +33,12 @@ protocol BlockActionsServiceListProtocolSetBackgroundColor {
 }
 protocol BlockActionsServiceListProtocolSetAlign {
     associatedtype Success
-    typealias Alignment = TopLevel.Alignment
+    typealias Alignment = BlockInformation.Alignment
     func action(contextID: BlockId, blockIds: [BlockId], alignment: Alignment) -> AnyPublisher<Success, Error>
 }
 protocol BlockActionsServiceListProtocolSetDivStyle {
     associatedtype Success
-    typealias Style = TopLevel.BlockContent.Divider.Style
+    typealias Style = BlockContent.Divider.Style
     func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error>
 }
 protocol BlockActionsServiceListProtocolSetPageIsArchived {

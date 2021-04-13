@@ -4,7 +4,7 @@ import BlocksModels
 
 extension DividerBlockUIKitView {
     struct StateConverter {
-        typealias Model = TopLevel.BlockContent.Divider.Style
+        typealias Model = BlockContent.Divider.Style
         typealias OurModel = State.Style
         
         static func asModel(_ value: OurModel) -> Model? {

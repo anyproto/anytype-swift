@@ -102,10 +102,9 @@ public extension FileNamespace {
 /// But it is fine to use `String` here.
 public extension FileNamespace {
     enum ContentTypeIdentifier {
-        public typealias Content = TopLevel.BlockContent
         public typealias Identifier = String
 
-        private static func subIdentifier(_ content: Content.Text) -> Identifier {
+        private static func subIdentifier(_ content: BlockContent.Text) -> Identifier {
             switch content.contentType {
             case .title: return ".title"
             case .text: return ".text"
@@ -122,7 +121,7 @@ public extension FileNamespace {
             }
         }
 
-        public static func identifier(_ content: Content) -> Identifier {
+        public static func identifier(_ content: BlockContent) -> Identifier {
             switch content {
             case .smartblock(_): return ".smartblock"
             case let .text(value): return ".text" + self.subIdentifier(value)
@@ -154,7 +153,7 @@ public extension FileNamespace {
         /// - Returns: Kind of detail.
         ///
         public static func kind(of id: Id) -> Kind? {
-            let (_, details) = Block.Information.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
+            let (_, details) = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
             switch details {
             case Details.Title.id: return .title
             case Details.Emoji.id: return .iconEmoji

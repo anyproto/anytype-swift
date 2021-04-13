@@ -6,13 +6,12 @@ import ProtobufMessages
 
 
 class BlocksModelsParser {
-    typealias Information = Block.Information.InformationModel
+    typealias Information = BlockInformation.InformationModel
     typealias Model = BlockModelProtocol
-    typealias OurContent = TopLevel.BlockContent
     
     struct PageEvent {
         var rootId: String
-        var blocks: [Block.Information.InformationModel] = []
+        var blocks: [BlockInformation.InformationModel] = []
         var details: [DetailsInformationModelProtocol] = []
         static func empty() -> Self { .init(rootId: "") }
     }
@@ -113,14 +112,14 @@ class BlocksModelsParser {
     /// Converting Middleware Content -> Our Content
     /// - Parameter middlewareContent: Middleware Content
     /// - Returns: Our content
-    func convert(middlewareContent: Anytype_Model_Block.OneOf_Content) -> OurContent? {
+    func convert(middlewareContent: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
         Converters.convert(middleware: middlewareContent)?.blockType(middlewareContent)
     }
     
     /// Converting Our Content -> Middleware Content
     /// - Parameter content: Our content
     /// - Returns: Middleware Content
-    func convert(content: OurContent) -> Anytype_Model_Block.OneOf_Content? {
+    func convert(content: BlockContent) -> Anytype_Model_Block.OneOf_Content? {
         Converters.convert(block: content)?.middleware(content)
     }
 }

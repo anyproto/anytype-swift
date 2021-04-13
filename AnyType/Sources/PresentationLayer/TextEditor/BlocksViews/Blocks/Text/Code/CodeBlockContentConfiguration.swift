@@ -16,7 +16,7 @@ struct CodeBlockContentConfiguration {
     weak var contextMenuHolder: TextBlockViewModel?
 
     /// Block information
-    var information: Block.Information.InformationModel
+    var information: BlockInformation.InformationModel
 
     init(_ blockViewModel: TextBlockViewModel) {
         self.information = .init(information: blockViewModel.information)

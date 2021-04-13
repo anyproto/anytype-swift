@@ -327,10 +327,10 @@ class BaseDocument {
         
         let block: BlockModelProtocol
         switch kind {
-        case .title: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.title(accessor.title ?? .init(value: "")))
-        case .iconEmoji: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconEmoji(accessor.iconEmoji ?? .init(value: "")))
-        case .iconColor: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconColor(accessor.iconColor ?? .init(value: "")))
-        case .iconImage: block = TopLevel.InformationUtilitiesDetailsBlockConverter.init(blockId: rootId)(.iconImage(accessor.iconImage ?? .init(value: "")))
+        case .title: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.title(accessor.title ?? .init(value: "")))
+        case .iconEmoji: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.iconEmoji(accessor.iconEmoji ?? .init(value: "")))
+        case .iconColor: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.iconColor(accessor.iconColor ?? .init(value: "")))
+        case .iconImage: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.iconImage(accessor.iconImage ?? .init(value: "")))
         }
         
         if self.rootModel?.blocksContainer.get(by: block.information.id) != nil {

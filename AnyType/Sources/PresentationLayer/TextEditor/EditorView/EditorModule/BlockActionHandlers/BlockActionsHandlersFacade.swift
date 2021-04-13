@@ -248,8 +248,7 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
 /// This class should be moved to Middleware.
 /// We don't care about business logic on THIS level.
 struct BlockBuilder {
-    typealias Content = TopLevel.BlockContent
-    typealias Information = Block.Information.InformationModel
+    typealias Information = BlockInformation.InformationModel
 
     typealias KeyboardAction = TextView.UserAction.KeyboardAction
     typealias ToolbarAction = BlockActionsHandlersFacade.ActionsPayloadToolbar
@@ -289,7 +288,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createContentType(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> Content? {
+    static func createContentType(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> BlockContent? {
         switch block.blockModel.information.content {
         case let .text(blockType):
             switch blockType.contentType {
@@ -304,7 +303,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createContentType(block: BlockActiveRecordModelProtocol, action: ToolbarAction, textPayload: String = "") -> Content? {
+    static func createContentType(block: BlockActiveRecordModelProtocol, action: ToolbarAction, textPayload: String = "") -> BlockContent? {
         switch action {
         case let .addBlock(blockType):
             switch blockType {
@@ -336,7 +335,7 @@ struct BlockBuilder {
                 switch value {
                 case .lineDivider: return .divider(.init(style: .line))
                 case .dotsDivider: return .divider(.init(style: .dots))
-                case .code: return .text(Block.Content.ContentType.Text(contentType: .code))
+                case .code: return .text(BlockContent.Text(contentType: .code))
                 }
             default: return nil
             }

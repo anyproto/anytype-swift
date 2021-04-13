@@ -8,22 +8,19 @@
 
 import Foundation
 
-fileprivate typealias Namespace = Block.Information
 
 public protocol BlockInformationBuilderProtocol {
-    typealias Content = TopLevel.BlockContent
-    func build(id: BlockId, content: Content) -> Block.Information.InformationModel
-    func build(information: Block.Information.InformationModel) -> Block.Information.InformationModel
+    func build(id: BlockId, content: BlockContent) -> BlockInformation.InformationModel
+    func build(information: BlockInformation.InformationModel) -> BlockInformation.InformationModel
 }
 
-extension Namespace {
+extension BlockInformation {
     class Builder: BlockInformationBuilderProtocol {
-        typealias Model = InformationModel
-        func build(id: BlockId, content: Content) -> Block.Information.InformationModel {
-            Model.init(id: id, content: content)
+        func build(id: BlockId, content: BlockContent) -> BlockInformation.InformationModel {
+            InformationModel(id: id, content: content)
         }
-        func build(information: Block.Information.InformationModel) -> Block.Information.InformationModel {
-            Model.init(information: information)
+        func build(information: BlockInformation.InformationModel) -> BlockInformation.InformationModel {
+            InformationModel.init(information: information)
         }
     }
 }

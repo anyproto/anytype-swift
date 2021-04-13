@@ -169,7 +169,7 @@ private extension Namespace {
             }
         }
         
-        func setupImage(_ file: TopLevel.BlockContent.File) {
+        func setupImage(_ file: BlockContent.File) {
             guard !file.metadata.hash.isEmpty else { return }
             let imageId = file.metadata.hash
             
@@ -195,7 +195,7 @@ private extension Namespace {
             }
         }
         
-        private func handleFile(_ file: TopLevel.BlockContent.File) {
+        private func handleFile(_ file: BlockContent.File) {
             self.removeViewsIfExist()
             
             switch file.state  {

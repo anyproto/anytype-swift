@@ -10,7 +10,7 @@ import MobileCoreServices
 /// We could map all states ( for example, image has several states ) to several different ContentViews.
 ///
 struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
-    typealias Information = Block.Information.InformationModel
+    typealias Information = BlockInformation.InformationModel
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.information == rhs.information

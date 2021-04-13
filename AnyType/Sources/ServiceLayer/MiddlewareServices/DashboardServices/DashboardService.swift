@@ -37,6 +37,11 @@ class DashboardService: DashboardServiceProtocol {
             .iconEmoji(.init())
         ])
                 
-        return objectsService.createPage(contextID: contextId, targetID: targetId, details: details, position: .bottom)
+        return objectsService.createPage(
+            contextID: contextId,
+            targetID: targetId,
+            details: details,
+            position: .bottom
+        )
     }
 }

@@ -4,7 +4,7 @@ import ProtobufMessages
 
 
 final class BlocksModelsParserFileStateConverter {
-    typealias Model = TopLevel.BlockContent.File.State
+    typealias Model = BlockContent.File.State
     typealias MiddlewareModel = Anytype_Model_Block.Content.File.State
     
     static func asModel(_ value: MiddlewareModel) -> Model? {

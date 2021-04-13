@@ -15,7 +15,10 @@ protocol ObjectActionsServiceProtocol {
     // MARK: - Actions Protocols
     /// Protocol for create page action.
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
-    typealias DetailsInformation = DetailsInformationModelProtocol
-    typealias Position = TopLevel.Position
-    func createPage(contextID: BlockId, targetID: BlockId, details: DetailsInformation, position: Position) -> AnyPublisher<ServiceSuccess, Error>
+    func createPage(
+        contextID: BlockId,
+        targetID: BlockId,
+        details: DetailsInformationModelProtocol,
+        position: BlockPosition
+    ) -> AnyPublisher<ServiceSuccess, Error>
 }
