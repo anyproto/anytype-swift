@@ -183,7 +183,6 @@ extension BlocksModelsParser.Converters {
                     let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(
                         text: value.text,
                         marks: value.marks,
-                        color: value.color,
                         style: value.style
                     )
                     let textContent: Text = .init(
@@ -197,18 +196,18 @@ extension BlocksModelsParser.Converters {
         
         override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
-            case let .text(value): return BlocksModelsParserTextContentTypeConverter.asMiddleware(value.contentType).flatMap({
-                .text(
+            case let .text(value):
+                let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(value.contentType)
+                return.text(
                     .init(
                         text: value.attributedText.string,
-                        style: $0,
+                        style: style,
                         marks: MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(
                             attributedText: value.attributedText
                         ).marks,
                         checked: value.checked,
                         color: value.color
                     ))
-                })
             default: return nil
             }
         }

@@ -25,7 +25,7 @@ final class BlocksModelsParserTextContentTypeConverter {
         }
     }
     
-    static func asMiddleware(_ value: Model) -> MiddlewareModel? {
+    static func asMiddleware(_ value: Model) -> MiddlewareModel {
         switch value {
         case .title: return .title
         case .text: return .paragraph

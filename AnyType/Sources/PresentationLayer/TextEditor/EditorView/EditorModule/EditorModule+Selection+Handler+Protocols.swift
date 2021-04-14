@@ -17,7 +17,7 @@ protocol EditorModuleSelectionHandlerListProtocol {
     func set(selectionEnabled: Bool)
     
     func deselect(ids: Set<BlockId>)
-    func select(ids: Set<BlockId>)
+    func select(ids: [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>])
     
     func toggle(_ id: BlockId)
     func list() -> [BlockId]
@@ -27,7 +27,7 @@ protocol EditorModuleSelectionHandlerListProtocol {
 }
 
 protocol EditorModuleSelectionHandlerCellProtocol: class {
-    func set(selected: Bool, id: BlockId, hasTurnIntoOption: Bool)
+    func set(selected: Bool, id: BlockId, turnIntoOptions: Set<BlocksViews.Toolbar.BlocksTypes>)
     func selected(id: BlockId) -> Bool
 
     func selectionCellEvent(_ id: BlockId) -> EditorModule.Selection.IncomingCellEvent
@@ -72,7 +72,7 @@ extension EditorModuleHasSelectionHandlerProtocol {
         self.selectionHandler?.deselect(ids: ids)
     }
     
-    func select(ids: Set<BlockId>) {
+    func select(ids: [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>]) {
         self.selectionHandler?.select(ids: ids)
     }
             
@@ -92,12 +92,8 @@ extension EditorModuleHasSelectionHandlerProtocol {
         self.selectionHandler?.selectionEventPublisher() ?? .empty()
     }
     
-    func set(selected: Bool,
-             id: BlockId,
-             hasTurnIntoOption: Bool) {
-        self.selectionHandler?.set(selected: selected,
-                                   id: id,
-                                   hasTurnIntoOption: hasTurnIntoOption)
+    func set(selected: Bool, id: BlockId, turnIntoOptions: Set<BlocksViews.Toolbar.BlocksTypes>) {
+        self.selectionHandler?.set(selected: selected, id: id, turnIntoOptions: turnIntoOptions)
     }
     
     func selected(id: BlockId) -> Bool {

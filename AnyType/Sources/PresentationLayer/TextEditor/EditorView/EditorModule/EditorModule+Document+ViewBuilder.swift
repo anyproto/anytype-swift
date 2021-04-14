@@ -71,7 +71,7 @@ extension Namespace.ViewBuilder {
         static func selfComponent(by request: Request) -> SelfComponent {
             let viewModel: ViewModel = .init(documentId: request.id, options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
             let viewCellFactory = DocumentViewCellFactory(selectedViewColor: .selectedItemColor,
-                                                  selectedViewCornerRadius: Constants.selectedViewCornerRadius)
+                                                          selectedViewCornerRadius: Constants.selectedViewCornerRadius)
             let view: ViewController = .init(viewModel: viewModel, viewCellFactory: viewCellFactory)
             viewModel.viewInput = view
             

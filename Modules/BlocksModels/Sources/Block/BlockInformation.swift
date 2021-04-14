@@ -49,7 +49,7 @@ extension BlockInformation.Alignment: Hashable {}
 
 // MARK: Alignment
 extension BlockInformation {
-    public enum Alignment {
+    public enum Alignment: CaseIterable {
         case left, center, right
     }
 }

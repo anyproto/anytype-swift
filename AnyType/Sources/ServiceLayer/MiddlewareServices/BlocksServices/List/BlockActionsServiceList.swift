@@ -60,9 +60,7 @@ extension BlockActionsServiceList {
     }
     struct SetTextStyle: BlockActionsServiceListProtocolSetTextStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
-            guard let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style) else {
-                return Fail.init(error: PossibleError.setTextStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
-            }
+            let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)
             return self.action(contextID: contextID, blockIds: blockIds, style: style)
         }
         private func action(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {

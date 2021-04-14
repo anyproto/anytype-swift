@@ -118,6 +118,9 @@ extension Namespace {
         }
         
         @objc private func tapOnListViewGestureRecognizerHandler() {
+            if self.viewModel.selectionEnabled() {
+                return
+            }
             let location = self.listViewTapGestureRecognizer.location(in: self.listViewTapGestureRecognizer.view)
             if self.collectionView.visibleCells.first(where: {$0.frame.contains(location)}) != nil {
                 return
@@ -153,10 +156,10 @@ extension Namespace {
                     case .isEmpty:
                         self.deselectAllBlocks()
                     case let .nonEmpty(count, _):
-                        if count != self.collectionView.numberOfItems(inSection: 0) {
-                            return
+                        // We always count with this "1" because of top title block, which is not selectable
+                        if count == self.collectionView.numberOfItems(inSection: 0) - 1 {
+                            self.collectionView.selectAllItems(startingFrom: 1)
                         }
-                        self.collectionView.selectAllItems()
                     }
                     self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
                 }
@@ -281,10 +284,13 @@ extension Namespace.ViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard let viewModel = self.dataSource?.itemIdentifier(for: indexPath) else { return false }
         if self.viewModel.selectionEnabled() {
+            if case let .text(text) = viewModel.getBlock().blockModel.information.content {
+                return text.contentType != .title
+            }
             return true
         }
-        guard let viewModel = self.dataSource?.itemIdentifier(for: indexPath) else { return false }
         switch viewModel.getBlock().blockModel.information.content {
         case .text:
             return false

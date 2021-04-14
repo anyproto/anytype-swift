@@ -51,8 +51,8 @@ extension Namespace {
         }
         
         // TODO: Make Private?
-        private func update(selectedCount: Int, itemsCountWithoutTurnIntoOption: Int) {
-            self.multiSelectionAssembly.viewModel.handle(countOfObjects: selectedCount, hasTurnIntoCommand: itemsCountWithoutTurnIntoOption == 0)
+        private func update(selectedCount: Int, hasTurnIntoCommand: Bool) {
+            self.multiSelectionAssembly.viewModel.handle(countOfObjects: selectedCount, hasTurnIntoCommand: hasTurnIntoCommand)
         }
         
         private func selectionNotShown() -> Bool {
@@ -92,8 +92,8 @@ extension Namespace {
                     self.update(selectionEnabled: true, completion: { _ in })
                 }
                 switch value {
-                case .isEmpty: self.update(selectedCount: 0, itemsCountWithoutTurnIntoOption: 0)
-                case let .nonEmpty(count, itemsCountWithoutTurnInto): self.update(selectedCount: .init(count), itemsCountWithoutTurnIntoOption: itemsCountWithoutTurnInto)
+                case .isEmpty: self.update(selectedCount: 0, hasTurnIntoCommand: false)
+                case let .nonEmpty(count, hasTurnIntoCommand): self.update(selectedCount: .init(count), hasTurnIntoCommand: hasTurnIntoCommand)
                 }
             }
         }

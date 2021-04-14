@@ -2,7 +2,7 @@
 import UIKit
 
 /// Abstraction above UIApplication
-protocol ApplicationWindowInsetsProviderProtocol {
+protocol ApplicationWindowInsetsProvider {
     
     /// Window insets
     var mainWindowInsets: UIEdgeInsets { get }

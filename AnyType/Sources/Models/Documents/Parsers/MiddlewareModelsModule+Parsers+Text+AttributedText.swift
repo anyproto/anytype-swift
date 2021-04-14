@@ -6,7 +6,7 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
-import Foundation
+import BlocksModels
 import UIKit
 import ProtobufMessages
 
@@ -23,14 +23,12 @@ extension Namespace {
         
         static func asModel(text: String,
                             marks: Anytype_Model_Block.Content.Text.Marks,
-                            color: String,
                             style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
             // Map attributes to our internal format.
             typealias MarkStyle = MiddlewareModelsModule.Parsers.Text.AttributedText.AttributeConverter.ModelTuple
             let markAttributes: [(range: NSRange, markStyle: MarkStyle)]
 
             markAttributes = marks.marks.compactMap { value -> (NSRange, MarkStyle)? in
-                // if we doesn't support mark color we ignore it as result color will gone from mark
                 guard let markValue = AttributeConverter.asModel(.init(attribute: value.type, value: value.param)) else {
                     return nil
                 }

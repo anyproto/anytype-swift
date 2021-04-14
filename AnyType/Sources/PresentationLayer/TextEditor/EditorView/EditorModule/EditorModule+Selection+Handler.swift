@@ -50,7 +50,7 @@ extension Namespace {
         private var subscription: AnyCancellable?
         private var storageEventsSubject: PassthroughSubject<SelectionEvent, Never> = .init()
         private var storageEventsPublisher: AnyPublisher<SelectionEvent, Never> = .empty()
-        private var idsWithoutTurnIntoOption = Set<BlockId>()
+        private var idsToTurnIntoOptions = [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>]()
         /// Storage
         private var storage: Storage = .init() {
             didSet {
@@ -70,8 +70,12 @@ extension Namespace {
             if storage.isEmpty() {
                 return .selectionEnabled
             }
+            let initialResult = self.idsToTurnIntoOptions.first?.value ?? Set<BlocksViews.Toolbar.BlocksTypes>()
+            let turnIntoTypesIntersection = self.idsToTurnIntoOptions.values.reduce(into: initialResult) { result, set in
+                result = result.intersection(set)
+            }
             return .selectionEnabled(.nonEmpty(.init(storage.count()),
-                                               idsCountWithoutTurnInto: self.idsWithoutTurnIntoOption.count))
+                                               hasTurnIntoCommand: !turnIntoTypesIntersection.isEmpty))
         }
         
         private func handle(_ storageUpdate: Storage) {
@@ -112,9 +116,9 @@ extension Namespace {
         enum CountEvent {
             static var `default`: Self = .isEmpty
             case isEmpty
-            case nonEmpty(UInt, idsCountWithoutTurnInto: Int)
-            static func from(_ value: Int, idsCountWithoutTurnInto: Int) -> Self {
-                value <= 0 ? .isEmpty : nonEmpty(.init(value), idsCountWithoutTurnInto: idsCountWithoutTurnInto)
+            case nonEmpty(UInt, hasTurnIntoCommand: Bool)
+            static func from(_ value: Int, hasTurnIntoCommand: Bool) -> Self {
+                value <= 0 ? .isEmpty : nonEmpty(.init(value), hasTurnIntoCommand: hasTurnIntoCommand)
             }
         }
         case selectionDisabled
@@ -132,6 +136,9 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
         if self.storage.selectionEnabled() != selectionEnabled {
             self.storage.toggleSelectionEnabled()
         }
+        if !selectionEnabled {
+            self.idsToTurnIntoOptions.removeAll()
+        }
     }
     
     /// We should fire events only if selection is enabled.
@@ -139,7 +146,7 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     ///
     func deselect(ids: Set<BlockId>) {
         guard self.selectionEnabled() else { return }
-        ids.forEach { self.idsWithoutTurnIntoOption.remove($0) }
+        ids.forEach { self.idsToTurnIntoOptions.removeValue(forKey: $0) }
         self.storage.remove(ids: ids)
     }
         
@@ -148,10 +155,10 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     ///
     /// Is it better to use `add(ids:)` here?
     ///
-    func select(ids: Set<BlockId>) {
+    func select(ids: [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>]) {
         guard self.selectionEnabled() else { return }
-        
-        self.storage.set(ids: ids)
+        self.idsToTurnIntoOptions = self.idsToTurnIntoOptions.merging(ids, uniquingKeysWith: { $1 })
+        self.storage.set(ids: Set(ids.keys))
     }
     
     /// We should fire events only if selection is enabled.
@@ -159,8 +166,8 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     ///
     func toggle(_ id: BlockId) {
         guard self.selectionEnabled() else { return }
-        if self.idsWithoutTurnIntoOption.contains(id) {
-            self.idsWithoutTurnIntoOption.remove(id)
+        if self.idsToTurnIntoOptions.keys.contains(id) {
+            self.idsToTurnIntoOptions.removeValue(forKey: id)
         }
         self.storage.toggle(id: id)
     }
@@ -175,7 +182,7 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     /// But, we still `CAN` clear storage without checking if selection is enabled.
     ///
     func clear() {
-        self.idsWithoutTurnIntoOption.removeAll()
+        self.idsToTurnIntoOptions.removeAll()
         self.storage.clear()
     }
     
@@ -186,14 +193,12 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     /// We should fire events only if selection is enabled.
     /// Otherwise, we can't remove or selected ids.
     ///
-    func set(selected: Bool, id: BlockId, hasTurnIntoOption: Bool) {
+    func set(selected: Bool, id: BlockId, turnIntoOptions: Set<BlocksViews.Toolbar.BlocksTypes>) {
         guard self.selectionEnabled() else { return }
-        if !hasTurnIntoOption {
-            if selected {
-                self.idsWithoutTurnIntoOption.insert(id)
-            } else {
-                self.idsWithoutTurnIntoOption.remove(id)
-            }
+        if selected {
+            self.idsToTurnIntoOptions[id] = turnIntoOptions
+        } else {
+            self.idsToTurnIntoOptions.removeValue(forKey: id)
         }
         let contains = self.storage.contains(id: id)
         if contains != selected {
@@ -219,16 +224,10 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
 
 extension EditorModule.Document.ViewController.ViewModel: EditorModuleSelectionHandlerHolderProtocol {
     func selectAll() {
-        /// take all ids
-        guard let model = self.documentViewModel.getRootActiveModel() else {
-            return
+        // We must drop title block - it is not selectable, and it first in list
+        let ids = self.builders.dropFirst().reduce(into: [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>]()) { result, model in
+            result[model.blockId] = Set(model.availableTurnIntoTypes)
         }
-        
-        /// TODO: Find all childrenIds.
-        /// But for now it is ok.
-        /// Let's iterate over them later.
-        let childrenIds = model.childrenIds()
-        
-        self.select(ids: .init(childrenIds))
+        self.select(ids: ids)
     }
 }

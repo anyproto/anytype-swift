@@ -33,7 +33,7 @@ extension FileNamespace {
 
         // MARK: Initialization
         init(frame: CGRect,
-             applicationWindowInsetsProvider: ApplicationWindowInsetsProviderProtocol = UIApplication.shared) {
+             applicationWindowInsetsProvider: ApplicationWindowInsetsProvider = UIApplication.shared) {
             self.insets = UIEdgeInsets(top: 10,
                                        left: 10,
                                        bottom: applicationWindowInsetsProvider.mainWindowInsets.bottom,
@@ -43,7 +43,7 @@ extension FileNamespace {
         }
         
         init(viewModel: ViewModel,
-             applicationWindowInsetsProvider: ApplicationWindowInsetsProviderProtocol = UIApplication.shared) {
+             applicationWindowInsetsProvider: ApplicationWindowInsetsProvider = UIApplication.shared) {
             self.model = viewModel
             self.insets = UIEdgeInsets(top: 10,
                                        left: 10,

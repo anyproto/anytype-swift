@@ -29,9 +29,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     
     // MARK: SetStyle
     func setStyle(contextID: BlockId, blockID: BlockId, style: Style) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style) else {
-            return Fail.init(error: PossibleError.setStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
-        }
+        let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)
         return setStyle(contextID: contextID, blockID: blockID, style: style)
     }
     private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
@@ -61,9 +59,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     
     // MARK: Split
     func split(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<Success, Error> {
-        guard let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style) else {
-            return Fail.init(error: PossibleError.splitActionStyleConversionHasFailed).eraseToAnyPublisher()
-        }
+        let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)
         let middlewareRange = MiddlewareModelsModule.Parsers.Text.AttributedText.RangeConverter.asMiddleware(range)
         return split(contextID: contextID, blockID: blockID, range: middlewareRange, style: style)
     }

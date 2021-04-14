@@ -15,6 +15,7 @@ class EventHandler: NewEventHandler {
     
     var parser: BlocksModelsParser = .init()
     private var updater: Updater?
+    private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
     init() {
         self.setup()
@@ -169,7 +170,7 @@ private extension EventHandler {
             if value.hasStyle {
                 style = value.style.value
             } else {
-                style = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType) ?? value.style.value
+                style = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType)
             }
             let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
                                                                       style: style,
@@ -186,6 +187,7 @@ private extension EventHandler {
                 newTextBlockContentType.contentType = oldText.contentType
             }
             blockModel.information.content = .text(newTextBlockContentType)
+            self.blockValidator.validate(information: &blockModel.information)
             
             return .update(.init(updatedIds: [blockId]))
 
