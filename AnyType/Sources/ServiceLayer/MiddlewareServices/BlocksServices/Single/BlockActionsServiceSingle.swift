@@ -15,10 +15,8 @@ private extension BlockActionsServiceSingle {
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
-    /// DI
     private var parser: BlocksModelsParser = .init()
     
-    // MARK: Open / Close
     func open(contextID: BlockId, blockID: BlockId) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Open.Service.invoke(
             contextID: contextID, blockID: blockID

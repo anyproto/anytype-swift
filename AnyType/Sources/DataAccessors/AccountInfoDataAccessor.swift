@@ -1,11 +1,13 @@
 import Combine
 import Foundation
 import UIKit
+import BlocksModels
 
 final class AccountInfoDataAccessor: ObservableObject {
     @Published var accountName: String?
     @Published var accountAvatar: UIImage?
     @Published var selectedColor: UIColor?
+    @Published var profileBlockId: BlockId?
     
     var visibleAccountName: String {
         guard let name = accountName, !name.isEmpty else {
@@ -18,7 +20,6 @@ final class AccountInfoDataAccessor: ObservableObject {
         selectedColor ?? .clear
     }
     
-    private var obtainUserInformationSubscription: AnyCancellable?
     private let documentViewModel = BlocksViews.DocumentViewModel()
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -47,9 +48,10 @@ final class AccountInfoDataAccessor: ObservableObject {
         }.store(in: &self.subscriptions)
     }
     
-    func obtainAccountInfo() {
-        self.obtainUserInformationSubscription = self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
-            self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
+    func obtainAccountInfo() {        
+        self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration -> AnyPublisher<ServiceSuccess, Error> in
+            self.profileBlockId = configuration.homeBlockID
+            return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
         }.sink(receiveCompletion: { (value) in
             switch value {
             case .finished: break
@@ -58,6 +60,6 @@ final class AccountInfoDataAccessor: ObservableObject {
             }
         }) { [weak self] value in
             self?.documentViewModel.open(value)
-        }
+        }.store(in: &subscriptions)
     }
 }

@@ -6,13 +6,10 @@ final class ProfileCoordinator {
         self.editorAssembly = editorAssembly
     }
     
-//    func showProfile(
-////        shouldShowDocument: Binding<Bool>
-//    ) -> some View {
-//        
-//        return editorAssembly.documentView(
-//            by: .init(id: "")
-////            shouldShowDocument: shouldShowDocument
-//        )
-//    }
-}
+    func openProfile(profileId: String?) -> some View {
+        let profileId = profileId ?? ""
+        
+        return editorAssembly.documentView(
+            by: .init(id: profileId)
+        )
+    }}

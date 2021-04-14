@@ -13,19 +13,23 @@ struct ProfileSectionView: View {
             )
             .frame(width: 64, height: 64)
             .padding([.top], 20)
-
-            HStack(spacing: 0) {
-                Text(accountData.visibleAccountName)
-                    .font(.title)
-                Spacer()
-                Image("arrowForward")
+            
+            
+            NavigationLink(
+                destination: coordinator.openProfile(profileId: accountData.profileBlockId)
+            ) {  
+                VStack(alignment:.leading) {
+                    HStack(spacing: 0) {
+                        Text(accountData.visibleAccountName)
+                            .font(.title)
+                        Spacer()
+                        Image("arrowForward")
+                    }
+                    .padding([.top], 11)
+                    
+                    Text("Your public page").foregroundColor(ColorPalette.grayText)
+                }
             }
-            .padding([.top], 11)
-            .onTapGesture {
-//                coordinator.showProfile()
-            }
-
-            Text("Your public page").foregroundColor(ColorPalette.grayText)
         }
         .padding([.leading, .trailing], 20)
         .padding(.bottom, 9)

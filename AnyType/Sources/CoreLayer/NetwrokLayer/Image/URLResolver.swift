@@ -12,7 +12,7 @@ struct URLResolver {
     
     private let configurationService = MiddlewareConfigurationService.init()
     
-    private func imageURL(configuration: MiddlewareConfigurationService.MiddlewareConfiguration,
+    private func imageURL(configuration: MiddlewareConfiguration,
                           subpath: String,
                           parameters: CoreLayer.Network.Image.ImageParameters?) -> URL? {
         guard !subpath.isEmpty else { return nil }
@@ -28,7 +28,7 @@ struct URLResolver {
         return components?.url
     }
     
-    private func fileURL(configuration: MiddlewareConfigurationService.MiddlewareConfiguration, fileId: String) -> URL? {
+    private func fileURL(configuration: MiddlewareConfiguration, fileId: String) -> URL? {
         URL(string: configuration.gatewayURL + Constants.fileSubPath + fileId)
     }
     

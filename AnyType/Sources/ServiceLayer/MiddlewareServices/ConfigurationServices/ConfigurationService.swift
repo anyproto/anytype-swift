@@ -1,11 +1,3 @@
-//
-//  ConfigurationService.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 18.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import ProtobufMessages
@@ -32,8 +24,14 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
 
         return Anytype_Rpc.Config.Get.Service.invoke()
             .subscribe(on: DispatchQueue.global())
-            .map({($0.homeBlockID, $0.archiveBlockID, $0.profileBlockID, $0.gatewayURL)})
-            .map(MiddlewareConfiguration.init)
+            .map {
+                MiddlewareConfiguration(
+                    homeBlockID: $0.homeBlockID,
+                    archiveBlockID: $0.archiveBlockID,
+                    profileBlockId: $0.profileBlockID,
+                    gatewayURL: $0.gatewayURL
+                )
+            }
             .map { [weak self] configuration in
                 self?.storage?.add(configuration)
                 return configuration
@@ -43,8 +41,7 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
     
     func obtainLibraryVersion() -> AnyPublisher<MiddlewareVersion, Error> {
         Anytype_Rpc.Version.Get.Service.invoke()
-            .map(\.details)
-            .map(MiddlewareVersion.init(version:))
+            .map { MiddlewareVersion(version: $0.details) }
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }

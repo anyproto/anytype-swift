@@ -17,7 +17,7 @@ class DashboardService: DashboardServiceProtocol {
     private let objectsService: ObjectActionsService = .init()
     private var dashboardId: String = ""
     
-    private func save(configuration: MiddlewareConfigurationService.MiddlewareConfiguration) -> MiddlewareConfigurationService.MiddlewareConfiguration {
+    private func save(configuration: MiddlewareConfiguration) -> MiddlewareConfiguration {
         self.dashboardId = configuration.homeBlockID
         return configuration
     }
