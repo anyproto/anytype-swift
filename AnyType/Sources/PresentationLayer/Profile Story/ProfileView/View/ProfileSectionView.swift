@@ -16,7 +16,7 @@ struct ProfileSectionView: View {
             
             
             NavigationLink(
-                destination: coordinator.openProfile(profileId: accountData.profileBlockId)
+                destination: coordinator.openProfile(profileId: accountData.profileBlockId ?? "")
             ) {  
                 VStack(alignment:.leading) {
                     HStack(spacing: 0) {
@@ -30,6 +30,7 @@ struct ProfileSectionView: View {
                     Text("Your public page").foregroundColor(ColorPalette.grayText)
                 }
             }
+            .disabled(accountData.profileBlockId == nil)
         }
         .padding([.leading, .trailing], 20)
         .padding(.bottom, 9)

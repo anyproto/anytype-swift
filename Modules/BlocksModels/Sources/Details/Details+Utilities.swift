@@ -1,40 +1,38 @@
 import Foundation
 
 public struct InformationAccessor {
-    public typealias T = DetailsInformationModelProtocol
-    public typealias Content = DetailsContent
-    private var value: T
+    private var value: DetailsInformationModelProtocol
     
-    public var title: Content.Title? {
-        switch self.value.details[Content.Title.id] {
+    public var title: DetailsContent.Title? {
+        switch self.value.details[DetailsContent.Title.id] {
         case let .title(value): return value
         default: return nil
         }
     }
     
-    public var iconEmoji: Content.Emoji? {
-        switch self.value.details[Content.Emoji.id] {
+    public var iconEmoji: DetailsContent.Emoji? {
+        switch self.value.details[DetailsContent.Emoji.id] {
         case let .iconEmoji(value): return value
         default: return nil
         }
     }
     
-    public var iconColor: Content.OurHexColor? {
-        switch self.value.details[Content.OurHexColor.id] {
+    public var iconColor: DetailsContent.OurHexColor? {
+        switch self.value.details[DetailsContent.OurHexColor.id] {
         case let .iconColor(value): return value
         default: return nil
         }
     }
     
-    public var iconImage: Content.ImageId? {
-        switch self.value.details[Content.ImageId.id] {
+    public var iconImage: DetailsContent.ImageId? {
+        switch self.value.details[DetailsContent.ImageId.id] {
         case let .iconImage(value): return value
         default: return nil
         }
     }
     
     // MARK: - Memberwise Initializer
-    public init(value: T) {
+    public init(value: DetailsInformationModelProtocol) {
         self.value = value
     }
 }

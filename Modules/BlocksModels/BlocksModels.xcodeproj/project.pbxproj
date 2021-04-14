@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A6D538925D9C99F002F3F82 /* BlocksModels.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A6D536825D9C99E002F3F82 /* BlocksModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0A6D538B25D9C99F002F3F82 /* Details+Information+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536B25D9C99E002F3F82 /* Details+Information+Protocols.swift */; };
+		0A6D538B25D9C99F002F3F82 /* DetailsInformationModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536B25D9C99E002F3F82 /* DetailsInformationModelProtocol.swift */; };
 		0A6D538C25D9C99F002F3F82 /* Block+Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536C25D9C99E002F3F82 /* Block+Builders.swift */; };
 		0A6D538D25D9C99F002F3F82 /* Block+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536D25D9C99E002F3F82 /* Block+Utilities.swift */; };
 		0A6D538E25D9C99F002F3F82 /* Details+Implementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536E25D9C99E002F3F82 /* Details+Implementation.swift */; };
@@ -40,7 +40,7 @@
 /* Begin PBXFileReference section */
 		0A6D536825D9C99E002F3F82 /* BlocksModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksModels.h; sourceTree = "<group>"; };
 		0A6D536925D9C99E002F3F82 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0A6D536B25D9C99E002F3F82 /* Details+Information+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Details+Information+Protocols.swift"; sourceTree = "<group>"; };
+		0A6D536B25D9C99E002F3F82 /* DetailsInformationModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsInformationModelProtocol.swift; sourceTree = "<group>"; };
 		0A6D536C25D9C99E002F3F82 /* Block+Builders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+Builders.swift"; sourceTree = "<group>"; };
 		0A6D536D25D9C99E002F3F82 /* Block+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+Utilities.swift"; sourceTree = "<group>"; };
 		0A6D536E25D9C99E002F3F82 /* Details+Implementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Details+Implementation.swift"; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 				0A6D538025D9C99E002F3F82 /* Details+Information.swift */,
 				0A6D538125D9C99F002F3F82 /* Details+Information+Builders.swift */,
 				0A6D538825D9C99F002F3F82 /* Details+Information+Content.swift */,
-				0A6D536B25D9C99E002F3F82 /* Details+Information+Protocols.swift */,
+				0A6D536B25D9C99E002F3F82 /* DetailsInformationModelProtocol.swift */,
 				0A6D537A25D9C99E002F3F82 /* Details+Protocols.swift */,
 				0A6D538225D9C99F002F3F82 /* Details+Utilities.swift */,
 			);
@@ -249,7 +249,7 @@
 				0A6D539625D9C99F002F3F82 /* Block+Tools.swift in Sources */,
 				0A6D538F25D9C99F002F3F82 /* Block+Tools+Updater.swift in Sources */,
 				0A6D539825D9C99F002F3F82 /* Block+Protocols+BlockModel.swift in Sources */,
-				0A6D538B25D9C99F002F3F82 /* Details+Information+Protocols.swift in Sources */,
+				0A6D538B25D9C99F002F3F82 /* DetailsInformationModelProtocol.swift in Sources */,
 				0A6D539A25D9C99F002F3F82 /* Details+Protocols.swift in Sources */,
 				0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */,
 				0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */,

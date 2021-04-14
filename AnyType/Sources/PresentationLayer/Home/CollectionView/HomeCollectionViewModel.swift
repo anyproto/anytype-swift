@@ -145,6 +145,7 @@ class HomeCollectionViewModel: ObservableObject {
             let detailsModel = value.getDetailsViewModel()
 
             let details = detailsModel.currentDetails
+
             let detailsAcccessor = InformationAccessor(value: details)
             let targetBlockId: String
             if case let .link(link) = value.getBlock().blockModel.information.content {

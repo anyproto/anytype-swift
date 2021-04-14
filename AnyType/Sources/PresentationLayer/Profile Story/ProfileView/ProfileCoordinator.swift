@@ -1,4 +1,5 @@
 import SwiftUI
+import BlocksModels
 
 final class ProfileCoordinator {
     private let editorAssembly: EditorAssembly
@@ -6,10 +7,9 @@ final class ProfileCoordinator {
         self.editorAssembly = editorAssembly
     }
     
-    func openProfile(profileId: String?) -> some View {
-        let profileId = profileId ?? ""
-        
+    func openProfile(profileId: BlockId) -> some View {
         return editorAssembly.documentView(
-            by: .init(id: profileId)
+            by: .init(id: profileId) 
         )
-    }}
+    }
+}
