@@ -15,10 +15,9 @@ class HomeCollectionViewModel: ObservableObject {
     private let blockActionsService: BlockActionsServiceSingleProtocol
     
     private var subscriptions: Set<AnyCancellable> = []
-    private var testSubscriptions: Set<AnyCancellable> = []
             
     @Published var cellViewModels: [HomeCollectionViewCellType] = []
-    private var documentViewModel: BlocksViews.DocumentViewModel = .init()
+    private let documentViewModel = BlocksViews.DocumentViewModel()
     
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
@@ -61,20 +60,14 @@ class HomeCollectionViewModel: ObservableObject {
             self?.receive(value)
         }.store(in: &self.subscriptions)
     }
-}
-
-// MARK: - React on root model
-private extension HomeCollectionViewModel {
+    
     // TODO: Add caching?
     private func update(builders: [BlockViewBuilderProtocol]) {
         /// We should add caching, otherwise, we will miss updates from long-playing views as file uploading or downloading views.
-        let newBuilders = builders.compactMap({$0 as? BlocksViews.Tools.PageLink.ViewModel})
+        let newBuilders = builders.compactMap({$0 as? BlockPageLinkViewModel})
         self.createViewModels(from: newBuilders)
     }
-}
 
-// MARK: - Handle Open Action
-private extension HomeCollectionViewModel {
     func handleOpenDashboard(_ value: ServiceSuccess) {
         /// TODO:
         /// Decide how we should handle block opening.
@@ -99,78 +92,6 @@ private extension HomeCollectionViewModel {
         }.store(in: &self.subscriptions)
         self.documentViewModel.open(value)
     }
-}
-
-// MARK: - Private
-extension HomeCollectionViewModel {
-        
-    private func createViewModels(from pages: [BlocksViews.Tools.PageLink.ViewModel]) {
-        self.testSubscriptions = []
-        let links = pages.compactMap({ value -> HomeCollectionViewDocumentCellModel? in
-            let model: HomeCollectionViewDocumentCellModel
-            let detailsModel = value.getDetailsViewModel()
-
-            let details = detailsModel.currentDetails
-            let detailsAcccessor = InformationAccessor.init(value: details)
-            let targetBlockId: String
-            if case let .link(link) = value.getBlock().blockModel.information.content {
-                targetBlockId = link.targetBlockID
-            }
-            else {
-                targetBlockId = ""
-            }
-            model = .init(page: .init(id: value.blockId, targetBlockId: targetBlockId), title: detailsAcccessor.title?.value ?? "", image: nil, emoji: detailsAcccessor.iconEmoji?.value)
-
-            let accessorPublisher = detailsModel.wholeDetailsPublisher.map(InformationAccessor.init)
-            
-            let title = accessorPublisher.map(\.title).map({$0?.value}).eraseToAnyPublisher()
-            let emoji = accessorPublisher.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
-            let iconImage = accessorPublisher.map(\.iconImage).map({$0?.value}).eraseToAnyPublisher()
-                        
-            model.configured(titlePublisher: title)
-            model.configured(emojiImagePublisher: emoji)
-            model.configured(imagePublisher: iconImage)
-            model.configured(userActionSubject: self.cellUserActionSubject)
-            return model
-        }).map(HomeCollectionViewCellType.document)
-        self.cellViewModels = links + [.plus]
-    }
-}
-
-// MARK: Events
-extension HomeCollectionViewModel {
-    enum UserAction {
-        case showPage(BlockId)
-        
-    }
-    
-    private func send(_ action: UserAction) {
-        self.userActionsSubject.send(action)
-    }
-    
-    enum UserEvent {
-        struct ContextualMenuAction {
-            typealias Model = BlockId
-            typealias Action = BlocksViews.Toolbar.UnderlyingAction
-            var model: Model
-            var action: Action
-        }
-        case contextualMenu(ContextualMenuAction)
-    }
-    func receive(_ event: UserEvent) {
-        switch event {
-        case let .contextualMenu(event):
-            switch event.action {
-            case .editBlock(.delete): self.removePage(with: event.model)
-            default:
-                assertionFailure("Skipping event: \(event)\n We are only handling actions above. Do not forget to process all actions.")
-            }
-        }
-    }
-}
-
-// MARK: - view events
-extension HomeCollectionViewModel {
     
     /// TODO: Add
     /// Add interaction handlers?
@@ -199,7 +120,7 @@ extension HomeCollectionViewModel {
         self.send(.showPage(id))
     }
     
-    func didSelectPage(with index: IndexPath) {        
+    func didSelectPage(with index: IndexPath) {
         switch self.cellViewModels[index.row] {
         case let .document(value):
             self.openPage(with: value.page.targetBlockId)
@@ -214,6 +135,53 @@ extension HomeCollectionViewModel {
             }) { [weak self] value in
                 self?.documentViewModel.handle(events: .init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
+        }
+    }
+    
+    // MARK: - Private
+    private func createViewModels(from pages: [BlockPageLinkViewModel]) {
+        let links = pages.compactMap({ value -> HomeCollectionViewDocumentCellModel? in
+            let model: HomeCollectionViewDocumentCellModel
+            let detailsModel = value.getDetailsViewModel()
+
+            let details = detailsModel.currentDetails
+            let detailsAcccessor = InformationAccessor(value: details)
+            let targetBlockId: String
+            if case let .link(link) = value.getBlock().blockModel.information.content {
+                targetBlockId = link.targetBlockID
+            }
+            else {
+                targetBlockId = ""
+            }
+            model = .init(page: .init(id: value.blockId, targetBlockId: targetBlockId), title: detailsAcccessor.title?.value ?? "", image: nil, emoji: detailsAcccessor.iconEmoji?.value)
+
+            let accessorPublisher = detailsModel.wholeDetailsPublisher.map(InformationAccessor.init)
+            
+            let title = accessorPublisher.map(\.title).map({$0?.value}).eraseToAnyPublisher()
+            let emoji = accessorPublisher.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
+            let iconImage = accessorPublisher.map(\.iconImage).map({$0?.value}).eraseToAnyPublisher()
+                        
+            model.configured(titlePublisher: title)
+            model.configured(emojiImagePublisher: emoji)
+            model.configured(imagePublisher: iconImage)
+            model.configured(userActionSubject: self.cellUserActionSubject)
+            return model
+        }).map(HomeCollectionViewCellType.document)
+        self.cellViewModels = links + [.plus]
+    }
+    
+    private func send(_ action: UserAction) {
+        self.userActionsSubject.send(action)
+    }
+    
+    func receive(_ event: UserEvent) {
+        switch event {
+        case let .contextualMenu(event):
+            switch event.action {
+            case .editBlock(.delete): self.removePage(with: event.model)
+            default:
+                assertionFailure("Skipping event: \(event)\n We are only handling actions above. Do not forget to process all actions.")
+            }
         }
     }
 }

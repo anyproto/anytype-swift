@@ -45,7 +45,7 @@ extension Namespace {
             case .divider: return DividerBlockViewModel.init(block)
             case .bookmark: return ViewModels.Bookmark.Bookmark.ViewModel.init(block)
             case let .link(value):
-                let result = ViewModels.Tools.PageLink.ViewModel(block)
+                let result = BlockPageLinkViewModel(block)
                 if let details = self.document.getDetails(by: value.targetBlockID) {
                     _ = result.configured(details.wholeDetailsPublisher)
                 }

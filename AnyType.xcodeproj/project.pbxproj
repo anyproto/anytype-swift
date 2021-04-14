@@ -140,13 +140,12 @@
 		0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */; };
 		0A10CC59248EB5EC000FF498 /* BlocksViews+New+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC58248EB5EC000FF498 /* BlocksViews+New+Base.swift */; };
 		0A10CC76248EC517000FF498 /* TextBlockUserInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC75248EC517000FF498 /* TextBlockUserInteraction.swift */; };
-		0A10CC7A248ECF12000FF498 /* BlocksViews+New+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC79248ECF12000FF498 /* BlocksViews+New+Tools.swift */; };
 		0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7D248ED08C000FF498 /* BlocksViews+New+File.swift */; };
 		0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */; };
 		0A10CC82248ED45C000FF498 /* BlocksViews+New+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC81248ED45C000FF498 /* BlocksViews+New+Page.swift */; };
 		0A10CC84248ED4AF000FF498 /* BlocksViews+New+Page+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC83248ED4AF000FF498 /* BlocksViews+New+Page+Title.swift */; };
 		0A10CC86248ED549000FF498 /* BlocksViews+New+Page+IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC85248ED549000FF498 /* BlocksViews+New+Page+IconEmoji.swift */; };
-		0A10CC98248FFDE7000FF498 /* BlocksViews+New+Tools+PageLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlocksViews+New+Tools+PageLink.swift */; };
+		0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */; };
 		0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */; };
 		0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */; };
 		0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */; };
@@ -332,6 +331,12 @@
 		3DD2FC49262085DF00C65466 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* ProfileAssembly.swift */; };
 		3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC4E2620884300C65466 /* AccountInfoDataAccessor.swift */; };
 		3DD2FC5A26208F5E00C65466 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC5926208F5E00C65466 /* HomeCoordinator.swift */; };
+		3DDC6A572626F86E004F5EA4 /* HomeCollectionViewModelUserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A562626F86E004F5EA4 /* HomeCollectionViewModelUserAction.swift */; };
+		3DDC6A5B2626F8DE004F5EA4 /* HomeCollectionViewModelUserEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5A2626F8DE004F5EA4 /* HomeCollectionViewModelUserEvent.swift */; };
+		3DDC6A602627071E004F5EA4 /* BlockPageLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */; };
+		3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */; };
+		3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */; };
+		3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */; };
 		3DE2964426173D1300EADB0A /* DeveloperOptionsDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */; };
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
@@ -576,8 +581,7 @@
 		0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.Toolbar.Blocks.Types.Subtitle.strings; sourceTree = "<group>"; };
 		0A10CC58248EB5EC000FF498 /* BlocksViews+New+Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Base.swift"; sourceTree = "<group>"; };
 		0A10CC75248EC517000FF498 /* TextBlockUserInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockUserInteraction.swift; sourceTree = "<group>"; };
-		0A10CC79248ECF12000FF498 /* BlocksViews+New+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Tools.swift"; sourceTree = "<group>"; };
-		0A10CC7B248ECF2D000FF498 /* BlocksViews+New+Tools+PageLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Tools+PageLink.swift"; sourceTree = "<group>"; };
+		0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkViewModel.swift; sourceTree = "<group>"; };
 		0A10CC7D248ED08C000FF498 /* BlocksViews+New+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File.swift"; sourceTree = "<group>"; };
 		0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File+Image.swift"; sourceTree = "<group>"; };
 		0A10CC81248ED45C000FF498 /* BlocksViews+New+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Page.swift"; sourceTree = "<group>"; };
@@ -759,6 +763,12 @@
 		3DD2FC48262085DF00C65466 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC4E2620884300C65466 /* AccountInfoDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoDataAccessor.swift; sourceTree = "<group>"; };
 		3DD2FC5926208F5E00C65466 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		3DDC6A562626F86E004F5EA4 /* HomeCollectionViewModelUserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewModelUserAction.swift; sourceTree = "<group>"; };
+		3DDC6A5A2626F8DE004F5EA4 /* HomeCollectionViewModelUserEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewModelUserEvent.swift; sourceTree = "<group>"; };
+		3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkState.swift; sourceTree = "<group>"; };
+		3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkUIKitView.swift; sourceTree = "<group>"; };
+		3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentView.swift; sourceTree = "<group>"; };
+		3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentConfiguration.swift; sourceTree = "<group>"; };
 		3DE2964326173D1300EADB0A /* DeveloperOptionsDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperOptionsDriver.swift; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
@@ -1093,6 +1103,7 @@
 		0350A2E323295E0000E00FB5 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				3DDC6A592626F8BD004F5EA4 /* Models */,
 				034A303B240448B4002599E2 /* Cells */,
 				0327B0BA232BCE2A007DB8A7 /* HomeCollectionViewModel.swift */,
 				0350A2E123293CE900E00FB5 /* HomeCollectionView.swift */,
@@ -1635,8 +1646,7 @@
 		0A10CC5D248EC30D000FF498 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				0A10CC79248ECF12000FF498 /* BlocksViews+New+Tools.swift */,
-				0A10CC7B248ECF2D000FF498 /* BlocksViews+New+Tools+PageLink.swift */,
+				3DDC6A5E2627070C004F5EA4 /* PageLink */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -2195,6 +2205,27 @@
 			path = DataAccessors;
 			sourceTree = "<group>";
 		};
+		3DDC6A592626F8BD004F5EA4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3DDC6A562626F86E004F5EA4 /* HomeCollectionViewModelUserAction.swift */,
+				3DDC6A5A2626F8DE004F5EA4 /* HomeCollectionViewModelUserEvent.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3DDC6A5E2627070C004F5EA4 /* PageLink */ = {
+			isa = PBXGroup;
+			children = (
+				0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */,
+				3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */,
+				3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */,
+				3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */,
+				3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */,
+			);
+			path = PageLink;
+			sourceTree = "<group>";
+		};
 		3DE2964126173C6700EADB0A /* DeveloperOptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2600,6 +2631,7 @@
 				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,
+				3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
 				0AA9B042249CF68700F2962C /* MultiSelectionPane+Panes+ToolsPane.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
@@ -2640,6 +2672,7 @@
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
 				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
+				3DDC6A5B2626F8DE004F5EA4 /* HomeCollectionViewModelUserEvent.swift in Sources */,
 				0A10CC86248ED549000FF498 /* BlocksViews+New+Page+IconEmoji.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
@@ -2654,6 +2687,7 @@
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* CoreLayer+Network+Image+Loader.swift in Sources */,
+				3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */,
 				0A72751324AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift in Sources */,
 				3D540C602625C01F00A07BD8 /* HomeCollectionViewDocumentCell.swift in Sources */,
 				3DB27C06261B0E9C005E523C /* KeyedDecodingContainer.swift in Sources */,
@@ -2670,6 +2704,7 @@
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
+				3DDC6A572626F86E004F5EA4 /* HomeCollectionViewModelUserAction.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* CoreLayer+Network+Image+Service.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				0A0965E625BEF5B000C004BD /* DocumentViewRouting+Base.swift in Sources */,
@@ -2716,8 +2751,10 @@
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
 				3D07ED6F261F4A7E00C007E2 /* DividerBlockUIKitView.swift in Sources */,
 				3D07ECCB261B4A7900C007E2 /* HomeCollectionViewCoordinator.swift in Sources */,
+				3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */,
 				0A09660525BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift in Sources */,
 				A3940BB7245AB47700CD6F37 /* EmojiPicker+ViewController.swift in Sources */,
+				3DDC6A602627071E004F5EA4 /* BlockPageLinkState.swift in Sources */,
 				53BC39B4261C7972004D7EB6 /* TextBlockViewModel.swift in Sources */,
 				3DB27C04261B0E9C005E523C /* KeyedEncodingContainer.swift in Sources */,
 				0A3EE0D624EAC6450074DCDF /* CoreLayer+Network+Image.swift in Sources */,
@@ -2846,7 +2883,6 @@
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
-				0A10CC7A248ECF12000FF498 /* BlocksViews+New+Tools.swift in Sources */,
 				0ACA781823E5C99A00442690 /* AppearanceServices+Schemes+Domains+Auth.swift in Sources */,
 				0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */,
 				0A09660D25BF176700C004BD /* DocumentModule.swift in Sources */,
@@ -2872,7 +2908,7 @@
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,
-				0A10CC98248FFDE7000FF498 /* BlocksViews+New+Tools+PageLink.swift in Sources */,
+				0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */,
 				EAC5728426208CB600F25949 /* DocumentViewCellFactory.swift in Sources */,
 				0ACA781723E5C99A00442690 /* AppearanceService+Schemes.swift in Sources */,
 				5338E7FB25DC7AF5008CB97D /* BlockActionService.swift in Sources */,
