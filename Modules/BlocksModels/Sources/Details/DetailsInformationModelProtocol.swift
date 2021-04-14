@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol DetailsInformationModelProtocol {
+public protocol DetailsInformationModel: DetailsInformationProvider {
     
     var details: [DetailsId : DetailsContent] {get set}
     
@@ -12,14 +12,14 @@ public protocol DetailsInformationModelProtocol {
 }
 
 // MARK: ToList
-public extension DetailsInformationModelProtocol {
+public extension DetailsInformationModel {
     func toList() -> [DetailsContent] {
         Array(self.details.values)
     }
 }
 
 // MARK: Inits
-public extension DetailsInformationModelProtocol {
+public extension DetailsInformationModel {
     init(_ list: [DetailsContent]) {
         let keys = list.compactMap({($0.id(), $0)})
         self.init(.init(keys, uniquingKeysWith: {(_, rhs) in rhs}))

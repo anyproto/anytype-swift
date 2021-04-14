@@ -83,12 +83,12 @@ extension BlocksViews {
             self.document.getDefaultDetails()
         }
         
-        func defaultDetailsAccessor() -> InformationAccessor {
-            self.document.getDefaultDetailsAccessor()
+        func defaultPageDetails() -> DetailsInformationProvider {
+            self.document.getDefaultPageDetails()
         }
         
-        func defaultDetailsAccessorPublisher() -> AnyPublisher<InformationAccessor, Never> {
-            self.document.getDefaultDetailsAccessorPublisher()
+        func defaultPageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
+            self.document.getDefaultPageDetailsPublisher()
         }
         
         func defaultDetailsViewModels(orderedBy predicate: Predicate = .init()) -> [BlockViewModel] {

@@ -38,13 +38,15 @@ class HomeCollectionViewModel: ObservableObject {
     
     // MARK: - Setup
     func setupDashboard() {
-        self.dashboardService.openDashboard().receive(on: RunLoop.main).sink(receiveCompletion: { completion in
-            switch completion {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("Subscribe dashboard events error \(error)")
+        self.dashboardService.openDashboard().receive(on: RunLoop.main).sink(
+            receiveCompletion: { completion in
+                switch completion {
+                case .finished: return
+                case let .failure(error):
+                    assertionFailure("Subscribe dashboard events error \(error)")
+                }
             }
-        }) { [weak self] value in
+        ) { [weak self] value in
             self?.handleOpenDashboard(value)
         }.store(in: &self.subscriptions)
     }
@@ -52,11 +54,11 @@ class HomeCollectionViewModel: ObservableObject {
     func setupSubscribers() {
         self.userActionsPublisher = self.userActionsSubject.eraseToAnyPublisher()
         
-        self.cellUserActionSubject.map({ value -> UserEvent in
+        self.cellUserActionSubject.map { value -> UserEvent in
             switch value.action {
             case .remove: return .contextualMenu(.init(model: value.model, action: .editBlock(.delete)))
             }
-        }).sink { [weak self] (value) in
+        }.sink { [weak self] (value) in
             self?.receive(value)
         }.store(in: &self.subscriptions)
     }
@@ -141,12 +143,9 @@ class HomeCollectionViewModel: ObservableObject {
     // MARK: - Private
     private func createViewModels(from pages: [BlockPageLinkViewModel]) {
         let links = pages.compactMap({ value -> HomeCollectionViewDocumentCellModel? in
-            let model: HomeCollectionViewDocumentCellModel
             let detailsModel = value.getDetailsViewModel()
 
             let details = detailsModel.currentDetails
-
-            let detailsAcccessor = InformationAccessor(value: details)
             let targetBlockId: String
             if case let .link(link) = value.getBlock().blockModel.information.content {
                 targetBlockId = link.targetBlockID
@@ -154,14 +153,17 @@ class HomeCollectionViewModel: ObservableObject {
             else {
                 targetBlockId = ""
             }
-            model = .init(page: .init(id: value.blockId, targetBlockId: targetBlockId), title: detailsAcccessor.title?.value ?? "", image: nil, emoji: detailsAcccessor.iconEmoji?.value)
+            let model = HomeCollectionViewDocumentCellModel(
+                page: .init(id: value.blockId, targetBlockId: targetBlockId),
+                title: details.title?.value ?? "",
+                image: nil, emoji: details.iconEmoji?.value
+            )
 
-            let accessorPublisher = detailsModel.wholeDetailsPublisher.map(InformationAccessor.init)
-            
-            let title = accessorPublisher.map(\.title).map({$0?.value}).eraseToAnyPublisher()
-            let emoji = accessorPublisher.map(\.iconEmoji).map({$0?.value}).eraseToAnyPublisher()
-            let iconImage = accessorPublisher.map(\.iconImage).map({$0?.value}).eraseToAnyPublisher()
-                        
+            let accessorPublisher = detailsModel.wholeDetailsPublisher
+            let title = accessorPublisher.map { $0.title?.value }.eraseToAnyPublisher()
+            let emoji = accessorPublisher.map { $0.iconEmoji?.value}.eraseToAnyPublisher()
+            let iconImage = accessorPublisher.map { $0.iconImage?.value}.eraseToAnyPublisher()
+
             model.configured(titlePublisher: title)
             model.configured(emojiImagePublisher: emoji)
             model.configured(imagePublisher: iconImage)

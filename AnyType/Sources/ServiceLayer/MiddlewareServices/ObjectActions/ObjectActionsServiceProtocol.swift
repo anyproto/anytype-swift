@@ -18,7 +18,7 @@ protocol ObjectActionsServiceProtocol {
     func createPage(
         contextID: BlockId,
         targetID: BlockId,
-        details: DetailsInformationModelProtocol,
+        details: DetailsInformationModel,
         position: BlockPosition
     ) -> AnyPublisher<ServiceSuccess, Error>
 }

@@ -272,8 +272,8 @@ class BaseDocument {
     ///
     /// - Parameter id: Id of details
     /// - Returns: Details accessor of this details.
-    func getDetailsAccessor(by id: DetailsId) -> InformationAccessor? {
-        self.getDetails(by: id).map(\.currentDetails).map(InformationAccessor.init)
+    func getPageDetails(by id: DetailsId) -> DetailsInformationProvider? {
+        self.getDetails(by: id).map(\.currentDetails)
     }
     
     /// Convenient publisher for accessing details properties by typed enum.
@@ -284,8 +284,8 @@ class BaseDocument {
     ///
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: Publisher of default details properties.
-    func getDetailsAccessorPublisher(by id: DetailsId) -> AnyPublisher<InformationAccessor, Never>? {
-        self.getDetails(by: id)?.$currentDetails.map(InformationAccessor.init).eraseToAnyPublisher()
+    func getPageDetailsPublisher(by id: DetailsId) -> AnyPublisher<DetailsInformationProvider, Never>? {
+        self.getDetails(by: id)?.$currentDetails.eraseToAnyPublisher()
     }
     
     /// Return configured details for listening events.
@@ -302,40 +302,43 @@ class BaseDocument {
     /// This details accessor associated with default details.
     ///
     /// - Returns: Details accessor of this details.
-    func getDefaultDetailsAccessor() -> InformationAccessor {
-        .init(value: self.defaultDetailsActiveModel.currentDetails)
+    func getDefaultPageDetails() -> DetailsInformationProvider {
+        self.defaultDetailsActiveModel.currentDetails
     }
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
-    func getDefaultDetailsAccessorPublisher() -> AnyPublisher<InformationAccessor, Never> {
-        self.getDefaultDetails().$currentDetails.map(InformationAccessor.init).eraseToAnyPublisher()
+    func getDefaultPageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
+        self.getDefaultDetails().$currentDetails.eraseToAnyPublisher()
     }
 
     // MARK: - Details Conversion to Blocks.
     /// Deprecated.
     ///
-    /// Why?
-    ///
     /// Now we use view models that uses only blocks.
     /// So, we have to convert our details to blocks first.
-    ///
-    /// Deprecated.
     private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsContentKind) -> ActiveModel? {
         guard let rootId = self.rootId else {
             Logger.create(.baseDocument).debug("convert(_:of:). Our document is not ready yet.")
             return nil
         }
         
-        let accessor = InformationAccessor(value: detailsActiveModel.currentDetails)
+        let details = detailsActiveModel.currentDetails
         
         let block: BlockModelProtocol
         switch kind {
-        case .title: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.title(accessor.title ?? .init(value: "")))
-        case .iconEmoji: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.iconEmoji(accessor.iconEmoji ?? .init(value: "")))
-        case .iconColor: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.iconColor(accessor.iconColor ?? .init(value: "")))
-        case .iconImage: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(.iconImage(accessor.iconImage ?? .init(value: "")))
-        }
+        case .title: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
+            .title(details.title ?? .init(value: ""))
+        )
+        case .iconEmoji: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
+            .iconEmoji(details.iconEmoji ?? .init(value: ""))
+        )
+        case .iconColor: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
+            .iconColor(details.iconColor ?? .init(value: ""))
+        )
+        case .iconImage: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
+            .iconImage(details.iconImage ?? .init(value: ""))
+        )}
         
         if self.rootModel?.blocksContainer.get(by: block.information.id) != nil {
             Logger.create(.baseDocument).debug("convert(_:of:). We have already added details with id: \(block.information.id)")

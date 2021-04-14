@@ -5,9 +5,6 @@ fileprivate typealias Namespace = Block.Tools
 
 public extension Namespace {
     class Updater {
-        public typealias Key = BlockId
-        public typealias Model = BlockModelProtocol
-
         private var container: ContainerModel
 
         public init(_ container: ContainerModel) {
@@ -21,7 +18,7 @@ public extension Namespace {
 public extension Namespace.Updater {
     /// Delete entry from a container
     /// - Parameter at: at is an associated key to this entry.
-    func delete(at: Key) {
+    func delete(at: BlockId) {
         self.container.blocksContainer.remove(at)
     }
 }
@@ -43,7 +40,7 @@ public extension Namespace.Updater {
     /// - Parameters:
     ///   - block: A model that we would like to insert in our container.
     ///   - at: an associated key to an entry.
-    func insert(block: Model, at: Key) {
+    func insert(block: BlockModelProtocol, at: BlockId) {
         self.insert(block: block)
         self.container.blocksContainer.add(child: block.information.id, beforeChild: at)
     }
@@ -55,7 +52,7 @@ public extension Namespace.Updater {
     /// - Parameters:
     ///   - block: A model that we would like to insert in our container.
     ///   - at: an associated key to an entry.
-    func insert(block: Model, afterblock at: Key) {
+    func insert(block: BlockModelProtocol, afterblock at: BlockId) {
         self.insert(block: block)
         self.container.blocksContainer.add(child: block.information.id, afterChild: at)
     }
@@ -63,7 +60,7 @@ public extension Namespace.Updater {
     /// Unlike other methods, this method only insert a model into a container.
     /// To build correct container, you should run method `buildTree` of a `BuilderProtocol` entry.
     /// - Parameter block: A model that we would like to insert in our container.
-    func insert(block: Model) {
+    func insert(block: BlockModelProtocol) {
         self.container.blocksContainer.add(block)
         /// When we store new page link block, we also need to add details information with identifier from this page link block
         /// Then we can update our page link block view, when details will be updated with .blockSetDetails event
@@ -85,7 +82,7 @@ public extension Namespace.Updater {
     /// - Parameters:
     ///   - children: new associated keys of children that will be set to parent.
     ///   - parent: an associated key to parent entry.
-    func set(children: [Key], parent: Key) {
+    func set(children: [BlockId], parent: BlockId) {
         self.container.blocksContainer.replace(childrenIds: children, parentId: parent, shouldSkipGuardAgainstMissingIds: true)
     }
 }
@@ -98,7 +95,7 @@ public extension Namespace.Updater {
     ///   - key: associated key to an entry that we would like to update.
     ///   - update: update-closure that we would like to apply to an entry.
     /// - Returns: Nothing, heh
-    func update(entry key: Key, update: @escaping (Model) -> ()) {
+    func update(entry key: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
         guard let entry = self.container.blocksContainer.get(by: key) else {
         assertionFailure("We haven't found an entry by key: \(key)")
             return

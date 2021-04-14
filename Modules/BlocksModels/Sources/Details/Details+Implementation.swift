@@ -67,8 +67,8 @@ extension Details {
         /// It has PageDetails (?)
 
         /// TODO: Rename later to information.
-        @Published var _details: DetailsInformationModelProtocol
-        required init(details: DetailsInformationModelProtocol) {
+        @Published var _details: DetailsInformationModel
+        required init(details: DetailsInformationModel) {
             self._details = details
         }
     }
@@ -95,7 +95,7 @@ extension Details {
 }
 
 extension Details.DetailsModel: DetailsModelProtocol {
-    var details: DetailsInformationModelProtocol {
+    var details: DetailsInformationModel {
         get {
             self._details
         }
@@ -125,7 +125,7 @@ extension Details.DetailsModel: DetailsModelProtocol {
         }
     }
     
-    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModelProtocol, Never> {
+    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModel, Never> {
         self.$_details.eraseToAnyPublisher()
     }
 }
@@ -137,7 +137,7 @@ extension Details.ActiveRecord: DetailsActiveRecordModelProtocol {
     var detailsModel: DetailsModelProtocol {
         self._nestedModel
     }
-    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModelProtocol, Never> {
+    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModel, Never> {
         self.detailsModel.didChangeInformationPublisher()
     }
 }

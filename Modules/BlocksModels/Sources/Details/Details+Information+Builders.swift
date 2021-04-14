@@ -12,21 +12,21 @@ fileprivate typealias Namespace = Details.Information
 
 public protocol DetailsInformationBuilderProtocol {
     typealias Content = DetailsContent
-    func empty() -> DetailsInformationModelProtocol
-    func build(list: [Content]) -> DetailsInformationModelProtocol
-    func build(information: DetailsInformationModelProtocol) -> DetailsInformationModelProtocol
+    func empty() -> DetailsInformationModel
+    func build(list: [Content]) -> DetailsInformationModel
+    func build(information: DetailsInformationModel) -> DetailsInformationModel
 }
 
 extension Namespace {
     class Builder: DetailsInformationBuilderProtocol {
         typealias Model = InformationModel
-        func empty() -> DetailsInformationModelProtocol {
+        func empty() -> DetailsInformationModel {
             self.build(list: [])
         }
-        func build(list: [Content]) -> DetailsInformationModelProtocol {
+        func build(list: [Content]) -> DetailsInformationModel {
             Model.init(list)
         }
-        func build(information: DetailsInformationModelProtocol) -> DetailsInformationModelProtocol {
+        func build(information: DetailsInformationModel) -> DetailsInformationModel {
             Model.init(information.details)
         }
     }

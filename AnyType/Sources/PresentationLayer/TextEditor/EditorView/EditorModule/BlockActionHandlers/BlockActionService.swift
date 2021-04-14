@@ -201,7 +201,7 @@ final class BlockActionService {
     func createPage(afterBlock: Information, position: BlockPosition = .bottom) {
 
         let targetId = ""
-        let details: DetailsInformationModelProtocol = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: [
+        let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: [
             .title(.init()),
             .iconEmoji(.init())
         ])

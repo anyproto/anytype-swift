@@ -12,8 +12,6 @@ fileprivate typealias Namespace = BlocksViews.Page.IconEmoji
 extension Namespace {
     
     class ViewModel: BlocksViews.Page.Base.ViewModel {
-        
-        typealias DetailsAccessor = InformationAccessor
         private var subscriptions: Set<AnyCancellable> = []
         
         @Published var toViewEmoji: String = ""
@@ -49,16 +47,18 @@ extension Namespace {
             switch event {
             case .pageDetailsViewModelDidSet:
                 
-                let detailsAccessor = self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init)
+                let wholeDetailsPublisher = self.pageDetailsViewModel?.wholeDetailsPublisher
                 
-                detailsAccessor?.map(\.iconEmoji).sink(receiveValue: { [weak self] (value) in
-                    value.flatMap({self?.toViewEmoji = $0.value})
+                wholeDetailsPublisher?.map{ $0.iconEmoji } .sink(receiveValue: { [weak self] (value) in
+                    value.flatMap{ self?.toViewEmoji = $0.value }
                 }).store(in: &self.subscriptions)
                 
-                detailsAccessor?.map(\.iconImage).map({$0?.value}).safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
-                    .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
+                wholeDetailsPublisher?.map{ $0.iconImage?.value}.safelyUnwrapOptionals()
+                    .flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
+                    .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher})
+                    .receive(on: RunLoop.main).sink { [weak self] (value) in
                         self?.toViewImage = value
-                }.store(in: &self.subscriptions)
+                    }.store(in: &self.subscriptions)
                 
                 self.toModelEmojiSubject.notableError().flatMap({ [weak self] value in
                     self?.pageDetailsViewModel?.update(details: .iconEmoji(.init(value: value))) ?? .empty()

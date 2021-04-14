@@ -14,7 +14,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     // MARK: - ObjectActionsService / CreatePage
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
-    func createPage(contextID: BlockId, targetID: BlockId, details: DetailsInformationModelProtocol, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
+    func createPage(contextID: BlockId, targetID: BlockId, details: DetailsInformationModel, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail.init(error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
         }

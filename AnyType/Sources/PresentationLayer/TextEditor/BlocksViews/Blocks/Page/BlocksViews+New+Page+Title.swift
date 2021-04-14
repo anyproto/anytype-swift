@@ -15,8 +15,6 @@ extension BlocksViews.Page.Title {
         // We can't edit name of the block.
         // Add subscription on event.
         
-        typealias DetailsAccessor = InformationAccessor
-        
         private var subscriptions: Set<AnyCancellable> = []
         private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
 
@@ -99,7 +97,7 @@ extension BlocksViews.Page.Title {
                 /// Here we must subscribe on values from this model and filter values.
                 /// We only want values equal to details.
                 ///
-                self.pageDetailsViewModel?.wholeDetailsPublisher.map(DetailsAccessor.init).map(\.title)
+                self.pageDetailsViewModel?.wholeDetailsPublisher.map{ $0.title }
                     .sink(receiveValue: { [weak self] (value) in
                     value.flatMap({ self?.toViewTitle = $0.value })
                 }).store(in: &self.subscriptions)

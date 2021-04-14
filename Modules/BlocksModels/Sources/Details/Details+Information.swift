@@ -44,7 +44,7 @@ extension Details.Information {
     }
 }
 
-extension Details.Information.InformationModel: DetailsInformationModelProtocol {
+extension Details.Information.InformationModel: DetailsInformationModel {
     var details: [DetailsId : DetailsContent] {
         get {
             self._details

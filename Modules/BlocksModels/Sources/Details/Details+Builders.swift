@@ -4,7 +4,7 @@ import os
 public protocol DetailsBuilderProtocol {
     func build(list: [DetailsModelProtocol]) -> DetailsContainerModelProtocol
     func emptyContainer() -> DetailsContainerModelProtocol
-    func build(information: DetailsInformationModelProtocol) -> DetailsModelProtocol
+    func build(information: DetailsInformationModel) -> DetailsModelProtocol
     var informationBuilder: DetailsInformationBuilderProtocol {get}
 }
 
@@ -25,7 +25,7 @@ extension Details {
             build(list: [])
         }
         
-        func build(information: DetailsInformationModelProtocol) -> DetailsModelProtocol {
+        func build(information: DetailsInformationModel) -> DetailsModelProtocol {
             Model.init(details: information)
         }
         

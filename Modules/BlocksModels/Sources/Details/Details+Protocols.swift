@@ -34,8 +34,8 @@ public protocol DetailsModelProtocol: DetailsHasInformationProtocol, DetailsHasP
 
 // MARK: - DetaisModel / Has Details
 public protocol DetailsHasInformationProtocol {
-    var details: DetailsInformationModelProtocol {get set}
-    init(details: DetailsInformationModelProtocol)
+    var details: DetailsInformationModel {get set}
+    init(details: DetailsInformationModel)
 }
 
 // MARK: DetailsModel / Has DetailsParent
@@ -58,5 +58,5 @@ public protocol DetailsActiveRecordHasModelProtocol {
 
 // MARK: - DetailsActiveRecord / Publisher
 public protocol DetailsHasDidChangeInformationPublisherProtocol {
-    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModelProtocol, Never>
+    func didChangeInformationPublisher() -> AnyPublisher<DetailsInformationModel, Never>
 }
