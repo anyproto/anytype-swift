@@ -186,6 +186,7 @@ private extension EventHandler {
             if !value.hasStyle {
                 newTextBlockContentType.contentType = oldText.contentType
             }
+            newTextBlockContentType.number = oldText.number
             blockModel.information.content = .text(newTextBlockContentType)
             self.blockValidator.validate(information: &blockModel.information)
             
