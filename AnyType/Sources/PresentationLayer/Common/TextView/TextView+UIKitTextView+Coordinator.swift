@@ -35,7 +35,6 @@ extension Namespace {
         typealias TheTextView = TextView.UIKitTextView
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
-        typealias ActionsToolbarAccessoryView = TextView.ActionsToolbar.AccessoryView
         typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
 
         // MARK: Variables
@@ -71,7 +70,7 @@ extension Namespace {
         private var blocksUserActionsHandler: AnyCancellable?
         
         /// ActionsAccessoryView
-        private lazy var actionsToolbarAccessoryView: ActionsToolbarAccessoryView = .init()
+        private lazy var editingToolbarAccessoryView: EditingToolbarView = .init()
         private var actionsToolbarAccessoryViewHandler: AnyCancellable?
         private var actionsToolbarUserActionsHandler: AnyCancellable?
         
@@ -111,39 +110,18 @@ extension FileNamespace {
     /// It will catch view value that we want to avoid, heh.
     /// Instead, think about `Coordinator` as a view-agnostic textView events handler.
     ///
-    func configureActionsToolbarHandler(_ view: UITextView) {
-        self.actionsToolbarAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.actionsToolbarAccessoryView.model.userActionPublisher).sink(receiveValue: { [weak self] (value) in
-            let (textView, action) = value
-            
-            guard action.action != .keyboardDismiss else {
-                guard textView.isFirstResponder else {
-                    Logger.create(.textViewUIKitTextViewCoordinator).debug(
-                        """
-                        Text view keyboardDismiss is disabled. Our view is not first responder.
-                        Fixing it by invoking UIApplication.resignFirstResponder
-                        """
-                    )
-                    UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-                    return
-                }
-                textView.endEditing(false)
-                return
+    func configureEditingToolbarHandler(_ textView: UITextView) {
+        self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
+            self?.switchInputs(textView, accessoryView: nil, inputView: nil)
+
+            switch action {
+            case .addBlock:
+                self?.publishToOuterWorld(.addBlockAction(.addBlock))
+            case .multiActionMenu:
+                self?.publishToOuterWorld(.showMultiActionMenuAction(.showMultiActionMenu))
+            case .keyboardDismiss:
+                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
             }
-            
-            self?.switchInputs(textView, accessoryView: nil, inputView: action.view)
-        })
-        
-        // TODO: Add other user interaction publishers.
-        // 1. Add hook that will send this data to delegate.
-        // 2. Add delegate that will take UserAction like delegate?.onUserAction(UserAction)
-        // 3. Add another delegate that will "wraps" UserAction with information about block ( first delegate IS a observableModel or even just ObservableObject or @binding... )
-        // 4. Second delegate is a documentViewModel ( so, it needs information about block if available.. )
-        // 5. Add hook to receive user key inputs and context of current text View. ( enter may behave different ).
-        // 6. Add hook that will catch marks styles. ( special convert for links and colors )
-        self.actionsToolbarUserActionsHandler = self.actionsToolbarAccessoryView.model.allInOnePublisher.sink { [weak self] value in
-            // now tell outer world that we are ready to process actions.
-            // ...
-            self?.publishToOuterWorld(value)
         }
     }
 
@@ -500,9 +478,9 @@ private extension FileNamespace {
         override class func variantsFromState(_ coordinator: Coordinator, textView: UITextView, selectionLength: Int, accessoryView: UIView?, inputView: UIView?) -> Triplet {
             switch (selectionLength, accessoryView, inputView) {
             // Length == 0, => set actions toolbar and restore default keyboard.
-            case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.actionsToolbarAccessoryView, inputView: nil)
+            case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.editingToolbarAccessoryView, inputView: nil)
             // Length != 0 and is ActionsToolbarAccessoryView => set highlighted accessory view and restore default keyboard.
-            case (_, is Coordinator.ActionsToolbarAccessoryView, _): return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+            case (_, is EditingToolbarView, _): return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
             // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
             case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
             // Otherwise, we need to keep accessory view and keyboard.
@@ -533,9 +511,9 @@ private extension FileNamespace {
         override class func variantsFromState(_ coordinator: Coordinator, textView: UITextView, selectionLength: Int, accessoryView: UIView?, inputView: UIView?) -> Triplet {
             switch (selectionLength, accessoryView, inputView) {
             // Length == 0, => set actions toolbar and restore default keyboard.
-            case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.actionsToolbarAccessoryView, inputView: nil)
+            case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.editingToolbarAccessoryView, inputView: nil)
             // Length != 0 and is ActionsToolbarAccessoryView => set marks pane input view and restore default accessory view (?).
-            case (_, is Coordinator.ActionsToolbarAccessoryView, _): return .init(shouldAnimate: true, accessoryView: nil, inputView: coordinator.marksToolbarInputView.view)
+            case (_, is EditingToolbarView, _): return .init(shouldAnimate: true, accessoryView: nil, inputView: coordinator.marksToolbarInputView.view)
             // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
             case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
             // Otherwise, we need to keep accessory view and keyboard.
@@ -618,18 +596,12 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         return;
         self.switchInputs(textView)
     }
-        
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        /// TODO: Refactor it later.
-        self.textSize = textView.intrinsicContentSize
-        
-        // TODO: "We should enable our coordinator later, because for now it corrupts typing. So. Disable it."
+
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if textView.inputAccessoryView == nil {
-            textView.inputAccessoryView = self.actionsToolbarAccessoryView
-            textView.reloadInputViews()
+            textView.inputAccessoryView = self.editingToolbarAccessoryView
         }
-        return;
-        self.switchInputs(textView)
+        return true
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

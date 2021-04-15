@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 typealias StandardButtonAction = () -> Void
 
 enum StandardButtonStyle {
@@ -11,7 +12,7 @@ enum StandardButtonStyle {
         case .white:
             return Color.white
         case .yellow:
-            return ColorPalette.yellow
+            return Color.yellow
         }
     }
     
@@ -27,7 +28,7 @@ enum StandardButtonStyle {
     func borderColor() -> Color? {
         switch self {
         case .white:
-            return ColorPalette.grayText
+            return Color.grayText
         case .yellow:
             return nil
         }

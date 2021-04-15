@@ -65,6 +65,10 @@ extension UIColor {
         .orange
     }
 
+    static var activeOrange: UIColor {
+        .init(hexString: "#F6A927")
+    }
+
     /// Color that can be used in case if we couldn't parse color from middleware
     static var defaultColor: UIColor {
         .black

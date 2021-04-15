@@ -20,7 +20,7 @@ extension TextView.UIKitTextView.Builder {
 
     func makeUIView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
         let textView = configuredTextView(textView, textViewDelegate: coordinator)
-        coordinator.configureActionsToolbarHandler(textView)
+        coordinator.configureEditingToolbarHandler(textView)
 
         if let smartTextView = textView as? TextView.UIKitTextView.TextViewWithPlaceholder {
             _ = coordinator.configured(textView, contextualMenuStream: smartTextView.contextualMenuPublisher)

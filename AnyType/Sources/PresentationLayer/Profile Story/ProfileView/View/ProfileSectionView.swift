@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct ProfileSectionView: View {
     @ObservedObject var accountData: AccountInfoDataAccessor
     var coordinator: ProfileCoordinator
@@ -27,7 +28,7 @@ struct ProfileSectionView: View {
                     }
                     .padding([.top], 11)
                     
-                    Text("Your public page").foregroundColor(ColorPalette.grayText)
+                    Text("Your public page").foregroundColor(Color.grayText)
                 }
             }
             .disabled(accountData.profileBlockId == nil)
