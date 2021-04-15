@@ -5,21 +5,23 @@ struct HomeView: View {
     // HomeCollectionViewModel here due to SwiftUI doesn't update view when it's UIViewRepresentable
     // https://forums.swift.org/t/uiviewrepresentable-not-updated-when-observed-object-changed/33890/9
     @ObservedObject private var collectionViewModel: HomeCollectionViewModel
-    @ObservedObject private var viewModel: HomeViewModel
     
     @State var showDocument: Bool = false
     @State var selectedDocumentId: String = ""
+    @StateObject var accountData = AccountInfoDataAccessor()
     
-    init(viewModel: HomeViewModel, collectionViewModel: HomeCollectionViewModel) {
-        self.viewModel = viewModel
+    private let coordinator: HomeCoordinator
+    
+    init(coordinator: HomeCoordinator, collectionViewModel: HomeCollectionViewModel) {
+        self.coordinator = coordinator
         self.collectionViewModel = collectionViewModel
     }
 
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
-                self.settingsNavigation
-                HomeTopView(accountData: viewModel.accountData, coordinator: viewModel.coordinator)
+                self.textEditorNavigation
+                HomeTopView(accountData: accountData, coordinator: coordinator)
                 self.collectionView
             }
             .background(
@@ -30,11 +32,12 @@ struct HomeView: View {
         }
         .accentColor(.gray)
         .onAppear(perform: onAppear)
+        .environmentObject(accountData)
     }
     
-    private var settingsNavigation: some View {
+    private var textEditorNavigation: some View {
         NavigationLink(
-            destination: self.viewModel.coordinator.documentView(
+            destination: coordinator.documentView(
                 selectedDocumentId: self.selectedDocumentId,
                 shouldShowDocument: self.$showDocument
             ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
@@ -56,7 +59,7 @@ struct HomeView: View {
     }
     
     private func onAppear() {
-        self.viewModel.obtainAccountInfo()
+        self.accountData.obtainAccountInfo()
         makeNavigationBarTransparent()
     }
     

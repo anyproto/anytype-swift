@@ -11,7 +11,7 @@ class HomeViewAssembly {
         )
         
         return HomeView(
-            viewModel: HomeViewModel(coordinator: coordinator),
+            coordinator: coordinator,
             collectionViewModel: collectionViewModel
         )
     }

@@ -2,10 +2,11 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var model: ProfileViewModel
+    @EnvironmentObject var accountData: AccountInfoDataAccessor
     
     var contentView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            ProfileSectionView(accountData: model.accountData, coordinator: model.coordinator)
+            ProfileSectionView(accountData: accountData, coordinator: model.coordinator)
             SettingsSectionView()
             StandardButton(disabled: false, text: "Log out", style: .white) {
                 self.model.logout()
@@ -24,9 +25,6 @@ struct ProfileView: View {
             }
         }
         .errorToast(isShowing: $model.isShowingError, errorText: model.error)
-        .onAppear {
-            self.model.obtainAccountInfo()
-        }
     }
 }
 

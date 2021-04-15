@@ -5,12 +5,6 @@ import BlocksModels
 
 
 final class ProfileViewModel: ObservableObject {
-    let accountData = AccountInfoDataAccessor()
-    let coordinator = ProfileCoordinator(editorAssembly: EditorAssembly())
-    
-    private var authService: AuthServiceProtocol
-    
-    
     /// Variables / Error
     @Published var error: String = "" {
         didSet {
@@ -41,18 +35,13 @@ final class ProfileViewModel: ObservableObject {
         }
     }
     
-    private var profileViewModelObjectWillChange: AnyCancellable?
+    let coordinator = ProfileCoordinator(editorAssembly: EditorAssembly())
+    
+    private var authService: AuthServiceProtocol
     
     init(authService: AuthServiceProtocol) {
         self.authService = authService
         
-        self.profileViewModelObjectWillChange = accountData.objectWillChange.sink { [weak self] in
-            self?.objectWillChange.send()
-        }
-    }
-
-    func obtainAccountInfo() {
-        accountData.obtainAccountInfo()
     }
 
     // MARK: - Logout
