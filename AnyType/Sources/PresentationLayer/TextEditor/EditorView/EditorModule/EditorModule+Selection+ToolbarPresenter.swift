@@ -51,8 +51,8 @@ extension Namespace {
         }
         
         // TODO: Make Private?
-        private func update(selectedCount: Int, hasTurnIntoCommand: Bool) {
-            self.multiSelectionAssembly.viewModel.handle(countOfObjects: selectedCount, hasTurnIntoCommand: hasTurnIntoCommand)
+        private func update(selectedCount: Int, turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]) {
+            self.multiSelectionAssembly.viewModel.handle(countOfObjects: selectedCount, turnIntoStyles: turnIntoStyles)
         }
         
         private func selectionNotShown() -> Bool {
@@ -92,8 +92,8 @@ extension Namespace {
                     self.update(selectionEnabled: true, completion: { _ in })
                 }
                 switch value {
-                case .isEmpty: self.update(selectedCount: 0, hasTurnIntoCommand: false)
-                case let .nonEmpty(count, hasTurnIntoCommand): self.update(selectedCount: .init(count), hasTurnIntoCommand: hasTurnIntoCommand)
+                case .isEmpty: self.update(selectedCount: 0, turnIntoStyles: [])
+                case let .nonEmpty(count, turnIntoStyles): self.update(selectedCount: .init(count), turnIntoStyles: turnIntoStyles)
                 }
             }
         }

@@ -52,7 +52,7 @@ extension BlocksViewsToolbarBlocksTypesProtocol {
 }
 
 extension BlocksViews.Toolbar {
-    enum BlocksTypes: Hashable {
+    enum BlocksTypes: Hashable, Comparable {
         case text(Text), list(List), objects(Objects), tool(Tool), other(Other)
         static var allCases: [Self] = [.text(.text), .list(.bulleted), objects(.bookmark), .other(.lineDivider)]
     }
@@ -60,23 +60,23 @@ extension BlocksViews.Toolbar {
 
 // MARK: Internals
 extension BlocksViews.Toolbar.BlocksTypes {
-    enum Text: Hashable, CaseIterable {
+    enum Text: Hashable, CaseIterable, Comparable {
         case text, h1, h2, h3, highlighted
     }
 
-    enum List: Hashable, CaseIterable {
+    enum List: Hashable, CaseIterable, Comparable {
         case checkbox, bulleted, numbered, toggle
     }
     
-    enum Objects: Hashable, CaseIterable {
+    enum Objects: Hashable, CaseIterable, Comparable {
         case page, file, picture, video, bookmark, linkToObject
     }
 
-    enum Tool: Hashable, CaseIterable {
+    enum Tool: Hashable, CaseIterable, Comparable {
         case contact, database, set, task
     }
 
-    enum Other: Hashable, CaseIterable {
+    enum Other: Hashable, CaseIterable, Comparable {
         case lineDivider, dotsDivider, code
     }
 }

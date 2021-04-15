@@ -1,87 +1,45 @@
-//
-//  BlocksViews+Toolbar+ViewController.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 20.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
 
-import Foundation
 import UIKit
-import SwiftUI
 import Combine
-import os
+import SwiftUI
 
 extension BlocksViews.Toolbar {
-    class ViewController: UIViewController {
+    final class ViewController: UIViewController {
         // MARK: Variables
-        private var model: ViewModel
+        private let model: ViewModel
         
         // MARK: Subscriptions
         private var subscriptions: Set<AnyCancellable> = []
-        
-        // MARK: Setup
-        private func setupSubscriptions() {
-            self.model.dismissControllerPublisher.sink { [weak self] (value) in
-                self?.dismiss(animated: true, completion: nil)
-            }.store(in: &self.subscriptions)
-        }
-        
-        private func setup() {
-            self.setupSubscriptions()
-        }
         
         // MARK: Initialization
         init(model: ViewModel) {
             self.model = model
             super.init(nibName: nil, bundle: nil)
-            self.setup()
+            model.dismissControllerPublisher.sink { [weak self] (value) in
+                self?.dismiss(animated: true, completion: nil)
+            }.store(in: &self.subscriptions)
         }
         
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-    }
-}
-
-// MARK: - View Lifecycle
-extension BlocksViews.Toolbar.ViewController {
-    private func setupUIElements() {
-        // TODO: Move to Schemes
-        let appearance = UITableViewHeaderFooterView.appearance()
-        let sectionView: UIView = .init()
-        sectionView.backgroundColor = .white
-        appearance.backgroundView = sectionView
-                
-        let chosenData = self.model.chosenView()
-        if let chosenView = chosenData.view {
-            self.view.addSubview(chosenView)
-            self.addLayout(forView: chosenView)
+        
+        private func setupUIElements() {
+            let chosenData = self.model.chosenView()
+            if let chosenView = chosenData.view {
+                self.view.addSubview(chosenView)
+                chosenView.translatesAutoresizingMaskIntoConstraints = false
+                chosenView.edgesToSuperview()
+            }
+            if let payload = chosenData.payload {
+                self.navigationItem.title = payload.title
+            }
         }
         
-        // TODO: Remove it later and put somewhere else?
-        // Bad style, but ok for now.
-        // "We should not inject title via Apple bad design of view controllers. Don't use navigation item."
-        if let payload = chosenData.payload {
-            self.navigationItem.title = payload.title
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            self.setupUIElements()
         }
-    }
-    
-    private func addLayout(forView view: UIView) {
-        if let superview = view.superview {
-            view.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupUIElements()
     }
 }
 
@@ -93,7 +51,7 @@ extension BlocksViews.Toolbar.ViewController {
 
 // MARK: ViewModel
 extension BlocksViews.Toolbar.ViewController {
-    class ViewModel {
+    final class ViewModel {
         typealias UnderlyingAction = BlocksViews.Toolbar.UnderlyingAction
         typealias Toolbar = BlocksViews.Toolbar
         
@@ -130,7 +88,7 @@ extension BlocksViews.Toolbar.ViewController {
         }
         
         // MARK: Initialization
-        private init(_ style: Style) {
+        init(_ style: Style) {
             self.style = style
             self.addBlockViewModel = Toolbar.AddBlock.ViewModelBuilder.create()
             self.turnIntoBlockViewModel = Toolbar.TurnIntoBlock.ViewModelBuilder.create()
@@ -141,11 +99,6 @@ extension BlocksViews.Toolbar.ViewController {
                 _ = self.turnIntoBlockViewModel.configured(filtering: filtering)
             }
             self.setup(style: style)
-        }
-        
-        // MARK: Public Create
-        class func create(_ style: Style) -> ViewModel {
-            .init(style)
         }
                 
         // MARK: Get Chosen View
@@ -187,22 +140,14 @@ extension BlocksViews.Toolbar.ViewController.ViewModel {
     /// And may be we could add action toolbar here...
     ///
     struct Style {
-        fileprivate enum OurStyle {
+        enum OurStyle {
             case addBlock, turnIntoBlock, bookmark
         }
         
-        static let addBlock: Style = .init(style: .addBlock)
-        static let turnIntoBlock: Style = .init(style: .turnIntoBlock)
-        static let bookmark: Style = .init(style: .bookmark)
-        
         fileprivate var style: OurStyle = .addBlock
-        var filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering?
+        fileprivate var filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering?
         
-        func configured(_ filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering?) -> Self {
-            .init(style: self.style, filtering: filtering)
-        }
-        
-        private init(style: BlocksViews.Toolbar.ViewController.ViewModel.Style.OurStyle = .addBlock, filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering? = nil) {
+        init(style: BlocksViews.Toolbar.ViewController.ViewModel.Style.OurStyle = .addBlock, filtering: BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering? = nil) {
             self.style = style
             self.filtering = filtering
         }

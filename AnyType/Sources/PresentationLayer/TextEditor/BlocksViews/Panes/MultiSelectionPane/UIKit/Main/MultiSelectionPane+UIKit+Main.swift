@@ -37,7 +37,7 @@ extension FileNamespace {
     ///
     struct UserResponse {
         var selectedItemsCount: Int
-        var hasTurnIntoCommand: Bool
+        var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]
     }
 }
 
@@ -78,9 +78,9 @@ extension FileNamespace {
         // MARK: Public Setters
         /// Use this method from outside to update value.
         ///
-        func handle(countOfObjects: Int, hasTurnIntoCommand: Bool) {
+        func handle(countOfObjects: Int, turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]) {
             self.userResponseSubject.send(UserResponse(selectedItemsCount: countOfObjects,
-                                                       hasTurnIntoCommand: hasTurnIntoCommand))
+                                                       turnIntoStyles: turnIntoStyles))
         }
     }
 }

@@ -142,16 +142,6 @@ final class TextBlockViewModel: BlocksViews.Base.ViewModel {
         actions.append(.create(action: .specific(.style)))
         return .init(title: "", children: actions)
     }
-    
-    override var availableTurnIntoTypes: [BlocksViews.Toolbar.BlocksTypes] {
-        guard case let .text(text) = self.getBlock().blockModel.information.content, text.contentType != .title else {
-            return []
-        }
-        return [.text(.text), .text(.h1), .text(.h2), .text(.h3), .text(.highlighted),
-                .list(.checkbox), .list(.bulleted), .list(.numbered), .list(.toggle),
-                .objects(.page),
-                .other(.code)]
-    }
 }
 
 // MARK: - Methods called by View

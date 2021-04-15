@@ -74,8 +74,9 @@ extension Namespace {
             let turnIntoTypesIntersection = self.idsToTurnIntoOptions.values.reduce(into: initialResult) { result, set in
                 result = result.intersection(set)
             }
+            let typesArray = turnIntoTypesIntersection.sorted { $0 < $1 }
             return .selectionEnabled(.nonEmpty(.init(storage.count()),
-                                               hasTurnIntoCommand: !turnIntoTypesIntersection.isEmpty))
+                                               turnIntoStyles: typesArray))
         }
         
         private func handle(_ storageUpdate: Storage) {
@@ -116,9 +117,9 @@ extension Namespace {
         enum CountEvent {
             static var `default`: Self = .isEmpty
             case isEmpty
-            case nonEmpty(UInt, hasTurnIntoCommand: Bool)
-            static func from(_ value: Int, hasTurnIntoCommand: Bool) -> Self {
-                value <= 0 ? .isEmpty : nonEmpty(.init(value), hasTurnIntoCommand: hasTurnIntoCommand)
+            case nonEmpty(UInt, turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes])
+            static func from(_ value: Int, turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]) -> Self {
+                value <= 0 ? .isEmpty : nonEmpty(.init(value), turnIntoStyles: turnIntoStyles)
             }
         }
         case selectionDisabled
@@ -224,9 +225,10 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
 
 extension EditorModule.Document.ViewController.ViewModel: EditorModuleSelectionHandlerHolderProtocol {
     func selectAll() {
-        // We must drop title block - it is not selectable, and it first in list
+        let factory = BlockRestrictionsFactory()
         let ids = self.builders.dropFirst().reduce(into: [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>]()) { result, model in
-            result[model.blockId] = Set(model.availableTurnIntoTypes)
+            let restrictions = factory.makeRestrictions(for: model.getBlock().blockModel.information.content)
+            result[model.blockId] = Set(restrictions.turnIntoStyles)
         }
         self.select(ids: ids)
     }

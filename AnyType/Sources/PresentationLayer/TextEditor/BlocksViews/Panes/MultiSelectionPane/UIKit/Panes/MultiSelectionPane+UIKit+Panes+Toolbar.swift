@@ -18,18 +18,17 @@ extension Namespace {
 
 // MARK: View
 extension FileNamespace {
-    class View: UIView {
+    final class View: UIView {
         
         // MARK: Aliases
         typealias BaseToolbarView = TextView.BaseSingleToolbarView
         typealias Style = TextView.Style
         
         private let insets: UIEdgeInsets
-
-        // MARK: Variables
-        var style: Style = .default
-        var model: ViewModel = .init()
-        var subscription: AnyCancellable?
+        private var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]?
+        private let style: Style = .default
+        private let model: ViewModel
+        private var subscription: AnyCancellable?
 
         // MARK: Initialization
         init(frame: CGRect,
@@ -38,6 +37,7 @@ extension FileNamespace {
                                        left: 10,
                                        bottom: applicationWindowInsetsProvider.mainWindowInsets.bottom,
                                        right: 10)
+            self.model = .init()
             super.init(frame: frame)
             self.setup()
         }
@@ -65,11 +65,12 @@ extension FileNamespace {
                 self.turnIntoButton.isHidden = true
                 self.copyButton.isHidden = true
                 self.deleteButton.isHidden = true
-            case let .nonEmpty(count, showTurnInto):
+            case let .nonEmpty(count, turnIntoStyles):
                 self.titleLabel.text = String(count) + " " + NSLocalizedString("Blocks selected", comment: "")
-                self.turnIntoButton.isHidden = !showTurnInto
+                self.turnIntoButton.isHidden = turnIntoStyles.isEmpty
                 self.copyButton.isHidden = false
                 self.deleteButton.isHidden = false
+                self.turnIntoStyles = turnIntoStyles
             }
         }
 
@@ -83,7 +84,9 @@ extension FileNamespace {
                 button?.tintColor = self.style.normalColor()
             }
             self.turnIntoButton.addAction(UIAction(handler: { [weak self] _ in
-                self?.model.process(action: .turnInto)
+                var filtering = BlocksViews.UserAction.ToolbarOpenAction.BlockMenu.Payload.Filtering()
+                filtering.append(self?.turnIntoStyles ?? [])
+                self?.model.process(action: .turnInto(.init(payload: .init(filtering: filtering))))
             }), for: .touchUpInside)
             self.deleteButton.addAction(UIAction(handler: { [weak self] _ in
                 self?.model.process(action: .delete)
@@ -167,7 +170,7 @@ extension FileNamespace {
 extension FileNamespace {
     // MARK: Action
     enum Action {
-        case turnInto
+        case turnInto(BlocksViews.UserAction.ToolbarOpenAction.BlockMenu)
         case delete
         case copy
     }
@@ -178,7 +181,7 @@ extension FileNamespace {
     ///
     enum UserResponse {
         case isEmpty
-        case nonEmpty(count: UInt, showTurnInto: Bool)
+        case nonEmpty(count: UInt, turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes])
     }
 }
 
@@ -215,14 +218,14 @@ extension FileNamespace {
         // MARK: Public Setters
         /// Use this method from outside to update value.
         ///
-        func handle(countOfObjects: Int, hasTurnIntoCommand: Bool) {
-            self.userResponseSubject.send(countOfObjects <= 0 ? .isEmpty : .nonEmpty(count: .init(countOfObjects), showTurnInto: hasTurnIntoCommand))
+        func handle(countOfObjects: Int, turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]) {
+            self.userResponseSubject.send(countOfObjects <= 0 ? .isEmpty : .nonEmpty(count: .init(countOfObjects), turnIntoStyles: turnIntoStyles))
         }
         
         func subscribe(on userResponse: AnyPublisher<MultiSelectionPane.UIKit.Main.UserResponse, Never>) {
             self.subscription = userResponse.sink(receiveValue: { [weak self] (value) in
                 self?.handle(countOfObjects: value.selectedItemsCount,
-                             hasTurnIntoCommand: value.hasTurnIntoCommand)
+                             turnIntoStyles: value.turnIntoStyles)
             })
         }
         

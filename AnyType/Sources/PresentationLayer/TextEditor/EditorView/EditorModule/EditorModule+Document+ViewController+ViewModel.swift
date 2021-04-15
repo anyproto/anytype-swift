@@ -120,17 +120,13 @@ extension Namespace {
         private let updateElementsSubject: PassthroughSubject<[BlockId], Never> = .init()
         private(set) var updateElementsPublisher: AnyPublisher<[BlockId], Never> = .empty()
         private var lastSetTextClosure: (() -> Void)?
+        private let restrictionsFactory: BlockRestrictionsFactory
         
         // MARK: - Initialization
 
-        init(documentId: String?, options: Options) {
-            // TODO: Add failable init.
-            guard let documentId = documentId else {
-                assertionFailure("Don't pass nil documentId to DocumentViewModel.init()")
-                return
-            }
-            
+        init(documentId: String, options: Options, restrictionsFactory: BlockRestrictionsFactory) {
             self.options = options
+            self.restrictionsFactory = restrictionsFactory
             self.setupSubscriptions()
             
             // TODO: Deprecated.
@@ -359,9 +355,10 @@ extension FileNamespace {
 
     private func didSelect(atIndex: IndexPath) {
         guard let item = element(at: atIndex) else { return }
+        let restrictions = self.restrictionsFactory.makeRestrictions(for: item.getBlock().blockModel.information.content)
         self.set(selected: !self.selected(id: item.blockId),
                  id: item.blockId,
-                 turnIntoOptions: Set(item.availableTurnIntoTypes))
+                 turnIntoOptions: Set(restrictions.turnIntoStyles))
     }
 }
 
@@ -397,7 +394,7 @@ private extension FileNamespace {
         case let .toolbar(value):
             let selectedIds = self.list()
             switch value {
-            case .turnInto: self.publicUserActionSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject))))
+            case let .turnInto(payload): self.publicUserActionSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject, input: payload))))
             case .delete: self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: .editBlock(.delete))))
             case .copy: break
             }
