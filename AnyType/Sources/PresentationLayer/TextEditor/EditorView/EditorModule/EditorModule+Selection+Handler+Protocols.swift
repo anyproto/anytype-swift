@@ -16,10 +16,9 @@ protocol EditorModuleSelectionHandlerListProtocol {
     func selectionEnabled() -> Bool
     func set(selectionEnabled: Bool)
     
-    func deselect(ids: Set<BlockId>)
-    func select(ids: [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>])
+    func deselect(ids: [BlockId: BlockContentType])
+    func select(ids: [BlockId: BlockContentType])
     
-    func toggle(_ id: BlockId)
     func list() -> [BlockId]
     func clear()
     
@@ -27,7 +26,7 @@ protocol EditorModuleSelectionHandlerListProtocol {
 }
 
 protocol EditorModuleSelectionHandlerCellProtocol: class {
-    func set(selected: Bool, id: BlockId, turnIntoOptions: Set<BlocksViews.Toolbar.BlocksTypes>)
+    func set(selected: Bool, id: BlockId, type: BlockContentType)
     func selected(id: BlockId) -> Bool
 
     func selectionCellEvent(_ id: BlockId) -> EditorModule.Selection.IncomingCellEvent
@@ -68,16 +67,12 @@ extension EditorModuleHasSelectionHandlerProtocol {
         self.selectionHandler?.set(selectionEnabled: selectionEnabled)
     }
     
-    func deselect(ids: Set<BlockId>) {
+    func deselect(ids: [BlockId: BlockContentType]) {
         self.selectionHandler?.deselect(ids: ids)
     }
     
-    func select(ids: [BlockId: Set<BlocksViews.Toolbar.BlocksTypes>]) {
+    func select(ids: [BlockId: BlockContentType]) {
         self.selectionHandler?.select(ids: ids)
-    }
-            
-    func toggle(_ id: BlockId) {
-        self.selectionHandler?.toggle(id)
     }
     
     func list() -> [BlockId] {
@@ -92,8 +87,8 @@ extension EditorModuleHasSelectionHandlerProtocol {
         self.selectionHandler?.selectionEventPublisher() ?? .empty()
     }
     
-    func set(selected: Bool, id: BlockId, turnIntoOptions: Set<BlocksViews.Toolbar.BlocksTypes>) {
-        self.selectionHandler?.set(selected: selected, id: id, turnIntoOptions: turnIntoOptions)
+    func set(selected: Bool, id: BlockId, type: BlockContentType) {
+        self.selectionHandler?.set(selected: selected, id: id, type: type)
     }
     
     func selected(id: BlockId) -> Bool {

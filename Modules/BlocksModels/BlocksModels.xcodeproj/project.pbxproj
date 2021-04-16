@@ -35,6 +35,7 @@
 		0A6D53A625D9C99F002F3F82 /* Block+Tools+Transformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538625D9C99F002F3F82 /* Block+Tools+Transformer.swift */; };
 		0A6D53A725D9C99F002F3F82 /* RootBlocksContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */; };
 		0A6D53A825D9C99F002F3F82 /* Details+Information+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538825D9C99F002F3F82 /* Details+Information+Content.swift */; };
+		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootBlocksContainer.swift; sourceTree = "<group>"; };
 		0A6D538825D9C99F002F3F82 /* Details+Information+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Details+Information+Content.swift"; sourceTree = "<group>"; };
 		0A7831D224B8672D00A1B6F6 /* BlocksModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				0A6D538625D9C99F002F3F82 /* Block+Tools+Transformer.swift */,
 				0A6D536F25D9C99E002F3F82 /* Block+Tools+Updater.swift */,
 				0A6D536D25D9C99E002F3F82 /* Block+Utilities.swift */,
+				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
 			);
 			path = Block;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */,
 				0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */,
 				0A6D539025D9C99F002F3F82 /* Details.swift in Sources */,
+				EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */,
 				0A6D538D25D9C99F002F3F82 /* Block+Utilities.swift in Sources */,
 				0A6D539F25D9C99F002F3F82 /* Block+Protocols.swift in Sources */,
 				0A6D538E25D9C99F002F3F82 /* Details+Implementation.swift in Sources */,

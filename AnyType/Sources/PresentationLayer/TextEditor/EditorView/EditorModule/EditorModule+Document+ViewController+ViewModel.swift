@@ -41,11 +41,8 @@ extension FileNamespace {
 extension Namespace {
     
     class ViewModel: ObservableObject {
-        // MARK: Aliases
-        typealias RootModel = ContainerModel
-        typealias InformationModel = BlockInformation.InformationModel
+        // MARK: Alias
         typealias BlocksUserAction = BlocksViews.UserAction
-        typealias BlocksViewsNamespace = BlocksViews
 
         /// View Input
         weak var viewInput: EditorModuleDocumentViewInput?
@@ -71,8 +68,8 @@ extension Namespace {
         private var publicUserActionSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
         lazy var publicUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
         
-        private var publicActionsPayloadSubject: PassthroughSubject<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = .init()
-        lazy var publicActionsPayloadPublisher: AnyPublisher<BlocksViewsNamespace.Base.ViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
+        private var publicActionsPayloadSubject: PassthroughSubject<BlocksViews.Base.ViewModel.ActionsPayload, Never> = .init()
+        lazy var publicActionsPayloadPublisher: AnyPublisher<BlocksViews.Base.ViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
         
         private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
         lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
@@ -120,13 +117,11 @@ extension Namespace {
         private let updateElementsSubject: PassthroughSubject<[BlockId], Never> = .init()
         private(set) var updateElementsPublisher: AnyPublisher<[BlockId], Never> = .empty()
         private var lastSetTextClosure: (() -> Void)?
-        private let restrictionsFactory: BlockRestrictionsFactory
         
         // MARK: - Initialization
 
-        init(documentId: String, options: Options, restrictionsFactory: BlockRestrictionsFactory) {
+        init(documentId: String, options: Options) {
             self.options = options
-            self.restrictionsFactory = restrictionsFactory
             self.setupSubscriptions()
             
             // TODO: Deprecated.
@@ -252,7 +247,11 @@ extension Namespace {
                         }
                         if !update.deletedIds.isEmpty {
                             self?.remove(buildersWith: update.deletedIds)
-                            self?.deselect(ids: Set(update.deletedIds))
+                            let ids = update.deletedIds.reduce(into: [BlockId: BlockContentType]()) { result, blockId in
+                                guard let container = self?.documentViewModel.getRootActiveModel()?.container else { return }
+                                result[blockId] = container.get(by: blockId)?.information.content.type
+                            }
+                            self?.deselect(ids: ids)
                         }
                     }
                 }.store(in: &self.subscriptions)
@@ -355,17 +354,16 @@ extension FileNamespace {
 
     private func didSelect(atIndex: IndexPath) {
         guard let item = element(at: atIndex) else { return }
-        let restrictions = self.restrictionsFactory.makeRestrictions(for: item.getBlock().blockModel.information.content)
         self.set(selected: !self.selected(id: item.blockId),
                  id: item.blockId,
-                 turnIntoOptions: Set(restrictions.turnIntoStyles))
+                 type: item.getBlock().blockModel.information.content.type)
     }
 }
 
 // MARK: - Process actions
 
 private extension FileNamespace {
-    func process(actionsPayload: BlocksViewsNamespace.Base.ViewModel.ActionsPayload) {
+    func process(actionsPayload: BlocksViews.Base.ViewModel.ActionsPayload) {
         switch actionsPayload {
         case let .textView(value):
             switch value.action {
@@ -454,7 +452,7 @@ extension FileNamespace: CustomDebugStringConvertible {
 ///
 extension FileNamespace {
     func enhanceUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
-        let ourViewModels = builders.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
+        let ourViewModels = builders.compactMap({$0 as? BlocksViews.Base.ViewModel})
         ourViewModels.forEach { (value) in
             _ = value.configured(userActionSubject: self.publicUserActionSubject)
             _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)
@@ -463,7 +461,7 @@ extension FileNamespace {
     }
     
     func enhanceDetails(_ value: PageDetailsViewModelsDictionary) {
-        let ourValues = value.values.compactMap({$0 as? BlocksViewsNamespace.Base.ViewModel})
+        let ourValues = value.values.compactMap({$0 as? BlocksViews.Base.ViewModel})
         ourValues.forEach { (value) in
             _ = value.configured(userActionSubject: self.publicUserActionSubject)
             _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)

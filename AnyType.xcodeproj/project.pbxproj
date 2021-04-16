@@ -181,7 +181,6 @@
 		0A3EE0D624EAC6450074DCDF /* CoreLayer+Network+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D524EAC6450074DCDF /* CoreLayer+Network+Image.swift */; };
 		0A3EE0DA24EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D924EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings */; };
 		0A5E017A25DBD5DF00E64A70 /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; };
-		0A5E017C25DBD5ED00E64A70 /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; };
 		0A5E017D25DBD5ED00E64A70 /* ProtobufMessages.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A5F5AAF24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F5AAE24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings */; };
 		0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A68C77B240D52B3001E2F44 /* DataStructures+GroupBy.swift */; };
@@ -384,6 +383,7 @@
 		EA20CE032613703B00DBA9FE /* PickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE022613703B00DBA9FE /* PickerContentType.swift */; };
 		EA20CE0C2613823F00DBA9FE /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE0B2613823F00DBA9FE /* FilePickerResultInformation.swift */; };
 		EA20CE112613825C00DBA9FE /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA20CE102613825C00DBA9FE /* BaseFilePickerViewModel.swift */; };
+		EA289BBB2629D52C00EA869F /* TurnIntoSelectionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BBA2629D52C00EA869F /* TurnIntoSelectionStorage.swift */; };
 		EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
 		EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC404261C32C1002E961E /* DimmingPresentationController.swift */; };
@@ -409,6 +409,7 @@
 		EAC6BB5126288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5026288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift */; };
 		EAC6BB54262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */; };
 		EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* BlockActionsView.swift */; };
+		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
 		EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */; };
 		EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */; };
 		EADA96C8260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */; };
@@ -831,6 +832,7 @@
 		EA20CE022613703B00DBA9FE /* PickerContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerContentType.swift; sourceTree = "<group>"; };
 		EA20CE0B2613823F00DBA9FE /* FilePickerResultInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePickerResultInformation.swift; sourceTree = "<group>"; };
 		EA20CE102613825C00DBA9FE /* BaseFilePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFilePickerViewModel.swift; sourceTree = "<group>"; };
+		EA289BBA2629D52C00EA869F /* TurnIntoSelectionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnIntoSelectionStorage.swift; sourceTree = "<group>"; };
 		EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentView.swift; sourceTree = "<group>"; };
 		EA4AC404261C32C1002E961E /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
@@ -856,6 +858,7 @@
 		EAC6BB5026288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksAndHighlightingInputSwitcher.swift; sourceTree = "<group>"; };
 		EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsAndMarksPaneInputSwitcher.swift; sourceTree = "<group>"; };
 		EAC6BB5626289201004C8C06 /* BlockActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsView.swift; sourceTree = "<group>"; };
+		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
 		EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentView.swift; sourceTree = "<group>"; };
 		EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorModuleDocumentViewInput.swift; sourceTree = "<group>"; };
@@ -874,7 +877,6 @@
 				53C62EBE261E005E009CE6B7 /* Highlightr in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				0A73B85F25E53E77009676C1 /* FirebaseCrashlytics in Frameworks */,
-				0A5E017C25DBD5ED00E64A70 /* ProtobufMessages.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1603,6 +1605,7 @@
 		0A0965C725BEF5B000C004BD /* EditorModule */ = {
 			isa = PBXGroup;
 			children = (
+				EA289BB72629D50000EA869F /* TurnIntoSelection */,
 				5338E7E425DC32E5008CB97D /* BlockActionHandlers */,
 				0A0965D725BEF5B000C004BD /* EditorModule.swift */,
 				0A0965D425BEF5B000C004BD /* EditorModule+Container.swift */,
@@ -2467,6 +2470,15 @@
 			path = File;
 			sourceTree = "<group>";
 		};
+		EA289BB72629D50000EA869F /* TurnIntoSelection */ = {
+			isa = PBXGroup;
+			children = (
+				EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */,
+				EA289BBA2629D52C00EA869F /* TurnIntoSelectionStorage.swift */,
+			);
+			path = TurnIntoSelection;
+			sourceTree = "<group>";
+		};
 		EA6EC91925ED3DBD00740B31 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2590,7 +2602,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = AnyType;
 				TargetAttributes = {
 					0303ECFA22D8EDAA005C552B = {
@@ -2934,6 +2946,7 @@
 				EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				0A0965E725BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift in Sources */,
+				EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */,
 				3DDF589F2628C7F60081C53E /* PageIconViewModel.swift in Sources */,
@@ -3001,6 +3014,7 @@
 				0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */,
 				0350A2E7232960D900E00FB5 /* HomeCollectionViewPlusCell.swift in Sources */,
 				0AA9B044249CF6B300F2962C /* MultiSelectionPane+Main.swift in Sources */,
+				EA289BBB2629D52C00EA869F /* TurnIntoSelectionStorage.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
 				0ACC357625C851650003CF3A /* CompoundViewModelConverter.swift in Sources */,
 				0A08D4C624AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift in Sources */,

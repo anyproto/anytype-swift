@@ -4,9 +4,13 @@ import BlocksModels
 struct BlockRestrictionsFactory {
     
     func makeRestrictions(for contentType: BlockContent) -> BlockRestrictions {
+        self.makeRestrictions(for: contentType.type)
+    }
+    
+    func makeRestrictions(for contentType: BlockContentType) -> BlockRestrictions {
         switch contentType {
         case let .text(text):
-            return self.makeTextRestrictions(for: text.contentType)
+            return self.makeTextRestrictions(for: text)
         case .divider:
             return DividerBlockRestrictions()
         case .file:

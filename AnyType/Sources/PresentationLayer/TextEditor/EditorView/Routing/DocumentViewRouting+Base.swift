@@ -178,7 +178,6 @@ extension DocumentViewRouting {
                 case .tool: return self.router(of: ToolsBlocksViewsRouter.self)
                 case .file: return self.router(of: FileBlocksViewsRouter.self)
                 case .page: return self.router(of: PageBlocksViewsRouter.self)
-                default: return nil
                 }
             case .toolbars: return self.router(of: ToolbarsRouter.self)
             default: return nil

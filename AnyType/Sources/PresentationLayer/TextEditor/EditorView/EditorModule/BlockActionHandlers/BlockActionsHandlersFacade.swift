@@ -239,7 +239,7 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
         self.model = model
     }
     var getModels: [BlockActiveRecordModelProtocol] {
-        self.model?.builders.compactMap({($0 as! ViewModel.BlocksViewsNamespace.Base.ViewModel).getBlock()}) ?? []
+        self.model?.builders.compactMap { $0.getBlock() } ?? []
     }
 }
 

@@ -70,8 +70,7 @@ extension Namespace.ViewBuilder {
         
         static func selfComponent(by request: Request) -> SelfComponent {
             let viewModel = ViewModel(documentId: request.id,
-                                      options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true),
-                                      restrictionsFactory: BlockRestrictionsFactory())
+                                      options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true))
             let viewCellFactory = DocumentViewCellFactory(selectedViewColor: .selectedItemColor,
                                                           selectedViewCornerRadius: Constants.selectedViewCornerRadius)
             let view: ViewController = .init(viewModel: viewModel, viewCellFactory: viewCellFactory)
