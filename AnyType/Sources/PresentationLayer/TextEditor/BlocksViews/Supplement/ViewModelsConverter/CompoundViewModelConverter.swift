@@ -7,11 +7,11 @@ class CompoundViewModelConverter {
         self.document = document
     }
     
-    func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BlocksViews.Base.ViewModel] {
+    func convert(_ blocks: [BaseDocument.ActiveModel]) -> [BaseBlockViewModel] {
         blocks.compactMap(self.convert)
     }
     
-    func convert(_ block: BaseDocument.ActiveModel) -> BlocksViews.Base.ViewModel? {
+    func convert(_ block: BaseDocument.ActiveModel) -> BaseBlockViewModel? {
         switch block.blockModel.information.content {
         case .smartblock, .layout: return nil
         case .text:

@@ -15,7 +15,7 @@ protocol DocumentViewInteraction: AnyObject {
 }
 
 final class BlockActionsHandlersFacade {
-    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     // TODO: remove when possible
     typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 

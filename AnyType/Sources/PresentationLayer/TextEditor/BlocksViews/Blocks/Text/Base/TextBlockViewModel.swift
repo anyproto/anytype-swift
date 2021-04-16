@@ -26,7 +26,7 @@ private final class TextViewModelHolder {
 
 // MARK: - Base / ViewModel
 
-final class TextBlockViewModel: BlocksViews.Base.ViewModel {
+final class TextBlockViewModel: BaseBlockViewModel {
     typealias BlocksModelsUpdater = Block.Tools.Updater
     typealias BlockModelId = BlockId
 

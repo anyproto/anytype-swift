@@ -6,7 +6,7 @@ import BlocksModels
 import MobileCoreServices
 
 
-class DividerBlockViewModel: BlocksViews.Base.ViewModel {
+class DividerBlockViewModel: BaseBlockViewModel {
     private var subscription: AnyCancellable?
     @Published private var statePublished: DividerBlockUIKitView.State?
     private var publisher: AnyPublisher<BlockContent.Divider, Never> = .empty()

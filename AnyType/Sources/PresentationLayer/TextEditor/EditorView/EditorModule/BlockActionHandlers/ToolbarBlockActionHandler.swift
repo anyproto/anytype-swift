@@ -3,7 +3,7 @@ import os
 
 
 final class ToolbarBlockActionHandler {
-    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 
     private let service: BlockActionService

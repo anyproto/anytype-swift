@@ -8,7 +8,7 @@ enum PageBlockViewEvents {
 /// Base View Model that all ToolsBlocksViews.BlockViewModel will inherit from.
 /// Add common behavior to this class.
 ///
-class PageBlockViewModel: BlocksViews.Base.ViewModel {
+class PageBlockViewModel: BaseBlockViewModel {
     /// This DetailsViewModel could be extracted somewhere.
     /// Somewhere near EventHandler.
     typealias PageDetailsViewModel = DetailsActiveModel

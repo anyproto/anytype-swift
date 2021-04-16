@@ -18,20 +18,20 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     ///
     /// - Parameters:
     ///   - rows: Rows to display
-    func updateData(_ rows: [BlocksViews.Base.ViewModel])
+    func updateData(_ rows: [BaseBlockViewModel])
     
     /// Delete rows from view
     ///
     /// - Parameters:
     ///   - rows: Rows to delete
-    func delete(rows: [BlocksViews.Base.ViewModel])
+    func delete(rows: [BaseBlockViewModel])
     
     /// Insert new rows after passed row, for example, for toggle open event
     ///
     /// - Parameters:
     ///   - rows: New rows to insert
     ///   - row: Row after wich to insert new rows
-    func insert(rows: [BlocksViews.Base.ViewModel], after row: BlocksViews.Base.ViewModel)
+    func insert(rows: [BaseBlockViewModel], after row: BaseBlockViewModel)
 
     /// Show code language view selection.
     /// 

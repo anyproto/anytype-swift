@@ -14,7 +14,7 @@ extension Namespace {
 }
 
 extension Namespace.Base {
-    class ViewModel: BlocksViews.Base.ViewModel {}
+    class ViewModel: BaseBlockViewModel {}
 }
 
 

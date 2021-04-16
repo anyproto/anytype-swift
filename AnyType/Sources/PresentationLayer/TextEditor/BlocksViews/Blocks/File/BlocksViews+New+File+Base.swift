@@ -13,7 +13,7 @@ import UIKit
 fileprivate typealias Namespace = BlocksViews.File.Base
 
 extension Namespace {
-    class ViewModel: BlocksViews.Base.ViewModel {
+    class ViewModel: BaseBlockViewModel {
         typealias File = BlockContent.File
         typealias State = File.State
         

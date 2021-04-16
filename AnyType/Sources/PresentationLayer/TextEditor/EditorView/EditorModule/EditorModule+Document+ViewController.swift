@@ -21,7 +21,7 @@ extension Namespace {
             static let cellReuseId: String = UICollectionViewListCell.cellReuseIdentifier()
         }
         
-        private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BlocksViews.Base.ViewModel>?
+        private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?
         private let viewModel: ViewModel
         private let viewCellFactory: DocumentViewCellFactoryProtocol
         private weak var headerViewModel: HeaderView.ViewModel?
@@ -186,8 +186,8 @@ extension Namespace {
             }
         }
         
-        private func toggleBlockViewModelsForUpdate() -> [BlocksViews.Base.ViewModel] {
-            return self.collectionView.indexPathsForVisibleItems.compactMap { indexPath -> BlocksViews.Base.ViewModel? in
+        private func toggleBlockViewModelsForUpdate() -> [BaseBlockViewModel] {
+            return self.collectionView.indexPathsForVisibleItems.compactMap { indexPath -> BaseBlockViewModel? in
                 guard let builder = self.viewModel.builders[safe: indexPath.row] else { return nil }
                 let content = builder.getBlock().blockModel.information.content
                 guard case let .text(text) = content, text.contentType == .toggle else {
@@ -247,7 +247,7 @@ extension Namespace.ViewController {
         self.collectionView?.collectionViewLayout.invalidateLayout()
     }
         
-    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.Base.ViewModel>) {
+    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
         UIView.performWithoutAnimation {
             self.dataSource?.apply(snapshot, animatingDifferences: true) { [weak self] in
                 self?.updateVisibleNumberedItems()
@@ -320,22 +320,22 @@ extension Namespace.ViewController: EditorModuleDocumentViewInput {
         }
     }
     
-    func updateData(_ rows: [BlocksViews.Base.ViewModel]) {
-        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BlocksViews.Base.ViewModel>()
+    func updateData(_ rows: [BaseBlockViewModel]) {
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
         snapshot.appendSections([.first])
         snapshot.appendItems(rows)
         snapshot.reloadItems(self.toggleBlockViewModelsForUpdate())
         self.apply(snapshot)
     }
     
-    func delete(rows: [BlocksViews.Base.ViewModel]) {
+    func delete(rows: [BaseBlockViewModel]) {
         guard var snapshot = self.dataSource?.snapshot() else { return }
         snapshot.deleteItems(rows)
         snapshot.reloadItems(self.toggleBlockViewModelsForUpdate())
         self.apply(snapshot)
     }
     
-    func insert(rows: [BlocksViews.Base.ViewModel], after row: BlocksViews.Base.ViewModel) {
+    func insert(rows: [BaseBlockViewModel], after row: BaseBlockViewModel) {
         guard var snapshot = self.dataSource?.snapshot() else { return }
         snapshot.insertItems(rows, afterItem: row)
         self.apply(snapshot)

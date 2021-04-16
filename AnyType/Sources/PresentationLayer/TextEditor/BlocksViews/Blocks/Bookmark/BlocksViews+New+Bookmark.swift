@@ -25,5 +25,5 @@ extension BlocksViews.Bookmark.Base {
     /// Base View Model that all ToolsBlocksViews.BlockViewModel will inherit from.
     /// Add common behavior to this class.
     ///
-    class ViewModel: BlocksViews.Base.ViewModel {}
+    class ViewModel: BaseBlockViewModel {}
 }

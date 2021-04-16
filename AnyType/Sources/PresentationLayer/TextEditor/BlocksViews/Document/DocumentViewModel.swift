@@ -3,11 +3,14 @@ import Combine
 import BlocksModels
 import os
 
+protocol DocumentViewModelProtocol {
+    
+}
 
 final class DocumentViewModel {
-    private var blocksConverter: CompoundViewModelConverter?
-    private var detailsConverter: DetailsViewModelConverter
-    private(set) var document: BaseDocument
+    private let blocksConverter: CompoundViewModelConverter?
+    private let detailsConverter: DetailsViewModelConverter
+    private let document: BaseDocument
     
     // TODO: Remove
     var documentId: String? { self.document.documentId }
@@ -36,7 +39,7 @@ final class DocumentViewModel {
     }
 
     // MARK: - ViewModels
-    typealias BlockViewModel = BlocksViews.Base.ViewModel
+    typealias BlockViewModel = BaseBlockViewModel
     struct UpdateResult {
         var updates: BaseDocument.ModelsUpdates
         var models: [BlockViewModel]

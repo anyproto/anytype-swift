@@ -59,7 +59,7 @@ enum DocumentViewRouting {
         ///         self.objectWillChange.send()
         ///
         ///         let value = self.$buildersRows.map {
-        ///             $0.compactMap({$0.builder as? BlocksViews.Base.ViewModel})
+        ///             $0.compactMap({$0.builder as? BaseBlockViewModel})
         ///         }
         ///         .flatMap({
         ///             Publishers.MergeMany($0.map(\.userActionPublisher))

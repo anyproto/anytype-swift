@@ -4,7 +4,7 @@ import Combine
 
 
 final class TextBlockActionHandler {
-    typealias ActionsPayload = BlocksViews.Base.ViewModel.ActionsPayload
+    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     typealias DetailsInspector = Block.Utilities.DetailsInspector
 
     private var subscriptions: Set<AnyCancellable> = []
