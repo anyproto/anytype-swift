@@ -16,31 +16,22 @@ private extension LoggerCategory {
 /// And keep latest ( last ) document as open document.
 ///
 class BaseDocument {
-    typealias RootModel = ContainerModel
     typealias DetailsContentKind = DetailsContent.Kind
     typealias UserSession = BlockUserSessionModelProtocol
     
-    /// RootId
     private var rootId: BlockId? { self.rootModel?.rootId }
     
-    /// TODO:
-    /// Remove it later.
-    /// We have to keep it private.
-    /// For now it is ok.
-    ///
+    // TODO: Remove
     var documentId: BlockId? { self.rootId }
     
     /// RootModel
-    private var rootModel: RootModel? {
+    private var rootModel: ContainerModel? {
         didSet {
             self.handleNewRootModel(self.rootModel)
         }
     }
     
-    /// Event Processing
-    private let eventProcessor: EventProcessor = .init()
-    
-    /// Data transformer
+    private let eventProcessor = EventProcessor()
     private let transformer: TreeBlockBuilder = .defaultValue
     
     /// Details Active Models
@@ -67,8 +58,6 @@ class BaseDocument {
     /// Services
     private var smartblockService: BlockActionsServiceSingle = .init()
     
-    init() {}
-    
     deinit {
         // TODO:
         // Add closing document without thread.
@@ -81,7 +70,9 @@ class BaseDocument {
     // MARK: - Handle Open
 
     private func handleOpen(_ value: ServiceSuccess) {
-        let blocks = self.eventProcessor.handleBlockShow(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
+        let blocks = self.eventProcessor.handleBlockShow(
+            events: .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+        )
         guard let event = blocks.first else { return }
         
         // Build blocks tree and create new container
@@ -131,7 +122,7 @@ class BaseDocument {
     /// It is the first place where you can configure default details with various handlers and other stuff.
     ///
     /// - Parameter container: A container in which this details is default.
-    func configureDetails(for container: RootModel?) {
+    func configureDetails(for container: ContainerModel?) {
         guard let container = container,
               let rootId = container.rootId,
               let ourModel = container.detailsContainer.choose(by: rootId)
@@ -147,7 +138,7 @@ class BaseDocument {
     }
 
     // MARK: - Handle new root model
-    func handleNewRootModel(_ container: RootModel?) {
+    func handleNewRootModel(_ container: ContainerModel?) {
         if let container = container {
             _ = self.eventProcessor.configured(container)
         }

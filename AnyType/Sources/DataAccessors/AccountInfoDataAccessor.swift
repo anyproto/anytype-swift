@@ -20,7 +20,7 @@ final class AccountInfoDataAccessor: ObservableObject {
         selectedColor ?? .clear
     }
     
-    private let documentViewModel = BlocksViews.DocumentViewModel()
+    private let documentViewModel = DocumentViewModel()
     private var subscriptions: Set<AnyCancellable> = []
     
     private let middlewareConfigurationService = MiddlewareConfigurationService()
@@ -50,7 +50,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     func obtainAccountInfo() {        
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration -> AnyPublisher<ServiceSuccess, Error> in
-            self.profileBlockId = configuration.homeBlockID
+            self.profileBlockId = configuration.profileBlockId
             return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
         }.sink(receiveCompletion: { (value) in
             switch value {

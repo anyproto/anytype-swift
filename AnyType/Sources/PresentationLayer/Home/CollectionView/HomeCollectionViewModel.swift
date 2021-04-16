@@ -17,7 +17,7 @@ class HomeCollectionViewModel: ObservableObject {
     private var subscriptions: Set<AnyCancellable> = []
             
     @Published var cellViewModels: [HomeCollectionViewCellType] = []
-    private let documentViewModel = BlocksViews.DocumentViewModel()
+    private let documentViewModel = DocumentViewModel()
     
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
@@ -71,9 +71,6 @@ class HomeCollectionViewModel: ObservableObject {
     }
 
     func handleOpenDashboard(_ value: ServiceSuccess) {
-        /// TODO:
-        /// Decide how we should handle block opening.
-        ///
         self.documentViewModel.updatePublisher().sink { [weak self] (value) in
             switch value.updates {
                 case .update(.empty): return
@@ -140,21 +137,22 @@ class HomeCollectionViewModel: ObservableObject {
         }
     }
     
+    
     // MARK: - Private
     private func createViewModels(from pages: [BlockPageLinkViewModel]) {
-        let links = pages.compactMap({ value -> HomeCollectionViewDocumentCellModel? in
-            let detailsModel = value.getDetailsViewModel()
+        let links = pages.compactMap({ pageLink -> HomeCollectionViewDocumentCellModel? in
+            let detailsModel = pageLink.getDetailsViewModel()
 
             let details = detailsModel.currentDetails
             let targetBlockId: String
-            if case let .link(link) = value.getBlock().blockModel.information.content {
+            if case let .link(link) = pageLink.getBlock().blockModel.information.content {
                 targetBlockId = link.targetBlockID
             }
             else {
                 targetBlockId = ""
             }
             let model = HomeCollectionViewDocumentCellModel(
-                page: .init(id: value.blockId, targetBlockId: targetBlockId),
+                page: .init(id: pageLink.blockId, targetBlockId: targetBlockId),
                 title: details.title?.value ?? "",
                 image: nil, emoji: details.iconEmoji?.value
             )

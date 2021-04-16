@@ -1,26 +1,14 @@
-//
-//  DashboardService.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 18.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
 
 class DashboardService: DashboardServiceProtocol {
-    private let middlewareConfigurationService: MiddlewareConfigurationService = .init()
-    private let blocksActionsService: BlockActionsServiceSingle = .init()
-    private let objectsService: ObjectActionsService = .init()
-    private var dashboardId: String = ""
+    private let middlewareConfigurationService = MiddlewareConfigurationService()
+    private let blocksActionsService = BlockActionsServiceSingle()
+    private let objectsService = ObjectActionsService()
     
-    private func save(configuration: MiddlewareConfiguration) -> MiddlewareConfiguration {
-        self.dashboardId = configuration.homeBlockID
-        return configuration
-    }
+    private var dashboardId: String = ""
         
     func openDashboard() -> AnyPublisher<ServiceSuccess, Error> {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
@@ -43,5 +31,10 @@ class DashboardService: DashboardServiceProtocol {
             details: details,
             position: .bottom
         )
+    }
+    
+    private func save(configuration: MiddlewareConfiguration) -> MiddlewareConfiguration {
+        self.dashboardId = configuration.homeBlockID
+        return configuration
     }
 }

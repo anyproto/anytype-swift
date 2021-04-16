@@ -6,12 +6,6 @@ import ProtobufMessages
 class MiddlewareConfigurationService: ConfigurationServiceProtocol {
     private let storage = InMemoryStoreFacade.shared.middlewareConfigurationStore
 
-    // TODO: Rethink result type.
-    // Maybe we would like to return Result?
-    private func save(configuration: MiddlewareConfiguration) {
-        self.storage?.add(configuration)
-    }
-
     /// Obtain middleware configuration
     func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
         let configuration = self.storage?.get(by: MiddlewareConfiguration.self)
@@ -44,5 +38,11 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
             .map { MiddlewareVersion(version: $0.details) }
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
+    }
+    
+    // TODO: Rethink result type.
+    // Maybe we would like to return Result?
+    private func save(configuration: MiddlewareConfiguration) {
+        self.storage?.add(configuration)
     }
 }

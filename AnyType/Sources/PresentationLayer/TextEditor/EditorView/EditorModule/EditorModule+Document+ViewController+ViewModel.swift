@@ -54,7 +54,7 @@ extension Namespace {
         private var blockActionsService: BlockActionsServiceSingle = .init()
         
         /// Document ViewModel
-        private(set) var documentViewModel: BlocksViews.DocumentViewModel = .init()
+        private(set) var documentViewModel = DocumentViewModel()
         
         /// User Interaction Processor
         private lazy var blockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
@@ -277,7 +277,7 @@ extension Namespace {
             /// Refactor when you are ready.
             /// It is tough stuff.
             ///
-            if let iconEmoji = detailsViewModels.first(where: {$0 as? BlocksViewsNamespace.Page.IconEmoji.ViewModel != nil}) {
+            if let iconEmoji = detailsViewModels.first(where: {$0 as? PageIconViewModel != nil}) {
                 dictionary[.iconEmoji] = iconEmoji
             }
             self.detailsViewModels = dictionary

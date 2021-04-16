@@ -7,7 +7,6 @@ import BlocksModels
 // Sends and receives data via serivce.
 class DetailsActiveModel {
     typealias PageDetails = DetailsInformationModel
-    typealias Details = DetailsContent
     typealias Events = EventListening.PackOfEvents
     private var documentId: String?
     
@@ -61,7 +60,7 @@ extension DetailsActiveModel {
     }
     
     /// Maybe add AnyPublisher as Return result?
-    func update(details: Details) -> AnyPublisher<Void, Error>? {
+    func update(details: DetailsContent) -> AnyPublisher<Void, Error>? {
         guard let documentId = self.documentId else {
             assertionFailure("update(details:). Our document is not ready yet")
             return nil

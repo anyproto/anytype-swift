@@ -10,7 +10,6 @@ enum BlocksViews {
     enum Text {}
     enum File {}
     enum Tools {}
-    enum Page {}
     enum Bookmark {}
     enum Other {}
     enum Unknown {}
