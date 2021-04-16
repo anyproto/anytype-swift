@@ -268,11 +268,10 @@ extension MarksPane.Main {
     /// But, UIView doesn't hold view model :/
     /// So, we need this `ViewModelHolder`, which will have access to UIView and to its ViewModel.
     /// 
-    struct ViewModelHolder {
+    final class ViewModelHolder {
         @ObservedObject private(set) var viewModel: ViewModel = .init()
-        private(set) lazy var view: UIView = {
-            self.createView()
-        }()
+        private(set) lazy var view = self.createView()
+        
         func createView() -> UIView {
             InputViewBuilder.createView(self._viewModel, sectionViewModel: self.viewModel.observedSectionViewModel)
         }

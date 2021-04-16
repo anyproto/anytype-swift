@@ -16,17 +16,6 @@ extension Namespace.ContextualMenu {
         case color
         case background
     }
-    enum Resources {
-        enum Title {
-            static func title(for action: Action) -> String {
-                switch action {
-                case .style: return "Style"
-                case .color: return "Color"
-                case .background: return "Background"
-                }
-            }
-        }
-    }
 }
 
 // MARK: - TextStorageEvent
@@ -190,32 +179,24 @@ extension Namespace {
 
 // MARK: Contextual Menu
 extension Namespace.TextViewWithPlaceholder {
-    private class ContextualMenuItem: UIMenuItem {
-        var payload: TextView.UIKitTextView.ContextualMenu.Action
-        init(title: String, action: Selector, payload: TextView.UIKitTextView.ContextualMenu.Action) {
-            self.payload = payload
-            super.init(title: title, action: action)
-        }
-        convenience init(action: Selector, payload: TextView.UIKitTextView.ContextualMenu.Action) {
-            self.init(title: TextView.UIKitTextView.ContextualMenu.Resources.Title.title(for: payload), action: action, payload: payload)
-        }
-    }
     @objc private func contextualMenuItemDidSelectedForStyle() {
         self.contextualMenuSubject.send(.style)
     }
+    
     @objc private func contextualMenuItemDidSelectedForColor() {
         self.contextualMenuSubject.send(.color)
     }
+    
     @objc private func contextualMenuItemDidSelectedForBackground() {
         self.contextualMenuSubject.send(.background)
     }
-    fileprivate func setupMenu() {
-        let menu = UIMenuController.shared
-        menu.menuItems = [ContextualMenuItem].init([
-            .init(action: #selector(contextualMenuItemDidSelectedForStyle), payload: .style),
-            .init(action: #selector(contextualMenuItemDidSelectedForColor), payload: .color),
-            .init(action: #selector(contextualMenuItemDidSelectedForBackground), payload: .background)
-        ])
+    
+    private func setupMenu() {
+        UIMenuController.shared.menuItems = [
+            UIMenuItem(title: "Style".localized, action: #selector(contextualMenuItemDidSelectedForStyle)),
+            UIMenuItem(title: "Color".localized, action: #selector(contextualMenuItemDidSelectedForColor)),
+            UIMenuItem(title: "Background".localized, action: #selector(contextualMenuItemDidSelectedForBackground))
+        ]
     }
 }
 
@@ -229,34 +210,13 @@ extension Namespace.TextViewWithPlaceholder: NSTextStorageDelegate {
     }
 }
 
-/// TODO: Remove this printer when you are move textAlignment to MarksStyle.
-/// Actually, we should extract textAlignment from MarksStyle.
-/// In this case we even don't need correct order of applying alignment.
-///
-extension Namespace.TextViewWithPlaceholder {
-    enum TextAlignmentPrinter {
-        static func print(_ alignment: NSTextAlignment?) -> String {
-            guard let alignment = alignment else { return "" }
-            switch alignment {
-            case .left: return "left"
-            case .center: return "center"
-            case .right: return "right"
-            case .justified: return "justified"
-            case .natural: return "natural"
-            @unknown default: return "default"
-            }
-        }
-    }
-}
-
 // MARK: - Placeholder
 extension Namespace.TextViewWithPlaceholder {
-    fileprivate func syncPlaceholder() {
+    private func syncPlaceholder() {
         self.placeholderLabel.isHidden = !self.text.isEmpty
     }
     
     func update(placeholder: NSAttributedString?) {
         self.placeholderLabel.attributedText = placeholder
-        // TODO: Add redrawing?
     }
 }
