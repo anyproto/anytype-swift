@@ -13,7 +13,7 @@ class PageTitleViewModel: PageBlockViewModel {
     // Add subscription on event.
     
     private var subscriptions: Set<AnyCancellable> = []
-    private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
+    private let textViewModel: TextView.UIKitTextView.ViewModel
 
     /// Points of truth.
     /// We could use it as input and output subscribers.
@@ -42,6 +42,7 @@ class PageTitleViewModel: PageBlockViewModel {
     
     // MARK: - Initialization
     override init(_ block: BlockModel) {
+        self.textViewModel = TextView.UIKitTextView.ViewModel(blockContentType: block.blockModel.information.content.type)
         super.init(block)
         self.setup(block: block)
     }

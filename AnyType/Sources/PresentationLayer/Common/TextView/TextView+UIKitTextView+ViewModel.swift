@@ -79,12 +79,15 @@ extension Namespace {
         private var firstResponderChangeSubject: PassthroughSubject<FirstResponder.Change, Never> = .init()
         private(set) var firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never> = .empty()
         
-        private(set) var coordinator: Coordinator = .init()
+        let coordinator: Coordinator
         
         /// Subscriptions
         private var firstResponderChangeSubscription: AnyCancellable?
         
-        init() {
+        init(blockContentType: BlockContentType) {
+            let factory = BlockRestrictionsFactory()
+            let restrictions = factory.makeRestrictions(for: blockContentType)
+            self.coordinator = Coordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions))
             self.setup()
         }
         

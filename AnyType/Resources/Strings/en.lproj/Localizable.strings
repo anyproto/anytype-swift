@@ -35,6 +35,20 @@
 "Style" = "Style";
 "Color" = "Color";
 "Background" = "Background";
+"Other" = "Other";
+"Media" = "Media";
+"Alignment" = "Alignment";
+"Actions" = "Actions";
+"Relations" = "Relations";
+"Objects" = "Objects";
+"Delete" = "Delete";
+"Duplicate" = "Duplicate";
+"Copy" = "Copy";
+"Paste" = "Paste";
+"Move" = "Move";
+"Move to" = "Move to";
+"Clear style" = "Clear style";
+"Back" = "Back";
 
 // Settings
 "Your public page" = "Your public page";

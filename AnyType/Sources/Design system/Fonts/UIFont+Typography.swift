@@ -23,6 +23,7 @@ extension UIFont {
     private enum Inter {
         static let family = "Inter"
         static let regularFace = "Regular"
+        static let medium = "Medium"
     }
     
     static var titleFont: UIFont {
@@ -52,9 +53,19 @@ extension UIFont {
         let fontDescription = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.regularFace])
         return UIFont(descriptor: fontDescription, size: 15.0)
     }
+    
+    static var smallBodyFont: UIFont {
+        let fontDescription = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.regularFace])
+        return UIFont(descriptor: fontDescription, size: 13.0)
+    }
 
     static var codeFont: UIFont {
         UIFont(name: IBMPlexMono.regular, size: 15) ?? .preferredFont(forTextStyle: .body)
+    }
+    
+    static var captionFont: UIFont {
+        let descriptior = UIFontDescriptor(fontAttributes: [.family: Inter.family, .face: Inter.medium])
+        return UIFont(descriptor: descriptior, size: 13)
     }
     
     /// Get font for for text block type

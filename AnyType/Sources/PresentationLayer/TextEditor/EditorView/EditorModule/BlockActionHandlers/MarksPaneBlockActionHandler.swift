@@ -33,7 +33,7 @@ final class MarksPaneBlockActionHandler {
             case let .fontStyle(fontAction):
                 self.handleFontAction(for: block, range: range, fontAction: fontAction)
             }
-        case let .textColor(range, colorAction):
+        case let .textColor(_, colorAction):
             switch colorAction {
             case let .setColor(color):
                 self.setBlockColor(block: block.blockModel.information, color: color)

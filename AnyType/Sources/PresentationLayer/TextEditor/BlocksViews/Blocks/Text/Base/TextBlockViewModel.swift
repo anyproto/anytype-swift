@@ -33,7 +33,6 @@ final class TextBlockViewModel: BaseBlockViewModel {
     private struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
         var shouldApplyChangesLocally: Bool = false
-        var shouldStopSetupTextViewModel: Bool = false
     }
 
     private var serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
@@ -43,7 +42,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
     /// We could directly set a state or a parts of this viewModel state.
     /// This should fire updates and corresponding view will be updated.
     ///
-    private var textViewModel: TextView.UIKitTextView.ViewModel = .init()
+    private let textViewModel: TextView.UIKitTextView.ViewModel
     private lazy var textViewModelHolder: TextViewModelHolder = {
         .init(self.textViewModel)
     }()
@@ -64,11 +63,8 @@ final class TextBlockViewModel: BaseBlockViewModel {
     // MARK: - Life cycle
 
     override init(_ block: BlockModel) {
+        self.textViewModel = TextView.UIKitTextView.ViewModel(blockContentType: block.blockModel.information.content.type)
         super.init(block)
-        if self.textOptions.shouldStopSetupTextViewModel {
-            assertionFailure("Initialization process has been cut down. You have to call 'self.setup' method.")
-            return
-        }
         self.setup()
     }
 

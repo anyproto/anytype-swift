@@ -1,15 +1,14 @@
-
 import UIKit
 
 final class BlockActionsView: UIView {
-    
+
     private enum Constants {
         static let separatorHeight: CGFloat = 0.5
     }
-    
+
     private weak var parentTextView: UITextView?
     private let positionOfFirstSymbolToGetFilterString: Int
-    
+
     init(parentTextView: UITextView, frame: CGRect) {
         self.parentTextView = parentTextView
         let selectedRange = parentTextView.selectedRange
@@ -18,11 +17,11 @@ final class BlockActionsView: UIView {
         self.backgroundColor = .systemBackground
         self.setup()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setup() {
         let topSeparator = UIView()
         topSeparator.translatesAutoresizingMaskIntoConstraints = false

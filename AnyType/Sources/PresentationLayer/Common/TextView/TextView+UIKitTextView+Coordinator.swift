@@ -6,7 +6,7 @@
 //  Copyright © 2020 AnyType. All rights reserved.
 //
 
-import Foundation
+import BlocksModels
 import UIKit
 import Combine
 import os
@@ -16,12 +16,6 @@ fileprivate typealias FileNamespace = Namespace.Coordinator
 
 private extension LoggerCategory {
     static let textViewUIKitTextViewCoordinator: Self = "TextView.UIKitTextView.Coordinator"
-}
-
-private extension Namespace.Coordinator {
-    struct Options {
-        var shouldStopSetupSubscribers: Bool = false
-    }
 }
 
 extension Namespace {
@@ -36,9 +30,6 @@ extension Namespace {
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
         typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
-
-        // MARK: Variables
-        private var options: Options = .init()
         /// TODO: Should we store variables here?
         /// Because, we have also `viewModel`.
         /// Maybe we need remove these variables?
@@ -84,17 +75,12 @@ extension Namespace {
         
         private var keyboardObserverHandler: AnyCancellable?
         private(set) var defaultKeyboardRect: CGRect = .zero
-        private lazy var pressingEnterTimeChecker: TimeChecker = .init(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
+        private lazy var pressingEnterTimeChecker = TimeChecker(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
         
-        private lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
+        private let inputSwitcher: ActionsAndMarksPaneInputSwitcher
         
-        // MARK: - Initiazliation
-        override init() {
-            super.init()
-            if self.options.shouldStopSetupSubscribers {
-                assertionFailure("Initialization process has been cut down. You have to call 'self.setup' method.")
-                return;
-            }
+        init(menuItemsBuilder: BlockActionsBuilder) {
+            self.inputSwitcher = ActionsAndMarksPaneInputSwitcher(menuItemsBuilder: menuItemsBuilder)
         }
     }
 }

@@ -90,7 +90,7 @@ extension TextView {
             
             // Resign first responder
             self.model?.shouldResignFirstResponderPublisher.sink(receiveValue: { [weak self] (value) in
-                self?.textView.resignFirstResponder()
+                _ = self?.textView.resignFirstResponder()
             }).store(in: &self.subscriptions)
         }
         
@@ -252,7 +252,7 @@ private extension TextView.UIKitTextView {
                 }
             }
         }
-        self.textView?.becomeFirstResponder()
+        _ = self.textView?.becomeFirstResponder()
     }
 
     func setFocus(_ value: ViewModel.Focus) {
