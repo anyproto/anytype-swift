@@ -983,18 +983,18 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		03074B86239514BF009FA7D0 /* Auth Story */ = {
+		03074B86239514BF009FA7D0 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				0372923223F9CB920033DFDB /* CompletionAuthView */,
-				03507433239E72D7001CF477 /* MainAuthView */,
-				03507436239E72FC001CF477 /* CreateNewProfileView */,
-				038A81FE23A0162B00B71388 /* LoginView */,
-				0372AB4323A09DE1008CF5B9 /* SelectProfileView */,
+				0372923223F9CB920033DFDB /* CompletionAuth */,
+				03507433239E72D7001CF477 /* MainAuth */,
+				03507436239E72FC001CF477 /* CreateNewProfile */,
+				038A81FE23A0162B00B71388 /* Login */,
+				0372AB4323A09DE1008CF5B9 /* SelectProfile */,
 				039F6D7B239594B90097560A /* PinCodeView.swift */,
 				3DD2FC432620802900C65466 /* AuthAssembly.swift */,
 			);
-			path = "Auth Story";
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		030DF4B12399345C00AD3BC3 /* Auth */ = {
@@ -1157,23 +1157,23 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		03507433239E72D7001CF477 /* MainAuthView */ = {
+		03507433239E72D7001CF477 /* MainAuth */ = {
 			isa = PBXGroup;
 			children = (
 				037F2D36239DC6DC008C16BF /* MainAuthViewModel.swift */,
 				03074B87239514E2009FA7D0 /* MainAuthView.swift */,
 			);
-			path = MainAuthView;
+			path = MainAuth;
 			sourceTree = "<group>";
 		};
-		03507436239E72FC001CF477 /* CreateNewProfileView */ = {
+		03507436239E72FC001CF477 /* CreateNewProfile */ = {
 			isa = PBXGroup;
 			children = (
 				03B161A1239F3A3B00BF27D1 /* WaitingViewOnCreatAccount */,
 				03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */,
 				03992F642395D7A10027A4AD /* CreateNewProfileView.swift */,
 			);
-			path = CreateNewProfileView;
+			path = CreateNewProfile;
 			sourceTree = "<group>";
 		};
 		0350A2E323295E0000E00FB5 /* CollectionView */ = {
@@ -1204,23 +1204,23 @@
 			path = InMemoryStore;
 			sourceTree = "<group>";
 		};
-		0372923223F9CB920033DFDB /* CompletionAuthView */ = {
+		0372923223F9CB920033DFDB /* CompletionAuth */ = {
 			isa = PBXGroup;
 			children = (
 				03992F6823969B030027A4AD /* CompletionAuthView.swift */,
 				034CD9BD23F9D9AF00C8E131 /* CompletionAuthViewModel.swift */,
 				0372923323F9CC230033DFDB /* CompletionAuthViewCoordinator.swift */,
 			);
-			path = CompletionAuthView;
+			path = CompletionAuth;
 			sourceTree = "<group>";
 		};
-		0372AB4323A09DE1008CF5B9 /* SelectProfileView */ = {
+		0372AB4323A09DE1008CF5B9 /* SelectProfile */ = {
 			isa = PBXGroup;
 			children = (
 				0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */,
 				03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */,
 			);
-			path = SelectProfileView;
+			path = SelectProfile;
 			sourceTree = "<group>";
 		};
 		03746CF722DE504600380AA1 /* Helpers */ = {
@@ -1255,13 +1255,13 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		038A81FE23A0162B00B71388 /* LoginView */ = {
+		038A81FE23A0162B00B71388 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				038A81FC23A0158B00B71388 /* LoginViewModel.swift */,
 				039F6D77239580A10097560A /* LoginView.swift */,
 			);
-			path = LoginView;
+			path = Login;
 			sourceTree = "<group>";
 		};
 		038FB5C422D8F284002B90B8 /* Resources */ = {
@@ -1290,7 +1290,7 @@
 			children = (
 				0A996BAD23EDBC09000FDC9C /* DeveloperOptionsStory */,
 				0331BBE122E608AC002AD179 /* Common */,
-				03074B86239514BF009FA7D0 /* Auth Story */,
+				03074B86239514BF009FA7D0 /* Auth */,
 				03A24B8D232152ED00DA7369 /* TextEditor */,
 				0331BBD822E5D8AB002AD179 /* Profile Story */,
 				0331BBD722E5D8A1002AD179 /* Home */,
