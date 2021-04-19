@@ -4,11 +4,8 @@ import Combine
 import os
 import BlocksModels
 
-fileprivate typealias Namespace = EditorModule.Document.ViewController
-fileprivate typealias FileNamespace = Namespace.ViewModel
 
-
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     enum State {
         case loading
         case empty
@@ -23,14 +20,14 @@ extension FileNamespace {
 }
 
 // MARK: Events
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     enum UserEvent {
         case pageDetailsViewModelsDidSet
     }
 }
 
 // MARK: - Options
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     /// Structure contains `Feature Flags`.
     ///
     struct Options {
@@ -38,7 +35,7 @@ extension FileNamespace {
     }
 }
 
-extension Namespace {
+extension EditorModule.Document.ViewController {
     
     class ViewModel: ObservableObject {
         typealias BlocksUserAction = BlocksViews.UserAction
@@ -50,7 +47,7 @@ extension Namespace {
         private var blockActionsService: BlockActionsServiceSingle = .init()
         
         /// Document ViewModel
-        private(set) var documentViewModel = DocumentViewModel()
+        private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
         
         /// User Interaction Processor
         private lazy var blockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
@@ -247,7 +244,7 @@ extension Namespace {
                         if !update.deletedIds.isEmpty {
                             self?.remove(buildersWith: update.deletedIds)
                             let ids = update.deletedIds.reduce(into: [BlockId: BlockContentType]()) { result, blockId in
-                                guard let container = self?.documentViewModel.getRootActiveModel()?.container else { return }
+                                guard let container = self?.documentViewModel.rootActiveModel?.container else { return }
                                 result[blockId] = container.get(by: blockId)?.information.content.type
                             }
                             self?.deselect(ids: ids)
@@ -269,7 +266,7 @@ extension Namespace {
         }
         
         private func configureDetails() {
-            let detailsViewModels = self.documentViewModel.defaultDetailsViewModels()
+            let detailsViewModels = self.documentViewModel.detailsViewModels()
             var dictionary: PageDetailsViewModelsDictionary = [:]
             /// TODO:
             /// Refactor when you are ready.
@@ -285,7 +282,7 @@ extension Namespace {
 
 // MARK: - DocumentViewInteraction
 
-extension FileNamespace: DocumentViewInteraction {
+extension EditorModule.Document.ViewController.ViewModel: DocumentViewInteraction {
     func updateBlocks(with ids: [BlockId]) {
         self.updateElementsSubject.send(ids)
     }
@@ -293,7 +290,7 @@ extension FileNamespace: DocumentViewInteraction {
 
 // MARK: - Reactions
 
-private extension FileNamespace {
+private extension EditorModule.Document.ViewController.ViewModel {
     func process(reaction: BlockActionsHandlersFacade.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
@@ -304,7 +301,7 @@ private extension FileNamespace {
 
             switch actionType {
             case .deleteBlock, .merge:
-                let firstResponderBlockId = self.documentViewModel.getUserSession()?.firstResponder()
+                let firstResponderBlockId = self.documentViewModel.userSession?.firstResponder()
                 
                 if let firstResponderIndex = self.builders.firstIndex(where: { $0.blockId == firstResponderBlockId }) {
                     self.viewInput?.setFocus(at: firstResponderIndex)
@@ -326,15 +323,17 @@ private extension FileNamespace {
 
 // MARK: - On Tap Gesture
 
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     func handlingTapIfEmpty() {
-        self.blockActionHandler.createEmptyBlock(listIsEmpty: self.state == .empty, parentModel: self.documentViewModel.getRootActiveModel())
+        self.blockActionHandler.createEmptyBlock(
+            listIsEmpty: self.state == .empty, parentModel: self.documentViewModel.rootActiveModel
+        )
     }
 }
 
 // MARK: - Selection Handling
 
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     func didSelectBlock(at index: IndexPath) {
         if self.selectionEnabled() {
             self.didSelect(atIndex: index)
@@ -361,7 +360,7 @@ extension FileNamespace {
 
 // MARK: - Process actions
 
-private extension FileNamespace {
+private extension EditorModule.Document.ViewController.ViewModel {
     func process(actionsPayload: BaseBlockViewModel.ActionsPayload) {
         switch actionsPayload {
         case let .textView(value):
@@ -404,7 +403,7 @@ private extension FileNamespace {
     }
 }
 
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     enum ActionsPayload {
         typealias ListModel = [BlockId]
 
@@ -419,7 +418,7 @@ extension FileNamespace {
     }
 }
 
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     func configured(multiSelectionUserActionPublisher: AnyPublisher<EditorModule.Selection.ToolbarPresenter.SelectionAction, Never>) -> Self {
         multiSelectionUserActionPublisher.sink { [weak self] (value) in
             self?.process(value)
@@ -435,7 +434,7 @@ extension FileNamespace {
 
 // MARK: - Debug
 
-extension FileNamespace: CustomDebugStringConvertible {
+extension EditorModule.Document.ViewController.ViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
         "\(String(reflecting: Self.self)) -> \(String(describing: self.documentViewModel.documentId))"
     }
@@ -449,7 +448,7 @@ extension FileNamespace: CustomDebugStringConvertible {
 ///
 /// 1. We have one Subject that we give to all ViewModels.
 ///
-extension FileNamespace {
+extension EditorModule.Document.ViewController.ViewModel {
     func enhanceUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
         let ourViewModels = builders.compactMap({$0 as? BaseBlockViewModel})
         ourViewModels.forEach { (value) in

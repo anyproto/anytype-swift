@@ -17,7 +17,7 @@ class HomeCollectionViewModel: ObservableObject {
     private var subscriptions: Set<AnyCancellable> = []
             
     @Published var cellViewModels: [HomeCollectionViewCellType] = []
-    private let documentViewModel = DocumentViewModel()
+    private let documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
     
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()

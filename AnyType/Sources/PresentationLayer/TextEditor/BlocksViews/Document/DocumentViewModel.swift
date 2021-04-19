@@ -3,94 +3,52 @@ import Combine
 import BlocksModels
 import os
 
-protocol DocumentViewModelProtocol {
-    
-}
 
-final class DocumentViewModel {
-    private let blocksConverter: CompoundViewModelConverter?
-    private let detailsConverter: DetailsViewModelConverter
-    private let document: BaseDocument
-    
-    // TODO: Remove
+final class DocumentViewModel: DocumentViewModelProtocol {
     var documentId: String? { self.document.documentId }
+    var rootActiveModel: BaseDocument.ActiveModel? { self.document.getRootActiveModel() }
+    var userSession: BaseDocument.UserSession? { self.document.getUserSession() }
     
-    init(_ document: BaseDocument = BaseDocument()) {
-        self.document = document
+    private let blocksConverter: CompoundViewModelConverter
+    private let detailsConverter: DetailsViewModelConverter
+    private let document = BaseDocument()
+    
+    init() {
         self.blocksConverter = CompoundViewModelConverter(self.document)
         self.detailsConverter = DetailsViewModelConverter(self.document)
     }
 
-    // MARK: - Open
-    func open(_ documentId: BlockId) {
-        _ = self.document.open(documentId).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(value):
-                assertionFailure("open(_ documentId). Error has occurred. \(value)")
-            }
-        }, receiveValue: {})
-    }
-    func open(_ documentId: BlockId) -> AnyPublisher<Void, Error> {
-        self.document.open(documentId)
-    }
+    // MARK: - Public
     func open(_ value: ServiceSuccess) {
         self.document.open(value)
     }
-
-    // MARK: - ViewModels
-    typealias BlockViewModel = BaseBlockViewModel
-    struct UpdateResult {
-        var updates: BaseDocument.ModelsUpdates
-        var models: [BlockViewModel]
-    }
     
-    private func viewModels(from models: [BaseDocument.ActiveModel]) -> [BlockViewModel] {
-        self.blocksConverter?.convert(models) ?? []
-    }
-    
-    func updatePublisher() -> AnyPublisher<UpdateResult, Never> {
+    func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never> {
         self.document.modelsAndUpdatesPublisher().map { [weak self] (value) in
-            .init(updates: value.updates, models: self?.viewModels(from: value.models) ?? [])
+            DocumentViewModelUpdateResult(
+                updates: value.updates,
+                models: self?.blocksConverter.convert(value.models) ?? []
+            )
         }.eraseToAnyPublisher()
     }
-
-    // MARK: - Models
-    func getRootActiveModel() -> BaseDocument.ActiveModel? {
-        self.document.getRootActiveModel()
-    }
-    func getUserSession() -> BaseDocument.UserSession? {
-        self.document.getUserSession()
-    }
-
-    // MARK: - Details
-    struct Predicate {
-        var list: [DetailsContent.Kind] = [.iconEmoji, .title]
-    }
     
-    func defaultDetails() -> DetailsActiveModel {
-        self.document.getDefaultDetails()
-    }
-    
-    func defaultPageDetails() -> DetailsInformationProvider {
-        self.document.getDefaultPageDetails()
-    }
-    
-    func defaultPageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
+    func pageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
         self.document.getDefaultPageDetailsPublisher()
     }
     
-    func defaultDetailsViewModels(orderedBy predicate: Predicate = .init()) -> [BlockViewModel] {
-        predicate.list.compactMap({ value -> BlockViewModel? in
+    func detailsViewModels() -> [BaseBlockViewModel] {
+        detailsViewModels(orderedBy: DocumentViewModelPredicate())
+    }
+    
+    func detailsViewModels(orderedBy predicate: DocumentViewModelPredicate) -> [BaseBlockViewModel] {
+        predicate.list.compactMap({ value -> BaseBlockViewModel? in
             guard let model = self.document.getDefaultDetailsActiveModel(of: value) else { return nil }
             guard let viewModel = self.detailsConverter.convert(model, kind: value) else { return nil }
-            return viewModel.configured(pageDetailsViewModel: self.defaultDetails())
+            return viewModel.configured(pageDetailsViewModel: document.getDefaultDetails())
         })
     }
-
-    // MARK: - Events
-    typealias Events = BaseDocument.Events
-    func handle(events: Events) {
+    
+    func handle(events: BaseDocument.Events) {
         self.document.handle(events: events)
     }
 }

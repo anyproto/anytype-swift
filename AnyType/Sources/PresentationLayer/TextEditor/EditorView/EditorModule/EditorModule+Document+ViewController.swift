@@ -227,7 +227,7 @@ extension Namespace.ViewController {
     private func scrollAndFocusOnFocusedBlock() {
         guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot(for: .first)
-        let userSession = self.viewModel.documentViewModel.getUserSession()
+        let userSession = self.viewModel.documentViewModel.userSession
         if let id = userSession?.firstResponder(), let focusedAt = userSession?.focusAt() {
             let itemIdentifiers = snapshot.visibleItems
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
@@ -315,7 +315,7 @@ extension Namespace.ViewController: EditorModuleDocumentViewInput {
         guard let snapshot = self.dataSource?.snapshot() else { return }
         let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
         if let textItem = itemIdentifiers[index] as? TextBlockViewModel {
-            let userSession = self.viewModel.documentViewModel.getUserSession()
+            let userSession = self.viewModel.documentViewModel.userSession
             textItem.set(focus: .init(position: userSession?.focusAt() ?? .end, completion: {_ in }))
         }
     }

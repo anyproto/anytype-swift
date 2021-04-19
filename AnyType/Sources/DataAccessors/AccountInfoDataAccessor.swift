@@ -20,7 +20,7 @@ final class AccountInfoDataAccessor: ObservableObject {
         selectedColor ?? .clear
     }
     
-    private let documentViewModel = DocumentViewModel()
+    private let documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
     private var subscriptions: Set<AnyCancellable> = []
     
     private let middlewareConfigurationService = MiddlewareConfigurationService()
@@ -32,7 +32,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setupSubscriptions() {
-        let publisher = self.documentViewModel.defaultPageDetailsPublisher()
+        let publisher = self.documentViewModel.pageDetailsPublisher()
         
         publisher.map {$0.title?.value}.safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
             self?.accountName = value
