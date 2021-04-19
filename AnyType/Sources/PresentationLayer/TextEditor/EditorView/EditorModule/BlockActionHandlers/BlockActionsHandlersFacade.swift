@@ -102,7 +102,7 @@ final class BlockActionsHandlersFacade {
         return self
     }
 
-    func configured(_ model: EditorModule.Document.ViewController.ViewModel) -> Self {
+    func configured(_ model: DocumentEditorViewModel) -> Self {
         self.indexWalker = .init(DocumentModelListProvider.init(model: model))
         return self
     }
@@ -232,12 +232,13 @@ protocol UserInteractionHandlerListModelsProvider {
 }
 
 struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
-    private typealias ViewModel = EditorModule.Document.ViewController.ViewModel
-    private weak var model: ViewModel?
+    private weak var model: DocumentEditorViewModel?
     private var _models: [BlockActiveRecordModelProtocol] = [] // Do we need cache?
-    init(model: EditorModule.Document.ViewController.ViewModel) {
+
+    init(model: DocumentEditorViewModel) {
         self.model = model
     }
+
     var getModels: [BlockActiveRecordModelProtocol] {
         self.model?.builders.compactMap { $0.getBlock() } ?? []
     }

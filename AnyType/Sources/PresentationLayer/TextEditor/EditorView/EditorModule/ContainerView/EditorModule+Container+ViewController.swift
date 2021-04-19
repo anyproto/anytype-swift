@@ -80,7 +80,7 @@ extension Namespace.ViewController: UINavigationControllerDelegate {
         /// Where we should update navigation from item.
         if let controller = viewController as? DocumentNamespace.Content.ViewController {
             
-            if let child = controller.children.first?.children.first as? DocumentNamespace.Document.ViewController {
+            if let child = controller.children.first?.children.first as? DocumentEditorViewController {
                 /// extract model from it.
                 let viewModel = child.getViewModel()
                 
@@ -93,7 +93,7 @@ extension Namespace.ViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         if let controller = viewController as? DocumentNamespace.Content.ViewController {
             
-            if controller.children.first?.children.first as? DocumentNamespace.Document.ViewController != nil {
+            if controller.children.first?.children.first as? DocumentEditorViewController != nil {
                 /// extract model from it.
             }
         }

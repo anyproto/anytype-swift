@@ -11,9 +11,8 @@ import SwiftUI
 import Combine
 import os
 
-fileprivate typealias Namespace = EditorModule.Document
 
-extension Namespace {
+extension EditorModule.Document {
     struct ViewRepresentable {
         @Environment(\.presentationMode) var presentationMode
         private(set) var documentId: String
@@ -21,17 +20,15 @@ extension Namespace {
 }
 
 // MARK: - DocumentViewRepresentable
-extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
-    
-    private typealias ViewBuilder = Namespace.ViewBuilder
-    typealias ViewController = EditorModule.Document.ViewController
+extension EditorModule.Document.ViewRepresentable: UIViewControllerRepresentable {
+    private typealias ViewBuilder = EditorModule.Document.ViewBuilder
     typealias Me = EditorModule.Document.ViewRepresentable
     
     func makeCoordinator() -> Coordinator {
         .init(self)
     }
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<Me>) -> ViewController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<Me>) -> DocumentEditorViewController {
         /// Configure document view builder.
         let view = ViewBuilder.UIKitBuilder.view(by: .init(id: self.documentId))
                 
@@ -41,7 +38,7 @@ extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
         return view
     }
     
-    func updateUIViewController(_ uiViewController: ViewController, context: UIViewControllerRepresentableContext<Me>) {
+    func updateUIViewController(_ uiViewController: DocumentEditorViewController, context: UIViewControllerRepresentableContext<Me>) {
         // our model did change?
         // should we do something?
         // well, we should calculate diffs.
@@ -60,7 +57,7 @@ extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
     }
 }
 
-extension Namespace.ViewRepresentable {
+extension EditorModule.Document.ViewRepresentable {
     class Coordinator {
         typealias Parent = EditorModule.Document.ViewRepresentable
         // MARK: Variables
@@ -78,7 +75,7 @@ extension Namespace.ViewRepresentable {
         }
         
         // MARK: Configuration
-        func configured(headerViewModelPublisher: AnyPublisher<ViewController.HeaderView.UserAction, Never>?) -> Self {
+        func configured(headerViewModelPublisher: AnyPublisher<DocumentEditorHeaderView.UserAction, Never>?) -> Self {
             headerViewModelPublisher?.sink { [weak self] (value) in
                 self?.processBackButtonPressed()
             }.store(in: &self.subscriptions)

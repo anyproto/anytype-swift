@@ -208,7 +208,7 @@ extension Namespace.Handler: EditorModuleSelectionHandlerProtocol {
     }
 }
 
-extension EditorModule.Document.ViewController.ViewModel: EditorModuleSelectionHandlerHolderProtocol {
+extension DocumentEditorViewModel: EditorModuleSelectionHandlerHolderProtocol {
     func selectAll() {
         let ids = self.builders.dropFirst().reduce(into: [BlockId: BlockContentType]()) { result, model in
             result[model.blockId] = model.getBlock().blockModel.information.content.type

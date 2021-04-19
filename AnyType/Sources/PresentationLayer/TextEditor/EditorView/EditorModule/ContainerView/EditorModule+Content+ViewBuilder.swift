@@ -44,8 +44,8 @@ extension Namespace.ViewBuilder {
         typealias ViewModel = EditorModule.Content.ViewController.ViewModel
         typealias ViewController = EditorModule.Content.ViewController
         
-        typealias ChildViewModel = EditorModule.Document.ViewController.ViewModel
-        typealias ChildViewController = EditorModule.Document.ViewController
+//        typealias ChildViewModel = EditorModule.Document.ViewController.ViewModel
+//        typealias ChildViewController = EditorModule.Document.ViewController
         typealias ChildViewBuilder = EditorModule.Document.ViewBuilder
         
         typealias ChildComponent = ChildViewBuilder.UIKitBuilder.SelfComponent

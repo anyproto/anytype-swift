@@ -15,7 +15,7 @@ final class ListBlockActionHandler {
         case shouldHandleEvent(ShouldHandleEvent)
     }
 
-    typealias ActionsPayload = EditorModule.Document.ViewController.ViewModel.ActionsPayload
+    typealias ActionsPayload = DocumentEditorViewModel.ActionsPayload
     typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 
     typealias ListModel = [BlockId]
