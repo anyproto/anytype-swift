@@ -1,11 +1,3 @@
-//
-//  InMemoryStore.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 16.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 
 // MARK: - Protocols
@@ -89,8 +81,12 @@ class InMemoryStoreFacade: InMemoryStoreStorageHolderWithKeyStringAndValueAnyPro
     typealias Key = String
     typealias Value = Any
 
-    static let shared: InMemoryStoreFacade = .init()
+    static private(set) var shared: InMemoryStoreFacade = .init()
     fileprivate var store: Store<Key, Value> = .init()
+    
+    class func clearStorage() {
+        InMemoryStoreFacade.shared = InMemoryStoreFacade()
+    }
     
     func setup() {
         // put all storages inside.

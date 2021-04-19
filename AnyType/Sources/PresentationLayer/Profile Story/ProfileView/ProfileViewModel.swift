@@ -47,6 +47,7 @@ final class ProfileViewModel: ObservableObject {
     // MARK: - Logout
     func logout() {
         self.authService.logout() {
+            InMemoryStoreFacade.clearStorage()
             windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
         }
     }
