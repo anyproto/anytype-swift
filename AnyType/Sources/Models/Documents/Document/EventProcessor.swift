@@ -32,7 +32,7 @@ class EventProcessor {
     private var eventPublisher: EventListening.NotificationEventListener<EventHandler>?
     
     // MARK: EventHandler interface
-    var didProcessEventsPublisher: AnyPublisher<EventHandler.Update, Never> { self.eventHandler.didProcessEventsPublisher }
+    var didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never> { self.eventHandler.didProcessEventsPublisher }
 
     init() {
         self.eventHandler = .init()

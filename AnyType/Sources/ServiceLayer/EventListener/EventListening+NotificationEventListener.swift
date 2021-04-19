@@ -11,7 +11,7 @@ import Combine
 import ProtobufMessages
 
 extension EventListening {
-    class NotificationEventListener<EventHandlerType: NewEventHandler>: NewEventListener where EventHandlerType.EventsContainer == EventListening.PackOfEvents {
+    class NotificationEventListener<EventHandlerType: EventHandlerProtocol>: NewEventListener where EventHandlerType.EventsContainer == EventListening.PackOfEvents {
 
         private var subscription: AnyCancellable?
 

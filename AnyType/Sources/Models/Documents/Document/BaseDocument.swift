@@ -149,10 +149,6 @@ class BaseDocument {
     typealias ActiveModel = BlockActiveRecordModelProtocol
     
     /// Returns a flatten list of active models of document.
-    ///
-    /// Discussion
-    /// For our view we have to return a flat list of view models.
-    ///
     /// - Returns: A list of active models.
     func getModels() -> [ActiveModel] {
         guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.choose(by: rootId) else {
@@ -185,9 +181,8 @@ class BaseDocument {
 //    }
 
     // MARK: - Publishers
-    typealias ModelsUpdates = EventHandler.Update
     struct UpdateResult {
-        var updates: ModelsUpdates
+        var updates: EventHandlerUpdate
         var models: [ActiveModel]
     }
     
@@ -195,39 +190,32 @@ class BaseDocument {
     /// It fires when event processor did finish process events.
     ///
     /// - Returns: A publisher of updates.
-    private func updatesPublisher() -> AnyPublisher<ModelsUpdates, Never> {
+    private func updatesPublisher() -> AnyPublisher<EventHandlerUpdate, Never> {
         self.eventProcessor.didProcessEventsPublisher
     }
     
     /// A publisher of updates and current models.
     /// It could filter out updates with empty payload.
     ///
-    /// - Parameter includeEmptyUpdates: A flag indicates whether you need to include empty updates or not.
     /// - Returns: A publisher of updates and related models to these updates.
-    func modelsAndUpdatesPublisher(includeEmptyUpdates: Bool = false) -> AnyPublisher<UpdateResult, Never> {
-        let publisher: AnyPublisher<ModelsUpdates, Never> = includeEmptyUpdates ? self.updatesPublisher() :
-            self.updatesPublisher()
-            .filter({ (value) -> Bool in
-                switch value {
-                case .empty: return false
-                default: return true
-                }
-            }).eraseToAnyPublisher()
-        
-        return publisher.map { [weak self] (value) in
-            .init(updates: value, models: self?.models(from: value) ?? [])
+    func modelsAndUpdatesPublisher(
+    ) -> AnyPublisher<UpdateResult, Never> {
+        self.updatesPublisher().filter { (value) -> Bool in
+            switch value {
+            case .empty: return false
+            default: return true
+            }
+        }.map { [weak self] (value) in
+            UpdateResult(updates: value, models: self?.models(from: value) ?? [])
         }.eraseToAnyPublisher()
     }
     
-    private func models(from updates: ModelsUpdates) -> [ActiveModel] {
+    private func models(from updates: EventHandlerUpdate) -> [ActiveModel] {
         switch updates {
         case .general:
             return self.getModels()
         case let .update(payload):
-            if let toggleId = payload.openedToggleId,
-               let container = self.rootModel,
-               let block = container.blocksContainer.choose(by: toggleId),
-               block.isToggled {
+            if let toggleId = payload.openedToggleId, let container = self.rootModel, let block = container.blocksContainer.choose(by: toggleId), block.isToggled {
                 return BaseFlattener.flatten(root: block, in: container, options: .default)
             }
             if !payload.addedIds.isEmpty {

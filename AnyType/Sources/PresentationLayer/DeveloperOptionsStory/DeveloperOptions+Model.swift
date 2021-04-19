@@ -7,7 +7,7 @@ struct DeveloperOptionsSettings: CodableAndDictionary {
         self.debug = .init(enabled: false)
         self.workflow = .init(
             authentication: .init(shouldSkipLogin: false, alphaInvitePasscode: "", shouldShowFocusedPageId: false, focusedPageId: ""),
-            dashboard: .init(cellsHaveActionsOnLongTap: false),
+            dashboard: .init(cellsHaveActionsOnLongTap: true),
             mainDocumentEditor: .init(textEditor: .init(), listView: .init())
         )
     }

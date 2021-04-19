@@ -121,11 +121,9 @@ private extension HomeCollectionViewDocumentCell {
         self.layer.cornerRadius = self.layout.cornerRadius
         self.backgroundColor = self.style.backgroundColor
         
-        if developerOptionsService.current.workflow.dashboard.cellsHaveActionsOnLongTap {
-            let interaction: UIContextMenuInteraction = .init(delegate: self.contextualMenuHandler)
-            
-            self.addInteraction(interaction)
-        }
+        let interaction: UIContextMenuInteraction = .init(delegate: self.contextualMenuHandler)
+        
+        self.addInteraction(interaction)
     }
     
     func configureLayout() {

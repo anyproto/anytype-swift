@@ -1,4 +1,4 @@
 struct DocumentViewModelUpdateResult {
-    var updates: BaseDocument.ModelsUpdates
+    var updates: EventHandlerUpdate
     var models: [BaseBlockViewModel]
 }

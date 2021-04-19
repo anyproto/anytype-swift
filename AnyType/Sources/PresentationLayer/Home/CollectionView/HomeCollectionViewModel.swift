@@ -59,33 +59,32 @@ class HomeCollectionViewModel: ObservableObject {
             case .remove: return .contextualMenu(.init(model: value.model, action: .editBlock(.delete)))
             }
         }.sink { [weak self] (value) in
-            self?.receive(value)
+            self?.receiveUserEvent(value)
         }.store(in: &self.subscriptions)
     }
     
-    // TODO: Add caching?
-    private func update(builders: [BlockViewBuilderProtocol]) {
-        /// We should add caching, otherwise, we will miss updates from long-playing views as file uploading or downloading views.
+    /// We should add caching, otherwise, we will miss updates from long-playing views as file uploading or downloading views.
+    private func rebuildViewModels(builders: [BlockViewBuilderProtocol]) {
         let newBuilders = builders.compactMap({$0 as? BlockPageLinkViewModel})
         self.createViewModels(from: newBuilders)
     }
 
     func handleOpenDashboard(_ value: ServiceSuccess) {
-        self.documentViewModel.updatePublisher().sink { [weak self] (value) in
-            switch value.updates {
+        self.documentViewModel.updatePublisher().sink { [weak self] (updateResult) in
+            switch updateResult.updates {
                 case .update(.empty): return
                 default: break
             }
             
             DispatchQueue.main.async {
-                self?.update(builders: value.models)
-                switch value.updates {
+                self?.rebuildViewModels(builders: updateResult.models)
+                switch updateResult.updates {
                 case let .update(value):
                     if !value.addedIds.isEmpty, let id = value.addedIds.first {
-                        /// open page.
                         self?.openPage(with: id)
                     }
-                default: return
+                case .general:
+                    return
                 }
             }
         }.store(in: &self.subscriptions)
@@ -175,7 +174,7 @@ class HomeCollectionViewModel: ObservableObject {
         self.userActionsSubject.send(action)
     }
     
-    func receive(_ event: UserEvent) {
+    func receiveUserEvent(_ event: UserEvent) {
         switch event {
         case let .contextualMenu(event):
             switch event.action {

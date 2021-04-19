@@ -110,13 +110,13 @@ extension EventListening {
     }
 }
 
-protocol NewEventHandler: class {
+protocol EventHandlerProtocol: class {
     associatedtype EventsContainer
     func handle(events: EventsContainer)
 }
 
 protocol NewEventListener {
-    associatedtype Handler: NewEventHandler
+    associatedtype Handler: EventHandlerProtocol
     typealias ContextID = String
 
     var handler: Self.Handler? { get }

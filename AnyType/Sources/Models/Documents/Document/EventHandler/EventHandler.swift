@@ -4,27 +4,26 @@ import os
 import BlocksModels
 import ProtobufMessages
 
-class EventHandler: NewEventHandler {
-    private var didProcessEventsSubject: PassthroughSubject<Update, Never> = .init()
-    var didProcessEventsPublisher: AnyPublisher<Update, Never> = .empty()
+class EventHandler: EventHandlerProtocol {
+    private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
+    var didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never> = .empty()
     
     private typealias Updater = Block.Tools.Updater
-    private typealias Container = ContainerModel
     
-    private weak var container: Container?
+    private weak var container: ContainerModel?
     
     var parser: BlocksModelsParser = .init()
     private var updater: Updater?
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
     init() {
-        self.setup()
+        self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
     }
                                     
-    private func finalize(_ updates: [Update]) {
+    private func finalize(_ updates: [EventHandlerUpdate]) {
         
         // configure one update
-        let update: Update = updates.reduce(.general) { (result, value) in .merged(lhs: result, rhs: value) }
+        let update: EventHandlerUpdate = updates.reduce(.general) { (result, value) in .merged(lhs: result, rhs: value) }
         
         guard let container = self.container else {
             assertionFailure("Container is nil in event handler. Something went wrong.")
@@ -44,74 +43,16 @@ class EventHandler: NewEventHandler {
         let ourUpdates = events.ourEvents.compactMap(self.handleOurEvent(_:))
         self.finalize(innerUpdates + ourUpdates)
     }
-}
 
-// MARK: Setup
-private extension EventHandler {
-    func setup() {
-        self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
-    }
-}
-
-// MARK: Configurations
-extension EventHandler {
+    // MARK: Configurations
     func configured(_ container: ContainerModel) -> Self {
         self.updater = .init(container)
         self.container = container
         return self
     }
-}
 
-// MARK: Update
-extension EventHandler {
-    enum Update: Equatable {
-        struct Payload: Hashable {
-            var addedIds: [BlockId] = []
-            var deletedIds: [BlockId] = []
-            var updatedIds: [BlockId] = []
-            var openedToggleId: BlockId? = nil
-            static var empty: Self = .init()
-            
-            static func merged(lhs: Self, rhs: Self) -> Self {
-                .init(addedIds: lhs.addedIds + rhs.addedIds,
-                      deletedIds: lhs.deletedIds + rhs.deletedIds,
-                      updatedIds: lhs.updatedIds + rhs.updatedIds,
-                      openedToggleId: lhs.openedToggleId ?? rhs.openedToggleId)
-            }
-        }
-        
-        static func merged(lhs: Self, rhs: Self) -> Self {
-            switch (lhs, rhs) {
-            case (.general, .general): return .general
-            case (.update, .general): return lhs
-            case (.general, .update): return rhs
-            case let (.update(left), .update(right)): return .update(.merged(lhs: left, rhs: right))
-            }
-        }
-        
-        func merged(update: Update) -> Self {
-            .merged(lhs: self, rhs: update)
-        }
-
-        fileprivate static var specialAfterBlockShow: Self = .general
-        static var empty: Self = .update(.empty)
-
-        case general
-        case update(Payload)
-
-        var hasUpdate: Bool {
-            switch self {
-            case .empty: return false
-            default: return true
-            }
-        }
-    }
-}
-
-// MARK: Events Handling
-// MARK: Events Handling / InnerEvents
-private extension EventHandler {
-    func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> Update {
+    // MARK: Events Handling / InnerEvents
+    func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate {
         typealias AttributedTextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
 
         switch event {
@@ -373,11 +314,9 @@ private extension EventHandler {
         default: return .empty
         }
     }
-}
 
-// MARK: Events Handling / OurEvent
-private extension EventHandler {
-    func handleOurEvent(_ event: EventListening.OurEvent) -> Update? {
+    // MARK: Events Handling / OurEvent
+    func handleOurEvent(_ event: EventListening.OurEvent) -> EventHandlerUpdate? {
         switch event {
         case let .setFocus(value):
             let blockId = value.payload.blockId
@@ -386,7 +325,7 @@ private extension EventHandler {
                 return nil
             }
             model.isFirstResponder = true
-            model.focusAt = value.payload.position.flatMap(Focus.Converter.asModel)
+            model.focusAt = value.payload.position.flatMap(EventHandlerFocusConverter.asModel)
             
             /// TODO: We should check that we don't have blocks in updated List.
             /// IF id is in updated list, we should delay of `.didChange` event before all items will be drawn.
@@ -462,34 +401,6 @@ private extension EventHandler {
                 return .update(.init(openedToggleId: payload.payload.blockId))
             }
 
-        }
-    }
-}
-
-// MARK: Converters
-private extension EventHandler {
-    enum Focus {}
-}
-
-private extension EventHandler.Focus {
-    enum Converter {
-        typealias EventModel = EventListening.OurEvent.Focus.Payload.Position
-        static func asModel(_ value: EventModel) -> BlockFocusPosition? {
-            switch value {
-            case .unknown: return .unknown
-            case .beginning: return .beginning
-            case .end: return .end
-            case let .at(value): return .at(value)
-            }
-        }
-        
-        static func asEventModel(_ value: BlockFocusPosition) -> EventModel? {
-            switch value {
-            case .unknown: return .unknown
-            case .beginning: return .beginning
-            case .end: return .end
-            case let .at(value): return .at(value)
-            }
         }
     }
 }

@@ -82,7 +82,7 @@
 		03D1516623FB446A004027CE /* ConfigurationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D1516523FB446A004027CE /* ConfigurationService.swift */; };
 		03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD4E23A93CC100C701CE /* CustomTextField.swift */; };
 		03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */; };
-		03E2AD5523A93D3800C701CE /* SimpleViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD5423A93D3800C701CE /* SimpleViews.swift */; };
+		03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E2AD5423A93D3800C701CE /* UserIconView.swift */; };
 		03F7BD1E22F7A50400F47583 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F7BD1D22F7A50400F47583 /* StandardButton.swift */; };
 		03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B423994F4700AD3BC3 /* ProfileModel.swift */; };
 		03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03652DD7239F5E7B0029E773 /* ScannerViewController.swift */; };
@@ -308,6 +308,10 @@
 		3DA369032629A17F001557C9 /* DocumentViewModelUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */; };
 		3DA369062629A18D001557C9 /* DocumentViewModelPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369052629A18D001557C9 /* DocumentViewModelPredicate.swift */; };
 		3DA369362629AC67001557C9 /* DocumentViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369352629AC67001557C9 /* DocumentViewModelProtocol.swift */; };
+		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
+		3DA369412629B75E001557C9 /* EventHandlerFocusConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */; };
+		3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */; };
+		3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */; };
 		3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */; };
 		3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF3261B0E9C005E523C /* Encoder.swift */; };
 		3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */; };
@@ -547,7 +551,7 @@
 		03D1516523FB446A004027CE /* ConfigurationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationService.swift; sourceTree = "<group>"; };
 		03E2AD4E23A93CC100C701CE /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
-		03E2AD5423A93D3800C701CE /* SimpleViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleViews.swift; sourceTree = "<group>"; };
+		03E2AD5423A93D3800C701CE /* UserIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserIconView.swift; sourceTree = "<group>"; };
 		03F7BD1D22F7A50400F47583 /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
 		0A005AAB24C4731D000520AA /* BlocksViews+New+File+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File+File.swift"; sourceTree = "<group>"; };
 		0A005AB024C5D2F1000520AA /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -761,6 +765,10 @@
 		3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelUpdateResult.swift; sourceTree = "<group>"; };
 		3DA369052629A18D001557C9 /* DocumentViewModelPredicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelPredicate.swift; sourceTree = "<group>"; };
 		3DA369352629AC67001557C9 /* DocumentViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelProtocol.swift; sourceTree = "<group>"; };
+		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
+		3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerFocusConverter.swift; sourceTree = "<group>"; };
+		3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CorrectAspectRatio.swift"; sourceTree = "<group>"; };
+		3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithCircleBackgroundView.swift; sourceTree = "<group>"; };
 		3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainer.swift; sourceTree = "<group>"; };
 		3DB27BF3261B0E9C005E523C /* Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
 		3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleValueEncodingContainer.swift; sourceTree = "<group>"; };
@@ -1062,7 +1070,6 @@
 				EAC6BB4926288680004C8C06 /* InputSwitchers */,
 				3D07ECE6261B733C00C007E2 /* Extensions */,
 				EAF98379261B8B92001D4C55 /* LoadingViewController */,
-				0A08D4C124AF822B0088ECC2 /* CommonViewsNamespace.swift */,
 				0ACAAD632588DCE600DF1C82 /* ImageView */,
 				0A005AAD24C5D2F1000520AA /* Pickers */,
 				0A08D4C024AF81F30088ECC2 /* ViewControllers */,
@@ -1073,13 +1080,16 @@
 				03F7BD1F22F7A58400F47583 /* PinCodeView */,
 				0339382A22EF717100589108 /* Buttons */,
 				0316497A23E5B339009A3984 /* CustomScrollView.swift */,
-				03E2AD5423A93D3800C701CE /* SimpleViews.swift */,
+				03E2AD5423A93D3800C701CE /* UserIconView.swift */,
 				03E2AD5223A93D1C00C701CE /* KeyboardObserver.swift */,
 				A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */,
 				03652DD7239F5E7B0029E773 /* ScannerViewController.swift */,
 				03E2AD4E23A93CC100C701CE /* CustomTextField.swift */,
 				03913E58230B5DA90040CD4B /* SelectColorView.swift */,
 				534D19C62623A7220080AEF0 /* SearchListViewController.swift */,
+				0A08D4C124AF822B0088ECC2 /* CommonViewsNamespace.swift */,
+				3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */,
+				3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1576,9 +1586,9 @@
 		0A0965B525BEE7DE00C004BD /* Document */ = {
 			isa = PBXGroup;
 			children = (
+				3DA3693A2629B6A1001557C9 /* EventHandler */,
 				3DCE7A092615248A00E09593 /* Flattener */,
 				0A09660F25C06DBA00C004BD /* EventProcessor.swift */,
-				3DCE79F92615215D00E09593 /* EventHandler.swift */,
 				0A09661725C0AB4F00C004BD /* BaseDocument.swift */,
 				0A09661A25C0AD0800C004BD /* DetailsActiveModel.swift */,
 			);
@@ -2182,6 +2192,16 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3DA3693A2629B6A1001557C9 /* EventHandler */ = {
+			isa = PBXGroup;
+			children = (
+				3DCE79F92615215D00E09593 /* EventHandler.swift */,
+				3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */,
+				3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */,
+			);
+			path = EventHandler;
+			sourceTree = "<group>";
+		};
 		3DB27BF0261B0E9C005E523C /* URLComponentsCoder */ = {
 			isa = PBXGroup;
 			children = (
@@ -2755,7 +2775,7 @@
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
-				03E2AD5523A93D3800C701CE /* SimpleViews.swift in Sources */,
+				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				0A0965EC25BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
@@ -2833,6 +2853,7 @@
 				0A0965F625BEF5B000C004BD /* EditorModule+Content+ViewBuilder.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
+				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
 				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
 				3DDC6A5B2626F8DE004F5EA4 /* HomeCollectionViewModelUserEvent.swift in Sources */,
@@ -2906,10 +2927,12 @@
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
 				EAC6BB5126288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
+				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,
 				0A0965F025BEF5B000C004BD /* EditorModule+Container+ViewController.swift in Sources */,
 				3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */,
 				0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
+				3DA369412629B75E001557C9 /* EventHandlerFocusConverter.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
 				3D680B942624941200FFD844 /* SettingsSectionView.swift in Sources */,
@@ -2964,6 +2987,7 @@
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				0A0965E725BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift in Sources */,
 				EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */,
+				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */,
 				3DDF589F2628C7F60081C53E /* PageIconViewModel.swift in Sources */,
