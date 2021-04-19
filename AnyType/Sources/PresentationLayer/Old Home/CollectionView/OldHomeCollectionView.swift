@@ -1,24 +1,24 @@
 import SwiftUI
 import Combine
 
-enum HomeCollectionViewSection {
+enum OldHomeCollectionViewSection {
     case main
 }
 
-struct HomeCollectionView: UIViewRepresentable {
-    @ObservedObject var viewModel: HomeCollectionViewModel
+struct OldHomeCollectionView: UIViewRepresentable {
+    @ObservedObject var viewModel: OldHomeCollectionViewModel
     
     @Binding var showDocument: Bool
     @Binding var selectedDocumentId: String
-    @Binding var cellModels: [HomeCollectionViewCellType]
+    @Binding var cellModels: [OldHomeCollectionViewCellType]
     
     let containerSize: CGSize
     
     init(
-        viewModel: HomeCollectionViewModel,
+        viewModel: OldHomeCollectionViewModel,
         showDocument: Binding<Bool>,
         selectedDocumentId: Binding<String>,
-        cellsModels: Binding<[HomeCollectionViewCellType]>,
+        cellsModels: Binding<[OldHomeCollectionViewCellType]>,
         containerSize: CGSize
     ) {
         self.viewModel = viewModel
@@ -30,7 +30,7 @@ struct HomeCollectionView: UIViewRepresentable {
         self.containerSize = containerSize
     }
     
-    func makeCoordinator() -> HomeCollectionViewCoordinator {
+    func makeCoordinator() -> OldHomeCollectionViewCoordinator {
         .init(self, viewModel: self.viewModel)
     }
     
@@ -52,8 +52,8 @@ struct HomeCollectionView: UIViewRepresentable {
 //        }
     }
     
-    private func populate(dataSource: UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>) {
-        var snapshot = NSDiffableDataSourceSnapshot<HomeCollectionViewSection, HomeCollectionViewCellType>()
+    private func populate(dataSource: UICollectionViewDiffableDataSource<OldHomeCollectionViewSection, OldHomeCollectionViewCellType>) {
+        var snapshot = NSDiffableDataSourceSnapshot<OldHomeCollectionViewSection, OldHomeCollectionViewCellType>()
         snapshot.appendSections([.main])
         
         snapshot.appendItems(self.cellModels)
@@ -66,28 +66,28 @@ struct HomeCollectionView: UIViewRepresentable {
         self.selectedDocumentId = blockId
     }
 
-    // MARK: - Private HomeCollectionView
+    // MARK: - Private OldHomeCollectionView
     private func configureCollectionView() -> UICollectionView {
         let rect = CGRect(origin: .zero, size: containerSize)
         let collectionView = UICollectionView(frame: rect, collectionViewLayout: createCollectionLayout())
         collectionView.backgroundColor = .clear
-        collectionView.register(HomeCollectionViewDocumentCell.self, forCellWithReuseIdentifier: HomeCollectionViewDocumentCell.reuseIdentifer)
-        collectionView.register(HomeCollectionViewPlusCell.self, forCellWithReuseIdentifier: HomeCollectionViewPlusCell.reuseIdentifer)
+        collectionView.register(OldHomeCollectionViewDocumentCell.self, forCellWithReuseIdentifier: OldHomeCollectionViewDocumentCell.reuseIdentifer)
+        collectionView.register(OldHomeCollectionViewPlusCell.self, forCellWithReuseIdentifier: OldHomeCollectionViewPlusCell.reuseIdentifer)
         
         return collectionView
     }
     
-    private func configureDataSource(collectionView: UICollectionView) -> UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType> {
-        let dataSource = UICollectionViewDiffableDataSource<HomeCollectionViewSection, HomeCollectionViewCellType>(collectionView: collectionView) { collectionView, indexPath, cellType in
+    private func configureDataSource(collectionView: UICollectionView) -> UICollectionViewDiffableDataSource<OldHomeCollectionViewSection, OldHomeCollectionViewCellType> {
+        let dataSource = UICollectionViewDiffableDataSource<OldHomeCollectionViewSection, OldHomeCollectionViewCellType>(collectionView: collectionView) { collectionView, indexPath, cellType in
             
             switch cellType {
             case .document(let viewModel):
-                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewDocumentCell.reuseIdentifer, for: indexPath) as? HomeCollectionViewDocumentCell {
+                if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OldHomeCollectionViewDocumentCell.reuseIdentifer, for: indexPath) as? OldHomeCollectionViewDocumentCell {
                     cell.updateWithModel(viewModel: viewModel)
                     return cell
                 }
             case .plus:
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCollectionViewPlusCell.reuseIdentifer, for: indexPath)
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OldHomeCollectionViewPlusCell.reuseIdentifer, for: indexPath)
                 return cell
             }
             fatalError("Cannot create new cell")

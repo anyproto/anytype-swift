@@ -17,6 +17,6 @@ class CompletionAuthViewModel: ObservableObject, CompletionAuthViewDelegate {
 
     // MARK: - CompletionAuthViewDelegate
     func showDashboardDidTap() {
-        coordinator.routeToHomeView()
+        coordinator.routeToOldHomeView()
     }
 }

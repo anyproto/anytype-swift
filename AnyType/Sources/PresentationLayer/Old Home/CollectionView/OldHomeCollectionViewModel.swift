@@ -5,24 +5,24 @@ import os
 import BlocksModels
 
 
-enum HomeCollectionViewCellType: Hashable {
+enum OldHomeCollectionViewCellType: Hashable {
     case plus
-    case document(HomeCollectionViewDocumentCellModel)
+    case document(OldHomeCollectionViewDocumentCellModel)
 }
 
-class HomeCollectionViewModel: ObservableObject {
+class OldHomeCollectionViewModel: ObservableObject {
     private let dashboardService: DashboardServiceProtocol
     private let blockActionsService: BlockActionsServiceSingleProtocol
     
     private var subscriptions: Set<AnyCancellable> = []
             
-    @Published var cellViewModels: [HomeCollectionViewCellType] = []
+    @Published var cellViewModels: [OldHomeCollectionViewCellType] = []
     private let documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
     
     var userActionsPublisher: AnyPublisher<UserAction, Never> = .empty()
     private var userActionsSubject: PassthroughSubject<UserAction, Never> = .init()
     
-    typealias CellUserAction = HomeCollectionViewDocumentCellModel.UserActionPayload
+    typealias CellUserAction = OldHomeCollectionViewDocumentCellModel.UserActionPayload
     private var cellUserActionSubject: PassthroughSubject<CellUserAction, Never> = .init()
     
     init(
@@ -139,7 +139,7 @@ class HomeCollectionViewModel: ObservableObject {
     
     // MARK: - Private
     private func createViewModels(from pages: [BlockPageLinkViewModel]) {
-        let links = pages.compactMap({ pageLink -> HomeCollectionViewDocumentCellModel? in
+        let links = pages.compactMap({ pageLink -> OldHomeCollectionViewDocumentCellModel? in
             let detailsModel = pageLink.getDetailsViewModel()
 
             let details = detailsModel.currentDetails
@@ -150,7 +150,7 @@ class HomeCollectionViewModel: ObservableObject {
             else {
                 targetBlockId = ""
             }
-            let model = HomeCollectionViewDocumentCellModel(
+            let model = OldHomeCollectionViewDocumentCellModel(
                 page: .init(id: pageLink.blockId, targetBlockId: targetBlockId),
                 title: details.title?.value ?? "",
                 image: nil, emoji: details.iconEmoji?.value
@@ -166,7 +166,7 @@ class HomeCollectionViewModel: ObservableObject {
             model.configured(imagePublisher: iconImage)
             model.configured(userActionSubject: self.cellUserActionSubject)
             return model
-        }).map(HomeCollectionViewCellType.document)
+        }).map(OldHomeCollectionViewCellType.document)
         self.cellViewModels = links + [.plus]
     }
     

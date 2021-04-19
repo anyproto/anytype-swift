@@ -1,18 +1,18 @@
 import SwiftUI
 import Combine
 
-struct HomeView: View {
-    // HomeCollectionViewModel here due to SwiftUI doesn't update view when it's UIViewRepresentable
+struct OldHomeView: View {
+    // OldHomeCollectionViewModel here due to SwiftUI doesn't update view when it's UIViewRepresentable
     // https://forums.swift.org/t/uiviewrepresentable-not-updated-when-observed-object-changed/33890/9
-    @ObservedObject private var collectionViewModel: HomeCollectionViewModel
+    @ObservedObject private var collectionViewModel: OldHomeCollectionViewModel
     
     @State var showDocument: Bool = false
     @State var selectedDocumentId: String = ""
     @StateObject var accountData = AccountInfoDataAccessor()
     
-    private let coordinator: HomeCoordinator
+    private let coordinator: OdlHomeCoordinator
     
-    init(coordinator: HomeCoordinator, collectionViewModel: HomeCollectionViewModel) {
+    init(coordinator: OdlHomeCoordinator, collectionViewModel: OldHomeCollectionViewModel) {
         self.coordinator = coordinator
         self.collectionViewModel = collectionViewModel
     }
@@ -21,7 +21,7 @@ struct HomeView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 self.textEditorNavigation
-                HomeTopView(accountData: accountData, coordinator: coordinator)
+                OldHomeTopView(accountData: accountData, coordinator: coordinator)
                 self.collectionView
             }
             .background(
@@ -48,7 +48,7 @@ struct HomeView: View {
     
     private var collectionView: some View {
         GeometryReader { geometry in
-            HomeCollectionView(
+            OldHomeCollectionView(
                 viewModel: collectionViewModel,
                 showDocument: $showDocument,
                 selectedDocumentId: $selectedDocumentId,

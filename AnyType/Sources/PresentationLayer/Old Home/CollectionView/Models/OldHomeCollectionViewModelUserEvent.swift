@@ -1,6 +1,6 @@
 import BlocksModels
 
-extension HomeCollectionViewModel {
+extension OldHomeCollectionViewModel {
     enum UserEvent {
         struct ContextualMenuAction {
             typealias Model = BlockId

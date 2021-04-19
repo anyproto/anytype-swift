@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-extension HomeCollectionViewDocumentCell {
+extension OldHomeCollectionViewDocumentCell {
     class ContextualMenuHandler: NSObject, UIContextMenuInteractionDelegate {
         func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
             .init(identifier: nil, previewProvider: nil) { (value) -> UIMenu? in
@@ -23,7 +23,7 @@ extension HomeCollectionViewDocumentCell {
     }
 }
 
-extension HomeCollectionViewDocumentCell.ContextualMenuHandler {
+extension OldHomeCollectionViewDocumentCell.ContextualMenuHandler {
     struct ActionMenuItem {
         var action: UserAction
         var title: String

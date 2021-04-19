@@ -1,8 +1,8 @@
 import SwiftUI
 import Combine
 
-final class HomeCollectionViewDocumentCell: UICollectionViewCell {
-    static let reuseIdentifer = "homeCollectionViewDocumentCellReuseIdentifier"
+final class OldHomeCollectionViewDocumentCell: UICollectionViewCell {
+    static let reuseIdentifer = "OldHomeCollectionViewDocumentCellReuseIdentifier"
     
     let developerOptionsService = ServiceLocator.shared.developerOptionsService()
     
@@ -52,7 +52,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
         self.emoji.isHidden = imageExists || !emojiExists
     }
     
-    func updateWithModel(viewModel: HomeCollectionViewDocumentCellModel) {
+    func updateWithModel(viewModel: OldHomeCollectionViewDocumentCellModel) {
         if viewModel.page != self.storedPage {
             self.invalidateSubscriptions()
             self.invalidateData()
@@ -82,7 +82,7 @@ final class HomeCollectionViewDocumentCell: UICollectionViewCell {
     }
 }
 
-extension HomeCollectionViewDocumentCell {
+extension OldHomeCollectionViewDocumentCell {
     struct Layout {
         let cornerRadius: CGFloat = 8.0
         let offset: CGFloat = 16.0
@@ -105,7 +105,7 @@ extension HomeCollectionViewDocumentCell {
     }
 }
 
-private extension HomeCollectionViewDocumentCell {
+private extension OldHomeCollectionViewDocumentCell {
     func configureViews() {
         self.roundView.backgroundColor = self.style.iconBackgroundColor
         self.roundView.layer.cornerRadius = self.layout.roundIconCornerRadius

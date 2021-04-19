@@ -1,7 +1,7 @@
 import UIKit
 
-class HomeCollectionViewPlusCell: UICollectionViewCell {
-    static let reuseIdentifer = "homeCollectionViewPlusCellReuseIdentifier"
+class OldHomeCollectionViewPlusCell: UICollectionViewCell {
+    static let reuseIdentifer = "OldHomeCollectionViewPlusCellReuseIdentifier"
     
     let imageView = UIImageView()
     

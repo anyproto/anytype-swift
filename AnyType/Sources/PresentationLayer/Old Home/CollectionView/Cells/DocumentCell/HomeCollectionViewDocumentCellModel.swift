@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-class HomeCollectionViewDocumentCellModel: Hashable {
+class OldHomeCollectionViewDocumentCellModel: Hashable {
     internal init(page: DashboardPage, title: String, image: URL?, emoji: String?, subscriptions: Set<AnyCancellable> = []) {
         self.page = page
         self.title = title
@@ -59,7 +59,7 @@ class HomeCollectionViewDocumentCellModel: Hashable {
     }
     
     // MARK: - Hashable
-    static func == (lhs: HomeCollectionViewDocumentCellModel, rhs: HomeCollectionViewDocumentCellModel) -> Bool {
+    static func == (lhs: OldHomeCollectionViewDocumentCellModel, rhs: OldHomeCollectionViewDocumentCellModel) -> Bool {
         lhs.page.id == rhs.page.id
     }
 
@@ -68,7 +68,7 @@ class HomeCollectionViewDocumentCellModel: Hashable {
     }
 }
 
-extension HomeCollectionViewDocumentCellModel {
+extension OldHomeCollectionViewDocumentCellModel {
     func configured(userActionSubject: PassthroughSubject<UserActionPayload, Never>) {
         self.userActionSubject = userActionSubject
     }
@@ -76,6 +76,6 @@ extension HomeCollectionViewDocumentCellModel {
     struct UserActionPayload {
         typealias Model = String
         var model: Model
-        var action: HomeCollectionViewDocumentCell.ContextualMenuHandler.UserAction
+        var action: OldHomeCollectionViewDocumentCell.ContextualMenuHandler.UserAction
     }
 }

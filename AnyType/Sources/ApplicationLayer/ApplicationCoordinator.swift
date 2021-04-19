@@ -99,8 +99,8 @@ class ApplicationCoordinator: MainWindowHolder {
     }
     
     private func showHomeScreen() {
-        let homeAssembly = HomeViewAssembly()
-        let view = homeAssembly.createHomeView()
+        let homeAssembly = OldHomeViewAssembly()
+        let view = homeAssembly.createOldHomeView()
         self.startNewRootView(view)
     }
     
