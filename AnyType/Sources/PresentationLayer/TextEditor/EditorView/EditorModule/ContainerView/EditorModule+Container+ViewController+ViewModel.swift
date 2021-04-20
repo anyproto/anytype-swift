@@ -95,7 +95,7 @@ extension FileNamespace {
         private var subscription: AnyCancellable?
         /// And publish on actions that associated controller will handle.
         func actionPublisher() -> AnyPublisher<Action, Never> {
-            self.routingProcessor.userAction.map { [weak self] value -> Action in
+            self.routingProcessor.userAction.map { value -> Action in
                 switch value {
                 case let .childDocument(value):
                     _ = value.childComponent.viewModel

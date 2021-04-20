@@ -42,7 +42,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
     /// We could directly set a state or a parts of this viewModel state.
     /// This should fire updates and corresponding view will be updated.
     ///
-    private let textViewModel: TextView.UIKitTextView.ViewModel
+    private lazy var textViewModel = TextView.UIKitTextView.ViewModel(blockViewModel: self)
     private lazy var textViewModelHolder: TextViewModelHolder = {
         .init(self.textViewModel)
     }()
@@ -63,7 +63,6 @@ final class TextBlockViewModel: BaseBlockViewModel {
     // MARK: - Life cycle
 
     override init(_ block: BlockModel) {
-        self.textViewModel = TextView.UIKitTextView.ViewModel(blockContentType: block.blockModel.information.content.type)
         super.init(block)
         self.setup()
     }

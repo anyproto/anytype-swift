@@ -54,7 +54,7 @@ class EventProcessor {
             self.startListening(contextId: rootId)
         }
         else {
-            assertionFailure("We can't start listening rootId \(container.rootId) of container: \(container)")
+            assertionFailure("We can't start listening rootId of container: \(container)")
         }
         return self
     }

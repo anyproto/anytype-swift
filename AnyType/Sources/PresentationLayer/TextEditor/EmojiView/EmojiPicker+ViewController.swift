@@ -83,8 +83,6 @@ enum EmojiPicker {
                 switch event {
                 case .shouldDismiss:
                     self?.dismiss(animated: true, completion: nil)
-                default:
-                    assertionFailure("We don't handle this event: \(String(describing: event))")
                 }
             }.store(in: &subscriptions)
         }

@@ -79,8 +79,9 @@ extension Namespace {
         
         private let inputSwitcher: ActionsAndMarksPaneInputSwitcher
         
-        init(menuItemsBuilder: BlockActionsBuilder) {
-            self.inputSwitcher = ActionsAndMarksPaneInputSwitcher(menuItemsBuilder: menuItemsBuilder)
+        init(menuItemsBuilder: BlockActionsBuilder, blockMenuActionsHandler: BlockMenuActionsHandler) {
+            self.inputSwitcher = ActionsAndMarksPaneInputSwitcher(menuItemsBuilder: menuItemsBuilder,
+                                                                  blockMenuActionsHandler: blockMenuActionsHandler)
         }
     }
 }

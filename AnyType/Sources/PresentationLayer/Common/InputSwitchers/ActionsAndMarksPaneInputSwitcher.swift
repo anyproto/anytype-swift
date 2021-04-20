@@ -11,9 +11,12 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     private var displayActionsViewTask: DispatchWorkItem?
     private let menuItemsBuilder: BlockActionsBuilder
+    private let blockMenuActionsHandler: BlockMenuActionsHandler
     
-    init(menuItemsBuilder: BlockActionsBuilder) {
+    init(menuItemsBuilder: BlockActionsBuilder,
+         blockMenuActionsHandler: BlockMenuActionsHandler) {
         self.menuItemsBuilder = menuItemsBuilder
+        self.blockMenuActionsHandler = blockMenuActionsHandler
     }
     
     override func switchInputs(_ inputViewKeyboardSize: CGSize,
@@ -110,7 +113,8 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                                         frame: CGRect(origin: .zero,
                                                       size: CGSize(width: UIScreen.main.bounds.width,
                                                                    height: Constants.minimumActionsViewHeight)),
-                                        menuItems: self.menuItemsBuilder.makeBlockActionsMenuItems())
+                                        menuItems: self.menuItemsBuilder.makeBlockActionsMenuItems(),
+                                        blockMenuActionsHandler: self.blockMenuActionsHandler)
             self.switchInputs(.zero, textView: textView, accessoryView: view, inputView: nil)
         })
         self.displayActionsViewTask = task

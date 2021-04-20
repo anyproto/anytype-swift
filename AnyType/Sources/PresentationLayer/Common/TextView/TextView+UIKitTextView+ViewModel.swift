@@ -84,10 +84,12 @@ extension Namespace {
         /// Subscriptions
         private var firstResponderChangeSubscription: AnyCancellable?
         
-        init(blockContentType: BlockContentType) {
+        init(blockViewModel: BaseBlockViewModel) {
             let factory = BlockRestrictionsFactory()
-            let restrictions = factory.makeRestrictions(for: blockContentType)
-            self.coordinator = Coordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions))
+            let restrictions = factory.makeRestrictions(for: blockViewModel.information.content.type)
+            let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: blockViewModel.marksPaneActionSubject, turnIntoAndActionsSubject: blockViewModel.toolbarActionSubject)
+            self.coordinator = Coordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
+                                           blockMenuActionsHandler: actionsHandler)
             self.setup()
         }
         

@@ -31,10 +31,6 @@ class BaseBlockViewModel: ObservableObject {
     
     /// Options that handle a behavior of view model.
     private var options: Options = .init()
-    
-    var availableTurnIntoTypes: [BlocksViews.Toolbar.BlocksTypes] {
-        []
-    }
             
     // MARK: Deinitialization
     deinit {

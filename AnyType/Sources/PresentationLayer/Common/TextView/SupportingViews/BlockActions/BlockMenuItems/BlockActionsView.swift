@@ -9,15 +9,19 @@ final class BlockActionsView: UIView {
     private weak var parentTextView: UITextView?
     private let positionOfFirstSymbolToGetFilterString: Int
     private let menuItems: [BlockActionMenuItem]
+    private let blockMenuActionsHandler: BlockMenuActionsHandler
     
-    init(parentTextView: UITextView, frame: CGRect, menuItems: [BlockActionMenuItem]) {
+    init(parentTextView: UITextView,
+         frame: CGRect,
+         menuItems: [BlockActionMenuItem],
+         blockMenuActionsHandler: BlockMenuActionsHandler) {
         self.parentTextView = parentTextView
         self.menuItems = menuItems
+        self.blockMenuActionsHandler = blockMenuActionsHandler
         let selectedRange = parentTextView.selectedRange
         self.positionOfFirstSymbolToGetFilterString = selectedRange.location + selectedRange.length
         super.init(frame: frame)
         self.backgroundColor = .systemBackground
-
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +30,7 @@ final class BlockActionsView: UIView {
     
     private func setup(parentViewController: UIViewController) {
         let topSeparator = self.addTopSeparator()
-        let menuViewController = makeMenuController(menuItems: self.menuItems)
+        let menuViewController = self.makeMenuController()
         menuViewController.view.translatesAutoresizingMaskIntoConstraints = false
         parentViewController.addChild(menuViewController)
         self.addSubview(menuViewController.view)
@@ -58,9 +62,10 @@ final class BlockActionsView: UIView {
         return topSeparator
     }
     
-    private func makeMenuController(menuItems: [BlockActionMenuItem]) -> UIViewController {
-        let controller = BlockMenuItemsViewController(coordinator: BlockMenuItemsViewControllerCoordinatorImp(),
-                                                      items: menuItems)
+    private func makeMenuController() -> UIViewController {
+        let coordinator = BlockMenuItemsViewControllerCoordinatorImp(actionsHandler: self.blockMenuActionsHandler)
+        let controller = BlockMenuItemsViewController(coordinator: coordinator,
+                                                      items: self.menuItems)
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.isNavigationBarHidden = true
         navigationController.delegate = self

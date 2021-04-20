@@ -222,7 +222,7 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
         let cells = self.chosenTypes(category: category).enumerated()
             .map{(category, $0, $1.title, $1.subtitle, $1.image)}
             .map(Cell.ViewModel.init(section:index:title:subtitle:imageResource:))
-        cells.forEach { $0.configured(indexPathStream: self._indexPathIndex) }
+        cells.forEach { _ = $0.configured(indexPathStream: self._indexPathIndex) }
         return cells
     }
 }

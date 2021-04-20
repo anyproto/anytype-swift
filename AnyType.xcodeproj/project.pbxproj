@@ -417,6 +417,8 @@
 		EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */; };
 		EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */; };
 		EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E544262DED67009F91D9 /* UIImageExtension.swift */; };
+		EA77E548262DF30B009F91D9 /* BlockMenuActionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */; };
+		EA77E54B262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */; };
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
@@ -891,6 +893,8 @@
 		EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Convenience.swift"; sourceTree = "<group>"; };
 		EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		EA77E544262DED67009F91D9 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsHandler.swift; sourceTree = "<group>"; };
+		EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsHandlerImp.swift; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
@@ -2621,6 +2625,8 @@
 				EA77E523262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift */,
 				EA77E522262DAAA5009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift */,
 				EAC6BB5626289201004C8C06 /* BlockActionsView.swift */,
+				EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */,
+				EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */,
 			);
 			path = BlockMenuItems;
 			sourceTree = "<group>";
@@ -2934,6 +2940,7 @@
 				EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */,
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,
+				EA77E54B262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift in Sources */,
 				EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift in Sources */,
 				032225DA22F87AAB0064E544 /* DetailedPickerView.swift in Sources */,
@@ -3063,6 +3070,7 @@
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
 				0A996BB923EDC541000FDC9C /* DeveloperOptions+ViewController.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
+				EA77E548262DF30B009F91D9 /* BlockMenuActionsHandler.swift in Sources */,
 				EAC6BB5126288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,

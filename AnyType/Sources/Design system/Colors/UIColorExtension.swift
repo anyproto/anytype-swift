@@ -78,4 +78,56 @@ extension UIColor {
     static var defaultBackgroundColor: UIColor {
         .white
     }
+    
+    static var lemonBackground: UIColor {
+        UIColor(hexString: "#FEF9CC")
+    }
+    
+    static var amberBackground: UIColor {
+        UIColor(hexString: "#FEF3C5")
+    }
+    
+    static var redBackground: UIColor {
+        UIColor(hexString: "#FFEBE5")
+    }
+    
+    static var pinkBackground: UIColor {
+        UIColor(hexString: "#FEE3F5")
+    }
+    
+    static var purpleBackground: UIColor {
+        UIColor(hexString: "#F4E3FA")
+    }
+    
+    static var ultramarineBackground: UIColor {
+        UIColor(hexString: "#E4E7FC")
+    }
+    
+    static var black: UIColor {
+        UIColor(hexString: "#2C2B27")
+    }
+    
+    static var lemon: UIColor {
+        UIColor(hexString: "#ECD91B")
+    }
+    
+    static var amber: UIColor {
+        UIColor(hexString: "#FFB522")
+    }
+    
+    static var red: UIColor {
+        UIColor(hexString: "#F55522")
+    }
+    
+    static var pink: UIColor {
+        UIColor(hexString: "#E51CA0")
+    }
+    
+    static var purple: UIColor {
+        UIColor(hexString: "#AB50CC")
+    }
+    
+    static var ultramarine: UIColor {
+        UIColor(hexString: "#3E58EB")
+    }
 }

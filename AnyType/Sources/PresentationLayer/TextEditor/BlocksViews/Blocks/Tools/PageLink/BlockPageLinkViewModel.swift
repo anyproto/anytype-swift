@@ -16,13 +16,12 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     private var statePublisher: AnyPublisher<State, Never> = .empty()
     @Published private var state: State = .empty
-    private let textViewModel: TextView.UIKitTextView.ViewModel
+    private lazy var textViewModel = TextView.UIKitTextView.ViewModel(blockViewModel: self)
     private var wholeDetailsViewModel: DetailsActiveModel = .init()
     
     func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
     override init(_ block: BlockModel) {
-        self.textViewModel = TextView.UIKitTextView.ViewModel(blockContentType: block.blockModel.information.content.type)
         super.init(block)
         self.setup(block: block)
     }
