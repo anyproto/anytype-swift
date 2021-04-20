@@ -410,6 +410,13 @@
 		EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF45260C8E420062273F /* ToggleFlattener.swift */; };
 		EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */; };
 		EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */; };
+		EA77E525262DAAA6009F91D9 /* BlockMenuItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E51F262DAAA5009F91D9 /* BlockMenuItemsViewController.swift */; };
+		EA77E526262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E522262DAAA5009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift */; };
+		EA77E527262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E523262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift */; };
+		EA77E528262DAAA6009F91D9 /* BaseBlockMenuItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E524262DAAA6009F91D9 /* BaseBlockMenuItemsViewController.swift */; };
+		EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */; };
+		EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */; };
+		EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E544262DED67009F91D9 /* UIImageExtension.swift */; };
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
@@ -877,6 +884,13 @@
 		EA6BAF45260C8E420062273F /* ToggleFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleFlattener.swift; sourceTree = "<group>"; };
 		EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsBuilder.swift; sourceTree = "<group>"; };
 		EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuItemType.swift; sourceTree = "<group>"; };
+		EA77E51F262DAAA5009F91D9 /* BlockMenuItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockMenuItemsViewController.swift; sourceTree = "<group>"; };
+		EA77E522262DAAA5009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockMenuItemsViewControllerCoordinatorImp.swift; sourceTree = "<group>"; };
+		EA77E523262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockMenuItemsViewControllerCoordinator.swift; sourceTree = "<group>"; };
+		EA77E524262DAAA6009F91D9 /* BaseBlockMenuItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseBlockMenuItemsViewController.swift; sourceTree = "<group>"; };
+		EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Convenience.swift"; sourceTree = "<group>"; };
+		EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
+		EA77E544262DED67009F91D9 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
@@ -1361,6 +1375,7 @@
 				EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */,
 				EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */,
 				EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */,
+				EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -2463,6 +2478,7 @@
 		53A46330262878710097C25E /* Design system */ = {
 			isa = PBXGroup;
 			children = (
+				EA77E53F262DEC31009F91D9 /* Buttons */,
 				53A4633526287B680097C25E /* Fonts */,
 				53A4633426287B320097C25E /* Images */,
 				535B56E42628767300D218E7 /* Colors */,
@@ -2474,6 +2490,7 @@
 			isa = PBXGroup;
 			children = (
 				53A4633626287B970097C25E /* ImageExetension.swift */,
+				EA77E544262DED67009F91D9 /* UIImageExtension.swift */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -2599,6 +2616,10 @@
 		EA289B9F2629B25C00EA869F /* BlockMenuItems */ = {
 			isa = PBXGroup;
 			children = (
+				EA77E524262DAAA6009F91D9 /* BaseBlockMenuItemsViewController.swift */,
+				EA77E51F262DAAA5009F91D9 /* BlockMenuItemsViewController.swift */,
+				EA77E523262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift */,
+				EA77E522262DAAA5009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift */,
 				EAC6BB5626289201004C8C06 /* BlockActionsView.swift */,
 			);
 			path = BlockMenuItems;
@@ -2630,6 +2651,14 @@
 				EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */,
 			);
 			path = Quote;
+			sourceTree = "<group>";
+		};
+		EA77E53F262DEC31009F91D9 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		EA9D38C325F7A27900A6B24A /* Recovered References */ = {
@@ -2896,6 +2925,7 @@
 				0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */,
+				EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
@@ -2911,6 +2941,7 @@
 				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,
+				EA77E527262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
 				0AA9B042249CF68700F2962C /* MultiSelectionPane+Panes+ToolsPane.swift in Sources */,
@@ -2921,6 +2952,7 @@
 				0A005AB524C5D303000520AA /* CommonViews+Pickers.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
 				EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */,
+				EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */,
 				0A203A8A2547106100D3729A /* CoreLayer+Network+Image+Property.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
@@ -2987,6 +3019,7 @@
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
 				EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */,
 				0A0965EB25BEF5B000C004BD /* EditorModule+Content.swift in Sources */,
+				EA77E526262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
 				0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
@@ -3070,6 +3103,7 @@
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				0ACA780E23E5C96700442690 /* TextView+BaseToolbarView.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
+				EA77E528262DAAA6009F91D9 /* BaseBlockMenuItemsViewController.swift in Sources */,
 				0A0965F125BEF5B000C004BD /* EditorModule+Selection+Handler.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */,
 				EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */,
@@ -3082,6 +3116,7 @@
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				3D540C632625C05600A07BD8 /* HomeCollectionViewDocumentCellContextualMenuHandler.swift in Sources */,
+				EA77E525262DAAA6009F91D9 /* BlockMenuItemsViewController.swift in Sources */,
 				0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */,
 				0AEAD66025C0B93800E8A442 /* BaseFlattener.swift in Sources */,
 				0AA00C5224CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift in Sources */,
@@ -3108,6 +3143,7 @@
 				3D07ED34261DD62700C007E2 /* Converters.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
 				0A20E64625CD5F1A00D25C15 /* DetailsViewModelConverter.swift in Sources */,
+				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */,
 				0A996BB523EDC0CD000FDC9C /* DeveloperOptionsService.swift in Sources */,

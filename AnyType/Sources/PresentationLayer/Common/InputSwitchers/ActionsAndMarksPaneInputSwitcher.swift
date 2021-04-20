@@ -105,11 +105,13 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     private func createDelayedActonsViewTask(textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
+            guard let self = self else { return }
             let view = BlockActionsView(parentTextView: textView,
                                         frame: CGRect(origin: .zero,
                                                       size: CGSize(width: UIScreen.main.bounds.width,
-                                                                   height: Constants.minimumActionsViewHeight)))
-            self?.switchInputs(.zero, textView: textView, accessoryView: view, inputView: nil)
+                                                                   height: Constants.minimumActionsViewHeight)),
+                                        menuItems: self.menuItemsBuilder.makeBlockActionsMenuItems())
+            self.switchInputs(.zero, textView: textView, accessoryView: view, inputView: nil)
         })
         self.displayActionsViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)

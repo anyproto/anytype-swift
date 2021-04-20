@@ -10,7 +10,7 @@ struct BlockActionsBuilder {
     func makeBlockActionsMenuItems() -> [BlockActionMenuItem] {
         return [self.makeStyleMenuItem(),
                 self.makeMediaMenuItem(),
-                self.makeOtherMenuItem(),
+                self.makeObjectsMenuItem(),
                 self.makeRelationMenuItem(),
                 self.makeOtherMenuItem(),
                 self.makeActionsMenuItem(),
@@ -28,11 +28,11 @@ struct BlockActionsBuilder {
         if children.isEmpty {
             return nil
         }
-        return .menuWithChildren(.style, [.sectionDivider("Style".localized)] + children)
+        return .menu(.style, children)
     }
     
     private func makeMediaMenuItem() -> BlockActionMenuItem? {
-        return .menuWithChildren(.media, [])
+        return .menu(.media, [])
     }
     
     private func makeObjectsMenuItem() -> BlockActionMenuItem? {
@@ -44,22 +44,23 @@ struct BlockActionsBuilder {
     }
     
     private func makeOtherMenuItem() -> BlockActionMenuItem? {
-        return .menuWithChildren(.other, [])
+        return .menu(.other, [])
     }
     
     private func makeActionsMenuItem() -> BlockActionMenuItem? {
-        return .menuWithChildren(.actions, [])
+        let children: [BlockActionMenuItem] = BlockAction.allCases.map { .action(.actions($0)) }
+        return .menu(.actions, children)
     }
     
     private func makeAlignmentMenuItem() -> BlockActionMenuItem? {
-        return .menuWithChildren(.alignment, [])
+        return .menu(.alignment, [])
     }
     
     private func makeBlockColorMenuItem() -> BlockActionMenuItem? {
-        return .menuWithChildren(.color, [])
+        return .menu(.color, [])
     }
     
     private func makeBackgroundColorMenuItem() -> BlockActionMenuItem? {
-        return .menuWithChildren(.background, [])
+        return .menu(.background, [])
     }
 }
