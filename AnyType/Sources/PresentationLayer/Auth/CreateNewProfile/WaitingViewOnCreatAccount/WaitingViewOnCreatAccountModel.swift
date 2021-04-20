@@ -1,16 +1,7 @@
-//
-//  WaitingViewOnCreatAccountModel.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 10.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 
 class WaitingViewOnCreatAccountModel: ObservableObject {
-    private let developerOptionsService = ServiceLocator.shared.developerOptionsService()
     private let storeService = ServiceLocator.shared.keychainStoreService()
     private let authService = ServiceLocator.shared.authService()
     
@@ -18,9 +9,7 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
     
     var userName: String
     var image: UIImage?
-    var alphaInviteCode: String {
-        developerOptionsService.current.workflow.authentication.alphaInvitePasscode
-    }
+    let alphaInviteCode = "elbrus"
     
     @Published var error: String?
     

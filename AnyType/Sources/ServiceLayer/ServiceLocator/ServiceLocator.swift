@@ -16,11 +16,6 @@ final class ServiceLocator {
         FirebaseService()
     }
     
-    /// creates new developerOptionsService
-    func developerOptionsService() -> DeveloperOptionsService {
-        DeveloperOptionsService()
-    }
-    
     /// creates new localRepoService
     func localRepoService() -> LocalRepoServiceProtocol {
         LocalRepoService()
@@ -55,7 +50,6 @@ final class ServiceLocator {
         ApplicationCoordinator(
             window: window,
             shakeHandler: ShakeHandler(window),
-            developerOptionsService: developerOptionsService(),
             localRepoService: localRepoService(),
             authService: authService(),
             appearanceService: appearanceService(),

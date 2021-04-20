@@ -4,7 +4,7 @@ import UIKit
 final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
     
     private enum Constants {
-        static let cellReuseId = UITableViewCell.cellReuseIdentifier()
+        static let cellReuseId = NSStringFromClass(UITableViewCell.self)
         static let cellHeight: CGFloat = 55
         static let dividerCellhHeight: CGFloat = 35
         static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 16)

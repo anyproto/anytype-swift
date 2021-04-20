@@ -12,7 +12,6 @@ class ApplicationCoordinator: MainWindowHolder {
     private let pageScrollViewLayout = GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout()
     private let shakeHandler: ShakeHandler
     
-    private let developerOptionsService: DeveloperOptionsService
     private let localRepoService: LocalRepoServiceProtocol
     private let authService: AuthServiceProtocol
     private let appearanceService: AppearanceService
@@ -23,7 +22,6 @@ class ApplicationCoordinator: MainWindowHolder {
     init(
         window: MainWindow,
         shakeHandler: ShakeHandler,
-        developerOptionsService: DeveloperOptionsService,
         localRepoService: LocalRepoServiceProtocol,
         authService: AuthServiceProtocol,
         appearanceService: AppearanceService,
@@ -33,7 +31,6 @@ class ApplicationCoordinator: MainWindowHolder {
         self.window = window
         self.shakeHandler = shakeHandler
         
-        self.developerOptionsService = developerOptionsService
         self.localRepoService = localRepoService
         self.authService = authService
         self.appearanceService = appearanceService
@@ -45,15 +42,12 @@ class ApplicationCoordinator: MainWindowHolder {
     func start() {
         runAtFirstLaunch()
         runServicesOnStartup()
-        
-        let shouldSkipLogin = developerOptionsService.current.workflow.authentication.shouldSkipLogin
-        shouldSkipLogin ? showHomeScreen() : login()
+        login()
     }
     
     private func runAtFirstLaunch() {
         if UserDefaultsConfig.installedAtDate == nil {
             UserDefaultsConfig.installedAtDate = Date()
-            developerOptionsService.runAtFirstTime()
         }
     }
     
@@ -65,11 +59,6 @@ class ApplicationCoordinator: MainWindowHolder {
 
     // MARK: Login
     private func login() {
-        if shouldShowFocusedPage() {
-            showFocusedPage()
-            return
-        }
-        
         let userId = UserDefaultsConfig.usersIdKey // TODO: Remove static
         guard userId.isEmpty == false else {
             showAuthScreen()
@@ -84,18 +73,6 @@ class ApplicationCoordinator: MainWindowHolder {
                 self?.showAuthScreen()
             }
         }
-    }
-    
-    private func shouldShowFocusedPage() -> Bool {
-        let shouldShowFocusedPageId = developerOptionsService.current.workflow.authentication.shouldShowFocusedPageId
-        let focusedPageIdExists = developerOptionsService.current.workflow.authentication.focusedPageId.isEmpty == false
-        return shouldShowFocusedPageId && focusedPageIdExists
-    }
-    
-    private func showFocusedPage() {
-        let pageId = developerOptionsService.current.workflow.authentication.focusedPageId
-        let controller = EditorModule.Container.ViewBuilder.UIKitBuilder.view(by: .init(id: pageId))
-        self.startNewRootViewController(controller)
     }
     
     private func showHomeScreen() {

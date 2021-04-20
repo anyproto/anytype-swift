@@ -4,8 +4,6 @@ import Combine
 final class OldHomeCollectionViewDocumentCell: UICollectionViewCell {
     static let reuseIdentifer = "OldHomeCollectionViewDocumentCellReuseIdentifier"
     
-    let developerOptionsService = ServiceLocator.shared.developerOptionsService()
-    
     let titleLabel: UILabel = .init()
     let emoji: UILabel = .init()
     let imageView: UIImageView = .init()

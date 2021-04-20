@@ -7,7 +7,6 @@ import os
 final class ShakeHandler {
     var window: UIWindow?
     
-    private let developerOptionsService = ServiceLocator.shared.developerOptionsService()
     private var shakeSubscription: AnyCancellable?
     
     init(_ window: UIWindow?) {
@@ -17,13 +16,6 @@ final class ShakeHandler {
     func run() {
         self.shakeSubscription = NotificationCenter.default.publisher(for: .DeviceDidShaked).sink { [weak self] (value) in
             self?.handle()
-        }
-        // TODO: Integrate Appearance!
-        DispatchQueue.main.async {
-            let appearance = DeveloperOptions.ViewController.NavigationBar.appearance()
-            appearance.tintColor = .black
-            appearance.backgroundColor = .white
-            appearance.isTranslucent = false
         }
     }
 
@@ -43,48 +35,22 @@ final class ShakeHandler {
 
     // MARK: Shake Handler / Handle Action
     private func handle() {
-        // check release configuration
-//        guard
-//            let configuration = PlistReader.BuildConfiguration.create()?.buildConfiguration,
-//            configuration != .Release
-//            else {
-//                print("again, only in debug mode.")
-//                return
-//            }
-        
-        // asks if root view controller exists.
         guard let rootViewController = self.window?.rootViewController else {
-            os_log(.error, "%s no root view controller!", "\(self)")
             return
         }
         
-        // check that we already has this controller.
-        // find top presented controller.
         guard let topMostController = self.topPresentedController(for: rootViewController) else {
-            os_log(.error, "%s no top most view controller!", "\(self)")
             return
         }
         
-        // next, check that it is not already presented.
-        guard !self.isPresented(asTopMost: topMostController, of: DeveloperOptions.ViewController.self) else {
-            os_log(.error, "%s developer controller is already presented!", "\(self)")
+        guard !self.isPresented(asTopMost: topMostController, of: UIHostingController<FeatureFlagsView>.self) else {
             return
         }
         
-        // find correct settings
-//        guard let settings = self.developerOptions.current else {
-//            print("\(self) settings are not set!")
-//            return
-//        }
-        
-        let settings = developerOptionsService.current
-        
-        let model = DeveloperOptionsViewModel(settings: settings).configured(
-            service: developerOptionsService
-        )
-        let controller = DeveloperOptions.ViewController().configured(model)
+        let view = FeatureFlagsView()
+        let controller = UIHostingController(rootView: view)
                 
-        let navigation = UINavigationController(navigationBarClass: DeveloperOptions.ViewController.NavigationBar.self, toolbarClass: nil)
+        let navigation = UINavigationController()
         navigation.addChild(controller)
         topMostController.present(navigation, animated: true, completion: nil)
     }

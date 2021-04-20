@@ -7,7 +7,7 @@ final class DocumentEditorViewController: UICollectionViewController {
     private enum Constants {
         static let headerReuseId = "header"
         static let cellIndentationWidth: CGFloat = 24
-        static let cellReuseId: String = UICollectionViewListCell.cellReuseIdentifier()
+        static let cellReuseId: String = NSStringFromClass(UICollectionViewListCell.self)
     }
 
     private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?

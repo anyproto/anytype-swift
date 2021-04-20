@@ -1,11 +1,3 @@
-//
-//  UserDefault.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 21.07.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 
@@ -54,4 +46,27 @@ struct UserDefaultsConfig {
 extension UserDefaultsConfig {
     @UserDefault("App.InstalledAtDate", defaultValue: nil)
     static var installedAtDate: Date?
+}
+
+// Feature flags
+extension UserDefaultsConfig {
+    @UserDefault("FeatureFlags", defaultValue: [:])
+    private static var encodedFeatureFlags: [String: Bool]
+    
+    static var featureFlags: [Feature: Bool] {
+        get {
+            Dictionary(uniqueKeysWithValues: encodedFeatureFlags.compactMap { (key, value) in
+                guard let feature = Feature(rawValue: key) else {
+                    return nil
+                }
+                
+                return (feature, value)
+            })
+        }
+        set {
+            encodedFeatureFlags = Dictionary(uniqueKeysWithValues: newValue.map {
+                key, value in (key.rawValue, value)
+            })
+        }
+    }
 }

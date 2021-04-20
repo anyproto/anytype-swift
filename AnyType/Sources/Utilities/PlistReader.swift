@@ -1,11 +1,3 @@
-//
-//  PlistReader.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 29/09/2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -97,24 +89,6 @@ extension PlistReader {
         }
         class func isRelease() -> Bool {
             self.currentConfiguration() == .Release
-        }
-    }
-}
-
-// MARK: DeveloperOptions.${CONFIGURATION}.plist
-extension PlistReader {
-    /// DeveloperOptions.
-    /// NOTE: We use createVariant, so, we need minimum two variants ( debug and release options ).
-    /// Their names are
-    /// DeveloperOptions.Debug.plist
-    /// DeveloperOptions.Release.plist
-    class DeveloperOptions: VariantReader {
-        override class func read() -> Self? {
-            self.readVariant("DeveloperOptions")
-        }
-
-        var settings: Output? {
-            self.dictionary?["Settings"] as? Output
         }
     }
 }
