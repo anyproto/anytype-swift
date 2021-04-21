@@ -7,6 +7,11 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch / Default is develop'     
+        required: false
+        default: 'develop'
 
 jobs:
   # Also add tests.
@@ -25,7 +30,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          ref: develop
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Install SSH key for access to repository.
         uses: webfactory/ssh-agent@v0.5.0
