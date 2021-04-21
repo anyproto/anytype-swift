@@ -38,7 +38,7 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
         }
     }
     
-    private func handleAlignment(_ alignment: BlockInformation.Alignment) {
+    private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :
             self.marksPaneActionSubject.send(.style(.init(), .alignment(.left)))

@@ -413,6 +413,7 @@
 		EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E544262DED67009F91D9 /* UIImageExtension.swift */; };
 		EA77E548262DF30B009F91D9 /* BlockMenuActionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */; };
 		EA77E54B262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */; };
+		EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */; };
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
@@ -883,6 +884,7 @@
 		EA77E544262DED67009F91D9 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsHandler.swift; sourceTree = "<group>"; };
 		EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsHandlerImp.swift; sourceTree = "<group>"; };
+		EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAlignmentAction.swift; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
@@ -2587,6 +2589,7 @@
 				EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */,
 				EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */,
 				EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */,
+				EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */,
 			);
 			path = BlockActions;
 			sourceTree = "<group>";
@@ -3059,6 +3062,7 @@
 				3DA369412629B75E001557C9 /* EventHandlerFocusConverter.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
+				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
 				3D680B942624941200FFD844 /* SettingsSectionView.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */,
 				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,

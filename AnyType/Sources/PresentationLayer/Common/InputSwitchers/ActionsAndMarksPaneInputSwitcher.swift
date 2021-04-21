@@ -4,7 +4,7 @@ import UIKit
 final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     private enum Constants {
-        static let textToTriggerActionsViewDisplay = " /"
+        static let textToTriggerActionsViewDisplay = "/"
         static let displayActionsViewDelay: TimeInterval = 0.3
         static let minimumActionsViewHeight: CGFloat = 215
     }

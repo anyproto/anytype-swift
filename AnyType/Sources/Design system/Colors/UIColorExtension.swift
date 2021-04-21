@@ -103,6 +103,22 @@ extension UIColor {
         UIColor(hexString: "#E4E7FC")
     }
     
+    static var blueBackground: UIColor {
+        UIColor(hexString: "#D6EFFD")
+    }
+    
+    static var tealBackground: UIColor {
+        UIColor(hexString: "#D6F5F3")
+    }
+    
+    static var greenBackground: UIColor {
+        UIColor(hexString: "#E3F7D0")
+    }
+    
+    static var coldgrayBackground: UIColor {
+        UIColor(hexString: "#EBEFF1")
+    }
+    
     static var black: UIColor {
         UIColor(hexString: "#2C2B27")
     }
@@ -129,5 +145,21 @@ extension UIColor {
     
     static var ultramarine: UIColor {
         UIColor(hexString: "#3E58EB")
+    }
+    
+    static var blue: UIColor {
+        UIColor(hexString: "#2AA7EE")
+    }
+    
+    static var teal: UIColor {
+        UIColor(hexString: "#0FC8BA")
+    }
+    
+    static var green: UIColor {
+        UIColor(hexString: "#5DD400")
+    }
+    
+    static var coldgray: UIColor {
+        UIColor(hexString: "#8C9EA5")
     }
 }

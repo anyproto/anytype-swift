@@ -7,8 +7,9 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
         static let cellReuseId = NSStringFromClass(UITableViewCell.self)
         static let cellHeight: CGFloat = 55
         static let dividerCellhHeight: CGFloat = 35
-        static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 16)
-        static let imageToTextPadding: CGFloat = 30
+        static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 16)
+        static let imageSize = CGSize(width: 24, height: 24)
+        static let imageToTextPadding: CGFloat = 22
     }
     
     private let coordinator: BlockMenuItemsViewControllerCoordinator
@@ -52,9 +53,12 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
         configuration.textProperties.font = .bodyFont
         configuration.textProperties.color = .textColor
         configuration.image = UIImage(named: displayData.imageName)
+        configuration.imageToTextPadding = Constants.imageToTextPadding
+        configuration.imageProperties.reservedLayoutSize = Constants.imageSize
+        configuration.imageProperties.maximumSize = Constants.imageSize
         if let subtitle = displayData.subtitle {
             configuration.secondaryText = subtitle
-            configuration.secondaryTextProperties.font = .captionFont
+            configuration.secondaryTextProperties.font = .smallBodyFont
             configuration.secondaryTextProperties.color = .secondaryTextColor
         }
         return configuration
@@ -87,7 +91,6 @@ extension BlockMenuItemsViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellReuseId, for: indexPath)
         var configuration = cell.defaultContentConfiguration()
         cell.accessoryType = .none
-        configuration.imageToTextPadding = Constants.imageToTextPadding
         let item = self.items[indexPath.row]
         switch item {
         case let .action(action):
