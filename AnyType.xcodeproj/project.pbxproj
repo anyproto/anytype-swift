@@ -399,6 +399,7 @@
 		EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC462261C9AAB002E961E /* FileLoader.swift */; };
 		EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */; };
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
+		EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */; };
 		EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */; };
 		EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF45260C8E420062273F /* ToggleFlattener.swift */; };
 		EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */; };
@@ -869,6 +870,7 @@
 		EA4AC462261C9AAB002E961E /* FileLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLoader.swift; sourceTree = "<group>"; };
 		EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoaderReturnValue.swift; sourceTree = "<group>"; };
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
+		EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Convenience.swift"; sourceTree = "<group>"; };
 		EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedFlattener.swift; sourceTree = "<group>"; };
 		EA6BAF45260C8E420062273F /* ToggleFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleFlattener.swift; sourceTree = "<group>"; };
 		EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsBuilder.swift; sourceTree = "<group>"; };
@@ -1345,6 +1347,7 @@
 				EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */,
 				EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */,
 				EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */,
+				EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -3139,6 +3142,7 @@
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
 				EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */,
+				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */,
 				0AA9B049249F65A800F2962C /* MultiSelectionPane+UIKit.swift in Sources */,
 				0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */,

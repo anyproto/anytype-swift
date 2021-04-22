@@ -432,6 +432,10 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         return true
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.textSize = textView.intrinsicContentSize
+    }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         /// TODO: Refactor it later.
         return;

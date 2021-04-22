@@ -11,7 +11,7 @@ class KeychainPhraseViewModel: ObservableObject {
     }
 
     func viewLoaded() {
-        let seed = try? keychainStoreService.obtainSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
+        let seed = try? keychainStoreService.obtainSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
         self.recoveryPhrase = seed ?? ""
     }
 

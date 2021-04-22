@@ -16,19 +16,19 @@ final class KeychainStoreService: SecureStoreServiceProtocol {
         return keychainStore.contains(queryable: seedQuery)
     }
     
-    func removeSeed(for publicKey: String?, keyChainPassword: KeychainPasswordType) throws {
-        let seedQuery = GenericPasswordQueryable(account: publicKey ?? StoreServiceConstants.defaultName, service: StoreServiceConstants.serviceName, keyChainPassword: keyChainPassword)
+    func removeSeed(for publicKey: String?, keychainPassword: KeychainPasswordType?) throws {
+        let seedQuery = GenericPasswordQueryable(account: publicKey ?? StoreServiceConstants.defaultName, service: StoreServiceConstants.serviceName, keyChainPassword: keychainPassword)
         try keychainStore.removeItem(queryable: seedQuery)
     }
     
-    func obtainSeed(for name: String?, keyChainPassword: KeychainPasswordType) throws -> String {
-        let seedQuery = GenericPasswordQueryable(account: name ?? StoreServiceConstants.defaultName, service: StoreServiceConstants.serviceName, keyChainPassword: keyChainPassword)
+    func obtainSeed(for name: String?, keychainPassword: KeychainPasswordType?) throws -> String {
+        let seedQuery = GenericPasswordQueryable(account: name ?? StoreServiceConstants.defaultName, service: StoreServiceConstants.serviceName, keyChainPassword: keychainPassword)
         let seed = try keychainStore.retreiveItem(queryable: seedQuery)
         return seed
     }
     
-    func saveSeedForAccount(name: String?, seed: String, keyChainPassword: KeychainPasswordType) throws {
-        let seedQuery = GenericPasswordQueryable(account: name ?? StoreServiceConstants.defaultName, service: StoreServiceConstants.serviceName, keyChainPassword: keyChainPassword)
+    func saveSeedForAccount(name: String?, seed: String, keychainPassword: KeychainPasswordType?) throws {
+        let seedQuery = GenericPasswordQueryable(account: name ?? StoreServiceConstants.defaultName, service: StoreServiceConstants.serviceName, keyChainPassword: keychainPassword)
         try keychainStore.storeItem(item: seed, queryable: seedQuery)
     }
 }

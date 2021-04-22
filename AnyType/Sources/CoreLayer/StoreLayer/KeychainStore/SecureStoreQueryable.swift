@@ -30,7 +30,6 @@ import LocalAuthentication
 
 
 enum KeychainPasswordType {
-    case none
     case userPresence // access an item with either biometry or passcode
     case appPassword(String)
 }
@@ -43,13 +42,13 @@ struct GenericPasswordQueryable {
     let service: String
     let accessGroup: String?
     let account: String
-    let keyChainPassword: KeychainPasswordType?
+    let keychainPassword: KeychainPasswordType?
     
-    init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: KeychainPasswordType = .none) {
+    init(account: String, service: String, accessGroup: String? = nil, keyChainPassword: KeychainPasswordType? = nil) {
         self.service = service
         self.accessGroup = accessGroup
         self.account = account
-        self.keyChainPassword = keyChainPassword
+        self.keychainPassword = keyChainPassword
     }
     
     private func getPwSecAccessControl() -> SecAccessControl {
@@ -74,20 +73,12 @@ extension GenericPasswordQueryable: SecureStoreQueryable {
         query[String(kSecAttrAccount)] = account
         
         let context = LAContext()
-        
-        if let password = keyChainPassword, case KeychainPasswordType.appPassword(let pinCode) = password {
-            context.setCredential(pinCode.data(using: .utf8), type: .applicationPassword)
-        }
-        
-        /// TODO:
-        /// Resolve.
-        /// Why?
-        /// WHAT?
-        /// I Don't know
-        /// :(
-        switch keyChainPassword {
+        switch keychainPassword {
         case .none: break
-        default:
+        case let .appPassword(pinCode):
+            context.setCredential(pinCode.data(using: .utf8), type: .applicationPassword)
+            fallthrough
+        case .userPresence:
             query[String(kSecUseAuthenticationContext)] = context
             query[String(kSecAttrAccessControl)] = getPwSecAccessControl()
         }

@@ -33,7 +33,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
             }) { [weak self] _ in
                 completion()
                 try? FileManager.default.removeItem(atPath: self?.localRepoService.middlewareRepoPath ?? "")
-                try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keyChainPassword: .userPresence)
+                try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
                 UserDefaultsConfig.usersIdKey = ""
                 UserDefaultsConfig.userName = ""
         }
@@ -47,7 +47,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
             }
         }) { [weak self] (value) in
             Logger.create(.servicesAuthService).debug("seed: \(value.mnemonic, privacy: .private)")
-            try? self?.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keyChainPassword: .none)
+            try? self?.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keychainPassword: .none)
             onCompletion(.success(()))
         }
     }
@@ -74,13 +74,13 @@ final class AuthService: NSObject, AuthServiceProtocol {
         }) { [weak self] (value) in
             UserDefaultsConfig.usersIdKey = value.account.id
             UserDefaultsConfig.userName = value.account.name
-            self?.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
+            self?.replaceDefaultSeed(with: value.account.id, keychainPassword: .userPresence)
             onCompletion(.success(value.account.id))
         }
     }
 
     func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        try? self.storeService.saveSeedForAccount(name: nil, seed: mnemonic, keyChainPassword: .none)
+        try? self.storeService.saveSeedForAccount(name: nil, seed: mnemonic, keychainPassword: .none)
         _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: path, mnemonic: mnemonic).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
@@ -112,7 +112,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
         }) { [weak self] (value) in
             UserDefaultsConfig.usersIdKey = value.account.id
             UserDefaultsConfig.userName = value.account.name
-            self?.replaceDefaultSeed(with: value.account.id, keyChainPassword: .userPresence)
+            self?.replaceDefaultSeed(with: value.account.id, keychainPassword: .userPresence)
             theCompletion(.success(value.account.id))
         }
     }
@@ -122,10 +122,10 @@ final class AuthService: NSObject, AuthServiceProtocol {
 // MARK: - Private methods
 
 extension AuthService {
-    private func replaceDefaultSeed(with name: String, keyChainPassword: KeychainPasswordType) {
-        if let seed = try? self.storeService.obtainSeed(for: nil, keyChainPassword: .none) {
-            try? self.storeService.saveSeedForAccount(name: name, seed: seed, keyChainPassword: keyChainPassword)
-            try? self.storeService.removeSeed(for: nil, keyChainPassword: .none)
+    private func replaceDefaultSeed(with name: String, keychainPassword: KeychainPasswordType) {
+        if let seed = try? self.storeService.obtainSeed(for: nil, keychainPassword: .none) {
+            try? self.storeService.saveSeedForAccount(name: name, seed: seed, keychainPassword: keychainPassword)
+            try? self.storeService.removeSeed(for: nil, keychainPassword: .none)
         }
     }
 }

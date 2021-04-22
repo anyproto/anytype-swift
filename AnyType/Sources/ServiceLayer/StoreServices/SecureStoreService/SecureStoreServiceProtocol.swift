@@ -14,15 +14,15 @@ protocol SecureStoreServiceProtocol {
     
     /// Obtain seed for public key
     /// - Parameter name: public key
-    /// - Parameter keyChainPassword: keychain password
+    /// - Parameter keychainPassword: keychain password
     /// - Returns: seed
-    func obtainSeed(for name: String?, keyChainPassword: KeychainPasswordType) throws -> String
+    func obtainSeed(for name: String?, keychainPassword: KeychainPasswordType?) throws -> String
     
     /// Save seed to keychain
     /// - Parameter name: public key
     /// - Parameter seed: seed
-    /// - Parameter keyChainPassword: keychain password that will protect seed
-    func saveSeedForAccount(name: String?, seed: String, keyChainPassword: KeychainPasswordType) throws
+    /// - Parameter keychainPassword: keychain password that will protect seed
+    func saveSeedForAccount(name: String?, seed: String, keychainPassword: KeychainPasswordType?) throws
     
     /// Check if seed exists for public key
     /// - Parameter publicKey: public key
@@ -31,5 +31,5 @@ protocol SecureStoreServiceProtocol {
     
     /// Remove seed
     /// - Parameter publicKey: public key
-    func removeSeed(for publicKey: String?, keyChainPassword: KeychainPasswordType) throws
+    func removeSeed(for publicKey: String?, keychainPassword: KeychainPasswordType?) throws
 }
