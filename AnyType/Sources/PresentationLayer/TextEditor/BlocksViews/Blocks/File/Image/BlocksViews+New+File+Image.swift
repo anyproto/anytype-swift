@@ -279,10 +279,6 @@ extension Namespace.ViewModel {
     }
 }
 
-private extension Namespace.ViewModel {
-    typealias ImageLoader = CommonViews.ImageView.Loader
-}
-
 // MARK: - ContentView
 private extension Namespace.ViewModel {
     class ContentView: UIView & UIContentView {
