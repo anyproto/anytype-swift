@@ -103,9 +103,10 @@ extension Namespace {
         override init(frame: CGRect, textContainer: NSTextContainer?) {
             let textStorage = NSTextStorage()
             textStorage.addLayoutManager(blockLayoutManager)
-            blockLayoutManager.addTextContainer(textContainer ?? NSTextContainer())
+            let container = textContainer ?? NSTextContainer()
+            blockLayoutManager.addTextContainer(container)
 
-            super.init(frame: frame, textContainer: textContainer)
+            super.init(frame: frame, textContainer: container)
 
             self.setup()
         }
