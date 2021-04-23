@@ -102,7 +102,6 @@ extension FileNamespace {
     /// Rethink proper implementation of `Publishers.CombineLatest`.
     /// It will catch view value that we want to avoid, heh.
     /// Instead, think about `Coordinator` as a view-agnostic textView events handler.
-    ///
     func configureEditingToolbarHandler(_ textView: UITextView) {
         self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
             guard let self = self, let inputSwitcher = self.inputSwitcher else { return }
@@ -113,6 +112,8 @@ extension FileNamespace {
                 textView.text.append(inputSwitcher.textToTriggerActionsViewDisplay)
             case .multiActionMenu:
                 self.publishToOuterWorld(.showMultiActionMenuAction(.showMultiActionMenu))
+            case .showStyleMenu:
+                self.publishToOuterWorld(.showStyleMenu)
             case .keyboardDismiss:
                 UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
             }
@@ -183,50 +184,22 @@ extension FileNamespace {
 }
 
 // MARK: InnerTextView.Coordinator / Publishers
+
 private extension FileNamespace {
     
     func publishToOuterWorld(_ action: TextView.UserAction?) {
-        action.flatMap({self.userInteractionDelegate?.didReceiveAction($0)})
+        action.flatMap { self.userInteractionDelegate?.didReceiveAction($0) }
     }
-    func publishToOuterWorld(_ action: TextView.UserAction.BlockAction?) {
-        action.flatMap(TextView.UserAction.blockAction).flatMap(publishToOuterWorld)
-    }
-    func publishToOuterWorld(_ action: TextView.UserAction.MarksAction?) {
-        action.flatMap(TextView.UserAction.marksAction).flatMap(publishToOuterWorld)
-    }
+
     func publishToOuterWorld(_ action: TextView.UserAction.InputAction?) {
         action.flatMap(TextView.UserAction.inputAction).flatMap(publishToOuterWorld)
     }
+
     func publishToOuterWorld(_ action: TextView.UserAction.KeyboardAction?) {
         action.flatMap(TextView.UserAction.keyboardAction).flatMap(publishToOuterWorld)
     }
     
     // MARK: - Publishers / Blocks Toolbar
-    func configureBlocksToolbarHandler(_ view: UITextView) {
-        self.blocksAccessoryViewHandler = Publishers.CombineLatest(Just(view), self.blocksAccessoryView.model.$userAction).sink(receiveValue: { [weak self] (value) in
-            let (textView, action) = value
-            
-            guard action.action != .keyboardDismiss else {
-                textView.endEditing(false)
-                return
-            }
-            
-            self?.switchInputs(textView, accessoryView: nil, inputView: action.view)
-        })
-        
-        // TODO: Add other user interaction publishers.
-        // 1. Add hook that will send this data to delegate.
-        // 2. Add delegate that will take UserAction like delegate?.onUserAction(UserAction)
-        // 3. Add another delegate that will "wraps" UserAction with information about block ( first delegate IS a observableModel or even just ObservableObject or @binding... )
-        // 4. Second delegate is a documentViewModel ( so, it needs information about block if available.. )
-        // 5. Add hook to receive user key inputs and context of current text View. ( enter may behave different ).
-        // 6. Add hook that will catch marks styles. ( special convert for links and colors )
-        self.blocksUserActionsHandler = self.blocksAccessoryView.model.allInOnePublisher.sink { [weak self] value in
-            // now tell outer world that we are ready to process actions.
-            // ...
-            self?.publishToOuterWorld(value)
-        }
-    }
         
     func configureMarkStylePublisher(_ view: UITextView) {
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { [weak self] (textView, action) in

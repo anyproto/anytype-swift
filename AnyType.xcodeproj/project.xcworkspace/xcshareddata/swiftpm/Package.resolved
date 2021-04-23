@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "FloatingPanel",
+        "repositoryURL": "git@github.com:scenee/FloatingPanel.git",
+        "state": {
+          "branch": null,
+          "revision": "16fea625be25d9a713630a4a43cbc0778740ebf4",
+          "version": "2.3.0"
+        }
+      },
+      {
         "package": "gRPC",
         "repositoryURL": "https://github.com/firebase/grpc-SwiftPM.git",
         "state": {

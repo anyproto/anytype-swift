@@ -23,6 +23,8 @@ class EditingToolbarView: UIView {
         case multiActionMenu
         /// Done button pressed
         case keyboardDismiss
+        /// Show bottom sheet style menu
+        case showStyleMenu
     }
 
     // MARK: - Views
@@ -69,8 +71,8 @@ class EditingToolbarView: UIView {
             self?.actionHandler?(.slashMenu)
         }
 
-        addBarButtonItem(image: UIImage(named: "EditingToolbar/style")) {_ in
-            assertionFailure("Not implemented yet")
+        addBarButtonItem(image: UIImage(named: "EditingToolbar/style")) {[weak self] _ in
+            self?.actionHandler?(.showStyleMenu)
         }
 
         addBarButtonItem(image: UIImage(named: "EditingToolbar/move")) { [weak self] _ in

@@ -319,14 +319,16 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
         switch action {
         case let .addBlockAction(value):
             switch value {
-            case .addBlock: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
+            case .addBlock:
+                self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
             }
-
+        case .showStyleMenu:
+            self.send(actionsPayload: .showStyleMenu)
         case .showMultiActionMenuAction(.showMultiActionMenu):
             self.getUIKitViewModel().shouldResignFirstResponder()
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
-
-        default: self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
+        default:
+            self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
         }
     }
 }

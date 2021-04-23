@@ -1,5 +1,6 @@
 import UIKit
 import Combine
+import FloatingPanel
 
 
 final class DocumentEditorViewController: UICollectionViewController {
@@ -192,6 +193,7 @@ final class DocumentEditorViewController: UICollectionViewController {
 }
 
 // MARK: - HeaderView PageDetails
+
 extension DocumentEditorViewController {
     private func process(event: DocumentEditorViewModel.UserEvent) {
         switch event {
@@ -333,5 +335,39 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         let searchListViewController = SearchListViewController(items: languages, completion: completion)
         modalPresentationStyle = .pageSheet
         present(searchListViewController, animated: true)
+    }
+
+    func showStyleMenu() {
+        self.view.endEditing(true)
+
+        let fpc = FloatingPanelController()
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 10.0
+        // Define shadows
+        let shadow = SurfaceAppearance.Shadow()
+        shadow.color = UIColor.black
+        shadow.offset = CGSize(width: 0, height: 4)
+        shadow.radius = 40
+        shadow.opacity = 0.25
+        appearance.shadows = [shadow]
+
+        fpc.surfaceView.layer.cornerCurve = .continuous
+
+        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: view.safeAreaInsets.bottom + 6, right: 10.0)
+        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
+        fpc.surfaceView.grabberHandle.barColor = .stroke
+        fpc.surfaceView.appearance = appearance
+        fpc.isRemovalInteractionEnabled = true
+        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        fpc.layout = StylePanelLayout()
+        fpc.backdropView.backgroundColor = .clear
+        fpc.contentMode = .static
+
+        let contentVC = StyleViewController()
+        fpc.set(contentViewController: contentVC)
+
+        guard let vc = parent else { return }
+
+        fpc.addPanel(toParent: vc, animated: true)
     }
 }

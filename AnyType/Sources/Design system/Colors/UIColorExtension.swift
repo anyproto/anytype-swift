@@ -68,6 +68,7 @@ extension UIColor {
     static var activeOrange: UIColor {
         .init(hexString: "#F6A927")
     }
+    
 
     /// Color that can be used in case if we couldn't parse color from middleware
     static var defaultColor: UIColor {
@@ -161,5 +162,18 @@ extension UIColor {
     
     static var coldgray: UIColor {
         UIColor(hexString: "#8C9EA5")
+    }
+
+    static var stroke: UIColor {
+        .init(hexString: "#DFDDD0")
+    }
+
+    /// Buttons color
+    ///
+    /// Design [link](https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android-main-draft?node-id=3681%3A1066)
+    enum Button {
+        static var secondaryPressed: UIColor {
+            .init(hexString: "#F3F2EC")
+        }
     }
 }

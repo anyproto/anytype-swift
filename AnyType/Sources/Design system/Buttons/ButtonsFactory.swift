@@ -1,15 +1,17 @@
 
 import UIKit
 
-struct ButtonsFactory {
-    
+
+enum ButtonsFactory {
+    typealias ActionHandler = (_ action: UIAction) -> Void
+
     private enum Constants {
         static let backButtonImageToTitlePadding: CGFloat = 10
     }
     
-    func makeBackButton(action: @escaping() -> Void) -> UIButton {
-        let backButton = UIButton(type: .system, primaryAction: UIAction { _ in
-            action()
+    static func makeBackButton(actionHandler: @escaping ActionHandler) -> UIButton {
+        let backButton = UIButton(type: .system, primaryAction: UIAction { action in
+            actionHandler(action)
         })
         backButton.setAttributedTitle(NSAttributedString(string: "Back".localized,
                                                          attributes: [.font: UIFont.smallBodyFont]),
@@ -18,5 +20,16 @@ struct ButtonsFactory {
         backButton.setImageAndTitleSpacing(Constants.backButtonImageToTitlePadding)
         backButton.tintColor = .secondaryTextColor
         return backButton
+    }
+
+    static func roundedBorderуButton(image: UIImage?) -> UIButton {
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 0.5
+        button.layer.borderColor = UIColor.stroke.cgColor
+        button.contentMode = .center
+        button.imageView?.contentMode = .scaleAspectFit
+        return button
     }
 }

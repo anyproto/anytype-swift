@@ -369,6 +369,9 @@ private extension DocumentEditorViewModel {
         // TODO: we need coordinator(router) here that show this view https://app.clickup.com/t/h13ytp
         case let .showCodeLanguageView(languages, completion):
             self.viewInput?.showCodeLanguageView(with: languages, completion: completion)
+        case .showStyleMenu:
+//            self.publicUserActionSubject.send()
+            self.viewInput?.showStyleMenu()
         default: return
         }
     }

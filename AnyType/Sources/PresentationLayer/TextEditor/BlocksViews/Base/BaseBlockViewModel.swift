@@ -369,6 +369,8 @@ extension BaseBlockViewModel {
         case userAction(UserActionHolder)
         /// show code language view
         case showCodeLanguageView(languages: [String], completion: (String) -> Void)
+        /// show style menu
+        case showStyleMenu
     }
     
     // Send actions payload

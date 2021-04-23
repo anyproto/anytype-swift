@@ -10,7 +10,6 @@ enum DocumentViewRouting {
     /// If you would like to add router, it is the first place where you would like to start.
     /// Do not forget to subclass following methods:
     /// - `receive(action:)`
-    ///
     class BaseRouter {
         typealias UserAction = BlocksViews.UserAction
         typealias UserActionPublisher = AnyPublisher<UserAction, Never>
@@ -91,12 +90,10 @@ enum DocumentViewRouting {
 
 /// Requirement: `DocumentViewRoutingOutputProtocol` is necessary for sending events to outer world.
 /// We use this protocol to gather events from routing in our view controller.
-///
 extension DocumentViewRouting.BaseRouter: DocumentViewRoutingOutputProtocol {}
 
 /// Requirement: `DocumentViewRoutingSendingOutputProtocol` is necessary for sending events to outer world.
 /// However, we use it `internally`. Do not call these methods from outer world.
-///
 extension DocumentViewRouting.BaseRouter: DocumentViewRoutingSendingOutputProtocol {
     func send(event: DocumentViewRouting.OutputEvent) {
         self.outputEventSubject.send(event)
@@ -112,7 +109,6 @@ extension DocumentViewRouting {
     /// Do not forget to subclass following methods:
     /// - `.defaultRouters`
     /// - `match(action:)`
-    ///
     class BaseCompoundRouter: BaseRouter {
         // MARK: Variables
         @Published private var routers: [BaseRouter] = []

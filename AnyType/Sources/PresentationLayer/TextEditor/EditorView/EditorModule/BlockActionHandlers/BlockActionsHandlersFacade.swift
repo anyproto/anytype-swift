@@ -119,6 +119,7 @@ final class BlockActionsHandlersFacade {
             }
         case let .userAction(value): self.userActionHandler.handlingUserAction(value.model, value.action)
         case .showCodeLanguageView: return
+        case .showStyleMenu: return
         }
     }
 }

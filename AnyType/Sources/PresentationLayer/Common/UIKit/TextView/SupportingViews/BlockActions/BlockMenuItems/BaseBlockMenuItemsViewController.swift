@@ -19,7 +19,7 @@ class BaseBlockMenuItemsViewController: UIViewController {
     }()
     
     private lazy var backButton: UIButton = {
-        let backButton = ButtonsFactory().makeBackButton { [weak self] in
+        let backButton = ButtonsFactory.makeBackButton { [weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         }
         backButton.translatesAutoresizingMaskIntoConstraints = false

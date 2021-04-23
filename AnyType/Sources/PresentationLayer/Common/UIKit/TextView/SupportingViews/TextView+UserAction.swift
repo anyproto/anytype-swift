@@ -13,29 +13,12 @@ import UIKit
 extension TextView {
     public enum UserAction {
         case
-        blockAction(BlockAction), // Deprecated
-        marksAction(MarksAction), // Deprecated
+        showStyleMenu,
         inputAction(InputAction),
         keyboardAction(KeyboardAction),
         addBlockAction(AddBlockAction),
         showMultiActionMenuAction(ShowMultiActionMenuAction)
     }
-}
-
-// MARK: - BlockAction
-extension TextView.UserAction {
-    // TODO: Wrap actions in existential types to hide internal types.
-    typealias BlockAction = TextView.BlockToolbar.UnderlyingAction
-}
-
-// MARK: - MarksAction
-extension TextView.UserAction {
-    // we should eliminate all typealiases at the end.
-    //        enum MarksAction {
-    //            typealias MarksType = TextView.HighlightedToolbar.UnderlyingAction.MarksType
-    //            case changeMark(NSRange, MarksType)
-    //        }
-    typealias MarksAction = TextView.HighlightedToolbar.UnderlyingAction // it should be what?! I guess it is Action with range, right?!
 }
 
 // MARK: - InputAction
