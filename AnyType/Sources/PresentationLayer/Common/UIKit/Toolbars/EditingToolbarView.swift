@@ -17,8 +17,8 @@ class EditingToolbarView: UIView {
 
     /// Actions that emit toolbar on selection buttons
     enum Action {
-        /// Add block pressed
-        case addBlock
+        /// Slash button pressed
+        case slashMenu
         /// Multiselect button pressed
         case multiActionMenu
         /// Done button pressed
@@ -66,7 +66,7 @@ class EditingToolbarView: UIView {
         stackView.edgesToSuperview()
     
         addBarButtonItem(image: UIImage(named: "EditingToolbar/add_new")) { [weak self] _ in
-            self?.actionHandler?(.addBlock)
+            self?.actionHandler?(.slashMenu)
         }
 
         addBarButtonItem(image: UIImage(named: "EditingToolbar/style")) {_ in

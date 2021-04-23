@@ -400,6 +400,7 @@
 		EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */; };
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
 		EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */; };
+		EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */; };
 		EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */; };
 		EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF45260C8E420062273F /* ToggleFlattener.swift */; };
 		EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */; };
@@ -871,6 +872,7 @@
 		EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoaderReturnValue.swift; sourceTree = "<group>"; };
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
 		EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Convenience.swift"; sourceTree = "<group>"; };
+		EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
 		EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedFlattener.swift; sourceTree = "<group>"; };
 		EA6BAF45260C8E420062273F /* ToggleFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleFlattener.swift; sourceTree = "<group>"; };
 		EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsBuilder.swift; sourceTree = "<group>"; };
@@ -2628,6 +2630,7 @@
 				EAC6BB5626289201004C8C06 /* BlockActionsView.swift */,
 				EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */,
 				EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */,
+				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
 			);
 			path = BlockMenuItems;
 			sourceTree = "<group>";
@@ -2963,6 +2966,7 @@
 				0A0965FF25BEF5B000C004BD /* EditorModule+Document.swift in Sources */,
 				534B7F2026264E8B00D712B2 /* EditingToolbarView.swift in Sources */,
 				0A78327624BC83A500A1B6F6 /* BlocksModelsParser+Details.swift in Sources */,
+				EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */,
 				03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */,
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,

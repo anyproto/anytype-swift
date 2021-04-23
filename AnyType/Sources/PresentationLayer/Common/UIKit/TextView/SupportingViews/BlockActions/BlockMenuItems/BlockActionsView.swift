@@ -1,6 +1,6 @@
 import UIKit
 
-final class BlockActionsView: UIView {
+final class BlockActionsView: DismissableInputAccessoryView {
     
     private enum Constants {
         static let separatorHeight: CGFloat = 0.5
@@ -14,18 +14,15 @@ final class BlockActionsView: UIView {
     init(parentTextView: UITextView,
          frame: CGRect,
          menuItems: [BlockActionMenuItem],
-         blockMenuActionsHandler: BlockMenuActionsHandler) {
+         blockMenuActionsHandler: BlockMenuActionsHandler,
+         actionsMenuDismissHandler: @escaping () -> Void) {
         self.parentTextView = parentTextView
         self.menuItems = menuItems
         self.blockMenuActionsHandler = blockMenuActionsHandler
         let selectedRange = parentTextView.selectedRange
         self.positionOfFirstSymbolToGetFilterString = selectedRange.location + selectedRange.length
-        super.init(frame: frame)
-        self.backgroundColor = .systemBackground
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(frame: frame,
+                   actionsMenuDismissHandler: actionsMenuDismissHandler)
     }
     
     private func setup(parentViewController: UIViewController) {
@@ -44,6 +41,7 @@ final class BlockActionsView: UIView {
     }
     
     override func didMoveToWindow() {
+        super.didMoveToWindow()
         guard let windowRootViewController = self.window?.rootViewController?.children.last else { return }
         self.setup(parentViewController: windowRootViewController)
     }

@@ -4,22 +4,26 @@ import UIKit
 final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     private enum Constants {
-        static let textToTriggerActionsViewDisplay = "/"
         static let displayActionsViewDelay: TimeInterval = 0.3
         static let minimumActionsViewHeight: CGFloat = UIScreen.main.isFourInch ? 160 : 215
     }
     
+    let textToTriggerActionsViewDisplay = "/"
     private var displayActionsViewTask: DispatchWorkItem?
     private let menuItemsBuilder: BlockActionsBuilder
     private let blockMenuActionsHandler: BlockMenuActionsHandler
+    private let actionsMenuDismissHandler: () -> Void
     
     init(menuItemsBuilder: BlockActionsBuilder,
-         blockMenuActionsHandler: BlockMenuActionsHandler) {
+         blockMenuActionsHandler: BlockMenuActionsHandler,
+         actionsMenuDismissHandler: @escaping () -> Void) {
         self.menuItemsBuilder = menuItemsBuilder
         self.blockMenuActionsHandler = blockMenuActionsHandler
+        self.actionsMenuDismissHandler = actionsMenuDismissHandler
     }
     
     override func switchInputs(_ inputViewKeyboardSize: CGSize,
+                               animated: Bool,
                                textView: UITextView,
                                accessoryView: UIView?,
                                inputView: UIView?) {
@@ -38,10 +42,15 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         
         if let accessoryView = accessoryView {
             textView.inputAccessoryView = accessoryView
-            accessoryView.transform = CGAffineTransform(translationX: 0, y: accessoryView.frame.size.height)
             shouldReloadInputViews = true
         }
-        if shouldReloadInputViews {
+        if !shouldReloadInputViews {
+            return
+        }
+        if !animated {
+            textView.reloadInputViews()
+        } else {
+            accessoryView?.transform = CGAffineTransform(translationX: 0, y: accessoryView?.frame.size.height ?? 0)
             UIView.animate(withDuration: CATransaction.animationDuration()) {
                 accessoryView?.transform = .identity
                 textView.reloadInputViews()
@@ -54,14 +63,13 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                                     textView: UITextView,
                                     selectionLength: Int,
                                     accessoryView: UIView?, inputView: UIView?) -> InputSwitcherTriplet? {
-        self.updateActionsViewDisplayState(textView: textView)
         switch (selectionLength, accessoryView, inputView) {
         // Length == 0, => set actions toolbar and restore default keyboard.
-        case (0, _, _): return .init(shouldAnimate: true, accessoryView: coordinator.editingToolbarAccessoryView, inputView: nil)
+        case (0, _, _): return .init(shouldAnimate: false, accessoryView: coordinator.editingToolbarAccessoryView, inputView: nil)
         // Length != 0 and is ActionsToolbarAccessoryView => set marks pane input view and restore default accessory view (?).
-        case (_, is EditingToolbarView, _): return .init(shouldAnimate: true, accessoryView: nil, inputView: coordinator.marksToolbarInputView.view)
+        case (_, is EditingToolbarView, _): return .init(shouldAnimate: false, accessoryView: nil, inputView: coordinator.marksToolbarInputView.view)
         // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
-        case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: true, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+        case (_, is TextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: false, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
         // Otherwise, we need to keep accessory view and keyboard.
         default: return .init(shouldAnimate: false, accessoryView: accessoryView, inputView: inputView)
         }
@@ -78,20 +86,39 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     override func switchInputs(_ coordinator: Coordinator,
                                textView: UITextView) {
+        self.updateActionsViewDisplayState(textView: textView)
+        showEditingBars(coordinator: coordinator, textView: textView)
+    }
+    
+    func showEditingBars(coordinator: Coordinator,
+                              textView: UITextView) {
         guard let triplet = self.variantsFromState(coordinator,
                                                    textView: textView,
                                                    selectionLength: textView.selectedRange.length,
                                                    accessoryView: textView.inputAccessoryView,
                                                    inputView: textView.inputView) else { return }
-        
-        let (_, accessoryView, inputView) = (triplet.shouldAnimate, triplet.accessoryView, triplet.inputView)
-        
         self.switchInputs(coordinator.defaultKeyboardRect.size,
+                          animated: triplet.shouldAnimate,
                           textView: textView,
-                          accessoryView: accessoryView,
-                          inputView: inputView)
+                          accessoryView: triplet.accessoryView,
+                          inputView: triplet.inputView)
         
         self.didSwitchViews(coordinator, textView: textView)
+    }
+    
+    func showMenuActionsView(textView: UITextView) {
+        let view = BlockActionsView(parentTextView: textView,
+                                    frame: CGRect(origin: .zero,
+                                                  size: CGSize(width: UIScreen.main.bounds.width,
+                                                               height: Constants.minimumActionsViewHeight)),
+                                    menuItems: self.menuItemsBuilder.makeBlockActionsMenuItems(),
+                                    blockMenuActionsHandler: self.blockMenuActionsHandler,
+                                    actionsMenuDismissHandler: self.actionsMenuDismissHandler)
+        switchInputs(.zero,
+                     animated: true,
+                     textView: textView,
+                     accessoryView: view,
+                     inputView: nil)
     }
     
     private func updateActionsViewDisplayState(textView: UITextView) {
@@ -101,21 +128,14 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         if let caretPosition = textView.position(from: textView.beginningOfDocument, offset: offset),
            let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
            let text = textView.text(in: textRange),
-           text.hasSuffix(Constants.textToTriggerActionsViewDisplay) {
+           text.hasSuffix(textToTriggerActionsViewDisplay) {
             self.createDelayedActonsViewTask(textView: textView)
         }
     }
     
     private func createDelayedActonsViewTask(textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
-            guard let self = self else { return }
-            let view = BlockActionsView(parentTextView: textView,
-                                        frame: CGRect(origin: .zero,
-                                                      size: CGSize(width: UIScreen.main.bounds.width,
-                                                                   height: Constants.minimumActionsViewHeight)),
-                                        menuItems: self.menuItemsBuilder.makeBlockActionsMenuItems(),
-                                        blockMenuActionsHandler: self.blockMenuActionsHandler)
-            self.switchInputs(.zero, textView: textView, accessoryView: view, inputView: nil)
+            self?.showMenuActionsView(textView: textView)
         })
         self.displayActionsViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)

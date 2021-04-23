@@ -10,10 +10,12 @@ class InputSwitcher {
     ///
     /// - Parameters:
     ///   - inputViewKeyboardSize: Size of keyboard input view. ( actually, default keyboard size ).
+    ///   - animated: Use animation or not
     ///   - textView: textView which would reload input views.
     ///   - accessoryView: accessory view which will be taken in account in switching
     ///   - inputView: input view which will be taken in account in switching
      func switchInputs(_ inputViewKeyboardSize: CGSize,
+                       animated: Bool,
                        textView: UITextView,
                        accessoryView: UIView?,
                        inputView: UIView?) {

@@ -26,7 +26,6 @@ extension Namespace {
             static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
         }
         // MARK: Aliases
-        typealias TheTextView = TextView.UIKitTextView
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
         typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
         typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
@@ -73,15 +72,20 @@ extension Namespace {
         /// And also, we need a handler which updates current state of marks ( like updateHighlightingMenu )
         
         
-        private var keyboardObserverHandler: AnyCancellable?
         private(set) var defaultKeyboardRect: CGRect = .zero
         private lazy var pressingEnterTimeChecker = TimeChecker(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
         
-        private let inputSwitcher: ActionsAndMarksPaneInputSwitcher
+        private weak var textView: UITextView?
+        private var inputSwitcher: ActionsAndMarksPaneInputSwitcher?
         
         init(menuItemsBuilder: BlockActionsBuilder, blockMenuActionsHandler: BlockMenuActionsHandler) {
+            super.init()
+            let dismissActionsMenu = { [weak self] in
+                guard let self = self, let textView = self.textView else { return }
+                self.inputSwitcher?.showEditingBars(coordinator: self, textView: textView)
+            }
             self.inputSwitcher = ActionsAndMarksPaneInputSwitcher(menuItemsBuilder: menuItemsBuilder,
-                                                                  blockMenuActionsHandler: blockMenuActionsHandler)
+                                                                  blockMenuActionsHandler: blockMenuActionsHandler, actionsMenuDismissHandler: dismissActionsMenu)
         }
     }
 }
@@ -101,13 +105,14 @@ extension FileNamespace {
     ///
     func configureEditingToolbarHandler(_ textView: UITextView) {
         self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
-            self?.switchInputs(textView, accessoryView: nil, inputView: nil)
+            guard let self = self, let inputSwitcher = self.inputSwitcher else { return }
+            self.switchInputs(textView, accessoryView: nil, inputView: nil)
 
             switch action {
-            case .addBlock:
-                self?.publishToOuterWorld(.addBlockAction(.addBlock))
+            case .slashMenu:
+                textView.text.append(inputSwitcher.textToTriggerActionsViewDisplay)
             case .multiActionMenu:
-                self?.publishToOuterWorld(.showMultiActionMenuAction(.showMultiActionMenu))
+                self.publishToOuterWorld(.showMultiActionMenuAction(.showMultiActionMenu))
             case .keyboardDismiss:
                 UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
             }
@@ -177,22 +182,8 @@ extension FileNamespace {
     }
 }
 
-private extension FileNamespace {
-    func configureKeyboardNotificationsListening() {
-        /// TODO: Refactor
-        /// Shit. You can't `observe` `Published` value. It will be observed on the same thread. Instead, you have to `receive(on:)` it on main/background thread.
-        // "Keyboard observing is incorrect. You have to either change it by modifier .receive(on:) or you have to cache it in more 'mutable' way.")
-        self.keyboardObserverHandler = KeyboardObserver.default.$keyboardInformation.map(\.keyboardRect).filter({
-            [weak self] value in
-            value != .zero && self?.defaultKeyboardRect == .zero
-        }).sink{ [weak self] value in self?.defaultKeyboardRect = value }
-    }
-}
-
 // MARK: InnerTextView.Coordinator / Publishers
 private extension FileNamespace {
-    // MARK: - Publishers
-    // MARK: - Publishers / Outer world
     
     func publishToOuterWorld(_ action: TextView.UserAction?) {
         action.flatMap({self.userInteractionDelegate?.didReceiveAction($0)})
@@ -367,16 +358,18 @@ extension FileNamespace {
 // MARK: Input Switching
 private extension FileNamespace {
     func switchInputs(_ textView: UITextView,
+                      animated: Bool = false,
                       accessoryView: UIView?,
                       inputView: UIView?) {
-        self.inputSwitcher.switchInputs(self.defaultKeyboardRect.size,
+        self.inputSwitcher?.switchInputs(self.defaultKeyboardRect.size,
+                                        animated: animated,
                                         textView: textView,
                                         accessoryView: accessoryView,
                                         inputView: inputView)
     }
     
     func switchInputs(_ textView: UITextView) {
-        self.inputSwitcher.switchInputs(self, textView: textView)
+        self.inputSwitcher?.switchInputs(self, textView: textView)
     }
 }
 
@@ -417,14 +410,13 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         }
         return true
     }
-
+    
     func textViewDidChangeSelection(_ textView: UITextView) {
-        /// TODO: Refactor it later.
-        return;
         self.switchInputs(textView)
     }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        self.textView = textView
         if textView.inputAccessoryView == nil {
             textView.inputAccessoryView = self.editingToolbarAccessoryView
         }
@@ -436,13 +428,8 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         self.textSize = textView.intrinsicContentSize
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        /// TODO: Refactor it later.
-        return;
-        self.switchInputs(textView)
-    }
-    
     func textViewDidChange(_ textView: UITextView) {
+        self.textView = textView
         let contentSize = textView.intrinsicContentSize
         self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.attributedText)))
         self.switchInputs(textView)

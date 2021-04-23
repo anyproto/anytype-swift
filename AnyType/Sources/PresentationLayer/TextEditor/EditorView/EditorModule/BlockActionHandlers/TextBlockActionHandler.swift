@@ -54,7 +54,7 @@ final class TextBlockActionHandler {
                         assertionFailure("""
                             TextBlocksViews setBlockText error has occured.
                             \(error)
-                            ParentId: \(blockModel.parent)
+                            ParentId: \(String(describing: blockModel.parent))
                             BlockId: \(blockModel.information.id)
                             """
                         )
