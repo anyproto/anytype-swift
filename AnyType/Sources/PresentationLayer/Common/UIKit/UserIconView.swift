@@ -46,7 +46,11 @@ struct UserIconView: View {
 struct SimpleViews_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            UserIconView(image: UIImage(named: "logo-sign-part-mobile"), color: nil, name: "Anton B")
+            UserIconView(
+                color: .red,
+                name: "Anton B"
+            )
+            .previewLayout(.fixed(width: 100, height: 100))
         }
     }
 }

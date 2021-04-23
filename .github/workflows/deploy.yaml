@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch / Default is develop'     
+        description: 'Branch'     
         required: false
         default: 'develop'
 

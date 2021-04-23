@@ -44,3 +44,11 @@ extension SettingsSectionView {
         }
     }
 }
+
+
+struct SettingsSectionView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsSectionView()
+            .previewLayout(.sizeThatFits)
+    }
+}

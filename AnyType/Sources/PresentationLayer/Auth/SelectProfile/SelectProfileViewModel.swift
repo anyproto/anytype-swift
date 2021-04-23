@@ -61,7 +61,7 @@ class SelectProfileViewModel: ObservableObject {
         self.authService.selectAccount(id: id, path: localRepoService.middlewareRepoPath) { result in
             switch result {
             case .success:
-                self.showOldHomeView()
+                self.showHomeView()
             case .failure(let error):
                 self.error = error.localizedDescription
             }
@@ -143,8 +143,8 @@ class SelectProfileViewModel: ObservableObject {
         return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
     }
     
-    func showOldHomeView() {
-        let homeAssembly = OldHomeViewAssembly()
-        windowHolder?.startNewRootView(homeAssembly.createOldHomeView())
+    func showHomeView() {
+        let homeAssembly = HomeViewAssembly()
+        windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
 }

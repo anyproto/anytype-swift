@@ -2,9 +2,9 @@ import SwiftUI
 
 final class CompletionAuthViewCoordinator {
     
-    func routeToOldHomeView() {
-        let oldHomeViewAssembly = OldHomeViewAssembly()
-        windowHolder?.startNewRootView(oldHomeViewAssembly.createOldHomeView())
+    func routeToHomeView() {
+        let homeViewAssembly = HomeViewAssembly()
+        windowHolder?.startNewRootView(homeViewAssembly.createHomeView())
     }
     
     // Used as assembly
