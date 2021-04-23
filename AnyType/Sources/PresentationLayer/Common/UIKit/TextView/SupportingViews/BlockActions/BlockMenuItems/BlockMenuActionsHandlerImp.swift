@@ -23,16 +23,16 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
             self.handleStyle(style)
         case let .media(media):
             let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(media.blockViewsType)
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(type))
+            self.turnIntoAndActionsSubject.send(.addBlock(type))
         case .objects:
             break
         case .relations:
             break
         case let .other(other):
             let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(other.blockViewsType)
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(type))
+            self.turnIntoAndActionsSubject.send(.addBlock(type))
         case let .color(color):
-            self.marksPaneActionSubject.send(.backgroundColor(NSRange(), .setColor(color.color)))
+            self.marksPaneActionSubject.send(.textColor(NSRange(), .setColor(color.color)))
         case let .background(color):
             self.marksPaneActionSubject.send(.backgroundColor(NSRange(), .setColor(color.color)))
         }

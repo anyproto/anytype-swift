@@ -26,7 +26,7 @@ enum BlockMediaAction: CaseIterable {
         case .file:
             return "TextEditor/Toolbar/Blocks/File"
         case .pictre:
-            return "TextEditor/Toolbar/Blocks/Picture"
+            return "TextEditor/Toolbar/Blocks/Media"
         case .video:
             return "TextEditor/Toolbar/Blocks/Video"
         case .bookmark:

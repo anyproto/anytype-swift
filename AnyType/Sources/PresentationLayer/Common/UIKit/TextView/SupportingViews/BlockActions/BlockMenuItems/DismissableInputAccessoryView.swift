@@ -3,12 +3,12 @@ import UIKit
 
 class DismissableInputAccessoryView: UIView {
     
-    private let actionsMenuDismissHandler: () -> Void
+    let dismissHandler: () -> Void
     private var transparentButton: UIButton?
     
     init(frame: CGRect,
-         actionsMenuDismissHandler: @escaping () -> Void) {
-        self.actionsMenuDismissHandler = actionsMenuDismissHandler
+         dismissHandler: @escaping () -> Void) {
+        self.dismissHandler = dismissHandler
         super.init(frame: frame)
         self.backgroundColor = .systemBackground
     }
@@ -28,7 +28,7 @@ class DismissableInputAccessoryView: UIView {
         let button = UIButton(primaryAction: UIAction(handler: { [weak self] action in
             let button = action.sender as? UIButton
             button?.removeFromSuperview()
-            self?.actionsMenuDismissHandler()
+            self?.dismissHandler()
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(button)

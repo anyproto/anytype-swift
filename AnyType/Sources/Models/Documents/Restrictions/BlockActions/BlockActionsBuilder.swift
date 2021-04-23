@@ -40,14 +40,7 @@ struct BlockActionsBuilder {
     }
     
     private func makeMediaMenuItem() -> BlockActionMenuItem? {
-        let children = BlockMediaAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, media in
-            let type = media.blockViewsType
-            guard self.restrictions.turnIntoStyles.contains(type) else { return }
-            result.append(.action(.media(media)))
-        }
-        if children.isEmpty {
-            return nil
-        }
+        let children: [BlockActionMenuItem] = BlockMediaAction.allCases.map { .action(.media($0)) }
         return .menu(.media, children)
     }
     
@@ -60,14 +53,7 @@ struct BlockActionsBuilder {
     }
     
     private func makeOtherMenuItem() -> BlockActionMenuItem? {
-        let children = BlockOtherAction.allCases.reduce(into: [BlockActionMenuItem]()) { result, other in
-            let type = other.blockViewsType
-            guard self.restrictions.turnIntoStyles.contains(type) else { return }
-            result.append(.action(.other(other)))
-        }
-        if children.isEmpty {
-            return nil
-        }
+        let children: [BlockActionMenuItem] = BlockOtherAction.allCases.map { .action(.other($0)) }
         return .menu(.other, children)
     }
     

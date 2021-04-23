@@ -39,4 +39,24 @@ extension NSAttributedString {
 
         return attribute(attributeKey, at: range.location, longestEffectiveRange: nil, in: range) != nil
     }
+    
+    /// Add plain string to attributed string and apply all attributes in range of all current string to plain string
+    ///
+    /// - Parameters:
+    ///  - string: String to append
+    ///
+    /// - Returns: New attributed string
+    func attributedStringByAppending(_ string: String) -> NSAttributedString {
+        guard !string.isEmpty else { return self }
+        let currentStringRange = NSRange(location: 0, length: self.string.count)
+        let stringToAppend = NSMutableAttributedString(string: string)
+        let stringToAppendRange = NSRange(location: 0, length: string.count)
+        enumerateAttributes(in: currentStringRange) { attributes, range, _ in
+            guard range == currentStringRange else { return }
+            stringToAppend.addAttributes(attributes, range: stringToAppendRange)
+        }
+        let mutableString = NSMutableAttributedString(attributedString: self)
+        mutableString.append(stringToAppend)
+        return NSAttributedString(attributedString: mutableString)
+    }
 }

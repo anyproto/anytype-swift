@@ -22,7 +22,7 @@ final class BlockActionsView: DismissableInputAccessoryView {
         let selectedRange = parentTextView.selectedRange
         self.positionOfFirstSymbolToGetFilterString = selectedRange.location + selectedRange.length
         super.init(frame: frame,
-                   actionsMenuDismissHandler: actionsMenuDismissHandler)
+                   dismissHandler: actionsMenuDismissHandler)
     }
     
     private func setup(parentViewController: UIViewController) {
@@ -61,7 +61,8 @@ final class BlockActionsView: DismissableInputAccessoryView {
     }
     
     private func makeMenuController() -> UIViewController {
-        let coordinator = BlockMenuItemsViewControllerCoordinatorImp(actionsHandler: self.blockMenuActionsHandler)
+        let coordinator = BlockMenuItemsViewControllerCoordinatorImp(actionsHandler: self.blockMenuActionsHandler,
+                                                                     dismissHandler: dismissHandler)
         let controller = BlockMenuItemsViewController(coordinator: coordinator,
                                                       items: self.menuItems)
         let navigationController = UINavigationController(rootViewController: controller)
