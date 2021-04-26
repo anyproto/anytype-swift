@@ -36,7 +36,6 @@
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
 		03746CF922DE506200380AA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03746CF822DE506200380AA1 /* Constants.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
-		0388BF7B22F10F9B00B73E39 /* RobotoMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */; };
 		038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A81FC23A0158B00B71388 /* LoginViewModel.swift */; };
 		03913E57230B48B40040CD4B /* ProfileSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E56230B48B40040CD4B /* ProfileSettingsView.swift */; };
 		03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E58230B5DA90040CD4B /* SelectColorView.swift */; };
@@ -534,7 +533,6 @@
 		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		037F2D36239DC6DC008C16BF /* MainAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAuthViewModel.swift; sourceTree = "<group>"; };
-		0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoMono-Regular.ttf"; sourceTree = "<group>"; };
 		038A81FC23A0158B00B71388 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		03913E56230B48B40040CD4B /* ProfileSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsView.swift; sourceTree = "<group>"; };
 		03913E58230B5DA90040CD4B /* SelectColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectColorView.swift; sourceTree = "<group>"; };
@@ -843,7 +841,6 @@
 		531629352632BD0A000D6780 /* StyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
 		531629362632BD0A000D6780 /* StyleCellConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleCellConfiguration.swift; sourceTree = "<group>"; };
 		53178878260A29FC004F9F68 /* Inter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttf; sourceTree = "<group>"; };
-		5326FB40262F923A00F4F7A2 /* StylePanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylePanelLayout.swift; sourceTree = "<group>"; };
 		5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
 		5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsHandlersFacade.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
@@ -868,8 +865,6 @@
 		53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockViewModel.swift; sourceTree = "<group>"; };
-		53C28DB02629A16E00AD2F91 /* StyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
-		53C28DB62629AC3A00AD2F91 /* StyleCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellConfiguration.swift; sourceTree = "<group>"; };
 		A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Page.swift"; sourceTree = "<group>"; };
 		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
 		A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Manager.swift"; sourceTree = "<group>"; };
@@ -1276,7 +1271,6 @@
 				53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */,
 				53178878260A29FC004F9F68 /* Inter.ttf */,
 				EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */,
-				0388BF7A22F10D7100B73E39 /* RobotoMono-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -2950,7 +2944,6 @@
 			files = (
 				0A5F5AAF24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings in Resources */,
 				53178879260A29FC004F9F68 /* Inter.ttf in Resources */,
-				0388BF7B22F10F9B00B73E39 /* RobotoMono-Regular.ttf in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
 				0ABB73A425497DB700F32C6F /* GoogleService-Info.plist in Resources */,
 				53B16570261C9FD800E8E7AA /* IBMPlexMono-Regular.ttf in Resources */,
