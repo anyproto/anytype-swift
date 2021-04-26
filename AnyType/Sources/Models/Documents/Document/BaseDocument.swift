@@ -155,7 +155,7 @@ class BaseDocument {
             Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
         }
-        return BaseFlattener.flatten(root: activeModel, in: container, options: .default)
+        return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
     }
     
     /// Returns a root active model.
@@ -216,10 +216,16 @@ class BaseDocument {
             return self.getModels()
         case let .update(payload):
             if let toggleId = payload.openedToggleId, let container = self.rootModel, let block = container.blocksContainer.choose(by: toggleId), block.isToggled {
-                return BaseFlattener.flatten(root: block, in: container, options: .default)
+                return BlockFlattener.flatten(root: block, in: container, options: .default)
             }
             if !payload.addedIds.isEmpty {
                 return self.getModels()
+            }
+            if !payload.updatedIds.isEmpty,
+               let rootId = rootId,
+               let container = rootModel,
+               let rootModel = container.blocksContainer.choose(by: rootId) {
+                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
             }
             return []
         }

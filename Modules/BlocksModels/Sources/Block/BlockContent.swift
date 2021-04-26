@@ -99,10 +99,10 @@ public extension BlockContent {
         public var color: String
         public var contentType: ContentType
         public var checked: Bool
-        public var number: Int = 0 // We could use any number here, because it only for Swift type to be non-Optional.
+        public var number: Int
         
         // MARK: - Memberwise initializer
-        public init(attributedText: NSAttributedString, color: String, contentType: ContentType, checked: Bool, number: Int = 0) {
+        public init(attributedText: NSAttributedString, color: String, contentType: ContentType, checked: Bool, number: Int = 1) {
             self.attributedText = attributedText
             self.color = color
             self.contentType = contentType

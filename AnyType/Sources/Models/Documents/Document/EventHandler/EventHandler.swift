@@ -391,11 +391,11 @@ class EventHandler: EventHandlerProtocol {
                 return .empty
             }
             if !block.isToggled {
-                let flattener = BaseFlattener.self
+                let flattener = BlockFlattener.self
                 let deletedIds = flattener.flattenIds(root: block,
                                                       in: container,
                                                       options: .init(shouldCheckIsRootToggleOpened: false,
-                                                                     shouldSetNumbers: false))
+                                                                     normalizers: []))
                 return .update(.init(deletedIds: deletedIds))
             } else {
                 return .update(.init(openedToggleId: payload.payload.blockId))

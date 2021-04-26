@@ -1,15 +1,6 @@
-import Foundation
+
 import BlocksModels
 
-
-extension BaseFlattener {
-    struct Options {
-        var shouldCheckIsRootToggleOpened: Bool = true
-        var shouldSetNumbers: Bool = true
-        var shouldIncludeRootNode: Bool = false
-        static var `default`: Self = .init()
-    }
-}
 
 ///
 /// # Abstract
@@ -48,9 +39,7 @@ extension BaseFlattener {
 /// 6. Repeat.
 /// ```
 ///
-class BaseFlattener {
-    typealias ActiveModel = BlockActiveRecordModelProtocol
-    typealias Container = ContainerModel
+final class BlockFlattener {
     
     /// Returns flat list of nested data starting from model at root ( node ) and moving down through a list of its children.
     /// It is like a "opening all nested folders" in a parent folder.
@@ -60,9 +49,9 @@ class BaseFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options
     /// - Returns: A list of block ids.
-    private static func flatten(root model: ActiveModel,
-                                   in container: Container,
-                                   options: Options) -> [BlockId] {
+    private static func flatten(root model: BlockActiveRecordModelProtocol,
+                                in container: ContainerModel,
+                                options: BlockFlattenerOptions) -> [BlockId] {
         var result: Array<BlockId> = .init()
         let stack: DataStructures.Stack<BlockId> = .init()
         stack.push(model.blockModel.information.id)
@@ -78,9 +67,7 @@ class BaseFlattener {
                 let children = self.filteredChildren(of: value,
                                                      in: container,
                                                      shouldCheckIsToggleOpened: isInRootModel ? options.shouldCheckIsRootToggleOpened : true)
-                if options.shouldSetNumbers {
-                    NumberedFlattener().process(children, in: container)
-                }
+                options.normalizers.forEach { $0.normalize(children, in: container) }
                 for item in children.reversed() {
                     stack.push(item)
                 }
@@ -97,7 +84,7 @@ class BaseFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of active models.
-    static func flatten(root model: ActiveModel, in container: Container, options: Options) -> [ActiveModel] {
+    static func flatten(root model: BlockActiveRecordModelProtocol, in container: ContainerModel, options: BlockFlattenerOptions) -> [BlockActiveRecordModelProtocol] {
         let ids = flattenIds(root: model,
                               in: container,
                               options: options)
@@ -112,9 +99,9 @@ class BaseFlattener {
     ///   - container: A container in which we will find items.
     ///   - options: Options for flattening strategies.
     /// - Returns: A list of block ids.
-    static func flattenIds(root model: ActiveModel,
-                           in container: Container,
-                           options: Options) -> [BlockId] {
+    @discardableResult static func flattenIds(root model: BlockActiveRecordModelProtocol,
+                                              in container: ContainerModel,
+                                              options: BlockFlattenerOptions) -> [BlockId] {
         /// TODO: Fix it.
         /// Because `ShouldKeep` template method will flush out all unnecessary blocks from list.
         /// There is no need to skip first block ( or parent block ) if it is already skipped by `ShouldKeep`.
@@ -136,14 +123,14 @@ class BaseFlattener {
 }
 
 // MARK: - Helpers
-private extension BaseFlattener {
+private extension BlockFlattener {
     /// Template method.
     /// If you would like to keep item in result list of blocks, you should return true.
     /// - Parameters:
     ///   - item: Id of current item.
     ///   - container: Container.
     /// - Returns: A condition if we would like to keep item in list.
-    private static func shouldKeep(item: BlockId, in container: Container) -> Bool {
+    private static func shouldKeep(item: BlockId, in container: ContainerModel) -> Bool {
         guard let model = container.blocksContainer.choose(by: item) else {
             return false
         }
@@ -162,7 +149,7 @@ private extension BaseFlattener {
     ///   - shouldCheckIsToggleOpened: Should check opened state for toggle bocks
     /// - Returns: Filtered children of an item.
     private static func filteredChildren(of item: BlockId,
-                                         in container: Container,
+                                         in container: ContainerModel,
                                          shouldCheckIsToggleOpened: Bool) -> [BlockId] {
         guard let model = container.blocksContainer.choose(by: item) else {
             return []

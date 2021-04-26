@@ -1,14 +1,10 @@
 import BlocksModels
 
-/// Flattener to set numbers for numbered blocks
-final class NumberedFlattener {
+/// Check numbered blocks that it has correct number in numbered list.
+final class NumberedBlockNormalizer: BlockChildrenNormalizer {
     
-    /// Change content of  children with ids
-    ///
-    /// - Parameters:
-    ///   - ids: Children ids to change
-    ///   - container: Container with all blocks
-    func process(_ ids: [BlockId], in container: ContainerModel) {
+    
+    func normalize(_ ids: [BlockId], in container: ContainerModel) {
         var number: Int = 0
         for id in ids {
             if let model = container.blocksContainer.choose(by: id) {

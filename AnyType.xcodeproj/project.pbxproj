@@ -273,7 +273,7 @@
 		0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */; };
 		0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */; };
 		0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */; };
-		0AEAD66025C0B93800E8A442 /* BaseFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */; };
+		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		3D07ECCB261B4A7900C007E2 /* OldHomeCollectionViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECCA261B4A7900C007E2 /* OldHomeCollectionViewCoordinator.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* Converters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* Converters.swift */; };
@@ -416,7 +416,7 @@
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
 		EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */; };
 		EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */; };
-		EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */; };
+		EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */; };
 		EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF45260C8E420062273F /* ToggleFlattener.swift */; };
 		EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */; };
 		EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */; };
@@ -430,6 +430,8 @@
 		EA77E548262DF30B009F91D9 /* BlockMenuActionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */; };
 		EA77E54B262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */; };
 		EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */; };
+		EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */; };
+		EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */; };
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
@@ -761,7 +763,7 @@
 		0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+File.swift"; sourceTree = "<group>"; };
 		0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Tools.swift"; sourceTree = "<group>"; };
 		0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Protocols.swift"; sourceTree = "<group>"; };
-		0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFlattener.swift; sourceTree = "<group>"; };
+		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		3D07ECCA261B4A7900C007E2 /* OldHomeCollectionViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldHomeCollectionViewCoordinator.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* Converters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converters.swift; sourceTree = "<group>"; };
@@ -905,7 +907,7 @@
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
 		EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
 		EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Convenience.swift"; sourceTree = "<group>"; };
-		EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedFlattener.swift; sourceTree = "<group>"; };
+		EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedBlockNormalizer.swift; sourceTree = "<group>"; };
 		EA6BAF45260C8E420062273F /* ToggleFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleFlattener.swift; sourceTree = "<group>"; };
 		EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsBuilder.swift; sourceTree = "<group>"; };
 		EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuItemType.swift; sourceTree = "<group>"; };
@@ -919,6 +921,8 @@
 		EA77E547262DF30B009F91D9 /* BlockMenuActionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsHandler.swift; sourceTree = "<group>"; };
 		EA77E54A262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsHandlerImp.swift; sourceTree = "<group>"; };
 		EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAlignmentAction.swift; sourceTree = "<group>"; };
+		EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattenerOptions.swift; sourceTree = "<group>"; };
+		EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChildrenNormalizer.swift; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
@@ -2360,9 +2364,11 @@
 		3DCE7A092615248A00E09593 /* Flattener */ = {
 			isa = PBXGroup;
 			children = (
-				0AEAD65F25C0B93800E8A442 /* BaseFlattener.swift */,
-				EA6BAF3F260C8D750062273F /* NumberedFlattener.swift */,
+				0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */,
+				EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */,
 				EA6BAF45260C8E420062273F /* ToggleFlattener.swift */,
+				EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */,
+				EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */,
 			);
 			path = Flattener;
 			sourceTree = "<group>";
@@ -2980,6 +2986,7 @@
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				0A0965E425BEF5B000C004BD /* DocumentViewRouting+Page.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
+				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
 				5338E7EF25DC72AD008CB97D /* ToolbarBlockActionHandler.swift in Sources */,
 				A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
@@ -3226,7 +3233,7 @@
 				3D540C632625C05600A07BD8 /* HomeCollectionViewDocumentCellContextualMenuHandler.swift in Sources */,
 				EA77E525262DAAA6009F91D9 /* BlockMenuItemsViewController.swift in Sources */,
 				0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */,
-				0AEAD66025C0B93800E8A442 /* BaseFlattener.swift in Sources */,
+				0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */,
 				0AA00C5224CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift in Sources */,
 				0350A2E223293CE900E00FB5 /* OldHomeCollectionView.swift in Sources */,
 				0A1DACCD244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift in Sources */,
@@ -3243,8 +3250,8 @@
 				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* PickerContentType.swift in Sources */,
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
-				EA6BAF40260C8D750062273F /* NumberedFlattener.swift in Sources */,
 				3D932D4D26317E9300C7D1EA /* NavigationButtonView.swift in Sources */,
+				EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */,
@@ -3293,6 +3300,7 @@
 				0327B0BB232BCE2A007DB8A7 /* OldHomeCollectionViewModel.swift in Sources */,
 				0AA9B046249CF6DB00F2962C /* MultiSelectionPane+Panes.swift in Sources */,
 				0350A2E523295E2200E00FB5 /* HomeCollectionViewDocumentCellModel.swift in Sources */,
+				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift in Sources */,
 				A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */,
