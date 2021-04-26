@@ -291,6 +291,7 @@
 		3D680B9A262494B900FFD844 /* ProfileSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B99262494B900FFD844 /* ProfileSectionView.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnyTypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnyTypeFont.swift */; };
+		3D929B6226332ACA0063F1BE /* PageCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B6126332ACA0063F1BE /* PageCellData.swift */; };
 		3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */; };
 		3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3826317E3A00C7D1EA /* HomeView.swift */; };
 		3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3B26317E3A00C7D1EA /* HomeCollectionView.swift */; };
@@ -781,6 +782,7 @@
 		3D680B99262494B900FFD844 /* ProfileSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSectionView.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnyTypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTypeFont.swift; sourceTree = "<group>"; };
+		3D929B6126332ACA0063F1BE /* PageCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCellData.swift; sourceTree = "<group>"; };
 		3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewAssembly.swift; sourceTree = "<group>"; };
 		3D932D3826317E3A00C7D1EA /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3D932D3B26317E3A00C7D1EA /* HomeCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
@@ -1308,13 +1310,13 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0331BBD722E5D8A1002AD179 /* Old Home */,
 				3D932D3626317E3A00C7D1EA /* Home */,
 				0A996BAD23EDBC09000FDC9C /* FeatureFlags */,
 				0331BBE122E608AC002AD179 /* Common */,
 				03074B86239514BF009FA7D0 /* Auth */,
 				03A24B8D232152ED00DA7369 /* TextEditor */,
 				0331BBD822E5D8AB002AD179 /* Profile */,
-				0331BBD722E5D8A1002AD179 /* Old Home */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -2217,6 +2219,15 @@
 			path = Example;
 			sourceTree = "<group>";
 		};
+		3D929B5E26332ABA0063F1BE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3D932D3C26317E3A00C7D1EA /* PageCell.swift */,
+				3D929B6126332ACA0063F1BE /* PageCellData.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		3D932D3626317E3A00C7D1EA /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -2241,8 +2252,8 @@
 		3D932D3A26317E3A00C7D1EA /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				3D929B5E26332ABA0063F1BE /* Cell */,
 				3D932D3B26317E3A00C7D1EA /* HomeCollectionView.swift */,
-				3D932D3C26317E3A00C7D1EA /* PageCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -3185,6 +3196,7 @@
 				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,
 				0A0965F025BEF5B000C004BD /* EditorModule+Container+ViewController.swift in Sources */,
 				3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */,
+				3D929B6226332ACA0063F1BE /* PageCellData.swift in Sources */,
 				0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				3DA369412629B75E001557C9 /* EventHandlerFocusConverter.swift in Sources */,
