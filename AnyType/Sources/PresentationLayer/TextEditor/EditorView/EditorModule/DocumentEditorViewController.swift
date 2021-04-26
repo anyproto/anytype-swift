@@ -342,7 +342,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
         let fpc = FloatingPanelController()
         let appearance = SurfaceAppearance()
-        appearance.cornerRadius = 10.0
+        appearance.cornerRadius = 16.0
         // Define shadows
         let shadow = SurfaceAppearance.Shadow()
         shadow.color = UIColor.black

@@ -41,6 +41,7 @@ extension UIFont {
     static var header3Font: UIFont {
         let fontDescription = UIFontDescriptor(fontAttributes: [.family: Inter.family])
         let font = UIFont(descriptor: fontDescription, size: 17.0)
+
         return font.fontDescriptor.withSymbolicTraits(.traitBold).map { UIFont(descriptor: $0, size: 17.0) } ?? font
     }
     
