@@ -121,9 +121,18 @@ extension Namespace {
         }
         
         // MARK: Conversion
-        func from(attributes: [NSAttributedString.Key : Any]) -> Self? {
+        func from(attributes: [NSAttributedString.Key : Any]) -> Self {
             switch self {
-            case .bold: return .bold( (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitBold) ?? false )
+            case .bold:
+                guard let font = attributes[.font] as? UIFont,
+                      font.fontDescriptor.symbolicTraits.contains(.traitBold) else { return .bold(false) }
+                let traitsWithoutBold = font.fontDescriptor.symbolicTraits.subtracting(.traitBold)
+                guard font.fontDescriptor.withSymbolicTraits(traitsWithoutBold) != nil else {
+                    // This means that we can not create same font without bold traits
+                    // So bold is necessary attribute for this font
+                    return .bold(false)
+                }
+                return .bold( (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitBold) ?? false )
             case .italic: return .italic( (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitItalic) ?? false )
             case .keyboard: return .keyboard(
                 //                (attributes[.font] as? UIFont)
@@ -141,7 +150,7 @@ extension Namespace {
         // TODO: rethink.
         // Should we make option set here?
         static func from(attributes: [NSAttributedString.Key : Any]) -> [Self] {
-            return allCases.compactMap{$0.from(attributes: attributes)}
+            return allCases.map { $0.from(attributes: attributes) }
         }
         
         // CAUTION:
