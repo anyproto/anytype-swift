@@ -56,7 +56,7 @@ struct SeedPhraseView: View {
     var body: some View {
         VStack(alignment: .center) {
             Text(phrase)
-                .font(.robotMonoRegular(15.0))
+                .anyTypeFont(.body)
                 .padding([.leading, .trailing], 20)
                 .padding([.top, .bottom], 12)
         }

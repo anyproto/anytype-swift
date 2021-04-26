@@ -226,7 +226,6 @@
 		0AA9B04E249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9B04D249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift */; };
 		0AA9B051249F714000F2962C /* MultiSelectionPane+UIKit+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9B050249F714000F2962C /* MultiSelectionPane+UIKit+Main.swift */; };
 		0AA9B053249F736400F2962C /* MultiSelectionPane+UIKit+Panes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9B052249F736400F2962C /* MultiSelectionPane+UIKit+Panes.swift */; };
-		0AAC96652340C229006CE58C /* FontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAC96642340C229006CE58C /* FontExtension.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
 		0AAF8C2C2492355100C18D09 /* MarksPane+ViewController+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2A2492355100C18D09 /* MarksPane+ViewController+Presentation.swift */; };
 		0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF8C2B2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift */; };
@@ -291,6 +290,8 @@
 		3D680B942624941200FFD844 /* SettingsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B932624941200FFD844 /* SettingsSectionView.swift */; };
 		3D680B972624949A00FFD844 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B962624949A00FFD844 /* SettingsSectionItemView.swift */; };
 		3D680B9A262494B900FFD844 /* ProfileSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B99262494B900FFD844 /* ProfileSectionView.swift */; };
+		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
+		3D929B2F263307700063F1BE /* AnyTypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnyTypeFont.swift */; };
 		3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */; };
 		3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3826317E3A00C7D1EA /* HomeView.swift */; };
 		3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3B26317E3A00C7D1EA /* HomeCollectionView.swift */; };
@@ -716,7 +717,6 @@
 		0AA9B04D249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes+Selection.swift"; sourceTree = "<group>"; };
 		0AA9B050249F714000F2962C /* MultiSelectionPane+UIKit+Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Main.swift"; sourceTree = "<group>"; };
 		0AA9B052249F736400F2962C /* MultiSelectionPane+UIKit+Panes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes.swift"; sourceTree = "<group>"; };
-		0AAC96642340C229006CE58C /* FontExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontExtension.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0AAF8C2A2492355100C18D09 /* MarksPane+ViewController+Presentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController+Presentation.swift"; sourceTree = "<group>"; };
 		0AAF8C2B2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+ViewController+Presentation+Transition.swift"; sourceTree = "<group>"; };
@@ -781,6 +781,8 @@
 		3D680B932624941200FFD844 /* SettingsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionView.swift; sourceTree = "<group>"; };
 		3D680B962624949A00FFD844 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3D680B99262494B900FFD844 /* ProfileSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSectionView.swift; sourceTree = "<group>"; };
+		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
+		3D929B2E263307700063F1BE /* AnyTypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTypeFont.swift; sourceTree = "<group>"; };
 		3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewAssembly.swift; sourceTree = "<group>"; };
 		3D932D3826317E3A00C7D1EA /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3D932D3B26317E3A00C7D1EA /* HomeCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
@@ -2213,6 +2215,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3D929B29263302010063F1BE /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				3D929B2A263302160063F1BE /* TypographyExample.swift */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		3D932D3626317E3A00C7D1EA /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -2604,8 +2614,9 @@
 		53A4633526287B680097C25E /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				0AAC96642340C229006CE58C /* FontExtension.swift */,
+				3D929B29263302010063F1BE /* Example */,
 				EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */,
+				3D929B2E263307700063F1BE /* AnyTypeFont.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -3078,6 +3089,7 @@
 				0A2C0D6B247145BD008ADD86 /* TextView+HighlightedToolbar.swift in Sources */,
 				0A78328A24BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
+				3D929B2F263307700063F1BE /* AnyTypeFont.swift in Sources */,
 				0A09660025BEF5B000C004BD /* EditorModule+Selection.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */,
@@ -3310,6 +3322,7 @@
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* DocumentViewRouting+File.swift in Sources */,
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
+				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3DB27C07261B0E9C005E523C /* Decoder+Protocols.swift in Sources */,
@@ -3326,7 +3339,6 @@
 				0ACC357625C851650003CF3A /* CompoundViewModelConverter.swift in Sources */,
 				3DA369032629A17F001557C9 /* DocumentViewModelUpdateResult.swift in Sources */,
 				0A08D4C624AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift in Sources */,
-				0AAC96652340C229006CE58C /* FontExtension.swift in Sources */,
 				0AA168DD254060E40097CB23 /* CommonViews+Pickers+Image+UIKit.swift in Sources */,
 				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,

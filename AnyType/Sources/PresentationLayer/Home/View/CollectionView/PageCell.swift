@@ -4,9 +4,9 @@ struct PageCell: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text("🤠").font(.robotMonoRegular(48))
-                Text("Shiso Burger").font(.inter(13))
-                Text("Human").font(.inter(12)).foregroundColor(.gray)
+                Text("🤠").font(.system(size: UIFontMetrics.default.scaledValue(for: 48)))
+                Text("Shiso Burger").anyTypeFont(.captionMedium)
+                Text("Human").anyTypeFont(.footnote).foregroundColor(.gray)
             }
             Spacer()
         }

@@ -1,11 +1,3 @@
-//
-//  UIFont+Typography.swift
-//  AnyType
-//
-//  Created by Kovalev Alexander on 26.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
 import BlocksModels
 

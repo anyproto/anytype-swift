@@ -14,6 +14,7 @@ struct HomeView: View {
             }
             
         }.edgesIgnoringSafeArea(.all)
+        .environment(\.font, .defaultAnyType)
     }
 }
 
