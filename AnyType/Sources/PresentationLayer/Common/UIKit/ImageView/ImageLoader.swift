@@ -6,7 +6,7 @@ class ImageLoader {
     /// Variables
     private var subscription: AnyCancellable?
     private weak var imageView: UIImageView?
-    private var property: CoreLayer.Network.Image.Property?
+    private var property: ImageProperty?
     
     /// Configuration
     func configured(_ imageView: UIImageView?) {
@@ -14,7 +14,7 @@ class ImageLoader {
     }
     
     /// Update
-    func update(imageId hash: String, parameters: CoreLayer.Network.Image.ImageParameters = .init(width: .default)) {
+    func update(imageId hash: String, parameters: ImageParameters = .init(width: .default)) {
         self.property = .init(imageId: hash, .init(width: .default))
         
         if let image = self.property?.property {

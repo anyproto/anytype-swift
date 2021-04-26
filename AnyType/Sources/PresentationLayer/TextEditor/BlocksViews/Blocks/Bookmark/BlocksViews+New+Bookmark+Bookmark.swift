@@ -180,8 +180,8 @@ extension Namespace.ViewModel {
         
         class ImageLoader {
             /// I want to subscribe on current value subject, lol.
-            var imageProperty: CoreLayer.Network.Image.Property?
-            var iconProperty: CoreLayer.Network.Image.Property?
+            var imageProperty: ImageProperty?
+            var iconProperty: ImageProperty?
             func resetImages() {
 //                self.imageProperty = nil
 //                self.iconProperty = nil

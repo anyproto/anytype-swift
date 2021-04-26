@@ -34,7 +34,7 @@ class OldHomeCollectionViewDocumentCellModel: Hashable {
         guard let imageURL = self.imageURL else {
             return Just(nil).eraseToAnyPublisher()
         }
-        return CoreLayer.Network.Image.Loader.init(imageURL).imagePublisher
+        return ImageLoaderObject(imageURL).imagePublisher
     }
     
     // MARK: - Configuration
@@ -54,7 +54,7 @@ class OldHomeCollectionViewDocumentCellModel: Hashable {
         self.imagePublisher = imagePublisher.safelyUnwrapOptionals()
             .flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
             .safelyUnwrapOptionals()
-            .flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher})
+            .flatMap({value in ImageLoaderObject(value).imagePublisher})
             .eraseToAnyPublisher()
     }
     

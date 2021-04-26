@@ -1,11 +1,3 @@
-//
-//  FileLoadingState.swift
-//  AnyType
-//
-//  Created by Kovalev Alexander on 06.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import Foundation
 
 /// File loading state

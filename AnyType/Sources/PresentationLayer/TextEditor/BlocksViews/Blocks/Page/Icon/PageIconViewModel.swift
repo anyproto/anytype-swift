@@ -61,7 +61,7 @@ class PageIconViewModel: PageBlockViewModel {
             
             wholeDetailsPublisher?.map{ $0.iconImage?.value}.safelyUnwrapOptionals()
                 .flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
-                .safelyUnwrapOptionals().flatMap({value in CoreLayer.Network.Image.Loader.init(value).imagePublisher})
+                .safelyUnwrapOptionals().flatMap({value in ImageLoaderObject(value).imagePublisher})
                 .receive(on: RunLoop.main).sink { [weak self] (value) in
                     self?.toViewImage = value
                 }.store(in: &self.subscriptions)
