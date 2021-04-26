@@ -76,9 +76,9 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
         case .breakthrough:
             self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.strikethrough)))
         case .code:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.other(.code)))
+            self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.keyboard)))
         case .link:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.objects(.linkToObject)))
+            break
         }
     }
     

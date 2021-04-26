@@ -4,7 +4,7 @@ import UIKit
 class DismissableInputAccessoryView: UIView {
     
     let dismissHandler: () -> Void
-    private var transparentButton: UIButton?
+    private var transparentView: UIView?
     
     init(frame: CGRect,
          dismissHandler: @escaping () -> Void) {
@@ -20,24 +20,26 @@ class DismissableInputAccessoryView: UIView {
     
     override func didMoveToWindow() {
         guard let window = window else { return }
-        self.transparentButton?.removeFromSuperview()
-        addTransparentButtonForDismissAction(parentView: window)
+        transparentView?.removeFromSuperview()
+        addTransparentViewForDismissAction(parentView: window)
     }
     
-    private func addTransparentButtonForDismissAction(parentView: UIWindow) {
-        let button = UIButton(primaryAction: UIAction(handler: { [weak self] action in
-            let button = action.sender as? UIButton
-            button?.removeFromSuperview()
-            self?.dismissHandler()
-        }))
-        button.translatesAutoresizingMaskIntoConstraints = false
-        parentView.addSubview(button)
+    private func addTransparentViewForDismissAction(parentView: UIWindow) {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self,
+                                                         action: #selector(handleTransparentViewTap)))
+        parentView.addSubview(view)
         NSLayoutConstraint.activate([
-            button.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
-            button.bottomAnchor.constraint(equalTo: topAnchor),
-            button.topAnchor.constraint(equalTo: parentView.topAnchor)
+            view.leadingAnchor.constraint(equalTo: parentView.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: parentView.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: topAnchor),
+            view.topAnchor.constraint(equalTo: parentView.topAnchor)
         ])
-        transparentButton = button
+        transparentView = view
+    }
+    
+    @objc private func handleTransparentViewTap() {
+        dismissHandler()
     }
 }
