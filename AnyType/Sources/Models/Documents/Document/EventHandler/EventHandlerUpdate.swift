@@ -26,9 +26,8 @@ enum EventHandlerUpdate: Equatable {
     
     static func merged(lhs: Self, rhs: Self) -> Self {
         switch (lhs, rhs) {
-        case (.general, .general): return .general
-        case (.update, .general): return lhs
-        case (.general, .update): return rhs
+        case (_, .general): return rhs
+        case (.general, _): return lhs
         case let (.update(left), .update(right)): return .update(.merged(lhs: left, rhs: right))
         }
     }
