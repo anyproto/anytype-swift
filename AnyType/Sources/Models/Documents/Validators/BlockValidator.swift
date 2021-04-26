@@ -27,10 +27,12 @@ struct BlockValidator {
         let marks = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: content.attributedText).marks.marks
         let filteredMarks = marks.filter {
             switch $0.type {
-            case .strikethrough, .keyboard, .italic, .underscored, .link:
+            case .strikethrough, .keyboard, .underscored, .link:
                 return restrictions.canApplyOtherMarkup
             case .bold:
                 return restrictions.canApplyBold
+            case .italic:
+                return restrictions.canApplyItalic
             case .textColor:
                 return restrictions.canApplyBlockColor
             case .backgroundColor:

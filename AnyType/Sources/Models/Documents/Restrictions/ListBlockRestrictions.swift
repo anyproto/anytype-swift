@@ -4,6 +4,7 @@ import BlocksModels
 struct ListBlockRestrictions: BlockRestrictions {
     
     var canApplyBold: Bool { true }
+    var canApplyItalic: Bool { true }
     var canApplyOtherMarkup: Bool { true }
     var canApplyBlockColor: Bool { true }
     var canApplyBackgroundColor: Bool { true }
