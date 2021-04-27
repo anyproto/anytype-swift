@@ -4,13 +4,16 @@ import UIKit
 
 private final class EntityKey: NSObject {
     typealias Id = String
+    
     private(set) var id: Id
     private(set) var parameters: ImageParameters
+    
     internal required init(_ id: Id, _ parameters: ImageParameters) {
         self.id = id
         self.parameters = parameters
         super.init()
     }
+    
     static func create(url: URL) -> Self {
 //            self.init(url.lastPathComponent)
         let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
@@ -24,16 +27,20 @@ private final class EntityKey: NSObject {
         }
         return self.init(id, parameters)
     }
+    
     static func create(id: Id, _ parameters: ImageParameters) -> Self {
         self.init(id, parameters)
     }
+    
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? Self else { return false }
         return other.id == self.id && other.parameters == self.parameters
     }
+    
     override var hash: Int {
         self.id.hash ^ self.parameters.hashValue
     }
+    
     override var debugDescription: String {
         return "\(self.id) -> \(self.parameters)"
     }
