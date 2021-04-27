@@ -280,6 +280,7 @@
 		3D07ED6F261F4A7E00C007E2 /* DividerBlockUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */; };
 		3D07ED72261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */; };
 		3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */; };
+		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C5C2625C00700A07BD8 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C5B2625C00700A07BD8 /* DashboardPage.swift */; };
 		3D540C602625C01F00A07BD8 /* HomeCollectionViewDocumentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C5F2625C01F00A07BD8 /* HomeCollectionViewDocumentCell.swift */; };
@@ -306,6 +307,7 @@
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
 		3D932D5D2631807800C7D1EA /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
 		3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E622636F3560085D008 /* ImageParameters.swift */; };
+		3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* PageCellDataMock.swift */; };
 		3DA369032629A17F001557C9 /* DocumentViewModelUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */; };
 		3DA369062629A18D001557C9 /* DocumentViewModelPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369052629A18D001557C9 /* DocumentViewModelPredicate.swift */; };
 		3DA369362629AC67001557C9 /* DocumentViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369352629AC67001557C9 /* DocumentViewModelProtocol.swift */; };
@@ -771,6 +773,7 @@
 		3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitView.swift; sourceTree = "<group>"; };
 		3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitViewWithDivider.swift; sourceTree = "<group>"; };
 		3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentView.swift; sourceTree = "<group>"; };
+		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C5B2625C00700A07BD8 /* DashboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPage.swift; sourceTree = "<group>"; };
 		3D540C5F2625C01F00A07BD8 /* HomeCollectionViewDocumentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewDocumentCell.swift; sourceTree = "<group>"; };
@@ -797,6 +800,7 @@
 		3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePickerResultInformation.swift; sourceTree = "<group>"; };
 		3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		3DA12E622636F3560085D008 /* ImageParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageParameters.swift; sourceTree = "<group>"; };
+		3DA12E77263737200085D008 /* PageCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCellDataMock.swift; sourceTree = "<group>"; };
 		3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelUpdateResult.swift; sourceTree = "<group>"; };
 		3DA369052629A18D001557C9 /* DocumentViewModelPredicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelPredicate.swift; sourceTree = "<group>"; };
 		3DA369352629AC67001557C9 /* DocumentViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -2221,6 +2225,7 @@
 			children = (
 				3D932D3C26317E3A00C7D1EA /* PageCell.swift */,
 				3D929B6126332ACA0063F1BE /* PageCellData.swift */,
+				3DA12E77263737200085D008 /* PageCellDataMock.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2231,6 +2236,7 @@
 				3D932D3926317E3A00C7D1EA /* View */,
 				3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */,
 				3D932D3826317E3A00C7D1EA /* HomeView.swift */,
+				3D409BBF26309CE100E588A7 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -3083,6 +3089,7 @@
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
+				3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */,
 				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
 				EA77E527262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift in Sources */,
@@ -3198,6 +3205,7 @@
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				EAC6BB4E262886DA004C8C06 /* InputSwitcherTriplet.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
+				3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */,
 				3DF89C7A26259A890073A523 /* OldHomeTopView.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeTabsView: View {
     @State private var tabSelection = 1
+    @Binding var cellData: [PageCellData]
         
     var body: some View {
         GeometryReader() { fullView in
@@ -15,10 +16,7 @@ struct HomeTabsView: View {
     
     var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView().tag(1)
-            HomeCollectionView().tag(2)
-            HomeCollectionView().tag(3)
-            HomeCollectionView().tag(4)
+            HomeCollectionView(cellData: $cellData).tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         .ignoresSafeArea()
@@ -43,7 +41,8 @@ struct HomeTabsView: View {
                     .font(.subheadline)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(tabSelection == 2 ? .black : .gray)
-            }
+            }.disabled(true)
+
             
             Button(action: {
                 tabSelection = 3
@@ -52,7 +51,7 @@ struct HomeTabsView: View {
                     .font(.subheadline)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(tabSelection == 3 ? .black : .gray)
-            }
+            }.disabled(true)
             
             Button(action: {
                 tabSelection = 4
@@ -61,7 +60,7 @@ struct HomeTabsView: View {
                     .font(.subheadline)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(tabSelection == 4 ? .black : .gray)
-            }
+            }.disabled(true)
         }
         .padding(.bottom, 20)
     }
@@ -69,6 +68,6 @@ struct HomeTabsView: View {
 
 struct HomeTabsView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTabsView()
+        HomeTabsView(cellData: .constant(PageCellDataMock.data))
     }
 }

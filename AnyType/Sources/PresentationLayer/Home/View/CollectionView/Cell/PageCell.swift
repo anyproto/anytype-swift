@@ -27,10 +27,15 @@ struct PageCell: View {
             return Text(emoji)
                 .font(.system(size: UIFontMetrics.default.scaledValue(for: 48)))
                 .eraseToAnyView()
-        case .pic:
-            return Text("V") // TODO
-                .font(.system(size: UIFontMetrics.default.scaledValue(for: 48)))
+        case let .image(image):
+            if let image = image {
+                return Image(uiImage: image).resizable()
+                .frame(width: 48, height: 48)
+                .cornerRadius(16)
                 .eraseToAnyView()
+            } else {
+                return EmptyView().eraseToAnyView()
+            }
         case .none:
             return EmptyView().eraseToAnyView()
         }
@@ -38,7 +43,7 @@ struct PageCell: View {
     
     private var iconSpacer: some View {
         switch cellData.icon {
-        case .emoji, .pic:
+        case .emoji, .image:
             return Spacer().eraseToAnyView()
         case .none:
             return EmptyView().eraseToAnyView()
@@ -49,7 +54,7 @@ struct PageCell: View {
         switch cellData.icon {
         case .none:
             return Spacer().eraseToAnyView()
-        case .emoji, .pic:
+        case .emoji, .image:
             return EmptyView().eraseToAnyView()
         }
     }
@@ -61,38 +66,10 @@ struct PageCell_Previews: PreviewProvider {
         GridItem(.flexible()),
     ]
     
-    static let data = [
-        PageCellData(
-            icon: .emoji("📘"),
-            title: "Ubik",
-            type: "Book"
-        ),
-        PageCellData(
-            icon: .none,
-            title: "The president’s American Family Plan, which remains in flux, does not currently include",
-            type: "Page"
-        ),
-        PageCellData(
-            icon: .none,
-            title: "GridItem",
-            type: "Component"
-        ),
-        PageCellData(
-            icon: .emoji("📘"),
-            title: "Ubik",
-            type: "Book"
-        ),
-        PageCellData(
-            icon: .pic("picpath"),
-            title: "Neo",
-            type: "Character"
-        )
-    ]
-    
     static var previews: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
-                ForEach(data) { data in
+                ForEach(PageCellDataMock.data) { data in
                     PageCell(cellData: data)
                 }
             }

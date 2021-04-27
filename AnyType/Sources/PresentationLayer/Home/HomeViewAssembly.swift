@@ -3,7 +3,7 @@ import SwiftUI
 class HomeViewAssembly {
     func createHomeView() -> some View {
         if FeatureFlags.newHome {
-            return HomeView().eraseToAnyView()
+            return HomeView(model: HomeViewModel()).eraseToAnyView()
         } else {
             let collectionViewModel = OldHomeCollectionViewModel(
                 dashboardService: ServiceLocator.shared.dashboardService(),

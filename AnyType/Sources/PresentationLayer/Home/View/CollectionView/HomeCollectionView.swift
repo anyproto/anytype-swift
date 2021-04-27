@@ -6,26 +6,26 @@ struct HomeCollectionView: View {
         GridItem(.flexible()),
     ]
     
+    @Binding var cellData: [PageCellData]
+    
     var body: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
-                ForEach(0...99, id: \.self) { i in
-                    PageCell(cellData: PageCellData(
-                        icon: (i % 3 == 0) ? .none : .emoji("🤖"),
-                        title: "Object \(i)",
-                        type: "Type \((i % 3 == 0) ? "Book": "Idea")"
-                    )).cornerRadius(16)
+                ForEach(cellData) { data in
+                    PageCell(cellData: data).cornerRadius(16)
+                        .frame(idealHeight: 124)
                 }
             }
             .padding()
         }
         .background(Color.orange)
         .ignoresSafeArea()
+        .animation(.interactiveSpring())
     }
 }
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView()
+        HomeCollectionView(cellData: .constant(PageCellDataMock.data))
     }
 }
