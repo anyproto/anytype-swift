@@ -157,13 +157,17 @@ final class DocumentEditorViewController: UICollectionViewController {
     private func updateFocusedViewModel(viewModel: BaseBlockViewModel) {
         guard let indexPath = dataSource?.indexPath(for: viewModel) else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+        let textModel = viewModel as? TextBlockViewModel
+        let focusPosition = textModel?.focusPosition()
         cell.indentationLevel = viewModel.indentationLevel()
         cell.contentConfiguration = viewModel.buildContentConfiguration()
         let prefferedSize = cell.systemLayoutSizeFitting(CGSize(width: cell.frame.size.width,
                                                                 height: UIView.layoutFittingCompressedSize.height))
         if cell.frame.size.height != prefferedSize.height {
-            collectionView.collectionViewLayout.invalidateLayout()
+            updateView()
         }
+        textModel?.set(focus: TextView.UIKitTextView.ViewModel.Focus(position: focusPosition,
+                                                                     completion: { _ in }))
     }
     
     private func handleSelection(event: EditorModule.Selection.IncomingEvent) {

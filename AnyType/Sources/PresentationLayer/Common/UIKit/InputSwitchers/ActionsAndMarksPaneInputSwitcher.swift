@@ -5,22 +5,10 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     private enum Constants {
         static let displayActionsViewDelay: TimeInterval = 0.3
-        static let minimumActionsViewHeight: CGFloat = UIScreen.main.isFourInch ? 160 : 215
     }
     
     let textToTriggerActionsViewDisplay = "/"
     private var displayActionsViewTask: DispatchWorkItem?
-    private let menuItemsBuilder: BlockActionsBuilder
-    private let blockMenuActionsHandler: BlockMenuActionsHandler
-    private let actionsMenuDismissHandler: () -> Void
-    
-    init(menuItemsBuilder: BlockActionsBuilder,
-         blockMenuActionsHandler: BlockMenuActionsHandler,
-         actionsMenuDismissHandler: @escaping () -> Void) {
-        self.menuItemsBuilder = menuItemsBuilder
-        self.blockMenuActionsHandler = blockMenuActionsHandler
-        self.actionsMenuDismissHandler = actionsMenuDismissHandler
-    }
     
     override func switchInputs(_ inputViewKeyboardSize: CGSize,
                                animated: Bool,
@@ -86,7 +74,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     override func switchInputs(_ coordinator: Coordinator,
                                textView: UITextView) {
-        self.updateActionsViewDisplayState(textView: textView)
+        self.updateActionsViewDisplayState(coordinator: coordinator, textView: textView)
         showEditingBars(coordinator: coordinator, textView: textView)
     }
     
@@ -106,22 +94,16 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         self.didSwitchViews(coordinator, textView: textView)
     }
     
-    func showMenuActionsView(textView: UITextView) {
-        let view = BlockActionsView(parentTextView: textView,
-                                    frame: CGRect(origin: .zero,
-                                                  size: CGSize(width: UIScreen.main.bounds.width,
-                                                               height: Constants.minimumActionsViewHeight)),
-                                    menuItems: self.menuItemsBuilder.makeBlockActionsMenuItems(),
-                                    blockMenuActionsHandler: self.blockMenuActionsHandler,
-                                    actionsMenuDismissHandler: self.actionsMenuDismissHandler)
+    func showMenuActionsView(coordinator: Coordinator,
+                             textView: UITextView) {
         switchInputs(.zero,
                      animated: true,
                      textView: textView,
-                     accessoryView: view,
+                     accessoryView: coordinator.menuActionsAccessoryView,
                      inputView: nil)
     }
     
-    private func updateActionsViewDisplayState(textView: UITextView) {
+    private func updateActionsViewDisplayState(coordinator: Coordinator, textView: UITextView) {
         self.displayActionsViewTask?.cancel()
         let selectedRange = textView.selectedRange
         let offset = selectedRange.location + selectedRange.length
@@ -129,13 +111,13 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
            let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
            let text = textView.text(in: textRange),
            text.hasSuffix(textToTriggerActionsViewDisplay) {
-            self.createDelayedActonsViewTask(textView: textView)
+            self.createDelayedActonsViewTask(coordinator: coordinator, textView: textView)
         }
     }
     
-    private func createDelayedActonsViewTask(textView: UITextView) {
+    private func createDelayedActonsViewTask(coordinator: Coordinator, textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
-            self?.showMenuActionsView(textView: textView)
+            self?.showMenuActionsView(coordinator: coordinator, textView: textView)
         })
         self.displayActionsViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)

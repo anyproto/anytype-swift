@@ -140,6 +140,10 @@ extension Namespace.ViewModel {
 
 // MARK: Set Focus
 extension Namespace.ViewModel {
+    
+    func focusPosition() -> BlockFocusPosition {
+        coordinator.focusPosition()
+    }
     func set(focus: Focus?) {
         self.setFocusSubject.send(focus)
     }

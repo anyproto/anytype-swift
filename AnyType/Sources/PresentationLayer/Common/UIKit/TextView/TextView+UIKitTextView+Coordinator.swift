@@ -24,6 +24,8 @@ extension Namespace {
         enum Constants {
             /// Minimum time interval to stay idle to handle consequent return key presses
             static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
+            static let menuActionsViewSize = CGSize(width: UIScreen.main.bounds.width,
+                                                       height: UIScreen.main.isFourInch ? 160 : 215)
         }
         // MARK: Aliases
         typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
@@ -64,6 +66,8 @@ extension Namespace {
         private var actionsToolbarAccessoryViewHandler: AnyCancellable?
         private var actionsToolbarUserActionsHandler: AnyCancellable?
         
+        private(set) var menuActionsAccessoryView: BlockActionsView?
+        
         /// MarksInputView
         private(set) lazy var marksToolbarInputView = MarksToolbarInputView()
         private var marksToolbarHandler: AnyCancellable? // Hm... we need what?
@@ -76,16 +80,17 @@ extension Namespace {
         private lazy var pressingEnterTimeChecker = TimeChecker(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
         
         private weak var textView: UITextView?
-        private var inputSwitcher: ActionsAndMarksPaneInputSwitcher?
+        private lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
         
         init(menuItemsBuilder: BlockActionsBuilder, blockMenuActionsHandler: BlockMenuActionsHandler) {
             super.init()
             let dismissActionsMenu = { [weak self] in
                 guard let self = self, let textView = self.textView else { return }
-                self.inputSwitcher?.showEditingBars(coordinator: self, textView: textView)
+                self.inputSwitcher.showEditingBars(coordinator: self, textView: textView)
             }
-            self.inputSwitcher = ActionsAndMarksPaneInputSwitcher(menuItemsBuilder: menuItemsBuilder,
-                                                                  blockMenuActionsHandler: blockMenuActionsHandler, actionsMenuDismissHandler: dismissActionsMenu)
+            self.menuActionsAccessoryView = BlockActionsView(frame: CGRect(origin: .zero,
+                                                                           size: Constants.menuActionsViewSize),
+                                                             menuItems: menuItemsBuilder.makeBlockActionsMenuItems(), blockMenuActionsHandler: blockMenuActionsHandler, actionsMenuDismissHandler: dismissActionsMenu)
         }
     }
 }
@@ -104,12 +109,13 @@ extension FileNamespace {
     /// Instead, think about `Coordinator` as a view-agnostic textView events handler.
     func configureEditingToolbarHandler(_ textView: UITextView) {
         self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
-            guard let self = self, let inputSwitcher = self.inputSwitcher else { return }
+            guard let self = self else { return }
             self.switchInputs(textView, accessoryView: nil, inputView: nil)
 
             switch action {
             case .slashMenu:
-                textView.appendStringToAttributedString(inputSwitcher.textToTriggerActionsViewDisplay)
+                textView.appendStringToAttributedString(self.inputSwitcher.textToTriggerActionsViewDisplay)
+                self.inputSwitcher.showMenuActionsView(coordinator: self, textView: textView)
             case .multiActionMenu:
                 self.publishToOuterWorld(.showMultiActionMenuAction(.showMultiActionMenu))
             case .showStyleMenu:
@@ -180,6 +186,15 @@ extension FileNamespace {
             self?.switchInputs(view)
         }
         return self
+    }
+    
+    func focusPosition() -> BlockFocusPosition {
+        guard let textView = self.textView, textView.isFirstResponder else { return .unknown }
+        let caretLocation = textView.selectedRange.location
+        if caretLocation == 0 {
+            return .beginning
+        }
+        return .at(caretLocation)
     }
 }
 
@@ -334,7 +349,7 @@ private extension FileNamespace {
                       animated: Bool = false,
                       accessoryView: UIView?,
                       inputView: UIView?) {
-        self.inputSwitcher?.switchInputs(self.defaultKeyboardRect.size,
+        self.inputSwitcher.switchInputs(self.defaultKeyboardRect.size,
                                         animated: animated,
                                         textView: textView,
                                         accessoryView: accessoryView,
@@ -342,7 +357,7 @@ private extension FileNamespace {
     }
     
     func switchInputs(_ textView: UITextView) {
-        self.inputSwitcher?.switchInputs(self, textView: textView)
+        self.inputSwitcher.switchInputs(self, textView: textView)
     }
 }
 

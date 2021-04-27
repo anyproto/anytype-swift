@@ -266,6 +266,10 @@ extension TextBlockViewModel {
     func set(focus: TextView.UIKitTextView.ViewModel.Focus?) {
         self.textViewModel.set(focus: focus)
     }
+    
+    func focusPosition() -> BlockFocusPosition {
+        textViewModel.focusPosition()
+    }
 }
 
 // MARK: - Actions Payload Legacy

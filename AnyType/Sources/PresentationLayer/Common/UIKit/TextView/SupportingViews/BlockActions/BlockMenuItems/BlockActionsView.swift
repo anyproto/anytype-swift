@@ -6,21 +6,16 @@ final class BlockActionsView: DismissableInputAccessoryView {
         static let separatorHeight: CGFloat = 0.5
     }
     
-    private weak var parentTextView: UITextView?
-    private let positionOfFirstSymbolToGetFilterString: Int
+    private weak var menuViewController: UIViewController?
     private let menuItems: [BlockActionMenuItem]
     private let blockMenuActionsHandler: BlockMenuActionsHandler
     
-    init(parentTextView: UITextView,
-         frame: CGRect,
+    init(frame: CGRect,
          menuItems: [BlockActionMenuItem],
          blockMenuActionsHandler: BlockMenuActionsHandler,
          actionsMenuDismissHandler: @escaping () -> Void) {
-        self.parentTextView = parentTextView
         self.menuItems = menuItems
         self.blockMenuActionsHandler = blockMenuActionsHandler
-        let selectedRange = parentTextView.selectedRange
-        self.positionOfFirstSymbolToGetFilterString = selectedRange.location + selectedRange.length
         super.init(frame: frame,
                    dismissHandler: actionsMenuDismissHandler)
     }
@@ -28,6 +23,7 @@ final class BlockActionsView: DismissableInputAccessoryView {
     private func setup(parentViewController: UIViewController) {
         let topSeparator = self.addTopSeparator()
         let menuViewController = self.makeMenuController()
+        self.menuViewController = menuViewController
         menuViewController.view.translatesAutoresizingMaskIntoConstraints = false
         parentViewController.addChild(menuViewController)
         self.addSubview(menuViewController.view)
@@ -42,6 +38,9 @@ final class BlockActionsView: DismissableInputAccessoryView {
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
+        menuViewController?.willMove(toParent: nil)
+        subviews.forEach { $0.removeFromSuperview() }
+        menuViewController?.removeFromParent()
         guard let windowRootViewController = self.window?.rootViewController?.children.last else { return }
         self.setup(parentViewController: windowRootViewController)
     }
