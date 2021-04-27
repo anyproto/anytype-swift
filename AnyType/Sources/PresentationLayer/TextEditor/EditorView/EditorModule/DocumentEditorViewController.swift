@@ -1,3 +1,4 @@
+import BlocksModels
 import UIKit
 import Combine
 import FloatingPanel
@@ -124,38 +125,65 @@ final class DocumentEditorViewController: UICollectionViewController {
             self?.updateView()
         }.store(in: &self.subscriptions)
 
-        self.viewModel.updateElementsPublisher.sink { [weak self] (value) in
-            guard let sectionSnapshot = self?.dataSource?.snapshot(for: .first),
-                  var snapshot = self?.dataSource?.snapshot() else { return }
-            let set: Set = .init(value)
-            let itemsForUpdate = sectionSnapshot.visibleItems.filter { set.contains($0.blockId) }
-            if itemsForUpdate.isEmpty {
-                return
-            }
-            snapshot.reloadItems(itemsForUpdate)
-            self?.apply(snapshot)
+        self.viewModel.updateElementsPublisher.sink { [weak self] value in
+            self?.handleUpdateBlocks(blockIds: value)
         }.store(in: &self.subscriptions)
 
         self.viewModel.selectionHandler?.selectionEventPublisher().sink(receiveValue: { [weak self] value in
-            guard let self = self else { return }
-            switch value {
-            case .selectionDisabled:
-                self.deselectAllBlocks()
-            case let .selectionEnabled(event):
-                switch event {
-                case .isEmpty:
-                    self.deselectAllBlocks()
-                case let .nonEmpty(count, _):
-                    // We always count with this "1" because of top title block, which is not selectable
-                    if count == self.collectionView.numberOfItems(inSection: 0) - 1 {
-                        self.collectionView.selectAllItems(startingFrom: 1)
-                    }
-                }
-                self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
-            }
+            self?.handleSelection(event: value)
         }).store(in: &self.subscriptions)
     }
 
+    private func handleUpdateBlocks(blockIds: [BlockId]) {
+        guard let dataSource = dataSource else { return }
+        let sectionSnapshot = dataSource.snapshot(for: .first)
+        var snapshot = dataSource.snapshot()
+        let set: Set = .init(blockIds)
+        var itemsForUpdate = sectionSnapshot.visibleItems.filter { set.contains($0.blockId) }
+        let focusedViewModelIndex = itemsForUpdate.firstIndex(where: { viewModel -> Bool in
+            guard let indexPath = dataSource.indexPath(for: viewModel) else { return false }
+            return collectionView.cellForItem(at: indexPath)?.isAnySubviewFirstResponder() ?? false
+        })
+        if let index = focusedViewModelIndex {
+            updateFocusedViewModel(viewModel: itemsForUpdate.remove(at: index))
+        }
+        if itemsForUpdate.isEmpty {
+            return
+        }
+        snapshot.reloadItems(itemsForUpdate)
+        apply(snapshot)
+    }
+    
+    private func updateFocusedViewModel(viewModel: BaseBlockViewModel) {
+        guard let indexPath = dataSource?.indexPath(for: viewModel) else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+        cell.indentationLevel = viewModel.indentationLevel()
+        cell.contentConfiguration = viewModel.buildContentConfiguration()
+        let prefferedSize = cell.systemLayoutSizeFitting(CGSize(width: cell.frame.size.width,
+                                                                height: UIView.layoutFittingCompressedSize.height))
+        if cell.frame.size.height != prefferedSize.height {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
+    private func handleSelection(event: EditorModule.Selection.IncomingEvent) {
+        switch event {
+        case .selectionDisabled:
+            deselectAllBlocks()
+        case let .selectionEnabled(event):
+            switch event {
+            case .isEmpty:
+                deselectAllBlocks()
+            case let .nonEmpty(count, _):
+                // We always count with this "1" because of top title block, which is not selectable
+                if count == collectionView.numberOfItems(inSection: 0) - 1 {
+                    collectionView.selectAllItems(startingFrom: 1)
+                }
+            }
+            collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
+        }
+    }
+        
     private func deselectAllBlocks() {
         self.collectionView.deselectAllSelectedItems()
         self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }

@@ -23,7 +23,7 @@ class EventHandler: EventHandlerProtocol {
     private func finalize(_ updates: [EventHandlerUpdate]) {
         
         // configure one update
-        let update: EventHandlerUpdate = updates.reduce(.general) { (result, value) in .merged(lhs: result, rhs: value) }
+        let update: EventHandlerUpdate = updates.reduce(.update(EventHandlerUpdate.Payload())) { (result, value) in .merged(lhs: result, rhs: value) }
         
         guard let container = self.container else {
             assertionFailure("Container is nil in event handler. Something went wrong.")
@@ -333,7 +333,7 @@ class EventHandler: EventHandlerProtocol {
             /// This case will capture a completion ( this `didChange()` function ) and call it later.
             model.container?.userSession.didChange()
             
-            return .general
+            return nil
         case .setText:
             return nil
             /// TODO:

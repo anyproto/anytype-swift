@@ -34,6 +34,26 @@ extension UIView {
             self.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -insets.bottom)
         ])
     }
+    
+    func renderedImage(rect: CGRect) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: rect)
+        
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        }
+    }
+    
+    func isAnySubviewFirstResponder() -> Bool {
+        if isFirstResponder {
+            return true
+        }
+        for subview in subviews {
+            if subview.isAnySubviewFirstResponder() {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 extension UIView {
