@@ -14,7 +14,7 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Public
     func fetchDashboardData() {
-        dashboardService.openDashboard().receive(on: RunLoop.main).sink(
+        dashboardService.openDashboard().receive(on: DispatchQueue.main).sink(
             receiveCompletion: { completion in
                 switch completion {
                 case .finished: return

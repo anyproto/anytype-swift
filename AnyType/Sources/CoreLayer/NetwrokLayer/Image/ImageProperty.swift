@@ -34,7 +34,7 @@ class ImageProperty {
             // start loading
             self.loadingSubscription = URLResolver.init().obtainImageURLPublisher(imageId: self.imageId, self.parameters).safelyUnwrapOptionals().ignoreFailure().flatMap({
                 ImageLoaderObject($0).imagePublisher
-            }).receive(on: RunLoop.main).sink { _ in }
+            }).receive(on: DispatchQueue.main).sink { _ in }
         }
     }
 }

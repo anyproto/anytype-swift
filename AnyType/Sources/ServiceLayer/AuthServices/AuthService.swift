@@ -28,7 +28,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     func logout(completion: @escaping () -> Void) {
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
             .subscribe(on: DispatchQueue.global(qos: .background))
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { result in
             }) { [weak self] _ in
                 completion()
@@ -92,7 +92,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Account.Recover.Service.invoke().subscribe(on: DispatchQueue.global()).receive(on: RunLoop.main).sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Account.Recover.Service.invoke().subscribe(on: DispatchQueue.global()).receive(on: DispatchQueue.main).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case let .failure(error): onCompletion(.failure(.recoverAccountError(message: error.localizedDescription)))

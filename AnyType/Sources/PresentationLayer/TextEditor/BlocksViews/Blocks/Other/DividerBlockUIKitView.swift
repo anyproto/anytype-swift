@@ -109,7 +109,7 @@ class DividerBlockUIKitView: UIView {
     }
 
     func configured(publisher: AnyPublisher<State?, Never>) -> Self {
-        self.subscription = publisher.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+        self.subscription = publisher.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] (value) in
             self?.handle(value)
         })
         return self

@@ -34,16 +34,16 @@ final class AccountInfoDataAccessor: ObservableObject {
     private func setupSubscriptions() {
         let publisher = self.documentViewModel.pageDetailsPublisher()
         
-        publisher.map {$0.title?.value}.safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
+        publisher.map {$0.title?.value}.safelyUnwrapOptionals().receive(on: DispatchQueue.main).sink { [weak self] (value) in
             self?.accountName = value
         }.store(in: &self.subscriptions)
         
-        publisher.map { $0.iconColor?.value}.safelyUnwrapOptionals().receive(on: RunLoop.main).sink { [weak self] (value) in
+        publisher.map { $0.iconColor?.value}.safelyUnwrapOptionals().receive(on: DispatchQueue.main).sink { [weak self] (value) in
             self?.selectedColor = .init(hexString: value)
         }.store(in: &self.subscriptions)
         
         publisher.map {$0.iconImage?.value}.safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
-            .safelyUnwrapOptionals().flatMap({value in ImageLoaderObject(value).imagePublisher}).receive(on: RunLoop.main).sink { [weak self] (value) in
+            .safelyUnwrapOptionals().flatMap({value in ImageLoaderObject(value).imagePublisher}).receive(on: DispatchQueue.main).sink { [weak self] (value) in
                 self?.accountAvatar = value
         }.store(in: &self.subscriptions)
     }

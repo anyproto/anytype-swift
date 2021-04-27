@@ -36,7 +36,7 @@ extension ListBlockActionService {
         // Shit Swift
         let blocksIds = blocks
         // TODO: Add Delete List
-        self.listService.delete.action(contextID: self.documentId, blocksIds: blocksIds).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+        self.listService.delete.action(contextID: self.documentId, blocksIds: blocksIds).receive(on: DispatchQueue.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):
@@ -87,7 +87,7 @@ extension ListBlockActionService {
             return
         }
 
-        self.listService.setTextStyle.action(contextID: self.documentId, blockIds: blocksIds, style: text.contentType).receive(on: RunLoop.main).sink(receiveCompletion: { (value) in
+        self.listService.setTextStyle.action(contextID: self.documentId, blockIds: blocksIds, style: text.contentType).receive(on: DispatchQueue.main).sink(receiveCompletion: { (value) in
             switch value {
             case .finished: return
             case let .failure(error):

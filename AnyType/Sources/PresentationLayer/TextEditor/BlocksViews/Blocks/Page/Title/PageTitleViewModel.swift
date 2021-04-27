@@ -77,7 +77,7 @@ class PageTitleViewModel: PageBlockViewModel {
             }
         }.store(in: &self.subscriptions)
                     
-        self.$toViewTitle.removeDuplicates().receive(on: RunLoop.main).sink { [weak self] (value) in
+        self.$toViewTitle.removeDuplicates().receive(on: DispatchQueue.main).sink { [weak self] (value) in
             self?.textViewModel.apply(update: .text(value))
         }.store(in: &self.subscriptions)
     }

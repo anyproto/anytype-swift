@@ -57,10 +57,10 @@ class PageIconUIKitView: UIView {
     
     weak var viewModel: PageIconViewModel? {
         didSet {
-            self.viewModel?.$toViewEmoji.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+            self.viewModel?.$toViewEmoji.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] (value) in
                 self?.text = value
             }).store(in: &self.subscriptions)
-            self.viewModel?.$toViewImage.receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+            self.viewModel?.$toViewImage.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] (value) in
                 self?.image = value
             }).store(in: &self.subscriptions)
         }

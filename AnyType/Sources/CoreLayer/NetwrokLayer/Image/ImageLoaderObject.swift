@@ -65,7 +65,7 @@ class ImageLoaderObject: ObservableObject {
     //    }
     //
     //    private func loadImage() {
-    //        self.loadImageSubscription = self.imageService.fetchImage(url: self.path).receive(on: RunLoop.main).sink(receiveValue: { [weak self] (value) in
+    //        self.loadImageSubscription = self.imageService.fetchImage(url: self.path).receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] (value) in
     //            self?.image = value
     //        })
     //    }
