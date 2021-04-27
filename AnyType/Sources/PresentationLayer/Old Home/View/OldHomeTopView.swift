@@ -2,7 +2,7 @@ import SwiftUI
 
 struct OldHomeTopView: View {
     @ObservedObject var accountData: AccountInfoDataAccessor
-    var coordinator: OdlHomeCoordinator
+    var coordinator: OldHomeCoordinator
     
     var body: some View {
         HStack {
@@ -28,7 +28,7 @@ struct TopView_Previews: PreviewProvider {
     static var previews: some View {
         OldHomeTopView(
             accountData: AccountInfoDataAccessor(),
-            coordinator: OdlHomeCoordinator(
+            coordinator: OldHomeCoordinator(
                 profileAssembly: ProfileAssembly(),
                 editorAssembly: EditorAssembly()
             )

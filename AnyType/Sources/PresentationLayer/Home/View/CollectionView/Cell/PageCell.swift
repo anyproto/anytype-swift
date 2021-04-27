@@ -31,7 +31,7 @@ struct PageCell: View {
             if let image = image {
                 return Image(uiImage: image).resizable()
                 .frame(width: 48, height: 48)
-                .cornerRadius(16)
+                .cornerRadius(10)
                 .eraseToAnyView()
             } else {
                 return EmptyView().eraseToAnyView()

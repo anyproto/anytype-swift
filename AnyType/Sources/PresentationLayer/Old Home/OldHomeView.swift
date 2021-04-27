@@ -10,9 +10,9 @@ struct OldHomeView: View {
     @State var selectedDocumentId: String = ""
     @StateObject var accountData = AccountInfoDataAccessor()
     
-    private let coordinator: OdlHomeCoordinator
+    private let coordinator: OldHomeCoordinator
     
-    init(coordinator: OdlHomeCoordinator, collectionViewModel: OldHomeCollectionViewModel) {
+    init(coordinator: OldHomeCoordinator, collectionViewModel: OldHomeCollectionViewModel) {
         self.coordinator = coordinator
         self.collectionViewModel = collectionViewModel
     }

@@ -3,14 +3,15 @@ import Foundation
 import BlocksModels
 
 final class HomeViewModel: ObservableObject {
+    @Published var cellData: [PageCellData] = []
+    
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
+    private let coordinator: OldHomeCoordinator = ServiceLocator.shared.homeCoordinator()
     
     private var subscriptions: Set<AnyCancellable> = []
             
     private let documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
-    
-    @Published var cellData: [PageCellData] = []
     
     // MARK: - Public
     func fetchDashboardData() {
@@ -40,17 +41,30 @@ final class HomeViewModel: ObservableObject {
     private func updateCellData(viewModels: [BlockPageLinkViewModel]) {
         self.cellData = viewModels.map { pageLinkViewModel in
             let details = pageLinkViewModel.getDetailsViewModel().currentDetails
-
+            
             return PageCellData(
                 id: pageLinkViewModel.blockId,
-                iconData: iconData(details: details),
+                destinationId: destinationId(pageLinkViewModel),
+                iconData: iconData(details),
                 title: details.title?.value ?? "",
                 type: "Page"
             )
         }
     }
     
-    private func iconData(details: DetailsInformationProvider) -> PageCellIconData? {
+    private func destinationId(_ pageLinkViewModel: BlockPageLinkViewModel) -> String {
+        let targetBlockId: String
+        if case let .link(link) = pageLinkViewModel.getBlock().blockModel.information.content {
+            targetBlockId = link.targetBlockID
+        }
+        else {
+            assertionFailure("No target id for \(pageLinkViewModel)")
+            targetBlockId = ""
+        }
+        return targetBlockId
+    }
+    
+    private func iconData(_ details: DetailsInformationProvider) -> PageCellIconData? {
         if let imageId = details.iconImage?.value, !imageId.isEmpty {
             return .imageId(imageId)
         } else if let emoji = details.iconEmoji?.value, !emoji.isEmpty {

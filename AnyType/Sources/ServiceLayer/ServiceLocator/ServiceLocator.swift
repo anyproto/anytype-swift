@@ -45,7 +45,6 @@ final class ServiceLocator {
     }
     
     // MARK: - Coodrdinators
-    /// creates new applicationCoordinator
     func applicationCoordinator(window: MainWindow) -> ApplicationCoordinator {
         ApplicationCoordinator(
             window: window,
@@ -58,8 +57,23 @@ final class ServiceLocator {
         )
     }
     
+    func homeCoordinator() -> OldHomeCoordinator {
+        OldHomeCoordinator(
+            profileAssembly: self.profileAssembly(),
+            editorAssembly: self.editorAssembly()
+        )
+    }
+    
     // MARK: - Assembly
     func authAssembly() -> AuthAssembly {
         AuthAssembly()
+    }
+    
+    func profileAssembly() -> ProfileAssembly {
+        ProfileAssembly()
+    }
+    
+    func editorAssembly() -> EditorAssembly {
+        EditorAssembly()
     }
 }

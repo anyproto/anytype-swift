@@ -6,21 +6,27 @@ struct HomeView: View {
     
     
     var body: some View {
-        GeometryReader { geometry in
-            Color.blue
-            HomeProfileView()
-                .frame(width: geometry.size.width, height: geometry.size.height)
-            
-            HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
-                HomeTabsView(cellData: $model.cellData)
+        NavigationView {
+            GeometryReader { geometry in
+                Color.blue
+                HomeProfileView()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+
+                HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
+                    HomeTabsView()
+                }
+                
             }
+            .edgesIgnoringSafeArea(.all)
+        }
+        .navigationBarHidden(true)
             
-        }.edgesIgnoringSafeArea(.all)
-        
-        .environment(\.font, .defaultAnyType)
         .onAppear {
             model.fetchDashboardData()
         }
+        
+        .environment(\.font, .defaultAnyType)
+        .environmentObject(model)
     }
 }
 

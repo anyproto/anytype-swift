@@ -10,13 +10,8 @@ class HomeViewAssembly {
                 blockActionsService: ServiceLocator.shared.blockActionsServiceSingle()
             )
             
-            let coordinator = OdlHomeCoordinator(
-                profileAssembly: ProfileAssembly(),
-                editorAssembly: EditorAssembly()
-            )
-            
             return OldHomeView(
-                coordinator: coordinator,
+                coordinator: ServiceLocator.shared.homeCoordinator(),
                 collectionViewModel: collectionViewModel
             ).eraseToAnyView()
         }

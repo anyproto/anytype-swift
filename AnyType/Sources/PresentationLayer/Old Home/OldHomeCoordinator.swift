@@ -1,6 +1,6 @@
 import SwiftUI
 
-final class OdlHomeCoordinator {
+final class OldHomeCoordinator {
     private let profileAssembly: ProfileAssembly
     private let editorAssembly: EditorAssembly
     init(

@@ -1,18 +1,19 @@
 import SwiftUI
 
 struct HomeCollectionView: View {
-    let columns = [
+    private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
     ]
     
-    @Binding var cellData: [PageCellData]
+    @EnvironmentObject var model: HomeViewModel
     
     var body: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
-                ForEach(cellData) { data in
-                    PageCell(cellData: data).cornerRadius(16)
+                ForEach(model.cellData) { data in
+                    PageCell(cellData: data)
+                        .cornerRadius(16)
                         .frame(idealHeight: 124)
                 }
             }
@@ -26,6 +27,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: .constant(PageCellDataMock.data))
+        HomeCollectionView()
     }
 }

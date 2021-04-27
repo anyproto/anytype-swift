@@ -14,14 +14,17 @@ enum PageCellIconData {
 
 final class PageCellData: Identifiable {
     let id: String
+    @Published private(set) var destinationId: String
     @Published private(set) var icon: PageCellIcon?
     @Published private(set) var title: String
     @Published private(set) var type: String
     
+    
     private var imageSubscription: AnyCancellable?
     private var imageProperty: ImageProperty?
     
-    init(id: String, iconData: PageCellIconData?, title: String, type: String) {
+    init(id: String, destinationId: String, iconData: PageCellIconData?, title: String, type: String) {
+        self.destinationId = destinationId
         self.id = id
         self.title = title
         self.type = type
