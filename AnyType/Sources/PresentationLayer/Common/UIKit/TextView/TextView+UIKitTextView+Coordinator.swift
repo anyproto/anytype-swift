@@ -109,10 +109,7 @@ extension FileNamespace {
 
             switch action {
             case .slashMenu:
-                let stringToAppend = inputSwitcher.textToTriggerActionsViewDisplay
-                let result = textView.attributedText.attributedStringByAppending(stringToAppend)
-                self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(result)))
-                textView.attributedText = result
+                textView.appendStringToAttributedString(inputSwitcher.textToTriggerActionsViewDisplay)
             case .multiActionMenu:
                 self.publishToOuterWorld(.showMultiActionMenuAction(.showMultiActionMenu))
             case .showStyleMenu:

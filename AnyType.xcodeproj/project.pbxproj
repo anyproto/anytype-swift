@@ -456,6 +456,7 @@
 		EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */; };
 		EADA96C8260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
+		EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -946,6 +947,7 @@
 		EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorModuleDocumentViewInput.swift; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1387,6 +1389,7 @@
 				EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */,
 				EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */,
 				5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */,
+				EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -3421,6 +3424,7 @@
 				EAC6BB4B26288691004C8C06 /* InputSwitcher.swift in Sources */,
 				EAC5728426208CB600F25949 /* DocumentViewCellFactory.swift in Sources */,
 				0ACA781723E5C99A00442690 /* AppearanceService+Schemes.swift in Sources */,
+				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				5338E7FB25DC7AF5008CB97D /* BlockActionService.swift in Sources */,
 				5338E7F525DC7345008CB97D /* ButtonBlockActionHandler.swift in Sources */,
 				0A005AAC24C4731D000520AA /* BlocksViews+New+File+File.swift in Sources */,
