@@ -331,6 +331,8 @@
 		3DB27C15261B0EA5005E523C /* DecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C11261B0EA5005E523C /* DecodingTests.swift */; };
 		3DB27C16261B0EA5005E523C /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C12261B0EA5005E523C /* XCTestManifests.swift */; };
 		3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */; };
+		3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */; };
+		3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
@@ -826,6 +828,8 @@
 		3DB27C11261B0EA5005E523C /* DecodingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodingTests.swift; sourceTree = "<group>"; };
 		3DB27C12261B0EA5005E523C /* XCTestManifests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingPathConverter.swift; sourceTree = "<group>"; };
+		3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackgroundBlurView.swift; sourceTree = "<group>"; };
+		3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileViewButtonImage.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
@@ -2249,10 +2253,11 @@
 		3D932D3926317E3A00C7D1EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3DB7DC902639CA8000635E4C /* ProfileView */,
 				3DB1E74B2639A9FB00F479BB /* TabsView */,
 				3D932D3A26317E3A00C7D1EA /* CollectionView */,
 				3D932D3D26317E3A00C7D1EA /* HomeBottomSheetView.swift */,
-				3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */,
+				3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2418,6 +2423,15 @@
 				3DB27C12261B0EA5005E523C /* XCTestManifests.swift */,
 			);
 			path = URLComponentsCoder;
+			sourceTree = "<group>";
+		};
+		3DB7DC902639CA8000635E4C /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */,
+				3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */,
+			);
+			path = ProfileView;
 			sourceTree = "<group>";
 		};
 		3DCE7A092615248A00E09593 /* Flattener */ = {
@@ -3109,6 +3123,7 @@
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
+				3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
 				0AA9B042249CF68700F2962C /* MultiSelectionPane+Panes+ToolsPane.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
@@ -3270,6 +3285,7 @@
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */,
 				EAC5728726208CD100F25949 /* DocumentViewCellFactoryProtocol.swift in Sources */,
+				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
 				0A0965F525BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,

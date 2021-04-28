@@ -44,11 +44,7 @@ struct HomeBottomSheetView<Content: View>: View {
                 self.content
             }
             .frame(width: geometry.size.width, height: self.config.maxHeight, alignment: .top)
-            .background(
-                VisualEffectBlur(blurStyle: .light, vibrancyStyle: .fill) {
-                    EmptyView()
-                }
-            )
+            .background(HomeBackgroundBlurView())
             .cornerRadius(config.cornerRadius)
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: max(self.offset + self.translation, 0))
