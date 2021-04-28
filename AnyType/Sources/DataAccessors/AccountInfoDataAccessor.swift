@@ -20,23 +20,35 @@ final class AccountInfoDataAccessor: ObservableObject {
     init() {
         name = defaultName
         
-        setupSubscriptions()
+        setUpSubscriptions()
         obtainAccountInfo()
     }
     
-    private func setupSubscriptions() {
-        let publisher = self.documentViewModel.pageDetailsPublisher()
-        
-        publisher.map {$0.title?.value}.safelyUnwrapOptionals().receive(on: DispatchQueue.main).sink { [weak self] accountName in
+    private func setUpSubscriptions() {
+        setUpNameSubscription()
+        setUpImageSubscription()
+    }
+    
+    private func setUpNameSubscription() {
+        documentViewModel.pageDetailsPublisher().map {$0.title?.value}.safelyUnwrapOptionals().receive(on: DispatchQueue.main).sink { [weak self] accountName in
             guard let self = self else {
                 return
             }
             
             self.name = accountName.isEmpty ? self.defaultName : accountName
         }.store(in: &self.subscriptions)
-        
-        publisher.map(\.iconImage?.value).safelyUnwrapOptionals().flatMap { imageId in
-            URLResolver().obtainImageURLPublisher(imageId: imageId).ignoreFailure()
+    }
+    
+    private func setUpImageSubscription() {
+        documentViewModel.pageDetailsPublisher().map(\.iconImage?.value).safelyUnwrapOptionals().compactMap { [weak self] imageId in
+            guard imageId.isEmpty == false else {
+              self?.avatar = nil
+              return nil
+            }
+            
+            return imageId
+        }.flatMap { imageId in
+            URLResolver().obtainImageURLPublisher(imageId: imageId).ignoreFailure().eraseToAnyPublisher()
         }.safelyUnwrapOptionals().flatMap { imageUrl in
             ImageLoaderObject(imageUrl).imagePublisher
         }.receive(on: DispatchQueue.main).sink { [weak self] avatar in
