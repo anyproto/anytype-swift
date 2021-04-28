@@ -24,7 +24,9 @@ final class DocumentViewModel: DocumentViewModelProtocol {
     }
     
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never> {
-        self.document.modelsAndUpdatesPublisher().map { [weak self] (value) in
+        self.document.modelsAndUpdatesPublisher()
+            .receive(on: DispatchQueue.main)
+            .map { [weak self] (value) in
             DocumentViewModelUpdateResult(
                 updates: value.updates,
                 models: self?.blocksConverter.convert(value.models) ?? []
