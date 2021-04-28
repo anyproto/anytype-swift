@@ -6,16 +6,15 @@ struct OldHomeTopView: View {
     
     var body: some View {
         HStack {
-            Text("Hi, \(accountData.visibleAccountName)")
+            Text("Hi, \(accountData.name)")
                 .fontWeight(.bold)
                 .foregroundColor(.white)
                 .font(.title)
             Spacer()
             NavigationLink(destination: coordinator.profileView()) {
                 UserIconView(
-                    image: accountData.accountAvatar,
-                    color: accountData.visibleSelectedColor,
-                    name: accountData.visibleAccountName
+                    image: accountData.avatar,
+                    name: accountData.name
                 ).frame(width: 43, height: 43)
             }
         }

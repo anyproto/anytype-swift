@@ -28,7 +28,7 @@ struct HomeTabsView: View {
                 tabSelection = 1
             }) {
                 Text("Favorites")
-                    .font(.subheadline)
+                    .anyTypeFont(.subheading)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(tabSelection == 1 ? .black : .gray)
             }
@@ -37,7 +37,7 @@ struct HomeTabsView: View {
                 tabSelection = 2
             }) {
                 Text("Recent")
-                    .font(.subheadline)
+                    .anyTypeFont(.subheading)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(tabSelection == 2 ? .black : .gray)
             }.disabled(true)
@@ -47,7 +47,7 @@ struct HomeTabsView: View {
                 tabSelection = 3
             }) {
                 Text("Drafts")
-                    .font(.subheadline)
+                    .anyTypeFont(.subheading)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(tabSelection == 3 ? .black : .gray)
             }.disabled(true)
@@ -56,7 +56,7 @@ struct HomeTabsView: View {
                 tabSelection = 4
             }) {
                 Text("Bin")
-                    .font(.subheadline)
+                    .anyTypeFont(.subheading)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(tabSelection == 4 ? .black : .gray)
             }.disabled(true)

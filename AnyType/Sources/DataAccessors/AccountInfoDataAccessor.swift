@@ -4,21 +4,11 @@ import UIKit
 import BlocksModels
 
 final class AccountInfoDataAccessor: ObservableObject {
-    @Published var accountName: String?
-    @Published var accountAvatar: UIImage?
-    @Published var selectedColor: UIColor?
-    @Published var profileBlockId: BlockId?
+    @Published var name: String
+    @Published var avatar: UIImage?
+    @Published var blockId: BlockId?
     
-    var visibleAccountName: String {
-        guard let name = accountName, !name.isEmpty else {
-            return "Anytype User"
-        }
-        return name
-    }
-    
-    var visibleSelectedColor: UIColor {
-        selectedColor ?? .clear
-    }
+    private let defaultName = "Anytype User"
     
     private let documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
     private var subscriptions: Set<AnyCancellable> = []
@@ -28,6 +18,8 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     
     init() {
+        name = defaultName
+        
         setupSubscriptions()
         obtainAccountInfo()
     }
@@ -35,23 +27,26 @@ final class AccountInfoDataAccessor: ObservableObject {
     private func setupSubscriptions() {
         let publisher = self.documentViewModel.pageDetailsPublisher()
         
-        publisher.map {$0.title?.value}.safelyUnwrapOptionals().receive(on: DispatchQueue.main).sink { [weak self] (value) in
-            self?.accountName = value
+        publisher.map {$0.title?.value}.safelyUnwrapOptionals().receive(on: DispatchQueue.main).sink { [weak self] accountName in
+            guard let self = self else {
+                return
+            }
+            
+            self.name = accountName.isEmpty ? self.defaultName : accountName
         }.store(in: &self.subscriptions)
         
-        publisher.map { $0.iconColor?.value}.safelyUnwrapOptionals().receive(on: DispatchQueue.main).sink { [weak self] (value) in
-            self?.selectedColor = .init(hexString: value)
-        }.store(in: &self.subscriptions)
-        
-        publisher.map {$0.iconImage?.value}.safelyUnwrapOptionals().flatMap({value in URLResolver.init().obtainImageURLPublisher(imageId: value).ignoreFailure()})
-            .safelyUnwrapOptionals().flatMap({value in ImageLoaderObject(value).imagePublisher}).receive(on: DispatchQueue.main).sink { [weak self] (value) in
-                self?.accountAvatar = value
+        publisher.map(\.iconImage?.value).safelyUnwrapOptionals().flatMap { imageId in
+            URLResolver().obtainImageURLPublisher(imageId: imageId).ignoreFailure()
+        }.safelyUnwrapOptionals().flatMap { imageUrl in
+            ImageLoaderObject(imageUrl).imagePublisher
+        }.receive(on: DispatchQueue.main).sink { [weak self] avatar in
+            self?.avatar = avatar
         }.store(in: &self.subscriptions)
     }
     
     private func obtainAccountInfo() {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration -> AnyPublisher<ServiceSuccess, Error> in
-            self.profileBlockId = configuration.profileBlockId
+            self.blockId = configuration.profileBlockId
             return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
         }.sink(receiveCompletion: { (value) in
             switch value {

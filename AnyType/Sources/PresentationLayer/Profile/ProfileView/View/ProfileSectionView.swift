@@ -7,18 +7,17 @@ struct ProfileSectionView: View {
 
     var body: some View {
         NavigationLink(
-            destination: model.coordinator.openProfile(profileId: accountData.profileBlockId ?? "")
+            destination: model.coordinator.openProfile(profileId: accountData.blockId ?? "")
         ) {
             VStack(alignment:.leading) {
                 UserIconView(
-                    image: accountData.accountAvatar,
-                    color: accountData.visibleSelectedColor,
-                    name: accountData.visibleAccountName
+                    image: accountData.avatar,
+                    name: accountData.name
                 )
                 .frame(width: 64, height: 64)
                 .padding([.top], 20)
                 HStack(spacing: 0) {
-                    Text(accountData.visibleAccountName)
+                    Text(accountData.name)
                         .font(.title).foregroundColor(.black)
                     Spacer()
                     Image("arrowForward")
@@ -28,7 +27,7 @@ struct ProfileSectionView: View {
                 Text("Your public page").foregroundColor(Color.grayText)
             }
         }
-        .disabled(accountData.profileBlockId == nil)
+        .disabled(accountData.blockId == nil)
         .padding([.leading, .trailing], 20)
         .padding(.bottom, 9)
         .background(Color.white)

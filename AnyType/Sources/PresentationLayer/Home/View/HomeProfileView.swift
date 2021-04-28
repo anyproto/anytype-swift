@@ -7,13 +7,14 @@ struct HomeProfileView: View {
     
     var body: some View {
         VStack() {
-            Text("Hi, \(accountData.visibleAccountName)")
-                .font(.title)
-                .fontWeight(.bold)
+            Text("Hi, \(accountData.name)")
+                .anyTypeFont(.title)
                 .foregroundColor(.white)
                 .padding(.top, 100.0)
-            UserIconView(color: .red, name: "W")
-                .frame(width: 98, height: 98)
+            UserIconView(
+                image: accountData.avatar,
+                name: accountData.name
+            ).frame(width: 98, height: 98)
             HStack {
                 ForEach(icons, id: \.self) { name in
                     UserIconView(image: UIImage(named: name), name: name)

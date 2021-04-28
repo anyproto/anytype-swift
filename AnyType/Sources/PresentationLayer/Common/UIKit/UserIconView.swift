@@ -4,23 +4,10 @@ import UIKit
 
 struct UserIconView: View {
     var image: UIImage?
-    var color: UIColor?
     var name: String
     
-    private func defaultColor() -> UIColor {
-        return .black
-    }
-    
-    private var chosenColor: UIColor {
-        self.color ?? self.defaultColor()
-    }
-    
-    private func defaultInitialGlyph() -> Character {
-        return "A"
-    }
-    
     private var chosenInitialGlyph: Character {
-        self.name.first ?? self.defaultInitialGlyph()
+        self.name.first ?? "👻"
     }
     
     var body: some View {
@@ -31,10 +18,9 @@ struct UserIconView: View {
                     .resizable().correctAspectRatio(ofImage: value, contentMode: .fill)
             } else {
                 ZStack {
-                    Color(self.chosenColor)
-                    Text(String(self.chosenInitialGlyph))
-                        .fontWeight(.bold)
-                        .font(.title)
+                    Color.gray
+                    Text(String(chosenInitialGlyph))
+                        .anyTypeFont(.title)
                         .foregroundColor(Color.white)
                 }
             }
@@ -45,12 +31,20 @@ struct UserIconView: View {
 
 struct SimpleViews_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
+        VStack {
             UserIconView(
-                color: .red,
                 name: "Anton B"
-            )
-            .previewLayout(.fixed(width: 100, height: 100))
+            ).frame(width: 100, height: 100)
+            
+            UserIconView(
+                name: ""
+            ).frame(width: 100, height: 100)
+            
+            UserIconView(
+                image: UIImage(named: "mainAuthBackground"),
+                name: "Anton B"
+            ).frame(width: 100, height: 100)
         }
+        .previewLayout(.sizeThatFits)
     }
 }
