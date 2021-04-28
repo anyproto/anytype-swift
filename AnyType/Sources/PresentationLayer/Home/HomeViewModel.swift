@@ -4,10 +4,10 @@ import BlocksModels
 
 final class HomeViewModel: ObservableObject {
     @Published var cellData: [PageCellData] = []
-    
+    let coordinator: OldHomeCoordinator = ServiceLocator.shared.homeCoordinator()
+
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
-    private let coordinator: OldHomeCoordinator = ServiceLocator.shared.homeCoordinator()
     
     private var subscriptions: Set<AnyCancellable> = []
             

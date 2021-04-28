@@ -28,7 +28,7 @@ final class PageCellData: Identifiable {
         self.id = id
         self.title = title
         self.type = type
-        setUpIcon(iconData)        
+        setUpIcon(iconData)
     }
     
     private func setUpIcon(_ iconData: PageCellIconData?) {

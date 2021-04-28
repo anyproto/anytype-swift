@@ -12,9 +12,11 @@ struct HomeCollectionView: View {
         ScrollView() {
             LazyVGrid(columns: columns) {
                 ForEach(model.cellData) { data in
-                    PageCell(cellData: data)
-                        .cornerRadius(16)
-                        .frame(idealHeight: 124)
+                    NavigationLink(destination: model.coordinator.profileView()) {
+                        PageCell(cellData: data)
+                            .cornerRadius(16)
+                            .frame(idealHeight: 124)
+                    }
                 }
             }
             .padding()

@@ -1,12 +1,25 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @ObservedObject var model: ProfileViewModel
-    @EnvironmentObject var accountData: AccountInfoDataAccessor
+    @StateObject var model: ProfileViewModel
     
-    var contentView: some View {
+    var body: some View {
+        ZStack {
+            LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            ScrollView {
+                contentView.padding(.bottom, 10)
+            }
+        }
+        .errorToast(isShowing: $model.isShowingError, errorText: model.error)
+        .onAppear(perform: model.accountData.obtainAccountInfo)
+        
+        .environmentObject(model)
+    }
+    
+    private var contentView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            ProfileSectionView(accountData: accountData, coordinator: model.coordinator)
+            ProfileSectionView()
             SettingsSectionView()
             StandardButton(disabled: false, text: "Log out", style: .white) {
                 self.model.logout()
@@ -14,17 +27,6 @@ struct ProfileView: View {
             .padding(.horizontal, 20)
         }
         .padding([.leading, .trailing], 20)
-    }
-    
-    var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
-            ScrollView {
-                self.contentView.padding(.bottom, 10)
-            }
-        }
-        .errorToast(isShowing: $model.isShowingError, errorText: model.error)
     }
 }
 
