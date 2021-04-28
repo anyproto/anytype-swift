@@ -32,7 +32,7 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem {
                     NavigationLink(destination: model.coordinator.profileView()) {
-                        Image("StyleBottomSheet/bullet")
+                        Image.main.settings
                     }
                 }
             }
