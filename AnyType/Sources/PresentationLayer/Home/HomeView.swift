@@ -18,7 +18,7 @@ struct HomeView: View {
         NavigationView {
             GeometryReader { geometry in
                 ZStack {
-                    Color.blue
+                    Color(red: 0, green: 102.0/255.0, blue: 195.0/255.0)
                     HomeProfileView()
                         .frame(width: geometry.size.width, height: geometry.size.height)
                     

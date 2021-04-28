@@ -21,7 +21,6 @@ struct HomeCollectionView: View {
             }
             .padding()
         }
-        .background(Color.orange)
         .ignoresSafeArea()
         .animation(.interactiveSpring())
     }

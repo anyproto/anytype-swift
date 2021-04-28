@@ -109,6 +109,13 @@
 "Wallpaper" = "Wallpaper";
 "Keychain phrase" = "Keychain phrase";
 "Pin code" = "Pin code";
+"Log out" = "Log out";
+
+// Home
+"Favorites" = "Favorites";
+"Recent" = "Recent";
+"Drafts" = "Drafts";
+"Bin" = "Bin";
 
 
 // Auth

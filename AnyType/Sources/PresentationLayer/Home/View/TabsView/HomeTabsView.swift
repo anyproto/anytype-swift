@@ -23,50 +23,47 @@ struct HomeTabsView: View {
     
     
     var tabHeaders: some View {
-        HStack {
+        HStack(){
             Button(action: {
                 tabSelection = 1
             }) {
-                Text("Favorites")
-                    .anyTypeFont(.subheading)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(tabSelection == 1 ? .black : .gray)
+                HomeTabsHeaderText(text: "Favorites", isSelected: tabSelection == 1)
             }
 
             Button(action: {
                 tabSelection = 2
             }) {
-                Text("Recent")
-                    .anyTypeFont(.subheading)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(tabSelection == 2 ? .black : .gray)
+                HomeTabsHeaderText(text: "Recent", isSelected: tabSelection == 2)
             }.disabled(true)
-
             
             Button(action: {
                 tabSelection = 3
             }) {
-                Text("Drafts")
-                    .anyTypeFont(.subheading)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(tabSelection == 3 ? .black : .gray)
+                HomeTabsHeaderText(text: "Drafts", isSelected: tabSelection == 3)
             }.disabled(true)
             
             Button(action: {
                 tabSelection = 4
             }) {
-                Text("Bin")
-                    .anyTypeFont(.subheading)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(tabSelection == 4 ? .black : .gray)
+                HomeTabsHeaderText(text: "Bin", isSelected: tabSelection == 4)
             }.disabled(true)
         }
-        .padding(.bottom, 20)
+        .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20))
     }
 }
 
 struct HomeTabsView_Previews: PreviewProvider {
+    static var model: HomeViewModel {
+        let model = HomeViewModel()
+        model.cellData = PageCellDataMock.data
+        return model
+    }
+    
     static var previews: some View {
-        HomeTabsView()
+        ZStack {
+            Color.blue
+            HomeTabsView()
+                .environmentObject(model)
+        }
     }
 }

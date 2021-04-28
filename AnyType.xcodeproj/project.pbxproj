@@ -314,6 +314,8 @@
 		3DA369412629B75E001557C9 /* EventHandlerFocusConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */; };
 		3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */; };
 		3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */; };
+		3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */; };
+		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */; };
 		3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF3261B0E9C005E523C /* Encoder.swift */; };
 		3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */; };
@@ -807,6 +809,8 @@
 		3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerFocusConverter.swift; sourceTree = "<group>"; };
 		3DA369432629D71D001557C9 /* Image+CorrectAspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+CorrectAspectRatio.swift"; sourceTree = "<group>"; };
 		3DA369462629D781001557C9 /* ImageWithCircleBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithCircleBackgroundView.swift; sourceTree = "<group>"; };
+		3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
+		3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeaderText.swift; sourceTree = "<group>"; };
 		3DB27BF2261B0E9C005E523C /* UnkeyedEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnkeyedEncodingContainer.swift; sourceTree = "<group>"; };
 		3DB27BF3261B0E9C005E523C /* Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
 		3DB27BF4261B0E9C005E523C /* SingleValueEncodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleValueEncodingContainer.swift; sourceTree = "<group>"; };
@@ -2187,6 +2191,7 @@
 				032225DB22F87AB40064E544 /* Detail Picker View */,
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
+				3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2244,10 +2249,10 @@
 		3D932D3926317E3A00C7D1EA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3DB1E74B2639A9FB00F479BB /* TabsView */,
 				3D932D3A26317E3A00C7D1EA /* CollectionView */,
 				3D932D3D26317E3A00C7D1EA /* HomeBottomSheetView.swift */,
 				3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */,
-				3D932D3F26317E3A00C7D1EA /* HomeTabsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2351,6 +2356,15 @@
 				3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */,
 			);
 			path = EventHandler;
+			sourceTree = "<group>";
+		};
+		3DB1E74B2639A9FB00F479BB /* TabsView */ = {
+			isa = PBXGroup;
+			children = (
+				3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */,
+				3D932D3F26317E3A00C7D1EA /* HomeTabsView.swift */,
+			);
+			path = TabsView;
 			sourceTree = "<group>";
 		};
 		3DB27BF0261B0E9C005E523C /* URLComponentsCoder */ = {
@@ -3221,9 +3235,11 @@
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
+				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
 				EA77E548262DF30B009F91D9 /* BlockMenuActionsHandler.swift in Sources */,
 				EAC6BB5126288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift in Sources */,
+				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,
 				0A0965F025BEF5B000C004BD /* EditorModule+Container+ViewController.swift in Sources */,
