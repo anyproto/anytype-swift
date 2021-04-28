@@ -31,7 +31,7 @@ struct OldHomeView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .accentColor(.gray)
-        .onAppear(perform: onAppear)
+        .onAppear(perform: makeNavigationBarTransparent)
         .environmentObject(accountData)
     }
     
@@ -56,11 +56,6 @@ struct OldHomeView: View {
                 containerSize: geometry.size
             ).padding()
         }
-    }
-    
-    private func onAppear() {
-        self.accountData.obtainAccountInfo()
-        makeNavigationBarTransparent()
     }
     
     private func makeNavigationBarTransparent() {

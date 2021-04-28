@@ -3,22 +3,23 @@ import SwiftUI
 
 struct ProfileSectionView: View {
     @EnvironmentObject private var model: ProfileViewModel
+    @EnvironmentObject private var accountData: AccountInfoDataAccessor
 
     var body: some View {
         NavigationLink(
-            destination: model.coordinator.openProfile(profileId: model.accountData.profileBlockId ?? "")
+            destination: model.coordinator.openProfile(profileId: accountData.profileBlockId ?? "")
         ) {
             VStack(alignment:.leading) {
                 UserIconView(
-                    image: model.accountData.accountAvatar,
-                    color: model.accountData.visibleSelectedColor,
-                    name: model.accountData.visibleAccountName
+                    image: accountData.accountAvatar,
+                    color: accountData.visibleSelectedColor,
+                    name: accountData.visibleAccountName
                 )
                 .frame(width: 64, height: 64)
                 .padding([.top], 20)
                 HStack(spacing: 0) {
-                    Text(model.accountData.visibleAccountName)
-                        .font(.title)
+                    Text(accountData.visibleAccountName)
+                        .font(.title).foregroundColor(.black)
                     Spacer()
                     Image("arrowForward")
                 }
@@ -27,7 +28,7 @@ struct ProfileSectionView: View {
                 Text("Your public page").foregroundColor(Color.grayText)
             }
         }
-        .disabled(model.accountData.profileBlockId == nil)
+        .disabled(accountData.profileBlockId == nil)
         .padding([.leading, .trailing], 20)
         .padding(.bottom, 9)
         .background(Color.white)

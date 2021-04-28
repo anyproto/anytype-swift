@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct HomeProfileView: View {
+    @EnvironmentObject var accountData: AccountInfoDataAccessor
+    
     let icons = ["searchTextFieldIcon", "Settings/wallpaper", "plus"]
     
     var body: some View {
         VStack() {
-            Text("Hi, World")
+            Text("Hi, \(accountData.visibleAccountName)")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.white)

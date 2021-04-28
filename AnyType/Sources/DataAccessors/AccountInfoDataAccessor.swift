@@ -29,6 +29,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     init() {
         setupSubscriptions()
+        obtainAccountInfo()
     }
     
     private func setupSubscriptions() {
@@ -48,7 +49,7 @@ final class AccountInfoDataAccessor: ObservableObject {
         }.store(in: &self.subscriptions)
     }
     
-    func obtainAccountInfo() {        
+    private func obtainAccountInfo() {
         self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration -> AnyPublisher<ServiceSuccess, Error> in
             self.profileBlockId = configuration.profileBlockId
             return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)

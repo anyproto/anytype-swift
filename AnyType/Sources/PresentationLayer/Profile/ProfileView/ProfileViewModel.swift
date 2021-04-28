@@ -36,13 +36,12 @@ final class ProfileViewModel: ObservableObject {
     }
     
     let coordinator = ProfileCoordinator(editorAssembly: EditorAssembly())
-    let accountData = AccountInfoDataAccessor()
     
-    private var authService: AuthServiceProtocol
+    private let authService: AuthServiceProtocol
     
+
     init(authService: AuthServiceProtocol) {
         self.authService = authService
-        
     }
 
     // MARK: - Logout

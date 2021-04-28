@@ -12,7 +12,6 @@ struct ProfileView: View {
             }
         }
         .errorToast(isShowing: $model.isShowingError, errorText: model.error)
-        .onAppear(perform: model.accountData.obtainAccountInfo)
         
         .environmentObject(model)
     }

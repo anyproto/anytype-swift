@@ -2,6 +2,7 @@ import Combine
 import Foundation
 import BlocksModels
 
+
 final class HomeViewModel: ObservableObject {
     @Published var cellData: [PageCellData] = []
     let coordinator: OldHomeCoordinator = ServiceLocator.shared.homeCoordinator()
@@ -14,7 +15,7 @@ final class HomeViewModel: ObservableObject {
     private let documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
     
     // MARK: - Public
-    func fetchDashboardData() {
+    func fetchDashboardData() {        
         dashboardService.openDashboard().receive(on: DispatchQueue.main).sink(
             receiveCompletion: { completion in
                 switch completion {
