@@ -5,7 +5,6 @@ import Combine
 
 final class TextBlockActionHandler {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-    typealias DetailsInspector = Block.Utilities.DetailsInspector
 
     private var subscriptions: Set<AnyCancellable> = []
     private let service: BlockActionService
@@ -66,7 +65,7 @@ final class TextBlockActionHandler {
     private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
-            if DetailsInspector.kind(of: block.blockModel.information.id) == .title {
+            if BlockDetailsInspector.kind(of: block.blockModel.information.id) == .title {
                 switch keyAction {
                 case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
                     let id = block.blockModel.information.id

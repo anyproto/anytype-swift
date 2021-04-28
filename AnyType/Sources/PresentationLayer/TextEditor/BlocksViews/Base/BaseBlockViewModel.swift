@@ -218,7 +218,7 @@ class BaseBlockViewModel: ObservableObject {
     func makeDiffable() -> AnyHashable {
         [
             "Id": self.information.id,
-            "Content": Block.Utilities.ContentTypeIdentifier.identifier(self.information.content),
+            "Content": BlockContentTypeIdentifier.identifier(self.information.content),
             "Indentation": self.indentationLevel()
         ] as [AnyHashable: AnyHashable]
     }

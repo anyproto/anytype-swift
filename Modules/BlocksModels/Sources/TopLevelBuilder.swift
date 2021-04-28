@@ -9,16 +9,18 @@ public protocol TopLevelBuilder {
 
 
 public enum TopLevelBuilderImpl: TopLevelBuilder {
-    public static var blockBuilder: BlockBuilderProtocol = Block.Builder.init()
-    public static var detailsBuilder: DetailsBuilderProtocol = Details.Builder.init()
+    public static let blockBuilder: BlockBuilderProtocol = BlockBuilder()
+    public static let detailsBuilder: DetailsBuilderProtocol = DetailsBuilder()
     
     public static func emptyContainer() -> ContainerModel {
         RootBlocksContainer()
     }
     
-    public static func createRootContainer(rootId: BlockId?,
-                             blockContainer: BlockContainerModelProtocol,
-                             detailsContainer: DetailsContainerModelProtocol) -> ContainerModel {
+    public static func createRootContainer(
+        rootId: BlockId?,
+        blockContainer: BlockContainerModelProtocol,
+        detailsContainer: DetailsContainerModelProtocol
+    ) -> ContainerModel {
         let container = RootBlocksContainer()
         container.rootId = rootId
         container.blocksContainer = blockContainer

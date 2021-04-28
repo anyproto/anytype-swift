@@ -8,12 +8,10 @@ class EventHandler: EventHandlerProtocol {
     private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
     var didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never> = .empty()
     
-    private typealias Updater = Block.Tools.Updater
-    
     private weak var container: ContainerModel?
     
-    var parser: BlocksModelsParser = .init()
-    private var updater: Updater?
+    let parser = BlocksModelsParser()
+    private var updater: BlockUpdater?
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
     init() {
@@ -46,7 +44,7 @@ class EventHandler: EventHandlerProtocol {
 
     // MARK: Configurations
     func configured(_ container: ContainerModel) -> Self {
-        self.updater = .init(container)
+        self.updater = BlockUpdater(container)
         self.container = container
         return self
     }

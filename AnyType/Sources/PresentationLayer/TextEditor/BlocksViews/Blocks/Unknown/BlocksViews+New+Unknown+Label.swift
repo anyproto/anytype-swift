@@ -25,7 +25,7 @@ extension BlocksViews.Unknown.Label.ViewModel {
         }
         
         static func asOurModel(_ value: Model) -> OurModel? {
-            let content = Block.Utilities.ContentTypeIdentifier.identifier(value.content)
+            let content = BlockContentTypeIdentifier.identifier(value.content)
             return .init(blockName: value.id, blockType: content)
         }
     }

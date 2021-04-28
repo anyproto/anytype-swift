@@ -27,9 +27,6 @@ private final class TextViewModelHolder {
 // MARK: - Base / ViewModel
 
 final class TextBlockViewModel: BaseBlockViewModel {
-    typealias BlocksModelsUpdater = Block.Tools.Updater
-    typealias BlockModelId = BlockId
-
     private struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
         var shouldApplyChangesLocally: Bool = false
@@ -341,10 +338,10 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
 
 extension TextBlockViewModel {
     // Class scope, actually.
-    class func debugString(_ unique: Bool, _ id: BlockModelId) -> String {
+    class func debugString(_ unique: Bool, _ id: BlockId) -> String {
         unique ? self.defaultDebugStringUnique(id) : self.defaultDebugString()
     }
-    class func defaultDebugStringUnique(_ id: BlockModelId) -> String {
+    class func defaultDebugStringUnique(_ id: BlockId) -> String {
         self.defaultDebugString() + id.description.prefix(10)
     }
     class func defaultDebugString() -> String {
