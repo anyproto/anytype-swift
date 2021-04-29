@@ -15,29 +15,28 @@ struct HomeView: View {
     }
     
     private var contentView: some View {
-        NavigationView {
-            GeometryReader { geometry in
-                ZStack {
-                    Color(red: 0, green: 102.0/255.0, blue: 195.0/255.0)
-                    HomeProfileView()
-                        .frame(width: geometry.size.width, height: geometry.size.height)
-                    
-                    HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
-                        HomeTabsView()
-                    }
+        GeometryReader { geometry in
+            ZStack {
+                Color(red: 0, green: 102.0/255.0, blue: 195.0/255.0)
+                HomeProfileView()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                
+                HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
+                    HomeTabsView()
                 }
             }
-            .edgesIgnoringSafeArea(.all)
-            
-            .toolbar {
-                ToolbarItem {
-                    NavigationLink(destination: model.coordinator.profileView()) {
-                        Image.main.settings
-                    }
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
         }
+        .edgesIgnoringSafeArea(.all)
+        
+        .toolbar {
+            ToolbarItem {
+                NavigationLink(destination: model.coordinator.profileView()) {
+                    Image.main.settings
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .embedInNavigation()
     }
     
     private func makeNavigationBarTransparent() {

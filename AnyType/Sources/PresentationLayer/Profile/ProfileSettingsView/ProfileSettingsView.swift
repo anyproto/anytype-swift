@@ -84,12 +84,9 @@ struct ProfileSettingsView: View {
     }
 }
 
-#if DEBUG
 struct ProfileSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        return NavigationView {
-            ProfileSettingsView(accountImage: .constant(nil), accountName: .constant("Anton Pronkin"), selectedColor: .constant(.blue))
-        }
+        ProfileSettingsView(accountImage: .constant(nil), accountName: .constant("Anton Pronkin"), selectedColor: .constant(.blue))
+            .embedInNavigation()
     }
 }
-#endif

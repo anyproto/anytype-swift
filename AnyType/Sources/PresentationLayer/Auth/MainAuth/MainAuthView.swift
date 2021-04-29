@@ -6,52 +6,51 @@ struct MainAuthView: View {
     @State private var showLoginView: Bool = false
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                Image("mainAuthBackground")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
-                VStack(alignment: .leading) {
-                    Image("logo")
-                        .padding(.leading, 20)
-                        .padding(.top, 30)
-                    Spacer()
-                    VStack {
-                        Text("Organize everything")
-                            .padding(20)
-                            .font(.title)
-                        Text("OrganizeEverythingDescription")
-                            .padding([.leading, .trailing, .bottom], 20)
-                        
-                        HStack(spacing: 0) {
-                            NavigationLink(destination: viewModel.showCreateProfileView(),
-                                           isActive: $viewModel.shouldShowCreateProfileView) {
-                                EmptyView()
-                            }
-                            StandardButton(disabled: false, text: "Sign up", style: .white) {
-                                self.viewModel.singUp()
-                            }
-                            .padding(.trailing, 12)
-                            
-                            NavigationLink(destination: viewModel.showLoginView(), isActive: $showLoginView) {
-                                EmptyView()
-                            }
-                            StandardButton(disabled: false, text: "Login", style: .yellow) {
-                                self.showLoginView = true
-                            }
+        ZStack {
+            Image("mainAuthBackground")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            VStack(alignment: .leading) {
+                Image("logo")
+                    .padding(.leading, 20)
+                    .padding(.top, 30)
+                Spacer()
+                VStack {
+                    Text("Organize everything")
+                        .padding(20)
+                        .font(.title)
+                    Text("OrganizeEverythingDescription")
+                        .padding([.leading, .trailing, .bottom], 20)
+                    
+                    HStack(spacing: 0) {
+                        NavigationLink(destination: viewModel.showCreateProfileView(),
+                                       isActive: $viewModel.shouldShowCreateProfileView) {
+                            EmptyView()
                         }
-                        .padding([.leading, .trailing], 20)
-                        .padding(.bottom, 16)
+                        StandardButton(disabled: false, text: "Sign up", style: .white) {
+                            self.viewModel.singUp()
+                        }
+                        .padding(.trailing, 12)
+                        
+                        NavigationLink(destination: viewModel.showLoginView(), isActive: $showLoginView) {
+                            EmptyView()
+                        }
+                        StandardButton(disabled: false, text: "Login", style: .yellow) {
+                            self.showLoginView = true
+                        }
                     }
-                    .background(Color.white)
-                    .cornerRadius(12.0)
-                    .padding(20)
+                    .padding([.leading, .trailing], 20)
+                    .padding(.bottom, 16)
                 }
-                .errorToast(isShowing: $viewModel.isShowingError, errorText: viewModel.error)
-                .navigationBarTitle("")
-                .navigationBarHidden(true)
+                .background(Color.white)
+                .cornerRadius(12.0)
+                .padding(20)
             }
+            .errorToast(isShowing: $viewModel.isShowingError, errorText: viewModel.error)
+            .navigationBarTitle("")
+            .navigationBarHidden(true)
         }
+        .embedInNavigation()
     }
 }
 

@@ -37,14 +37,11 @@ struct PickerDetailView: View {
     }
 }
 
-#if DEBUG
 struct PickerDetailView_Previews: PreviewProvider {
     static var previews: some View {
         let model = ["public key 1", "public key 2", "public key 3"]
         
-        return NavigationView {
-            return PickerDetailView(content: .constant(model), selection: .constant(0))
-        }
+        return PickerDetailView(content: .constant(model), selection: .constant(0))
+            .embedInNavigation()
     }
 }
-#endif

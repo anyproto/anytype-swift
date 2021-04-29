@@ -25,9 +25,7 @@ final class OldHomeCoordinator {
           return view
         }
         
-        let view = AnyView(
-            self.createDocumentView(documentId: selectedDocumentId, shouldShowDocument: shouldShowDocument)
-        )
+        let view = self.createDocumentView(documentId: selectedDocumentId, shouldShowDocument: shouldShowDocument).eraseToAnyView()
         self.documentViewId = selectedDocumentId
         cachedDocumentView = view
         

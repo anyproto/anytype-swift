@@ -15,53 +15,52 @@ struct SelectProfileView: View {
     @State var contentHeight: CGFloat = 0
     
     var body: some View {
-        HStack {        
-            NavigationView {
-                ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
-                    LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
-                        .edgesIgnoringSafeArea(.all)
-                    if self.viewModel.isMultipleAccountsEnabled {
-                        VStack {
-                            ScrollView {
-                                VStack(alignment: .leading) {
-                                    Text("Choose profile")
-                                        .font(.title)
-                                        .fontWeight(.bold)
-                                    .animation(nil)
-                                    
-                                    ForEach(self.viewModel.profilesViewModels) { profile in
-                                        Button(action: {
-                                            self.viewModel.selectProfile(id: profile.id)
-                                        }) {
-                                            ProfileNameView(viewModel: profile)
-                                        }
-                                        .transition(.opacity)
+        HStack {
+            ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
+                LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
+                    .edgesIgnoringSafeArea(.all)
+                if self.viewModel.isMultipleAccountsEnabled {
+                    VStack {
+                        ScrollView {
+                            VStack(alignment: .leading) {
+                                Text("Choose profile")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                .animation(nil)
+                                
+                                ForEach(self.viewModel.profilesViewModels) { profile in
+                                    Button(action: {
+                                        self.viewModel.selectProfile(id: profile.id)
+                                    }) {
+                                        ProfileNameView(viewModel: profile)
                                     }
-                                    .animation(nil)
-                                    NavigationLink(destination: self.viewModel.showCreateProfileView()) {
-                                        AddProfileView()
-                                    }
-                                    .animation(nil)
+                                    .transition(.opacity)
                                 }
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .overlay(
-                                    GeometryReader { proxy in
-                                        self.contentHeight(proxy: proxy)
-                                })
-                                    .animation(.easeInOut(duration: 0.6))
+                                .animation(nil)
+                                NavigationLink(destination: self.viewModel.showCreateProfileView()) {
+                                    AddProfileView()
+                                }
+                                .animation(nil)
                             }
-                            .frame(maxWidth: .infinity, maxHeight: contentHeight)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(12)
-                            .animation(.easeInOut(duration: 0.5))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .overlay(
+                                GeometryReader { proxy in
+                                    self.contentHeight(proxy: proxy)
+                            })
+                                .animation(.easeInOut(duration: 0.6))
                         }
+                        .frame(maxWidth: .infinity, maxHeight: contentHeight)
                         .padding()
-                    } else {
-                        ProgressView()
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .animation(.easeInOut(duration: 0.5))
                     }
+                    .padding()
+                } else {
+                    ProgressView()
                 }
             }
+            .embedInNavigation()
             .onAppear {
                 self.viewModel.accountRecover()
             }

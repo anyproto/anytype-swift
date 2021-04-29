@@ -9,4 +9,8 @@ extension View {
     func eraseToAnyView() -> AnyView {
         .init(self)
     }
+    
+    func embedInNavigation() -> some View {
+        NavigationView { self }
+    }
 }
