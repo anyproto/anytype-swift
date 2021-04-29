@@ -333,6 +333,8 @@
 		3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */; };
 		3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */; };
 		3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */; };
+		3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */; };
+		3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
@@ -830,6 +832,8 @@
 		3DB27C1D261B12C1005E523C /* CodingPathConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingPathConverter.swift; sourceTree = "<group>"; };
 		3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBackgroundBlurView.swift; sourceTree = "<group>"; };
 		3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileViewButtonImage.swift; sourceTree = "<group>"; };
+		3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBoundsExtension.swift; sourceTree = "<group>"; };
+		3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOnGeometryChange.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
@@ -1383,8 +1387,8 @@
 		038FB5CB22D8F380002B90B8 /* FrameworkExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				3DB7DCB3263AA5D100635E4C /* SwiftUI */,
 				3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */,
-				03475B6E2306031D00F8FCE7 /* ViewExtension.swift */,
 				039F669823C7FD1D00DBE36A /* GeometryExtension.swift */,
 				03A24B8B231EC07700DA7369 /* ArrayExtension.swift */,
 				0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */,
@@ -2434,6 +2438,16 @@
 			path = ProfileView;
 			sourceTree = "<group>";
 		};
+		3DB7DCB3263AA5D100635E4C /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				03475B6E2306031D00F8FCE7 /* ViewExtension.swift */,
+				3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */,
+				3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		3DCE7A092615248A00E09593 /* Flattener */ = {
 			isa = PBXGroup;
 			children = (
@@ -3135,6 +3149,7 @@
 				EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */,
 				0A203A8A2547106100D3729A /* ImageProperty.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
+				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
 				EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
@@ -3269,6 +3284,7 @@
 				3D680B942624941200FFD844 /* SettingsSectionView.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */,
 				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,
+				3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift in Sources */,
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
