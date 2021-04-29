@@ -110,7 +110,7 @@ extension EventListening {
     }
 }
 
-protocol EventHandlerProtocol: class {
+protocol EventHandlerProtocol: AnyObject {
     associatedtype EventsContainer
     func handle(events: EventsContainer)
 }

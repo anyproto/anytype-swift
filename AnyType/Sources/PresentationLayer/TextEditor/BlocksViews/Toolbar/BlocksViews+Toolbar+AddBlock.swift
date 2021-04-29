@@ -52,7 +52,7 @@ extension BlocksViews.Toolbar.AddBlock {
         }
         func foregroundColor() -> UIColor {
             switch self {
-            case .title: return .black
+            case .title: return .grayscale90
             case .subtitle: return .init(red: 0.422, green: 0.415, blue: 0.372, alpha: 1)
             case .section: return .init(red: 0.675, green: 0.663, blue: 0.588, alpha: 1)
             }

@@ -17,23 +17,23 @@ enum BlockColorAction: CaseIterable {
     var color: UIColor {
         switch self {
         case .amber:
-            return .amber
+            return .pureAmber
         case .black:
-            return .black
+            return .grayscale90
         case .lemon:
-            return .lemon
+            return .pureLemon
         case .red:
-            return .red
+            return .pureRed
         case .pink:
-            return .pink
+            return .purePink
         case .purple:
-            return .purple
+            return .purePurple
         case .ultramarine:
-            return .ultramarine
+            return .pureUltramarine
         case .blue:
-            return .blue
+            return .pureBlue
         case .teal:
-            return .teal
+            return .pureTeal
         case .green:
             return .green
         case .coldgray:

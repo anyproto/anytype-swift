@@ -16,7 +16,7 @@ extension URLComponentsEncoder: TopLevelEncoder {
     }
 }
 
-protocol URLComponentsEncodingContainer: class {
+protocol URLComponentsEncodingContainer: AnyObject {
     // We are encoding, so, our result is URLComponents or, specifically, [URRQueryItem]
     var data: [URLQueryItem] { get }
 }

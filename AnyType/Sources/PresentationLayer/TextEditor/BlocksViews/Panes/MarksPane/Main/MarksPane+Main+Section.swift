@@ -116,7 +116,7 @@ extension MarksPane.Main.Section.InputView {
         case presentation
         func foregroundColor(chosen: Bool) -> UIColor {
             switch self {
-            case .presentation: return chosen ? .white : .black
+            case .presentation: return chosen ? .white : .grayscale90
             }
         }
         func backgroundColor(chosen: Bool) -> UIColor {

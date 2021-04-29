@@ -11,12 +11,16 @@ import CoreGraphics
 
 
 final class StylePanelLayout: FloatingPanelLayout {
+    enum Constant {
+        static let panelHeight: CGFloat = 226
+    }
+
     var position: FloatingPanelPosition = .bottom
     var initialState: FloatingPanelState = .full
 
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
-            .full: FloatingPanelLayoutAnchor(absoluteInset: 226, edge: .bottom, referenceGuide: .safeArea),
+            .full: FloatingPanelLayoutAnchor(absoluteInset: Constant.panelHeight, edge: .bottom, referenceGuide: .safeArea),
         ]
     }
 }

@@ -261,7 +261,7 @@ private extension Namespace.UIKitViewWithBookmark {
                 
         var titleColor: UIColor {
             switch self {
-            case .presentation: return .black
+            case .presentation: return .grayscale90
             }
         }
         var subtitleColor: UIColor {
@@ -271,7 +271,7 @@ private extension Namespace.UIKitViewWithBookmark {
         }
         var urlColor: UIColor {
             switch self {
-            case .presentation: return .black
+            case .presentation: return .grayscale90
             }
         }
     }

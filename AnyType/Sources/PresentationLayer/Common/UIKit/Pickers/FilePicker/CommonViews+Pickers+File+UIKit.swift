@@ -54,7 +54,7 @@ private extension Namespace.Picker.UIKitPickerViewController {
         let appearance = UINavigationBarAppearance()
         
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .red
+        appearance.backgroundColor = .pureRed
         appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText] // With a red background, make the title more readable.
         appearance.shadowColor = .clear
         

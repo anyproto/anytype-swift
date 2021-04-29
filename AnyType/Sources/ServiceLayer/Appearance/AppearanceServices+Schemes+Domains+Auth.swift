@@ -121,7 +121,7 @@ enum Auth {
         }
         override init() {
             super.init()
-            self.barTintColor = .red
+            self.barTintColor = .pureRed
         }
     }
     class BaseText: AppearanceService.Schemes.Global.SwiftUI.BaseText {

@@ -27,7 +27,7 @@ enum ButtonsFactory {
         button.setImage(image, for: .normal)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.stroke.cgColor
+        button.layer.borderColor = UIColor.grayscale30.cgColor
         button.contentMode = .center
         button.imageView?.contentMode = .scaleAspectFit
         return button

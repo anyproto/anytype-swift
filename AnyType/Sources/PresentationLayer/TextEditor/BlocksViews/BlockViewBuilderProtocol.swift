@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Define builder for block view in the block's view list
-protocol BlockViewBuilderProtocol: class {
+protocol BlockViewBuilderProtocol: AnyObject {
     typealias BlockID = String
     
     var blockId: BlockID { get }

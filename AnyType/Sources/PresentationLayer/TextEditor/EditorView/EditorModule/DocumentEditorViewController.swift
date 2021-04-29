@@ -370,6 +370,8 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     }
 
     func showStyleMenu() {
+        guard let viewControllerForPresenting = parent else { return }
+
         self.view.endEditing(true)
 
         let fpc = FloatingPanelController()
@@ -377,7 +379,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         appearance.cornerRadius = 16.0
         // Define shadows
         let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.black
+        shadow.color = UIColor.grayscale90
         shadow.offset = CGSize(width: 0, height: 4)
         shadow.radius = 40
         shadow.opacity = 0.25
@@ -387,7 +389,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
         fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: view.safeAreaInsets.bottom + 6, right: 10.0)
         fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
-        fpc.surfaceView.grabberHandle.barColor = .stroke
+        fpc.surfaceView.grabberHandle.barColor = .grayscale30
         fpc.surfaceView.appearance = appearance
         fpc.isRemovalInteractionEnabled = true
         fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
@@ -395,11 +397,8 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         fpc.backdropView.backgroundColor = .clear
         fpc.contentMode = .static
 
-        let contentVC = StyleViewController()
+        let contentVC = StyleViewController(viewControllerForPresenting: viewControllerForPresenting)
         fpc.set(contentViewController: contentVC)
-
-        guard let vc = parent else { return }
-
-        fpc.addPanel(toParent: vc, animated: true)
+        fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }
 }

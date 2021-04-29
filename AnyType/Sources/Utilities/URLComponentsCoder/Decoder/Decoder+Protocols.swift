@@ -1,5 +1,5 @@
 import Foundation
 
-protocol URLComponentsDecodingContainer: class {
+protocol URLComponentsDecodingContainer: AnyObject {
     var data: [URLQueryItem] { get set }
 }

@@ -1,5 +1,5 @@
 //
-//  StyleConfigurationCell.swift
+//  StyleCellView.swift
 //  AnyType
 //
 //  Created by Denis Batvinkin on 23.04.2021.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class StyleConfigurationCell: UICollectionViewCell {
+final class StyleCellView: UICollectionViewCell {
 
     override func updateConfiguration(using state: UICellConfigurationState) {
         backgroundConfiguration = StyleCellBackgroundConfiguration.configuration(for: state)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FloatingPanel
 
 
 private enum Section: Hashable {
@@ -96,12 +97,30 @@ final class StyleViewController: UIViewController {
         return containerStackView
     }()
 
+    private weak var viewControllerForPresenting: UIViewController?
+
+    // MARK: - Lifecycle
+
+    /// Init style view controller
+    /// - Parameter viewControllerForPresenting: view controller where we can present other view controllers
+    init(viewControllerForPresenting: UIViewController) {
+        self.viewControllerForPresenting = viewControllerForPresenting
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupViews()
         configureStyleDataSource()
     }
+
+    // MARK: - Setup views
 
     private func setupViews() {
         view.backgroundColor = .white
@@ -143,8 +162,11 @@ final class StyleViewController: UIViewController {
     private func setupOtherStyleStackView() {
         let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlighted"))
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
+
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
+        colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
+
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
 
@@ -172,8 +194,10 @@ final class StyleViewController: UIViewController {
         }
     }
 
+    // MARK: - configure style collection view
+
     private func configureStyleDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<StyleConfigurationCell, Item> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<StyleCellView, Item> { (cell, indexPath, item) in
             var content = StyleCellContentConfiguration()
             content.text = item.text
             content.font = item.font
@@ -190,5 +214,40 @@ final class StyleViewController: UIViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(Item.all)
         styleDataSource?.apply(snapshot, animatingDifferences: false)
+    }
+
+    // MARK: - action handlers
+
+    @objc private func colorActionHandler() {
+        guard let viewControllerForPresenting = viewControllerForPresenting else { return }
+
+        let fpc = FloatingPanelController()
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 16.0
+        // Define shadows
+        let shadow = SurfaceAppearance.Shadow()
+        shadow.color = UIColor.grayscale90
+        shadow.offset = CGSize(width: 0, height: 4)
+        shadow.radius = 40
+        shadow.opacity = 0.25
+        appearance.shadows = [shadow]
+
+        let sizeDifference = StylePanelLayout.Constant.panelHeight -  StyleColorPanelLayout.Constant.panelHeight
+        fpc.layout = StyleColorPanelLayout(additonalHeight: sizeDifference)
+
+        let bottomInset = viewControllerForPresenting.view.safeAreaInsets.bottom + 6 + sizeDifference
+        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: bottomInset, right: 10.0)
+        fpc.surfaceView.layer.cornerCurve = .continuous
+        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
+        fpc.surfaceView.grabberHandle.barColor = .grayscale30
+        fpc.surfaceView.appearance = appearance
+        fpc.isRemovalInteractionEnabled = true
+        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        fpc.backdropView.backgroundColor = .clear
+        fpc.contentMode = .static
+
+        let contentVC = StyleColorViewController()
+        fpc.set(contentViewController: contentVC)
+        fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }
 }

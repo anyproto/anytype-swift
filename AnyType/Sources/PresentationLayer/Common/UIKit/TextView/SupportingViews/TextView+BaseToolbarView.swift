@@ -23,7 +23,7 @@ extension TextView {
         func highlightedColor() -> UIColor {
             switch self {
             case .debug: return .orange
-            case .presentation: return .black
+            case .presentation: return .grayscale90
             }
         }
         func backgroundColor() -> UIColor {

@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum Colors {
-    static let colors: [UIColor] = [.black, .gray, .yellow, .red, .purple, .blue, .green]
+    static let colors: [UIColor] = [.grayscale90, .gray, .yellow, .pureRed, .purePurple, .pureBlue, .green]
 }
 
 struct ProfileSettingsView: View {

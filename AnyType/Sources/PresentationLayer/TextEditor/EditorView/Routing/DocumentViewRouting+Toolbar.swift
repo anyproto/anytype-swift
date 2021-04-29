@@ -66,7 +66,7 @@ extension DocumentViewRouting.ToolbarsRouter {
                 // TODO: Rethink.
                 // Should we configure appearance of controller here?
                 let appearance = NavigationBar.appearance()
-                appearance.tintColor = .black
+                appearance.tintColor = .grayscale90
                 appearance.backgroundColor = .white
                 appearance.isTranslucent = false
                 let viewController = UINavigationController.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)
@@ -122,7 +122,7 @@ extension DocumentViewRouting.ToolbarsRouter {
                 // TODO: Rethink.
                 // Should we configure appearance of controller here?
                 let appearance = NavigationBar.appearance()
-                appearance.tintColor = .black
+                appearance.tintColor = .grayscale90
                 appearance.backgroundColor = .white
                 appearance.isTranslucent = false
                 let viewController = UINavigationController.init(navigationBarClass: NavigationBar.self, toolbarClass: nil)

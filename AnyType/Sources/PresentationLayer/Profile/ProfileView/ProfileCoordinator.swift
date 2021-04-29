@@ -3,6 +3,7 @@ import BlocksModels
 
 final class ProfileCoordinator {
     private let editorAssembly: EditorAssembly
+
     init(editorAssembly: EditorAssembly) {
         self.editorAssembly = editorAssembly
     }

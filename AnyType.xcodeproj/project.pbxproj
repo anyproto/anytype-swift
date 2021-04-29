@@ -361,6 +361,9 @@
 		53178879260A29FC004F9F68 /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53178878260A29FC004F9F68 /* Inter.ttf */; };
 		5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */; };
 		5333421C262E249100238121 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5333421B262E249100238121 /* FloatingPanel */; };
+		533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */; };
+		5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338568626397EB9005A06A9 /* SegmentItemView.swift */; };
+		533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */; };
 		5338E7E725DC3352008CB97D /* BlockActionsHandlersFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
 		5338E7EF25DC72AD008CB97D /* ToolbarBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */; };
@@ -375,8 +378,7 @@
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
 		538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */; };
 		5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */; };
-		539168852632DD5200AD5C5F /* StyleConfigurationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168842632DD5200AD5C5F /* StyleConfigurationCell.swift */; };
-		539168882632DE5900AD5C5F /* RoundedButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168872632DE5900AD5C5F /* RoundedButtonWithImage.swift */; };
+		539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168842632DD5200AD5C5F /* StyleCellView.swift */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
 		5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */; };
 		53A4633726287B970097C25E /* ImageExetension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A4633626287B970097C25E /* ImageExetension.swift */; };
@@ -385,6 +387,10 @@
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
 		53BC39B4261C7972004D7EB6 /* TextBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */; };
 		53C62EBE261E005E009CE6B7 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 53C62EBD261E005E009CE6B7 /* Highlightr */; };
+		53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */; };
+		53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A772637637200968B8E /* StyleColorCellView.swift */; };
+		53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7B2637638800968B8E /* StyleColorContentView.swift */; };
+		53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */; };
 		A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */; };
 		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
 		A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */; };
@@ -859,6 +865,9 @@
 		531629362632BD0A000D6780 /* StyleCellConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleCellConfiguration.swift; sourceTree = "<group>"; };
 		53178878260A29FC004F9F68 /* Inter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttf; sourceTree = "<group>"; };
 		5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
+		533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSegmentControl.swift; sourceTree = "<group>"; };
+		5338568626397EB9005A06A9 /* SegmentItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentItemView.swift; sourceTree = "<group>"; };
+		533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorPanelLayout.swift; sourceTree = "<group>"; };
 		5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsHandlersFacade.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarBlockActionHandler.swift; sourceTree = "<group>"; };
@@ -873,8 +882,7 @@
 		534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellContentView.swift; sourceTree = "<group>"; };
-		539168842632DD5200AD5C5F /* StyleConfigurationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleConfigurationCell.swift; sourceTree = "<group>"; };
-		539168872632DE5900AD5C5F /* RoundedButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButtonWithImage.swift; sourceTree = "<group>"; };
+		539168842632DD5200AD5C5F /* StyleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellView.swift; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
 		5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayoutManager.swift; sourceTree = "<group>"; };
 		53A4633626287B970097C25E /* ImageExetension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExetension.swift; sourceTree = "<group>"; };
@@ -882,6 +890,10 @@
 		53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockViewModel.swift; sourceTree = "<group>"; };
+		53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorViewController.swift; sourceTree = "<group>"; };
+		53EA4A772637637200968B8E /* StyleColorCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorCellView.swift; sourceTree = "<group>"; };
+		53EA4A7B2637638800968B8E /* StyleColorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorContentView.swift; sourceTree = "<group>"; };
+		53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorCellConfiguration.swift; sourceTree = "<group>"; };
 		A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Page.swift"; sourceTree = "<group>"; };
 		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
 		A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Manager.swift"; sourceTree = "<group>"; };
@@ -1172,7 +1184,6 @@
 			isa = PBXGroup;
 			children = (
 				534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */,
-				539168872632DE5900AD5C5F /* RoundedButtonWithImage.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -2166,6 +2177,7 @@
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				533856812638CB6F005A06A9 /* SegmentControls */,
 				531629312632BD0A000D6780 /* BottomSheets */,
 				3D932D5026317EFB00C7D1EA /* Pickers */,
 				3D07ECE6261B733C00C007E2 /* Extensions */,
@@ -2527,6 +2539,7 @@
 		531629312632BD0A000D6780 /* BottomSheets */ = {
 			isa = PBXGroup;
 			children = (
+				53EA4A6F26371D6400968B8E /* ColorBottomSheet */,
 				531629332632BD0A000D6780 /* StyleBottomSheet */,
 			);
 			path = BottomSheets;
@@ -2588,6 +2601,15 @@
 				0A0965D525BEF5B000C004BD /* EditorModule+Selection+ToolbarPresenter.swift */,
 			);
 			path = Selection;
+			sourceTree = "<group>";
+		};
+		533856812638CB6F005A06A9 /* SegmentControls */ = {
+			isa = PBXGroup;
+			children = (
+				533856842638CBE0005A06A9 /* SimpleSegmentControl.swift */,
+				5338568626397EB9005A06A9 /* SegmentItemView.swift */,
+			);
+			path = SegmentControls;
 			sourceTree = "<group>";
 		};
 		5338E7E425DC32E5008CB97D /* BlockActionHandlers */ = {
@@ -2655,7 +2677,7 @@
 			children = (
 				531629362632BD0A000D6780 /* StyleCellConfiguration.swift */,
 				5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */,
-				539168842632DD5200AD5C5F /* StyleConfigurationCell.swift */,
+				539168842632DD5200AD5C5F /* StyleCellView.swift */,
 			);
 			path = StyleCell;
 			sourceTree = "<group>";
@@ -2705,6 +2727,26 @@
 				53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */,
 			);
 			path = Code;
+			sourceTree = "<group>";
+		};
+		53EA4A6F26371D6400968B8E /* ColorBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				53EA4A762637634900968B8E /* ColorCell */,
+				53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */,
+				533856882639B3BC005A06A9 /* StyleColorPanelLayout.swift */,
+			);
+			path = ColorBottomSheet;
+			sourceTree = "<group>";
+		};
+		53EA4A762637634900968B8E /* ColorCell */ = {
+			isa = PBXGroup;
+			children = (
+				53EA4A772637637200968B8E /* StyleColorCellView.swift */,
+				53EA4A7B2637638800968B8E /* StyleColorContentView.swift */,
+				53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */,
+			);
+			path = ColorCell;
 			sourceTree = "<group>";
 		};
 		A3940BB2245AB46600CD6F37 /* EmojiView */ = {
@@ -3140,6 +3182,7 @@
 				3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
 				0AA9B042249CF68700F2962C /* MultiSelectionPane+Panes+ToolsPane.swift in Sources */,
+				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */,
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
@@ -3176,6 +3219,7 @@
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
+				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
@@ -3199,7 +3243,6 @@
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
 				3D680B972624949A00FFD844 /* SettingsSectionItemView.swift in Sources */,
-				539168882632DE5900AD5C5F /* RoundedButtonWithImage.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				0ABB2A432480205F00A7144A /* MarksPane+ViewController.swift in Sources */,
 				0A6F900E2554826700B94AED /* BlocksViews+New+Unknown+Label.swift in Sources */,
@@ -3311,6 +3354,7 @@
 				3DDF58992628C6C60081C53E /* PageTitleUIKitView.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
+				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				0ACA780E23E5C96700442690 /* TextView+BaseToolbarView.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
 				EA77E528262DAAA6009F91D9 /* BaseBlockMenuItemsViewController.swift in Sources */,
@@ -3318,6 +3362,7 @@
 				0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */,
 				EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */,
 				03475B722306CFD000F8FCE7 /* OverlayWaitingView.swift in Sources */,
+				53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */,
 				0A203A8625470FAE00D3729A /* ImageCache.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
@@ -3338,6 +3383,7 @@
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				0A0965E725BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift in Sources */,
 				EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */,
+				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */,
@@ -3361,7 +3407,7 @@
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
 				0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
-				539168852632DD5200AD5C5F /* StyleConfigurationCell.swift in Sources */,
+				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0A78328E24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift in Sources */,
 				0A0965ED25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift in Sources */,
@@ -3404,6 +3450,7 @@
 				0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
+				533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* DocumentViewRouting+File.swift in Sources */,
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
@@ -3462,6 +3509,7 @@
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				03C5082A230AE32900A1BD9D /* ProfileCoordinator.swift in Sources */,
 				0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */,
+				533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* BlockActionsServiceFileProtocol.swift in Sources */,
 				03CCADAC230457FC00701782 /* PinCodeViewModel.swift in Sources */,

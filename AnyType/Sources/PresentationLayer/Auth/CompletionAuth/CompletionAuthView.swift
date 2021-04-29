@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-protocol CompletionAuthViewDelegate: class {
+protocol CompletionAuthViewDelegate: AnyObject {
     func showDashboardDidTap()
 }
 

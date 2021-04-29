@@ -42,7 +42,7 @@ extension Namespace {
             }
             var titleColor: UIColor {
                 switch self {
-                case .presentation: return .black
+                case .presentation: return .grayscale90
                 }
             }
             var sizeColor: UIColor {

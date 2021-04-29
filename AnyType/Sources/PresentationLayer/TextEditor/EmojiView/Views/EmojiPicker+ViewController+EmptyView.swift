@@ -24,7 +24,7 @@ extension EmojiPicker.ViewController {
         let titleLabel: UILabel = {
             let label = UILabel()
             label.font = .systemFont(ofSize: 17)
-            label.textColor = .black
+            label.textColor = .grayscale90
             label.textAlignment = .center
             return label
         }()

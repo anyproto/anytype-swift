@@ -334,7 +334,7 @@ extension TextView.BlockToolbar.ChangeColor {
         case black, grey, yellow, orange, red, magenta, purple, ultramarine, lightBlue, teal, green
         func color(highlighted: Bool = false) -> UIColor {
             switch self {
-            case .black: return highlighted ? .clear : .black
+            case .black: return highlighted ? .clear : .grayscale90
             case .grey: return highlighted ? #colorLiteral(red: 0.953, green: 0.949, blue: 0.925, alpha: 1) : #colorLiteral(red: 0.6745098039, green: 0.662745098, blue: 0.5882352941, alpha: 1) // #ACA996
             case .yellow: return highlighted ? #colorLiteral(red: 0.996, green: 0.976, blue: 0.8, alpha: 1) : #colorLiteral(red: 0.9254901961, green: 0.8509803922, blue: 0.1058823529, alpha: 1) // #ECD91B
             case .orange: return highlighted ? #colorLiteral(red: 0.996, green: 0.953, blue: 0.773, alpha: 1) : #colorLiteral(red: 1, green: 0.7098039216, blue: 0.1333333333, alpha: 1) // #FFB522

@@ -45,7 +45,7 @@ public protocol BlockHasUserSessionProtocol {
 public protocol BlockHasRootIdProtocol {
     var rootId: BlockId? {get set}
 }
-public protocol BlockContainerModelProtocol: class, BlockHasRootIdProtocol, BlockHasUserSessionProtocol {
+public protocol BlockContainerModelProtocol: AnyObject, BlockHasRootIdProtocol, BlockHasUserSessionProtocol {
     // MARK: - Operations / List
     func list() -> AnyIterator<BlockId>
     func children(of id: BlockId) -> [BlockId]

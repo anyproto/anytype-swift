@@ -25,7 +25,7 @@ protocol EditorModuleSelectionHandlerListProtocol {
     func selectionEventPublisher() -> AnyPublisher<SelectionEvent, Never>
 }
 
-protocol EditorModuleSelectionHandlerCellProtocol: class {
+protocol EditorModuleSelectionHandlerCellProtocol: AnyObject {
     func set(selected: Bool, id: BlockId, type: BlockContentType)
     func selected(id: BlockId) -> Bool
 

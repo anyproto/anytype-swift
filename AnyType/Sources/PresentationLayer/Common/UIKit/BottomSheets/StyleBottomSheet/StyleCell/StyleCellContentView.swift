@@ -9,13 +9,14 @@
 import UIKit
 
 
-class StyleCellContentView: UIView, UIContentView {
+final class StyleCellContentView: UIView, UIContentView {
     init(configuration: StyleCellContentConfiguration) {
         super.init(frame: .zero)
         setupInternalViews()
         apply(configuration: configuration)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -43,7 +43,7 @@ extension MarksPane.ViewController {
         var backgroundView: UIView?
         func createView() -> UIView {
             let view: UIView = .init()
-            view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+            view.backgroundColor = UIColor.grayscale90.withAlphaComponent(0.7)
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }

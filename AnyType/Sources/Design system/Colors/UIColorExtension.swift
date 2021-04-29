@@ -72,7 +72,7 @@ extension UIColor {
 
     /// Color that can be used in case if we couldn't parse color from middleware
     static var defaultColor: UIColor {
-        .black
+        .grayscale90
     }
 
     /// Color that can be used in case if we couldn't parse color from middleware
@@ -120,39 +120,39 @@ extension UIColor {
         UIColor(hexString: "#EBEFF1")
     }
     
-    static var black: UIColor {
+    static var grayscale90: UIColor {
         UIColor(hexString: "#2C2B27")
     }
     
-    static var lemon: UIColor {
+    static var pureLemon: UIColor {
         UIColor(hexString: "#ECD91B")
     }
     
-    static var amber: UIColor {
+    static var pureAmber: UIColor {
         UIColor(hexString: "#FFB522")
     }
     
-    static var red: UIColor {
+    static var pureRed: UIColor {
         UIColor(hexString: "#F55522")
     }
     
-    static var pink: UIColor {
+    static var purePink: UIColor {
         UIColor(hexString: "#E51CA0")
     }
     
-    static var purple: UIColor {
+    static var purePurple: UIColor {
         UIColor(hexString: "#AB50CC")
     }
     
-    static var ultramarine: UIColor {
+    static var pureUltramarine: UIColor {
         UIColor(hexString: "#3E58EB")
     }
     
-    static var blue: UIColor {
+    static var pureBlue: UIColor {
         UIColor(hexString: "#2AA7EE")
     }
     
-    static var teal: UIColor {
+    static var pureTeal: UIColor {
         UIColor(hexString: "#0FC8BA")
     }
     
@@ -164,16 +164,65 @@ extension UIColor {
         UIColor(hexString: "#8C9EA5")
     }
 
-    static var stroke: UIColor {
+    static var grayscale30: UIColor {
         .init(hexString: "#DFDDD0")
     }
 
-    /// Buttons color
-    ///
-    /// Design [link](https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android-main-draft?node-id=3681%3A1066)
-    enum Button {
-        static var secondaryPressed: UIColor {
-            .init(hexString: "#F3F2EC")
-        }
+    static var grayscale50: UIColor {
+        .init(hexString: "#ACA996")
+    }
+
+    static var darkGreen: UIColor {
+        .init(hexString: "#57C600")
+    }
+
+    static var grayscale10: UIColor {
+        .init(hexString: "#F3F2EC")
+    }
+
+    // MARK: - Color for background
+
+    static var grayscaleWhite: UIColor {
+        .init(hexString: "#FFFFFF")
+    }
+
+    static var lightColdgray: UIColor {
+        .init(hexString: "#EBEFF1")
+    }
+
+    static var lightLemon: UIColor {
+        .init(hexString: "#FEF9CC")
+    }
+
+    static var lightAmber: UIColor {
+        .init(hexString: "#FEF3C5")
+    }
+
+    static var lightRed: UIColor {
+        .init(hexString: "#FFEBE5")
+    }
+
+    static var lightPink: UIColor {
+        .init(hexString: "#FEE3F5")
+    }
+
+    static var lightPurple: UIColor {
+        .init(hexString: "#F4E3FA")
+    }
+
+    static var lightUltramarine: UIColor {
+        .init(hexString: "#E4E7FC")
+    }
+
+    static var lightBlue: UIColor {
+        .init(hexString: "#D6EFFD")
+    }
+
+    static var lightTeal: UIColor {
+        .init(hexString: "#D6F5F3")
+    }
+
+    static var lightGreen: UIColor {
+        .init(hexString: "#E3F7D0")
     }
 }

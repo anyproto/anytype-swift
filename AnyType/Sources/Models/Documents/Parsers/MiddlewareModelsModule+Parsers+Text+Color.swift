@@ -26,16 +26,16 @@ extension Namespace.Color {
 
             func color(background: Bool = false) -> UIColor {
                 switch self {
-                case .default: return background ? .defaultBackgroundColor : .black
+                case .default: return background ? .defaultBackgroundColor : .grayscale90
                 case .grey: return background ? .coldgrayBackground : .coldgray
-                case .yellow: return background ? .lemonBackground : .lemon
-                case .orange: return background ? .amberBackground : .amber
-                case .red: return background ? .redBackground : .red
-                case .pink: return background ? .pinkBackground : .pink
-                case .purple: return background ? .purpleBackground : .purple
-                case .blue: return background ? .ultramarineBackground : .ultramarine
-                case .ice: return background ? .blueBackground : .blue
-                case .teal: return background ? .tealBackground : .teal
+                case .yellow: return background ? .lemonBackground : .pureLemon
+                case .orange: return background ? .amberBackground : .pureAmber
+                case .red: return background ? .redBackground : .pureRed
+                case .pink: return background ? .pinkBackground : .purePink
+                case .purple: return background ? .purpleBackground : .purePurple
+                case .blue: return background ? .ultramarineBackground : .pureUltramarine
+                case .ice: return background ? .blueBackground : .pureBlue
+                case .teal: return background ? .tealBackground : .pureTeal
                 case .lime: return background ? .greenBackground : .green
                 }
             }

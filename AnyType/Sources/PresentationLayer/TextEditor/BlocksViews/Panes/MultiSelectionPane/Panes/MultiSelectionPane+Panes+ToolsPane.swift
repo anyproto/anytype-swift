@@ -382,12 +382,12 @@ extension MultiSelectionPane.Panes.ToolbarPane.Cell {
         case presentation
         func foregroundColor() -> UIColor {
             switch self {
-            case .presentation: return .black
+            case .presentation: return .grayscale90
             }
         }
         func foregroundColor(chosen: Bool) -> UIColor {
             switch self {
-            case .presentation: return chosen ? .black : .systemGray2
+            case .presentation: return chosen ? .grayscale90 : .systemGray2
             }
         }
         func backgroundColor() -> UIColor {
