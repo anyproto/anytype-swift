@@ -70,7 +70,7 @@ jobs:
         run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
       - name: Build
-        run: xcodebuild build -project ./Anytype.xcodeproj -scheme "${{ matrix.scheme }}" -sdk "${{ matrix.sdk }}" -configuration Release -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
+        run: xcodebuild build -showBuildTimingSummary -project ./Anytype.xcodeproj -scheme "${{ matrix.scheme }}" -sdk "${{ matrix.sdk }}" -configuration Release -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
 
 
       # Enable when we will have tests
