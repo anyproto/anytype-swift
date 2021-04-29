@@ -335,6 +335,7 @@
 		3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */; };
 		3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */; };
 		3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */; };
+		3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
@@ -840,6 +841,7 @@
 		3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProfileViewButtonImage.swift; sourceTree = "<group>"; };
 		3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBoundsExtension.swift; sourceTree = "<group>"; };
 		3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOnGeometryChange.swift; sourceTree = "<group>"; };
+		3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RandomAccessCollection+Indexed.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
@@ -2456,6 +2458,7 @@
 				03475B6E2306031D00F8FCE7 /* ViewExtension.swift */,
 				3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */,
 				3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */,
+				3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3139,6 +3142,7 @@
 				0A0965EC25BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
+				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,

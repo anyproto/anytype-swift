@@ -3,7 +3,7 @@ import SwiftUI
 
 // figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=4061%3A0
 struct PageCell: View {
-    var cellData: PageCellData
+    @Binding var cellData: PageCellData
     
     var body: some View {
         HStack {
@@ -69,8 +69,8 @@ struct PageCell_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
-                ForEach(PageCellDataMock.data) { data in
-                    PageCell(cellData: data)
+                ForEach(PageCellDataMock.data.indices) { index in
+                    PageCell(cellData: .constant(PageCellDataMock.data[index]))
                 }
             }
             .padding()
