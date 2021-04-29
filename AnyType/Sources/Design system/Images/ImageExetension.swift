@@ -11,5 +11,7 @@ extension Image {
         static let search = Image("main_search")
         static let settings = Image("main_settings")
         static let marketplace = Image("marketplace")
+        
+        static let wallpaper = Image("default_home_wallpaper")
     }
 }

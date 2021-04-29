@@ -17,7 +17,9 @@ struct HomeView: View {
     private var contentView: some View {
         GeometryReader { geometry in
             ZStack {
-                Color(red: 0, green: 102.0/255.0, blue: 195.0/255.0)
+                Image.main.wallpaper
+                    .resizable().aspectRatio(contentMode: .fit)
+                    .frame(width: geometry.size.width)
                 HomeProfileView()
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 
