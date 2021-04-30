@@ -8,16 +8,41 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
         static let cellHeight: CGFloat = 55
         static let dividerCellhHeight: CGFloat = 35
         static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 16)
+        static let dividerSeparatorInsets = UIEdgeInsets(top: 0,
+                                                         left: UIScreen.main.bounds.width,
+                                                         bottom: 0,
+                                                         right: -UIScreen.main.bounds.width)
         static let imageSize = CGSize(width: 24, height: 24)
         static let imageToTextPadding: CGFloat = 22
     }
     
     private let coordinator: BlockMenuItemsViewControllerCoordinator
-    private let items: [BlockActionMenuItem]
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.tableFooterView = UIView(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
+        return tableView
+    }()
+    private let filterService: BlockMenuActionsFilterService
+    private(set) var items: [BlockActionMenuItem] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var filterString = "" {
+        didSet {
+            updateFiltering()
+        }
+    }
     
     init(coordinator: BlockMenuItemsViewControllerCoordinator, items: [BlockActionMenuItem]) {
         self.coordinator = coordinator
         self.items = items
+        self.filterService = BlockMenuActionsFilterService(initialMenuItems: items)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,13 +55,15 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
         self.addTableView()
     }
     
+    private func updateFiltering() {
+        if filterString.isEmpty {
+            items = filterService.initialMenuItems
+        } else {
+            items = filterService.menuItemsFiltered(by: filterString)
+        }
+    }
+    
     private func addTableView() {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorInset = Constants.separatorInsets
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: self.customTopBar.bottomAnchor),
@@ -66,6 +93,15 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
 }
 
 extension BlockMenuItemsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        switch items[indexPath.row] {
+        case .sectionDivider:
+            return false
+        case .action, .menu:
+            return true
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.coordinator.didSelect(self.items[indexPath.row], in: self)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -95,12 +131,15 @@ extension BlockMenuItemsViewController: UITableViewDataSource {
         switch item {
         case let .action(action):
             configuration = self.setup(configuration: configuration, displayData: action.displayData)
+            cell.separatorInset = Constants.separatorInsets
         case let .menu(type, children):
             configuration = self.setup(configuration: configuration, displayData: type.displayData)
             cell.accessoryType = children.isEmpty ? .none : .disclosureIndicator
+            cell.separatorInset = Constants.separatorInsets
         case let .sectionDivider(title):
             configuration.textProperties.font = .captionFont
             configuration.text = title
+            cell.separatorInset = Constants.dividerSeparatorInsets
         }
         cell.contentConfiguration = configuration
         return cell

@@ -9,6 +9,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     let textToTriggerActionsViewDisplay = "/"
     private var displayActionsViewTask: DispatchWorkItem?
+    private var actionsViewTriggerSymbolPosition: UITextPosition?
     
     override func switchInputs(_ inputViewKeyboardSize: CGSize,
                                animated: Bool,
@@ -51,6 +52,11 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                                     textView: UITextView,
                                     selectionLength: Int,
                                     accessoryView: UIView?, inputView: UIView?) -> InputSwitcherTriplet? {
+        if shouldContinueToDisplayActionsMenu(coordinator: coordinator, textView: textView) {
+            return InputSwitcherTriplet(shouldAnimate: false,
+                                        accessoryView: coordinator.menuActionsAccessoryView,
+                                        inputView: nil)
+        }
         switch (selectionLength, accessoryView, inputView) {
         // Length == 0, => set actions toolbar and restore default keyboard.
         case (0, _, _): return .init(shouldAnimate: false, accessoryView: coordinator.editingToolbarAccessoryView, inputView: nil)
@@ -103,21 +109,42 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                      inputView: nil)
     }
     
+    // We do want to continue displaying menu view
+    // if current caret position more far from begining
+    // then / symbol and if menu view displays any items(not empty)
+    private func shouldContinueToDisplayActionsMenu(coordinator: Coordinator,
+                                                    textView: UITextView) -> Bool {
+        guard let menuView = coordinator.menuActionsAccessoryView,
+              menuView.window != nil,
+              let triggerSymbolPosition = actionsViewTriggerSymbolPosition,
+              let caretPosition = textView.caretPosition(),
+              textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
+              menuView.isDisplayingAnyItems() else { return false }
+        return true
+    }
+    
     private func updateActionsViewDisplayState(coordinator: Coordinator, textView: UITextView) {
         self.displayActionsViewTask?.cancel()
-        let selectedRange = textView.selectedRange
-        let offset = selectedRange.location + selectedRange.length
-        if let caretPosition = textView.position(from: textView.beginningOfDocument, offset: offset),
-           let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
+        guard let caretPosition = textView.caretPosition() else { return }
+        if coordinator.menuActionsAccessoryView?.window != nil,
+           let triggerSymbolPosition = actionsViewTriggerSymbolPosition,
+           let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) {
+            coordinator.menuActionsAccessoryView?.setFilterText(filterText: textView.text(in: range) ?? "")
+            return
+        }
+        if let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
            let text = textView.text(in: textRange),
            text.hasSuffix(textToTriggerActionsViewDisplay) {
-            self.createDelayedActonsViewTask(coordinator: coordinator, textView: textView)
+            self.createDelayedActonsViewTask(coordinator: coordinator,
+                                             textView: textView)
         }
     }
     
-    private func createDelayedActonsViewTask(coordinator: Coordinator, textView: UITextView) {
+    private func createDelayedActonsViewTask(coordinator: Coordinator,
+                                             textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
             self?.showMenuActionsView(coordinator: coordinator, textView: textView)
+            self?.actionsViewTriggerSymbolPosition = textView.caretPosition()
         })
         self.displayActionsViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)

@@ -40,6 +40,7 @@ class DismissableInputAccessoryView: UIView {
     }
     
     @objc private func handleTransparentViewTap() {
+        removeFromSuperview()
         dismissHandler()
     }
 }

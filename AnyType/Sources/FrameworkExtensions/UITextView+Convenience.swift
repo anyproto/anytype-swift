@@ -17,4 +17,12 @@ extension UITextView {
             attributedText = attributedText?.attributedStringByAppending(string)
         }
     }
+    
+    func caretPosition() -> UITextPosition? {
+        if !isFirstResponder {
+            return nil
+        }
+        let offset = selectedRange.location + selectedRange.length
+        return position(from: beginningOfDocument, offset: offset)
+    }
 }

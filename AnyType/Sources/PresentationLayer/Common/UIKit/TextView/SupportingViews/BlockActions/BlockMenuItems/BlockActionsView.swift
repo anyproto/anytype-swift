@@ -6,7 +6,8 @@ final class BlockActionsView: DismissableInputAccessoryView {
         static let separatorHeight: CGFloat = 0.5
     }
     
-    private weak var menuViewController: UIViewController?
+    private weak var menuNavigationController: UINavigationController?
+    private weak var menuItemsViewController: BlockMenuItemsViewController?
     private let menuItems: [BlockActionMenuItem]
     private let blockMenuActionsHandler: BlockMenuActionsHandler
     
@@ -20,10 +21,26 @@ final class BlockActionsView: DismissableInputAccessoryView {
                    dismissHandler: actionsMenuDismissHandler)
     }
     
+    func setFilterText(filterText: String) {
+        guard let menuItemsController = self.menuItemsViewController else { return }
+        if menuItemsController.navigationController?.topViewController != menuItemsController {
+            menuItemsController.navigationController?.popToRootViewController(animated: false)
+        }
+        menuItemsController.filterString = filterText
+        if menuItemsController.items.isEmpty {
+            dismissHandler()
+        }
+    }
+    
+    func isDisplayingAnyItems() -> Bool {
+        guard let menuController = menuItemsViewController else { return false }
+        return !menuController.items.isEmpty
+    }
+    
     private func setup(parentViewController: UIViewController) {
         let topSeparator = self.addTopSeparator()
         let menuViewController = self.makeMenuController()
-        self.menuViewController = menuViewController
+        self.menuNavigationController = menuViewController
         menuViewController.view.translatesAutoresizingMaskIntoConstraints = false
         parentViewController.addChild(menuViewController)
         self.addSubview(menuViewController.view)
@@ -38,9 +55,9 @@ final class BlockActionsView: DismissableInputAccessoryView {
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        menuViewController?.willMove(toParent: nil)
+        menuNavigationController?.willMove(toParent: nil)
         subviews.forEach { $0.removeFromSuperview() }
-        menuViewController?.removeFromParent()
+        menuNavigationController?.removeFromParent()
         guard let windowRootViewController = self.window?.rootViewController?.children.last else { return }
         self.setup(parentViewController: windowRootViewController)
     }
@@ -59,11 +76,12 @@ final class BlockActionsView: DismissableInputAccessoryView {
         return topSeparator
     }
     
-    private func makeMenuController() -> UIViewController {
+    private func makeMenuController() -> UINavigationController {
         let coordinator = BlockMenuItemsViewControllerCoordinatorImp(actionsHandler: self.blockMenuActionsHandler,
                                                                      dismissHandler: dismissHandler)
         let controller = BlockMenuItemsViewController(coordinator: coordinator,
                                                       items: self.menuItems)
+        menuItemsViewController = controller
         let navigationController = UINavigationController(rootViewController: controller)
         navigationController.isNavigationBarHidden = true
         navigationController.delegate = self
