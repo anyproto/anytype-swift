@@ -5,12 +5,12 @@ import Combine
 final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
     
     private let marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
-    private let turnIntoAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+    private let addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     
     init(marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>,
          turnIntoAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>) {
         self.marksPaneActionSubject = marksPaneActionSubject
-        self.turnIntoAndActionsSubject = turnIntoAndActionsSubject
+        self.addBlockAndActionsSubject = turnIntoAndActionsSubject
     }
     
     func handle(action: BlockActionType) {
@@ -23,14 +23,14 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
             self.handleStyle(style)
         case let .media(media):
             let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(media.blockViewsType)
-            self.turnIntoAndActionsSubject.send(.addBlock(type))
+            self.addBlockAndActionsSubject.send(.addBlock(type))
         case .objects:
             break
         case .relations:
             break
         case let .other(other):
             let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(other.blockViewsType)
-            self.turnIntoAndActionsSubject.send(.addBlock(type))
+            self.addBlockAndActionsSubject.send(.addBlock(type))
         case let .color(color):
             self.marksPaneActionSubject.send(.textColor(NSRange(), .setColor(color.color)))
         case let .background(color):
@@ -52,23 +52,23 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
     private func handleStyle(_ style: BlockStyleAction) {
         switch style {
         case .text:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.text(.text)))
+            self.addBlockAndActionsSubject.send(.addBlock(.text(.text)))
         case .title:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.text(.h1)))
+            self.addBlockAndActionsSubject.send(.addBlock(.text(.h1)))
         case .heading:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.text(.h2)))
+            self.addBlockAndActionsSubject.send(.addBlock(.text(.h2)))
         case .subheading:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.text(.h3)))
+            self.addBlockAndActionsSubject.send(.addBlock(.text(.h3)))
         case .highlighted:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.text(.highlighted)))
+            self.addBlockAndActionsSubject.send(.addBlock(.text(.highlighted)))
         case .checkbox:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.list(.checkbox)))
+            self.addBlockAndActionsSubject.send(.addBlock(.list(.checkbox)))
         case .bulleted:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.list(.bulleted)))
+            self.addBlockAndActionsSubject.send(.addBlock(.list(.bulleted)))
         case .numberedList:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.list(.numbered)))
+            self.addBlockAndActionsSubject.send(.addBlock(.list(.numbered)))
         case .toggle:
-            self.turnIntoAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
+            self.addBlockAndActionsSubject.send(.addBlock(.list(.toggle)))
         case .bold:
             self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.bold)))
         case .italic:
@@ -87,9 +87,9 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
         case .cleanStyle:
             break
         case .delete:
-            self.turnIntoAndActionsSubject.send(.editBlock(.delete))
+            self.addBlockAndActionsSubject.send(.editBlock(.delete))
         case .duplicate:
-            self.turnIntoAndActionsSubject.send(.editBlock(.duplicate))
+            self.addBlockAndActionsSubject.send(.editBlock(.duplicate))
         case .copy:
             break
         case .paste:

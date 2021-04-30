@@ -58,7 +58,7 @@ struct BlockActionsBuilder {
     }
     
     private func makeActionsMenuItem() -> BlockActionMenuItem? {
-        let children: [BlockActionMenuItem] = BlockAction.allCases.map { .action(.actions($0)) }
+        let children: [BlockActionMenuItem] = [BlockAction.delete, BlockAction.duplicate].map { .action(.actions($0)) }
         return .menu(.actions, children)
     }
     
