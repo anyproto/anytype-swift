@@ -15,7 +15,7 @@ struct UserIconView: View {
             if let value = self.image {
                 Image(uiImage: value)
                     .renderingMode(.original)
-                    .resizable().correctAspectRatio(ofImage: value, contentMode: .fill)
+                    .resizable().aspectRatio(contentMode: .fill)
             } else {
                 ZStack {
                     Color.gray

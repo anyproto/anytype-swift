@@ -279,6 +279,10 @@
 		3D07ED6F261F4A7E00C007E2 /* DividerBlockUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */; };
 		3D07ED72261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */; };
 		3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */; };
+		3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB39263BE797007CC856 /* AsyncImage.swift */; };
+		3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB4E263C29E7007CC856 /* SwiftUIImageLoader.swift */; };
+		3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */; };
+		3D0BFB5C263C3596007CC856 /* HomveViewModelCellDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB5B263C3596007CC856 /* HomveViewModelCellDataBuilder.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C5C2625C00700A07BD8 /* DashboardPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C5B2625C00700A07BD8 /* DashboardPage.swift */; };
@@ -787,6 +791,10 @@
 		3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitView.swift; sourceTree = "<group>"; };
 		3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitViewWithDivider.swift; sourceTree = "<group>"; };
 		3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentView.swift; sourceTree = "<group>"; };
+		3D0BFB39263BE797007CC856 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		3D0BFB4E263C29E7007CC856 /* SwiftUIImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIImageLoader.swift; sourceTree = "<group>"; };
+		3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
+		3D0BFB5B263C3596007CC856 /* HomveViewModelCellDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomveViewModelCellDataBuilder.swift; sourceTree = "<group>"; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C5B2625C00700A07BD8 /* DashboardPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPage.swift; sourceTree = "<group>"; };
@@ -1556,6 +1564,7 @@
 				03CB3F0C230C3EAA003D5DFD /* ImageLoaderObject.swift */,
 				0A203A8125470F0B00D3729A /* URLResolver.swift */,
 				0A203A892547106100D3729A /* ImageProperty.swift */,
+				3D0BFB4E263C29E7007CC856 /* SwiftUIImageLoader.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -2218,6 +2227,7 @@
 				03475B702306CFA900F8FCE7 /* Waiting Views */,
 				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
 				3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */,
+				3D0BFB39263BE797007CC856 /* AsyncImage.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2268,6 +2278,7 @@
 				3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */,
 				3D932D3826317E3A00C7D1EA /* HomeView.swift */,
 				3D409BBF26309CE100E588A7 /* HomeViewModel.swift */,
+				3D0BFB5B263C3596007CC856 /* HomveViewModelCellDataBuilder.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2463,6 +2474,7 @@
 				3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */,
 				3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */,
 				3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */,
+				3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3171,6 +3183,7 @@
 				0A78327424BC82B400A1B6F6 /* BlocksModelsParser.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
+				3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */,
@@ -3368,6 +3381,7 @@
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
 				EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */,
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
+				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */,
 				3DDF58992628C6C60081C53E /* PageTitleUIKitView.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */,
@@ -3387,6 +3401,7 @@
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
 				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
+				3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */,
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
@@ -3425,6 +3440,7 @@
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
 				0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */,
+				3D0BFB5C263C3596007CC856 /* HomveViewModelCellDataBuilder.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,

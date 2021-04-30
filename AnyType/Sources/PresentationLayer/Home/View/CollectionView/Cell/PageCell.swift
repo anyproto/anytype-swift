@@ -3,7 +3,7 @@ import SwiftUI
 
 // figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=4061%3A0
 struct PageCell: View {
-    @Binding var cellData: PageCellData
+    var cellData: PageCellData
     
     var body: some View {
         HStack {
@@ -22,40 +22,38 @@ struct PageCell: View {
     }
     
     private var icon: some View {
-        switch cellData.icon {
-        case let .emoji(emoji):
-            return Text(emoji)
-                .font(.system(size: UIFontMetrics.default.scaledValue(for: 48)))
-                .eraseToAnyView()
-        case let .image(image):
-            if let image = image {
-                return Image(uiImage: image).resizable()
-                .frame(width: 48, height: 48)
-                .cornerRadius(10)
-                .eraseToAnyView()
-            } else {
-                return EmptyView().eraseToAnyView()
+        Group {
+            switch cellData.icon {
+            case let .emoji(emoji):
+                Text(emoji).font(.system(size: UIFontMetrics.default.scaledValue(for: 48)))
+            case let .imageId(imageid):
+                AsyncImage(imageId: imageid, parameters: ImageParameters(width: .thumbnail))
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 48, height: 48)
+                    .cornerRadius(10)
+            case .none:
+                EmptyView()
             }
-        case .none:
-            return EmptyView().eraseToAnyView()
         }
     }
     
     private var iconSpacer: some View {
-        switch cellData.icon {
-        case .emoji, .image:
-            return Spacer().eraseToAnyView()
-        case .none:
-            return EmptyView().eraseToAnyView()
+        Group {
+            if cellData.icon != nil {
+                Spacer()
+            } else {
+                EmptyView()
+            }
         }
     }
     
     private var textSpacer: some View {
-        switch cellData.icon {
-        case .none:
-            return Spacer().eraseToAnyView()
-        case .emoji, .image:
-            return EmptyView().eraseToAnyView()
+        Group {
+            if cellData.icon == nil {
+                Spacer()
+            } else {
+                EmptyView()
+            }
         }
     }
 }
@@ -69,8 +67,8 @@ struct PageCell_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
-                ForEach(PageCellDataMock.data.indices) { index in
-                    PageCell(cellData: .constant(PageCellDataMock.data[index]))
+                ForEach(PageCellDataMock.data) { data in
+                    PageCell(cellData: data)
                 }
             }
             .padding()

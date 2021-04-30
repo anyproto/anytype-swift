@@ -40,12 +40,13 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpImageSubscription() {
-        documentViewModel.pageDetailsPublisher().map(\.iconImage?.value).safelyUnwrapOptionals().compactMap { [weak self] imageId in
-            guard imageId.isEmpty == false else {
-              self?.avatar = nil
-              return nil
-            }
-            
+        documentViewModel.pageDetailsPublisher().map(\.iconImage?.value).safelyUnwrapOptionals()
+            .receive(on: DispatchQueue.main).compactMap { [weak self] imageId in
+                guard imageId.isEmpty == false else {
+                    self?.avatar = nil
+                    return nil
+                }
+                
             return imageId
         }.flatMap { imageId in
             URLResolver().obtainImageURLPublisher(imageId: imageId).ignoreFailure().eraseToAnyPublisher()

@@ -6,42 +6,42 @@ struct PageCellDataMock {
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            iconData: .emoji("📘"),
+            icon: .emoji("📘"),
             title: "Ubik",
             type: "Book"
         ),
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            iconData: .none,
+            icon: .none,
             title: "The president’s American Family Plan, which remains in flux, does not currently include does not currently include does not currently include",
             type: "Page"
         ),
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            iconData: .none,
+            icon: .none,
             title: "GridItem",
             type: "Component"
         ),
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            iconData: .emoji("📘"),
+            icon: .emoji("📘"),
             title: "Ubik",
             type: "Book"
         ),
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            iconData: .imageId("picpath"),
+            icon: .imageId("picpath"),
             title: "Neo",
             type: "Character"
         ),
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            iconData: .imageId("picpath"),
+            icon: .imageId("picpath"),
             title: "Neo",
             type: "Character"
         ),
@@ -49,7 +49,7 @@ struct PageCellDataMock {
         PageCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            iconData: .none,
+            icon: .none,
             title: "Main",
             type: "Void"
         )
