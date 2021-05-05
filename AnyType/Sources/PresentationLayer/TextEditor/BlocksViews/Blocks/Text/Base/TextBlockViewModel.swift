@@ -272,7 +272,7 @@ extension TextBlockViewModel {
         self.textViewModel.set(focus: focus)
     }
     
-    func focusPosition() -> BlockFocusPosition {
+    func focusPosition() -> BlockFocusPosition? {
         textViewModel.focusPosition()
     }
 }

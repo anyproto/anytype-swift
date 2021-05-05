@@ -14,7 +14,6 @@ public enum BlockPosition {
 }
 
 public enum BlockFocusPosition {
-    case unknown
     case beginning
     case end
     case at(Int)

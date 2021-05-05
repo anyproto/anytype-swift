@@ -29,8 +29,6 @@ extension UITextView {
     
     func setFocus(_ position: BlockFocusPosition) {
         switch position {
-        case .unknown:
-            return
         case .beginning:
             selectedTextRange = textRange(from: beginningOfDocument, to: beginningOfDocument)
         case .end:
@@ -38,6 +36,11 @@ extension UITextView {
         case let .at(value):
             let length = textStorage.length
             let newValue = min(max(value, 0), length)
+            // New value is an actual desired caret position in UITextView
+            // so 0 means begininng of document
+            // length means end of document, example:
+            // "some text" (lenght 9) .at(9) the same as .end
+            // default means caret should be placed somewhere at the middle of document
             switch newValue {
             case 0: setFocus(.beginning)
             case length: setFocus(.end)

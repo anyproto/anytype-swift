@@ -188,8 +188,8 @@ extension FileNamespace {
         return self
     }
     
-    func focusPosition() -> BlockFocusPosition {
-        guard let textView = self.textView, textView.isFirstResponder else { return .unknown }
+    func focusPosition() -> BlockFocusPosition? {
+        guard let textView = self.textView, textView.isFirstResponder else { return nil }
         let caretLocation = textView.selectedRange.location
         if caretLocation == 0 {
             return .beginning
