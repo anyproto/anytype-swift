@@ -25,7 +25,7 @@ final class DocumentViewModel: DocumentViewModelProtocol {
     
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never> {
         self.document.modelsAndUpdatesPublisher()
-            .receive(on: DispatchQueue.main)
+            .reciveOnMain()
             .map { [weak self] (value) in
             DocumentViewModelUpdateResult(
                 updates: value.updates,

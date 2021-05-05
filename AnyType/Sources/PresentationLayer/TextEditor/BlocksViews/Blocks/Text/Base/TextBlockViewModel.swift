@@ -215,7 +215,7 @@ private extension TextBlockViewModel {
             .safelyUnwrapOptionals()
 
         Publishers.CombineLatest(modelDidChangeOnMergePublisher, alignmentPublisher)
-            .receive(on: DispatchQueue.main)
+            .reciveOnMain()
             .map({ value -> TextView.UIKitTextView.ViewModel.Update in
                 let (text, alignment) = value
                 let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(text.color)

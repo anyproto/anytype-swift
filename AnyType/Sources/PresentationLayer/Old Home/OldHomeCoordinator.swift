@@ -15,7 +15,6 @@ final class OldHomeCoordinator {
         profileAssembly.profileView()
     }
     
-    
     // MARK: - Document view
     private var cachedDocumentView: AnyView?
     private var documentViewId: String = ""

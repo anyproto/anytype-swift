@@ -45,7 +45,7 @@ extension ProfileView.AboutView {
         @Published var libraryVersion: String = ""
 
         func viewLoaded() {
-            self.configurationService.obtainLibraryVersion().receive(on: DispatchQueue.main).sink(receiveCompletion: { (value) in
+            self.configurationService.obtainLibraryVersion().reciveOnMain().sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: break
                 case let .failure(error):

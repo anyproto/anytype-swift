@@ -32,7 +32,7 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Private
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
         self.dashboardModel.updatePublisher()
-            .receive(on: DispatchQueue.main)
+            .reciveOnMain()
             .sink { [weak self] updateResult in
                 self?.updateCellData(viewModels: updateResult.models.compactMap({$0 as? BlockPageLinkViewModel}))
             }.store(in: &self.subscriptions)

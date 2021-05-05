@@ -23,7 +23,7 @@ class ImageLoader {
         }
         
         self.imageView?.image = nil
-        self.subscription = self.property?.stream.receive(on: DispatchQueue.main).sink { [weak self] (value) in
+        self.subscription = self.property?.stream.reciveOnMain().sink { [weak self] (value) in
             self?.imageView?.image = value
             //                    self?.updateImageConstraints()
         }

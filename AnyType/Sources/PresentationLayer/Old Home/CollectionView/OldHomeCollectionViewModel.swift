@@ -38,7 +38,7 @@ class OldHomeCollectionViewModel: ObservableObject {
     
     // MARK: - Setup
     func setupDashboard() {
-        self.dashboardService.openDashboard().receive(on: DispatchQueue.main).sink(
+        self.dashboardService.openDashboard().reciveOnMain().sink(
             receiveCompletion: { completion in
                 switch completion {
                 case .finished: return

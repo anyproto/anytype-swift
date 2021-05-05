@@ -1,12 +1,3 @@
-
-//
-//  CombineExtensin.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 26.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 
@@ -161,6 +152,9 @@ extension Publisher {
     func ignoreFailure() -> Publishers.IgnoreFailure<Self> {
         .init(upstream: self)
     }
+    func reciveOnMain() -> Publishers.ReceiveOn<Self, DispatchQueue> {
+        return self.receive(on: DispatchQueue.main)
+    }
 }
 
 extension Publisher where Self.Failure == Never {
@@ -173,3 +167,4 @@ extension Publisher where Self.Failure == Never {
 extension AnyPublisher {
     static func empty() -> Self<Output, Failure> { Empty().eraseToAnyPublisher() }
 }
+

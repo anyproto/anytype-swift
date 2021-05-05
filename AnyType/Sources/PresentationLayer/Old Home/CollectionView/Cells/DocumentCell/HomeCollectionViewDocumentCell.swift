@@ -61,14 +61,14 @@ final class OldHomeCollectionViewDocumentCell: UICollectionViewCell {
         self.titleLabel.text = viewModel.title
         self.emoji.text = viewModel.emoji
         self.syncViews()
-        self.titleSubscription = viewModel.$title.receive(on: DispatchQueue.main).sink { [weak self] (value) in
+        self.titleSubscription = viewModel.$title.reciveOnMain().sink { [weak self] (value) in
             self?.titleLabel.text = value
         }
-        self.emojiSubscription = viewModel.$emoji.receive(on: DispatchQueue.main).sink { [weak self] (value) in
+        self.emojiSubscription = viewModel.$emoji.reciveOnMain().sink { [weak self] (value) in
             self?.emoji.text = value
             self?.syncViews()
         }
-        self.imageLoadingSubscription = viewModel.imagePublisher.receive(on: DispatchQueue.main).sink { [weak self] (value) in
+        self.imageLoadingSubscription = viewModel.imagePublisher.reciveOnMain().sink { [weak self] (value) in
             self?.imageView.image = value
             self?.syncViews()
         }

@@ -175,7 +175,7 @@ private extension Namespace {
             
             self.setupImageSubscription = URLResolver.init().obtainImageURLPublisher(imageId: imageId).safelyUnwrapOptionals().ignoreFailure().flatMap({
                 ImageLoaderObject($0).imagePublisher
-            }).receive(on: DispatchQueue.main).sink { [weak self] (value) in
+            }).reciveOnMain().sink { [weak self] (value) in
                 if let imageView = self?.imageView {
                     imageView.image = value
                     self?.updateImageConstraints()
@@ -219,7 +219,7 @@ private extension Namespace {
         }
         
         func configured(publisher: AnyPublisher<File, Never>) -> Self {
-            self.subscription = publisher.receive(on: DispatchQueue.main).sink { [weak self] (value) in
+            self.subscription = publisher.reciveOnMain().sink { [weak self] (value) in
                 self?.handleFile(value)
             }
             return self

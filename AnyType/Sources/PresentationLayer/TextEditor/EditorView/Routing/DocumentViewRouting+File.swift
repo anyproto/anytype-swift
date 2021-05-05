@@ -66,7 +66,7 @@ extension DocumentViewRouting.FileBlocksViewsRouter {
                 .safelyUnwrapOptionals()
                 .eraseToAnyPublisher()
             self.subscription = resultPublisher
-                .receive(on: DispatchQueue.main)
+                .reciveOnMain()
                 .sink(receiveCompletion: { _ in },
                       receiveValue: { url in
                         loadingVC.dismiss(animated: true) { [weak self] in
