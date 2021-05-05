@@ -25,7 +25,6 @@ extension Namespace.ViewModel {
 extension Namespace.ViewModel {
     enum FirstResponder {
         enum Change {
-            case unknown
             case become
             case resign
         }
@@ -151,7 +150,6 @@ extension Namespace.ViewModel {
 
 // MARK: Resign first responder
 extension Namespace.ViewModel {
-    @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This function makes sense only before first responder refactoring. Remove it when you are ready.")
     func shouldResignFirstResponder() {
         self.shouldResignFirstResponderSubject.send(true)
     }

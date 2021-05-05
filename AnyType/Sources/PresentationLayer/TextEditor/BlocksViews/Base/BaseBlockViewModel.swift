@@ -1,11 +1,6 @@
 import UIKit
 import Combine
-import os
 import BlocksModels
-
-private extension LoggerCategory {
-    static let blocksViewsBase: Self = "TextEditor.BlocksViews.Base"
-}
 
 // MARK: Options
 extension BaseBlockViewModel {
@@ -31,19 +26,11 @@ class BaseBlockViewModel: ObservableObject {
     
     /// Options that handle a behavior of view model.
     private var options: Options = .init()
-            
-    // MARK: Deinitialization
-    deinit {
-        Logger.create(.blocksViewsBase).debug(
-            "\(String(describing: self)) has been deinitialized: -> \(self.getBlock().blockModel.information.id)"
-        )
-    }
     
     // MARK: Initialization
     init(_ block: BlockModel) {
         self.block = block
-        self._diffableStorage = self.makeDiffable()
-        Logger.create(.blocksViewsBase).debug("\(String(describing: self)) has been initialized: \(self.getBlock().blockModel.information.id)")
+        self.diffable = makeDiffable()
         self.configure()
     }
     
@@ -52,7 +39,6 @@ class BaseBlockViewModel: ObservableObject {
     func configure() {
         self.setupPublishers()
         self.setupSubscriptions()
-        Logger.create(.blocksViewsBase).debug("\(String(describing: self)) has been configured: \(self.getBlock().blockModel.information.id)")
     }
             
     // MARK: Subclass / Blocks
@@ -206,7 +192,7 @@ class BaseBlockViewModel: ObservableObject {
     var information: BlockInformation.InformationModel { self.getBlock().blockModel.information }
     
     // MARK: Subclass / Diffable
-    private var _diffableStorage: AnyHashable = .init("")
+    private(set) var diffable: AnyHashable = .init("")
     
     /// Here we use the following technique.
     /// As soon as we should recreate our ViewModels very often, we should keep their identity somewhere.
@@ -221,6 +207,10 @@ class BaseBlockViewModel: ObservableObject {
             "Content": BlockContentTypeIdentifier.identifier(self.information.content),
             "Indentation": self.indentationLevel()
         ] as [AnyHashable: AnyHashable]
+    }
+    
+    func updateDiffable() {
+        diffable = makeDiffable()
     }
     
     // MARK: Subclass / Views
@@ -419,8 +409,7 @@ private extension BaseBlockViewModel {
         
         // MARK: Provider
         /// Actually, Self
-        typealias Provider = BaseBlockViewModel
-        weak var provider: Provider?
+        weak var provider: BaseBlockViewModel?
         
         // MARK: Subject ( Subsribe on it ).
         var actionSubject: PassthroughSubject<BlocksViews.ContextualMenu.MenuAction.Action, Never> = .init()
@@ -572,8 +561,6 @@ extension BaseBlockViewModel: BlockViewBuilderProtocol {
         self.addContextMenuIfNeeded(view)
         return view
     }
-    
-    var diffable: AnyHashable { self._diffableStorage }
 }
 
 /// Requirement: `Block sViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.

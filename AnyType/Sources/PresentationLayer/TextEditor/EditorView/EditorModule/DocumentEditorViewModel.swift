@@ -237,6 +237,7 @@ class DocumentEditorViewModel: ObservableObject {
                     if !update.updatedIds.isEmpty && update.addedIds.isEmpty && update.deletedIds.isEmpty {
                         // During split or merge neighborhood blocks will update automaticaly because of
                         // calculating diff in data source
+                        self?.updateDiffableValuesForBlockIds(update.updatedIds)
                         self?.updateElementsSubject.send(update.updatedIds)
                     }
                     if !update.deletedIds.isEmpty {
@@ -252,6 +253,15 @@ class DocumentEditorViewModel: ObservableObject {
         self.documentViewModel.open(value)
         self.configureDetails()
         self.configureInteractions(self.documentViewModel.documentId)
+    }
+    
+    private func updateDiffableValuesForBlockIds(_ ids: [BlockId]) {
+        // In case we update just several blocks (for example turn into Paragraph -> Header)
+        // we also need to update diffable value for such blocks
+        // to reduce updates when we will calculate differencies using diff algorithm
+        let updatesSet = Set(ids)
+        let updatedViewModels = builders.filter { updatesSet.contains($0.blockId) }
+        updatedViewModels.forEach { $0.updateDiffable() }
     }
 
     private func configureInteractions(_ documentId: BlockId?) {

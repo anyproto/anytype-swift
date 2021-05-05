@@ -134,6 +134,14 @@ final class TextBlockViewModel: BaseBlockViewModel {
         actions.append(.create(action: .specific(.style)))
         return .init(title: "", children: actions)
     }
+    
+    override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
+        // After we show contextual menu on UITextView (which is first responder)
+        // displaying keyboard on such UITextView becomes impossible (only caret show)
+        // it is possible to show it only by changing first responder with other UITextView
+        textViewModel.shouldResignFirstResponder()
+        super.handle(contextualMenuAction: contextualMenuAction)
+    }
 }
 
 // MARK: - Methods called by View
