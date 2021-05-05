@@ -107,6 +107,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                      textView: textView,
                      accessoryView: coordinator.menuActionsAccessoryView,
                      inputView: nil)
+        coordinator.menuActionsAccessoryView?.blockMenuActionsHandler.didShowMenuView(from: textView)
     }
     
     // We do want to continue displaying menu view

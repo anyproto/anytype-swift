@@ -14,10 +14,11 @@ struct BlockMenuItemSimpleDisplayData {
     }
     
     func contains(string: String) -> Bool {
-        if title.contains(string) {
+        let lowercasedString = string.lowercased()
+        if title.lowercased().contains(lowercasedString) {
             return true
         }
-        if let subtitle = subtitle, subtitle.contains(string) {
+        if let subtitle = subtitle, subtitle.lowercased().contains(lowercasedString) {
             return true
         }
         return false

@@ -87,7 +87,7 @@ extension Namespace {
         init(blockViewModel: BaseBlockViewModel) {
             let factory = BlockRestrictionsFactory()
             let restrictions = factory.makeRestrictions(for: blockViewModel.information.content.type)
-            let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: blockViewModel.marksPaneActionSubject, turnIntoAndActionsSubject: blockViewModel.toolbarActionSubject)
+            let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: blockViewModel.marksPaneActionSubject, addBlockAndActionsSubject: blockViewModel.toolbarActionSubject)
             self.coordinator = Coordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
                                            blockMenuActionsHandler: actionsHandler)
             self.setup()
@@ -214,23 +214,6 @@ extension Namespace.ViewModel {
     }
 }
 
-// MARK: Updates
 extension Namespace.ViewModel {
     typealias Coordinator = TextView.UIKitTextView.Coordinator
-
-    func updateUIView() {
-        // do necessary updates here.
-        // for example, we could call it after .text didSet
-        // Or we could do it in UIView?
-        // But...
-        // we could update textView attributedString.
-        // So, in this case we don't need to know about actual view.
-    }
-
-    // TODO: Move this method somewhere. This method is called when we need to update this view.
-    func updateUIView(_ uiView: UITextView, coordinator: Coordinator) {
-        // TODO: Add somewhere wholeTextKeeper
-        // coordinator.updateWholeMarkStyle(uiView, wholeMarkStyleKeeper: self.wholeTextMarkStyleKeeper)
-//        coordinator.updateWholeMarkStyle(<#T##view: UITextView##UITextView#>, wholeMarkStyleKeeper: <#T##TextView.MarkStyleKeeper#>)
-    }
 }

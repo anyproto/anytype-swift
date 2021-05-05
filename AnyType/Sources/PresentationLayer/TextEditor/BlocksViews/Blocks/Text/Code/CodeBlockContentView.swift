@@ -6,6 +6,7 @@
 //  Copyright © 2021 AnyType. All rights reserved.
 //
 
+import Combine
 import UIKit
 import Highlightr
 
@@ -55,6 +56,8 @@ final class CodeBlockContentView: UIView & UIContentView {
 
         return button
     }()
+    
+    private var setFocusSubscription: AnyCancellable?
 
     private var currentConfiguration: CodeBlockContentConfiguration
 
@@ -117,7 +120,11 @@ final class CodeBlockContentView: UIView & UIContentView {
 
     private func applyNewConfiguration() {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
-
+        let setFocusPublisher = currentConfiguration.contextMenuHolder?.textViewModel.setFocusPublisher
+        setFocusSubscription = setFocusPublisher?.sink(receiveValue: { [weak self] value in
+            guard let position = value.position else { return }
+            self?.textView.setFocus(position)
+        })
         if case let .text(content) = self.currentConfiguration.information.content {
             self.textView.text = content.attributedText.string
         }

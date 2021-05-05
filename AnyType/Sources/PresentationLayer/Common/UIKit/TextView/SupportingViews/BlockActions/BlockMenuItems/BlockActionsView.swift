@@ -9,7 +9,7 @@ final class BlockActionsView: DismissableInputAccessoryView {
     private weak var menuNavigationController: UINavigationController?
     private weak var menuItemsViewController: BlockMenuItemsViewController?
     private let menuItems: [BlockActionMenuItem]
-    private let blockMenuActionsHandler: BlockMenuActionsHandler
+    let blockMenuActionsHandler: BlockMenuActionsHandler
     
     init(frame: CGRect,
          menuItems: [BlockActionMenuItem],

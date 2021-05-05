@@ -1,4 +1,5 @@
 
+import BlocksModels
 import UIKit
 
 extension UITextView {
@@ -24,5 +25,31 @@ extension UITextView {
         }
         let offset = selectedRange.location + selectedRange.length
         return position(from: beginningOfDocument, offset: offset)
+    }
+    
+    func setFocus(_ position: BlockFocusPosition) {
+        switch position {
+        case .unknown:
+            return
+        case .beginning:
+            selectedTextRange = textRange(from: beginningOfDocument, to: beginningOfDocument)
+        case .end:
+            selectedTextRange = textRange(from: endOfDocument, to: endOfDocument)
+        case let .at(value):
+            let length = textStorage.length
+            let newValue = min(max(value, 0), length)
+            switch newValue {
+            case 0: setFocus(.beginning)
+            case length: setFocus(.end)
+            default:
+                if let textPosition = self.position(from: beginningOfDocument, offset: newValue) {
+                    let range = textRange(from: textPosition, to: textPosition)
+                    selectedTextRange = range
+                }
+            }
+        }
+        if !isFirstResponder && canBecomeFirstResponder {
+            becomeFirstResponder()
+        }
     }
 }

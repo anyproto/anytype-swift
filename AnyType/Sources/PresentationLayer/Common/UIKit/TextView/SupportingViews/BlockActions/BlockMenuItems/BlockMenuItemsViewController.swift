@@ -125,7 +125,7 @@ extension BlockMenuItemsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellReuseId, for: indexPath)
-        var configuration = cell.defaultContentConfiguration()
+        var configuration = UIListContentConfiguration.subtitleCell()
         cell.accessoryType = .none
         let item = self.items[indexPath.row]
         switch item {

@@ -1,41 +1,19 @@
 
 import BlocksModels
 import Combine
+import UIKit
 
-final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
+final class BlockMenuActionsHandlerImp {
     
     private let marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
     private let addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+    private var initialCaretPosition: UITextPosition?
+    private weak var textView: UITextView?
     
     init(marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>,
-         turnIntoAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>) {
+         addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>) {
         self.marksPaneActionSubject = marksPaneActionSubject
-        self.addBlockAndActionsSubject = turnIntoAndActionsSubject
-    }
-    
-    func handle(action: BlockActionType) {
-        switch action {
-        case let .actions(action):
-            self.handleActions(action)
-        case let .alignment(alignmnet):
-            self.handleAlignment(alignmnet)
-        case let .style(style):
-            self.handleStyle(style)
-        case let .media(media):
-            let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(media.blockViewsType)
-            self.addBlockAndActionsSubject.send(.addBlock(type))
-        case .objects:
-            break
-        case .relations:
-            break
-        case let .other(other):
-            let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(other.blockViewsType)
-            self.addBlockAndActionsSubject.send(.addBlock(type))
-        case let .color(color):
-            self.marksPaneActionSubject.send(.textColor(NSRange(), .setColor(color.color)))
-        case let .background(color):
-            self.marksPaneActionSubject.send(.backgroundColor(NSRange(), .setColor(color.color)))
-        }
+        self.addBlockAndActionsSubject = addBlockAndActionsSubject
     }
     
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
@@ -52,23 +30,23 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
     private func handleStyle(_ style: BlockStyleAction) {
         switch style {
         case .text:
-            self.addBlockAndActionsSubject.send(.addBlock(.text(.text)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.text)))
         case .title:
-            self.addBlockAndActionsSubject.send(.addBlock(.text(.h1)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h1)))
         case .heading:
-            self.addBlockAndActionsSubject.send(.addBlock(.text(.h2)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h2)))
         case .subheading:
-            self.addBlockAndActionsSubject.send(.addBlock(.text(.h3)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h3)))
         case .highlighted:
-            self.addBlockAndActionsSubject.send(.addBlock(.text(.highlighted)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.highlighted)))
         case .checkbox:
-            self.addBlockAndActionsSubject.send(.addBlock(.list(.checkbox)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.checkbox)))
         case .bulleted:
-            self.addBlockAndActionsSubject.send(.addBlock(.list(.bulleted)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.bulleted)))
         case .numberedList:
-            self.addBlockAndActionsSubject.send(.addBlock(.list(.numbered)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.numbered)))
         case .toggle:
-            self.addBlockAndActionsSubject.send(.addBlock(.list(.toggle)))
+            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
         case .bold:
             self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.bold)))
         case .italic:
@@ -99,5 +77,56 @@ final class BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
         case .moveTo:
             break
         }
+    }
+    
+    private func removeTextAfterInitialAndCurrentCaretPositions() {
+        // After we select any action from actions menu we must delete /symbol
+        // and all text which was typed after /
+        //
+        // We create text range from two text positions and replace text in
+        // this range with empty string
+        guard let initialCaretPosition = initialCaretPosition,
+              let textView = textView,
+              let currentPosition = textView.caretPosition(),
+              let textRange = textView.textRange(from: initialCaretPosition, to: currentPosition) else {
+            return
+        }
+        textView.replace(textRange, withText: "")
+    }
+}
+
+extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
+    
+    func handle(action: BlockActionType) {
+        removeTextAfterInitialAndCurrentCaretPositions()
+        switch action {
+        case let .actions(action):
+            self.handleActions(action)
+        case let .alignment(alignmnet):
+            self.handleAlignment(alignmnet)
+        case let .style(style):
+            self.handleStyle(style)
+        case let .media(media):
+            let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(media.blockViewsType)
+            self.addBlockAndActionsSubject.send(.addBlock(type))
+        case .objects:
+            break
+        case .relations:
+            break
+        case let .other(other):
+            let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(other.blockViewsType)
+            self.addBlockAndActionsSubject.send(.addBlock(type))
+        case let .color(color):
+            self.marksPaneActionSubject.send(.textColor(NSRange(), .setColor(color.color)))
+        case let .background(color):
+            self.marksPaneActionSubject.send(.backgroundColor(NSRange(), .setColor(color.color)))
+        }
+    }
+    
+    func didShowMenuView(from textView: UITextView) {
+        self.textView = textView
+        guard let caretPosition = textView.caretPosition() else { return }
+        // -1 because in text "Hello, everyone/" we want to store position before slash, not after
+        initialCaretPosition = textView.position(from: caretPosition, offset: -1)
     }
 }

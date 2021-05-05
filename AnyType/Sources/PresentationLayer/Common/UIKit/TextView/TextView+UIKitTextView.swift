@@ -85,7 +85,8 @@ extension TextView {
             
             // Set Focus
             self.model?.setFocusPublisher.sink(receiveValue: { [weak self] (value) in
-                self?.setFocus(value)
+                guard let position = value.position else { return }
+                self?.textView?.setFocus(position)
             }).store(in: &self.subscriptions)
             
             // Resign first responder
@@ -212,66 +213,6 @@ private extension TextView.UIKitTextView {
 //        DispatchQueue.main.async {
             self.onUpdate(receive: update)
 //        }
-    }
-}
-
-// MARK: - Focus
-
-private extension TextView.UIKitTextView {
-    func setFocus(_ value: BlockFocusPosition) {
-        let position = value
-        switch position {
-        case .unknown: break
-        case .beginning:
-            if let textView = self.textView {
-                let position = textView.beginningOfDocument
-                let range = textView.textRange(from: position, to: position)
-                textView.selectedTextRange = range
-            }
-        case .end:
-            if let textView = self.textView {
-                let position = textView.endOfDocument
-                let range = textView.textRange(from: position, to: position)
-                textView.selectedTextRange = range
-            }
-        case let .at(value):
-            if let textView = self.textView {
-                // check that we can set it.
-                let length = textView.textStorage.length
-                let zero = 0
-                let newValue = min(max(value, zero), length)
-                switch newValue {
-                case zero: self.setFocus(.beginning)
-                case length: self.setFocus(.end)
-                default:
-                    let beginning = textView.beginningOfDocument
-                    if let position = textView.position(from: beginning, offset: newValue) {
-                        let range = textView.textRange(from: position, to: position)
-                        textView.selectedTextRange = range
-                    }
-                }
-            }
-        }
-        _ = self.textView?.becomeFirstResponder()
-    }
-
-    func setFocus(_ value: ViewModel.Focus) {
-        guard let position = value.position else { return }
-        self.setFocus(position)
-        switch position {
-        case .unknown: break
-        default:
-            /// NOTES:
-            /// We must assure ourselves, that we really set view as firstResponder.
-            /// Otherwise, we should set first responder when view will go into layout cycle.
-            ///
-            /// Actually, we don't use it, so, we could do nothing here.
-//            if self.textView.isFirstResponder {
-//                value.completion(true)
-//            }
-            /// TODO: Remove comments above.
-            break
-        }
     }
 }
 

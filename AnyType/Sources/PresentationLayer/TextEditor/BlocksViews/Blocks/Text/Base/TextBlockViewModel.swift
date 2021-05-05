@@ -39,7 +39,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
     /// We could directly set a state or a parts of this viewModel state.
     /// This should fire updates and corresponding view will be updated.
     ///
-    private lazy var textViewModel = TextView.UIKitTextView.ViewModel(blockViewModel: self)
+    private(set) lazy var textViewModel = TextView.UIKitTextView.ViewModel(blockViewModel: self)
     private lazy var textViewModelHolder: TextViewModelHolder = {
         .init(self.textViewModel)
     }()
