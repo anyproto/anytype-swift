@@ -1,11 +1,3 @@
-//
-//  EditorModuleDocumentViewInput.swift
-//  AnyType
-//
-//  Created by Kovalev Alexander on 24.03.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 /// Input data for document view
 protocol EditorModuleDocumentViewInput: AnyObject {
     

@@ -1,60 +1,46 @@
-//
-//  EditorModule+Container+ViewController.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 01.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias DocumentNamespace = EditorModule
-fileprivate typealias Namespace = EditorModule.Container
-extension Namespace {
-    /// We use `TransitionViewController` as a view controller for custom transitions.
-    /// Also, this controller could contain/store all presentation and dismissal animators.
-    /// Very handy.
-    ///
-    typealias TransitionViewController = CommonViews.ViewControllers.TransitionContainerViewController
-    class ViewController: UIViewController {
-        
-        /// Variables
-        private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
-        var userActionPublisher: AnyPublisher<UserAction, Never> = .empty()
-        
-        private var transitionContainer: TransitionViewController = .init()
-        private var viewModel: ViewModel
-        private var childViewController: UIViewController?
-        private var subscription: AnyCancellable?
-        private var toRemove: AnyCancellable?
-        private var childAsNavigationController: UINavigationController? {
-            self.childViewController as? UINavigationController
-        }
-        
-        /// Setup
-        func setup() {
-            self.configured(actionsPublisher: self.viewModel.actionPublisher())
-            self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
-        }
-                
-        /// Initialization
-        init(viewModel: ViewModel) {
-            self.viewModel = viewModel
-            super.init(nibName: nil, bundle: nil)
-            self.setup()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+/// We use `TransitionViewController` as a view controller for custom transitions.
+/// Also, this controller could contain/store all presentation and dismissal animators.
+/// Very handy.
+///
+typealias TransitionViewController = CommonViews.ViewControllers.TransitionContainerViewController
+class EditorModuleContainerViewController: UIViewController {
+    
+    /// Variables
+    private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
+    var userActionPublisher: AnyPublisher<UserAction, Never> = .empty()
+    
+    private var transitionContainer: TransitionViewController = .init()
+    private var viewModel: EditorModuleContainerViewModel
+    private var childViewController: UIViewController?
+    private var subscription: AnyCancellable?
+    private var toRemove: AnyCancellable?
+    private var childAsNavigationController: UINavigationController? {
+        self.childViewController as? UINavigationController
     }
-}
+    
+    /// Setup
+    func setup() {
+        self.configured(actionsPublisher: self.viewModel.actionPublisher())
+        self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
+    }
+            
+    /// Initialization
+    init(viewModel: EditorModuleContainerViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.setup()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-// MARK: Actions Handling
-private extension Namespace.ViewController {
-    func handle(_ action: ViewModel.Action) {
+    // MARK: Actions Handling
+    func handle(_ action: EditorModuleContainerViewModel.Action) {
         switch action {
         case let .child(value): self.childAsNavigationController?.pushViewController(value, animated: true)
         case let .show(value): self.present(value, animated: true, completion: nil)
@@ -74,11 +60,11 @@ private extension Namespace.ViewController {
 }
 
 // MARK: UINavigationController Handling
-extension Namespace.ViewController: UINavigationControllerDelegate {
+extension EditorModuleContainerViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         /// We should keep track of navigation links.
         /// Where we should update navigation from item.
-        if let controller = viewController as? DocumentNamespace.Content.ViewController {
+        if let controller = viewController as? EditorModuleContentViewController {
             
             if let child = controller.children.first?.children.first as? DocumentEditorViewController {
                 /// extract model from it.
@@ -91,7 +77,7 @@ extension Namespace.ViewController: UINavigationControllerDelegate {
         }
     }
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if let controller = viewController as? DocumentNamespace.Content.ViewController {
+        if let controller = viewController as? EditorModuleContentViewController {
             
             if controller.children.first?.children.first as? DocumentEditorViewController != nil {
                 /// extract model from it.
@@ -101,7 +87,7 @@ extension Namespace.ViewController: UINavigationControllerDelegate {
 }
 
 // MARK: Setup And Layout
-private extension Namespace.ViewController {
+private extension EditorModuleContainerViewController {
     func setupUIElements() {
         if let viewController = self.childViewController {
             self.addChild(viewController)
@@ -146,26 +132,26 @@ private extension Namespace.ViewController {
 }
 
 // MARK: Transitioning
-extension Namespace.ViewController {
+extension EditorModuleContainerViewController {
     typealias TransitionController = MarksPane.ViewController.TransitionController
 }
 
 // MARK: User Actions
-extension Namespace.ViewController {
+extension EditorModuleContainerViewController {
     enum UserAction {
         case shouldDismiss
     }
 }
 
 // MARK: Actions
-extension Namespace.ViewController {
+extension EditorModuleContainerViewController {
     @objc func dismissAction() {
         self.userActionSubject.send(.shouldDismiss)
     }
 }
 
 // MARK: Gesture Recognizer
-extension Namespace.ViewController {
+extension EditorModuleContainerViewController {
     @objc func didDrag(sender: UIGestureRecognizer) {
         if let recognizer = sender as? UIPanGestureRecognizer {
             switch recognizer.state {
@@ -190,7 +176,7 @@ extension Namespace.ViewController {
 }
 
 // MARK: View Lifecycle
-extension Namespace.ViewController {
+extension EditorModuleContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUIElements()
@@ -202,8 +188,8 @@ extension Namespace.ViewController {
 }
 
 // MARK: Configurations
-extension Namespace.ViewController {
-    func configured(actionsPublisher: AnyPublisher<ViewModel.Action, Never>) {
+extension EditorModuleContainerViewController {
+    func configured(actionsPublisher: AnyPublisher<EditorModuleContainerViewModel.Action, Never>) {
         self.subscription = actionsPublisher.sink(receiveValue: { [weak self] (value) in
             self?.handle(value)
         })

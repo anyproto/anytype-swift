@@ -96,31 +96,28 @@
 		0A0965E825BEF5B000C004BD /* DocumentViewRouting+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C425BEF5B000C004BD /* DocumentViewRouting+Tools.swift */; };
 		0A0965E925BEF5B000C004BD /* DocumentViewRouting+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */; };
 		0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */; };
-		0A0965EB25BEF5B000C004BD /* EditorModule+Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C825BEF5B000C004BD /* EditorModule+Content.swift */; };
 		0A0965EC25BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C925BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift */; };
 		0A0965ED25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CA25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift */; };
 		0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */; };
-		0A0965EF25BEF5B000C004BD /* EditorModule+Content+ViewController+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CC25BEF5B000C004BD /* EditorModule+Content+ViewController+ViewModel.swift */; };
-		0A0965F025BEF5B000C004BD /* EditorModule+Container+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CD25BEF5B000C004BD /* EditorModule+Container+ViewController.swift */; };
+		0A0965EF25BEF5B000C004BD /* EditorModuleContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CC25BEF5B000C004BD /* EditorModuleContentViewModel.swift */; };
+		0A0965F025BEF5B000C004BD /* EditorModuleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */; };
 		0A0965F125BEF5B000C004BD /* EditorModule+Selection+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CE25BEF5B000C004BD /* EditorModule+Selection+Handler.swift */; };
 		0A0965F225BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CF25BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift */; };
 		0A0965F325BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */; };
-		0A0965F425BEF5B000C004BD /* EditorModule+Container+ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D125BEF5B000C004BD /* EditorModule+Container+ViewRepresentable.swift */; };
-		0A0965F525BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D225BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift */; };
-		0A0965F625BEF5B000C004BD /* EditorModule+Content+ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D325BEF5B000C004BD /* EditorModule+Content+ViewBuilder.swift */; };
-		0A0965F725BEF5B000C004BD /* EditorModule+Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D425BEF5B000C004BD /* EditorModule+Container.swift */; };
+		0A0965F425BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */; };
+		0A0965F525BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */; };
+		0A0965F625BEF5B000C004BD /* EditorModuleContentViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D325BEF5B000C004BD /* EditorModuleContentViewBuilder.swift */; };
 		0A0965F825BEF5B000C004BD /* EditorModule+Selection+ToolbarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D525BEF5B000C004BD /* EditorModule+Selection+ToolbarPresenter.swift */; };
 		0A0965FA25BEF5B000C004BD /* EditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D725BEF5B000C004BD /* EditorModule.swift */; };
 		0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */; };
 		0A0965FC25BEF5B000C004BD /* EditorModule+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */; };
 		0A0965FF25BEF5B000C004BD /* EditorModule+Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965DC25BEF5B000C004BD /* EditorModule+Document.swift */; };
 		0A09660025BEF5B000C004BD /* EditorModule+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965DD25BEF5B000C004BD /* EditorModule+Selection.swift */; };
-		0A09660125BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965DE25BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift */; };
 		0A09660225BEF5B000C004BD /* DocumentEditorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965DF25BEF5B000C004BD /* DocumentEditorHeaderView.swift */; };
-		0A09660325BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E025BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift */; };
+		0A09660325BEF5B000C004BD /* EditorModuleContainerViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E025BEF5B000C004BD /* EditorModuleContainerViewBuilder.swift */; };
 		0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E125BEF5B000C004BD /* DocumentSection.swift */; };
-		0A09660525BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E225BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift */; };
-		0A09660625BEF5B000C004BD /* EditorModule+Content+ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E325BEF5B000C004BD /* EditorModule+Content+ViewController.swift */; };
+		0A09660525BEF5B000C004BD /* EditorModuleContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E225BEF5B000C004BD /* EditorModuleContainerViewModel.swift */; };
+		0A09660625BEF5B000C004BD /* EditorModuleContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965E325BEF5B000C004BD /* EditorModuleContentViewController.swift */; };
 		0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09660F25C06DBA00C004BD /* EventProcessor.swift */; };
 		0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09661725C0AB4F00C004BD /* BaseDocument.swift */; };
 		0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09661A25C0AD0800C004BD /* DetailsActiveModel.swift */; };
@@ -615,31 +612,28 @@
 		0A0965C425BEF5B000C004BD /* DocumentViewRouting+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Tools.swift"; sourceTree = "<group>"; };
 		0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Protocols.swift"; sourceTree = "<group>"; };
 		0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Toolbar.swift"; sourceTree = "<group>"; };
-		0A0965C825BEF5B000C004BD /* EditorModule+Content.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Content.swift"; sourceTree = "<group>"; };
 		0A0965C925BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Selection+Handler+Protocols.swift"; sourceTree = "<group>"; };
 		0A0965CA25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Document+ViewRepresentable.swift"; sourceTree = "<group>"; };
 		0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewModel.swift; sourceTree = "<group>"; };
-		0A0965CC25BEF5B000C004BD /* EditorModule+Content+ViewController+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Content+ViewController+ViewModel.swift"; sourceTree = "<group>"; };
-		0A0965CD25BEF5B000C004BD /* EditorModule+Container+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Container+ViewController.swift"; sourceTree = "<group>"; };
+		0A0965CC25BEF5B000C004BD /* EditorModuleContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewModel.swift; sourceTree = "<group>"; };
+		0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewController.swift; sourceTree = "<group>"; };
 		0A0965CE25BEF5B000C004BD /* EditorModule+Selection+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Selection+Handler.swift"; sourceTree = "<group>"; };
 		0A0965CF25BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Document+ViewBuilder.swift"; sourceTree = "<group>"; };
 		0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+TopBottomMenuViewController.swift"; sourceTree = "<group>"; };
-		0A0965D125BEF5B000C004BD /* EditorModule+Container+ViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Container+ViewRepresentable.swift"; sourceTree = "<group>"; };
-		0A0965D225BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Content+ViewRepresentable.swift"; sourceTree = "<group>"; };
-		0A0965D325BEF5B000C004BD /* EditorModule+Content+ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Content+ViewBuilder.swift"; sourceTree = "<group>"; };
-		0A0965D425BEF5B000C004BD /* EditorModule+Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Container.swift"; sourceTree = "<group>"; };
+		0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewRepresentable.swift; sourceTree = "<group>"; };
+		0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewRepresentable.swift; sourceTree = "<group>"; };
+		0A0965D325BEF5B000C004BD /* EditorModuleContentViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewBuilder.swift; sourceTree = "<group>"; };
 		0A0965D525BEF5B000C004BD /* EditorModule+Selection+ToolbarPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Selection+ToolbarPresenter.swift"; sourceTree = "<group>"; };
 		0A0965D725BEF5B000C004BD /* EditorModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModule.swift; sourceTree = "<group>"; };
 		0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewController.swift; sourceTree = "<group>"; };
 		0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+ViewControllers.swift"; sourceTree = "<group>"; };
 		0A0965DC25BEF5B000C004BD /* EditorModule+Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Document.swift"; sourceTree = "<group>"; };
 		0A0965DD25BEF5B000C004BD /* EditorModule+Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Selection.swift"; sourceTree = "<group>"; };
-		0A0965DE25BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+TopLevelBuilder.swift"; sourceTree = "<group>"; };
 		0A0965DF25BEF5B000C004BD /* DocumentEditorHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorHeaderView.swift; sourceTree = "<group>"; };
-		0A0965E025BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Container+ViewBuilder.swift"; sourceTree = "<group>"; };
+		0A0965E025BEF5B000C004BD /* EditorModuleContainerViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewBuilder.swift; sourceTree = "<group>"; };
 		0A0965E125BEF5B000C004BD /* DocumentSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentSection.swift; sourceTree = "<group>"; };
-		0A0965E225BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Container+ViewController+ViewModel.swift"; sourceTree = "<group>"; };
-		0A0965E325BEF5B000C004BD /* EditorModule+Content+ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Content+ViewController.swift"; sourceTree = "<group>"; };
+		0A0965E225BEF5B000C004BD /* EditorModuleContainerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewModel.swift; sourceTree = "<group>"; };
+		0A0965E325BEF5B000C004BD /* EditorModuleContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewController.swift; sourceTree = "<group>"; };
 		0A09660F25C06DBA00C004BD /* EventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventProcessor.swift; sourceTree = "<group>"; };
 		0A09661725C0AB4F00C004BD /* BaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDocument.swift; sourceTree = "<group>"; };
 		0A09661A25C0AD0800C004BD /* DetailsActiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsActiveModel.swift; sourceTree = "<group>"; };
@@ -2578,16 +2572,14 @@
 			isa = PBXGroup;
 			children = (
 				EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */,
-				0A0965D425BEF5B000C004BD /* EditorModule+Container.swift */,
-				0A0965E025BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift */,
-				0A0965CD25BEF5B000C004BD /* EditorModule+Container+ViewController.swift */,
-				0A0965E225BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift */,
-				0A0965D125BEF5B000C004BD /* EditorModule+Container+ViewRepresentable.swift */,
-				0A0965C825BEF5B000C004BD /* EditorModule+Content.swift */,
-				0A0965D325BEF5B000C004BD /* EditorModule+Content+ViewBuilder.swift */,
-				0A0965E325BEF5B000C004BD /* EditorModule+Content+ViewController.swift */,
-				0A0965CC25BEF5B000C004BD /* EditorModule+Content+ViewController+ViewModel.swift */,
-				0A0965D225BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift */,
+				0A0965E025BEF5B000C004BD /* EditorModuleContainerViewBuilder.swift */,
+				0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */,
+				0A0965E225BEF5B000C004BD /* EditorModuleContainerViewModel.swift */,
+				0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */,
+				0A0965D325BEF5B000C004BD /* EditorModuleContentViewBuilder.swift */,
+				0A0965E325BEF5B000C004BD /* EditorModuleContentViewController.swift */,
+				0A0965CC25BEF5B000C004BD /* EditorModuleContentViewModel.swift */,
+				0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */,
 			);
 			path = ContainerView;
 			sourceTree = "<group>";
@@ -2595,7 +2587,6 @@
 		533341F0262E0DD200238121 /* SupplementViews */ = {
 			isa = PBXGroup;
 			children = (
-				0A0965DE25BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift */,
 				0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */,
 				0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */,
 			);
@@ -3234,7 +3225,7 @@
 				03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */,
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
-				0A0965F425BEF5B000C004BD /* EditorModule+Container+ViewRepresentable.swift in Sources */,
+				0A0965F425BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				0A10CC76248EC517000FF498 /* TextBlockUserInteraction.swift in Sources */,
@@ -3256,8 +3247,8 @@
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
 				0ACC357E25C885520003CF3A /* DocumentViewModel.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
-				0A09660625BEF5B000C004BD /* EditorModule+Content+ViewController.swift in Sources */,
-				0A0965F625BEF5B000C004BD /* EditorModule+Content+ViewBuilder.swift in Sources */,
+				0A09660625BEF5B000C004BD /* EditorModuleContentViewController.swift in Sources */,
+				0A0965F625BEF5B000C004BD /* EditorModuleContentViewBuilder.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */,
@@ -3294,12 +3285,10 @@
 				0AA9B04E249F6D9500F2962C /* MultiSelectionPane+UIKit+Panes+Selection.swift in Sources */,
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
 				EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */,
-				0A0965EB25BEF5B000C004BD /* EditorModule+Content.swift in Sources */,
 				EA77E526262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
 				0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
-				0A09660125BEF5B000C004BD /* EditorModule+TopLevelBuilder.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
@@ -3346,7 +3335,7 @@
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,
-				0A0965F025BEF5B000C004BD /* EditorModule+Container+ViewController.swift in Sources */,
+				0A0965F025BEF5B000C004BD /* EditorModuleContainerViewController.swift in Sources */,
 				3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */,
 				3D929B6226332ACA0063F1BE /* PageCellData.swift in Sources */,
 				0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */,
@@ -3365,7 +3354,7 @@
 				3D07ED6F261F4A7E00C007E2 /* DividerBlockUIKitView.swift in Sources */,
 				3D07ECCB261B4A7900C007E2 /* OldHomeCollectionViewCoordinator.swift in Sources */,
 				3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */,
-				0A09660525BEF5B000C004BD /* EditorModule+Container+ViewController+ViewModel.swift in Sources */,
+				0A09660525BEF5B000C004BD /* EditorModuleContainerViewModel.swift in Sources */,
 				A3940BB7245AB47700CD6F37 /* EmojiPicker+ViewController.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockPageLinkState.swift in Sources */,
 				53BC39B4261C7972004D7EB6 /* TextBlockViewModel.swift in Sources */,
@@ -3376,7 +3365,7 @@
 				3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */,
 				EAC5728726208CD100F25949 /* DocumentViewCellFactoryProtocol.swift in Sources */,
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
-				0A0965F525BEF5B000C004BD /* EditorModule+Content+ViewRepresentable.swift in Sources */,
+				0A0965F525BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
 				EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */,
@@ -3452,13 +3441,12 @@
 				0A0965F325BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift in Sources */,
 				03B42F2A232910AB000F2BA2 /* OldHomeView.swift in Sources */,
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
-				0A0965F725BEF5B000C004BD /* EditorModule+Container.swift in Sources */,
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* EventListening+NotificationEventListener.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
-				0A09660325BEF5B000C004BD /* EditorModule+Container+ViewBuilder.swift in Sources */,
+				0A09660325BEF5B000C004BD /* EditorModuleContainerViewBuilder.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
 				3DA369362629AC67001557C9 /* DocumentViewModelProtocol.swift in Sources */,
@@ -3515,7 +3503,7 @@
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				0A78328124BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,
-				0A0965EF25BEF5B000C004BD /* EditorModule+Content+ViewController+ViewModel.swift in Sources */,
+				0A0965EF25BEF5B000C004BD /* EditorModuleContentViewModel.swift in Sources */,
 				EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */,
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
 				0AAF8C2C2492355100C18D09 /* MarksPane+ViewController+Presentation.swift in Sources */,

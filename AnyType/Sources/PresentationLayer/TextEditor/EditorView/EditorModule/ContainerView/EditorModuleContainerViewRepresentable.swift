@@ -3,29 +3,19 @@ import SwiftUI
 import Combine
 import os
 
-extension EditorModule.Container {
-    struct ViewRepresentable {
-        @Environment(\.presentationMode) var presentationMode
-        private(set) var documentId: String
-        private(set) var shouldShowDocument: Binding<Bool> = .init(get: { false }, set: { value in })
-    }
-}
-
-// MARK: - ContentViewRepresentable
-extension EditorModule.Container.ViewRepresentable: UIViewControllerRepresentable {
-    
-    private typealias ViewBuilder = EditorModule.Container.ViewBuilder
-    typealias ViewController = EditorModule.Container.ViewController
-    typealias Me = EditorModule.Container.ViewRepresentable
+struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) var presentationMode
+    private(set) var documentId: String
+    private(set) var shouldShowDocument: Binding<Bool> = .init(get: { false }, set: { value in })
     
     func makeCoordinator() -> Coordinator {
         .init(self)
     }
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<Me>) -> ViewController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>) -> EditorModuleContainerViewController {
         /// Configure document view builder.
 //        let view = ViewBuilder.UIKitBuilder.documentView(by: .init(id: self.documentId))
-        let view = ViewBuilder.UIKitBuilder.view(by: .init(id: self.documentId))
+        let view = EditorModuleContainerViewBuilder.UIKitBuilder.view(by: .init(id: self.documentId))
         
         // TODO: Fix later.
         // We should enable back button handling.
@@ -38,7 +28,7 @@ extension EditorModule.Container.ViewRepresentable: UIViewControllerRepresentabl
         return view
     }
     
-    func updateUIViewController(_ uiViewController: ViewController, context: UIViewControllerRepresentableContext<Me>) {
+    func updateUIViewController(_ uiViewController: EditorModuleContainerViewController, context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>) {
         // our model did change?
         // should we do something?
         // well, we should calculate diffs.
@@ -52,18 +42,16 @@ extension EditorModule.Container.ViewRepresentable: UIViewControllerRepresentabl
     }
 
     static func create(documentId: String, shouldShowDocument: Binding<Bool>) -> Self {
-        Me.init(documentId: documentId, shouldShowDocument: shouldShowDocument)
+        EditorModuleContainerViewRepresentable(documentId: documentId, shouldShowDocument: shouldShowDocument)
     }
     
     static func create(documentId: String) -> some View {
-        Me.init(documentId: documentId)
+        EditorModuleContainerViewRepresentable(documentId: documentId)
     }
-}
 
-extension EditorModule.Container.ViewRepresentable {
     class Coordinator {
-        typealias Parent = EditorModule.Container.ViewRepresentable
-        typealias IncomingAction = EditorModule.Container.ViewController.UserAction
+        typealias Parent = EditorModuleContainerViewRepresentable
+        typealias IncomingAction = EditorModuleContainerViewController.UserAction
         
         // MARK: Variables
         private var parent: Parent

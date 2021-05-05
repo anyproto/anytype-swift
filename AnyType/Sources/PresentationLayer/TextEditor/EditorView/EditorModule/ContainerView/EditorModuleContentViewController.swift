@@ -1,35 +1,22 @@
-//
-//  EditorModule+Content+ViewController.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 25.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = EditorModule.Content
-extension Namespace {
-    class ViewController: UIViewController {
-        
-        private var viewModel: ViewModel
-        private var childViewController: UIViewController?
-        
-        init(viewModel: ViewModel) {
-            self.viewModel = viewModel
-            super.init(nibName: nil, bundle: nil)
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+class EditorModuleContentViewController: UIViewController {
+    
+    private var viewModel: EditorModuleContentViewModel
+    private var childViewController: UIViewController?
+    
+    init(viewModel: EditorModuleContentViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
     }
-}
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-// MARK: Setup And Layout
-private extension Namespace.ViewController {
+    // MARK: Setup And Layout
     func setupUIElements() {
         if let viewController = self.childViewController {
             self.addChild(viewController)
@@ -50,20 +37,16 @@ private extension Namespace.ViewController {
             }
         }
     }
-}
 
-// MARK: View Lifecycle
-extension Namespace.ViewController {
+    // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUIElements()
         self.addLayout()
         self.didMove(toParent: self.childViewController)
     }
-}
 
-// MARK: Configurations
-extension Namespace.ViewController {
+    // MARK: Configurations
     func configured(childViewController: UIViewController?) -> Self {
         self.childViewController = childViewController
         return self

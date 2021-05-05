@@ -1,26 +1,16 @@
-//
-//  EditorModule+Container+ViewController+ViewModel.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 01.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = EditorModule.Container
-fileprivate typealias FileNamespace = Namespace.ViewController
 
 // MARK: Actions
-extension FileNamespace.ViewModel {
+extension EditorModuleContainerViewModel {
     /// An outgoing action that will come from this view model.
     ///
     /// Generally, corresponing `ViewController` of this `viewModel` will subscribe on these actions.
     ///
     enum Action {
-        typealias Document = EditorModule.Container.ViewBuilder.UIKitBuilder.ChildComponent
+        typealias Document = EditorModuleContainerViewBuilder.UIKitBuilder.ChildComponent
         case show(UIViewController)
         case child(UIViewController)
         case showDocument(Document)
@@ -30,12 +20,12 @@ extension FileNamespace.ViewModel {
 }
 
 // MARK: RouterProcessor
-extension FileNamespace.ViewModel {
+extension EditorModuleContainerViewModel {
     private class RoutingProcessor {
         /// Aliases
         typealias IncomingEvent = DocumentViewRouting.OutputEvent
         typealias UserAction = Action
-        typealias DocumentRequest = EditorModule.Container.ViewBuilder.Request
+        typealias DocumentRequest = EditorModuleContainerViewBuilder.Request
         
         /// Variables
         private var subscription: AnyCancellable?
@@ -43,8 +33,8 @@ extension FileNamespace.ViewModel {
         fileprivate var userAction: AnyPublisher<UserAction, Never> = .empty()
         
         /// TODO: Maybe extract to some entity
-        func build(_ request: DocumentRequest) -> EditorModule.Container.ViewBuilder.UIKitBuilder.ChildComponent {
-            let component = EditorModule.Container.ViewBuilder.UIKitBuilder.childComponent(by: request)
+        func build(_ request: DocumentRequest) -> EditorModuleContainerViewBuilder.UIKitBuilder.ChildComponent {
+            let component = EditorModuleContainerViewBuilder.UIKitBuilder.childComponent(by: request)
             /// Next, we should configure router and, well, we should configure navigation item, of course...
             /// But we don't know anything about navigation item here...
             /// We could ask ViewModel to configure and then send this event to view controller.
@@ -86,34 +76,32 @@ extension FileNamespace.ViewModel {
 }
 
 // MARK: ViewModel
-extension FileNamespace {
-    class ViewModel {
-        /// Keep router and routing processor in one place.
-        private var router: DocumentViewRoutingOutputProtocol?
-        private var routingProcessor: RoutingProcessor = .init()
-        
-        private var subscription: AnyCancellable?
-        /// And publish on actions that associated controller will handle.
-        func actionPublisher() -> AnyPublisher<Action, Never> {
-            self.routingProcessor.userAction.map { value -> Action in
-                switch value {
-                case let .childDocument(value):
-                    _ = value.childComponent.viewModel
+class EditorModuleContainerViewModel {
+    /// Keep router and routing processor in one place.
+    private var router: DocumentViewRoutingOutputProtocol?
+    private var routingProcessor: RoutingProcessor = .init()
+    
+    private var subscription: AnyCancellable?
+    /// And publish on actions that associated controller will handle.
+    func actionPublisher() -> AnyPublisher<Action, Never> {
+        self.routingProcessor.userAction.map { value -> Action in
+            switch value {
+            case let .childDocument(value):
+                _ = value.childComponent.viewModel
 //                    _ = self?.configured(userActionsStream: viewModel.soloUserActionPublisher)
-                    return .childDocument(value)
-                case let .showDocument(value):
-                    _ = value.childComponent.viewModel
+                return .childDocument(value)
+            case let .showDocument(value):
+                _ = value.childComponent.viewModel
 //                    _ = self?.configured(userActionsStream: viewModel.soloUserActionPublisher)
-                    return .showDocument(value)
-                default: return value
-                }
-            }.eraseToAnyPublisher()
-        }        
+                return .showDocument(value)
+            default: return value
+            }
+        }.eraseToAnyPublisher()
     }
 }
 
 // MARK: Configurations
-extension FileNamespace.ViewModel {
+extension EditorModuleContainerViewModel {
     func configured(router: DocumentViewRoutingOutputProtocol?) -> Self {
         self.router = router
         self.routingProcessor.configured(self.router?.outputEventsPublisher)

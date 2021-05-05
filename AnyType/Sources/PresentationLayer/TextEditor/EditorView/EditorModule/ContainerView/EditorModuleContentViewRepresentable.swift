@@ -1,40 +1,22 @@
-//
-//  EditorModule+Content+ViewRepresentable.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 25.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
 import os
 
-fileprivate typealias Namespace = EditorModule.Content
 
-extension Namespace {
-    struct ViewRepresentable {
-        @Environment(\.presentationMode) var presentationMode
-        private(set) var documentId: String
-    }
-}
 
-// MARK: - ViewRepresentable
-extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
-    
-    private typealias ViewBuilder = Namespace.ViewBuilder
-    typealias ViewController = EditorModule.Content.ViewController
-    typealias Me = EditorModule.Content.ViewRepresentable
+struct EditorModuleContentViewRepresentable: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) var presentationMode
+    private(set) var documentId: String
     
     func makeCoordinator() -> Coordinator {
         .init(self)
     }
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<Me>) -> ViewController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<EditorModuleContentViewRepresentable>) -> EditorModuleContentViewController {
         /// Configure document view builder.
 //        let view = ViewBuilder.UIKitBuilder.documentView(by: .init(id: self.documentId))
-        let view = ViewBuilder.UIKitBuilder.view(by: .init(documentRequest: .init(id: self.documentId)))
+        let view = EditorModuleContentViewBuilder.UIKitBuilder.view(by: .init(documentRequest: .init(id: self.documentId)))
         
         // TODO: Fix later.
         // We should enable back button handling.
@@ -45,7 +27,7 @@ extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
         return view
     }
     
-    func updateUIViewController(_ uiViewController: ViewController, context: UIViewControllerRepresentableContext<Me>) {
+    func updateUIViewController(_ uiViewController: EditorModuleContentViewController, context: UIViewControllerRepresentableContext<EditorModuleContentViewRepresentable>) {
         // our model did change?
         // should we do something?
         // well, we should calculate diffs.
@@ -60,19 +42,18 @@ extension Namespace.ViewRepresentable: UIViewControllerRepresentable {
     }
 
     static func create(documentId: String) -> some View {
-        Me.init(documentId: documentId)
+        EditorModuleContentViewRepresentable(documentId: documentId)
     }
 }
 
-extension Namespace.ViewRepresentable {
+extension EditorModuleContentViewRepresentable {
     class Coordinator {
-        typealias Parent = EditorModule.Content.ViewRepresentable
         // MARK: Variables
-        private var parent: Parent
+        private var parent: EditorModuleContentViewRepresentable
         private var subscriptions: Set<AnyCancellable> = .init()
 
         // MARK: Initialization
-        init(_ parent: Parent) {
+        init(_ parent: EditorModuleContentViewRepresentable) {
             self.parent = parent
         }
 

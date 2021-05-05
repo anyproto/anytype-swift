@@ -3,23 +3,19 @@ import UIKit
 import SwiftUI
 
 
-extension EditorModule.Container {
-    /// This is a builder for Namespace.ContainerViewController. (EditorModule.ContainerViewController)
-    /// It provides several builders which could build both `SwiftUI` (`SwiftUIBuilder`) and `UIKit` (`UIKitBuilder`) components.
-    ///
-    enum ViewBuilder {
-        struct Request {
-            typealias Id = String            
-            var id: Id
-            
-            fileprivate var documentRequest: EditorModule.Content.ViewBuilder.Request {
-                .init(documentRequest: .init(id: self.id))
-            }
+/// This is a builder for EditorModule.ContainerViewController
+/// It provides several builders which could build both `SwiftUI` (`SwiftUIBuilder`) and `UIKit` (`UIKitBuilder`) components.
+///
+enum EditorModuleContainerViewBuilder {
+    struct Request {
+        typealias Id = String
+        var id: Id
+        
+        fileprivate var documentRequest: EditorModuleContentViewBuilder.Request {
+            .init(documentRequest: .init(id: self.id))
         }
     }
-}
 
-extension EditorModule.Container.ViewBuilder {
     /// `UIKit` builder.
     /// It builds component for `UIKit`.
     enum UIKitBuilder {
@@ -38,15 +34,12 @@ extension EditorModule.Container.ViewBuilder {
         /// It allows us to access to child of child of views to configure them on any level if we want to.
         ///
         ///
-        typealias ViewModel = EditorModule.Container.ViewController.ViewModel
-        typealias ViewController = EditorModule.Container.ViewController
-        
-        typealias ChildViewModel = EditorModule.Content.ViewController.ViewModel
-        typealias ChildViewController = EditorModule.Content.ViewController
-        typealias ChildViewBuilder = EditorModule.Content.ViewBuilder
+        typealias ChildViewModel = EditorModuleContentViewModel
+        typealias ChildViewController = EditorModuleContentViewController
+        typealias ChildViewBuilder = EditorModuleContentViewBuilder
         
         typealias ChildComponent = ChildViewBuilder.UIKitBuilder.SelfComponent
-        typealias SelfComponent = (viewController: ViewController, viewModel: ViewModel, childComponent: ChildComponent)
+        typealias SelfComponent = (viewController: EditorModuleContainerViewController, viewModel: EditorModuleContainerViewModel, childComponent: ChildComponent)
         
         /// Returns `ChildComponent` for request in concrete builder. It uses `ChildViewBuilder.UIKitBuilder.selfComponent(by:)` method.
         /// For us `childComponent` is a `selfComponent` of `ChildViewBuilder` or `ChildViewBuilder.UIKitBuilder.selfComponent(by:)`
@@ -72,7 +65,7 @@ extension EditorModule.Container.ViewBuilder {
             let childViewController = childComponent.0
             
             /// Configure Navigation Controller
-            let navigationController: UINavigationController = .init(navigationBarClass: EditorModule.Container.ViewBuilder.NavigationBar.self, toolbarClass: nil)
+            let navigationController: UINavigationController = .init(navigationBarClass: EditorModuleContainerViewBuilder.NavigationBar.self, toolbarClass: nil)
             NavigationBar.applyAppearance()
             navigationController.setViewControllers([childViewController], animated: false)
             navigationController.navigationBar.isTranslucent = false
@@ -90,11 +83,11 @@ extension EditorModule.Container.ViewBuilder {
             _ = router.configured(userActionsStream: childChildViewModel.publicUserActionPublisher)
             
             /// Configure ViewModel of current View Controller.
-            let viewModel: ViewModel = .init()
+            let viewModel = EditorModuleContainerViewModel()
             _ = viewModel.configured(router: router)
             
             /// Configure current ViewController.
-            let viewController: ViewController = .init(viewModel: viewModel)
+            let viewController = EditorModuleContainerViewController(viewModel: viewModel)
             _ = viewController.configured(childViewController: navigationController)
             
             /// Configure navigation item of root
@@ -108,7 +101,7 @@ extension EditorModule.Container.ViewBuilder {
             return (viewController, viewModel, childComponent)
         }
         
-        static func view(by request: Request) -> ViewController {
+        static func view(by request: Request) -> EditorModuleContainerViewController {
             self.selfComponent(by: request).0
         }
     }
@@ -116,7 +109,7 @@ extension EditorModule.Container.ViewBuilder {
 
 // MARK: Custom Appearance
 /// TODO: Move it somewhere
-private extension EditorModule.Container.ViewBuilder {
+private extension EditorModuleContainerViewBuilder {
     class NavigationBar: UINavigationBar {
         static func applyAppearance() {
             let appearance = Self.appearance()

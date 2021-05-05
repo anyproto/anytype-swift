@@ -1,7 +1,7 @@
 import SwiftUI
 
 final class EditorAssembly {
-    typealias Request = EditorModule.Container.ViewBuilder.Request
+    typealias Request = EditorModuleContainerViewBuilder.Request
     
     func documentView(by request: Request) -> some View {
         self.create(by: request)
@@ -11,13 +11,11 @@ final class EditorAssembly {
         self.create(by: request, shouldShowDocument: shouldShowDocument)
     }
     
-    private typealias CurrentViewRepresentable = EditorModule.Container.ViewRepresentable
-    
     private func create(by request: Request) -> AnyView {
-        .init(CurrentViewRepresentable.create(documentId: request.id))
+        .init(EditorModuleContainerViewRepresentable.create(documentId: request.id))
     }
     
     private func create(by request: Request, shouldShowDocument: Binding<Bool>) -> AnyView {
-        .init(CurrentViewRepresentable.create(documentId: request.id, shouldShowDocument: shouldShowDocument))
+        .init(EditorModuleContainerViewRepresentable.create(documentId: request.id, shouldShowDocument: shouldShowDocument))
     }
 }

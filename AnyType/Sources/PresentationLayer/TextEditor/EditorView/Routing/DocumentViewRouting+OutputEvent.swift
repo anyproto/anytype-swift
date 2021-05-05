@@ -1,11 +1,3 @@
-//
-//  DocumentViewRouting+OutputEvent.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 17.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 extension DocumentViewRouting {
@@ -33,7 +25,7 @@ extension DocumentViewRouting.OutputEvent {
 extension DocumentViewRouting.OutputEvent {
     /// These events manipulate custom `Document.Request` as DataSource. (a.k.a. `EditorModule.ContentViewBuilder.Request` )
     enum Document {
-        typealias Request = EditorModule.Content.ViewBuilder.Request
+        typealias Request = EditorModuleContentViewBuilder.Request
         
         /// Show or Present a View that will be build by request.
         case show(Request)
