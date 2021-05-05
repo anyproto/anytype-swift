@@ -9,8 +9,6 @@ final class ProfileCoordinator {
     }
     
     func openProfile(profileId: BlockId) -> some View {
-        return editorAssembly.documentView(
-            by: .init(id: profileId) 
-        )
+        return editorAssembly.documentView(id: profileId)
     }
 }

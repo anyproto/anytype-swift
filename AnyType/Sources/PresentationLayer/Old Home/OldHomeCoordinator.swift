@@ -24,10 +24,7 @@ final class OldHomeCoordinator {
           return view
         }
         
-        let view = editorAssembly.documentView(
-            by: .init(id: selectedDocumentId),
-            shouldShowDocument: shouldShowDocument
-        ).eraseToAnyView()
+        let view = editorAssembly.documentView(id: selectedDocumentId, shouldShowDocument: shouldShowDocument).eraseToAnyView()
         self.documentViewId = selectedDocumentId
         cachedDocumentView = view
         

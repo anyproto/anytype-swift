@@ -25,7 +25,6 @@ extension EditorModuleContainerViewModel {
         /// Aliases
         typealias IncomingEvent = DocumentViewRouting.OutputEvent
         typealias UserAction = Action
-        typealias DocumentRequest = EditorModuleContainerViewBuilder.Request
         
         /// Variables
         private var subscription: AnyCancellable?
@@ -33,8 +32,8 @@ extension EditorModuleContainerViewModel {
         fileprivate var userAction: AnyPublisher<UserAction, Never> = .empty()
         
         /// TODO: Maybe extract to some entity
-        func build(_ request: DocumentRequest) -> EditorModuleContainerViewBuilder.ChildComponent {
-            let component = EditorModuleContainerViewBuilder.childComponent(by: request)
+        func build(id: String) -> EditorModuleContainerViewBuilder.ChildComponent {
+            let component = EditorModuleContainerViewBuilder.childComponent(id: id)
             /// Next, we should configure router and, well, we should configure navigation item, of course...
             /// But we don't know anything about navigation item here...
             /// We could ask ViewModel to configure and then send this event to view controller.
@@ -51,11 +50,11 @@ extension EditorModuleContainerViewModel {
                 }
             case let .document(value):
                 switch value {
-                case let .show(value):
-                    let viewController = self.build(.init(id: value.documentRequest.id))
+                case let .show(id):
+                    let viewController = self.build(id: id)
                     self.userActionSubject.send(.showDocument(viewController))
-                case let .child(value):
-                    let viewController = self.build(.init(id: value.documentRequest.id))
+                case let .child(id):
+                    let viewController = self.build(id: id)
                     self.userActionSubject.send(.childDocument(viewController))
                 }
             }

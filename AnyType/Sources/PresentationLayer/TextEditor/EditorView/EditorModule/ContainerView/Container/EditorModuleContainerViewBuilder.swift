@@ -6,15 +6,7 @@ import SwiftUI
 /// This is a builder for EditorModule.ContainerViewController
 /// It provides several builders which could build both `SwiftUI` (`SwiftUIBuilder`) and `UIKit` (`UIKitBuilder`) components.
 ///
-enum EditorModuleContainerViewBuilder {
-    struct Request {
-        var id: String
-        
-        fileprivate var documentRequest: EditorModuleContentViewBuilder.Request {
-            .init(documentRequest: .init(id: self.id))
-        }
-    }
-    
+enum EditorModuleContainerViewBuilder {    
     /// We have the following system.
     /// Builder has two kind of components: Self and Child.
     /// You have an access to both components through `SelfComponent` and `ChildComponent`.
@@ -37,8 +29,8 @@ enum EditorModuleContainerViewBuilder {
     typealias ChildComponent = ChildViewBuilder.SelfComponent
     typealias SelfComponent = (viewController: EditorModuleContainerViewController, viewModel: EditorModuleContainerViewModel, childComponent: ChildComponent)
     
-    static func view(by request: Request) -> EditorModuleContainerViewController {
-        self.selfComponent(by: request).0
+    static func view(id: String) -> EditorModuleContainerViewController {
+        self.selfComponent(id: id).0
     }
     
     /// Returns `ChildComponent` for request in concrete builder. It uses `ChildViewBuilder.UIKitBuilder.selfComponent(by:)` method.
@@ -46,8 +38,8 @@ enum EditorModuleContainerViewBuilder {
     /// - Parameter request: A request for which we will build child component.
     /// - Returns: A child component for a request.
     ///
-    static func childComponent(by request: Request) -> ChildComponent {
-        ChildViewBuilder.selfComponent(by: request.documentRequest)
+    static func childComponent(id: String) -> ChildComponent {
+        ChildViewBuilder.selfComponent(id: id)
     }
     
     /// Return `SelfComponent` for request in concrete builder.
@@ -59,8 +51,8 @@ enum EditorModuleContainerViewBuilder {
     /// - Parameter request: A request for which we will build self component.
     /// - Returns: A self component for a request.
     ///
-    private static func selfComponent(by request: Request) -> SelfComponent {
-        let childComponent = self.childComponent(by: request)
+    private static func selfComponent(id: String) -> SelfComponent {
+        let childComponent = self.childComponent(id: id)
         
         let childViewController = childComponent.0
         

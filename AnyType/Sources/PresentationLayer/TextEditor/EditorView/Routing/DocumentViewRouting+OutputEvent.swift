@@ -25,12 +25,10 @@ extension DocumentViewRouting.OutputEvent {
 extension DocumentViewRouting.OutputEvent {
     /// These events manipulate custom `Document.Request` as DataSource. (a.k.a. `EditorModule.ContentViewBuilder.Request` )
     enum Document {
-        typealias Request = EditorModuleContentViewBuilder.Request
-        
         /// Show or Present a View that will be build by request.
-        case show(Request)
+        case show(String)
         
         /// Add a child ( or push in navigationController ) a View that will be build by request.
-        case child(Request)
+        case child(String)
     }
 }

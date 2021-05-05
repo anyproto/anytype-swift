@@ -97,12 +97,11 @@
 		0A0965E925BEF5B000C004BD /* DocumentViewRouting+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */; };
 		0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */; };
 		0A0965EC25BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C925BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift */; };
-		0A0965ED25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CA25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift */; };
 		0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */; };
 		0A0965EF25BEF5B000C004BD /* EditorModuleContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CC25BEF5B000C004BD /* EditorModuleContentViewModel.swift */; };
 		0A0965F025BEF5B000C004BD /* EditorModuleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */; };
 		0A0965F125BEF5B000C004BD /* EditorModule+Selection+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CE25BEF5B000C004BD /* EditorModule+Selection+Handler.swift */; };
-		0A0965F225BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CF25BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift */; };
+		0A0965F225BEF5B000C004BD /* EditorModuleDocumentViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CF25BEF5B000C004BD /* EditorModuleDocumentViewBuilder.swift */; };
 		0A0965F325BEF5B000C004BD /* TopBottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* TopBottomMenuViewController.swift */; };
 		0A0965F425BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */; };
 		0A0965F525BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */; };
@@ -615,12 +614,11 @@
 		0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Protocols.swift"; sourceTree = "<group>"; };
 		0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Toolbar.swift"; sourceTree = "<group>"; };
 		0A0965C925BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Selection+Handler+Protocols.swift"; sourceTree = "<group>"; };
-		0A0965CA25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Document+ViewRepresentable.swift"; sourceTree = "<group>"; };
 		0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewModel.swift; sourceTree = "<group>"; };
 		0A0965CC25BEF5B000C004BD /* EditorModuleContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewModel.swift; sourceTree = "<group>"; };
 		0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewController.swift; sourceTree = "<group>"; };
 		0A0965CE25BEF5B000C004BD /* EditorModule+Selection+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Selection+Handler.swift"; sourceTree = "<group>"; };
-		0A0965CF25BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Document+ViewBuilder.swift"; sourceTree = "<group>"; };
+		0A0965CF25BEF5B000C004BD /* EditorModuleDocumentViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleDocumentViewBuilder.swift; sourceTree = "<group>"; };
 		0A0965D025BEF5B000C004BD /* TopBottomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBottomMenuViewController.swift; sourceTree = "<group>"; };
 		0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewRepresentable.swift; sourceTree = "<group>"; };
 		0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewRepresentable.swift; sourceTree = "<group>"; };
@@ -1695,12 +1693,11 @@
 				533341ED262E0D5100238121 /* ContainerView */,
 				0A0965D725BEF5B000C004BD /* EditorModule.swift */,
 				0A0965DC25BEF5B000C004BD /* EditorModule+Document.swift */,
-				0A0965CF25BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift */,
+				0A0965CF25BEF5B000C004BD /* EditorModuleDocumentViewBuilder.swift */,
 				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
 				0A0965DF25BEF5B000C004BD /* DocumentEditorHeaderView.swift */,
 				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
 				0A0965E125BEF5B000C004BD /* DocumentSection.swift */,
-				0A0965CA25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift */,
 			);
 			path = EditorModule;
 			sourceTree = "<group>";
@@ -3464,7 +3461,6 @@
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0A78328E24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift in Sources */,
-				0A0965ED25BEF5B000C004BD /* EditorModule+Document+ViewRepresentable.swift in Sources */,
 				0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */,
 				0A2C0D6C247145BD008ADD86 /* TextView+BlocksAccessoryView.swift in Sources */,
 				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
@@ -3499,7 +3495,7 @@
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift in Sources */,
 				A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */,
-				0A0965F225BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift in Sources */,
+				0A0965F225BEF5B000C004BD /* EditorModuleDocumentViewBuilder.swift in Sources */,
 				0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,

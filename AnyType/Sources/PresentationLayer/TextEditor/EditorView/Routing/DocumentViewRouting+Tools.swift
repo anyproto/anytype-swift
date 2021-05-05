@@ -64,7 +64,7 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
                     return
                 }
                 
-                self.send(event: .document(.child(.init(documentRequest: .init(id: value)))))
+                self.send(event: .document(.child(value)))
             }
         }
 

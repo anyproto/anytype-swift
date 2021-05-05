@@ -4,10 +4,6 @@ import SwiftUI
 
 
 enum EditorModuleContentViewBuilder {
-    struct Request {
-        var documentRequest: EditorModule.Document.ViewBuilder.Request
-    }
-
     /// Middleware builder.
     /// It is between `ContainerViewBuilder` and `DocumentViewBuilder`.
     ///
@@ -15,9 +11,7 @@ enum EditorModuleContentViewBuilder {
     /// And it provides `SelfComponent` to `ContainerViewBuilder` as `ContainerViewBuilder.UIKitBuilder.ChildComponent`
     ///
     
-//        typealias ChildViewModel = EditorModule.Document.ViewController.ViewModel
-//        typealias ChildViewController = EditorModule.Document.ViewController
-    typealias ChildViewBuilder = EditorModule.Document.ViewBuilder
+    typealias ChildViewBuilder = EditorModuleDocumentViewBuilder
     
     typealias ChildComponent = ChildViewBuilder.SelfComponent
     typealias SelfComponent = (viewController: EditorModuleContentViewController, viewModel: EditorModuleContentViewModel, childComponent: ChildComponent)
@@ -25,15 +19,15 @@ enum EditorModuleContentViewBuilder {
     /// Returns concrete child View of a Document.
     /// It is configured to show exactly one document or be a part of Container.
     ///
-    static func childComponent(by request: Request) -> ChildComponent {
-        ChildViewBuilder.selfComponent(by: request.documentRequest)
+    static func childComponent(id: String) -> ChildComponent {
+        ChildViewBuilder.selfComponent(id: id)
     }
     
     /// Returns concrete Document.
     /// It is configured to show exactly one document or be a part of Container.
     ///
-    static func selfComponent(by request: Request) -> SelfComponent {
-        let (childViewController, childViewModel, childChildComponent) = self.childComponent(by: request)
+    static func selfComponent(id: String) -> SelfComponent {
+        let (childViewController, childViewModel) = self.childComponent(id: id)
         let viewModel = EditorModuleContentViewModel()
         
         let topBottomMenuViewController: TopBottomMenuViewController = .init()
@@ -51,10 +45,10 @@ enum EditorModuleContentViewBuilder {
         
         /// Do not forget to configure routers events...
         
-        return (viewController, viewModel, (childViewController, childViewModel, childChildComponent))
+        return (viewController, viewModel, (childViewController, childViewModel))
     }
     
-    static func view(by request: Request) -> EditorModuleContentViewController {
-        self.selfComponent(by: request).0
+    static func view(id: String) -> EditorModuleContentViewController {
+        self.selfComponent(id: id).0
     }
 }

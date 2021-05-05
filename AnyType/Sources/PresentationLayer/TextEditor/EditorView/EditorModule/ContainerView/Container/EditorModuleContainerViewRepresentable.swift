@@ -12,7 +12,7 @@ struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>) -> EditorModuleContainerViewController {
-        let view = EditorModuleContainerViewBuilder.view(by: .init(id: self.documentId))
+        let view = EditorModuleContainerViewBuilder.view(id: documentId)
         
         // TODO: Fix later.
         // We should enable back button handling.
