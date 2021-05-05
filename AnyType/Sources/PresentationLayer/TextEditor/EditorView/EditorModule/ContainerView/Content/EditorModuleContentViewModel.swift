@@ -25,7 +25,7 @@ class EditorModuleContentViewModel {
         _ = self.selectionPresenter.configured(navigationItem: navigationItem)
         return self
     }
-    func configured(topBottomMenuViewController controller: EditorModule.TopBottomMenuViewController) -> Self {
+    func configured(topBottomMenuViewController controller: TopBottomMenuViewController) -> Self {
         _ = self.selectionPresenter.configured(topBottomMenuViewController: controller)
         return self
     }

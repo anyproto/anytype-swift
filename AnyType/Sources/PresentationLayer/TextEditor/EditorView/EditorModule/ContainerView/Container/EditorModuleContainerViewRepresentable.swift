@@ -4,7 +4,6 @@ import Combine
 import os
 
 struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
-    @Environment(\.presentationMode) var presentationMode
     private(set) var documentId: String
     private(set) var shouldShowDocument: Binding<Bool> = .init(get: { false }, set: { value in })
     
@@ -13,9 +12,7 @@ struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>) -> EditorModuleContainerViewController {
-        /// Configure document view builder.
-//        let view = ViewBuilder.UIKitBuilder.documentView(by: .init(id: self.documentId))
-        let view = EditorModuleContainerViewBuilder.UIKitBuilder.view(by: .init(id: self.documentId))
+        let view = EditorModuleContainerViewBuilder.view(by: .init(id: self.documentId))
         
         // TODO: Fix later.
         // We should enable back button handling.
@@ -40,15 +37,7 @@ struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
         //            uiViewController.tableView?.tableView.reloadData()
         //        }
     }
-
-    static func create(documentId: String, shouldShowDocument: Binding<Bool>) -> Self {
-        EditorModuleContainerViewRepresentable(documentId: documentId, shouldShowDocument: shouldShowDocument)
-    }
     
-    static func create(documentId: String) -> some View {
-        EditorModuleContainerViewRepresentable(documentId: documentId)
-    }
-
     class Coordinator {
         typealias Parent = EditorModuleContainerViewRepresentable
         typealias IncomingAction = EditorModuleContainerViewController.UserAction

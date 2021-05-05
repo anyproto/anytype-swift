@@ -1,49 +1,34 @@
-//
-//  EditorModule+TopBottomMenuViewController.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 25.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
-fileprivate typealias Namespace = EditorModule
 
 // MARK: Options
-extension Namespace.TopBottomMenuViewController {
+extension TopBottomMenuViewController {
     struct Options {
         var shouldAnimateToolbarAppearance: Bool = true
         var animationDuration: TimeInterval = 0.3
     }
 }
 
-// MARK: Controller
-extension Namespace {
-    class TopBottomMenuViewController: UIViewController {
-        /// Options
-        private var options: Options = .init()
-        /// Views
-        private var contentView: UIView = .init()
-        private var topView: UIStackView = .init()
-        private var containerView: UIView = .init()
-        private var bottomView: UIStackView = .init()
-        
-        private var childViewController: UIViewController?
-    }
-}
+// Top and bottom selecion item controlls
+class TopBottomMenuViewController: UIViewController {
+    /// Options
+    private var options = Options()
+    /// Views
+    private var contentView: UIView = .init()
+    private var topView: UIStackView = .init()
+    private var containerView: UIView = .init()
+    private var bottomView: UIStackView = .init()
+    
+    private var childViewController: UIViewController?
 
-// MARK: Configurations
-extension Namespace.TopBottomMenuViewController {
+    // MARK: Configurations
     func configured(options: Options) -> Self {
         self.options = options
         return self
     }
-}
 
-// MARK: View lifecycle
-extension Namespace.TopBottomMenuViewController {
+    // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavigation()
@@ -51,13 +36,10 @@ extension Namespace.TopBottomMenuViewController {
         self.addLayout()
         self.updateChildViewController()
     }
-}
 
-// MARK: Navigation
-// TODO: Extract to ChildNavigationController.
-/// ChildNavigationController will store ContentViewController.
-/// ContainerViewController will store and present NavigationController which will manipulates ChildNavigationController.
-private extension Namespace.TopBottomMenuViewController {
+    // TODO: Extract to ChildNavigationController.
+    /// ChildNavigationController will store ContentViewController.
+    /// ContainerViewController will store and present NavigationController which will manipulates ChildNavigationController.
     private func configureNavigation(_ navigationItem: UINavigationItem) {        
         let appearance = UINavigationBarAppearance()
         
@@ -89,10 +71,8 @@ private extension Namespace.TopBottomMenuViewController {
         self.navigationItem.backBarButtonItem = .init(title: "", style: .plain, target: nil, action: nil)
         self.configureNavigation(self.navigationItem)
     }
-}
 
-// MARK: Setup and Layout
-private extension Namespace.TopBottomMenuViewController {
+    // MARK: Setup and Layout
     func setupUIElements() {
         self.view.translatesAutoresizingMaskIntoConstraints = false
         self.contentView = {
@@ -190,7 +170,7 @@ private extension Namespace.TopBottomMenuViewController {
 
 // MARK: Toolbar Views
 // MARK: Toolbar Kind
-extension Namespace.TopBottomMenuViewController {
+extension TopBottomMenuViewController {
     enum Kind {
         case top
         case bottom
@@ -198,7 +178,7 @@ extension Namespace.TopBottomMenuViewController {
 }
 
 // MARK: Check state
-extension Namespace.TopBottomMenuViewController {
+extension TopBottomMenuViewController {
     enum MenusState {
         case none
         case hasTop
@@ -215,8 +195,8 @@ extension Namespace.TopBottomMenuViewController {
     }
 }
 
-// MARK: Toolbar Manipulations
-extension Namespace.TopBottomMenuViewController {
+extension TopBottomMenuViewController {
+    // MARK: Toolbar Manipulations
     func toolbarView(by kind: Kind) -> UIStackView {
         switch kind {
         case .top: return self.topView
@@ -271,10 +251,8 @@ extension Namespace.TopBottomMenuViewController {
             self._removeSubview(fromToolbar: kind)
         }
     }
-}
 
-// MARK: Embed into Container
-extension Namespace.TopBottomMenuViewController {
+    // MARK: Embed into Container
     private func _add(content: UIView?) {
         if let view = content {
             let superview = self.containerView
@@ -318,10 +296,8 @@ extension Namespace.TopBottomMenuViewController {
             self.removeContent()
         }
     }
-}
 
-// MARK: Add Child
-extension Namespace.TopBottomMenuViewController {
+    // MARK: Add Child
     func add(child controller: UIViewController?) {
         self.childViewController = controller
     }

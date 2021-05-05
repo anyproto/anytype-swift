@@ -1,45 +1,14 @@
-//
-//  DocumentViewBuilder+New.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 09.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
 
-fileprivate typealias Namespace = EditorModule.Document
 
-extension Namespace {
+extension EditorModule.Document {
     enum ViewBuilder {
         struct Request {
             let id: String
         }
-    }
-}
 
-extension Namespace.ViewBuilder {
-    enum SwiftUIBuilder {
-        static func documentView(by request: Request) -> some View {
-            create(by: request)
-        }
-        
-        // EXAMPLE:
-        // Subscribe on viewModel.objectWillChange.
-        // Even if it receive updates, it will not call UIViewControllerRepresentable method .updateController
-        // It is nice exapmle of using UIViewControllerRepresentable.
-        // Update controller not called. Ha.ha.ha.
-        private static func create(by request: Request) -> AnyView {
-            .init(Namespace.ViewRepresentable.create(documentId: request.id))
-        }
-    }
-}
-
-extension Namespace.ViewBuilder {
-    enum UIKitBuilder {
-        
         private enum Constants {
             static let selectedViewCornerRadius: CGFloat = 8
         }

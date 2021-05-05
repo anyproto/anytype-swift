@@ -1,20 +1,9 @@
-//
-//  EditorModule+Selection+ToolbarPresenter.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 21.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 
-fileprivate typealias Namespace = EditorModule.Selection
-
 /// This selection handler is intended to show controls.
-///
-extension Namespace {
+extension EditorModule.Selection {
     class ToolbarPresenter {
         
         struct RestorationPoint {
@@ -42,7 +31,7 @@ extension Namespace {
         private var restorationPoint: RestorationPoint = .init()
         
         /// Variables / Targets
-        private weak var topBottomMenuViewController: EditorModule.TopBottomMenuViewController?
+        private weak var topBottomMenuViewController: TopBottomMenuViewController?
         private weak var navigationItem: UINavigationItem?
         
         /// Subscribe on UserAction.
@@ -101,8 +90,8 @@ extension Namespace {
 }
 
 // MARK: Configurations
-extension Namespace.ToolbarPresenter {
-    func configured(topBottomMenuViewController: EditorModule.TopBottomMenuViewController?) -> Self {
+extension EditorModule.Selection.ToolbarPresenter {
+    func configured(topBottomMenuViewController: TopBottomMenuViewController?) -> Self {
         self.topBottomMenuViewController = topBottomMenuViewController
         return self
     }

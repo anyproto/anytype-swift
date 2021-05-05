@@ -12,7 +12,10 @@ struct HomeCollectionView: View {
         ScrollView() {
             LazyVGrid(columns: columns) {
                 ForEach(model.cellData) { data in
-                    NavigationLink(destination: model.coordinator.profileView()) {
+                    NavigationLink(destination: model.coordinator.documentView(
+                        selectedDocumentId: data.destinationId,
+                        shouldShowDocument: .constant(true)
+                    )) {
                         PageCell(cellData: data)
                             .cornerRadius(16)
                             .frame(idealHeight: 124)

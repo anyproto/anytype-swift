@@ -103,7 +103,7 @@
 		0A0965F025BEF5B000C004BD /* EditorModuleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */; };
 		0A0965F125BEF5B000C004BD /* EditorModule+Selection+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CE25BEF5B000C004BD /* EditorModule+Selection+Handler.swift */; };
 		0A0965F225BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CF25BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift */; };
-		0A0965F325BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */; };
+		0A0965F325BEF5B000C004BD /* TopBottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* TopBottomMenuViewController.swift */; };
 		0A0965F425BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */; };
 		0A0965F525BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */; };
 		0A0965F625BEF5B000C004BD /* EditorModuleContentViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D325BEF5B000C004BD /* EditorModuleContentViewBuilder.swift */; };
@@ -621,7 +621,7 @@
 		0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewController.swift; sourceTree = "<group>"; };
 		0A0965CE25BEF5B000C004BD /* EditorModule+Selection+Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Selection+Handler.swift"; sourceTree = "<group>"; };
 		0A0965CF25BEF5B000C004BD /* EditorModule+Document+ViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+Document+ViewBuilder.swift"; sourceTree = "<group>"; };
-		0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorModule+TopBottomMenuViewController.swift"; sourceTree = "<group>"; };
+		0A0965D025BEF5B000C004BD /* TopBottomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBottomMenuViewController.swift; sourceTree = "<group>"; };
 		0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewRepresentable.swift; sourceTree = "<group>"; };
 		0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewRepresentable.swift; sourceTree = "<group>"; };
 		0A0965D325BEF5B000C004BD /* EditorModuleContentViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewBuilder.swift; sourceTree = "<group>"; };
@@ -2497,6 +2497,28 @@
 			path = DataAccessors;
 			sourceTree = "<group>";
 		};
+		3DD380DE2642C4C200018FB8 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				0A0965E025BEF5B000C004BD /* EditorModuleContainerViewBuilder.swift */,
+				0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */,
+				0A0965E225BEF5B000C004BD /* EditorModuleContainerViewModel.swift */,
+				0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		3DD380E22642C4CB00018FB8 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				0A0965D325BEF5B000C004BD /* EditorModuleContentViewBuilder.swift */,
+				0A0965E325BEF5B000C004BD /* EditorModuleContentViewController.swift */,
+				0A0965CC25BEF5B000C004BD /* EditorModuleContentViewModel.swift */,
+				0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
 		3DDC6A592626F8BD004F5EA4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2577,14 +2599,8 @@
 			isa = PBXGroup;
 			children = (
 				EADA96C7260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift */,
-				0A0965E025BEF5B000C004BD /* EditorModuleContainerViewBuilder.swift */,
-				0A0965CD25BEF5B000C004BD /* EditorModuleContainerViewController.swift */,
-				0A0965E225BEF5B000C004BD /* EditorModuleContainerViewModel.swift */,
-				0A0965D125BEF5B000C004BD /* EditorModuleContainerViewRepresentable.swift */,
-				0A0965D325BEF5B000C004BD /* EditorModuleContentViewBuilder.swift */,
-				0A0965E325BEF5B000C004BD /* EditorModuleContentViewController.swift */,
-				0A0965CC25BEF5B000C004BD /* EditorModuleContentViewModel.swift */,
-				0A0965D225BEF5B000C004BD /* EditorModuleContentViewRepresentable.swift */,
+				3DD380E22642C4CB00018FB8 /* Content */,
+				3DD380DE2642C4C200018FB8 /* Container */,
 			);
 			path = ContainerView;
 			sourceTree = "<group>";
@@ -2593,7 +2609,7 @@
 			isa = PBXGroup;
 			children = (
 				0A0965D925BEF5B000C004BD /* EditorModule+ViewControllers.swift */,
-				0A0965D025BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift */,
+				0A0965D025BEF5B000C004BD /* TopBottomMenuViewController.swift */,
 			);
 			path = SupplementViews;
 			sourceTree = "<group>";
@@ -3452,7 +3468,7 @@
 				0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */,
 				0A2C0D6C247145BD008ADD86 /* TextView+BlocksAccessoryView.swift in Sources */,
 				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
-				0A0965F325BEF5B000C004BD /* EditorModule+TopBottomMenuViewController.swift in Sources */,
+				0A0965F325BEF5B000C004BD /* TopBottomMenuViewController.swift in Sources */,
 				03B42F2A232910AB000F2BA2 /* OldHomeView.swift in Sources */,
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,

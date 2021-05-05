@@ -24,17 +24,13 @@ final class OldHomeCoordinator {
           return view
         }
         
-        let view = self.createDocumentView(documentId: selectedDocumentId, shouldShowDocument: shouldShowDocument).eraseToAnyView()
+        let view = editorAssembly.documentView(
+            by: .init(id: selectedDocumentId),
+            shouldShowDocument: shouldShowDocument
+        ).eraseToAnyView()
         self.documentViewId = selectedDocumentId
         cachedDocumentView = view
         
         return view
     }
-        
-    private func createDocumentView(documentId: String, shouldShowDocument: Binding<Bool>) -> some View {
-        return editorAssembly.documentView(
-            by: .init(id: documentId),
-            shouldShowDocument: shouldShowDocument
-        )
-    }    
 }
