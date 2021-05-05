@@ -63,6 +63,7 @@ final class StyleViewController: UIViewController {
         styleCollectionView.translatesAutoresizingMaskIntoConstraints = false
         styleCollectionView.backgroundColor = .white
         styleCollectionView.alwaysBounceVertical = false
+        styleCollectionView.alwaysBounceHorizontal = true
 
         return styleCollectionView
     }()
@@ -169,6 +170,7 @@ final class StyleViewController: UIViewController {
 
         let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
         moreButton.layer.borderWidth = 0
+        moreButton.addTarget(self, action: #selector(moreActionHandler), for: .touchUpInside)
 
         let trailingStackView = UIStackView()
         let leadingDumbView = UIView()
@@ -247,6 +249,39 @@ final class StyleViewController: UIViewController {
         fpc.contentMode = .static
 
         let contentVC = StyleColorViewController()
+        fpc.set(contentViewController: contentVC)
+        fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
+    }
+
+    @objc private func moreActionHandler() {
+        guard let viewControllerForPresenting = viewControllerForPresenting else { return }
+
+        let fpc = FloatingPanelController()
+        let appearance = SurfaceAppearance()
+        appearance.cornerRadius = 16.0
+        // Define shadows
+        let shadow = SurfaceAppearance.Shadow()
+        shadow.color = UIColor.grayscale90
+        shadow.offset = CGSize(width: 0, height: 4)
+        shadow.radius = 40
+        shadow.opacity = 0.25
+        appearance.shadows = [shadow]
+
+        let sizeDifference = StylePanelLayout.Constant.panelHeight -  TextAttributesPanelLayout.Constant.panelHeight
+        fpc.layout = TextAttributesPanelLayout(additonalHeight: sizeDifference)
+
+        let bottomInset = viewControllerForPresenting.view.safeAreaInsets.bottom + 6 + sizeDifference
+        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: bottomInset, right: 10.0)
+        fpc.surfaceView.layer.cornerCurve = .continuous
+        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
+        fpc.surfaceView.grabberHandle.barColor = .grayscale30
+        fpc.surfaceView.appearance = appearance
+        fpc.isRemovalInteractionEnabled = true
+        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        fpc.backdropView.backgroundColor = .clear
+        fpc.contentMode = .static
+
+        let contentVC = TextAttributesViewController()
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }

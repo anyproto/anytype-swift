@@ -51,7 +51,7 @@ final class CodeBlockContentView: UIView & UIContentView {
         button.label.font = UIFont.bodyFont
         button.label.textColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.Colors.grey.color()
         let image = UIImage(named: "TextEditor/Toolbar/turn_into_arrow")
-        button.imageView.image = image
+        button.setImage(image)
 
         return button
     }()
@@ -102,7 +102,7 @@ final class CodeBlockContentView: UIView & UIContentView {
 
             self?.currentConfiguration.contextMenuHolder?.needsShowCodeLanguageView(with: codeLanguages) { language in
                 self?.textStorage.language = language
-                self?.codeSelectButton.label.text = language
+                self?.codeSelectButton.setText(language)
             }
         }), for: .touchUpInside)
     }

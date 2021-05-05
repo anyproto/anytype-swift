@@ -225,4 +225,8 @@ extension UIColor {
     static var lightGreen: UIColor {
         .init(hexString: "#E3F7D0")
     }
+
+    static var pressed: UIColor {
+        .init(hexString: "#867D42", alpha: 0.1)
+    }
 }

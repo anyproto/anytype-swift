@@ -73,6 +73,7 @@ final class StyleColorContentView: UIView, UIContentView {
         appliedConfiguration = configuration
 
         colorView.backgroundColor = configuration.color
+        colorView.layer.borderWidth = 0.0
         backgroundView.isHidden = !configuration.isSelected
 
         if colorView.backgroundColor == UIColor.grayscaleWhite {
