@@ -25,15 +25,6 @@ extension DocumentEditorViewModel {
         case pageDetailsViewModelsDidSet
     }
 }
-
-// MARK: - Options
-extension DocumentEditorViewModel {
-    /// Structure contains `Feature Flags`.
-    ///
-    struct Options {
-        var shouldCreateEmptyBlockOnTapIfListIsEmpty: Bool = false
-    }
-}
     
 class DocumentEditorViewModel: ObservableObject {
     typealias BlocksUserAction = BlocksViews.UserAction
@@ -73,12 +64,6 @@ class DocumentEditorViewModel: ObservableObject {
         self.listActionsPayloadSubject.eraseToAnyPublisher()
     }()
 
-    /// Options property publisher.
-    /// We expect that `ViewController` will listen this property.
-    /// `ViewController` should sink on this property after `viewDidLoad`.
-    ///
-    @Published var options: Options = .init()
-
     @Published var error: String?
 
     // MARK: Events
@@ -114,8 +99,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     // MARK: - Initialization
 
-    init(documentId: String, options: Options) {
-        self.options = options
+    init(documentId: String) {
         self.setupSubscriptions()
 
         // TODO: Deprecated.

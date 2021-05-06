@@ -4,27 +4,20 @@ import Combine
 
 
 enum EditorModuleDocumentViewBuilder {
-    private enum Constants {
-        static let selectedViewCornerRadius: CGFloat = 8
-    }
+    private static let selectedViewCornerRadius: CGFloat = 8
     
     typealias SelfComponent = (viewController: DocumentEditorViewController, viewModel: DocumentEditorViewModel)
     
     
-    static func selfComponent(id: String) -> SelfComponent {
-        let viewModel = DocumentEditorViewModel(
-            documentId: id,
-            options: .init(shouldCreateEmptyBlockOnTapIfListIsEmpty: true)
+    static func editorModule(id: String) -> SelfComponent {
+        let viewModel = DocumentEditorViewModel(documentId: id)
+        let viewCellFactory = DocumentViewCellFactory(
+            selectedViewColor: .selectedItemColor,
+            selectedViewCornerRadius: selectedViewCornerRadius
         )
-        let viewCellFactory = DocumentViewCellFactory(selectedViewColor: .selectedItemColor,
-                                                      selectedViewCornerRadius: Constants.selectedViewCornerRadius)
-        let view: DocumentEditorViewController = .init(viewModel: viewModel, viewCellFactory: viewCellFactory)
+        let view = DocumentEditorViewController(viewModel: viewModel, viewCellFactory: viewCellFactory)
         viewModel.viewInput = view
         
         return (view, viewModel)
-    }
-    
-    static func view(id: String) -> DocumentEditorViewController {
-        self.selfComponent(id: id).0
     }
 }

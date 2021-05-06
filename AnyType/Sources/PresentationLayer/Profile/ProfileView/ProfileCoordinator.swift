@@ -8,7 +8,7 @@ final class ProfileCoordinator {
         self.editorAssembly = editorAssembly
     }
     
-    func openProfile(profileId: BlockId) -> some View {
-        return editorAssembly.documentView(id: profileId)
+    func openProfile(profileId: BlockId, shouldShowDocument: Binding<Bool>) -> some View {
+        return editorAssembly.documentView(id: profileId, shouldShowDocument: shouldShowDocument)
     }
 }

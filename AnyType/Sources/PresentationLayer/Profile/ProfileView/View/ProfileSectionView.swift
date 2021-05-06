@@ -4,10 +4,15 @@ import SwiftUI
 struct ProfileSectionView: View {
     @EnvironmentObject private var model: ProfileViewModel
     @EnvironmentObject private var accountData: AccountInfoDataAccessor
+    @State private var showingDocument: Bool = false
 
     var body: some View {
         NavigationLink(
-            destination: model.coordinator.openProfile(profileId: accountData.blockId ?? "")
+            destination: model.coordinator.openProfile(
+                profileId: accountData.blockId ?? "",
+                shouldShowDocument: $showingDocument
+            ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
+            isActive: $showingDocument
         ) {
             VStack(alignment:.leading) {
                 UserIconView(

@@ -102,10 +102,9 @@ final class DocumentEditorViewController: UICollectionViewController {
 
     private func setupInteractions() {
         self.configured()
-
-        self.viewModel.$options.sink(receiveValue: { [weak self] (options) in
-            self?.configured(options)
-        }).store(in: &self.subscriptions)
+        
+        listViewTapGestureRecognizer.addTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
+        self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
 
     @objc private func tapOnListViewGestureRecognizerHandler() {
@@ -191,21 +190,6 @@ final class DocumentEditorViewController: UICollectionViewController {
     private func deselectAllBlocks() {
         self.collectionView.deselectAllSelectedItems()
         self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
-    }
-
-    /// Method called when viewmodel options updated
-    ///
-    /// - Parameters:
-    ///   - options: Options
-    private func configured(_ options: DocumentEditorViewModel.Options) {
-        if options.shouldCreateEmptyBlockOnTapIfListIsEmpty {
-            self.listViewTapGestureRecognizer.addTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
-            self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
-        }
-        else {
-            self.listViewTapGestureRecognizer.removeTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
-            self.view.removeGestureRecognizer(self.listViewTapGestureRecognizer)
-        }
     }
 
     private func toggleBlockViewModelsForUpdate() -> [BaseBlockViewModel] {
