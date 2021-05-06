@@ -20,11 +20,12 @@ struct HomeView: View {
                 Image.main.wallpaper
                     .resizable().aspectRatio(contentMode: .fit)
                     .frame(width: geometry.size.width)
+                textEditorNavigation
                 HomeProfileView()
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 
                 HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
-                    HomeTabsView()
+                    HomeTabsView(selectedDocumentId: $selectedDocumentId, showingDocument: $showingDocument)
                 }
             }
         }
@@ -39,6 +40,20 @@ struct HomeView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .embedInNavigation()
+    }
+    
+    // Workaround for custom navigation inside text editor
+    @State private var selectedDocumentId = ""
+    @State private var showingDocument = false
+    private var textEditorNavigation: some View {
+        NavigationLink(
+            destination: model.coordinator.documentView(
+                selectedDocumentId: selectedDocumentId,
+                shouldShowDocument: $showingDocument
+            ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
+            isActive: $showingDocument,
+            label: { EmptyView() }
+        )
     }
     
     private func makeNavigationBarTransparent() {

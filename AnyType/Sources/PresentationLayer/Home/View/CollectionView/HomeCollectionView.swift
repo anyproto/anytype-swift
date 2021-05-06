@@ -7,19 +7,21 @@ struct HomeCollectionView: View {
     ]
     
     @EnvironmentObject var model: HomeViewModel
+    @Binding var selectedDocumentId: String
+    @Binding var showingDocument: Bool
     
     var body: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
                 ForEach(model.cellData) { data in
-                    NavigationLink(destination: model.coordinator.documentView(
-                        selectedDocumentId: data.destinationId,
-                        shouldShowDocument: .constant(true)
-                    )) {
+                    Button {
+                        selectedDocumentId = data.destinationId
+                        showingDocument = true
+                    } label: {
                         PageCell(cellData: data)
                             .cornerRadius(16)
                             .frame(idealHeight: 124)
-                    }
+                    }   
                 }
             }
             .padding()
@@ -31,6 +33,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView()
+        HomeCollectionView(selectedDocumentId: .constant(""), showingDocument: .constant(false))
     }
 }

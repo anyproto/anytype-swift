@@ -2,6 +2,9 @@ import SwiftUI
 
 struct HomeTabsView: View {
     @State private var tabSelection = 1
+    @Binding var selectedDocumentId: String
+    @Binding var showingDocument: Bool
+        
         
     var body: some View {
         GeometryReader() { fullView in
@@ -15,7 +18,7 @@ struct HomeTabsView: View {
     
     var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView().tag(1)
+            HomeCollectionView(selectedDocumentId: $selectedDocumentId, showingDocument: $showingDocument).tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         .ignoresSafeArea()
@@ -62,7 +65,7 @@ struct HomeTabsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            HomeTabsView()
+            HomeTabsView(selectedDocumentId: .constant(""), showingDocument: .constant(false))
                 .environmentObject(model)
         }
     }
