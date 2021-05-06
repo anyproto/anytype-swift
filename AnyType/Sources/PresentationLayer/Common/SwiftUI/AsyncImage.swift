@@ -13,7 +13,5 @@ struct AsyncImage: View {
         Image(uiImage: loader.image ?? UIImage())
             .resizable()
             .redacted(reason: loader.image == nil ? .placeholder : [])
-            
-            .onAppear(perform: loader.load)
     }
 }

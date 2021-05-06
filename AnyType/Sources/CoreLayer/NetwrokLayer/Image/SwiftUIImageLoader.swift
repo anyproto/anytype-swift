@@ -11,9 +11,16 @@ class SwiftUIImageLoader: ObservableObject {
     init(imageId: String, parameters: ImageParameters) {
         self.imageId = imageId
         self.parameters = parameters
+        
+        load()
     }
     
-    func load() {
+    private func load() {
+        if let image = ImageCache.shared.image(imageId: imageId, parameters) {
+            self.image = image
+            return
+        }
+        
         imageSubscription = URLResolver().obtainImageURLPublisher(imageId: imageId, parameters)
             .safelyUnwrapOptionals().ignoreFailure().flatMap {
                 ImageLoaderObject($0).imagePublisher
