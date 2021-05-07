@@ -6,7 +6,7 @@ final class HomeViewModel: ObservableObject {
     @Published var cellData: [PageCellData] = []
     @Published var selectedDocumentId = ""
     @Published var showingDocument = false
-    let coordinator: OldHomeCoordinator = ServiceLocator.shared.homeCoordinator()
+    let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
     
     var cellSubscriptions = [AnyCancellable]()
 

@@ -10,7 +10,7 @@ final class FeatureFlags {
     }
     
     private static let defaultValues: Features = [
-        .newHome : false
+        .newHome : true
     ]
     
     static func update(key: Feature, value: Bool) {
@@ -22,6 +22,6 @@ final class FeatureFlags {
 
 extension FeatureFlags {
     static var newHome: Bool {
-        features[.newHome, default: false]
+        features[.newHome, default: true]
     }
 }

@@ -57,10 +57,10 @@ final class ServiceLocator {
         )
     }
     
-    func homeCoordinator() -> OldHomeCoordinator {
-        OldHomeCoordinator(
-            profileAssembly: self.profileAssembly(),
-            editorAssembly: self.editorAssembly()
+    func homeCoordinator() -> HomeCoordinator {
+        HomeCoordinator(
+            profileAssembly: profileAssembly(),
+            editorAssembly: editorAssembly()
         )
     }
     
