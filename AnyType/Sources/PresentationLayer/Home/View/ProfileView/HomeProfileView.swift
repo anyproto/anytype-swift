@@ -2,6 +2,7 @@ import SwiftUI
 
 struct HomeProfileView: View {
     @EnvironmentObject var accountData: AccountInfoDataAccessor
+    @EnvironmentObject var model: HomeViewModel
     
     private let topPaddingRatio: CGFloat = 0.16
     
@@ -24,7 +25,7 @@ struct HomeProfileView: View {
                     Button(action: {}) {
                         HomeProfileViewButtonImage(image: Image.main.marketplace).padding(10)
                     }
-                    Button(action: {}) {
+                    Button(action: model.createNewPage) {
                         HomeProfileViewButtonImage(image: Image.main.draft)
                     }
                 }

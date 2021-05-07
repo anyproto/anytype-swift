@@ -7,16 +7,13 @@ struct HomeCollectionView: View {
     ]
     
     @EnvironmentObject var model: HomeViewModel
-    @Binding var selectedDocumentId: String
-    @Binding var showingDocument: Bool
     
     var body: some View {
         ScrollView() {
             LazyVGrid(columns: columns) {
                 ForEach(model.cellData) { data in
                     Button {
-                        selectedDocumentId = data.destinationId
-                        showingDocument = true
+                        model.showDocument(blockId: data.destinationId)
                     } label: {
                         PageCell(cellData: data)
                             .cornerRadius(16)
@@ -33,6 +30,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(selectedDocumentId: .constant(""), showingDocument: .constant(false))
+        HomeCollectionView()
     }
 }

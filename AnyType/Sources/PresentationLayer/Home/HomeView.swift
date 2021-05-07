@@ -25,7 +25,7 @@ struct HomeView: View {
                     .frame(width: geometry.size.width, height: geometry.size.height)
                 
                 HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
-                    HomeTabsView(selectedDocumentId: $selectedDocumentId, showingDocument: $showingDocument)
+                    HomeTabsView()
                 }
             }
         }
@@ -43,15 +43,13 @@ struct HomeView: View {
     }
     
     // Workaround for custom navigation inside text editor
-    @State private var selectedDocumentId = ""
-    @State private var showingDocument = false
     private var textEditorNavigation: some View {
         NavigationLink(
             destination: model.coordinator.documentView(
-                selectedDocumentId: selectedDocumentId,
-                shouldShowDocument: $showingDocument
+                selectedDocumentId: model.selectedDocumentId,
+                shouldShowDocument: $model.showingDocument
             ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
-            isActive: $showingDocument,
+            isActive: $model.showingDocument,
             label: { EmptyView() }
         )
     }
