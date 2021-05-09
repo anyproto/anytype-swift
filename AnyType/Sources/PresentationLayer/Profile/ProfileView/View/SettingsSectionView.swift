@@ -39,7 +39,7 @@ extension SettingsSectionView {
         func body(content: Content) -> some View {
             VStack {
                 content
-                Divider().foregroundColor(Color("DividerColor"))
+                Divider().foregroundColor(Color.divider)
             }
         }
     }

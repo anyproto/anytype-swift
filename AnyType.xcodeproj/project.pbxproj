@@ -279,6 +279,7 @@
 		3D680B972624949A00FFD844 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B962624949A00FFD844 /* SettingsSectionItemView.swift */; };
 		3D680B9A262494B900FFD844 /* ProfileSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D680B99262494B900FFD844 /* ProfileSectionView.swift */; };
 		3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9226456C89005805A8 /* HomeCoordinator.swift */; };
+		3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9E26458CC2005805A8 /* DragIndicator.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnyTypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnyTypeFont.swift */; };
 		3D929B6226332ACA0063F1BE /* PageCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B6126332ACA0063F1BE /* PageCellData.swift */; };
@@ -776,6 +777,7 @@
 		3D680B962624949A00FFD844 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3D680B99262494B900FFD844 /* ProfileSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSectionView.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		3D850B9E26458CC2005805A8 /* DragIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicator.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnyTypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyTypeFont.swift; sourceTree = "<group>"; };
 		3D929B6126332ACA0063F1BE /* PageCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCellData.swift; sourceTree = "<group>"; };
@@ -2164,6 +2166,7 @@
 				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
 				3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */,
 				3D0BFB39263BE797007CC856 /* AsyncImage.swift */,
+				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3074,6 +3077,7 @@
 				0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				0A0965E425BEF5B000C004BD /* DocumentViewRouting+Page.swift in Sources */,
+				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
 				5338E7EF25DC72AD008CB97D /* ToolbarBlockActionHandler.swift in Sources */,

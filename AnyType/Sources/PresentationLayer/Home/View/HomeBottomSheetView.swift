@@ -1,8 +1,6 @@
 import SwiftUI
 
 private struct HomeBottomSheetViewConfiguration {
-    let indicatorHeight: CGFloat = 4
-    let indicatorWidth: CGFloat = 100
     let cornerRadius: CGFloat = 16
     let snapRatio: CGFloat = 0.05
     let minHeightRatio: CGFloat = 0.55
@@ -40,7 +38,7 @@ struct HomeBottomSheetView<Content: View>: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                dragIndicator
+                DragIndicator()
                 self.content
             }
             .frame(width: geometry.size.width, height: self.config.maxHeight, alignment: .top)
@@ -61,16 +59,6 @@ struct HomeBottomSheetView<Content: View>: View {
                 }
             )
         }
-    }
-    
-    var dragIndicator: some View {
-        RoundedRectangle(cornerRadius: config.cornerRadius)
-            .fill(Color.secondary)
-            .frame(
-                width: config.indicatorWidth,
-                height: config.indicatorHeight
-            )
-            .padding()
     }
 }
 

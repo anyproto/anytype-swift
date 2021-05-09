@@ -6,4 +6,6 @@ extension Color {
     static let grayText = Color("GrayText")
     static let brownMenu = Color("BrownMenu")
     static let yellow = Color("yellow")
+    
+    static let divider = Color("DividerColor")
 }

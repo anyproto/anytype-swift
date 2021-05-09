@@ -10,15 +10,7 @@ extension ProfileView {
         
         var view: some View {
             VStack {
-                HStack {
-                    Spacer()
-                    Rectangle()
-                        .cornerRadius(6)
-                        .frame(width: 48, height: 5)
-                        .foregroundColor(Color("DividerColor"))
-                    Spacer()
-                }
-                .padding(.top, 6)
+                DragIndicator()
                 Text("About application information")
                     .font(.title)
                     .fontWeight(.bold)

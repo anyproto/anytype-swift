@@ -1,11 +1,3 @@
-//
-//  SaveRecoveryPhraseView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 30.07.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 struct KeychainPhraseView: View {
@@ -14,15 +6,7 @@ struct KeychainPhraseView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Spacer()
-                Rectangle()
-                    .cornerRadius(6)
-                    .frame(width: 48, height: 5)
-                    .foregroundColor(Color("DividerColor"))
-                Spacer()
-            }
-            .padding(.top, 6)
+            DragIndicator()
             Text("Back up your keychain phrase")
                 .font(.title)
                 .fontWeight(.bold)
@@ -74,10 +58,8 @@ struct SeedPhraseView: View {
     }
 }
 
-#if DEBUG
 struct SaveRecoveryPhraseView_Previews: PreviewProvider {
     static var previews: some View {
         return KeychainPhraseView(viewModel: KeychainPhraseViewModel(), showKeychainView: .constant(true))
     }
 }
-#endif

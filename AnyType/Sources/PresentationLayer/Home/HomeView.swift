@@ -18,7 +18,7 @@ struct HomeView: View {
         GeometryReader { geometry in
             ZStack {
                 Image.main.wallpaper
-                    .resizable().aspectRatio(contentMode: .fit)
+                    .resizable().aspectRatio(contentMode: .fill)
                     .frame(width: geometry.size.width)
                 textEditorNavigation
                 HomeProfileView()
