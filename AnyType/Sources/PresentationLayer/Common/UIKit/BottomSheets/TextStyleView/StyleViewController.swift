@@ -10,37 +10,46 @@ import UIKit
 import FloatingPanel
 
 
-private enum Section: Hashable {
-    case main
+// MARK: - Cell model
+
+private extension StyleViewController {
+    enum Section: Hashable {
+        case main
+    }
+
+    struct Item: Hashable {
+        let kind: BlockActionHandler.ActionType
+        let text: String
+        let font: UIFont
+
+        private let identifier = UUID()
+
+        static let all: [Item] = [
+            (BlockActionHandler.ActionType.turnIntoTitle, "Title".localized, UIFont.header1Font),
+            (BlockActionHandler.ActionType.turnIntoHeading, "Heading".localized, UIFont.header2Font),
+            (BlockActionHandler.ActionType.turnIntoSubheading, "Subheading".localized, UIFont.header3Font),
+            (BlockActionHandler.ActionType.turnIntoText, "Text".localized, UIFont.bodyFont)
+        ].map { Item(kind: $0.0, text: $0.1, font: $0.2) }
+    }
+
+    struct ListItem {
+        let icon: UIImage
+
+        static let all: [ListItem] = [
+            "StyleBottomSheet/bullet",
+            "StyleBottomSheet/checkbox",
+            "StyleBottomSheet/numbered",
+            "StyleBottomSheet/toggle"
+        ].compactMap { UIImage(named: $0) }.map(ListItem.init)
+    }
 }
 
-private struct Item: Hashable {
-    let text: String
-    let font: UIFont
-
-    private let identifier = UUID()
-
-    static let all: [Item] = [
-        ("Title".localized, UIFont.header1Font),
-        ("Heading".localized, UIFont.header2Font),
-        ("Subheading".localized, UIFont.header3Font),
-        ("Text".localized, UIFont.bodyFont)
-    ].map { Item(text: $0.0, font: $0.1) }
-}
-
-private struct ListItem {
-    let icon: UIImage
-
-    static let all: [ListItem] = [
-        "StyleBottomSheet/bullet",
-        "StyleBottomSheet/checkbox",
-        "StyleBottomSheet/numbered",
-        "StyleBottomSheet/toggle"
-    ].compactMap { UIImage(named: $0) }.map(ListItem.init)
-}
-
+// MARK: - StyleViewController
 
 final class StyleViewController: UIViewController {
+    typealias ActionHandler = (_ action: BlockActionHandler.ActionType) -> Void
+
+    // MARK: - Views
 
     private lazy var styleCollectionView: UICollectionView = {
         var config = UICollectionViewCompositionalLayoutConfiguration()
@@ -64,6 +73,7 @@ final class StyleViewController: UIViewController {
         styleCollectionView.backgroundColor = .white
         styleCollectionView.alwaysBounceVertical = false
         styleCollectionView.alwaysBounceHorizontal = true
+        styleCollectionView.delegate = self
 
         return styleCollectionView
     }()
@@ -98,14 +108,20 @@ final class StyleViewController: UIViewController {
         return containerStackView
     }()
 
+    // MARK: - Other properties
+
     private weak var viewControllerForPresenting: UIViewController?
+    private var actionHandler: ActionHandler
 
     // MARK: - Lifecycle
 
     /// Init style view controller
     /// - Parameter viewControllerForPresenting: view controller where we can present other view controllers
-    init(viewControllerForPresenting: UIViewController) {
+    /// - Parameter actionHandler: Handle bottom sheet  actions, see `StyleViewController.ActionType`
+    /// - important: Use weak self inside `ActionHandler`
+    init(viewControllerForPresenting: UIViewController, actionHandler: @escaping ActionHandler) {
         self.viewControllerForPresenting = viewControllerForPresenting
+        self.actionHandler = actionHandler
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -284,5 +300,17 @@ final class StyleViewController: UIViewController {
         let contentVC = TextAttributesViewController()
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension StyleViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let style = styleDataSource?.itemIdentifier(for: indexPath) else {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            return
+        }
+        self.actionHandler(style.kind)
     }
 }

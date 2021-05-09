@@ -381,7 +381,9 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         fpc.backdropView.backgroundColor = .clear
         fpc.contentMode = .static
 
-        let contentVC = StyleViewController(viewControllerForPresenting: viewControllerForPresenting)
+        let contentVC = StyleViewController(viewControllerForPresenting: viewControllerForPresenting) { [weak self] action in
+            self?.viewModel.handleAction(action)
+        }
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }

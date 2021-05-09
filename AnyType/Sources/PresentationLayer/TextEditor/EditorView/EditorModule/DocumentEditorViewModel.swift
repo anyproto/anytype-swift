@@ -460,3 +460,13 @@ extension DocumentEditorViewModel {
         }
     }
 }
+
+// MARK: - Public methods for view controller
+
+extension DocumentEditorViewModel {
+
+    /// Block action handler
+    func handleAction(_ action: BlockActionHandler.ActionType) {
+
+    }
+}
