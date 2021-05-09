@@ -18,7 +18,6 @@ struct ProfileView: View {
     
     private var contentView: some View {
         VStack(alignment: .leading, spacing: 20) {
-            ProfileSectionView()
             SettingsSectionView()
             StandardButton(disabled: false, text: "Log out", style: .white) {
                 self.model.logout()
@@ -30,7 +29,6 @@ struct ProfileView: View {
 }
 
 
-#if DEBUG
 //struct ProfileView_Previews : PreviewProvider {
 ////    private struct ProfileService: ProfileServiceProtocol {
 ////        var name: String = "Anton Pronkin"
@@ -51,4 +49,3 @@ struct ProfileView: View {
 ////        return ProfileView(model: viewModel)
 ////    }
 //}
-#endif
