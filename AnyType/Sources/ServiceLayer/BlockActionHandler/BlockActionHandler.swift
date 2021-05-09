@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlocksModels
 
 
 // MARK: - Action Type
@@ -14,16 +15,7 @@ import UIKit
 extension BlockActionHandler {
     /// Action on style view
     enum ActionType: Hashable {
-        case turnIntoTitle
-        case turnIntoHeading
-        case turnIntoSubheading
-        case turnIntoText
-        case turnIntoCheckbox
-        case turnIntoBulleted
-        case turnIntoNumbered
-        case turnIntoToggle
-        case turnIntoHighlight
-        case turnIntoCallout
+        case turnInto(BlockContent.Text.ContentType)
 
         case setTextColor(UIColor)
         case setBackgroundColor(UIColor)
@@ -48,5 +40,30 @@ extension BlockActionHandler {
 
 /// Actions from block
 class BlockActionHandler {
+    typealias Completion = (BlockActionService.Reaction.ActionType?, EventListening.PackOfEvents) -> Void
 
+    private let service: BlockActionService
+
+    // MARK: - Lifecycle
+
+    init?(documentId: String?) {
+        guard let documentId = documentId else { return nil }
+        self.service = .init(documentId: documentId)
+    }
+
+    // MARK: - Public methods
+
+    func handleBlockAction(_ action: ActionType, block: BlockModelProtocol, completion: @escaping Completion) {
+        service.configured { actionType, events in
+            completion(actionType, events)
+        }
+
+        switch action {
+        case let .turnInto(textStyle):
+            let textBlockContentType: BlockContent = .text(BlockContent.Text(contentType: textStyle))
+            service.turnInto(block: block.information, type: textBlockContentType, shouldSetFocusOnUpdate: false)
+        default:
+            assertionFailure("Action has not implemented yet \(String(describing: action))")
+        }
+    }
 }

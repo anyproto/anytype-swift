@@ -3,8 +3,40 @@ import BlocksModels
 import os
 import UIKit
 
+
 extension LoggerCategory {
-    static let textEditorUserInteractor: Self = "TextEditor.UserInteraction"
+    static let blockActionService: Self = "blockActionService"
+}
+
+extension BlockActionService {
+    enum Reaction {
+        /// Action type that happens with block.
+        ///
+        /// View that contain blocks can use this actions type to understant what happened with blocks.
+        /// For example, when block deleted we need first set focus to previous block  before model will be updated  to prevent hide keyboard.
+        enum ActionType {
+            /// Block deleted
+            case deleteBlock
+            /// Block merged (when we delete block that has text after cursor )
+            case merge
+        }
+
+        struct ShouldOpenPage {
+            struct Payload {
+                var blockId: BlockId
+            }
+
+            var payload: Payload
+        }
+
+        struct ShouldHandleEvent {
+            var actionType: ActionType?
+            var events: EventListening.PackOfEvents
+        }
+
+        case shouldOpenPage(ShouldOpenPage)
+        case shouldHandleEvent(ShouldHandleEvent)
+    }
 }
 
 /// Each method should return not a block, but a response.
@@ -133,7 +165,7 @@ final class BlockActionService {
     private let bookmarkService: BlockActionsServiceBookmark = .init()
     private let fileService: BlockActionsServiceFile = .init()
 
-    private var didReceiveEvent: (BlockActionsHandlersFacade.ActionType?, EventListening.PackOfEvents) -> () = { _,_  in }
+    private var didReceiveEvent: (Reaction.ActionType?, EventListening.PackOfEvents) -> () = { _,_  in }
 
     // We also need a handler of events.
     private let eventHandling: String = ""
@@ -155,7 +187,8 @@ final class BlockActionService {
         return self
     }
 
-    func configured(didReceiveEvent: @escaping (BlockActionsHandlersFacade.ActionType?, EventListening.PackOfEvents) -> ()) -> Self {
+    @discardableResult
+    func configured(didReceiveEvent: @escaping (Reaction.ActionType?, EventListening.PackOfEvents) -> ()) -> Self {
         self.didReceiveEvent = didReceiveEvent
         return self
     }
@@ -355,7 +388,7 @@ private extension BlockActionService {
                 case .finished: return
                 case let .failure(error):
                     // It occurs if you press delete at the beginning of title block
-                    Logger.create(.textEditorUserInteractor).debug(
+                    Logger.create(.blockActionService).debug(
                         "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
                     )
                 }

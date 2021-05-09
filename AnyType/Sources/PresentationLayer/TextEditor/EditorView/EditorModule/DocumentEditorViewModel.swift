@@ -34,12 +34,13 @@ class DocumentEditorViewModel: ObservableObject {
 
     /// Service
     private var blockActionsService: BlockActionsServiceSingle = .init()
+    private lazy var blockActionHandler: BlockActionHandler? = .init(documentId: self.documentViewModel.documentId)
 
     /// Document ViewModel
     private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
 
     /// User Interaction Processor
-    private lazy var blockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
+    private lazy var oldblockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
     private var listBlockActionHandler: ListBlockActionHandler = .init()
 
     /// Combine Subscriptions
@@ -125,7 +126,7 @@ class DocumentEditorViewModel: ObservableObject {
             self?.process(actionsPayload: value)
         }.store(in: &self.subscriptions)
 
-        _ = self.blockActionHandler.configured(self.publicActionsPayloadPublisher)
+        _ = self.oldblockActionHandler.configured(self.publicActionsPayloadPublisher)
 
         self.listToolbarSubject.sink { [weak self] (value) in
             self?.process(toolbarAction: value)
@@ -133,7 +134,7 @@ class DocumentEditorViewModel: ObservableObject {
 
         _ = self.listBlockActionHandler.configured(self.listActionsPayloadPublisher)
 
-        self.blockActionHandler.reactionPublisher.sink { [weak self] (value) in
+        self.oldblockActionHandler.reactionPublisher.sink { [weak self] (value) in
             self?.process(reaction: value)
         }.store(in: &self.subscriptions)
 
@@ -253,7 +254,7 @@ class DocumentEditorViewModel: ObservableObject {
             assertionFailure("configureInteractions(_:). DocumentId is not configured.")
             return
         }
-        _ = self.blockActionHandler.configured(documentId: documentId).configured(self)
+        _ = self.oldblockActionHandler.configured(documentId: documentId).configured(self)
         _ = self.listBlockActionHandler.configured(documentId: documentId)
     }
 
@@ -282,17 +283,17 @@ extension DocumentEditorViewModel: DocumentViewInteraction {
 // MARK: - Reactions
 
 private extension DocumentEditorViewModel {
-    func process(reaction: BlockActionsHandlersFacade.Reaction) {
+    func process(reaction: BlockActionService.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
-            let events = value.payload.events
+            let events = value.events
             let actionType = value.actionType
 
             self.documentViewModel.handle(events: events)
 
             switch actionType {
             case .deleteBlock, .merge:
-                let firstResponderBlockId = self.documentViewModel.userSession?.firstResponder()
+                let firstResponderBlockId = self.documentViewModel.userSession?.firstResponderId()
                 
                 if let firstResponderIndex = self.builders.firstIndex(where: { $0.blockId == firstResponderBlockId }) {
                     self.viewInput?.setFocus(at: firstResponderIndex)
@@ -316,7 +317,7 @@ private extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func handlingTapIfEmpty() {
-        self.blockActionHandler.createEmptyBlock(
+        self.oldblockActionHandler.createEmptyBlock(
             listIsEmpty: self.state == .empty, parentModel: self.documentViewModel.rootActiveModel
         )
     }
@@ -366,7 +367,9 @@ private extension DocumentEditorViewModel {
         case .showStyleMenu:
 //            self.publicUserActionSubject.send()
             self.viewInput?.showStyleMenu()
-        default: return
+        case let .becomeFirstResponder(blockModel):
+            self.documentViewModel.userSession?.setFirstResponder(with: blockModel)
+        case .toolbar, .marksPane, .userAction: return
         }
     }
 
@@ -467,6 +470,10 @@ extension DocumentEditorViewModel {
 
     /// Block action handler
     func handleAction(_ action: BlockActionHandler.ActionType) {
-
+        guard let firstResponder = documentViewModel.userSession?.firstResponder() else { return }
+        
+        blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] actionType, events in
+            self?.process(reaction: .shouldHandleEvent(.init(actionType: actionType, events: events)))
+        }
     }
 }

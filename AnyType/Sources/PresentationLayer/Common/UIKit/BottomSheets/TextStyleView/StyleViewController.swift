@@ -25,10 +25,10 @@ private extension StyleViewController {
         private let identifier = UUID()
 
         static let all: [Item] = [
-            (BlockActionHandler.ActionType.turnIntoTitle, "Title".localized, UIFont.header1Font),
-            (BlockActionHandler.ActionType.turnIntoHeading, "Heading".localized, UIFont.header2Font),
-            (BlockActionHandler.ActionType.turnIntoSubheading, "Subheading".localized, UIFont.header3Font),
-            (BlockActionHandler.ActionType.turnIntoText, "Text".localized, UIFont.bodyFont)
+            (BlockActionHandler.ActionType.turnInto(.title), "Title".localized, UIFont.header1Font),
+            (BlockActionHandler.ActionType.turnInto(.header2), "Heading".localized, UIFont.header2Font),
+            (BlockActionHandler.ActionType.turnInto(.header3), "Subheading".localized, UIFont.header3Font),
+            (BlockActionHandler.ActionType.turnInto(.text), "Text".localized, UIFont.bodyFont)
         ].map { Item(kind: $0.0, text: $0.1, font: $0.2) }
     }
 

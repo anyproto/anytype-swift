@@ -2,7 +2,9 @@ import UIKit
 import Combine
 import BlocksModels
 
-// MARK: Options
+
+// MARK: - Options
+
 extension BaseBlockViewModel {
     /// Actually, `feature flags`.
     struct Options {
@@ -10,6 +12,82 @@ extension BaseBlockViewModel {
     }
 }
 
+// MARK: - OuterWorld Publishers and Subjects
+
+extension BaseBlockViewModel {
+    /// This AactionsPayload describes all actions that user can do with BlocksViewsModels.
+    /// For example, user can press long-tap and active toolbar.
+    /// Or user could interact with text view.
+    /// Possibly, that we need to separate text view actions.
+    enum ActionsPayload {
+        struct Toolbar {
+            typealias Action = BlocksViews.Toolbar.UnderlyingAction
+            var model: BlockModel
+            var action: Action
+        }
+
+        struct MarksPaneHolder {
+            typealias Action = MarksPane.Main.Action
+            var model: BlockModel
+            var action: Action
+        }
+
+        /// For backward compatibility.
+        struct TextBlocksViewsUserInteraction {
+            typealias Action = TextBlockUserInteraction
+            var model: BlockModel
+            var action: Action
+        }
+
+        /// For seamless usage of UserAction as "Payload"
+        struct UserActionHolder {
+            typealias Action = BlocksViews.UserAction
+            var model: BlockModel
+            var action: Action
+        }
+
+        /// Text blocks draft.
+        /// It should hold also toggle from `TextBlocksViewsUserInteraction`.
+        /// Name it properly.
+        struct TextBlockViewModelPayload {
+            enum Action {
+                case text(NSAttributedString)
+                case alignment(NSTextAlignment)
+                case checked(Bool)
+            }
+
+            var model: BlockModel
+            var action: Action
+        }
+
+        case toolbar(Toolbar)
+        case marksPane(MarksPaneHolder)
+        case textView(TextBlocksViewsUserInteraction)
+        case userAction(UserActionHolder)
+        /// show code language view
+        case showCodeLanguageView(languages: [String], completion: (String) -> Void)
+        /// show style menu
+        case showStyleMenu
+        /// tell that block become first responder
+        case becomeFirstResponder(BlockModelProtocol)
+    }
+
+    // Send actions payload
+    func send(actionsPayload: ActionsPayload) {
+        self.actionsPayloadSubject.send(actionsPayload)
+    }
+
+    /// Ask update layout
+    ///
+    /// View could ask to update layout due to some inner layout events (view could changed its size, position or similar)
+    func needsUpdateLayout() {
+        self.sizeDidChangeSubject.send()
+    }
+}
+
+// MARK: - BaseBlockViewModel class
+
+/// Base block view model
 class BaseBlockViewModel: ObservableObject {
     
     private enum Constants {
@@ -27,7 +105,8 @@ class BaseBlockViewModel: ObservableObject {
     /// Options that handle a behavior of view model.
     private var options: Options = .init()
     
-    // MARK: Initialization
+    // MARK: - Initialization
+
     init(_ block: BlockModel) {
         self.block = block
         self.diffable = makeDiffable()
@@ -41,11 +120,13 @@ class BaseBlockViewModel: ObservableObject {
         self.setupSubscriptions()
     }
             
-    // MARK: Subclass / Blocks
+    // MARK: - Subclass / Blocks
     
     // MARK: Block model processing
     func getBlock() -> BlockModel { self.block }
+
     func isRealBlock() -> Bool { self.getBlock().blockModel.kind == .block }
+
     func update(block: (inout BlockModel) -> ()) {
         if isRealBlock() {
             self.block = update(getBlock(), body: block)
@@ -74,16 +155,23 @@ class BaseBlockViewModel: ObservableObject {
             return false
         }
     }
+
+    /// Call when block become first responder
+    func becomeFirstResponder() {
+        send(actionsPayload: .becomeFirstResponder(block.blockModel))
+    }
     
-    // MARK: Events
-    // MARK: - User Action Publisher
+    // MARK: - Events
+    // MARK: User Action Publisher
+
     /// This publisher sends actions to, in most cases, routing.
     /// If you would like to show controllers or action panes, you should listen events from this publisher.
     ///
     private var userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
     public var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = .empty()
     
-    // MARK: - Toolbar Action Publisher
+    // MARK: Toolbar Action Publisher
+
     /// This Pair ( Publisher and Subject ) can manipulate with `ActionsPayload.Toolbar.Action`.
     /// For example, if you would like to show AddBlock toolbar, you will do these steps:
     ///
@@ -97,7 +185,8 @@ class BaseBlockViewModel: ObservableObject {
     public private(set) var toolbarActionSubject: PassthroughSubject<ActionsPayload.Toolbar.Action, Never> = .init()
     public var toolbarActionPublisher: AnyPublisher<ActionsPayload.Toolbar.Action, Never> = .empty()
     
-    // MARK: - Marks Pane Publisher
+    // MARK: Marks Pane Publisher
+
     /// This Pair ( Publisher and Subject ) can manipuate with `MarksPane.Main.Action`.
     /// If you would like to show `MarksPane`, you will need to configure specific action.
     ///
@@ -114,8 +203,8 @@ class BaseBlockViewModel: ObservableObject {
     public private(set) var marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never> = .init()
     public var marksPaneActionPublisher: AnyPublisher<MarksPane.Main.Action, Never> = .empty()
 
-    
-    // MARK: - Actions Payload Publisher
+    // MARK: Actions Payload Publisher
+
     /// This solo Publisher `actionsPayloadPublisher` merges all actions into meta `ActionsPayload` action.
     /// If you need to process whole user input for specific BlocksViewModel, you need to listen this publisher.
     ///
@@ -138,9 +227,12 @@ class BaseBlockViewModel: ObservableObject {
     private var sizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     
     // MARK: - Handle events
-    func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
-        // Do nothing? Just let somebody else to do stuff for you?
-    }
+
+    /// This methods can be overriden in subclasses
+    /// - Parameter toolbarAction: Toolbar action type
+    ///
+    /// Default implementation do nothing
+    func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {}
     
     func handle(marksPaneAction: MarksPane.Main.Action) {
         // Do nothing? We need external custom processors?
@@ -152,6 +244,7 @@ class BaseBlockViewModel: ObservableObject {
     }
     
     // MARK: - Setup / Publishers
+
     private func setupPublishers() {
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
         self.toolbarActionPublisher = self.toolbarActionSubject.eraseToAnyPublisher()
@@ -171,6 +264,7 @@ class BaseBlockViewModel: ObservableObject {
     }
     
     // MARK: - Setup / Subscriptions
+
     private func setupSubscriptions() {
         self.contextualMenuInteractor.provider = self
         self.contextualMenuInteractor.actionSubject.sink { [weak self] (value) in
@@ -178,20 +272,23 @@ class BaseBlockViewModel: ObservableObject {
         }.store(in: &self.subscriptions)
     }
     
-    // MARK: Contextual Menu
+    // MARK: - Contextual Menu
+
     private var subscriptions: Set<AnyCancellable> = []
     private var contextualMenuInteractor: ContextualMenuInteractor = .init()
     weak var contextualMenuDelegate: UIContextMenuInteractionDelegate? { self.contextualMenuInteractor }
                     
-    // MARK: Indentation
+    // MARK: - Indentation
     func indentationLevel() -> Int {
         min(self.getBlock().indentationLevel, Constants.maxIndentationLevel)
     }
     
-    // MARK: Subclass / Information
+    // MARK: - Subclass / Information
+
     var information: BlockInformation.InformationModel { self.getBlock().blockModel.information }
     
-    // MARK: Subclass / Diffable
+    // MARK: - Subclass / Diffable
+
     private(set) var diffable: AnyHashable = .init("")
     
     /// Here we use the following technique.
@@ -213,14 +310,17 @@ class BaseBlockViewModel: ObservableObject {
         diffable = makeDiffable()
     }
     
-    // MARK: Subclass / Views
+    // MARK: - Subclass / Views
+
     func makeUIView() -> UIView { .init() }
     func makeContentConfiguration() -> UIContentConfiguration { ContentConfiguration.init() }
     
-    // MARK: Subclass / Events
+    // MARK: - Subclass / Events
+
     func handle(event: BlocksViews.UserEvent) {}
     
-    // MARK: Subclass / ContextualMenu
+    // MARK: - Subclass / ContextualMenu
+
     func makeContextualMenu() -> BlocksViews.ContextualMenu { .init() }
 
     func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
@@ -245,6 +345,8 @@ class BaseBlockViewModel: ObservableObject {
         }
     }
 }
+
+// MARK: - Hashable
 
 extension BaseBlockViewModel: Hashable {
     static func == (lhs: BaseBlockViewModel, rhs: BaseBlockViewModel) -> Bool {
@@ -302,77 +404,6 @@ extension BaseBlockViewModel {
             self?.actionsPayloadSubject.send(value)
         })
         return self
-    }
-}
-
-// MARK: - OuterWorld Publishers and Subjects
-
-extension BaseBlockViewModel {
-    /// This AactionsPayload describes all actions that user can do with BlocksViewsModels.
-    /// For example, user can press long-tap and active toolbar.
-    /// Or user could interact with text view.
-    /// Possibly, that we need to separate text view actions.
-    enum ActionsPayload {
-        struct Toolbar {
-            typealias Action = BlocksViews.Toolbar.UnderlyingAction
-            var model: BlockModel
-            var action: Action
-        }
-        
-        struct MarksPaneHolder {
-            typealias Action = MarksPane.Main.Action
-            var model: BlockModel
-            var action: Action
-        }
-        
-        /// For backward compatibility.
-        struct TextBlocksViewsUserInteraction {
-            typealias Action = TextBlockUserInteraction
-            var model: BlockModel
-            var action: Action
-        }
-        
-        /// For seamless usage of UserAction as "Payload"
-        struct UserActionHolder {
-            typealias Action = BlocksViews.UserAction
-            var model: BlockModel
-            var action: Action
-        }
-        
-        /// Text blocks draft.
-        /// It should hold also toggle from `TextBlocksViewsUserInteraction`.
-        /// Name it properly.
-        struct TextBlockViewModelPayload {
-            enum Action {
-                case text(NSAttributedString)
-                case alignment(NSTextAlignment)
-                case checked(Bool)                
-            }
-            
-            var model: BlockModel
-            var action: Action
-        }
-        
-        case toolbar(Toolbar)
-        case marksPane(MarksPaneHolder)
-        case textView(TextBlocksViewsUserInteraction)
-        case userAction(UserActionHolder)
-        /// show code language view
-        case showCodeLanguageView(languages: [String], completion: (String) -> Void)
-        /// show style menu
-        case showStyleMenu
-    }
-    
-    // Send actions payload
-    func send(actionsPayload: ActionsPayload) {
-        self.actionsPayloadSubject.send(actionsPayload)
-    }
-
-    /// Ask update layout
-    ///
-    /// View could ask to update layout due to some inner layout events (view could changed its size, position or similar)
-    func needsUpdateLayout() {
-        self.sizeDidChangeSubject.send()
     }
 }
 

@@ -14,10 +14,10 @@ final class MarksPaneBlockActionHandler {
     private let listService: BlockActionsServiceList = .init()
     private let contextId: String
     private var subscriptions: [AnyCancellable] = []
-    private weak var subject: PassthroughSubject<BlockActionsHandlersFacade.Reaction?, Never>?
+    private weak var subject: PassthroughSubject<BlockActionService.Reaction?, Never>?
     private weak var documentViewInteraction: DocumentViewInteraction?
 
-    init(documentViewInteraction: DocumentViewInteraction?, service: BlockActionService, contextId: String, subject: PassthroughSubject<BlockActionsHandlersFacade.Reaction?, Never>) {
+    init(documentViewInteraction: DocumentViewInteraction?, service: BlockActionService, contextId: String, subject: PassthroughSubject<BlockActionService.Reaction?, Never>) {
         self.documentViewInteraction = documentViewInteraction
         self.service = service
         self.contextId = contextId
@@ -66,7 +66,7 @@ private extension MarksPaneBlockActionHandler {
                 }
             }) { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, payload: .init(events: value))))
+                self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
             }
             .store(in: &self.subscriptions)
     }
@@ -83,7 +83,7 @@ private extension MarksPaneBlockActionHandler {
                 }
             }) { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, payload: .init(events: value))))
+                self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
             }
             .store(in: &self.subscriptions)
     }

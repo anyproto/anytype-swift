@@ -74,21 +74,23 @@ extension Namespace {
         /// Size publisher, we require it to update size of text views only if it has changed.
         lazy private(set) var sizePublisher: AnyPublisher<CGSize, Never> = .empty()
         
-        /// ResignFirstResponder to outer world.
-        private var firstResponderChangeSubject: PassthroughSubject<FirstResponder.Change, Never> = .init()
-        private(set) var firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never> = .empty()
-        
         let coordinator: Coordinator
         
         /// Subscriptions
         private var firstResponderChangeSubscription: AnyCancellable?
-        
+
+        // Base block view model
+        // TODO: Should be protocol instead of concrete block view model
+        private weak var blockViewModel: BaseBlockViewModel?
+
         init(blockViewModel: BaseBlockViewModel) {
+            self.blockViewModel = blockViewModel
             let factory = BlockRestrictionsFactory()
             let restrictions = factory.makeRestrictions(for: blockViewModel.information.content.type)
             let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: blockViewModel.marksPaneActionSubject, addBlockAndActionsSubject: blockViewModel.toolbarActionSubject)
             self.coordinator = Coordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
                                            blockMenuActionsHandler: actionsHandler)
+
             self.setup()
         }
         
@@ -121,9 +123,6 @@ extension Namespace {
                         
             // SetFocusPublisher
             self.setFocusPublisher = self.setFocusSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
-            
-            // FirstResponder
-            self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
         }
     }
 }
@@ -152,12 +151,6 @@ extension Namespace.ViewModel {
 extension Namespace.ViewModel {
     func shouldResignFirstResponder() {
         self.shouldResignFirstResponderSubject.send(true)
-    }
-    /// For view.
-    /// TODO: Rethink.
-    /// We need to listen `resignFirstResponder to deselect current state of selected text.
-    private func didChangeFirstResponder(_ firstResponderChange: FirstResponder.Change) {
-        self.firstResponderChangeSubject.send(firstResponderChange)
     }
 }
 
@@ -206,7 +199,7 @@ extension Namespace.ViewModel {
 
     func configured(firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never>) -> Self {
         self.firstResponderChangeSubscription = firstResponderChangePublisher.sink(receiveValue: { [weak self] (value) in
-            self?.didChangeFirstResponder(value)
+            self?.blockViewModel?.becomeFirstResponder()
         })
         return self
     }

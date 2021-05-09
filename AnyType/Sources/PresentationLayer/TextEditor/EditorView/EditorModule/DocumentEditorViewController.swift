@@ -234,7 +234,7 @@ extension DocumentEditorViewController {
         guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot(for: .first)
         let userSession = self.viewModel.documentViewModel.userSession
-        if let id = userSession?.firstResponder(), let focusedAt = userSession?.focusAt() {
+        if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt() {
             let itemIdentifiers = snapshot.visibleItems
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
                 value.blockId == id

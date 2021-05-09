@@ -19,41 +19,6 @@ final class BlockActionsHandlersFacade {
     // TODO: remove when possible
     typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 
-    /// Action type that happens with block.
-    ///
-    /// View that contain blocks can use this actions type to understant what happened with blocks.
-    /// For example, when block deleted we need first set focus to previous block  before model will be updated  to prevent hide keyboard.
-    enum ActionType {
-        /// Block deleted
-        case deleteBlock
-        /// Block merged (when we delete block that has text after cursor )
-        case merge
-    }
-
-    enum Reaction {
-        typealias Id = BlockId
-
-        struct ShouldOpenPage {
-            struct Payload {
-                var blockId: Id
-            }
-
-            var payload: Payload
-        }
-
-        struct ShouldHandleEvent {
-            struct Payload {
-                var events: EventListening.PackOfEvents
-            }
-
-            var actionType: ActionType?
-            var payload: Payload
-        }
-
-        case shouldOpenPage(ShouldOpenPage)
-        case shouldHandleEvent(ShouldHandleEvent)
-    }
-
     private var subscription: AnyCancellable?
     private let service: BlockActionService = .init(documentId: "")
     private var documentId: String = ""
@@ -69,8 +34,8 @@ final class BlockActionsHandlersFacade {
     private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
     private lazy var userActionHandler: UserActionHandler = .init(service: service)
 
-    private let reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
-    private(set) var reactionPublisher: AnyPublisher<Reaction, Never> = .empty()
+    private let reactionSubject: PassthroughSubject<BlockActionService.Reaction?, Never> = .init()
+    private(set) var reactionPublisher: AnyPublisher<BlockActionService.Reaction, Never> = .empty()
 
     init(documentViewInteraction: DocumentViewInteraction) {
         self.documentViewInteraction = documentViewInteraction
@@ -81,7 +46,7 @@ final class BlockActionsHandlersFacade {
         self.reactionPublisher = self.reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
         // config block action service with completion that send value to subscriber (EditorModule.Document.ViewController.ViewModel)
         _ = self.service.configured { [weak self] (actionType, value) in
-            self?.reactionSubject.send(.shouldHandleEvent(.init(actionType: actionType, payload: .init(events: value))))
+            self?.reactionSubject.send(.shouldHandleEvent(.init(actionType: actionType, events: value)))
         }
     }
 
@@ -120,6 +85,7 @@ final class BlockActionsHandlersFacade {
         case let .userAction(value): self.userActionHandler.handlingUserAction(value.model, value.action)
         case .showCodeLanguageView: return
         case .showStyleMenu: return
+        case .becomeFirstResponder: return
         }
     }
 }

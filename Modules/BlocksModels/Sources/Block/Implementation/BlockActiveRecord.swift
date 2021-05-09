@@ -74,7 +74,7 @@ extension BlockActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
             self.container?.userSession.isFirstResponder(by: self._nestedModel.information.id) ?? false
         }
         set {
-            self.container?.userSession.setFirstResponder(by: self._nestedModel.information.id)
+            self.container?.userSession.setFirstResponder(with: self._nestedModel)
         }
     }
     
@@ -95,11 +95,11 @@ extension BlockActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
     
     var focusAt: BlockFocusPosition? {
         get {
-            guard self.container?.userSession.firstResponder() == self._nestedModel.information.id else { return nil }
+            guard self.container?.userSession.firstResponderId() == self._nestedModel.information.id else { return nil }
             return self.container?.userSession.focusAt()
         }
         set {
-            guard self.container?.userSession.firstResponder() == self._nestedModel.information.id else { return }
+            guard self.container?.userSession.firstResponderId() == self._nestedModel.information.id else { return }
             if let value = newValue {
                 self.container?.userSession.setFocusAt(position: value)
             }

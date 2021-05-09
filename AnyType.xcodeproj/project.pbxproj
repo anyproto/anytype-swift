@@ -2497,6 +2497,15 @@
 			path = BlockActionHandler;
 			sourceTree = "<group>";
 		};
+		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
+			isa = PBXGroup;
+			children = (
+				5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */,
+				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
+			);
+			path = BlockActionHandler;
+			sourceTree = "<group>";
+		};
 		531629312632BD0A000D6780 /* BottomSheets */ = {
 			isa = PBXGroup;
 			children = (
@@ -2583,7 +2592,6 @@
 				5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */,
 				5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */,
 				5338E7F725DC736A008CB97D /* UserActionHandler.swift */,
-				5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */,
 			);
 			path = BlockActionHandlers;
 			sourceTree = "<group>";
@@ -3205,7 +3213,6 @@
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
 				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
-				3D932D5D2631807800C7D1EA /* OffsetAwareScrollView.swift in Sources */,
 				53B0B3B42644B3D7007F7378 /* EditorModuleContentViewModel.swift in Sources */,
 				0A10CC86248ED549000FF498 /* PageIconUIKitView.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
@@ -3381,7 +3388,6 @@
 				0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */,
 				0A2C0D6C247145BD008ADD86 /* TextView+BlocksAccessoryView.swift in Sources */,
 				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
-				0A0965F325BEF5B000C004BD /* TopBottomMenuViewController.swift in Sources */,
 				53B0B3AC2644B3CC007F7378 /* EditorModuleContainerViewModel.swift in Sources */,
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,

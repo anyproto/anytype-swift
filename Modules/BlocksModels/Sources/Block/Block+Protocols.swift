@@ -13,14 +13,15 @@ public protocol BlockUserSessionModelProtocol {
     ///   - id: Block id to get state
     func isToggled(by id: BlockId) -> Bool
     func isFirstResponder(by id: BlockId) -> Bool
-    func firstResponder() -> BlockId?
+    func firstResponderId() -> BlockId?
+    func firstResponder() -> BlockModelProtocol?
     func focusAt() -> Position?
     /// Set toggled state for block
     ///
     /// - Parameters:
     ///   - id: Block id to change state
     func setToggled(by id: BlockId, value: Bool)
-    func setFirstResponder(by id: BlockId)
+    func setFirstResponder(with blockModel: BlockModelProtocol)
     func setFocusAt(position: Position)
     
     func unsetFirstResponder()
