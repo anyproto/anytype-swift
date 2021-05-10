@@ -95,7 +95,6 @@
 		0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */; };
 		0A0965F125BEF5B000C004BD /* EditorModule+Selection+Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CE25BEF5B000C004BD /* EditorModule+Selection+Handler.swift */; };
 		0A0965F225BEF5B000C004BD /* EditorModuleDocumentViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CF25BEF5B000C004BD /* EditorModuleDocumentViewBuilder.swift */; };
-		0A0965F325BEF5B000C004BD /* TopBottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* TopBottomMenuViewController.swift */; };
 		0A0965F825BEF5B000C004BD /* EditorModule+Selection+ToolbarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D525BEF5B000C004BD /* EditorModule+Selection+ToolbarPresenter.swift */; };
 		0A0965FA25BEF5B000C004BD /* EditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D725BEF5B000C004BD /* EditorModule.swift */; };
 		0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */; };
@@ -288,7 +287,6 @@
 		3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */; };
 		3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */; };
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
-		3D932D5D2631807800C7D1EA /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
 		3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E622636F3560085D008 /* ImageParameters.swift */; };
 		3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* PageCellDataMock.swift */; };
 		3DA369032629A17F001557C9 /* DocumentViewModelUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */; };
@@ -382,6 +380,7 @@
 		53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A772637637200968B8E /* StyleColorCellView.swift */; };
 		53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7B2637638800968B8E /* StyleColorContentView.swift */; };
 		53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */; };
+		53F820A82648AEF5003FEB0B /* TopBottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* TopBottomMenuViewController.swift */; };
 		A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */; };
 		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
 		A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */; };
@@ -2492,14 +2491,6 @@
 		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
-				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
-			);
-			path = BlockActionHandler;
-			sourceTree = "<group>";
-		};
-		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
-			isa = PBXGroup;
-			children = (
 				5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
 			);
@@ -3260,6 +3251,7 @@
 				0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */,
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */,
+				53F820A82648AEF5003FEB0B /* TopBottomMenuViewController.swift in Sources */,
 				0A0965F825BEF5B000C004BD /* EditorModule+Selection+ToolbarPresenter.swift in Sources */,
 				3DDF58962628C6440081C53E /* PageTitleViewModel.swift in Sources */,
 				0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */,
