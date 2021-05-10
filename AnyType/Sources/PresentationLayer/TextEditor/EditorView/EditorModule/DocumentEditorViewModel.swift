@@ -94,8 +94,8 @@ class DocumentEditorViewModel: ObservableObject {
     /// We should update some items in place.
     /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
     /// Its `Output` is a `List<BlockId>`
-    private let updateElementsSubject: PassthroughSubject<[BlockId], Never> = .init()
-    private(set) var updateElementsPublisher: AnyPublisher<[BlockId], Never> = .empty()
+    private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never> = .init()
+    private(set) var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = .empty()
     private var lastSetTextClosure: (() -> Void)?
 
     // MARK: - Initialization
@@ -174,8 +174,7 @@ class DocumentEditorViewModel: ObservableObject {
             }).store(in: &self.subscriptions)
     }
 
-    private func remove(buildersWith ids: [BlockId]) {
-        let targetIds: Set<BlockId> = .init(ids)
+    private func remove(buildersWith ids: Set<BlockId>) {
         var indexSet: IndexSet = .init()
         var itemsToDelete: [BaseBlockViewModel] = []
 
@@ -184,9 +183,9 @@ class DocumentEditorViewModel: ObservableObject {
 
         var buildersIndex = startIndex
 
-        while buildersIndex != endIndex, targetIds.count != itemsToDelete.count {
+        while buildersIndex != endIndex, ids.count != itemsToDelete.count {
             let item = self.builders[buildersIndex]
-            if targetIds.contains(item.blockId) {
+            if ids.contains(item.blockId) {
                 indexSet.insert(buildersIndex)
                 itemsToDelete.append(item)
             }
@@ -240,12 +239,11 @@ class DocumentEditorViewModel: ObservableObject {
         self.configureInteractions(self.documentViewModel.documentId)
     }
     
-    private func updateDiffableValuesForBlockIds(_ ids: [BlockId]) {
+    private func updateDiffableValuesForBlockIds(_ ids: Set<BlockId>) {
         // In case we update just several blocks (for example turn into Paragraph -> Header)
         // we also need to update diffable value for such blocks
         // to reduce updates when we will calculate differencies using diff algorithm
-        let updatesSet = Set(ids)
-        let updatedViewModels = builders.filter { updatesSet.contains($0.blockId) }
+        let updatedViewModels = builders.filter { ids.contains($0.blockId) }
         updatedViewModels.forEach { $0.updateDiffable() }
     }
 
@@ -275,7 +273,7 @@ class DocumentEditorViewModel: ObservableObject {
 // MARK: - DocumentViewInteraction
 
 extension DocumentEditorViewModel: DocumentViewInteraction {
-    func updateBlocks(with ids: [BlockId]) {
+    func updateBlocks(with ids: Set<BlockId>) {
         self.updateElementsSubject.send(ids)
     }
 }

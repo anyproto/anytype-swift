@@ -119,7 +119,7 @@ private extension MarksPaneBlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             blockModel.information.content = .text(textContentType)
-            self.documentViewInteraction?.updateBlocks(with: [blockModel.information.id])
+            self.documentViewInteraction?.updateBlocks(with: Set([blockModel.information.id]))
 
             self.textService.setText(contextID: self.contextId,
                                             blockID: blockModel.information.id,
@@ -141,7 +141,7 @@ private extension MarksPaneBlockActionHandler {
             }
             textContentType.attributedText = newAttributedString
             blockModel.information.content = .text(textContentType)
-            self.documentViewInteraction?.updateBlocks(with: [blockModel.information.id])
+            self.documentViewInteraction?.updateBlocks(with: Set([blockModel.information.id]))
             self.textService.setText(contextID: self.contextId,
                                             blockID: blockModel.information.id,
                                             attributedString: newAttributedString)

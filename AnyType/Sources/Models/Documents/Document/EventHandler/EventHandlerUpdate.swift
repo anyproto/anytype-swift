@@ -1,28 +1,9 @@
+
 import BlocksModels
 
-extension EventHandlerUpdate {
-    struct Payload: Hashable {
-        var addedIds: [BlockId] = []
-        var deletedIds: [BlockId] = []
-        var updatedIds: [BlockId] = []
-        var openedToggleId: BlockId? = nil
-        static var empty: Self = .init()
-        
-        static func merged(lhs: Self, rhs: Self) -> Self {
-            .init(addedIds: lhs.addedIds + rhs.addedIds,
-                  deletedIds: lhs.deletedIds + rhs.deletedIds,
-                  updatedIds: lhs.updatedIds + rhs.updatedIds,
-                  openedToggleId: lhs.openedToggleId ?? rhs.openedToggleId)
-        }
-    }
-}
-
-enum EventHandlerUpdate: Equatable {
+enum EventHandlerUpdate {
     case general
-    case update(Payload)
-    
-    static var specialAfterBlockShow: Self = .general
-    static var empty: Self = .update(.empty)
+    case update(EventHandlerUpdatePayload)
     
     static func merged(lhs: Self, rhs: Self) -> Self {
         switch (lhs, rhs) {
@@ -38,8 +19,10 @@ enum EventHandlerUpdate: Equatable {
 
     var hasUpdate: Bool {
         switch self {
-        case .empty: return false
-        default: return true
+        case .general:
+            return true
+        case let .update(update):
+            return update.hasUpdates
         }
     }
 }

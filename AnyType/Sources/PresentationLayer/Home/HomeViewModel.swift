@@ -1,3 +1,5 @@
+
+import BlocksModels
 import Combine
 import Foundation
 import ProtobufMessages
@@ -79,7 +81,7 @@ final class HomeViewModel: ObservableObject {
         self.dashboardModel.updatePublisher()
             .reciveOnMain()
             .sink { [weak self] updateResult in
-                self?.updateCellData(viewModels: updateResult.models.compactMap({$0 as? BlockPageLinkViewModel}))
+                self?.onDashboardUpdate(updateResult)
             }.store(in: &self.subscriptions)
         self.dashboardModel.open(serviceSuccess)
     }

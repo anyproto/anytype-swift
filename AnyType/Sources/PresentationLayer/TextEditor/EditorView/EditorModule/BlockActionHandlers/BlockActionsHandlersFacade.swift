@@ -11,7 +11,7 @@ private extension LoggerCategory {
 protocol DocumentViewInteraction: AnyObject {
     /// Update blocks by ids
     /// - Parameter ids: blocks ids
-    func updateBlocks(with ids: [BlockId])
+    func updateBlocks(with ids: Set<BlockId>)
 }
 
 final class BlockActionsHandlersFacade {

@@ -133,12 +133,11 @@ final class DocumentEditorViewController: UICollectionViewController {
         }).store(in: &self.subscriptions)
     }
 
-    private func handleUpdateBlocks(blockIds: [BlockId]) {
+    private func handleUpdateBlocks(blockIds: Set<BlockId>) {
         guard let dataSource = dataSource else { return }
         let sectionSnapshot = dataSource.snapshot(for: .first)
         var snapshot = dataSource.snapshot()
-        let set: Set = .init(blockIds)
-        var itemsForUpdate = sectionSnapshot.visibleItems.filter { set.contains($0.blockId) }
+        var itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
         let focusedViewModelIndex = itemsForUpdate.firstIndex(where: { viewModel -> Bool in
             guard let indexPath = dataSource.indexPath(for: viewModel) else { return false }
             return collectionView.cellForItem(at: indexPath)?.isAnySubviewFirstResponder() ?? false

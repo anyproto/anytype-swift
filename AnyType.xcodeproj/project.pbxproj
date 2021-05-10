@@ -436,6 +436,10 @@
 		EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */; };
 		EA7DE3FE26397C08005AFEE2 /* BlockMenuActionsFilterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE3FD26397C08005AFEE2 /* BlockMenuActionsFilterService.swift */; };
 		EA7DE40426397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE40326397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift */; };
+		EA955D742646836D00817F80 /* BlockChildrenIdsUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA955D732646836D00817F80 /* BlockChildrenIdsUpdates.swift */; };
+		EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */; };
+		EAA7033E2643FF0200C4F7F7 /* EventHandlerUpdateChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA7033D2643FF0200C4F7F7 /* EventHandlerUpdateChange.swift */; };
+		EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */; };
 		EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */; };
 		EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */; };
 		EAC54F6125E93B3700B745A8 /* GraphikLCG-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */; };
@@ -932,6 +936,10 @@
 		EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAlignmentAction.swift; sourceTree = "<group>"; };
 		EA7DE3FD26397C08005AFEE2 /* BlockMenuActionsFilterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsFilterService.swift; sourceTree = "<group>"; };
 		EA7DE40326397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsFilterEntry.swift; sourceTree = "<group>"; };
+		EA955D732646836D00817F80 /* BlockChildrenIdsUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChildrenIdsUpdates.swift; sourceTree = "<group>"; };
+		EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdatePayload.swift; sourceTree = "<group>"; };
+		EAA7033D2643FF0200C4F7F7 /* EventHandlerUpdateChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdateChange.swift; sourceTree = "<group>"; };
+		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
 		EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattenerOptions.swift; sourceTree = "<group>"; };
 		EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChildrenNormalizer.swift; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
@@ -1366,6 +1374,8 @@
 				EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */,
 				5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */,
 				EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */,
+				EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */,
+				EA955D732646836D00817F80 /* BlockChildrenIdsUpdates.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -2321,6 +2331,8 @@
 				3DCE79F92615215D00E09593 /* EventHandler.swift */,
 				3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */,
 				3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */,
+				EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */,
+				EAA7033D2643FF0200C4F7F7 /* EventHandlerUpdateChange.swift */,
 			);
 			path = EventHandler;
 			sourceTree = "<group>";
@@ -3111,6 +3123,7 @@
 				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
+				EA955D742646836D00817F80 /* BlockChildrenIdsUpdates.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
@@ -3123,6 +3136,7 @@
 				0316497B23E5B339009A3984 /* CustomScrollView.swift in Sources */,
 				EADA96C8260B798E001F6FA4 /* EditorModuleDocumentViewInput.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* BlocksModelsParser.swift in Sources */,
+				EAA7033E2643FF0200C4F7F7 /* EventHandlerUpdateChange.swift in Sources */,
 				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
 				3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */,
@@ -3165,6 +3179,7 @@
 				EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */,
 				0A203A8A2547106100D3729A /* ImageProperty.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
+				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
 				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
 				EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */,
@@ -3279,6 +3294,7 @@
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
 				0A0AA74C240156F7003A2935 /* Logger.swift in Sources */,
 				EA77E548262DF30B009F91D9 /* BlockMenuActionsHandler.swift in Sources */,
+				EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */,
 				EAC6BB5126288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,

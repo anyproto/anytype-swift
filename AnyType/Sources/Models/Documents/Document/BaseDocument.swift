@@ -200,12 +200,8 @@ class BaseDocument {
     /// - Returns: A publisher of updates and related models to these updates.
     func modelsAndUpdatesPublisher(
     ) -> AnyPublisher<UpdateResult, Never> {
-        self.updatesPublisher().filter { (value) -> Bool in
-            switch value {
-            case .empty: return false
-            default: return true
-            }
-        }.map { [weak self] (value) in
+        self.updatesPublisher().filter(\.hasUpdate)
+        .map { [weak self] (value) in
             UpdateResult(updates: value, models: self?.models(from: value) ?? [])
         }.eraseToAnyPublisher()
     }

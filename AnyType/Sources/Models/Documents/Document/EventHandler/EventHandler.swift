@@ -19,9 +19,9 @@ class EventHandler: EventHandlerProtocol {
     }
                                     
     private func finalize(_ updates: [EventHandlerUpdate]) {
-        
-        // configure one update
-        let update: EventHandlerUpdate = updates.reduce(.update(EventHandlerUpdate.Payload())) { (result, value) in .merged(lhs: result, rhs: value) }
+        let update = updates.reduce(EventHandlerUpdate.update(EventHandlerUpdatePayload())) { result, update in
+            .merged(lhs: result, rhs: update)
+        }
         
         guard let container = self.container else {
             assertionFailure("Container is nil in event handler. Something went wrong.")
@@ -50,7 +50,7 @@ class EventHandler: EventHandlerProtocol {
     }
 
     // MARK: Events Handling / InnerEvents
-    func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate {
+    func handleInnerEvent(_ event: Anytype_Event.Message.OneOf_Value) -> EventHandlerUpdate? {
         typealias AttributedTextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
 
         switch event {
@@ -62,24 +62,31 @@ class EventHandler: EventHandlerProtocol {
                 .forEach { (value) in
                     self.updater?.insert(block: value)
                 }
-            return .update(.init(addedIds: value.blocks.map(\.id)))
+            // Because blockAdd message will always come together with blockSetChildrenIds
+            // and it is easier to create update from those message
+            return nil
         
         case let .blockDelete(value):
-            // Find blocks and remove them from map.
-            // And from tree.
             value.blockIds.forEach({ (value) in
                 self.updater?.delete(at: value)
             })
-            return .update(.init(deletedIds: value.blockIds))
+            // Because blockDelete message will always come together with blockSetChildrenIds
+            // and it is easier to create update from those message
+            return nil
         
         case let .blockSetChildrenIds(value):
             let parentId = value.id
+            guard let container = container else {
+                assertionFailure("Can't get container with blocks")
+                return nil
+            }
+            let currentChildrenIds = container.blocksContainer.children(of: parentId)
+            let updates = currentChildrenIds.updates(with: value.childrenIds, parentBlockId: parentId)
             self.updater?.set(children: value.childrenIds, parent: parentId)
-            return .general
+            return .update(EventHandlerUpdatePayload(addedIds: updates.added,
+                                                     deletedIds: Set(updates.deleted),
+                                                     movedIds: Set(updates.moved)))
             
-            /// NOTES:
-            /// Our middleware doesn't send current text to us ( ok ), so, we should somehow find it in our model.
-            ///
         case let .blockSetText(value):
             let blockId = value.id
 
@@ -185,7 +192,7 @@ class EventHandler: EventHandlerProtocol {
 //                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
 //                return .general
 //            }
-            return .update(.empty) // or .general
+            return .update(EventHandlerUpdatePayload())
         case let .blockSetFile(value):
             guard value.hasState else {
                 return .general
@@ -299,17 +306,14 @@ class EventHandler: EventHandlerProtocol {
                 default: return
                 }
             })
-            
-            return .general
+            return .update(EventHandlerUpdatePayload(updatedIds: Set([value.id])))
         
         /// Special case.
         /// After we open document, we would like to receive all blocks of opened page.
         /// For that, we send `blockShow` event to `eventHandler`.
         ///
-        case .blockShow: return .specialAfterBlockShow
-        
-        /// We treat `unknown events` as `empty`, because we won't handle updates for unknown events.
-        default: return .empty
+        case .blockShow: return .general
+        default: return nil
         }
     }
 
@@ -386,7 +390,7 @@ class EventHandler: EventHandlerProtocol {
         case let .setToggled(payload):
             guard let container = self.container,
                   let block = container.blocksContainer.choose(by: payload.payload.blockId) else {
-                return .empty
+                return nil
             }
             if !block.isToggled {
                 let flattener = BlockFlattener.self
@@ -394,7 +398,7 @@ class EventHandler: EventHandlerProtocol {
                                                       in: container,
                                                       options: .init(shouldCheckIsRootToggleOpened: false,
                                                                      normalizers: []))
-                return .update(.init(deletedIds: deletedIds))
+                return .update(.init(deletedIds: Set(deletedIds)))
             } else {
                 return .update(.init(openedToggleId: payload.payload.blockId))
             }
