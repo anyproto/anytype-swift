@@ -111,22 +111,24 @@ public extension BlockInformation {
     /// We need it to get block and later configure blocks views with this block and then render them.
     ///
     struct DetailsAsBlockConverter {
-        public typealias Details = DetailsContent
-        public typealias BlockModel = BlockModelProtocol
         
-        var blockId: BlockId
-
-        private func detailsAsBlock(_ details: Details) -> BlockModel {
-            TopLevelBuilderImpl.blockBuilder.createBlockModel(with: DetailsAsInformationConverter(blockId: self.blockId)(details))
-        }
-
-        public func callAsFunction(_ details: Details) -> BlockModelProtocol {
-            detailsAsBlock(details)
-        }
+        // MARK: - Private variables
         
-        // MARK: - Memberwise Initializer
+        private let blockId: BlockId
+
+        // MARK: - Initializer
+        
         public init(blockId: BlockId) {
             self.blockId = blockId
         }
+        
+        // MARK: - Public functions
+        
+        public func convertDetailsToBlock(_ details: DetailsContent) -> BlockModelProtocol {
+            TopLevelBuilderImpl.blockBuilder.createBlockModel(
+                with: DetailsAsInformationConverter(blockId: self.blockId)(details)
+            )
+        }
+        
     }
 }

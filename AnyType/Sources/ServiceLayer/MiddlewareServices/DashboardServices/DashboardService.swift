@@ -20,10 +20,11 @@ class DashboardService: DashboardServiceProtocol {
     
     func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error> {
         let targetId: String = ""
-        let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: [
-            .title(.init()),
-            .iconEmoji(.init())
-        ])
+        let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(
+            list: [
+                .title(.init())
+            ]
+        )
                 
         return objectsService.createPage(
             contextID: contextId,

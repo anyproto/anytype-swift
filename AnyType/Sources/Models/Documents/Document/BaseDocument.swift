@@ -303,24 +303,28 @@ class BaseDocument {
             Logger.create(.baseDocument).debug("convert(_:of:). Our document is not ready yet.")
             return nil
         }
+                
+        let detailsContent: DetailsContent? = {
+            let details = detailsActiveModel.currentDetails
+
+            switch kind {
+            case .title:
+                return .title(details.title ?? .init(value: ""))
+            case .iconEmoji:
+                return details.iconEmoji.flatMap { DetailsContent.iconEmoji($0) }
+            case .iconColor:
+                return .iconColor(details.iconColor ?? .init(value: ""))
+            case .iconImage:
+                return .iconImage(details.iconImage ?? .init(value: ""))
+            }
+        }()
         
-        let details = detailsActiveModel.currentDetails
+        guard let unwrappedDetailsContent = detailsContent else { return nil }
         
-        let block: BlockModelProtocol
-        switch kind {
-        case .title: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
-            .title(details.title ?? .init(value: ""))
-        )
-        case .iconEmoji: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
-            .iconEmoji(details.iconEmoji ?? .init(value: ""))
-        )
-        case .iconColor: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
-            .iconColor(details.iconColor ?? .init(value: ""))
-        )
-        case .iconImage: block = BlockInformation.DetailsAsBlockConverter.init(blockId: rootId)(
-            .iconImage(details.iconImage ?? .init(value: ""))
-        )}
-        
+        let block = BlockInformation.DetailsAsBlockConverter(
+            blockId: rootId
+        ).convertDetailsToBlock(unwrappedDetailsContent)
+                
         if self.rootModel?.blocksContainer.get(by: block.information.id) != nil {
             Logger.create(.baseDocument).debug("convert(_:of:). We have already added details with id: \(block.information.id)")
         }

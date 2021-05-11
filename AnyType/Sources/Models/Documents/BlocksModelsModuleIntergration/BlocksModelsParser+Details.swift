@@ -111,11 +111,15 @@ private extension DetailsContent.Emoji {
                 assertionFailure("Can't proceed detail with key \(detail.key) for predefined suffix. \(Model.id)")
                 return nil
             }
+            
             switch detail.value.kind {
-                case let .stringValue(string): return .init(value: string)
-                default:
-                    assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
-                    return nil
+            case let .stringValue(string):
+                guard !string.isEmpty else { return nil }
+                
+                return .init(value: string)
+            default:
+                assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
+                return nil
             }
         }
     }

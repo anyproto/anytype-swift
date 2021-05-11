@@ -234,10 +234,11 @@ final class BlockActionService {
     func createPage(afterBlock: Information, position: BlockPosition = .bottom) {
 
         let targetId = ""
-        let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: [
-            .title(.init()),
-            .iconEmoji(.init())
-        ])
+        let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(
+            list: [
+                .title(.init())
+            ]
+        )
 
         self.pageService.createPage(contextID: self.documentId, targetID: targetId, details: details, position: position)
             .reciveOnMain()
