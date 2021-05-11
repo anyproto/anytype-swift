@@ -42,7 +42,7 @@ extension MarksPane.Panes.Color {
         private static func state(_ style: TextView.MarkStyle, background: Bool) -> Attribute? {
             switch style {
             case let .textColor(color): return .setColor(color ?? .defaultColor)
-            case let .backgroundColor(color): return .setColor(color ?? .defaultBackgroundColor)
+            case let .backgroundColor(color): return .setColor(color ?? .grayscaleWhite)
             default: return nil
             }
         }

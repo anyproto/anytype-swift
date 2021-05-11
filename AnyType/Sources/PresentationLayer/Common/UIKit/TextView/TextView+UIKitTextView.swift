@@ -228,6 +228,7 @@ extension TextView.UIKitTextView {
         self.subscriptions.removeAll()
         self.model = model
         self.textView.delegate = nil
+        self.textView.setupPublishers()
 
         if let textView = self.textView, let model = self.model {
             textView.coordinator = nil

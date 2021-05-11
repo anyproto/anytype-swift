@@ -8,6 +8,7 @@
 
 import UIKit
 import FloatingPanel
+import BlocksModels
 
 
 // MARK: - Cell model
@@ -18,29 +19,34 @@ private extension StyleViewController {
     }
 
     struct Item: Hashable {
-        let kind: BlockActionHandler.ActionType
+        let kind: BlockContent.Text.ContentType
         let text: String
         let font: UIFont
 
         private let identifier = UUID()
 
         static let all: [Item] = [
-            (BlockActionHandler.ActionType.turnInto(.title), "Title".localized, UIFont.header1Font),
-            (BlockActionHandler.ActionType.turnInto(.header2), "Heading".localized, UIFont.header2Font),
-            (BlockActionHandler.ActionType.turnInto(.header3), "Subheading".localized, UIFont.header3Font),
-            (BlockActionHandler.ActionType.turnInto(.text), "Text".localized, UIFont.bodyFont)
-        ].map { Item(kind: $0.0, text: $0.1, font: $0.2) }
+            Item(kind: .header, text: "Title".localized, font: UIFont.header1Font),
+            Item(kind: .header2, text: "Heading".localized, font: UIFont.header2Font),
+            Item(kind: .header3, text: "Subheading".localized, font: UIFont.header3Font),
+            Item(kind: .text, text: "Text".localized, font: UIFont.bodyFont)
+        ]
     }
 
     struct ListItem {
+        let kind: BlockContent.Text.ContentType
         let icon: UIImage
 
         static let all: [ListItem] = [
-            "StyleBottomSheet/bullet",
-            "StyleBottomSheet/checkbox",
-            "StyleBottomSheet/numbered",
-            "StyleBottomSheet/toggle"
-        ].compactMap { UIImage(named: $0) }.map(ListItem.init)
+            (BlockContent.Text.ContentType.bulleted, "StyleBottomSheet/bullet"),
+            (BlockContent.Text.ContentType.checkbox, "StyleBottomSheet/checkbox"),
+            (BlockContent.Text.ContentType.numbered, "StyleBottomSheet/numbered"),
+            (BlockContent.Text.ContentType.toggle, "StyleBottomSheet/toggle")
+        ]
+        .compactMap { (kind, imageName) -> ListItem? in
+            guard let image = UIImage(named: imageName) else { return nil }
+            return ListItem(kind: kind, icon: image)
+        }
     }
 }
 
@@ -112,6 +118,12 @@ final class StyleViewController: UIViewController {
 
     private weak var viewControllerForPresenting: UIViewController?
     private var actionHandler: ActionHandler
+    private var askColor: () -> UIColor?
+    private var askBackgroundColor: () -> UIColor?
+    private var askTextAttributes: () -> TextAttributesViewController.AttributesState
+    private var style: BlockContent.Text.ContentType
+    // deselect action will be performed on new selection
+    private var currentDeselectAction: (() -> Void)?
 
     // MARK: - Lifecycle
 
@@ -119,9 +131,21 @@ final class StyleViewController: UIViewController {
     /// - Parameter viewControllerForPresenting: view controller where we can present other view controllers
     /// - Parameter actionHandler: Handle bottom sheet  actions, see `StyleViewController.ActionType`
     /// - important: Use weak self inside `ActionHandler`
-    init(viewControllerForPresenting: UIViewController, actionHandler: @escaping ActionHandler) {
+    init(
+        viewControllerForPresenting: UIViewController,
+        style: BlockContent.Text.ContentType,
+        askColor: @escaping () -> UIColor?,
+        askBackgroundColor: @escaping () -> UIColor?,
+        askTextAttributes: @escaping () -> TextAttributesViewController.AttributesState,
+        actionHandler: @escaping ActionHandler
+    ) {
         self.viewControllerForPresenting = viewControllerForPresenting
+        self.style = style
+        self.askColor = askColor
+        self.askBackgroundColor = askBackgroundColor
+        self.askTextAttributes = askTextAttributes
         self.actionHandler = actionHandler
+
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -173,12 +197,16 @@ final class StyleViewController: UIViewController {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.heightAnchor.constraint(equalToConstant: 48).isActive = true
             listStackView.addArrangedSubview(button)
+
+            setupAction(for: button, with: item.kind)
         }
     }
 
     private func setupOtherStyleStackView() {
         let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlighted"))
+        setupAction(for: highlightedButton, with: .quote)
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
+        setupAction(for: calloutButton, with: .code)
 
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
@@ -212,13 +240,47 @@ final class StyleViewController: UIViewController {
         }
     }
 
+    private func setupAction(for button: UIControl, with style: BlockContent.Text.ContentType) {
+        let deselectAction = {
+            button.isSelected = false
+        }
+
+        if style == self.style {
+            button.isSelected = true
+            currentDeselectAction = deselectAction
+        }
+
+        let action =  UIAction(
+            handler: { [weak self] _ in
+                button.isSelected = true
+
+                self?.selectStyle(style) {
+                    button.isSelected = false
+                }
+            }
+        )
+
+        button.addAction(action, for: .touchUpInside)
+    }
+
     // MARK: - configure style collection view
 
     private func configureStyleDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<StyleCellView, Item> { (cell, indexPath, item) in
+        let cellRegistration = UICollectionView.CellRegistration<StyleCellView, Item> { [weak self] (cell, indexPath, item) in
+            cell.isSelected = false
+
+            if item.kind == self?.style {
+                cell.isSelected = true
+                self?.currentDeselectAction = {
+                    cell.isSelected = false
+                    self?.styleCollectionView.deselectItem(at: indexPath, animated: true)
+                }
+            }
+
             var content = StyleCellContentConfiguration()
             content.text = item.text
             content.font = item.font
+
             cell.contentConfiguration = content
         }
 
@@ -235,6 +297,15 @@ final class StyleViewController: UIViewController {
     }
 
     // MARK: - action handlers
+
+    private func selectStyle(_ style: BlockContent.Text.ContentType, deselectAction: @escaping () -> Void) {
+        guard style != self.style else { return }
+        self.style = style
+
+        currentDeselectAction?()
+        currentDeselectAction = deselectAction
+        self.actionHandler(BlockActionHandler.ActionType.turnInto(style))
+    }
 
     @objc private func colorActionHandler() {
         guard let viewControllerForPresenting = viewControllerForPresenting else { return }
@@ -264,7 +335,10 @@ final class StyleViewController: UIViewController {
         fpc.backdropView.backgroundColor = .clear
         fpc.contentMode = .static
 
-        let contentVC = StyleColorViewController()
+        let color = askColor()
+        let backgroundColor = askBackgroundColor()
+
+        let contentVC = StyleColorViewController(color: color, backgroundColor: backgroundColor, actionHandler: actionHandler)
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }
@@ -297,7 +371,9 @@ final class StyleViewController: UIViewController {
         fpc.backdropView.backgroundColor = .clear
         fpc.contentMode = .static
 
-        let contentVC = TextAttributesViewController()
+        let attributes = askTextAttributes()
+
+        let contentVC = TextAttributesViewController(attributesState: attributes, actionHandler: actionHandler)
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }
@@ -311,6 +387,8 @@ extension StyleViewController: UICollectionViewDelegate {
             collectionView.deselectItem(at: indexPath, animated: true)
             return
         }
-        self.actionHandler(style.kind)
+        selectStyle(style.kind) {
+            collectionView.deselectItem(at: indexPath, animated: true)
+        }
     }
 }

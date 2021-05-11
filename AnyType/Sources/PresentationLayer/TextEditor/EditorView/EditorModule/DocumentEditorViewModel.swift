@@ -34,7 +34,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     /// Service
     private var blockActionsService: BlockActionsServiceSingle = .init()
-    private lazy var blockActionHandler = BlockActionHandler(documentId: self.documentViewModel.documentId)
+    private lazy var blockActionHandler = BlockActionHandler(documentId: self.documentViewModel.documentId, documentViewInteraction: self)
 
     /// Document ViewModel
     private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
@@ -362,9 +362,8 @@ private extension DocumentEditorViewModel {
         // TODO: we need coordinator(router) here that show this view https://app.clickup.com/t/h13ytp
         case let .showCodeLanguageView(languages, completion):
             self.viewInput?.showCodeLanguageView(with: languages, completion: completion)
-        case .showStyleMenu:
-//            self.publicUserActionSubject.send()
-            self.viewInput?.showStyleMenu()
+        case let .showStyleMenu(blockModel):
+            self.viewInput?.showStyleMenu(blockModel: blockModel)
         case let .becomeFirstResponder(blockModel):
             self.documentViewModel.userSession?.setFirstResponder(with: blockModel)
         case .toolbar, .marksPane, .userAction: return

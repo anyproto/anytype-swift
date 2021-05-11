@@ -15,7 +15,7 @@ final class ButtonWithImage: UIControl {
     private var borderColor: UIColor = .clear
 
     private(set) var label: UILabel = .init()
-    private var imageView: UIImageView = .init()
+    private(set) var imageView: UIImageView = .init()
 
     init() {
         super.init(frame: .zero)
@@ -32,6 +32,12 @@ final class ButtonWithImage: UIControl {
 
         if let borderEdges = borderEdges {
             privateAddBorders(edges: borderEdges, width: borderWidth, color: borderColor)
+        }
+    }
+
+    override var isSelected: Bool {
+        didSet {
+            backgroundColor = isSelected ? UIColor.selected : .clear
         }
     }
 

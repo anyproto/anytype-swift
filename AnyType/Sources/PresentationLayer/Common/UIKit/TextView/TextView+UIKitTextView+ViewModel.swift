@@ -199,7 +199,12 @@ extension Namespace.ViewModel {
 
     func configured(firstResponderChangePublisher: AnyPublisher<FirstResponder.Change, Never>) -> Self {
         self.firstResponderChangeSubscription = firstResponderChangePublisher.sink(receiveValue: { [weak self] (value) in
-            self?.blockViewModel?.becomeFirstResponder()
+            switch value {
+            case .become:
+                self?.blockViewModel?.becomeFirstResponder()
+            case .resign:
+                return
+            }
         })
         return self
     }

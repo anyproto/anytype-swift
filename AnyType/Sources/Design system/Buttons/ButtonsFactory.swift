@@ -22,14 +22,15 @@ enum ButtonsFactory {
         return backButton
     }
 
-    static func roundedBorderуButton(image: UIImage?) -> UIButton {
-        let button = UIButton()
-        button.setImage(image, for: .normal)
+    static func roundedBorderуButton(image: UIImage?) -> ButtonWithImage {
+        let button = ButtonWithImage()
+        button.setImage(image)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 0.5
         button.layer.borderColor = UIColor.grayscale30.cgColor
         button.contentMode = .center
-        button.imageView?.contentMode = .scaleAspectFit
+        button.imageView.contentMode = .scaleAspectFit
+
         return button
     }
 }

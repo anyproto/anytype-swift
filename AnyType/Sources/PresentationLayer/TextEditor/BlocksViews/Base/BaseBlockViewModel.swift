@@ -22,28 +22,28 @@ extension BaseBlockViewModel {
     enum ActionsPayload {
         struct Toolbar {
             typealias Action = BlocksViews.Toolbar.UnderlyingAction
-            var model: BlockModel
-            var action: Action
+            let model: BlockModel
+            let action: Action
         }
 
         struct MarksPaneHolder {
             typealias Action = MarksPane.Main.Action
-            var model: BlockModel
-            var action: Action
+            let model: BlockModel
+            let action: Action
         }
 
         /// For backward compatibility.
         struct TextBlocksViewsUserInteraction {
             typealias Action = TextBlockUserInteraction
-            var model: BlockModel
-            var action: Action
+            let model: BlockModel
+            let action: Action
         }
 
         /// For seamless usage of UserAction as "Payload"
         struct UserActionHolder {
             typealias Action = BlocksViews.UserAction
-            var model: BlockModel
-            var action: Action
+            let model: BlockModel
+            let action: Action
         }
 
         /// Text blocks draft.
@@ -67,7 +67,7 @@ extension BaseBlockViewModel {
         /// show code language view
         case showCodeLanguageView(languages: [String], completion: (String) -> Void)
         /// show style menu
-        case showStyleMenu
+        case showStyleMenu(BlockModelProtocol)
         /// tell that block become first responder
         case becomeFirstResponder(BlockModelProtocol)
     }

@@ -352,7 +352,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         present(searchListViewController, animated: true)
     }
 
-    func showStyleMenu() {
+    func showStyleMenu(blockModel: BlockModelProtocol) {
         guard let viewControllerForPresenting = parent else { return }
 
         self.view.endEditing(true)
@@ -380,7 +380,41 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         fpc.backdropView.backgroundColor = .clear
         fpc.contentMode = .static
 
-        let contentVC = StyleViewController(viewControllerForPresenting: viewControllerForPresenting) { [weak self] action in
+        // NOTE: This will be moved to coordinator in next pr
+        guard case let .text(textContentType) = blockModel.information.content.type else { return }
+        let askAttributes: () -> TextAttributesViewController.AttributesState = {
+            guard case let .text(textContent) = blockModel.information.content else {
+                return .init(hasBold: false, hasItalic: false, hasStrikethrough: false, hasCodeStyle: false)
+            }
+
+            let range = NSRange(location: 0, length: textContent.attributedText.length)
+
+            let hasBold = textContent.attributedText.hasTrait(trait: .traitBold, at: range)
+            let hasItalic = textContent.attributedText.hasTrait(trait: .traitItalic, at: range)
+            let hasStrikethrough = textContent.attributedText.hasAttribute(.strikethroughStyle, at: range)
+            let alignment = BlocksModelsParserCommonAlignmentUIKitConverter.asUIKitModel(blockModel.information.alignment) ?? .left
+
+            let attributes = TextAttributesViewController.AttributesState(
+                hasBold: hasBold, hasItalic: hasItalic, hasStrikethrough: hasStrikethrough, hasCodeStyle: false, alignment: alignment, url: ""
+            )
+            return attributes
+        }
+
+        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+        let askColor: () -> UIColor? = {
+            guard case let .text(textContent) = blockModel.information.content else { return nil }
+            return ColorConverter.asModel(textContent.color, background: false)
+        }
+        let askBackgroundColor: () -> UIColor? = {
+            return ColorConverter.asModel(blockModel.information.backgroundColor, background: true)
+        }
+
+        let contentVC = StyleViewController(viewControllerForPresenting: viewControllerForPresenting,
+                                            style: textContentType,
+                                            askColor: askColor,
+                                            askBackgroundColor: askBackgroundColor,
+                                            askTextAttributes: askAttributes
+                                            ) { [weak self] action in
             self?.viewModel.handleAction(action)
         }
         fpc.set(contentViewController: contentVC)

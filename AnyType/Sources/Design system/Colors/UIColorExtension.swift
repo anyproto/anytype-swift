@@ -74,51 +74,6 @@ extension UIColor {
     static var defaultColor: UIColor {
         .grayscale90
     }
-
-    /// Color that can be used in case if we couldn't parse color from middleware
-    static var defaultBackgroundColor: UIColor {
-        .white
-    }
-    
-    static var lemonBackground: UIColor {
-        UIColor(hexString: "#FEF9CC")
-    }
-    
-    static var amberBackground: UIColor {
-        UIColor(hexString: "#FEF3C5")
-    }
-    
-    static var redBackground: UIColor {
-        UIColor(hexString: "#FFEBE5")
-    }
-    
-    static var pinkBackground: UIColor {
-        UIColor(hexString: "#FEE3F5")
-    }
-    
-    static var purpleBackground: UIColor {
-        UIColor(hexString: "#F4E3FA")
-    }
-    
-    static var ultramarineBackground: UIColor {
-        UIColor(hexString: "#E4E7FC")
-    }
-    
-    static var blueBackground: UIColor {
-        UIColor(hexString: "#D6EFFD")
-    }
-    
-    static var tealBackground: UIColor {
-        UIColor(hexString: "#D6F5F3")
-    }
-    
-    static var greenBackground: UIColor {
-        UIColor(hexString: "#E3F7D0")
-    }
-    
-    static var coldgrayBackground: UIColor {
-        UIColor(hexString: "#EBEFF1")
-    }
     
     static var grayscale90: UIColor {
         UIColor(hexString: "#2C2B27")
@@ -226,7 +181,7 @@ extension UIColor {
         .init(hexString: "#E3F7D0")
     }
 
-    static var pressed: UIColor {
+    static var selected: UIColor {
         .init(hexString: "#867D42", alpha: 0.1)
     }
 }

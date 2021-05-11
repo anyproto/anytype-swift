@@ -9,9 +9,8 @@
 import UIKit
 
 
-final class SimpleSegmentControl: UIControl {
-
-    private(set) var selectedItemIndex: Int = 0
+final class SimpleSegmentControl<ItemIndex: RawRepresentable>: UIControl where ItemIndex.RawValue == Int {
+    private(set) var selectedItemIndex: ItemIndex
 
     private var buttonsContainer: UIStackView = {
         let buttonsContainer = UIStackView()
@@ -20,7 +19,8 @@ final class SimpleSegmentControl: UIControl {
         return buttonsContainer
     }()
 
-    init() {
+    init(currentSelectedIndex: ItemIndex) {
+        self.selectedItemIndex = currentSelectedIndex
         super.init(frame: .zero)
         setupViews()
     }
@@ -39,15 +39,16 @@ final class SimpleSegmentControl: UIControl {
 
         itemView.setActionHandler { [weak self] in
             guard let self = self else { return }
+            guard let itemIndex = ItemIndex(rawValue: segmentIndex) else { return }
 
-            self.setSelectedItem(for: segmentIndex)
+            self.setSelectedItem(for: itemIndex)
             self.sendActions(for: .valueChanged)
         }
 
         buttonsContainer.addArrangedSubview(itemView)
 
-        if segmentIndex == 0 {
-            setSelectedItem(for: 0)
+        if segmentIndex == 0, let itemIndex = ItemIndex(rawValue: segmentIndex) {
+            setSelectedItem(for: itemIndex)
         }
     }
 
@@ -61,14 +62,14 @@ final class SimpleSegmentControl: UIControl {
         buttonsContainer.edgesToSuperview()
     }
 
-    private func setSelectedItem(for index: Int) {
-        guard buttonsContainer.arrangedSubviews.indices.contains(index) else {
-            return
-        }
-        let newSelectedItem = self.buttonsContainer.arrangedSubviews[index]
+    private func setSelectedItem(for index: ItemIndex) {
+        guard buttonsContainer.arrangedSubviews.indices.contains(index.rawValue) else { return }
 
-        if buttonsContainer.arrangedSubviews.indices.contains(selectedItemIndex) {
-            let currentItemView = self.buttonsContainer.arrangedSubviews[selectedItemIndex]
+        let newSelectedItem = self.buttonsContainer.arrangedSubviews[index.rawValue]
+        let selectedItemIntIndex = selectedItemIndex.rawValue
+
+        if buttonsContainer.arrangedSubviews.indices.contains(selectedItemIntIndex) {
+            let currentItemView = self.buttonsContainer.arrangedSubviews[selectedItemIntIndex]
             currentItemView.backgroundColor = .clear
         }
         selectedItemIndex = index

@@ -40,14 +40,8 @@ extension Namespace {
         private var contextualMenuSubject: PassthroughSubject<ContextualMenu.Action, Never> = .init()
         private(set) var contextualMenuPublisher: AnyPublisher<ContextualMenu.Action, Never> = .empty()
         
-        private var resignFirstResponderSubject: PassthroughSubject<Void, Never> = .init()
-        private(set) var resignFirstResponderPublisher: AnyPublisher<Void, Never> = .empty()
-        
         private var firstResponderChangeSubject: PassthroughSubject<ViewModel.FirstResponder.Change, Never> = .init()
         private(set) var firstResponderChangePublisher: AnyPublisher<ViewModel.FirstResponder.Change, Never> = .empty()
-        
-        // MARK: Variables
-        private var subscriptions: Set<AnyCancellable> = []
         
         // MARK: Views
         private lazy var placeholderLabel: UILabel = {

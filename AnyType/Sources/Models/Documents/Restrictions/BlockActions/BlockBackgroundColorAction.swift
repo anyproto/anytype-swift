@@ -17,27 +17,27 @@ enum BlockBackgroundColorAction: CaseIterable {
     var color : UIColor {
         switch self {
         case .default:
-            return .defaultBackgroundColor
+            return .grayscaleWhite
         case .lemon:
-            return .lemonBackground
+            return .lightLemon
         case .amber:
-            return .amberBackground
+            return .lightAmber
         case .red:
-            return .redBackground
+            return .lightRed
         case .pink:
-            return .pinkBackground
+            return .lightPink
         case .purple:
-            return .purpleBackground
+            return .lightPurple
         case .ultramarine:
-            return .ultramarineBackground
+            return .lightUltramarine
         case .blue:
-            return .blueBackground
+            return .lightBlue
         case .teal:
-            return .tealBackground
+            return .lightTeal
         case .green:
-            return .greenBackground
+            return .lightGreen
         case .coldGray:
-            return .coldgrayBackground
+            return .lightColdgray
         }
     }
     

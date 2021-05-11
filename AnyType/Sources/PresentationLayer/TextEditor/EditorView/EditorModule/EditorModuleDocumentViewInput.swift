@@ -1,3 +1,6 @@
+import BlocksModels
+
+
 /// Input data for document view
 protocol EditorModuleDocumentViewInput: AnyObject {
     
@@ -33,5 +36,5 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     func showCodeLanguageView(with languages: [String], completion: @escaping (_ language: String) -> Void)
 
     /// Show style menu
-    func showStyleMenu()
+    func showStyleMenu(blockModel: BlockModelProtocol)
 }

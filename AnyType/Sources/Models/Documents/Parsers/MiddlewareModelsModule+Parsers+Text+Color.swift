@@ -26,17 +26,17 @@ extension Namespace.Color {
 
             func color(background: Bool = false) -> UIColor {
                 switch self {
-                case .default: return background ? .defaultBackgroundColor : .grayscale90
-                case .grey: return background ? .coldgrayBackground : .coldgray
-                case .yellow: return background ? .lemonBackground : .pureLemon
-                case .orange: return background ? .amberBackground : .pureAmber
-                case .red: return background ? .redBackground : .pureRed
-                case .pink: return background ? .pinkBackground : .purePink
-                case .purple: return background ? .purpleBackground : .purePurple
-                case .blue: return background ? .ultramarineBackground : .pureUltramarine
-                case .ice: return background ? .blueBackground : .pureBlue
-                case .teal: return background ? .tealBackground : .pureTeal
-                case .lime: return background ? .greenBackground : .green
+                case .default: return background ? .grayscaleWhite : .grayscale90
+                case .grey: return background ? .lightColdgray : .grayscale50
+                case .yellow: return background ? .lightLemon : .pureLemon
+                case .orange: return background ? .lightAmber : .pureAmber
+                case .red: return background ? .lightRed : .pureRed
+                case .pink: return background ? .lightPink : .purePink
+                case .purple: return background ? .lightPurple : .purePurple
+                case .blue: return background ? .lightUltramarine : .pureUltramarine
+                case .ice: return background ? .lightBlue : .pureBlue
+                case .teal: return background ? .lightTeal : .pureTeal
+                case .lime: return background ? .lightGreen : .darkGreen
                 }
             }
 

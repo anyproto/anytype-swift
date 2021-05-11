@@ -43,8 +43,15 @@ private struct ColorItem: Hashable {
     ].map { ColorItem.init(color: $0) }
 }
 
+extension StyleColorViewController {
+    enum SelectedColorTab: Int {
+        case color
+        case backgroundColor
+    }
+}
 
 final class StyleColorViewController: UIViewController {
+    typealias ActionHandler = (_ action: BlockActionHandler.ActionType) -> Void
 
     // MARK: - Viwes
 
@@ -80,17 +87,47 @@ final class StyleColorViewController: UIViewController {
         let styleCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         styleCollectionView.backgroundColor = .white
         styleCollectionView.alwaysBounceVertical = false
+        styleCollectionView.delegate = self
 
         return styleCollectionView
     }()
 
-    private var colorKindSegmentControl: SimpleSegmentControl = .init()
+    private var colorKindSegmentControl: SimpleSegmentControl<SelectedColorTab> = .init(currentSelectedIndex: .color)
 
     // MARK: - Properties
 
     private var styleDataSource: UICollectionViewDiffableDataSource<SectionKind, ColorItem>?
+    private var color: UIColor?
+    private var backgroundColor: UIColor?
+    private var actionHandler: ActionHandler
+
+    private var currentColor: UIColor? {
+        switch colorKindSegmentControl.selectedItemIndex {
+        case .color:
+            return color
+        case .backgroundColor:
+            return backgroundColor
+        }
+    }
+
 
     // MARK: - Lifecycle
+
+    /// Init style view controller
+    /// - Parameter color: Foreground color
+    /// - Parameter backgroundColor: Background color
+    init(color: UIColor? = .grayscale90, backgroundColor: UIColor? = .grayscaleWhite, actionHandler: @escaping ActionHandler) {
+        self.actionHandler = actionHandler
+        self.color = color
+        self.backgroundColor = backgroundColor
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,7 +175,11 @@ final class StyleColorViewController: UIViewController {
         }
 
         styleDataSource = UICollectionViewDiffableDataSource<SectionKind, ColorItem>(collectionView: styleCollectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, identifier: ColorItem) -> UICollectionViewCell? in
+            [weak self] (collectionView: UICollectionView, indexPath: IndexPath, identifier: ColorItem) -> UICollectionViewCell? in
+
+            if identifier.color == self?.currentColor {
+                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            }
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
 
@@ -148,12 +189,10 @@ final class StyleColorViewController: UIViewController {
 
     @objc private func segmentActionHandler() {
         switch colorKindSegmentControl.selectedItemIndex {
-        case 0:
+        case .color:
             updateSnapshot(with: ColorItem.all)
-        case 1:
+        case .backgroundColor:
             updateSnapshot(with: ColorItem.backgroundItems)
-        default:
-            assertionFailure("Add more cases to handle segment control index")
         }
     }
 
@@ -171,5 +210,29 @@ final class StyleColorViewController: UIViewController {
         }
 
         styleDataSource?.apply(snapshot, animatingDifferences: false)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension StyleColorViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard collectionView.indexPathsForSelectedItems?.first != indexPath else { return false }
+        guard let colorItem = styleDataSource?.itemIdentifier(for: indexPath) else {
+            return false
+        }
+        collectionView.deselectAllSelectedItems()
+
+        switch colorKindSegmentControl.selectedItemIndex {
+        case .color:
+            color = colorItem.color
+            actionHandler(.setTextColor(colorItem.color))
+            return true
+        case .backgroundColor:
+            backgroundColor = colorItem.color
+            actionHandler(.setBackgroundColor(colorItem.color))
+            return true
+        }
     }
 }
