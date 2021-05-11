@@ -2,7 +2,7 @@ import SwiftUI
 
 
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
-extension AnyTypeFont {
+extension AnytypeFont {
     enum TextStyle: CaseIterable {
         case title
         case heading
@@ -31,7 +31,7 @@ extension AnyTypeFont {
 }
 
 
-struct AnyTypeFont: ViewModifier {
+struct AnytypeFont: ViewModifier {
     
     @Environment(\.sizeCategory) var sizeCategory
     
@@ -109,11 +109,11 @@ struct AnyTypeFont: ViewModifier {
 }
 
 extension View {
-    func anyTypeFont(_ textStyle: AnyTypeFont.TextStyle) -> some View {
-        self.modifier(AnyTypeFont(textStyle: textStyle))
+    func anyTypeFont(_ textStyle: AnytypeFont.TextStyle) -> some View {
+        self.modifier(AnytypeFont(textStyle: textStyle))
     }
 }
 
 extension Font {
-    static let defaultAnyType = AnyTypeFont(textStyle: .caption).font()
+    static let defaultAnyType = AnytypeFont(textStyle: .caption).font()
 }

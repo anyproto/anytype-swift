@@ -9,8 +9,7 @@ struct HomeProfileView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack() {
-                Text("Hi, \(accountData.name)")
-                    .anyTypeFont(.title)
+                AnytypeText("Hi, \(accountData.name)", style: .title)
                     .foregroundColor(.white)
                     .padding(.top, geometry.size.height * topPaddingRatio)
                     .padding(.bottom, 15)

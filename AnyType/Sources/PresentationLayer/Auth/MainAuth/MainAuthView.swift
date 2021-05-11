@@ -16,10 +16,9 @@ struct MainAuthView: View {
                     .padding(.top, 30)
                 Spacer()
                 VStack {
-                    Text("Organize everything")
+                    AnytypeText("Organize everything", style: .title)
                         .padding(20)
-                        .font(.title)
-                    Text("OrganizeEverythingDescription")
+                    AnytypeText("OrganizeEverythingDescription", style: .body)
                         .padding([.leading, .trailing, .bottom], 20)
                     
                     HStack(spacing: 0) {

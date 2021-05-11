@@ -1,11 +1,3 @@
-//
-//  PinCodeView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 02.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 struct PinCodeView: View {
@@ -13,9 +5,7 @@ struct PinCodeView: View {
     var body: some View {
         VStack {
             VStack(spacing: 0) {
-                Text("Choose pin code")
-                    .font(.title)
-                    .fontWeight(.bold)
+                AnytypeText("Choose pin code", style: .title)
                     .padding(.bottom, 17)
                 
                 HStack {
@@ -39,10 +29,8 @@ struct PinCodeView: View {
             Button(action: {
                 
             }) {
-                Text("Do it later")
-                .font(.body)
+                AnytypeText("Do it later", style: .body)
                 .foregroundColor(Color("GrayText"))
-                .fontWeight(.bold)
             }
         }
         .padding(.top, 45)

@@ -7,13 +7,9 @@ struct KeychainPhraseView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
-            Text("Back up your keychain phrase")
-                .font(.title)
-                .fontWeight(.bold)
+            AnytypeText("Back up your keychain phrase", style: .title)
                 .padding(.top, 34)
-            Text("Your Keychain phrase protects your account. You’ll need it to sign in if you don’t have access to your devices. Keep it in a safe place.")
-                .font(.body)
-                .fontWeight(.medium)
+            AnytypeText("Your Keychain phrase protects your account. You’ll need it to sign in if you don’t have access to your devices. Keep it in a safe place.", style: .body)
                 .padding(.top, 25)
             SeedPhraseView(phrase: $viewModel.recoveryPhrase, copySeedAction: $viewModel.copySeedAction)
                 .padding(.top, 34)

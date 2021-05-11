@@ -4,10 +4,10 @@ import SwiftUI
 struct TypographyExample: View {
     var body: some View {
         ScrollView() {
-            ForEach(AnyTypeFont.TextStyle.allCases, id: \.self) { style in
+            ForEach(AnytypeFont.TextStyle.allCases, id: \.self) { style in
                 VStack {
-                    Text("\(String(describing: style))").anyTypeFont(style)
-                    Text("The quick brown fox jumps over the lazy dog").anyTypeFont(style)
+                    AnytypeText("\(String(describing: style))", style: style)
+                    AnytypeText("The quick brown fox jumps over the lazy dog", style: style)
                 }.padding(10)
             }
         }

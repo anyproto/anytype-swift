@@ -9,7 +9,6 @@ protocol MainWindowHolder {
 class ApplicationCoordinator: MainWindowHolder {
     private let window: MainWindow
     
-    private let pageScrollViewLayout = GlobalEnvironment.OurEnvironmentObjects.PageScrollViewLayout()
     private let shakeHandler: ShakeHandler
     
     private let localRepoService: LocalRepoServiceProtocol
@@ -88,7 +87,7 @@ class ApplicationCoordinator: MainWindowHolder {
     
     // MARK: - MainWindowHolder
     func startNewRootView<ViewType: View>(_ view: ViewType) {
-        window.rootViewController = UIHostingController(rootView: view.environmentObject(self.pageScrollViewLayout))
+        window.rootViewController = UIHostingController(rootView: view)
         window.makeKeyAndVisible()
     }
 }

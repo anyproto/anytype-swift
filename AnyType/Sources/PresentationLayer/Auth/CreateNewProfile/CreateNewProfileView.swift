@@ -1,11 +1,3 @@
-//
-//  CreateNewProfileView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 03.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 
@@ -41,9 +33,7 @@ private struct NewProfileView: View {
         VStack {
             Spacer()
             VStack(alignment: .leading, spacing: 0) {
-                Text("Create a new profile")
-                    .fontWeight(.bold)
-                    .font(.title)
+                AnytypeText("Create a new profile", style: .title)
                     .padding(.bottom, 27)
                 HStack {
                     Button(action: {

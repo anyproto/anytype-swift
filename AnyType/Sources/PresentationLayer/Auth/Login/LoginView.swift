@@ -29,15 +29,13 @@ extension LoginView {
             VStack(spacing: 0) {
                 Spacer()
                 VStack(alignment: .leading, spacing: 0) {
-                    Text("Login with keychain")
-                        .fontWeight(.bold)
-                        .font(.title)
+                    AnytypeText("Login with keychain", style: .title)
                         .padding(.bottom, 27)
                     VStack(spacing: 13) {
                         HStack {
                             Image("qrIcon")
                                 .padding(.trailing, 15)
-                            Text("Scan QR code")
+                            AnytypeText("Scan QR code", style: .body)
                             Spacer()
                             Image("arrowForward")
                         }
