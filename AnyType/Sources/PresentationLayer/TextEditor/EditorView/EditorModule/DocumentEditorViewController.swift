@@ -15,8 +15,7 @@ final class DocumentEditorViewController: UICollectionViewController {
     private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?
     private let viewModel: DocumentEditorViewModel
     private let viewCellFactory: DocumentViewCellFactoryProtocol
-    private weak var headerViewModel: DocumentEditorHeaderView.ViewModel?
-    private(set) lazy var headerViewModelPublisher: AnyPublisher<DocumentEditorHeaderView.UserAction, Never>? = self.headerViewModel?.$userAction.safelyUnwrapOptionals().eraseToAnyPublisher()
+    private weak var headerViewModel: DocumentHeaderView.ViewModel?
 
     private var subscriptions: Set<AnyCancellable> = []
     /// Gesture recognizer to handle taps in empty document
@@ -53,49 +52,68 @@ final class DocumentEditorViewController: UICollectionViewController {
     }
 
     private func setupUI() {
-        self.setupCollectionViewDataSource()
-        self.collectionView?.allowsMultipleSelection = true
-        self.collectionView?.backgroundColor = .systemBackground
-        self.collectionView?.addGestureRecognizer(self.listViewTapGestureRecognizer)
-        self.setupInteractions()
-        self.setupHeaderPageDetailsEvents()
+        setupCollectionViewDataSource()
+        collectionView.allowsMultipleSelection = true
+        collectionView.backgroundColor = .systemBackground
+        collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
+        
+        setupInteractions()
+        setupHeaderPageDetailsEvents()
     }
 
 
     private func setupCollectionViewDataSource() {
-        guard let listView = self.collectionView else { return }
+        collectionView.register(
+            DocumentHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: Constants.headerReuseId
+        )
 
-        listView.register(DocumentEditorHeaderView.self,
-                          forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                          withReuseIdentifier: Constants.headerReuseId)
+        collectionView.register(
+            UICollectionViewListCell.self,
+            forCellWithReuseIdentifier: Constants.cellReuseId
+        )
 
-        listView.register(UICollectionViewListCell.self, forCellWithReuseIdentifier: Constants.cellReuseId)
-
-        self.dataSource = UICollectionViewDiffableDataSource(collectionView: listView) { [weak self] (view, indexPath, item) -> UICollectionViewCell? in
+        self.dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak self] (view, indexPath, item) -> UICollectionViewCell? in
             guard let self = self else { return UICollectionViewListCell() }
-            let cell = view.dequeueReusableCell(withReuseIdentifier: Constants.cellReuseId,
-                                                for: indexPath) as? UICollectionViewListCell
+            
+            let cell = view.dequeueReusableCell(
+                withReuseIdentifier: Constants.cellReuseId,
+                for: indexPath
+            ) as? UICollectionViewListCell
+            
             cell?.contentConfiguration = item.buildContentConfiguration()
             cell?.indentationWidth = Constants.cellIndentationWidth
             cell?.indentationLevel = item.indentationLevel()
+            
             if cell?.selectedBackgroundView == nil {
                 cell?.selectedBackgroundView = self.viewCellFactory.makeSelectedBackgroundViewForBlockCell()
             }
+            
             cell?.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
+            
             return cell
         }
 
         self.dataSource?.supplementaryViewProvider = { [weak self] view, type, indexPath in
-            guard let headerView = view.dequeueReusableSupplementaryView(ofKind: type,
-                                                                         withReuseIdentifier: Constants.headerReuseId,
-                                                                         for: indexPath) as? DocumentEditorHeaderView else {
+            guard
+                let headerView = view.dequeueReusableSupplementaryView(
+                    ofKind: type,
+                    withReuseIdentifier: Constants.headerReuseId,
+                    for: indexPath
+                ) as? DocumentHeaderView
+            else {
                 assertionFailure("Unable to create proper header view")
                 return UICollectionReusableView()
             }
-            if headerView.headerView.viewModel == nil {
-                headerView.headerView.viewModel = .init()
-                self?.headerViewModel = headerView.headerView.viewModel
+            
+            if headerView.viewModel.isNil {
+                let viewModel = DocumentHeaderView.ViewModel()
+                headerView.configure(model: viewModel)
+
+                self?.headerViewModel = headerView.viewModel
             }
+            
             return headerView
         }
     }
@@ -219,7 +237,8 @@ extension DocumentEditorViewController {
                     collection.firstIndex(of: value.key)
                 })
                 .compactMap({$0.value})
-            _ = self.headerViewModel?.configured(pageDetailsViewModels: viewModels)
+            
+            self.headerViewModel?.pageDetailsViewModels = viewModels
         }
     }
     
@@ -249,7 +268,7 @@ extension DocumentEditorViewController {
 // MARK: - Initial Update data
 extension DocumentEditorViewController {
     private func updateView() {
-        self.collectionView?.collectionViewLayout.invalidateLayout()
+        collectionView.collectionViewLayout.invalidateLayout()
     }
         
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
