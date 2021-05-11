@@ -30,7 +30,7 @@ struct PinCodeView: View {
                 
             }) {
                 AnytypeText("Do it later", style: .body)
-                .foregroundColor(Color("GrayText"))
+                    .foregroundColor(.textSecondary)
             }
         }
         .padding(.top, 45)
@@ -68,7 +68,7 @@ struct NumberPadView: View {
                             
                         }) {
                             AnytypeText("\((vIndex - 1) * row_columns + hIndex)", style: .title)
-                            .foregroundColor(.black)
+                                .foregroundColor(.textPrimary)
                         }
                         .buttonStyle(NumpadButtonStyle())
                     }
@@ -80,7 +80,7 @@ struct NumberPadView: View {
                     
                 }) {
                     AnytypeText("0", style: .title)
-                        .foregroundColor(.black)
+                        .foregroundColor(.textPrimary)
                 }
                 .alignmentGuide(.buttonAlignment, computeValue: { d in d[HorizontalAlignment.center]})
                 .buttonStyle(NumpadButtonStyle())
@@ -90,7 +90,7 @@ struct NumberPadView: View {
                 }) {
                     Image("clear")
                         .frame(width: 72, height: 72)
-                        .foregroundColor(.black)
+                        .foregroundColor(.textPrimary)
                 }
             }
         }

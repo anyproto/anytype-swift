@@ -298,7 +298,7 @@ extension TextView.BlockToolbar.AddBlock {
                                 self.categoryIndex = i
                             }) {
                                 AnytypeText(self.categories[i].title(), style: .headlineSemibold)
-                                    .foregroundColor(self.categoryIndex == i ? .white : .black)
+                                    .foregroundColor(self.categoryIndex == i ? .white : .textPrimary)
                             }.padding(.vertical, 5).padding(.horizontal, 15).background(self.categoryIndex == i ? Color(BlockTypesColors.color(for: self.categories[i])) : .white).cornerRadius(15)
                         }
                     }
@@ -312,7 +312,7 @@ extension TextView.BlockToolbar.AddBlock {
                                 }) {
                                     VStack(spacing: 2) {
                                         Image(i.1.image).renderingMode(.template).foregroundColor(Color(BlockTypesColors.color(for: self.categories[self.categoryIndex ?? 0]))).modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
-                                        AnytypeText(i.1.title, style: .caption).foregroundColor(.black)
+                                        AnytypeText(i.1.title, style: .caption).foregroundColor(.textPrimary)
                                     }
                                 }
                             }
@@ -393,7 +393,8 @@ extension TextView.BlockToolbar.ChangeColor {
                                 self.backgroundColor = self.colors[i].color(highlighted: true)
                             }) {
                                 AnytypeText("Aa", style: .headlineSemibold)
-                                    .background(Color(self.colors[i].color(highlighted: true))).foregroundColor(.black)
+                                    .background(Color(self.colors[i].color(highlighted: true)))
+                                    .foregroundColor(.textPrimary)
                             }.modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                         }
                     }
@@ -455,8 +456,11 @@ extension TextView.BlockToolbar.EditActions {
                                 self.action = self.actions[i]
                             }) {
                                 VStack(spacing: 2) {
-                                    Image(self.actions[i].path()).renderingMode(.template).foregroundColor(.black).modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
-                                    AnytypeText(self.actions[i].title(), style: .caption).foregroundColor(.black)
+                                    Image(self.actions[i].path())
+                                        .renderingMode(.template)
+                                        .foregroundColor(.black)
+                                        .modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
+                                    AnytypeText(self.actions[i].title(), style: .caption).foregroundColor(.textPrimary)
                                 }
                             }
                         }

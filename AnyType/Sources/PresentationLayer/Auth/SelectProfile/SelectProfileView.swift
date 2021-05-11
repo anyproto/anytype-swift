@@ -81,7 +81,7 @@ struct AddProfileView: View {
             Image("plus")
                 .frame(width: 48, height: 48)
             AnytypeText("Add profile", style: .bodySemibold)
-                .foregroundColor(Color("GrayText"))
+                .foregroundColor(.textSecondary)
         }
     }
 }
@@ -95,13 +95,13 @@ private struct ProfileNameView: View {
             UserIconView(image: self.viewModel.image, name: self.viewModel.name)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(viewModel.name, style: .body)
-                    .foregroundColor(.black)
+                    .foregroundColor(.textPrimary)
                     .padding(.bottom, 3)
                 HStack {
                     Image("uploaded")
                         .clipShape(Circle())
                     AnytypeText(viewModel.peers ?? "no peers", style: .body)
-                        .foregroundColor(viewModel.peers != nil ? Color.black : Color("GrayText"))
+                        .foregroundColor(viewModel.peers != nil ? .textPrimary : .textSecondary)
                 }
             }
             Spacer(minLength: 10).frame(minWidth: 10, maxWidth: nil)

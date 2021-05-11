@@ -14,8 +14,4 @@ final class Gradients {
         
         return gradient
     }()
-    
-    static let homeBackground: Gradient = {
-        Gradient(colors: [Color.red, Color.blue])
-    }()
 }

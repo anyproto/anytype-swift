@@ -10,9 +10,9 @@ struct PageCell: View {
             VStack(alignment: .leading) {
                 icon
                 iconSpacer
-                AnytypeText(cellData.title, style: .captionMedium).foregroundColor(.black)
+                AnytypeText(cellData.title, style: .captionMedium).foregroundColor(.textPrimary)
                 textSpacer
-                AnytypeText(cellData.type, style: .footnote).foregroundColor(.gray)
+                AnytypeText(cellData.type, style: .footnote).foregroundColor(.textSecondary)
             }
             Spacer()
         }

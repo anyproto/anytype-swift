@@ -14,7 +14,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                 VStack() {
 
                     AnytypeText(self.errorText, style: .body)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(.white)
                         .padding()
                         .layoutPriority(1)
                     
@@ -25,7 +25,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                             self.isShowing.toggle()
                         }) {
                             AnytypeText("Ok", style: .body)
-                                .foregroundColor(Color("GrayText"))
+                                .foregroundColor(.textSecondary)
                                 .padding()
                         }
                     }

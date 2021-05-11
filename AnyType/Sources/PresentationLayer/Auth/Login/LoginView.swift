@@ -47,7 +47,7 @@ extension LoginView {
                     }
 
                     TextField("or Type your keychain phrase", text: $viewModel.seed)
-                        .foregroundColor(Color("GrayText"))
+                        .foregroundColor(.textSecondary)
                         .padding(.top, 12)
                         .padding(.bottom, 24)
 

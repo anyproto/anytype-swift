@@ -20,7 +20,7 @@ struct UserIconView: View {
                 ZStack {
                     Color.gray
                     AnytypeText(String(chosenInitialGlyph), style: .title)
-                        .foregroundColor(Color.white)
+                        .foregroundColor(.white)
                 }
             }
         }

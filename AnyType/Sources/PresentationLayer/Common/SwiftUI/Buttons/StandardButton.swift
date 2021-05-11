@@ -45,9 +45,9 @@ struct StandardButton: View {
         var button = Button(action: {
             self.action()
         }) {
-            AnytypeText(text, style: .heading)
+            AnytypeText(text, style: .headline)
                 .padding(.all)
-                .foregroundColor(disabled ? Color.gray : style.textColor())
+                .foregroundColor(disabled ? .textSecondary : style.textColor())
                 .frame(minWidth: 0, maxWidth: .infinity)
                 .background(style.backgroundColor())
                 .cornerRadius(8.0)

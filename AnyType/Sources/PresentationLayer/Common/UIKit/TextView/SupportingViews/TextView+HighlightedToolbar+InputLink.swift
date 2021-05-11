@@ -1,11 +1,3 @@
-//
-//  TextView+HighlightedToolbar+InputLink.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 30.01.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import SwiftUI
@@ -103,11 +95,14 @@ extension TextView.HighlightedToolbar.InputLink {
     struct InputView: View {
         struct RoundedButtonViewModifier: ViewModifier {
             var style: Style.Button
-            func body(content: Content) -> some View { content.padding(10).background(Color(self.style.backgroundColor())).foregroundColor(Color(self.style.textColor()))
-                .cornerRadius(8)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8).stroke(Color(self.style.borderColor()), lineWidth: 1)
-                )
+            func body(content: Content) -> some View {
+                content.padding(10)
+                    .background(Color(self.style.backgroundColor()))
+                    .foregroundColor(Color(self.style.textColor()))
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8).stroke(Color(self.style.borderColor()), lineWidth: 1)
+                    )
             }
         }
         struct FlexibleWidthViewModifier: ViewModifier {

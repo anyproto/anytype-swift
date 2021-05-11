@@ -120,7 +120,9 @@ extension Namespace.InputView {
 extension Namespace.InputView {
     struct RoundedButtonViewModifier: ViewModifier {
         var style: Style.Button
-        func body(content: Content) -> some View { content.padding(10).background(Color(self.style.backgroundColor)).foregroundColor(Color(self.style.foregroundColor))
+        func body(content: Content) -> some View { content.padding(10)
+            .background(Color(self.style.backgroundColor))
+            .foregroundColor(Color(self.style.foregroundColor))
             .cornerRadius(8)
             .overlay(
                 RoundedRectangle(cornerRadius: 8).stroke(Color(self.style.borderColor), lineWidth: 1)
