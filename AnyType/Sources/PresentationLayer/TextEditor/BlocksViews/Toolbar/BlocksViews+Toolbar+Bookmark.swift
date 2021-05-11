@@ -77,7 +77,7 @@ extension Namespace {
                 Button(action: {
                     self.model.choose(url: self.model.typingURL)
                 }) {
-                    Text(self.model.buttonTitle)
+                    AnytypeText(self.model.buttonTitle, style: .body)
                 }.modifier(RoundedButtonViewModifier(style: .presentation))
                 Spacer(minLength: 10)
             }.padding(10)

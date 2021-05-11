@@ -1,11 +1,3 @@
-//
-//  CompletionAuthView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 03.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 protocol CompletionAuthViewDelegate: AnyObject {
@@ -26,10 +18,9 @@ struct CompletionAuthView: View {
                 VStack(alignment: .leading, spacing: 0) {
                     ImageWithCircleBackgroundView(imageName: "congrats", backgroundColor: UIColor.init(named: "backgroundColor"))
                         .frame(width: 64, height: 64)
-                    Text("Congratulations!")
-                        .fontWeight(.bold)
+                    AnytypeText("Congratulations!", style: .bodyBold)
                         .padding(.top, 16)
-                    Text("CongratulationDescription")
+                    AnytypeText("CongratulationDescription", style: .body)
                         .padding(.top, 10)
                     StandardButton(disabled: false, text: "Let’s start!", style: .yellow) {
                         self.delegate?.showDashboardDidTap()

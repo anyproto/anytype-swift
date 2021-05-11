@@ -5,8 +5,7 @@ struct HomeTabsHeaderText: View {
     var isSelected: Bool
     
     var body: some View {
-        Text(text)
-            .anyTypeFont(.subheading)
+        AnytypeText(text, style: .subheading)
             .frame(maxWidth: .infinity)
             .foregroundColor(isSelected ? .black : .white)
             .blendMode(isSelected ? .normal : .softLight)

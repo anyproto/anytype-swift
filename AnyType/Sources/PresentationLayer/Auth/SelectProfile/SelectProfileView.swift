@@ -23,10 +23,8 @@ struct SelectProfileView: View {
                     VStack {
                         ScrollView {
                             VStack(alignment: .leading) {
-                                Text("Choose profile")
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                .animation(nil)
+                                AnytypeText("Choose profile", style: .title)
+                                    .animation(nil)
                                 
                                 ForEach(self.viewModel.profilesViewModels) { profile in
                                     Button(action: {
@@ -78,13 +76,11 @@ struct SelectProfileView: View {
 
 
 struct AddProfileView: View {
-    
     var body: some View {
         HStack {
             Image("plus")
                 .frame(width: 48, height: 48)
-            Text("Add profile")
-                .fontWeight(.semibold)
+            AnytypeText("Add profile", style: .bodySemibold)
                 .foregroundColor(Color("GrayText"))
         }
     }
@@ -98,13 +94,13 @@ private struct ProfileNameView: View {
         HStack {
             UserIconView(image: self.viewModel.image, name: self.viewModel.name)
             VStack(alignment: .leading, spacing: 0) {
-                Text(viewModel.name)
+                AnytypeText(viewModel.name, style: .body)
                     .foregroundColor(.black)
                     .padding(.bottom, 3)
                 HStack {
                     Image("uploaded")
                         .clipShape(Circle())
-                    Text(viewModel.peers ?? "no peers")
+                    AnytypeText(viewModel.peers ?? "no peers", style: .body)
                         .foregroundColor(viewModel.peers != nil ? Color.black : Color("GrayText"))
                 }
             }
@@ -112,31 +108,6 @@ private struct ProfileNameView: View {
         }
     }
 }
-
-//struct SomeProfileStruct: View {
-//    var name: String { "A" }
-//    var color: UIColor? { nil }
-//    var image: UIImage? { nil }
-//    var peers: String? { nil }
-//
-//    var body: some View {
-//        HStack {
-//            UserIconView(image: self.image, color: self.color, name: self.name)
-//            VStack(alignment: .leading, spacing: 0) {
-//                Text(self.name)
-//                    .foregroundColor(.black)
-//                    .padding(.bottom, 3)
-//                HStack {
-//                    Image("uploaded")
-//                        .clipShape(Circle())
-//                    Text(self.peers ?? "no peers")
-//                        .foregroundColor(self.peers != nil ? Color.black : Color("GrayText"))
-//                }.background(Color.green)
-//            }
-//            Spacer(minLength: 10).frame(minWidth: 10, maxWidth: nil)
-//        }
-//    }
-//}
 
 struct SelectProfileView_Previews: PreviewProvider {
     static var previews: some View {

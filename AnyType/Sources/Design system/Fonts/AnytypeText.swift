@@ -4,6 +4,11 @@ struct AnytypeText: View {
     let text: LocalizedStringKey
     let style: AnytypeFont.TextStyle
     
+    init(_ text: String, style: AnytypeFont.TextStyle) {
+        self.text = LocalizedStringKey(text)
+        self.style = style
+    }
+    
     init(_ text: LocalizedStringKey, style: AnytypeFont.TextStyle) {
         self.text = text
         self.style = style

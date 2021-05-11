@@ -7,7 +7,7 @@ struct HomeView: View {
 
     var body: some View {
         contentView
-            .environment(\.font, .defaultAnyType)
+            .environment(\.font, .defaultAnytype)
             .environmentObject(model)
             .environmentObject(accountData)
             .onAppear(perform: model.fetchDashboardData)

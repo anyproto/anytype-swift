@@ -290,14 +290,15 @@ extension TextView.BlockToolbar.AddBlock {
         }
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {
-                Text(self.title).fontWeight(.semibold)
+                AnytypeText(self.title, style: .bodySemibold)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .center, spacing: 8) {
                         ForEach(0..<self.categories.count) { i in
                             Button(action: {
                                 self.categoryIndex = i
                             }) {
-                                Text(self.categories[i].title()).font(.subheadline).fontWeight(.semibold).foregroundColor(self.categoryIndex == i ? .white : .black)
+                                AnytypeText(self.categories[i].title(), style: .headlineSemibold)
+                                    .foregroundColor(self.categoryIndex == i ? .white : .black)
                             }.padding(.vertical, 5).padding(.horizontal, 15).background(self.categoryIndex == i ? Color(BlockTypesColors.color(for: self.categories[i])) : .white).cornerRadius(15)
                         }
                     }
@@ -311,7 +312,7 @@ extension TextView.BlockToolbar.AddBlock {
                                 }) {
                                     VStack(spacing: 2) {
                                         Image(i.1.image).renderingMode(.template).foregroundColor(Color(BlockTypesColors.color(for: self.categories[self.categoryIndex ?? 0]))).modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
-                                        Text(i.1.title).font(.caption).foregroundColor(.black)
+                                        AnytypeText(i.1.title, style: .caption).foregroundColor(.black)
                                     }
                                 }
                             }
@@ -371,26 +372,28 @@ extension TextView.BlockToolbar.ChangeColor {
         @Binding var backgroundColor: UIColor?
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Text Color").fontWeight(.semibold)
+                AnytypeText("Text Color", style: .bodySemibold)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .center, spacing: 8) {
                         ForEach(0..<self.colors.count) { i in
                             Button(action: {
                                 self.textColor = self.colors[i].color()
                             }) {
-                                Text("Aa").font(.headline).fontWeight(.semibold).foregroundColor(Color(self.colors[i].color()))
+                                AnytypeText("Aa", style: .headlineSemibold)
+                                    .foregroundColor(Color(self.colors[i].color()))
                             }.modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                         }
                     }
                 }
-                Text("Highlight Color").fontWeight(.semibold)
+                AnytypeText("Highlight Color", style: .bodySemibold)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .center, spacing: 8) {
                         ForEach(0..<self.colors.count) { i in
                             Button(action: {
                                 self.backgroundColor = self.colors[i].color(highlighted: true)
                             }) {
-                                Text("Aa").font(.headline).fontWeight(.semibold).background(Color(self.colors[i].color(highlighted: true))).foregroundColor(.black)
+                                AnytypeText("Aa", style: .headlineSemibold)
+                                    .background(Color(self.colors[i].color(highlighted: true))).foregroundColor(.black)
                             }.modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
                         }
                     }
@@ -444,7 +447,7 @@ extension TextView.BlockToolbar.EditActions {
         @Binding var action: Action?
         var body: some View {
             VStack(alignment: .leading, spacing: 10) {
-                Text("Block actions").fontWeight(.semibold)
+                AnytypeText("Block actions", style: .bodySemibold)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .center, spacing: 8) {
                         ForEach(0..<self.actions.count) { i in
@@ -453,7 +456,7 @@ extension TextView.BlockToolbar.EditActions {
                             }) {
                                 VStack(spacing: 2) {
                                     Image(self.actions[i].path()).renderingMode(.template).foregroundColor(.black).modifier(TextView.BlockToolbar.RoundedButtonViewModifier())
-                                    Text(self.actions[i].title()).font(.caption).foregroundColor(.black)
+                                    AnytypeText(self.actions[i].title(), style: .caption).foregroundColor(.black)
                                 }
                             }
                         }

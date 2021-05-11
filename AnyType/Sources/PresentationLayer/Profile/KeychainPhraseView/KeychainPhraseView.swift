@@ -35,8 +35,7 @@ struct SeedPhraseView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            Text(phrase)
-                .anyTypeFont(.body)
+            AnytypeText(phrase, style: .body)
                 .padding([.leading, .trailing], 20)
                 .padding([.top, .bottom], 12)
         }
@@ -47,7 +46,7 @@ struct SeedPhraseView: View {
             Button(action: {
                 self.copySeedAction = ()
             }) {
-                Text("Copy")
+                AnytypeText("Copy", style: .body)
                 Image(systemName: "doc.on.doc")
             }
         }

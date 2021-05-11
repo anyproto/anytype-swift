@@ -1,11 +1,3 @@
-//
-//  NavigationButtonView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 27.08.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 struct NavigationButtonView: View {
@@ -14,8 +6,7 @@ struct NavigationButtonView: View {
     var style: StandardButtonStyle
     
     var body: some View {
-        Text(text)
-            .font(.headline)
+        AnytypeText(text, style: .heading)
             .padding(.all)
             .foregroundColor(disabled ? Color.gray : style.textColor())
             .frame(minWidth: 0, maxWidth: .infinity)

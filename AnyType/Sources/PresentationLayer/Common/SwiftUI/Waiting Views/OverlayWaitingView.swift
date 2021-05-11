@@ -1,11 +1,3 @@
-//
-//  OverlayWaitingView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 16.08.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 struct OverlayWaitingView<Presenting>: View where Presenting: View {
@@ -21,7 +13,7 @@ struct OverlayWaitingView<Presenting>: View where Presenting: View {
                     
                 
                 VStack() {
-                    Text("Loading...")
+                    AnytypeText("Loading...", style: .body)
                     ActivityIndicator(style: .large)
                 }
                 .frame(width: geometry.size.width * 0.8, height: geometry.size.height * 0.25)
@@ -39,7 +31,7 @@ struct OverlayWaitingView<Presenting>: View where Presenting: View {
 struct OverlayWaitingView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack() {
-            Text("main screen")
+            AnytypeText("main screen", style: .body)
         }
         return OverlayWaitingView(isShowing: .constant(true), presenting: view)
     }

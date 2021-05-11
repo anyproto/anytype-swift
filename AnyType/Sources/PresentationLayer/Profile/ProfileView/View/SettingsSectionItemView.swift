@@ -10,8 +10,7 @@ struct SettingsSectionItemView: View {
             if !self.icon.isEmpty {
                 Image(icon).frame(width: 24.0, height: 24.0)
             }
-            Text(name)
-                .bold()
+            AnytypeText(name, style: .bodyBold)
             Spacer()
             Image("arrowForward")
         }

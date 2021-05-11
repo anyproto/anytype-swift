@@ -132,13 +132,13 @@ extension TextView.HighlightedToolbar.InputLink {
                     Button(action: {
                         self.action = .decline
                     }) {
-                        Text(self.resources.declineButtonTitle)
+                        AnytypeText(self.resources.declineButtonTitle, style: .body)
                     }.modifier(RoundedButtonViewModifier(style: .decline))
                     Spacer().frame(width: 10)
                     Button(action: {
                         self.action = .accept(self.link)
                     }) {
-                        Text(self.resources.acceptButtonTitle)
+                        AnytypeText(self.resources.acceptButtonTitle, style: .body)
                     }.modifier(RoundedButtonViewModifier(style: .accept))
                     Spacer().frame(width: 10)
                 }

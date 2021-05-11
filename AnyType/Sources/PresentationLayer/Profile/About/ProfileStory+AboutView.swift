@@ -11,13 +11,9 @@ extension ProfileView {
         var view: some View {
             VStack {
                 DragIndicator()
-                Text("About application information")
-                    .font(.title)
-                    .fontWeight(.bold)
+                AnytypeText("About application information", style: .title)
                     .padding(.top, 34).fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
-                Text("Library version \(self.viewModel.libraryVersion)")
-                    .font(.body)
-                    .fontWeight(.medium)
+                AnytypeText("Library version \(self.viewModel.libraryVersion)", style: .body)
                     .padding(.top, 25)
             }
         }

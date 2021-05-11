@@ -33,18 +33,16 @@ struct WaitingView: View {
                             .animation(.default)
                             .transition(.scale)
                     } else {
-                        Text("Faild")
-                            .font(.title)
+                        AnytypeText("Failed", style: .title)
                             .foregroundColor(.red)
                             .padding(.bottom, 5)
                             .transition(.opacity)
                     }
                     
-                    Text(text)
-                        .fontWeight(.bold)
+                    AnytypeText(text, style: .bodyBold)
                     
-                    if errorState && errorText != nil {
-                        Text(errorText!)
+                    if errorState, let errorText = errorText {
+                        AnytypeText(errorText, style: .body)
                             .padding(.top, -10)
                             .transition(.opacity)
                         

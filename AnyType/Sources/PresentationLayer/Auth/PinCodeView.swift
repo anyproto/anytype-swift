@@ -67,10 +67,8 @@ struct NumberPadView: View {
                         Button(action: {
                             
                         }) {
-                            Text("\((vIndex - 1) * row_columns + hIndex)")
-                            .font(.title)
+                            AnytypeText("\((vIndex - 1) * row_columns + hIndex)", style: .title)
                             .foregroundColor(.black)
-                            .fontWeight(.bold)
                         }
                         .buttonStyle(NumpadButtonStyle())
                     }
@@ -81,10 +79,8 @@ struct NumberPadView: View {
                 Button(action: {
                     
                 }) {
-                    Text("0")
-                        .font(.title)
+                    AnytypeText("0", style: .title)
                         .foregroundColor(.black)
-                        .fontWeight(.bold)
                 }
                 .alignmentGuide(.buttonAlignment, computeValue: { d in d[HorizontalAlignment.center]})
                 .buttonStyle(NumpadButtonStyle())

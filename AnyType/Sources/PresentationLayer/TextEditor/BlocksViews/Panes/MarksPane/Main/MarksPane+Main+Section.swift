@@ -79,9 +79,7 @@ extension MarksPane.Main.Section {
                         Button(action: {
                             self.chosenIndex = i
                         }) {
-                            Text(self.categories[i].title())
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
+                            AnytypeText(self.categories[i].title(), style: .headlineSemibold)
                                 .foregroundColor(Color(self.style.foregroundColor(chosen: self.chosenIndex == i)))
                         }
                         .padding(.vertical, self.layout.button.verticalPadding)

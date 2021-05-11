@@ -6,7 +6,7 @@ struct FeatureFlagsView: View {
     var body: some View {
         List(flags.indices) { index in
             Toggle(isOn: $flags[index].onChange(FeatureFlags.update).value) {
-                Text(flags[index].key.rawValue).bold().font(.title)
+                AnytypeText(flags[index].key.rawValue, style: .body)
             }
             .padding()
         }

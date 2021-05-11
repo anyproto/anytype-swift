@@ -147,26 +147,26 @@ extension BlocksViews.Toolbar {
 //        @Binding var backgroundColor: UIColor?
 //        var body: some View {
 //            VStack(alignment: .leading, spacing: 10) {
-//                Text("Text Color").fontWeight(.semibold)
+//                AnytypeText("Text Color").fontWeight(.semibold)
 //                ScrollView(.horizontal, showsIndicators: false) {
 //                    HStack(alignment: .center, spacing: 8) {
 //                        ForEach(0..<self.colors.count) { i in
 //                            Button(action: {
 //                                self.textColor = self.colors[i].color()
 //                            }) {
-//                                Text("Aa").font(.headline).fontWeight(.semibold).foregroundColor(Color(self.colors[i].color()))
+//                                AnytypeText("Aa").font(.headline).fontWeight(.semibold).foregroundColor(Color(self.colors[i].color()))
 //                            }.modifier(BlocksViews.Toolbar.RoundedButtonViewModifier())
 //                        }
 //                    }
 //                }
-//                Text("Highlight Color").fontWeight(.semibold)
+//                AnytypeText("Highlight Color").fontWeight(.semibold)
 //                ScrollView(.horizontal, showsIndicators: false) {
 //                    HStack(alignment: .center, spacing: 8) {
 //                        ForEach(0..<self.colors.count) { i in
 //                            Button(action: {
 //                                self.backgroundColor = self.colors[i].color(highlighted: true)
 //                            }) {
-//                                Text("Aa").font(.headline).fontWeight(.semibold).background(Color(self.colors[i].color(highlighted: true))).foregroundColor(.black)
+//                                AnytypeText("Aa").font(.headline).fontWeight(.semibold).background(Color(self.colors[i].color(highlighted: true))).foregroundColor(.black)
 //                            }.modifier(BlocksViews.Toolbar.RoundedButtonViewModifier())
 //                        }
 //                    }
@@ -220,7 +220,7 @@ extension BlocksViews.Toolbar {
 //        @Binding var action: Action?
 //        var body: some View {
 //            VStack(alignment: .leading, spacing: 10) {
-//                Text("Block actions").fontWeight(.semibold)
+//                AnytypeText("Block actions").fontWeight(.semibold)
 //                ScrollView(.horizontal, showsIndicators: false) {
 //                    HStack(alignment: .center, spacing: 8) {
 //                        ForEach(0..<self.actions.count) { i in
@@ -229,7 +229,7 @@ extension BlocksViews.Toolbar {
 //                            }) {
 //                                VStack(spacing: 2) {
 //                                    Image(self.actions[i].path()).renderingMode(.template).foregroundColor(.black).modifier(BlocksViews.Toolbar.RoundedButtonViewModifier())
-//                                    Text(self.actions[i].title()).font(.caption).foregroundColor(.black)
+//                                    AnytypeText(self.actions[i].title()).font(.caption).foregroundColor(.black)
 //                                }
 //                            }
 //                        }

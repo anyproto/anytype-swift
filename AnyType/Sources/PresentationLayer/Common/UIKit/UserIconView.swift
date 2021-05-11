@@ -19,8 +19,7 @@ struct UserIconView: View {
             } else {
                 ZStack {
                     Color.gray
-                    Text(String(chosenInitialGlyph))
-                        .anyTypeFont(.title)
+                    AnytypeText(String(chosenInitialGlyph), style: .title)
                         .foregroundColor(Color.white)
                 }
             }

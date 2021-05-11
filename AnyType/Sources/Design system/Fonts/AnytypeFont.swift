@@ -115,5 +115,5 @@ extension View {
 }
 
 extension Font {
-    static let defaultAnyType = AnytypeFont(textStyle: .caption).font()
+    static let defaultAnytype = AnytypeFont(textStyle: .caption).font()
 }
