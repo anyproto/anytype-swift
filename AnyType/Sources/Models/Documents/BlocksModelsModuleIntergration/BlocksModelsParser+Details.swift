@@ -113,9 +113,10 @@ private extension DetailsContent.Emoji {
             }
             
             switch detail.value.kind {
+            /// We don't display empty emoji so we must not create empty emoji details
+            case let .stringValue(string) where string.isEmpty:
+                return nil
             case let .stringValue(string):
-                guard !string.isEmpty else { return nil }
-                
                 return .init(value: string)
             default:
                 assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
