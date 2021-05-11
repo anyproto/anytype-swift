@@ -29,40 +29,6 @@ extension BlocksViews.Toolbar.AddBlock {
     }
 }
 
-// MARK: Style
-extension BlocksViews.Toolbar.AddBlock {
-    enum Style {
-        func fontSize() -> CGFloat {
-            switch self {
-            case .title: return 17
-            case .subtitle: return 13
-            case .section: return 0
-            }
-        }
-        case title, subtitle, section
-        func font() -> UIFont {
-            switch self {
-            case .title: return .systemFont(ofSize: self.fontSize())
-            case .subtitle: return .systemFont(ofSize: self.fontSize())
-            case .section: return .preferredFont(forTextStyle: .headline)
-            }
-        }
-        func coreTextFont() -> CTFont {
-            self.font() as CTFont
-        }
-        func foregroundColor() -> UIColor {
-            switch self {
-            case .title: return .grayscale90
-            case .subtitle: return .init(red: 0.422, green: 0.415, blue: 0.372, alpha: 1)
-            case .section: return .init(red: 0.675, green: 0.663, blue: 0.588, alpha: 1)
-            }
-        }
-        func backgroundColor() -> UIColor {
-            .white
-        }
-    }
-}
-
 // MARK: View
 extension BlocksViews.Toolbar.AddBlock {
     struct InputView: View {
@@ -114,12 +80,11 @@ extension BlocksViews.Toolbar.AddBlock {
         var cells: [Cell.ViewModel]
         var header: some View {
             HStack {
-                Text(self.viewModel.uppercasedTitle)
-                    .font(.init(Style.section.coreTextFont()))
-                    .foregroundColor(.init(Style.section.foregroundColor()))
+                AnytypeText(self.viewModel.uppercasedTitle, style: .headline)
+                    .foregroundColor(Color(UIColor(red: 0.675, green: 0.663, blue: 0.588, alpha: 1)))
                     .padding()
                 Spacer()
-            }.background(Color(Style.section.backgroundColor())).listRowInsets(.init(.init()))
+            }.background(Color.white).listRowInsets(.init(.init()))
         }
         var body: some View {
             Section(header: self.header) {
@@ -156,9 +121,11 @@ extension BlocksViews.Toolbar.AddBlock {
             HStack {
                 Image(self.viewModel.imageResource).renderingMode(.original)
                 VStack(alignment: .leading) {
-                    Text(self.viewModel.title).font(.init(Style.title.coreTextFont())).foregroundColor(.init(Style.title.foregroundColor()))
+                    AnytypeText(self.viewModel.title, style: .heading)
+                        .foregroundColor(Color(UIColor.grayscale90))
                     Spacer(minLength: 5)
-                    Text(self.viewModel.subtitle).font(.init(Style.subtitle.coreTextFont())).foregroundColor(.init(Style.subtitle.foregroundColor()))
+                    AnytypeText(self.viewModel.subtitle, style: .caption)
+                        .foregroundColor(Color(UIColor(red: 0.422, green: 0.415, blue: 0.372, alpha: 1)))
                 }
             }
         }
