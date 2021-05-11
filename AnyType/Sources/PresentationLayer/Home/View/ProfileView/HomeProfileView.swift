@@ -18,9 +18,7 @@ struct HomeProfileView: View {
                 UserIconView(image: accountData.avatar, name: accountData.name)
                     .frame(width: 80, height: 80)
                     .onTapGesture {
-                        if let profileBlockId = accountData.blockId {
-                            model.showDocument(blockId: profileBlockId)
-                        }
+                        accountData.blockId.flatMap(model.showDocument)
                     }
 
                 HStack {

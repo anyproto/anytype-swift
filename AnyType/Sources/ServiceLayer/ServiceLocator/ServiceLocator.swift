@@ -6,12 +6,6 @@ final class ServiceLocator {
     static let shared = ServiceLocator()
     
     // MARK: - Services
-    /// creates new appearanceService
-    func appearanceService() -> AppearanceService {
-        AppearanceService()
-    }
-    
-    /// creates new firebaseService
     func firebaseService() -> FirebaseService {
         FirebaseService()
     }
@@ -51,7 +45,6 @@ final class ServiceLocator {
             shakeHandler: ShakeHandler(window),
             localRepoService: localRepoService(),
             authService: authService(),
-            appearanceService: appearanceService(),
             firebaseService: firebaseService(),
             authAssembly: authAssembly()
         )

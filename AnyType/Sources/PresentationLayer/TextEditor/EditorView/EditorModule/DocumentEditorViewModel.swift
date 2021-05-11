@@ -34,7 +34,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     /// Service
     private var blockActionsService: BlockActionsServiceSingle = .init()
-    private lazy var blockActionHandler: BlockActionHandler? = .init(documentId: self.documentViewModel.documentId)
+    private lazy var blockActionHandler = BlockActionHandler(documentId: self.documentViewModel.documentId)
 
     /// Document ViewModel
     private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()

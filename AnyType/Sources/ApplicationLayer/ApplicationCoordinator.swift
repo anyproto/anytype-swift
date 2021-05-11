@@ -14,7 +14,6 @@ class ApplicationCoordinator: MainWindowHolder {
     
     private let localRepoService: LocalRepoServiceProtocol
     private let authService: AuthServiceProtocol
-    private let appearanceService: AppearanceService
     private let firebaseService: FirebaseService
     
     private let authAssembly: AuthAssembly
@@ -24,7 +23,6 @@ class ApplicationCoordinator: MainWindowHolder {
         shakeHandler: ShakeHandler,
         localRepoService: LocalRepoServiceProtocol,
         authService: AuthServiceProtocol,
-        appearanceService: AppearanceService,
         firebaseService: FirebaseService,
         authAssembly: AuthAssembly
     ) {
@@ -33,7 +31,6 @@ class ApplicationCoordinator: MainWindowHolder {
         
         self.localRepoService = localRepoService
         self.authService = authService
-        self.appearanceService = appearanceService
         self.firebaseService = firebaseService
         
         self.authAssembly = authAssembly
@@ -53,7 +50,6 @@ class ApplicationCoordinator: MainWindowHolder {
     
     private func runServicesOnStartup() {
         shakeHandler.run()
-        appearanceService.resetToDefaults()
         firebaseService.setup()
     }
 
