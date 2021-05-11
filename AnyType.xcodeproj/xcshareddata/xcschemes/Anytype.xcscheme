@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1200"
+   LastUpgradeVersion = "1240"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0303ECFA22D8EDAA005C552B"
-               BuildableName = "AnyType.app"
-               BlueprintName = "AnyType"
-               ReferencedContainer = "container:AnyType.xcodeproj">
+               BuildableName = "Anytype.app"
+               BlueprintName = "Anytype"
+               ReferencedContainer = "container:Anytype.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "03C5C53F22DFD90C00DD91DE"
-               BuildableName = "AnyTypeTests.xctest"
-               BlueprintName = "AnyTypeTests"
-               ReferencedContainer = "container:AnyType.xcodeproj">
+               BuildableName = "AnytypeTests.xctest"
+               BlueprintName = "AnytypeTests"
+               ReferencedContainer = "container:Anytype.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,24 +55,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0303ECFA22D8EDAA005C552B"
-            BuildableName = "AnyType.app"
-            BlueprintName = "AnyType"
-            ReferencedContainer = "container:AnyType.xcodeproj">
+            BuildableName = "Anytype.app"
+            BlueprintName = "Anytype"
+            ReferencedContainer = "container:Anytype.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-         <CommandLineArgument
-            argument = "ANYTYPE_LOG_LEVEL=&quot;*=fatal;anytype*=error&quot;"
-            isEnabled = "YES">
-         </CommandLineArgument>
-      </CommandLineArguments>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "ANYTYPE_LOG_LEVEL"
-            value = "*=fatal"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -85,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0303ECFA22D8EDAA005C552B"
-            BuildableName = "AnyType.app"
-            BlueprintName = "AnyType"
-            ReferencedContainer = "container:AnyType.xcodeproj">
+            BuildableName = "Anytype.app"
+            BlueprintName = "Anytype"
+            ReferencedContainer = "container:Anytype.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
