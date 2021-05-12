@@ -84,7 +84,7 @@ extension BlocksViews.Toolbar.AddBlock {
                     .foregroundColor(Color(UIColor(red: 0.675, green: 0.663, blue: 0.588, alpha: 1)))
                     .padding()
                 Spacer()
-            }.background(Color.white).listRowInsets(.init(.init()))
+            }.background(Color.background).listRowInsets(.init(.init()))
         }
         var body: some View {
             Section(header: self.header) {

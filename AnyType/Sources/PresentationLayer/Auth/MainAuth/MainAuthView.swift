@@ -26,7 +26,7 @@ struct MainAuthView: View {
                                        isActive: $viewModel.shouldShowCreateProfileView) {
                             EmptyView()
                         }
-                        StandardButton(disabled: false, text: "Sign up", style: .white) {
+                        StandardButton(disabled: false, text: "Sign up", style: .secondary) {
                             self.viewModel.singUp()
                         }
                         .padding(.trailing, 12)
@@ -34,14 +34,14 @@ struct MainAuthView: View {
                         NavigationLink(destination: viewModel.showLoginView(), isActive: $showLoginView) {
                             EmptyView()
                         }
-                        StandardButton(disabled: false, text: "Login", style: .yellow) {
+                        StandardButton(disabled: false, text: "Login", style: .secondary) {
                             self.showLoginView = true
                         }
                     }
                     .padding([.leading, .trailing], 20)
                     .padding(.bottom, 16)
                 }
-                .background(Color.white)
+                .background(Color.background)
                 .cornerRadius(12.0)
                 .padding(20)
             }

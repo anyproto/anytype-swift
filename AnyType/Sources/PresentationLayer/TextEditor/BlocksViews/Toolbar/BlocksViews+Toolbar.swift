@@ -28,7 +28,7 @@ extension BlocksViews.Toolbar {
 extension BlocksViews.Toolbar {
     struct RoundedButtonViewModifier: ViewModifier {
         func body(content: Content) -> some View {
-            content.padding(20).background(Color.white).cornerRadius(10)
+            content.padding(20).background(Color.background).cornerRadius(10)
         }
     }
     struct OuterHorizontalStackViewModifier: ViewModifier {

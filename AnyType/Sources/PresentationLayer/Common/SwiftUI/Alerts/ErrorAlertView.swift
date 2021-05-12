@@ -20,7 +20,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                     
                     
                     VStack(spacing: 0) {
-                        Divider().background(Color.white)
+                        Divider().background(Color.background)
                         Button(action: {
                             self.isShowing.toggle()
                         }) {
@@ -31,7 +31,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                     }
                 }
                 .frame(maxWidth: geometry.size.width * 0.8, minHeight: 0)
-                .background(Color("BrownMenu"))
+                .background(Color.toastBackground)
                 .cornerRadius(10)
                 .transition(.slide)
                 .opacity(self.isShowing ? 1 : 0)

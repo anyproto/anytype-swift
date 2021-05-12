@@ -13,7 +13,7 @@ struct PinCodeView: View {
                         Circle()
                             .overlay(
                                 Circle()
-                                    .stroke(index != 2 ? .clear : Color("GrayText"), lineWidth: 1)
+                                    .stroke(index != 2 ? .clear : Color.textSecondary, lineWidth: 1)
                         )
                             .foregroundColor(index == 2 ? .clear : .black)
                     }
@@ -105,10 +105,10 @@ struct NumpadButtonStyle: ButtonStyle {
             Circle()
                 .overlay(
                     Circle()
-                        .stroke(configuration.isPressed ? .clear :  Color("GrayText"))
+                        .stroke(configuration.isPressed ? .clear :  Color.textSecondary)
             )
                 .frame(width: 72, height: 72)
-                .foregroundColor(configuration.isPressed ? Color("backgroundColor") : .clear)
+                .foregroundColor(configuration.isPressed ? Color.background : .clear)
             configuration.label
         }
     }

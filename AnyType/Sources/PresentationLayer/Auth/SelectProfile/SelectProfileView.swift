@@ -49,7 +49,7 @@ struct SelectProfileView: View {
                         }
                         .frame(maxWidth: .infinity, maxHeight: contentHeight)
                         .padding()
-                        .background(Color.white)
+                        .background(Color.background)
                         .cornerRadius(12)
                         .animation(.easeInOut(duration: 0.5))
                     }

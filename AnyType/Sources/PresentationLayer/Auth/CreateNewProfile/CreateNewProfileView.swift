@@ -53,14 +53,14 @@ private struct NewProfileView: View {
                 .padding(.bottom, 24)
                 
                 HStack(spacing: 12) {
-                    StandardButton(disabled: false, text: "Back", style: .white) {
+                    StandardButton(disabled: false, text: "Back", style: .secondary) {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                     
                     NavigationLink(destination: viewModel.showSetupWallet(), isActive: $createAccount) {
                         EmptyView()
                     }
-                    StandardButton(disabled: self.viewModel.userName.count == 0, text: "Create", style: .yellow) {
+                    StandardButton(disabled: self.viewModel.userName.count == 0, text: "Create", style: .primary) {
                         self.createAccount = true
                     }
                 }
@@ -68,7 +68,7 @@ private struct NewProfileView: View {
             }
             .navigationBarBackButtonHidden(true)
             .padding()
-            .background(Color.white)
+            .background(Color.background)
             .cornerRadius(12.0)
         }
         .sheet(isPresented: $showImagePicker) {

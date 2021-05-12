@@ -19,7 +19,7 @@ struct ProfileView: View {
     private var contentView: some View {
         VStack(alignment: .leading, spacing: 20) {
             SettingsSectionView()
-            StandardButton(disabled: false, text: "Log out", style: .white) {
+            StandardButton(disabled: false, text: "Log out", style: .secondary) {
                 self.model.logout()
             }
             .padding(.horizontal, 20)

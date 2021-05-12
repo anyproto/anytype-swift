@@ -16,20 +16,20 @@ struct CompletionAuthView: View {
             VStack {
                 Spacer()
                 VStack(alignment: .leading, spacing: 0) {
-                    ImageWithCircleBackgroundView(imageName: "congrats", backgroundColor: UIColor.init(named: "backgroundColor"))
+                    ImageWithCircleBackgroundView(imageName: "congrats", backgroundColor: UIColor.init(named: "background"))
                         .frame(width: 64, height: 64)
                     AnytypeText("Congratulations!", style: .bodyBold)
                         .padding(.top, 16)
                     AnytypeText("CongratulationDescription", style: .body)
                         .padding(.top, 10)
-                    StandardButton(disabled: false, text: "Let’s start!", style: .yellow) {
+                    StandardButton(disabled: false, text: "Let’s start!", style: .primary) {
                         self.delegate?.showDashboardDidTap()
                     }
                     .padding(.top, 18)
                 }
                 .padding([.leading, .trailing, .top], 20)
                 .padding(.bottom, 16)
-                .background(Color.white)
+                .background(Color.background)
                 .cornerRadius(12)
             }
             .padding()

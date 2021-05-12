@@ -15,7 +15,7 @@ struct KeychainPhraseView: View {
                 .padding(.top, 34)
                 .layoutPriority(1) // TODO: remove workaround when fixed by apple
 
-            StandardButton(disabled: false ,text: "I've written it down", style: .yellow) {
+            StandardButton(disabled: false ,text: "I've written it down", style: .primary) {
                 self.showKeychainView = false
             }
             .padding(.top, 40)
@@ -40,7 +40,7 @@ struct SeedPhraseView: View {
                 .padding([.top, .bottom], 12)
         }
         .frame(minWidth: 0, maxWidth: .infinity)
-        .background(Color("backgroundColor"))
+        .background(Color.background)
         .cornerRadius(8)
         .contextMenu {
             Button(action: {

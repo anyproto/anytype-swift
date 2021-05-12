@@ -4,32 +4,32 @@ import SwiftUI
 typealias StandardButtonAction = () -> Void
 
 enum StandardButtonStyle {
-    case yellow
-    case white
+    case primary
+    case secondary
     
     func backgroundColor() -> Color {
         switch self {
-        case .white:
-            return Color.white
-        case .yellow:
-            return Color.yellow
+        case .secondary:
+            return .buttonSecondary
+        case .primary:
+            return .buttonPrimary
         }
     }
     
     func textColor() -> Color {
         switch self {
-        case .white:
-            return Color.black
-        case .yellow:
-            return Color.white
+        case .secondary:
+            return .buttonSecondaryText
+        case .primary:
+            return .buttonPrimartText
         }
     }
     
     func borderColor() -> Color? {
         switch self {
-        case .white:
-            return Color.grayText
-        case .yellow:
+        case .secondary:
+            return .buttonSecondaryBorder
+        case .primary:
             return nil
         }
     }
@@ -65,10 +65,8 @@ struct StandardButton: View {
     }
 }
 
-#if DEBUG
 struct StandardButton_Previews: PreviewProvider {
     static var previews: some View {
-        StandardButton(disabled: false ,text: "Standard button", style: .white, action: {})
+        StandardButton(disabled: false ,text: "Standard button", style: .secondary, action: {})
     }
 }
-#endif

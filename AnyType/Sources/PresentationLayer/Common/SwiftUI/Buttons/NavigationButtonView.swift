@@ -18,6 +18,6 @@ struct NavigationButtonView: View {
 
 struct NavigationButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButtonView(disabled: .constant(false), text: "Navigation Button", style: .yellow)
+        NavigationButtonView(disabled: .constant(false), text: "Navigation Button", style: .primary)
     }
 }

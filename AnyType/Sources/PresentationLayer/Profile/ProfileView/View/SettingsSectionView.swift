@@ -18,7 +18,7 @@ struct SettingsSectionView: View {
         }
         .padding([.leading, .trailing], 20)
         .padding([.bottom, .top], 20)
-        .background(Color.white)
+        .background(Color.background)
         .cornerRadius(12.0)
     }
 }

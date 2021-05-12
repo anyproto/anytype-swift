@@ -25,8 +25,7 @@ struct WaitingView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     if !errorState {
                         Image("clock")
-                            .background(Circle()
-                                .fill(Color("backgroundColor"))
+                            .background(Circle().fill(Color.background)
                                 .frame(width: 64, height: 64)
                         )
                             .frame(width: 64, height: 64)
@@ -46,7 +45,7 @@ struct WaitingView: View {
                             .padding(.top, -10)
                             .transition(.opacity)
                         
-                        StandardButton(disabled: false, text: "Ok", style: .white) {
+                        StandardButton(disabled: false, text: "Ok", style: .secondary) {
                             self.presentationMode.wrappedValue.dismiss()
                         }
                         .transition(.opacity)
@@ -54,7 +53,7 @@ struct WaitingView: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
+                .background(Color.background)
                 .cornerRadius(12.0)
             }
             .padding(20)

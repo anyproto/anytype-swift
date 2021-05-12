@@ -17,7 +17,7 @@ struct PageCell: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 12, trailing: 16))
-        .background(Color.white)
+        .background(Color.background)
         .cornerRadius(16)
     }
     

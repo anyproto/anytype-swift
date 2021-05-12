@@ -52,18 +52,18 @@ extension LoginView {
                         .padding(.bottom, 24)
 
                     HStack(spacing: 12) {
-                        StandardButton(disabled: false, text: "Back", style: .white) {
+                        StandardButton(disabled: false, text: "Back", style: .secondary) {
                             self.presentationMode.wrappedValue.dismiss()
                         }
 
-                        StandardButton(disabled: false, text: "Login", style: .yellow) {
+                        StandardButton(disabled: false, text: "Login", style: .secondary) {
                             self.viewModel.recoverWallet()
                         }
                     }
                     .padding(.bottom, 16)
                 }
                 .padding()
-                .background(Color.white)
+                .background(Color.background)
                 .cornerRadius(12.0)
                 .navigationBarBackButtonHidden(true)
                 .sheet(isPresented: $viewModel.showQrCodeView) {
