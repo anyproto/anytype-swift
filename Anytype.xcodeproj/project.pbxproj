@@ -112,7 +112,7 @@
 		0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */; };
 		0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */; };
 		0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC83248ED4AF000FF498 /* PageTitleState.swift */; };
-		0A10CC86248ED549000FF498 /* PageIconUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC85248ED549000FF498 /* PageIconUIKitView.swift */; };
+		0A10CC86248ED549000FF498 /* DocumentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC85248ED549000FF498 /* DocumentIconView.swift */; };
 		0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */; };
 		0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */; };
 		0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */; };
@@ -332,7 +332,7 @@
 		3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */; };
 		3DDF58962628C6440081C53E /* PageTitleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF58952628C6440081C53E /* PageTitleViewModel.swift */; };
 		3DDF58992628C6C60081C53E /* PageTitleUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF58982628C6C60081C53E /* PageTitleUIKitView.swift */; };
-		3DDF589F2628C7F60081C53E /* PageIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF589E2628C7F60081C53E /* PageIconViewModel.swift */; };
+		3DDF589F2628C7F60081C53E /* DocumentIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */; };
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
@@ -626,7 +626,7 @@
 		0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File+Image.swift"; sourceTree = "<group>"; };
 		0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBlockViewModel.swift; sourceTree = "<group>"; };
 		0A10CC83248ED4AF000FF498 /* PageTitleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTitleState.swift; sourceTree = "<group>"; };
-		0A10CC85248ED549000FF498 /* PageIconUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIconUIKitView.swift; sourceTree = "<group>"; };
+		0A10CC85248ED549000FF498 /* DocumentIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconView.swift; sourceTree = "<group>"; };
 		0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar.swift"; sourceTree = "<group>"; };
 		0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+BlocksTypes.swift"; sourceTree = "<group>"; };
 		0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock.swift"; sourceTree = "<group>"; };
@@ -838,7 +838,7 @@
 		3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentConfiguration.swift; sourceTree = "<group>"; };
 		3DDF58952628C6440081C53E /* PageTitleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTitleViewModel.swift; sourceTree = "<group>"; };
 		3DDF58982628C6C60081C53E /* PageTitleUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTitleUIKitView.swift; sourceTree = "<group>"; };
-		3DDF589E2628C7F60081C53E /* PageIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageIconViewModel.swift; sourceTree = "<group>"; };
+		3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewModel.swift; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
 		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
@@ -1694,7 +1694,6 @@
 		0A10CC5E248EC331000FF498 /* Page */ = {
 			isa = PBXGroup;
 			children = (
-				3DDF589C2628C7850081C53E /* Icon */,
 				3DDF58932628C5F80081C53E /* Title */,
 				0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */,
 			);
@@ -2049,10 +2048,28 @@
 			path = UserActions;
 			sourceTree = "<group>";
 		};
+		12114058264BEE36008F91C3 /* DocumentHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				1211405B264BEE3E008F91C3 /* Components */,
+				12858E7C264ABAC200A7FE0F /* DocumentHeaderView.swift */,
+			);
+			path = DocumentHeaderView;
+			sourceTree = "<group>";
+		};
+		1211405B264BEE3E008F91C3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				0A10CC85248ED549000FF498 /* DocumentIconView.swift */,
+				3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		12858E79264ABA9900A7FE0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				12858E7C264ABAC200A7FE0F /* DocumentHeaderView.swift */,
+				12114058264BEE36008F91C3 /* DocumentHeaderView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2515,15 +2532,6 @@
 				3DDF58982628C6C60081C53E /* PageTitleUIKitView.swift */,
 			);
 			path = Title;
-			sourceTree = "<group>";
-		};
-		3DDF589C2628C7850081C53E /* Icon */ = {
-			isa = PBXGroup;
-			children = (
-				0A10CC85248ED549000FF498 /* PageIconUIKitView.swift */,
-				3DDF589E2628C7F60081C53E /* PageIconViewModel.swift */,
-			);
-			path = Icon;
 			sourceTree = "<group>";
 		};
 		3DF6F61A262ED50C000E05A5 /* FeatureFlags */ = {
@@ -3265,7 +3273,7 @@
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
 				0372923123F99BD50033DFDB /* InMemoryStore.swift in Sources */,
 				53B0B3B42644B3D7007F7378 /* EditorModuleContentViewModel.swift in Sources */,
-				0A10CC86248ED549000FF498 /* PageIconUIKitView.swift in Sources */,
+				0A10CC86248ED549000FF498 /* DocumentIconView.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
@@ -3416,7 +3424,7 @@
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
 				039F6D7C239594B90097560A /* PinCodeView.swift in Sources */,
 				0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */,
-				3DDF589F2628C7F60081C53E /* PageIconViewModel.swift in Sources */,
+				3DDF589F2628C7F60081C53E /* DocumentIconViewModel.swift in Sources */,
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
 				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* PickerContentType.swift in Sources */,

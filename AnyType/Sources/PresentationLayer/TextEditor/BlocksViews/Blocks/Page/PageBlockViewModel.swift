@@ -11,15 +11,15 @@ enum PageBlockViewEvents {
 class PageBlockViewModel: BaseBlockViewModel {
     /// This DetailsViewModel could be extracted somewhere.
     /// Somewhere near EventHandler.
-    typealias PageDetailsViewModel = DetailsActiveModel
-    private(set) var pageDetailsViewModel: PageDetailsViewModel?
+    private(set) var pageDetailsViewModel: DetailsActiveModel?
     
     // MARK: Subclassing
     func onIncoming(event: PageBlockViewEvents) {}
 
-    func configured(pageDetailsViewModel: PageDetailsViewModel?) -> Self {
+    func configured(pageDetailsViewModel: DetailsActiveModel?) -> Self {
         self.pageDetailsViewModel = pageDetailsViewModel
         self.onIncoming(event: .pageDetailsViewModelDidSet)
+        
         return self
     }
 }

@@ -106,9 +106,9 @@ private extension DocumentHeaderView {
     struct Constants {
         static let directionalEdgeInsets = NSDirectionalEdgeInsets(
             top: 12,
-            leading: 0,
+            leading: 20,
             bottom: 12,
-            trailing: 0
+            trailing: 20
         )
     }
 }

@@ -7,7 +7,7 @@
 //
 
 /// Describes a view, which can be configured with some model.
-public protocol ConfigurableView: AnyObject {
+protocol ConfigurableView: AnyObject {
     
     associatedtype Model
     
@@ -18,7 +18,7 @@ public protocol ConfigurableView: AnyObject {
     
 }
 
-public extension ConfigurableView {
+extension ConfigurableView {
     
     func configured(with model: Model) -> Self {
         configure(model: model)

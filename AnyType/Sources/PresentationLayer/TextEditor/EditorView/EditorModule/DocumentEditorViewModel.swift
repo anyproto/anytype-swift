@@ -263,7 +263,7 @@ class DocumentEditorViewModel: ObservableObject {
         /// Refactor when you are ready.
         /// It is tough stuff.
         ///
-        if let iconEmoji = detailsViewModels.first(where: {$0 as? PageIconViewModel != nil}) {
+        if let iconEmoji = detailsViewModels.first(where: {$0 as? DocumentIconViewModel != nil}) {
             dictionary[.iconEmoji] = iconEmoji
         }
         self.detailsViewModels = dictionary
