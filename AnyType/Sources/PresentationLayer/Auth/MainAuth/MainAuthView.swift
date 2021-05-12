@@ -34,7 +34,7 @@ struct MainAuthView: View {
                         NavigationLink(destination: viewModel.showLoginView(), isActive: $showLoginView) {
                             EmptyView()
                         }
-                        StandardButton(disabled: false, text: "Login", style: .secondary) {
+                        StandardButton(disabled: false, text: "Login", style: .primary) {
                             self.showLoginView = true
                         }
                     }

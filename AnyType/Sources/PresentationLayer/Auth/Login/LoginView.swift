@@ -56,7 +56,7 @@ extension LoginView {
                             self.presentationMode.wrappedValue.dismiss()
                         }
 
-                        StandardButton(disabled: false, text: "Login", style: .secondary) {
+                        StandardButton(disabled: false, text: "Login", style: .primary) {
                             self.viewModel.recoverWallet()
                         }
                     }

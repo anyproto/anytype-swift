@@ -5,34 +5,36 @@ struct HomeProfileView: View {
     @EnvironmentObject var model: HomeViewModel
     
     private let topPaddingRatio: CGFloat = 0.16
+    private let buttonsPaddingRatio: CGFloat = 0.05
     
     var body: some View {
         GeometryReader { geometry in
             VStack() {
-                AnytypeText("Hi, \(accountData.name)", style: .title)
-                    .foregroundColor(.white)
-                    .padding(.top, geometry.size.height * topPaddingRatio)
-                    .padding(.bottom, 15)
-                
-                UserIconView(image: accountData.avatar, name: accountData.name)
-                    .frame(width: 80, height: 80)
-                    .onTapGesture {
-                        accountData.blockId.flatMap(model.showDocument)
-                    }
+                VStack {
+                    AnytypeText("Hi, \(accountData.name)", style: .title)
+                        .foregroundColor(.white)
+                        .padding(.top, geometry.size.height * topPaddingRatio)
+                        .padding(.bottom, 15)
+                    
+                    UserIconView(image: accountData.avatar, name: accountData.name)
+                        .frame(width: 80, height: 80)
+                        .onTapGesture {
+                            accountData.blockId.flatMap(model.showDocument)
+                        }
 
-                HStack {
-                    Button(action: {}) {
-                        HomeProfileViewButtonImage(image: Image.main.search)
+                    HStack {
+                        Button(action: {}) {
+                            HomeProfileViewButtonImage(image: Image.main.search)
+                        }
+                        Button(action: {}) {
+                            HomeProfileViewButtonImage(image: Image.main.marketplace).padding(10)
+                        }
+                        Button(action: model.createNewPage) {
+                            HomeProfileViewButtonImage(image: Image.main.draft)
+                        }
                     }
-                    Button(action: {}) {
-                        HomeProfileViewButtonImage(image: Image.main.marketplace).padding(10)
-                    }
-                    Button(action: model.createNewPage) {
-                        HomeProfileViewButtonImage(image: Image.main.draft)
-                    }
-                }
-                .padding(.top, 40)
-                
+                    .padding(.top, geometry.size.height * buttonsPaddingRatio)
+                }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }

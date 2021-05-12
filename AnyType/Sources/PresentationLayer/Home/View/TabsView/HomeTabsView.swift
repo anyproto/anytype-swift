@@ -18,7 +18,6 @@ struct HomeTabsView: View {
             HomeCollectionView().tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        .ignoresSafeArea()
     }
     
     

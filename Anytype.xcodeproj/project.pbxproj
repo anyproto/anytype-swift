@@ -321,6 +321,7 @@
 		3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */; };
 		3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */; };
 		3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */; };
+		3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92F84264BF69900E83276 /* View+CornerRadius.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
@@ -827,6 +828,7 @@
 		3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBoundsExtension.swift; sourceTree = "<group>"; };
 		3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOnGeometryChange.swift; sourceTree = "<group>"; };
 		3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RandomAccessCollection+Indexed.swift"; sourceTree = "<group>"; };
+		3DB92F84264BF69900E83276 /* View+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+CornerRadius.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
@@ -2229,6 +2231,7 @@
 				3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */,
 				3D0BFB39263BE797007CC856 /* AsyncImage.swift */,
 				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
+				3DB92F84264BF69900E83276 /* View+CornerRadius.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3044,7 +3047,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */;
+			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3288,6 +3291,7 @@
 				5338E80225DD3090008CB97D /* ListBlockActionService.swift in Sources */,
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
+				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* ImageLoaderObject.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
@@ -3835,7 +3839,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */ = {
+		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,

@@ -43,7 +43,7 @@ struct HomeBottomSheetView<Content: View>: View {
             }
             .frame(width: geometry.size.width, height: self.config.maxHeight, alignment: .top)
             .background(HomeBackgroundBlurView())
-            .cornerRadius(config.cornerRadius)
+            .cornerRadius(config.cornerRadius, corners: [.topLeft, .topRight])
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: max(self.offset + self.translation, 0))
             .animation(.interactiveSpring(), value: isOpen)

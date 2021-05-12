@@ -17,16 +17,15 @@ struct HomeView: View {
     private var contentView: some View {
         GeometryReader { geometry in
             ZStack {
-                Image.main.wallpaper
-                    .resizable().aspectRatio(contentMode: .fill)
-                    .frame(width: geometry.size.width)
-                textEditorNavigation
-                HomeProfileView()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                
-                HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
-                    HomeTabsView()
-                }
+                Group {
+                    Image.main.wallpaper.resizable().aspectRatio(contentMode: .fill)
+                    textEditorNavigation
+                    HomeProfileView()
+                    
+                    HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
+                        HomeTabsView()
+                    }
+                }.frame(width: geometry.size.width, height: geometry.size.height)
             }
         }
         .edgesIgnoringSafeArea(.all)
