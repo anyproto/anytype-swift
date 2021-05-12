@@ -4,7 +4,7 @@ import SwiftUI
 struct TypographyExample: View {
     var body: some View {
         ScrollView() {
-            ForEach(AnytypeFont.TextStyle.allCases, id: \.self) { style in
+            ForEach(AnytypeFontBuilder.TextStyle.allCases, id: \.self) { style in
                 VStack {
                     AnytypeText("\(String(describing: style))", style: style)
                     AnytypeText("The quick brown fox jumps over the lazy dog", style: style)

@@ -6,10 +6,6 @@ struct UserIconView: View {
     var image: UIImage?
     var name: String
     
-    private var chosenInitialGlyph: Character {
-        self.name.first ?? "👻"
-    }
-    
     var body: some View {
         VStack(spacing: 0) {
             if let value = self.image {
@@ -17,11 +13,16 @@ struct UserIconView: View {
                     .renderingMode(.original)
                     .resizable().aspectRatio(contentMode: .fill)
             } else {
-                ZStack {
-                    Color.gray
-                    AnytypeText(String(chosenInitialGlyph), style: .title)
-                        .foregroundColor(.white)
-                }
+                AnytypeText(
+                    String(name.first ?? "👻"),
+                    name: .graphik,
+                    size: 45,
+                    weight: .regular
+                )
+                .frame(width: 80, height: 80)
+                .foregroundColor(.black)
+                .blendMode(.overlay)
+                .background(HomeBackgroundBlurView())
             }
         }
         .clipShape(Circle())

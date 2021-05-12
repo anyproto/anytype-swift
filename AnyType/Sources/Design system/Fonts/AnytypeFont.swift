@@ -2,7 +2,7 @@ import SwiftUI
 
 
 // https://www.figma.com/file/vgXV7x2v20vJajc7clYJ7a/Typography-Mobile?node-id=0%3A12
-extension AnytypeFont {
+extension AnytypeFontBuilder {
     enum TextStyle: CaseIterable {
         case title
         case heading
@@ -28,33 +28,28 @@ extension AnytypeFont {
         case caption2Medium
         case caption2
     }
+
+    enum FontName: String {
+        case graphik = "GraphikLCG-Semibold"
+        case plex = "IBMPlexMono-Regular"
+        case inter = "Inter"
+    }
 }
 
-
-struct AnytypeFont: ViewModifier {
-    
-    @Environment(\.sizeCategory) var sizeCategory
-    
-    
-    let textStyle: TextStyle
-
-    func body(content: Content) -> some View {
-        return content.font(font())
+struct AnytypeFontBuilder {
+    static func font(textStyle: TextStyle) -> Font {
+        return font(name: fontName(textStyle), size: size(textStyle), weight: weight(textStyle))
     }
     
-    func font() -> Font {
+    static func font(name: FontName, size: CGFloat, weight: Font.Weight) -> Font {
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
-        return applyWeight(Font.custom(fontName, size: scaledSize))
+        return Font.custom(name.rawValue, size: scaledSize).weight(weight)
     }
     
-    private var fontName: String {
-        let graphik = "GraphikLCG-Semibold"
-        let plex = "IBMPlexMono-Regular"
-        let inter = "Inter"
-        
+    private static func fontName(_ textStyle: TextStyle) -> FontName {
         switch textStyle {
         case .title, .heading:
-            return graphik
+            return .graphik
             
         case .subheading, .headline, .body, .caption, .footnote, .caption2:
             fallthrough
@@ -63,14 +58,14 @@ struct AnytypeFont: ViewModifier {
         case .headlineSemibold, .bodySemibold:
             fallthrough
         case .bodyBold:
-            return inter
+            return .inter
             
         case .codeBlock:
-            return plex
+            return .plex
         }
     }
     
-    private var size: CGFloat {
+    private static func size(_ textStyle: TextStyle) -> CGFloat {
         switch textStyle {
         case .title:
             return 28
@@ -89,31 +84,26 @@ struct AnytypeFont: ViewModifier {
         }
     }
     
-    private func applyWeight(_ font: Font) -> Font {
+    private static func weight(_ textStyle: TextStyle) -> Font.Weight {
         switch textStyle {
         case .title, .heading:
             fallthrough
         case .headline, .body, .caption, .footnote, .caption2:
             fallthrough
         case .codeBlock:
-            return font
+            return .regular
             
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
-            return font.weight(.medium)
+            return .medium
         case .headlineSemibold, .bodySemibold:
-            return font.weight(.semibold)
+            return .semibold
         case .subheading, .bodyBold:
-            return font.bold()
+            return .bold
         }
     }
 }
 
-extension View {
-    func anyTypeFont(_ textStyle: AnytypeFont.TextStyle) -> some View {
-        self.modifier(AnytypeFont(textStyle: textStyle))
-    }
-}
 
 extension Font {
-    static let defaultAnytype = AnytypeFont(textStyle: .caption).font()
+    static let defaultAnytype = AnytypeFontBuilder.font(textStyle: .caption)
 }

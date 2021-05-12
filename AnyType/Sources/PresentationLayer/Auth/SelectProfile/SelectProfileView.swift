@@ -92,7 +92,7 @@ private struct ProfileNameView: View {
     
     var body: some View {
         HStack {
-            UserIconView(image: self.viewModel.image, name: self.viewModel.name)
+            UserIconView(image: viewModel.image, name: viewModel.name)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(viewModel.name, style: .body)
                     .foregroundColor(.textPrimary)
