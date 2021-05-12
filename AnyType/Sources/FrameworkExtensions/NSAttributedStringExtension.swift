@@ -37,14 +37,14 @@ extension NSAttributedString {
     func hasAttribute(_ attributeKey: NSAttributedString.Key, at range: NSRange) -> Bool {
         guard length > 0 else { return false }
         
-        let attribute = attribute(
+        let attributeValue = attribute(
             attributeKey,
             at: range.location,
             longestEffectiveRange: nil,
             in: range
         )
         
-        return !attribute.isNil
+        return !attributeValue.isNil
     }
     
     /// Add plain string to attributed string and apply all attributes in range of all current string to plain string
