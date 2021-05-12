@@ -38,7 +38,7 @@ public final class DocumentHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupView()
+        setupLayout()
     }
 
     required init?(coder: NSCoder) {
@@ -85,26 +85,9 @@ private extension DocumentHeaderView {
     
     // MARK: Layout
     
-    func setupView() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
-        setupLayout()
-    }
-
     func setupLayout() {
-        let view = verticalStackView
-
-        addSubview(view)
-
-        if let superview = view.superview {
-            let constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ]
-            NSLayoutConstraint.activate(constraints)
-        }
+        addSubview(verticalStackView)
+        verticalStackView.pinAllEdges(to: self)
     }
     
     // MARK: Event handler
