@@ -22,9 +22,9 @@ jobs:
     strategy:
       matrix:
         scheme:
-          - AnyType
+          - Anytype
         product-name:
-          - AnyType
+          - Anytype
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -85,21 +85,21 @@ jobs:
         run: git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
       - name: Update version number
-        run: /usr/libexec/PlistBuddy -c "Set :CFBundleVersion '${RUN_NUMBER}'" ./AnyType/Supporting\ Files/Info.plist
+        run: /usr/libexec/PlistBuddy -c "Set :CFBundleVersion '${RUN_NUMBER}'" ./Anytype/Supporting\ Files/Info.plist
         env:
           RUN_NUMBER: ${{ github.run_number }}
 
       - name: Build archive # add later bundle version
-        run: xcodebuild archive -scheme "AnyType" -archivePath ".build/AnyType.xcarchive" -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
+        run: xcodebuild archive -scheme "Anytype" -archivePath ".build/Anytype.xcarchive" -usePackageSupportBuiltinSCM | xcpretty && exit ${PIPESTATUS[0]}
 
       - name: Prepare export options
         run: /usr/libexec/PlistBuddy -c "Set :teamID '${{ secrets.APP_STORE_CONNECT_TEAM_ID }}'" ./Distribution/ExportOptions.plist
 
       - name: Export
-        run: xcodebuild -exportArchive -exportOptionsPlist "./Distribution/ExportOptions.plist" -archivePath ".build/AnyType.xcarchive" -exportPath ".build/ExportedPackage" -usePackageSupportBuiltinSCM
+        run: xcodebuild -exportArchive -exportOptionsPlist "./Distribution/ExportOptions.plist" -archivePath ".build/Anytype.xcarchive" -exportPath ".build/ExportedPackage" -usePackageSupportBuiltinSCM
 
       - name: Prepare app store connect keys for upload
         run: mkdir ~/.private_keys/ 2>/dev/null; echo "${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}" > ~/.private_keys/AuthKey_${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}.p8
 
       - name: Upload to TestFlight
-        run: xcrun altool --upload-app -f ".build/ExportedPackage/AnyType.ipa" -t ios --apiKey "${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}" --apiIssuer "${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}"
+        run: xcrun altool --upload-app -f ".build/ExportedPackage/Anytype.ipa" -t ios --apiKey "${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}" --apiIssuer "${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}"

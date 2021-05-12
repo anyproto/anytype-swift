@@ -25,7 +25,7 @@ jobs:
         project:
           - ./Anytype.xcodeproj
         scheme:
-          - AnyType
+          - Anytype
         destination: ['']
         sdk: ['iphoneos']
 
