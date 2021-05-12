@@ -19,7 +19,7 @@ class LoginViewModel: ObservableObject {
         didSet {
             showError = false
             
-            if error != nil {
+            if !error.isNil {
                 showError = true
             }
         }

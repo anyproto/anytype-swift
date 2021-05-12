@@ -59,7 +59,7 @@ struct GenericPasswordQueryable {
             kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
             [.userPresence],
             &error)
-        precondition(access != nil, "SecAccessControlCreateWithFlags failed")
+        precondition(!access.isNil, "SecAccessControlCreateWithFlags failed")
         
         return access!
     }

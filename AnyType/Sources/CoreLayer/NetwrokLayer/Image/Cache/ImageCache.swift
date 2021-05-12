@@ -113,7 +113,7 @@ extension ImageCache {
         }
         
         private var objectExists: Bool {
-            self.image != nil
+            !self.image.isNil
         }
         
         private var accessCounter: Int = 1

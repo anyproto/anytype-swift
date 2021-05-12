@@ -212,8 +212,8 @@ extension Namespace.ViewModel {
             var image: Image?
             var icon: Image?
             
-            func hasImage() -> Bool { self.image != nil }
-            func hasIcon() -> Bool { self.icon != nil }
+            func hasImage() -> Bool { !self.image.isNil }
+            func hasIcon() -> Bool { !self.icon.isNil }
         }
         enum State {
             case empty
@@ -816,14 +816,14 @@ private extension Namespace.ViewModel {
             ///
             ///
             // configure resource and subscribe on it.
-            if self.iconSubscription == nil {
+            if self.iconSubscription.isNil {
                 let item = self.currentConfiguration?.contextMenuHolder?.imagesPublished.iconProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
                     self?.handle(value)
                 })
                 self.iconSubscription = item
             }
 
-            if self.imageSubscription == nil {
+            if self.imageSubscription.isNil {
                 let item = self.currentConfiguration?.contextMenuHolder?.imagesPublished.imageProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
                     self?.handle(value)
                 })

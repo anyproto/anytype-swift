@@ -13,7 +13,7 @@ struct WaitingViewOnCreatAccount: View {
     
     var body: some View {
         VStack {
-            WaitingView(text: "Setting up the wallet…", errorState: viewModel.error != nil, errorText: viewModel.error)
+            WaitingView(text: "Setting up the wallet…", errorState: !viewModel.error.isNil, errorText: viewModel.error)
         }
         .onAppear {
             self.viewModel.createAccount()

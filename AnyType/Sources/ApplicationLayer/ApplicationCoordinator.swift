@@ -42,7 +42,7 @@ class ApplicationCoordinator: MainWindowHolder {
     }
     
     private func runAtFirstLaunch() {
-        if UserDefaultsConfig.installedAtDate == nil {
+        if UserDefaultsConfig.installedAtDate.isNil {
             UserDefaultsConfig.installedAtDate = Date()
         }
     }

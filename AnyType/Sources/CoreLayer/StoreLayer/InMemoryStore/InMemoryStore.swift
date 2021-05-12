@@ -65,7 +65,7 @@ extension InMemoryStoreFacade {
                 self.store[key]
             }
             set {
-                if newValue == nil {
+                if newValue.isNil {
                     self.store.removeValue(forKey: key)
                 }
                 else {

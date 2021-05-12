@@ -161,10 +161,10 @@ private extension Namespace {
         }
         
         private func removeViewsIfExist() {
-            if imageContentView != nil {
+            if !imageContentView.isNil {
                 self.imageContentView.removeFromSuperview()
             }
-            if emptyView != nil {
+            if !emptyView.isNil {
                 self.emptyView.removeFromSuperview()
             }
         }

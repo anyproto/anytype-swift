@@ -161,7 +161,7 @@ extension MarksPane.ViewController {
         
         // MARK: - Start Interaction
         @objc func initiateTransitionInteractively(_ panGesture: UIPanGestureRecognizer) {
-            if panGesture.state == .began && transitionDriver == nil {
+            if panGesture.state == .began && transitionDriver.isNil {
                 self.initiallyInteractive = true
 //                if let context = self.transitionContext, let toViewController = context.viewController(forKey: .to), toViewController.presentingViewController != nil {
 //                    toViewController.dismiss(animated: true, completion: nil)

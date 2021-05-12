@@ -147,7 +147,7 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func setupForPlainText() {
-        guard self.topView.leftView != nil else  { return }
+        guard !self.topView.leftView.isNil else  { return }
         _ = self.topView.configured(leftChild: .empty())
         self.textView.textView?.textContainerInset = Constants.Text.textContainerInsets
     }

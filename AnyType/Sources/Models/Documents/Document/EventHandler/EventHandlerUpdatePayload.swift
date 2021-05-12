@@ -14,7 +14,7 @@ final class EventHandlerUpdatePayload {
         !deletedIds.isEmpty ||
         !updatedIds.isEmpty ||
         !movedIds.isEmpty ||
-        openedToggleId != nil
+        !openedToggleId.isNil
     }
     
     init(addedIds: [EventHandlerUpdateChange] = [],

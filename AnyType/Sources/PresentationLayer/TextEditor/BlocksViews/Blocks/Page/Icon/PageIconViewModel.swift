@@ -131,7 +131,7 @@ class PageIconViewModel: PageBlockViewModel {
     }
     
     func remove() {
-        if self.toViewImage != nil {
+        if !self.toViewImage.isNil {
             // remove photo
             // else?
             self.pageDetailsViewModel?.update(details: .iconImage(.init(value: "")))?.sink(receiveCompletion: { [weak self] (value) in

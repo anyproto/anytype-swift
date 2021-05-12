@@ -130,7 +130,7 @@ final class DocumentEditorViewController: UICollectionViewController {
             return
         }
         let location = self.listViewTapGestureRecognizer.location(in: self.listViewTapGestureRecognizer.view)
-        if self.collectionView.visibleCells.first(where: {$0.frame.contains(location)}) != nil {
+        if !self.collectionView.visibleCells.first(where: {$0.frame.contains(location)}).isNil {
             return
         }
         self.viewModel.handlingTapIfEmpty()

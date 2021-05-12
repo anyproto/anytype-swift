@@ -77,7 +77,7 @@ final class ButtonWithImage: UIControl {
     }
 
     func setImage(_ image: UIImage?) {
-        imageView.isHidden = image == nil
+        imageView.isHidden = image.isNil
         imageView.image = image
     }
 

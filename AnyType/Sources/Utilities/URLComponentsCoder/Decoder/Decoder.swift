@@ -27,7 +27,7 @@ final class _URLComponentsDecoder: Decoder {
     }
 
     fileprivate func assertCanCreateContainer() {
-        precondition(self.container == nil)
+        precondition(self.container.isNil)
     }
 
     // MARK: -  Decoder

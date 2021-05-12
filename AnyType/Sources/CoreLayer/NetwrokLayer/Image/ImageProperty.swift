@@ -30,9 +30,7 @@ class ImageProperty {
     }
     
     private func loadImage(imageId: String, parameters: ImageParameters) {
-        guard property == nil else {
-            return
-        }
+        guard property.isNil else { return }
         
         URLResolver().obtainImageURLPublisher(imageId: imageId, parameters)
             .safelyUnwrapOptionals().ignoreFailure().flatMap {

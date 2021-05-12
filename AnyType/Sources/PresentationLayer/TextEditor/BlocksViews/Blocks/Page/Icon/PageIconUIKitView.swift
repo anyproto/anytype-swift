@@ -68,11 +68,11 @@ class PageIconUIKitView: UIView {
     
     // MARK: Publishers
     func syncViews() {
-        self.addIconButton.isHidden = !self.text.isEmpty || self.image != nil
+        self.addIconButton.isHidden = !self.text.isEmpty || !self.image.isNil
         self.nonEmptyContentView.isHidden = !self.addIconButton.isHidden
         
-        self.emojiView.isHidden = self.text.isEmpty || self.image != nil
-        self.imageView.isHidden = self.image == nil
+        self.emojiView.isHidden = self.text.isEmpty || !self.image.isNil
+        self.imageView.isHidden = self.image.isNil
     }
     
     private var subscriptions: Set<AnyCancellable> = []
@@ -296,7 +296,7 @@ extension PageIconUIKitView: UIContextMenuInteractionDelegate {
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         let parameters = UIPreviewParameters()
-        let targetedView: UIView = self.image != nil ? self.imageView : self.emojiView
+        let targetedView: UIView = !self.image.isNil ? self.imageView : self.emojiView
         
         parameters.visiblePath = UIBezierPath(roundedRect: targetedView.bounds, cornerRadius: self.layout.emojiViewCornerRadius)
         return .init(view: targetedView, parameters: parameters)

@@ -40,7 +40,7 @@ private struct NewProfileView: View {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         self.showImagePicker = true
                     }) {
-                        if viewModel.image != nil {
+                        if !viewModel.image.isNil {
                             ImageWithCircleBackgroundView(imageName: "photo", backgroundImage: viewModel.image)
                         } else {
                             ImageWithCircleBackgroundView(imageName: "photo", backgroundColor: .gray)

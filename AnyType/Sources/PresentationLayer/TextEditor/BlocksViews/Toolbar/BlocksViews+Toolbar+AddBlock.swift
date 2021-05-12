@@ -49,7 +49,7 @@ extension BlocksViews.Toolbar.AddBlock {
         }
 
         func typesSelected() -> Bool {
-            self.categoryIndex != nil
+            !self.categoryIndex.isNil
         }
 
         var body: some View {

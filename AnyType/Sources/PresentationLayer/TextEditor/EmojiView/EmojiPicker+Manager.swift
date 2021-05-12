@@ -54,7 +54,7 @@ extension EmojiPicker {
             emojis.forEach { emoji in
                 keywords.forEach { keyword in
                     emoji.name.forEach { (name) in
-                        if name.lowercased().range(of: keyword.lowercased()) != nil {
+                        if !name.lowercased().range(of: keyword.lowercased()).isNil {
                             result.append(emoji)
                         }
                     }

@@ -9,7 +9,7 @@ class FirebaseService {
         let path = Bundle(for: Self.self).path(forResource: self.settingsFile, ofType: "plist")
         if let path = path, let options = FirebaseOptions.init(contentsOfFile: path) {
             DispatchQueue.main.async {
-                if FirebaseApp.app() == nil {
+                if FirebaseApp.app().isNil {
                     FirebaseApp.configure(options: options)
                 }
             }

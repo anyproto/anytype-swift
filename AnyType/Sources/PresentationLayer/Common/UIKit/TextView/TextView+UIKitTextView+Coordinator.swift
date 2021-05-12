@@ -405,7 +405,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         self.textView = textView
-        if textView.inputAccessoryView == nil {
+        if textView.inputAccessoryView.isNil {
             textView.inputAccessoryView = self.editingToolbarAccessoryView
         }
         self.switchInputs(textView)

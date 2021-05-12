@@ -48,7 +48,7 @@ extension DataStructures.IndexDictionary {
             self.dictionary[key]
         }
         set {
-            if newValue == nil {
+            if newValue.isNil {
                 self.dictionary.removeValue(forKey: key)
             }
             else {

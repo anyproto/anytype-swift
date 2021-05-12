@@ -101,7 +101,7 @@ private struct ProfileNameView: View {
                     Image("uploaded")
                         .clipShape(Circle())
                     AnytypeText(viewModel.peers ?? "no peers", style: .body)
-                        .foregroundColor(viewModel.peers != nil ? .textPrimary : .textSecondary)
+                        .foregroundColor(!viewModel.peers.isNil ? .textPrimary : .textSecondary)
                 }
             }
             Spacer(minLength: 10).frame(minWidth: 10, maxWidth: nil)

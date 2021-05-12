@@ -29,8 +29,9 @@ final class TextBlockLayoutManager: NSLayoutManager {
     var defaultColor: UIColor?
 
     override func showCGGlyphs(_ glyphs: UnsafePointer<CGGlyph>, positions: UnsafePointer<CGPoint>, count glyphCount: Int, font: UIFont, textMatrix: CGAffineTransform, attributes: [NSAttributedString.Key : Any] = [:], in CGContext: CGContext) {
-
-        if let color = obtainCustomFontColor(hasForegroundColor: attributes[.foregroundColor] != nil) {
+        
+        let hasForegroundColor = !attributes[.foregroundColor].isNil
+        if let color = obtainCustomFontColor(hasForegroundColor: hasForegroundColor) {
             CGContext.setFillColor(color)
         }
 

@@ -114,7 +114,7 @@ final class TextBlockActionHandler {
                     return
                 }
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
-                    if payload != nil, case let .text(text) = block.blockModel.information.content {
+                    if !payload.isNil, case let .text(text) = block.blockModel.information.content {
                         self.service.split(block: block.blockModel.information,
                                            oldText: "",
                                            newBlockContentType: text.contentType,

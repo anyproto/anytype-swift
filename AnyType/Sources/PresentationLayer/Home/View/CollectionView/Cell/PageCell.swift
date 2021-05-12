@@ -39,7 +39,7 @@ struct PageCell: View {
     
     private var iconSpacer: some View {
         Group {
-            if cellData.icon != nil {
+            if !cellData.icon.isNil {
                 Spacer()
             } else {
                 EmptyView()
@@ -49,7 +49,7 @@ struct PageCell: View {
     
     private var textSpacer: some View {
         Group {
-            if cellData.icon == nil {
+            if cellData.icon.isNil {
                 Spacer()
             } else {
                 EmptyView()

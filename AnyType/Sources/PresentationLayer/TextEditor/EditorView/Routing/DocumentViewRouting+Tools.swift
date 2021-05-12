@@ -32,7 +32,7 @@ extension DocumentViewRouting.ToolsBlocksViewsRouter {
         private func handle(action: BlocksViews.UserAction.Tools.UserAction.PageLink) {
             switch action {
             case let .shouldShowPage(value):
-                guard self.subscription == nil else {
+                guard self.subscription.isNil else {
                     /// Description:
                     /// What happening here.
                     ///

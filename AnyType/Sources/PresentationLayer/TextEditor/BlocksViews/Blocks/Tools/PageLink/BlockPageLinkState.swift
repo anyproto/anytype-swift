@@ -26,7 +26,7 @@ struct BlockPageLinkState {
             var hasContent = false
             let title = pageDetails.title?.value
             let emoji = pageDetails.iconEmoji?.value
-            hasContent = emoji != nil
+            hasContent = !emoji.isNil
             let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
             return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)
         }

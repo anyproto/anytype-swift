@@ -116,7 +116,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     private func shouldContinueToDisplayActionsMenu(coordinator: Coordinator,
                                                     textView: UITextView) -> Bool {
         guard let menuView = coordinator.menuActionsAccessoryView,
-              menuView.window != nil,
+              !menuView.window.isNil,
               let triggerSymbolPosition = actionsViewTriggerSymbolPosition,
               let caretPosition = textView.caretPosition(),
               textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,

@@ -127,7 +127,7 @@ extension Namespace {
                 guard let font = attributes[.font] as? UIFont,
                       font.fontDescriptor.symbolicTraits.contains(.traitBold) else { return .bold(false) }
                 let traitsWithoutBold = font.fontDescriptor.symbolicTraits.subtracting(.traitBold)
-                guard font.fontDescriptor.withSymbolicTraits(traitsWithoutBold) != nil else {
+                guard !font.fontDescriptor.withSymbolicTraits(traitsWithoutBold).isNil else {
                     // This means that we can not create same font without bold traits
                     // So bold is necessary attribute for this font
                     return .bold(false)
@@ -215,7 +215,7 @@ extension Namespace {
             case let .underscored(value): return .change([ .underlineStyle : value ? 1 : 0 ])
             case let .textColor(value): return .change([ .foregroundColor : value as Any ])
             case let .backgroundColor(value): return .change([ .backgroundColor : value as Any ])
-            case let .link(value): return .changeAndDeletedKeys([ .link : value as Any ], value == nil ? [.link] : [])
+            case let .link(value): return .changeAndDeletedKeys([ .link : value as Any ], value.isNil ? [.link] : [])
             }
         }
         

@@ -32,7 +32,7 @@ final class _URLComponentsEncoder: Encoder, URLComponentsEncodingContainer {
     
     fileprivate var container: URLComponentsEncodingContainer?
     fileprivate func assertCanCreateContainer() {
-        precondition(self.container == nil)
+        precondition(self.container.isNil)
     }
     
     func container<Key>(keyedBy type: Key.Type) -> KeyedEncodingContainer<Key> where Key : CodingKey {

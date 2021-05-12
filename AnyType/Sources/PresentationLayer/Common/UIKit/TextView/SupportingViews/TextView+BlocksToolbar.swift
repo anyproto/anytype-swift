@@ -286,7 +286,7 @@ extension TextView.BlockToolbar.AddBlock {
             return Array(values.enumerated())
         }
         func typesSelected() -> Bool {
-            self.categoryIndex != nil
+            !self.categoryIndex.isNil
         }
         var body: some View {
             VStack(alignment: .leading, spacing: 20) {

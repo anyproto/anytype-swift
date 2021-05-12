@@ -47,7 +47,7 @@ extension MarksPane.Panes.StylePane.Alignment {
         
         private static func descriptive(_ style: NSTextAlignment) -> Attribute? {
             let result = self.state(style)
-            if result == nil {
+            if result.isNil {
                 assertionFailure("We receive uncommon result. We should map it to correct attribute != nil. Style is: \(style)")
             }
             return result

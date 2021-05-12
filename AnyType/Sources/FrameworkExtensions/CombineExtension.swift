@@ -126,7 +126,7 @@ extension Publishers {
         
         public init(upstream: Upstream) {
             self.upstream = upstream            
-            self.downstream = upstream.filter{$0 != nil}.map({$0!})
+            self.downstream = upstream.filter { !$0.isNil }.map { $0! }
         }
         
         /// This function is called to attach the specified `Subscriber` to this `Publisher` by `subscribe(_:)`

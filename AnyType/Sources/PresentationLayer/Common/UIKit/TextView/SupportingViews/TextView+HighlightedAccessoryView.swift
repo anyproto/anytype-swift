@@ -258,7 +258,7 @@ extension TextView.HighlightedToolbar {
             case let .italic(value): return .italic(value)
             case let .strikethrough(value): return .strikethrough(value)
             case let .keyboard(value): return .keyboard(value)
-            case let .link(value): return .link(value != nil)
+            case let .link(value): return .link(!value.isNil)
             default: return nil
             }
         }

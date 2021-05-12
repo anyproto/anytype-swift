@@ -324,8 +324,9 @@ class BaseDocument {
         let block = BlockInformation.DetailsAsBlockConverter(
             blockId: rootId
         ).convertDetailsToBlock(unwrappedDetailsContent)
-                
-        if self.rootModel?.blocksContainer.get(by: block.information.id) != nil {
+        
+        let blockFromContainer = self.rootModel?.blocksContainer.get(by: block.information.id)
+        if !blockFromContainer.isNil {
             Logger.create(.baseDocument).debug("convert(_:of:). We have already added details with id: \(block.information.id)")
         }
         else {
