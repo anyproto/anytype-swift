@@ -11,92 +11,88 @@ import UIKit
 import Combine
 import os
 
-fileprivate typealias Namespace = TextView.UIKitTextView
-fileprivate typealias FileNamespace = Namespace.Coordinator
 
 private extension LoggerCategory {
     static let textViewUIKitTextViewCoordinator: Self = "TextView.UIKitTextView.Coordinator"
 }
 
-extension Namespace {
-    final class Coordinator: NSObject {
-        
-        enum Constants {
-            /// Minimum time interval to stay idle to handle consequent return key presses
-            static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
-            static let menuActionsViewSize = CGSize(width: UIScreen.main.bounds.width,
-                                                       height: UIScreen.main.isFourInch ? 160 : 215)
+final class BlockTextViewCoordinator: NSObject {
+
+    enum Constants {
+        /// Minimum time interval to stay idle to handle consequent return key presses
+        static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
+        static let menuActionsViewSize = CGSize(width: UIScreen.main.bounds.width,
+                                                height: UIScreen.main.isFourInch ? 160 : 215)
+    }
+    // MARK: Aliases
+    typealias HighlightedAccessoryView = BlockTextView.HighlightedToolbar.AccessoryView
+    typealias BlockToolbarAccesoryView = BlockTextView.BlockToolbar.AccessoryView
+    typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
+    /// TODO: Should we store variables here?
+    /// Because, we have also `viewModel`.
+    /// Maybe we need remove these variables?
+    private var attributedTextSubject: PassthroughSubject<NSAttributedString?, Never> = .init()
+    private var textAlignmentSubject: PassthroughSubject<NSTextAlignment?, Never> = .init()
+    private(set) var attributedTextPublisher: AnyPublisher<NSAttributedString?, Never> = .empty()
+    private(set) var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
+    private var textSize: CGSize?
+    private let textSizeChangeSubject: PassthroughSubject<CGSize, Never> = .init()
+    private(set) lazy var textSizeChangePublisher: AnyPublisher<CGSize, Never> = self.textSizeChangeSubject.eraseToAnyPublisher()
+    private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
+
+    /// TextStorage Subscription
+    private var textStorageSubscription: AnyCancellable?
+
+    /// ContextualMenu Subscription
+    private var contextualMenuSubscription: AnyCancellable?
+
+    /// HighlightedAccessoryView
+    private(set) lazy var highlightedAccessoryView = HighlightedAccessoryView()
+    private var highlightedMarkStyleHandler: AnyCancellable?
+
+    /// Whole mark style handler
+    private var wholeMarkStyleHandler: AnyCancellable?
+
+    /// BlocksAccessoryView
+    private(set) lazy var blocksAccessoryView = BlockToolbarAccesoryView()
+    private var blocksAccessoryViewHandler: AnyCancellable?
+    private var blocksUserActionsHandler: AnyCancellable?
+
+    /// ActionsAccessoryView
+    private(set) lazy var editingToolbarAccessoryView = EditingToolbarView()
+    private var actionsToolbarAccessoryViewHandler: AnyCancellable?
+    private var actionsToolbarUserActionsHandler: AnyCancellable?
+
+    private(set) var menuActionsAccessoryView: BlockActionsView?
+
+    /// MarksInputView
+    private(set) lazy var marksToolbarInputView = MarksToolbarInputView()
+    private var marksToolbarHandler: AnyCancellable? // Hm... we need what?
+    /// We need handler which connects contextual menu action and will handle "changing" of value in marksToolbar and also trigger it appearance.
+    /// Also, we need handler which connects marks processing.
+    /// And also, we need a handler which updates current state of marks ( like updateHighlightingMenu )
+
+
+    private(set) var defaultKeyboardRect: CGRect = .zero
+    private lazy var pressingEnterTimeChecker = TimeChecker(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
+
+    private weak var textView: UITextView?
+    private lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
+
+    init(menuItemsBuilder: BlockActionsBuilder, blockMenuActionsHandler: BlockMenuActionsHandler) {
+        super.init()
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self, let textView = self.textView else { return }
+            self.inputSwitcher.showEditingBars(coordinator: self, textView: textView)
         }
-        // MARK: Aliases
-        typealias HighlightedAccessoryView = TextView.HighlightedToolbar.AccessoryView
-        typealias BlockToolbarAccesoryView = TextView.BlockToolbar.AccessoryView
-        typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
-        /// TODO: Should we store variables here?
-        /// Because, we have also `viewModel`.
-        /// Maybe we need remove these variables?
-        private var attributedTextSubject: PassthroughSubject<NSAttributedString?, Never> = .init()
-        private var textAlignmentSubject: PassthroughSubject<NSTextAlignment?, Never> = .init()
-        private(set) var attributedTextPublisher: AnyPublisher<NSAttributedString?, Never> = .empty()
-        private(set) var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
-        private var textSize: CGSize?
-        private let textSizeChangeSubject: PassthroughSubject<CGSize, Never> = .init()
-        private(set) lazy var textSizeChangePublisher: AnyPublisher<CGSize, Never> = self.textSizeChangeSubject.eraseToAnyPublisher()
-        private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
-        
-        /// TextStorage Subscription
-        private var textStorageSubscription: AnyCancellable?
-        
-        /// ContextualMenu Subscription
-        private var contextualMenuSubscription: AnyCancellable?
-        
-        /// HighlightedAccessoryView
-        private(set) lazy var highlightedAccessoryView = HighlightedAccessoryView()
-        private var highlightedMarkStyleHandler: AnyCancellable?
-        
-        /// Whole mark style handler
-        private var wholeMarkStyleHandler: AnyCancellable?
-        
-        /// BlocksAccessoryView
-        private(set) lazy var blocksAccessoryView = BlockToolbarAccesoryView()
-        private var blocksAccessoryViewHandler: AnyCancellable?
-        private var blocksUserActionsHandler: AnyCancellable?
-        
-        /// ActionsAccessoryView
-        private(set) lazy var editingToolbarAccessoryView = EditingToolbarView()
-        private var actionsToolbarAccessoryViewHandler: AnyCancellable?
-        private var actionsToolbarUserActionsHandler: AnyCancellable?
-        
-        private(set) var menuActionsAccessoryView: BlockActionsView?
-        
-        /// MarksInputView
-        private(set) lazy var marksToolbarInputView = MarksToolbarInputView()
-        private var marksToolbarHandler: AnyCancellable? // Hm... we need what?
-        /// We need handler which connects contextual menu action and will handle "changing" of value in marksToolbar and also trigger it appearance.
-        /// Also, we need handler which connects marks processing.
-        /// And also, we need a handler which updates current state of marks ( like updateHighlightingMenu )
-        
-        
-        private(set) var defaultKeyboardRect: CGRect = .zero
-        private lazy var pressingEnterTimeChecker = TimeChecker(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
-        
-        private weak var textView: UITextView?
-        private lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
-        
-        init(menuItemsBuilder: BlockActionsBuilder, blockMenuActionsHandler: BlockMenuActionsHandler) {
-            super.init()
-            let dismissActionsMenu = { [weak self] in
-                guard let self = self, let textView = self.textView else { return }
-                self.inputSwitcher.showEditingBars(coordinator: self, textView: textView)
-            }
-            self.menuActionsAccessoryView = BlockActionsView(frame: CGRect(origin: .zero,
-                                                                           size: Constants.menuActionsViewSize),
-                                                             menuItems: menuItemsBuilder.makeBlockActionsMenuItems(), blockMenuActionsHandler: blockMenuActionsHandler, actionsMenuDismissHandler: dismissActionsMenu)
-        }
+        self.menuActionsAccessoryView = BlockActionsView(frame: CGRect(origin: .zero,
+                                                                       size: Constants.menuActionsViewSize),
+                                                         menuItems: menuItemsBuilder.makeBlockActionsMenuItems(), blockMenuActionsHandler: blockMenuActionsHandler, actionsMenuDismissHandler: dismissActionsMenu)
     }
 }
 
 // MARK: - Public Protocol
-extension FileNamespace {
+extension BlockTextViewCoordinator {
     func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
         self.userInteractionDelegate = delegate
         return self
@@ -136,7 +132,7 @@ extension FileNamespace {
         self.marksToolbarHandler = Publishers.CombineLatest(Just(view), self.marksToolbarInputView.viewModel.userAction).sink { [weak self] (value) in
             let (textView, action) = value
             let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
+            let modifier = BlockTextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
             Logger.create(.textViewUIKitTextViewCoordinator).debug("MarksPane action \(String.init(describing: action))")
             
@@ -177,7 +173,7 @@ extension FileNamespace {
     
     // MARK: - ContextualMenuHandling
     /// TODO: Put textView into it.
-    func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<TextView.UIKitTextView.ContextualMenu.Action, Never>) -> Self {
+    func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<BlockTextView.ContextualMenu.Action, Never>) -> Self {
         self.contextualMenuSubscription = Publishers.CombineLatest(Just(view), contextualMenuStream).sink { [weak self] (tuple) in
             let (view, action) = tuple
             let range = view.selectedRange
@@ -200,18 +196,18 @@ extension FileNamespace {
 
 // MARK: InnerTextView.Coordinator / Publishers
 
-private extension FileNamespace {
+private extension BlockTextViewCoordinator {
     
-    func publishToOuterWorld(_ action: TextView.UserAction?) {
+    func publishToOuterWorld(_ action: BlockTextView.UserAction?) {
         action.flatMap { self.userInteractionDelegate?.didReceiveAction($0) }
     }
 
-    func publishToOuterWorld(_ action: TextView.UserAction.InputAction?) {
-        action.flatMap(TextView.UserAction.inputAction).flatMap(publishToOuterWorld)
+    func publishToOuterWorld(_ action: BlockTextView.UserAction.InputAction?) {
+        action.flatMap(BlockTextView.UserAction.inputAction).flatMap(publishToOuterWorld)
     }
 
-    func publishToOuterWorld(_ action: TextView.UserAction.KeyboardAction?) {
-        action.flatMap(TextView.UserAction.keyboardAction).flatMap(publishToOuterWorld)
+    func publishToOuterWorld(_ action: BlockTextView.UserAction.KeyboardAction?) {
+        action.flatMap(BlockTextView.UserAction.keyboardAction).flatMap(publishToOuterWorld)
     }
     
     // MARK: - Publishers / Blocks Toolbar
@@ -219,7 +215,7 @@ private extension FileNamespace {
     func configureMarkStylePublisher(_ view: UITextView) {
         self.highlightedMarkStyleHandler = Publishers.CombineLatest(Just(view), self.highlightedAccessoryView.model.$userAction).sink { [weak self] (textView, action) in
             let attributedText = textView.textStorage
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
+            let modifier = BlockTextView.MarkStyleModifier(attributedText: attributedText).update(by: textView)
             
             Logger.create(.textViewUIKitTextViewCoordinator).debug("configureMarkStylePublisher \(String.init(describing: action))")
             
@@ -287,9 +283,9 @@ private extension FileNamespace {
 }
 
 // MARK: Attributes and MarkStyles Converter (Move it to MarksPane)
-private extension FileNamespace {
+private extension BlockTextViewCoordinator {
     enum ActionsToMarkStyleConverter {
-        static func emptyMark(from action: MarksPane.Main.Panes.StylePane.FontStyle.Action) -> TextView.MarkStyle {
+        static func emptyMark(from action: MarksPane.Main.Panes.StylePane.FontStyle.Action) -> BlockTextView.MarkStyle {
             switch action {
             case .bold: return .bold(false)
             case .italic: return .italic(false)
@@ -308,9 +304,9 @@ private extension FileNamespace {
 }
 
 // MARK: Marks Input View handling
-extension FileNamespace {
+extension BlockTextViewCoordinator {
     private enum ActionToCategoryConverter {
-        typealias ContextualMenuAction = TextView.UIKitTextView.ContextualMenu.Action
+        typealias ContextualMenuAction = BlockTextView.ContextualMenu.Action
         typealias Category = MarksPane.Main.Section.Category
         static func asCategory(_ action: ContextualMenuAction) -> Category {
             switch action {
@@ -324,7 +320,7 @@ extension FileNamespace {
         let (range, storage) = tuple
         self.marksToolbarInputView.viewModel.update(range: range, attributedText: storage)
     }
-    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, TextView.UIKitTextView.ContextualMenu.Action)) {
+    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, BlockTextView.ContextualMenu.Action)) {
         let (range, storage, textView, action) = quadruple
         self.updateMarksInputView((range, storage, textView))
         self.marksToolbarInputView.viewModel.update(category: ActionToCategoryConverter.asCategory(action))
@@ -336,7 +332,7 @@ extension FileNamespace {
 }
 
 // MARK: Highlighted Accessory view handling
-extension FileNamespace {
+extension BlockTextViewCoordinator {
     func updateHighlightedAccessoryView(_ tuple: (NSRange, NSTextStorage)) {
         let (range, storage) = tuple
         self.highlightedAccessoryView.model.update(range: range, attributedText: storage)
@@ -344,7 +340,7 @@ extension FileNamespace {
 }
 
 // MARK: Input Switching
-private extension FileNamespace {
+private extension BlockTextViewCoordinator {
     func switchInputs(_ textView: UITextView,
                       animated: Bool = false,
                       accessoryView: UIView?,
@@ -363,7 +359,7 @@ private extension FileNamespace {
 
 // MARK: - UITextViewDelegate
 
-extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
+extension BlockTextViewCoordinator: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         // In the case of frequent pressing of enter
         // we can send multiple split requests to middle
@@ -372,7 +368,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
         if text == "\n" && !self.pressingEnterTimeChecker.exceedsTimeInterval() {
             return false
         }
-        self.publishToOuterWorld(TextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))
+        self.publishToOuterWorld(BlockTextView.UserAction.KeyboardAction.convert(textView, shouldChangeTextIn: range, replacementText: text))
         
         if text == "\n" {
             // we should return false and perform update by ourselves.
@@ -419,7 +415,7 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         self.textView = textView
         let contentSize = textView.intrinsicContentSize
-        self.publishToOuterWorld(TextView.UserAction.inputAction(.changeText(textView.attributedText)))
+        self.publishToOuterWorld(BlockTextView.UserAction.inputAction(.changeText(textView.attributedText)))
         self.switchInputs(textView)
         guard self.textSize?.height != contentSize.height else { return }
         self.textSize = contentSize
@@ -430,8 +426,8 @@ extension TextView.UIKitTextView.Coordinator: UITextViewDelegate {
 }
 
 // MARK: - Update Text
-extension FileNamespace {
-    func notifySubscribers(_ payload: TextView.UIKitTextView.TextViewWithPlaceholder.TextStorageEvent.Payload) {
+extension BlockTextViewCoordinator {
+    func notifySubscribers(_ payload: TextViewWithPlaceholder.TextStorageEvent.Payload) {
         /// NOTE:
         /// We could remove notification about new attributedText
         /// because we have already notify our subscribers in `textViewDidChange`
@@ -445,7 +441,7 @@ extension FileNamespace {
 
 // MARK: - InnerTextView.Coordinator / UIGestureRecognizerDelegate
 
-extension TextView.UIKitTextView.Coordinator: UIGestureRecognizerDelegate {
+extension BlockTextViewCoordinator: UIGestureRecognizerDelegate {
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

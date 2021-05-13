@@ -51,7 +51,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private let layout: Layout = .init()
     /// Views
     private let topView: TopWithChildUIKitView = .init()
-    private let textView: TextView.UIKitTextView = .init()
+    private let textView: BlockTextView = .init()
     
     private var currentConfiguration: TextBlockContentConfiguration
     var configuration: UIContentConfiguration {
@@ -420,7 +420,7 @@ class TopUIKitView: UIView {
     }
 
     // MARK: Configured
-    func configured(textView: TextView.UIKitTextView?) -> Self {
+    func configured(textView: BlockTextView?) -> Self {
         self.updateIfNeeded(rightView: textView)
         return self
     }
@@ -557,7 +557,7 @@ class TopWithChildUIKitView: UIView {
         return self
     }
 
-    func configured(textView: TextView.UIKitTextView?) -> Self {
+    func configured(textView: BlockTextView?) -> Self {
         _ = self.topView.configured(textView: textView)
         return self
     }

@@ -27,11 +27,11 @@ final class BlockPageLinkUIKitView: UIView {
     // |   leftView    | : |  button  |
     
     let topView: TopWithChildUIKitView = .init()
-    let textView: TextView.UIKitTextView = {
+    let textView: BlockTextView = {
         let placeholder = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""),
                                              attributes: [.foregroundColor: UIColor.secondaryTextColor,
                                                           .font: UIFont.bodyFont])
-        let view = TextView.UIKitTextView()
+        let view = BlockTextView()
         view.textView.update(placeholder: placeholder)
         return view
     }()
@@ -63,7 +63,7 @@ final class BlockPageLinkUIKitView: UIView {
     }
                     
     // MARK: Configured
-    func configured(textView: TextView.UIKitTextView?) {
+    func configured(textView: BlockTextView?) {
         _ = self.topView.configured(textView: textView)
         textView?.textView.font = .bodyFont
         textView?.textView.typingAttributes = [.font: UIFont.bodyFont,

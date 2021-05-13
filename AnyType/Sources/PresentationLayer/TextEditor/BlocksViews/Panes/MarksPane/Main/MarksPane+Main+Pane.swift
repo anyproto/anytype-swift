@@ -38,7 +38,7 @@ extension MarksPane.Main {
         /// All functions have name `state`.
         /// It is better to rename it to `convert` or `attribute`.
         ///
-        private static func state(_ style: TextView.MarkStyle) -> Attribute? {
+        private static func state(_ style: BlockTextView.MarkStyle) -> Attribute? {
             switch style {
             case .bold: return Panes.StylePane.Converter.state(style).flatMap(Attribute.style)
             case .italic: return Panes.StylePane.Converter.state(style).flatMap(Attribute.style)
@@ -57,7 +57,7 @@ extension MarksPane.Main {
             Panes.StylePane.Converter.state(alignment).flatMap(Attribute.style)
         }
 
-        static func state(_ style: TextView.MarkStyle?) -> Attribute? {
+        static func state(_ style: BlockTextView.MarkStyle?) -> Attribute? {
             style.flatMap(state)
         }
         
@@ -69,11 +69,11 @@ extension MarksPane.Main {
             alignments.compactMap(state)
         }
 
-        static func states(_ styles: [TextView.MarkStyle]) -> [Attribute] {
+        static func states(_ styles: [BlockTextView.MarkStyle]) -> [Attribute] {
             styles.compactMap(state)
         }
         
-        static func states(_ styles: [TextView.MarkStyle], _ alignments: [NSTextAlignment]) -> [Attribute] {
+        static func states(_ styles: [BlockTextView.MarkStyle], _ alignments: [NSTextAlignment]) -> [Attribute] {
             styles.compactMap(state) + alignments.compactMap(state)
         }
     }
@@ -209,7 +209,7 @@ extension MarksPane.Main {
         /// Update at Range.
         func update(range: NSRange, attributedText: NSMutableAttributedString, alignment: NSTextAlignment = .left) {
             self.range = range
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
+            let modifier = BlockTextView.MarkStyleModifier(attributedText: attributedText)
             let styles = modifier.getMarkStyles(at: .range(range))
             let states = Converter.states(styles, [alignment])
             
@@ -222,7 +222,7 @@ extension MarksPane.Main {
         func update(_ userResponse: RawUserResponse) {
             let attributedText: NSMutableAttributedString = .init(attributedString: userResponse.attributedString)
             
-            let modifier = TextView.MarkStyleModifier(attributedText: attributedText)
+            let modifier = BlockTextView.MarkStyleModifier(attributedText: attributedText)
             let styles = modifier.getMarkStyles(at: .whole(true))
             let states = Converter.states(styles, [userResponse.textAlignment])
             

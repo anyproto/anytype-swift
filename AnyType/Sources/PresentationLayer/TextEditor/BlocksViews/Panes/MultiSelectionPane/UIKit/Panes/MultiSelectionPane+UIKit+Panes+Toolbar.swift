@@ -19,14 +19,9 @@ extension Namespace {
 // MARK: View
 extension FileNamespace {
     final class View: UIView {
-        
-        // MARK: Aliases
-        typealias BaseToolbarView = TextView.BaseSingleToolbarView
-        typealias Style = TextView.Style
-        
         private let insets: UIEdgeInsets
         private var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]?
-        private let style: Style = .default
+        private let style: BlockTextView.Style = .default
         private let model: ViewModel
         private var subscription: AnyCancellable?
 

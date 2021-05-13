@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol TextViewUserInteractionProtocol: class {
-    func didReceiveAction(_ action: TextView.UserAction)
+protocol TextViewUserInteractionProtocol: AnyObject {
+    func didReceiveAction(_ action: BlockTextView.UserAction)
 }

@@ -9,20 +9,14 @@
 import Foundation
 import UIKit
 
-extension TextView.UIKitTextView {
-    class Builder {
-        init() {}
-    }
-}
 
-extension TextView.UIKitTextView.Builder {
-    typealias Coordinator = TextView.UIKitTextView.Coordinator
+final class BlockTextViewBuilder {
 
-    func makeUIView(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
+    func makeUIView(_ textView: UITextView, coordinator: BlockTextViewCoordinator) -> UITextView {
         let textView = configuredTextView(textView, textViewDelegate: coordinator)
         coordinator.configureEditingToolbarHandler(textView)
 
-        if let smartTextView = textView as? TextView.UIKitTextView.TextViewWithPlaceholder {
+        if let smartTextView = textView as? TextViewWithPlaceholder {
             _ = coordinator.configured(textView, contextualMenuStream: smartTextView.contextualMenuPublisher)
             // When sending signal with send() in textView
             // textStorageEventsSubject subscribers installed
@@ -53,8 +47,8 @@ extension TextView.UIKitTextView.Builder {
         return textView
     }
     
-    private func configuredTapGesture(_ textView: UITextView, coordinator: Coordinator) -> UITextView {
-        let tapGesture = UITapGestureRecognizer(target: coordinator, action: #selector(Coordinator.tap(_:)))
+    private func configuredTapGesture(_ textView: UITextView, coordinator: BlockTextViewCoordinator) -> UITextView {
+        let tapGesture = UITapGestureRecognizer(target: coordinator, action: #selector(BlockTextViewCoordinator.tap(_:)))
         tapGesture.delegate = coordinator
         textView.addGestureRecognizer(tapGesture)
         return textView

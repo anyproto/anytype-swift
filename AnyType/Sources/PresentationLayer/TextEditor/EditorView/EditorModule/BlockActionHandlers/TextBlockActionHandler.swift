@@ -18,7 +18,7 @@ final class TextBlockActionHandler {
         self.indexWalker = indexWalker
     }
 
-    func handlingTextViewAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction) {
+    func handlingTextViewAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockTextView.UserAction) {
         switch action {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
         case let .inputAction(value): self.handlingInputAction(block, value)
@@ -35,7 +35,7 @@ final class TextBlockActionHandler {
         return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
 
-    private func handlingInputAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction.InputAction) {
+    private func handlingInputAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockTextView.UserAction.InputAction) {
         guard case var .text(textContentType) = block.blockModel.information.content else { return }
         var blockModel = block.blockModel
 
@@ -62,7 +62,7 @@ final class TextBlockActionHandler {
         }
     }
 
-    private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: TextView.UserAction.KeyboardAction) {
+    private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockTextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
             if BlockDetailsInspector.kind(of: block.blockModel.information.id) == .title {

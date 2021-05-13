@@ -3,12 +3,12 @@ import UIKit
 import SwiftUI
 
 // MARK: InputLink
-extension TextView.HighlightedToolbar {
+extension BlockTextView.HighlightedToolbar {
     enum InputLink {}
 }
 
 // MARK: InputLink / Actions
-extension TextView.HighlightedToolbar.InputLink {
+extension BlockTextView.HighlightedToolbar.InputLink {
     enum Action {
         case unknown
         case decline
@@ -17,7 +17,7 @@ extension TextView.HighlightedToolbar.InputLink {
 }
 
 // MARK: InputLink / Style
-extension TextView.HighlightedToolbar.InputLink {
+extension BlockTextView.HighlightedToolbar.InputLink {
     enum Style {
         enum TextField {
             case `default`
@@ -58,19 +58,21 @@ extension TextView.HighlightedToolbar.InputLink {
 
 
 // MARK: InputLink / View / SwiftUI
-extension TextView.HighlightedToolbar.InputLink {
+extension BlockTextView.HighlightedToolbar.InputLink {
     struct Resources {
         var titlePlaceholder = "Type link text"
         var linkPlaceholder = "Paste or type a URL"
         var declineButtonTitle = "Unlink"
         var acceptButtonTitle = "Link"
     }
+
     class ViewModel: NSObject, ObservableObject {
         var title = ""
         var link = ""
         var resources = Resources()
         @Published var action: Action = .unknown
     }
+
     class InputViewBuilder {
         class func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let view: UIView? = {
@@ -143,7 +145,7 @@ extension TextView.HighlightedToolbar.InputLink {
 }
 
 // MARK: InputLink / ContainerView
-extension TextView.HighlightedToolbar.InputLink {
+extension BlockTextView.HighlightedToolbar.InputLink {
     class ContainerView: UIInputView {
         override init(frame: CGRect, inputViewStyle: UIInputView.Style) {
             super.init(frame: frame, inputViewStyle: inputViewStyle)
@@ -177,7 +179,7 @@ extension TextView.HighlightedToolbar.InputLink {
 }
 
 // MARK: InputLink / InputView as UIKit
-extension TextView.HighlightedToolbar.InputLink {
+extension BlockTextView.HighlightedToolbar.InputLink {
     class InputViewAsUIKit: UIView {
         // MARK: Outlets
         private var contentView: UIView!
@@ -263,7 +265,7 @@ extension TextView.HighlightedToolbar.InputLink {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.axis = .vertical
                 view.distribution = .fillEqually
-                view.spacing = TextView.Layout.StackViewSpacing.default.size()
+                view.spacing = BlockTextView.Layout.StackViewSpacing.default.size()
                 return view
             }()
             
@@ -272,7 +274,7 @@ extension TextView.HighlightedToolbar.InputLink {
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.axis = .horizontal
                 view.distribution = .fillEqually
-                view.spacing = TextView.Layout.StackViewSpacing.default.size()
+                view.spacing = BlockTextView.Layout.StackViewSpacing.default.size()
                 return view
             }()
             
@@ -341,10 +343,10 @@ extension TextView.HighlightedToolbar.InputLink {
         // MARK: Layout
         private func addLayout() {
             if let view = self.contentView, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: TextView.Layout.default.leadingOffset()).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: TextView.Layout.default.trailingOffset()).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: TextView.Layout.default.topOffset()).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: TextView.Layout.default.bottomOffset()).isActive = true
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: BlockTextView.Layout.default.leadingOffset()).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: BlockTextView.Layout.default.trailingOffset()).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: BlockTextView.Layout.default.topOffset()).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: BlockTextView.Layout.default.bottomOffset()).isActive = true
             }
             
             if let view = self.textViewsStackView, let superview = view.superview {
@@ -362,7 +364,7 @@ extension TextView.HighlightedToolbar.InputLink {
 }
 
 // MARK: InputLink / InputView as UIKit / Components / TextField
-extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
+extension BlockTextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
     class TextField: UIView {
         class SeparatorView: UIView {
             // TODO: Move this constant to style someday.
@@ -478,8 +480,8 @@ extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
         // MARK: Layout
         private func addLayout() {
             if let view = self.contentView, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: TextView.Layout.default.leadingOffset()).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: TextView.Layout.default.trailingOffset()).isActive = true
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: BlockTextView.Layout.default.leadingOffset()).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: BlockTextView.Layout.default.trailingOffset()).isActive = true
                 view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
             }
@@ -500,7 +502,7 @@ extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
 }
 
 // MARK: InputLink / InputView as UIKit / Components / Button
-extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
+extension BlockTextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
     class Button: UIView {
         struct Resources {
             var textColor: UIColor?
@@ -589,8 +591,8 @@ extension TextView.HighlightedToolbar.InputLink.InputViewAsUIKit {
         // MARK: Layout
         private func addLayout() {
             if let view = self.contentView, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: TextView.Layout.default.leadingOffset()).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: TextView.Layout.default.trailingOffset()).isActive = true
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: BlockTextView.Layout.default.leadingOffset()).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: BlockTextView.Layout.default.trailingOffset()).isActive = true
                 view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
             }

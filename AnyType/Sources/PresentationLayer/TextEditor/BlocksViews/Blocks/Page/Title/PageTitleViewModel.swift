@@ -13,7 +13,7 @@ class PageTitleViewModel: PageBlockViewModel {
     // Add subscription on event.
     
     private var subscriptions: Set<AnyCancellable> = []
-    private lazy var textViewModel = TextView.UIKitTextView.ViewModel(blockViewModel: self)
+    private lazy var textViewModel = BlockTextViewModel(blockViewModel: self)
 
     /// Points of truth.
     /// We could use it as input and output subscribers.
@@ -124,7 +124,7 @@ class PageTitleViewModel: PageBlockViewModel {
 
 // MARK: - TextViewEvents
 extension PageTitleViewModel: TextViewUserInteractionProtocol {
-    func didReceiveAction(_ action: TextView.UserAction) {
+    func didReceiveAction(_ action: BlockTextView.UserAction) {
         switch action {
 //        case let .addBlockAction(value):
 //            switch value {

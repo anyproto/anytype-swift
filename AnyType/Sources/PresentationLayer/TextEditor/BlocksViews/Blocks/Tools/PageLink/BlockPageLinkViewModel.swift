@@ -16,7 +16,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     private var statePublisher: AnyPublisher<State, Never> = .empty()
     @Published private var state: State = .empty
-    private lazy var textViewModel = TextView.UIKitTextView.ViewModel(blockViewModel: self)
+    private lazy var textViewModel = BlockTextViewModel(blockViewModel: self)
     private var wholeDetailsViewModel: DetailsActiveModel = .init()
     
     func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }

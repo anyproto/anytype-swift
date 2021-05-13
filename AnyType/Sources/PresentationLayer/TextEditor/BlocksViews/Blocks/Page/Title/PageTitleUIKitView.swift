@@ -68,7 +68,7 @@ class PageTitleUIKitView: UIView {
     }
 
     // MARK: Configured
-    func configured(textView: TextView.UIKitTextView?) -> Self {
+    func configured(textView: BlockTextView?) -> Self {
         if let attributes = textView?.textView?.typingAttributes {
             var correctedAttributes = attributes
             correctedAttributes[.font] = UIFont.titleFont

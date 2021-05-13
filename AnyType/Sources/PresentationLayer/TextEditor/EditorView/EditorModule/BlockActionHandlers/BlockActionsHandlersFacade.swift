@@ -218,7 +218,7 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
 struct BlockBuilder {
     typealias Information = BlockInformation.InformationModel
 
-    typealias KeyboardAction = TextView.UserAction.KeyboardAction
+    typealias KeyboardAction = BlockTextView.UserAction.KeyboardAction
     typealias ToolbarAction = BlockActionsHandlersFacade.ActionsPayloadToolbar
 
     static func newBlockId() -> BlockId { "" }

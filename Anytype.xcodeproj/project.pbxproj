@@ -131,11 +131,11 @@
 		0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */; };
 		0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */; };
 		0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */; };
-		0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D50247144F3008ADD86 /* TextView+UIKitTextView+Coordinator.swift */; };
-		0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D51247144F3008ADD86 /* TextView+UIKitTextView+TextView.swift */; };
-		0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D52247144F4008ADD86 /* TextView+UIKitTextView.swift */; };
-		0A2C0D58247144F4008ADD86 /* TextView+UIKitTextView+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D53247144F4008ADD86 /* TextView+UIKitTextView+ViewModel.swift */; };
-		0A2C0D59247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D54247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift */; };
+		0A2C0D55247144F4008ADD86 /* BlockTextViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D50247144F3008ADD86 /* BlockTextViewCoordinator.swift */; };
+		0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */; };
+		0A2C0D57247144F4008ADD86 /* BlockTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D52247144F4008ADD86 /* BlockTextView.swift */; };
+		0A2C0D58247144F4008ADD86 /* BlockTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D53247144F4008ADD86 /* BlockTextViewModel.swift */; };
+		0A2C0D59247144F4008ADD86 /* BlockTextViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D54247144F4008ADD86 /* BlockTextViewBuilder.swift */; };
 		0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */; };
 		0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5B247145BC008ADD86 /* TextView+HighlightedToolbar+InputLink.swift */; };
 		0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5C247145BC008ADD86 /* TextView+HighlightedAccessoryView.swift */; };
@@ -645,11 +645,11 @@
 		0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingleProtocol.swift; sourceTree = "<group>"; };
 		0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsServiceProtocol.swift; sourceTree = "<group>"; };
 		0A2ADCE92497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceTextProtocol.swift; sourceTree = "<group>"; };
-		0A2C0D50247144F3008ADD86 /* TextView+UIKitTextView+Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+Coordinator.swift"; sourceTree = "<group>"; };
-		0A2C0D51247144F3008ADD86 /* TextView+UIKitTextView+TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+TextView.swift"; sourceTree = "<group>"; };
-		0A2C0D52247144F4008ADD86 /* TextView+UIKitTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView.swift"; sourceTree = "<group>"; };
-		0A2C0D53247144F4008ADD86 /* TextView+UIKitTextView+ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+ViewModel.swift"; sourceTree = "<group>"; };
-		0A2C0D54247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+UIKitTextView+Builder.swift"; sourceTree = "<group>"; };
+		0A2C0D50247144F3008ADD86 /* BlockTextViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextViewCoordinator.swift; sourceTree = "<group>"; };
+		0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewWithPlaceholder.swift; sourceTree = "<group>"; };
+		0A2C0D52247144F4008ADD86 /* BlockTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextView.swift; sourceTree = "<group>"; };
+		0A2C0D53247144F4008ADD86 /* BlockTextViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextViewModel.swift; sourceTree = "<group>"; };
+		0A2C0D54247144F4008ADD86 /* BlockTextViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextViewBuilder.swift; sourceTree = "<group>"; };
 		0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksToolbar.swift"; sourceTree = "<group>"; };
 		0A2C0D5B247145BC008ADD86 /* TextView+HighlightedToolbar+InputLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar+InputLink.swift"; sourceTree = "<group>"; };
 		0A2C0D5C247145BC008ADD86 /* TextView+HighlightedAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedAccessoryView.swift"; sourceTree = "<group>"; };
@@ -1541,11 +1541,11 @@
 			isa = PBXGroup;
 			children = (
 				539653512600D1B700A74C11 /* CustomAttributedString */,
-				0A2C0D52247144F4008ADD86 /* TextView+UIKitTextView.swift */,
-				0A2C0D54247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift */,
-				0A2C0D50247144F3008ADD86 /* TextView+UIKitTextView+Coordinator.swift */,
-				0A2C0D51247144F3008ADD86 /* TextView+UIKitTextView+TextView.swift */,
-				0A2C0D53247144F4008ADD86 /* TextView+UIKitTextView+ViewModel.swift */,
+				0A2C0D52247144F4008ADD86 /* BlockTextView.swift */,
+				0A2C0D53247144F4008ADD86 /* BlockTextViewModel.swift */,
+				0A2C0D50247144F3008ADD86 /* BlockTextViewCoordinator.swift */,
+				0A2C0D54247144F4008ADD86 /* BlockTextViewBuilder.swift */,
+				0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */,
 				534CAC0025FA6F230026FB93 /* SupportingViews */,
 			);
 			path = TextView;
@@ -3047,7 +3047,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */;
+			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3162,7 +3162,7 @@
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
 				53B0B3AB2644B3CC007F7378 /* EditorModuleContainerViewBuilder.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
-				0A2C0D59247144F4008ADD86 /* TextView+UIKitTextView+Builder.swift in Sources */,
+				0A2C0D59247144F4008ADD86 /* BlockTextViewBuilder.swift in Sources */,
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				5338E7E725DC3352008CB97D /* BlockActionsHandlersFacade.swift in Sources */,
@@ -3204,7 +3204,7 @@
 				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
 				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
 				EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */,
-				0A2C0D56247144F4008ADD86 /* TextView+UIKitTextView+TextView.swift in Sources */,
+				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
 				12DE403D264AD15D007B5074 /* OptionalExtensions.swift in Sources */,
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,
 				EA77E54B262DF398009F91D9 /* BlockMenuActionsHandlerImp.swift in Sources */,
@@ -3338,7 +3338,7 @@
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
-				0A2C0D55247144F4008ADD86 /* TextView+UIKitTextView+Coordinator.swift in Sources */,
+				0A2C0D55247144F4008ADD86 /* BlockTextViewCoordinator.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
@@ -3410,7 +3410,7 @@
 				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */,
-				0A2C0D57247144F4008ADD86 /* TextView+UIKitTextView.swift in Sources */,
+				0A2C0D57247144F4008ADD86 /* BlockTextView.swift in Sources */,
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				EA77E525262DAAA6009F91D9 /* BlockMenuItemsViewController.swift in Sources */,
@@ -3511,7 +3511,7 @@
 				0AA168DD254060E40097CB23 /* CommonViews+Pickers+Image+UIKit.swift in Sources */,
 				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
-				0A2C0D58247144F4008ADD86 /* TextView+UIKitTextView+ViewModel.swift in Sources */,
+				0A2C0D58247144F4008ADD86 /* BlockTextViewModel.swift in Sources */,
 				3DA369062629A18D001557C9 /* DocumentViewModelPredicate.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SecureStoreServiceProtocol.swift in Sources */,
@@ -3839,7 +3839,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */ = {
+		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,

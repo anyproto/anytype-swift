@@ -7,16 +7,16 @@ private extension LoggerCategory {
     static let textViewBlocksAccessoryView: Self = "TextView.BlocksAccessoryView"
 }
 
-extension TextView {
+extension BlockTextView {
     enum BlockToolbar {}
 }
 
 // MARK: BlockToolbar
-extension TextView.BlockToolbar {
+extension BlockTextView.BlockToolbar {
     class AccessoryView: UIView {
         // MARK: Aliases
-        typealias BaseToolbarView = TextView.BaseToolbarView
-        typealias Style = TextView.Style
+        typealias BaseToolbarView = BlockTextView.BaseToolbarView
+        typealias Style = BlockTextView.Style
         
         // MARK: Variables
         var style: Style = .default
@@ -208,7 +208,7 @@ extension TextView.BlockToolbar {
 }
 
 // MARK: ViewModel
-extension TextView.BlockToolbar {
+extension BlockTextView.BlockToolbar {
     // MARK: Action
     enum Action {
         case unknown

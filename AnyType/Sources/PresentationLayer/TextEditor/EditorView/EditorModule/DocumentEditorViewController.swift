@@ -42,7 +42,6 @@ final class DocumentEditorViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
-        self.updateData(self.viewModel.builders)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -182,7 +181,7 @@ final class DocumentEditorViewController: UICollectionViewController {
         if cell.frame.size.height != prefferedSize.height {
             updateView()
         }
-        textModel?.set(focus: TextView.UIKitTextView.ViewModel.Focus(position: focusPosition,
+        textModel?.set(focus: BlockTextViewModel.Focus(position: focusPosition,
                                                                      completion: { _ in }))
     }
     

@@ -19,7 +19,7 @@ import UIKit
 // These entries are coming from user actions.
 // So, they are nice to be there, right?...
 
-extension TextView.BlockToolbar {
+extension BlockTextView.BlockToolbar {
     /// This is an action that is reachable by user interaction from BlockToolbar.
     ///
     enum UnderlyingAction {
@@ -28,8 +28,8 @@ extension TextView.BlockToolbar {
 }
 
 // MARK: BlockType
-extension TextView.BlockToolbar.UnderlyingAction {
-    typealias AddBlock = TextView.BlockToolbar.AddBlock
+extension BlockTextView.BlockToolbar.UnderlyingAction {
+    typealias AddBlock = BlockTextView.BlockToolbar.AddBlock
     /// This is a block type action.
     /// It consists of block types.
     /// Main purpose is aggreate these types into addBlock or turnIntoBlock wrapper-action.
@@ -46,7 +46,7 @@ extension TextView.BlockToolbar.UnderlyingAction {
         case media(Media)
         case tool(Tool)
         case other(Other)
-        static func convert(_ type: TextView.BlockToolbar.AddBlock.BlocksTypes) -> Self {
+        static func convert(_ type: BlockTextView.BlockToolbar.AddBlock.BlocksTypes) -> Self {
             switch type {
             case let .text(value): return .text(value)
             case let .list(value): return .list(value)
@@ -59,7 +59,7 @@ extension TextView.BlockToolbar.UnderlyingAction {
 }
 
 // MARK: EditBlock
-extension TextView.BlockToolbar.UnderlyingAction {
+extension BlockTextView.BlockToolbar.UnderlyingAction {
     /// This is edit block action.
     /// It consists of edit actions that user could do with block.
     /// For example, user could delete or duplicate block.
@@ -70,7 +70,7 @@ extension TextView.BlockToolbar.UnderlyingAction {
         case duplicate
         case undo
         case redo
-        static func convert(_ type: TextView.BlockToolbar.EditActions.Action) -> Self {
+        static func convert(_ type: BlockTextView.BlockToolbar.EditActions.Action) -> Self {
             switch type {
             case .delete: return .delete
             case .duplicate: return .duplicate
@@ -82,7 +82,7 @@ extension TextView.BlockToolbar.UnderlyingAction {
 }
 
 // MARK: ChangeColor
-extension TextView.BlockToolbar.UnderlyingAction {
+extension BlockTextView.BlockToolbar.UnderlyingAction {
     /// This is change color action.
     /// It aggregates actions as setForegroundColor and setBackgroundColor.
     /// User chooses colors and applies them to specific part of the block.

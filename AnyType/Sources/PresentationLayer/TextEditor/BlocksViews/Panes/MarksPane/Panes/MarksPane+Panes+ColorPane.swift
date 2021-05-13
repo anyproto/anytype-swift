@@ -39,7 +39,7 @@ extension MarksPane.Panes.Color {
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
     ///
     enum Converter {
-        private static func state(_ style: TextView.MarkStyle, background: Bool) -> Attribute? {
+        private static func state(_ style: BlockTextView.MarkStyle, background: Bool) -> Attribute? {
             switch style {
             case let .textColor(color): return .setColor(color ?? .defaultColor)
             case let .backgroundColor(color): return .setColor(color ?? .grayscaleWhite)
@@ -47,11 +47,11 @@ extension MarksPane.Panes.Color {
             }
         }
         
-        static func state(_ style: TextView.MarkStyle?, background: Bool) -> Attribute? {
+        static func state(_ style: BlockTextView.MarkStyle?, background: Bool) -> Attribute? {
             style.flatMap({state($0, background: background)})
         }
         
-        static func states(_ styles: [TextView.MarkStyle], background: Bool) -> [Attribute] {
+        static func states(_ styles: [BlockTextView.MarkStyle], background: Bool) -> [Attribute] {
             styles.compactMap({state($0, background: background)})
         }
     }

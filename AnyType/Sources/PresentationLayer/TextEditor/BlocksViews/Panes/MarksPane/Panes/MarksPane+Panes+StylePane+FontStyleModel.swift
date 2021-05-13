@@ -80,7 +80,7 @@ extension MarksPane.Panes.StylePane.FontStyle {
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
     ///
     enum Converter {
-        private static func state(_ style: TextView.MarkStyle) -> Attribute? {
+        private static func state(_ style: BlockTextView.MarkStyle) -> Attribute? {
             switch style {
             case let .bold(value): return .bold(value)
             case let .italic(value): return .italic(value)
@@ -90,11 +90,11 @@ extension MarksPane.Panes.StylePane.FontStyle {
             }
         }
 
-        static func state(_ style: TextView.MarkStyle?) -> Attribute? {
+        static func state(_ style: BlockTextView.MarkStyle?) -> Attribute? {
             style.flatMap(state)
         }
 
-        static func states(_ styles: [TextView.MarkStyle]) -> [Attribute] {
+        static func states(_ styles: [BlockTextView.MarkStyle]) -> [Attribute] {
             styles.compactMap(state)
         }
     }

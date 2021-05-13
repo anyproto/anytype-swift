@@ -23,7 +23,7 @@ extension Namespace {
 extension FileNamespace {
     class View: UIView {
         // MARK: Aliases
-        typealias Style = TextView.Style
+        typealias Style = BlockTextView.Style
 
         // MARK: Variables
         var style: Style = .default

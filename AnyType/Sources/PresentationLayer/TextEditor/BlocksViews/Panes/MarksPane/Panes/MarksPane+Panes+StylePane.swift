@@ -47,7 +47,7 @@ extension MarksPane.Panes.StylePane {
     enum Converter {
         typealias Output = Attribute
         enum Input {
-            case markStyle(TextView.MarkStyle)
+            case markStyle(BlockTextView.MarkStyle)
             case textAlignment(NSTextAlignment)
         }
         static func convert(_ input: Input) -> Output? {
@@ -60,7 +60,7 @@ extension MarksPane.Panes.StylePane {
         /// It is better to rename it to `convert` ot `attribute`.
         ///
 
-        private static func state(_ style: TextView.MarkStyle) -> Attribute? {
+        private static func state(_ style: BlockTextView.MarkStyle) -> Attribute? {
             FontStyle.Converter.state(style).flatMap(Attribute.fontStyle)
         }
         
@@ -72,7 +72,7 @@ extension MarksPane.Panes.StylePane {
             alignment.flatMap(state)
         }
         
-        static func state(_ style: TextView.MarkStyle?) -> Attribute? {
+        static func state(_ style: BlockTextView.MarkStyle?) -> Attribute? {
             style.flatMap(state)
         }
         
@@ -80,7 +80,7 @@ extension MarksPane.Panes.StylePane {
             styles.compactMap(state)
         }
         
-        static func states(_ styles: [TextView.MarkStyle], _ alignment: [NSTextAlignment] = []) -> [Attribute] {
+        static func states(_ styles: [BlockTextView.MarkStyle], _ alignment: [NSTextAlignment] = []) -> [Attribute] {
             styles.compactMap(state) + alignment.compactMap(state)
         }
     }

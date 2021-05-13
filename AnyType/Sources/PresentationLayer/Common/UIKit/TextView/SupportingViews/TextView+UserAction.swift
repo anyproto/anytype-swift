@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: UserActions
-extension TextView {
+extension BlockTextView {
     public enum UserAction {
         case
         showStyleMenu,
@@ -22,7 +22,7 @@ extension TextView {
 }
 
 // MARK: - InputAction
-extension TextView.UserAction {
+extension BlockTextView.UserAction {
     // Actions with text
     enum InputAction {
         case changeText(NSAttributedString)
@@ -30,7 +30,7 @@ extension TextView.UserAction {
 }
 
 // MARK: - KeyboardAction
-extension TextView.UserAction {
+extension BlockTextView.UserAction {
     // Actions with input custom keys
     enum KeyboardAction {
         /// Press some `Key`
@@ -107,14 +107,14 @@ extension TextView.UserAction {
 }
 
 // MARK: - AddBlockAction
-extension TextView.UserAction {
+extension BlockTextView.UserAction {
     enum AddBlockAction {
         case addBlock
     }
 }
 
 // MARK: - ShowMultiActionMenu
-extension TextView.UserAction {
+extension BlockTextView.UserAction {
     enum ShowMultiActionMenuAction {
         case showMultiActionMenu
     }

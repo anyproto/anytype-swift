@@ -1,10 +1,7 @@
-
 import UIKit
 
+
 class InputSwitcher {
-    
-    typealias Coordinator = TextView.UIKitTextView.Coordinator
-    
     /// Switch inputs based on textView, accessoryView and inputView.
     /// Do not override this method until you rewrite everything on top of one input view and one accessory view.
     ///
@@ -46,7 +43,7 @@ class InputSwitcher {
     ///   - accessoryView: current accessory view.
     ///   - inputView: current input view.
     /// - Returns: A triplet of flag, accessory view and input view. Flag equal `shouldAnimate` and indicates if we need animation in switching.
-    func variantsFromState(_ coordinator: Coordinator,
+    func variantsFromState(_ coordinator: BlockTextViewCoordinator,
                            textView: UITextView,
                            selectionLength: Int,
                            accessoryView: UIView?,
@@ -58,7 +55,7 @@ class InputSwitcher {
     /// - Parameters:
     ///   - coordinator: Coordinator which will provide data to correct views.
     ///   - textView: textView which will handle input views.
-    func switchInputs(_ coordinator: Coordinator,
+    func switchInputs(_ coordinator: BlockTextViewCoordinator,
                       textView: UITextView) {
         guard let triplet = self.variantsFromState(coordinator, textView: textView, selectionLength: textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView) else { return }
         
@@ -77,6 +74,6 @@ class InputSwitcher {
     /// - Parameters:
     ///   - coordinator: current coordinator
     ///   - textView: text view that switch views.
-    func didSwitchViews(_ coordinator: Coordinator,
+    func didSwitchViews(_ coordinator: BlockTextViewCoordinator,
                         textView: UITextView) {}
 }

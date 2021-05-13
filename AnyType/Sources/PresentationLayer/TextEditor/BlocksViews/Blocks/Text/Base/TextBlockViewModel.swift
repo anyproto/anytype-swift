@@ -7,9 +7,9 @@ import BlocksModels
 
 
 private final class TextViewModelHolder {
-    private var viewModel: TextView.UIKitTextView.ViewModel?
+    private var viewModel: BlockTextViewModel?
 
-    init(_ viewModel: TextView.UIKitTextView.ViewModel?) {
+    init(_ viewModel: BlockTextViewModel?) {
         self.viewModel = viewModel
     }
 
@@ -17,7 +17,7 @@ private final class TextViewModelHolder {
         self.viewModel = nil
     }
 
-    func apply(_ update: TextView.UIKitTextView.ViewModel.Update) {
+    func apply(_ update: BlockTextViewModel.Update) {
         if let viewModel = self.viewModel {
             viewModel.update = update
         }
@@ -39,7 +39,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
     /// We could directly set a state or a parts of this viewModel state.
     /// This should fire updates and corresponding view will be updated.
     ///
-    private(set) lazy var textViewModel = TextView.UIKitTextView.ViewModel(blockViewModel: self)
+    private(set) lazy var textViewModel = BlockTextViewModel(blockViewModel: self)
     private lazy var textViewModelHolder: TextViewModelHolder = {
         .init(self.textViewModel)
     }()
@@ -66,7 +66,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
 
     // MARK: - Subclassing accessors
 
-    func getUIKitViewModel() -> TextView.UIKitTextView.ViewModel { self.textViewModel }
+    func getUIKitViewModel() -> BlockTextViewModel { self.textViewModel }
 
     override func makeContentConfiguration() -> UIContentConfiguration {
         guard case let .text(text) = self.getBlock().blockModel.information.content else {
@@ -148,7 +148,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
 
 extension TextBlockViewModel {
 
-    func refreshTextViewModel(_ textViewModel: TextView.UIKitTextView.ViewModel) {
+    func refreshTextViewModel(_ textViewModel: BlockTextViewModel) {
         let block = self.getBlock()
         let information = block.blockModel.information
 
@@ -224,7 +224,7 @@ private extension TextBlockViewModel {
 
         Publishers.CombineLatest(modelDidChangeOnMergePublisher, alignmentPublisher)
             .reciveOnMain()
-            .map({ value -> TextView.UIKitTextView.ViewModel.Update in
+            .map({ value -> BlockTextViewModel.Update in
                 let (text, alignment) = value
                 let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(text.color)
                 return .payload(.init(attributedString: text.attributedText, auxiliary: .init(textAlignment: alignment,
@@ -268,7 +268,7 @@ private extension TextBlockViewModel {
 // MARK: - Set Focus
 
 extension TextBlockViewModel {
-    func set(focus: TextView.UIKitTextView.ViewModel.Focus?) {
+    func set(focus: BlockTextViewModel.Focus?) {
         self.textViewModel.set(focus: focus)
     }
     
@@ -310,7 +310,7 @@ private extension TextBlockViewModel {
         return self.service.setAlignment(contextID: contextID, blockIds: blocksIds, alignment: alignment)
     }
 
-    func apply(update: TextView.UIKitTextView.ViewModel.Update) {
+    func apply(update: BlockTextViewModel.Update) {
         switch update {
         case .unknown: return
         case let .text(value): self.setModelData(attributedText: NSAttributedString(string: value))
@@ -324,7 +324,7 @@ private extension TextBlockViewModel {
 // MARK: - TextViewUserInteractionProtocol
 
 extension TextBlockViewModel: TextViewUserInteractionProtocol {
-    func didReceiveAction(_ action: TextView.UserAction) {
+    func didReceiveAction(_ action: BlockTextView.UserAction) {
         switch action {
         case let .addBlockAction(value):
             switch value {
