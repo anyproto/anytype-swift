@@ -3,11 +3,9 @@ import Combine
 import os
 import BlocksModels
 
-
 // Sends and receives data via serivce.
 class DetailsActiveModel {
-    typealias PageDetails = DetailsInformationModel
-    typealias Events = EventListening.PackOfEvents
+    
     private var documentId: String?
     
     /// TODO:
@@ -15,59 +13,70 @@ class DetailsActiveModel {
     /// Or remove service from this model completely.
     /// We could use events/actions and send them directly to `user interaction handler`, which will send result to `event handler`.
     ///
-    private var service: ObjectActionsService = .init()
+    private let service: ObjectActionsService = .init()
     
     // MARK: Publishers
+    
     @Published private(set) var currentDetails: DetailsInformationProvider = TopLevelBuilderImpl.detailsBuilder.informationBuilder.empty()
-    private(set) var wholeDetailsPublisher: AnyPublisher<PageDetails, Never> = .empty() {
+    private(set) var wholeDetailsPublisher: AnyPublisher<DetailsInformationModel, Never> = .empty() {
         didSet {
             self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in
                 self?.currentDetails = value
             }
         }
     }
-    var currentDetailsSubscription: AnyCancellable?
-    private var eventSubject: PassthroughSubject<Events, Never> = .init()
+    private var currentDetailsSubscription: AnyCancellable?
+    private var eventSubject: PassthroughSubject<EventListening.PackOfEvents, Never> = .init()
+    
 }
 
 // MARK: Configuration
+
 extension DetailsActiveModel {
-    func configured(documentId: String) -> Self {
+    
+    func configured(documentId: String) {
         self.documentId = documentId
-        return self
     }
     
-    func configured(publisher: AnyPublisher<PageDetails, Never>) {
+    func configured(publisher: AnyPublisher<DetailsInformationModel, Never>) {
         self.wholeDetailsPublisher = publisher
     }
     
-    func configured(eventSubject: PassthroughSubject<Events, Never>) {
+    func configured(eventSubject: PassthroughSubject<EventListening.PackOfEvents, Never>) {
         self.eventSubject = eventSubject
     }
-}
-
-// MARK: Handle Events
-extension DetailsActiveModel {
-    private func handle(events: Events) {
-        self.eventSubject.send(events)
-    }
+    
 }
 
 // MARK: Updates
+
 extension DetailsActiveModel {
-    private enum UpdateScheduler {
-        static let defaultTimeInterval: RunLoop.SchedulerTimeType.Stride = 5.0
-    }
     
     /// Maybe add AnyPublisher as Return result?
+    
     func update(details: DetailsContent) -> AnyPublisher<Void, Error>? {
         guard let documentId = self.documentId else {
             assertionFailure("update(details:). Our document is not ready yet")
             return nil
         }
         
-        return self.service.setDetails(contextID: documentId, details: details).handleEvents(receiveOutput: { [weak self] (value) in
-            self?.handle(events: .init(contextId: value.contextID, events: value.messages, ourEvents: []))
-        }).successToVoid().eraseToAnyPublisher()
+        return self.service.setDetails(
+            contextID: documentId,
+            details: details
+        )
+        .handleEvents(
+            receiveOutput: { [weak self] (value) in
+                self?.eventSubject.send(
+                    .init(
+                        contextId: value.contextID,
+                        events: value.messages,
+                        ourEvents: []
+                    )
+                )
+            }
+        )
+        .successToVoid()
+        .eraseToAnyPublisher()
     }
+    
 }

@@ -15,7 +15,7 @@ final class DocumentEditorViewController: UICollectionViewController {
     private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?
     private let viewModel: DocumentEditorViewModel
     private let viewCellFactory: DocumentViewCellFactoryProtocol
-    private weak var headerViewModel: DocumentHeaderView.ViewModel?
+    private weak var headerViewModel: DocumentDetailsViewModel?
 
     private var subscriptions: Set<AnyCancellable> = []
     /// Gesture recognizer to handle taps in empty document
@@ -63,7 +63,7 @@ final class DocumentEditorViewController: UICollectionViewController {
 
     private func setupCollectionViewDataSource() {
         collectionView.register(
-            DocumentHeaderView.self,
+            DocumentDetailsView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: Constants.headerReuseId
         )
@@ -100,14 +100,14 @@ final class DocumentEditorViewController: UICollectionViewController {
                     ofKind: type,
                     withReuseIdentifier: Constants.headerReuseId,
                     for: indexPath
-                ) as? DocumentHeaderView
+                ) as? DocumentDetailsView
             else {
                 assertionFailure("Unable to create proper header view")
                 return UICollectionReusableView()
             }
             
             if headerView.viewModel.isNil {
-                let viewModel = DocumentHeaderView.ViewModel()
+                let viewModel = DocumentDetailsViewModel()
                 headerView.configure(model: viewModel)
 
                 self?.headerViewModel = headerView.viewModel

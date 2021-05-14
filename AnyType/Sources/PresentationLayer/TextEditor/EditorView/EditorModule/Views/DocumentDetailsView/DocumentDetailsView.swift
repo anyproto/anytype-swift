@@ -1,5 +1,5 @@
 //
-//  DocumentHeaderView.swift
+//  DocumentDetailsView.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 11.05.2021.
@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 import Combine
 
-/// Header view with navigation controls
-public final class DocumentHeaderView: UICollectionReusableView {
+final class DocumentDetailsView: UICollectionReusableView {
     
     // MARK: - Views
 
@@ -30,7 +29,7 @@ public final class DocumentHeaderView: UICollectionReusableView {
     
     // MARK: - Variables
     
-    private(set) var viewModel: DocumentHeaderView.ViewModel?
+    private(set) var viewModel: DocumentDetailsViewModel?
     private var subscriptions: Set<AnyCancellable> = []
 
     // MARK: Initialization
@@ -51,24 +50,11 @@ public final class DocumentHeaderView: UICollectionReusableView {
     
 }
 
-// MARK: - ViewModel
-
-public extension DocumentHeaderView {
-    
-    final class ViewModel {
-        
-        // MARK: Publishers
-        
-        @Published var pageDetailsViewModels: [BlockViewBuilderProtocol] = []
-    }
-    
-}
-
 // MARK: - ConfigurableView
 
-extension DocumentHeaderView: ConfigurableView {
+extension DocumentDetailsView: ConfigurableView {
     
-    public func configure(model: ViewModel) {
+    public func configure(model: DocumentDetailsViewModel) {
         viewModel = model
         viewModel?.$pageDetailsViewModels
             .sink { [weak self] value in
@@ -81,7 +67,7 @@ extension DocumentHeaderView: ConfigurableView {
 
 // MARK: - Private extension
 
-private extension DocumentHeaderView {
+private extension DocumentDetailsView {
     
     // MARK: Layout
     
@@ -101,7 +87,7 @@ private extension DocumentHeaderView {
 
 // MARK: - Constants
 
-private extension DocumentHeaderView {
+private extension DocumentDetailsView {
     
     struct Constants {
         static let directionalEdgeInsets = NSDirectionalEdgeInsets(

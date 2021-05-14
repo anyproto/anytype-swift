@@ -47,7 +47,7 @@ class BaseDocument {
     /// When we set details, we need to listen for returned value ( success result ).
     /// This success result should be handled by our event processor.
     ///
-    private var detailsEventSubject: PassthroughSubject<DetailsActiveModel.Events, Never> = .init()
+    private var detailsEventSubject: PassthroughSubject<EventListening.PackOfEvents, Never> = .init()
     
     /// It is simple event subject subscription.
     ///
@@ -131,7 +131,7 @@ class BaseDocument {
             return
         }
         let publisher = ourModel.didChangeInformationPublisher()
-        _ = self.defaultDetailsActiveModel.configured(documentId: rootId)
+        self.defaultDetailsActiveModel.configured(documentId: rootId)
         self.defaultDetailsActiveModel.configured(publisher: publisher)
         self.defaultDetailsActiveModel.configured(eventSubject: self.detailsEventSubject)
         self.listenDefaultDetails()
@@ -244,7 +244,7 @@ class BaseDocument {
             return nil
         }
         let result: DetailsActiveModel = .init()
-        _ = result.configured(documentId: id)
+        result.configured(documentId: id)
         result.configured(publisher: value.didChangeInformationPublisher())
         return result
     }

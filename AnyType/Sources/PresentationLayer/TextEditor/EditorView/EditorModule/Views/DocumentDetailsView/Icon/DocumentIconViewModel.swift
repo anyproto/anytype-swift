@@ -74,7 +74,8 @@ final class DocumentIconViewModel: PageBlockViewModel {
     // MARK: Subclassing / Views
     
     override func makeUIView() -> UIView {
-        DocumentIconView().configured(with: self)
+        UIView()
+//        DocumentIconView().configured(with: self)
     }
     
     /// Convert to UIAction

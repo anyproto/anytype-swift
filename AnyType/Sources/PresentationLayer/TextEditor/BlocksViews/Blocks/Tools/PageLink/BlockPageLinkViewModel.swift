@@ -33,7 +33,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
             switch value.style {
             case .page:
                 let pageId = value.targetBlockID // do we need it?
-                _ = self.wholeDetailsViewModel.configured(documentId: pageId)
+                self.wholeDetailsViewModel.configured(documentId: pageId)
                 
                 /// One possible way to do it is to get access to a container in flattener.
                 /// Possible (?)
@@ -112,7 +112,7 @@ extension BlockPageLinkViewModel {
     ///
     /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
     ///
-    func configured(_ publisher: AnyPublisher<DetailsActiveModel.PageDetails, Never>) -> Self {
+    func configured(_ publisher: AnyPublisher<DetailsInformationModel, Never>) -> Self {
         self.wholeDetailsViewModel.configured(publisher: publisher)
         self.wholeDetailsViewModel.wholeDetailsPublisher.map(BlockPageLinkState.Converter.asOurModel).sink { [weak self] (value) in
             self?.state = value
