@@ -18,14 +18,7 @@ extension DocumentEditorViewModel {
         }
     }
 }
-
-// MARK: Events
-extension DocumentEditorViewModel {
-    enum UserEvent {
-        case pageDetailsViewModelsDidSet
-    }
-}
-    
+ 
 class DocumentEditorViewModel: ObservableObject {
     typealias BlocksUserAction = BlocksViews.UserAction
 
@@ -39,6 +32,9 @@ class DocumentEditorViewModel: ObservableObject {
     /// Document ViewModel
     private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
 
+    /// DocumentDetailsViewModel
+    private(set) var detailsViewModel: DocumentDetailsViewModel = DocumentDetailsViewModel()
+    
     /// User Interaction Processor
     private lazy var oldblockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
     private var listBlockActionHandler: ListBlockActionHandler = .init()
@@ -67,19 +63,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     @Published var error: String?
 
-    // MARK: Events
-    @Published var userEvent: UserEvent?
-
     // MARK: Page View Models
-    /// We need this model to be Published cause need handle actions from IconEmojiBlock
-    typealias PageDetailsViewModelsDictionary = [BaseDocument.DetailsContentKind : BlockViewBuilderProtocol]
-    @available(iOS, introduced: 13.0, deprecated: 14.0, message: "This property make sense only before real model was presented. Remove it.")
-    lazy private(set) var detailsViewModels: PageDetailsViewModelsDictionary = [:] {
-        didSet {
-            self.enhanceDetails(self.detailsViewModels)
-            self.userEvent = .pageDetailsViewModelsDidSet
-        }
-    }
 
     /// Builders to build block views
     @Published private(set) var builders: [BaseBlockViewModel] = [] {
@@ -234,8 +218,16 @@ class DocumentEditorViewModel: ObservableObject {
                     }
                 }
             }.store(in: &self.subscriptions)
+            
         self.documentViewModel.open(value)
-        self.configureDetails()
+        let currentIconEmoji = documentViewModel.defaultActiveDetails.currentDetails.iconEmoji?.value
+        if currentIconEmoji?.isEmpty == false {
+            self.detailsViewModel.childViewModels = [
+                DocumentIconViewModelNew(
+                    detailsActiveModel: documentViewModel.defaultActiveDetails
+                )
+            ]
+        }
         self.configureInteractions(self.documentViewModel.documentId)
     }
     
@@ -255,19 +247,7 @@ class DocumentEditorViewModel: ObservableObject {
         _ = self.oldblockActionHandler.configured(documentId: documentId).configured(self)
         _ = self.listBlockActionHandler.configured(documentId: documentId)
     }
-
-    private func configureDetails() {
-        let detailsViewModels = self.documentViewModel.detailsViewModels()
-        var dictionary: PageDetailsViewModelsDictionary = [:]
-        /// TODO:
-        /// Refactor when you are ready.
-        /// It is tough stuff.
-        ///
-        if let iconEmoji = detailsViewModels.first(where: {$0 as? DocumentIconViewModel != nil}) {
-            dictionary[.iconEmoji] = iconEmoji
-        }
-        self.detailsViewModels = dictionary
-    }
+    
 }
 
 // MARK: - DocumentViewInteraction
@@ -452,13 +432,6 @@ extension DocumentEditorViewModel {
         }
     }
     
-    func enhanceDetails(_ value: PageDetailsViewModelsDictionary) {
-        let ourValues = value.values.compactMap({$0 as? BaseBlockViewModel})
-        ourValues.forEach { (value) in
-            _ = value.configured(userActionSubject: self.publicUserActionSubject)
-            _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)
-        }
-    }
 }
 
 // MARK: - Public methods for view controller

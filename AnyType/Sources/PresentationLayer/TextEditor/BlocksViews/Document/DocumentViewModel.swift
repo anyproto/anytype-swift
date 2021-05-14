@@ -9,6 +9,10 @@ final class DocumentViewModel: DocumentViewModelProtocol {
     var rootActiveModel: BaseDocument.ActiveModel? { self.document.getRootActiveModel() }
     var userSession: BaseDocument.UserSession? { self.document.getUserSession() }
     
+    var defaultActiveDetails: DetailsActiveModel {
+        self.document.getDefaultDetails()
+    }
+    
     private let blocksConverter: CompoundViewModelConverter
     private let detailsConverter: DetailsViewModelConverter
     private let document = BaseDocument()
@@ -36,18 +40,6 @@ final class DocumentViewModel: DocumentViewModelProtocol {
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
         self.document.getDefaultPageDetailsPublisher()
-    }
-    
-    func detailsViewModels() -> [BaseBlockViewModel] {
-        detailsViewModels(orderedBy: DocumentViewModelPredicate())
-    }
-    
-    func detailsViewModels(orderedBy predicate: DocumentViewModelPredicate) -> [BaseBlockViewModel] {
-        predicate.list.compactMap({ value -> BaseBlockViewModel? in
-            guard let model = self.document.getDefaultDetailsActiveModel(of: value) else { return nil }
-            guard let viewModel = self.detailsConverter.convert(model, kind: value) else { return nil }
-            return viewModel.configured(pageDetailsViewModel: document.getDefaultDetails())
-        })
     }
     
     func handle(events: BaseDocument.Events) {

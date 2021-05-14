@@ -296,7 +296,6 @@
 		3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E622636F3560085D008 /* ImageParameters.swift */; };
 		3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA12E77263737200085D008 /* PageCellDataMock.swift */; };
 		3DA369032629A17F001557C9 /* DocumentViewModelUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */; };
-		3DA369062629A18D001557C9 /* DocumentViewModelPredicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369052629A18D001557C9 /* DocumentViewModelPredicate.swift */; };
 		3DA369362629AC67001557C9 /* DocumentViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369352629AC67001557C9 /* DocumentViewModelProtocol.swift */; };
 		3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */; };
 		3DA369412629B75E001557C9 /* EventHandlerFocusConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */; };
@@ -807,7 +806,6 @@
 		3DA12E622636F3560085D008 /* ImageParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageParameters.swift; sourceTree = "<group>"; };
 		3DA12E77263737200085D008 /* PageCellDataMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageCellDataMock.swift; sourceTree = "<group>"; };
 		3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelUpdateResult.swift; sourceTree = "<group>"; };
-		3DA369052629A18D001557C9 /* DocumentViewModelPredicate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelPredicate.swift; sourceTree = "<group>"; };
 		3DA369352629AC67001557C9 /* DocumentViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelProtocol.swift; sourceTree = "<group>"; };
 		3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdate.swift; sourceTree = "<group>"; };
 		3DA369402629B75E001557C9 /* EventHandlerFocusConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerFocusConverter.swift; sourceTree = "<group>"; };
@@ -2394,7 +2392,6 @@
 			isa = PBXGroup;
 			children = (
 				3DA369022629A17F001557C9 /* DocumentViewModelUpdateResult.swift */,
-				3DA369052629A18D001557C9 /* DocumentViewModelPredicate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3536,7 +3533,6 @@
 				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
 				0A2C0D58247144F4008ADD86 /* BlockTextViewModel.swift in Sources */,
-				3DA369062629A18D001557C9 /* DocumentViewModelPredicate.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SecureStoreServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,

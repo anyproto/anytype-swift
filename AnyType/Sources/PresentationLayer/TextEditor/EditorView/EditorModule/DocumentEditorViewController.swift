@@ -15,7 +15,6 @@ final class DocumentEditorViewController: UICollectionViewController {
     private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?
     private let viewModel: DocumentEditorViewModel
     private let viewCellFactory: DocumentViewCellFactoryProtocol
-    private weak var headerViewModel: DocumentDetailsViewModel?
 
     private var subscriptions: Set<AnyCancellable> = []
     /// Gesture recognizer to handle taps in empty document
@@ -57,7 +56,6 @@ final class DocumentEditorViewController: UICollectionViewController {
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
         
         setupInteractions()
-        setupHeaderPageDetailsEvents()
     }
 
 
@@ -106,11 +104,9 @@ final class DocumentEditorViewController: UICollectionViewController {
                 return UICollectionReusableView()
             }
             
-            if headerView.viewModel.isNil {
-                let viewModel = DocumentDetailsViewModel()
+            if headerView.viewModel.isNil,
+               let viewModel = self?.viewModel.detailsViewModel {
                 headerView.configure(model: viewModel)
-
-                self?.headerViewModel = headerView.viewModel
             }
             
             return headerView
@@ -227,25 +223,6 @@ final class DocumentEditorViewController: UICollectionViewController {
 // MARK: - HeaderView PageDetails
 
 extension DocumentEditorViewController {
-    private func process(event: DocumentEditorViewModel.UserEvent) {
-        switch event {
-        case .pageDetailsViewModelsDidSet:
-            let viewModels = self.viewModel.detailsViewModels.filter({[.iconEmoji, .title].contains($0.key)})
-                .map({$0})
-                .reordered(by: [.iconEmoji, .title], findInCollection: { (value, collection) in
-                    collection.firstIndex(of: value.key)
-                })
-                .compactMap({$0.value})
-            
-            self.headerViewModel?.pageDetailsViewModels = viewModels
-        }
-    }
-    
-    private func setupHeaderPageDetailsEvents() {
-        self.viewModel.$userEvent.safelyUnwrapOptionals().sink { [weak self] (value) in
-            self?.process(event: value)
-        }.store(in: &self.subscriptions)
-    }
     
     private func scrollAndFocusOnFocusedBlock() {
         guard let dataSource = self.dataSource else { return }

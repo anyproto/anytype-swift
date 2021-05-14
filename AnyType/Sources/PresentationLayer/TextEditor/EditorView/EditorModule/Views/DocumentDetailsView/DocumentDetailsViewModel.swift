@@ -12,8 +12,6 @@ final class DocumentDetailsViewModel {
     
     // MARK: Publishers
     
-    @Published var componentViewModels: [DocumentDetailsChildViewModel] = []
-    
-    @Published var pageDetailsViewModels: [BlockViewBuilderProtocol] = []
-    
+    @Published var childViewModels: [DocumentDetailsChildViewModel] = []
+        
 }

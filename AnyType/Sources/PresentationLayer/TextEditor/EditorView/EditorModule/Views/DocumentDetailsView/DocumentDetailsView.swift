@@ -29,7 +29,7 @@ final class DocumentDetailsView: UICollectionReusableView {
     
     // MARK: - Variables
     
-    private(set) var viewModel: DocumentDetailsViewModel?
+    private(set) weak var viewModel: DocumentDetailsViewModel?
     private var subscriptions: Set<AnyCancellable> = []
 
     // MARK: Initialization
@@ -56,9 +56,9 @@ extension DocumentDetailsView: ConfigurableView {
     
     public func configure(model: DocumentDetailsViewModel) {
         viewModel = model
-        viewModel?.$pageDetailsViewModels
-            .sink { [weak self] value in
-                self?.handlePageDetailsViewModels(value)
+        viewModel?.$childViewModels
+            .sink { [weak self] viewModels in
+                self?.handleDetailsChildViewModels(viewModels)
             }
             .store(in: &self.subscriptions)
     }
@@ -78,9 +78,9 @@ private extension DocumentDetailsView {
     
     // MARK: Event handler
     
-    func handlePageDetailsViewModels(_ models: [BlockViewBuilderProtocol]) {
-        models
-            .map { $0.buildUIView() }
+    func handleDetailsChildViewModels(_ viewModels: [DocumentDetailsChildViewModel]) {
+        viewModels
+            .map { $0.makeView() }
             .forEach { self.verticalStackView.addArrangedSubview($0) }
     }
 }
