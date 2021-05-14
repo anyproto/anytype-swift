@@ -139,8 +139,13 @@ final class TextBlockViewModel: BaseBlockViewModel {
         // After we show contextual menu on UITextView (which is first responder)
         // displaying keyboard on such UITextView becomes impossible (only caret show)
         // it is possible to show it only by changing first responder with other UITextView
+        // so we store previous focus position and restore it later
+        let focusPosition = textViewModel.focusPosition()
         textViewModel.shouldResignFirstResponder()
         super.handle(contextualMenuAction: contextualMenuAction)
+        if !focusPosition.isNil {
+            textViewModel.set(focus: BlockTextViewModel.Focus(position: focusPosition, completion: { _ in }))
+        }
     }
 }
 
