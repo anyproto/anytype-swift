@@ -11,8 +11,12 @@ class DashboardService: DashboardServiceProtocol {
     private var dashboardId: String = ""
         
     func openDashboard() -> AnyPublisher<ServiceSuccess, Error> {
-        self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration in
-            self.blocksActionsService.open(
+        self.middlewareConfigurationService.obtainConfiguration().flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
+            guard let self = self else {
+                return Empty(completeImmediately: true).eraseToAnyPublisher()
+            }
+            
+            return self.blocksActionsService.open(
                 contextID: configuration.homeBlockID, blockID: configuration.homeBlockID
             )
         }.eraseToAnyPublisher()

@@ -154,13 +154,13 @@ private extension MarksPane.ViewController.TransitionController.TransitionDriver
         // Create a UIViewPropertyAnimator that lives the lifetime of the transition
         self.transitionAnimator.addAnimations(transitionAnimations)
         
-        self.transitionAnimator.addCompletion { [unowned self] (position) in
+        self.transitionAnimator.addCompletion { [weak self] (position) in
             // Call the supplied completion
             transitionCompletion(position)
             
             // Inform the transition context that the transition has completed
             let completed = (position == .end)
-            self.transitionContext.completeTransition(completed)
+            self?.transitionContext.completeTransition(completed)
         }
     }
 }

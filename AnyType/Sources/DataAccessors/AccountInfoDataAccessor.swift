@@ -58,17 +58,21 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func obtainAccountInfo() {
-        self.middlewareConfigurationService.obtainConfiguration().flatMap { [unowned self] configuration -> AnyPublisher<ServiceSuccess, Error> in
+        middlewareConfigurationService.obtainConfiguration().reciveOnMain().flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
+            guard let self = self else {
+                return Empty(completeImmediately: true).eraseToAnyPublisher()
+            }
+            
             self.blockId = configuration.profileBlockId
             return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
-        }.sink(receiveCompletion: { (value) in
-            switch value {
+        }.sink(receiveCompletion: { (completion) in
+            switch completion {
             case .finished: break
             case let .failure(error):
                 assertionFailure("obtainAccountInfo. Error has occured. \(error)")
             }
-        }) { [weak self] value in
-            self?.documentViewModel.open(value)
+        }) { [weak self] serviceSuccess in
+            self?.documentViewModel.open(serviceSuccess)
         }.store(in: &subscriptions)
     }
 }
