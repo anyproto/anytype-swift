@@ -3,10 +3,7 @@ import UIKit
 import SwiftUI
 
 
-/// This is a builder for EditorModule.ContainerViewController
-/// It provides several builders which could build both `SwiftUI` (`SwiftUIBuilder`) and `UIKit` (`UIKitBuilder`) components.
-///
-enum EditorModuleContainerViewBuilder {    
+enum EditorModuleContainerViewBuilder {
     /// We have the following system.
     /// Builder has two kind of components: Self and Child.
     /// You have an access to both components through `SelfComponent` and `ChildComponent`.

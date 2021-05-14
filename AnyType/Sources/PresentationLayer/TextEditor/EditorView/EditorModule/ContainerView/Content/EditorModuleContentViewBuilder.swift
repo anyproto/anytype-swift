@@ -4,8 +4,11 @@ import SwiftUI
 
 /// This builder in between `ContainerViewBuilder` and `DocumentViewBuilder`.
 enum EditorModuleContentViewBuilder {
-    typealias ChildComponent = EditorModuleDocumentViewBuilder.SelfComponent
-    typealias SelfComponent = (viewController: EditorModuleContentViewController, viewModel: EditorModuleContentViewModel, childComponent: ChildComponent)
+    typealias SelfComponent = (
+        viewController: EditorModuleContentViewController,
+        viewModel: EditorModuleContentViewModel,
+        childComponent: EditorModuleDocumentViewBuilder.SelfComponent
+    )
     
     /// Returns concrete Document.
     /// It is configured to show exactly one document or be a part of Container.
