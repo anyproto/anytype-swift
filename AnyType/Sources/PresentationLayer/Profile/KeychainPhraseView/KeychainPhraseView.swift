@@ -2,59 +2,39 @@ import SwiftUI
 
 struct KeychainPhraseView: View {
     @ObservedObject var viewModel: KeychainPhraseViewModel
-    @Binding var showKeychainView: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
+            
             AnytypeText("Back up your keychain phrase", style: .title)
-                .padding(.top, 34)
-            AnytypeText("Your Keychain phrase protects your account. You’ll need it to sign in if you don’t have access to your devices. Keep it in a safe place.", style: .body)
+                .padding(.top, 58)
+            AnytypeText("Your Keychain phrase protects your account", style: .body)
                 .padding(.top, 25)
-            SeedPhraseView(phrase: $viewModel.recoveryPhrase, copySeedAction: $viewModel.copySeedAction)
+            SeedPhraseView(phrase: $viewModel.recoveryPhrase, onTap: viewModel.onSeedViewTap)
                 .padding(.top, 34)
-                .layoutPriority(1) // TODO: remove workaround when fixed by apple
 
-            StandardButton(disabled: false ,text: "I've written it down", style: .primary) {
-                self.showKeychainView = false
-            }
-            .padding(.top, 40)
             Spacer()
         }
         .cornerRadius(12)
-        .padding([.leading, .trailing], 20)
-        .onAppear() {
-            self.viewModel.viewLoaded()
-        }
-    }
-}
-
-struct SeedPhraseView: View {
-    @Binding var phrase: String
-    @Binding var copySeedAction: Void
-
-    var body: some View {
-        VStack(alignment: .center) {
-            AnytypeText(phrase, style: .body)
-                .padding([.leading, .trailing], 20)
-                .padding([.top, .bottom], 12)
-        }
-        .frame(minWidth: 0, maxWidth: .infinity)
-        .background(Color.background)
-        .cornerRadius(8)
-        .contextMenu {
-            Button(action: {
-                self.copySeedAction = ()
-            }) {
-                AnytypeText("Copy", style: .body)
-                Image(systemName: "doc.on.doc")
-            }
+        .padding([.leading, .trailing])
+        .snackbar(isShowing: $viewModel.showSnackbar, text: AnytypeText("Keychain phrase copied to clipboard", style: .caption).textView)
+        .onAppear {
+            viewModel.obtainRecoveryPhrase()
         }
     }
 }
 
 struct SaveRecoveryPhraseView_Previews: PreviewProvider {
+    static let phrase = "stuck a ten on my hand twenty carats slap a bitch your girl choose up imma bag her and i snatch her"
+    
+    static let viewModel: KeychainPhraseViewModel = {
+        let model = KeychainPhraseViewModel()
+        model.recoveryPhrase = phrase
+        return model
+    }()
+    
     static var previews: some View {
-        return KeychainPhraseView(viewModel: KeychainPhraseViewModel(), showKeychainView: .constant(true))
+        return KeychainPhraseView(viewModel: viewModel)
     }
 }

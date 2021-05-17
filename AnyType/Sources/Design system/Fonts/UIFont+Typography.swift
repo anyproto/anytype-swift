@@ -9,7 +9,7 @@ extension UIFont {
     }
 
     private enum IBMPlexMono {
-        static let regular = "IBMPlexMono-Regular"
+        static let regular = "IBMPlexMono"
     }
 
     private enum Inter {

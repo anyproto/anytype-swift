@@ -1,12 +1,13 @@
 import SwiftUI
 
 struct AnytypeText: View {
-    let text: LocalizedStringKey
-    let font: Font
+    let textView: Text
     
     init(_ text: String, style: AnytypeFontBuilder.TextStyle) {
-        self.text = LocalizedStringKey(text)
-        self.font = AnytypeFontBuilder.font(textStyle: style)
+        let text = LocalizedStringKey(text)
+        let font = AnytypeFontBuilder.font(textStyle: style)
+        
+        textView = Text(text).font(font)
     }
     
     init(
@@ -15,17 +16,24 @@ struct AnytypeText: View {
         size: CGFloat,
         weight: Font.Weight
     ) {
-        self.text = LocalizedStringKey(text)
-        self.font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
+        let text = LocalizedStringKey(text)
+        let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
+        
+        textView = Text(text).font(font)
     }
     
     var body: some View {
-        Text(text).font(font)
+        textView
     }
 }
 
 struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
-        AnytypeText("Foo", style: .body)
+        VStack {
+            AnytypeText("Foo", style: .title)
+            AnytypeText("Foo", style: .body)
+            AnytypeText("Foo", style: .footnote)
+            AnytypeText("collapse", style: .codeBlock)
+        }
     }
 }

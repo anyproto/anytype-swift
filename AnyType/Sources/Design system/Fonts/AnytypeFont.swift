@@ -31,7 +31,7 @@ extension AnytypeFontBuilder {
 
     enum FontName: String {
         case graphik = "GraphikLCG-Semibold"
-        case plex = "IBMPlexMono-Regular"
+        case plex = "IBMPlexMono"
         case inter = "Inter"
     }
 }

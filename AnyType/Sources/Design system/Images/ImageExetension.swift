@@ -3,6 +3,9 @@ import SwiftUI
 
 extension Image {
     static let logo = Image("logo-sign-part-mobile")
+    static let arrow = Image("arrowForward")
+    
+    static let checked = Image("TextEditor/Style/Text/Checkbox/checked")
 }
 
 extension Image {

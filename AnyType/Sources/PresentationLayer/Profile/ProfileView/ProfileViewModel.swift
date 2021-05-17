@@ -35,8 +35,6 @@ final class ProfileViewModel: ObservableObject {
         }
     }
     
-    let coordinator = ProfileCoordinator(editorAssembly: EditorAssembly())
-    
     private let authService: AuthServiceProtocol
     
 

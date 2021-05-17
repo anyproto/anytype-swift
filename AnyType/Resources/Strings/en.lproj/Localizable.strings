@@ -8,7 +8,6 @@
 "or create an account" = "or create an account";
 "Here's your recovery phrase" = "Here's your recovery phrase";
 "Please make sure to keep and back up your recovery phrases" = "Please make sure to keep and back up your recovery phrases properly to prevent loss";
-"I've written it down" = "I've written it down";
 
 "Create pin code" = "Create pin code";
 "Verify pin code" = "Verify pin code";
@@ -111,6 +110,11 @@
 "Pin code" = "Pin code";
 "Log out" = "Log out";
 
+// Keychain screen
+"Back up your keychain phrase" = "Back up your keychain phrase";
+"Your Keychain phrase protects your account" = "Your Keychain phrase protects your account. You’ll need it to sign in if you don’t have access to your devices. Keep it in a safe place.";
+"Keychain phrase copied to clipboard" = "Keychain phrase copied to clipboard";
+
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";
@@ -138,8 +142,8 @@
 "no peers" = "no peers";
 "Add profile" = "Add profile";
 
-// Auth Errors
 
+// Auth Errors
 "Error creating wallet" = "Error creating wallet";
 "Login error" = "Login error";
 "Logout error" = "Logout error";

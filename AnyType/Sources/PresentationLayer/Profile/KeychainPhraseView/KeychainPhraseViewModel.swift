@@ -1,21 +1,27 @@
 import SwiftUI
 
 class KeychainPhraseViewModel: ObservableObject {
+    @Published var recoveryPhrase: String? = nil
+    @Published var showSnackbar = false
+    
     private let keychainStoreService = ServiceLocator.shared.keychainStoreService()
 
-    @Published var recoveryPhrase: String = ""
-    @Published var copySeedAction: Void = () {
-        didSet {
-            copySeed()
+    func obtainRecoveryPhrase() {
+        recoveryPhrase = try? keychainStoreService.obtainSeed(
+            for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence
+        )
+    }
+
+    func onSeedViewTap() {
+        if recoveryPhrase.isNil {
+            obtainRecoveryPhrase()
         }
-    }
-
-    func viewLoaded() {
-        let seed = try? keychainStoreService.obtainSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
-        self.recoveryPhrase = seed ?? ""
-    }
-
-    private func copySeed() {
+        
+        guard let recoveryPhrase = recoveryPhrase else {
+            return
+        }
+        
         UIPasteboard.general.string = recoveryPhrase
+        showSnackbar = true
     }
 }

@@ -36,7 +36,7 @@ enum StandardButtonStyle {
 }
 
 struct StandardButton: View {
-    var disabled: Bool
+    var disabled: Bool = false
     var text: String
     var style: StandardButtonStyle
     var action: StandardButtonAction

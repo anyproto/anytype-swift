@@ -15,7 +15,10 @@ extension Color {
     
     
     static let pureAmber = Color("pureAmber")
-    static let red = Color("red")
+    static let pureRed = Color("pureRed")
+    static let pureBlue = Color("pureBlue")
+    static let lightBlue = Color("lightBlue")
+    static let darkBlue = Color("darkBlue")
     
     
     // Mapping
@@ -28,4 +31,6 @@ extension Color {
     
     // Custom
     static let toastBackground = Color("toastBackground")
+    static let grayscale10 = Color("grayscale10")
+    
 }

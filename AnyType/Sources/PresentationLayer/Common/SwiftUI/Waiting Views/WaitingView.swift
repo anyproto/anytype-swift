@@ -1,11 +1,3 @@
-//
-//  WaitingView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 03.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 struct WaitingView: View {
@@ -33,7 +25,7 @@ struct WaitingView: View {
                             .transition(.scale)
                     } else {
                         AnytypeText("Failed", style: .title)
-                            .foregroundColor(.red)
+                            .foregroundColor(.pureRed)
                             .padding(.bottom, 5)
                             .transition(.opacity)
                     }

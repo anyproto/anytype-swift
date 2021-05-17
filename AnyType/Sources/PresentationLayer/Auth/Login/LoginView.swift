@@ -37,7 +37,7 @@ extension LoginView {
                                 .padding(.trailing, 15)
                             AnytypeText("Scan QR code", style: .body)
                             Spacer()
-                            Image("arrowForward")
+                            Image.arrow
                         }
                         Divider()
                     }
