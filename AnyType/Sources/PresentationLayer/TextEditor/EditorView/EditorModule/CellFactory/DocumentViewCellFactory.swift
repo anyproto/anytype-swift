@@ -1,18 +1,9 @@
-
-
 import UIKit
 
-/// Concrete factory for views for document
 final class DocumentViewCellFactory: DocumentViewCellFactoryProtocol {
     
-    private let selectedViewColor: UIColor
-    private let selectedViewCornerRadius: CGFloat
-    
-    init(selectedViewColor: UIColor,
-         selectedViewCornerRadius: CGFloat) {
-        self.selectedViewColor = selectedViewColor
-        self.selectedViewCornerRadius = selectedViewCornerRadius
-    }
+    private let selectedViewColor: UIColor = .selectedItemColor
+    private let selectedViewCornerRadius: CGFloat = 8
     
     func makeSelectedBackgroundViewForBlockCell() -> UIView {
         let view = UIView()

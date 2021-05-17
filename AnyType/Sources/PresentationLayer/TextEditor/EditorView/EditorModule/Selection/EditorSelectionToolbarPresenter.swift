@@ -2,8 +2,7 @@ import Foundation
 import UIKit
 import Combine
 
-/// This selection handler is intended to show controls.
-class EditorSelectionToolbarPresenter {
+extension EditorSelectionToolbarPresenter {
     struct RestorationPoint {
         var leftBarButtons: [UIBarButtonItem]?
         var rightBarButtons: [UIBarButtonItem]?
@@ -17,8 +16,10 @@ class EditorSelectionToolbarPresenter {
             navigationItem.rightBarButtonItems = self.rightBarButtons
         }
     }
-            
-    
+}
+
+/// This selection handler is intended to show controls.
+class EditorSelectionToolbarPresenter {
     /// Aliases
     typealias SelectionAction = MultiSelectionPane.UIKit.Main.Action
     typealias SelectionEvent = EditorSelectionIncomingEvent
@@ -30,11 +31,22 @@ class EditorSelectionToolbarPresenter {
     
     /// Variables / Targets
     private weak var topBottomMenuViewController: TopBottomMenuViewController?
-    private weak var navigationItem: UINavigationItem?
+    weak var navigationItem: UINavigationItem?
     
     /// Subscribe on UserAction.
     var userAction: AnyPublisher<SelectionAction, Never> {
         return self.multiSelectionAssembly.viewModel.userAction
+    }
+    
+    init(
+        topBottomMenuViewController: TopBottomMenuViewController?,
+        selectionEventPublisher: AnyPublisher<SelectionEvent, Never>
+    ) {
+        self.topBottomMenuViewController = topBottomMenuViewController
+        
+        self.subscription = selectionEventPublisher.sink(receiveValue: { [weak self] (value) in
+            self?.update(selectionEvent: value)
+        })
     }
     
     // TODO: Make Private?
@@ -83,25 +95,5 @@ class EditorSelectionToolbarPresenter {
             case let .nonEmpty(count, turnIntoStyles): self.update(selectedCount: .init(count), turnIntoStyles: turnIntoStyles)
             }
         }
-    }
-}
-
-// MARK: Configurations
-extension EditorSelectionToolbarPresenter {
-    func configured(topBottomMenuViewController: TopBottomMenuViewController?) -> Self {
-        self.topBottomMenuViewController = topBottomMenuViewController
-        return self
-    }
-    
-    func configured(navigationItem: UINavigationItem?) -> Self {
-        self.navigationItem = navigationItem
-        return self
-    }
-    
-    func configured(selectionEventPublisher: AnyPublisher<SelectionEvent, Never>) -> Self {
-        self.subscription = selectionEventPublisher.sink(receiveValue: { [weak self] (value) in
-            self?.update(selectionEvent: value)
-        })
-        return self
     }
 }
