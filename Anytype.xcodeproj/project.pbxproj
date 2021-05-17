@@ -428,6 +428,7 @@
 		EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE4262AE61200EA869F /* BlockAction.swift */; };
 		EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE7262AE62E00EA869F /* BlockColorAction.swift */; };
 		EA289BEC262AE66000EA869F /* BlockBackgroundColorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */; };
+		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
 		EA2F0D60264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */; };
 		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
 		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
@@ -945,6 +946,7 @@
 		EA289BE4262AE61200EA869F /* BlockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAction.swift; sourceTree = "<group>"; };
 		EA289BE7262AE62E00EA869F /* BlockColorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockColorAction.swift; sourceTree = "<group>"; };
 		EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBackgroundColorAction.swift; sourceTree = "<group>"; };
+		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
 		EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuItemSimpleDisplayDataFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
@@ -1402,6 +1404,7 @@
 				EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */,
 				EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */,
 				EA955D732646836D00817F80 /* BlockChildrenIdsUpdates.swift */,
+				EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -3134,7 +3137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */;
+			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3353,6 +3356,7 @@
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
 				0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */,
+				EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
@@ -3939,7 +3943,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */ = {
+		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,

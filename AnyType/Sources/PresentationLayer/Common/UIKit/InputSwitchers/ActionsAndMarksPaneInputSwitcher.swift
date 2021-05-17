@@ -10,6 +10,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     let textToTriggerActionsViewDisplay = "/"
     private var displayActionsViewTask: DispatchWorkItem?
     private var actionsViewTriggerSymbolPosition: UITextPosition?
+    var textViewChange: TextViewTextChangeType?
     
     override func switchInputs(_ inputViewKeyboardSize: CGSize,
                                animated: Bool,
@@ -126,7 +127,13 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     private func updateActionsViewDisplayState(coordinator: BlockTextViewCoordinator, textView: UITextView) {
         self.displayActionsViewTask?.cancel()
-        guard let caretPosition = textView.caretPosition() else { return }
+        // We want do to display actions menu in case
+        // text was changed - "text" -> "text/"
+        // but do not want to display in case
+        // "text/a" -> "text/"
+        guard let caretPosition = textView.caretPosition(),
+              let textViewChange = textViewChange,
+              textViewChange != .deletingSymbols else { return }
         if coordinator.menuActionsAccessoryView?.window != nil,
            let triggerSymbolPosition = actionsViewTriggerSymbolPosition,
            let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) {

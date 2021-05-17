@@ -365,6 +365,7 @@ extension BlockTextViewCoordinator: UITextViewDelegate {
         // we can send multiple split requests to middle
         // from the same block, it will leads to wrong order of blocks in array,
         // adding a delay in UITextView makes impossible to press enter very often
+        inputSwitcher.textViewChange = textView.textChangeType(changeTextRange: range, replacementText: text)
         if text == "\n" && !self.pressingEnterTimeChecker.exceedsTimeInterval() {
             return false
         }
@@ -422,6 +423,10 @@ extension BlockTextViewCoordinator: UITextViewDelegate {
         DispatchQueue.main.async {
             self.textSizeChangeSubject.send(contentSize)
         }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        inputSwitcher.textViewChange = nil
     }
 }
 

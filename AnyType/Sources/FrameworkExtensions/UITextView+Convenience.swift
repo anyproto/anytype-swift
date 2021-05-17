@@ -55,4 +55,11 @@ extension UITextView {
             becomeFirstResponder()
         }
     }
+    
+    func textChangeType(changeTextRange: NSRange, replacementText: String) -> TextViewTextChangeType {
+        if replacementText == "",  changeTextRange.location < text.count {
+            return .deletingSymbols
+        }
+        return .typingSymbols
+    }
 }
