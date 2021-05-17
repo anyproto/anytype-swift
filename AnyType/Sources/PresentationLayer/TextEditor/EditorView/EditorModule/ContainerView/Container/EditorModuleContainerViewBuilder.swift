@@ -14,34 +14,16 @@ enum EditorModuleContainerViewBuilder {
         self.selfComponent(id: id).0
     }
     
-    /// Returns `ChildComponent` for request in concrete builder. It uses `ChildViewBuilder.UIKitBuilder.selfComponent(by:)` method.
-    /// For us `childComponent` is a `selfComponent` of `ChildViewBuilder` or `ChildViewBuilder.UIKitBuilder.selfComponent(by:)`
-    /// - Parameter request: A request for which we will build child component.
-    /// - Returns: A child component for a request.
-    ///
     static func childComponent(id: String) -> EditorModuleContentModule {
         ChildViewBuilder.сontent(id: id)
     }
     
-    /// Return `SelfComponent` for request in concrete builder.
-    /// For us `selfComponent` is a target for this builder. It access childComponent to configure it by entities on this level.
-    ///
-    /// For example, if you want connect user actions which are coming from internal view, you need access to it on level of builder.
-    /// It will be `childComponent` or `childChildComponent` ( a.k.a. `ChildViewBuilder.UIKitBuilder.ChildComponent` )
-    ///
-    /// - Parameter request: A request for which we will build self component.
-    /// - Returns: A self component for a request.
-    ///
     private static func selfComponent(id: String) -> SelfComponent {
         let childComponent = self.childComponent(id: id)
         
         let childViewController = childComponent.0
         
-        /// Configure Navigation Controller
-        let navigationController = UINavigationController(navigationBarClass: EditorModuleContainerViewBuilder.NavigationBar.self, toolbarClass: nil)
-        NavigationBar.applyAppearance()
-        navigationController.setViewControllers([childViewController], animated: false)
-        navigationController.navigationBar.isTranslucent = false
+        let navigationController = createNavigationController(child: childViewController)
         
         /// Configure Navigation Item for Content View Model.
         /// We need it to support Selection navigation bar buttons.
@@ -57,18 +39,29 @@ enum EditorModuleContainerViewBuilder {
         _ = viewModel.configured(router: router)
         
         /// Configure current ViewController.
-        let viewController = EditorModuleContainerViewController(viewModel: viewModel)
-        _ = viewController.configured(childViewController: navigationController)
-        
-        /// Configure navigation item of root
-        let backButtonImage = UIImage(systemName: "chevron.backward", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))
-        childViewController.navigationItem.leftBarButtonItem = .init(image: backButtonImage, style: .plain, target: viewController, action: #selector(viewController.dismissAction))
+        let viewController = EditorModuleContainerViewController(viewModel: viewModel, childViewController: navigationController)
+        childViewController.navigationItem.leftBarButtonItem = createBackButton(container: viewController)
 
         /// DEBUG: Conformance to navigation delegate.
-        ///
         navigationController.delegate = viewController
         
         return (viewController, viewModel, childComponent)
+    }
+    
+    private static func createBackButton(container: EditorModuleContainerViewController) -> UIBarButtonItem {
+        let backButtonImage = UIImage(systemName: "chevron.backward", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))
+        return UIBarButtonItem(image: backButtonImage, style: .plain, target: container, action: #selector(container.dismissAction))
+    }
+    
+    private static func createNavigationController(child: UIViewController) -> UINavigationController {
+        let navigationController = UINavigationController(
+            navigationBarClass: EditorModuleContainerViewBuilder.NavigationBar.self,
+            toolbarClass: nil
+        )
+        NavigationBar.applyAppearance()
+        navigationController.setViewControllers([child], animated: false)
+        navigationController.navigationBar.isTranslucent = false
+        return navigationController
     }
 }
 

@@ -9,28 +9,32 @@ import Combine
 typealias TransitionViewController = CommonViews.ViewControllers.TransitionContainerViewController
 class EditorModuleContainerViewController: UIViewController {
     
-    /// Variables
     private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
     var userActionPublisher: AnyPublisher<UserAction, Never> = .empty()
     
     private var transitionContainer: TransitionViewController = .init()
     private var viewModel: EditorModuleContainerViewModel
-    private var childViewController: UIViewController?
+    private let childViewController: UIViewController
     private var subscription: AnyCancellable?
     private var toRemove: AnyCancellable?
     private var childAsNavigationController: UINavigationController? {
         self.childViewController as? UINavigationController
     }
     
-    /// Setup
     func setup() {
-        self.configured(actionsPublisher: self.viewModel.actionPublisher())
+        self.subscription = viewModel.actionPublisher().sink { [weak self] (value) in
+            self?.handle(value)
+        }
+        
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
     }
             
-    /// Initialization
-    init(viewModel: EditorModuleContainerViewModel) {
+    init(
+        viewModel: EditorModuleContainerViewModel,
+        childViewController: UIViewController
+    ) {
         self.viewModel = viewModel
+        self.childViewController = childViewController
         super.init(nibName: nil, bundle: nil)
         self.setup()
     }
@@ -48,12 +52,12 @@ class EditorModuleContainerViewController: UIViewController {
         case let .childDocument(value):
             let viewModel = value.viewModel
             let viewController = value.viewController
-            _ = viewModel.configured(navigationItem: viewController.navigationItem)
+            viewModel.configured(navigationItem: viewController.navigationItem)
             self.handle(.child(value.viewController))
         case let .showDocument(value):
             let viewModel = value.viewModel
             let viewController = value.viewController
-            _ = viewModel.configured(navigationItem: viewController.navigationItem)
+            viewModel.configured(navigationItem: viewController.navigationItem)
             self.handle(.show(value.viewController))
         }
     }
@@ -89,13 +93,11 @@ extension EditorModuleContainerViewController: UINavigationControllerDelegate {
 // MARK: Setup And Layout
 private extension EditorModuleContainerViewController {
     func setupUIElements() {
-        if let viewController = self.childViewController {
-            self.addChild(viewController)
-        }
+        self.addChild(childViewController)
     }
     
     func addLayout() {
-        if let view = self.childViewController?.view {
+        if let view = self.childViewController.view {
             self.view.addSubview(view)
             if let superview = view.superview {
                 let constraints = [
@@ -109,17 +111,11 @@ private extension EditorModuleContainerViewController {
         }
     }
     
-    func addGestureRecognizer() {
-//        let recognizer = UIPanGestureRecognizer.init(target: self, action: #selector(self.didDrag(sender:)))
-//        self.view.addGestureRecognizer(recognizer)
-    }
-    
     func configuredTransitioning() {
         let presentation: TransitionController? = .init()
         let dismissal: TransitionController? = .init()
         _ = dismissal?.configured(transitionDirection: .backward)
         _ = presentation?.configured(presentedViewController: self)
-        //        self.transitionContainer.configured
         let containerController = self.transitionContainer
         _ = containerController//.configured(root: self)
             .configured(presentationAnimator: presentation)
@@ -182,20 +178,6 @@ extension EditorModuleContainerViewController {
         self.setupUIElements()
         self.addLayout()
         self.didMove(toParent: self.childViewController)
-        self.addGestureRecognizer()
         self.configuredTransitioning()
-    }
-}
-
-// MARK: Configurations
-extension EditorModuleContainerViewController {
-    func configured(actionsPublisher: AnyPublisher<EditorModuleContainerViewModel.Action, Never>) {
-        self.subscription = actionsPublisher.sink(receiveValue: { [weak self] (value) in
-            self?.handle(value)
-        })
-    }
-    func configured(childViewController: UIViewController?) -> Self {
-        self.childViewController = childViewController
-        return self
     }
 }

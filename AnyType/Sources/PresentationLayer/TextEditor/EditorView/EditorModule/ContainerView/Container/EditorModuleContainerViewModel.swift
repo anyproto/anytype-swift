@@ -18,66 +18,10 @@ extension EditorModuleContainerViewModel {
     }
 }
 
-// MARK: RouterProcessor
-extension EditorModuleContainerViewModel {
-    private class RoutingProcessor {
-        /// Aliases
-        typealias IncomingEvent = DocumentViewRouting.OutputEvent
-        typealias UserAction = Action
-        
-        /// Variables
-        private var subscription: AnyCancellable?
-        private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
-        fileprivate var userAction: AnyPublisher<UserAction, Never> = .empty()
-        
-        /// TODO: Maybe extract to some entity
-        func build(id: String) -> EditorModuleContentModule {
-            let component = EditorModuleContainerViewBuilder.childComponent(id: id)
-            /// Next, we should configure router and, well, we should configure navigation item, of course...
-            /// But we don't know anything about navigation item here...
-            /// We could ask ViewModel to configure and then send this event to view controller.
-            return component
-        }
-        
-        /// Processing
-        func process(_ value: IncomingEvent) {
-            switch value {
-            case let .general(value):
-                switch value {
-                case let .show(value): self.userActionSubject.send(.show(value))
-                case let .child(value): self.userActionSubject.send(.child(value))
-                }
-            case let .document(value):
-                switch value {
-                case let .show(id):
-                    let viewController = self.build(id: id)
-                    self.userActionSubject.send(.showDocument(viewController))
-                case let .child(id):
-                    let viewController = self.build(id: id)
-                    self.userActionSubject.send(.childDocument(viewController))
-                }
-            }
-        }
-        
-        /// Initialization
-        init() {
-            self.userAction = self.userActionSubject.eraseToAnyPublisher()
-        }
-        
-        /// Configurations
-        func configured(_ eventsPublisher: AnyPublisher<IncomingEvent, Never>?) {
-            self.subscription = eventsPublisher?.sink(receiveValue: { [weak self] (value) in
-                self?.process(value)
-            })
-        }
-    }
-}
-
 // MARK: ViewModel
 class EditorModuleContainerViewModel {
-    /// Keep router and routing processor in one place.
     private var router: DocumentViewRoutingOutputProtocol?
-    private var routingProcessor: RoutingProcessor = .init()
+    private let routingProcessor = EditorContainerRoutingProcessor()
     
     private var subscription: AnyCancellable?
     /// And publish on actions that associated controller will handle.
