@@ -14,22 +14,11 @@ final class DocumentDetailsView: UICollectionReusableView {
     
     // MARK: - Views
 
-    private lazy var verticalStackView: UIStackView = {
-        let stackView = UIStackView()
-        
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        stackView.isLayoutMarginsRelativeArrangement = true
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.directionalLayoutMargins = Constants.directionalEdgeInsets
-
-        return stackView
-    }()
+    private let iconView: DocumentIconView = DocumentIconView()
     
     // MARK: - Variables
     
-    private(set) weak var viewModel: DocumentDetailsViewModel?
+    private weak var viewModel: DocumentDetailsViewModel?
     private var subscriptions: Set<AnyCancellable> = []
 
     // MARK: Initialization
@@ -40,12 +29,18 @@ final class DocumentDetailsView: UICollectionReusableView {
         setupLayout()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    public override var intrinsicContentSize: CGSize {
-        .zero
+    // MARK: - Override functions
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        subscriptions.forEach { $0.cancel() }
+        viewModel = nil
     }
     
 }
@@ -54,13 +49,15 @@ final class DocumentDetailsView: UICollectionReusableView {
 
 extension DocumentDetailsView: ConfigurableView {
     
-    public func configure(model: DocumentDetailsViewModel) {
+    func configure(model: DocumentDetailsViewModel) {
+        subscriptions.forEach { $0.cancel() }
+        
         viewModel = model
-        viewModel?.$childViewModels
-            .sink { [weak self] viewModels in
-                self?.handleDetailsChildViewModels(viewModels)
+        viewModel?.$iconEmoji
+            .sink { [weak self] newIconEmoji in
+                self?.handleIconEmojiUpdate(newIconEmoji)
             }
-            .store(in: &self.subscriptions)
+            .store(in: &subscriptions)
     }
     
 }
@@ -72,17 +69,26 @@ private extension DocumentDetailsView {
     // MARK: Layout
     
     func setupLayout() {
-        addSubview(verticalStackView)
-        verticalStackView.pinAllEdges(to: self)
+        layoutUsing.stack {
+            $0.vStack(
+                $0.vGap(fixed: Constants.directionalEdgeInsets.top),
+                $0.hStack(
+                    $0.hGap(fixed: Constants.directionalEdgeInsets.leading),
+                    self.iconView,
+                    $0.hGap()
+                ),
+                $0.vGap(fixed: Constants.directionalEdgeInsets.bottom)
+            )
+        }
     }
     
     // MARK: Event handler
     
-    func handleDetailsChildViewModels(_ viewModels: [DocumentDetailsChildViewModel]) {
-        viewModels
-            .map { $0.makeView() }
-            .forEach { self.verticalStackView.addArrangedSubview($0) }
+    func handleIconEmojiUpdate(_ iconEmoji: String?) {
+        iconView.isHidden = iconEmoji.isNil
+        iconEmoji.flatMap { iconView.configure(model: $0) }
     }
+    
 }
 
 // MARK: - Constants
@@ -97,4 +103,5 @@ private extension DocumentDetailsView {
             trailing: 20
         )
     }
+    
 }

@@ -33,7 +33,7 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
 
     /// DocumentDetailsViewModel
-    private(set) var detailsViewModel: DocumentDetailsViewModel = DocumentDetailsViewModel()
+    let detailsViewModel: DocumentDetailsViewModel = DocumentDetailsViewModel()
     
     /// User Interaction Processor
     private lazy var oldblockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
@@ -220,14 +220,25 @@ class DocumentEditorViewModel: ObservableObject {
             }.store(in: &self.subscriptions)
             
         self.documentViewModel.open(value)
-        let currentIconEmoji = documentViewModel.defaultActiveDetails.currentDetails.iconEmoji?.value
-        if currentIconEmoji?.isEmpty == false {
-            self.detailsViewModel.childViewModels = [
-                DocumentIconViewModelNew(
-                    detailsActiveModel: documentViewModel.defaultActiveDetails
-                )
-            ]
-        }
+        
+        documentViewModel.pageDetailsPublisher()
+            .reciveOnMain()
+            .sink { [weak self] detailsInformationProvider in
+                let iconEmoji: String? = {
+                    guard
+                        let emoji = detailsInformationProvider.iconEmoji?.value,
+                        emoji.isSingleEmoji
+                    else {
+                        return nil
+                    }
+                    
+                    return emoji
+                }()
+                
+                self?.detailsViewModel.iconEmoji = iconEmoji
+            }
+            .store(in: &subscriptions)
+
         self.configureInteractions(self.documentViewModel.documentId)
     }
     

@@ -32,7 +32,7 @@ final class DocumentIconViewModelNew: DocumentDetailsChildViewModel {
     }
     
     func makeView() -> UIView {
-        DocumentIconView().configured(with: self)
+        DocumentIconView()
     }
     
 }

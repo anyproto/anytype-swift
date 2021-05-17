@@ -242,6 +242,8 @@
 		0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */; };
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1224B571264C27EB0064A0E0 /* IconEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1224B570264C27EB0064A0E0 /* IconEmojiView.swift */; };
+		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
+		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
 		124C1623264D35B8003C411C /* DocumentDetailsChildViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124C1622264D35B8003C411C /* DocumentDetailsChildViewModel.swift */; };
 		124C1629264D3BBA003C411C /* DocumentIconViewModelNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124C1628264D3BBA003C411C /* DocumentIconViewModelNew.swift */; };
 		124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124C162A264D5B6A003C411C /* DocumentDetailsViewModel.swift */; };
@@ -765,6 +767,8 @@
 		0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Protocols.swift"; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1224B570264C27EB0064A0E0 /* IconEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconEmojiView.swift; sourceTree = "<group>"; };
+		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		124C1622264D35B8003C411C /* DocumentDetailsChildViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsChildViewModel.swift; sourceTree = "<group>"; };
 		124C1628264D3BBA003C411C /* DocumentIconViewModelNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewModelNew.swift; sourceTree = "<group>"; };
 		124C162A264D5B6A003C411C /* DocumentDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -2123,6 +2127,8 @@
 			isa = PBXGroup;
 			children = (
 				12DE403C264AD15D007B5074 /* OptionalExtensions.swift */,
+				12472316264EAFD400B1E753 /* StringExtensions.swift */,
+				1247231A264EB21800B1E753 /* CharacterExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3497,6 +3503,7 @@
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
 				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
+				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* BlockTextView.swift in Sources */,
@@ -3540,6 +3547,7 @@
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
 				0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */,
+				1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */,
 				3D0BFB5C263C3596007CC856 /* HomveViewModelCellDataBuilder.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,

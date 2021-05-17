@@ -7,11 +7,12 @@
 //
 
 import Combine
+import BlocksModels
 
 final class DocumentDetailsViewModel {
     
     // MARK: Publishers
-    
-    @Published var childViewModels: [DocumentDetailsChildViewModel] = []
         
+    @Published var iconEmoji: String?
+    
 }

@@ -9,7 +9,7 @@ final class DocumentViewModel: DocumentViewModelProtocol {
     var rootActiveModel: BaseDocument.ActiveModel? { self.document.getRootActiveModel() }
     var userSession: BaseDocument.UserSession? { self.document.getUserSession() }
     
-    var defaultActiveDetails: DetailsActiveModel {
+    var defaultDetailsActiveModel: DetailsActiveModel {
         self.document.getDefaultDetails()
     }
     

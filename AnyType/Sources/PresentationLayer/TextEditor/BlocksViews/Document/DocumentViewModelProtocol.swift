@@ -6,7 +6,7 @@ protocol DocumentViewModelProtocol {
     var documentId: String? { get } // TODO: Remove
     var rootActiveModel: BaseDocument.ActiveModel? { get }
     var userSession: BaseDocument.UserSession? { get }
-    var defaultActiveDetails: DetailsActiveModel { get }
+    var defaultDetailsActiveModel: DetailsActiveModel { get }
     
     func open(_ value: ServiceSuccess)
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never>

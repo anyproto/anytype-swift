@@ -104,10 +104,9 @@ final class DocumentEditorViewController: UICollectionViewController {
                 return UICollectionReusableView()
             }
             
-            if headerView.viewModel.isNil,
-               let viewModel = self?.viewModel.detailsViewModel {
-                headerView.configure(model: viewModel)
-            }
+            guard let viewModel = self?.viewModel.detailsViewModel else { return headerView }
+            
+            headerView.configure(model: viewModel)
             
             return headerView
         }

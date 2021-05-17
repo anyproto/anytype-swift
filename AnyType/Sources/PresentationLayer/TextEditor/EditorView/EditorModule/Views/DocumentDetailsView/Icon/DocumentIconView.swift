@@ -7,12 +7,7 @@ final class DocumentIconView: UIView {
     // MARK: - Private properties
     
     private let iconEmojiView: IconEmojiView = IconEmojiView()
-    
-    private weak var viewModel: DocumentIconViewModelNew?
-//    private weak var viewModel: DocumentIconViewModel? // Will be removed later
-    
-    private var subscriptions: Set<AnyCancellable> = []
-    
+        
     // MARK: Initialization
     
     override init(frame: CGRect) {
@@ -33,13 +28,11 @@ final class DocumentIconView: UIView {
 
 extension DocumentIconView: ConfigurableView {
     
-    func configure(model: DocumentIconViewModelNew) {
-        viewModel = model
-        viewModel?.$iconEmoji.reciveOnMain()
-            .sink { [weak self] newEmoji in
-                self?.iconEmojiView.configure(model: newEmoji)
-            }
-            .store(in: &self.subscriptions)
+    func configure(model: String) {
+        iconEmojiView.configure(model: model)
+        iconEmojiView.layoutUsing.anchors {
+            $0.size(Constants.EmojiView.size)
+        }
     }
     
 }
@@ -56,23 +49,15 @@ private extension DocumentIconView {
     
     func configureIconEmojiView() {
         // Setup action menu
-        let interaction = UIContextMenuInteraction(delegate: self)
-        iconEmojiView.addInteraction(interaction)
+//        let interaction = UIContextMenuInteraction(delegate: self)
+//        iconEmojiView.addInteraction(interaction)
         
         iconEmojiView.layer.cornerRadius = Constants.EmojiView.cornerRadius
     }
     
     func setUpLayout() {
-        layoutUsing.stack {
-            $0.hStack(
-                iconEmojiView,
-                $0.hGap()
-            )
-        }
-        
-        iconEmojiView.layoutUsing.anchors {
-            $0.size(Constants.EmojiView.size)
-        }
+        addSubview(iconEmojiView)
+        iconEmojiView.pinAllEdges(to: self)
     }
     
 }
@@ -80,43 +65,43 @@ private extension DocumentIconView {
 //TODO: Maybe it is better to add nested object ContextMenu which adopts this protocol and also it shares viewModel with this view
 
 // MARK: - UIContextMenuInteractionDelegate
-
-extension DocumentIconView: UIContextMenuInteractionDelegate {
-    
-    func contextMenuInteraction(
-        _ interaction: UIContextMenuInteraction,
-        configurationForMenuAtLocation location: CGPoint
-    ) -> UIContextMenuConfiguration? {
-        guard let actions = viewModel?.contextMenuActions else { return nil }
-        
-        return UIContextMenuConfiguration(
-            identifier: nil,
-            previewProvider: nil,
-            actionProvider: { suggestedActions in
-                UIMenu(
-                    title: "",
-                    children: actions
-                )
-            }
-        )
-    }
-    
-    func contextMenuInteraction(
-        _ interaction: UIContextMenuInteraction,
-        previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration
-    ) -> UITargetedPreview? {
-        let parameters = UIPreviewParameters()
-        let targetedView: UIView = iconEmojiView
-        
-        parameters.visiblePath = UIBezierPath(
-            roundedRect: targetedView.bounds,
-            cornerRadius: targetedView.layer.cornerRadius
-        )
-        
-        return UITargetedPreview(view: targetedView, parameters: parameters)
-    }
-    
-}
+//
+//extension DocumentIconView: UIContextMenuInteractionDelegate {
+//
+//    func contextMenuInteraction(
+//        _ interaction: UIContextMenuInteraction,
+//        configurationForMenuAtLocation location: CGPoint
+//    ) -> UIContextMenuConfiguration? {
+//        guard let actions = viewModel?.contextMenuActions else { return nil }
+//
+//        return UIContextMenuConfiguration(
+//            identifier: nil,
+//            previewProvider: nil,
+//            actionProvider: { suggestedActions in
+//                UIMenu(
+//                    title: "",
+//                    children: actions
+//                )
+//            }
+//        )
+//    }
+//
+//    func contextMenuInteraction(
+//        _ interaction: UIContextMenuInteraction,
+//        previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration
+//    ) -> UITargetedPreview? {
+//        let parameters = UIPreviewParameters()
+//        let targetedView: UIView = iconEmojiView
+//
+//        parameters.visiblePath = UIBezierPath(
+//            roundedRect: targetedView.bounds,
+//            cornerRadius: targetedView.layer.cornerRadius
+//        )
+//
+//        return UITargetedPreview(view: targetedView, parameters: parameters)
+//    }
+//
+//}
 
 // MARK: - Constants
 
