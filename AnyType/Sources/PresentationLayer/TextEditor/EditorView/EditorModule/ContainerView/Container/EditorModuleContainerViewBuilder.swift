@@ -8,8 +8,7 @@ enum EditorModuleContainerViewBuilder {
     typealias ChildViewController = EditorModuleContentViewController
     typealias ChildViewBuilder = EditorModuleContentViewBuilder
     
-    typealias ChildComponent = ChildViewBuilder.SelfComponent
-    typealias SelfComponent = (viewController: EditorModuleContainerViewController, viewModel: EditorModuleContainerViewModel, childComponent: ChildComponent)
+    typealias SelfComponent = (viewController: EditorModuleContainerViewController, viewModel: EditorModuleContainerViewModel, childComponent: EditorModuleContentModule)
     
     static func view(id: String) -> EditorModuleContainerViewController {
         self.selfComponent(id: id).0
@@ -20,8 +19,8 @@ enum EditorModuleContainerViewBuilder {
     /// - Parameter request: A request for which we will build child component.
     /// - Returns: A child component for a request.
     ///
-    static func childComponent(id: String) -> ChildComponent {
-        ChildViewBuilder.selfComponent(id: id)
+    static func childComponent(id: String) -> EditorModuleContentModule {
+        ChildViewBuilder.сontent(id: id)
     }
     
     /// Return `SelfComponent` for request in concrete builder.
@@ -47,14 +46,11 @@ enum EditorModuleContainerViewBuilder {
         /// Configure Navigation Item for Content View Model.
         /// We need it to support Selection navigation bar buttons.
         let childViewModel = childComponent.1
-        _ = childViewModel.configured(navigationItem: childViewController.navigationItem)
-        
-        let childChildComponent = childComponent.2
-        let childChildViewModel = childChildComponent.1
+        childViewModel.configured(navigationItem: childViewController.navigationItem)
         
         /// Don't forget configure router by events from blocks.
         let router: DocumentViewRouting.CompoundRouter = .init()
-        _ = router.configured(userActionsStream: childChildViewModel.publicUserActionPublisher)
+        _ = router.configured(userActionsStream: childComponent.2)
         
         /// Configure ViewModel of current View Controller.
         let viewModel = EditorModuleContainerViewModel()

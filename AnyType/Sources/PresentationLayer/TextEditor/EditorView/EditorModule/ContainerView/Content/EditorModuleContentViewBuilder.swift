@@ -1,41 +1,39 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Combine
+import BlocksModels
+
+typealias EditorModuleContentModule = (
+    viewController: EditorModuleContentViewController,
+    viewModel: EditorModuleContentViewModel,
+    publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never>
+)
 
 enum EditorModuleContentViewBuilder {
-    typealias SelfComponent = (
-        viewController: EditorModuleContentViewController,
-        viewModel: EditorModuleContentViewModel,
-        childComponent: EditorComponent
-    )
-    
-    static func selfComponent(id: String) -> SelfComponent {
-        let (childViewController, childViewModel) = editorModule(id: id)
-        
+    static func сontent(id: String) -> EditorModuleContentModule {
         let topBottomMenuViewController = TopBottomMenuViewController()
-        topBottomMenuViewController.add(child: childViewController)
         
-        let viewModel = EditorModuleContentViewModel(
+        let contentViewModel = EditorModuleContentViewModel(
             topBottomMenuViewController: topBottomMenuViewController
         )
         
-        let viewController: EditorModuleContentViewController = .init(viewModel: viewModel)
-                    
-        _ = viewController.configured(childViewController: topBottomMenuViewController)
-
-        _ = childViewModel.configured(multiSelectionUserActionPublisher: viewModel.selectionAction)
-        _ = childViewModel.configured(selectionHandler: viewModel.selectionHandler)
+        let editorViewModel = DocumentEditorViewModel(
+            documentId: id,
+            selectionHandler: contentViewModel.selectionHandler,
+            multiSelectionUserActionPublisher: contentViewModel.selectionAction
+        )
         
-        return (viewController, viewModel, (childViewController, childViewModel))
-    }
-    
-    typealias EditorComponent = (viewController: DocumentEditorViewController, viewModel: DocumentEditorViewModel)
-    static func editorModule(id: String) -> EditorComponent {
-        let viewModel = DocumentEditorViewModel(documentId: id)
-        let cellFactory = DocumentViewCellFactory()
-        let view = DocumentEditorViewController(viewModel: viewModel, viewCellFactory: cellFactory)
-        viewModel.viewInput = view
+        let childViewController = DocumentEditorViewController(viewModel: editorViewModel, viewCellFactory: DocumentViewCellFactory())
+        editorViewModel.viewInput = childViewController
         
-        return (view, viewModel)
+        topBottomMenuViewController.add(child: childViewController)
+        
+        let contentViewController = EditorModuleContentViewController(
+            viewModel: contentViewModel,
+            childViewController: topBottomMenuViewController
+        )
+        
+        return (contentViewController, contentViewModel, editorViewModel.publicUserActionPublisher)
     }
 }

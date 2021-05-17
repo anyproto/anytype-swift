@@ -83,8 +83,17 @@ class DocumentEditorViewModel: ObservableObject {
     private var lastSetTextClosure: (() -> Void)?
 
     // MARK: - Initialization
-
-    init(documentId: String) {
+    init(
+        documentId: String,
+        selectionHandler: EditorModuleSelectionHandlerProtocol?,
+        multiSelectionUserActionPublisher: AnyPublisher<EditorSelectionToolbarPresenter.SelectionAction, Never>
+    ) {
+        self.selectionHandler = selectionHandler
+        
+        multiSelectionUserActionPublisher.sink { [weak self] (value) in
+            self?.process(value)
+        }.store(in: &self.subscriptions)
+        
         self.setupSubscriptions()
 
         // TODO: Deprecated.
@@ -403,22 +412,8 @@ extension DocumentEditorViewModel {
     }
 }
 
-extension DocumentEditorViewModel {
-    func configured(multiSelectionUserActionPublisher: AnyPublisher<EditorSelectionToolbarPresenter.SelectionAction, Never>) -> Self {
-        multiSelectionUserActionPublisher.sink { [weak self] (value) in
-            self?.process(value)
-        }.store(in: &self.subscriptions)
-        return self
-    }
-
-    func configured(selectionHandler: EditorModuleSelectionHandlerProtocol?) -> Self {
-        self.selectionHandler = selectionHandler
-        return self
-    }
-}
 
 // MARK: - Debug
-
 extension DocumentEditorViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
         "\(String(reflecting: Self.self)) -> \(String(describing: self.documentViewModel.documentId))"

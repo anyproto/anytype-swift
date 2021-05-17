@@ -7,8 +7,12 @@ class EditorModuleContentViewController: UIViewController {
     private var viewModel: EditorModuleContentViewModel
     private var childViewController: UIViewController?
     
-    init(viewModel: EditorModuleContentViewModel) {
+    init(
+        viewModel: EditorModuleContentViewModel,
+        childViewController: UIViewController
+    ) {
         self.viewModel = viewModel
+        self.childViewController = childViewController
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,11 +48,5 @@ class EditorModuleContentViewController: UIViewController {
         self.setupUIElements()
         self.addLayout()
         self.didMove(toParent: self.childViewController)
-    }
-
-    // MARK: Configurations
-    func configured(childViewController: UIViewController?) -> Self {
-        self.childViewController = childViewController
-        return self
     }
 }

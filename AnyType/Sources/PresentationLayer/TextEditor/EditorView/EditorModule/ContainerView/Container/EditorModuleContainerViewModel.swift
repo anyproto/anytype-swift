@@ -10,11 +10,10 @@ extension EditorModuleContainerViewModel {
     /// Generally, corresponing `ViewController` of this `viewModel` will subscribe on these actions.
     ///
     enum Action {
-        typealias Document = EditorModuleContainerViewBuilder.ChildComponent
         case show(UIViewController)
         case child(UIViewController)
-        case showDocument(Document)
-        case childDocument(Document)
+        case showDocument(EditorModuleContentModule)
+        case childDocument(EditorModuleContentModule)
         case pop
     }
 }
@@ -32,7 +31,7 @@ extension EditorModuleContainerViewModel {
         fileprivate var userAction: AnyPublisher<UserAction, Never> = .empty()
         
         /// TODO: Maybe extract to some entity
-        func build(id: String) -> EditorModuleContainerViewBuilder.ChildComponent {
+        func build(id: String) -> EditorModuleContentModule {
             let component = EditorModuleContainerViewBuilder.childComponent(id: id)
             /// Next, we should configure router and, well, we should configure navigation item, of course...
             /// But we don't know anything about navigation item here...
@@ -86,12 +85,8 @@ class EditorModuleContainerViewModel {
         self.routingProcessor.userAction.map { value -> Action in
             switch value {
             case let .childDocument(value):
-                _ = value.childComponent.viewModel
-//                    _ = self?.configured(userActionsStream: viewModel.soloUserActionPublisher)
                 return .childDocument(value)
             case let .showDocument(value):
-                _ = value.childComponent.viewModel
-//                    _ = self?.configured(userActionsStream: viewModel.soloUserActionPublisher)
                 return .showDocument(value)
             default: return value
             }
