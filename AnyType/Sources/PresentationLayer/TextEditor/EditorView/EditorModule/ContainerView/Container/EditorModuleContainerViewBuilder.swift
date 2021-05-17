@@ -4,21 +4,6 @@ import SwiftUI
 
 
 enum EditorModuleContainerViewBuilder {
-    /// We have the following system.
-    /// Builder has two kind of components: Self and Child.
-    /// You have an access to both components through `SelfComponent` and `ChildComponent`.
-    /// We don't have a type erasure here ( we don't want to ).
-    ///
-    /// Next, typealiases to `Child` components ( `ChildViewModel`, `ChildViewController`, `ChildViewBuilder` ) have prefix `Child`.
-    ///
-    /// But, typealiases to `Self` components ( `ViewModel`, `ViewController`, `SelfComponent` ) may not have prefix `Self`.
-    ///
-    /// Interesting part is `SelfComponent`.
-    /// `SelfComponent` is a triple `(ViewController, ViewModel, ChildComponent)`.
-    ///
-    /// It allows us to access to child of child of views to configure them on any level if we want to.
-    ///
-    ///
     typealias ChildViewModel = EditorModuleContentViewModel
     typealias ChildViewController = EditorModuleContentViewController
     typealias ChildViewBuilder = EditorModuleContentViewBuilder

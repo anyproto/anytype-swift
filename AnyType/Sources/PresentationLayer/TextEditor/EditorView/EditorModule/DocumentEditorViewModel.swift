@@ -361,7 +361,7 @@ private extension DocumentEditorViewModel {
         }
     }
 
-    func process(_ value: EditorModule.Selection.ToolbarPresenter.SelectionAction) {
+    func process(_ value: EditorSelectionToolbarPresenter.SelectionAction) {
         switch value {
         case let .selection(value):
             switch value {
@@ -404,7 +404,7 @@ extension DocumentEditorViewModel {
 }
 
 extension DocumentEditorViewModel {
-    func configured(multiSelectionUserActionPublisher: AnyPublisher<EditorModule.Selection.ToolbarPresenter.SelectionAction, Never>) -> Self {
+    func configured(multiSelectionUserActionPublisher: AnyPublisher<EditorSelectionToolbarPresenter.SelectionAction, Never>) -> Self {
         multiSelectionUserActionPublisher.sink { [weak self] (value) in
             self?.process(value)
         }.store(in: &self.subscriptions)
@@ -456,5 +456,14 @@ extension DocumentEditorViewModel {
         blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] actionType, events in
             self?.process(reaction: .shouldHandleEvent(.init(actionType: actionType, events: events)))
         }
+    }
+}
+
+extension DocumentEditorViewModel: EditorModuleSelectionHandlerHolderProtocol {
+    func selectAll() {
+        let ids = self.builders.dropFirst().reduce(into: [BlockId: BlockContentType]()) { result, model in
+            result[model.blockId] = model.getBlock().blockModel.information.content.type
+        }
+        self.select(ids: ids)
     }
 }

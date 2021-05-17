@@ -5,9 +5,9 @@ import Combine
 
 class EditorModuleContentViewModel {
     /// And keep selection here.
-    private var selectionPresenter: EditorModule.Selection.ToolbarPresenter = .init()
-    private(set) var selectionHandler: EditorModuleSelectionHandlerProtocol = EditorModule.Selection.Handler.init()
-    var selectionAction: AnyPublisher<EditorModule.Selection.ToolbarPresenter.SelectionAction, Never> {
+    private var selectionPresenter = EditorSelectionToolbarPresenter()
+    private(set) var selectionHandler: EditorModuleSelectionHandlerProtocol = EditorSelectionHandler()
+    var selectionAction: AnyPublisher<EditorSelectionToolbarPresenter.SelectionAction, Never> {
         self.selectionPresenter.userAction
     }
     
@@ -29,7 +29,7 @@ class EditorModuleContentViewModel {
         _ = self.selectionPresenter.configured(topBottomMenuViewController: controller)
         return self
     }
-    private func configured(selectionEventsPublisher: AnyPublisher<EditorModule.Selection.IncomingEvent, Never>) -> Self {
+    private func configured(selectionEventsPublisher: AnyPublisher<EditorSelectionIncomingEvent, Never>) -> Self {
         _ = self.selectionPresenter.configured(selectionEventPublisher: selectionEventsPublisher)
         return self
     }

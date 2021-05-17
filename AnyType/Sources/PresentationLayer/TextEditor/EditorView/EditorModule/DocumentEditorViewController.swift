@@ -180,7 +180,7 @@ final class DocumentEditorViewController: UICollectionViewController {
                                                                      completion: { _ in }))
     }
     
-    private func handleSelection(event: EditorModule.Selection.IncomingEvent) {
+    private func handleSelection(event: EditorSelectionIncomingEvent) {
         switch event {
         case .selectionDisabled:
             deselectAllBlocks()
