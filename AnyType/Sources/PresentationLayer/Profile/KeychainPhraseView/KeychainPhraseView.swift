@@ -18,7 +18,7 @@ struct KeychainPhraseView: View {
         }
         .cornerRadius(12)
         .padding([.leading, .trailing])
-        .snackbar(isShowing: $viewModel.showSnackbar, text: AnytypeText("Keychain phrase copied to clipboard", style: .caption).textView)
+        .snackbar(isShowing: $viewModel.showSnackbar, text: AnytypeText("Keychain phrase copied to clipboard", style: .caption))
         .onAppear {
             viewModel.obtainRecoveryPhrase()
         }

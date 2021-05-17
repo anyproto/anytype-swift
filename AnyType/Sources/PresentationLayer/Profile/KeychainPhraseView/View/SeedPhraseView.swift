@@ -11,8 +11,8 @@ struct SeedPhraseView: View {
             VStack(alignment: .center) {
                 AnytypeText(phrase ?? redactedPlaceholder, style: .codeBlock)
                     .foregroundColor(Color.darkBlue)
-                    .padding()
                     .redacted(reason: phrase.isNil ? .placeholder : [])
+                    .padding()
             }
             .frame(maxWidth: .infinity)
             .background(Color.grayscale10)

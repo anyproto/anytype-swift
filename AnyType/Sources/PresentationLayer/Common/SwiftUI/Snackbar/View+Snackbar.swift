@@ -4,7 +4,7 @@ import SwiftUI
 extension View {
 
     func snackbar(isShowing: Binding<Bool>,
-                  text: Text,
+                  text: AnytypeText,
                   actionText: Text? = nil,
                   action: (() -> Void)? = nil) -> some View {
 

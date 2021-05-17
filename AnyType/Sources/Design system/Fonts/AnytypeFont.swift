@@ -37,15 +37,25 @@ extension AnytypeFontBuilder {
 }
 
 struct AnytypeFontBuilder {
-    static func font(textStyle: TextStyle) -> Font {
-        return font(name: fontName(textStyle), size: size(textStyle), weight: weight(textStyle))
-    }
-    
-    static func font(name: FontName, size: CGFloat, weight: Font.Weight) -> Font {
+    static func font(name: FontName, size: CGFloat, weight: Font.Weight) -> Font {        
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
         return Font.custom(name.rawValue, size: scaledSize).weight(weight)
     }
     
+    static func font(textStyle: TextStyle) -> Font {
+        return font(name: fontName(textStyle), size: size(textStyle), weight: weight(textStyle))
+    }
+    
+    static func customLineSpacing(textStyle: TextStyle) -> CGFloat? {
+        switch textStyle {
+        case .codeBlock:
+            return 7
+        default:
+            return nil
+        }
+    }
+    
+    // MARK: - Private
     private static func fontName(_ textStyle: TextStyle) -> FontName {
         switch textStyle {
         case .title, .heading:
@@ -106,4 +116,14 @@ struct AnytypeFontBuilder {
 
 extension Font {
     static let defaultAnytype = AnytypeFontBuilder.font(textStyle: .caption)
+}
+
+struct OptionalLineSpacingModifier: ViewModifier {
+    var spacing: CGFloat?
+    
+    func body(content: Content) -> some View {
+        spacing.map { spacing in
+            content.lineSpacing(spacing).eraseToAnyView()
+        } ?? content.eraseToAnyView()
+    }
 }

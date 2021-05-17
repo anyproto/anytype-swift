@@ -5,7 +5,7 @@ struct Snackbar: View {
 
     @Binding var isShowing: Bool
     private let presenting: AnyView
-    private let text: Text
+    private let text: AnytypeText
     private let actionText: Text?
     private let action: (() -> Void)?
 
@@ -15,12 +15,12 @@ struct Snackbar: View {
 
     init<Presenting>(isShowing: Binding<Bool>,
          presenting: Presenting,
-         text: Text,
+         text: AnytypeText,
          actionText: Text? = nil,
          action: (() -> Void)? = nil) where Presenting: View {
 
         _isShowing = isShowing
-        self.presenting = AnyView(presenting)
+        self.presenting = presenting.eraseToAnyView()
         self.text = text
         self.actionText = actionText
         self.action = action

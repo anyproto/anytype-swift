@@ -1,13 +1,20 @@
 import SwiftUI
 
 struct AnytypeText: View {
-    let textView: Text
+    private let textView: AnyView
     
     init(_ text: String, style: AnytypeFontBuilder.TextStyle) {
-        let text = LocalizedStringKey(text)
         let font = AnytypeFontBuilder.font(textStyle: style)
+        let spacing = AnytypeFontBuilder.customLineSpacing(textStyle: style)
         
-        textView = Text(text).font(font)
+        textView = Text(text).font(font).modifier(OptionalLineSpacingModifier(spacing: spacing)).eraseToAnyView()
+    }
+    
+    init(_ text: LocalizedStringKey, style: AnytypeFontBuilder.TextStyle) {
+        let font = AnytypeFontBuilder.font(textStyle: style)
+        let spacing = AnytypeFontBuilder.customLineSpacing(textStyle: style)
+        
+        textView = Text(text).font(font).modifier(OptionalLineSpacingModifier(spacing: spacing)).eraseToAnyView()
     }
     
     init(
@@ -16,10 +23,22 @@ struct AnytypeText: View {
         size: CGFloat,
         weight: Font.Weight
     ) {
-        let text = LocalizedStringKey(text)
+        assert(name != .plex, "Custom plex font requires custom line spacing implementation")
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         
-        textView = Text(text).font(font)
+        textView = Text(text).font(font).eraseToAnyView()
+    }
+    
+    init(
+        _ text: LocalizedStringKey,
+        name: AnytypeFontBuilder.FontName,
+        size: CGFloat,
+        weight: Font.Weight
+    ) {
+        assert(name != .plex, "Custom plex font requires custom line spacing implementation")
+        let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
+        
+        textView = Text(text).font(font).eraseToAnyView()
     }
     
     var body: some View {
