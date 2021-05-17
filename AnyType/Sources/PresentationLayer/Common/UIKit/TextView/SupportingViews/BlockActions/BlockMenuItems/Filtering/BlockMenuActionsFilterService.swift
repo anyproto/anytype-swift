@@ -17,9 +17,14 @@ final class BlockMenuActionsFilterService {
         // and then converted to menu items - [.divider("Style"),
         //                                     .action(Text)]
         let result = initialFilterEntries.compactMap { entry -> BlockMenuActionsFilterEntry? in
-            let filterdActions = entry.actions.filter { $0.displayData.contains(string: string) }
-            guard !filterdActions.isEmpty else { return nil }
-            return BlockMenuActionsFilterEntry(headerTitle: entry.headerTitle, actions: filterdActions)
+            var filteredActions: [BlockActionAndFilterMatch] = entry.actions.compactMap {
+                guard let filterMatch = $0.displayData.matchBy(string: string) else { return nil }
+                return BlockActionAndFilterMatch(action: $0, filterMatch: filterMatch)
+            }
+            filteredActions.sort { $0.filterMatch < $1.filterMatch }
+            guard !filteredActions.isEmpty else { return nil }
+            return BlockMenuActionsFilterEntry(headerTitle: entry.headerTitle,
+                                               actions: filteredActions.map(\.action))
         }
         return result.reduce(into: [BlockActionMenuItem]()) { result, filterEntry in
             result.append(.sectionDivider(filterEntry.headerTitle))

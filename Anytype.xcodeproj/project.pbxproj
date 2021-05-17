@@ -431,6 +431,9 @@
 		EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE4262AE61200EA869F /* BlockAction.swift */; };
 		EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE7262AE62E00EA869F /* BlockColorAction.swift */; };
 		EA289BEC262AE66000EA869F /* BlockBackgroundColorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */; };
+		EA2F0D60264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */; };
+		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
+		EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */; };
 		EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */; };
 		EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */; };
 		EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC404261C32C1002E961E /* DimmingPresentationController.swift */; };
@@ -941,6 +944,9 @@
 		EA289BE4262AE61200EA869F /* BlockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAction.swift; sourceTree = "<group>"; };
 		EA289BE7262AE62E00EA869F /* BlockColorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockColorAction.swift; sourceTree = "<group>"; };
 		EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBackgroundColorAction.swift; sourceTree = "<group>"; };
+		EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuItemSimpleDisplayDataFilterMatch.swift; sourceTree = "<group>"; };
+		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
+		EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionDisplayDataFilterComparator.swift; sourceTree = "<group>"; };
 		EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockContentView.swift; sourceTree = "<group>"; };
 		EA4AC404261C32C1002E961E /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
@@ -2938,6 +2944,9 @@
 				EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */,
 				EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */,
 				EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */,
+				EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */,
+				EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */,
+				EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */,
 			);
 			path = BlockActions;
 			sourceTree = "<group>";
@@ -3245,6 +3254,7 @@
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
+				EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				0A0965EC25BEF5B000C004BD /* EditorModule+Selection+Handler+Protocols.swift in Sources */,
 				124C1629264D3BBA003C411C /* DocumentIconViewModelNew.swift in Sources */,
@@ -3445,6 +3455,7 @@
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */,
 				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,
+				EA2F0D60264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift in Sources */,
 				3DB7DCBC263AA96600635E4C /* ViewOnGeometryChange.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift in Sources */,
@@ -3599,6 +3610,7 @@
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				0A78328124BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,
+				EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */,
 				EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */,
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
 				0AAF8C2C2492355100C18D09 /* MarksPane+ViewController+Presentation.swift in Sources */,
