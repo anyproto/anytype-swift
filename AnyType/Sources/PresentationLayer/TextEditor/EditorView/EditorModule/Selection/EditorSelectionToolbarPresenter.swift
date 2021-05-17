@@ -30,7 +30,7 @@ class EditorSelectionToolbarPresenter {
     private var restorationPoint: RestorationPoint = .init()
     
     /// Variables / Targets
-    private weak var topBottomMenuViewController: TopBottomMenuViewController?
+    private weak var bottomMenuViewController: BottomMenuViewController?
     weak var navigationItem: UINavigationItem?
     
     /// Subscribe on UserAction.
@@ -39,10 +39,10 @@ class EditorSelectionToolbarPresenter {
     }
     
     init(
-        topBottomMenuViewController: TopBottomMenuViewController?,
+        bottomMenuViewController: BottomMenuViewController?,
         selectionEventPublisher: AnyPublisher<SelectionEvent, Never>
     ) {
-        self.topBottomMenuViewController = topBottomMenuViewController
+        self.bottomMenuViewController = bottomMenuViewController
         
         self.subscription = selectionEventPublisher.sink(receiveValue: { [weak self] (value) in
             self?.update(selectionEvent: value)
@@ -55,11 +55,11 @@ class EditorSelectionToolbarPresenter {
     }
     
     private func selectionNotShown() -> Bool {
-        self.topBottomMenuViewController?.menusState() == .some(.none)
+        self.bottomMenuViewController?.menusState() == .some(.none)
     }
             
     private func update(selectionEnabled: Bool) {
-        guard let controller = self.topBottomMenuViewController, let navigationItem = self.navigationItem else { return }
+        guard let controller = self.bottomMenuViewController, let navigationItem = self.navigationItem else { return }
         
         if selectionEnabled {
             let leftBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildBarButtonItem(of: .selectAll)
@@ -70,11 +70,11 @@ class EditorSelectionToolbarPresenter {
             navigationItem.leftBarButtonItem = leftBarButtonItem
             navigationItem.rightBarButtonItem = rightBarButtonItem
             
-            controller.add(subview: toolbarView, onToolbar: .bottom)
+            controller.addBottomView(toolbarView)
         }
         else {
             self.restorationPoint.apply(navigationItem)
-            controller.removeSubview(fromToolbar: .bottom)
+            controller.removeBottomView()
         }
     }
     

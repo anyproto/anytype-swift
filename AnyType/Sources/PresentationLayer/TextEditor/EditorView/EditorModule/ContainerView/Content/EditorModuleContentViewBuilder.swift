@@ -12,10 +12,10 @@ typealias EditorModuleContentModule = (
 
 enum EditorModuleContentViewBuilder {
     static func сontent(id: String) -> EditorModuleContentModule {
-        let topBottomMenuViewController = TopBottomMenuViewController()
+        let bottomMenuViewController = BottomMenuViewController()
         
         let contentViewModel = EditorModuleContentViewModel(
-            topBottomMenuViewController: topBottomMenuViewController
+            bottomMenuViewController: bottomMenuViewController
         )
         
         let editorViewModel = DocumentEditorViewModel(
@@ -27,11 +27,11 @@ enum EditorModuleContentViewBuilder {
         let childViewController = DocumentEditorViewController(viewModel: editorViewModel, viewCellFactory: DocumentViewCellFactory())
         editorViewModel.viewInput = childViewController
         
-        topBottomMenuViewController.add(child: childViewController)
+        bottomMenuViewController.add(child: childViewController)
         
         let contentViewController = EditorModuleContentViewController(
             viewModel: contentViewModel,
-            childViewController: topBottomMenuViewController
+            childViewController: bottomMenuViewController
         )
         
         return (contentViewController, contentViewModel, editorViewModel.publicUserActionPublisher)

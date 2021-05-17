@@ -10,9 +10,9 @@ class EditorModuleContentViewModel {
         self.selectionPresenter.userAction
     }
     
-    init(topBottomMenuViewController controller: TopBottomMenuViewController) {
+    init(bottomMenuViewController controller: BottomMenuViewController) {
         self.selectionPresenter = EditorSelectionToolbarPresenter(
-            topBottomMenuViewController: controller,
+            bottomMenuViewController: controller,
             selectionEventPublisher: self.selectionHandler.selectionEventPublisher()
         )
     }
