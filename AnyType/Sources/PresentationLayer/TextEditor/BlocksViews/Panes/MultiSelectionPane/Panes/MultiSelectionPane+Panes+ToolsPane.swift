@@ -1,20 +1,8 @@
-//
-//  MultiSelectionPane+Panes+ToolsPane.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 19.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import SwiftUI
 
-// MARK: Style pane
-extension MultiSelectionPane.Panes {
-    enum ToolbarPane {}
-}
 
 // MARK: States and Actions
 /// A set of Input(`Attribute`, `UserResponse`) and Output(`Action`) types.
@@ -23,7 +11,7 @@ extension MultiSelectionPane.Panes {
 /// `UserResponse` := (`Optional<Attribute>`, `Attribute`) | (`[Attribute]`)
 /// `UserResponse` is `exclusive` ( `Optional<Attribute> | Attribute` ) or `inclusive` (`[Attribute]`).
 ///
-extension MultiSelectionPane.Panes.ToolbarPane {
+enum MultiSelectionToolbarPane {
     /// `UserResponse` is a structure that is delivering updates from OuterWorld.
     /// So, when user want to refresh UI of this component, he needs to `select` text.
     /// Next, appropriate method will update current value of `UserResponse` in this pane.
@@ -67,7 +55,7 @@ extension MultiSelectionPane.Panes.ToolbarPane {
 }
 
 // MARK: ListDataSource
-extension MultiSelectionPane.Panes.ToolbarPane {
+extension MultiSelectionToolbarPane {
     /// `ListDataSource` is intended to manipulate with data at index paths.
     /// Also, it knows about the count of entries in a row at section.
     ///
@@ -145,7 +133,7 @@ extension MultiSelectionPane.Panes.ToolbarPane {
 }
 
 // MARK: ViewModelBuilder
-extension MultiSelectionPane.Panes.ToolbarPane {
+extension MultiSelectionToolbarPane {
     /// Creates `Cell.ViewModel`
     enum CellViewModelBuilder {
         /// Creates a `Data` or `CellData`.
@@ -166,7 +154,7 @@ extension MultiSelectionPane.Panes.ToolbarPane {
 }
 
 // MARK: ViewModel
-extension MultiSelectionPane.Panes.ToolbarPane {
+extension MultiSelectionToolbarPane {
     class ViewModel: ObservableObject {
         // MARK: Initialization
         init() {
@@ -223,7 +211,7 @@ extension MultiSelectionPane.Panes.ToolbarPane {
 }
 
 // MARK: - Pane View
-extension MultiSelectionPane.Panes.ToolbarPane {
+extension MultiSelectionToolbarPane {
     /// Builder that builds View from ViewModel.
     ///
     /// The only one way to build view from its viewModel.
@@ -237,7 +225,7 @@ extension MultiSelectionPane.Panes.ToolbarPane {
     }
 }
 
-extension MultiSelectionPane.Panes.ToolbarPane {
+extension MultiSelectionToolbarPane {
     /// The `InputView` is a `View` of current namespace.
     /// Here it is a `View` of `Panes.Style`.
     ///
@@ -264,14 +252,14 @@ extension MultiSelectionPane.Panes.ToolbarPane {
     }
 }
 
-extension MultiSelectionPane.Panes.ToolbarPane.InputView {
+extension MultiSelectionToolbarPane.InputView {
     struct Layout {
         var verticalSpacing: CGFloat = 8
     }
 }
 
 // MARK: - Category
-extension MultiSelectionPane.Panes.ToolbarPane {
+extension MultiSelectionToolbarPane {
     /// `Category` is a `View` that represents a Row in a Pane.
     /// But pane is horizontal, so, it represents a `Section`.
     ///
@@ -304,7 +292,7 @@ extension MultiSelectionPane.Panes.ToolbarPane {
     }
 }
 
-extension MultiSelectionPane.Panes.ToolbarPane.Category {
+extension MultiSelectionToolbarPane.Category {
     /// I am not quite sure about Category ViewModel.
     /// Maybe we require it...
     /// So, don't remove it for some time.
@@ -312,7 +300,7 @@ extension MultiSelectionPane.Panes.ToolbarPane.Category {
     //    class ViewModel {}
 }
 
-extension MultiSelectionPane.Panes.ToolbarPane.Category {
+extension MultiSelectionToolbarPane.Category {
     struct Layout {
         struct Border {
             var cornerRadius: CGFloat = 8
@@ -331,7 +319,7 @@ extension MultiSelectionPane.Panes.ToolbarPane.Category {
     }
 }
 
-extension MultiSelectionPane.Panes.ToolbarPane.Category {
+extension MultiSelectionToolbarPane.Category {
     enum Style {
         case presentation
         func borderColor() -> UIColor {
@@ -343,7 +331,7 @@ extension MultiSelectionPane.Panes.ToolbarPane.Category {
 }
 
 // MARK: Cell
-extension MultiSelectionPane.Panes.ToolbarPane {
+extension MultiSelectionToolbarPane {
     struct Cell: View {
         @ObservedObject var viewModel: ViewModel
         var layout: Layout = .init()
@@ -369,7 +357,7 @@ extension MultiSelectionPane.Panes.ToolbarPane {
 }
 
 // MARK: - Cell/Layout
-extension MultiSelectionPane.Panes.ToolbarPane.Cell {
+extension MultiSelectionToolbarPane.Cell {
     struct Layout {
         var width: CGFloat = 60
         var height: CGFloat = 48
@@ -377,7 +365,7 @@ extension MultiSelectionPane.Panes.ToolbarPane.Cell {
 }
 
 // MARK: - Cell/Style
-extension MultiSelectionPane.Panes.ToolbarPane.Cell {
+extension MultiSelectionToolbarPane.Cell {
     enum Style {
         case presentation
         func foregroundColor() -> UIColor {
@@ -404,7 +392,7 @@ extension MultiSelectionPane.Panes.ToolbarPane.Cell {
 }
 
 // MARK: Cell/ViewModel
-extension MultiSelectionPane.Panes.ToolbarPane.Cell {
+extension MultiSelectionToolbarPane.Cell {
     class ViewModel: ObservableObject {
         /// Connection between view and viewModel
         @Published var state: Bool = false

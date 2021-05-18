@@ -21,13 +21,13 @@ extension EditorSelectionToolbarPresenter {
 /// This selection handler is intended to show controls.
 class EditorSelectionToolbarPresenter {
     /// Aliases
-    typealias SelectionAction = MultiSelectionPane.UIKit.Main.Action
+    typealias SelectionAction = MultiSelectionMainPane.Action
     typealias SelectionEvent = EditorSelectionIncomingEvent
 
     /// Variables
     private var subscription: AnyCancellable?
-    private var multiSelectionAssembly: MultiSelectionPane.UIKit.Main.Assembly = .init()
-    private var restorationPoint: RestorationPoint = .init()
+    private let multiSelectionAssembly = MultiSelectionMainPane.Assembly(viewModel: .init())
+    private var restorationPoint = RestorationPoint()
     
     /// Variables / Targets
     private weak var bottomMenuViewController: BottomMenuViewController?
@@ -62,8 +62,8 @@ class EditorSelectionToolbarPresenter {
         guard let controller = self.bottomMenuViewController, let navigationItem = self.navigationItem else { return }
         
         if selectionEnabled {
-            let leftBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildBarButtonItem(of: .selectAll)
-            let rightBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildBarButtonItem(of: .done)
+            let leftBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildSelectAllBarButton()
+            let rightBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildDoneBarButton()
             
             let toolbarView = self.multiSelectionAssembly.toolbarView()
             self.restorationPoint.save(navigationItem)

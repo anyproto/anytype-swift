@@ -8,6 +8,6 @@
 
 import Foundation
 
-extension MultiSelectionPane.UIKit {
+extension MultiSelectionPane {
     enum Panes {}
 }

@@ -1,50 +1,33 @@
-//
-//  MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 30.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import SwiftUI
 import os
 
-fileprivate typealias Namespace = MultiSelectionPane.UIKit.Panes.Selection
-fileprivate typealias FileNamespace = Namespace.SelectAll
 
 // MARK: View / SelectAll
-extension Namespace {
-    enum SelectAll {}
+extension MultiSelectionPane.Panes.Selection {
+    enum Done {}
 }
 
 // MARK: View / SelectAll / Actions
-extension FileNamespace {
+extension MultiSelectionPane.Panes.Selection.Done {
     enum Action {
-        case selectAll
-        case deselectAll
+        case done
     }
 
-    enum UserResponse {
-        case isEmpty
-        case nonEmpty(UInt)
-    }
+    enum UserResponse {}
 }
 
 // MARK: View / SelectAll
-extension FileNamespace {
+extension MultiSelectionPane.Panes.Selection.Done {
     class View: UIView {
         /// Aliases
-        fileprivate typealias Style = Namespace.View.Style
+        fileprivate typealias Style = MultiSelectionPaneSelectionView.Style
         
         /// Variables
         private var style: Style = .default
         private var model: ViewModel = .init()
-        private var userResponseSubscription: AnyCancellable?
-        private var anySelectionSubscription: AnyCancellable?
-        @Published var isAnySelection: Bool? = false
         
         /// Initialization
         override init(frame: CGRect) {
@@ -65,14 +48,11 @@ extension FileNamespace {
         
         /// Actions
         private func update(response: UserResponse) {
-            switch response {
-            case .isEmpty: self.isAnySelection = false
-            case .nonEmpty: self.isAnySelection = true
-            }
+            /// Fill if you need a reaction on UserResponse
         }
         
         @objc func processOnClick() {
-            self.process(self.isAnySelection == true ? .deselectAll : .selectAll)
+            self.process(.done)
         }
         private func process(_ action: Action) {
             self.model.process(action: action)
@@ -89,18 +69,7 @@ extension FileNamespace {
             self.button.addTarget(self, action: #selector(Self.processOnClick), for: .touchUpInside)
         }
 
-        private func setupInteraction() {
-            self.userResponseSubscription = self.model.userResponse.sink { [weak self] (value) in
-                self?.update(response: value)
-            }
-            self.anySelectionSubscription = self.$isAnySelection.safelyUnwrapOptionals().sink { [weak self] (value) in
-                let title = value ? "Unselect All" : "Select All"
-                UIView.performWithoutAnimation {
-                    self?.button.setTitle(title, for: .normal)
-                    self?.button.layoutIfNeeded()
-                }
-            }
-        }
+        private func setupInteraction() {}
 
         // MARK: Setup
         private func setup() {
@@ -121,6 +90,7 @@ extension FileNamespace {
                 let view = UIButton(type: .system)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 view.titleLabel?.font = .preferredFont(forTextStyle: .title3)
+                view.setTitle("Done", for: .normal)
                 return view
             }()
 
@@ -159,7 +129,7 @@ extension FileNamespace {
 }
 
 // MARK: View / SelectAll / UIBarButtonItem
-extension FileNamespace {
+extension MultiSelectionPane.Panes.Selection.Done {
     /// TODO: Move later whole setup to UIAction.
 //    class CustomUIAction: UIAction {
 //        private var model: ViewModel = .init()
@@ -182,14 +152,12 @@ extension FileNamespace {
 
         /// Variables
         private var model: ViewModel
-        private var userResponseSubscription: AnyCancellable?
-        private var anySelectionSubscription: AnyCancellable?
-        @Published var isAnySelection: Bool? = false
 
         /// Initialization
         init(viewModel: ViewModel) {
             self.model = viewModel
             super.init()
+            self.title = "Done"
             self.setup()
         }
 
@@ -198,41 +166,23 @@ extension FileNamespace {
         }
 
         /// Actions
-        private func update(response: UserResponse) {
-            switch response {
-            case .isEmpty: self.isAnySelection = false
-            case .nonEmpty: self.isAnySelection = true
-            }
-        }
+        private func update(response: UserResponse) {}
 
         @objc func processOnClick() {
-            self.process(self.isAnySelection == true ? .deselectAll : .selectAll)
+            self.process(.done)
         }
         private func process(_ action: Action) {
             self.model.process(action: action)
         }
-
+        
         /// Setup
         private func setupCustomization() {
             self.target = self
             self.action = #selector(processOnClick)
         }
-
-        private func setupInteraction() {
-            self.userResponseSubscription = self.model.userResponse.sink { [weak self] (value) in
-                self?.update(response: value)
-            }
-            self.anySelectionSubscription = self.$isAnySelection.safelyUnwrapOptionals().sink { [weak self] (value) in
-                let title = value ? "Unselect All" : "Select All"
-//                UIView.performWithoutAnimation {
-//                    self?.button.setTitle(title, for: .normal)
-//                    self?.button.layoutIfNeeded()
-//                }
-                self?.title = title
-            }
-        }
-
-        // MARK: Setup
+        
+        private func setupInteraction() {}
+        
         private func setup() {
             self.setupCustomization()
             self.setupInteraction()
@@ -240,8 +190,9 @@ extension FileNamespace {
     }
 }
 
+
 // MARK: View / SelectAll / ViewModel
-extension FileNamespace {
+extension MultiSelectionPane.Panes.Selection.Done {
     class ViewModel {
         /// Initialization
         init() {
@@ -273,12 +224,7 @@ extension FileNamespace {
         // MARK: Public Setters
         /// Use this method from outside to update value.
         ///
-            
-        func configured(userResponseStream: AnyPublisher<UserResponse, Never>) -> Self {
-            self.subscription = userResponseStream.sink(receiveValue: { [weak self] (value) in
-                self?.userResponseSubject.send(value)
-            })
-            return self
-        }
+        
     }
 }
+

@@ -1,34 +1,21 @@
-//
-//  MultiSelectionPane+UIKit+Main.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 21.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import SwiftUI
 import os
 
-fileprivate typealias Namespace = MultiSelectionPane.UIKit
-fileprivate typealias FileNamespace = MultiSelectionPane.UIKit.Main
+enum MultiSelectionMainPane {}
 
-extension Namespace {
-    enum Main {}
-}
-
-extension FileNamespace {
-    typealias Panes = MultiSelectionPane.UIKit.Panes
+extension MultiSelectionMainPane {
+    typealias Panes = MultiSelectionPane.Panes
 }
 
 // MARK: States
-extension FileNamespace {
+extension MultiSelectionMainPane {
     // MARK: Action
     enum Action {
-        case toolbar(Panes.Toolbar.Action)
-        case selection(Panes.Selection.Action)
+        case toolbar(MultiSelectionPaneToolbarAction)
+        case selection(MultiSelectionPaneSelectionAction)
     }
     
     // MARK: State
@@ -42,7 +29,7 @@ extension FileNamespace {
 }
 
 // MARK: ViewModel
-extension FileNamespace {
+extension MultiSelectionMainPane {
     class ViewModel {
         // MARK: Initialization
         init() {
@@ -63,8 +50,8 @@ extension FileNamespace {
         }
         
         // MARK: ViewModels
-        private var _toolbarViewModel: MultiSelectionPane.UIKit.Panes.Toolbar.ViewModel = .init()
-        private var _selectionViewModel: MultiSelectionPane.UIKit.Panes.Selection.ViewModel = .init()
+        private var _toolbarViewModel = MultiSelectionPaneToolbarViewModel()
+        private var _selectionViewModel = MultiSelectionPaneSelectionViewModel()
         
         // MARK: Publishers
         
@@ -86,55 +73,34 @@ extension FileNamespace {
 }
 
 // TODO: Add cache if needed.
-extension FileNamespace.ViewModel {
-    func toolbarViewModel() -> MultiSelectionPane.UIKit.Panes.Toolbar.ViewModel {
+extension MultiSelectionMainPane.ViewModel {
+    func toolbarViewModel() -> MultiSelectionPaneToolbarViewModel {
         self._toolbarViewModel
     }
     
-    func selectionViewModel() -> MultiSelectionPane.UIKit.Panes.Selection.ViewModel {
+    func selectionViewModel() -> MultiSelectionPaneSelectionViewModel {
         _selectionViewModel
     }
 }
 
-// MARK: Builder
-extension FileNamespace {
-    enum Builder {
-        enum Kind {
-            case selection
-            case toolbar
-        }
-        
-        static func buildView(viewModel: ViewModel, kind: Kind) -> UIView {
-            switch kind {
-            case .selection: return FileNamespace.Panes.Selection.Assembly.init(viewModel: viewModel.selectionViewModel()).buildView()
-            case .toolbar: return FileNamespace.Panes.Toolbar.View.init(viewModel: viewModel.toolbarViewModel())
-            }
-        }
-    }
-}
-
 // MARK: Assembly
-extension FileNamespace {
+extension MultiSelectionMainPane {
     struct Assembly {
-        /// Aliases
-        typealias SelectionAssembly = MultiSelectionPane.UIKit.Panes.Selection.Assembly
         
-        /// Variables
-        private(set) var viewModel: ViewModel = .init()
-        private(set) var selectionAssembly: SelectionAssembly
+        private(set) var viewModel: ViewModel
+        private(set) var selectionAssembly: MultiSelectionPaneSelectionAssembly
         
-        /// Initialization
-        init() {
-            self.selectionAssembly = .init(viewModel: self.viewModel.selectionViewModel())
+        init(viewModel: ViewModel) {
+            self.viewModel = viewModel
+            self.selectionAssembly = .init(viewModel: viewModel.selectionViewModel())
         }
         
-        /// Getters
         func toolbarView() -> UIView {
-            Builder.buildView(viewModel: self.viewModel, kind: .toolbar)
+            MultiSelectionPaneToolbarView(viewModel: viewModel.toolbarViewModel())
         }
         
         func selectionView() -> UIView {
-            Builder.buildView(viewModel: self.viewModel, kind: .selection)
+            MultiSelectionPaneSelectionAssembly(viewModel: viewModel.selectionViewModel()).buildView()
         }
     }
 }
