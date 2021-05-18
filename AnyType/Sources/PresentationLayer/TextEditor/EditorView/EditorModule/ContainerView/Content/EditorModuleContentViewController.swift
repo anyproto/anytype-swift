@@ -4,14 +4,9 @@ import Combine
 
 class EditorModuleContentViewController: UIViewController {
     
-    private var viewModel: EditorModuleContentViewModel
-    private var childViewController: UIViewController?
+    private let childViewController: UIViewController
     
-    init(
-        viewModel: EditorModuleContentViewModel,
-        childViewController: UIViewController
-    ) {
-        self.viewModel = viewModel
+    init(childViewController: UIViewController) {
         self.childViewController = childViewController
         super.init(nibName: nil, bundle: nil)
     }
@@ -21,32 +16,17 @@ class EditorModuleContentViewController: UIViewController {
     }
 
     // MARK: Setup And Layout
-    func setupUIElements() {
-        if let viewController = self.childViewController {
-            self.addChild(viewController)
-        }
+    func addLayout() {
+        self.addChild(childViewController)
+        
+        self.view.addSubview(childViewController.view)
+        childViewController.view.pinAllEdges(to: self.view)
     }
     
-    func addLayout() {
-        if let view = self.childViewController?.view {
-            self.view.addSubview(view)
-            if let superview = view.superview {
-                let constraints = [
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ]
-                NSLayoutConstraint.activate(constraints)
-            }
-        }
-    }
-
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupUIElements()
-        self.addLayout()
-        self.didMove(toParent: self.childViewController)
+        addLayout()
+        childViewController.didMove(toParent: self)
     }
 }

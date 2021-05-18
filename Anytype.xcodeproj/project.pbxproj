@@ -271,7 +271,6 @@
 		3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */; };
 		3D155274264D976A00B0E976 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155273264D976A00B0E976 /* Snackbar.swift */; };
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
-		3D18022D264E9C9F00224815 /* EditorModuleContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D180225264E9C9F00224815 /* EditorModuleContentViewModel.swift */; };
 		3D18022E264E9C9F00224815 /* EditorModuleContentViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */; };
 		3D18022F264E9C9F00224815 /* EditorModuleContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D180227264E9C9F00224815 /* EditorModuleContentViewController.swift */; };
 		3D180230264E9C9F00224815 /* EditorModuleContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D180229264E9C9F00224815 /* EditorModuleContainerViewModel.swift */; };
@@ -791,7 +790,6 @@
 		3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		3D155273264D976A00B0E976 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
-		3D180225264E9C9F00224815 /* EditorModuleContentViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewModel.swift; sourceTree = "<group>"; };
 		3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewBuilder.swift; sourceTree = "<group>"; };
 		3D180227264E9C9F00224815 /* EditorModuleContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewController.swift; sourceTree = "<group>"; };
 		3D180229264E9C9F00224815 /* EditorModuleContainerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewModel.swift; sourceTree = "<group>"; };
@@ -2260,7 +2258,6 @@
 			isa = PBXGroup;
 			children = (
 				0A0965D025BEF5B000C004BD /* BottomMenuViewController.swift */,
-				3D180225264E9C9F00224815 /* EditorModuleContentViewModel.swift */,
 				3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */,
 				3D180227264E9C9F00224815 /* EditorModuleContentViewController.swift */,
 			);
@@ -3537,7 +3534,6 @@
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
 				3D07ED34261DD62700C007E2 /* Converters.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
-				3D18022D264E9C9F00224815 /* EditorModuleContentViewModel.swift in Sources */,
 				0A20E64625CD5F1A00D25C15 /* DetailsViewModelConverter.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,

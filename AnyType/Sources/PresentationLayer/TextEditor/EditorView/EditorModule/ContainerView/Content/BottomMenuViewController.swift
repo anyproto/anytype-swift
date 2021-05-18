@@ -5,8 +5,13 @@ import UIKit
 class BottomMenuViewController: UIViewController {
     private let animationDuration: TimeInterval = 0.3
     
-    private var containerView: UIView = .init()
-    private var bottomView: UIStackView = .init()
+    private var containerView = UIView()
+    
+    private var bottomView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .horizontal
+        return view
+    }()
     
     private var childViewController: UIViewController?
 
@@ -14,71 +19,37 @@ class BottomMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupUIElements()
-        self.addLayout()
-        self.updateChildViewController()
+        addLayout()
+        updateChildViewController()
     }
 
-    // MARK: Setup and Layout
-    private func setupUIElements() {
-        self.view.translatesAutoresizingMaskIntoConstraints = false
-        self.containerView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-        self.bottomView = {
-            let view = UIStackView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.axis = .horizontal
-            return view
-        }()
-        self.view.addSubview(self.containerView)
-        self.view.addSubview(self.bottomView)
-    }
-    
     private func addLayout() {
-        if let superview = self.containerView.superview {
-            let view = self.containerView
-            let bottomView = self.bottomView
-            let constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: bottomView.topAnchor)
-            ]
-            NSLayoutConstraint.activate(constraints)
+        self.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.view.addSubview(containerView)
+        self.view.addSubview(bottomView)
+        
+        containerView.layoutUsing.anchors {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: bottomView.topAnchor)
         }
-        if let superview = self.bottomView.superview {
-            let view = self.bottomView
-            let constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ]
-            NSLayoutConstraint.activate(constraints)
+        
+        bottomView.layoutUsing.anchors {
+            $0.pinToSuperview(excluding: [.top])
         }
     }
-    
-    func updateChildViewController() {        
+        
+    func updateChildViewController() {
         if let viewController = self.childViewController {
             self.addChild(viewController)
         }
         
         if let view = self.childViewController?.view {
-            view.translatesAutoresizingMaskIntoConstraints = false
-            self.containerView.addSubview(view)
-            if let superview = view.superview {
-                let constraints = [
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ]
-                NSLayoutConstraint.activate(constraints)
-            }
+            containerView.addSubview(view)
+            view.pinAllEdges(to: containerView)
         }
-        self.didMove(toParent: self.childViewController)
+        
+        childViewController?.didMove(toParent: self)
     }
 }
 

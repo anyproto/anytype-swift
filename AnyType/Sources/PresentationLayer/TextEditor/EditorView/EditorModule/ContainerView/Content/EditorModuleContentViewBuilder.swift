@@ -6,7 +6,7 @@ import BlocksModels
 
 typealias EditorModuleContentModule = (
     viewController: EditorModuleContentViewController,
-    viewModel: EditorModuleContentViewModel,
+    selectionPresenter: EditorSelectionToolbarPresenter,
     publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never>
 )
 
@@ -14,14 +14,17 @@ enum EditorModuleContentViewBuilder {
     static func сontent(id: String) -> EditorModuleContentModule {
         let bottomMenuViewController = BottomMenuViewController()
         
-        let contentViewModel = EditorModuleContentViewModel(
-            bottomMenuViewController: bottomMenuViewController
+        let selectionHandler: EditorModuleSelectionHandlerProtocol = EditorSelectionHandler()
+        
+        let presenter = EditorSelectionToolbarPresenter(
+            bottomMenuViewController: bottomMenuViewController,
+            selectionEventPublisher:selectionHandler.selectionEventPublisher()
         )
         
         let editorViewModel = DocumentEditorViewModel(
             documentId: id,
-            selectionHandler: contentViewModel.selectionHandler,
-            multiSelectionUserActionPublisher: contentViewModel.selectionAction
+            selectionHandler: selectionHandler,
+            selectionPresenter: presenter
         )
         
         let childViewController = DocumentEditorViewController(viewModel: editorViewModel, viewCellFactory: DocumentViewCellFactory())
@@ -30,10 +33,9 @@ enum EditorModuleContentViewBuilder {
         bottomMenuViewController.add(child: childViewController)
         
         let contentViewController = EditorModuleContentViewController(
-            viewModel: contentViewModel,
             childViewController: bottomMenuViewController
         )
         
-        return (contentViewController, contentViewModel, editorViewModel.publicUserActionPublisher)
+        return (contentViewController, presenter, editorViewModel.publicUserActionPublisher)
     }
 }

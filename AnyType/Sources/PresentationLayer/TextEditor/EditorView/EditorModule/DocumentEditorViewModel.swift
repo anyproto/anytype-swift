@@ -81,16 +81,20 @@ class DocumentEditorViewModel: ObservableObject {
     private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never> = .init()
     private(set) var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = .empty()
     private var lastSetTextClosure: (() -> Void)?
+    
+    // Used for subscription storage
+    private let selectionPresenter: EditorSelectionToolbarPresenter
 
     // MARK: - Initialization
     init(
         documentId: String,
         selectionHandler: EditorModuleSelectionHandlerProtocol?,
-        multiSelectionUserActionPublisher: AnyPublisher<EditorSelectionToolbarPresenter.SelectionAction, Never>
+        selectionPresenter: EditorSelectionToolbarPresenter
     ) {
         self.selectionHandler = selectionHandler
+        self.selectionPresenter = selectionPresenter
         
-        multiSelectionUserActionPublisher.sink { [weak self] (value) in
+        selectionPresenter.userAction.sink { [weak self] (value) in
             self?.process(value)
         }.store(in: &self.subscriptions)
         
