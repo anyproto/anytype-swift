@@ -244,20 +244,11 @@ class DocumentEditorViewModel: ObservableObject {
         documentViewModel.pageDetailsPublisher()
             .reciveOnMain()
             .sink { [weak self] detailsInformationProvider in
-                let iconEmoji: String? = {
-                    guard
-                        let emoji = detailsInformationProvider.iconEmoji?.value,
-                        emoji.isSingleEmoji
-                    else {
-                        return nil
-                    }
-                    
-                    return emoji
-                }()
-                
                 guard let self = self else { return }
                 
-                self.detailsViewModel.iconEmoji = iconEmoji
+                self.detailsViewModel.iconEmoji = IconEmoji(
+                    detailsInformationProvider.iconEmoji?.value
+                )
                 self.onDetailsViewModelUpdate?()
             }
             .store(in: &subscriptions)

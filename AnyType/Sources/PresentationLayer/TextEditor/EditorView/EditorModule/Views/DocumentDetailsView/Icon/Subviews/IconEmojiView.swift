@@ -34,8 +34,8 @@ final class IconEmojiView: UIView {
 
 extension IconEmojiView: ConfigurableView {
     
-    func configure(model: String) {
-        emojiLabel.text = model
+    func configure(model: IconEmoji) {
+        emojiLabel.text = model.value
     }
     
 }

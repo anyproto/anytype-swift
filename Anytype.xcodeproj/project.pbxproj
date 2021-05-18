@@ -237,6 +237,7 @@
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1200FCD3265272A4009269D4 /* DocumentIconViewUserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1200FCD2265272A4009269D4 /* DocumentIconViewUserAction.swift */; };
 		1224B571264C27EB0064A0E0 /* IconEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1224B570264C27EB0064A0E0 /* IconEmojiView.swift */; };
+		122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122FC4C42654195C00D9892D /* IconEmoji.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
 		124C1623264D35B8003C411C /* DocumentDetailsChildViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124C1622264D35B8003C411C /* DocumentDetailsChildViewModel.swift */; };
@@ -757,6 +758,7 @@
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1200FCD2265272A4009269D4 /* DocumentIconViewUserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewUserAction.swift; sourceTree = "<group>"; };
 		1224B570264C27EB0064A0E0 /* IconEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconEmojiView.swift; sourceTree = "<group>"; };
+		122FC4C42654195C00D9892D /* IconEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconEmoji.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/Entity/IconEmoji.swift; sourceTree = SOURCE_ROOT; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
 		124C1622264D35B8003C411C /* DocumentDetailsChildViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsChildViewModel.swift; sourceTree = "<group>"; };
@@ -2049,9 +2051,18 @@
 			path = DocumentDetailsView;
 			sourceTree = "<group>";
 		};
+		122FC4C12654192B00D9892D /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				122FC4C42654195C00D9892D /* IconEmoji.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		124C1626264D35BF003C411C /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				122FC4C12654192B00D9892D /* Entity */,
 				124C1627264D36C0003C411C /* Subviews */,
 				0A10CC85248ED549000FF498 /* DocumentIconView.swift */,
 				1200FCD2265272A4009269D4 /* DocumentIconViewUserAction.swift */,
@@ -3367,6 +3378,7 @@
 				0ABB2A432480205F00A7144A /* MarksPane+ViewController.swift in Sources */,
 				0A6F900E2554826700B94AED /* BlocksViews+New+Unknown+Label.swift in Sources */,
 				5338E80225DD3090008CB97D /* ListBlockActionService.swift in Sources */,
+				122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */,
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,

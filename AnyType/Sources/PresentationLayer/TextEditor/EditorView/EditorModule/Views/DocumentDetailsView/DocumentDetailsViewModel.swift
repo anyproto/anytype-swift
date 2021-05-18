@@ -11,7 +11,7 @@ import BlocksModels
 
 final class DocumentDetailsViewModel {
         
-    var iconEmoji: String?
+    var iconEmoji: IconEmoji?
     
     // MARK: - Private variables
     

@@ -30,7 +30,7 @@ final class DocumentIconView: UIView {
 
 extension DocumentIconView: ConfigurableView {
     
-    func configure(model: String) {
+    func configure(model: IconEmoji) {
         iconEmojiView.configure(model: model)
         iconEmojiView.layoutUsing.anchors {
             $0.size(Constants.EmojiView.size)

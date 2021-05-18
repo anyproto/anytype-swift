@@ -46,7 +46,7 @@ extension DocumentDetailsView: ConfigurableView {
 
 private extension DocumentDetailsView {
     
-    func configureIconView(_ iconEmoji: String?) {
+    func configureIconView(_ iconEmoji: IconEmoji?) {
         guard let iconEmoji = iconEmoji else {
             iconView.removeFromSuperview()
             iconView.onUserAction = nil
