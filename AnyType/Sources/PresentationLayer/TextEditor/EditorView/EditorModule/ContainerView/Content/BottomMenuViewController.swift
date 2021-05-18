@@ -7,11 +7,9 @@ class BottomMenuViewController: UIViewController {
     
     private var containerView = UIView()
     
-    private var bottomView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .horizontal
-        return view
-    }()
+    private var bottomView = UIView()
+    private var bottomViewBottomConstraint = NSLayoutConstraint()
+    private let bottomViewHeight: CGFloat = 48
     
     private var childViewController: UIViewController?
 
@@ -23,9 +21,7 @@ class BottomMenuViewController: UIViewController {
         updateChildViewController()
     }
 
-    private func addLayout() {
-        self.view.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func addLayout() {        
         self.view.addSubview(containerView)
         self.view.addSubview(bottomView)
         
@@ -35,18 +31,20 @@ class BottomMenuViewController: UIViewController {
         }
         
         bottomView.layoutUsing.anchors {
-            $0.pinToSuperview(excluding: [.top])
+            $0.pinToSuperview(excluding: [.top, .bottom])
+            bottomViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: bottomViewHeight)
+            $0.height.equal(to: bottomViewHeight)
         }
     }
         
     func updateChildViewController() {
-        if let viewController = self.childViewController {
-            self.addChild(viewController)
-        }
-        
         if let view = self.childViewController?.view {
             containerView.addSubview(view)
             view.pinAllEdges(to: containerView)
+        }
+        
+        if let viewController = self.childViewController {
+            self.addChild(viewController)
         }
         
         childViewController?.didMove(toParent: self)
@@ -60,7 +58,7 @@ extension BottomMenuViewController {
     }
     
     func menusState() -> MenusState {
-        switch (bottomView.arrangedSubviews.isEmpty) {
+        switch (bottomView.subviews.isEmpty) {
         case (true): return .none
         case (false): return .hasBottom
         }
@@ -70,28 +68,24 @@ extension BottomMenuViewController {
 // MARK: Toolbar Manipulations
 extension BottomMenuViewController {
     func addBottomView(_ view: UIView) {
-        bottomView.addArrangedSubview(view)
-        bottomView.layoutIfNeeded()
-        view.layoutIfNeeded()
-        view.isHidden = true
+        bottomView.addSubview(view)
+        view.pinAllEdges(to: bottomView)
+        self.view.layoutIfNeeded()
+
+        bottomViewBottomConstraint.constant = -self.view.safeAreaInsets.bottom
         
         UIView.animate(withDuration: animationDuration) { [weak self] in
-            self?.bottomView.arrangedSubviews.first?.isHidden = false
-            self?.bottomView.layoutIfNeeded()
+            self?.view.layoutIfNeeded()
         }
     }
     
     func removeBottomView() {
-        bottomView.setNeedsLayout()
+        bottomViewBottomConstraint.constant = bottomViewHeight
+        
         UIView.animate(withDuration: animationDuration, animations: { [weak self] in
-            self?.bottomView.arrangedSubviews.first.flatMap {
-                $0.isHidden = true
-            }
-            self?.bottomView.layoutIfNeeded()
-        }) { [weak self] (value) in
-            self?.bottomView.subviews.forEach { (value) in
-                value.removeFromSuperview()
-            }
+            self?.view.layoutIfNeeded()
+        }) { [weak self] _ in
+            self?.bottomView.subviews.forEach { $0.removeFromSuperview() }
         }
     }
 

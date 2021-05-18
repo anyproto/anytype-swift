@@ -20,12 +20,12 @@ extension EditorModuleContainerViewModel {
 
 // MARK: ViewModel
 class EditorModuleContainerViewModel {
-    private var router: DocumentViewRoutingOutputProtocol
+    private var router: DocumentViewBaseRouter
     private let routingProcessor: EditorContainerRoutingProcessor
     
     private var subscription: AnyCancellable?
     
-    init(router: DocumentViewRoutingOutputProtocol) {
+    init(router: DocumentViewBaseRouter) {
         self.router = router
         self.routingProcessor = EditorContainerRoutingProcessor(eventsPublisher: router.outputEventsPublisher)
     }
@@ -46,9 +46,7 @@ class EditorModuleContainerViewModel {
 
 // MARK: Configurations
 extension EditorModuleContainerViewModel {
-    func configured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) -> Self {
-        let router = (self.router as? DocumentViewBaseRouter)
-        _ = router?.configured(userActionsStream: userActionsStream)
-        return self
+    func configured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) {
+        router.configured(userActionsStream: userActionsStream)
     }
 }

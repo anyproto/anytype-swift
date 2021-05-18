@@ -5,7 +5,7 @@ import Combine
 import BlocksModels
 
 typealias EditorModuleContentModule = (
-    viewController: EditorModuleContentViewController,
+    viewController: BottomMenuViewController,
     selectionPresenter: EditorSelectionToolbarPresenter,
     publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never>
 )
@@ -32,10 +32,6 @@ enum EditorModuleContentViewBuilder {
         
         bottomMenuViewController.add(child: childViewController)
         
-        let contentViewController = EditorModuleContentViewController(
-            childViewController: bottomMenuViewController
-        )
-        
-        return (contentViewController, presenter, editorViewModel.publicUserActionPublisher)
+        return (bottomMenuViewController, presenter, editorViewModel.publicUserActionPublisher)
     }
 }

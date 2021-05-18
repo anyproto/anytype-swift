@@ -59,18 +59,17 @@ class EditorSelectionToolbarPresenter {
     }
             
     private func update(selectionEnabled: Bool) {
-        guard let controller = self.bottomMenuViewController, let navigationItem = self.navigationItem else { return }
+        guard let controller = bottomMenuViewController, let navigationItem = navigationItem else { return }
         
         if selectionEnabled {
             let leftBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildSelectAllBarButton()
             let rightBarButtonItem = self.multiSelectionAssembly.selectionAssembly.buildDoneBarButton()
             
-            let toolbarView = self.multiSelectionAssembly.toolbarView()
             self.restorationPoint.save(navigationItem)
             navigationItem.leftBarButtonItem = leftBarButtonItem
             navigationItem.rightBarButtonItem = rightBarButtonItem
             
-            controller.addBottomView(toolbarView)
+            controller.addBottomView(multiSelectionAssembly.toolbarView())
         }
         else {
             self.restorationPoint.apply(navigationItem)

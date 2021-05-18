@@ -64,27 +64,17 @@ class EditorModuleContainerViewController: UIViewController {
 // MARK: UINavigationController Handling
 extension EditorModuleContainerViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        /// We should keep track of navigation links.
-        /// Where we should update navigation from item.
-        if let controller = viewController as? EditorModuleContentViewController {
-            
-            if let child = controller.children.first?.children.first as? DocumentEditorViewController {
-                /// extract model from it.
-                let viewModel = child.getViewModel()
-                
-                /// Tell our view model about update
-                _ = self.viewModel.configured(userActionsStream: viewModel.publicUserActionPublisher)
-            }
-            
+        
+        guard let controller = viewController as? BottomMenuViewController,
+              let editor = controller.children.first as? DocumentEditorViewController  else {
+            assertionFailure("DocumentEditorViewController not found as a child of BottomMenuViewController")
+            return
         }
+
+        // Tell our view model about update
+        self.viewModel.configured(userActionsStream: editor.getViewModel().publicUserActionPublisher)
     }
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        if let controller = viewController as? EditorModuleContentViewController {
-            
-            if controller.children.first?.children.first as? DocumentEditorViewController != nil {
-                /// extract model from it.
-            }
-        }
     }
 }
 

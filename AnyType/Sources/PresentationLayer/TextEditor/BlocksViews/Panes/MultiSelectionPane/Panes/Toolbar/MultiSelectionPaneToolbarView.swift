@@ -1,18 +1,13 @@
 import UIKit
 import Combine
 
-extension MultiSelectionPane.Panes {
-    enum Toolbar {}
-}
 
-// MARK: Action
 enum MultiSelectionPaneToolbarAction {
     case turnInto(BlocksViews.UserAction.ToolbarOpenAction.BlockMenu)
     case delete
     case copy
 }
 
-// MARK: State
 /// Internal State for View.
 /// For example, if you press button which doesn't hide keyboard, by design, this button could be highlighted.
 ///
@@ -22,38 +17,13 @@ enum MultiSelectionPaneToolbarUserResponse {
 }
 
 final class MultiSelectionPaneToolbarView: UIView {
-    private let insets: UIEdgeInsets
     private var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes]?
     private let style: BlockTextView.Style = .default
     private let model: MultiSelectionPaneToolbarViewModel
     private var subscription: AnyCancellable?
-
-    // MARK: Initialization
-    init(frame: CGRect,
-         applicationWindowInsetsProvider: ApplicationWindowInsetsProvider = UIApplication.shared) {
-        self.insets = UIEdgeInsets(
-            top: 10,
-            left: 10,
-            bottom: applicationWindowInsetsProvider.mainWindowInsets.bottom,
-            right: 10
-        )
-        
-        self.model = .init()
-        super.init(frame: frame)
-        self.setup()
-    }
     
-    init(
-        viewModel: MultiSelectionPaneToolbarViewModel,
-        applicationWindowInsetsProvider: ApplicationWindowInsetsProvider = UIApplication.shared
-    ) {
+    init(viewModel: MultiSelectionPaneToolbarViewModel) {
         self.model = viewModel
-        self.insets = UIEdgeInsets(
-            top: 10,
-            left: 10,
-            bottom: applicationWindowInsetsProvider.mainWindowInsets.bottom,
-            right: 10
-        )
         super.init(frame: .zero)
         self.setup()
     }
@@ -156,16 +126,20 @@ final class MultiSelectionPaneToolbarView: UIView {
         flexibleView.setContentHuggingPriority(.defaultLow, for: .horizontal)
         flexibleView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
-        let stackView = UIStackView(arrangedSubviews: [self.titleLabel,
-                                                       flexibleView,
-                                                       self.turnIntoButton,
-                                                       self.deleteButton,
-                                                       self.copyButton])
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                self.titleLabel,
+                flexibleView,
+                self.turnIntoButton,
+                self.deleteButton,
+                self.copyButton
+            ]
+        )
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
 
         self.addSubview(stackView)
-        stackView.edgesToSuperview(insets: insets)
+        stackView.pinAllEdges(to: self, insets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
 }

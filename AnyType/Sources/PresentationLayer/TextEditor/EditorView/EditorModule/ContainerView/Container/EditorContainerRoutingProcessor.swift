@@ -6,16 +6,13 @@ class EditorContainerRoutingProcessor {
     
     private var subscription: AnyCancellable?
     private let userActionSubject = PassthroughSubject<UserAction, Never>()
-    let userAction: AnyPublisher<UserAction, Never>
+    lazy var userAction: AnyPublisher<UserAction, Never> = userActionSubject.eraseToAnyPublisher()
     
     init(eventsPublisher: AnyPublisher<IncomingEvent, Never>) {
-        userAction = userActionSubject.eraseToAnyPublisher()
-        
         subscription = eventsPublisher.sink { [weak self] (value) in
             self?.process(value)
         }
     }
-    
     
     func build(id: String) -> EditorModuleContentModule {
         let component = EditorModuleContainerViewBuilder.childComponent(id: id)
