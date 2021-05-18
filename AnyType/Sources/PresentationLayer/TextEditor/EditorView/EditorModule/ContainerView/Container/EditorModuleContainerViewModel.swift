@@ -20,10 +20,16 @@ extension EditorModuleContainerViewModel {
 
 // MARK: ViewModel
 class EditorModuleContainerViewModel {
-    private var router: DocumentViewRoutingOutputProtocol?
-    private let routingProcessor = EditorContainerRoutingProcessor()
+    private var router: DocumentViewRoutingOutputProtocol
+    private let routingProcessor: EditorContainerRoutingProcessor
     
     private var subscription: AnyCancellable?
+    
+    init(router: DocumentViewRoutingOutputProtocol) {
+        self.router = router
+        self.routingProcessor = EditorContainerRoutingProcessor(eventsPublisher: router.outputEventsPublisher)
+    }
+    
     /// And publish on actions that associated controller will handle.
     func actionPublisher() -> AnyPublisher<Action, Never> {
         self.routingProcessor.userAction.map { value -> Action in
@@ -40,28 +46,9 @@ class EditorModuleContainerViewModel {
 
 // MARK: Configurations
 extension EditorModuleContainerViewModel {
-    func configured(router: DocumentViewRoutingOutputProtocol?) -> Self {
-        self.router = router
-        self.routingProcessor.configured(self.router?.outputEventsPublisher)
-        return self
-    }
-    
     func configured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) -> Self {
         let router = (self.router as? DocumentViewBaseRouter)
         _ = router?.configured(userActionsStream: userActionsStream)
         return self
     }
-    
-    func configured(userActionsStreamStream: DocumentViewBaseRouter.UserActionPublisherPublisher) -> Self {
-        let router = (self.router as? DocumentViewBaseRouter)
-        _ = router?.configured(userActionsStreamStream: userActionsStreamStream)
-        return self
-    }
-    
-    func forcedConfigured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) {
-        let router = DocumentViewCompoundRouter()
-        _ = self.configured(router: router)
-        _ = router.configured(userActionsStream: userActionsStream)
-    }
 }
-

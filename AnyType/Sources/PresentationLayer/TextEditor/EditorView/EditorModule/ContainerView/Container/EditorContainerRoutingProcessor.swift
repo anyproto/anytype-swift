@@ -8,6 +8,15 @@ class EditorContainerRoutingProcessor {
     private let userActionSubject = PassthroughSubject<UserAction, Never>()
     let userAction: AnyPublisher<UserAction, Never>
     
+    init(eventsPublisher: AnyPublisher<IncomingEvent, Never>) {
+        userAction = userActionSubject.eraseToAnyPublisher()
+        
+        subscription = eventsPublisher.sink { [weak self] (value) in
+            self?.process(value)
+        }
+    }
+    
+    
     func build(id: String) -> EditorModuleContentModule {
         let component = EditorModuleContainerViewBuilder.childComponent(id: id)
         /// Next, we should configure router and, well, we should configure navigation item, of course...
@@ -33,15 +42,5 @@ class EditorContainerRoutingProcessor {
                 self.userActionSubject.send(.childDocument(viewController))
             }
         }
-    }
-    
-    init() {
-        userAction = userActionSubject.eraseToAnyPublisher()
-    }
-    
-    func configured(_ eventsPublisher: AnyPublisher<IncomingEvent, Never>?) {
-        self.subscription = eventsPublisher?.sink(receiveValue: { [weak self] (value) in
-            self?.process(value)
-        })
     }
 }

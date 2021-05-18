@@ -70,19 +70,17 @@ class DocumentViewBaseRouter {
     /// - Returns: A Self for convenient usage.
     func configured(userActionsStreamStream: UserActionPublisherPublisher) -> Self {
         self.combinedUserActionsStreamSubscription = userActionsStreamStream.sink(receiveValue: { [weak self] (value) in
-            _ = self?.configured(userActionsStream: value)
+            self?.configured(userActionsStream: value)
         })
         return self
     }
 
-    func configured(userActionsStream: UserActionPublisher) -> Self {
+    func configured(userActionsStream: UserActionPublisher) {
         self.userActionsStreamSubscription?.cancel()
         self.userActionsStreamSubscription = nil
         self.userActionsStreamSubscription = userActionsStream.sink { [weak self] (value) in
             self?.receive(action: value)
         }
-        
-        return self
     }
 }
 

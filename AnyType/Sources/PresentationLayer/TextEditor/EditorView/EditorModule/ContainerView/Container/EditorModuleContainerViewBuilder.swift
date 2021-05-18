@@ -4,21 +4,11 @@ import SwiftUI
 
 
 enum EditorModuleContainerViewBuilder {
-    typealias SelfComponent = (
-        viewController: EditorModuleContainerViewController,
-        viewModel: EditorModuleContainerViewModel,
-        childComponent: EditorModuleContentModule
-    )
-    
-    static func view(id: String) -> EditorModuleContainerViewController {
-        self.selfComponent(id: id).0
-    }
-    
     static func childComponent(id: String) -> EditorModuleContentModule {
         EditorModuleContentViewBuilder.сontent(id: id)
     }
     
-    private static func selfComponent(id: String) -> SelfComponent {
+    static func view(id: String) -> EditorModuleContainerViewController {
         let childComponent = self.childComponent(id: id)
         
         let childViewController = childComponent.0
@@ -29,18 +19,19 @@ enum EditorModuleContainerViewBuilder {
         childPresenter.navigationItem = childViewController.navigationItem
         
         let router = DocumentViewCompoundRouter()
-        _ = router.configured(userActionsStream: childComponent.2)
+        router.configured(userActionsStream: childComponent.2)
         
-        let viewModel = EditorModuleContainerViewModel()
-        _ = viewModel.configured(router: router)
+        let viewModel = EditorModuleContainerViewModel(router: router)
         
-        let viewController = EditorModuleContainerViewController(viewModel: viewModel, childViewController: navigationController)
+        let viewController = EditorModuleContainerViewController(
+            viewModel: viewModel, childViewController: navigationController
+        )
         childViewController.navigationItem.leftBarButtonItem = createBackButton(container: viewController)
 
         /// DEBUG: Conformance to navigation delegate.
         navigationController.delegate = viewController
         
-        return (viewController, viewModel, childComponent)
+        return viewController
     }
     
     private static func createBackButton(container: EditorModuleContainerViewController) -> UIBarButtonItem {
