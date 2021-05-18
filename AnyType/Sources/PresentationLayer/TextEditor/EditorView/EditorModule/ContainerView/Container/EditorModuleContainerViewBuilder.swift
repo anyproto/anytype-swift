@@ -4,9 +4,6 @@ import SwiftUI
 
 
 enum EditorModuleContainerViewBuilder {
-    typealias ChildViewController = EditorModuleContentViewController
-    typealias ChildViewBuilder = EditorModuleContentViewBuilder
-    
     typealias SelfComponent = (
         viewController: EditorModuleContainerViewController,
         viewModel: EditorModuleContainerViewModel,
@@ -18,7 +15,7 @@ enum EditorModuleContainerViewBuilder {
     }
     
     static func childComponent(id: String) -> EditorModuleContentModule {
-        ChildViewBuilder.сontent(id: id)
+        EditorModuleContentViewBuilder.сontent(id: id)
     }
     
     private static func selfComponent(id: String) -> SelfComponent {
@@ -28,20 +25,15 @@ enum EditorModuleContainerViewBuilder {
         
         let navigationController = createNavigationController(child: childViewController)
         
-        /// Configure Navigation Item for Content View Model.
-        /// We need it to support Selection navigation bar buttons.
         let childPresenter = childComponent.1
         childPresenter.navigationItem = childViewController.navigationItem
         
-        /// Don't forget configure router by events from blocks.
-        let router: DocumentViewRouting.CompoundRouter = .init()
+        let router = DocumentViewCompoundRouter()
         _ = router.configured(userActionsStream: childComponent.2)
         
-        /// Configure ViewModel of current View Controller.
         let viewModel = EditorModuleContainerViewModel()
         _ = viewModel.configured(router: router)
         
-        /// Configure current ViewController.
         let viewController = EditorModuleContainerViewController(viewModel: viewModel, childViewController: navigationController)
         childViewController.navigationItem.leftBarButtonItem = createBackButton(container: viewController)
 

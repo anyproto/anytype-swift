@@ -46,20 +46,20 @@ extension EditorModuleContainerViewModel {
         return self
     }
     
-    func configured(userActionsStream: DocumentViewRouting.BaseRouter.UserActionPublisher) -> Self {
-        let router = (self.router as? DocumentViewRouting.BaseRouter)
+    func configured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) -> Self {
+        let router = (self.router as? DocumentViewBaseRouter)
         _ = router?.configured(userActionsStream: userActionsStream)
         return self
     }
     
-    func configured(userActionsStreamStream: DocumentViewRouting.BaseRouter.UserActionPublisherPublisher) -> Self {
-        let router = (self.router as? DocumentViewRouting.BaseRouter)
+    func configured(userActionsStreamStream: DocumentViewBaseRouter.UserActionPublisherPublisher) -> Self {
+        let router = (self.router as? DocumentViewBaseRouter)
         _ = router?.configured(userActionsStreamStream: userActionsStreamStream)
         return self
     }
     
-    func forcedConfigured(userActionsStream: DocumentViewRouting.BaseRouter.UserActionPublisher) {
-        let router: DocumentViewRouting.CompoundRouter = .init()
+    func forcedConfigured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) {
+        let router = DocumentViewCompoundRouter()
         _ = self.configured(router: router)
         _ = router.configured(userActionsStream: userActionsStream)
     }

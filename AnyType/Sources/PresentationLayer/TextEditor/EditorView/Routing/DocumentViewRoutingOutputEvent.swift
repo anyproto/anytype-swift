@@ -1,15 +1,14 @@
 import Foundation
 import UIKit
-extension DocumentViewRouting {
-    /// Segue, yes, kind of.
-    /// For now we can pass controllers without additional dismissal actions and they will be dismissed by theirselves
-    enum OutputEvent {
-        case general(General)
-        case document(Document)
-    }
+
+/// Segue, yes, kind of.
+/// For now we can pass controllers without additional dismissal actions and they will be dismissed by theirselves
+enum DocumentViewRoutingOutputEvent {
+    case general(General)
+    case document(Document)
 }
 
-extension DocumentViewRouting.OutputEvent {
+extension DocumentViewRoutingOutputEvent {
     /// These events manipuate general `UIViewController`
     enum General {
         typealias ViewController = UIViewController
@@ -22,7 +21,7 @@ extension DocumentViewRouting.OutputEvent {
     }
 }
 
-extension DocumentViewRouting.OutputEvent {
+extension DocumentViewRoutingOutputEvent {
     /// These events manipulate custom `Document.Request` as DataSource. (a.k.a. `EditorModule.ContentViewBuilder.Request` )
     enum Document {
         /// Show or Present a View that will be build by request.

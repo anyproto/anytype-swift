@@ -1,7 +1,7 @@
 import Combine
 
 class EditorContainerRoutingProcessor {
-    typealias IncomingEvent = DocumentViewRouting.OutputEvent
+    typealias IncomingEvent = DocumentViewRoutingOutputEvent
     typealias UserAction = EditorModuleContainerViewModel.Action
     
     private var subscription: AnyCancellable?

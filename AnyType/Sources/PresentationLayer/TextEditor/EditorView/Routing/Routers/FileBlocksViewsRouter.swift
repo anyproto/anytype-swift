@@ -1,37 +1,24 @@
-//
-//  DocumentViewRouting+File.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 17.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Combine
 import UIKit
 
-// MARK: FileBlocksViewsRouter
-extension DocumentViewRouting {
-    class FileBlocksViewsRouter: BaseCompoundRouter {
-        
-        // MARK: Subclassing
-        override func match(action: BlocksViews.UserAction) -> BaseRouter? {
-            switch action {
-            case .specific(.file): return self.router(of: FileRouter.self)
-            default: return nil
-            }
+
+class FileBlocksViewsRouter: DocumentViewBaseCompoundRouter {
+    override func match(action: BlocksViews.UserAction) -> DocumentViewBaseRouter? {
+        switch action {
+        case .specific(.file): return self.router(of: FileRouter.self)
+        default: return nil
         }
-        override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [FileRouter(fileLoader: FileLoader())]
-        }
+    }
+    override func defaultRouters() -> [DocumentViewBaseRouter] {
+        [FileRouter(fileLoader: FileLoader())]
     }
 }
 
-extension DocumentViewRouting.FileBlocksViewsRouter {
-    typealias BaseRouter = DocumentViewRouting.BaseRouter
-}
 
 // MARK: FileBlocksViewsRouter / ImageRouter
-extension DocumentViewRouting.FileBlocksViewsRouter {
+extension FileBlocksViewsRouter {
+    typealias BaseRouter = DocumentViewBaseRouter
+    
     final class FileRouter: BaseRouter {
         
         private let fileLoader: FileLoader

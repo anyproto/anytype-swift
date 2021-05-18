@@ -3,31 +3,27 @@ import Combine
 import os
 
 
-// MARK: ToolsBlocksViewsRouter
-extension DocumentViewRouting {
-    /// We use name "Tools" as legacy from old design.
-    /// Previously, we have PageLink and Page entries in Tools category.
-    /// Later we should move PageLink to new category Page.
-    ///
-    class ToolsBlocksViewsRouter: BaseCompoundRouter {
+/// We use name "Tools" as legacy from old design.
+/// Previously, we have PageLink and Page entries in Tools category.
+/// Later we should move PageLink to new category Page.
+///
+class ToolsBlocksViewsRouter: DocumentViewBaseCompoundRouter {
 
-        // MARK: Subclassing
-        override func match(action: BlocksViews.UserAction) -> BaseRouter? {
-            switch action {
-            case .specific(.tool): return self.router(of: PageLinkToolsBlocksViewsRouter.self)
-            default: return nil
-            }
+    // MARK: Subclassing
+    override func match(action: BlocksViews.UserAction) -> DocumentViewBaseRouter? {
+        switch action {
+        case .specific(.tool): return self.router(of: PageLinkToolsBlocksViewsRouter.self)
+        default: return nil
         }
-        override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [PageLinkToolsBlocksViewsRouter()]
-        }
+    }
+    override func defaultRouters() -> [DocumentViewBaseRouter] {
+        [PageLinkToolsBlocksViewsRouter()]
     }
 }
 
 // MARK: PageLinkToolsBlocksViewsRouters
-extension DocumentViewRouting.ToolsBlocksViewsRouter {
-    typealias BaseRouter = DocumentViewRouting.BaseRouter
-    class PageLinkToolsBlocksViewsRouter: BaseRouter {
+extension ToolsBlocksViewsRouter {
+    class PageLinkToolsBlocksViewsRouter: DocumentViewBaseRouter {
         private var subscription: AnyCancellable?
         private func handle(action: BlocksViews.UserAction.Tools.UserAction.PageLink) {
             switch action {

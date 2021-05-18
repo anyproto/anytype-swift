@@ -79,13 +79,13 @@
 		0A08D4C224AF822C0088ECC2 /* CommonViewsNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08D4C124AF822B0088ECC2 /* CommonViewsNamespace.swift */; };
 		0A08D4C424AF824D0088ECC2 /* CommonViews+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08D4C324AF824D0088ECC2 /* CommonViews+ViewControllers.swift */; };
 		0A08D4C624AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08D4C524AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift */; };
-		0A0965E425BEF5B000C004BD /* DocumentViewRouting+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C025BEF5B000C004BD /* DocumentViewRouting+Page.swift */; };
-		0A0965E525BEF5B000C004BD /* DocumentViewRouting+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C125BEF5B000C004BD /* DocumentViewRouting+File.swift */; };
-		0A0965E625BEF5B000C004BD /* DocumentViewRouting+Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C225BEF5B000C004BD /* DocumentViewRouting+Base.swift */; };
-		0A0965E725BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C325BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift */; };
-		0A0965E825BEF5B000C004BD /* DocumentViewRouting+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C425BEF5B000C004BD /* DocumentViewRouting+Tools.swift */; };
+		0A0965E425BEF5B000C004BD /* PageBlocksViewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C025BEF5B000C004BD /* PageBlocksViewsRouter.swift */; };
+		0A0965E525BEF5B000C004BD /* FileBlocksViewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C125BEF5B000C004BD /* FileBlocksViewsRouter.swift */; };
+		0A0965E625BEF5B000C004BD /* DocumentViewBaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C225BEF5B000C004BD /* DocumentViewBaseRouter.swift */; };
+		0A0965E725BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C325BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift */; };
+		0A0965E825BEF5B000C004BD /* ToolsBlocksViewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C425BEF5B000C004BD /* ToolsBlocksViewsRouter.swift */; };
 		0A0965E925BEF5B000C004BD /* DocumentViewRouting+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */; };
-		0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */; };
+		0A0965EA25BEF5B000C004BD /* ToolbarsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C625BEF5B000C004BD /* ToolbarsRouter.swift */; };
 		0A0965EC25BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C925BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift */; };
 		0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */; };
 		0A0965F125BEF5B000C004BD /* EditorSelectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CE25BEF5B000C004BD /* EditorSelectionHandler.swift */; };
@@ -604,13 +604,13 @@
 		0A08D4C124AF822B0088ECC2 /* CommonViewsNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewsNamespace.swift; sourceTree = "<group>"; };
 		0A08D4C324AF824D0088ECC2 /* CommonViews+ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonViews+ViewControllers.swift"; sourceTree = "<group>"; };
 		0A08D4C524AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonViews+ViewControllers+TransitionContainer.swift"; sourceTree = "<group>"; };
-		0A0965C025BEF5B000C004BD /* DocumentViewRouting+Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Page.swift"; sourceTree = "<group>"; };
-		0A0965C125BEF5B000C004BD /* DocumentViewRouting+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+File.swift"; sourceTree = "<group>"; };
-		0A0965C225BEF5B000C004BD /* DocumentViewRouting+Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Base.swift"; sourceTree = "<group>"; };
-		0A0965C325BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+OutputEvent.swift"; sourceTree = "<group>"; };
-		0A0965C425BEF5B000C004BD /* DocumentViewRouting+Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Tools.swift"; sourceTree = "<group>"; };
+		0A0965C025BEF5B000C004BD /* PageBlocksViewsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageBlocksViewsRouter.swift; sourceTree = "<group>"; };
+		0A0965C125BEF5B000C004BD /* FileBlocksViewsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBlocksViewsRouter.swift; sourceTree = "<group>"; };
+		0A0965C225BEF5B000C004BD /* DocumentViewBaseRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewBaseRouter.swift; sourceTree = "<group>"; };
+		0A0965C325BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewRoutingOutputEvent.swift; sourceTree = "<group>"; };
+		0A0965C425BEF5B000C004BD /* ToolsBlocksViewsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsBlocksViewsRouter.swift; sourceTree = "<group>"; };
 		0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Protocols.swift"; sourceTree = "<group>"; };
-		0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Toolbar.swift"; sourceTree = "<group>"; };
+		0A0965C625BEF5B000C004BD /* ToolbarsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarsRouter.swift; sourceTree = "<group>"; };
 		0A0965C925BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleSelectionHandlerHolderProtocol.swift; sourceTree = "<group>"; };
 		0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewModel.swift; sourceTree = "<group>"; };
 		0A0965CE25BEF5B000C004BD /* EditorSelectionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSelectionHandler.swift; sourceTree = "<group>"; };
@@ -1642,13 +1642,10 @@
 		0A0965BF25BEF5B000C004BD /* Routing */ = {
 			isa = PBXGroup;
 			children = (
-				0A0965C025BEF5B000C004BD /* DocumentViewRouting+Page.swift */,
-				0A0965C125BEF5B000C004BD /* DocumentViewRouting+File.swift */,
-				0A0965C225BEF5B000C004BD /* DocumentViewRouting+Base.swift */,
-				0A0965C425BEF5B000C004BD /* DocumentViewRouting+Tools.swift */,
+				3DD67EDC2653B1030025ED6F /* Routers */,
+				0A0965C225BEF5B000C004BD /* DocumentViewBaseRouter.swift */,
 				0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */,
-				0A0965C325BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift */,
-				0A0965C625BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift */,
+				0A0965C325BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -2598,6 +2595,17 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
+		3DD67EDC2653B1030025ED6F /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				0A0965C025BEF5B000C004BD /* PageBlocksViewsRouter.swift */,
+				0A0965C625BEF5B000C004BD /* ToolbarsRouter.swift */,
+				0A0965C425BEF5B000C004BD /* ToolsBlocksViewsRouter.swift */,
+				0A0965C125BEF5B000C004BD /* FileBlocksViewsRouter.swift */,
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
 		3DDC6A5E2627070C004F5EA4 /* PageLink */ = {
 			isa = PBXGroup;
 			children = (
@@ -3228,7 +3236,7 @@
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
-				0A0965E425BEF5B000C004BD /* DocumentViewRouting+Page.swift in Sources */,
+				0A0965E425BEF5B000C004BD /* PageBlocksViewsRouter.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
@@ -3401,7 +3409,7 @@
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
-				0A0965E625BEF5B000C004BD /* DocumentViewRouting+Base.swift in Sources */,
+				0A0965E625BEF5B000C004BD /* DocumentViewBaseRouter.swift in Sources */,
 				5338E7FE25DD2F74008CB97D /* ListBlockActionHandler.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
@@ -3444,7 +3452,7 @@
 				3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */,
 				3D929B6226332ACA0063F1BE /* PageCellData.swift in Sources */,
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
-				0A0965EA25BEF5B000C004BD /* DocumentViewRouting+Toolbar.swift in Sources */,
+				0A0965EA25BEF5B000C004BD /* ToolbarsRouter.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				3DA369412629B75E001557C9 /* EventHandlerFocusConverter.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
@@ -3510,7 +3518,7 @@
 				EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */,
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
-				0A0965E725BEF5B000C004BD /* DocumentViewRouting+OutputEvent.swift in Sources */,
+				0A0965E725BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift in Sources */,
 				EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
@@ -3582,7 +3590,7 @@
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */,
 				533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */,
-				0A0965E525BEF5B000C004BD /* DocumentViewRouting+File.swift in Sources */,
+				0A0965E525BEF5B000C004BD /* FileBlocksViewsRouter.swift in Sources */,
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,
@@ -3651,7 +3659,7 @@
 				5338E7F525DC7345008CB97D /* ButtonBlockActionHandler.swift in Sources */,
 				0A005AAC24C4731D000520AA /* BlocksViews+New+File+File.swift in Sources */,
 				3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */,
-				0A0965E825BEF5B000C004BD /* DocumentViewRouting+Tools.swift in Sources */,
+				0A0965E825BEF5B000C004BD /* ToolsBlocksViewsRouter.swift in Sources */,
 				03D1515E23FB2B85004027CE /* ConfigurationServiceProtocol.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				0A08D4C224AF822C0088ECC2 /* CommonViewsNamespace.swift in Sources */,

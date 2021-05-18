@@ -10,34 +10,30 @@ import Foundation
 import UIKit
 import Combine
 
-// MARK: ToolbarsRouter
-extension DocumentViewRouting {
-    /// This router is processing to process .toolbars actions.
-    ///
-    class ToolbarsRouter: BaseCompoundRouter {
-        typealias BaseRouter = DocumentViewRouting.BaseRouter
-        
-        // MARK: Subclassing
-        override func match(action: BlocksViews.UserAction) -> BaseRouter? {
-            switch action {
-            case .toolbars(.addBlock): return self.router(of: AddBlockToolbarRouter.self)
-            case .toolbars(.turnIntoBlock): return self.router(of: TurnIntoToolbarRouter.self)
-            case .toolbars(.bookmark): return self.router(of: BookmarkToolbarRouter.self)
-            case .toolbars(.marksPane): return self.router(of: MarksPaneToolbarRouter.self)
-            default: return nil
-            }
+/// This router is processing to process .toolbars actions.
+///
+class ToolbarsRouter: DocumentViewBaseCompoundRouter {
+    
+    // MARK: Subclassing
+    override func match(action: BlocksViews.UserAction) -> DocumentViewBaseRouter? {
+        switch action {
+        case .toolbars(.addBlock): return self.router(of: AddBlockToolbarRouter.self)
+        case .toolbars(.turnIntoBlock): return self.router(of: TurnIntoToolbarRouter.self)
+        case .toolbars(.bookmark): return self.router(of: BookmarkToolbarRouter.self)
+        case .toolbars(.marksPane): return self.router(of: MarksPaneToolbarRouter.self)
+        default: return nil
         }
-        override func defaultRouters() -> [DocumentViewRouting.BaseRouter] {
-            [AddBlockToolbarRouter(), TurnIntoToolbarRouter(), BookmarkToolbarRouter(), MarksPaneToolbarRouter()]
-        }
+    }
+    override func defaultRouters() -> [DocumentViewBaseRouter] {
+        [AddBlockToolbarRouter(), TurnIntoToolbarRouter(), BookmarkToolbarRouter(), MarksPaneToolbarRouter()]
     }
 }
 
 // MARK: ToolbarsRouter / TurnIntoToolbarRouter
-extension DocumentViewRouting.ToolbarsRouter {
+extension ToolbarsRouter {
     /// It is processing TurnInto toolbar appearing.
     ///
-    class TurnIntoToolbarRouter: BaseRouter {
+    class TurnIntoToolbarRouter: DocumentViewBaseRouter {
         /// Custom UINavigationBar for TurnInto toolbar.
         ///
         private class NavigationBar: UINavigationBar {}
@@ -91,10 +87,10 @@ extension DocumentViewRouting.ToolbarsRouter {
 }
 
 // MARK: ToolbarsRouter / AddBlockRouter
-extension DocumentViewRouting.ToolbarsRouter {
+extension ToolbarsRouter {
     /// It is processing AddBlock toolbar appearing.
     ///
-    class AddBlockToolbarRouter: BaseRouter {
+    class AddBlockToolbarRouter: DocumentViewBaseRouter {
         /// Custom UINavigationBar for AddBlock toolbar.
         ///
         private class NavigationBar: UINavigationBar {}
@@ -147,10 +143,10 @@ extension DocumentViewRouting.ToolbarsRouter {
 }
 
 // MARK: ToolbarsRouter / BookmarkPaneRouter
-extension DocumentViewRouting.ToolbarsRouter {
+extension ToolbarsRouter {
     /// It is processing Bookmark toolbar appearing.
     ///
-    class BookmarkToolbarRouter: BaseRouter {
+    class BookmarkToolbarRouter: DocumentViewBaseRouter {
         private func hanlde(action: BlocksViews.UserAction.ToolbarOpenAction) {
             switch action {
             case let .bookmark(payload):
@@ -183,10 +179,10 @@ extension DocumentViewRouting.ToolbarsRouter {
 }
 
 // MARK: ToolbarsRouter / MarksPaneRouter
-extension DocumentViewRouting.ToolbarsRouter {
+extension ToolbarsRouter {
     /// It is processing MarksPane toolbar appearing.
     ///
-    class MarksPaneToolbarRouter: BaseRouter {
+    class MarksPaneToolbarRouter: DocumentViewBaseRouter {
         /// Custom UINavigationBar for AddBlock toolbar.
         ///
         private class NavigationBar: UINavigationBar {}
