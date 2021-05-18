@@ -19,27 +19,12 @@ final class DocumentDetailsView: UICollectionReusableView {
     // MARK: - Variables
     
     private weak var viewModel: DocumentDetailsViewModel?
-    private var subscriptions: Set<AnyCancellable> = []
-
-    // MARK: Initialization
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupLayout()
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     // MARK: - Override functions
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        subscriptions.forEach { $0.cancel() }
         viewModel = nil
     }
     
@@ -50,14 +35,9 @@ final class DocumentDetailsView: UICollectionReusableView {
 extension DocumentDetailsView: ConfigurableView {
     
     func configure(model: DocumentDetailsViewModel) {
-        subscriptions.forEach { $0.cancel() }
-        
         viewModel = model
-        viewModel?.$iconEmoji
-            .sink { [weak self] newIconEmoji in
-                self?.handleIconEmojiUpdate(newIconEmoji)
-            }
-            .store(in: &subscriptions)
+        
+        configureIconView(model.iconEmoji)
     }
     
 }
@@ -66,27 +46,30 @@ extension DocumentDetailsView: ConfigurableView {
 
 private extension DocumentDetailsView {
     
-    // MARK: Layout
-    
-    func setupLayout() {
-        layoutUsing.stack {
-            $0.vStack(
-                $0.vGap(fixed: Constants.directionalEdgeInsets.top),
-                $0.hStack(
-                    $0.hGap(fixed: Constants.directionalEdgeInsets.leading),
-                    self.iconView,
-                    $0.hGap()
-                ),
-                $0.vGap(fixed: Constants.directionalEdgeInsets.bottom)
-            )
+    func configureIconView(_ iconEmoji: String?) {
+        guard let iconEmoji = iconEmoji else {
+            iconView.removeFromSuperview()
+            iconView.onUserAction = nil
+            
+            return
         }
+        
+        iconView.configure(model: iconEmoji)
+        iconView.onUserAction = { [weak self] action in
+            self?.viewModel?.handleIconUserAction(action)
+        }
+        
+        setupIconLayout()
     }
     
-    // MARK: Event handler
-    
-    func handleIconEmojiUpdate(_ iconEmoji: String?) {
-        iconView.isHidden = iconEmoji.isNil
-        iconEmoji.flatMap { iconView.configure(model: $0) }
+    func setupIconLayout() {
+        addSubview(iconView)
+        
+        iconView.layoutUsing.anchors {
+            $0.leading.equal(to: self.leadingAnchor, constant: Constants.edgeInsets.leading)
+            $0.bottom.equal(to: self.bottomAnchor, constant: -Constants.edgeInsets.bottom)
+            $0.top.equal(to: self.topAnchor, constant: Constants.edgeInsets.top)
+        }
     }
     
 }
@@ -95,8 +78,8 @@ private extension DocumentDetailsView {
 
 private extension DocumentDetailsView {
     
-    struct Constants {
-        static let directionalEdgeInsets = NSDirectionalEdgeInsets(
+    enum Constants {
+        static let edgeInsets = NSDirectionalEdgeInsets(
             top: 12,
             leading: 20,
             bottom: 12,

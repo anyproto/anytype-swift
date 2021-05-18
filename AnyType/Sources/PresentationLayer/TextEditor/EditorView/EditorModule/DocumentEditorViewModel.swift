@@ -33,7 +33,13 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
 
     /// DocumentDetailsViewModel
-    let detailsViewModel: DocumentDetailsViewModel = DocumentDetailsViewModel()
+    lazy var detailsViewModel: DocumentDetailsViewModel = {
+        DocumentDetailsViewModel(
+            detailsActiveModel: documentViewModel.defaultDetailsActiveModel
+        )
+    }()
+    
+    var onDetailsViewModelUpdate: (() -> Void)?
     
     /// User Interaction Processor
     private lazy var oldblockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
@@ -248,7 +254,10 @@ class DocumentEditorViewModel: ObservableObject {
                     return emoji
                 }()
                 
-                self?.detailsViewModel.iconEmoji = iconEmoji
+                guard let self = self else { return }
+                
+                self.detailsViewModel.iconEmoji = iconEmoji
+                self.onDetailsViewModelUpdate?()
             }
             .store(in: &subscriptions)
 

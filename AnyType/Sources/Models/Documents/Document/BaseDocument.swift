@@ -40,7 +40,7 @@ class BaseDocument {
     ///
     /// This one is active model of default ( or main ) document id (smartblock id).
     ///
-    private var defaultDetailsActiveModel: DetailsActiveModel = .init()
+    private let defaultDetailsActiveModel: DetailsActiveModel = .init()
     
     /// This event subject is a subject for events from default details active model.
     ///
@@ -275,7 +275,7 @@ class BaseDocument {
     ///
     /// If you receive no result, assure that you've opened document before accessing details.
     ///
-    func getDefaultDetails() -> DetailsActiveModel {
+    func getDefaultDetailsActiveModel() -> DetailsActiveModel {
         self.defaultDetailsActiveModel
     }
     
@@ -290,7 +290,7 @@ class BaseDocument {
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
     func getDefaultPageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
-        self.getDefaultDetails().$currentDetails.eraseToAnyPublisher()
+        self.getDefaultDetailsActiveModel().$currentDetails.eraseToAnyPublisher()
     }
 
     // MARK: - Details Conversion to Blocks.

@@ -25,6 +25,7 @@ class DetailsActiveModel {
             }
         }
     }
+    
     private var currentDetailsSubscription: AnyCancellable?
     private var eventSubject: PassthroughSubject<EventListening.PackOfEvents, Never> = .init()
     

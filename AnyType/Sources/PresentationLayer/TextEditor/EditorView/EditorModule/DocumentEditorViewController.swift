@@ -103,7 +103,7 @@ final class DocumentEditorViewController: UICollectionViewController {
                 assertionFailure("Unable to create proper header view")
                 return UICollectionReusableView()
             }
-            
+                        
             guard let viewModel = self?.viewModel.detailsViewModel else { return headerView }
             
             headerView.configure(model: viewModel)
@@ -143,6 +143,10 @@ final class DocumentEditorViewController: UICollectionViewController {
         self.viewModel.selectionHandler?.selectionEventPublisher().sink(receiveValue: { [weak self] value in
             self?.handleSelection(event: value)
         }).store(in: &self.subscriptions)
+        
+        viewModel.onDetailsViewModelUpdate = { [weak self] in
+            self?.handleDetailsViewModelUpdate()
+        }
     }
 
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
@@ -196,6 +200,18 @@ final class DocumentEditorViewController: UICollectionViewController {
             }
             collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
         }
+    }
+    
+    private func handleDetailsViewModelUpdate() {
+        guard
+            collectionView.numberOfSections > 0,
+            let dataSource = dataSource
+        else { return }
+        
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections([.first])
+        
+        apply(snapshot)
     }
         
     private func deselectAllBlocks() {

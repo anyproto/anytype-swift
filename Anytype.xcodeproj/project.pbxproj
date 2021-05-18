@@ -238,6 +238,7 @@
 		0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */; };
 		0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */; };
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
+		1200FCD3265272A4009269D4 /* DocumentIconViewUserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1200FCD2265272A4009269D4 /* DocumentIconViewUserAction.swift */; };
 		1224B571264C27EB0064A0E0 /* IconEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1224B570264C27EB0064A0E0 /* IconEmojiView.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247231A264EB21800B1E753 /* CharacterExtensions.swift */; };
@@ -757,6 +758,7 @@
 		0ADE619024488C6600244E49 /* BlocksViews+UserAction+Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Tools.swift"; sourceTree = "<group>"; };
 		0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Protocols.swift"; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
+		1200FCD2265272A4009269D4 /* DocumentIconViewUserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewUserAction.swift; sourceTree = "<group>"; };
 		1224B570264C27EB0064A0E0 /* IconEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconEmojiView.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247231A264EB21800B1E753 /* CharacterExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExtensions.swift; sourceTree = "<group>"; };
@@ -2087,6 +2089,7 @@
 			children = (
 				124C1627264D36C0003C411C /* Subviews */,
 				0A10CC85248ED549000FF498 /* DocumentIconView.swift */,
+				1200FCD2265272A4009269D4 /* DocumentIconViewUserAction.swift */,
 				124C1628264D3BBA003C411C /* DocumentIconViewModelNew.swift */,
 				3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */,
 			);
@@ -3134,7 +3137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */;
+			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3611,6 +3614,7 @@
 				0A08D4C624AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift in Sources */,
 				0AA168DD254060E40097CB23 /* CommonViews+Pickers+Image+UIKit.swift in Sources */,
 				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
+				1200FCD3265272A4009269D4 /* DocumentIconViewUserAction.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
 				0A2C0D58247144F4008ADD86 /* BlockTextViewModel.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
@@ -3939,7 +3943,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */ = {
+		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,

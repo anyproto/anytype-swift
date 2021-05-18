@@ -1,34 +1,48 @@
 import Foundation
 import Combine
 import BlocksModels
-import os
-
 
 final class DocumentViewModel: DocumentViewModelProtocol {
-    var documentId: String? { self.document.documentId }
-    var rootActiveModel: BaseDocument.ActiveModel? { self.document.getRootActiveModel() }
-    var userSession: BaseDocument.UserSession? { self.document.getUserSession() }
+    
+    // MARK: - Internal properties
+    
+    var documentId: String? {
+        document.documentId
+    }
+    
+    var rootActiveModel: BaseDocument.ActiveModel? {
+        document.getRootActiveModel()
+    }
+    
+    var userSession: BaseDocument.UserSession? {
+        document.getUserSession()
+    }
     
     var defaultDetailsActiveModel: DetailsActiveModel {
-        self.document.getDefaultDetails()
+        document.getDefaultDetailsActiveModel()
     }
+    
+    // MARK: - Private properties
     
     private let blocksConverter: CompoundViewModelConverter
     private let detailsConverter: DetailsViewModelConverter
     private let document = BaseDocument()
+    
+    // MARK: - Initializer
     
     init() {
         self.blocksConverter = CompoundViewModelConverter(self.document)
         self.detailsConverter = DetailsViewModelConverter(self.document)
     }
 
-    // MARK: - Public
+    // MARK: - Internal functions
+    
     func open(_ value: ServiceSuccess) {
-        self.document.open(value)
+        document.open(value)
     }
     
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never> {
-        self.document.modelsAndUpdatesPublisher()
+        document.modelsAndUpdatesPublisher()
             .reciveOnMain()
             .map { [weak self] (value) in
             DocumentViewModelUpdateResult(
@@ -39,10 +53,11 @@ final class DocumentViewModel: DocumentViewModelProtocol {
     }
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
-        self.document.getDefaultPageDetailsPublisher()
+        document.getDefaultPageDetailsPublisher()
     }
     
     func handle(events: BaseDocument.Events) {
-        self.document.handle(events: events)
+        document.handle(events: events)
     }
+    
 }
