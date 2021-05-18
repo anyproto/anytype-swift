@@ -100,8 +100,8 @@ enum EmojiPicker {
 private extension EmojiPicker.ViewController {
     struct Layout {
         var itemSize = CGSize(width: 54, height: 40)
-        var sectionInsets = UIEdgeInsets(top: 13, left: 16, bottom: 15, right: 16)
-        var contentInsets = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
+        var sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        var contentInsets = UIEdgeInsets.zero
         var sectionHeaderHeight: CGFloat = 20
         var minimumLineSpacing: CGFloat = 12
         var minimumInteritemSpacing: CGFloat = 0
@@ -110,7 +110,7 @@ private extension EmojiPicker.ViewController {
         var topLineTopPadding: CGFloat = 6
         
         var searchViewHeight: CGFloat = 40
-        var searchViewInsets = UIEdgeInsets(top: 23, left: 20, bottom: 0, right: -20)
+        var searchViewInsets = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: -20)
     
         var emptyViewInsets = UIEdgeInsets(top: 92, left: 20, bottom: 0, right: -20)
         
@@ -160,7 +160,7 @@ extension EmojiPicker.ViewController {
         
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: searchView.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: self.layout.searchViewInsets.bottom),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: self.layout.emptyViewInsets.left),
@@ -180,6 +180,7 @@ extension EmojiPicker.ViewController {
         layout.sectionInset = self.layout.sectionInsets
         layout.minimumLineSpacing = self.layout.minimumLineSpacing
         layout.minimumInteritemSpacing = self.layout.minimumInteritemSpacing
+        
         collectionView.collectionViewLayout = layout
 
         collectionView.contentInset = self.layout.contentInsets

@@ -35,21 +35,14 @@ extension EmojiPicker {
         }
         
         private func configure() {
-            setupElements()
+            backgroundColor = .white
+            
             setupLayout()
         }
         
-        private func setupElements() {
-            self.addSubview(titleLabel)
-        }
-        
         private func setupLayout() {
-            NSLayoutConstraint.activate([
-                titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                titleLabel.topAnchor.constraint(equalTo: self.topAnchor),
-                titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-            ])
+            addSubview(titleLabel)
+            titleLabel.pinAllEdges(to: self)
         }
             
     }
