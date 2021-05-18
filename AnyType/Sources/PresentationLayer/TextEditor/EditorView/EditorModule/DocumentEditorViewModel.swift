@@ -35,7 +35,8 @@ class DocumentEditorViewModel: ObservableObject {
     /// DocumentDetailsViewModel
     lazy var detailsViewModel: DocumentDetailsViewModel = {
         DocumentDetailsViewModel(
-            detailsActiveModel: documentViewModel.defaultDetailsActiveModel
+            detailsActiveModel: documentViewModel.defaultDetailsActiveModel,
+            userActionSubject: publicUserActionSubject
         )
     }()
     
@@ -53,7 +54,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     private var listToolbarSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
 
-    private var publicUserActionSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
+    private let publicUserActionSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
     lazy var publicUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
 
     private var publicActionsPayloadSubject: PassthroughSubject<BaseBlockViewModel.ActionsPayload, Never> = .init()
