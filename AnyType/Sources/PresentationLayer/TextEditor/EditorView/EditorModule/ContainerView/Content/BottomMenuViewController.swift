@@ -18,7 +18,7 @@ class BottomMenuViewController: UIViewController {
         super.viewDidLoad()
         
         addLayout()
-        updateChildViewController()
+        childViewController.flatMap { embedChild($0, into: containerView) }
     }
 
     private func addLayout() {        
@@ -35,19 +35,6 @@ class BottomMenuViewController: UIViewController {
             bottomViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: bottomViewHeight)
             $0.height.equal(to: bottomViewHeight)
         }
-    }
-        
-    func updateChildViewController() {
-        if let view = self.childViewController?.view {
-            containerView.addSubview(view)
-            view.pinAllEdges(to: containerView)
-        }
-        
-        if let viewController = self.childViewController {
-            self.addChild(viewController)
-        }
-        
-        childViewController?.didMove(toParent: self)
     }
 }
 

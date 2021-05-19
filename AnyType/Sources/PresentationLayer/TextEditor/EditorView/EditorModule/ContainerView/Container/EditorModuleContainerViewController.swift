@@ -72,7 +72,7 @@ extension EditorModuleContainerViewController: UINavigationControllerDelegate {
         }
 
         // Tell our view model about update
-        self.viewModel.configured(userActionsStream: editor.getViewModel().publicUserActionPublisher)
+        viewModel.configured(userActionsStream: editor.getViewModel().publicUserActionPublisher)
     }
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
     }
@@ -80,25 +80,6 @@ extension EditorModuleContainerViewController: UINavigationControllerDelegate {
 
 // MARK: Setup And Layout
 private extension EditorModuleContainerViewController {
-    func setupUIElements() {
-        self.addChild(childViewController)
-    }
-    
-    func addLayout() {
-        if let view = self.childViewController.view {
-            self.view.addSubview(view)
-            if let superview = view.superview {
-                let constraints = [
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ]
-                NSLayoutConstraint.activate(constraints)
-            }
-        }
-    }
-    
     func configuredTransitioning() {
         let presentation: TransitionController? = .init()
         let dismissal: TransitionController? = .init()
@@ -163,9 +144,7 @@ extension EditorModuleContainerViewController {
 extension EditorModuleContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupUIElements()
-        self.addLayout()
-        self.didMove(toParent: self.childViewController)
-        self.configuredTransitioning()
+        embedChild(childViewController)
+        configuredTransitioning()
     }
 }

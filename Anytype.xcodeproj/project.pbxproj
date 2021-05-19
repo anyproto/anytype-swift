@@ -356,6 +356,7 @@
 		3DDF589F2628C7F60081C53E /* DocumentIconViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */; };
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
+		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531197DF26430A9800FFC71E /* BlockActionHandler.swift */; };
@@ -876,6 +877,7 @@
 		3DDF589E2628C7F60081C53E /* DocumentIconViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconViewModel.swift; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
+		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
 		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
 		531197DF26430A9800FFC71E /* BlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandler.swift; sourceTree = "<group>"; };
@@ -1407,6 +1409,7 @@
 				EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */,
 				EA955D732646836D00817F80 /* BlockChildrenIdsUpdates.swift */,
 				EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */,
+				3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -3473,6 +3476,7 @@
 				EAC5728726208CD100F25949 /* DocumentViewCellFactoryProtocol.swift in Sources */,
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,
+				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
 				3D18022E264E9C9F00224815 /* EditorModuleContentViewBuilder.swift in Sources */,

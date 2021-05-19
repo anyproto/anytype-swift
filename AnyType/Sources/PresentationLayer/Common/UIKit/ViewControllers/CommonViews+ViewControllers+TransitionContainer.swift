@@ -1,18 +1,8 @@
-//
-//  CommonViews+ViewControllers+TransitionContainer.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 03.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
-fileprivate typealias Namespace = CommonViews.ViewControllers
-fileprivate typealias FileNamespace = Namespace.TransitionContainerViewController
 
-extension Namespace {
+extension CommonViews.ViewControllers {
     class TransitionContainerViewController: UIViewController {
         private var rootViewController: UIViewController?
         private var presentationAnimator: UIViewControllerAnimatedTransitioning?
@@ -23,41 +13,17 @@ extension Namespace {
     }
 }
 
-// MARK: - Setup
-extension FileNamespace {
-    func setupUIElements() {
-        if let viewController = self.rootViewController {
-            self.addChild(viewController)
-            viewController.view.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addSubview(viewController.view)
-            viewController.didMove(toParent: self)
-        }
-    }
-    
-    func addLayout() {
-        if let view = self.rootViewController?.view, let superview = view.superview {
-            let constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ]
-            NSLayoutConstraint.activate(constraints)
-        }
-    }
-}
 
 // MARK: - View Lifecycle
-extension FileNamespace {
+extension CommonViews.ViewControllers.TransitionContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupUIElements()
-        self.addLayout()
+        rootViewController.flatMap { embedChild($0) }
     }
 }
 
 // MARK: - Configurations
-extension FileNamespace {
+extension CommonViews.ViewControllers.TransitionContainerViewController {
     func configured(root rootViewController: UIViewController) -> Self {
         self.rootViewController = rootViewController
         return self
@@ -85,7 +51,7 @@ extension FileNamespace {
 }
 
 // MARK: - Delegates / UIViewControllerTransitioningDelegate
-extension Namespace.TransitionContainerViewController: UIViewControllerTransitioningDelegate {
+extension CommonViews.ViewControllers.TransitionContainerViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presentationAnimator
     }

@@ -49,45 +49,22 @@ private extension Namespace.Picker {
         picker.delegate = self
         return picker
     }
-    
-    func setupUIElements() {
-        let controller = self.createPickerController()
-
-        if let view = controller.view {
-            self.view.addSubview(view)
-        }
-
-        self.addChild(controller)
-        self.addLayout(for: controller)
-        controller.didMove(toParent: self)
-    }
-
-    func addLayout(for controller: UIViewController) {
-        if let view = controller.view, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-    }
 }
 
 // MARK: View Lifecycle
 extension Namespace.Picker {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.applyAppearanceForNavigationBar()
-        self.setupUIElements()
+        applyAppearanceForNavigationBar()
+        embedChild(createPickerController())
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.applyAppearanceForNavigationBar()
+        applyAppearanceForNavigationBar()
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.resetAppearanceForNavigationBar()
+        resetAppearanceForNavigationBar()
     }
 }
 
