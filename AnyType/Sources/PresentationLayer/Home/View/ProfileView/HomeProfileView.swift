@@ -16,12 +16,11 @@ struct HomeProfileView: View {
                         .padding(.top, geometry.size.height * topPaddingRatio)
                         .padding(.bottom, 15)
                     
-                    UserIconView(image: accountData.avatar, name: accountData.name)
-                        .frame(width: 80, height: 80)
-                        .onTapGesture {
-                            accountData.blockId.flatMap(model.showDocument)
-                        }
-
+                    Button(action: { accountData.blockId.flatMap(model.showDocument) }) {
+                        UserIconView(image: accountData.avatar, name: accountData.name)
+                            .frame(width: 80, height: 80)
+                    }
+                    
                     HStack {
                         Button(action: {}) {
                             HomeProfileViewButtonImage(image: Image.main.search)

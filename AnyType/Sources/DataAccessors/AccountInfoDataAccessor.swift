@@ -60,7 +60,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     private func obtainAccountInfo() {
         middlewareConfigurationService.obtainConfiguration().reciveOnMain().flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
             guard let self = self else {
-                return Empty(completeImmediately: true).eraseToAnyPublisher()
+                return .empty()
             }
             
             self.blockId = configuration.profileBlockId

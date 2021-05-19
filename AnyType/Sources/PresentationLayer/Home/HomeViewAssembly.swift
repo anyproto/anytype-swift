@@ -1,7 +1,7 @@
 import SwiftUI
 
 class HomeViewAssembly {
-    func createHomeView() -> some View {
-        return HomeView(model: HomeViewModel())
+    func createHomeView() -> HomeView {
+        HomeView(model: HomeViewModel())
     }
 }
