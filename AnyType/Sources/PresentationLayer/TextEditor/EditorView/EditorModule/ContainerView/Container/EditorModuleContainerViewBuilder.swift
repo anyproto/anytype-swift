@@ -13,10 +13,9 @@ enum EditorModuleContainerViewBuilder {
         
         let childViewController = childComponent.0
         
-        let navigationController = createNavigationController(child: childViewController)
-        
         let childPresenter = childComponent.1
-        childPresenter.navigationItem = childViewController.navigationItem
+        
+        childPresenter.navigationItem = windowHolder?.rootNavigationController.navigationBar.topItem
         
         let router = DocumentViewCompoundRouter()
         router.configured(userActionsStream: childComponent.2)
@@ -24,42 +23,11 @@ enum EditorModuleContainerViewBuilder {
         let viewModel = EditorModuleContainerViewModel(router: router)
         
         let viewController = EditorModuleContainerViewController(
-            viewModel: viewModel, childViewController: navigationController
+            viewModel: viewModel, childViewController: childViewController
         )
-        childViewController.navigationItem.leftBarButtonItem = createBackButton(container: viewController)
 
-        /// DEBUG: Conformance to navigation delegate.
-        navigationController.delegate = viewController
+        windowHolder?.rootNavigationController.delegate = viewController
         
         return viewController
-    }
-    
-    private static func createBackButton(container: EditorModuleContainerViewController) -> UIBarButtonItem {
-        let backButtonImage = UIImage(systemName: "chevron.backward", withConfiguration: UIImage.SymbolConfiguration(weight: .bold))
-        return UIBarButtonItem(image: backButtonImage, style: .plain, target: container, action: #selector(container.dismissAction))
-    }
-    
-    private static func createNavigationController(child: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(
-            navigationBarClass: EditorModuleContainerViewBuilder.NavigationBar.self,
-            toolbarClass: nil
-        )
-        NavigationBar.applyAppearance()
-        navigationController.setViewControllers([child], animated: false)
-        navigationController.navigationBar.isTranslucent = false
-        return navigationController
-    }
-}
-
-// MARK: Custom Appearance
-/// TODO: Move it somewhere
-private extension EditorModuleContainerViewBuilder {
-    class NavigationBar: UINavigationBar {
-        static func applyAppearance() {
-            let appearance = Self.appearance()
-            appearance.prefersLargeTitles = false
-            appearance.tintColor = .gray
-            appearance.backgroundColor = .white
-        }
     }
 }

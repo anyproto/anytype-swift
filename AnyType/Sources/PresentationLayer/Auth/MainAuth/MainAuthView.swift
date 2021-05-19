@@ -46,10 +46,7 @@ struct MainAuthView: View {
                 .padding(20)
             }
             .errorToast(isShowing: $viewModel.isShowingError, errorText: viewModel.error)
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
         }
-        .embedInNavigation()
     }
 }
 

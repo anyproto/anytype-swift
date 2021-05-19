@@ -2,11 +2,8 @@ import UIKit
 import SwiftUI
 import Combine
 
-protocol MainWindowHolder {
-    func startNewRootView<ViewType: View>(_ view: ViewType)
-}
 
-class ApplicationCoordinator: MainWindowHolder {
+class ApplicationCoordinator {
     private let window: MainWindow
     
     private let shakeHandler: ShakeHandler
@@ -36,6 +33,9 @@ class ApplicationCoordinator: MainWindowHolder {
     }
 
     func start() {
+        window.rootViewController = rootNavigationController
+        window.makeKeyAndVisible()
+        
         runAtFirstLaunch()
         runServicesOnStartup()
         login()
@@ -52,7 +52,6 @@ class ApplicationCoordinator: MainWindowHolder {
         firebaseService.setup()
     }
 
-    // MARK: Login
     private func login() {
         let userId = UserDefaultsConfig.usersIdKey // TODO: Remove static
         guard userId.isEmpty == false else {
@@ -73,21 +72,46 @@ class ApplicationCoordinator: MainWindowHolder {
     private func showHomeScreen() {
         let homeAssembly = HomeViewAssembly()
         let view = homeAssembly.createHomeView()
-        self.startNewRootView(view)
+        
+        startNewRootView(view)
     }
     
     private func showAuthScreen() {
         startNewRootView(authAssembly.authView())
     }
     
-    private func startNewRootViewController(_ controller: UIViewController) {
-        window.rootViewController = controller
-        window.makeKeyAndVisible()
+    // MARK: - rootNavigationController
+    let rootNavigationController: UINavigationController = {
+        let controller = UINavigationController()
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+                
+        controller.navigationBar.compactAppearance = navBarAppearance
+        controller.navigationBar.standardAppearance = navBarAppearance
+        controller.navigationBar.scrollEdgeAppearance = navBarAppearance
+        
+        controller.navigationBar.barTintColor = UIColor.grayscale50
+        controller.navigationBar.tintColor = UIColor.grayscale50
+
+        return controller
+    }()
+}
+
+// MARK: - MainWindowHolder
+protocol MainWindowHolder {
+    func startNewRootView<ViewType: View>(_ view: ViewType)
+    
+    var rootNavigationController: UINavigationController { get }
+    func changeNavigationBarCollor(color: UIColor)
+}
+
+extension ApplicationCoordinator: MainWindowHolder {
+    func startNewRootView<ViewType: View>(_ view: ViewType) {
+        rootNavigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
     }
     
-    // MARK: - MainWindowHolder
-    func startNewRootView<ViewType: View>(_ view: ViewType) {
-        window.rootViewController = UIHostingController(rootView: view)
-        window.makeKeyAndVisible()
+    func changeNavigationBarCollor(color: UIColor) {
+        rootNavigationController.navigationBar.backgroundColor = color
     }
 }

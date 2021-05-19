@@ -58,7 +58,6 @@ struct SelectProfileView: View {
                     ProgressView()
                 }
             }
-            .embedInNavigation()
             .onAppear {
                 self.viewModel.accountRecover()
             }

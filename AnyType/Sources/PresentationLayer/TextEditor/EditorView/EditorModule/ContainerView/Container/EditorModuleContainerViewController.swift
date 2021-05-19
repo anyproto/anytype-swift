@@ -17,9 +17,6 @@ class EditorModuleContainerViewController: UIViewController {
     private let childViewController: UIViewController
     private var subscription: AnyCancellable?
     private var toRemove: AnyCancellable?
-    private var childAsNavigationController: UINavigationController? {
-        self.childViewController as? UINavigationController
-    }
     
     func setup() {
         self.subscription = viewModel.actionPublisher().sink { [weak self] (value) in
@@ -46,9 +43,9 @@ class EditorModuleContainerViewController: UIViewController {
     // MARK: Actions Handling
     func handle(_ action: EditorModuleContainerViewModel.Action) {
         switch action {
-        case let .child(value): self.childAsNavigationController?.pushViewController(value, animated: true)
+        case let .child(value): windowHolder?.rootNavigationController.pushViewController(value, animated: true)
         case let .show(value): self.present(value, animated: true, completion: nil)
-        case .pop: self.childAsNavigationController?.popViewController(animated: true)
+        case .pop: windowHolder?.rootNavigationController.popViewController(animated: true)
         case let .childDocument(value):
             let viewController = value.viewController
             value.selectionPresenter.navigationItem = viewController.navigationItem
@@ -65,9 +62,8 @@ class EditorModuleContainerViewController: UIViewController {
 extension EditorModuleContainerViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         
-        guard let controller = viewController as? BottomMenuViewController,
+        guard let controller = viewController.children.first?.children.first as? BottomMenuViewController,
               let editor = controller.children.first as? DocumentEditorViewController  else {
-            assertionFailure("DocumentEditorViewController not found as a child of BottomMenuViewController")
             return
         }
 
@@ -124,7 +120,6 @@ extension EditorModuleContainerViewController {
             case .possible: return
             case .began: return
             case .changed:
-//                self.view.frame
                 let translation = recognizer.translation(in: self.view)
                 print("translation: \(translation)")
                 var origin = self.view.frame.origin
@@ -146,5 +141,10 @@ extension EditorModuleContainerViewController {
         super.viewDidLoad()
         embedChild(childViewController)
         configuredTransitioning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        windowHolder?.changeNavigationBarCollor(color: .white)
     }
 }

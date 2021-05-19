@@ -48,37 +48,6 @@ extension Namespace.Picker.UIKitPickerViewController {
     }
 }
 
-
-private extension Namespace.Picker.UIKitPickerViewController {
-    private func configureNavigation(_ navigationItem: UINavigationItem) {
-        let appearance = UINavigationBarAppearance()
-        
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .pureRed
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText] // With a red background, make the title more readable.
-        appearance.shadowColor = .clear
-        
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance // For iPhone small navigation bar in landscape.
-        
-        // Make all buttons with green text.
-        let buttonAppearance = UIBarButtonItemAppearance()
-        buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.systemGray]
-        navigationItem.standardAppearance?.buttonAppearance = buttonAppearance
-        navigationItem.compactAppearance?.buttonAppearance = buttonAppearance // For iPhone small navigation bar in landscape.
-        
-        navigationItem.standardAppearance?.backButtonAppearance = buttonAppearance
-        
-        // Make the done style button with yellow text.
-        let doneButtonAppearance = UIBarButtonItemAppearance()
-        doneButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.systemGray]
-        navigationItem.standardAppearance?.doneButtonAppearance = doneButtonAppearance
-        navigationItem.compactAppearance?.doneButtonAppearance = doneButtonAppearance // For iPhone small navigation bar in landscape.
-    }
-
-}
-
 // MARK: - Picker
 extension Namespace {
     class Picker: UIViewController {

@@ -38,7 +38,6 @@ struct HomeView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
-        .embedInNavigation()
     }
     
     // Workaround for custom navigation inside text editor
@@ -47,16 +46,14 @@ struct HomeView: View {
             destination: model.coordinator.documentView(
                 selectedDocumentId: model.selectedDocumentId,
                 shouldShowDocument: $model.showingDocument
-            ).navigationBarHidden(true).edgesIgnoringSafeArea(.all),
+            ).edgesIgnoringSafeArea(.all),
             isActive: $model.showingDocument,
             label: { EmptyView() }
         )
     }
     
     private func makeNavigationBarTransparent() {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        UINavigationBar.appearance().standardAppearance = navBarAppearance
+        windowHolder?.changeNavigationBarCollor(color: .clear)
     }
 }
 
