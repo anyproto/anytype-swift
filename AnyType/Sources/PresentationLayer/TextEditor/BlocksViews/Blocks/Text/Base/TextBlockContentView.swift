@@ -144,6 +144,7 @@ final class TextBlockContentView: UIView & UIContentView {
             // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
             createChildBlockButton.isHidden = true
             blockViewModelActionsSubscription = nil
+            textView.textView.selectedColor = nil
             switch text.contentType {
             case .title:
                 self.setupForTitle()
