@@ -2,7 +2,6 @@ import Combine
 
 class MultiSelectionPaneSelectionViewModel {
     typealias UserResponse = MultiSelectionPaneSelectionUserResponse
-    typealias SelectAll = MultiSelectionPane.Panes.Selection.SelectAll
     typealias Action = MultiSelectionPaneSelectionAction
     
     // MARK: Initialization
@@ -16,7 +15,7 @@ class MultiSelectionPaneSelectionViewModel {
         // From OuterWorld
         self.userResponse = self.userResponseSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
         
-        _ = self._selectAllViewModel.configured(userResponseStream: self.userResponse.map { value -> SelectAll.UserResponse in
+        _ = self._selectAllViewModel.configured(userResponseStream: self.userResponse.map { value -> MultiSelectionPaneSelectAllUserResponse in
             switch value {
             case let .selection(value): return value
             }
@@ -30,8 +29,8 @@ class MultiSelectionPaneSelectionViewModel {
     }
     
     // MARK: ViewModels
-    private var _selectAllViewModel: MultiSelectionPane.Panes.Selection.SelectAll.ViewModel = .init()
-    private var _doneViewModel: MultiSelectionPane.Panes.Selection.Done.ViewModel = .init()
+    private var _selectAllViewModel = MultiSelectionPaneSelectAllViewModel()
+    private var _doneViewModel = MultiSelectionPaneDoneViewModel()
     
     // MARK: Publishers
     private var subscription: AnyCancellable?
@@ -57,11 +56,11 @@ class MultiSelectionPaneSelectionViewModel {
         return self
     }
     
-    func selectAllViewModel() -> MultiSelectionPane.Panes.Selection.SelectAll.ViewModel {
+    func selectAllViewModel() -> MultiSelectionPaneSelectAllViewModel {
         self._selectAllViewModel
     }
     
-    func doneViewModel() -> MultiSelectionPane.Panes.Selection.Done.ViewModel {
+    func doneViewModel() -> MultiSelectionPaneDoneViewModel {
         self._doneViewModel
     }
 }

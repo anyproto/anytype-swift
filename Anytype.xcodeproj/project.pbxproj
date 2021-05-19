@@ -151,8 +151,8 @@
 		0A6F900B2554825700B94AED /* BlocksViews+New+Unknown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F900A2554825700B94AED /* BlocksViews+New+Unknown.swift */; };
 		0A6F900E2554826700B94AED /* BlocksViews+New+Unknown+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F900D2554826700B94AED /* BlocksViews+New+Unknown+Label.swift */; };
 		0A70816523968410004B04AB /* BlocksViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A70816423968410004B04AB /* BlocksViews.swift */; };
-		0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72751024AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift */; };
-		0A72751324AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72751224AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift */; };
+		0A72751124AB9B57005DA617 /* MultiSelectionPaneSelectAllBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72751024AB9B57005DA617 /* MultiSelectionPaneSelectAllBarButtonItem.swift */; };
+		0A72751324AB9FBA005DA617 /* MultiSelectionPaneDoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A72751224AB9FBA005DA617 /* MultiSelectionPaneDoneView.swift */; };
 		0A73B85F25E53E77009676C1 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */; };
 		0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F6D79239591C80097560A /* Gradients.swift */; };
 		0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B72399C1FA00AD3BC3 /* DiskStorage.swift */; };
@@ -354,6 +354,11 @@
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
+		3DE6E3CE26550FA9008FB0AF /* MultiSelectionPaneSelectAllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3CD26550FA9008FB0AF /* MultiSelectionPaneSelectAllView.swift */; };
+		3DE6E3D226550FF8008FB0AF /* MultiSelectionPaneSelectAllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3D126550FF8008FB0AF /* MultiSelectionPaneSelectAllViewModel.swift */; };
+		3DE6E3D726551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3D626551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift */; };
+		3DE6E3DD265512FC008FB0AF /* MultiSelectionPaneDoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3DC265512FC008FB0AF /* MultiSelectionPaneDoneViewModel.swift */; };
+		3DE6E3E026551314008FB0AF /* MultiSelectionPaneDoneBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3DF26551314008FB0AF /* MultiSelectionPaneDoneBarButtonItem.swift */; };
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531197DF26430A9800FFC71E /* BlockActionHandler.swift */; };
@@ -677,8 +682,8 @@
 		0A6F900A2554825700B94AED /* BlocksViews+New+Unknown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Unknown.swift"; sourceTree = "<group>"; };
 		0A6F900D2554826700B94AED /* BlocksViews+New+Unknown+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Unknown+Label.swift"; sourceTree = "<group>"; };
 		0A70816423968410004B04AB /* BlocksViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViews.swift; sourceTree = "<group>"; };
-		0A72751024AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift"; sourceTree = "<group>"; };
-		0A72751224AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultiSelectionPane+UIKit+Panes+Selection+Done.swift"; sourceTree = "<group>"; };
+		0A72751024AB9B57005DA617 /* MultiSelectionPaneSelectAllBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPaneSelectAllBarButtonItem.swift; sourceTree = "<group>"; };
+		0A72751224AB9FBA005DA617 /* MultiSelectionPaneDoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPaneDoneView.swift; sourceTree = "<group>"; };
 		0A78326524B8BC1000A1B6F6 /* BlocksModels.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = BlocksModels.xcodeproj; sourceTree = "<group>"; };
 		0A78326E24B8D2A200A1B6F6 /* BlocksModelsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParser.swift; sourceTree = "<group>"; };
 		0A78327024B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserTextContentTypeConverter.swift; sourceTree = "<group>"; };
@@ -872,6 +877,11 @@
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
+		3DE6E3CD26550FA9008FB0AF /* MultiSelectionPaneSelectAllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPaneSelectAllView.swift; sourceTree = "<group>"; };
+		3DE6E3D126550FF8008FB0AF /* MultiSelectionPaneSelectAllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPaneSelectAllViewModel.swift; sourceTree = "<group>"; };
+		3DE6E3D626551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPaneSelectAllActions.swift; sourceTree = "<group>"; };
+		3DE6E3DC265512FC008FB0AF /* MultiSelectionPaneDoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPaneDoneViewModel.swift; sourceTree = "<group>"; };
+		3DE6E3DF26551314008FB0AF /* MultiSelectionPaneDoneBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionPaneDoneBarButtonItem.swift; sourceTree = "<group>"; };
 		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
 		531197DF26430A9800FFC71E /* BlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandler.swift; sourceTree = "<group>"; };
@@ -1893,12 +1903,12 @@
 		0AA9B04A249F65D900F2962C /* Panes */ = {
 			isa = PBXGroup;
 			children = (
+				3DE6E3DA26551287008FB0AF /* Done */,
+				3DE6E3CA26550F75008FB0AF /* SelectAll */,
 				3DD67EFA2653ECB70025ED6F /* Toolbar */,
 				3DD67EEE2653E1EE0025ED6F /* Selection */,
 				0AA9B041249CF68700F2962C /* MultiSelectionPane+Panes+ToolsPane.swift */,
 				0AA9B052249F736400F2962C /* MultiSelectionPane+UIKit+Panes.swift */,
-				0A72751024AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift */,
-				0A72751224AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift */,
 			);
 			path = Panes;
 			sourceTree = "<group>";
@@ -2610,6 +2620,27 @@
 			path = Title;
 			sourceTree = "<group>";
 		};
+		3DE6E3CA26550F75008FB0AF /* SelectAll */ = {
+			isa = PBXGroup;
+			children = (
+				0A72751024AB9B57005DA617 /* MultiSelectionPaneSelectAllBarButtonItem.swift */,
+				3DE6E3CD26550FA9008FB0AF /* MultiSelectionPaneSelectAllView.swift */,
+				3DE6E3D126550FF8008FB0AF /* MultiSelectionPaneSelectAllViewModel.swift */,
+				3DE6E3D626551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift */,
+			);
+			path = SelectAll;
+			sourceTree = "<group>";
+		};
+		3DE6E3DA26551287008FB0AF /* Done */ = {
+			isa = PBXGroup;
+			children = (
+				0A72751224AB9FBA005DA617 /* MultiSelectionPaneDoneView.swift */,
+				3DE6E3DC265512FC008FB0AF /* MultiSelectionPaneDoneViewModel.swift */,
+				3DE6E3DF26551314008FB0AF /* MultiSelectionPaneDoneBarButtonItem.swift */,
+			);
+			path = Done;
+			sourceTree = "<group>";
+		};
 		3DF6F61A262ED50C000E05A5 /* FeatureFlags */ = {
 			isa = PBXGroup;
 			children = (
@@ -3286,6 +3317,7 @@
 				EA77E527262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
 				3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */,
+				3DE6E3CE26550FA9008FB0AF /* MultiSelectionPaneSelectAllView.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				3DB7DC8B2639C36000635E4C /* HomeBackgroundBlurView.swift in Sources */,
 				03B1619E239F3A2000BF27D1 /* WaitingViewOnCreatAccount.swift in Sources */,
@@ -3297,6 +3329,7 @@
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
 				5338E7F825DC736A008CB97D /* UserActionHandler.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
+				3DE6E3D226550FF8008FB0AF /* MultiSelectionPaneSelectAllViewModel.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,
 				EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */,
 				EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */,
@@ -3317,6 +3350,7 @@
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				0A10CC76248EC517000FF498 /* TextBlockUserInteraction.swift in Sources */,
 				0A2C0D6B247145BD008ADD86 /* TextView+HighlightedToolbar.swift in Sources */,
+				3DE6E3E026551314008FB0AF /* MultiSelectionPaneDoneBarButtonItem.swift in Sources */,
 				0A78328A24BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
@@ -3362,7 +3396,7 @@
 				03CB3F0D230C3EAA003D5DFD /* ImageLoaderObject.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */,
-				0A72751324AB9FBA005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+Done.swift in Sources */,
+				0A72751324AB9FBA005DA617 /* MultiSelectionPaneDoneView.swift in Sources */,
 				3D932D4E26317E9300C7D1EA /* StandardButton.swift in Sources */,
 				3DB27C06261B0E9C005E523C /* KeyedDecodingContainer.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
@@ -3381,6 +3415,7 @@
 				3D180232264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
+				3DE6E3DD265512FC008FB0AF /* MultiSelectionPaneDoneViewModel.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
@@ -3402,6 +3437,7 @@
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */,
 				12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */,
+				3DE6E3D726551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
@@ -3479,7 +3515,7 @@
 				0A203A8625470FAE00D3729A /* ImageCache.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
-				0A72751124AB9B57005DA617 /* MultiSelectionPane+UIKit+Panes+Selection+SelectAll.swift in Sources */,
+				0A72751124AB9B57005DA617 /* MultiSelectionPaneSelectAllBarButtonItem.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */,

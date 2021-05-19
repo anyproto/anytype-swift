@@ -11,14 +11,12 @@ extension MultiSelectionPane.Panes {
 
 // MARK: Action
 enum MultiSelectionPaneSelectionAction {
-    case selectAll(MultiSelectionPane.Panes.Selection.SelectAll.Action)
-    case done(MultiSelectionPane.Panes.Selection.Done.Action)
+    case selectAll(MultiSelectionPaneSelectAllAction)
+    case done(MultiSelectionPaneDoneAction)
 }
 
 enum MultiSelectionPaneSelectionUserResponse {
-    typealias UserResponse = MultiSelectionPane.Panes.Selection.SelectAll.UserResponse
-
-    case selection(UserResponse)
+    case selection(MultiSelectionPaneSelectAllUserResponse)
 }
 
 
@@ -77,8 +75,8 @@ class MultiSelectionPaneSelectionView: UIView {
     }
 
     // MARK: UI Elements
-    private var selectionButton: MultiSelectionPane.Panes.Selection.SelectAll.View!
-    private var doneButton: MultiSelectionPane.Panes.Selection.Done.View!
+    private var selectionButton: MultiSelectionPaneSelectAllView!
+    private var doneButton: MultiSelectionPaneDoneView!
 
     private var contentView: UIView!
 

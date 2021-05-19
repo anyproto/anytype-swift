@@ -8,10 +8,10 @@ struct MultiSelectionPaneSelectionAssembly {
     }
     
     func buildDoneBarButton() -> UIBarButtonItem {
-        MultiSelectionPane.Panes.Selection.Done.BarButtonItem.init(viewModel: viewModel.doneViewModel())
+        MultiSelectionPaneDoneBarButtonItem(viewModel: viewModel.doneViewModel())
     }
     
     func buildSelectAllBarButton() -> UIBarButtonItem {
-        MultiSelectionPane.Panes.Selection.SelectAll.BarButtonItem.init(viewModel: viewModel.selectAllViewModel())
+        MultiSelectionPaneSelectAllBarButtonItem(viewModel: viewModel.selectAllViewModel())
     }
 }
