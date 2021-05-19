@@ -14,7 +14,7 @@ final class DocumentDetailsView: UICollectionReusableView {
     
     // MARK: - Views
 
-    private let iconView: DocumentIconView = DocumentIconView()
+    private let iconView: DocumentIconEmojiView = DocumentIconEmojiView()
     
     // MARK: - Variables
     

@@ -2,13 +2,13 @@ import Foundation
 import UIKit
 import Combine
 
-final class DocumentIconView: UIView {
+final class DocumentIconEmojiView: UIView {
     
     var onUserAction: ((DocumentIconViewUserAction) -> Void)?
     
     // MARK: - Private properties
     
-    private let iconEmojiView: IconEmojiView = IconEmojiView()
+    private let emojiLabel: UILabel = UILabel()
         
     // MARK: Initialization
     
@@ -28,45 +28,55 @@ final class DocumentIconView: UIView {
 
 // MARK: - ConfigurableView
 
-extension DocumentIconView: ConfigurableView {
+extension DocumentIconEmojiView: ConfigurableView {
     
     func configure(model: IconEmoji) {
-        iconEmojiView.configure(model: model)
-        iconEmojiView.layoutUsing.anchors {
-            $0.size(Constants.EmojiView.size)
-        }
+        emojiLabel.text = model.value
     }
     
 }
 
 // MARK: - Private extension
 
-private extension DocumentIconView {
+private extension DocumentIconEmojiView {
     
     func setUpView() {
-        configureIconEmojiView()
+        backgroundColor = .grayscale10
+        clipsToBounds = true
+        layer.cornerRadius = Constants.cornerRadius
+
+        // Setup action menu
+        let interaction = UIContextMenuInteraction(delegate: self)
+        addInteraction(interaction)
+        
+        
+        configureEmojiLabel()
         
         setUpLayout()
     }
     
-    func configureIconEmojiView() {
-        // Setup action menu
-        let interaction = UIContextMenuInteraction(delegate: self)
-        iconEmojiView.addInteraction(interaction)
-        
-        iconEmojiView.layer.cornerRadius = Constants.EmojiView.cornerRadius
+    func configureEmojiLabel() {
+        emojiLabel.backgroundColor = .grayscale10
+        emojiLabel.font = .systemFont(ofSize: 64) // Used only for emoji
+        emojiLabel.textAlignment = .center
+        emojiLabel.adjustsFontSizeToFitWidth = true
+        emojiLabel.isUserInteractionEnabled = false
     }
     
     func setUpLayout() {
-        addSubview(iconEmojiView)
-        iconEmojiView.pinAllEdges(to: self)
+        addSubview(emojiLabel)
+        emojiLabel.pinAllEdges(to: self)
+        
+        layoutUsing.anchors {
+            $0.size(Constants.size)
+        }
     }
     
 }
 
 // MARK: - UIContextMenuInteractionDelegate
 
-extension DocumentIconView: UIContextMenuInteractionDelegate {
+extension DocumentIconEmojiView: UIContextMenuInteractionDelegate {
 
     func contextMenuInteraction(
         _ interaction: UIContextMenuInteraction,
@@ -98,7 +108,7 @@ extension DocumentIconView: UIContextMenuInteractionDelegate {
         previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration
     ) -> UITargetedPreview? {
         let parameters = UIPreviewParameters()
-        let targetedView: UIView = iconEmojiView
+        let targetedView: UIView = self
 
         parameters.visiblePath = UIBezierPath(
             roundedRect: targetedView.bounds,
@@ -112,13 +122,11 @@ extension DocumentIconView: UIContextMenuInteractionDelegate {
 
 // MARK: - Constants
 
-private extension DocumentIconView {
+private extension DocumentIconEmojiView {
     
     enum Constants {
-        enum EmojiView {
-            static let cornerRadius: CGFloat = 20
-            static let size = CGSize(width: 96, height: 96)
-        }
+        static let cornerRadius: CGFloat = 20
+        static let size = CGSize(width: 96, height: 96)
     }
     
 }
