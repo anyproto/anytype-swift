@@ -5,27 +5,6 @@ import UIKit
 import os
 import BlocksModels
 
-
-private final class TextViewModelHolder {
-    private var viewModel: BlockTextViewModel?
-
-    init(_ viewModel: BlockTextViewModel?) {
-        self.viewModel = viewModel
-    }
-
-    func cleanup() {
-        self.viewModel = nil
-    }
-
-    func apply(_ update: BlockTextViewModel.Update) {
-        if let viewModel = self.viewModel {
-            viewModel.update = update
-        }
-    }
-}
-
-// MARK: - Base / ViewModel
-
 final class TextBlockViewModel: BaseBlockViewModel {
     private struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
@@ -73,8 +52,6 @@ final class TextBlockViewModel: BaseBlockViewModel {
             return super.makeContentConfiguration()
         }
         switch text.contentType {
-        case .toggle:
-            return ToggleBlockContentConfiguration(self)
         case .code:
             return makeCodeBlockConfiguration()
         default:
@@ -90,11 +67,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
     }
     
     private func makeTextBlockConfiguration() -> UIContentConfiguration {
-        let checkedAction: (Bool) -> Void = { [weak self] value in
-            self?.send(textViewAction: .buttonView(.checkbox(value)))
-        }
-        var configuration = TextBlockContentConfiguration(self.getBlock(),
-                                                          checkedAction: checkedAction)
+        var configuration = TextBlockContentConfiguration(getBlock())
         configuration.contextMenuHolder = self
         return configuration
     }

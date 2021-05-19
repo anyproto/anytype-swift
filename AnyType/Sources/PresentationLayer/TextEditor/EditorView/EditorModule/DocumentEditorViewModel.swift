@@ -178,37 +178,7 @@ class DocumentEditorViewModel: ObservableObject {
             }).store(in: &self.subscriptions)
     }
 
-    private func remove(buildersWith ids: Set<BlockId>) {
-        var indexSet: IndexSet = .init()
-        var itemsToDelete: [BaseBlockViewModel] = []
-
-        let startIndex = self.builders.startIndex
-        let endIndex = self.builders.endIndex
-
-        var buildersIndex = startIndex
-
-        while buildersIndex != endIndex, ids.count != itemsToDelete.count {
-            let item = self.builders[buildersIndex]
-            if ids.contains(item.blockId) {
-                indexSet.insert(buildersIndex)
-                itemsToDelete.append(item)
-            }
-            buildersIndex = buildersIndex.advanced(by: 1)
-        }
-        self.builders.remove(atOffsets: indexSet)
-        self.viewInput?.delete(rows: itemsToDelete)
-    }
-
-    private func insert(builders: [BaseBlockViewModel], after blockId: BlockId) {
-        guard let index = self.builders.firstIndex(where: { $0.blockId == blockId }) else { return }
-        let builder = self.builders[index]
-        self.builders.insert(contentsOf: builders, at: index + 1)
-        self.viewInput?.insert(rows: builders, after: builder)
-    }
-
-
     private func handleOpenDocument(_ value: ServiceSuccess) {
-        // sink publisher
         self.documentViewModel.updatePublisher()
             .reciveOnMain()
             .sink { [weak self] (value) in
@@ -216,26 +186,11 @@ class DocumentEditorViewModel: ObservableObject {
                 case .general:
                     self?.update(builders: value.models)
                 case let .update(update):
-                    if let toggledId = update.openedToggleId {
-                        self?.insert(builders: value.models, after: toggledId)
+                    if update.updatedIds.isEmpty {
+                        return
                     }
-                    if !update.addedIds.isEmpty {
-                        self?.update(builders: value.models)
-                    }
-                    if !update.updatedIds.isEmpty && update.addedIds.isEmpty && update.deletedIds.isEmpty {
-                        // During split or merge neighborhood blocks will update automaticaly because of
-                        // calculating diff in data source
-                        self?.updateDiffableValuesForBlockIds(update.updatedIds)
-                        self?.updateElementsSubject.send(update.updatedIds)
-                    }
-                    if !update.deletedIds.isEmpty {
-                        self?.remove(buildersWith: update.deletedIds)
-                        let ids = update.deletedIds.reduce(into: [BlockId: BlockContentType]()) { result, blockId in
-                            guard let container = self?.documentViewModel.rootActiveModel?.container else { return }
-                            result[blockId] = container.get(by: blockId)?.information.content.type
-                        }
-                        self?.deselect(ids: ids)
-                    }
+                    self?.updateDiffableValuesForBlockIds(update.updatedIds)
+                    self?.updateElementsSubject.send(update.updatedIds)
                 }
             }.store(in: &self.subscriptions)
             

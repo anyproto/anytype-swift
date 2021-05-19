@@ -33,43 +33,10 @@ extension HomeViewModel {
         case .general:
             let viewModels = updateResult.models.compactMap { $0 as? BlockPageLinkViewModel }
             cellData = viewModels.map { buildCellData(pageLinkViewModel: $0) }
-        case let .update(update):
-            insertBlocks(update.addedIds, models: updateResult.models)
-            handleMoves(moves: update.movedIds)
-            removeBlocks(update.deletedIds)
-        }
-    }
-    
-    private func removeBlocks(_ removals: Set<BlockId>) {
-        if !removals.isEmpty {
-            cellData = cellData.filter { !removals.contains($0.id) }
-        }
-    }
-    
-    private func insertBlocks(_ insertions: [EventHandlerUpdateChange], models: [BaseBlockViewModel]) {
-        insertions.forEach { insertChange in
-            let insertBlockId = insertChange.targetBlockId
-            let blockIdAfterWhichToInsert = insertChange.afterBlockId
-            guard let blockToAdd = models.first(where: { $0.blockId == insertBlockId }) as? BlockPageLinkViewModel,
-                  let afterBlockIndex = cellData.firstIndex(where: { $0.id == blockIdAfterWhichToInsert }) else {
-                return
-            }
-            let data = buildCellData(pageLinkViewModel: blockToAdd)
-            // Because we insert block after specified block we should +1
-            cellData.insert(data, at: afterBlockIndex + 1)
-        }
-    }
-    
-    private func handleMoves(moves: Set<EventHandlerUpdateChange>) {
-        moves.forEach { move in
-            let targetId = move.targetBlockId
-            let moveAfterBlockId = move.afterBlockId
-            guard let movedBlockIndex = cellData.firstIndex(where: { $0.id == targetId }),
-                  let afterBlockIndex = cellData.firstIndex(where: {$0.id == moveAfterBlockId}) else {
-                return
-            }
-            // Because we move block after specified block we should +1
-            cellData.move(fromOffsets: IndexSet([movedBlockIndex]), toOffset: afterBlockIndex + 1)
+        case .update:
+            // Currently models updates using their own publishers
+            // Do not need to do something here
+            break
         }
     }
     

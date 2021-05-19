@@ -479,8 +479,9 @@
 		EAC6BB54262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */; };
 		EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* BlockActionsView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
-		EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */; };
-		EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */; };
+		EAF2D88E2653C43400AA6446 /* TopUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */; };
+		EAF2D8932653C48300AA6446 /* TextViewModelHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D8922653C48300AA6446 /* TextViewModelHolder.swift */; };
+		EAF2D8962653C4C600AA6446 /* TopWithChildUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
 		EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */; };
 /* End PBXBuildFile section */
@@ -998,8 +999,9 @@
 		EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsAndMarksPaneInputSwitcher.swift; sourceTree = "<group>"; };
 		EAC6BB5626289201004C8C06 /* BlockActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
-		EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentView.swift; sourceTree = "<group>"; };
-		EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleBlockContentConfiguration.swift; sourceTree = "<group>"; };
+		EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUIKitView.swift; sourceTree = "<group>"; };
+		EAF2D8922653C48300AA6446 /* TextViewModelHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModelHolder.swift; sourceTree = "<group>"; };
+		EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWithChildUIKitView.swift; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1689,7 +1691,6 @@
 			isa = PBXGroup;
 			children = (
 				EA6EC91925ED3DBD00740B31 /* Base */,
-				EADA96BD260A738B001F6FA4 /* Toggle */,
 				53BC399F261B78F4004D7EB6 /* Code */,
 				EA6EC91D25ED3DE000740B31 /* Quote */,
 			);
@@ -2990,6 +2991,9 @@
 				EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */,
 				53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */,
 				0A10CC75248EC517000FF498 /* TextBlockUserInteraction.swift */,
+				EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */,
+				EAF2D8922653C48300AA6446 /* TextViewModelHolder.swift */,
+				EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -3036,15 +3040,6 @@
 				EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */,
 			);
 			path = InputSwitchers;
-			sourceTree = "<group>";
-		};
-		EADA96BD260A738B001F6FA4 /* Toggle */ = {
-			isa = PBXGroup;
-			children = (
-				EADA96C0260A73AA001F6FA4 /* ToggleBlockContentView.swift */,
-				EADA96C4260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift */,
-			);
-			path = Toggle;
 			sourceTree = "<group>";
 		};
 		EAF98379261B8B92001D4C55 /* LoadingViewController */ = {
@@ -3221,6 +3216,7 @@
 				EA289B932629A89400EA869F /* BlockMenuItemSimpleDisplayData.swift in Sources */,
 				0AA9B04C249F65F200F2962C /* MultiSelectionPaneToolbarView.swift in Sources */,
 				0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */,
+				EAF2D8932653C48300AA6446 /* TextViewModelHolder.swift in Sources */,
 				5338E7F225DC730A008CB97D /* MarksPaneBlockActionHandler.swift in Sources */,
 				3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */,
 				0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */,
@@ -3239,6 +3235,7 @@
 				A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
 				3DB27C08261B0E9C005E523C /* SingleValueDecodingContainer.swift in Sources */,
+				EAF2D88E2653C43400AA6446 /* TopUIKitView.swift in Sources */,
 				A3940BBB245AB70D00CD6F37 /* EmojiPicker+HeaderCollectionReusableView.swift in Sources */,
 				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
@@ -3282,6 +3279,7 @@
 				3DD67E9126526D8D0025ED6F /* EditorModuleDocumentViewInput.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
+				EAF2D8962653C4C600AA6446 /* TopWithChildUIKitView.swift in Sources */,
 				0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */,
 				EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
@@ -3289,7 +3287,6 @@
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
 				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
 				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
-				EADA96C1260A73AA001F6FA4 /* ToggleBlockContentView.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
 				12DE403D264AD15D007B5074 /* OptionalExtensions.swift in Sources */,
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,
@@ -3477,7 +3474,6 @@
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
-				EADA96C5260B267C001F6FA4 /* ToggleBlockContentConfiguration.swift in Sources */,
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
 				3D18022E264E9C9F00224815 /* EditorModuleContentViewBuilder.swift in Sources */,
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,

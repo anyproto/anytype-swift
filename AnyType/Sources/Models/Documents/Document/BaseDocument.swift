@@ -202,27 +202,20 @@ class BaseDocument {
     ) -> AnyPublisher<UpdateResult, Never> {
         self.updatesPublisher().filter(\.hasUpdate)
         .map { [weak self] (value) in
-            UpdateResult(updates: value, models: self?.models(from: value) ?? [])
+            if let rootId = self?.rootId,
+               let container = self?.rootModel,
+               let rootModel = container.blocksContainer.choose(by: rootId) {
+                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
+            }
+            return UpdateResult(updates: value, models: self?.models(from: value) ?? [])
         }.eraseToAnyPublisher()
     }
     
     private func models(from updates: EventHandlerUpdate) -> [ActiveModel] {
         switch updates {
         case .general:
-            return self.getModels()
-        case let .update(payload):
-            if let toggleId = payload.openedToggleId, let container = self.rootModel, let block = container.blocksContainer.choose(by: toggleId), block.isToggled {
-                return BlockFlattener.flatten(root: block, in: container, options: .default)
-            }
-            if !payload.addedIds.isEmpty {
-                return self.getModels()
-            }
-            if !payload.updatedIds.isEmpty,
-               let rootId = rootId,
-               let container = rootModel,
-               let rootModel = container.blocksContainer.choose(by: rootId) {
-                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
-            }
+            return getModels()
+        case .update:
             return []
         }
     }

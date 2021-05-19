@@ -76,7 +76,7 @@ final class BlockTextViewCoordinator: NSObject {
     private(set) var defaultKeyboardRect: CGRect = .zero
     private lazy var pressingEnterTimeChecker = TimeChecker(threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing)
 
-    private weak var textView: UITextView?
+    private(set) weak var textView: UITextView?
     private lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
 
     init(menuItemsBuilder: BlockActionsBuilder, blockMenuActionsHandler: BlockMenuActionsHandler) {

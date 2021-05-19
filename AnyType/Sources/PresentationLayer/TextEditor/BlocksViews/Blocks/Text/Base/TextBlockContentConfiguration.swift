@@ -11,8 +11,6 @@ import UIKit
 
 /// Content configuration for text blocks
 struct TextBlockContentConfiguration {
-    /// Action for checked button
-    let checkedAction: (Bool) -> Void
     
     /// Entity for context menu
     weak var contextMenuHolder: TextBlockViewModel?
@@ -20,9 +18,8 @@ struct TextBlockContentConfiguration {
     /// Block information
     var information: BlockInformation.InformationModel
     
-    init(_ block: BlockActiveRecordModelProtocol, checkedAction: @escaping(Bool) -> Void) {
+    init(_ block: BlockActiveRecordModelProtocol) {
         self.information = .init(information: block.blockModel.information)
-        self.checkedAction = checkedAction
     }
 }
 

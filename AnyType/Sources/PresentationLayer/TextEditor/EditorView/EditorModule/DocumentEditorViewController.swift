@@ -218,21 +218,6 @@ final class DocumentEditorViewController: UICollectionViewController {
         self.collectionView.deselectAllSelectedItems()
         self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
     }
-
-    private func toggleBlockViewModelsForUpdate() -> [BaseBlockViewModel] {
-        return self.collectionView.indexPathsForVisibleItems.compactMap { indexPath -> BaseBlockViewModel? in
-            guard let builder = self.viewModel.builders[safe: indexPath.row] else { return nil }
-            let content = builder.getBlock().blockModel.information.content
-            guard case let .text(text) = content, text.contentType == .toggle else {
-                return nil
-            }
-            guard let configuration = self.collectionView.cellForItem(at: indexPath)?.contentConfiguration as? ToggleBlockContentConfiguration,
-                  configuration.hasChildren == builder.getBlock().childrenIds().isEmpty else {
-                return nil
-            }
-            return builder
-        }
-    }
 }
 
 // MARK: - HeaderView PageDetails
@@ -339,21 +324,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
         snapshot.appendSections([.first])
         snapshot.appendItems(rows)
-        snapshot.reloadItems(self.toggleBlockViewModelsForUpdate())
-        self.apply(snapshot)
-    }
-    
-    func delete(rows: [BaseBlockViewModel]) {
-        guard var snapshot = self.dataSource?.snapshot() else { return }
-        snapshot.deleteItems(rows)
-        snapshot.reloadItems(self.toggleBlockViewModelsForUpdate())
-        self.apply(snapshot)
-    }
-    
-    func insert(rows: [BaseBlockViewModel], after row: BaseBlockViewModel) {
-        guard var snapshot = self.dataSource?.snapshot() else { return }
-        snapshot.insertItems(rows, afterItem: row)
-        self.apply(snapshot)
+        apply(snapshot)
     }
 
     func showCodeLanguageView(with languages: [String], completion: @escaping (String) -> Void) {

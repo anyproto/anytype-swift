@@ -1,10 +1,3 @@
-//
-//  TextBlockContentView.swift
-//  AnyType
-//
-//  Created by Kovalev Alexander on 10.03.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
 
 import UIKit
 import Combine
@@ -47,11 +40,45 @@ final class TextBlockContentView: UIView & UIContentView {
             static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 1, bottom: 4, right: 8)
             static let numberToPlaceTextLeft: Int = 20
         }
+        
+        enum Toggle {
+            static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 8)
+            static let foldedImageName = "TextEditor/Style/Text/Toggle/folded"
+            static let unfoldedImageName = "TextEditor/Style/Text/Toggle/unfolded"
+            static let buttonTag = 2
+            static let titleEdgeInsets = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
+            static let desiredCreateChildButtonHeight: CGFloat = 26.5
+        }
     }
-    private let layout: Layout = .init()
     /// Views
-    private let topView: TopWithChildUIKitView = .init()
-    private let textView: BlockTextView = .init()
+    private let topView = TopWithChildUIKitView()
+    private let textView = BlockTextView()
+    private lazy var createChildBlockButton: UIButton = {
+        let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
+            guard let self = self,
+                  let block = self.currentConfiguration.contextMenuHolder?.getBlock() else { return }
+            self.createChildBlockButton.isHidden = true
+            self.currentConfiguration.contextMenuHolder?.send(actionsPayload: .textView(.init(model: block,
+                                                      action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
+        }))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setAttributedTitle(.init(string: NSLocalizedString("Toogle empty Click and drop block inside",
+                                                                  comment: ""),
+                                        attributes: [.font: UIFont.bodyFont,
+                                                     .foregroundColor: UIColor.textColor]),
+                                  for: .normal)
+        button.contentHorizontalAlignment = .leading
+        button.isHidden = true
+        button.titleEdgeInsets = Constants.Toggle.titleEdgeInsets
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        return button
+    }()
+    private let stack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
     
     private var currentConfiguration: TextBlockContentConfiguration
     var configuration: UIContentConfiguration {
@@ -61,6 +88,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.apply(configuration: configuration)
         }
     }
+    private var blockViewModelActionsSubscription: AnyCancellable?
 
     /// Initialization
     required init?(coder: NSCoder) {
@@ -83,20 +111,16 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupUIElements() {
         self.topView.translatesAutoresizingMaskIntoConstraints = false
         _ = self.topView.configured(leftChild: .empty())
-        self.addSubview(self.topView)
         _ = self.topView.configured(textView: self.textView)
     }
 
     private func addLayout() {
-        if let superview = self.topView.superview {
-            let view = self.topView
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
-                view.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -self.layout.insets.bottom)
-            ])
-        }
+        let stack = UIStackView(arrangedSubviews: [topView, createChildBlockButton])
+        createChildBlockButton.heightAnchor.constraint(equalToConstant: 26.5).isActive = true
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        addSubview(stack)
+        stack.pinAllEdges(to: self, insets: Layout().insets)
     }
 
     private func apply(configuration: TextBlockContentConfiguration) {
@@ -118,11 +142,15 @@ final class TextBlockContentView: UIView & UIContentView {
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
             // In case of configurations is not equal we should check what exactly we should change
             // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
+            createChildBlockButton.isHidden = true
+            blockViewModelActionsSubscription = nil
             switch text.contentType {
             case .title:
                 self.setupForTitle()
             case .text:
                 self.setupForText()
+            case .toggle:
+                setupForToggle()
             case .bulleted:
                 self.setupForBulleted()
             case .checkbox:
@@ -137,7 +165,7 @@ final class TextBlockContentView: UIView & UIContentView {
                 self.setupForHeader2()
             case .header3:
                 self.setupForHeader3()
-            case .header4, .code, .toggle:
+            case .header4, .code:
                 break
             }
             self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
@@ -201,7 +229,10 @@ final class TextBlockContentView: UIView & UIContentView {
             button.contentVerticalAlignment = .bottom
             button.setContentHuggingPriority(.required, for: .horizontal)
             button.isSelected = checked
-            button.addTarget(self, action: #selector(didTapCheckboxButton), for: .touchUpInside)
+            button.addAction(UIAction(handler: { [weak button, weak self] _ in
+                guard let self = self, let button = button else { return }
+                self.currentConfiguration.contextMenuHolder?.send(textViewAction: .buttonView(.checkbox(!button.isSelected)))
+            }), for: .touchUpInside)
             
             let container: UIView = .init()
             container.translatesAutoresizingMaskIntoConstraints = false
@@ -218,10 +249,6 @@ final class TextBlockContentView: UIView & UIContentView {
         self.textView.textView?.textContainerInset = Constants.Checkbox.textContainerInsets
         // selected color
         textView.textView.selectedColor = checked ? UIColor.secondaryTextColor : nil
-    }
-    
-    @objc private func didTapCheckboxButton(_ button: UIButton) {
-        self.currentConfiguration.checkedAction(!button.isSelected)
     }
     
     private func setupForBulleted() {
@@ -282,295 +309,103 @@ final class TextBlockContentView: UIView & UIContentView {
         view.widthAnchor.constraint(equalToConstant: Constants.Quote.viewWidth).isActive = true
         _ = self.topView.configured(leftChild: view, setConstraints: true)
     }
-}
-
-// MARK: - UIKitView / TopView
-class TopUIKitView: UIView {
-    // TODO: Refactor
-    // OR
-    // We could do it on toggle level or on block parsing level?
-    struct Layout {
-        var containedViewInset = 8
-        var indentationWidth = 8
-        var boundaryWidth = 2
-    }
-
-    var layout: Layout = .init()
-
-    // MARK: Views
-    // |    contentView    | : | leftView | textView |
-
-    var contentView: UIView!
-    var leftView: UIView!
-    var textView: UIView!
-
-    // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
-    }
-
-    // MARK: Setup
-    func setup() {
-        self.setupUIElements()
-        self.addLayout()
-    }
-
-    // MARK: UI Elements
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-
-        self.leftView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.textView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.contentView.addSubview(leftView)
-        self.contentView.addSubview(textView)
-
-        self.addSubview(contentView)
-    }
-
-    // MARK: Layout
-    func addLayout() {
-        if let view = self.leftView, let superview = view.superview {
+    
+    private func setupForToggle() {
+        let toggleButton: UIButton?
+        if let button = self.topView.leftView.subviews.first as? UIButton,
+           button.tag == Constants.Toggle.buttonTag {
+            toggleButton = button
+        } else {
+            let button = makeToggleButton()
+            let container: UIView = .init()
+            container.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(button)
             NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+                container.widthAnchor.constraint(equalTo: button.widthAnchor),
+                container.heightAnchor.constraint(greaterThanOrEqualTo: button.heightAnchor),
+                button.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+                button.topAnchor.constraint(equalTo: container.topAnchor, constant: 3)
             ])
+            _ = self.topView.configured(leftChild: container, setConstraints: true)
+            toggleButton = button
         }
-        if let view = self.textView, let superview = view.superview, let leftView = self.leftView {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-        if let view = self.contentView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
+        let toggled = currentConfiguration.contextMenuHolder?.getBlock().isToggled ?? false
+        toggleButton?.isSelected = toggled
+        setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
+        textView.textView?.textContainerInset = Constants.Toggle.textContainerInsets
+        let hasNoChildren = currentConfiguration.contextMenuHolder?.getBlock().childrenIds().isEmpty ?? true
+        addBlockViewModelActionsSubscription()
+        updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
     }
-
-    // MARK: Update / (Could be placed in `layoutSubviews()`)
-    func updateView() {
-        // toggle animation also
-    }
-
-    func updateIfNeeded(leftViewSubview: UIView?, _ setConstraints: Bool = true) {
-        guard let leftViewSubview = leftViewSubview else { return }
-        for view in self.leftView.subviews {
-            view.removeFromSuperview()
-        }
-        self.leftView.addSubview(leftViewSubview)
-        let view = leftViewSubview
-        if setConstraints, let superview = view.superview {
-            view.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-    }
-
-    func updateIfNeeded(rightView: UIView?) {
-        guard let textView = rightView else { return }
-        for view in self.textView.subviews {
-            view.removeFromSuperview()
-        }
-        self.textView.addSubview(textView)
-        let view = textView
-        if let superview = view.superview {
-            view.translatesAutoresizingMaskIntoConstraints = false
-
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-    }
-
-    // MARK: Configured
-    func configured(textView: BlockTextView?) -> Self {
-        self.updateIfNeeded(rightView: textView)
-        return self
-    }
-
-    func configured(rightView: UIView?) -> Self {
-        self.updateIfNeeded(rightView: rightView)
-        return self
-    }
-}
-
-// MARK: - UIKitView / TopWithChild
-class TopWithChildUIKitView: UIView {
-    struct Resource {
-        var textColor: UIColor?
-        var backgroundColor: UIColor?
-    }
-
-    private var resourceSubscription: AnyCancellable?
-
-    // TODO: Refactor
-    // OR
-    // We could do it on toggle level or on block parsing level?
-    struct Layout {
-        var containedViewInset = 8
-        var indentationWidth = 8
-        var boundaryWidth = 2
-    }
-
-    // MARK: Views
-    // |    topView    | : | leftView | textView |
-    // |   leftView    | : |  button  |
-
-    var contentView: UIView!
-    var topView: TopUIKitView!
-    var leftView: UIView!
-    var onLeftChildWillLayout: (UIView?) -> () = { view in
-        if let view = view, let superview = view.superview {
-            var constraints = [
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor),
-            ]
-            if view.intrinsicContentSize.width != UIView.noIntrinsicMetric {
-                constraints.append(view.widthAnchor.constraint(equalToConstant: view.intrinsicContentSize.width))
+    
+    private func makeToggleButton() -> UIButton {
+        let button = UIButton()
+        button.setImage(UIImage(imageLiteralResourceName: Constants.Toggle.foldedImageName), for: .normal)
+        button.setImage(UIImage(imageLiteralResourceName: Constants.Toggle.unfoldedImageName), for: .selected)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setContentHuggingPriority(.required, for: .horizontal)
+        button.addAction(UIAction(handler: { [weak self, weak button] _ in
+            guard let self = self,
+                  let blockViewModel = self.currentConfiguration.contextMenuHolder else { return }
+            button?.isSelected.toggle()
+            blockViewModel.update { $0.isToggled.toggle() }
+            let toggled = blockViewModel.getBlock().isToggled
+            blockViewModel.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
+            let oldValue = self.createChildBlockButton.isHidden
+            self.updateCreateChildButtonState(toggled: toggled,
+                                              hasChildren: !blockViewModel.getBlock().childrenIds().isEmpty)
+            if oldValue != self.createChildBlockButton.isHidden {
+                blockViewModel.needsUpdateLayout()
             }
-            if view.intrinsicContentSize.height != UIView.noIntrinsicMetric {
-                constraints.append(view.heightAnchor.constraint(equalToConstant: view.intrinsicContentSize.height))
+        }), for: .touchUpInside)
+        button.tag = Constants.Toggle.buttonTag
+        return button
+    }
+    
+    private func addBlockViewModelActionsSubscription() {
+        let publisher = currentConfiguration.contextMenuHolder?.actionsPayloadSubject.eraseToAnyPublisher()
+        blockViewModelActionsSubscription = publisher?.sink { [weak self] action in
+            guard let self = self, let blockViewModel = self.currentConfiguration.contextMenuHolder else { return }
+            switch action {
+            case let .textView(textViewInteraction):
+                switch textViewInteraction.action {
+                case let .textView(textView):
+                    switch textView {
+                    case let .keyboardAction(keyboardAction):
+                        switch keyboardAction {
+                        case let .pressKey(key):
+                            switch key {
+                            // We want do hide "Tap on empty..." button if enter was typed in toggle block
+                            case .enterInsideContent, .enterOnEmptyContent, .enterAtTheEndOfContent:
+                                if !self.createChildBlockButton.isHidden,
+                                   self.textView.textView.isFirstResponder,
+                                   blockViewModel.getBlock().childrenIds().isEmpty {
+                                    self.createChildBlockButton.isHidden = true
+                                }
+                            // We want to show "Tap on empty..." button, if last child block inside toggle was deleted
+                            case .deleteWithPayload, .deleteOnEmptyContent:
+                                if self.createChildBlockButton.isHidden,
+                                   blockViewModel.getBlock().childrenIds().count == 1,
+                                   let lastChild = blockViewModel.getBlock().container?.choose(by: blockViewModel.getBlock().childrenIds()[0]),
+                                   lastChild.isFirstResponder {
+                                    self.createChildBlockButton.isHidden = false
+                                }
+                            }
+                        }
+                    default:
+                        break
+                    }
+                default:
+                    break
+                }
+            default:
+                break
             }
-            NSLayoutConstraint.activate(constraints)
         }
     }
-
-    // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setup()
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.setup()
-    }
-
-    // MARK: Setup
-    func setup() {
-        self.setupUIElements()
-        self.addLayout()
-    }
-
-    // MARK: UI Elements
-    func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.topView = {
-            let view = TopUIKitView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.leftView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.contentView.addSubview(topView)
-
-        self.addSubview(contentView)
-    }
-
-    // MARK: Layout
-    func addLayout() {
-        if let view = self.topView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-        if let view = self.contentView, let superview = view.superview {
-            NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                view.topAnchor.constraint(equalTo: superview.topAnchor),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
-        }
-    }
-
-    // MARK: Update / (Could be placed in `layoutSubviews()`)
-    func updateView() {
-        // toggle animation also
-    }
-
-    func updateIfNeeded(leftChild: UIView?, setConstraints: Bool = false) {
-        guard let leftChild = leftChild else { return }
-        self.topView.updateIfNeeded(leftViewSubview: leftChild, setConstraints)
-        leftChild.translatesAutoresizingMaskIntoConstraints = false
-        self.leftView = leftChild
-        self.onLeftChildWillLayout(leftChild)
-    }
-
-    // MARK: Configured
-    func configured(leftChild: UIView?, setConstraints: Bool = false) -> Self {
-        self.updateIfNeeded(leftChild: leftChild, setConstraints: setConstraints)
-        return self
-    }
-
-    func configured(textView: BlockTextView?) -> Self {
-        _ = self.topView.configured(textView: textView)
-        return self
-    }
-
-    func configured(rightView: UIView?) -> Self {
-        _ = self.topView.configured(rightView: rightView)
-        return self
-    }
-
-    func configured(_ resourceStream: AnyPublisher<Resource, Never>) -> Self {
-        self.resourceSubscription = resourceStream.reciveOnMain().sink { [weak self] (value) in
-            self?.backgroundColor = value.backgroundColor
-        }
-        return self
+    
+    private func updateCreateChildButtonState(toggled: Bool, hasChildren: Bool) {
+        let shouldShowCreateButton = toggled && !hasChildren
+        createChildBlockButton.isHidden = !shouldShowCreateButton
     }
 }

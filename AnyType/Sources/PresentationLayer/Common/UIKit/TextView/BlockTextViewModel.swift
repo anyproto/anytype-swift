@@ -193,6 +193,12 @@ extension BlockTextViewModel {
         self.firstResponderChangeSubscription = firstResponderChangePublisher.sink(receiveValue: { [weak self] (value) in
             switch value {
             case .become:
+                // There is some kind of crutch, because several BlockTextViewModel will 
+                // handle event from one UITexView, then set several values to user session
+                // and first responder in user session 
+                // will always contains wrong value, need to investigate,
+                // using delegates instead of publishers might help to fix this
+                guard let textView = self?.coordinator.textView, textView.isFirstResponder else { return }
                 self?.blockViewModel?.becomeFirstResponder()
             case .resign:
                 return

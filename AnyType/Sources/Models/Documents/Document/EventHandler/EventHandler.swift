@@ -75,18 +75,8 @@ class EventHandler: EventHandlerProtocol {
             return nil
         
         case let .blockSetChildrenIds(value):
-            let parentId = value.id
-            guard let container = container else {
-                assertionFailure("Can't get container with blocks")
-                return nil
-            }
-            let currentChildrenIds = container.blocksContainer.children(of: parentId)
-            let updates = currentChildrenIds.updates(with: value.childrenIds, parentBlockId: parentId)
-            self.updater?.set(children: value.childrenIds, parent: parentId)
-            return .update(EventHandlerUpdatePayload(addedIds: updates.added,
-                                                     deletedIds: Set(updates.deleted),
-                                                     movedIds: Set(updates.moved)))
-            
+            updater?.set(children: value.childrenIds, parent: value.id)
+            return .general
         case let .blockSetText(value):
             let blockId = value.id
 
@@ -387,22 +377,8 @@ class EventHandler: EventHandlerProtocol {
             model.didChange()
             
             return .general
-        case let .setToggled(payload):
-            guard let container = self.container,
-                  let block = container.blocksContainer.choose(by: payload.payload.blockId) else {
-                return nil
-            }
-            if !block.isToggled {
-                let flattener = BlockFlattener.self
-                let deletedIds = flattener.flattenIds(root: block,
-                                                      in: container,
-                                                      options: .init(shouldCheckIsRootToggleOpened: false,
-                                                                     normalizers: []))
-                return .update(.init(deletedIds: Set(deletedIds)))
-            } else {
-                return .update(.init(openedToggleId: payload.payload.blockId))
-            }
-
+        case .setToggled:
+            return .general
         }
     }
 }

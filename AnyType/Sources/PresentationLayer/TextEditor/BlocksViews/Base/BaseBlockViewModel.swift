@@ -208,7 +208,7 @@ class BaseBlockViewModel: ObservableObject {
     /// This solo Publisher `actionsPayloadPublisher` merges all actions into meta `ActionsPayload` action.
     /// If you need to process whole user input for specific BlocksViewModel, you need to listen this publisher.
     ///
-    private var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
+    private(set) var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
     // TODO: what purpose is it here for?
     public var actionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = .empty()
     
