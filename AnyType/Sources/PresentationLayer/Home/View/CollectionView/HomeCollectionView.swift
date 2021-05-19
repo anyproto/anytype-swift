@@ -12,13 +12,16 @@ struct HomeCollectionView: View {
         ScrollView() {
             LazyVGrid(columns: columns) {
                 ForEach(model.cellData) { data in
-                    Button {
-                        model.showDocument(blockId: data.destinationId)
-                    } label: {
-                        PageCell(cellData: data)
-                            .cornerRadius(16)
-                            .frame(idealHeight: 124)
-                    }   
+                    NavigationLink(
+                        destination: model.coordinator.documentView(
+                            selectedDocumentId: data.destinationId
+                        ),
+                        label: {
+                            PageCell(cellData: data)
+                                .cornerRadius(16)
+                                .frame(idealHeight: 124)
+                        }
+                    )
                 }
             }
             .padding()

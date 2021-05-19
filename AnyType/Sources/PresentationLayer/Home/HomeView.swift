@@ -19,7 +19,7 @@ struct HomeView: View {
             ZStack {
                 Group {
                     Image.main.wallpaper.resizable().aspectRatio(contentMode: .fill)
-                    textEditorNavigation
+                    newPageNavigation
                     HomeProfileView()
                     
                     HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
@@ -40,14 +40,12 @@ struct HomeView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    // Workaround for custom navigation inside text editor
-    private var textEditorNavigation: some View {
+    private var newPageNavigation: some View {
         NavigationLink(
             destination: model.coordinator.documentView(
-                selectedDocumentId: model.selectedDocumentId,
-                shouldShowDocument: $model.showingDocument
+                selectedDocumentId: model.newPageData.pageId
             ).edgesIgnoringSafeArea(.all),
-            isActive: $model.showingDocument,
+            isActive: $model.newPageData.showingNewPage,
             label: { EmptyView() }
         )
     }

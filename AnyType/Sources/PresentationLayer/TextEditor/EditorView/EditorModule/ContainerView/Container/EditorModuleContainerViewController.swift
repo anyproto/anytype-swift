@@ -8,11 +8,7 @@ import Combine
 ///
 typealias TransitionViewController = CommonViews.ViewControllers.TransitionContainerViewController
 class EditorModuleContainerViewController: UIViewController {
-    
-    private var userActionSubject: PassthroughSubject<UserAction, Never> = .init()
-    var userActionPublisher: AnyPublisher<UserAction, Never> = .empty()
-    
-    private var transitionContainer: TransitionViewController = .init()
+    private let transitionContainer = TransitionViewController()
     private var viewModel: EditorModuleContainerViewModel
     private let childViewController: UIViewController
     private var subscription: AnyCancellable?
@@ -22,8 +18,6 @@ class EditorModuleContainerViewController: UIViewController {
         self.subscription = viewModel.actionPublisher().sink { [weak self] (value) in
             self?.handle(value)
         }
-        
-        self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
     }
             
     init(
@@ -76,6 +70,8 @@ extension EditorModuleContainerViewController: UINavigationControllerDelegate {
 
 // MARK: Setup And Layout
 private extension EditorModuleContainerViewController {
+    typealias TransitionController = MarksPane.ViewController.TransitionController
+    
     func configuredTransitioning() {
         let presentation: TransitionController? = .init()
         let dismissal: TransitionController? = .init()
@@ -89,25 +85,6 @@ private extension EditorModuleContainerViewController {
             .configured(dismissalInteractor: dismissal)
         self.transitioningDelegate = containerController
         self.modalPresentationStyle = .custom
-    }
-}
-
-// MARK: Transitioning
-extension EditorModuleContainerViewController {
-    typealias TransitionController = MarksPane.ViewController.TransitionController
-}
-
-// MARK: User Actions
-extension EditorModuleContainerViewController {
-    enum UserAction {
-        case shouldDismiss
-    }
-}
-
-// MARK: Actions
-extension EditorModuleContainerViewController {
-    @objc func dismissAction() {
-        self.userActionSubject.send(.shouldDismiss)
     }
 }
 

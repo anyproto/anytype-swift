@@ -4,10 +4,16 @@ import Combine
 import Foundation
 import ProtobufMessages
 
+extension HomeViewModel {
+    struct NewPageData {
+        let pageId: String
+        var showingNewPage: Bool
+    }
+}
+
 final class HomeViewModel: ObservableObject {
     @Published var cellData: [PageCellData] = []
-    @Published var selectedDocumentId = ""
-    @Published var showingDocument = false
+    @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
     
     var cellSubscriptions = [AnyCancellable]()
@@ -55,16 +61,10 @@ final class HomeViewModel: ObservableObject {
                 return
             }
             
-            self.showDocument(blockId: newBlockId)
+            self.newPageData = NewPageData(pageId: newBlockId, showingNewPage: true)
         }
     }
     
-    func showDocument(blockId: String) {
-        selectedDocumentId = blockId
-        showingDocument = true
-    }
-
-    // MARK: - Private
     private func extractNewBlockId(serviceSuccess: ServiceSuccess) -> String? {
         let blockAdd = serviceSuccess.messages.compactMap { message -> Anytype_Event.Block.Add?  in
             if case let .blockAdd(value)? = message.value {

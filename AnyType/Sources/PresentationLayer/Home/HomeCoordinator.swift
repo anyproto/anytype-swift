@@ -15,19 +15,7 @@ final class HomeCoordinator {
         profileAssembly.profileView()
     }
     
-    // MARK: - Document view
-    private var cachedDocumentView: AnyView?
-    private var documentViewId: String = ""
-    
-    func documentView(selectedDocumentId: String, shouldShowDocument: Binding<Bool>) -> some View {
-        if let view = cachedDocumentView, self.documentViewId == selectedDocumentId {
-          return view
-        }
-        
-        let view = editorAssembly.documentView(id: selectedDocumentId, shouldShowDocument: shouldShowDocument).eraseToAnyView()
-        self.documentViewId = selectedDocumentId
-        cachedDocumentView = view
-        
-        return view
+    func documentView(selectedDocumentId: String) -> some View {
+        return editorAssembly.documentView(id: selectedDocumentId).eraseToAnyView()
     }
 }

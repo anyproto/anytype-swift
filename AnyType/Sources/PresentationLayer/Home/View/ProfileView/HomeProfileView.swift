@@ -16,10 +16,15 @@ struct HomeProfileView: View {
                         .padding(.top, geometry.size.height * topPaddingRatio)
                         .padding(.bottom, 15)
                     
-                    Button(action: { accountData.blockId.flatMap(model.showDocument) }) {
-                        UserIconView(image: accountData.avatar, name: accountData.name)
-                            .frame(width: 80, height: 80)
-                    }
+                    NavigationLink(
+                        destination: model.coordinator.documentView(
+                            selectedDocumentId: accountData.blockId ?? ""
+                        ),
+                        label: {
+                            UserIconView(image: accountData.avatar, name: accountData.name)
+                                .frame(width: 80, height: 80)
+                        }
+                    ).disabled(accountData.blockId.isNil)
                     
                     HStack {
                         Button(action: {}) {
