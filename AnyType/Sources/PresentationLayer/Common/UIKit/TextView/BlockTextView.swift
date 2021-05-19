@@ -5,94 +5,66 @@ import os
 import BlocksModels
 
 
-class BlockTextView: UIView {
-    // MARK: Options ( From Developers To Managers ONLY )
-    struct Options {
-        /// Well, we still don't have correct handling of input data.
-        /// We should assure ourselves, that our data will be handled correctly.
-        /// Read about usage of this flag below.
-        var liveUpdateAvailable: Bool
-    }
+// MARK: - BlockTextView
 
-    // MARK: Combine
+final class BlockTextView: UIView {
     private var subscriptions: Set<AnyCancellable> = []
+    weak var delegate: TextViewDelegate?
 
-    private var options: Options = .init(liveUpdateAvailable: false)
+    var coordinator: BlockTextViewCoordinator? {
+        didSet {
+            coordinator?.textSizeChangePublisher.sink { [weak self] _ in
+                self?.delegate?.sizeChanged()
+            }.store(in: &subscriptions)
 
-    // MARK: ViewModel
-    weak var model: BlockTextViewModel?
-    private var builder: BlockTextViewBuilder = .init()
+            coordinator?.configureEditingToolbarHandler(textView)
+
+            _ = coordinator?.configured(textView, contextualMenuStream: textView.contextualMenuPublisher)
+            // When sending signal with send() in textView
+            // textStorageEventsSubject subscribers installed
+            // in coordinator configured(textStorageStream:)
+            // method have not being called, it leads us to
+            // deleting text in textView without updating it in block model
+            textView.coordinator = coordinator
+            textView.delegate = coordinator
+            coordinator?.configureMarksPanePublisher(textView)
+        }
+    }
 
     // MARK: Views
     private var contentView: UIView!
     var textView: TextViewWithPlaceholder!
 
-    // MARK: Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    // MARK: - Initialization
+    
+    init() {
+        super.init(frame: .zero)
 
         self.setupUIElements()
         self.addLayout()
+        self.setupTextView()
+
+        self.textView.firstResponderChangePublisher.sink(receiveValue: { [weak self] change in
+            switch change {
+            case .become:
+                self?.delegate?.changeFirstResponderState(change)
+            case .resign:
+                return
+            }
+        }).store(in: &subscriptions)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
     }
 
     func update(placeholder: Placeholder) {
         self.textView?.update(placeholder: placeholder.placeholder)
     }
 
-    // MARK: Setup Interactions
-    private func setupInteractions() {
+    // MARK: - Setup views
 
-        /// TODO: Fix it.
-        /// It will be correct after we get it right after Marks PR.
-        ///
-        /// We could store this into subscription `IF ONLY` we assure ourselves, that text in this field will be handled correctly.
-        ///
-
-        /// TODO: Add async if needed.
-        /// For example, `.receive(on: )` will make invocation `async`.
-        /// Read carefully the code below.
-        ///
-        /// Whenever `self.model.update` property is changed, it will __simultaneously__ and __synchronically__ call `.sink`
-        ///
-        /// So, if you want real "async" api, you need to configure these subscriptions correctly.
-        ///
-        if self.options.liveUpdateAvailable {
-            self.model?.$update
-                .sink { [weak self] value in
-                    self?.onUpdate(value)
-                }
-                .store(in: &self.subscriptions)
-        }
-        else {
-            /// We don't store this subscription _intentionally_.
-            _ = self.model?.$update.sink(receiveValue: {[weak self] value in self?.onUpdate(value)})
-        }
-
-        /// TODO: Fix it and read comments above.
-        /// This is intentional update publisher.
-        /// It is one-fire event and it is necessary only when view exists.
-        /// It doesn't store value.
-        self.model?.intentionalUpdatePublisher.sink(receiveValue: { [weak self] (value) in
-            self?.onUpdate(value)
-        }).store(in: &self.subscriptions)
-
-        // Set Focus
-        self.model?.setFocusPublisher.sink(receiveValue: { [weak self] (value) in
-            guard let position = value.position else { return }
-            self?.textView?.setFocus(position)
-        }).store(in: &self.subscriptions)
-
-        // Resign first responder
-        self.model?.shouldResignFirstResponderPublisher.sink(receiveValue: { [weak self] (value) in
-            _ = self?.textView.resignFirstResponder()
-        }).store(in: &self.subscriptions)
-    }
-
-    // MARK: UI Elements
     private func setupUIElements() {
         self.translatesAutoresizingMaskIntoConstraints = false
 
@@ -110,6 +82,13 @@ class BlockTextView: UIView {
 
         self.contentView.addSubview(self.textView)
         self.addSubview(self.contentView)
+    }
+
+    private func setupTextView() {
+        textView.textContainer.lineFragmentPadding = 0.0
+        textView.isScrollEnabled = false
+        textView.backgroundColor = nil
+        textView.autocorrectionType = .no
     }
 
     // MARK: Layout
@@ -135,11 +114,32 @@ class BlockTextView: UIView {
 
 }
 
-// MARK: Updates
+// MARK: - BlockTextViewInput
+
+extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
+    func shouldResignFirstResponder() {
+        _ = textView.resignFirstResponder()
+    }
+
+    func setFocus(_ focus: TextViewFocus?) {
+        guard let position = focus?.position else { return }
+        textView?.setFocus(position)
+    }
+
+    func obtainFocusPosition() -> BlockFocusPosition? {
+        coordinator?.focusPosition()
+    }
+
+    func apply(update: TextViewUpdate) {
+        onUpdate(receive: update)
+    }
+}
+
+// MARK: - Updates
+
 private extension BlockTextView {
-    func onUpdate(receive update: BlockTextViewModel.Update) {
+    func onUpdate(receive update: TextViewUpdate) {
         switch update {
-        case .unknown: return
         case let .text(value):
             // NOTE: Read these cases carefully.
             // 1. self.textView.textStorage.length == 0.
@@ -189,50 +189,20 @@ private extension BlockTextView {
             self.textView.blockColor = value.blockColor
             self.textView.textAlignment = value.textAlignment
         case let .payload(value):
-            self.onUpdate(.attributedText(value.attributedString))
+            self.onUpdate(receive: .attributedText(value.attributedString))
             
             /// We changed order, because textAlignment is a part of NSAttributedString.
             /// That means, we have to move processing of textAlignment to MarksStyle.
             /// It is a part of NSAttributedString attributes ( `NSParagraphStyle.alignment` ).
             ///
-            self.onUpdate(.auxiliary(value.auxiliary))
+            self.onUpdate(receive: .auxiliary(value.auxiliary))
         }
-    }
-    
-    func onUpdate(_ update: BlockTextViewModel.Update) {
-        /// TODO: Maybe we don't need this dispatching.
-        /// Rethink later.
-        ///
-//        DispatchQueue.main.async {
-            self.onUpdate(receive: update)
-//        }
     }
 }
 
 // MARK: - Configuration
 
 extension BlockTextView {
-    func configured(_ options: BlockTextView.Options) -> Self {
-        self.options = options
-        return self
-    }
-    
-    func configured(_ model: BlockTextViewModel?) -> Self {
-        self.subscriptions.removeAll()
-        self.model = model
-        self.textView.delegate = nil
-        self.textView.setupPublishers()
-
-        if let textView = self.textView, let model = self.model {
-            textView.coordinator = nil
-            _ = model.configured(firstResponderChangePublisher: textView.firstResponderChangePublisher)
-            _ = builder.makeUIView(textView, coordinator: model.coordinator)
-        }
-        self.setupInteractions()
-
-        return self
-    }
-    
     func configured(placeholder: BlockTextView.Placeholder) -> Self {
         self.update(placeholder: placeholder)
         return self

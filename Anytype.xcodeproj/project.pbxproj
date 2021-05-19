@@ -129,8 +129,6 @@
 		0A2C0D55247144F4008ADD86 /* BlockTextViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D50247144F3008ADD86 /* BlockTextViewCoordinator.swift */; };
 		0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */; };
 		0A2C0D57247144F4008ADD86 /* BlockTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D52247144F4008ADD86 /* BlockTextView.swift */; };
-		0A2C0D58247144F4008ADD86 /* BlockTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D53247144F4008ADD86 /* BlockTextViewModel.swift */; };
-		0A2C0D59247144F4008ADD86 /* BlockTextViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D54247144F4008ADD86 /* BlockTextViewBuilder.swift */; };
 		0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */; };
 		0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5B247145BC008ADD86 /* TextView+HighlightedToolbar+InputLink.swift */; };
 		0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C0D5C247145BC008ADD86 /* TextView+HighlightedAccessoryView.swift */; };
@@ -400,6 +398,9 @@
 		53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */; };
 		53F820A82648AEF5003FEB0B /* BottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* BottomMenuViewController.swift */; };
 		53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F820BF2648B257003FEB0B /* BlockActionService.swift */; };
+		53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8210C26528D19003FEB0B /* TextViewDelegate.swift */; };
+		53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */; };
+		53F8211326529D26003FEB0B /* TextViewUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211226529D26003FEB0B /* TextViewUpdatable.swift */; };
 		A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */; };
 		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
 		A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */; };
@@ -483,7 +484,6 @@
 		EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* BlockActionsView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
 		EAF2D88E2653C43400AA6446 /* TopUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */; };
-		EAF2D8932653C48300AA6446 /* TextViewModelHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D8922653C48300AA6446 /* TextViewModelHolder.swift */; };
 		EAF2D8962653C4C600AA6446 /* TopWithChildUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
 		EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */; };
@@ -661,8 +661,6 @@
 		0A2C0D50247144F3008ADD86 /* BlockTextViewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextViewCoordinator.swift; sourceTree = "<group>"; };
 		0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewWithPlaceholder.swift; sourceTree = "<group>"; };
 		0A2C0D52247144F4008ADD86 /* BlockTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextView.swift; sourceTree = "<group>"; };
-		0A2C0D53247144F4008ADD86 /* BlockTextViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextViewModel.swift; sourceTree = "<group>"; };
-		0A2C0D54247144F4008ADD86 /* BlockTextViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextViewBuilder.swift; sourceTree = "<group>"; };
 		0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+BlocksToolbar.swift"; sourceTree = "<group>"; };
 		0A2C0D5B247145BC008ADD86 /* TextView+HighlightedToolbar+InputLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedToolbar+InputLink.swift"; sourceTree = "<group>"; };
 		0A2C0D5C247145BC008ADD86 /* TextView+HighlightedAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextView+HighlightedAccessoryView.swift"; sourceTree = "<group>"; };
@@ -922,6 +920,9 @@
 		53EA4A7B2637638800968B8E /* StyleColorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorContentView.swift; sourceTree = "<group>"; };
 		53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorCellConfiguration.swift; sourceTree = "<group>"; };
 		53F820BF2648B257003FEB0B /* BlockActionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionService.swift; sourceTree = "<group>"; };
+		53F8210C26528D19003FEB0B /* TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewDelegate.swift; sourceTree = "<group>"; };
+		53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewManagingFocus.swift; sourceTree = "<group>"; };
+		53F8211226529D26003FEB0B /* TextViewUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewUpdatable.swift; sourceTree = "<group>"; };
 		A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Page.swift"; sourceTree = "<group>"; };
 		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
 		A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Manager.swift"; sourceTree = "<group>"; };
@@ -1006,7 +1007,6 @@
 		EAC6BB5626289201004C8C06 /* BlockActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
 		EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUIKitView.swift; sourceTree = "<group>"; };
-		EAF2D8922653C48300AA6446 /* TextViewModelHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModelHolder.swift; sourceTree = "<group>"; };
 		EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWithChildUIKitView.swift; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Convenience.swift"; sourceTree = "<group>"; };
@@ -1578,11 +1578,12 @@
 		03E2AD4323A93C8C00C701CE /* TextView */ = {
 			isa = PBXGroup;
 			children = (
+				53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */,
+				53F8211226529D26003FEB0B /* TextViewUpdatable.swift */,
+				53F8210C26528D19003FEB0B /* TextViewDelegate.swift */,
 				539653512600D1B700A74C11 /* CustomAttributedString */,
 				0A2C0D52247144F4008ADD86 /* BlockTextView.swift */,
-				0A2C0D53247144F4008ADD86 /* BlockTextViewModel.swift */,
 				0A2C0D50247144F3008ADD86 /* BlockTextViewCoordinator.swift */,
-				0A2C0D54247144F4008ADD86 /* BlockTextViewBuilder.swift */,
 				0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */,
 				534CAC0025FA6F230026FB93 /* SupportingViews */,
 			);
@@ -3009,7 +3010,6 @@
 				53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */,
 				0A10CC75248EC517000FF498 /* TextBlockUserInteraction.swift */,
 				EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */,
-				EAF2D8922653C48300AA6446 /* TextViewModelHolder.swift */,
 				EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */,
 			);
 			path = Base;
@@ -3141,7 +3141,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */;
+			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3233,7 +3233,6 @@
 				EA289B932629A89400EA869F /* BlockMenuItemSimpleDisplayData.swift in Sources */,
 				0AA9B04C249F65F200F2962C /* MultiSelectionPaneToolbarView.swift in Sources */,
 				0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */,
-				EAF2D8932653C48300AA6446 /* TextViewModelHolder.swift in Sources */,
 				5338E7F225DC730A008CB97D /* MarksPaneBlockActionHandler.swift in Sources */,
 				3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */,
 				0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */,
@@ -3257,7 +3256,6 @@
 				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
 				EA289BD6262AE36F00EA869F /* BlockActionType.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
-				0A2C0D59247144F4008ADD86 /* BlockTextViewBuilder.swift in Sources */,
 				0A2C0D66247145BD008ADD86 /* TextView+HighlightedAccessoryView.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				5338E7E725DC3352008CB97D /* BlockActionsHandlersFacade.swift in Sources */,
@@ -3346,6 +3344,7 @@
 				03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */,
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
+				53F8211326529D26003FEB0B /* TextViewUpdatable.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				0A10CC76248EC517000FF498 /* TextBlockUserInteraction.swift in Sources */,
@@ -3381,6 +3380,7 @@
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
+				53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
@@ -3449,6 +3449,7 @@
 				0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */,
+				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
@@ -3624,7 +3625,6 @@
 				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
 				1200FCD3265272A4009269D4 /* DocumentIconViewUserAction.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
-				0A2C0D58247144F4008ADD86 /* BlockTextViewModel.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SecureStoreServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
@@ -3951,7 +3951,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */ = {
+		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,

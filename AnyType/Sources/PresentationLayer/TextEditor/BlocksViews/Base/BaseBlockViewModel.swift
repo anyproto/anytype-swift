@@ -155,11 +155,6 @@ class BaseBlockViewModel: ObservableObject {
             return false
         }
     }
-
-    /// Call when block become first responder
-    func becomeFirstResponder() {
-        send(actionsPayload: .becomeFirstResponder(block.blockModel))
-    }
     
     // MARK: - Events
     // MARK: User Action Publisher
@@ -348,9 +343,12 @@ class BaseBlockViewModel: ObservableObject {
 
 // MARK: - Hashable
 
+// TODO: Need futher investigation. Doesn't called in collection view.
+// Likely reference types has other way to be unique in collection view.
+// So if we need to reload cell then model should be recreated.
 extension BaseBlockViewModel: Hashable {
     static func == (lhs: BaseBlockViewModel, rhs: BaseBlockViewModel) -> Bool {
-        lhs.blockId == rhs.blockId
+        lhs.blockId == rhs.blockId && lhs.information == rhs.information
     }
     
     func hash(into hasher: inout Hasher) {

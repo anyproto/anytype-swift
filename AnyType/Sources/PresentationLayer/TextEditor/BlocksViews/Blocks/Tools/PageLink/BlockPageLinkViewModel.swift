@@ -16,8 +16,8 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     private var statePublisher: AnyPublisher<State, Never> = .empty()
     @Published private var state: State = .empty
-    private lazy var textViewModel = BlockTextViewModel(blockViewModel: self)
     private var wholeDetailsViewModel: DetailsActiveModel = .init()
+    weak var textView: (TextViewUpdatable & TextViewManagingFocus)?
     
     func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
@@ -44,7 +44,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
                 /// Well, not so bad (?)
                 
                 self.$state.map(\.title).safelyUnwrapOptionals().reciveOnMain().sink { [weak self] (value) in
-                    self?.textViewModel.update = .text(value)
+                    self?.textView?.apply(update: .text(value))
                 }.store(in: &self.subscriptions)
                 
                 self.statePublisher = self.$state.eraseToAnyPublisher()
@@ -89,8 +89,6 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
 
 extension BlockPageLinkViewModel {
     func applyOnUIView(_ view: BlockPageLinkUIKitView) {
-        _ = view.textView.configured(.init(liveUpdateAvailable: true))
-        _ = view.textView.configured(self.textViewModel)
         _ = view.configured(stateStream: self.statePublisher).configured(state: self._state)
     }
 }

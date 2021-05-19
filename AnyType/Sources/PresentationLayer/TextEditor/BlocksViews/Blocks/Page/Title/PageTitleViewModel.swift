@@ -13,7 +13,7 @@ class PageTitleViewModel: PageBlockViewModel {
     // Add subscription on event.
     
     private var subscriptions: Set<AnyCancellable> = []
-    private lazy var textViewModel = BlockTextViewModel(blockViewModel: self)
+    private weak var textView: TextViewUpdatable?
 
     /// Points of truth.
     /// We could use it as input and output subscribers.
@@ -43,48 +43,14 @@ class PageTitleViewModel: PageBlockViewModel {
     // MARK: - Initialization
     override init(_ block: BlockModel) {
         super.init(block)
-        self.setup(block: block)
+        self.setupSubscribers()
     }
 
     // MARK: - Setup
     private func setupSubscribers() {
-        // send value back to middleware
-        /// As soon as we use this updatePublisher, we don't have cyclic updates.
-        /// Explanation:
-        /// TextStorage will send event to Coordinator
-        /// Coordinator will send event to TextViewModel
-        /// TextViewModel will send event to this ViewModel.
-        /// This ViewModel will call Service.
-        /// Service will update Model.
-        /// Model will update PageDetailsViewModel.
-        /// PageDetailsViewModel will send event to toViewText property.
-        /// This property will send event to TextViewModel.
-        /// TextViewModel will send event to TextView.
-        /// TextView will send event to TextStorage.
-        ///
-        /// Cycle:
-        /// TextStorage -> Coordinator -> TextViewModel -> ThisViewModel -> Service ->
-        /// Model -> PageDetailsViewModel -> toViewText property -> TextViewModel -> TextView -> TextStorage
-        ///
-        /// BUT! (why does it work well)
-        /// This publisher is binded to $text property of coordinator.
-        /// This propeprty is not updated when update is coming from TextStorage.
-        ///
-        self.textViewModel.updatePublisher.sink { [weak self] (value) in
-            switch value {
-            case let .text(value): self?.toModelTitleSubject.send(value)
-            default: return
-            }
-        }.store(in: &self.subscriptions)
-                    
         self.$toViewTitle.removeDuplicates().reciveOnMain().sink { [weak self] (value) in
-            self?.textViewModel.apply(update: .text(value))
+            self?.textView?.apply(update: .text(value))
         }.store(in: &self.subscriptions)
-    }
-
-    private func setup(block: BlockModel) {
-        self.setupSubscribers()
-        _ = self.textViewModel.configured(self)
     }
     
     // MARK: Subclassing / Events
@@ -113,12 +79,21 @@ class PageTitleViewModel: PageBlockViewModel {
 
     // MARK: Subclassing / Views
     override func makeUIView() -> UIView {
-        PageTitleUIKitView().configured(
-            textView: self.textViewModel.createView(
-                .init(liveUpdateAvailable: true)).configured(
-                    placeholder: .init(text: nil, attributedText: self.placeholder, attributes: [:])
-                )
-        )
+        func makeCoordinator() -> BlockTextViewCoordinator {
+            let factory = BlockRestrictionsFactory()
+            let restrictions = factory.makeRestrictions(for: information.content.type)
+            let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: marksPaneActionSubject,
+                                                            addBlockAndActionsSubject: toolbarActionSubject)
+            let coordinator = BlockTextViewCoordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
+                                                       blockMenuActionsHandler: actionsHandler)
+            return coordinator
+        }
+
+        let textView = BlockTextView()
+        let placeholder = BlockTextView.Placeholder(text: nil, attributedText: self.placeholder, attributes: [:])
+        textView.coordinator = makeCoordinator().configure(self)
+
+        return PageTitleUIKitView().configured(textView: textView.configured(placeholder: placeholder))
     }
 }
 

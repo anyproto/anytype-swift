@@ -5,6 +5,9 @@ import UIKit
 import os
 import BlocksModels
 
+
+// MARK: - Base / ViewModel
+
 final class TextBlockViewModel: BaseBlockViewModel {
     private struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
@@ -14,18 +17,11 @@ final class TextBlockViewModel: BaseBlockViewModel {
     private var serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
     private var textOptions: Options = .init()
 
-    /// TODO: Begin to use publishers and values in this view.
-    /// We could directly set a state or a parts of this viewModel state.
-    /// This should fire updates and corresponding view will be updated.
-    ///
-    private(set) lazy var textViewModel = BlockTextViewModel(blockViewModel: self)
-    private lazy var textViewModelHolder: TextViewModelHolder = {
-        .init(self.textViewModel)
-    }()
-
     // TODO: Rethink. We only need one (?) publisher to a model?
     private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
     private var toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
+
+    weak var textView: (TextViewUpdatable & TextViewManagingFocus)?
 
     // For OuterWorld.
     // We should notify about user input.
@@ -40,12 +36,10 @@ final class TextBlockViewModel: BaseBlockViewModel {
 
     override init(_ block: BlockModel) {
         super.init(block)
-        self.setup()
+        self.setupSubscribers()
     }
 
     // MARK: - Subclassing accessors
-
-    func getUIKitViewModel() -> BlockTextViewModel { self.textViewModel }
 
     override func makeContentConfiguration() -> UIContentConfiguration {
         guard case let .text(text) = self.getBlock().blockModel.information.content else {
@@ -67,27 +61,11 @@ final class TextBlockViewModel: BaseBlockViewModel {
     }
     
     private func makeTextBlockConfiguration() -> UIContentConfiguration {
-        var configuration = TextBlockContentConfiguration(getBlock())
-        configuration.contextMenuHolder = self
+        let configuration = TextBlockContentConfiguration(textViewDelegate: self,
+                                                          viewModel: self,
+                                                          marksPaneActionSubject: marksPaneActionSubject,
+                                                          toolbarActionSubject: toolbarActionSubject)
         return configuration
-    }
-
-    override func makeUIView() -> UIView {
-        let toViewSetBackgroundColorPublisher = self.getBlock().didChangeInformationPublisher()
-            .map(\.backgroundColor)
-            .removeDuplicates()
-            .map {value in
-                MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(value, background: true)
-            }
-            .map {
-                TopWithChildUIKitView.Resource.init(backgroundColor: $0)
-            }
-            .eraseToAnyPublisher()
-
-        return TopWithChildUIKitView()
-            .configured(textView: self.getUIKitViewModel().createView())
-            .configured(leftChild: .empty())
-            .configured(toViewSetBackgroundColorPublisher)
     }
 
     // MARK: Contextual Menu
@@ -112,12 +90,13 @@ final class TextBlockViewModel: BaseBlockViewModel {
         // After we show contextual menu on UITextView (which is first responder)
         // displaying keyboard on such UITextView becomes impossible (only caret show)
         // it is possible to show it only by changing first responder with other UITextView
-        // so we store previous focus position and restore it later
-        let focusPosition = textViewModel.focusPosition()
-        textViewModel.shouldResignFirstResponder()
+        let focusPosition = textView?.obtainFocusPosition()
+        textView?.shouldResignFirstResponder()
         super.handle(contextualMenuAction: contextualMenuAction)
+
         if !focusPosition.isNil {
-            textViewModel.set(focus: BlockTextViewModel.Focus(position: focusPosition, completion: { _ in }))
+            let focus = TextViewFocus(position: focusPosition)
+            textView?.setFocus(focus)
         }
     }
 }
@@ -126,7 +105,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
 
 extension TextBlockViewModel {
 
-    func refreshTextViewModel(_ textViewModel: BlockTextViewModel) {
+    func refreshTextViewModel() {
         let block = self.getBlock()
         let information = block.blockModel.information
 
@@ -137,8 +116,9 @@ extension TextBlockViewModel {
             let alignment = BlocksModelsParserCommonAlignmentUIKitConverter.asUIKitModel(information.alignment)
             let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(blockType.color)
 
-            textViewModel.update = .payload(.init(attributedString: attributedText,
-                                                  auxiliary: .init(textAlignment: alignment ?? .left, blockColor: blockColor)))
+            let textViewUpdate = TextViewUpdate.payload(.init(attributedString: attributedText,
+                                                              auxiliary: .init(textAlignment: alignment ?? .left, blockColor: blockColor)))
+            textView?.apply(update: textViewUpdate)
         default: return
         }
     }
@@ -150,33 +130,22 @@ extension TextBlockViewModel {
     }
 }
 
+
+// MARK: - TextViewDelegate
+
+extension TextBlockViewModel: TextViewDelegate {
+    func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
+        send(actionsPayload: .becomeFirstResponder(getBlock().blockModel))
+    }
+
+    func sizeChanged() {
+        needsUpdateLayout()
+    }
+}
+
 // MARK: - Setup
 
 private extension TextBlockViewModel {
-    func setupTextViewModel() {
-        _ = self.textViewModel.configured(self)
-    }
-
-    func setupTextViewModelSubscribers() {
-        /// FromView
-        self.getUIKitViewModel().richUpdatePublisher.sink { [weak self] (value) in
-            switch value {
-            case let .attributedText(text): self?.toModelTextSubject.send(text)
-            default: return
-            }
-        }.store(in: &self.textViewModelSubscriptions)
-
-        self.getUIKitViewModel().auxiliaryPublisher.sink { [weak self] (value) in
-            switch value {
-            case let .auxiliary(value): self?.toModelAlignmentSubject.send(value.textAlignment)
-            default: return
-            }
-        }.store(in: &self.textViewModelSubscriptions)
-
-        self.getUIKitViewModel().sizePublisher.sink { [weak self] (value) in
-            self?.needsUpdateLayout()
-        }.store(in: &self.textViewModelSubscriptions)
-    }
 
     func setupSubscribers() {
         // ToView
@@ -202,14 +171,14 @@ private extension TextBlockViewModel {
 
         Publishers.CombineLatest(modelDidChangeOnMergePublisher, alignmentPublisher)
             .reciveOnMain()
-            .map({ value -> BlockTextViewModel.Update in
+            .map({ value -> TextViewUpdate in
                 let (text, alignment) = value
                 let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(text.color)
                 return .payload(.init(attributedString: text.attributedText, auxiliary: .init(textAlignment: alignment,
                                                                                               blockColor: blockColor)))
             })
             .sink { [weak self] (value) in
-                self?.textViewModelHolder.apply(value)
+                self?.textView?.apply(update: value)
             }.store(in: &self.subscriptions)
 
         /// FromModel
@@ -234,24 +203,17 @@ private extension TextBlockViewModel {
             }
         }, receiveValue: { _ in }).store(in: &self.subscriptions)
     }
-
-    // MARK: - Setup
-    func setup() {
-        self.setupTextViewModel()
-        self.setupTextViewModelSubscribers()
-        self.setupSubscribers()
-    }
 }
 
 // MARK: - Set Focus
 
 extension TextBlockViewModel {
-    func set(focus: BlockTextViewModel.Focus?) {
-        self.textViewModel.set(focus: focus)
+    func set(focus: TextViewFocus?) {
+        textView?.setFocus(focus)
     }
     
     func focusPosition() -> BlockFocusPosition? {
-        textViewModel.focusPosition()
+        textView?.obtainFocusPosition()
     }
 }
 
@@ -288,9 +250,8 @@ private extension TextBlockViewModel {
         return self.service.setAlignment(contextID: contextID, blockIds: blocksIds, alignment: alignment)
     }
 
-    func apply(update: BlockTextViewModel.Update) {
+    func apply(update: TextViewUpdate) {
         switch update {
-        case .unknown: return
         case let .text(value): self.setModelData(attributedText: NSAttributedString(string: value))
         case let .attributedText(value): return self.setModelData(attributedText: value)
         case .auxiliary: return
@@ -312,7 +273,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
         case .showStyleMenu:
             self.send(actionsPayload: .showStyleMenu(self.getBlock().blockModel))
         case .showMultiActionMenuAction(.showMultiActionMenu):
-            self.getUIKitViewModel().shouldResignFirstResponder()
+            self.textView?.shouldResignFirstResponder()
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
         default:
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))

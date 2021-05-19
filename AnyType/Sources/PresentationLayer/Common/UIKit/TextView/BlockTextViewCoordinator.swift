@@ -17,6 +17,10 @@ private extension LoggerCategory {
 }
 
 final class BlockTextViewCoordinator: NSObject {
+    // MARK: Aliases
+    typealias HighlightedAccessoryView = BlockTextView.HighlightedToolbar.AccessoryView
+    typealias BlockToolbarAccesoryView = BlockTextView.BlockToolbar.AccessoryView
+    typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
 
     enum Constants {
         /// Minimum time interval to stay idle to handle consequent return key presses
@@ -24,17 +28,7 @@ final class BlockTextViewCoordinator: NSObject {
         static let menuActionsViewSize = CGSize(width: UIScreen.main.bounds.width,
                                                 height: UIScreen.main.isFourInch ? 160 : 215)
     }
-    // MARK: Aliases
-    typealias HighlightedAccessoryView = BlockTextView.HighlightedToolbar.AccessoryView
-    typealias BlockToolbarAccesoryView = BlockTextView.BlockToolbar.AccessoryView
-    typealias MarksToolbarInputView = MarksPane.Main.ViewModelHolder
-    /// TODO: Should we store variables here?
-    /// Because, we have also `viewModel`.
-    /// Maybe we need remove these variables?
-    private var attributedTextSubject: PassthroughSubject<NSAttributedString?, Never> = .init()
-    private var textAlignmentSubject: PassthroughSubject<NSTextAlignment?, Never> = .init()
-    private(set) var attributedTextPublisher: AnyPublisher<NSAttributedString?, Never> = .empty()
-    private(set) var textAlignmentPublisher: AnyPublisher<NSTextAlignment?, Never> = .empty()
+
     private var textSize: CGSize?
     private let textSizeChangeSubject: PassthroughSubject<CGSize, Never> = .init()
     private(set) lazy var textSizeChangePublisher: AnyPublisher<CGSize, Never> = self.textSizeChangeSubject.eraseToAnyPublisher()
@@ -430,20 +424,6 @@ extension BlockTextViewCoordinator: UITextViewDelegate {
     }
 }
 
-// MARK: - Update Text
-extension BlockTextViewCoordinator {
-    func notifySubscribers(_ payload: TextViewWithPlaceholder.TextStorageEvent.Payload) {
-        /// NOTE:
-        /// We could remove notification about new attributedText
-        /// because we have already notify our subscribers in `textViewDidChange`
-        ///
-        
-        /// We don't need any dispatching, because we are receiving values on different than .main queue.
-        self.attributedTextSubject.send(payload.attributedText)
-        self.textAlignmentSubject.send(payload.textAlignment)
-    }
-}
-
 // MARK: - InnerTextView.Coordinator / UIGestureRecognizerDelegate
 
 extension BlockTextViewCoordinator: UIGestureRecognizerDelegate {
@@ -472,4 +452,3 @@ extension BlockTextViewCoordinator: UIGestureRecognizerDelegate {
         Logger.create(.textViewUIKitTextViewCoordinator).debug("\(self) tap: \(message(gestureRecognizer.state))")
     }
 }
-

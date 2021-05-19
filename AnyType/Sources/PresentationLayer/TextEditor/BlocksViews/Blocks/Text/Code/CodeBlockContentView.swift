@@ -120,11 +120,8 @@ final class CodeBlockContentView: UIView & UIContentView {
 
     private func applyNewConfiguration() {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
-        let setFocusPublisher = currentConfiguration.contextMenuHolder?.textViewModel.setFocusPublisher
-        setFocusSubscription = setFocusPublisher?.sink(receiveValue: { [weak self] value in
-            guard let position = value.position else { return }
-            self?.textView.setFocus(position)
-        })
+        self.currentConfiguration.contextMenuHolder?.textView = textView
+
         if case let .text(content) = self.currentConfiguration.information.content {
             self.textView.text = content.attributedText.string
         }
@@ -145,3 +142,4 @@ extension CodeBlockContentView: UITextViewDelegate {
         }
     }
 }
+

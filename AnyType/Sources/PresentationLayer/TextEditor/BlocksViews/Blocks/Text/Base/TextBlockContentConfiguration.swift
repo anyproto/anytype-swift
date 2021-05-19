@@ -8,18 +8,32 @@
 
 import BlocksModels
 import UIKit
+import Combine
+
 
 /// Content configuration for text blocks
 struct TextBlockContentConfiguration {
-    
-    /// Entity for context menu
-    weak var contextMenuHolder: TextBlockViewModel?
-    
+    private(set) var marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
+    private(set) var toolbarActionSubject: PassthroughSubject<BaseBlockViewModel.ActionsPayload.Toolbar.Action, Never>
+    private(set) weak var textViewDelegate: TextViewDelegate?
+    private(set) var viewModel: TextBlockViewModel
+    private(set) var information: BlockInformation.InformationModel
+
+    /// text block view model
+
     /// Block information
-    var information: BlockInformation.InformationModel
     
-    init(_ block: BlockActiveRecordModelProtocol) {
-        self.information = .init(information: block.blockModel.information)
+    init(
+         textViewDelegate: TextViewDelegate?,
+         viewModel: TextBlockViewModel,
+         marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>,
+         toolbarActionSubject: PassthroughSubject<BaseBlockViewModel.ActionsPayload.Toolbar.Action, Never>
+    ) {
+        self.marksPaneActionSubject = marksPaneActionSubject
+        self.toolbarActionSubject = toolbarActionSubject
+        self.textViewDelegate = textViewDelegate
+        self.information = viewModel.information
+        self.viewModel = viewModel
     }
 }
 
@@ -27,7 +41,7 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         let view: TextBlockContentView = .init(configuration: self)
-        self.contextMenuHolder?.addContextMenuIfNeeded(view)
+        self.viewModel.addContextMenuIfNeeded(view)
         return view
     }
     

@@ -1,7 +1,10 @@
 
 import UIKit
 import Combine
+import BlocksModels
 
+
+// MARK: - TextBlockContentView
 
 final class TextBlockContentView: UIView & UIContentView {
     struct Layout {
@@ -9,7 +12,6 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private enum Constants {
-        
         enum Text {
             static let textContainerInsets: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 4)
         }
@@ -53,12 +55,14 @@ final class TextBlockContentView: UIView & UIContentView {
     /// Views
     private let topView = TopWithChildUIKitView()
     private let textView = BlockTextView()
+
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
-            guard let self = self,
-                  let block = self.currentConfiguration.contextMenuHolder?.getBlock() else { return }
+            guard let self = self else { return }
+
+            let block = self.currentConfiguration.viewModel.getBlock()
             self.createChildBlockButton.isHidden = true
-            self.currentConfiguration.contextMenuHolder?.send(actionsPayload: .textView(.init(model: block,
+            self.currentConfiguration.viewModel.send(actionsPayload: .textView(.init(model: block,
                                                       action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +77,7 @@ final class TextBlockContentView: UIView & UIContentView {
         button.titleLabel?.lineBreakMode = .byWordWrapping
         return button
     }()
+
     private let stack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -81,6 +86,7 @@ final class TextBlockContentView: UIView & UIContentView {
     }()
     
     private var currentConfiguration: TextBlockContentConfiguration
+
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
         set {
@@ -90,19 +96,34 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     private var blockViewModelActionsSubscription: AnyCancellable?
 
-    /// Initialization
+    // MARK: - Initialization
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    /// Initializer
     init(configuration: TextBlockContentConfiguration) {
         self.currentConfiguration = configuration
+
         super.init(frame: .zero)
+
         self.setup()
         self.applyNewConfiguration()
     }
-    
+
+    private func makeCoordinator() -> BlockTextViewCoordinator {
+        let factory = BlockRestrictionsFactory()
+        let restrictions = factory.makeRestrictions(for: currentConfiguration.information.content.type)
+        let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: currentConfiguration.marksPaneActionSubject,
+                                                        addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject)
+        let coordinator = BlockTextViewCoordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
+                                                    blockMenuActionsHandler: actionsHandler)
+        return coordinator.configure(currentConfiguration.viewModel)
+    }
+
+    // MARK: - Setup views
+
     private func setup() {
         self.setupUIElements()
         self.addLayout()
@@ -123,6 +144,8 @@ final class TextBlockContentView: UIView & UIContentView {
         stack.pinAllEdges(to: self, insets: Layout().insets)
     }
 
+    // MARK: - Apply configuration
+
     private func apply(configuration: TextBlockContentConfiguration) {
         guard self.currentConfiguration != configuration else { return }
         self.currentConfiguration = configuration
@@ -130,47 +153,49 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
-        self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
+        self.currentConfiguration.viewModel.addContextMenuIfNeeded(self)
 
         // it's important to clean old attributed string
-        self.textView.textView.attributedText = nil
-
-        if let textViewModel = self.currentConfiguration.contextMenuHolder?.getUIKitViewModel() {
-            textViewModel.update = .unknown
-            _ = self.textView.configured(.init(liveUpdateAvailable: true)).configured(textViewModel)
+        textView.textView.attributedText = nil
+        textView.coordinator = makeCoordinator()
+        textView.delegate = currentConfiguration.textViewDelegate
+        currentConfiguration.viewModel.textView = textView
 
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
             // In case of configurations is not equal we should check what exactly we should change
             // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
-            createChildBlockButton.isHidden = true
-            blockViewModelActionsSubscription = nil
-            textView.textView.selectedColor = nil
-            switch text.contentType {
-            case .title:
-                self.setupForTitle()
-            case .text:
-                self.setupForText()
-            case .toggle:
-                setupForToggle()
-            case .bulleted:
-                self.setupForBulleted()
-            case .checkbox:
-                self.setupForCheckbox(checked: text.checked)
-            case .numbered:
-                self.setupForNumbered(number: text.number)
-            case .quote:
-                self.setupForQuote()
-            case .header:
-                self.setupForHeader1()
-            case .header2:
-                self.setupForHeader2()
-            case .header3:
-                self.setupForHeader3()
-            case .header4, .code:
-                break
-            }
-            self.currentConfiguration.contextMenuHolder?.refreshTextViewModel(textViewModel)
+        createChildBlockButton.isHidden = true
+        blockViewModelActionsSubscription = nil
+        textView.textView.selectedColor = nil
+        switch text.contentType {
+        case .title:
+            self.setupForTitle()
+        case .text:
+            self.setupForText()
+        case .toggle:
+            setupForToggle()
+        case .bulleted:
+            self.setupForBulleted()
+        case .checkbox:
+            self.setupForCheckbox(checked: text.checked)
+        case .numbered:
+            self.setupForNumbered(number: text.number)
+        case .quote:
+            self.setupForQuote()
+        case .header:
+            self.setupForHeader1()
+        case .header2:
+            self.setupForHeader2()
+        case .header3:
+            self.setupForHeader3()
+        case .header4, .code:
+            break
         }
+        self.currentConfiguration.viewModel.refreshTextViewModel()
+
+        // TODO: textview - do wee need it?
+        self.currentConfiguration.viewModel.refreshTextViewModel()
+
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
         self.textView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
     }
@@ -232,7 +257,7 @@ final class TextBlockContentView: UIView & UIContentView {
             button.isSelected = checked
             button.addAction(UIAction(handler: { [weak button, weak self] _ in
                 guard let self = self, let button = button else { return }
-                self.currentConfiguration.contextMenuHolder?.send(textViewAction: .buttonView(.checkbox(!button.isSelected)))
+                self.currentConfiguration.viewModel.send(textViewAction: .buttonView(.checkbox(!button.isSelected)))
             }), for: .touchUpInside)
             
             let container: UIView = .init()
@@ -330,11 +355,11 @@ final class TextBlockContentView: UIView & UIContentView {
             _ = self.topView.configured(leftChild: container, setConstraints: true)
             toggleButton = button
         }
-        let toggled = currentConfiguration.contextMenuHolder?.getBlock().isToggled ?? false
+        let toggled = currentConfiguration.viewModel.getBlock().isToggled
         toggleButton?.isSelected = toggled
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
         textView.textView?.textContainerInset = Constants.Toggle.textContainerInsets
-        let hasNoChildren = currentConfiguration.contextMenuHolder?.getBlock().childrenIds().isEmpty ?? true
+        let hasNoChildren = currentConfiguration.viewModel.getBlock().childrenIds().isEmpty
         addBlockViewModelActionsSubscription()
         updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
     }
@@ -346,8 +371,9 @@ final class TextBlockContentView: UIView & UIContentView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setContentHuggingPriority(.required, for: .horizontal)
         button.addAction(UIAction(handler: { [weak self, weak button] _ in
-            guard let self = self,
-                  let blockViewModel = self.currentConfiguration.contextMenuHolder else { return }
+            guard let self = self else { return }
+
+            let blockViewModel = self.currentConfiguration.viewModel
             button?.isSelected.toggle()
             blockViewModel.update { $0.isToggled.toggle() }
             let toggled = blockViewModel.getBlock().isToggled
@@ -364,9 +390,13 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func addBlockViewModelActionsSubscription() {
-        let publisher = currentConfiguration.contextMenuHolder?.actionsPayloadSubject.eraseToAnyPublisher()
-        blockViewModelActionsSubscription = publisher?.sink { [weak self] action in
-            guard let self = self, let blockViewModel = self.currentConfiguration.contextMenuHolder else { return }
+        let publisher = currentConfiguration.viewModel.actionsPayloadSubject.eraseToAnyPublisher()
+
+        blockViewModelActionsSubscription = publisher.sink { [weak self] action in
+            guard let self = self else { return }
+
+            let blockViewModel = self.currentConfiguration.viewModel
+
             switch action {
             case let .textView(textViewInteraction):
                 switch textViewInteraction.action {

@@ -63,3 +63,51 @@ extension UITextView {
         return .typingSymbols
     }
 }
+
+extension UITextView: TextViewManagingFocus, TextViewUpdatable {
+    func apply(update: TextViewUpdate) {
+        switch update {
+        case let .text(value):
+            guard value != textStorage.string else { return }
+
+            if textStorage.length == 0 {
+                let text = NSAttributedString(string: value, attributes: typingAttributes)
+                textStorage.setAttributedString(text)
+            } else {
+                textStorage.replaceCharacters(in: .init(location: 0, length: textStorage.length), with: value)
+            }
+        case let .attributedText(value):
+            let text = NSMutableAttributedString(attributedString: value)
+
+            guard text != textStorage else { return }
+
+            textStorage.setAttributedString(text)
+        case let .auxiliary(value):
+            self.backgroundColor = value.blockColor
+            self.textAlignment = value.textAlignment
+        case let .payload(value):
+            self.apply(update: .attributedText(value.attributedString))
+            self.apply(update: .auxiliary(value.auxiliary))
+        }
+    }
+
+    func shouldResignFirstResponder() {
+        resignFirstResponder()
+    }
+
+    func setFocus(_ focus: TextViewFocus?) {
+        guard let position = focus?.position else { return }
+        setFocus(position)
+    }
+
+    func obtainFocusPosition() -> BlockFocusPosition? {
+        guard isFirstResponder else { return nil }
+
+        let caretLocation = selectedRange.location
+        if caretLocation == 0 {
+            return .beginning
+        }
+        return .at(caretLocation)
+    }
+
+}

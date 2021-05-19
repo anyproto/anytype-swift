@@ -171,6 +171,7 @@ final class DocumentEditorViewController: UICollectionViewController {
     private func updateFocusedViewModel(viewModel: BaseBlockViewModel) {
         guard let indexPath = dataSource?.indexPath(for: viewModel) else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+
         let textModel = viewModel as? TextBlockViewModel
         let focusPosition = textModel?.focusPosition()
         cell.indentationLevel = viewModel.indentationLevel()
@@ -180,8 +181,8 @@ final class DocumentEditorViewController: UICollectionViewController {
         if cell.frame.size.height != prefferedSize.height {
             updateView()
         }
-        textModel?.set(focus: BlockTextViewModel.Focus(position: focusPosition,
-                                                                     completion: { _ in }))
+        let focus = TextViewFocus(position: focusPosition)
+        textModel?.set(focus: focus)
     }
     
     private func handleSelection(event: EditorSelectionIncomingEvent) {
@@ -249,7 +250,8 @@ extension DocumentEditorViewController {
         
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
         UIView.performWithoutAnimation {
-            self.dataSource?.apply(snapshot, animatingDifferences: true) { [weak self] in
+            // For now animatingDifferences should be false otherwise some cells will not be reloading.
+            self.dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
                 self?.updateVisibleNumberedItems()
                 self?.scrollAndFocusOnFocusedBlock()
             }
@@ -313,10 +315,13 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     func setFocus(at index: Int) {
         guard !self.viewModel.selectionEnabled() else { return }
         guard let snapshot = self.dataSource?.snapshot() else { return }
+
         let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
+
         if let textItem = itemIdentifiers[index] as? TextBlockViewModel {
             let userSession = self.viewModel.documentViewModel.userSession
-            textItem.set(focus: .init(position: userSession?.focusAt() ?? .end, completion: {_ in }))
+            let focus = TextViewFocus(position: userSession?.focusAt() ?? .end)
+            textItem.set(focus: focus)
         }
     }
     

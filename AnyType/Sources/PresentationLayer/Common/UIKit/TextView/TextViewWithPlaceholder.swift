@@ -31,16 +31,15 @@ extension TextViewWithPlaceholder {
 
 // MARK: - TextView
 
-class TextViewWithPlaceholder: UITextView {
-
+final class TextViewWithPlaceholder: UITextView {
     weak var coordinator: BlockTextViewCoordinator?
 
     // MARK: Publishers
     private var contextualMenuSubject: PassthroughSubject<BlockTextView.ContextualMenu.Action, Never> = .init()
     private(set) var contextualMenuPublisher: AnyPublisher<BlockTextView.ContextualMenu.Action, Never> = .empty()
 
-    private var firstResponderChangeSubject: PassthroughSubject<BlockTextViewModel.FirstResponder.Change, Never> = .init()
-    private(set) var firstResponderChangePublisher: AnyPublisher<BlockTextViewModel.FirstResponder.Change, Never> = .empty()
+    private var firstResponderChangeSubject: PassthroughSubject<TextViewFirstResponderChange, Never> = .init()
+    private(set) var firstResponderChangePublisher: AnyPublisher<TextViewFirstResponderChange, Never> = .empty()
 
     // MARK: Views
     private lazy var placeholderLabel: UILabel = {
@@ -144,16 +143,8 @@ class TextViewWithPlaceholder: UITextView {
         }
     }
 
-    func setupPublishers() {
-        /// TODO: Measure.
-        /// We don't care about text anymore. We use debounce technique to sync document.
-        /// For that, we need only access to parts of textView.
-        /// For example, we could do it by getters (?)
-
-        //"We intentionally disable publisher. We could live without this publisher and only debounce our work
-        //            self.textStorageEventsPublisher = .empty()
+    private func setupPublishers() {
         self.contextualMenuPublisher = self.contextualMenuSubject.eraseToAnyPublisher()
-
         self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
     }
 

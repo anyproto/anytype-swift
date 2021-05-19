@@ -44,5 +44,6 @@ final class BlockPageLinkContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
         self.currentConfiguration.contextMenuHolder?.applyOnUIView(self.topView)
+        currentConfiguration.contextMenuHolder?.textView = self.topView.textView
     }
 }
