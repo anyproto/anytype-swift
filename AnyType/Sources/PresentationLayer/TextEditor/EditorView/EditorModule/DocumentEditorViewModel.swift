@@ -320,8 +320,8 @@ private extension DocumentEditorViewModel {
         // TODO: we need coordinator(router) here that show this view https://app.clickup.com/t/h13ytp
         case let .showCodeLanguageView(languages, completion):
             self.viewInput?.showCodeLanguageView(with: languages, completion: completion)
-        case let .showStyleMenu(blockModel):
-            self.viewInput?.showStyleMenu(blockModel: blockModel)
+        case let .showStyleMenu(blockModel, blockViewModel):
+            self.viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
         case let .becomeFirstResponder(blockModel):
             self.documentViewModel.userSession?.setFirstResponder(with: blockModel)
         case .toolbar, .marksPane, .userAction: return

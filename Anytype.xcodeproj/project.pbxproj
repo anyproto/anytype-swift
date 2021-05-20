@@ -407,6 +407,7 @@
 		53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8210C26528D19003FEB0B /* TextViewDelegate.swift */; };
 		53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */; };
 		53F8211326529D26003FEB0B /* TextViewUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211226529D26003FEB0B /* TextViewUpdatable.swift */; };
+		53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8215A2655C871003FEB0B /* BottomSheetsFactory.swift */; };
 		A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */; };
 		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
 		A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */; };
@@ -474,8 +475,6 @@
 		EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
-		EAC5728426208CB600F25949 /* DocumentViewCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728326208CB600F25949 /* DocumentViewCellFactory.swift */; };
-		EAC5728726208CD100F25949 /* DocumentViewCellFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728626208CD100F25949 /* DocumentViewCellFactoryProtocol.swift */; };
 		EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */; };
 		EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */; };
 		EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9526270F73004C8C06 /* FileBlockRestrictions.swift */; };
@@ -934,6 +933,7 @@
 		53F8210C26528D19003FEB0B /* TextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewDelegate.swift; sourceTree = "<group>"; };
 		53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewManagingFocus.swift; sourceTree = "<group>"; };
 		53F8211226529D26003FEB0B /* TextViewUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewUpdatable.swift; sourceTree = "<group>"; };
+		53F8215A2655C871003FEB0B /* BottomSheetsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetsFactory.swift; sourceTree = "<group>"; };
 		A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Page.swift"; sourceTree = "<group>"; };
 		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
 		A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Manager.swift"; sourceTree = "<group>"; };
@@ -1002,8 +1002,6 @@
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
 		EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Typography.swift"; sourceTree = "<group>"; };
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
-		EAC5728326208CB600F25949 /* DocumentViewCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewCellFactory.swift; sourceTree = "<group>"; };
-		EAC5728626208CD100F25949 /* DocumentViewCellFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewCellFactoryProtocol.swift; sourceTree = "<group>"; };
 		EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Convenience.swift"; sourceTree = "<group>"; };
 		EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+ApplicationWindowInsetsProvider.swift"; sourceTree = "<group>"; };
 		EAC6BA9526270F73004C8C06 /* FileBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBlockRestrictions.swift; sourceTree = "<group>"; };
@@ -1683,7 +1681,6 @@
 				3D180220264E9C0000224815 /* Model */,
 				12858E79264ABA9900A7FE0F /* Views */,
 				533341F2262E0F5400238121 /* Selection */,
-				533341F1262E0F3B00238121 /* CellFactory */,
 				EA289BB72629D50000EA869F /* TurnIntoSelection */,
 				5338E7E425DC32E5008CB97D /* BlockActionHandlers */,
 				533341ED262E0D5100238121 /* ContainerView */,
@@ -2698,6 +2695,7 @@
 				533856AC263B2285005A06A9 /* TextAttributesView */,
 				53EA4A6F26371D6400968B8E /* ColorView */,
 				531629332632BD0A000D6780 /* TextStyleView */,
+				53F8215A2655C871003FEB0B /* BottomSheetsFactory.swift */,
 			);
 			path = BottomSheets;
 			sourceTree = "<group>";
@@ -2719,15 +2717,6 @@
 				3D180224264E9C9F00224815 /* Content */,
 			);
 			path = ContainerView;
-			sourceTree = "<group>";
-		};
-		533341F1262E0F3B00238121 /* CellFactory */ = {
-			isa = PBXGroup;
-			children = (
-				EAC5728326208CB600F25949 /* DocumentViewCellFactory.swift */,
-				EAC5728626208CD100F25949 /* DocumentViewCellFactoryProtocol.swift */,
-			);
-			path = CellFactory;
 			sourceTree = "<group>";
 		};
 		533341F2262E0F5400238121 /* Selection */ = {
@@ -3530,7 +3519,6 @@
 				EAC6BB54262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift in Sources */,
 				0A2C0D65247145BD008ADD86 /* TextView+HighlightedToolbar+InputLink.swift in Sources */,
 				3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */,
-				EAC5728726208CD100F25949 /* DocumentViewCellFactoryProtocol.swift in Sources */,
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
 				0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
@@ -3625,6 +3613,7 @@
 				3D180231264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift in Sources */,
 				3D5321E0262445B200F0D4FF /* Localization.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
+				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0A0965FA25BEF5B000C004BD /* EditorModule.swift in Sources */,
@@ -3706,7 +3695,6 @@
 				0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */,
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
 				EAC6BB4B26288691004C8C06 /* InputSwitcher.swift in Sources */,
-				EAC5728426208CB600F25949 /* DocumentViewCellFactory.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				5338E7F525DC7345008CB97D /* ButtonBlockActionHandler.swift in Sources */,
 				0A005AAC24C4731D000520AA /* BlocksViews+New+File+File.swift in Sources */,

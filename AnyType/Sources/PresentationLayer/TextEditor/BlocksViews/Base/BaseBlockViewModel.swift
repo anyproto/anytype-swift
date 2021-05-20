@@ -67,7 +67,7 @@ extension BaseBlockViewModel {
         /// show code language view
         case showCodeLanguageView(languages: [String], completion: (String) -> Void)
         /// show style menu
-        case showStyleMenu(BlockModelProtocol)
+        case showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel)
         /// tell that block become first responder
         case becomeFirstResponder(BlockModelProtocol)
     }

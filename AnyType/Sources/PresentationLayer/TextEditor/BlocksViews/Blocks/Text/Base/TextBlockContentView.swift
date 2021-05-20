@@ -8,7 +8,7 @@ import BlocksModels
 
 final class TextBlockContentView: UIView & UIContentView {
     struct Layout {
-        let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: 1, right: 20)
+        let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: -1, right: -20)
     }
     
     private enum Constants {
@@ -78,11 +78,11 @@ final class TextBlockContentView: UIView & UIContentView {
         return button
     }()
 
-    private let stack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     private var currentConfiguration: TextBlockContentConfiguration
@@ -108,7 +108,7 @@ final class TextBlockContentView: UIView & UIContentView {
 
         super.init(frame: .zero)
 
-        self.setup()
+        self.setupViews()
         self.applyNewConfiguration()
     }
 
@@ -124,24 +124,31 @@ final class TextBlockContentView: UIView & UIContentView {
 
     // MARK: - Setup views
 
-    private func setup() {
-        self.setupUIElements()
-        self.addLayout()
-    }
+    private func setupViews() {
+        stackView.layer.cornerRadius = 4
+        stackView.layer.cornerCurve = .continuous
+        stackView.clipsToBounds = true
 
-    private func setupUIElements() {
         self.topView.translatesAutoresizingMaskIntoConstraints = false
+
+        stackView.addArrangedSubview(topView)
+        stackView.addArrangedSubview(createChildBlockButton)
+
+        addSubview(stackView)
+
         _ = self.topView.configured(leftChild: .empty())
         _ = self.topView.configured(textView: self.textView)
+
+        self.setupLayout()
     }
 
-    private func addLayout() {
-        let stack = UIStackView(arrangedSubviews: [topView, createChildBlockButton])
+    private func setupLayout() {
+        stackView.addArrangedSubview(topView)
+        stackView.addArrangedSubview(createChildBlockButton)
+
         createChildBlockButton.heightAnchor.constraint(equalToConstant: 26.5).isActive = true
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        addSubview(stack)
-        stack.pinAllEdges(to: self, insets: Layout().insets)
+
+        stackView.pinAllEdges(to: self, insets: Layout().insets)
     }
 
     // MARK: - Apply configuration
@@ -167,6 +174,7 @@ final class TextBlockContentView: UIView & UIContentView {
         createChildBlockButton.isHidden = true
         blockViewModelActionsSubscription = nil
         textView.textView.selectedColor = nil
+
         switch text.contentType {
         case .title:
             self.setupForTitle()
@@ -191,13 +199,22 @@ final class TextBlockContentView: UIView & UIContentView {
         case .header4, .code:
             break
         }
-        self.currentConfiguration.viewModel.refreshTextViewModel()
 
         // TODO: textview - do wee need it?
         self.currentConfiguration.viewModel.refreshTextViewModel()
 
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        self.textView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
+        self.stackView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
+
+        stackView.layer.borderWidth = 0.0
+        stackView.layer.borderColor = nil
+        topView.backgroundColor = .clear
+
+        if currentConfiguration.isSelected {
+            stackView.layer.borderWidth = 1.0
+            stackView.layer.borderColor = UIColor.pureAmber.cgColor
+            topView.backgroundColor = .pureAmber.withAlphaComponent(0.1)
+        }
     }
     
     private func setupForPlainText() {
@@ -271,6 +288,7 @@ final class TextBlockContentView: UIView & UIContentView {
             ])
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
+
         self.setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
         self.textView.textView?.textContainerInset = Constants.Checkbox.textContainerInsets
         // selected color

@@ -27,7 +27,7 @@ enum EditorModuleContentViewBuilder {
             selectionPresenter: presenter
         )
         
-        let childViewController = DocumentEditorViewController(viewModel: editorViewModel, viewCellFactory: DocumentViewCellFactory())
+        let childViewController = DocumentEditorViewController(viewModel: editorViewModel)
         editorViewModel.viewInput = childViewController
         
         bottomMenuViewController.add(child: childViewController)

@@ -271,7 +271,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
             }
         case .showStyleMenu:
-            self.send(actionsPayload: .showStyleMenu(self.getBlock().blockModel))
+            self.send(actionsPayload: .showStyleMenu(blockModel: self.getBlock().blockModel, blockViewModel: self))
         case .showMultiActionMenuAction(.showMultiActionMenu):
             self.textView?.shouldResignFirstResponder()
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))

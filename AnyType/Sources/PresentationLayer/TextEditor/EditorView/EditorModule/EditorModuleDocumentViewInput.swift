@@ -23,5 +23,5 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     func showCodeLanguageView(with languages: [String], completion: @escaping (_ language: String) -> Void)
 
     /// Show style menu
-    func showStyleMenu(blockModel: BlockModelProtocol)
+    func showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel)
 }

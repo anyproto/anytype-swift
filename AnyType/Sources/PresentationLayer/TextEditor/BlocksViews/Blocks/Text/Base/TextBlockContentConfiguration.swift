@@ -18,6 +18,7 @@ struct TextBlockContentConfiguration {
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var viewModel: TextBlockViewModel
     private(set) var information: BlockInformation.InformationModel
+    private(set) var isSelected: Bool = false
 
     /// text block view model
 
@@ -46,17 +47,22 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
     }
     
     func updated(for state: UIConfigurationState) -> TextBlockContentConfiguration {
-        return self
+        guard let state = state as? UICellConfigurationState else { return self }
+        var updatedConfig = self
+
+        updatedConfig.isSelected = state.isSelected
+        return updatedConfig
     }
 }
 
 extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.information == rhs.information
+        lhs.information == rhs.information && lhs.isSelected == rhs.isSelected
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.information)
+        hasher.combine(information)
+        hasher.combine(isSelected)
     }
 }
