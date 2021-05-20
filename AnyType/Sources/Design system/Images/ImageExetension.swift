@@ -17,4 +17,11 @@ extension Image {
         
         static let wallpaper = Image("default_home_wallpaper")
     }
+    
+    enum settings {
+        static let keychain = Image("setings_set_keychain_phrase")
+        static let about = Image("settings_about")
+        static let pin = Image("settings_set_pin_code")
+        static let wallpaper = Image("settings_set_wallpaper")        
+    }
 }

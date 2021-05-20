@@ -5,16 +5,16 @@ struct SettingsSectionView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            SettingsSectionItemView(name: "Wallpaper", icon: "Settings/wallpaper", pressed: self.$viewModel.wallpaper)
+            SettingsSectionItemView(name: "Wallpaper", icon: Image.settings.wallpaper, pressed: self.$viewModel.wallpaper)
                 .modifier(DividerModifier())
-            SettingsSectionItemView(name: "Keychain phrase", icon: "Settings/key", pressed: self.$viewModel.keychain)
+            SettingsSectionItemView(name: "Keychain phrase", icon: Image.settings.keychain, pressed: self.$viewModel.keychain)
                 .modifier(DividerModifier())
                 .sheet(isPresented: self.$viewModel.keychain) {
                     KeychainPhraseView(viewModel: .init())
                 }
-            SettingsSectionItemView(name: "Pin code", icon: "Settings/lock", pressed: self.$viewModel.pincode)
+            SettingsSectionItemView(name: "Pin code", icon: Image.settings.pin, pressed: self.$viewModel.pincode)
                 .modifier(DividerModifier())
-            SettingsSectionItemView(name: "About application", icon: "", pressed: self.$viewModel.about)
+            SettingsSectionItemView(name: "About application", icon: Image.settings.about, pressed: self.$viewModel.about)
                 .sheet(isPresented: self.$viewModel.about) {
                     ProfileView.AboutView(viewModel: .init())
                 }
