@@ -4,7 +4,7 @@ import SwiftUI
 import os
 
 
-extension ProfileView {
+extension SettingsView {
     struct AboutView: View {
         @ObservedObject var viewModel: ViewModel
         
@@ -28,7 +28,7 @@ extension ProfileView {
     }
 }
 
-extension ProfileView.AboutView {
+extension SettingsView.AboutView {
     class ViewModel: ObservableObject {
         private var configurationService: ConfigurationServiceProtocol = MiddlewareConfigurationService()
         private var subscriptions: Set<AnyCancellable> = []

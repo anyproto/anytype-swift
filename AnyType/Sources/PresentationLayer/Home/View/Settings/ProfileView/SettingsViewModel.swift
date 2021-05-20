@@ -1,6 +1,6 @@
 import SwiftUI
 
-final class ProfileViewModel: ObservableObject {
+final class SettingsViewModel: ObservableObject {
     private let authService: AuthServiceProtocol
 
     init(authService: AuthServiceProtocol) {

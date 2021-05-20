@@ -14,7 +14,7 @@
 		0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */; };
 		03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03074B87239514E2009FA7D0 /* MainAuthView.swift */; };
 		030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030DF4B22399346F00AD3BC3 /* AuthModels.swift */; };
-		0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311612D22DE0D1700885211 /* ProfileViewModel.swift */; };
+		0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0311612D22DE0D1700885211 /* SettingsViewModel.swift */; };
 		0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0318D575230186CA000527B1 /* LocalAuthentication.framework */; };
 		032E00122395D0C400620E1A /* WaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032E00112395D0C300620E1A /* WaitingView.swift */; };
 		03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03475B6E2306031D00F8FCE7 /* ViewExtension.swift */; };
@@ -32,7 +32,7 @@
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
 		038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A81FC23A0158B00B71388 /* LoginViewModel.swift */; };
 		03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03913E58230B5DA90040CD4B /* SelectColorView.swift */; };
-		03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0222D8EDAA005C552B /* ProfileView.swift */; };
+		03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0222D8EDAA005C552B /* SettingsView.swift */; };
 		039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039DA2E52305843D0041F95C /* ErrorAlertView.swift */; };
 		039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669823C7FD1D00DBE36A /* GeometryExtension.swift */; };
 		039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039F669B23C7FDC300DBE36A /* TimingTimer.swift */; };
@@ -336,7 +336,7 @@
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
-		3DD2FC49262085DF00C65466 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* ProfileAssembly.swift */; };
+		3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */; };
 		3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC4E2620884300C65466 /* AccountInfoDataAccessor.swift */; };
 		3DD67E9126526D8D0025ED6F /* EditorModuleDocumentViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */; };
 		3DD67E99265270450025ED6F /* EditorSelectionIncomingCellEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67E98265270450025ED6F /* EditorSelectionIncomingCellEvent.swift */; };
@@ -537,7 +537,7 @@
 		0303ECFB22D8EDAA005C552B /* Anytype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anytype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0303ECFE22D8EDAA005C552B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0303ED0022D8EDAA005C552B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0303ED0222D8EDAA005C552B /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		0303ED0222D8EDAA005C552B /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0303ED0422D8EDAD005C552B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0303ED0A22D8EDAD005C552B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -546,7 +546,7 @@
 		030DF4B22399346F00AD3BC3 /* AuthModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModels.swift; sourceTree = "<group>"; };
 		030DF4B423994F4700AD3BC3 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		030DF4B72399C1FA00AD3BC3 /* DiskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStorage.swift; sourceTree = "<group>"; };
-		0311612D22DE0D1700885211 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		0311612D22DE0D1700885211 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		0318D575230186CA000527B1 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		032E00112395D0C300620E1A /* WaitingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingView.swift; sourceTree = "<group>"; };
 		0339676F2397DA7E000CB7BA /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -864,7 +864,7 @@
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
-		3DD2FC48262085DF00C65466 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
+		3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC4E2620884300C65466 /* AccountInfoDataAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfoDataAccessor.swift; sourceTree = "<group>"; };
 		3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditorModuleDocumentViewInput.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/EditorModuleDocumentViewInput.swift; sourceTree = SOURCE_ROOT; };
 		3DD67E98265270450025ED6F /* EditorSelectionIncomingCellEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionIncomingCellEvent.swift; sourceTree = "<group>"; };
@@ -1175,14 +1175,14 @@
 			path = MiddlewareServices;
 			sourceTree = "<group>";
 		};
-		0331BBD822E5D8AB002AD179 /* Profile */ = {
+		0331BBD822E5D8AB002AD179 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				0A1F0D9124DDCE0100A8B488 /* About */,
 				03913E51230B48120040CD4B /* ProfileView */,
 				03913E54230B485D0040CD4B /* KeychainPhraseView */,
 			);
-			path = Profile;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		0331BBE122E608AC002AD179 /* Common */ = {
@@ -1350,7 +1350,6 @@
 				0331BBE122E608AC002AD179 /* Common */,
 				03074B86239514BF009FA7D0 /* Auth */,
 				03A24B8D232152ED00DA7369 /* TextEditor */,
-				0331BBD822E5D8AB002AD179 /* Profile */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -1432,10 +1431,10 @@
 		03913E51230B48120040CD4B /* ProfileView */ = {
 			isa = PBXGroup;
 			children = (
-				3DB92F9F264D8B0100E83276 /* Settings */,
-				0303ED0222D8EDAA005C552B /* ProfileView.swift */,
-				0311612D22DE0D1700885211 /* ProfileViewModel.swift */,
-				3DD2FC48262085DF00C65466 /* ProfileAssembly.swift */,
+				3DB92F9F264D8B0100E83276 /* SettingsSection */,
+				0303ED0222D8EDAA005C552B /* SettingsView.swift */,
+				0311612D22DE0D1700885211 /* SettingsViewModel.swift */,
+				3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */,
 			);
 			path = ProfileView;
 			sourceTree = "<group>";
@@ -2357,22 +2356,23 @@
 		3D932D3926317E3A00C7D1EA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3DB7DC902639CA8000635E4C /* ProfileView */,
-				3DB1E74B2639A9FB00F479BB /* TabsView */,
-				3D932D3A26317E3A00C7D1EA /* CollectionView */,
+				0331BBD822E5D8AB002AD179 /* Settings */,
+				3DB7DC902639CA8000635E4C /* Profile */,
+				3DB1E74B2639A9FB00F479BB /* Tabs */,
+				3D932D3A26317E3A00C7D1EA /* Collection */,
 				3D932D3D26317E3A00C7D1EA /* HomeBottomSheetView.swift */,
 				3DB7DC8A2639C36000635E4C /* HomeBackgroundBlurView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		3D932D3A26317E3A00C7D1EA /* CollectionView */ = {
+		3D932D3A26317E3A00C7D1EA /* Collection */ = {
 			isa = PBXGroup;
 			children = (
 				3D929B5E26332ABA0063F1BE /* Cell */,
 				3D932D3B26317E3A00C7D1EA /* HomeCollectionView.swift */,
 			);
-			path = CollectionView;
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		3D932D4A26317E9200C7D1EA /* Buttons */ = {
@@ -2468,13 +2468,13 @@
 			path = EventHandler;
 			sourceTree = "<group>";
 		};
-		3DB1E74B2639A9FB00F479BB /* TabsView */ = {
+		3DB1E74B2639A9FB00F479BB /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
 				3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */,
 				3D932D3F26317E3A00C7D1EA /* HomeTabsView.swift */,
 			);
-			path = TabsView;
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 		3DB27BF0261B0E9C005E523C /* URLComponentsCoder */ = {
@@ -2530,13 +2530,13 @@
 			path = URLComponentsCoder;
 			sourceTree = "<group>";
 		};
-		3DB7DC902639CA8000635E4C /* ProfileView */ = {
+		3DB7DC902639CA8000635E4C /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */,
 				3DB7DC912639CA9500635E4C /* HomeProfileViewButtonImage.swift */,
 			);
-			path = ProfileView;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		3DB7DCB3263AA5D100635E4C /* SwiftUI */ = {
@@ -2551,14 +2551,14 @@
 			path = SwiftUI;
 			sourceTree = "<group>";
 		};
-		3DB92F9F264D8B0100E83276 /* Settings */ = {
+		3DB92F9F264D8B0100E83276 /* SettingsSection */ = {
 			isa = PBXGroup;
 			children = (
 				3DB92FA1264D8B0100E83276 /* View */,
 				3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */,
 				3DB92FA0264D8B0100E83276 /* SettingSectionViewModel.swift */,
 			);
-			path = Settings;
+			path = SettingsSection;
 			sourceTree = "<group>";
 		};
 		3DB92FA1264D8B0100E83276 /* View */ = {
@@ -3308,10 +3308,10 @@
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* PageCell.swift in Sources */,
-				3DD2FC49262085DF00C65466 /* ProfileAssembly.swift in Sources */,
+				3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* BlocksModelsParser.swift in Sources */,
 				EAA7033E2643FF0200C4F7F7 /* EventHandlerUpdateChange.swift in Sources */,
-				0311612E22DE0D1700885211 /* ProfileViewModel.swift in Sources */,
+				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
 				3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */,
 				3DD67E9126526D8D0025ED6F /* EditorModuleDocumentViewInput.swift in Sources */,
@@ -3528,7 +3528,7 @@
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */,
 				3DDF58992628C6C60081C53E /* PageTitleUIKitView.swift in Sources */,
-				03990FB4230CCA2D00C82AD5 /* ProfileView.swift in Sources */,
+				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				0ACA780E23E5C96700442690 /* TextView+BaseToolbarView.swift in Sources */,

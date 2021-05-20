@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct ProfileView: View {
-    @StateObject var model: ProfileViewModel
+struct SettingsView: View {
+    @StateObject var model: SettingsViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -20,12 +20,12 @@ struct ProfileView: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
+struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.pureAmber.ignoresSafeArea()
-            ProfileView(
-                model: ProfileViewModel(
+            SettingsView(
+                model: SettingsViewModel(
                     authService: ServiceLocator.shared.authService()
                 )
             ).previewLayout(.fixed(width: 360, height: 276))

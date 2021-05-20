@@ -52,7 +52,7 @@ final class ServiceLocator {
     
     func homeCoordinator() -> HomeCoordinator {
         HomeCoordinator(
-            profileAssembly: profileAssembly(),
+            settingsAssembly: settingsAssembly(),
             editorAssembly: editorAssembly()
         )
     }
@@ -62,8 +62,8 @@ final class ServiceLocator {
         AuthAssembly()
     }
     
-    func profileAssembly() -> ProfileAssembly {
-        ProfileAssembly()
+    func settingsAssembly() -> SettingsAssembly {
+        SettingsAssembly()
     }
     
     func editorAssembly() -> EditorAssembly {

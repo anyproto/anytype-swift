@@ -48,7 +48,7 @@ struct HomeView: View {
         .popup(isPresented: $showSettings, type: .floater(verticalPadding: 42),
                closeOnTap: false, closeOnTapOutside: true
         ) {
-            model.coordinator.profileView()
+            model.coordinator.settingsView()
                 .padding(8)
         }
         .navigationBarTitleDisplayMode(.inline)

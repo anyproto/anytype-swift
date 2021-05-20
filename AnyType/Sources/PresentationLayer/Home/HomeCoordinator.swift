@@ -1,18 +1,18 @@
 import SwiftUI
 
 final class HomeCoordinator {
-    private let profileAssembly: ProfileAssembly
+    private let settingsAssembly: SettingsAssembly
     private let editorAssembly: EditorAssembly
     init(
-        profileAssembly: ProfileAssembly,
+        settingsAssembly: SettingsAssembly,
         editorAssembly: EditorAssembly
     ) {
-        self.profileAssembly = profileAssembly
+        self.settingsAssembly = settingsAssembly
         self.editorAssembly = editorAssembly
     }
     
-    func profileView() -> some View {
-        profileAssembly.profileView()
+    func settingsView() -> some View {
+        settingsAssembly.settingsView()
     }
     
     func documentView(selectedDocumentId: String) -> some View {
