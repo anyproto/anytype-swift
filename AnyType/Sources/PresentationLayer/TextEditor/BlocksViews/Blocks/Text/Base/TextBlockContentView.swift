@@ -224,8 +224,8 @@ final class TextBlockContentView: UIView & UIContentView {
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
         backgroundColorView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
 
-        stackView.layer.borderWidth = 0.0
-        stackView.layer.borderColor = nil
+        selectionView.layer.borderWidth = 0.0
+        selectionView.layer.borderColor = nil
         selectionView.backgroundColor = .clear
 
         if currentConfiguration.isSelected {

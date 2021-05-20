@@ -246,11 +246,17 @@ extension DocumentEditorViewController {
     }
         
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
+        let selectedCells = collectionView.indexPathsForSelectedItems
+
         UIView.performWithoutAnimation {
             // For now animatingDifferences should be false otherwise some cells will not be reloading.
             self.dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
                 self?.updateVisibleNumberedItems()
                 self?.scrollAndFocusOnFocusedBlock()
+
+                selectedCells?.forEach {
+                    self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
+                }
             }
         }
     }
