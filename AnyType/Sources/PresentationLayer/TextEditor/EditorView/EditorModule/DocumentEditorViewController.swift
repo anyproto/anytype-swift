@@ -81,6 +81,10 @@ final class DocumentEditorViewController: UICollectionViewController {
             cell?.indentationWidth = Constants.cellIndentationWidth
             cell?.indentationLevel = item.indentationLevel()
             cell?.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
+
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .clear
+            cell?.selectedBackgroundView = backgroundView
             
             return cell
         }

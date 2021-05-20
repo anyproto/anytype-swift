@@ -7,8 +7,12 @@ import BlocksModels
 // MARK: - TextBlockContentView
 
 final class TextBlockContentView: UIView & UIContentView {
-    struct Layout {
-        let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: -1, right: -20)
+    // MARK: Constants
+
+    private enum LayoutConstants {
+        static let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: -1, right: -20)
+        static let backgroundViewInsets: UIEdgeInsets = .init(top: 1, left: 0, bottom: -1, right: 0)
+        static let selectionViewInsets: UIEdgeInsets = .init(top: 1, left: 8, bottom: -1, right: -8)
     }
     
     private enum Constants {
@@ -52,9 +56,13 @@ final class TextBlockContentView: UIView & UIContentView {
             static let desiredCreateChildButtonHeight: CGFloat = 26.5
         }
     }
-    /// Views
+
+    // MARK: Views
+
     private let topView = TopWithChildUIKitView()
     private let textView = BlockTextView()
+    private let backgroundColorView = UIView()
+    private let selectionView = UIView()
 
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
@@ -84,7 +92,9 @@ final class TextBlockContentView: UIView & UIContentView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
+    // MARK: Configuration
+
     private var currentConfiguration: TextBlockContentConfiguration
 
     var configuration: UIContentConfiguration {
@@ -94,6 +104,9 @@ final class TextBlockContentView: UIView & UIContentView {
             self.apply(configuration: configuration)
         }
     }
+
+    // MARK: Subscriptions
+
     private var blockViewModelActionsSubscription: AnyCancellable?
 
     // MARK: - Initialization
@@ -125,16 +138,19 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: - Setup views
 
     private func setupViews() {
-        stackView.layer.cornerRadius = 4
-        stackView.layer.cornerCurve = .continuous
-        stackView.clipsToBounds = true
-
         self.topView.translatesAutoresizingMaskIntoConstraints = false
 
         stackView.addArrangedSubview(topView)
         stackView.addArrangedSubview(createChildBlockButton)
 
+        selectionView.layer.cornerRadius = 6
+        selectionView.layer.cornerCurve = .continuous
+        selectionView.isUserInteractionEnabled = false
+        selectionView.clipsToBounds = true
+
+        addSubview(backgroundColorView)
         addSubview(stackView)
+        addSubview(selectionView)
 
         _ = self.topView.configured(leftChild: .empty())
         _ = self.topView.configured(textView: self.textView)
@@ -148,7 +164,9 @@ final class TextBlockContentView: UIView & UIContentView {
 
         createChildBlockButton.heightAnchor.constraint(equalToConstant: 26.5).isActive = true
 
-        stackView.pinAllEdges(to: self, insets: Layout().insets)
+        stackView.pinAllEdges(to: self, insets: LayoutConstants.insets)
+        backgroundColorView.pinAllEdges(to: self, insets: LayoutConstants.backgroundViewInsets)
+        selectionView.pinAllEdges(to: self, insets: LayoutConstants.selectionViewInsets)
     }
 
     // MARK: - Apply configuration
@@ -204,16 +222,16 @@ final class TextBlockContentView: UIView & UIContentView {
         self.currentConfiguration.viewModel.refreshTextViewModel()
 
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        self.stackView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
+        backgroundColorView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
 
         stackView.layer.borderWidth = 0.0
         stackView.layer.borderColor = nil
-        topView.backgroundColor = .clear
+        selectionView.backgroundColor = .clear
 
         if currentConfiguration.isSelected {
-            stackView.layer.borderWidth = 1.0
-            stackView.layer.borderColor = UIColor.pureAmber.cgColor
-            topView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
+            selectionView.layer.borderWidth = 2.0
+            selectionView.layer.borderColor = UIColor.pureAmber.cgColor
+            selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
     }
     
