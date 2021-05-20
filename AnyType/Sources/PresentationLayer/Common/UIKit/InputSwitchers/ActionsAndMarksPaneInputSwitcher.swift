@@ -52,7 +52,8 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     override func variantsFromState(_ coordinator: BlockTextViewCoordinator,
                                     textView: UITextView,
                                     selectionLength: Int,
-                                    accessoryView: UIView?, inputView: UIView?) -> InputSwitcherTriplet? {
+                                    accessoryView: UIView?,
+                                    inputView: UIView?) -> InputSwitcherTriplet? {
         if shouldContinueToDisplayActionsMenu(coordinator: coordinator, textView: textView) {
             return InputSwitcherTriplet(shouldAnimate: false,
                                         accessoryView: coordinator.menuActionsAccessoryView,
@@ -60,13 +61,25 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         }
         switch (selectionLength, accessoryView, inputView) {
         // Length == 0, => set actions toolbar and restore default keyboard.
-        case (0, _, _): return .init(shouldAnimate: false, accessoryView: coordinator.editingToolbarAccessoryView, inputView: nil)
+        case (0, _, _):
+            return .init(shouldAnimate: false,
+                         accessoryView: coordinator.editingToolbarAccessoryView,
+                         inputView: nil)
         // Length != 0 and is ActionsToolbarAccessoryView => set marks pane input view and restore default accessory view (?).
-        case (_, is EditingToolbarView, _): return .init(shouldAnimate: false, accessoryView: nil, inputView: coordinator.marksToolbarInputView.view)
+        case (_, is EditingToolbarView, _):
+            return .init(shouldAnimate: false,
+                         accessoryView: accessoryView,
+                         inputView: nil)
         // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
-        case (_, is BlockTextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder: return .init(shouldAnimate: false, accessoryView: coordinator.highlightedAccessoryView, inputView: nil)
+        case (_, is BlockTextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder:
+            return .init(shouldAnimate: false,
+                         accessoryView: coordinator.highlightedAccessoryView,
+                         inputView: nil)
         // Otherwise, we need to keep accessory view and keyboard.
-        default: return .init(shouldAnimate: false, accessoryView: accessoryView, inputView: inputView)
+        default:
+            return .init(shouldAnimate: false,
+                         accessoryView: accessoryView,
+                         inputView: inputView)
         }
     }
     
