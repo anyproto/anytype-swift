@@ -17,7 +17,7 @@ extension ProfileView {
                     .padding(.top, 25)
                 Spacer()
             }
-            .padding()
+            .padding([.leading, .trailing])
         }
         
         var body: some View {

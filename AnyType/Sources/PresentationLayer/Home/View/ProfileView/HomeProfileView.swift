@@ -16,15 +16,7 @@ struct HomeProfileView: View {
                         .padding(.top, geometry.size.height * topPaddingRatio)
                         .padding(.bottom, 15)
                     
-                    NavigationLink(
-                        destination: model.coordinator.documentView(
-                            selectedDocumentId: accountData.blockId ?? ""
-                        ),
-                        label: {
-                            UserIconView(image: accountData.avatar, name: accountData.name)
-                                .frame(width: 80, height: 80)
-                        }
-                    ).disabled(accountData.blockId.isNil)
+                    avatar
                     
                     HStack {
                         Button(action: {}) {
@@ -42,6 +34,22 @@ struct HomeProfileView: View {
                 Spacer()
             }.frame(width: geometry.size.width, height: geometry.size.height)
         }
+    }
+    
+    private var avatar: some View {
+        if let blockId = accountData.blockId {
+            return NavigationLink(
+                destination: model.coordinator.documentView(selectedDocumentId: blockId),
+                label: { userIcon }
+            ).eraseToAnyView()
+        } else {
+            return userIcon.eraseToAnyView()
+        }
+    }
+    
+    private var userIcon: some View {
+        return UserIconView(image: accountData.avatar, name: accountData.name)
+            .frame(width: 80, height: 80)
     }
 }
 

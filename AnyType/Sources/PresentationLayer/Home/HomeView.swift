@@ -1,10 +1,13 @@
 import SwiftUI
+import PopupView
 
 struct HomeView: View {
     private let bottomSheetHeightRatio: CGFloat = 0.9
     @StateObject var model: HomeViewModel
     @StateObject private var accountData = AccountInfoDataAccessor()
 
+    @State private var showSettings = false
+    
     var body: some View {
         contentView
             .environment(\.font, .defaultAnytype)
@@ -26,16 +29,29 @@ struct HomeView: View {
                         HomeTabsView()
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height)
+                
+                if showSettings { // Black background overlay
+                    Color.black.opacity(0.25).ignoresSafeArea()
+                        .transition(.opacity)
+                        .zIndex(1) // https://stackoverflow.com/a/58512696/6252099
+                }
             }
         }
         .edgesIgnoringSafeArea(.all)
         
         .toolbar {
             ToolbarItem {
-                NavigationLink(destination: model.coordinator.profileView()) {
+                Button(action: { withAnimation { showSettings = true } }) {
                     Image.main.settings
                 }
             }
+        }
+        
+        .popup(isPresented: $showSettings.animation(), type: .floater(verticalPadding: 42),
+               closeOnTap: false, closeOnTapOutside: true
+        ) {
+            model.coordinator.profileView()
+                .padding(8)
         }
         .navigationBarTitleDisplayMode(.inline)
     }

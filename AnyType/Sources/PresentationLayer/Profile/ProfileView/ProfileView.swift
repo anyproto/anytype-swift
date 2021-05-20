@@ -4,26 +4,32 @@ struct ProfileView: View {
     @StateObject var model: ProfileViewModel
     
     var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
-            ScrollView {
-                contentView.padding(.bottom, 10)
+        VStack(alignment: .center, spacing: 0) {
+            DragIndicator()
+            SettingsSectionView()
+            Button(action: model.logout) {
+                AnytypeText("Log out", style: .body)
+                    .foregroundColor(.textSecondary)
+                    .padding()
             }
         }
-        .errorToast(isShowing: $model.isShowingError, errorText: model.error)
+        .background(Color.background)
+        .cornerRadius(16)
         
         .environmentObject(model)
     }
-    
-    private var contentView: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            SettingsSectionView()
-            StandardButton(disabled: false, text: "Log out", style: .secondary) {
-                self.model.logout()
-            }
-            .padding(.horizontal, 20)
+}
+
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            Color.pureAmber.ignoresSafeArea()
+            ProfileView(
+                model: ProfileViewModel(
+                    authService: ServiceLocator.shared.authService()
+                )
+            ).previewLayout(.fixed(width: 360, height: 276))
         }
-        .padding([.leading, .trailing], 20)
     }
 }
+

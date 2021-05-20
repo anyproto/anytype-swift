@@ -103,23 +103,24 @@
 "Green background" = "Green background";
 "Coldgray background" = "Coldgray background";
 
+// Home
+"Favorites" = "Favorites";
+"Recent" = "Recent";
+"Drafts" = "Drafts";
+"Bin" = "Bin";
+
 // Settings
 "Your public page" = "Your public page";
 "Wallpaper" = "Wallpaper";
 "Keychain phrase" = "Keychain phrase";
 "Pin code" = "Pin code";
 "Log out" = "Log out";
+"Soon" = "Soon";
 
 // Keychain screen
 "Back up your keychain phrase" = "Back up your keychain phrase";
 "Your Keychain phrase protects your account" = "Your Keychain phrase protects your account. You’ll need it to sign in if you don’t have access to your devices. Keep it in a safe place.";
 "Keychain phrase copied to clipboard" = "Keychain phrase copied to clipboard";
-
-// Home
-"Favorites" = "Favorites";
-"Recent" = "Recent";
-"Drafts" = "Drafts";
-"Bin" = "Bin";
 
 
 // Auth
