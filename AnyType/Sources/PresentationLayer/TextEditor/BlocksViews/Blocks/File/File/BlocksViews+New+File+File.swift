@@ -208,6 +208,7 @@ private extension Namespace {
             var imageContentViewDefaultHeight: CGFloat = 250
             var imageViewTop: CGFloat = 4
             var emptyViewHeight: CGFloat = 52
+            let fileViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
         }
         
         var subscription: AnyCancellable?
@@ -283,12 +284,7 @@ private extension Namespace {
         
         func addFileViewLayout() {
             if let view = self.fileView, let superview = view.superview {
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ])
+                view.pinAllEdges(to: superview, insets: layout.fileViewInsets)
             }
         }
         
@@ -466,121 +462,56 @@ extension Namespace.ViewModel {
 
 // MARK: - ContentView
 private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView {
+    final class ContentView: UIView & UIContentView {
         
-        struct Layout {
-            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        private enum Constants {
+            static let topViewContentInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
         }
         
-        typealias TopView = Namespace.UIKitView
+        private let topView = Namespace.UIKitView()
         
-        /// Views
-        private var topView: TopView = .init()
-        private var contentView: UIView = .init()
+        private var currentConfiguration: ContentConfiguration
         
-        /// Subscriptions
+        var configuration: UIContentConfiguration {
+            get { self.currentConfiguration }
+            set {
+                guard let configuration = newValue as? ContentConfiguration else { return }
+                guard self.currentConfiguration != configuration else { return }
+                applyNewConfiguration()
+            }
+        }
         
-        /// Others
-//        var resource: Namespace.UIKitView.Resource = .init()
-        var layout: Layout = .init()
+        init(configuration: ContentConfiguration) {
+            self.currentConfiguration = configuration
+            super.init(frame: .zero)
+            setup()
+            applyNewConfiguration()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
                 
-        /// Setup
         private func setup() {
-            self.setupUIElements()
-            self.addLayout()
+            topView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(topView)
+            topView.pinAllEdges(to: self, insets: Constants.topViewContentInsets)
         }
         
-        private func setupUIElements() {
-            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
-            self.translatesAutoresizingMaskIntoConstraints = true
-
-            [self.contentView, self.topView].forEach { (value) in
-                value.translatesAutoresizingMaskIntoConstraints = false
-            }
-            
-            /// View hierarchy
-            self.contentView.addSubview(self.topView)
-            self.addSubview(self.contentView)
-        }
-        
-        private func addLayout() {
-            if let superview = self.contentView.superview {
-                let view = self.contentView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
-                ])
-            }
-            
-            if let superview = self.topView.superview {
-                let view = self.topView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
-        }
-        
-        /// Handle
         private func handle(_ value: BlockContent.File) {
-            /// Do something
-            /// We should reload data if text are not equal
-            ///
             switch value.contentType {
             case .file: self.topView.apply(value)
             default: return
             }
         }
         
-        /// Cleanup
-        private func cleanupOnNewConfiguration() {
-            /// Cleanup subscriptions.
-        }
-        
-        /// Initialization
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        /// ContentView
-        var currentConfiguration: ContentConfiguration!
-        var configuration: UIContentConfiguration {
-            get { self.currentConfiguration }
-            set {
-                /// apply configuration
-                guard let configuration = newValue as? ContentConfiguration else { return }
-                self.apply(configuration: configuration)
-            }
-        }
-
-        init(configuration: ContentConfiguration) {
-            super.init(frame: .zero)
-            self.setup()
-            self.apply(configuration: configuration)
-        }
-        
-        private func apply(configuration: ContentConfiguration, forced: Bool) {
-            if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
-            }
-        }
-        
-        private func apply(configuration: ContentConfiguration) {
-            self.apply(configuration: configuration, forced: true)
-            guard self.currentConfiguration != configuration else { return }
-            
-            self.currentConfiguration = configuration
-            
-            self.cleanupOnNewConfiguration()
-            self.invalidateIntrinsicContentSize()
-            
+        private func applyNewConfiguration() {
+            currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
             switch self.currentConfiguration.information.content {
-            case let .file(value): self.handle(value)
-            default: return
+            case let .file(value):
+                handle(value)
+            default:
+                return
             }
         }
     }

@@ -33,9 +33,11 @@ private extension Namespace {
         typealias EmptyView = BlocksViews.File.Base.TopUIKitEmptyView
         
         struct Layout {
-            var imageContentViewDefaultHeight: CGFloat = 250
+            let imageContentViewDefaultHeight: CGFloat = 250
             var imageViewTop: CGFloat = 4
-            var emptyViewHeight: CGFloat = 52
+            let emptyViewHeight: CGFloat = 52
+            let emptyViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            let imageViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
         }
         
         struct Resource {
@@ -281,28 +283,40 @@ extension Namespace.ViewModel {
 
 // MARK: - ContentView
 private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView {
+    final class ContentView: UIView & UIContentView {
         
-        /// Views
-        var imageContentView: UIView = .init()
-        var imageContentViewHeight: NSLayoutConstraint?
-        var imageView: UIImageView = .init()
+        private var imageContentViewHeight: NSLayoutConstraint?
+        private let imageView = UIImageView()
+        private let emptyView: Namespace.UIKitView.EmptyView = .init()
+        private var onLayoutSubviewsSubscription: AnyCancellable?
+        private var imageLoader = ImageLoader()
         
-        var emptyView: Namespace.UIKitView.EmptyView = .init()
-        
-        /// Subscriptions
-        var onLayoutSubviewsSubscription: AnyCancellable?
-        
-        /// Publishers Properties
-        var imageLoader: ImageLoader = .init()
-        
-        /// Others
-        var resource: Namespace.UIKitView.Resource = .init()
-        var layout: Namespace.UIKitView.Layout = {
+        private var resource = Namespace.UIKitView.Resource()
+        private var layout: Namespace.UIKitView.Layout = {
             var layout: Namespace.UIKitView.Layout = .init()
             layout.imageViewTop = 0
             return layout
         }()
+        
+        private var currentConfiguration: ContentConfiguration!
+        var configuration: UIContentConfiguration {
+            get { self.currentConfiguration }
+            set {
+                guard let configuration = newValue as? ContentConfiguration,
+                      currentConfiguration != configuration else { return }
+                self.apply(configuration: configuration)
+            }
+        }
+
+        init(configuration: ContentConfiguration) {
+            super.init(frame: .zero)
+            self.setup()
+            self.apply(configuration: configuration)
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
                 
         /// Setup
         func setup() {
@@ -318,51 +332,24 @@ private extension Namespace.ViewModel {
             /// Image View
             self.imageView.contentMode = .scaleAspectFill
             self.imageView.clipsToBounds = true
-            self.imageContentView.isUserInteractionEnabled = true
             self.imageView.isUserInteractionEnabled = true
             
             /// Disable Autoresizing Mask
-            [self.emptyView, self.imageContentView, self.imageView].forEach { (value) in
+            [self.emptyView, self.imageView].forEach { (value) in
                 value.translatesAutoresizingMaskIntoConstraints = false
             }
-            
-            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
-            self.translatesAutoresizingMaskIntoConstraints = true
 
             /// View hierarchy
             self.addSubview(self.emptyView)
-            self.imageContentView.addSubview(self.imageView)
-            self.addSubview(imageContentView)
-        }
-        
-        func addImageViewContentLayout() {
-            let view = self.imageContentView
-            if let superview = view.superview {
-                imageContentViewHeight = view.heightAnchor.constraint(equalToConstant: self.layout.imageContentViewDefaultHeight)
-                // We need priotity here cause cell self size constraint will conflict with ours
-//                imageContentViewHeight?.priority = .init(750)
-                imageContentViewHeight?.isActive = true
-                
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
+            addSubview(imageView)
         }
         
         func addImageViewLayout() {
-            self.addImageViewContentLayout()
-            let view = self.imageView
-            if let superview = view.superview {
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.imageViewTop),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ])
-            }
+            imageContentViewHeight = imageView.heightAnchor.constraint(equalToConstant: self.layout.imageContentViewDefaultHeight)
+            // We need priotity here cause cell self size constraint will conflict with ours
+            //                imageContentViewHeight?.priority = .init(750)
+            imageContentViewHeight?.isActive = true
+            imageView.pinAllEdges(to: self, insets: layout.imageViewInsets)
         }
         
         func addEmptyViewLayout() {
@@ -374,8 +361,10 @@ private extension Namespace.ViewModel {
                 bottomAnchor.priority = .init(750)
                 
                 NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor,
+                                                  constant: layout.emptyViewInsets.left),
+                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor,
+                                                   constant: -layout.emptyViewInsets.right),
                     view.topAnchor.constraint(equalTo: superview.topAnchor),
                     bottomAnchor,
                     heightAnchor
@@ -415,27 +404,22 @@ private extension Namespace.ViewModel {
             
             switch file.state {
             case .empty:
-//                self.setupEmptyView()
-                self.imageContentView.removeFromSuperview()
+                self.imageView.removeFromSuperview()
                 self.addSubview(self.emptyView)
                 self.addEmptyViewLayout()
                 self.emptyView.change(state: .empty)
             case .uploading:
-//                self.setupEmptyView()
-                self.imageContentView.removeFromSuperview()
+                self.imageView.removeFromSuperview()
                 self.addSubview(self.emptyView)
                 self.addEmptyViewLayout()
                 self.emptyView.change(state: .uploading)
             case .done:
-//                self.setupImageView()
                 self.emptyView.removeFromSuperview()
-                self.addSubview(self.imageContentView)
+                self.addSubview(self.imageView)
                 self.addImageViewLayout()
                 self.setupImage(file, oldFile)
-//                self.updateImageConstraints()
             case .error:
-//                self.setupEmptyView()
-                self.imageContentView.removeFromSuperview()
+                self.imageView.removeFromSuperview()
                 self.addSubview(self.emptyView)
                 self.addEmptyViewLayout()
                 self.emptyView.change(state: .error)
@@ -443,44 +427,16 @@ private extension Namespace.ViewModel {
             switch file.state {
             case .empty, .error, .uploading:
                 self.emptyView.isHidden = false
-                self.imageContentView.isHidden = true
+                self.imageView.isHidden = true
             case .done:
                 self.emptyView.isHidden = true
-                self.imageContentView.isHidden = false
+                self.imageView.isHidden = false
             }
             self.invalidateIntrinsicContentSize()
         }
-                        
-        /// Initialization
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        /// ContentView
-        var currentConfiguration: ContentConfiguration!
-        var configuration: UIContentConfiguration {
-            get { self.currentConfiguration }
-            set {
-                /// apply configuration
-                guard let configuration = newValue as? ContentConfiguration else { return }
-                self.apply(configuration: configuration)
-            }
-        }
-
-        init(configuration: ContentConfiguration) {
-            super.init(frame: .zero)
-            self.setup()
-            self.apply(configuration: configuration)
-        }
-        
-        private func apply(configuration: ContentConfiguration, forced: Bool) {
-            if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
-            }
-        }
         
         private func apply(configuration: ContentConfiguration) {
-            self.apply(configuration: configuration, forced: true)
+            currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
             guard self.currentConfiguration != configuration else { return }
             let oldConfiguration = self.currentConfiguration
             self.currentConfiguration = configuration

@@ -524,6 +524,7 @@ private extension Namespace.UIKitView {
         var imageContentViewDefaultHeight: CGFloat = 250
         var imageViewTop: CGFloat = 4
         var emptyViewHeight: CGFloat = 52
+        let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
     }
 }
 
@@ -547,7 +548,6 @@ private extension Namespace {
         var resource: Resource = .init()
                 
         // MARK: Views
-        var contentView: UIView!
         var emptyView: EmptyView!
         var bookmarkView: UIKitViewWithBookmark!
                 
@@ -573,12 +573,6 @@ private extension Namespace {
             // Default behavior
             self.translatesAutoresizingMaskIntoConstraints = false
             
-            self.contentView = {
-                let view = UIView()
-                view.translatesAutoresizingMaskIntoConstraints = false
-                return view
-            }()
-            
             self.bookmarkView = {
                 let view = UIKitViewWithBookmark()
                 view.layer.borderWidth = 1
@@ -595,37 +589,17 @@ private extension Namespace {
                 return view
             }()
             
-            self.contentView.addSubview(self.bookmarkView)
-            self.contentView.addSubview(self.emptyView)
-            self.addSubview(self.contentView)
+            addSubview(bookmarkView)
+            addSubview(emptyView)
         }
         
         // MARK: Layout
         func addLayout() {
-            if let view = self.contentView, let superview = view.superview {
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ])
-            }
             self.addEmptyViewLayout()
         }
         
         func addBookmarkViewLayout() {
-            if let view = self.bookmarkView, let superview = view.superview {
-                let bottomAnchor = view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                bottomAnchor.priority = .init(750)
-                
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-//                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                    bottomAnchor
-                ])
-            }
+            bookmarkView.pinAllEdges(to: self, insets: layout.bookmarkViewInsets)
         }
         
         func addEmptyViewLayout() {
@@ -648,7 +622,7 @@ private extension Namespace {
         private func handle(_ resource: Namespace.ViewModel.Resource) {
             switch resource.state {
             case .empty:
-                self.contentView.addSubview(self.emptyView)
+                self.addSubview(self.emptyView)
                 self.addEmptyViewLayout()
                 self.bookmarkView.isHidden = true
                 self.emptyView.isHidden = false
@@ -743,88 +717,57 @@ extension Namespace.ViewModel {
 
 // MARK: - ContentView
 private extension Namespace.ViewModel {
-    class ContentView: UIView & UIContentView {
+    final class ContentView: UIView & UIContentView {
         
-        struct Layout {
-            let insets: UIEdgeInsets = .init(top: 5, left: 5, bottom: 5, right: 5)
+        private enum Constants {
+            static let topViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
         }
         
-        typealias TopView = Namespace.UIKitView
-        
-        /// Views
-        private var topView: TopView = .init()
-        private var contentView: UIView = .init()
-        
-        /// Subscriptions
+        private let topView = Namespace.UIKitView()
         private var imageSubscription: AnyCancellable?
         private var iconSubscription: AnyCancellable?
+        private var currentConfiguration: ContentConfiguration
+        var configuration: UIContentConfiguration {
+            get { self.currentConfiguration }
+            set {
+                guard let configuration = newValue as? ContentConfiguration,
+                      configuration != currentConfiguration else { return }
+                applyNewConfiguration()
+            }
+        }
         
-        /// Others
-//        var resource: Namespace.UIKitView.Resource = .init()
-        var layout: Layout = .init()
+        init(configuration: ContentConfiguration) {
+            self.currentConfiguration = configuration
+            super.init(frame: .zero)
+            setup()
+            applyNewConfiguration()
+        }
+    
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
                 
-        /// Setup
         private func setup() {
-            self.setupUIElements()
-            self.addLayout()
+            topView.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(topView)
+            topView.pinAllEdges(to: self, insets: Constants.topViewInsets)
         }
         
-        private func setupUIElements() {
-            /// Top most ContentView should have .translatesAutoresizingMaskIntoConstraints = true
-            self.translatesAutoresizingMaskIntoConstraints = true
-
-            [self.contentView, self.topView].forEach { (value) in
-                value.translatesAutoresizingMaskIntoConstraints = false
-            }
-            
-            /// View hierarchy
-            self.contentView.addSubview(self.topView)
-            self.addSubview(self.contentView)
-        }
-        
-        private func addLayout() {
-            if let superview = self.contentView.superview {
-                let view = self.contentView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.insets.left),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.insets.right),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.insets.top),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.insets.bottom),
-                ])
-            }
-            
-            if let superview = self.topView.superview {
-                let view = self.topView
-                NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                    view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                ])
-            }
-        }
-        
-        /// Handle
         private func handle(_ value: Namespace.ViewModel.Resource?) {
             value?.imageLoader = self.currentConfiguration.contextMenuHolder?.imagesPublished
             self.topView.apply(value)
         }
         
         private func handle(_ value: BlockContent.Bookmark) {
-            /// Do something
-            /// We should reload data if text are not equal
-            ///
-            ///
-            // configure resource and subscribe on it.
             if self.iconSubscription.isNil {
-                let item = self.currentConfiguration?.contextMenuHolder?.imagesPublished.iconProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
+                let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.iconProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
                     self?.handle(value)
                 })
                 self.iconSubscription = item
             }
 
             if self.imageSubscription.isNil {
-                let item = self.currentConfiguration?.contextMenuHolder?.imagesPublished.imageProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
+                let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.imageProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
                     self?.handle(value)
                 })
                 self.imageSubscription = item
@@ -834,48 +777,8 @@ private extension Namespace.ViewModel {
             self.handle(model)
         }
         
-        /// Cleanup
-        private func cleanupOnNewConfiguration() {
-            /// Cleanup subscriptions.
-        }
-        
-        /// Initialization
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-
-        /// ContentView
-        var currentConfiguration: ContentConfiguration!
-        var configuration: UIContentConfiguration {
-            get { self.currentConfiguration }
-            set {
-                /// apply configuration
-                guard let configuration = newValue as? ContentConfiguration else { return }
-                self.apply(configuration: configuration)
-            }
-        }
-
-        init(configuration: ContentConfiguration) {
-            super.init(frame: .zero)
-            self.setup()
-            self.apply(configuration: configuration)
-        }
-        
-        private func apply(configuration: ContentConfiguration, forced: Bool) {
-            if forced {
-                self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
-            }
-        }
-        
-        private func apply(configuration: ContentConfiguration) {
-            self.apply(configuration: configuration, forced: true)
-            guard self.currentConfiguration != configuration else { return }
-            
-            self.currentConfiguration = configuration
-            
-            self.cleanupOnNewConfiguration()
-            self.invalidateIntrinsicContentSize()
-            
+        private func applyNewConfiguration() {
+            currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
             switch self.currentConfiguration.information.content {
             case let .bookmark(value): self.handle(value)
             default: return
