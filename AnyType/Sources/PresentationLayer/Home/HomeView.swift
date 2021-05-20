@@ -29,31 +29,40 @@ struct HomeView: View {
                         HomeTabsView()
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height)
-                
-                if showSettings { // Black background overlay
-                    Color.black.opacity(0.25).ignoresSafeArea()
-                        .transition(.opacity)
-                        .zIndex(1) // https://stackoverflow.com/a/58512696/6252099
-                }
+
+                settingsOverlay
+                    .zIndex(1) // https://stackoverflow.com/a/58512696/6252099
             }
         }
+        .animation(.default)
         .edgesIgnoringSafeArea(.all)
         
         .toolbar {
             ToolbarItem {
-                Button(action: { withAnimation { showSettings = true } }) {
+                Button(action: { showSettings.toggle() }) {
                     Image.main.settings
                 }
             }
         }
         
-        .popup(isPresented: $showSettings.animation(), type: .floater(verticalPadding: 42),
+        .popup(isPresented: $showSettings, type: .floater(verticalPadding: 42),
                closeOnTap: false, closeOnTapOutside: true
         ) {
             model.coordinator.profileView()
                 .padding(8)
         }
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private var settingsOverlay: some View {
+        Group {
+            if(showSettings) {
+                Color.black.opacity(0.25).ignoresSafeArea()
+                    .transition(.opacity)
+            } else {
+                EmptyView()
+            }
+        }
     }
     
     private var newPageNavigation: some View {

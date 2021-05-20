@@ -213,7 +213,7 @@ final class TextBlockContentView: UIView & UIContentView {
         if currentConfiguration.isSelected {
             stackView.layer.borderWidth = 1.0
             stackView.layer.borderColor = UIColor.pureAmber.cgColor
-            topView.backgroundColor = .pureAmber.withAlphaComponent(0.1)
+            topView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
     }
     

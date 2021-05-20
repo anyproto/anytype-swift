@@ -37,13 +37,15 @@ struct HomeProfileView: View {
     }
     
     private var avatar: some View {
-        if let blockId = accountData.blockId {
-            return NavigationLink(
-                destination: model.coordinator.documentView(selectedDocumentId: blockId),
-                label: { userIcon }
-            ).eraseToAnyView()
-        } else {
-            return userIcon.eraseToAnyView()
+        Group {
+            if let blockId = accountData.blockId {
+                NavigationLink(
+                    destination: model.coordinator.documentView(selectedDocumentId: blockId),
+                    label: { userIcon }
+                )
+            } else {
+                userIcon
+            }
         }
     }
     
