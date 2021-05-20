@@ -357,6 +357,7 @@
 		3DE6E3D726551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3D626551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift */; };
 		3DE6E3DD265512FC008FB0AF /* MultiSelectionPaneDoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3DC265512FC008FB0AF /* MultiSelectionPaneDoneViewModel.swift */; };
 		3DE6E3E026551314008FB0AF /* MultiSelectionPaneDoneBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3DF26551314008FB0AF /* MultiSelectionPaneDoneBarButtonItem.swift */; };
+		3DE6E40B265657B4008FB0AF /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = 3DE6E40A265657B4008FB0AF /* PopupView */; };
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
 		531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531197DF26430A9800FFC71E /* BlockActionHandler.swift */; };
@@ -1020,6 +1021,7 @@
 				0A5E017A25DBD5DF00E64A70 /* ProtobufMessages.framework in Frameworks */,
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				0A005AB924C60092000520AA /* BlocksModels.framework in Frameworks */,
+				3DE6E40B265657B4008FB0AF /* PopupView in Frameworks */,
 				0A005ABC24C600DA000520AA /* Lib.framework in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				53C62EBE261E005E009CE6B7 /* Highlightr in Frameworks */,
@@ -3099,6 +3101,7 @@
 				0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */,
 				53C62EBD261E005E009CE6B7 /* Highlightr */,
 				5333421B262E249100238121 /* FloatingPanel */,
+				3DE6E40A265657B4008FB0AF /* PopupView */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -3154,6 +3157,7 @@
 				0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				53C62EBC261E005E009CE6B7 /* XCRemoteSwiftPackageReference "Highlightr" */,
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				3DE6E409265657B3008FB0AF /* XCRemoteSwiftPackageReference "PopupView" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -3989,6 +3993,14 @@
 				kind = branch;
 			};
 		};
+		3DE6E409265657B3008FB0AF /* XCRemoteSwiftPackageReference "PopupView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/PopupView.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.0.14;
+			};
+		};
 		5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
@@ -4012,6 +4024,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		3DE6E40A265657B4008FB0AF /* PopupView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DE6E409265657B3008FB0AF /* XCRemoteSwiftPackageReference "PopupView" */;
+			productName = PopupView;
 		};
 		5333421B262E249100238121 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -42,9 +42,7 @@ struct StandardButton: View {
     var action: StandardButtonAction
     
     var body: some View {
-        var button = Button(action: {
-            self.action()
-        }) {
+        var button = Button(action:action) {
             AnytypeText(text, style: .headline)
                 .padding(.all)
                 .foregroundColor(disabled ? .textSecondary : style.textColor())
@@ -67,6 +65,11 @@ struct StandardButton: View {
 
 struct StandardButton_Previews: PreviewProvider {
     static var previews: some View {
-        StandardButton(disabled: false ,text: "Standard button", style: .secondary, action: {})
+        VStack {
+            StandardButton(disabled: false ,text: "Button text", style: .secondary, action: {})
+            StandardButton(disabled: true ,text: "Button text", style: .secondary, action: {})
+            StandardButton(disabled: false ,text: "Button text", style: .primary, action: {})
+            StandardButton(disabled: true ,text: "Button text", style: .primary, action: {})
+        }.padding()
     }
 }

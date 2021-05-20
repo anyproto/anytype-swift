@@ -17,7 +17,7 @@ struct SelectProfileView: View {
     var body: some View {
         HStack {
             ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
-                LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom)
+                LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom)
                     .edgesIgnoringSafeArea(.all)
                 if self.viewModel.isMultipleAccountsEnabled {
                     VStack {

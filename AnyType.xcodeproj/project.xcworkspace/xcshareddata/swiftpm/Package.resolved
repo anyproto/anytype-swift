@@ -83,6 +83,15 @@
         }
       },
       {
+        "package": "PopupView",
+        "repositoryURL": "https://github.com/exyte/PopupView.git",
+        "state": {
+          "branch": null,
+          "revision": "9948c76cfc57b12c87bfd0007ed64a5190cace85",
+          "version": "0.0.14"
+        }
+      },
+      {
         "package": "Promises",
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {

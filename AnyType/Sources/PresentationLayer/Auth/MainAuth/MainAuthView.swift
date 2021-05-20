@@ -51,11 +51,9 @@ struct MainAuthView: View {
 }
 
 
-#if DEBUG
 struct MainAuthView_Previews : PreviewProvider {
     
     static var previews: some View {
         MainAuthView(viewModel: MainAuthViewModel())
     }
 }
-#endif

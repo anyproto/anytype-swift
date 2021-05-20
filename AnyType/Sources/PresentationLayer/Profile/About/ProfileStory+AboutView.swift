@@ -15,7 +15,9 @@ extension ProfileView {
                     .padding(.top, 34).fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
                 AnytypeText("Library version \(self.viewModel.libraryVersion)", style: .body)
                     .padding(.top, 25)
+                Spacer()
             }
+            .padding()
         }
         
         var body: some View {

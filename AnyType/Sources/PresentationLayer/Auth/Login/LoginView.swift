@@ -14,7 +14,7 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.loginBackground, startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
+            LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
             LoginView.KeychainPhraseView(viewModel: viewModel).padding()
         }
     }
