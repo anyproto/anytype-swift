@@ -39,7 +39,7 @@ extension DocumentDetailsView: ConfigurableView {
     func configure(model: DocumentDetailsViewModel) {
         viewModel = model
         
-        configureIconView(with: model.documentIcon)
+        configureIconView(with: model.iconViewModel)
     }
     
 }
@@ -48,31 +48,19 @@ extension DocumentDetailsView: ConfigurableView {
 
 private extension DocumentDetailsView {
     
-    func configureIconView(with icon: DocumentIcon?) {
+    func configureIconView(with iconViewModel: DocumentIconViewModel) {
         removeIconView()
         
-        guard let icon = icon else { return }
-        
-        let view = icon.iconView
-        view.enableMenuInteraction { [weak self] action in
-            self?.viewModel?.handleIconUserAction(action)
-        }
-        
-        iconView = view
-    
-        setupIconLayout()
-    }
-    
-    func setupIconLayout() {
-        guard let iconView = iconView else { return }
+        guard let iconView = iconViewModel.makeView() else { return }
         
         addSubview(iconView)
-        
         iconView.layoutUsing.anchors {
             $0.leading.equal(to: self.leadingAnchor, constant: Constants.edgeInsets.leading)
             $0.bottom.equal(to: self.bottomAnchor, constant: -Constants.edgeInsets.bottom)
             $0.top.equal(to: self.topAnchor, constant: Constants.edgeInsets.top)
         }
+        
+        self.iconView = iconView
     }
     
     func removeIconView() {

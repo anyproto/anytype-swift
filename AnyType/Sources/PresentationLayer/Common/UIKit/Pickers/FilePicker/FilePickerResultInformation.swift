@@ -5,8 +5,9 @@ import Foundation
 struct FilePickerResultInformation {
     
     /// document URL
-    var documentUrl: URL
+    let documentUrl: URL
     
     /// String value of document URL
     var filePath: String { self.documentUrl.relativePath }
+    
 }

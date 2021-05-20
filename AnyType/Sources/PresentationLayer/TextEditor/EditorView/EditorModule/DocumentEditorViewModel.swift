@@ -32,15 +32,14 @@ class DocumentEditorViewModel: ObservableObject {
     /// Document ViewModel
     private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
 
-    /// DocumentDetailsViewModel
-    lazy var detailsViewModel: DocumentDetailsViewModel = {
-        DocumentDetailsViewModel(
-            detailsActiveModel: documentViewModel.defaultDetailsActiveModel,
-            userActionSubject: publicUserActionSubject
-        )
-    }()
-    
     var onDetailsViewModelUpdate: (() -> Void)?
+    
+    /// DocumentDetailsViewModel
+    private(set) var detailsViewModel: DocumentDetailsViewModel? {
+        didSet {
+            onDetailsViewModelUpdate?()
+        }
+    }
     
     /// User Interaction Processor
     private lazy var oldblockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
@@ -201,8 +200,11 @@ class DocumentEditorViewModel: ObservableObject {
             .sink { [weak self] detailsInformationProvider in
                 guard let self = self else { return }
                 
-                self.detailsViewModel.documentIcon = detailsInformationProvider.documentIcon
-                self.onDetailsViewModelUpdate?()
+                self.detailsViewModel = DocumentDetailsViewModel(
+                    documentIcon: detailsInformationProvider.documentIcon,
+                    detailsActiveModel: self.documentViewModel.defaultDetailsActiveModel,
+                    userActionSubject: self.publicUserActionSubject
+                )
             }
             .store(in: &subscriptions)
 

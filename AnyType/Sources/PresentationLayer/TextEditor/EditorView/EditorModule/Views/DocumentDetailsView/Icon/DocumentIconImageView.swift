@@ -16,6 +16,7 @@ final class DocumentIconImageView: UIView {
     private var menuInteractionHandler: IconMenuInteractionHandler?
     
     private let imageView: UIImageView = UIImageView()
+    
     private lazy var imageLoader = ImageLoader().configured(imageView)
     
     // MARK: Initialization
@@ -34,11 +35,33 @@ final class DocumentIconImageView: UIView {
     
 }
 
+// MARK: - Internal functions
+
+extension DocumentIconImageView {
+    
+    func showLoaderWithImage(at path: String?) {
+        imageView.image = path.flatMap { UIImage(contentsOfFile: $0) }
+        imageView.addDimmedOverlay()
+        
+        let indicator = UIActivityIndicatorView()
+        indicator.color = .grayscaleWhite
+        addSubview(indicator)
+        indicator.layoutUsing.anchors {
+            $0.center(in: self)
+        }
+        
+        indicator.startAnimating()
+    }
+    
+}
+
 // MARK: - ConfigurableView
 
 extension DocumentIconImageView: ConfigurableView {
     
     func configure(model: String) {
+        imageView.removeAllSubviews()
+        
         let parameters = ImageParameters(width: .thumbnail)
         
         imageLoader.update(imageId: model, parameters: parameters)
@@ -73,7 +96,7 @@ private extension DocumentIconImageView {
         layer.cornerRadius = Constants.cornerRadius
         
         // TODO: - load image with size of `ImageView`
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         
         setUpLayout()
     }
