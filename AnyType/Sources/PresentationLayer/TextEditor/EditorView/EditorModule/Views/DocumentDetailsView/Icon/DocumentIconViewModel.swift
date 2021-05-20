@@ -55,7 +55,7 @@ final class DocumentIconViewModel: PageBlockViewModel {
             
             self.toModelEmojiSubject.notableError().flatMap { [weak self] value in
                 self?.pageDetailsViewModel?.update(
-                    details: .iconEmoji(.init(value: value))
+                    details: [.iconEmoji(.init(value: value))]
                 ) ?? .empty()
             }
             .sink(
@@ -125,7 +125,7 @@ private extension DocumentIconViewModel {
         if !self.toViewImage.isNil {
             // remove photo
             // else?
-            self.pageDetailsViewModel?.update(details: .iconImage(.init(value: "")))?.sink(receiveCompletion: { [weak self] (value) in
+            self.pageDetailsViewModel?.update(details: [.iconImage(.init(value: ""))])?.sink(receiveCompletion: { [weak self] (value) in
                 switch value {
                 case .finished: self?.toViewImage = nil
                 case let .failure(error):
@@ -155,7 +155,7 @@ private extension DocumentIconViewModel {
                 }
             )
             .flatMap({[weak self] value in
-                self?.pageDetailsViewModel?.update(details: .iconImage(.init(value: value.hash))) ?? .empty()
+                self?.pageDetailsViewModel?.update(details: [.iconImage(.init(value: value.hash))]) ?? .empty()
             })
             .sink(receiveCompletion: { value in
                 switch value {

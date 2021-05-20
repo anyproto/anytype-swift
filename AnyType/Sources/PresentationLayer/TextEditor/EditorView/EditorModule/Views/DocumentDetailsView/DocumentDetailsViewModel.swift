@@ -11,7 +11,7 @@ import BlocksModels
 
 final class DocumentDetailsViewModel {
         
-    var iconEmoji: IconEmoji?
+    var documentIcon: DocumentIcon?
     
     // MARK: - Private variables
     
@@ -61,9 +61,14 @@ private extension DocumentDetailsViewModel {
             .safelyUnwrapOptionals()
             .sink { [weak self] emoji in
                 self?.updateDetails(
-                    DetailsContent.iconEmoji(
-                        Details.Information.Content.Emoji(value: emoji.unicode)
-                    )
+                    [
+                        DetailsContent.iconEmoji(
+                            Details.Information.Content.Emoji(value: emoji.unicode)
+                        ),
+                        DetailsContent.iconImage(
+                            Details.Information.Content.ImageId(value: "")
+                        )
+                    ]
                 )
             }
             .store(in: &subscriptions)
@@ -84,21 +89,31 @@ private extension DocumentDetailsViewModel {
         
         // TODO: - Implement removing loaded image
         updateDetails(
-            DetailsContent.iconEmoji(
-                Details.Information.Content.Emoji(value: emoji.unicode)
-            )
+            [
+                DetailsContent.iconEmoji(
+                    Details.Information.Content.Emoji(value: emoji.unicode)
+                ),
+                DetailsContent.iconImage(
+                    Details.Information.Content.ImageId(value: "")
+                )
+            ]
         )
     }
     
     func removeIcon() {
         updateDetails(
-            DetailsContent.iconEmoji(
-                Details.Information.Content.Emoji(value: "")
-            )
+            [
+                DetailsContent.iconEmoji(
+                    Details.Information.Content.Emoji(value: "")
+                ),
+                DetailsContent.iconImage(
+                    Details.Information.Content.ImageId(value: "")
+                )
+            ]
         )
     }
     
-    func updateDetails(_ details: DetailsContent) {
+    func updateDetails(_ details: [DetailsContent]) {
         detailsActiveModel.update(
             details: details
         )?.sink(

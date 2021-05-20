@@ -14,7 +14,7 @@ final class DocumentDetailsView: UICollectionReusableView {
     
     // MARK: - Views
 
-    private let iconView: DocumentIconEmojiView = DocumentIconEmojiView()
+    private var iconView: UIView?
     
     // MARK: - Variables
     
@@ -24,6 +24,8 @@ final class DocumentDetailsView: UICollectionReusableView {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        removeIconView()
         
         viewModel = nil
     }
@@ -37,7 +39,7 @@ extension DocumentDetailsView: ConfigurableView {
     func configure(model: DocumentDetailsViewModel) {
         viewModel = model
         
-        configureIconView(model.iconEmoji)
+        configureIconView(with: model.documentIcon)
     }
     
 }
@@ -46,23 +48,24 @@ extension DocumentDetailsView: ConfigurableView {
 
 private extension DocumentDetailsView {
     
-    func configureIconView(_ iconEmoji: IconEmoji?) {
-        guard let iconEmoji = iconEmoji else {
-            iconView.removeFromSuperview()
-            iconView.onUserAction = nil
-            
-            return
-        }
+    func configureIconView(with icon: DocumentIcon?) {
+        removeIconView()
         
-        iconView.configure(model: iconEmoji)
-        iconView.onUserAction = { [weak self] action in
+        guard let icon = icon else { return }
+        
+        let view = icon.iconView
+        view.enableMenuInteraction { [weak self] action in
             self?.viewModel?.handleIconUserAction(action)
         }
         
+        iconView = view
+    
         setupIconLayout()
     }
     
     func setupIconLayout() {
+        guard let iconView = iconView else { return }
+        
         addSubview(iconView)
         
         iconView.layoutUsing.anchors {
@@ -70,6 +73,11 @@ private extension DocumentDetailsView {
             $0.bottom.equal(to: self.bottomAnchor, constant: -Constants.edgeInsets.bottom)
             $0.top.equal(to: self.topAnchor, constant: Constants.edgeInsets.top)
         }
+    }
+    
+    func removeIconView() {
+        iconView?.removeFromSuperview()
+        iconView = nil
     }
     
 }

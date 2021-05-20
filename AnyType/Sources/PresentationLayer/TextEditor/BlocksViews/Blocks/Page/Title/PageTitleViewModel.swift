@@ -66,7 +66,7 @@ class PageTitleViewModel: PageBlockViewModel {
             }).store(in: &self.subscriptions)
 
             self.toModelTitleSubject.notableError().flatMap({ [weak self] value in
-                self?.pageDetailsViewModel?.update(details: .title(.init(value: value))) ?? .empty()
+                self?.pageDetailsViewModel?.update(details: [.title(.init(value: value))]) ?? .empty()
             }).sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: return

@@ -12,7 +12,7 @@ enum DocumentIconViewUserAction: CaseIterable {
     case select
     case random
     case upload
-    case remove // TODO: - need to understand what we remove emoji or image
+    case remove
 }
 
 extension DocumentIconViewUserAction {

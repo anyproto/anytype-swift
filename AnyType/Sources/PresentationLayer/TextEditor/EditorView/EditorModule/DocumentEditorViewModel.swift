@@ -201,9 +201,7 @@ class DocumentEditorViewModel: ObservableObject {
             .sink { [weak self] detailsInformationProvider in
                 guard let self = self else { return }
                 
-                self.detailsViewModel.iconEmoji = IconEmoji(
-                    detailsInformationProvider.iconEmoji?.value
-                )
+                self.detailsViewModel.documentIcon = detailsInformationProvider.documentIcon
                 self.onDetailsViewModelUpdate?()
             }
             .store(in: &subscriptions)

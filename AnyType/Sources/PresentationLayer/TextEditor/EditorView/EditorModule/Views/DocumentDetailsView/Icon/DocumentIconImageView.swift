@@ -1,13 +1,23 @@
-import UIKit
+//
+//  DocumentIconImageView.swift
+//  Anytype
+//
+//  Created by Konstantin Mordan on 19.05.2021.
+//  Copyright © 2021 Anytype. All rights reserved.
+//
 
-final class DocumentIconEmojiView: UIView {
+import UIKit
+import Combine
+
+final class DocumentIconImageView: UIView {
     
     // MARK: - Private properties
     
     private var menuInteractionHandler: IconMenuInteractionHandler?
     
-    private let emojiLabel: UILabel = UILabel()
-        
+    private let imageView: UIImageView = UIImageView()
+    private lazy var imageLoader = ImageLoader().configured(imageView)
+    
     // MARK: Initialization
     
     override init(frame: CGRect) {
@@ -21,22 +31,24 @@ final class DocumentIconEmojiView: UIView {
         
         setupView()
     }
-
+    
 }
 
 // MARK: - ConfigurableView
 
-extension DocumentIconEmojiView: ConfigurableView {
+extension DocumentIconImageView: ConfigurableView {
     
-    func configure(model: IconEmoji) {
-        emojiLabel.text = model.value
+    func configure(model: String) {
+        let parameters = ImageParameters(width: .thumbnail)
+        
+        imageLoader.update(imageId: model, parameters: parameters)
     }
     
 }
 
 // MARK: - IconMenuInteractableView
 
-extension DocumentIconEmojiView: IconMenuInteractableView {
+extension DocumentIconImageView: IconMenuInteractableView {
     
     func enableMenuInteraction(with onUserAction: @escaping (DocumentIconViewUserAction) -> Void) {
         let handler = IconMenuInteractionHandler(
@@ -54,30 +66,22 @@ extension DocumentIconEmojiView: IconMenuInteractableView {
 
 // MARK: - Private extension
 
-private extension DocumentIconEmojiView {
+private extension DocumentIconImageView {
     
     func setupView() {
-        backgroundColor = .grayscale10
         clipsToBounds = true
         layer.cornerRadius = Constants.cornerRadius
         
-        configureEmojiLabel()
+        // TODO: - load image with size of `ImageView`
+        imageView.contentMode = .scaleAspectFit
         
         setUpLayout()
     }
     
-    func configureEmojiLabel() {
-        emojiLabel.backgroundColor = .grayscale10
-        emojiLabel.font = .systemFont(ofSize: 64) // Used only for emoji
-        emojiLabel.textAlignment = .center
-        emojiLabel.adjustsFontSizeToFitWidth = true
-        emojiLabel.isUserInteractionEnabled = false
-    }
-    
     func setUpLayout() {
-        addSubview(emojiLabel)
-        emojiLabel.pinAllEdges(to: self)
-        
+        addSubview(imageView)
+        imageView.pinAllEdges(to: self)
+
         layoutUsing.anchors {
             $0.size(Constants.size)
         }
@@ -87,11 +91,11 @@ private extension DocumentIconEmojiView {
 
 // MARK: - Constants
 
-private extension DocumentIconEmojiView {
+private extension DocumentIconImageView {
     
     enum Constants {
-        static let cornerRadius: CGFloat = 20
-        static let size = CGSize(width: 96, height: 96)
+        static let cornerRadius: CGFloat = 22
+        static let size = CGSize(width: 112, height: 112)
     }
     
 }
