@@ -32,6 +32,7 @@ extension HomeViewModel {
         switch updateResult.updates {
         case .general:
             let viewModels = updateResult.models.compactMap { $0 as? BlockPageLinkViewModel }
+            cellSubscriptions = []
             cellData = viewModels.map { buildCellData(pageLinkViewModel: $0) }
         case .update:
             // Currently models updates using their own publishers

@@ -1,5 +1,4 @@
 import SwiftUI
-import PopupView
 
 struct HomeView: View {
     private let bottomSheetHeightRatio: CGFloat = 0.9
@@ -29,27 +28,19 @@ struct HomeView: View {
                         HomeTabsView()
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height)
-
-                settingsOverlay
-                    .zIndex(1) // https://stackoverflow.com/a/58512696/6252099
             }
         }
-        .animation(.default)
         .edgesIgnoringSafeArea(.all)
         
         .toolbar {
             ToolbarItem {
-                Button(action: { showSettings.toggle() }) {
+                Button(action: { withAnimation(.ripple) { showSettings.toggle() } }) {
                     Image.main.settings
                 }
             }
         }
-        
-        .popup(isPresented: $showSettings, type: .floater(verticalPadding: 42),
-               closeOnTap: false, closeOnTapOutside: true
-        ) {
-            model.coordinator.settingsView()
-                .padding(8)
+        .bottomFloater(isPresented: $showSettings) {
+            model.coordinator.settingsView().padding(8)
         }
         .navigationBarTitleDisplayMode(.inline)
     }
