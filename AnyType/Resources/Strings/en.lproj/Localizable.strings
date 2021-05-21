@@ -142,6 +142,7 @@
 "Choose profile" = "Choose profile";
 "no peers" = "no peers";
 "Add profile" = "Add profile";
+"Scan QR code" = "Scan QR code";
 
 
 // Auth Errors

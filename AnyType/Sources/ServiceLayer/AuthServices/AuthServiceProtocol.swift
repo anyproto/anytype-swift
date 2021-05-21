@@ -20,27 +20,15 @@ enum AuthServiceError: Error {
     case selectAccountError(message: String? = "Error select account")
 }
 
-/// Service for auth in AnyType account
+// Wallet may contain many accounts
 protocol AuthServiceProtocol {
-    
-    /// Loging with recovery phrase
-    /// - Parameter recoveryPhrase: recovery phrase
-    /// - Parameter completion: Called on completion
-    func login(recoveryPhrase: String, completion: @escaping (_ error: Swift.Error?) -> Void)
-    
-    /// Logout from the current account.  Accounts seed will be removed from keychain.
-    /// - Parameter completion: Called on completion
-    func logout(completion: @escaping () -> Void)
+    /// Create new wallet
+    func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Create new account for current wallet
     /// - Parameter profile: User profile
     /// - Parameter OnCompletion: Called on completion with account id or AuthServiceError.
     func createAccount(profile: AuthModels.CreateAccount.Request, alphaInviteCode: String, onCompletion: @escaping OnCompletion)
-    
-    /// Create new wallet
-    /// - Parameters:
-    /// - onCompletion: Called on completion.
-    func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Recover wallet with mnemonic phrase
     /// - Parameters:
@@ -50,7 +38,6 @@ protocol AuthServiceProtocol {
     func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.
-    /// - Parameter onCompletion: Called on completion
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Select account from wallet
@@ -59,5 +46,10 @@ protocol AuthServiceProtocol {
     ///   - path: path to wallet
     ///   - onCompletion: Called on completion.
     func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion)
+    
+    /// Get mnemonic (keychain phrase) by entropy from qr code
+    func mnemonicByEntropy(entropy: String, completion: @escaping OnCompletion)
 
+    /// Logout from the current account.  Accounts seed will be removed from keychain.
+    func logout(completion: @escaping () -> Void)
 }

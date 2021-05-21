@@ -24,4 +24,8 @@ extension Image {
         static let pin = Image("settings_set_pin_code")
         static let wallpaper = Image("settings_set_wallpaper")        
     }
+    
+    enum auth {
+        static let qr = Image("auth_qr_code")
+    }
 }

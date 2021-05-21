@@ -21,10 +21,6 @@ final class AuthService: NSObject, AuthServiceProtocol {
         self.storeService = storeService
     }
 
-    func login(recoveryPhrase: String, completion: @escaping (Error?) -> Void) {
-
-    }
-
     func logout(completion: @escaping () -> Void) {
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
             .subscribe(on: DispatchQueue.global(qos: .background))
@@ -103,17 +99,27 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {
-        let theCompletion = { value in DispatchQueue.main.async { onCompletion(value) } }
-        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).reciveOnMain().sink(receiveCompletion: { result in
             switch result {
             case .finished: break
-            case .failure(_): theCompletion(.failure(.selectAccountError()))
+            case .failure(_): onCompletion(.failure(.selectAccountError()))
             }
         }) { [weak self] (value) in
             UserDefaultsConfig.usersIdKey = value.account.id
             UserDefaultsConfig.userName = value.account.name
             self?.replaceDefaultSeed(with: value.account.id, keychainPassword: .userPresence)
-            theCompletion(.success(value.account.id))
+            onCompletion(.success(value.account.id))
+        }
+    }
+    
+    func mnemonicByEntropy(entropy: String, completion: @escaping OnCompletion) {
+        _ = Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy).reciveOnMain().sink(receiveCompletion: { result in
+            switch result {
+            case .finished: break
+            case .failure(_): completion(.failure(.selectAccountError()))
+            }
+        }) { response in
+            completion(.success(response.mnemonic))
         }
     }
 }

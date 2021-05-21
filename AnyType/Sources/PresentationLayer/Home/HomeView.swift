@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    private let bottomSheetHeightRatio: CGFloat = 0.9
+    private let bottomSheetHeightRatio: CGFloat = 0.89
     @StateObject var model: HomeViewModel
     @StateObject private var accountData = AccountInfoDataAccessor()
 

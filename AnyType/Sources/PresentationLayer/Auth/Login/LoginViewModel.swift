@@ -1,11 +1,3 @@
-//
-//  LoginViewModel.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 10.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 
@@ -26,6 +18,23 @@ class LoginViewModel: ObservableObject {
     }
     @Published var showError: Bool = false
     
+    @Published var entropy: String = "" {
+        didSet {
+            onEntropySet()
+        }
+    }
+    
+    func onEntropySet() {
+        authService.mnemonicByEntropy(entropy: entropy) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                self?.error = error.localizedDescription
+            case .success(let seed):
+                self?.seed = seed
+                self?.recoverWallet()
+            }
+        }
+    }
     
     func recoverWallet() {
         authService.walletRecovery(mnemonic: seed, path: localRepoService.middlewareRepoPath) { result in

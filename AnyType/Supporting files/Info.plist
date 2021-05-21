@@ -32,9 +32,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>blablabla</string>
+	<string>We need camera to read barcode 🤖</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>hehehe</string>
+	<string>👻👻👻</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IBMPlexMono-Regular.ttf</string>
