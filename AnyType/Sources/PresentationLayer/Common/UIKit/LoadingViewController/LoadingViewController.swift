@@ -35,7 +35,7 @@ final class LoadingViewController: UIViewController {
         self.cancelHandler = cancelHandler
         super.init(nibName: nil, bundle: nil)
         self.subscription = progressPublisher
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { _ in },
                   receiveValue: { [weak self] progress in
                     self?.progressView.progress = progress

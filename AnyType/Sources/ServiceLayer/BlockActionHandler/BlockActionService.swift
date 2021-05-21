@@ -241,7 +241,7 @@ final class BlockActionService {
         )
 
         self.pageService.createPage(contextID: self.documentId, targetID: targetId, details: details, position: position)
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: return // move to this page
@@ -272,7 +272,7 @@ final class BlockActionService {
             blockId: block.blockModel.information.id,
             newValue: newValue
         )
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { value in
                 switch value {
                 case .finished: break
@@ -296,7 +296,7 @@ private extension BlockActionService {
         let targetId = afterBlockId
 
         self.service.add(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: return
@@ -326,7 +326,7 @@ private extension BlockActionService {
         let range: NSRange = .init(location: position, length: 0)
 
         self.textService.split(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: return
@@ -383,7 +383,7 @@ private extension BlockActionService {
     func _delete(block: Information, _ completion: @escaping Conversion) {
         let blockIds = [block.id]
         self.service.delete(contextID: self.documentId, blockIds: blockIds)
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: return
@@ -458,7 +458,7 @@ private extension BlockActionService {
         }
 
         self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: text.contentType)
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: return
@@ -484,7 +484,7 @@ extension BlockActionService {
         let secondBlockId = secondBlock.id
 
         self.textService.merge(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { value in
                 switch value {
                 case .finished: return

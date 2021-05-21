@@ -7,7 +7,7 @@ extension HomeViewModel {
     func buildCellData(pageLinkViewModel: BlockPageLinkViewModel) -> PageCellData {
         let details = pageLinkViewModel.getDetailsViewModel().currentDetails
         
-        pageLinkViewModel.getDetailsViewModel().wholeDetailsPublisher.reciveOnMain().sink { [weak self] details in
+        pageLinkViewModel.getDetailsViewModel().wholeDetailsPublisher.receiveOnMain().sink { [weak self] details in
             guard let self = self, let index = self.cellData.index(id: pageLinkViewModel.blockId) else {
                 return
             }

@@ -15,7 +15,7 @@ final class BlockPageLinkUIKitView: UIView {
             self.subscriptions = []
         }
         didSet {
-            stateStream.reciveOnMain().sink { [weak self] (value) in
+            stateStream.receiveOnMain().sink { [weak self] (value) in
                 self?.apply(value)
             }.store(in: &self.subscriptions)
         }

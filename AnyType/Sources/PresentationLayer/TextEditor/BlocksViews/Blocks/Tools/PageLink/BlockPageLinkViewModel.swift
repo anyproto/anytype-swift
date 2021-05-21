@@ -43,7 +43,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
                 /// In this case we move whole notification logic into model.
                 /// Well, not so bad (?)
                 
-                self.$state.map(\.title).safelyUnwrapOptionals().reciveOnMain().sink { [weak self] (value) in
+                self.$state.map(\.title).safelyUnwrapOptionals().receiveOnMain().sink { [weak self] (value) in
                     self?.textView?.apply(update: .text(value))
                 }.store(in: &self.subscriptions)
                 

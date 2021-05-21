@@ -164,7 +164,7 @@ class DocumentEditorViewModel: ObservableObject {
         self.internalState = .loading
 
         self.blockActionsService.open(contextID: documentId, blockID: documentId)
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { [weak self] (value) in
                 switch value {
                 case .finished: break
@@ -179,7 +179,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     private func handleOpenDocument(_ value: ServiceSuccess) {
         self.documentViewModel.updatePublisher()
-            .reciveOnMain()
+            .receiveOnMain()
             .sink { [weak self] (value) in
                 switch value.updates {
                 case .general:
@@ -196,7 +196,7 @@ class DocumentEditorViewModel: ObservableObject {
         self.documentViewModel.open(value)
         
         documentViewModel.pageDetailsPublisher()
-            .reciveOnMain()
+            .receiveOnMain()
             .sink { [weak self] detailsInformationProvider in
                 guard let self = self else { return }
                 

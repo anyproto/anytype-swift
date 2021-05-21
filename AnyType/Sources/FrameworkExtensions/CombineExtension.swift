@@ -152,7 +152,7 @@ extension Publisher {
     func ignoreFailure() -> Publishers.IgnoreFailure<Self> {
         .init(upstream: self)
     }
-    func reciveOnMain() -> Publishers.ReceiveOn<Self, DispatchQueue> {
+    func receiveOnMain() -> Publishers.ReceiveOn<Self, DispatchQueue> {
         return self.receive(on: DispatchQueue.main)
     }
 }

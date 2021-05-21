@@ -43,7 +43,7 @@ final class HomeViewModel: ObservableObject {
     
     func createNewPage() {
         guard let rootId = self.dashboardModel.documentId else { return }
-        newPageSubscription = dashboardService.createNewPage(contextId: rootId).reciveOnMain().sink(receiveCompletion: { result in
+        newPageSubscription = dashboardService.createNewPage(contextId: rootId).receiveOnMain().sink(receiveCompletion: { result in
             switch result {
             case .finished: return
             case let .failure(error):
@@ -79,7 +79,7 @@ final class HomeViewModel: ObservableObject {
     
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
         self.dashboardModel.updatePublisher()
-            .reciveOnMain()
+            .receiveOnMain()
             .sink { [weak self] updateResult in
                 self?.onDashboardUpdate(updateResult)
             }.store(in: &self.subscriptions)

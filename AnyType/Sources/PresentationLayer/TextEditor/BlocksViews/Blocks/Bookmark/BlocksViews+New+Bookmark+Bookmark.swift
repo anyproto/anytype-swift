@@ -503,7 +503,7 @@ private extension Namespace {
         
         func configured(_ stream: AnyPublisher<Resource?, Never>) {
             self.resourceStream = stream
-            self.subscription = self.resourceStream.reciveOnMain().sink(receiveValue: { [weak self] (value) in
+            self.subscription = self.resourceStream.receiveOnMain().sink(receiveValue: { [weak self] (value) in
                 print("state value: \(String(describing: value))")
                 self?.resource = value
             })
@@ -635,10 +635,10 @@ private extension Namespace {
         }
                 
         func configured(publisher: AnyPublisher<Namespace.ViewModel.Resource?, Never>) -> Self {
-            self.subscription = publisher.reciveOnMain().safelyUnwrapOptionals().sink { [weak self] (value) in
+            self.subscription = publisher.receiveOnMain().safelyUnwrapOptionals().sink { [weak self] (value) in
                 self?.handle(value)
             }
-            let resourcePublisher = publisher.reciveOnMain().eraseToAnyPublisher()
+            let resourcePublisher = publisher.receiveOnMain().eraseToAnyPublisher()
             _ = self.configured(published: resourcePublisher)
             return self
         }
@@ -760,14 +760,14 @@ private extension Namespace.ViewModel {
         
         private func handle(_ value: BlockContent.Bookmark) {
             if self.iconSubscription.isNil {
-                let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.iconProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
+                let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.iconProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
                     self?.handle(value)
                 })
                 self.iconSubscription = item
             }
 
             if self.imageSubscription.isNil {
-                let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.imageProperty?.stream.reciveOnMain().sink(receiveValue: { [value, weak self] (image) in
+                let item = self.currentConfiguration.contextMenuHolder?.imagesPublished.imageProperty?.stream.receiveOnMain().sink(receiveValue: { [value, weak self] (image) in
                     self?.handle(value)
                 })
                 self.imageSubscription = item

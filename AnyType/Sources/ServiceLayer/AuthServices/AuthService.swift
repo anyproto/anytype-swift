@@ -24,7 +24,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     func logout(completion: @escaping () -> Void) {
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
             .subscribe(on: DispatchQueue.global(qos: .background))
-            .reciveOnMain()
+            .receiveOnMain()
             .sink(receiveCompletion: { result in
             }) { [weak self] _ in
                 completion()
@@ -88,7 +88,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Account.Recover.Service.invoke().subscribe(on: DispatchQueue.global()).reciveOnMain().sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Account.Recover.Service.invoke().subscribe(on: DispatchQueue.global()).receiveOnMain().sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case let .failure(error): onCompletion(.failure(.recoverAccountError(message: error.localizedDescription)))
@@ -99,7 +99,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).reciveOnMain().sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).receiveOnMain().sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.selectAccountError()))
@@ -112,8 +112,8 @@ final class AuthService: NSObject, AuthServiceProtocol {
         }
     }
     
-    func mnemonicByEntropy(entropy: String, completion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy).reciveOnMain().sink(receiveCompletion: { result in
+    func mnemonicByEntropy(_ entropy: String, completion: @escaping OnCompletion) {
+        _ = Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy).receiveOnMain().sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): completion(.failure(.selectAccountError()))

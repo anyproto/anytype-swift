@@ -35,7 +35,7 @@ extension SettingsView.AboutView {
         @Published var libraryVersion: String = ""
 
         func viewLoaded() {
-            self.configurationService.obtainLibraryVersion().reciveOnMain().sink(receiveCompletion: { (value) in
+            self.configurationService.obtainLibraryVersion().receiveOnMain().sink(receiveCompletion: { (value) in
                 switch value {
                 case .finished: break
                 case let .failure(error):

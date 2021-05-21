@@ -48,7 +48,7 @@ class PageTitleViewModel: PageBlockViewModel {
 
     // MARK: - Setup
     private func setupSubscribers() {
-        self.$toViewTitle.removeDuplicates().reciveOnMain().sink { [weak self] (value) in
+        self.$toViewTitle.removeDuplicates().receiveOnMain().sink { [weak self] (value) in
             self?.textView?.apply(update: .text(value))
         }.store(in: &self.subscriptions)
     }

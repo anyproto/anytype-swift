@@ -53,7 +53,7 @@ extension FileBlocksViewsRouter {
                 .safelyUnwrapOptionals()
                 .eraseToAnyPublisher()
             self.subscription = resultPublisher
-                .reciveOnMain()
+                .receiveOnMain()
                 .sink(receiveCompletion: { _ in },
                       receiveValue: { url in
                         loadingVC.dismiss(animated: true) { [weak self] in

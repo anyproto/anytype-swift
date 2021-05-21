@@ -25,7 +25,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func onEntropySet() {
-        authService.mnemonicByEntropy(entropy: entropy) { [weak self] result in
+        authService.mnemonicByEntropy(entropy) { [weak self] result in
             switch result {
             case .failure(let error):
                 self?.error = error.localizedDescription

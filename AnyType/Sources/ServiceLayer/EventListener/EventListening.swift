@@ -12,7 +12,7 @@ enum EventListening {
 }
 
 extension EventListening {
-    /// Recive events from middleware and broadcast throught notification center
+    /// receive events from middleware and broadcast throught notification center
     class RawListener: NSObject {
         private var wrapper: ProtobufMessages.ServiceMessageHandlerAdapter = .init()
         override init() {

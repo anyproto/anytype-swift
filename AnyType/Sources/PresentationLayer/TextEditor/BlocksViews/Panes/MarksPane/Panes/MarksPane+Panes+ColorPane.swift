@@ -208,7 +208,7 @@ extension MarksPane.Panes.Color {
                 self.flatMap({ListDataSource.color(at: value).color(background: $0.background)})
             }.safelyUnwrapOptionals().map(Action.setColor).eraseToAnyPublisher()
             
-            /// Recive user response as follows:
+            /// receive user response as follows:
             /// 1. Receive a response from a User ( when he select a range of attributed string ).
             /// 2. Convert this response to our `IndexPath` to select a `Cell` with related `IndexPath`.
             ///

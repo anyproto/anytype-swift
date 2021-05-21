@@ -139,7 +139,7 @@ final class TopWithChildUIKitView: UIView {
     }
 
     func configured(_ resourceStream: AnyPublisher<Resource, Never>) -> Self {
-        self.resourceSubscription = resourceStream.reciveOnMain().sink { [weak self] (value) in
+        self.resourceSubscription = resourceStream.receiveOnMain().sink { [weak self] (value) in
             self?.backgroundColor = value.backgroundColor
         }
         return self

@@ -86,7 +86,7 @@ class SelectProfileViewModel: ObservableObject {
                 return false
             }
         }
-        .reciveOnMain()
+        .receiveOnMain()
         .sink { [weak self] events in
             guard let self = self else {
                 return
@@ -124,7 +124,7 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        _ = self.fileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).reciveOnMain()
+        _ = self.fileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).receiveOnMain()
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:

@@ -48,7 +48,7 @@ protocol AuthServiceProtocol {
     func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion)
     
     /// Get mnemonic (keychain phrase) by entropy from qr code
-    func mnemonicByEntropy(entropy: String, completion: @escaping OnCompletion)
+    func mnemonicByEntropy(_ entropy: String, completion: @escaping OnCompletion)
 
     /// Logout from the current account.  Accounts seed will be removed from keychain.
     func logout(completion: @escaping () -> Void)

@@ -129,7 +129,7 @@ final class DocumentEditorViewController: UICollectionViewController {
 
     /// Add handlers to viewModel state changes
     private func configured() {
-        self.viewModel.publicSizeDidChangePublisher.reciveOnMain().sink { [weak self] (value) in
+        self.viewModel.publicSizeDidChangePublisher.receiveOnMain().sink { [weak self] (value) in
             self?.updateView()
         }.store(in: &self.subscriptions)
 

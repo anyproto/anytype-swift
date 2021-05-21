@@ -214,7 +214,7 @@ extension Namespace {
             
             func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
                 parent.viewModel.showLoader.send(true)
-                self.webViewNavigationSubscriber = self.parent.viewModel.webViewNavigationPublisher.reciveOnMain().sink(receiveValue: { navigation in
+                self.webViewNavigationSubscriber = self.parent.viewModel.webViewNavigationPublisher.receiveOnMain().sink(receiveValue: { navigation in
                     switch navigation {
                     case .backward:
                         if webView.canGoBack {

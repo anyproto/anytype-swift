@@ -190,7 +190,7 @@ extension Namespace {
         }
         
         func configured(_ stream: AnyPublisher<Resource?, Never>) {
-            self.subscription = stream.reciveOnMain().sink(receiveValue: { [weak self] (value) in
+            self.subscription = stream.receiveOnMain().sink(receiveValue: { [weak self] (value) in
                 self?.resource = value
             })
         }
@@ -327,7 +327,7 @@ private extension Namespace {
         }
                 
         func configured(publisher: AnyPublisher<File, Never>) -> Self {
-            self.subscription = publisher.reciveOnMain().sink { [weak self] (value) in
+            self.subscription = publisher.receiveOnMain().sink { [weak self] (value) in
                 self?.handle(value)
             }
             return self
