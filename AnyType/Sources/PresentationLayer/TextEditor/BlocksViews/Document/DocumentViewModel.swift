@@ -24,15 +24,14 @@ final class DocumentViewModel: DocumentViewModelProtocol {
     
     // MARK: - Private properties
     
-    private let blocksConverter: CompoundViewModelConverter
-    private let detailsConverter: DetailsViewModelConverter
     private let document = BaseDocument()
+    
+    private let blocksConverter: CompoundViewModelConverter
     
     // MARK: - Initializer
     
     init() {
         self.blocksConverter = CompoundViewModelConverter(self.document)
-        self.detailsConverter = DetailsViewModelConverter(self.document)
     }
 
     // MARK: - Internal functions

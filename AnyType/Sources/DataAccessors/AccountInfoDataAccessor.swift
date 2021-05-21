@@ -30,7 +30,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpNameSubscription() {
-        documentViewModel.pageDetailsPublisher().map {$0.title?.value}.safelyUnwrapOptionals().reciveOnMain().sink { [weak self] accountName in
+        documentViewModel.pageDetailsPublisher().map {$0.name?.value}.safelyUnwrapOptionals().reciveOnMain().sink { [weak self] accountName in
             guard let self = self else {
                 return
             }

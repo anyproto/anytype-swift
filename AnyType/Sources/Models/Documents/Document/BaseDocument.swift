@@ -301,12 +301,10 @@ class BaseDocument {
             let details = detailsActiveModel.currentDetails
 
             switch kind {
-            case .title:
-                return .title(details.title ?? .init(value: ""))
+            case .name:
+                return .name(details.name ?? .init(value: ""))
             case .iconEmoji:
                 return details.iconEmoji.flatMap { DetailsContent.iconEmoji($0) }
-            case .iconColor:
-                return .iconColor(details.iconColor ?? .init(value: ""))
             case .iconImage:
                 return .iconImage(details.iconImage ?? .init(value: ""))
             }

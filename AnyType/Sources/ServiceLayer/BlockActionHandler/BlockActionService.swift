@@ -236,7 +236,7 @@ final class BlockActionService {
         let targetId = ""
         let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(
             list: [
-                .title(.init())
+                .name(.init())
             ]
         )
 

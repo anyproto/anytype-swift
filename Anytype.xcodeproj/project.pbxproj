@@ -121,7 +121,6 @@
 		0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A8125470F0B00D3729A /* URLResolver.swift */; };
 		0A203A8625470FAE00D3729A /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A8525470FAE00D3729A /* ImageCache.swift */; };
 		0A203A8A2547106100D3729A /* ImageProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A203A892547106100D3729A /* ImageProperty.swift */; };
-		0A20E64625CD5F1A00D25C15 /* DetailsViewModelConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A20E64525CD5F1A00D25C15 /* DetailsViewModelConverter.swift */; };
 		0A2ADCE02496921500FA135D /* EventListening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCDF2496921500FA135D /* EventListening.swift */; };
 		0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */; };
 		0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */; };
@@ -662,7 +661,6 @@
 		0A203A8125470F0B00D3729A /* URLResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLResolver.swift; sourceTree = "<group>"; };
 		0A203A8525470FAE00D3729A /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		0A203A892547106100D3729A /* ImageProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProperty.swift; sourceTree = "<group>"; };
-		0A20E64525CD5F1A00D25C15 /* DetailsViewModelConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModelConverter.swift; sourceTree = "<group>"; };
 		0A2ADCDF2496921500FA135D /* EventListening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListening.swift; sourceTree = "<group>"; };
 		0A2ADCE32496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceSingleProtocol.swift; sourceTree = "<group>"; };
 		0A2ADCE52496C72A00FA135D /* ObjectActionsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsServiceProtocol.swift; sourceTree = "<group>"; };
@@ -2023,7 +2021,6 @@
 			isa = PBXGroup;
 			children = (
 				0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */,
-				0A20E64525CD5F1A00D25C15 /* DetailsViewModelConverter.swift */,
 			);
 			path = ViewModelsConverter;
 			sourceTree = "<group>";
@@ -3614,7 +3611,6 @@
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
 				3D07ED34261DD62700C007E2 /* Converters.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
-				0A20E64625CD5F1A00D25C15 /* DetailsViewModelConverter.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,

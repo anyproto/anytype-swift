@@ -65,7 +65,7 @@ final class TextBlockActionHandler {
     private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockTextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
-            if BlockDetailsInspector.kind(of: block.blockModel.information.id) == .title {
+            if BlockDetailsInspector.kind(of: block.blockModel.information.id) == .name {
                 switch keyAction {
                 case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
                     let id = block.blockModel.information.id

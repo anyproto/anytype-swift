@@ -40,9 +40,8 @@ extension BlocksModelsParser.Details {
         typealias Model = DetailsContent
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             switch model {
-            case let .title(value): return Model.Title.Converter.asMiddleware(model: value)
+            case let .name(value): return Model.Name.Converter.asMiddleware(model: value)
             case let .iconEmoji(value): return Model.Emoji.Converter.asMiddleware(model: value)
-            case let .iconColor(value): return Model.OurHexColor.Converter.asMiddleware(model: value)
             case let .iconImage(value): return Model.ImageId.Converter.asMiddleware(model: value)
             }
         }
@@ -50,9 +49,8 @@ extension BlocksModelsParser.Details {
         // We can't put into one array all converters. But we doesn't care, haha.
         static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
             switch detail.key {
-            case Model.Title.id: return Model.Title.Converter.asModel(detail: detail).flatMap(Model.title)
+            case Model.Name.id: return Model.Name.Converter.asModel(detail: detail).flatMap(Model.name)
             case Model.Emoji.id: return Model.Emoji.Converter.asModel(detail: detail).flatMap(Model.iconEmoji)
-            case Model.OurHexColor.id: return Model.OurHexColor.Converter.asModel(detail: detail).flatMap(Model.iconColor)
             case Model.ImageId.id: return Model.ImageId.Converter.asModel(detail: detail).flatMap(Model.iconImage)
             default:
                 // TODO: Add assertionFailure for debug when all converters will be added
@@ -66,15 +64,15 @@ extension BlocksModelsParser.Details {
 }
 
 // MARK: Details / Title / Accessors
-private extension DetailsContent.Title {
+private extension DetailsContent.Name {
     func key() -> String { id }
     func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
 }
 
 // MARK: Details / Title / Converter
-private extension DetailsContent.Title {
+private extension DetailsContent.Name {
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = DetailsContent.Title
+        typealias Model = DetailsContent.Name
         static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
             .init(key: model.key(), value: model.value())
         }
@@ -121,34 +119,6 @@ private extension DetailsContent.Emoji {
             default:
                 assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
                 return nil
-            }
-        }
-    }
-}
-
-// MARK: Details / OurHexColor / Accessors
-private extension DetailsContent.OurHexColor {
-    func key() -> String { id }
-    func value() -> Google_Protobuf_Value { .init(stringValue: self.value) }
-}
-
-// MARK: Details / OurHexColor / Converter
-private extension DetailsContent.OurHexColor {
-    enum Converter: _BlocksModelsParserDetailsConverterProtocol {
-        typealias Model = DetailsContent.OurHexColor
-        static func asMiddleware(model: Model) -> Anytype_Rpc.Block.Set.Details.Detail? {
-            .init(key: model.key(), value: model.value())
-        }
-        static func asModel(detail: Anytype_Rpc.Block.Set.Details.Detail) -> Model? {
-            guard detail.key == Model.id else {
-                assertionFailure("Can't proceed detail with key \(detail.key) for predefined suffix. \(Model.id)")
-                return nil
-            }
-            switch detail.value.kind {
-                case let .stringValue(string): return .init(value: string)
-                default:
-                    assertionFailure("Unknown value \(detail) for predefined suffix. \(Model.id)")
-                    return nil
             }
         }
     }

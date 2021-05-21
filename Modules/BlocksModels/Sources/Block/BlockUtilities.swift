@@ -143,7 +143,7 @@ public enum BlockDetailsInspector {
     public static func kind(of id: Id) -> Kind? {
         let (_, details) = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
         switch details {
-        case Details.Title.id: return .title
+        case Details.Name.id: return .name
         case Details.Emoji.id: return .iconEmoji
         default: return nil
         }

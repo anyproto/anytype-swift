@@ -93,7 +93,7 @@ public extension BlockInformation.DetailsAsBlockConverter {
             let substring = id[index...].dropFirst()
             let prefix = String(id.prefix(upTo: index))
             switch String(substring) {
-            case Details.Title.id: return (prefix, Details.Title.id)
+            case Details.Name.id: return (prefix, Details.Name.id)
             case Details.Emoji.id: return (prefix, Details.Emoji.id)
             default: return ("", "")
             }

@@ -5,9 +5,8 @@ import os
 // MARK: Content
 public extension Details.Information {
     enum Content {
-        case title(Title)
+        case name(Name)
         case iconEmoji(Emoji)
-        case iconColor(OurHexColor)
         case iconImage(ImageId)
     }
 }
@@ -21,9 +20,8 @@ public extension Details.Information.Content {
     /// - Returns: A key.
     func id() -> String {
         switch self {
-        case let .title(value): return value.id
+        case let .name(value): return value.id
         case let .iconEmoji(value): return value.id
-        case let .iconColor(value): return value.id
         case let .iconImage(value): return value.id
         }
     }
@@ -33,9 +31,8 @@ public extension Details.Information.Content {
     ///
     func kind() -> Kind {
         switch self {
-        case .title: return .title
+        case .name: return .name
         case .iconEmoji: return .iconEmoji
-        case .iconColor: return .iconColor
         case .iconImage: return .iconImage
         }
     }
@@ -46,9 +43,8 @@ public extension Details.Information.Content {
 public extension Details.Information.Content {
     /// Actually, we could done this in the same way as EnvironemntKey and EnvironmentValues.
     enum Kind {
-        case title
+        case name
         case iconEmoji
-        case iconColor
         case iconImage
     }
 }
@@ -66,7 +62,7 @@ public extension Details.Information.Content {
     /// Its id has value "name".
     /// But, it is doc, so, make sure that you use correct id if something goes wrong.
     ///
-    struct Title {
+    struct Name {
         public private(set) var value: String = ""
         public private(set) var id: String = Self.id
         
@@ -80,7 +76,7 @@ public extension Details.Information.Content {
 }
 
 // MARK: Content / Title / Key
-extension Details.Information.Content.Title: DetailsEntryIdentifiable {
+extension Details.Information.Content.Name: DetailsEntryIdentifiable {
     public static var id: String = "name"
 }
 
@@ -103,24 +99,6 @@ extension Details.Information.Content.Emoji: DetailsEntryIdentifiable {
     public static var id: String = "iconEmoji"
 }
 
-// MARK: Content / IconColor
-public extension Details.Information.Content {
-    struct OurHexColor {
-        public private(set) var value: String = ""
-        public private(set) var id: String = Self.id
-
-        // MARK: - Memberwise initializer
-        public init(value: String = "", id: String = Self.id) {
-            self.value = value
-            self.id = id
-        }
-    }
-}
-
-// MARK: Content / IconColor / Key
-extension Details.Information.Content.OurHexColor: DetailsEntryIdentifiable {
-    public static var id: String = "iconColor"
-}
 
 // MARK: Content / IconColor
 public extension Details.Information.Content {
@@ -143,7 +121,6 @@ extension Details.Information.Content.ImageId: DetailsEntryIdentifiable {
 
 // MARK: Hashable
 extension Details.Information.Content: Hashable {}
-extension Details.Information.Content.Title: Hashable {}
+extension Details.Information.Content.Name: Hashable {}
 extension Details.Information.Content.Emoji: Hashable {}
-extension Details.Information.Content.OurHexColor: Hashable {}
 extension Details.Information.Content.ImageId: Hashable {}

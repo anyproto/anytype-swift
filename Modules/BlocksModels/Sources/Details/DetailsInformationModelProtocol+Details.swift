@@ -1,18 +1,17 @@
 import Foundation
 
 public protocol DetailsInformationProvider {
-    var title: DetailsContent.Title? { get }
+    var name: DetailsContent.Name? { get }
     var iconEmoji: DetailsContent.Emoji? { get }
-    var iconColor: DetailsContent.OurHexColor? { get }
     var iconImage: DetailsContent.ImageId? { get }
 }
 
 
 // DetailsInformationProvider
 extension DetailsInformationModel {
-    var title: DetailsContent.Title? {
-        switch details[DetailsContent.Title.id] {
-        case let .title(value): return value
+    var name: DetailsContent.Name? {
+        switch details[DetailsContent.Name.id] {
+        case let .name(value): return value
         default: return nil
         }
     }
@@ -20,13 +19,6 @@ extension DetailsInformationModel {
     var iconEmoji: DetailsContent.Emoji? {
         switch self.details[DetailsContent.Emoji.id] {
         case let .iconEmoji(value): return value
-        default: return nil
-        }
-    }
-    
-    var iconColor: DetailsContent.OurHexColor? {
-        switch self.details[DetailsContent.OurHexColor.id] {
-        case let .iconColor(value): return value
         default: return nil
         }
     }
