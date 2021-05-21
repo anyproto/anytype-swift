@@ -34,7 +34,10 @@ struct HomeView: View {
         
         .toolbar {
             ToolbarItem {
-                Button(action: { withAnimation(.ripple) { showSettings.toggle() } }) {
+                Button(action: {
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    withAnimation(.ripple) { showSettings.toggle() }
+                }) {
                     Image.main.settings
                 }
             }
@@ -43,17 +46,6 @@ struct HomeView: View {
             model.coordinator.settingsView().padding(8)
         }
         .navigationBarTitleDisplayMode(.inline)
-    }
-    
-    private var settingsOverlay: some View {
-        Group {
-            if(showSettings) {
-                Color.black.opacity(0.25).ignoresSafeArea()
-                    .transition(.opacity)
-            } else {
-                EmptyView()
-            }
-        }
     }
     
     private var newPageNavigation: some View {

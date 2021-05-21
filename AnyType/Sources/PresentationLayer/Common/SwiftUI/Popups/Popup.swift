@@ -263,11 +263,10 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
                         }
                         return AnyView(EmptyView())
                     }
-            )
-            if isPresented {
+            ).overlay(
                 backgroundOverlayColor.flatMap {
                     $0.edgesIgnoringSafeArea(.all).transition(.opacity)
-                }.zIndex(1) // https://stackoverflow.com/a/58512696/6252099
+                }
                 .addTapIfNotTV(if: closeOnTapOutside) {
                     withAnimation(animation) {
                         self.dispatchWorkHolder.work?.cancel()
@@ -275,7 +274,8 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
                         self.dismissCallback()
                     }
                 }
-            }
+                .opacity(isPresented ? 1 : 0)
+            )
         }
         .overlay(sheet())
     }
@@ -354,7 +354,7 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
     }
 
     private func onDragEnded(drag: DragGesture.Value) {
-        let reference = sheetContentRect.height / 3
+        let reference = sheetContentRect.height / 10
         if (position == .bottom && drag.translation.height > reference) ||
             (position == .top && drag.translation.height < -reference) {
             lastDragPosition = drag.translation.height

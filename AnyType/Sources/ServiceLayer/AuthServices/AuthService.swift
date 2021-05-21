@@ -99,7 +99,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).receiveOnMain().sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.selectAccountError()))
@@ -113,7 +113,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
     
     func mnemonicByEntropy(_ entropy: String, completion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy).receiveOnMain().sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): completion(.failure(.selectAccountError()))

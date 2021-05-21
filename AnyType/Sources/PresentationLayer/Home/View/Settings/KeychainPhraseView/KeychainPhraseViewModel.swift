@@ -21,6 +21,7 @@ class KeychainPhraseViewModel: ObservableObject {
             return
         }
         
+        UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = recoveryPhrase
         showSnackbar = true
     }

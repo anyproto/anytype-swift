@@ -7,7 +7,10 @@ struct SettingsView: View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
             SettingsSectionView()
-            Button(action: model.logout) {
+            Button(action: {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                model.logout()
+            }) {
                 AnytypeText("Log out", style: .body)
                     .foregroundColor(.textSecondary)
                     .padding()
