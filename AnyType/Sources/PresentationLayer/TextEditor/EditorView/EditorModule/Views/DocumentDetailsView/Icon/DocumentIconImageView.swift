@@ -35,36 +35,37 @@ final class DocumentIconImageView: UIView {
     
 }
 
-// MARK: - Internal functions
-
-extension DocumentIconImageView {
-    
-    func showLoaderWithImage(at path: String?) {
-        imageView.image = path.flatMap { UIImage(contentsOfFile: $0) }
-        imageView.addDimmedOverlay()
-        
-        let indicator = UIActivityIndicatorView()
-        indicator.color = .grayscaleWhite
-        addSubview(indicator)
-        indicator.layoutUsing.anchors {
-            $0.center(in: self)
-        }
-        
-        indicator.startAnimating()
-    }
-    
-}
-
 // MARK: - ConfigurableView
 
 extension DocumentIconImageView: ConfigurableView {
     
-    func configure(model: String) {
+    enum State {
+        case `default`(imageId: String)
+        case imageUploading(imagePath: String)
+    }
+    
+    func configure(model: State) {
+        switch model {
+        case let .default(imageId: imageId):
+            showImageWithId(imageId)
+        case let .imageUploading(imagePath: imagePath):
+            showLoaderWithImage(at: imagePath)
+        }
+        
+    }
+    
+    private func showImageWithId(_ imageId: String) {
         imageView.removeAllSubviews()
         
         let parameters = ImageParameters(width: .thumbnail)
+        imageLoader.update(imageId: imageId, parameters: parameters)
+    }
+    
+    private func showLoaderWithImage(at path: String) {
+        imageView.image = UIImage(contentsOfFile: path)
         
-        imageLoader.update(imageId: model, parameters: parameters)
+        imageView.addDimmedOverlay()
+        imageView.addActivityIndicatorView(with: .grayscale10)
     }
     
 }

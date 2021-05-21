@@ -33,7 +33,7 @@ extension FileBlocksViewsRouter {
             case let .shouldShowFilePicker(model):
                 self.send(event: .general(.show(CommonViews.Pickers.File.Picker.init(model.model))))
             case let .shouldShowImagePicker(model):
-                self.send(event: .general(.show(CommonViews.Pickers.Picker.init(model.model))))
+                self.send(event: .general(.show(MediaPicker(viewModel: model.model))))
             case let .shouldSaveFile(model):
                 self.saveFile(model: model)
             default: return

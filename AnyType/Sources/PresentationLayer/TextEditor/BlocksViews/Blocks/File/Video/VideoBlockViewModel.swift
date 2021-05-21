@@ -8,8 +8,8 @@ final class VideoBlockViewModel: BlocksViews.File.Base.ViewModel {
     }
     
     override func handleReplace() {
-        let model: CommonViews.Pickers.Picker.ViewModel = .init(type: .videos)
-        self.configureListening(model)
+        let model: MediaPicker.ViewModel = .init(type: .videos)
+        self.configureMediaPickerViewModel(model)
         self.send(userAction: .specific(.file(.shouldShowImagePicker(.init(model: model)))))
     }
 }

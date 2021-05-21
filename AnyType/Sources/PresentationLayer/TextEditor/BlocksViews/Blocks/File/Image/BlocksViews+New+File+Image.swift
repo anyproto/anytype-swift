@@ -17,8 +17,8 @@ extension Namespace {
         }
         
         override func handleReplace() {
-            let model: CommonViews.Pickers.Picker.ViewModel = .init(type: .images)
-            self.configureListening(model)
+            let model: MediaPicker.ViewModel = .init(type: .images)
+            self.configureMediaPickerViewModel(model)
             self.send(userAction: .specific(.file(.shouldShowImagePicker(.init(model: model)))))
         }
     }

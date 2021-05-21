@@ -20,4 +20,16 @@ extension UIImageView {
         }
     }
     
+    func addActivityIndicatorView(with color: UIColor) {
+        let indicator = UIActivityIndicatorView()
+        indicator.color = color
+        
+        addSubview(indicator)
+        indicator.layoutUsing.anchors {
+            $0.center(in: self)
+        }
+        
+        indicator.startAnimating()
+    }
+    
 }

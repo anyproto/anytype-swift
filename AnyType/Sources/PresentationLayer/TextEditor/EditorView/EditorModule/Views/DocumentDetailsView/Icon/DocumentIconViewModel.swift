@@ -8,8 +8,7 @@ final class DocumentIconViewModel {
     
     private let fileService = BlockActionsServiceFile()
     
-    private var onImageSelect: ((String?) -> Void)?
-
+    private var onMediaPickerImageSelect: ((String) -> Void)?
     
     private let documentIcon: DocumentIcon?
     private let detailsActiveModel: DetailsActiveModel
@@ -60,13 +59,15 @@ private extension DocumentIconViewModel {
     }
     
     func makeIconImageView(with imageId: String) -> UIView {
-        let view = DocumentIconImageView().configured(with: imageId)
+        let view = DocumentIconImageView().configured(with: .default(imageId: imageId))
         view.enableMenuInteraction { [weak self] userAction in
             self?.handleIconUserAction(userAction)
         }
         
-        onImageSelect = {
-            view.showLoaderWithImage(at: $0)
+        onMediaPickerImageSelect = { imagePath in
+            DispatchQueue.main.async {
+                view.configure(model: .imageUploading(imagePath: imagePath))
+            }
         }
         
         return view
@@ -125,8 +126,20 @@ private extension DocumentIconViewModel {
     }
     
     func showImagePicker() {
-        let model = CommonViews.Pickers.Picker.ViewModel(type: .images)
-        subscribeForPickedImage(in: model)
+        let model = MediaPicker.ViewModel(type: .images)
+        model.onResultInformationObtain = { [weak self] resultInformation in
+            guard let resultInformation = resultInformation else {
+                // show error if needed
+                return
+            }
+            
+            guard let self = self else { return }
+            
+            let localPath = resultInformation.filePath
+            
+            self.onMediaPickerImageSelect?(localPath)
+            self.uploadSelectedIconImage(at: localPath)
+        }
         
         userActionSubject.send(
             BlockUserAction.specific(
@@ -139,47 +152,35 @@ private extension DocumentIconViewModel {
         )
     }
     
-    func subscribeForPickedImage(in pickerViewModel: CommonViews.Pickers.Picker.ViewModel) {
-        pickerViewModel.$resultInformation
-            .safelyUnwrapOptionals()
-            .reciveOnMain()
-            .sink { [weak self] filePickerResultInformation in
-                self?.onImageSelect?(filePickerResultInformation.filePath)
-            }.store(in: &self.subscriptions)
-        
-        pickerViewModel.$resultInformation
-            .safelyUnwrapOptionals()
-            .notableError()
-            .flatMap { [weak self] selectedFile in
-                self?.fileService.uploadFile.action(
-                    url: "",
-                    localPath: selectedFile.filePath,
-                    type: .image,
-                    disableEncryption: false
-                ) ?? .empty()
-            }
-            .flatMap { [weak self] uploadFile in
-                self?.detailsActiveModel.update(
-                    details: [
-                        DetailsContent.iconEmoji(
-                            Details.Information.Content.Emoji(value: "")
-                        ),
-                        DetailsContent.iconImage(
-                            Details.Information.Content.ImageId(value: uploadFile.hash)
-                        )
-                    ]
-                ) ?? .empty()
-            }
-            .sink(
-                receiveCompletion: { value in
-                    switch value {
-                    case .finished: break
-                    case let .failure(value):
-                        assertionFailure("uploading image error \(value) on \(self)")
-                    }
+    func uploadSelectedIconImage(at localPath: String) {
+        fileService.uploadFile.action(
+            url: "",
+            localPath: localPath,
+            type: .image,
+            disableEncryption: false
+        )
+        .flatMap { [weak self] uploadedFile in
+            self?.detailsActiveModel.update(
+                details: [
+                    DetailsContent.iconEmoji(
+                        Details.Information.Content.Emoji(value: "")
+                    ),
+                    DetailsContent.iconImage(
+                        Details.Information.Content.ImageId(value: uploadedFile.hash)
+                    )
+                ]
+            ) ?? .empty()
+        }
+        .sink(
+            receiveCompletion: { value in
+                switch value {
+                case .finished: break
+                case let .failure(value):
+                    assertionFailure("uploading image error \(value) on \(self)")
                 }
-            ) { _ in }
-            .store(in: &self.subscriptions)
+            }
+        ) { _ in }
+        .store(in: &self.subscriptions)
     }
     
     func setRandomEmoji() {

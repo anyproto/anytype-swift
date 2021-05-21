@@ -85,6 +85,14 @@ extension Namespace {
             
         }
         
+        func configureMediaPickerViewModel(_ pickerViewModel: MediaPicker.ViewModel) {
+            pickerViewModel.onResultInformationObtain = { [weak self] resultInformation in
+                guard let resultInformation = resultInformation else { return }
+                
+                self?.sendFile(at: resultInformation.filePath)
+            }
+        }
+        
         /// Add observer to file picker
         ///
         /// - Parameters:

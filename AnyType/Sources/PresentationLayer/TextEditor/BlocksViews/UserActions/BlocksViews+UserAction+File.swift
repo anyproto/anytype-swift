@@ -30,7 +30,7 @@ extension Namespace.File {
         }
         
         struct ShouldShowImagePicker {
-            typealias Model = CommonViews.Pickers.Picker.ViewModel
+            typealias Model = MediaPicker.ViewModel
             var model: Model
         }
         

@@ -1,6 +1,6 @@
 //
-//  PickerContentType.swift
-//  AnyType
+//  MediaPickerContentType.swift
+//  Anytype
 //
 //  Created by Kovalev Alexander on 30.03.2021.
 //  Copyright © 2021 AnyType. All rights reserved.
@@ -12,7 +12,7 @@ import PhotosUI
 ///
 /// - images: Images
 /// - videos: Videos
-enum PickerContentType {
+enum MediaPickerContentType {
     case images
     case videos
     
@@ -25,4 +25,14 @@ enum PickerContentType {
             return .videos
         }
     }
+    
+    var typeIdentifier: String {
+        switch self {
+        case .images:
+            return UTType.image.identifier
+        case .videos:
+            return UTType.video.identifier
+        }
+    }
+    
 }
