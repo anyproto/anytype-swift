@@ -93,6 +93,13 @@ class EventHandler: EventHandlerProtocol {
             let newText = value.hasText ? value.text.value : oldText.attributedText.string
             let newChecked = value.hasChecked ? value.checked.value : oldText.checked
 
+            let style: Anytype_Model_Block.Content.Text.Style
+            if value.hasStyle {
+                style = value.style.value
+            } else {
+                style = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType)
+            }
+
             // Apply marks only if we haven't received text and marks.
             var marks = value.marks.value
             if !value.hasText, !value.hasMarks {
@@ -100,14 +107,19 @@ class EventHandler: EventHandlerProtocol {
                 marks = AttributedTextConverter.asMiddleware(attributedText: oldText.attributedText).marks
             }
 
+            // Workaroung: Some font could set bold style to attributed string
+            // So if header or title style has font that apply bold we remove it
+            // We need it if change style from subheading to text
+            let oldStyle = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType)
+            if [.header1, .header2, .header3, .header4, .title].contains(oldStyle) {
+                marks.marks.removeAll { mark in
+                    mark.type == .bold
+                }
+            }
+
             // obtain current block color
             let blockColor = value.hasColor ? value.color.value : oldText.color
-            let style: Anytype_Model_Block.Content.Text.Style
-            if value.hasStyle {
-                style = value.style.value
-            } else {
-                style = BlocksModelsParserTextContentTypeConverter.asMiddleware(oldText.contentType)
-            }
+
             let textContent: Anytype_Model_Block.Content.Text = .init(text: newText,
                                                                       style: style,
                                                                       marks: marks,
