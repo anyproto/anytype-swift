@@ -33,8 +33,8 @@
         "repositoryURL": "git@github.com:scenee/FloatingPanel.git",
         "state": {
           "branch": null,
-          "revision": "16fea625be25d9a713630a4a43cbc0778740ebf4",
-          "version": "2.3.0"
+          "revision": "da4668aa2b8277dd8ce2741ac5c39394431400fc",
+          "version": "2.3.1"
         }
       },
       {
@@ -57,11 +57,11 @@
       },
       {
         "package": "Highlightr",
-        "repositoryURL": "git@github.com:anytypeio/Highlightr.git",
+        "repositoryURL": "https://github.com/raspu/Highlightr.git",
         "state": {
-          "branch": "master",
-          "revision": "bb1e5f354c287478c3c59b1599b8852e564fedd7",
-          "version": null
+          "branch": null,
+          "revision": "93199b9e434f04bda956a613af8f571933f9f037",
+          "version": "2.1.2"
         }
       },
       {

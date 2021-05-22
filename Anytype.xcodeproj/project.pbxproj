@@ -391,6 +391,7 @@
 		534B7F2026264E8B00D712B2 /* EditingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534B7F1F26264E8B00D712B2 /* EditingToolbarView.swift */; };
 		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
+		53856BC126593B3100CB1FAE /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 53856BC026593B3100CB1FAE /* Highlightr */; };
 		538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */; };
 		5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */; };
 		539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168842632DD5200AD5C5F /* StyleCellView.swift */; };
@@ -400,7 +401,6 @@
 		53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */; };
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
 		53BC39B4261C7972004D7EB6 /* TextBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */; };
-		53C62EBE261E005E009CE6B7 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 53C62EBD261E005E009CE6B7 /* Highlightr */; };
 		53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */; };
 		53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A772637637200968B8E /* StyleColorCellView.swift */; };
 		53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7B2637638800968B8E /* StyleColorContentView.swift */; };
@@ -1037,8 +1037,8 @@
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				0A005AB924C60092000520AA /* BlocksModels.framework in Frameworks */,
 				0A005ABC24C600DA000520AA /* Lib.framework in Frameworks */,
+				53856BC126593B3100CB1FAE /* Highlightr in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
-				53C62EBE261E005E009CE6B7 /* Highlightr in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
 				0A73B85F25E53E77009676C1 /* FirebaseCrashlytics in Frameworks */,
 			);
@@ -3145,8 +3145,8 @@
 			name = Anytype;
 			packageProductDependencies = (
 				0AEFADD625DED1E70014F739 /* FirebaseCrashlytics */,
-				53C62EBD261E005E009CE6B7 /* Highlightr */,
 				5333421B262E249100238121 /* FloatingPanel */,
+				53856BC026593B3100CB1FAE /* Highlightr */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -3189,7 +3189,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */;
+			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3200,8 +3200,8 @@
 			mainGroup = 0303ECF222D8EDAA005C552B;
 			packageReferences = (
 				0AEFADD525DED1E60014F739 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				53C62EBC261E005E009CE6B7 /* XCRemoteSwiftPackageReference "Highlightr" */,
 				5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				53856BBF26593B3100CB1FAE /* XCRemoteSwiftPackageReference "Highlightr" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -4007,7 +4007,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */ = {
+		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,
@@ -4050,15 +4050,15 @@
 			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.0;
+				minimumVersion = 2.3.1;
 			};
 		};
-		53C62EBC261E005E009CE6B7 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
+		53856BBF26593B3100CB1FAE /* XCRemoteSwiftPackageReference "Highlightr" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:anytypeio/Highlightr.git";
+			repositoryURL = "https://github.com/raspu/Highlightr.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -4074,9 +4074,9 @@
 			package = 5333421A262E249100238121 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
 			productName = FloatingPanel;
 		};
-		53C62EBD261E005E009CE6B7 /* Highlightr */ = {
+		53856BC026593B3100CB1FAE /* Highlightr */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 53C62EBC261E005E009CE6B7 /* XCRemoteSwiftPackageReference "Highlightr" */;
+			package = 53856BBF26593B3100CB1FAE /* XCRemoteSwiftPackageReference "Highlightr" */;
 			productName = Highlightr;
 		};
 /* End XCSwiftPackageProductDependency section */
