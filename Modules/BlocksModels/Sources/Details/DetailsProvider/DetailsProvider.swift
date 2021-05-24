@@ -27,14 +27,14 @@ struct DetailsProvider: DetailsProviderProtocol {
 
 extension DetailsProvider: DetailsEntryValueProvider {
     
-    func value(for kind: DetailsKind) -> String? {
+    subscript(kind: DetailsKind) -> String? {
         guard let entry = details[kind.rawValue] else {
             return nil
         }
         
         return entry.value
     }
-    
+
 }
 
 // MARK: Hashable

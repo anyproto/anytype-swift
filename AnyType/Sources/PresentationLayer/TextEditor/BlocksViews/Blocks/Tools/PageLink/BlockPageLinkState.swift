@@ -24,8 +24,8 @@ struct BlockPageLinkState {
         static func asOurModel(_ pageDetails: DetailsEntryValueProvider) -> BlockPageLinkState {
             let archived = false
             var hasContent = false
-            let title = pageDetails.value(for: .name)
-            let emoji = pageDetails.value(for: .iconEmoji)
+            let title = pageDetails[.name]
+            let emoji = pageDetails[.iconEmoji]
             hasContent = !emoji.isNil
             let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
             return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)

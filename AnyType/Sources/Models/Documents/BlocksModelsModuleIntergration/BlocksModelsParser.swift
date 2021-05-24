@@ -5,7 +5,7 @@ import BlocksModels
 import ProtobufMessages
 
 
-class BlocksModelsParser {
+final class BlocksModelsParser {
     typealias Information = BlockInformation.InformationModel
     typealias Model = BlockModelProtocol
     

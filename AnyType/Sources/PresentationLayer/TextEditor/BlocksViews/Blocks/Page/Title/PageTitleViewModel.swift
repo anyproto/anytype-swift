@@ -60,7 +60,9 @@ class PageTitleViewModel: PageBlockViewModel {
             /// Here we must subscribe on values from this model and filter values.
             /// We only want values equal to details.
             ///
-            self.pageDetailsViewModel?.wholeDetailsPublisher.map { $0.value(for: .name) }
+            self.pageDetailsViewModel?
+                .wholeDetailsPublisher
+                .map { $0[.name] }
                 .sink(receiveValue: { [weak self] (value) in
                 value.flatMap({ self?.toViewTitle = $0 })
             }).store(in: &self.subscriptions)

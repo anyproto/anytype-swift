@@ -28,18 +28,22 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpNameSubscription() {
-        document.pageDetailsPublisher().map { $0.value(for: .name) }.safelyUnwrapOptionals().receiveOnMain().sink { [weak self] accountName in
-            guard let self = self else {
-                return
+        document.pageDetailsPublisher()
+            .map { $0[.name] }
+            .safelyUnwrapOptionals()
+            .receiveOnMain()
+            .sink { [weak self] accountName in
+                guard let self = self else {
+                    return
+                }
+                self.name = accountName.isEmpty ? self.defaultName : accountName
             }
-            
-            self.name = accountName.isEmpty ? self.defaultName : accountName
-        }.store(in: &self.subscriptions)
+            .store(in: &self.subscriptions)
     }
     
     private func setUpImageSubscription() {
         document.pageDetailsPublisher()
-            .map { $0.value(for: .iconImage) }
+            .map { $0[.iconImage] }
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] imageId in

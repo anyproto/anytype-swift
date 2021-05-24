@@ -36,7 +36,7 @@ extension HomeViewModel {
             }
             
             var data = self.cellData[index]
-            data.title = details.value(for: .name) ?? ""
+            data.title = details[.name] ?? ""
             data.icon = details.documentIcon
             
             self.cellData[index] = data
@@ -46,7 +46,7 @@ extension HomeViewModel {
             id: pageLinkViewModel.blockId,
             destinationId: pageLinkViewModel.targetBlockId,
             icon: details.documentIcon,
-            title: details.value(for: .name) ?? "",
+            title: details[.name] ?? "",
             type: "Page"
         )
     }

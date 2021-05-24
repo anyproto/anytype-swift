@@ -2,6 +2,6 @@ import Foundation
 
 public protocol DetailsEntryValueProvider {
     
-    func value(for kind: DetailsKind) -> String?
+    subscript(kind: DetailsKind) -> String? { get }
     
 }

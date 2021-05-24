@@ -300,10 +300,10 @@ class BaseDocument: BaseDocumentProtocol {
             case .name:
                 return DetailsEntry(
                     kind: .name,
-                    value: details.value(for: .name) ?? ""
+                    value: details[.name] ?? ""
                 )
             case .iconEmoji:
-                return details.value(for: .iconEmoji).flatMap {
+                return details[.iconEmoji].flatMap {
                     DetailsEntry(
                         kind: .iconEmoji,
                         value: $0
@@ -312,7 +312,7 @@ class BaseDocument: BaseDocumentProtocol {
             case .iconImage:
                 return DetailsEntry(
                     kind: .iconImage,
-                    value: details.value(for: .iconImage) ?? ""
+                    value: details[.iconImage] ?? ""
                 )
             }
         }()
