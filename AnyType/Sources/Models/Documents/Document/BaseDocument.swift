@@ -16,7 +16,6 @@ private extension LoggerCategory {
 /// And keep latest ( last ) document as open document.
 ///
 class BaseDocument {
-    typealias DetailsContentKind = DetailsContent.Kind
     typealias UserSession = BlockUserSessionModelProtocol
     
     private var rootId: BlockId? { self.rootModel?.rootId }
@@ -81,10 +80,12 @@ class BaseDocument {
         
         let blocksContainer = self.transformer.buildBlocksTree(from: event.blocks, with: rootId)
         let parsedDetails = event.details.map(TopLevelBuilderImpl.detailsBuilder.build(information:))
-        let detailsContainer = TopLevelBuilderImpl.detailsBuilder.build(list: parsedDetails)
+        
+        let detailsStorage = TopLevelBuilderImpl.detailsBuilder.emptyStorage()
+        parsedDetails.forEach { detailsStorage.add($0) }
         
         // Add details models to process.
-        self.rootModel = TopLevelBuilderImpl.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsContainer)
+        self.rootModel = TopLevelBuilderImpl.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsStorage)
     }
     
     func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {
@@ -130,7 +131,7 @@ class BaseDocument {
             Logger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
             return
         }
-        let publisher = ourModel.didChangeInformationPublisher()
+        let publisher = ourModel.changeInformationPublisher()
         self.defaultDetailsActiveModel.configured(documentId: rootId)
         self.defaultDetailsActiveModel.configured(publisher: publisher)
         self.defaultDetailsActiveModel.configured(eventSubject: self.detailsEventSubject)
@@ -238,7 +239,7 @@ class BaseDocument {
         }
         let result: DetailsActiveModel = .init()
         result.configured(documentId: id)
-        result.configured(publisher: value.didChangeInformationPublisher())
+        result.configured(publisher: value.changeInformationPublisher())
         return result
     }
     
@@ -246,7 +247,7 @@ class BaseDocument {
     ///
     /// - Parameter id: Id of details
     /// - Returns: Details accessor of this details.
-    func getPageDetails(by id: DetailsId) -> DetailsInformationProvider? {
+    func getPageDetails(by id: DetailsId) -> DetailsEntryValueProvider? {
         self.getDetails(by: id).map(\.currentDetails)
     }
     
@@ -258,7 +259,7 @@ class BaseDocument {
     ///
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: Publisher of default details properties.
-    func getPageDetailsPublisher(by id: DetailsId) -> AnyPublisher<DetailsInformationProvider, Never>? {
+    func getPageDetailsPublisher(by id: DetailsId) -> AnyPublisher<DetailsEntryValueProvider, Never>? {
         self.getDetails(by: id)?.$currentDetails.eraseToAnyPublisher()
     }
     
@@ -276,13 +277,13 @@ class BaseDocument {
     /// This details accessor associated with default details.
     ///
     /// - Returns: Details accessor of this details.
-    func getDefaultPageDetails() -> DetailsInformationProvider {
+    func getDefaultPageDetails() -> DetailsEntryValueProvider {
         self.defaultDetailsActiveModel.currentDetails
     }
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
-    func getDefaultPageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
+    func getDefaultPageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never> {
         self.getDefaultDetailsActiveModel().$currentDetails.eraseToAnyPublisher()
     }
 
@@ -291,22 +292,33 @@ class BaseDocument {
     ///
     /// Now we use view models that uses only blocks.
     /// So, we have to convert our details to blocks first.
-    private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsContentKind) -> ActiveModel? {
+    private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsKind) -> ActiveModel? {
         guard let rootId = self.rootId else {
             Logger.create(.baseDocument).debug("convert(_:of:). Our document is not ready yet.")
             return nil
         }
                 
-        let detailsContent: DetailsContent? = {
+        let detailsContent: DetailsEntry? = {
             let details = detailsActiveModel.currentDetails
 
             switch kind {
             case .name:
-                return .name(details.name ?? .init(value: ""))
+                return DetailsEntry(
+                    kind: .name,
+                    value: details.value(for: .name) ?? ""
+                )
             case .iconEmoji:
-                return details.iconEmoji.flatMap { DetailsContent.iconEmoji($0) }
+                return details.value(for: .iconEmoji).flatMap {
+                    DetailsEntry(
+                        kind: .iconEmoji,
+                        value: $0
+                    )
+                }
             case .iconImage:
-                return .iconImage(details.iconImage ?? .init(value: ""))
+                return DetailsEntry(
+                    kind: .iconImage,
+                    value: details.value(for: .iconImage) ?? ""
+                )
             }
         }()
         
@@ -327,7 +339,7 @@ class BaseDocument {
         return self.rootModel?.blocksContainer.choose(by: block.information.id)
     }
     
-    func getDefaultDetailsActiveModel(of kind: DetailsContentKind) -> ActiveModel? {
+    func getDefaultDetailsActiveModel(of kind: DetailsKind) -> ActiveModel? {
         self.convert(self.defaultDetailsActiveModel, of: kind)
     }
 

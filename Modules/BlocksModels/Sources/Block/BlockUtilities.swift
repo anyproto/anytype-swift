@@ -123,29 +123,3 @@ public enum BlockContentTypeIdentifier {
         }
     }
 }
-
-
-/// The main purpose of this inspector is to identify kind of details.
-/// It could be done by parsing identifier of Information that was built from concrete detail.
-///
-/// Prerequisites:
-///
-/// 1. Build Information from Details.
-///
-public enum BlockDetailsInspector {
-    public typealias Kind = DetailsContent.Kind
-    public typealias Id = BlockId
-    public typealias Details = DetailsContent
-    /// It parses identifier and try to figure our the kind of a detail.
-    /// - Parameter id: Id of Information that is built from detail.
-    /// - Returns: Kind of detail.
-    ///
-    public static func kind(of id: Id) -> Kind? {
-        let (_, details) = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
-        switch details {
-        case Details.Name.id: return .name
-        case Details.Emoji.id: return .iconEmoji
-        default: return nil
-        }
-    }
-}

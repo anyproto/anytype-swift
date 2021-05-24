@@ -12,7 +12,7 @@ class BlocksModelsParser {
     struct PageEvent {
         var rootId: String
         var blocks: [BlockInformation.InformationModel] = []
-        var details: [DetailsInformationModel] = []
+        var details: [DetailsProviderProtocol] = []
         static func empty() -> Self { .init(rootId: "") }
     }
 
@@ -48,10 +48,10 @@ class BlocksModelsParser {
                 
         let parsedBlocks = self.parse(blocks: blocks)
         
-        let parsedDetails = details.map { (value) -> DetailsInformationModel in
+        let parsedDetails = details.map { (value) -> DetailsProviderProtocol in
             let corrected = Converters.EventDetailsAndSetDetailsConverter.convert(event: value)
             let contentList = Details.Converter.asModel(details: corrected)
-            var result = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: contentList)
+            var result = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: contentList)
             result.parentId = value.id
             return result
         }

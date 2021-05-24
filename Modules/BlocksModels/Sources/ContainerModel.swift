@@ -6,5 +6,5 @@ public protocol RootIdProvider {
 
 public protocol ContainerModel: AnyObject, RootIdProvider {
     var blocksContainer: BlockContainerModelProtocol {get set}
-    var detailsContainer: DetailsContainerModelProtocol {get set}
+    var detailsContainer: DetailsStorageProtocol {get set}
 }

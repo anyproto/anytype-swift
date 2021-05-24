@@ -1,10 +1,11 @@
 import Foundation
 
 public protocol TopLevelBuilder {
-    static var blockBuilder: BlockBuilderProtocol {get}
-    static var detailsBuilder: DetailsBuilderProtocol {get}
+    static var blockBuilder: BlockBuilderProtocol { get }
+    static var detailsBuilder: DetailsBuilderProtocol { get }
+    
     static func emptyContainer() -> ContainerModel
-    static func createRootContainer(rootId: String?, blockContainer: BlockContainerModelProtocol, detailsContainer: DetailsContainerModelProtocol) -> ContainerModel
+    static func createRootContainer(rootId: String?, blockContainer: BlockContainerModelProtocol, detailsContainer: DetailsStorageProtocol) -> ContainerModel
 }
 
 
@@ -19,7 +20,7 @@ public enum TopLevelBuilderImpl: TopLevelBuilder {
     public static func createRootContainer(
         rootId: BlockId?,
         blockContainer: BlockContainerModelProtocol,
-        detailsContainer: DetailsContainerModelProtocol
+        detailsContainer: DetailsStorageProtocol
     ) -> ContainerModel {
         let container = RootBlocksContainer()
         container.rootId = rootId

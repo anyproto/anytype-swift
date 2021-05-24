@@ -6,7 +6,7 @@ import Foundation
 final class RootBlocksContainer {
     private var _rootId: BlockId?
     private var _blocksContainer: BlockContainerModelProtocol = TopLevelBuilderImpl.blockBuilder.emptyContainer()
-    private var _detailsContainer: DetailsContainerModelProtocol = TopLevelBuilderImpl.detailsBuilder.emptyContainer()
+    private var _detailsContainer: DetailsStorageProtocol = TopLevelBuilderImpl.detailsBuilder.emptyStorage()
 }
 
 extension RootBlocksContainer: ContainerModel {
@@ -26,7 +26,7 @@ extension RootBlocksContainer: ContainerModel {
             self._blocksContainer = newValue
         }
     }
-    var detailsContainer: DetailsContainerModelProtocol {
+    var detailsContainer: DetailsStorageProtocol {
         get {
             self._detailsContainer
         }

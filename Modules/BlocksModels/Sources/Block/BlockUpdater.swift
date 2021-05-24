@@ -55,9 +55,9 @@ public class BlockUpdater {
         /// Then we can update our page link block view, when details will be updated with .blockSetDetails event
         /// We receive this two events (blockAdd and blockSetDetails) in different messages
         if case let .link(link) = block.information.content {
-            var details = Details.Information.InformationModel([])
+            var details = DetailsProvider([:])
             details.parentId = link.targetBlockID
-            let model = Details.DetailsModel(details: details)
+            let model = DetailsModel(details: details)
             self.container.detailsContainer.add(model)
         }
     }

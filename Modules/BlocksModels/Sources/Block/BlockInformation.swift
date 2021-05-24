@@ -61,14 +61,14 @@ extension BlockInformation {
     /// What happens here?
     /// We convert details ( PageDetails ) to ready-to-use information.
     struct DetailsAsInformationConverter {
-        typealias Details = DetailsContent
+        
         var blockId: BlockId
 
-        private func detailsAsInformation(_ blockId: BlockId, _ details: Details) -> InformationModel {
+        private func detailsAsInformation(_ blockId: BlockId, _ details: DetailsEntry) -> InformationModel {
             /// Our ID is <ID>/<Details.key>.
             /// Look at implementation in `IdentifierBuilder`
             
-            let id = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asBlockId(blockId, details.id())
+            let id = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asBlockId(blockId, details.id)
 
             /// Actually, we don't care about block type.
             /// We only take care about "distinct" block model.
@@ -76,16 +76,16 @@ extension BlockInformation {
             return InformationModel(id: id, content: content)
         }
 
-        func callAsFunction(_ details: Details) -> InformationModel {
+        func callAsFunction(_ details: DetailsEntry) -> InformationModel {
             detailsAsInformation(self.blockId, details)
         }
     }
 }
 
-/// TODO: Time to remove Details Crutches.
+/// TODO: Time to remove Details Crutches. ?????????????
 public extension BlockInformation.DetailsAsBlockConverter {
     struct IdentifierBuilder {
-        public typealias Details = DetailsContent
+        
         static var separator: Character = "/"
         public static func asBlockId(_ blockId: BlockId, _ id: DetailsId) -> BlockId {
             blockId + "\(self.separator)" + id
@@ -94,9 +94,9 @@ public extension BlockInformation.DetailsAsBlockConverter {
             guard let index = id.lastIndex(of: self.separator) else { return (id, "") }
             let substring = id[index...].dropFirst()
             let prefix = String(id.prefix(upTo: index))
-            switch String(substring) {
-            case Details.Name.id: return (prefix, Details.Name.id)
-            case Details.Emoji.id: return (prefix, Details.Emoji.id)
+            switch DetailsKind(rawValue: String(substring)) {
+            case .name: return (prefix, DetailsKind.name.rawValue)
+            case .iconEmoji: return (prefix, DetailsKind.iconEmoji.rawValue)
             default: return ("", "")
             }
         }
@@ -126,7 +126,7 @@ public extension BlockInformation {
         
         // MARK: - Public functions
         
-        public func convertDetailsToBlock(_ details: DetailsContent) -> BlockModelProtocol {
+        public func convertDetailsToBlock(_ details: DetailsEntry) -> BlockModelProtocol {
             TopLevelBuilderImpl.blockBuilder.createBlockModel(
                 with: DetailsAsInformationConverter(blockId: self.blockId)(details)
             )

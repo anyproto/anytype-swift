@@ -36,7 +36,7 @@ extension HomeViewModel {
             }
             
             var data = self.cellData[index]
-            data.title = details.name?.value ?? ""
+            data.title = details.value(for: .name) ?? ""
             data.icon = details.documentIcon
             
             self.cellData[index] = data
@@ -46,8 +46,21 @@ extension HomeViewModel {
             id: pageLinkViewModel.blockId,
             destinationId: pageLinkViewModel.targetBlockId,
             icon: details.documentIcon,
-            title: details.name?.value ?? "",
+            title: details.value(for: .name) ?? "",
             type: "Page"
         )
     }
+    
+    private func destinationId(_ pageLinkViewModel: BlockPageLinkViewModel) -> String {
+        let targetBlockId: String
+        if case let .link(link) = pageLinkViewModel.getBlock().blockModel.information.content {
+            targetBlockId = link.targetBlockID
+        }
+        else {
+            assertionFailure("No target id for \(pageLinkViewModel)")
+            targetBlockId = ""
+        }
+        return targetBlockId
+    }
+    
 }

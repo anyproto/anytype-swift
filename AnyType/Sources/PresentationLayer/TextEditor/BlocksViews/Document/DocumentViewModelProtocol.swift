@@ -10,7 +10,7 @@ protocol DocumentViewModelProtocol {
     
     func open(_ value: ServiceSuccess)
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never>
-    func pageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never>
+    func pageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never>
     
     func handle(events: BaseDocument.Events)
 }

@@ -103,11 +103,13 @@ private extension DocumentIconViewModel {
             .sink { [weak self] emoji in
                 self?.updateDetails(
                     [
-                        DetailsContent.iconEmoji(
-                            Details.Information.Content.Emoji(value: emoji.unicode)
+                        DetailsEntry(
+                            kind: .iconEmoji,
+                            value: emoji.unicode
                         ),
-                        DetailsContent.iconImage(
-                            Details.Information.Content.ImageId(value: "")
+                        DetailsEntry(
+                            kind: .iconImage,
+                            value: ""
                         )
                     ]
                 )
@@ -162,11 +164,13 @@ private extension DocumentIconViewModel {
         .flatMap { [weak self] uploadedFile in
             self?.detailsActiveModel.update(
                 details: [
-                    DetailsContent.iconEmoji(
-                        Details.Information.Content.Emoji(value: "")
+                    DetailsEntry(
+                        kind: .iconEmoji,
+                        value: ""
                     ),
-                    DetailsContent.iconImage(
-                        Details.Information.Content.ImageId(value: uploadedFile.hash)
+                    DetailsEntry(
+                        kind: .iconImage,
+                        value: uploadedFile.hash
                     )
                 ]
             ) ?? .empty()
@@ -188,11 +192,13 @@ private extension DocumentIconViewModel {
         
         updateDetails(
             [
-                DetailsContent.iconEmoji(
-                    Details.Information.Content.Emoji(value: emoji.unicode)
+                DetailsEntry(
+                    kind: .iconEmoji,
+                    value: emoji.unicode
                 ),
-                DetailsContent.iconImage(
-                    Details.Information.Content.ImageId(value: "")
+                DetailsEntry(
+                    kind: .iconImage,
+                    value: ""
                 )
             ]
         )
@@ -201,17 +207,19 @@ private extension DocumentIconViewModel {
     func removeIcon() {
         updateDetails(
             [
-                DetailsContent.iconEmoji(
-                    Details.Information.Content.Emoji(value: "")
+                DetailsEntry(
+                    kind: .iconEmoji,
+                    value: ""
                 ),
-                DetailsContent.iconImage(
-                    Details.Information.Content.ImageId(value: "")
+                DetailsEntry(
+                    kind: .iconImage,
+                    value: ""
                 )
             ]
         )
     }
     
-    func updateDetails(_ details: [DetailsContent]) {
+    func updateDetails(_ details: [DetailsEntry]) {
         detailsActiveModel.update(
             details: details
         )?.sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in

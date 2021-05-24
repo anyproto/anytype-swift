@@ -180,11 +180,11 @@ class EventHandler: EventHandlerProtocol {
             let details = value.details
             let eventsDetails = BlocksModelsParser.PublicConverters.EventsDetails.convert(event: .init(id: detailsId, details: details))
             let detailsModels = BlocksModelsParser.Details.Converter.asModel(details: eventsDetails)
-            let detailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: detailsModels)
+            let detailsInformationModel = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
             
             if let detailsModel = self.container?.detailsContainer.choose(by: detailsId) {
                 var model = detailsModel.detailsModel
-                var resultDetails = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(list: detailsModels)
+                var resultDetails = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
                 resultDetails.parentId = detailsId
                 model.details = resultDetails
             }

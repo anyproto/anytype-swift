@@ -24,9 +24,9 @@ class DashboardService: DashboardServiceProtocol {
     
     func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error> {
         let targetId: String = ""
-        let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(
-            list: [
-                .name(.init())
+        let details: DetailsProviderProtocol = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(
+            with: [
+                DetailsEntry(kind: .name, value: "")
             ]
         )
                 

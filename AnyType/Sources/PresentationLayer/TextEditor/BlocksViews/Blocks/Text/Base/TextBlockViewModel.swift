@@ -132,7 +132,7 @@ private extension TextBlockViewModel {
         // We need it for Merge requests.
         // Maybe we should do it differently.
         // We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
-        // If we listen `didChangeInformationPublisher()`, we will receive whole data from every change.
+        // If we listen `changeInformationPublisher()`, we will receive whole data from every change.
         let modelDidChangeOnMergePublisher = self.getBlock().didChangePublisher().receive(on: serialQueue)
             .map { [weak self] _ -> BlockContent.Text? in
                 let value = self?.getBlock().blockModel.information

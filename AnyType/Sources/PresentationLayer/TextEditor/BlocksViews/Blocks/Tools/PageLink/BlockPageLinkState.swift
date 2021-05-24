@@ -21,11 +21,11 @@ struct BlockPageLinkState {
     }
     
     enum Converter {
-        static func asOurModel(_ pageDetails: DetailsInformationProvider) -> BlockPageLinkState {
+        static func asOurModel(_ pageDetails: DetailsEntryValueProvider) -> BlockPageLinkState {
             let archived = false
             var hasContent = false
-            let title = pageDetails.name?.value
-            let emoji = pageDetails.iconEmoji?.value
+            let title = pageDetails.value(for: .name)
+            let emoji = pageDetails.value(for: .iconEmoji)
             hasContent = !emoji.isNil
             let correctEmoji = emoji.flatMap({$0.isEmpty ? nil : $0})
             return .init(archived: archived, hasContent: hasContent, title: title, emoji: correctEmoji)

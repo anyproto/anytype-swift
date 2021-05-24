@@ -228,9 +228,9 @@ final class BlockActionService {
     func createPage(afterBlock: Information, position: BlockPosition = .bottom) {
 
         let targetId = ""
-        let details: DetailsInformationModel = TopLevelBuilderImpl.detailsBuilder.informationBuilder.build(
-            list: [
-                .name(.init())
+        let details: DetailsProviderProtocol = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(
+            with: [
+                DetailsEntry(kind: .name, value: "")
             ]
         )
 

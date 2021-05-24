@@ -28,7 +28,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpNameSubscription() {
-        documentViewModel.pageDetailsPublisher().map {$0.name?.value}.safelyUnwrapOptionals().receiveOnMain().sink { [weak self] accountName in
+        documentViewModel.pageDetailsPublisher().map { $0.value(for: .name) }.safelyUnwrapOptionals().receiveOnMain().sink { [weak self] accountName in
             guard let self = self else {
                 return
             }
@@ -38,9 +38,14 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpImageSubscription() {
-        documentViewModel.pageDetailsPublisher().map(\.iconImage?.value).safelyUnwrapOptionals().receiveOnMain().sink { [weak self] imageId in
-            self?.avatarId = imageId.isEmpty ? nil : imageId
-        }.store(in: &self.subscriptions)
+        documentViewModel.pageDetailsPublisher()
+            .map { $0.value(for: .iconImage) }
+            .safelyUnwrapOptionals()
+            .receiveOnMain()
+            .sink { [weak self] imageId in
+                self?.avatarId = imageId.isEmpty ? nil : imageId
+            }
+            .store(in: &self.subscriptions)
     }
     
     private func obtainAccountInfo() {

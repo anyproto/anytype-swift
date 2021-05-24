@@ -110,7 +110,7 @@ extension BlockPageLinkViewModel {
     ///
     /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
     ///
-    func configured(_ publisher: AnyPublisher<DetailsInformationModel, Never>) -> Self {
+    func configured(_ publisher: AnyPublisher<DetailsProviderProtocol, Never>) -> Self {
         self.wholeDetailsViewModel.configured(publisher: publisher)
         self.wholeDetailsViewModel.wholeDetailsPublisher.map(BlockPageLinkState.Converter.asOurModel).sink { [weak self] (value) in
             self?.state = value

@@ -51,7 +51,7 @@ final class DocumentViewModel: DocumentViewModelProtocol {
         }.eraseToAnyPublisher()
     }
     
-    func pageDetailsPublisher() -> AnyPublisher<DetailsInformationProvider, Never> {
+    func pageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never> {
         document.getDefaultPageDetailsPublisher()
     }
     
