@@ -1,18 +1,27 @@
 import SwiftUI
 import UIKit
 
+extension UserIconView {
+    enum ImageType {
+        case local(image: UIImage)
+        case middleware(imageId: String)
+    }
+}
 
 struct UserIconView: View {
-    var image: UIImage?
-    var name: String
+    var image: ImageType?
+    var name: String?
     
     var body: some View {
-        VStack(spacing: 0) {
-            if let value = self.image {
-                Image(uiImage: value)
+        Group {
+            if case .local(let image) = image {
+                Image(uiImage: image)
                     .renderingMode(.original)
                     .resizable().aspectRatio(contentMode: .fill)
-            } else {
+            } else if case .middleware(let imageId) = image {
+                AsyncImage(imageId: imageId, parameters: ImageParameters(width: .thumbnail))
+                    .aspectRatio(contentMode: .fill)
+            } else if let name = self.name {
                 AnytypeText(
                     String(name.first ?? "👻"),
                     name: .graphik,
@@ -23,11 +32,14 @@ struct UserIconView: View {
                 .foregroundColor(.black)
                 .blendMode(.overlay)
                 .background(HomeBackgroundBlurView())
+            } else {
+                HomeBackgroundBlurView()
             }
         }
         .clipShape(Circle())
     }
 }
+
 
 struct SimpleViews_Previews: PreviewProvider {
     static var previews: some View {
@@ -38,11 +50,6 @@ struct SimpleViews_Previews: PreviewProvider {
             
             UserIconView(
                 name: ""
-            ).frame(width: 100, height: 100)
-            
-            UserIconView(
-                image: UIImage(named: "mainAuthBackground"),
-                name: "Anton B"
             ).frame(width: 100, height: 100)
         }
         .previewLayout(.sizeThatFits)

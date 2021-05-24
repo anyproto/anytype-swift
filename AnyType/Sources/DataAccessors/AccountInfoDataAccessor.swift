@@ -4,8 +4,8 @@ import UIKit
 import BlocksModels
 
 final class AccountInfoDataAccessor: ObservableObject {
-    @Published var name: String
-    @Published var avatar: UIImage?
+    @Published var name: String?
+    @Published var avatarId: String?
     @Published var blockId: BlockId?
     
     private let defaultName = "Anytype User"
@@ -17,9 +17,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     private let blocksActionsService = BlockActionsServiceSingle()
     
     
-    init() {
-        name = defaultName
-        
+    init() {        
         setUpSubscriptions()
         obtainAccountInfo()
     }
@@ -40,24 +38,13 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpImageSubscription() {
-        documentViewModel.pageDetailsPublisher().map(\.iconImage?.value).safelyUnwrapOptionals()
-            .receiveOnMain().compactMap { [weak self] imageId in
-                guard imageId.isEmpty == false else {
-                    self?.avatar = nil
-                    return nil
-                }
-                
-            return imageId
-        }.flatMap { imageId in
-            URLResolver().obtainImageURLPublisher(imageId: imageId).ignoreFailure().eraseToAnyPublisher()
-        }.safelyUnwrapOptionals().flatMap { imageUrl in
-            ImageLoaderObject(imageUrl).imagePublisher
-        }.receiveOnMain().sink { [weak self] avatar in
-            self?.avatar = avatar
+        documentViewModel.pageDetailsPublisher().map(\.iconImage?.value).safelyUnwrapOptionals().receiveOnMain().sink { [weak self] imageId in
+            self?.avatarId = imageId.isEmpty ? nil : imageId
         }.store(in: &self.subscriptions)
     }
     
     private func obtainAccountInfo() {
+        // Make async
         middlewareConfigurationService.obtainConfiguration().receiveOnMain().flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
             guard let self = self else {
                 return .empty()

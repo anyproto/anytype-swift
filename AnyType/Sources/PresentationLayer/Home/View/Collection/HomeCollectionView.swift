@@ -26,8 +26,8 @@ struct HomeCollectionView: View {
             }
             .padding()
         }
+        .animation(.spring())
         .ignoresSafeArea()
-        .animation(.interactiveSpring())
     }
 }
 
