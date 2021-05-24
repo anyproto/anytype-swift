@@ -141,7 +141,6 @@
 		0A3EE0D424EAC61C0074DCDF /* CoreLayer+Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D324EAC61C0074DCDF /* CoreLayer+Network.swift */; };
 		0A3EE0DA24EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A3EE0D924EC2AC90074DCDF /* TextEditor.Toolbar.Blocks.Types.Title.strings */; };
 		0A5E017A25DBD5DF00E64A70 /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; };
-		0A5E017D25DBD5ED00E64A70 /* ProtobufMessages.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A5F5AAF24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A5F5AAE24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings */; };
 		0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A68C77B240D52B3001E2F44 /* DataStructures+GroupBy.swift */; };
 		0A6F90062554546300B94AED /* BlocksModelsParserLayoutStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6F90052554546200B94AED /* BlocksModelsParserLayoutStyleConverter.swift */; };
@@ -530,7 +529,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				0A005ABA24C60092000520AA /* BlocksModels.framework in Embed Frameworks */,
-				0A5E017D25DBD5ED00E64A70 /* ProtobufMessages.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
