@@ -4,11 +4,11 @@ import ProtobufMessages
 
 /// Service that handles middleware config
 class MiddlewareConfigurationService: ConfigurationServiceProtocol {
-    private let storage = InMemoryStoreFacade.shared.middlewareConfigurationStore
+    private let storage = MiddlewareConfigurationStore.shared
 
     /// Obtain middleware configuration
     func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
-        let configuration = self.storage?.get(by: MiddlewareConfiguration.self)
+        let configuration = storage.get(by: MiddlewareConfiguration.self)
 
         if let configuration = configuration {
             return Just(configuration)
@@ -27,7 +27,7 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
                 )
             }
             .map { [weak self] configuration in
-                self?.storage?.add(configuration)
+                self?.storage.add(configuration)
                 return configuration
             }
             .eraseToAnyPublisher()
@@ -40,9 +40,7 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
             .eraseToAnyPublisher()
     }
     
-    // TODO: Rethink result type.
-    // Maybe we would like to return Result?
     private func save(configuration: MiddlewareConfiguration) {
-        self.storage?.add(configuration)
+        storage.add(configuration)
     }
 }
