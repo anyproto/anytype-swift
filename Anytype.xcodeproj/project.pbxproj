@@ -275,6 +275,7 @@
 		3D180232264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */; };
 		3D180233264E9C9F00224815 /* EditorModuleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
+		3D3A9C45265BD694000F07DB /* BlockPageLinkViewModel+TergetId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C44265BD694000F07DB /* BlockPageLinkViewModel+TergetId.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */; };
@@ -812,6 +813,7 @@
 		3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewBuilder.swift; sourceTree = "<group>"; };
 		3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewController.swift; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
+		3D3A9C44265BD694000F07DB /* BlockPageLinkViewModel+TergetId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockPageLinkViewModel+TergetId.swift"; sourceTree = "<group>"; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAssembly.swift; sourceTree = "<group>"; };
@@ -2670,6 +2672,7 @@
 				3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */,
 				3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */,
 				3DDC6A6926270998004F5EA4 /* BlockPageLinkContentConfiguration.swift */,
+				3D3A9C44265BD694000F07DB /* BlockPageLinkViewModel+TergetId.swift */,
 			);
 			path = PageLink;
 			sourceTree = "<group>";
@@ -3369,6 +3372,7 @@
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
+				3D3A9C45265BD694000F07DB /* BlockPageLinkViewModel+TergetId.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */,
 				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,

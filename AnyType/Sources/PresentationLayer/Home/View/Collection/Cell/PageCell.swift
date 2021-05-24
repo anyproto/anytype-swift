@@ -25,7 +25,7 @@ struct PageCell: View {
         Group {
             switch cellData.icon {
             case let .emoji(emoji):
-                AnytypeText(emoji, name: .inter, size: 48, weight: .regular)
+                AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
             case let .imageId(imageid):
                 AsyncImage(imageId: imageid, parameters: ImageParameters(width: .thumbnail))
                     .aspectRatio(contentMode: .fill)

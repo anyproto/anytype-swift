@@ -37,39 +37,17 @@ extension HomeViewModel {
             
             var data = self.cellData[index]
             data.title = details.name?.value ?? ""
-            data.icon = self.iconData(details)
+            data.icon = details.documentIcon
             
             self.cellData[index] = data
         }.store(in: &cellSubscriptions)
         
         return PageCellData(
             id: pageLinkViewModel.blockId,
-            destinationId: destinationId(pageLinkViewModel),
-            icon: iconData(details),
+            destinationId: pageLinkViewModel.targetBlockId,
+            icon: details.documentIcon,
             title: details.name?.value ?? "",
             type: "Page"
         )
-    }
-    
-    private func destinationId(_ pageLinkViewModel: BlockPageLinkViewModel) -> String {
-        let targetBlockId: String
-        if case let .link(link) = pageLinkViewModel.getBlock().blockModel.information.content {
-            targetBlockId = link.targetBlockID
-        }
-        else {
-            assertionFailure("No target id for \(pageLinkViewModel)")
-            targetBlockId = ""
-        }
-        return targetBlockId
-    }
-    
-    private func iconData(_ details: DetailsInformationProvider) -> PageCellIcon? {
-        if let imageId = details.iconImage?.value, !imageId.isEmpty {
-            return .imageId(imageId)
-        } else if let emoji = details.iconEmoji?.value, !emoji.isEmpty {
-            return .emoji(emoji)
-        }
-        
-        return nil
     }
 }

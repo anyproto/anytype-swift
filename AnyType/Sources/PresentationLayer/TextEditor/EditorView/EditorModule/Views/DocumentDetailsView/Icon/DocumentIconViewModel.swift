@@ -36,7 +36,7 @@ extension DocumentIconViewModel {
         switch documentIcon {
         case let .emoji(iconEmoji):
             return makeIconEmojiView(with: iconEmoji)
-        case let .image(imageId):
+        case let .imageId(imageId):
             return makeIconImageView(with: imageId)
         case .none:
             return nil
