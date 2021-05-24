@@ -32,6 +32,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
                 try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
                 UserDefaultsConfig.usersIdKey = ""
                 UserDefaultsConfig.userName = ""
+                MiddlewareConfiguration.shared = nil
         }
     }
 

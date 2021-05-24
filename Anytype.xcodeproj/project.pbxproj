@@ -24,7 +24,6 @@
 		03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */; };
 		03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03527A0622F7A44B004F0418 /* KeychainPhraseView.swift */; };
 		0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372922D23F991B60033DFDB /* MiddlewareModels.swift */; };
-		0372923123F99BD50033DFDB /* MiddlewareConfigurationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372923023F99BD50033DFDB /* MiddlewareConfigurationStore.swift */; };
 		0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372923323F9CC230033DFDB /* CompletionAuthViewCoordinator.swift */; };
 		0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */; };
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
@@ -563,7 +562,6 @@
 		03527A0622F7A44B004F0418 /* KeychainPhraseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPhraseView.swift; sourceTree = "<group>"; };
 		03652DD7239F5E7B0029E773 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		0372922D23F991B60033DFDB /* MiddlewareModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareModels.swift; sourceTree = "<group>"; };
-		0372923023F99BD50033DFDB /* MiddlewareConfigurationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareConfigurationStore.swift; sourceTree = "<group>"; };
 		0372923323F9CC230033DFDB /* CompletionAuthViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAuthViewCoordinator.swift; sourceTree = "<group>"; };
 		0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
@@ -1263,14 +1261,6 @@
 			path = Middleware;
 			sourceTree = "<group>";
 		};
-		0372922F23F99BB80033DFDB /* InMemoryStore */ = {
-			isa = PBXGroup;
-			children = (
-				0372923023F99BD50033DFDB /* MiddlewareConfigurationStore.swift */,
-			);
-			path = InMemoryStore;
-			sourceTree = "<group>";
-		};
 		0372923223F9CB920033DFDB /* CompletionAuth */ = {
 			isa = PBXGroup;
 			children = (
@@ -1508,7 +1498,6 @@
 		03C5C53422DF6C9900DD91DE /* StoreLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0372922F23F99BB80033DFDB /* InMemoryStore */,
 				030DF4B62399C1DD00AD3BC3 /* LocalStore */,
 				03C5C53522DF6C9900DD91DE /* KeychainStore */,
 			);
@@ -3434,7 +3423,6 @@
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
-				0372923123F99BD50033DFDB /* MiddlewareConfigurationStore.swift in Sources */,
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,

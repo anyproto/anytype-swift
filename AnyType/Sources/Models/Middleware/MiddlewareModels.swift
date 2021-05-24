@@ -5,6 +5,8 @@ import SwiftProtobuf
 /// Middleware configuration
 /// TODO: Move to BlockModels module.
 struct MiddlewareConfiguration: Hashable {
+    static var shared: Self?
+    
     let homeBlockID: String
     let archiveBlockID: String
     let profileBlockId: String

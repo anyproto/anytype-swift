@@ -4,11 +4,12 @@ import ProtobufMessages
 
 /// Service that handles middleware config
 class MiddlewareConfigurationService: ConfigurationServiceProtocol {
-    private let storage = MiddlewareConfigurationStore.shared
-
-    /// Obtain middleware configuration
     func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
-        if let configuration = storage.get(by: MiddlewareConfiguration.self) {
+        return _obtainConfiguration().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+    }
+    
+    func _obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
+        if let configuration = MiddlewareConfiguration.shared {
             return Just(configuration)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
@@ -24,8 +25,8 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
                     gatewayURL: $0.gatewayURL
                 )
             }
-            .map { [weak self] configuration in
-                self?.storage.add(configuration)
+            .map { configuration in
+                MiddlewareConfiguration.shared = configuration
                 return configuration
             }
             .eraseToAnyPublisher()
@@ -36,9 +37,5 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
             .map { MiddlewareVersion(version: $0.details) }
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
-    }
-    
-    private func save(configuration: MiddlewareConfiguration) {
-        storage.add(configuration)
     }
 }

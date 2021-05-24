@@ -10,7 +10,6 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - Logout
     func logout() {
         self.authService.logout() {
-            MiddlewareConfigurationStore.shared.clearStorage()
             windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
         }
     }

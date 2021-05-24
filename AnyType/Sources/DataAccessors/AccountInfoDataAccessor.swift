@@ -53,22 +53,22 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func obtainAccountInfo() {
-        // Make async
-        middlewareConfigurationService.obtainConfiguration().receiveOnMain().flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
-            guard let self = self else {
+        middlewareConfigurationService.obtainConfiguration().receiveOnMain()
+            .flatMap { [weak self] configuration -> AnyPublisher<ServiceSuccess, Error> in
+                guard let self = self else {
                 return .empty()
             }
             
-            self.blockId = configuration.profileBlockId
-            return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
-        }.sink(receiveCompletion: { (completion) in
-            switch completion {
-            case .finished: break
-            case let .failure(error):
-                assertionFailure("obtainAccountInfo. Error has occured. \(error)")
-            }
-        }) { [weak self] serviceSuccess in
-            self?.document.open(serviceSuccess)
-        }.store(in: &subscriptions)
+                self.blockId = configuration.profileBlockId
+                return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
+            }.sink(receiveCompletion: { (completion) in
+                switch completion {
+                case .finished: break
+                case let .failure(error):
+                    assertionFailure("obtainAccountInfo. Error has occured. \(error)")
+                }
+            }) { [weak self] serviceSuccess in
+                self?.document.open(serviceSuccess)
+            }.store(in: &subscriptions)
     }
 }
