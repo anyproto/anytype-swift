@@ -10,4 +10,10 @@ protocol BlockRestrictions {
     var canApplyMention: Bool { get }
     var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes] { get }
     var availableAlignments: [BlockInformation.Alignment] { get }
+    /// If block can create block below current on enter pressing
+    var canCreateBlockBelowOnEnter: Bool { get }
+}
+
+extension BlockRestrictions {
+    var canCreateBlockBelowOnEnter: Bool { true }
 }

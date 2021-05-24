@@ -9,16 +9,13 @@
 import BlocksModels
 
 final class UserActionHandler {
-    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-    typealias ActionsPayloadUserAction = ActionsPayload.UserActionHolder.Action
-
     private let service: BlockActionService
 
     init(service: BlockActionService) {
         self.service = service
     }
 
-    func handlingUserAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadUserAction) {
+    func handlingUserAction(_ block: BlockActiveRecordModelProtocol, _ action: BlocksViews.UserAction) {
         switch action {
         case let .specific(.file(.shouldUploadFile(value))):
             self.service.upload(block: block.blockModel.information, filePath: value.filePath)

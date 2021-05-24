@@ -41,7 +41,7 @@ class PageTitleViewModel: PageBlockViewModel {
     }()
     
     // MARK: - Initialization
-    override init(_ block: BlockModel) {
+    override init(_ block: BlockActiveRecordModelProtocol) {
         super.init(block)
         self.setupSubscribers()
     }
@@ -84,7 +84,8 @@ class PageTitleViewModel: PageBlockViewModel {
             let restrictions = factory.makeRestrictions(for: information.content.type)
             let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: marksPaneActionSubject,
                                                             addBlockAndActionsSubject: toolbarActionSubject)
-            let coordinator = BlockTextViewCoordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
+            let coordinator = BlockTextViewCoordinator(blockRestrictions: restrictions,
+                                                       menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
                                                        blockMenuActionsHandler: actionsHandler)
             return coordinator
         }

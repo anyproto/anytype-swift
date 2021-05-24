@@ -11,10 +11,9 @@ protocol BlockActionsServiceListProtocolDelete {
 /// We don't support fields now.
 protocol BlockActionsServiceListProtocolSetFields {
     associatedtype Success
-    /// TODO: Add our fields model.
+    
     typealias Field = String
-    func action(contextID: BlockId, blockFields: [String]) -> AnyPublisher<Success, Error>
-//    func action(contextID: BlockId, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> AnyPublisher<Success, Error>
+    func action(contextID: BlockId, blockFields: [BlockFields]) -> AnyPublisher<Success, Error>
 }
 
 protocol BlockActionsServiceListProtocolSetTextStyle {

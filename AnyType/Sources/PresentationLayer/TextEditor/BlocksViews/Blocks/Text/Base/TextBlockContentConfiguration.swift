@@ -14,7 +14,7 @@ import Combine
 /// Content configuration for text blocks
 struct TextBlockContentConfiguration {
     private(set) var marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
-    private(set) var toolbarActionSubject: PassthroughSubject<BaseBlockViewModel.ActionsPayload.Toolbar.Action, Never>
+    private(set) var toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var viewModel: TextBlockViewModel
     private(set) var information: BlockInformation.InformationModel
@@ -28,7 +28,7 @@ struct TextBlockContentConfiguration {
          textViewDelegate: TextViewDelegate?,
          viewModel: TextBlockViewModel,
          marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>,
-         toolbarActionSubject: PassthroughSubject<BaseBlockViewModel.ActionsPayload.Toolbar.Action, Never>
+         toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     ) {
         self.marksPaneActionSubject = marksPaneActionSubject
         self.toolbarActionSubject = toolbarActionSubject
@@ -42,7 +42,7 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         let view: TextBlockContentView = .init(configuration: self)
-        self.viewModel.addContextMenuIfNeeded(view)
+        viewModel.addContextMenuIfNeeded(view)
         return view
     }
     

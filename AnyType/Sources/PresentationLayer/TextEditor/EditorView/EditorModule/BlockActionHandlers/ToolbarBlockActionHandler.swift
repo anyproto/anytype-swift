@@ -4,7 +4,7 @@ import os
 
 final class ToolbarBlockActionHandler {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-    typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
+//    typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
 
     private let service: BlockActionService
     private var indexWalker: LinearIndexWalker?
@@ -20,7 +20,7 @@ final class ToolbarBlockActionHandler {
         return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
 
-    func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadToolbar) {
+    func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: BlocksViews.Toolbar.UnderlyingAction) {
         switch action {
         case let .addBlock(value):
             switch value {

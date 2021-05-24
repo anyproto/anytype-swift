@@ -119,9 +119,11 @@ public extension BlockContent.Text {
     }
             
     // MARK: - Create
+
     static func empty() -> Self {
         self.createDefault(text: "")
     }
+
     static func createDefault(text: String) -> Self {
         .init(attributedText: .init(string: text), color: Self.defaultColor, contentType: .text, checked: Self.defaultChecked)
     }

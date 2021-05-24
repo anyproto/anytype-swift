@@ -130,7 +130,8 @@ final class TextBlockContentView: UIView & UIContentView {
         let restrictions = factory.makeRestrictions(for: currentConfiguration.information.content.type)
         let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: currentConfiguration.marksPaneActionSubject,
                                                         addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject)
-        let coordinator = BlockTextViewCoordinator(menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
+        let coordinator = BlockTextViewCoordinator(blockRestrictions: restrictions,
+                                                   menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
                                                     blockMenuActionsHandler: actionsHandler)
         return coordinator.configure(currentConfiguration.viewModel)
     }
@@ -178,6 +179,9 @@ final class TextBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
+        // reset content cell to plain text
+        setupForText()
+
         self.currentConfiguration.viewModel.addContextMenuIfNeeded(self)
 
         // it's important to clean old attributed string

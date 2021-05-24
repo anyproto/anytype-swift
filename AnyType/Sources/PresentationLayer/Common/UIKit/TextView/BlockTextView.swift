@@ -25,7 +25,6 @@ final class BlockTextView: UIView {
             // in coordinator configured(textStorageStream:)
             // method have not being called, it leads us to
             // deleting text in textView without updating it in block model
-            textView.coordinator = coordinator
             textView.delegate = coordinator
             coordinator?.configureMarksPanePublisher(textView)
         }

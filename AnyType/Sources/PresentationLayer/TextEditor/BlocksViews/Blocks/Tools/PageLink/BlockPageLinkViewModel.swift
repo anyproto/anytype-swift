@@ -21,12 +21,12 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
-    override init(_ block: BlockModel) {
+    override init(_ block: BlockActiveRecordModelProtocol) {
         super.init(block)
         self.setup(block: block)
     }
     
-    private func setup(block: BlockModel) {
+    private func setup(block: BlockActiveRecordModelProtocol) {
         let information = block.blockModel.information
         switch information.content {
         case let .link(value):

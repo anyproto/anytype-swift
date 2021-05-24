@@ -11,7 +11,6 @@ import BlocksModels
 final class TextBlockViewModel: BaseBlockViewModel {
     private struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
-        var shouldApplyChangesLocally: Bool = false
     }
 
     private var serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
@@ -34,7 +33,7 @@ final class TextBlockViewModel: BaseBlockViewModel {
 
     // MARK: - Life cycle
 
-    override init(_ block: BlockModel) {
+    override init(_ block: BlockActiveRecordModelProtocol) {
         super.init(block)
         self.setupSubscribers()
     }
@@ -42,25 +41,6 @@ final class TextBlockViewModel: BaseBlockViewModel {
     // MARK: - Subclassing accessors
 
     override func makeContentConfiguration() -> UIContentConfiguration {
-        guard case let .text(text) = self.getBlock().blockModel.information.content else {
-            return super.makeContentConfiguration()
-        }
-        switch text.contentType {
-        case .code:
-            return makeCodeBlockConfiguration()
-        default:
-            return makeTextBlockConfiguration()
-        }
-    }
-
-    // TODO: we shouldn't did it here
-    private func makeCodeBlockConfiguration() -> UIContentConfiguration {
-        var configuration = CodeBlockContentConfiguration(self)
-        configuration.contextMenuHolder = self
-        return configuration
-    }
-    
-    private func makeTextBlockConfiguration() -> UIContentConfiguration {
         let configuration = TextBlockContentConfiguration(textViewDelegate: self,
                                                           viewModel: self,
                                                           marksPaneActionSubject: marksPaneActionSubject,
@@ -121,12 +101,6 @@ extension TextBlockViewModel {
             textView?.apply(update: textViewUpdate)
         default: return
         }
-    }
-
-    /// Show view with code language selection
-    /// - Parameter completion: Return in completion selected code language as `String` type
-    func needsShowCodeLanguageView(with languages: [String], completion: @escaping (_ language: String) -> Void) {
-        self.send(actionsPayload: .showCodeLanguageView(languages: languages, completion: completion))
     }
 }
 
@@ -283,15 +257,11 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
 
 // MARK: - Debug
 
-extension TextBlockViewModel {
-    // Class scope, actually.
-    class func debugString(_ unique: Bool, _ id: BlockId) -> String {
-        unique ? self.defaultDebugStringUnique(id) : self.defaultDebugString()
-    }
-    class func defaultDebugStringUnique(_ id: BlockId) -> String {
-        self.defaultDebugString() + id.description.prefix(10)
-    }
-    class func defaultDebugString() -> String {
-        .init("\(String(reflecting: self))".split(separator: ".").dropLast().last ?? "")
+extension TextBlockViewModel: CustomDebugStringConvertible {
+    var debugDescription: String {
+        guard case let .text(text) = information.content else {
+            return "id: \(blockId) text block with wrong content type!!! See BlockInformation.InformationModel"
+        }
+        return "id: \(blockId)\ntext: \(text.attributedText.string.prefix(10))...\ntype: \(text.contentType)"
     }
 }

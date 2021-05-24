@@ -33,6 +33,7 @@ final class BlockTextViewCoordinator: NSObject {
     private let textSizeChangeSubject: PassthroughSubject<CGSize, Never> = .init()
     private(set) lazy var textSizeChangePublisher: AnyPublisher<CGSize, Never> = self.textSizeChangeSubject.eraseToAnyPublisher()
     private weak var userInteractionDelegate: TextViewUserInteractionProtocol?
+    private let blockRestrictions: BlockRestrictions
 
     /// TextStorage Subscription
     private var textStorageSubscription: AnyCancellable?
@@ -73,19 +74,30 @@ final class BlockTextViewCoordinator: NSObject {
     private(set) weak var textView: UITextView?
     private lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
 
-    init(menuItemsBuilder: BlockActionsBuilder, blockMenuActionsHandler: BlockMenuActionsHandler) {
+    init(blockRestrictions: BlockRestrictions,
+        menuItemsBuilder: BlockActionsBuilder?,
+         blockMenuActionsHandler: BlockMenuActionsHandler?) {
+        self.blockRestrictions = blockRestrictions
+
         super.init()
+
         let dismissActionsMenu = { [weak self] in
             guard let self = self, let textView = self.textView else { return }
             self.inputSwitcher.showEditingBars(coordinator: self, textView: textView)
         }
-        self.menuActionsAccessoryView = BlockActionsView(frame: CGRect(origin: .zero,
-                                                                       size: Constants.menuActionsViewSize),
-                                                         menuItems: menuItemsBuilder.makeBlockActionsMenuItems(), blockMenuActionsHandler: blockMenuActionsHandler, actionsMenuDismissHandler: dismissActionsMenu)
+
+        if let menuItemsBuilder = menuItemsBuilder, let blockMenuActionsHandler = blockMenuActionsHandler {
+            let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
+            self.menuActionsAccessoryView = BlockActionsView(frame: actionViewRect,
+                                                             menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
+                                                             blockMenuActionsHandler: blockMenuActionsHandler,
+                                                             actionsMenuDismissHandler: dismissActionsMenu)
+        }
     }
 }
 
 // MARK: - Public Protocol
+
 extension BlockTextViewCoordinator {
     func configure(_ delegate: TextViewUserInteractionProtocol?) -> Self {
         self.userInteractionDelegate = delegate
@@ -121,7 +133,6 @@ extension BlockTextViewCoordinator {
     /// 
     /// TODO:
     /// Remove it from here.
-    ///
     func configureMarksPanePublisher(_ view: UITextView) {
         self.marksToolbarHandler = Publishers.CombineLatest(Just(view), self.marksToolbarInputView.viewModel.userAction).sink { [weak self] (value) in
             let (textView, action) = value
@@ -355,6 +366,8 @@ private extension BlockTextViewCoordinator {
 
 extension BlockTextViewCoordinator: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard blockRestrictions.canCreateBlockBelowOnEnter else { return true }
+
         // In the case of frequent pressing of enter
         // we can send multiple split requests to middle
         // from the same block, it will leads to wrong order of blocks in array,

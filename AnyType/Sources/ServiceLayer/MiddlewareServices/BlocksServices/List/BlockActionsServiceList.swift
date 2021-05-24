@@ -11,6 +11,8 @@ import Combine
 import BlocksModels
 import UIKit
 import ProtobufMessages
+import SwiftProtobuf
+
 
 class BlockActionsServiceList: BlockActionsServiceListProtocol {
     var delete: Delete = .init()
@@ -50,14 +52,16 @@ extension BlockActionsServiceList {
     }
     
     struct SetFields: BlockActionsServiceListProtocolSetFields {
-        /// TODO: Add conversion from our fields to middleware fields
-        func action(contextID: BlockId, blockFields: [String]) -> AnyPublisher<Success, Error> {
-            self.action(contextID: contextID, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]())
+        func action(contextID: BlockId, blockFields: [BlockFields]) -> AnyPublisher<Success, Error> {
+            let middleFields = blockFields.map { $0.convertToMiddle() }
+            return action(contextID: contextID, blockFields: middleFields)
         }
+
         private func action(contextID: String, blockFields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) -> AnyPublisher<Success, Error> {
             Anytype_Rpc.BlockList.Set.Fields.Service.invoke(contextID: contextID, blockFields: blockFields).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
         }
     }
+
     struct SetTextStyle: BlockActionsServiceListProtocolSetTextStyle {
         func action(contextID: BlockId, blockIds: [BlockId], style: Style) -> AnyPublisher<Success, Error> {
             let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)

@@ -11,21 +11,47 @@ import UIKit
 import Highlightr
 
 
+/// Protocol for interacting with code block view
+protocol CodeBlockViewInteractable: AnyObject {
+    /// Code language did changed
+    /// - Parameter language: code language
+    func languageDidChange(language: String)
+}
+
 /// Content view for code block
 final class CodeBlockContentView: UIView & UIContentView {
 
     // MARK: - Constants
 
-    private enum Constants {
-        static let insets: UIEdgeInsets = .init(top: 6, left: 0, bottom: 6, right: 0)
+    private enum LayoutConstants {
+        static let selectionViewInsets: UIEdgeInsets = .init(top: 6, left: 8, bottom: -6, right: -8)
+        static let insets: UIEdgeInsets = .init(top: 6, left: 0, bottom: -6, right: 0)
         static let textInsets: UIEdgeInsets = .init(top: 50, left: 20, bottom: 24, right: 20)
+    }
+
+    private enum Constants {
         static let defaultLanguage: String = "Swift"
         static let defaultTheme: String = "github-gist"
     }
 
+    // MARK: - State properties
+
+    private var subscriptions: Set<AnyCancellable> = []
+    private var textViewCoordinator: BlockTextViewCoordinator?
+
     let textStorage = CodeAttributedString()
 
-    // MARK: - Properties
+    private var currentConfiguration: CodeBlockContentConfiguration
+    /// Block content configuration
+    var configuration: UIContentConfiguration {
+        get { self.currentConfiguration }
+        set {
+            guard let configuration = newValue as? CodeBlockContentConfiguration else { return }
+            self.apply(configuration: configuration)
+        }
+    }
+
+    // MARK: - Views
 
     private lazy var textView: UITextView = {
         textStorage.language = Constants.defaultLanguage
@@ -38,9 +64,12 @@ final class CodeBlockContentView: UIView & UIContentView {
         let textContainer = NSTextContainer()
         layoutManager.addTextContainer(textContainer)
 
-        let textView = UITextView(frame: bounds, textContainer: textContainer)
+        let textView = UITextView(frame: .zero, textContainer: textContainer)
         textView.isScrollEnabled = false
         textView.backgroundColor = .clear
+        textView.font = .codeFont
+        textStorage.highlightDelegate = self
+        codeSelectButton.setText(Constants.defaultLanguage)
 
         return textView
     }()
@@ -56,23 +85,11 @@ final class CodeBlockContentView: UIView & UIContentView {
 
         return button
     }()
-    
-    private var setFocusSubscription: AnyCancellable?
 
-    private var currentConfiguration: CodeBlockContentConfiguration
-
-    /// Block content configuration
-    var configuration: UIContentConfiguration {
-        get { self.currentConfiguration }
-        set {
-            guard let configuration = newValue as? CodeBlockContentConfiguration else { return }
-            self.apply(configuration: configuration)
-        }
-    }
+    private let selectionView = UIView()
 
     // MARK: - Life cycle
 
-    /// Initialization
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -81,19 +98,35 @@ final class CodeBlockContentView: UIView & UIContentView {
     init(configuration: CodeBlockContentConfiguration) {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
-        self.setup()
+        self.setupViews()
         self.applyNewConfiguration()
     }
 
-    private func setup() {
-        textView.delegate = self
-        textView.textContainerInset = Constants.textInsets
+    // MARK: - Fabric methods
+
+    private func makeCoordinator() -> BlockTextViewCoordinator {
+        let blockRestrictions = BlockRestrictionsFactory().makeRestrictions(for: .text(.code))
+        let coordinarot = BlockTextViewCoordinator(blockRestrictions:blockRestrictions ,menuItemsBuilder: nil, blockMenuActionsHandler: nil)
+        textViewCoordinator = coordinarot
+        coordinarot.configureEditingToolbarHandler(textView)
+
+        coordinarot.textSizeChangePublisher.sink { [weak self] _ in
+            self?.currentConfiguration.viewModel?.needsUpdateLayout()
+        }.store(in: &subscriptions)
+
+        return coordinarot.configure(currentConfiguration.viewModel)
+    }
+
+    // MARK: - Setup view
+
+    private func setupViews() {
+        textView.textContainerInset = LayoutConstants.textInsets
 
         textView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textView)
         addSubview(codeSelectButton)
 
-        textView.edgesToSuperview(insets: Constants.insets)
+        textView.edgesToSuperview(insets: LayoutConstants.insets)
 
         NSLayoutConstraint.activate([
             codeSelectButton.topAnchor.constraint(equalTo: topAnchor, constant: 13),
@@ -103,43 +136,81 @@ final class CodeBlockContentView: UIView & UIContentView {
         codeSelectButton.addAction(UIAction(handler: { [weak self] action in
             guard let codeLanguages = self?.textStorage.highlightr.supportedLanguages() else { return }
 
-            self?.currentConfiguration.contextMenuHolder?.needsShowCodeLanguageView(with: codeLanguages) { language in
+            self?.currentConfiguration.viewModel?.send(actionsPayload: .showCodeLanguageView(languages: codeLanguages) { language in
                 self?.textStorage.language = language
                 self?.codeSelectButton.setText(language)
-            }
+
+                self?.currentConfiguration.viewModel?.setCodeLanguage(language)
+            })
         }), for: .touchUpInside)
+
+        selectionView.layer.cornerRadius = 6
+        selectionView.layer.cornerCurve = .continuous
+        selectionView.isUserInteractionEnabled = false
+        selectionView.clipsToBounds = true
+
+        addSubview(selectionView)
+        selectionView.pinAllEdges(to: self, insets: LayoutConstants.selectionViewInsets)
     }
 
     // MARK: - Apply configuration
 
     private func apply(configuration: CodeBlockContentConfiguration) {
-        guard self.currentConfiguration != configuration else { return }
-        self.currentConfiguration = configuration
-        self.applyNewConfiguration()
+        guard currentConfiguration != configuration else { return }
+        currentConfiguration = configuration
+        applyNewConfiguration()
     }
 
     private func applyNewConfiguration() {
-        self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
-        self.currentConfiguration.contextMenuHolder?.textView = textView
-
-        if case let .text(content) = self.currentConfiguration.information.content {
-            self.textView.text = content.attributedText.string
-        }
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        self.textView.backgroundColor = ColorConverter.Colors.grey.color(background: true)
+
+        currentConfiguration.viewModel?.addContextMenuIfNeeded(self)
+        currentConfiguration.viewModel?.textView = textView
+        currentConfiguration.viewModel?.codeBlockView = self
+        codeSelectButton.setText(currentConfiguration.viewModel?.codeLanguage ?? Constants.defaultLanguage)
+
+        textView.delegate = makeCoordinator()
+        if case let .text(content) = currentConfiguration.information.content {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineHeightMultiple = 1.13 // value from design
+            let codeText = NSAttributedString(string: content.attributedText.string,
+                                              attributes: [NSAttributedString.Key.kern: -0.08, // value from design
+                                                           NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                                           NSAttributedString.Key.font: UIFont.codeFont])
+            textView.font = UIFont.codeFont
+            textView.attributedText = codeText
+        }
+
+        selectionView.layer.borderWidth = 0.0
+        selectionView.layer.borderColor = nil
+        selectionView.backgroundColor = .clear
+
+        if currentConfiguration.isSelected {
+            selectionView.layer.borderWidth = 2.0
+            selectionView.layer.borderColor = UIColor.pureAmber.cgColor
+            selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
+        }
+        textView.backgroundColor = ColorConverter.Colors.grey.color(background: true)
     }
 }
 
-// MARK: - UITextViewDelegate
+// MARK: - HighlightDelegate
 
-extension CodeBlockContentView: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        let currentSize = textView.bounds.size
-        let newSize = textView.attributedText.size()
-        
-        if newSize.height != currentSize.height {
-            self.currentConfiguration.contextMenuHolder?.needsUpdateLayout()
+extension CodeBlockContentView: HighlightDelegate {
+    func didHighlight(_ range: NSRange, success: Bool) {
+        currentConfiguration.viewModel?.needsUpdateLayout()
+        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+        textView.backgroundColor = ColorConverter.Colors.grey.color(background: true)
+    }
+}
+
+// MARK: - CodeBlockViewInteractable
+
+extension CodeBlockContentView: CodeBlockViewInteractable {
+    func languageDidChange(language: String) {
+        DispatchQueue.main.async {
+            self.textStorage.language = language
+            self.codeSelectButton.setText(language)
         }
     }
 }
-

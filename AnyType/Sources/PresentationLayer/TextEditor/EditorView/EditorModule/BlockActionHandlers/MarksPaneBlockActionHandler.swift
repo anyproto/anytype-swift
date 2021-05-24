@@ -6,7 +6,7 @@ import BlocksModels
 
 final class MarksPaneBlockActionHandler {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-    typealias ActionsPayloadMarksPane = ActionsPayload.MarksPaneHolder.Action
+    typealias ActionsPayloadMarksPane = MarksPane.Main.Action
     typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
     
     private let service: BlockActionService

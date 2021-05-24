@@ -21,29 +21,25 @@ extension BaseBlockViewModel {
     /// Possibly, that we need to separate text view actions.
     enum ActionsPayload {
         struct Toolbar {
-            typealias Action = BlocksViews.Toolbar.UnderlyingAction
-            let model: BlockModel
-            let action: Action
+            let model: BlockActiveRecordModelProtocol
+            let action: BlocksViews.Toolbar.UnderlyingAction
         }
 
         struct MarksPaneHolder {
-            typealias Action = MarksPane.Main.Action
-            let model: BlockModel
-            let action: Action
+            let model: BlockActiveRecordModelProtocol
+            let action: MarksPane.Main.Action
         }
 
         /// For backward compatibility.
         struct TextBlocksViewsUserInteraction {
-            typealias Action = TextBlockUserInteraction
-            let model: BlockModel
-            let action: Action
+            let model: BlockActiveRecordModelProtocol
+            let action: TextBlockUserInteraction
         }
 
         /// For seamless usage of UserAction as "Payload"
-        struct UserActionHolder {
-            typealias Action = BlocksViews.UserAction
-            let model: BlockModel
-            let action: Action
+        struct UserAction {
+            let model: BlockActiveRecordModelProtocol
+            let action: BlocksViews.UserAction
         }
 
         /// Text blocks draft.
@@ -56,14 +52,14 @@ extension BaseBlockViewModel {
                 case checked(Bool)
             }
 
-            var model: BlockModel
+            var model: BlockActiveRecordModelProtocol
             var action: Action
         }
 
         case toolbar(Toolbar)
         case marksPane(MarksPaneHolder)
         case textView(TextBlocksViewsUserInteraction)
-        case userAction(UserActionHolder)
+        case userAction(UserAction)
         /// show code language view
         case showCodeLanguageView(languages: [String], completion: (String) -> Void)
         /// show style menu
@@ -89,25 +85,23 @@ extension BaseBlockViewModel {
 
 /// Base block view model
 class BaseBlockViewModel: ObservableObject {
-    
+    typealias Information = BlockInformation.InformationModel
+
     private enum Constants {
         static let maxIndentationLevel: Int = 4
     }
     
-    typealias BlockModel = BlockActiveRecordModelProtocol
-    typealias Information = BlockInformation.InformationModel
-    
     // MARK: Variables
     /// our Block
     /// Maybe we should made it Observable?.. Let think a bit about it.
-    private var block: BlockModel
+    private var block: BlockActiveRecordModelProtocol
     
     /// Options that handle a behavior of view model.
     private var options: Options = .init()
     
     // MARK: - Initialization
 
-    init(_ block: BlockModel) {
+    init(_ block: BlockActiveRecordModelProtocol) {
         self.block = block
         self.diffable = makeDiffable()
         self.configure()
@@ -123,36 +117,14 @@ class BaseBlockViewModel: ObservableObject {
     // MARK: - Subclass / Blocks
     
     // MARK: Block model processing
-    func getBlock() -> BlockModel { self.block }
+    func getBlock() -> BlockActiveRecordModelProtocol { self.block }
 
     func isRealBlock() -> Bool { self.getBlock().blockModel.kind == .block }
 
-    func update(block: (inout BlockModel) -> ()) {
+    func update(block: (inout BlockActiveRecordModelProtocol) -> ()) {
         if isRealBlock() {
             self.block = update(getBlock(), body: block)
 //                self.blockUpdatesSubject.send(self.block)
-        }
-    }
-    
-    /// Check whether is possible to drop other block to this to create parent-child relation
-    func canHaveChildren() -> Bool {
-        switch block.blockModel.information.content {
-        case let .text(text):
-            switch text.contentType {
-            case .text, .checkbox, .toggle, .bulleted, .numbered:
-                return true
-            default:
-                return false
-            }
-        case let .link(link):
-            switch link.style {
-            case .page:
-                return true
-            case .dataview, .archive:
-                return false
-            }
-        default:
-            return false
         }
     }
     
@@ -177,8 +149,8 @@ class BaseBlockViewModel: ObservableObject {
     ///
     /// If user press something, then AddBlockToolbar will send user action to `PassthroughSubject` ( or `toolbarActionSubject` in our case ).
     ///
-    public private(set) var toolbarActionSubject: PassthroughSubject<ActionsPayload.Toolbar.Action, Never> = .init()
-    public var toolbarActionPublisher: AnyPublisher<ActionsPayload.Toolbar.Action, Never> = .empty()
+    public private(set) var toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
+    public var toolbarActionPublisher: AnyPublisher<BlocksViews.Toolbar.UnderlyingAction, Never> = .empty()
     
     // MARK: Marks Pane Publisher
 
@@ -592,7 +564,7 @@ extension BaseBlockViewModel: BlockViewBuilderProtocol {
     }
 }
 
-/// Requirement: `Block sViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.
+/// Requirement: `Blocks ViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.
 /// We could send events to `userActionPublisher`.
 extension BaseBlockViewModel: BlocksViewsUserActionsEmittingProtocol {
     func send(userAction: BlocksViews.UserAction) {

@@ -83,8 +83,10 @@ extension UIFont {
             return .header1Font
         case .quote:
             return .highlightFont
-        case .text, .checkbox, .bulleted, .numbered, .toggle, .code, .header4:
+        case .text, .checkbox, .bulleted, .numbered, .toggle, .header4:
             return .bodyFont
+        case .code:
+            return .codeFont
         }
     }
 }

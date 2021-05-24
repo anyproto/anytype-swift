@@ -54,6 +54,13 @@ class EventHandler: EventHandlerProtocol {
         typealias AttributedTextConverter = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter
 
         switch event {
+        case let .blockSetFields(fields):
+            updater?.update(entry: fields.id) { block in
+                var block = block
+                block.information.fields = fields.fields.fields
+                block.didChange()
+            }
+            return nil
         case let .blockAdd(value):
             value.blocks
                 .compactMap(self.parser.convert(block:))

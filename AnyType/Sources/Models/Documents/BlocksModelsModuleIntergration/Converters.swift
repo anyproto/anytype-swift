@@ -43,6 +43,7 @@ extension BlocksModelsParser.Converters {
         default: return nil
         }
     }
+
     static func convert(block: BlockContent?) -> BaseContentConverter? {
         switch block {
         case .smartblock: return self.contentObjectAsEmptyPage

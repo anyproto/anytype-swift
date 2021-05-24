@@ -9,32 +9,33 @@
 import Foundation
 import Combine
 
+
 // MARK: - UserAction
+
 extension BlocksViews {
-    typealias Model = String
+    typealias TextContent = String
+
     /// Top-level user action.
     /// All parsing is starting from this enumeration.
     enum UserAction {
+        /// Specific action for each specific blocks views type.
+        /// You should define a `.UserAction` payload enumeration in each namespace.
+        /// After that you could add it as an entry of this enum.
+        enum SpecificAction {
+            case tool(Tools.UserAction)
+            case file(File.FileAction)
+            case page(Page.UserAction)
+        }
+
         // when a model is about to update.
-        case updated(Model)
+        case updated(TextContent)
         case toolbars(ToolbarOpenAction)
         case specific(SpecificAction)
     }
 }
 
-// MARK: - Specific Action
-extension BlocksViews.UserAction {
-    /// Specific action for each specific blocks views type.
-    /// You should define a `.UserAction` payload enumeration in each namespace.
-    /// After that you could add it as an entry of this enum.
-    enum SpecificAction {
-        case tool(Tools.UserAction)
-        case file(File.FileAction)
-        case page(Page.UserAction)
-    }
-}
-
 // MARK: - ToolbarOpenAction
+
 extension BlocksViews.UserAction {
     /// Toolbar Open action.
     /// When you would like to open specific toolbar, you should add new entry in enumeration.
@@ -56,6 +57,7 @@ extension BlocksViews.UserAction {
 }
 
 // MARK: - Blocks / AddBlock and TurnInto
+
 extension BlocksViews.UserAction.ToolbarOpenAction {
     struct BlockMenu {
         struct Payload {
@@ -81,6 +83,7 @@ extension BlocksViews.UserAction.ToolbarOpenAction {
 }
 
 // MARK: - Bookmark
+
 extension BlocksViews.UserAction.ToolbarOpenAction {
     struct Bookmark {
         typealias Input = Void

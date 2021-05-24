@@ -14,8 +14,13 @@ class CompoundViewModelConverter {
     func convert(_ block: BaseDocument.ActiveModel) -> BaseBlockViewModel? {
         switch block.blockModel.information.content {
         case .smartblock, .layout: return nil
-        case .text:
-            return TextBlockViewModel(block)
+        case let .text(content):
+            switch content.contentType {
+            case .code:
+                return CodeBlockViewModel(block)
+            default:
+                return TextBlockViewModel(block)
+            }
         case let .file(value):
             switch value.contentType {
             case .file: return BlocksViews.File.File.ViewModel.init(block)

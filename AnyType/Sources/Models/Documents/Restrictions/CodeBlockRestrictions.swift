@@ -17,4 +17,8 @@ struct CodeBlockRestrictions: BlockRestrictions {
     var availableAlignments: [BlockInformation.Alignment] {
         []
     }
+
+    var canCreateBlockBelowOnEnter: Bool {
+        false
+    }
 }

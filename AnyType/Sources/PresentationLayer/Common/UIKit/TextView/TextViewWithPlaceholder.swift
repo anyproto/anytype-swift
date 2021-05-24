@@ -32,8 +32,6 @@ extension TextViewWithPlaceholder {
 // MARK: - TextView
 
 final class TextViewWithPlaceholder: UITextView {
-    weak var coordinator: BlockTextViewCoordinator?
-
     // MARK: Publishers
     private var contextualMenuSubject: PassthroughSubject<BlockTextView.ContextualMenu.Action, Never> = .init()
     private(set) var contextualMenuPublisher: AnyPublisher<BlockTextView.ContextualMenu.Action, Never> = .empty()

@@ -25,7 +25,7 @@ extension Namespace {
         private var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }
         
-        override init(_ block: BlockModel) {
+        override init(_ block: BlockActiveRecordModelProtocol) {
             super.init(block)
             self.setupSubscribers()
         }

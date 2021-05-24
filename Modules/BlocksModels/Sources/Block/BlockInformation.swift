@@ -1,4 +1,6 @@
-import Foundation
+import ProtobufMessages
+import SwiftProtobuf
+
 
 public enum BlockInformation {
     public typealias BackgroundColor = String
@@ -10,7 +12,7 @@ public enum BlockInformation {
         public var childrenIds: ChildrenIds = []
         public var content: BlockContent
         
-        public var fields: [String : AnyHashable] = [:]
+        public var fields: [String : Google_Protobuf_Value] = [:]
         var restrictions: [String] = []
         
         public var backgroundColor: BackgroundColor = ""

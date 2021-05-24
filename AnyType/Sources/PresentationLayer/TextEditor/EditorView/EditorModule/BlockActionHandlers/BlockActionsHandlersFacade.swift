@@ -17,7 +17,7 @@ protocol DocumentViewInteraction: AnyObject {
 final class BlockActionsHandlersFacade {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     // TODO: remove when possible
-    typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
+//    typealias ActionsPayloadToolbar = BlocksViews.Toolbar.UnderlyingAction
 
     private var subscription: AnyCancellable?
     private let service: BlockActionService = .init(documentId: "")
@@ -217,9 +217,7 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
 /// We don't care about business logic on THIS level.
 struct BlockBuilder {
     typealias Information = BlockInformation.InformationModel
-
     typealias KeyboardAction = BlockTextView.UserAction.KeyboardAction
-    typealias ToolbarAction = BlockActionsHandlersFacade.ActionsPayloadToolbar
 
     static func newBlockId() -> BlockId { "" }
 
@@ -231,7 +229,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createInformation(block: BlockActiveRecordModelProtocol, action: ToolbarAction, textPayload: String = "") -> Information? {
+    static func createInformation(block: BlockActiveRecordModelProtocol, action: BlocksViews.Toolbar.UnderlyingAction, textPayload: String = "") -> Information? {
         switch action {
         case .addBlock:
             return self.createContentType(block: block, action: action, textPayload: textPayload)
@@ -271,7 +269,9 @@ struct BlockBuilder {
         }
     }
 
-    static func createContentType(block: BlockActiveRecordModelProtocol, action: ToolbarAction, textPayload: String = "") -> BlockContent? {
+    static func createContentType(block: BlockActiveRecordModelProtocol,
+                                  action: BlocksViews.Toolbar.UnderlyingAction,
+                                  textPayload: String = "") -> BlockContent? {
         switch action {
         case let .addBlock(blockType):
             switch blockType {
