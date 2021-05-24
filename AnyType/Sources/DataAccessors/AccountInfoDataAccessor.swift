@@ -10,7 +10,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private let defaultName = "Anytype User"
     
-    private let documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
+    private let document: BaseDocumentProtocol = BaseDocument()
     private var subscriptions: Set<AnyCancellable> = []
     
     private let middlewareConfigurationService = MiddlewareConfigurationService()
@@ -28,7 +28,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpNameSubscription() {
-        documentViewModel.pageDetailsPublisher().map { $0.value(for: .name) }.safelyUnwrapOptionals().receiveOnMain().sink { [weak self] accountName in
+        document.pageDetailsPublisher().map { $0.value(for: .name) }.safelyUnwrapOptionals().receiveOnMain().sink { [weak self] accountName in
             guard let self = self else {
                 return
             }
@@ -38,7 +38,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     }
     
     private func setUpImageSubscription() {
-        documentViewModel.pageDetailsPublisher()
+        document.pageDetailsPublisher()
             .map { $0.value(for: .iconImage) }
             .safelyUnwrapOptionals()
             .receiveOnMain()
@@ -64,7 +64,7 @@ final class AccountInfoDataAccessor: ObservableObject {
                 assertionFailure("obtainAccountInfo. Error has occured. \(error)")
             }
         }) { [weak self] serviceSuccess in
-            self?.documentViewModel.open(serviceSuccess)
+            self?.document.open(serviceSuccess)
         }.store(in: &subscriptions)
     }
 }

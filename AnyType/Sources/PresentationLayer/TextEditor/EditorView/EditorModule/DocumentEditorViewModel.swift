@@ -27,10 +27,9 @@ class DocumentEditorViewModel: ObservableObject {
 
     /// Service
     private var blockActionsService: BlockActionsServiceSingle = .init()
-    private lazy var blockActionHandler = BlockActionHandler(documentId: self.documentViewModel.documentId, documentViewInteraction: self)
+    private lazy var blockActionHandler = BlockActionHandler(documentId: document.documentId, documentViewInteraction: self)
 
-    /// Document ViewModel
-    private(set) var documentViewModel: DocumentViewModelProtocol = DocumentViewModel()
+    let document: BaseDocumentProtocol = BaseDocument()
 
     var onDetailsViewModelUpdate: (() -> Void)?
     
@@ -178,7 +177,7 @@ class DocumentEditorViewModel: ObservableObject {
     }
 
     private func handleOpenDocument(_ value: ServiceSuccess) {
-        self.documentViewModel.updatePublisher()
+        document.updatePublisher()
             .receiveOnMain()
             .sink { [weak self] (value) in
                 switch value.updates {
@@ -193,22 +192,22 @@ class DocumentEditorViewModel: ObservableObject {
                 }
             }.store(in: &self.subscriptions)
             
-        self.documentViewModel.open(value)
+        document.open(value)
         
-        documentViewModel.pageDetailsPublisher()
+        document.pageDetailsPublisher()
             .receiveOnMain()
             .sink { [weak self] detailsInformationProvider in
                 guard let self = self else { return }
                 
                 self.detailsViewModel = DocumentDetailsViewModel(
                     documentIcon: detailsInformationProvider.documentIcon,
-                    detailsActiveModel: self.documentViewModel.defaultDetailsActiveModel,
+                    detailsActiveModel: self.document.defaultDetailsActiveModel,
                     userActionSubject: self.publicUserActionSubject
                 )
             }
             .store(in: &subscriptions)
 
-        self.configureInteractions(self.documentViewModel.documentId)
+        self.configureInteractions(document.documentId)
     }
     
     private func updateDiffableValuesForBlockIds(_ ids: Set<BlockId>) {
@@ -247,11 +246,11 @@ private extension DocumentEditorViewModel {
             let events = value.events
             let actionType = value.actionType
 
-            self.documentViewModel.handle(events: events)
+            document.handle(events: events)
 
             switch actionType {
             case .deleteBlock, .merge:
-                let firstResponderBlockId = self.documentViewModel.userSession?.firstResponderId()
+                let firstResponderBlockId = document.userSession?.firstResponderId()
                 
                 if let firstResponderIndex = self.builders.firstIndex(where: { $0.blockId == firstResponderBlockId }) {
                     self.viewInput?.setFocus(at: firstResponderIndex)
@@ -266,7 +265,7 @@ private extension DocumentEditorViewModel {
         switch reaction {
         case let .shouldHandleEvent(value):
             let events = value.payload.events
-            self.documentViewModel.handle(events: events)
+            document.handle(events: events)
         }
     }
 }
@@ -275,8 +274,8 @@ private extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func handlingTapIfEmpty() {
-        self.oldblockActionHandler.createEmptyBlock(
-            listIsEmpty: self.state == .empty, parentModel: self.documentViewModel.rootActiveModel
+        oldblockActionHandler.createEmptyBlock(
+            listIsEmpty: state == .empty, parentModel: document.rootActiveModel
         )
     }
 }
@@ -321,11 +320,11 @@ private extension DocumentEditorViewModel {
             }
         // TODO: we need coordinator(router) here that show this view https://app.clickup.com/t/h13ytp
         case let .showCodeLanguageView(languages, completion):
-            self.viewInput?.showCodeLanguageView(with: languages, completion: completion)
+            viewInput?.showCodeLanguageView(with: languages, completion: completion)
         case let .showStyleMenu(blockModel, blockViewModel):
-            self.viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
+            viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
         case let .becomeFirstResponder(blockModel):
-            self.documentViewModel.userSession?.setFirstResponder(with: blockModel)
+            document.userSession?.setFirstResponder(with: blockModel)
         case .toolbar, .marksPane, .userAction: return
         }
     }
@@ -376,7 +375,7 @@ extension DocumentEditorViewModel {
 // MARK: - Debug
 extension DocumentEditorViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        "\(String(reflecting: Self.self)) -> \(String(describing: self.documentViewModel.documentId))"
+        "\(String(reflecting: Self.self)) -> \(String(describing: document.documentId))"
     }
 }
 
@@ -406,7 +405,7 @@ extension DocumentEditorViewModel {
 
     /// Block action handler
     func handleAction(_ action: BlockActionHandler.ActionType) {
-        guard let firstResponder = documentViewModel.userSession?.firstResponder() else { return }
+        guard let firstResponder = document.userSession?.firstResponder() else { return }
         
         blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] actionType, events in
             self?.process(reaction: .shouldHandleEvent(.init(actionType: actionType, events: events)))

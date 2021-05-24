@@ -3,24 +3,25 @@ import BlocksModels
 import Combine
 import os
 
+protocol BaseDocumentProtocol {
+    var documentId: BlockId? { get }
+    var defaultDetailsActiveModel: DetailsActiveModel { get }
+    var userSession: BlockUserSessionModelProtocol? { get }
+    var rootActiveModel: BlockActiveRecordModelProtocol? { get }
+    
+    func pageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never>
+    func open(_ value: ServiceSuccess)
+    func handle(events: BaseDocument.Events)
+    func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never>
+}
 
 private extension LoggerCategory {
     static let baseDocument: Self = "BaseDocument"
 }
 
-/// TODO:
-/// Add navigation.
-/// For example, we could do the following:
-///
-/// We could keep a track of opened documents ( list of documents ids )
-/// And keep latest ( last ) document as open document.
-///
-class BaseDocument {
-    typealias UserSession = BlockUserSessionModelProtocol
-    
+class BaseDocument: BaseDocumentProtocol {
     private var rootId: BlockId? { self.rootModel?.rootId }
     
-    // TODO: Remove
     var documentId: BlockId? { self.rootId }
     
     /// RootModel
@@ -31,7 +32,7 @@ class BaseDocument {
     }
     
     private let eventProcessor = EventProcessor()
-    private let transformer: TreeBlockBuilder = .defaultValue
+    private let transformer = TreeBlockBuilder.defaultValue
     
     /// Details Active Models
     /// But we have a lot of them, so, we should keep a list of them.
@@ -39,7 +40,7 @@ class BaseDocument {
     ///
     /// This one is active model of default ( or main ) document id (smartblock id).
     ///
-    private let defaultDetailsActiveModel: DetailsActiveModel = .init()
+    let defaultDetailsActiveModel = DetailsActiveModel()
     
     /// This event subject is a subject for events from default details active model.
     ///
@@ -64,6 +65,18 @@ class BaseDocument {
         if let rootId = self.rootId {
             _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
         }
+    }
+    
+    private lazy var blocksConverter = CompoundViewModelConverter(self)
+    func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never> {
+        modelsAndUpdatesPublisher()
+            .receiveOnMain()
+            .map { [weak self] (value) in
+                DocumentViewModelUpdateResult(
+                    updates: value.updates,
+                    models: self?.blocksConverter.convert(value.models) ?? []
+                )
+            }.eraseToAnyPublisher()
     }
 
     // MARK: - Handle Open
@@ -145,13 +158,10 @@ class BaseDocument {
         }
         self.configureDetails(for: container)
     }
-
-    // MARK: - Get models
-    typealias ActiveModel = BlockActiveRecordModelProtocol
     
     /// Returns a flatten list of active models of document.
     /// - Returns: A list of active models.
-    func getModels() -> [ActiveModel] {
+    func getModels() -> [BlockActiveRecordModelProtocol] {
         guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.choose(by: rootId) else {
             Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
@@ -159,18 +169,13 @@ class BaseDocument {
         return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
     }
     
-    /// Returns a root active model.
-    ///
-    /// - Returns: A root active model.
-    func getRootActiveModel() -> ActiveModel? {
-        guard let rootId = self.rootModel?.rootId else { return nil }
-        return self.rootModel?.blocksContainer.choose(by: rootId)
+    var rootActiveModel: BlockActiveRecordModelProtocol? {
+        guard let rootId = rootModel?.rootId else { return nil }
+        return rootModel?.blocksContainer.choose(by: rootId)
     }
     
-    /// Returns a current user session.
-    /// - Returns: A current user session
-    func getUserSession() -> UserSession? {
-        self.rootModel?.blocksContainer.userSession
+    var userSession: BlockUserSessionModelProtocol? {
+        rootModel?.blocksContainer.userSession
     }
   
     /// Add it later if needed.
@@ -184,7 +189,7 @@ class BaseDocument {
     // MARK: - Publishers
     struct UpdateResult {
         var updates: EventHandlerUpdate
-        var models: [ActiveModel]
+        var models: [BlockActiveRecordModelProtocol]
     }
     
     /// A publisher of event processor did process events.
@@ -212,7 +217,7 @@ class BaseDocument {
         }.eraseToAnyPublisher()
     }
     
-    private func models(from updates: EventHandlerUpdate) -> [ActiveModel] {
+    private func models(from updates: EventHandlerUpdate) -> [BlockActiveRecordModelProtocol] {
         switch updates {
         case .general:
             return getModels()
@@ -263,16 +268,6 @@ class BaseDocument {
         self.getDetails(by: id)?.$currentDetails.eraseToAnyPublisher()
     }
     
-    /// Return configured details for listening events.
-    ///
-    /// Warning!
-    ///
-    /// If you receive no result, assure that you've opened document before accessing details.
-    ///
-    func getDefaultDetailsActiveModel() -> DetailsActiveModel {
-        self.defaultDetailsActiveModel
-    }
-    
     /// Returns details accessor associated with corresponding details.
     /// This details accessor associated with default details.
     ///
@@ -283,8 +278,8 @@ class BaseDocument {
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
-    func getDefaultPageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never> {
-        self.getDefaultDetailsActiveModel().$currentDetails.eraseToAnyPublisher()
+    func pageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never> {
+        defaultDetailsActiveModel.$currentDetails.eraseToAnyPublisher()
     }
 
     // MARK: - Details Conversion to Blocks.
@@ -292,7 +287,7 @@ class BaseDocument {
     ///
     /// Now we use view models that uses only blocks.
     /// So, we have to convert our details to blocks first.
-    private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsKind) -> ActiveModel? {
+    private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsKind) -> BlockActiveRecordModelProtocol? {
         guard let rootId = self.rootId else {
             Logger.create(.baseDocument).debug("convert(_:of:). Our document is not ready yet.")
             return nil
@@ -337,10 +332,6 @@ class BaseDocument {
         }
         
         return self.rootModel?.blocksContainer.choose(by: block.information.id)
-    }
-    
-    func getDefaultDetailsActiveModel(of kind: DetailsKind) -> ActiveModel? {
-        self.convert(self.defaultDetailsActiveModel, of: kind)
     }
 
     // MARK: - Events

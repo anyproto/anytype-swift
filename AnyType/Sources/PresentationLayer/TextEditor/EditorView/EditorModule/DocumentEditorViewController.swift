@@ -225,7 +225,7 @@ extension DocumentEditorViewController {
     private func scrollAndFocusOnFocusedBlock() {
         guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot(for: .first)
-        let userSession = self.viewModel.documentViewModel.userSession
+        let userSession = viewModel.document.userSession
         if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt() {
             let itemIdentifiers = snapshot.visibleItems
             if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
@@ -322,7 +322,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
 
         if let textItem = itemIdentifiers[index] as? TextBlockViewModel {
-            let userSession = self.viewModel.documentViewModel.userSession
+            let userSession = viewModel.document.userSession
             let focus = TextViewFocus(position: userSession?.focusAt() ?? .end)
             textItem.set(focus: focus)
         }
@@ -363,7 +363,7 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         
         guard let snapshot = self.dataSource?.snapshot() else { return }
 
-        let userSession = self.viewModel.documentViewModel.userSession
+        let userSession = viewModel.document.userSession
         let blockModel = userSession?.firstResponder()
 
         let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)

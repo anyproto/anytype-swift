@@ -24,7 +24,7 @@ final class HomeViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     private var newPageSubscription: AnyCancellable?
             
-    private let dashboardModel: DocumentViewModelProtocol = DocumentViewModel()
+    private let document: BaseDocumentProtocol = BaseDocument()
     
     init() {
         fetchDashboardData()
@@ -39,7 +39,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     func createNewPage() {
-        guard let rootId = self.dashboardModel.documentId else { return }
+        guard let rootId = document.documentId else { return }
         
         newPageSubscription = dashboardService.createNewPage(contextId: rootId).receiveOnMain()
             .sinkWithDefaultCompletion("Create page") { [weak self] success in
@@ -47,7 +47,7 @@ final class HomeViewModel: ObservableObject {
                 return
             }
             
-            self.dashboardModel.handle(events: .init(contextId: success.contextID, events: success.messages))
+            self.document.handle(events: .init(contextId: success.contextID, events: success.messages))
             
             guard let newBlockId = self.extractNewBlockId(serviceSuccess: success) else {
                 assertionFailure("No new block id in create new page response")
@@ -71,10 +71,10 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
-        dashboardModel.updatePublisher()
-            .sink { [weak self] updateResult in
-                self?.onDashboardUpdate(updateResult)
-            }.store(in: &self.subscriptions)
-        dashboardModel.open(serviceSuccess)
+        document.updatePublisher().sink { [weak self] updateResult in
+            self?.onDashboardUpdate(updateResult)
+        }.store(in: &self.subscriptions)
+        
+        document.open(serviceSuccess)
     }
 }
