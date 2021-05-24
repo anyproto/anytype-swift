@@ -1,4 +1,4 @@
-import SwiftProtobuf
+import ProtobufMessages
 
 
 public enum BlockInformation {
@@ -11,7 +11,7 @@ public enum BlockInformation {
         public var childrenIds: ChildrenIds = []
         public var content: BlockContent
         
-        public var fields: [String : Google_Protobuf_Value] = [:]
+        public var fields: [String: BlockFieldType] = [:]
         var restrictions: [String] = []
         
         public var backgroundColor: BackgroundColor = ""
@@ -46,6 +46,7 @@ public enum BlockInformation {
 extension BlockInformation.InformationModel: Hashable {
 
 }
+
 extension BlockInformation.Alignment: Hashable {}
 
 // MARK: Alignment

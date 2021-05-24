@@ -57,7 +57,8 @@ class EventHandler: EventHandlerProtocol {
         case let .blockSetFields(fields):
             updater?.update(entry: fields.id) { block in
                 var block = block
-                block.information.fields = fields.fields.fields
+
+                block.information.fields = fields.fields.toFieldTypeMap()
                 block.didChange()
             }
             return nil

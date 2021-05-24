@@ -19,6 +19,7 @@
 		0A6D53C525D9DB76002F3F82 /* commands+Service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D53BA25D9DB76002F3F82 /* commands+Service.pb.swift */; };
 		0A6D53C625D9DB76002F3F82 /* commands.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D53BB25D9DB76002F3F82 /* commands.pb.swift */; };
 		0AEFADDC25DED2490014F739 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 0AEFADDB25DED2490014F739 /* SwiftProtobuf */; };
+		53856BF2265BD75B00CB1FAE /* ProtobufExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53856BF1265BD75B00CB1FAE /* ProtobufExtenstion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		0A6D53B825D9DB76002F3F82 /* models.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = models.pb.swift; sourceTree = "<group>"; };
 		0A6D53BA25D9DB76002F3F82 /* commands+Service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Service.pb.swift"; sourceTree = "<group>"; };
 		0A6D53BB25D9DB76002F3F82 /* commands.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commands.pb.swift; sourceTree = "<group>"; };
+		53856BF1265BD75B00CB1FAE /* ProtobufExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufExtenstion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				0A55D84025DAC4DC0043CB5E /* localstore.pb.swift */,
 				0A6D53B825D9DB76002F3F82 /* models.pb.swift */,
 				0A6D53B225D9DB76002F3F82 /* models+Initializers.pb.swift */,
+				53856BF1265BD75B00CB1FAE /* ProtobufExtenstion.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				0A6D53C025D9DB76002F3F82 /* events.pb.swift in Sources */,
 				0A6D53C125D9DB76002F3F82 /* commands+Initializers.pb.swift in Sources */,
 				0A6D53C525D9DB76002F3F82 /* commands+Service.pb.swift in Sources */,
+				53856BF2265BD75B00CB1FAE /* ProtobufExtenstion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
