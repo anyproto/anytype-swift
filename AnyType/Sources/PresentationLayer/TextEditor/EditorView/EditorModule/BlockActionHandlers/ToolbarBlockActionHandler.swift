@@ -90,7 +90,7 @@ final class ToolbarBlockActionHandler {
                     }
                     let previousBlockId = previousModel.blockModel.information.id
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setFocus(.init(payload: .init(blockId: previousBlockId, position: .end)))
+                        .setFocus(.init(blockId: previousBlockId, position: .end))
                     ])
                 }
             case .duplicate: self.service.duplicate(block: block.blockModel.information)

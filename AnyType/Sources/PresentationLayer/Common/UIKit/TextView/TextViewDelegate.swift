@@ -19,6 +19,7 @@ enum TextViewFirstResponderChange {
 protocol TextViewDelegate: AnyObject {
     /// Text view size changed.
     func sizeChanged()
+
     /// Text view become first responder.
     func changeFirstResponderState(_ change: TextViewFirstResponderChange)
 }

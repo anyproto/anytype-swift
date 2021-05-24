@@ -68,7 +68,7 @@ final class BlockActionService {
                 let nextBlockId = addedBlock.id
 
                 return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                    .setFocus(.init(payload: .init(blockId: nextBlockId, position: .beginning)))
+                    .setFocus(.init(blockId: nextBlockId, position: .beginning))
                 ])
             }
             static let `default`: Self = .init()
@@ -114,7 +114,7 @@ final class BlockActionService {
                 let focusedBlockId = setChildrenEvent.childrenIds[focusedIndex]
 
                 return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                    .setFocus(.init(payload: .init(blockId: focusedBlockId, position: .beginning)))
+                    .setFocus(.init(blockId: focusedBlockId, position: .beginning))
                 ])
             }
             static let `default`: Self = .init()
@@ -134,7 +134,7 @@ final class BlockActionService {
                     let focusedBlockId = changedBlock.id
 
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setFocus(.init(payload: .init(blockId: focusedBlockId, position: .beginning)))
+                        .setFocus(.init(blockId: focusedBlockId, position: .beginning))
                     ])
                 }
                 static let `default`: Self = .init()
@@ -344,7 +344,7 @@ private extension BlockActionService {
         }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] (value) in
             let value = completion(value)
             var theValue = value
-            theValue.ourEvents = [.setTextMerge(.init(payload: .init(blockId: blockId)))] + theValue.ourEvents
+            theValue.ourEvents = [.setTextMerge(.init(blockId: blockId))] + theValue.ourEvents
             self?.didReceiveEvent(nil, theValue)
         }.store(in: &self.subscriptions)
     }

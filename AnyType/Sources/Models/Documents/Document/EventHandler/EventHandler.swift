@@ -330,14 +330,14 @@ class EventHandler: EventHandlerProtocol {
     // MARK: Events Handling / OurEvent
     func handleOurEvent(_ event: EventListening.OurEvent) -> EventHandlerUpdate? {
         switch event {
-        case let .setFocus(value):
-            let blockId = value.payload.blockId
+        case let .setFocus(focus):
+            let blockId = focus.blockId
             guard var model = self.container?.blocksContainer.choose(by: blockId) else {
                 assertionFailure("setFocus. We can't find model by id \(blockId)")
                 return nil
             }
             model.isFirstResponder = true
-            model.focusAt = value.payload.position.flatMap(EventHandlerFocusConverter.asModel)
+            model.focusAt = focus.position
             
             /// TODO: We should check that we don't have blocks in updated List.
             /// IF id is in updated list, we should delay of `.didChange` event before all items will be drawn.
@@ -386,7 +386,7 @@ class EventHandler: EventHandlerProtocol {
             // set text to our model.
 //            return .general
         case let .setTextMerge(value):
-            let blockId = value.payload.blockId
+            let blockId = value.blockId
             guard let model = self.container?.blocksContainer.choose(by: blockId) else {
                 assertionFailure("setTextMerge. We can't find model by id \(blockId)")
                 return nil

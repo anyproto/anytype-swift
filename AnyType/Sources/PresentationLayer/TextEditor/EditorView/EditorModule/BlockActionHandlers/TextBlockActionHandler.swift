@@ -22,10 +22,8 @@ final class TextBlockActionHandler {
         switch action {
         case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
         case let .inputAction(value): self.handlingInputAction(block, value)
-        case .showMultiActionMenuAction:
+        case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition, .addBlockAction:
             break
-        default:
-            assertionFailure("Unexpected: \(action)")
         }
     }
 
@@ -171,7 +169,6 @@ final class TextBlockActionHandler {
             case .deleteWithPayload(_):
                 // TODO: Add Index Walker
                 // Add get previous block
-
                 guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                     assertionFailure("""
                         We can't find previous block to focus on at command .deleteWithPayload
@@ -182,21 +179,12 @@ final class TextBlockActionHandler {
                     self.handlingKeyboardAction(block, .pressKey(.deleteOnEmptyContent))
                     return
                 }
-
                 let previousBlockId = previousModel.blockModel.information.id
-                let position: EventListening.OurEvent.Focus.Payload.Position
-
-                switch previousModel.blockModel.information.content {
-                case let .text(value):
-                    let length = value.attributedText.length
-                    position = .at(length)
-                default: position = .end
-                }
 
                 self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
                     .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setTextMerge(.init(payload: .init(blockId: previousBlockId))),
-                        .setFocus(.init(payload: .init(blockId: previousBlockId, position: position)))
+                        .setTextMerge(.init(blockId: previousBlockId)),
+                        .setFocus(.init(blockId: previousBlockId, position: .end))
                     ])
                 }
                 break
@@ -211,7 +199,7 @@ final class TextBlockActionHandler {
                     }
                     let previousBlockId = previousModel.blockModel.information.id
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setFocus(.init(payload: .init(blockId: previousBlockId, position: .end)))
+                        .setFocus(.init(blockId: previousBlockId, position: .end))
                     ])
                 }
             }

@@ -1,12 +1,14 @@
 import Foundation
 import Combine
 
+
 // MARK: - BlockModel
+
 public protocol BlockModelProtocol: BlockHasInformationProtocol, BlockHasParentProtocol, BlockHasKindProtocol, BlockHasDidChangePublisherProtocol, BlockHasDidChangeInformationPublisherProtocol {}
 
 // MARK: - UserSession
+
 public protocol BlockUserSessionModelProtocol {
-    typealias Position = BlockFocusPosition
     /// Get toggled state for block
     ///
     /// - Parameters:
@@ -15,22 +17,20 @@ public protocol BlockUserSessionModelProtocol {
     func isFirstResponder(by id: BlockId) -> Bool
     func firstResponderId() -> BlockId?
     func firstResponder() -> BlockModelProtocol?
-    func focusAt() -> Position?
+    func focusAt() -> BlockFocusPosition?
     /// Set toggled state for block
     ///
     /// - Parameters:
     ///   - id: Block id to change state
     func setToggled(by id: BlockId, value: Bool)
     func setFirstResponder(with blockModel: BlockModelProtocol)
-    func setFocusAt(position: Position)
+    func setFocusAt(position: BlockFocusPosition)
     
     func unsetFirstResponder()
     func unsetFocusAt()
     
     func didChangePublisher() -> AnyPublisher<Void, Never>
     func didChange()
-    
-    /// We could also store number here.
 }
 
 /// We need to distinct Container and BlockContainer.

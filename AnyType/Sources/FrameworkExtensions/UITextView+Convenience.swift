@@ -28,29 +28,16 @@ extension UITextView {
     }
     
     func setFocus(_ position: BlockFocusPosition) {
-        switch position {
-        case .beginning:
+        let selectedRange = position.toSelectedRange(in: text)
+
+        if let beginningSelectedTextPostion = self.position(from: beginningOfDocument, offset: selectedRange.location),
+           let endSelectedTextPosition = self.position(from: beginningSelectedTextPostion, offset: selectedRange.length)
+        {
+            selectedTextRange = textRange(from: beginningSelectedTextPostion, to: endSelectedTextPosition)
+        } else {
             selectedTextRange = textRange(from: beginningOfDocument, to: beginningOfDocument)
-        case .end:
-            selectedTextRange = textRange(from: endOfDocument, to: endOfDocument)
-        case let .at(value):
-            let length = textStorage.length
-            let newValue = min(max(value, 0), length)
-            // New value is an actual desired caret position in UITextView
-            // so 0 means begininng of document
-            // length means end of document, example:
-            // "some text" (lenght 9) .at(9) the same as .end
-            // default means caret should be placed somewhere at the middle of document
-            switch newValue {
-            case 0: setFocus(.beginning)
-            case length: setFocus(.end)
-            default:
-                if let textPosition = self.position(from: beginningOfDocument, offset: newValue) {
-                    let range = textRange(from: textPosition, to: textPosition)
-                    selectedTextRange = range
-                }
-            }
         }
+
         if !isFirstResponder && canBecomeFirstResponder {
             becomeFirstResponder()
         }
@@ -102,12 +89,6 @@ extension UITextView: TextViewManagingFocus, TextViewUpdatable {
 
     func obtainFocusPosition() -> BlockFocusPosition? {
         guard isFirstResponder else { return nil }
-
-        let caretLocation = selectedRange.location
-        if caretLocation == 0 {
-            return .beginning
-        }
-        return .at(caretLocation)
+        return .at(selectedRange)
     }
-
 }

@@ -222,18 +222,16 @@ final class DocumentEditorViewController: UICollectionViewController {
 
 extension DocumentEditorViewController {
     
-    private func scrollAndFocusOnFocusedBlock() {
+    private func focusOnFocusedBlock() {
         guard let dataSource = self.dataSource else { return }
         let snapshot = dataSource.snapshot(for: .first)
         let userSession = viewModel.document.userSession
         if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt() {
             let itemIdentifiers = snapshot.visibleItems
-            if let index = itemIdentifiers.firstIndex(where: { (value) -> Bool in
-                value.blockId == id
-            }) {
-                (itemIdentifiers[index] as? TextBlockViewModel)?.set(focus: .init(position: focusedAt, completion: {_ in }))
-                userSession?.unsetFocusAt()
-                userSession?.unsetFirstResponder()
+
+            if let index = itemIdentifiers.firstIndex(where: { $0.blockId == id }),
+               let textBlock = itemIdentifiers[index] as? TextBlockViewModel {
+                textBlock.set(focus: .init(position: focusedAt))
             }
         }
     }
@@ -252,7 +250,7 @@ extension DocumentEditorViewController {
             // For now animatingDifferences should be false otherwise some cells will not be reloading.
             self.dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
                 self?.updateVisibleNumberedItems()
-                self?.scrollAndFocusOnFocusedBlock()
+                self?.focusOnFocusedBlock()
 
                 selectedCells?.forEach {
                     self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])

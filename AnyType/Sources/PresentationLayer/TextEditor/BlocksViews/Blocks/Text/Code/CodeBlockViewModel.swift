@@ -182,8 +182,11 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
         case .showMultiActionMenuAction(.showMultiActionMenu):
             self.textView?.shouldResignFirstResponder()
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
-        default:
+        case .inputAction, .keyboardAction:
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
+        case .changeCaretPosition:
+            typealias TextBlockInteraction = BaseBlockViewModel.ActionsPayload.TextBlocksViewsUserInteraction
+            self.send(actionsPayload: .textView(TextBlockInteraction(model: getBlock(), action: .textView(action))))
         }
     }
 }

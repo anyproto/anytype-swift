@@ -1,7 +1,9 @@
 import Foundation
 import ProtobufMessages
+import BlocksModels
 import Combine
 import os
+
 
 private extension LoggerCategory {
     static let eventListening: Self = "EventListening"
@@ -64,39 +66,22 @@ extension EventListening {
 }
 
 extension EventListening.OurEvent {
-    // TODO: remove all payload as it unnecessary struct
     struct Focus {
-        struct Payload {
-            enum Position {
-                case beginning
-                case end
-                case at(Int)
-            }
-            var blockId: String
-            var position: Position?
-        }
-        var payload: Payload
+        var blockId: String
+        var position: BlockFocusPosition?
     }
     
     struct Text {
-        struct Payload {
-            var blockId: String
-            var attributedString: NSAttributedString?
-        }
-        var payload: Payload
+        var blockId: String
+        var attributedString: NSAttributedString?
     }
     
     struct TextMerge {
-        struct Payload {
-            var blockId: String
-        }
-        var payload: Payload
+        var blockId: String
     }
+
     struct Toggled {
-        struct Payload {
-            var blockId: String
-        }
-        var payload: Payload
+        var blockId: String
     }
 }
 

@@ -6,7 +6,7 @@ import os
 class BlockUserSession: ObservableObject {
     private var _firstResponderBlockModel: BlockModelProtocol?
     private var _firstResponder: String?
-    private var _focusAt: Position?
+    private var _focusAt: BlockFocusPosition?
     private var toggleStorage: [String: Bool] = [:]
 }
 
@@ -16,7 +16,7 @@ extension BlockUserSession: BlockUserSessionModelProtocol {
     func firstResponderId() -> BlockId? { _firstResponder ?? _firstResponderBlockModel?.information.id }
     func firstResponder() -> BlockModelProtocol? { _firstResponderBlockModel }
 
-    func focusAt() -> Position? { self._focusAt }
+    func focusAt() -> BlockFocusPosition? { self._focusAt }
     func setToggled(by id: BlockId, value: Bool) { self.toggleStorage[id] = value }
 
     func setFirstResponder(with blockModel: BlockModelProtocol) {
@@ -24,7 +24,7 @@ extension BlockUserSession: BlockUserSessionModelProtocol {
         _firstResponderBlockModel = blockModel
     }
 
-    func setFocusAt(position: Position) { self._focusAt = position }
+    func setFocusAt(position: BlockFocusPosition) { self._focusAt = position }
     
     func unsetFirstResponder() { self._firstResponder = nil }
     func unsetFocusAt() { self._focusAt = nil }

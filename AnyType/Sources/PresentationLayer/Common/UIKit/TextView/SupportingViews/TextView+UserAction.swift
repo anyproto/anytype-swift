@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 // MARK: UserActions
 extension BlockTextView {
     public enum UserAction {
@@ -17,7 +18,8 @@ extension BlockTextView {
         inputAction(InputAction),
         keyboardAction(KeyboardAction),
         addBlockAction(AddBlockAction),
-        showMultiActionMenuAction(ShowMultiActionMenuAction)
+        showMultiActionMenuAction(ShowMultiActionMenuAction),
+        changeCaretPosition(NSRange)
     }
 }
 

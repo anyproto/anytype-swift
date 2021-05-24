@@ -316,6 +316,8 @@ private extension DocumentEditorViewModel {
             switch value.action {
             case .textView(.showMultiActionMenuAction(.showMultiActionMenu)):
                 self.set(selectionEnabled: true)
+            case let .textView(.changeCaretPosition(selectedRange)):
+                documentViewModel.userSession?.setFocusAt(position: .at(selectedRange))
             default: return
             }
         // TODO: we need coordinator(router) here that show this view https://app.clickup.com/t/h13ytp

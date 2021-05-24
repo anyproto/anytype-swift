@@ -195,7 +195,7 @@ extension BlockTextViewCoordinator {
         if caretLocation == 0 {
             return .beginning
         }
-        return .at(caretLocation)
+        return .at(textView.selectedRange)
     }
 }
 
@@ -405,6 +405,10 @@ extension BlockTextViewCoordinator: UITextViewDelegate {
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         self.switchInputs(textView)
+        
+        if textView.isFirstResponder {
+            publishToOuterWorld(.changeCaretPosition(textView.selectedRange))
+        }
     }
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
