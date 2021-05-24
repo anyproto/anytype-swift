@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,8 @@
 		3DB7DCA42639DBE100635E4C /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA32639DBE100635E4C /* BlockModel.swift */; };
 		3DB7DCA82639DC0100635E4C /* BlockUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* BlockUserSession.swift */; };
 		3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */; };
+		53856BDB265BBA9000CB1FAE /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 53856BDA265BBA9000CB1FAE /* SwiftProtobuf */; };
+		53856BDD265BBA9000CB1FAE /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 53856BDC265BBA9000CB1FAE /* SwiftProtobufPluginLibrary */; };
 		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53856BDD265BBA9000CB1FAE /* SwiftProtobufPluginLibrary in Frameworks */,
+				53856BDB265BBA9000CB1FAE /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +206,10 @@
 			dependencies = (
 			);
 			name = BlocksModels;
+			packageProductDependencies = (
+				53856BDA265BBA9000CB1FAE /* SwiftProtobuf */,
+				53856BDC265BBA9000CB1FAE /* SwiftProtobufPluginLibrary */,
+			);
 			productName = BlocksModels;
 			productReference = 0A7831D224B8672D00A1B6F6 /* BlocksModels.framework */;
 			productType = "com.apple.product-type.framework";
@@ -230,6 +238,9 @@
 				Base,
 			);
 			mainGroup = 0A7831C824B8672D00A1B6F6;
+			packageReferences = (
+				53856BD9265BBA9000CB1FAE /* XCRemoteSwiftPackageReference "swift-protobuf" */,
+			);
 			productRefGroup = 0A7831D324B8672D00A1B6F6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -483,6 +494,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		53856BD9265BBA9000CB1FAE /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		53856BDA265BBA9000CB1FAE /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53856BD9265BBA9000CB1FAE /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		53856BDC265BBA9000CB1FAE /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53856BD9265BBA9000CB1FAE /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0A7831C924B8672D00A1B6F6 /* Project object */;
 }
