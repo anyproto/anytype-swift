@@ -11,11 +11,7 @@ struct HomeProfileView: View {
         GeometryReader { geometry in
             VStack() {
                 VStack {
-                    AnytypeText("Hi, \(accountData.name)", style: .title)
-                        .foregroundColor(.white)
-                        .padding(.top, geometry.size.height * topPaddingRatio)
-                        .padding(.bottom, 15)
-                    
+                    hiText(containerHeight: geometry.size.height)
                     avatar
                     
                     HStack {
@@ -33,7 +29,16 @@ struct HomeProfileView: View {
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
             }.frame(width: geometry.size.width, height: geometry.size.height)
+            .animation(.default, value: accountData.blockId)
         }
+    }
+    
+    func hiText(containerHeight: CGFloat) -> some View {
+        AnytypeText("Hi, \(accountData.name ?? "")", style: .title)
+            .foregroundColor(.white)
+            .padding(.top, containerHeight * topPaddingRatio)
+            .padding(.bottom, 15)
+            .transition(.opacity)
     }
     
     private var avatar: some View {
@@ -50,8 +55,11 @@ struct HomeProfileView: View {
     }
     
     private var userIcon: some View {
-        return UserIconView(image: accountData.avatar, name: accountData.name)
-            .frame(width: 80, height: 80)
+        return UserIconView(
+            image: accountData.avatarId.flatMap { .middleware(imageId: $0) },
+            name: accountData.name
+        )
+        .frame(width: 80, height: 80)
     }
 }
 

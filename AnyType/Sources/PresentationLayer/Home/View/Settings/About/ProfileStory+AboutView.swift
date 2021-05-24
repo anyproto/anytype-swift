@@ -11,9 +11,9 @@ extension SettingsView {
         var view: some View {
             VStack {
                 DragIndicator()
-                AnytypeText("About application information", style: .title)
+                AnytypeText("Anytype info", style: .title)
                     .padding(.top, 34).fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
-                AnytypeText("Library version \(self.viewModel.libraryVersion)", style: .body)
+                AnytypeText("\(LocalizedStringKey("Library version")) \(self.viewModel.libraryVersion)", style: .body)
                     .padding(.top, 25)
                 Spacer()
             }
