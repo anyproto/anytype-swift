@@ -12,7 +12,6 @@ struct HomeView: View {
             .environment(\.font, .defaultAnytype)
             .environmentObject(model)
             .environmentObject(accountData)
-            .onAppear(perform: model.fetchDashboardData)
             .onAppear(perform: makeNavigationBarTransparent)
     }
     

@@ -4,7 +4,30 @@ import BlocksModels
 // TODO: Use single subscriptions for all changes instead of per cell approach
 extension HomeViewModel {
     
-    func buildCellData(pageLinkViewModel: BlockPageLinkViewModel) -> PageCellData {
+    func onDashboardUpdate(_ updateResult: DocumentViewModelUpdateResult) {
+        switch updateResult.updates {
+        case .general:
+            let newCellData = buldCellData(updateResult)
+
+            DispatchQueue.main.async { [weak self] in
+                self?.cellData = newCellData
+            }
+            
+        case .update(let payload):
+            print(payload)
+            // Currently models updates using their own publishers
+            // Do not need to do something here
+            break
+        }
+    }
+    
+    private func buldCellData(_ updateResult: DocumentViewModelUpdateResult) -> [PageCellData] {
+        let viewModels = updateResult.models.compactMap { $0 as? BlockPageLinkViewModel }
+        cellSubscriptions = []
+        return viewModels.map { buildPageCellData(pageLinkViewModel: $0) }
+    }
+    
+    private func buildPageCellData(pageLinkViewModel: BlockPageLinkViewModel) -> PageCellData {
         let details = pageLinkViewModel.getDetailsViewModel().currentDetails
         
         pageLinkViewModel.getDetailsViewModel().wholeDetailsPublisher.receiveOnMain().sink { [weak self] details in
@@ -26,19 +49,6 @@ extension HomeViewModel {
             title: details.name?.value ?? "",
             type: "Page"
         )
-    }
-    
-    func onDashboardUpdate(_ updateResult: DocumentViewModelUpdateResult) {
-        switch updateResult.updates {
-        case .general:
-            let viewModels = updateResult.models.compactMap { $0 as? BlockPageLinkViewModel }
-            cellSubscriptions = []
-            cellData = viewModels.map { buildCellData(pageLinkViewModel: $0) }
-        case .update:
-            // Currently models updates using their own publishers
-            // Do not need to do something here
-            break
-        }
     }
     
     private func destinationId(_ pageLinkViewModel: BlockPageLinkViewModel) -> String {

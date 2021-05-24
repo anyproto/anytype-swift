@@ -26,8 +26,12 @@ final class HomeViewModel: ObservableObject {
             
     private let dashboardModel: DocumentViewModelProtocol = DocumentViewModel()
     
+    init() {
+        fetchDashboardData()
+    }
+    
     // MARK: - Public
-    func fetchDashboardData() {        
+    private func fetchDashboardData() {        
         dashboardService.openDashboard().sink(
             receiveCompletion: { completion in
                 switch completion {
@@ -78,11 +82,10 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
-        self.dashboardModel.updatePublisher()
-            .receiveOnMain()
+        dashboardModel.updatePublisher()
             .sink { [weak self] updateResult in
                 self?.onDashboardUpdate(updateResult)
             }.store(in: &self.subscriptions)
-        self.dashboardModel.open(serviceSuccess)
+        dashboardModel.open(serviceSuccess)
     }
 }

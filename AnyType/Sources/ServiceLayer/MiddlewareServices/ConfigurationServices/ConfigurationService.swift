@@ -8,16 +8,14 @@ class MiddlewareConfigurationService: ConfigurationServiceProtocol {
 
     /// Obtain middleware configuration
     func obtainConfiguration() -> AnyPublisher<MiddlewareConfiguration, Error> {
-        let configuration = storage.get(by: MiddlewareConfiguration.self)
-
-        if let configuration = configuration {
+        if let configuration = storage.get(by: MiddlewareConfiguration.self) {
             return Just(configuration)
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
         }
 
         return Anytype_Rpc.Config.Get.Service.invoke()
-            .subscribe(on: DispatchQueue.global())
+            .subscribe(on: DispatchQueue.global(qos: .userInitiated))
             .map {
                 MiddlewareConfiguration(
                     homeBlockID: $0.homeBlockID,
