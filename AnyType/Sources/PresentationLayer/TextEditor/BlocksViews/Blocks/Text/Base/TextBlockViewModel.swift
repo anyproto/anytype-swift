@@ -169,13 +169,7 @@ private extension TextBlockViewModel {
 
         self.toModelAlignmentSubject.debounce(for: self.textOptions.throttlingInterval, scheduler: serialQueue).notableError().flatMap({ [weak self] (value) in
             self?.apply(alignment: value) ?? .empty()
-        }).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("TextBlocksViews setAlignment error has occured. \(error)")
-            }
-        }, receiveValue: { _ in }).store(in: &self.subscriptions)
+        }).sinkWithDefaultCompletion("TextBlocksViews setAlignment") { _ in }.store(in: &self.subscriptions)
     }
 }
 

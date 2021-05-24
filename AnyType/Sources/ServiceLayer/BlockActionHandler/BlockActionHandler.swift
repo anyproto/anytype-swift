@@ -89,13 +89,7 @@ private extension BlockActionHandler {
         let blockIds = [block.id]
 
         listService.setBlockColor(contextID: self.documentId, blockIds: blockIds, color: color)
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("setBlockColor: \(error.localizedDescription)")
-                }
-            }) { value in
+            .sinkWithDefaultCompletion("setBlockColor") { value in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 completion(nil, value)
             }
@@ -108,13 +102,7 @@ private extension BlockActionHandler {
         let blockIds = [block.id]
 
         self.listService.setAlign.action(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("setAlignment: \(error.localizedDescription)")
-                }
-            }) { value in
+            .sinkWithDefaultCompletion("setAlignment") { value in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 completion(nil, value)
             }

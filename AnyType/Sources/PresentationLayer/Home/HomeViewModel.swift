@@ -32,28 +32,17 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Public
     private func fetchDashboardData() {        
-        dashboardService.openDashboard().sink(
-            receiveCompletion: { completion in
-                switch completion {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("Subscribe dashboard events error \(error)")
-                }
-            }
-        ) { [weak self] serviceSuccess in
-            self?.onOpenDashboard(serviceSuccess)
-        }.store(in: &self.subscriptions)
+        dashboardService.openDashboard()
+            .sinkWithDefaultCompletion("Subscribe dashboard events") { [weak self] serviceSuccess in
+                self?.onOpenDashboard(serviceSuccess)
+            }.store(in: &self.subscriptions)
     }
     
     func createNewPage() {
         guard let rootId = self.dashboardModel.documentId else { return }
-        newPageSubscription = dashboardService.createNewPage(contextId: rootId).receiveOnMain().sink(receiveCompletion: { result in
-            switch result {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("Create page error \(error)")
-            }
-        }) { [weak self] success in
+        
+        newPageSubscription = dashboardService.createNewPage(contextId: rootId).receiveOnMain()
+            .sinkWithDefaultCompletion("Create page") { [weak self] success in
             guard let self = self else {
                 return
             }

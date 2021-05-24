@@ -58,13 +58,7 @@ private extension MarksPaneBlockActionHandler {
         let blockIds = [block.id]
 
         self.listService.setBlockColor(contextID: self.contextId, blockIds: blockIds, color: color)
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("setBlockColor: \(error.localizedDescription)")
-                }
-            }) { [weak self] (value) in
+            .sinkWithDefaultCompletion("setBlockColor") { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
             }
@@ -75,13 +69,7 @@ private extension MarksPaneBlockActionHandler {
         let blockIds = [block.id]
 
         self.listService.setAlign.action(contextID: self.contextId, blockIds: blockIds, alignment: alignment.asModel())
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("setAlignment: \(error.localizedDescription)")
-                }
-            }) { [weak self] (value) in
+            .sinkWithDefaultCompletion("setAlignment") { [weak self] (value) in
                 let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
             }

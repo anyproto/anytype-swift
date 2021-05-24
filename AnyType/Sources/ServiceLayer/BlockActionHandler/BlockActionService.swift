@@ -220,13 +220,7 @@ final class BlockActionService {
         let targetId = block.id
         let blockIds: [String] = [targetId]
         let position: BlockPosition = .bottom
-        self.service.duplicate(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.duplicate got error: \(error)")
-            }
-        }) { [weak self] (value) in
+        self.service.duplicate(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
             self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
         }.store(in: &self.subscriptions)
     }
@@ -242,13 +236,7 @@ final class BlockActionService {
 
         self.pageService.createPage(contextID: self.documentId, targetID: targetId, details: details, position: position)
             .receiveOnMain()
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return // move to this page
-                case let .failure(error):
-                    assertionFailure("blocksActions.service.createPage with payload got error: \(error)")
-                }
-            }) { [weak self] (value) in
+            .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
                 self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
     }
@@ -297,13 +285,7 @@ private extension BlockActionService {
 
         self.service.add(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
             .receiveOnMain()
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("blocksActions.service.add got error: \(error)")
-                }
-            }) { [weak self] (value) in
+            .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
                 let value = completion(value)
                 self?.didReceiveEvent(nil, value)
             }.store(in: &self.subscriptions)
@@ -327,16 +309,10 @@ private extension BlockActionService {
 
         self.textService.split(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
             .receiveOnMain()
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("blocksActions.service.split without payload got error: \(error)")
-                }
-            }, receiveValue: { [weak self] (value) in
+            .sinkWithDefaultCompletion("blocksActions.service.split without payload") { [weak self] (value) in
                 let value = completion(value)
                 self?.didReceiveEvent(nil, value)
-            }).store(in: &self.subscriptions)
+            }.store(in: &self.subscriptions)
     }
 
     func _setTextAndSplit(block: Information,
@@ -365,13 +341,7 @@ private extension BlockActionService {
                 blockID: blockId,
                 range: range,
                 style: newBlockContentType) ?? .empty()
-        }).sink { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.setTextAndSplit got error: \(error)")
-            }
-        } receiveValue: { [weak self] (value) in
+        }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] (value) in
             let value = completion(value)
             var theValue = value
             theValue.ourEvents = [.setTextMerge(.init(payload: .init(blockId: blockId)))] + theValue.ourEvents
@@ -384,8 +354,8 @@ private extension BlockActionService {
         let blockIds = [block.id]
         self.service.delete(contextID: self.documentId, blockIds: blockIds)
             .receiveOnMain()
-            .sink(receiveCompletion: { (value) in
-                switch value {
+            .sink(receiveCompletion: { completion in
+                switch completion {
                 case .finished: return
                 case let .failure(error):
                     // It occurs if you press delete at the beginning of title block
@@ -393,10 +363,10 @@ private extension BlockActionService {
                         "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
                     )
                 }
-            }, receiveValue: { [weak self] value in
+            }) { [weak self] value in
                 let value = completion(value)
                 self?.didReceiveEvent(.deleteBlock, value)
-            }).store(in: &self.subscriptions)
+            }.store(in: &self.subscriptions)
     }
 
     // MARK: - Turn Into
@@ -418,13 +388,8 @@ private extension BlockActionService {
 
         let blocksIds = [blockId]
 
-        self.listService.setDivStyle.action(contextID: self.documentId, blockIds: blocksIds, style: value.style).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.turnInto.setDivStyle got error: \(error)")
-            }
-        }) { [weak self] (value) in
+        self.listService.setDivStyle.action(contextID: self.documentId, blockIds: blocksIds, style: value.style)
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] (value) in
             let value = completion(value)
             self?.didReceiveEvent(nil, value)
         }.store(in: &self.subscriptions)
@@ -440,13 +405,9 @@ private extension BlockActionService {
 
         let blocksIds = [blockId]
 
-        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.turnInto.convertChildrenToPages got error: \(error)")
-            }
-        }, receiveValue: { _ in }).store(in: &self.subscriptions)
+        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds)
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.convertChildrenToPages") { _ in }
+        .store(in: &self.subscriptions)
     }
 
     private func setTextStyle(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
@@ -459,13 +420,7 @@ private extension BlockActionService {
 
         self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: text.contentType)
             .receiveOnMain()
-            .sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("blocksActions.service.turnInto.setTextStyle got error: \(error)")
-                }
-            }) { [weak self] (value) in
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] value in
                 let value = completion(value)
                 self?.didReceiveEvent(nil, value)
             }.store(in: &self.subscriptions)
@@ -485,16 +440,10 @@ extension BlockActionService {
 
         self.textService.merge(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .receiveOnMain()
-            .sink(receiveCompletion: { value in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("blocksActions.service.merge with payload got error: \(error)")
-                }
-            }, receiveValue: { [weak self] value in
+            .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] value in
                 let value = completion(value)
                 self?.didReceiveEvent(.merge, value)
-            }).store(in: &self.subscriptions)
+            }.store(in: &self.subscriptions)
     }
 }
 
@@ -503,15 +452,10 @@ extension BlockActionService {
 extension BlockActionService {
     private func _bookmarkFetch(block: Information, url: String, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
-        self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.bookmarkFetch got error: \(error)")
-            }
-        }) { [weak self] (value) in
-            let value = completion(value)
-            self?.didReceiveEvent(nil, value)
+        self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
+            .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] (value) in
+                let value = completion(value)
+                self?.didReceiveEvent(nil, value)
         }.store(in: &self.subscriptions)
     }
 
@@ -533,13 +477,7 @@ extension BlockActionService {
         let backgroundColor = color
 
         self.listService.setBackgroundColor.action(contextID: self.documentId, blockIds: blockIds, color: backgroundColor)
-            .sink { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("listService.setBackgroundColor got error: \(error)")
-                }
-            } receiveValue: { [weak self] (value) in
+            .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] (value) in
                 let value = completion(value)
                 self?.didReceiveEvent(nil, value)
             }
@@ -556,15 +494,10 @@ extension BlockActionService {
 extension BlockActionService {
     private func _upload(block: Information, filePath: String, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
-        self.fileService.uploadDataAtFilePath.action(contextID: self.documentId, blockID: blockId, filePath: filePath).sink { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("fileService.uploadDataAtFilePath got error: \(error)")
-            }
-        } receiveValue: { [weak self] (value) in
-            let value = completion(value)
-            self?.didReceiveEvent(nil, value)
+        self.fileService.uploadDataAtFilePath.action(contextID: self.documentId, blockID: blockId, filePath: filePath)
+            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] (value) in
+                let value = completion(value)
+                self?.didReceiveEvent(nil, value)
         }.store(in: &self.subscriptions)
     }
     

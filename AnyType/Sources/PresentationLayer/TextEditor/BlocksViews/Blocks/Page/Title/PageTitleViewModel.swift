@@ -67,13 +67,8 @@ class PageTitleViewModel: PageBlockViewModel {
 
             self.toModelTitleSubject.notableError().flatMap({ [weak self] value in
                 self?.pageDetailsViewModel?.update(details: [.name(.init(value: value))]) ?? .empty()
-            }).sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("PageBlocksViews title setDetails error has occured \(error)")
-                }
-            }, receiveValue: {}).store(in: &self.subscriptions)
+            }).sinkWithDefaultCompletion("PageBlocksViews title setDetails") {}
+            .store(in: &self.subscriptions)
         }
     }
 

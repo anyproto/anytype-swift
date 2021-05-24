@@ -214,18 +214,9 @@ private extension DocumentIconViewModel {
     func updateDetails(_ details: [DetailsContent]) {
         detailsActiveModel.update(
             details: details
-        )?.sink(
-            receiveCompletion: { completion in
-                switch completion {
-                case .finished: return
-                case let .failure(error):
-                    assertionFailure("Emoji setDetails remove icon emoji error has occured.\n \(error)")
-                }
-            },
-            receiveValue: { _ in
-                return
-            }
-        )
+        )?.sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in
+            return
+        }
         .store(in: &subscriptions)
     }
     

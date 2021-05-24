@@ -46,19 +46,13 @@ final class TextBlockActionHandler {
             blockModel.information.content = .text(textContentType)
 
             self.textService.setText(contextID: self.contextId, blockID: blockId, attributedString: attributedText)
-                .sink(receiveCompletion: { value in
-                    switch value {
-                    case .finished: return
-                    case let .failure(error):
-                        assertionFailure("""
-                            TextBlocksViews setBlockText error has occured.
-                            \(error)
+                .sinkWithDefaultCompletion("""
+                            TextBlocksViews setBlockText
                             ParentId: \(String(describing: blockModel.parent))
                             BlockId: \(blockModel.information.id)
                             """
                         )
-                    }
-                }, receiveValue: { _ in }).store(in: &self.subscriptions)
+                { _ in }.store(in: &self.subscriptions)
         }
     }
 

@@ -36,15 +36,10 @@ extension ListBlockActionService {
         // Shit Swift
         let blocksIds = blocks
         // TODO: Add Delete List
-        self.listService.delete.action(contextID: self.documentId, blocksIds: blocksIds).receiveOnMain().sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.delete without payload got error: \(error)")
-            }
-        }, receiveValue: { [weak self] value in
-            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
-        }).store(in: &self.subscriptions)
+        self.listService.delete.action(contextID: self.documentId, blocksIds: blocksIds).receiveOnMain()
+            .sinkWithDefaultCompletion("blocksActions.service.delete without payload") { [weak self] value in
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+            }.store(in: &self.subscriptions)
     }
 }
 
@@ -70,13 +65,9 @@ extension ListBlockActionService {
 
         let blocksIds = blocks
 
-        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds).sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.turnInto.convertChildrenToPages got error: \(error)")
-            }
-        }, receiveValue: { _ in }).store(in: &self.subscriptions)
+        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds)
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.convertChildrenToPages") { _ in }
+            .store(in: &self.subscriptions)
     }
 
     private func setTextStyle(blocks: ListIds, type: BlockContent) {
@@ -87,13 +78,8 @@ extension ListBlockActionService {
             return
         }
 
-        self.listService.setTextStyle.action(contextID: self.documentId, blockIds: blocksIds, style: text.contentType).receiveOnMain().sink(receiveCompletion: { (value) in
-            switch value {
-            case .finished: return
-            case let .failure(error):
-                assertionFailure("blocksActions.service.turnInto.setTextStyle with payload got error: \(error)")
-            }
-        }) { [weak self] (value) in
+        self.listService.setTextStyle.action(contextID: self.documentId, blockIds: blocksIds, style: text.contentType).receiveOnMain()
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle with payload") { [weak self] (value) in
             self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
         }.store(in: &self.subscriptions)
     }
