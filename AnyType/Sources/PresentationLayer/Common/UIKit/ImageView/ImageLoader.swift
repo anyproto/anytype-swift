@@ -17,7 +17,11 @@ final class ImageLoader {
     }
     
     /// Update
-    func update(imageId hash: String, parameters: ImageParameters = .init(width: .default)) {
+    func update(
+        imageId hash: String,
+        parameters: ImageParameters = .init(width: .default),
+        placeholder: UIImage? = nil
+    ) {
         self.property = ImageProperty(imageId: hash, .init(width: .default))
         
         if let image = self.property?.property {
@@ -25,7 +29,7 @@ final class ImageLoader {
             return
         }
         
-        self.imageView?.image = nil
+        self.imageView?.image = placeholder
         self.subscription = self.property?.stream.receiveOnMain().sink { [weak self] (value) in
             self?.imageView?.image = value
         }

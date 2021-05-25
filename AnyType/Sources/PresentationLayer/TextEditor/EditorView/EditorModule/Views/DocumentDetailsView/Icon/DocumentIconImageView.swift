@@ -58,7 +58,18 @@ extension DocumentIconImageView: ConfigurableView {
         imageView.removeAllSubviews()
         
         let parameters = ImageParameters(width: .thumbnail)
-        imageLoader.update(imageId: imageId, parameters: parameters)
+        imageLoader.update(
+            imageId: imageId,
+            parameters: parameters,
+            placeholder: PlaceholderImageBuilder.placeholder(
+                with: ImageGuideline(
+                    size: Constants.size,
+                    cornerRadius: Constants.cornerRadius,
+                    backgroundColor: UIColor.grayscale10
+                ),
+                color: UIColor.grayscale10
+            )
+        )
     }
     
     private func showLoaderWithImage(at path: String) {
