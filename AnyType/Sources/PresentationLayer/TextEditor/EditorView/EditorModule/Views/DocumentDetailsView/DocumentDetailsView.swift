@@ -14,6 +14,7 @@ final class DocumentDetailsView: UICollectionReusableView {
     
     // MARK: - Views
 
+    private var coverView: UIView?
     private var iconView: UIView?
     
     // MARK: - Variables
@@ -25,6 +26,7 @@ final class DocumentDetailsView: UICollectionReusableView {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        removeCoverView()
         removeIconView()
         
         viewModel = nil
@@ -39,6 +41,7 @@ extension DocumentDetailsView: ConfigurableView {
     func configure(model: DocumentDetailsViewModel) {
         viewModel = model
         
+        configureCoverView(with: model.coverViewModel)
         configureIconView(with: model.iconViewModel)
     }
     
@@ -48,19 +51,40 @@ extension DocumentDetailsView: ConfigurableView {
 
 private extension DocumentDetailsView {
     
-    func configureIconView(with iconViewModel: DocumentIconViewModel) {
+    func configureCoverView(with coverViewModel: DocumentCoverViewModel?) {
+        removeCoverView()
+        
+        guard let coverView = coverViewModel?.makeView() else { return }
+        
+        addSubview(coverView)
+        coverView.layoutUsing.anchors {
+            $0.leading.equal(to: leadingAnchor)
+            $0.trailing.equal(to: trailingAnchor)
+            $0.top.equal(to: topAnchor)
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
+        }
+        
+        self.coverView = coverView
+    }
+    
+    func configureIconView(with iconViewModel: DocumentIconViewModel?) {
         removeIconView()
         
-        guard let iconView = iconViewModel.makeView() else { return }
+        guard let iconView = iconViewModel?.makeView() else { return }
         
         addSubview(iconView)
         iconView.layoutUsing.anchors {
-            $0.leading.equal(to: self.leadingAnchor, constant: Constants.edgeInsets.leading)
-            $0.bottom.equal(to: self.bottomAnchor, constant: -Constants.edgeInsets.bottom)
-            $0.top.equal(to: self.topAnchor, constant: Constants.edgeInsets.top)
+            $0.leading.equal(to: leadingAnchor, constant: Constants.iconEdgeInsets.leading)
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.iconEdgeInsets.bottom)
+            $0.top.greaterThanOrEqual(to: topAnchor, constant: Constants.iconEdgeInsets.top)
         }
         
         self.iconView = iconView
+    }
+    
+    func removeCoverView() {
+        coverView?.removeFromSuperview()
+        coverView = nil
     }
     
     func removeIconView() {
@@ -75,7 +99,8 @@ private extension DocumentDetailsView {
 private extension DocumentDetailsView {
     
     enum Constants {
-        static let edgeInsets = NSDirectionalEdgeInsets(
+        static let coverBottomInset: CGFloat = 36
+        static let iconEdgeInsets = NSDirectionalEdgeInsets(
             top: 12,
             leading: 20,
             bottom: 12,

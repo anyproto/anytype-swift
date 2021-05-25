@@ -10,7 +10,7 @@ final class DocumentIconViewModel {
     
     private var onMediaPickerImageSelect: ((String) -> Void)?
     
-    private let documentIcon: DocumentIcon?
+    private let documentIcon: DocumentIcon
     private let detailsActiveModel: DetailsActiveModel
     private let userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>
     
@@ -18,7 +18,7 @@ final class DocumentIconViewModel {
     
     // MARK: - Initializer
     
-    init(documentIcon: DocumentIcon?,
+    init(documentIcon: DocumentIcon,
          detailsActiveModel: DetailsActiveModel,
          userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
         self.documentIcon = documentIcon
@@ -32,14 +32,12 @@ final class DocumentIconViewModel {
 
 extension DocumentIconViewModel {
     
-    func makeView() -> UIView? {
+    func makeView() -> UIView {
         switch documentIcon {
         case let .emoji(iconEmoji):
             return makeIconEmojiView(with: iconEmoji)
         case let .imageId(imageId):
             return makeIconImageView(with: imageId)
-        case .none:
-            return nil
         }
     }
     

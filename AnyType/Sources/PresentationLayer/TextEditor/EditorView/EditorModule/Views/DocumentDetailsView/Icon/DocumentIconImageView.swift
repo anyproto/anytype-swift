@@ -65,7 +65,7 @@ extension DocumentIconImageView: ConfigurableView {
                 with: ImageGuideline(
                     size: Constants.size,
                     cornerRadius: Constants.cornerRadius,
-                    backgroundColor: UIColor.grayscale10
+                    backgroundColor: UIColor.grayscaleWhite
                 ),
                 color: UIColor.grayscale10
             )

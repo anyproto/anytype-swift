@@ -200,18 +200,34 @@ class DocumentEditorViewModel: ObservableObject {
         
         document.pageDetailsPublisher()
             .receiveOnMain()
-            .sink { [weak self] detailsInformationProvider in
-                guard let self = self else { return }
-                
-                self.detailsViewModel = DocumentDetailsViewModel(
-                    documentIcon: detailsInformationProvider.documentIcon,
-                    detailsActiveModel: self.document.defaultDetailsActiveModel,
-                    userActionSubject: self.publicUserActionSubject
-                )
+            .sink { [weak self] detailsProvider in
+                self?.updateDetailsViewModel(with: detailsProvider)
             }
             .store(in: &subscriptions)
 
         self.configureInteractions(document.documentId)
+    }
+    
+    private func updateDetailsViewModel(with detailsProvider: DetailsEntryValueProvider) {
+        let iconViewModel: DocumentIconViewModel? = detailsProvider.documentIcon.flatMap {
+            DocumentIconViewModel(
+                documentIcon: $0,
+                detailsActiveModel: self.document.defaultDetailsActiveModel,
+                userActionSubject: self.publicUserActionSubject
+            )
+        }
+        let coverViewModel: DocumentCoverViewModel? = detailsProvider.documentCover.flatMap {
+            DocumentCoverViewModel(
+                cover: $0,
+                detailsActiveModel: self.document.defaultDetailsActiveModel,
+                userActionSubject: self.publicUserActionSubject
+            )
+        }
+        
+        self.detailsViewModel = DocumentDetailsViewModel(
+            iconViewModel: iconViewModel,
+            coverViewModel: coverViewModel
+        )
     }
     
     private func updateDiffableValuesForBlockIds(_ ids: Set<BlockId>) {

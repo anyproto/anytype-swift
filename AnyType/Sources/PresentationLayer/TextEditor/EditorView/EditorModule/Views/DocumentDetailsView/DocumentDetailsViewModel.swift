@@ -11,18 +11,15 @@ import BlocksModels
 
 final class DocumentDetailsViewModel {
     
-    let iconViewModel: DocumentIconViewModel
+    let iconViewModel: DocumentIconViewModel?
+    let coverViewModel: DocumentCoverViewModel?
 
     // MARK: - Initializer
     
-    init(documentIcon: DocumentIcon?,
-         detailsActiveModel: DetailsActiveModel,
-         userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
-        self.iconViewModel = DocumentIconViewModel(
-            documentIcon: documentIcon,
-            detailsActiveModel: detailsActiveModel,
-            userActionSubject: userActionSubject
-        )
+    init(iconViewModel: DocumentIconViewModel?,
+         coverViewModel: DocumentCoverViewModel?) {
+        self.iconViewModel = iconViewModel
+        self.coverViewModel = coverViewModel
     }
     
 }

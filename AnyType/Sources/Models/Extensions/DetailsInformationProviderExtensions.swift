@@ -13,4 +13,25 @@ extension DetailsEntryValueProvider {
         
         return nil
     }
+    
+    var documentCover: DocumentCover? {
+        guard
+            let coverType = coverType,
+            let coverId = coverId, !coverId.isEmpty
+        else { return nil }
+        
+        switch coverType {
+        case .none:
+            return nil
+        case .uploadedImage:
+            return DocumentCover.imageId(coverId)
+        case .color:
+            return nil
+        case .gradient:
+            return nil
+        case .bundledImage:
+            return nil
+        }
+    }
+    
 }
