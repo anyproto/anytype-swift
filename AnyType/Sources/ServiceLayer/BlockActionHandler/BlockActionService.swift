@@ -261,13 +261,7 @@ final class BlockActionService {
             newValue: newValue
         )
             .receiveOnMain()
-            .sink(receiveCompletion: { value in
-                switch value {
-                case .finished: break
-                case let .failure(error):
-                    os_log(.error, "textService.checked got error with payload: \(error.localizedDescription)")
-                }
-            }) { [weak self] value in
+            .sinkWithDefaultCompletion("textService.checked with payload") { [weak self] value in
                 self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
     }

@@ -29,7 +29,7 @@ class DocumentEditorViewModel: ObservableObject {
     private var blockActionsService: BlockActionsServiceSingle = .init()
     private lazy var blockActionHandler = BlockActionHandler(documentId: document.documentId, documentViewInteraction: self)
 
-    let document: BaseDocumentProtocol = BaseDocument()
+    let document: BaseDocument = BaseDocumentImpl()
 
     var onDetailsViewModelUpdate: (() -> Void)?
     

@@ -10,7 +10,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private let defaultName = "Anytype User"
     
-    private let document: BaseDocumentProtocol = BaseDocument()
+    private let document: BaseDocument = BaseDocumentImpl()
     private var subscriptions: Set<AnyCancellable> = []
     
     private let middlewareConfigurationService = MiddlewareConfigurationService()
@@ -61,13 +61,7 @@ final class AccountInfoDataAccessor: ObservableObject {
             
                 self.blockId = configuration.profileBlockId
                 return self.blocksActionsService.open(contextID: configuration.profileBlockId, blockID: configuration.profileBlockId)
-            }.sink(receiveCompletion: { (completion) in
-                switch completion {
-                case .finished: break
-                case let .failure(error):
-                    assertionFailure("obtainAccountInfo. Error has occured. \(error)")
-                }
-            }) { [weak self] serviceSuccess in
+            }.sinkWithDefaultCompletion("obtainAccountInfo") { [weak self] serviceSuccess in
                 self?.document.open(serviceSuccess)
             }.store(in: &subscriptions)
     }

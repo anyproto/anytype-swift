@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 import os
 
-protocol BaseDocumentProtocol {
+protocol BaseDocument: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
     var userSession: BlockUserSessionModelProtocol? { get }
@@ -11,18 +11,36 @@ protocol BaseDocumentProtocol {
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never>
     func open(_ value: ServiceSuccess)
-    func handle(events: BaseDocument.Events)
+    func handle(events: EventListening.PackOfEvents)
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never>
+    
+    func getDetails(by id: DetailsId) -> DetailsActiveModel?
 }
 
 private extension LoggerCategory {
     static let baseDocument: Self = "BaseDocument"
 }
 
-class BaseDocument: BaseDocumentProtocol {
-    private var rootId: BlockId? { self.rootModel?.rootId }
+private extension BaseDocumentImpl {
+    struct UpdateResult {
+        var updates: EventHandlerUpdate
+        var models: [BlockActiveRecordModelProtocol]
+    }
+}
+
+final class BaseDocumentImpl: BaseDocument {
+    var rootActiveModel: BlockActiveRecordModelProtocol? {
+        guard let rootId = rootModel?.rootId else { return nil }
+        return rootModel?.blocksContainer.choose(by: rootId)
+    }
     
+    var userSession: BlockUserSessionModelProtocol? {
+        rootModel?.blocksContainer.userSession
+    }
+
     var documentId: BlockId? { self.rootId }
+    
+    private var rootId: BlockId? { self.rootModel?.rootId }
     
     /// RootModel
     private var rootModel: ContainerModel? {
@@ -59,10 +77,7 @@ class BaseDocument: BaseDocumentProtocol {
     private var smartblockService: BlockActionsServiceSingle = .init()
     
     deinit {
-        // TODO:
-        // Add closing document without thread.
-        // By enhancing code generation.
-        if let rootId = self.rootId {
+        rootId.flatMap { rootId in
             _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
         }
     }
@@ -71,16 +86,35 @@ class BaseDocument: BaseDocumentProtocol {
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never> {
         modelsAndUpdatesPublisher()
             .receiveOnMain()
-            .map { [weak self] (value) in
+            .map { [weak self] update in
                 DocumentViewModelUpdateResult(
-                    updates: value.updates,
-                    models: self?.blocksConverter.convert(value.models) ?? []
+                    updates: update.updates,
+                    models: self?.blocksConverter.convert(update.models) ?? []
                 )
             }.eraseToAnyPublisher()
     }
 
     // MARK: - Handle Open
-
+    private func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {
+        self.smartblockService.open(contextID: blockId, blockID: blockId).map { [weak self] serviceSuccess in
+            self?.handleOpen(serviceSuccess)
+        }.eraseToAnyPublisher()
+    }
+    
+    func open(_ value: ServiceSuccess) {
+        self.handleOpen(value)
+        
+        // Event processor must receive event to send updates to subscribers.
+        // Events are `blockShow`, actually.
+        self.eventProcessor.handle(
+            events: EventListening.PackOfEvents(
+                contextId: value.contextID,
+                events: value.messages,
+                ourEvents: []
+            )
+        )
+    }
+    
     private func handleOpen(_ value: ServiceSuccess) {
         let blocks = self.eventProcessor.handleBlockShow(
             events: .init(contextId: value.contextID, events: value.messages, ourEvents: [])
@@ -100,26 +134,6 @@ class BaseDocument: BaseDocumentProtocol {
         // Add details models to process.
         self.rootModel = TopLevelBuilderImpl.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsStorage)
     }
-    
-    func open(_ blockId: BlockId) -> AnyPublisher<Void, Error> {
-        self.smartblockService.open(contextID: blockId, blockID: blockId).map { [weak self] (value) in
-            self?.handleOpen(value)
-        }.eraseToAnyPublisher()
-    }
-    
-    func open(_ value: ServiceSuccess) {
-        self.handleOpen(value)
-        
-        // Event processor must receive event to send updates to subscribers.
-        // Events are `blockShow`, actually.
-        self.eventProcessor.handle(
-            events: EventListening.PackOfEvents(
-                contextId: value.contextID,
-                events: value.messages,
-                ourEvents: []
-            )
-        )
-    }
 
     // MARK: - Configure Details
 
@@ -136,7 +150,7 @@ class BaseDocument: BaseDocumentProtocol {
     /// It is the first place where you can configure default details with various handlers and other stuff.
     ///
     /// - Parameter container: A container in which this details is default.
-    func configureDetails(for container: ContainerModel?) {
+    private func configureDetails(for container: ContainerModel?) {
         guard let container = container,
               let rootId = container.rootId,
               let ourModel = container.detailsContainer.choose(by: rootId)
@@ -152,7 +166,7 @@ class BaseDocument: BaseDocumentProtocol {
     }
 
     // MARK: - Handle new root model
-    func handleNewRootModel(_ container: ContainerModel?) {
+    private func handleNewRootModel(_ container: ContainerModel?) {
         if let container = container {
             _ = self.eventProcessor.configured(container)
         }
@@ -161,7 +175,7 @@ class BaseDocument: BaseDocumentProtocol {
     
     /// Returns a flatten list of active models of document.
     /// - Returns: A list of active models.
-    func getModels() -> [BlockActiveRecordModelProtocol] {
+    private func getModels() -> [BlockActiveRecordModelProtocol] {
         guard let container = self.rootModel, let rootId = container.rootId, let activeModel = container.blocksContainer.choose(by: rootId) else {
             Logger.create(.baseDocument).debug("getModels. Our document is not ready yet")
             return []
@@ -169,27 +183,24 @@ class BaseDocument: BaseDocumentProtocol {
         return BlockFlattener.flatten(root: activeModel, in: container, options: .default)
     }
     
-    var rootActiveModel: BlockActiveRecordModelProtocol? {
-        guard let rootId = rootModel?.rootId else { return nil }
-        return rootModel?.blocksContainer.choose(by: rootId)
-    }
-    
-    var userSession: BlockUserSessionModelProtocol? {
-        rootModel?.blocksContainer.userSession
-    }
-  
-    /// Add it later if needed.
-//    /// Returns children ids of provided block id.
-//    /// - Parameter id: Parent block id
-//    /// - Returns: A list of childrens ids
-//    func getChildren(of id: BlockId) -> [BlockId] {
-//        self.rootModel?.blocksContainer.children(of: id) ?? []
-//    }
-
     // MARK: - Publishers
-    struct UpdateResult {
-        var updates: EventHandlerUpdate
-        var models: [BlockActiveRecordModelProtocol]
+
+    
+    /// A publisher of updates and current models.
+    /// It could filter out updates with empty payload.
+    ///
+    /// - Returns: A publisher of updates and related models to these updates.
+    private func modelsAndUpdatesPublisher(
+    ) -> AnyPublisher<UpdateResult, Never> {
+        self.updatesPublisher().filter(\.hasUpdate)
+        .map { [weak self] updates in
+            if let rootId = self?.rootId,
+               let container = self?.rootModel,
+               let rootModel = container.blocksContainer.choose(by: rootId) {
+                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
+            }
+            return UpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
+        }.eraseToAnyPublisher()
     }
     
     /// A publisher of event processor did process events.
@@ -198,23 +209,6 @@ class BaseDocument: BaseDocumentProtocol {
     /// - Returns: A publisher of updates.
     private func updatesPublisher() -> AnyPublisher<EventHandlerUpdate, Never> {
         self.eventProcessor.didProcessEventsPublisher
-    }
-    
-    /// A publisher of updates and current models.
-    /// It could filter out updates with empty payload.
-    ///
-    /// - Returns: A publisher of updates and related models to these updates.
-    func modelsAndUpdatesPublisher(
-    ) -> AnyPublisher<UpdateResult, Never> {
-        self.updatesPublisher().filter(\.hasUpdate)
-        .map { [weak self] (value) in
-            if let rootId = self?.rootId,
-               let container = self?.rootModel,
-               let rootModel = container.blocksContainer.choose(by: rootId) {
-                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
-            }
-            return UpdateResult(updates: value, models: self?.models(from: value) ?? [])
-        }.eraseToAnyPublisher()
     }
     
     private func models(from updates: EventHandlerUpdate) -> [BlockActiveRecordModelProtocol] {
@@ -246,34 +240,6 @@ class BaseDocument: BaseDocumentProtocol {
         result.configured(documentId: id)
         result.configured(publisher: value.changeInformationPublisher())
         return result
-    }
-    
-    /// Returns details accessor associated with corresponding details by id.
-    ///
-    /// - Parameter id: Id of details
-    /// - Returns: Details accessor of this details.
-    func getPageDetails(by id: DetailsId) -> DetailsEntryValueProvider? {
-        self.getDetails(by: id).map(\.currentDetails)
-    }
-    
-    /// Convenient publisher for accessing details properties by typed enum.
-    ///
-    /// Note.
-    ///
-    /// You should assure yourself, that id should be in a list of details of opened document.
-    ///
-    /// - Parameter id: Id of item for which we would like to listen events.
-    /// - Returns: Publisher of default details properties.
-    func getPageDetailsPublisher(by id: DetailsId) -> AnyPublisher<DetailsEntryValueProvider, Never>? {
-        self.getDetails(by: id)?.$currentDetails.eraseToAnyPublisher()
-    }
-    
-    /// Returns details accessor associated with corresponding details.
-    /// This details accessor associated with default details.
-    ///
-    /// - Returns: Details accessor of this details.
-    func getDefaultPageDetails() -> DetailsEntryValueProvider {
-        self.defaultDetailsActiveModel.currentDetails
     }
     
     /// Convenient publisher for accessing default details properties by typed enum.
@@ -335,13 +301,12 @@ class BaseDocument: BaseDocumentProtocol {
     }
 
     // MARK: - Events
-    typealias Events = EventListening.PackOfEvents
     
     /// Handle events initiated by user.
     ///
     /// - Parameter events: A pack of events.
     ///
-    func handle(events: Events) {
+    func handle(events: EventListening.PackOfEvents) {
         self.eventProcessor.handle(events: events)
     }
 }

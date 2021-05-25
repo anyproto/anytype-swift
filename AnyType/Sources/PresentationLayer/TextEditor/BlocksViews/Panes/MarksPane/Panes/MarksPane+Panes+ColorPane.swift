@@ -204,8 +204,8 @@ extension MarksPane.Panes.Color {
         private func setupSubscriptions(background: Bool) {
             // To OuterWorld
             self.userAction =
-            self.$indexPath.safelyUnwrapOptionals().map { [weak self] (value) in
-                self.flatMap({ListDataSource.color(at: value).color(background: $0.background)})
+            self.$indexPath.safelyUnwrapOptionals().map { [weak self] indexPath in
+                self.flatMap({ListDataSource.color(at: indexPath).color(background: $0.background)})
             }.safelyUnwrapOptionals().map(Action.setColor).eraseToAnyPublisher()
             
             /// receive user response as follows:

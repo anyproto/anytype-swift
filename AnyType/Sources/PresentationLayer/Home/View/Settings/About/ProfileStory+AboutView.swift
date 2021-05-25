@@ -35,15 +35,10 @@ extension SettingsView.AboutView {
         @Published var libraryVersion: String = ""
 
         func viewLoaded() {
-            self.configurationService.obtainLibraryVersion().receiveOnMain().sink(receiveCompletion: { (value) in
-                switch value {
-                case .finished: break
-                case let .failure(error):
-                    assertionFailure("Obtain library version error has occured: \(error)")
-                }
-            }, receiveValue: { [weak self] value in
-                self?.libraryVersion = value.version
-            }).store(in: &self.subscriptions)
+            self.configurationService.obtainLibraryVersion().receiveOnMain()
+                .sinkWithDefaultCompletion("Obtain library version") { [weak self] value in
+                    self?.libraryVersion = value.version
+                }.store(in: &self.subscriptions)
         }
     }
 }

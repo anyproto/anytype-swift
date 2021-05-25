@@ -175,15 +175,7 @@ private extension DocumentIconViewModel {
                 ]
             ) ?? .empty()
         }
-        .sink(
-            receiveCompletion: { value in
-                switch value {
-                case .finished: break
-                case let .failure(value):
-                    assertionFailure("uploading image error \(value) on \(self)")
-                }
-            }
-        ) { _ in }
+        .sinkWithDefaultCompletion("uploading image on \(self)") { _ in }
         .store(in: &self.subscriptions)
     }
     
