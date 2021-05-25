@@ -22,15 +22,15 @@ final class ImageLoader {
         parameters: ImageParameters = .init(width: .default),
         placeholder: UIImage? = nil
     ) {
-        self.property = ImageProperty(imageId: hash, .init(width: .default))
+        property = ImageProperty(imageId: hash, .init(width: .default))
         
-        if let image = self.property?.property {
-            self.imageView?.image = image
+        if let image = property?.property {
+            imageView?.image = image
             return
         }
         
-        self.imageView?.image = placeholder
-        self.subscription = self.property?.stream
+        imageView?.image = placeholder
+        subscription = property?.stream
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] value in
@@ -40,6 +40,6 @@ final class ImageLoader {
     
     /// Cleanup
     func cleanupSubscription() {
-        self.subscription = nil
+        subscription = nil
     }
 }

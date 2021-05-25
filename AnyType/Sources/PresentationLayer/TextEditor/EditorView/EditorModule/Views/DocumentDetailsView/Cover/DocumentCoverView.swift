@@ -43,8 +43,8 @@ extension DocumentCoverView: ConfigurableView {
         switch model {
         case let .imageId(imageId):
             showImageWithId(imageId)
-        default:
-            return
+        case let .color(color):
+            showImageBasedOnColor(color)
         }
     }
     
@@ -57,10 +57,21 @@ extension DocumentCoverView: ConfigurableView {
             parameters: parameters,
             placeholder: PlaceholderImageBuilder.placeholder(
                 with: ImageGuideline(
-                    size: CGSize(width: 300, height: Constants.height)
+                    size: CGSize(width: 1, height: Constants.height)
                 ),
                 color: UIColor.grayscale10
             )
+        )
+    }
+    
+    private func showImageBasedOnColor(_ color: UIColor) {
+        imageView.removeAllSubviews()
+        
+        imageView.image = PlaceholderImageBuilder.placeholder(
+            with: ImageGuideline(
+                size: CGSize(width: 1, height: Constants.height)
+            ),
+            color: color
         )
     }
     

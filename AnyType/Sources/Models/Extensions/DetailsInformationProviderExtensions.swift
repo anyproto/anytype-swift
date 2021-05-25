@@ -1,4 +1,5 @@
 import BlocksModels
+import UIKit.UIColor
 
 extension DetailsEntryValueProvider {
     
@@ -26,7 +27,9 @@ extension DetailsEntryValueProvider {
         case .uploadedImage:
             return DocumentCover.imageId(coverId)
         case .color:
-            return nil
+            return Constants.colorHexMap[coverId].flatMap {
+                DocumentCover.color(UIColor(hexString: $0))
+            }
         case .gradient:
             return nil
         case .bundledImage:
@@ -59,5 +62,20 @@ private enum Constants {
         "third-sleep": "bafybeiaq23nrbztctw36xtayerd6qheoi2ae2x2nods3ksosgfizbrzxqq",
         "banquet": "bafybeiamsdjmdbdrwdswmkhy4fuavoi7agvdelp2wrafq3q23gn3lnrnoi",
         "chemist": "bafybeihqthprdduwgxmeyejstjhzoem3u257msinqbeqt3jgbjwylpoese"
+    ]
+    
+    static let colorHexMap: [String: String] = [
+        "yellow": "#FBE885",
+        "orange": "#F5B748",
+        "red": "#E46036",
+        "pink": "#E6B1A4",
+        "purple": "#611A36",
+        "blue": "#376BE1",
+        "ice": "#97CCEF",
+        "teal": "#9FB0B6",
+        "green": "#336C45",
+        "lightgrey": "#DFDDD1",
+        "darkgrey": "#ACA998",
+        "black": "#2C2B28"
     ]
 }
