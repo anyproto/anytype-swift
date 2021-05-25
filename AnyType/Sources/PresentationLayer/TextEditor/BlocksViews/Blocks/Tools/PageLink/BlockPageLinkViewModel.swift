@@ -4,8 +4,6 @@ import Combine
 import BlocksModels
 
 /// ViewModel for type `.link()` with style `.page`
-/// Should we move it to PageBlocksViews? (?)
-///
 final class BlockPageLinkViewModel: BaseBlockViewModel {
     // Maybe we need also input and output subscribers.
     // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?

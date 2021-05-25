@@ -2,88 +2,6 @@ import UIKit
 import Combine
 import BlocksModels
 
-
-// MARK: - Options
-
-extension BaseBlockViewModel {
-    /// Actually, `feature flags`.
-    struct Options {
-        var shouldAddContextualMenu: Bool = true
-    }
-}
-
-// MARK: - OuterWorld Publishers and Subjects
-
-extension BaseBlockViewModel {
-    /// This AactionsPayload describes all actions that user can do with BlocksViewsModels.
-    /// For example, user can press long-tap and active toolbar.
-    /// Or user could interact with text view.
-    /// Possibly, that we need to separate text view actions.
-    enum ActionsPayload {
-        struct Toolbar {
-            let model: BlockActiveRecordModelProtocol
-            let action: BlocksViews.Toolbar.UnderlyingAction
-        }
-
-        struct MarksPaneHolder {
-            let model: BlockActiveRecordModelProtocol
-            let action: MarksPane.Main.Action
-        }
-
-        /// For backward compatibility.
-        struct TextBlocksViewsUserInteraction {
-            let model: BlockActiveRecordModelProtocol
-            let action: TextBlockUserInteraction
-        }
-
-        /// For seamless usage of UserAction as "Payload"
-        struct UserAction {
-            let model: BlockActiveRecordModelProtocol
-            let action: BlocksViews.UserAction
-        }
-
-        /// Text blocks draft.
-        /// It should hold also toggle from `TextBlocksViewsUserInteraction`.
-        /// Name it properly.
-        struct TextBlockViewModelPayload {
-            enum Action {
-                case text(NSAttributedString)
-                case alignment(NSTextAlignment)
-                case checked(Bool)
-            }
-
-            var model: BlockActiveRecordModelProtocol
-            var action: Action
-        }
-
-        case toolbar(Toolbar)
-        case marksPane(MarksPaneHolder)
-        case textView(TextBlocksViewsUserInteraction)
-        case userAction(UserAction)
-        /// show code language view
-        case showCodeLanguageView(languages: [String], completion: (String) -> Void)
-        /// show style menu
-        case showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel)
-        /// tell that block become first responder
-        case becomeFirstResponder(BlockModelProtocol)
-    }
-
-    // Send actions payload
-    func send(actionsPayload: ActionsPayload) {
-        self.actionsPayloadSubject.send(actionsPayload)
-    }
-
-    /// Ask update layout
-    ///
-    /// View could ask to update layout due to some inner layout events (view could changed its size, position or similar)
-    func needsUpdateLayout() {
-        self.sizeDidChangeSubject.send()
-    }
-}
-
-// MARK: - BaseBlockViewModel class
-
-/// Base block view model
 class BaseBlockViewModel: ObservableObject {
     typealias Information = BlockInformation.InformationModel
 
@@ -95,9 +13,6 @@ class BaseBlockViewModel: ObservableObject {
     /// our Block
     /// Maybe we should made it Observable?.. Let think a bit about it.
     private var block: BlockActiveRecordModelProtocol
-    
-    /// Options that handle a behavior of view model.
-    private var options: Options = .init()
     
     // MARK: - Initialization
 
@@ -279,7 +194,6 @@ class BaseBlockViewModel: ObservableObject {
     
     // MARK: - Subclass / Views
 
-    func makeUIView() -> UIView { .init() }
     func makeContentConfiguration() -> UIContentConfiguration { ContentConfiguration.init() }
     
     // MARK: - Subclass / Events
@@ -332,18 +246,16 @@ extension BaseBlockViewModel: Hashable {
 
 extension BaseBlockViewModel {
     /// TODO: Remove later. Maybe we don't need this publisher.
-    func configured(sizeDidChangeSubject: PassthroughSubject<Void, Never>) -> Self {
+    func configured(sizeDidChangeSubject: PassthroughSubject<Void, Never>) {
         self.sizeDidChangeSubject = sizeDidChangeSubject
-        return self
     }
 
-    func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) -> Self {
+    func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
         self.userActionSubject = userActionSubject
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
-        return self
     }
     
-    func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) -> Self {
+    func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) {
         self.actionsPayloadSubject = actionsPayloadSubject
         /// Discussion:
         /// Do we have here retain cycle?
@@ -373,16 +285,6 @@ extension BaseBlockViewModel {
         self.actionsPayloadSubjectSubscription = allInOnePublisher.sink(receiveValue: { [weak self] (value) in
             self?.actionsPayloadSubject.send(value)
         })
-        return self
-    }
-}
-
-// MARK: - Options
-
-extension BaseBlockViewModel {
-    func configured(_ options: Options) -> Self {
-        self.options = options
-        return self
     }
 }
 
@@ -488,7 +390,7 @@ extension BaseBlockViewModel {
     }
 
     private func addContextMenu(_ view: UIView) {
-        if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
+        if let delegate = self.contextualMenuDelegate {
             let interaction = OurContextMenuInteraction.init(delegate: delegate)
             view.addInteraction(interaction)
         }
@@ -496,7 +398,7 @@ extension BaseBlockViewModel {
 
     private func updateContextMenu(_ view: UIView) {
         if let interaction = view.interactions.first(where: {$0 is OurContextMenuInteraction}) as? OurContextMenuInteraction {
-            if let delegate = self.contextualMenuDelegate, self.options.shouldAddContextualMenu {
+            if let delegate = self.contextualMenuDelegate {
                 interaction.update(delegate: delegate)
             }
         }
@@ -552,16 +454,8 @@ extension BaseBlockViewModel: Identifiable {}
 
 /// Requirement: `BlockViewBuilderProtocol` is necessary for view model.
 /// We use these models in wrapped (Row contains viewModel) way in `UIKit`.
-extension BaseBlockViewModel: BlockViewBuilderProtocol {
-    var blockId: BlockID { self.getBlock().blockModel.information.id }
-    
-//    var id: IndexID { .init() } // Unused, actually, so, conform as you want.
-
-    func buildUIView() -> UIView {
-        let view = makeUIView()
-        self.addContextMenuIfNeeded(view)
-        return view
-    }
+extension BaseBlockViewModel {
+    var blockId: BlockId { self.getBlock().blockModel.information.id }
 }
 
 /// Requirement: `Blocks ViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.

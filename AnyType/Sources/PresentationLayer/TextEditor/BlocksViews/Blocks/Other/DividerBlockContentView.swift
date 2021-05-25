@@ -6,8 +6,8 @@ class DividerBlockContentView: UIView & UIContentView {
     private var subscription: AnyCancellable?
     
     // MARK: Views
-    private var contentView: UIView = .init()
-    private var dividerView: DividerBlockUIKitViewWithDivider = .init()
+    private let contentView = UIView()
+    private let dividerView = DividerBlockUIKitViewWithDivider()
             
     // MARK: Setup
     func setup() {
@@ -49,7 +49,7 @@ class DividerBlockContentView: UIView & UIContentView {
         }
     }
     
-    func handle(_ state: DividerBlockUIKitView.State) {
+    func handle(_ state: DividerBlockUIKitViewState) {
         switch state.style {
         case .line: self.dividerView.toLineView()
         case .dots: self.dividerView.toDotsView()
@@ -100,7 +100,7 @@ class DividerBlockContentView: UIView & UIContentView {
         self.cleanupOnNewConfiguration()
         switch self.currentConfiguration.information.content {
         case let .divider(value):
-            guard let style = DividerBlockUIKitView.StateConverter.asOurModel(value.style) else {
+            guard let style = DividerBlockUIKitViewStateConverter.asOurModel(value.style) else {
                 return
             }
             self.handle(.init(style: style))

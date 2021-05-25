@@ -80,26 +80,6 @@ class PageTitleViewModel: PageBlockViewModel {
             .store(in: &self.subscriptions)
         }
     }
-
-    // MARK: Subclassing / Views
-    override func makeUIView() -> UIView {
-        func makeCoordinator() -> BlockTextViewCoordinator {
-            let factory = BlockRestrictionsFactory()
-            let restrictions = factory.makeRestrictions(for: information.content.type)
-            let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: marksPaneActionSubject,
-                                                            addBlockAndActionsSubject: toolbarActionSubject)
-            let coordinator = BlockTextViewCoordinator(blockRestrictions: restrictions,
-                                                       menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
-                                                       blockMenuActionsHandler: actionsHandler)
-            return coordinator
-        }
-
-        let textView = BlockTextView()
-        let placeholder = BlockTextView.Placeholder(text: nil, attributedText: self.placeholder, attributes: [:])
-        textView.coordinator = makeCoordinator().configure(self)
-
-        return PageTitleUIKitView().configured(textView: textView.configured(placeholder: placeholder))
-    }
 }
 
 // MARK: - TextViewEvents

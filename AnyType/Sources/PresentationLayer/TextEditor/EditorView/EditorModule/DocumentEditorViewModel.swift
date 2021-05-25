@@ -390,12 +390,11 @@ extension DocumentEditorViewModel: CustomDebugStringConvertible {
 /// 1. We have one Subject that we give to all ViewModels.
 ///
 extension DocumentEditorViewModel {
-    func enhanceUserActionsAndPayloads(_ builders: [BlockViewBuilderProtocol]) {
-        let ourViewModels = builders.compactMap({$0 as? BaseBlockViewModel})
-        ourViewModels.forEach { (value) in
-            _ = value.configured(userActionSubject: self.publicUserActionSubject)
-            _ = value.configured(actionsPayloadSubject: self.publicActionsPayloadSubject)
-            _ = value.configured(sizeDidChangeSubject: self.publicSizeDidChangeSubject)
+    func enhanceUserActionsAndPayloads(_ builders: [BaseBlockViewModel]) {
+        builders.forEach { block in
+            block.configured(userActionSubject: publicUserActionSubject)
+            block.configured(actionsPayloadSubject: publicActionsPayloadSubject)
+            block.configured(sizeDidChangeSubject: publicSizeDidChangeSubject)
         }
     }
     

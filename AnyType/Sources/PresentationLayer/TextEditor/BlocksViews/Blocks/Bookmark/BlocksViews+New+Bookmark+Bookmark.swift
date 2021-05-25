@@ -22,11 +22,7 @@ extension Namespace {
         @Published private var resourcePublished: Resource?
         var imagesPublished: Resource.ImageLoader = .init()
         private var publisher: AnyPublisher<BlockContent.Bookmark, Never> = .empty()
-        
-        override func makeUIView() -> UIView {
-            UIKitView().configured(publisher: self.$resourcePublished.eraseToAnyPublisher())
-        }
-        
+                
         override func makeContentConfiguration() -> UIContentConfiguration {
             var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
             configuration.contextMenuHolder = self

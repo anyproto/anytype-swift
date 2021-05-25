@@ -8,12 +8,8 @@ import MobileCoreServices
 
 class DividerBlockViewModel: BaseBlockViewModel {
     private var subscription: AnyCancellable?
-    @Published private var statePublished: DividerBlockUIKitView.State?
+    @Published private var statePublished: DividerBlockUIKitViewState?
     private var publisher: AnyPublisher<BlockContent.Divider, Never> = .empty()
-    
-    override func makeUIView() -> UIView {
-        DividerBlockUIKitView().configured(publisher: self.$statePublished.eraseToAnyPublisher())
-    }
     
     override func makeContentConfiguration() -> UIContentConfiguration {
         var configuration = DividerBlockContentConfiguration(self.getBlock().blockModel.information)
@@ -40,8 +36,8 @@ class DividerBlockViewModel: BaseBlockViewModel {
             }
         }).safelyUnwrapOptionals().eraseToAnyPublisher()
         self.subscription = publisher.sink(receiveValue: { [weak self] (value) in
-            let style = DividerBlockUIKitView.StateConverter.asOurModel(value.style)
-            let state = style.flatMap(DividerBlockUIKitView.State.init)
+            let style = DividerBlockUIKitViewStateConverter.asOurModel(value.style)
+            let state = style.flatMap(DividerBlockUIKitViewState.init)
             self?.statePublished = state
         })
     }
