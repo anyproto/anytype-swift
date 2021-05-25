@@ -8,16 +8,16 @@
 
 import Foundation
 
-public struct DetailsEntry {
+public struct DetailsEntry<V: Hashable> {
     
     public let kind: DetailsKind
-    public let value: String
+    public let value: V
     
     public var id: String {
         kind.rawValue
     }
     
-    public init(kind: DetailsKind, value: String) {
+    public init(kind: DetailsKind, value: V) {
         self.kind = kind
         self.value = value
     }

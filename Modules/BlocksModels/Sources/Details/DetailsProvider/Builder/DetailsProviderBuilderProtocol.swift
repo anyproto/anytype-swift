@@ -12,6 +12,6 @@ public protocol DetailsProviderBuilderProtocol {
     
     func empty() -> DetailsProviderProtocol
     
-    func filled(with list: [DetailsEntry]) -> DetailsProviderProtocol
+    func filled(with list: [DetailsEntry<AnyHashable>]) -> DetailsProviderProtocol
     
 }

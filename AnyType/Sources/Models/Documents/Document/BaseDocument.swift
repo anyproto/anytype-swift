@@ -259,17 +259,17 @@ final class BaseDocumentImpl: BaseDocument {
             return nil
         }
                 
-        let detailsContent: DetailsEntry? = {
+        let detailsContent: DetailsEntry<AnyHashable>? = {
             let details = detailsActiveModel.currentDetails
 
             switch kind {
             case .name:
                 return DetailsEntry(
                     kind: .name,
-                    value: details[.name] ?? ""
+                    value: details.name ?? ""
                 )
             case .iconEmoji:
-                return details[.iconEmoji].flatMap {
+                return details.iconEmoji.flatMap {
                     DetailsEntry(
                         kind: .iconEmoji,
                         value: $0
@@ -278,8 +278,14 @@ final class BaseDocumentImpl: BaseDocument {
             case .iconImage:
                 return DetailsEntry(
                     kind: .iconImage,
-                    value: details[.iconImage] ?? ""
+                    value: details.iconImage ?? ""
                 )
+            case .coverId:
+                assertionFailure()
+                return nil
+            case .coverType:
+                assertionFailure()
+                return nil
             }
         }()
         

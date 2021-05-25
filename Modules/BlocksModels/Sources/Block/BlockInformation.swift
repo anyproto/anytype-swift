@@ -64,7 +64,7 @@ extension BlockInformation {
         
         var blockId: BlockId
 
-        private func detailsAsInformation(_ blockId: BlockId, _ details: DetailsEntry) -> InformationModel {
+        private func detailsAsInformation(_ blockId: BlockId, _ details: DetailsEntry<AnyHashable>) -> InformationModel {
             /// Our ID is <ID>/<Details.key>.
             /// Look at implementation in `IdentifierBuilder`
             
@@ -76,7 +76,7 @@ extension BlockInformation {
             return InformationModel(id: id, content: content)
         }
 
-        func callAsFunction(_ details: DetailsEntry) -> InformationModel {
+        func callAsFunction(_ details: DetailsEntry<AnyHashable>) -> InformationModel {
             detailsAsInformation(self.blockId, details)
         }
     }
@@ -126,7 +126,7 @@ public extension BlockInformation {
         
         // MARK: - Public functions
         
-        public func convertDetailsToBlock(_ details: DetailsEntry) -> BlockModelProtocol {
+        public func convertDetailsToBlock(_ details: DetailsEntry<AnyHashable>) -> BlockModelProtocol {
             TopLevelBuilderImpl.blockBuilder.createBlockModel(
                 with: DetailsAsInformationConverter(blockId: self.blockId)(details)
             )

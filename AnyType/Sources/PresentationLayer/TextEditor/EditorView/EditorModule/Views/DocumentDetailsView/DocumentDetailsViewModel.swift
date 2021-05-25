@@ -12,7 +12,7 @@ import BlocksModels
 final class DocumentDetailsViewModel {
     
     let iconViewModel: DocumentIconViewModel
-    
+
     // MARK: - Initializer
     
     init(documentIcon: DocumentIcon?,

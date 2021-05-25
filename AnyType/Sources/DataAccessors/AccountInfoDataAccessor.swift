@@ -29,7 +29,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private func setUpNameSubscription() {
         document.pageDetailsPublisher()
-            .map { $0[.name] }
+            .map { $0.name }
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] accountName in
@@ -43,7 +43,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private func setUpImageSubscription() {
         document.pageDetailsPublisher()
-            .map { $0[.iconImage] }
+            .map { $0.iconImage }
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] imageId in

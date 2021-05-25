@@ -55,7 +55,7 @@ extension DetailsActiveModel {
     
     /// Maybe add AnyPublisher as Return result?
     
-    func update(details: [DetailsEntry]) -> AnyPublisher<Void, Error>? {
+    func update(details: [DetailsEntry<AnyHashable>]) -> AnyPublisher<Void, Error>? {
         guard let documentId = self.documentId else {
             assertionFailure("update(details:). Our document is not ready yet")
             return nil

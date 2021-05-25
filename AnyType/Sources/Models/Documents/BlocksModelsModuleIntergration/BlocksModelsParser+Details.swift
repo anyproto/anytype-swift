@@ -17,8 +17,8 @@ extension BlocksModelsParser {
 // MARK: Protocols
 protocol _BlocksModelsParserDetailsConverterProtocol {
 
-    static func asMiddleware(models: [DetailsEntry]) -> [Anytype_Rpc.Block.Set.Details.Detail]
-    static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry]
+    static func asMiddleware(models: [DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail]
+    static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry<AnyHashable>]
     
 }
 
@@ -28,18 +28,27 @@ extension BlocksModelsParser.Details {
     ///
     enum Converter: _BlocksModelsParserDetailsConverterProtocol {
         
-        static func asMiddleware(models: [DetailsEntry]) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+        static func asMiddleware(models: [DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail] {
             models.compactMap { $0.asMiddleware }
         }
         
-        static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry] {
+        static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry<AnyHashable>] {
             details.compactMap { $0.asModel }
         }
     }
     
 }
 
-private extension DetailsEntry {
+private extension DetailsEntry where V == AnyHashable {
+    
+    var asMiddleware: Anytype_Rpc.Block.Set.Details.Detail? {
+        assertionFailure("Implement converter from \(V.self) to `Google_Protobuf_Value`")
+        return nil
+    }
+    
+}
+
+private extension DetailsEntry where V == String {
     
     var asMiddleware: Anytype_Rpc.Block.Set.Details.Detail {
         Anytype_Rpc.Block.Set.Details.Detail(
@@ -52,9 +61,22 @@ private extension DetailsEntry {
     
 }
 
+private extension DetailsEntry where V == CoverType {
+    
+    var asMiddleware: Anytype_Rpc.Block.Set.Details.Detail {
+        Anytype_Rpc.Block.Set.Details.Detail(
+            key: self.id,
+            value: Google_Protobuf_Value(
+                numberValue: Double(self.value.rawValue)
+            )
+        )
+    }
+    
+}
+
 private extension Anytype_Rpc.Block.Set.Details.Detail {
     
-    var asModel: DetailsEntry? {
+    var asModel: DetailsEntry<AnyHashable>? {
         guard let kind = DetailsKind(rawValue: self.key) else {
             // TODO: Add assertionFailure for debug when all converters will be added
             // TASK: https://app.clickup.com/t/h137nr
@@ -70,10 +92,14 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
             return asIconEmojiEntry()
         case .iconImage:
             return asIconImageEntry()
+        case .coverId:
+            return asCoverIdEntry()
+        case .coverType:
+            return asCoverTypeEntry()
         }
     }
     
-    func asNameEntry() -> DetailsEntry? {
+    func asNameEntry() -> DetailsEntry<AnyHashable>? {
         switch self.value.kind {
         case let .stringValue(string):
             return DetailsEntry(kind: .name, value: string)
@@ -85,7 +111,7 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
         }
     }
     
-    func asIconEmojiEntry() -> DetailsEntry? {
+    func asIconEmojiEntry() -> DetailsEntry<AnyHashable>? {
         switch self.value.kind {
         /// We don't display empty emoji so we must not create empty emoji details
         case let .stringValue(string) where string.isEmpty:
@@ -100,13 +126,39 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
         }
     }
     
-    func asIconImageEntry() -> DetailsEntry? {
+    func asIconImageEntry() -> DetailsEntry<AnyHashable>? {
         switch self.value.kind {
         case let .stringValue(string):
             return DetailsEntry(kind: .iconImage, value: string)
         default:
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.iconImage)"
+            )
+            return nil
+        }
+    }
+    
+    func asCoverIdEntry() -> DetailsEntry<AnyHashable>? {
+        switch value.kind {
+        case let .stringValue(string):
+            return DetailsEntry(kind: .coverId, value: string)
+        default:
+            assertionFailure(
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.coverId)"
+            )
+            return nil
+        }
+    }
+    
+    func asCoverTypeEntry() -> DetailsEntry<AnyHashable>? {
+        switch value.kind {
+        case let .numberValue(number):
+            guard let coverType = CoverType(rawValue: Int(number)) else { return nil }
+            
+            return DetailsEntry(kind: .coverType, value: coverType)
+        default:
+            assertionFailure(
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.coverType)"
             )
             return nil
         }

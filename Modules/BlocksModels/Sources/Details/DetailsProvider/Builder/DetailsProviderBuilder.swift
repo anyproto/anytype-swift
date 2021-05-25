@@ -6,7 +6,7 @@ final class DetailsProviderBuilder: DetailsProviderBuilderProtocol {
         DetailsProvider([:])
     }
     
-    func filled(with list: [DetailsEntry]) -> DetailsProviderProtocol {
+    func filled(with list: [DetailsEntry<AnyHashable>]) -> DetailsProviderProtocol {
         let keys = list.compactMap { ($0.id, $0) }
 
         return DetailsProvider(

@@ -62,7 +62,7 @@ class PageTitleViewModel: PageBlockViewModel {
             ///
             self.pageDetailsViewModel?
                 .wholeDetailsPublisher
-                .map { $0[.name] }
+                .map { $0.name }
                 .sink(receiveValue: { [weak self] (value) in
                 value.flatMap({ self?.toViewTitle = $0 })
             }).store(in: &self.subscriptions)

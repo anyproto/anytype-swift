@@ -106,7 +106,7 @@ class BaseBlockViewModel: ObservableObject {
     /// DidChange Size Subject.
     /// Whenever item changes size ( or thinking so ), we have to notify our document view model about it.
     /// This can be done via "PassthroughSubject as Delegate" technique.
-    private var sizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
+    var sizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     
     // MARK: - Handle events
 

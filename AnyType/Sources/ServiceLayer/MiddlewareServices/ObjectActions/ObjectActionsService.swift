@@ -34,7 +34,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     // MARK: - ObjectActionsService / SetDetails
-    func setDetails(contextID: BlockId, details: [DetailsEntry]) -> AnyPublisher<ServiceSuccess, Error> {
+    func setDetails(contextID: BlockId, details: [DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error> {
         let middlewareDetails = BlocksModelsParser.Details.Converter.asMiddleware(models: details)
         return setDetails(contextID: contextID, details: middlewareDetails)
     }

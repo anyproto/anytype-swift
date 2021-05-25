@@ -211,7 +211,7 @@ private extension DocumentIconViewModel {
         )
     }
     
-    func updateDetails(_ details: [DetailsEntry]) {
+    func updateDetails(_ details: [DetailsEntry<AnyHashable>]) {
         detailsActiveModel.update(
             details: details
         )?.sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in
