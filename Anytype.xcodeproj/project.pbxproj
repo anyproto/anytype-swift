@@ -343,6 +343,8 @@
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareListener.swift */; };
 		3DC7862F265D30B700498993 /* EventHandler+BlockShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862E265D30B700498993 /* EventHandler+BlockShow.swift */; };
+		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
+		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
 		3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */; };
@@ -884,6 +886,8 @@
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DC7862C265D251900498993 /* MiddlewareListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareListener.swift; sourceTree = "<group>"; };
 		3DC7862E265D30B700498993 /* EventHandler+BlockShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventHandler+BlockShow.swift"; sourceTree = "<group>"; };
+		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
+		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
@@ -2516,6 +2520,7 @@
 		3DA3693A2629B6A1001557C9 /* EventHandler */ = {
 			isa = PBXGroup;
 			children = (
+				3DC78632265D43E900498993 /* EventConverters */,
 				3DCE79F92615215D00E09593 /* EventHandler.swift */,
 				3DA3693C2629B6BE001557C9 /* EventHandlerUpdate.swift */,
 				EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */,
@@ -2640,6 +2645,15 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3DC78632265D43E900498993 /* EventConverters */ = {
+			isa = PBXGroup;
+			children = (
+				3DC78635265D443F00498993 /* InnerEventConverter.swift */,
+				3DC78637265D571500498993 /* OurEventConverter.swift */,
+			);
+			path = EventConverters;
 			sourceTree = "<group>";
 		};
 		3DCE7A092615248A00E09593 /* Flattener */ = {
@@ -3497,6 +3511,7 @@
 				3D9D048C265C49F1009412B8 /* ActionsPayload.swift in Sources */,
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
+				3DC78638265D571500498993 /* OurEventConverter.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
 				0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */,
 				03CB3F0D230C3EAA003D5DFD /* ImageLoaderObject.swift in Sources */,
@@ -3754,6 +3769,7 @@
 				12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */,
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
 				0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */,
+				3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */,
 				0A2ADCE02496921500FA135D /* EventListening.swift in Sources */,
 				0ADE619124488C6600244E49 /* BlocksViews+UserAction+Tools.swift in Sources */,
 				0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */,

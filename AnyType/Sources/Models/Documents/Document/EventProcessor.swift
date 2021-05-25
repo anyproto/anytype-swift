@@ -14,7 +14,7 @@ class EventProcessor {
     var didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never> { self.eventHandler.didProcessEventsPublisher }
 
     func configured(_ container: ContainerModel) {
-        self.eventHandler.configured(container)
+        eventHandler.configured(container)
         
         guard let rootId = container.rootId else {
             assertionFailure("We can't start listening rootId of container: \(container)")
