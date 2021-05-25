@@ -115,6 +115,10 @@ class DocumentEditorViewModel: ObservableObject {
 
         self.obtainDocument(documentId: documentId)
     }
+    
+    func setNavigationItem(_ item: UINavigationItem?) {
+        selectionPresenter.navigationItem = item
+    }
 
     /// Apply last setText action, to ensure text was saved after document was closed
     func applyPendingChanges() {

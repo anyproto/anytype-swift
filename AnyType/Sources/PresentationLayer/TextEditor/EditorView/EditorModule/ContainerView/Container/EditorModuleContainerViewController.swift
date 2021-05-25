@@ -41,12 +41,8 @@ class EditorModuleContainerViewController: UIViewController {
         case let .show(value): self.present(value, animated: true, completion: nil)
         case .pop: windowHolder?.rootNavigationController.popViewController(animated: true)
         case let .childDocument(value):
-            let viewController = value.viewController
-            value.selectionPresenter.navigationItem = viewController.navigationItem
             self.handle(.child(value.viewController))
         case let .showDocument(value):
-            let viewController = value.viewController
-            value.selectionPresenter.navigationItem = viewController.navigationItem
             self.handle(.show(value.viewController))
         }
     }
