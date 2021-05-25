@@ -39,37 +39,28 @@ extension BlocksModelsParser.Details {
     
 }
 
-private extension DetailsEntry where V == AnyHashable {
+private extension DetailsEntry {
     
     var asMiddleware: Anytype_Rpc.Block.Set.Details.Detail? {
-        assertionFailure("Implement converter from \(V.self) to `Google_Protobuf_Value`")
-        return nil
-    }
-    
-}
-
-private extension DetailsEntry where V == String {
-    
-    var asMiddleware: Anytype_Rpc.Block.Set.Details.Detail {
-        Anytype_Rpc.Block.Set.Details.Detail(
-            key: self.id,
-            value: Google_Protobuf_Value(
-                stringValue: self.value
+        let protobufValue: Google_Protobuf_Value? = {
+            if let string = self.value as? String {
+                return Google_Protobuf_Value(stringValue: string)
+            }
+            
+            if let double = self.value as? Double {
+                return Google_Protobuf_Value(numberValue: double)
+            }
+            
+            assertionFailure("Implement converter from \(V.self) to `Google_Protobuf_Value`")
+            return nil
+        }()
+        
+        return protobufValue.flatMap {
+            Anytype_Rpc.Block.Set.Details.Detail(
+                key: self.id,
+                value: $0
             )
-        )
-    }
-    
-}
-
-private extension DetailsEntry where V == CoverType {
-    
-    var asMiddleware: Anytype_Rpc.Block.Set.Details.Detail {
-        Anytype_Rpc.Block.Set.Details.Detail(
-            key: self.id,
-            value: Google_Protobuf_Value(
-                numberValue: Double(self.value.rawValue)
-            )
-        )
+        }
     }
     
 }
