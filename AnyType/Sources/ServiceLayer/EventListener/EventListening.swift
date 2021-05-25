@@ -4,46 +4,8 @@ import BlocksModels
 import Combine
 import os
 
-
-private extension LoggerCategory {
-    static let eventListening: Self = "EventListening"
-}
-
 enum EventListening {
     typealias ContextId = String
-}
-
-extension EventListening {
-    /// receive events from middleware and broadcast throught notification center
-    class RawListener: NSObject {
-        private var wrapper: ProtobufMessages.ServiceMessageHandlerAdapter = .init()
-        override init() {
-            super.init()
-            _ = self.wrapper.with(value: self)
-        }
-    }
-}
-
-extension EventListening.RawListener: ProtobufMessages.ServiceEventsHandlerProtocol {
-    // TODO: Don't forget to remove it. We only add this method to hide logs from thread status.
-    private func filterNecessary(_ event: Anytype_Event.Message) -> Bool {
-        guard let value = event.value else { return false }
-        switch value {
-        case .threadStatus: return false
-        default: return true
-        }
-    }
-    
-    func handle(_ data: Data?) {
-        guard let rawEvent = data,
-            let event = try? Anytype_Event(serializedData: rawEvent) else { return }
-        
-        let necessaryEvents = event.messages.filter(self.filterNecessary)
-        Logger.create(.eventListening).debug("handleEvents. Necessary events are \(necessaryEvents)")
-        
-        // TODO: Add filter by messages here???
-        NotificationCenter.default.post(name: .middlewareEvent, object: event)
-    }
 }
 
 extension EventListening {
@@ -95,14 +57,5 @@ extension EventListening {
 }
 
 protocol EventHandlerProtocol: AnyObject {
-    associatedtype EventsContainer
-    func handle(events: EventsContainer)
-}
-
-protocol NewEventListener {
-    associatedtype Handler: EventHandlerProtocol
-    typealias ContextID = String
-
-    var handler: Self.Handler? { get }
-    func receive(contextId: ContextID)
+    func handle(events: EventListening.PackOfEvents)
 }

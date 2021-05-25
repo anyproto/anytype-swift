@@ -2,8 +2,8 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    // Magic for middleware communication, do not delete
-    private let eventListener = EventListening.RawListener()
+    /// receive events from middleware and broadcast throught notification center
+    private let eventListener = MiddlewareListener()
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?

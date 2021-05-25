@@ -43,10 +43,9 @@ class EventHandler: EventHandlerProtocol {
     }
 
     // MARK: Configurations
-    func configured(_ container: ContainerModel) -> Self {
+    func configured(_ container: ContainerModel) {
         self.updater = BlockUpdater(container)
         self.container = container
-        return self
     }
 
     // MARK: Events Handling / InnerEvents

@@ -168,9 +168,9 @@ final class BaseDocumentImpl: BaseDocument {
     // MARK: - Handle new root model
     private func handleNewRootModel(_ container: ContainerModel?) {
         if let container = container {
-            _ = self.eventProcessor.configured(container)
+            eventProcessor.configured(container)
         }
-        self.configureDetails(for: container)
+        configureDetails(for: container)
     }
     
     /// Returns a flatten list of active models of document.
