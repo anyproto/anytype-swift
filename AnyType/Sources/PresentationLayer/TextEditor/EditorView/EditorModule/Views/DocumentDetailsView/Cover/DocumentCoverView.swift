@@ -72,7 +72,7 @@ private extension DocumentCoverView {
     
     func setupView() {
         // TODO: - load image with size of `ImageView`
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         
         setupLayout()
     }

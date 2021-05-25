@@ -30,9 +30,12 @@ final class ImageLoader {
         }
         
         self.imageView?.image = placeholder
-        self.subscription = self.property?.stream.receiveOnMain().sink { [weak self] (value) in
-            self?.imageView?.image = value
-        }
+        self.subscription = self.property?.stream
+            .safelyUnwrapOptionals()
+            .receiveOnMain()
+            .sink { [weak self] value in
+                self?.imageView?.image = value
+            }
     }
     
     /// Cleanup
