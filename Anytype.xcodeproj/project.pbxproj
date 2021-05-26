@@ -410,6 +410,7 @@
 		53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */; };
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
 		53BC39B4261C7972004D7EB6 /* TextBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */; };
+		53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */; };
 		53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */; };
 		53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A772637637200968B8E /* StyleColorCellView.swift */; };
 		53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7B2637638800968B8E /* StyleColorContentView.swift */; };
@@ -950,6 +951,7 @@
 		53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockViewModel.swift; sourceTree = "<group>"; };
+		53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockCellView.swift; sourceTree = "<group>"; };
 		53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorViewController.swift; sourceTree = "<group>"; };
 		53EA4A772637637200968B8E /* StyleColorCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorCellView.swift; sourceTree = "<group>"; };
 		53EA4A7B2637638800968B8E /* StyleColorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorContentView.swift; sourceTree = "<group>"; };
@@ -1311,7 +1313,6 @@
 		037F2D33239D59C0008C16BF /* EventListener */ = {
 			isa = PBXGroup;
 			children = (
-				3DC7862B265D245400498993 /* Models */,
 				0A2ADCDF2496921500FA135D /* EventListening.swift */,
 				0A2CEDF024A8DB5700D1DCBC /* NotificationEventListener.swift */,
 				3DC7862C265D251900498993 /* MiddlewareListener.swift */,
@@ -2948,6 +2949,7 @@
 				53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */,
 				53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */,
 				53BC39A2261B7934004D7EB6 /* CodeBlockContentView.swift */,
+				53D6EE2D265D7DD600C47263 /* CodeBlockCellView.swift */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -3248,7 +3250,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */;
+			buildConfigurationList = 0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */;
 			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -3514,6 +3516,7 @@
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */,
 				0A72751324AB9FBA005DA617 /* MultiSelectionPaneDoneView.swift in Sources */,
+				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
 				3D932D4E26317E9300C7D1EA /* StandardButton.swift in Sources */,
 				3DB27C06261B0E9C005E523C /* KeyedDecodingContainer.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
@@ -4075,7 +4078,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "Anytype" */ = {
+		0303ECF622D8EDAA005C552B /* Build configuration list for PBXProject "AnyType" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0303ED0D22D8EDAD005C552B /* Debug */,

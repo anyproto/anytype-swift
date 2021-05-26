@@ -64,55 +64,44 @@ final class DocumentEditorViewController: UICollectionViewController {
 
 
     private func setupCollectionViewDataSource() {
-        collectionView.register(
-            DocumentDetailsView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: Constants.headerReuseId
-        )
+        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
+        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] (detailsView, string, indexPath) in
+            guard let viewModel = self?.viewModel.detailsViewModel else { return }
 
-        collectionView.register(
-            UICollectionViewListCell.self,
-            forCellWithReuseIdentifier: Constants.cellReuseId
-        )
-
-        self.dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView) { [weak self] (view, indexPath, item) -> UICollectionViewCell? in
-            guard let self = self else { return UICollectionViewListCell() }
-            
-            let cell = view.dequeueReusableCell(
-                withReuseIdentifier: Constants.cellReuseId,
-                for: indexPath
-            ) as? UICollectionViewListCell
-            
-            cell?.contentConfiguration = item.buildContentConfiguration()
-            cell?.indentationWidth = Constants.cellIndentationWidth
-            cell?.indentationLevel = item.indentationLevel()
-            cell?.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
-
-            let backgroundView = UIView()
-            backgroundView.backgroundColor = .clear
-            cell?.selectedBackgroundView = backgroundView
-            
-            return cell
+            detailsView.configure(model: viewModel)
         }
 
-        self.dataSource?.supplementaryViewProvider = { [weak self] view, type, indexPath in
-            guard
-                let headerView = view.dequeueReusableSupplementaryView(
-                    ofKind: type,
-                    withReuseIdentifier: Constants.headerReuseId,
-                    for: indexPath
-                ) as? DocumentDetailsView
-            else {
-                assertionFailure("Unable to create proper header view")
-                return UICollectionReusableView()
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
+            self?.setuCell(cell: cell, indexPath: indexPath, item: item)
+        }
+
+        let codeCellRegistration = UICollectionView.CellRegistration<CodeBlockCellView, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
+            self?.setuCell(cell: cell, indexPath: indexPath, item: item)
+        }
+
+        dataSource = UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: BaseBlockViewModel) -> UICollectionViewCell? in
+            if item is CodeBlockViewModel {
+                return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: item)
+            } else {
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             }
-                        
-            guard let viewModel = self?.viewModel.detailsViewModel else { return headerView }
-            
-            headerView.configure(model: viewModel)
-            
-            return headerView
         }
+
+        dataSource?.supplementaryViewProvider = {
+            return self.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
+        }
+    }
+
+    private func setuCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
+        cell.contentConfiguration = item.buildContentConfiguration()
+        cell.indentationWidth = Constants.cellIndentationWidth
+        cell.indentationLevel = item.indentationLevel()
+        cell.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
+
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        cell.selectedBackgroundView = backgroundView
     }
 
     private func setupInteractions() {
@@ -213,9 +202,16 @@ final class DocumentEditorViewController: UICollectionViewController {
         else { return }
         
         var snapshot = dataSource.snapshot()
-        snapshot.reloadSections([.first])
-        
-        apply(snapshot)
+
+        if let titleBlockView = snapshot.itemIdentifiers.first(where: { blockViewModel in
+            guard blockViewModel.information.content.type == .text(.title) else {
+                return false
+            }
+            return true
+        }) {
+            snapshot.reloadItems([titleBlockView])
+            apply(snapshot)
+        }
     }
         
     private func deselectAllBlocks() {
@@ -252,15 +248,13 @@ extension DocumentEditorViewController {
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
-        UIView.performWithoutAnimation {
-            // For now animatingDifferences should be false otherwise some cells will not be reloading.
-            self.dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
-                self?.updateVisibleNumberedItems()
-                self?.focusOnFocusedBlock()
-
-                selectedCells?.forEach {
-                    self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
-                }
+        // For now animatingDifferences should be false otherwise some cells will not be reloading.
+        self.dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
+            self?.updateVisibleNumberedItems()
+            self?.focusOnFocusedBlock()
+            
+            selectedCells?.forEach {
+                self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
             }
         }
     }

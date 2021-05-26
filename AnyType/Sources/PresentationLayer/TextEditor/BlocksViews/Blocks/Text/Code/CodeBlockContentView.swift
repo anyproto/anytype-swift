@@ -50,7 +50,6 @@ final class CodeBlockContentView: UIView & UIContentView {
             self.apply(configuration: configuration)
         }
     }
-
     // MARK: - Views
 
     private lazy var textView: UITextView = {
@@ -171,14 +170,8 @@ final class CodeBlockContentView: UIView & UIContentView {
 
         textView.delegate = makeCoordinator()
         if case let .text(content) = currentConfiguration.information.content {
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = 1.13 // value from design
-            let codeText = NSAttributedString(string: content.attributedText.string,
-                                              attributes: [NSAttributedString.Key.kern: -0.08, // value from design
-                                                           NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                                                           NSAttributedString.Key.font: UIFont.codeFont])
             textView.font = UIFont.codeFont
-            textView.attributedText = codeText
+            textView.text = content.attributedText.string
         }
 
         selectionView.layer.borderWidth = 0.0
@@ -190,7 +183,13 @@ final class CodeBlockContentView: UIView & UIContentView {
             selectionView.layer.borderColor = UIColor.pureAmber.cgColor
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
-        textView.backgroundColor = ColorConverter.Colors.grey.color(background: true)
+        setupBackgroundColor()
+    }
+
+    private func setupBackgroundColor() {
+        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+        let color = ColorConverter.Colors(name: currentConfiguration.information.backgroundColor)?.color(background: true) ?? UIColor.lightColdgray
+        textView.backgroundColor = color
     }
 }
 
@@ -198,9 +197,10 @@ final class CodeBlockContentView: UIView & UIContentView {
 
 extension CodeBlockContentView: HighlightDelegate {
     func didHighlight(_ range: NSRange, success: Bool) {
-        currentConfiguration.viewModel?.needsUpdateLayout()
-        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        textView.backgroundColor = ColorConverter.Colors.grey.color(background: true)
+        DispatchQueue.main.async {
+            self.currentConfiguration.viewModel?.needsUpdateLayout()
+            self.setupBackgroundColor()
+        }
     }
 }
 
@@ -209,8 +209,8 @@ extension CodeBlockContentView: HighlightDelegate {
 extension CodeBlockContentView: CodeBlockViewInteractable {
     func languageDidChange(language: String) {
         DispatchQueue.main.async {
-            self.textStorage.language = language
             self.codeSelectButton.setText(language)
+            self.textStorage.language = language
         }
     }
 }

@@ -259,6 +259,6 @@ extension TextBlockViewModel: CustomDebugStringConvertible {
         guard case let .text(text) = information.content else {
             return "id: \(blockId) text block with wrong content type!!! See BlockInformation.InformationModel"
         }
-        return "id: \(blockId)\ntext: \(text.attributedText.string.prefix(10))...\ntype: \(text.contentType)"
+        return "id: \(blockId)\ntext: \(text.attributedText.string.prefix(20))...\ntype: \(text.contentType)"
     }
 }
