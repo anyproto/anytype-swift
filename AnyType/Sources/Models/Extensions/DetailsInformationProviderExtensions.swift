@@ -31,7 +31,12 @@ extension DetailsEntryValueProvider {
                 DocumentCover.color(UIColor(hexString: $0))
             }
         case .gradient:
-            return nil
+            return Constants.gradientColorsMap[coverId].flatMap { gradien in
+                DocumentCover.gradient(
+                    UIColor(hexString: gradien.startHex),
+                    UIColor(hexString: gradien.endHex)
+                )
+            }
         case .bundledImage:
             return Constants.bundledImageHashMap[coverId].flatMap {
                 DocumentCover.imageId($0)
@@ -77,5 +82,12 @@ private enum Constants {
         "lightgrey": "#DFDDD1",
         "darkgrey": "#ACA998",
         "black": "#2C2B28"
+    ]
+    
+    static let gradientColorsMap: [String: (startHex: String, endHex: String)] = [
+        "yellow": ("#ffb522", "#ecd91b"),
+        "red": ("#f55522", "#e51ca0"),
+        "blue": ("#ab50cc", "#3e58eb"),
+        "teal": ("#2aa7ee", "#0fc8ba")
     ]
 }

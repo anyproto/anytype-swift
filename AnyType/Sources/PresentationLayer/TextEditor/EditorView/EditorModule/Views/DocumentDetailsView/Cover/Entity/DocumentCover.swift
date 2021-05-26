@@ -11,5 +11,6 @@ import UIKit.UIColor
 enum DocumentCover {
     case imageId(String)
     case color(UIColor)
+    case gradient(_ startColor: UIColor, _ endColor: UIColor)
 }
 

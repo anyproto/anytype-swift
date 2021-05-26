@@ -40,17 +40,19 @@ final class DocumentCoverView: UIView {
 extension DocumentCoverView: ConfigurableView {
     
     func configure(model: DocumentCover) {
+        imageView.removeAllSubviews()
+        
         switch model {
         case let .imageId(imageId):
             showImageWithId(imageId)
         case let .color(color):
             showImageBasedOnColor(color)
+        case let .gradient(startColor, endColor):
+            showImageBaseOnGradient(startColor, endColor)
         }
     }
     
     private func showImageWithId(_ imageId: String) {
-        imageView.removeAllSubviews()
-        
         let parameters = ImageParameters(width: .default)
         imageLoader.update(
             imageId: imageId,
@@ -65,13 +67,21 @@ extension DocumentCoverView: ConfigurableView {
     }
     
     private func showImageBasedOnColor(_ color: UIColor) {
-        imageView.removeAllSubviews()
-        
         imageView.image = PlaceholderImageBuilder.placeholder(
             with: ImageGuideline(
                 size: CGSize(width: 1, height: Constants.height)
             ),
             color: color
+        )
+    }
+    
+    private func showImageBaseOnGradient(_ startColor: UIColor, _ endColor: UIColor) {
+        imageView.image = PlaceholderImageBuilder.gradient(
+            size: CGSize(width: 1, height: Constants.height),
+            startColor: startColor,
+            endColor: endColor,
+            startPoint: CGPoint(x: 0.5, y: 0),
+            endPoint: CGPoint(x: 0.5, y: 1)
         )
     }
     

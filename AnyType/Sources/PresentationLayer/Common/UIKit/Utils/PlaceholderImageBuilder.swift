@@ -13,11 +13,11 @@ final class PlaceholderImageBuilder {
 
     // MARK: - Private variables
     
-    private static var cache = NSCache<NSString, UIImage>()
+    private static let cache = NSCache<NSString, UIImage>()
     
     // MARK: - Internal functions
     
-    static func placeholder(with guideline: ImageGuideline, color: UIColor) -> UIImage? {
+    static func placeholder(with guideline: ImageGuideline, color: UIColor) -> UIImage {
         let hash = "\(guideline.identifier).\(color.toHexString())"
         
         if let cachedImage = obtainImageFromCache(hash: hash) {
@@ -47,18 +47,41 @@ final class PlaceholderImageBuilder {
         return image
     }
     
+    static func gradient(size: CGSize,
+                         startColor: UIColor,
+                         endColor: UIColor,
+                         startPoint: CGPoint,
+                         endPoint: CGPoint) -> UIImage {
+        let hash = """
+        \(size).
+        \(startColor.toHexString()).
+        \(endColor.toHexString()).
+        \(startPoint.identifier).
+        \(endPoint.identifier)
+        """
+        
+        if let cachedImage = obtainImageFromCache(hash: hash) {
+            return cachedImage
+        }
+
+        let image = UIImage.gradient(
+            size: size,
+            startColor: startColor,
+            endColor: endColor,
+            startPoint: startPoint,
+            endPoint: endPoint
+        )
+        
+        saveImageToCache(image, hash: hash)
+        
+        return image
+    }
+    
 }
 
 // MARK: - Private extension
 
 private extension PlaceholderImageBuilder {
-    
-    static func getImageHash(fillColor: UIColor, imageGuideline: ImageGuideline) -> String {
-        """
-            \(fillColor.toHexString())
-            \(imageGuideline.identifier)
-        """
-    }
 
     static func obtainImageFromCache(hash: String) -> UIImage? {
         Self.cache.object(forKey: hash as NSString)
@@ -66,6 +89,14 @@ private extension PlaceholderImageBuilder {
 
     static func saveImageToCache(_ image: UIImage, hash: String) {
         Self.cache.setObject(image, forKey: hash as NSString)
+    }
+    
+}
+
+private extension CGPoint {
+    
+    var identifier: String {
+        NSCoder.string(for: self)
     }
     
 }

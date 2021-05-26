@@ -64,4 +64,27 @@ extension UIImage {
         return roundedImage ?? self
     }
     
+    static func gradient(size: CGSize,
+                         startColor: UIColor,
+                         endColor: UIColor,
+                         startPoint: CGPoint,
+                         endPoint: CGPoint) -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = UIScreen.main.scale
+        format.opaque = false
+
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+                
+        return renderer.image { ctx in
+            let gradient = CAGradientLayer()
+            gradient.bounds = ctx.format.bounds
+            gradient.startPoint = startPoint
+            gradient.endPoint = endPoint
+            gradient.colors = [startColor.cgColor, endColor.cgColor]
+            gradient.locations = [0, 1]
+
+            gradient.render(in: ctx.cgContext)
+        }
+    }
+    
 }
