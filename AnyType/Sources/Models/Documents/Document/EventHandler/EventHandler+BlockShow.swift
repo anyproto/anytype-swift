@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 extension EventHandler {
-    func handleBlockShow(events: EventListening.PackOfEvents) -> [BlocksModelsParser.PageEvent] {
+    func handleBlockShow(events: PackOfEvents) -> [BlocksModelsParser.PageEvent] {
         events.events.compactMap(\.value).compactMap(self.handleBlockShow(event:))
     }
     

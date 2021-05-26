@@ -12,7 +12,7 @@ final class ListBlockActionService {
     private let pageService: ObjectActionsService = .init()
     private let listService: BlockActionsServiceList = .init()
 
-    private var didReceiveEvent: (EventListening.PackOfEvents) -> () = { _ in }
+    private var didReceiveEvent: (PackOfEvents) -> () = { _ in }
 
     init(documentId: String) {
         self.documentId = documentId
@@ -23,7 +23,7 @@ final class ListBlockActionService {
         return self
     }
 
-    func configured(didReceiveEvent: @escaping (EventListening.PackOfEvents) -> ()) -> Self {
+    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) -> Self {
         self.didReceiveEvent = didReceiveEvent
         return self
     }

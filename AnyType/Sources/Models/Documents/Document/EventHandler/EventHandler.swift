@@ -4,6 +4,10 @@ import os
 import BlocksModels
 import ProtobufMessages
 
+protocol EventHandlerProtocol: AnyObject {
+    func handle(events: PackOfEvents)
+}
+
 class EventHandler: EventHandlerProtocol {
     private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
     let didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never>
@@ -38,10 +42,10 @@ class EventHandler: EventHandlerProtocol {
         self.didProcessEventsSubject.send(update)
     }
     
-    func handle(events: EventListening.PackOfEvents) {
+    func handle(events: PackOfEvents) {
         let innerUpdates = events.events.compactMap(\.value).compactMap { innerConverter?.convert($0) ?? nil }
         let ourUpdates = events.ourEvents.compactMap { ourConverter?.convert($0) ?? nil }
-        self.finalize(innerUpdates + ourUpdates)
+        finalize(innerUpdates + ourUpdates)
     }
 
     // MARK: Configurations

@@ -31,7 +31,7 @@ extension BlockActionService {
 
         struct ShouldHandleEvent {
             var actionType: ActionType?
-            var events: EventListening.PackOfEvents
+            var events: PackOfEvents
         }
 
         case shouldOpenPage(ShouldOpenPage)
@@ -44,21 +44,21 @@ extension BlockActionService {
 final class BlockActionService {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     typealias Information = BlockInformation.InformationModel
-    typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
+    typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     typealias BlockContentTypeText = BlockContent.Text.ContentType
 
     struct Converter {
         struct Default {
-            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> PackOfEvents {
                 .init(contextId: value.contextID, events: value.messages, ourEvents: [])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> PackOfEvents {
                 self.default(value)
             }
         }
         struct Add {
-            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> PackOfEvents {
                 let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }
 
                 guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
@@ -72,12 +72,12 @@ final class BlockActionService {
                 ])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> PackOfEvents {
                 self.default(value)
             }
         }
         struct Split {
-            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> PackOfEvents {
                 /// Find added block.
                 let addEntryMessage = value.messages.first { $0.value == .blockAdd($0.blockAdd) }
                 guard let addedBlock = addEntryMessage?.blockAdd.blocks.first else {
@@ -118,13 +118,13 @@ final class BlockActionService {
                 ])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> PackOfEvents {
                 self.default(value)
             }
         }
         struct TurnInto {
             struct Text {
-                func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+                func callAsFunction(_ value: ServiceSuccess) -> PackOfEvents {
                     let textMessage = value.messages.first { $0.value == .blockSetText($0.blockSetText) }
 
                     guard let changedBlock = textMessage?.blockSetText else {
@@ -138,18 +138,18 @@ final class BlockActionService {
                     ])
                 }
                 static let `default`: Self = .init()
-                static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+                static func convert(_ value: ServiceSuccess) -> PackOfEvents {
                     self.default(value)
                 }
             }
         }
 
         struct Delete {
-            func callAsFunction(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            func callAsFunction(_ value: ServiceSuccess) -> PackOfEvents {
                 .init(contextId: value.contextID, events: value.messages, ourEvents: [])
             }
             static let `default`: Self = .init()
-            static func convert(_ value: ServiceSuccess) -> EventListening.PackOfEvents {
+            static func convert(_ value: ServiceSuccess) -> PackOfEvents {
                 self.default(value)
             }
         }
@@ -165,7 +165,7 @@ final class BlockActionService {
     private let bookmarkService: BlockActionsServiceBookmark = .init()
     private let fileService: BlockActionsServiceFile = .init()
 
-    private var didReceiveEvent: (Reaction.ActionType?, EventListening.PackOfEvents) -> () = { _,_  in }
+    private var didReceiveEvent: (Reaction.ActionType?, PackOfEvents) -> () = { _,_  in }
 
     // We also need a handler of events.
     private let eventHandling: String = ""
@@ -178,7 +178,7 @@ final class BlockActionService {
     ///
     /// - Parameters:
     ///   - events: Event to handle
-    func receiveOurEvents(_ events: [EventListening.OurEvent]) {
+    func receiveOurEvents(_ events: [OurEvent]) {
         self.didReceiveEvent(nil, .init(contextId: documentId, events: [], ourEvents: events))
     }
 
@@ -188,7 +188,7 @@ final class BlockActionService {
     }
 
     @discardableResult
-    func configured(didReceiveEvent: @escaping (Reaction.ActionType?, EventListening.PackOfEvents) -> ()) -> Self {
+    func configured(didReceiveEvent: @escaping (Reaction.ActionType?, PackOfEvents) -> ()) -> Self {
         self.didReceiveEvent = didReceiveEvent
         return self
     }

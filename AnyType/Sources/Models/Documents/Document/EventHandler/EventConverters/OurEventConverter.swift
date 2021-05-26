@@ -7,7 +7,7 @@ final class OurEventConverter {
         self.container = container
     }
     
-    func convert(_ event: EventListening.OurEvent) -> EventHandlerUpdate? {
+    func convert(_ event: OurEvent) -> EventHandlerUpdate? {
         switch event {
         case let .setFocus(focus):
             let blockId = focus.blockId

@@ -8,7 +8,7 @@ final class ListBlockActionHandler {
         struct ShouldHandleEvent {
             var payload: Payload
             struct Payload {
-                var events: EventListening.PackOfEvents
+                var events: PackOfEvents
             }
         }
 

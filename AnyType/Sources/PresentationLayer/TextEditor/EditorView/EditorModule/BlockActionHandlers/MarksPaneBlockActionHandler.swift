@@ -7,7 +7,7 @@ import BlocksModels
 final class MarksPaneBlockActionHandler {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     typealias ActionsPayloadMarksPane = MarksPane.Main.Action
-    typealias Conversion = (ServiceSuccess) -> (EventListening.PackOfEvents)
+    typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     
     private let service: BlockActionService
     private var textService: BlockActionsServiceText = .init()
@@ -59,7 +59,7 @@ private extension MarksPaneBlockActionHandler {
 
         self.listService.setBlockColor(contextID: self.contextId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("setBlockColor") { [weak self] (value) in
-                let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
             }
             .store(in: &self.subscriptions)
@@ -70,7 +70,7 @@ private extension MarksPaneBlockActionHandler {
 
         self.listService.setAlign.action(contextID: self.contextId, blockIds: blockIds, alignment: alignment.asModel())
             .sinkWithDefaultCompletion("setAlignment") { [weak self] (value) in
-                let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
             }
             .store(in: &self.subscriptions)

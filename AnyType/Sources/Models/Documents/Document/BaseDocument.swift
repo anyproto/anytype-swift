@@ -11,7 +11,7 @@ protocol BaseDocument: AnyObject {
     
     func pageDetailsPublisher() -> AnyPublisher<DetailsProviderProtocol, Never>
     func open(_ value: ServiceSuccess)
-    func handle(events: EventListening.PackOfEvents)
+    func handle(events: PackOfEvents)
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never>
     
     func getDetails(by id: DetailsId) -> DetailsActiveModel?
@@ -65,7 +65,7 @@ final class BaseDocumentImpl: BaseDocument {
     /// When we set details, we need to listen for returned value ( success result ).
     /// This success result should be handled by our event processor.
     ///
-    private var detailsEventSubject: PassthroughSubject<EventListening.PackOfEvents, Never> = .init()
+    private var detailsEventSubject: PassthroughSubject<PackOfEvents, Never> = .init()
     
     /// It is simple event subject subscription.
     ///
@@ -107,7 +107,7 @@ final class BaseDocumentImpl: BaseDocument {
         // Event processor must receive event to send updates to subscribers.
         // Events are `blockShow`, actually.
         self.eventProcessor.handle(
-            events: EventListening.PackOfEvents(
+            events: PackOfEvents(
                 contextId: value.contextID,
                 events: value.messages,
                 ourEvents: []
@@ -312,7 +312,7 @@ final class BaseDocumentImpl: BaseDocument {
     ///
     /// - Parameter events: A pack of events.
     ///
-    func handle(events: EventListening.PackOfEvents) {
+    func handle(events: PackOfEvents) {
         self.eventProcessor.handle(events: events)
     }
 }

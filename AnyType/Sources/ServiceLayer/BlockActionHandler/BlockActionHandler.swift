@@ -36,7 +36,7 @@ extension BlockActionHandler {
 
 /// Actions from block
 class BlockActionHandler {
-    typealias Completion = (BlockActionService.Reaction.ActionType?, EventListening.PackOfEvents) -> Void
+    typealias Completion = (BlockActionService.Reaction.ActionType?, PackOfEvents) -> Void
 
     private let service: BlockActionService
     private let listService: BlockActionsServiceList = .init()
@@ -90,7 +90,7 @@ private extension BlockActionHandler {
 
         listService.setBlockColor(contextID: self.documentId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("setBlockColor") { value in
-                let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 completion(nil, value)
             }
             .store(in: &self.subscriptions)
@@ -103,7 +103,7 @@ private extension BlockActionHandler {
 
         self.listService.setAlign.action(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
-                let value = EventListening.PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
+                let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 completion(nil, value)
             }
             .store(in: &self.subscriptions)

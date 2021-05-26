@@ -27,9 +27,14 @@ extension HomeViewModel {
         cellData.enumerated()
             .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
-                cellData[offset].title = newDetails.name ?? ""
-                cellData[offset].icon = newDetails.documentIcon
-                cellData[offset].isLoading = false
+                cellData[offset] = PageCellData(
+                    id: data.id,
+                    destinationId: data.destinationId,
+                    icon: newDetails.documentIcon,
+                    title: newDetails.name ?? "",
+                    type: data.type,
+                    isLoading: false
+                )
             }
     }
     

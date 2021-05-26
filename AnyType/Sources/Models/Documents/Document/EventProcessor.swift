@@ -24,11 +24,11 @@ class EventProcessor {
         eventPublisher.startListening(contextId: rootId)
     }
 
-    func handle(events: EventListening.PackOfEvents) {
+    func handle(events: PackOfEvents) {
         eventHandler.handle(events: events)
     }
     
-    func handleBlockShow(events: EventListening.PackOfEvents) -> [BlocksModelsParser.PageEvent] {
+    func handleBlockShow(events: PackOfEvents) -> [BlocksModelsParser.PageEvent] {
         eventHandler.handleBlockShow(events: events)
     }
 }

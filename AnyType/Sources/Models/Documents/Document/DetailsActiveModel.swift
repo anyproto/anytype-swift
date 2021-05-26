@@ -27,7 +27,7 @@ class DetailsActiveModel {
     }
     
     private var currentDetailsSubscription: AnyCancellable?
-    private var eventSubject: PassthroughSubject<EventListening.PackOfEvents, Never> = .init()
+    private var eventSubject: PassthroughSubject<PackOfEvents, Never> = .init()
     
 }
 
@@ -43,7 +43,7 @@ extension DetailsActiveModel {
         self.wholeDetailsPublisher = publisher
     }
     
-    func configured(eventSubject: PassthroughSubject<EventListening.PackOfEvents, Never>) {
+    func configured(eventSubject: PassthroughSubject<PackOfEvents, Never>) {
         self.eventSubject = eventSubject
     }
     
