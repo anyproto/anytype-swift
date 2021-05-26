@@ -166,7 +166,7 @@ final class InnerEventConverter {
 //                os_log(.debug, log: logger, "We cannot find details: %@", String(describing: value))
 //                return .general
 //            }
-            return .update(EventHandlerUpdatePayload())
+            return .update(EventHandlerUpdatePayload(updatedIds: [detailsId]))
         case let .blockSetFile(value):
             guard value.hasState else {
                 return .general

@@ -14,10 +14,24 @@ extension HomeViewModel {
             }
             
         case .update(let payload):
-            print(payload)
-            // Currently models updates using their own publishers
-            // Do not need to do something here
-            break
+            for blockId in payload.updatedIds {
+                guard let newDetails = self.document.getDetails(by: blockId)?.currentDetails else {
+                    assertionFailure("Could not find object with id: \(blockId)")
+                    return
+                }
+    
+                cellData.first { $0.destinationId == blockId }.flatMap { data in
+                    var data = data
+                    
+                    data.title = newDetails.name ?? ""
+                    data.icon = newDetails.documentIcon
+                    data.isLoading = false
+
+                    cellData.index(id: data.id).flatMap { index in
+                        cellData[index] = data
+                    }
+                }
+            }
         }
     }
     
@@ -30,24 +44,15 @@ extension HomeViewModel {
     private func buildPageCellData(pageLinkViewModel: BlockPageLinkViewModel) -> PageCellData {
         let details = pageLinkViewModel.getDetailsViewModel().currentDetails
         
-        pageLinkViewModel.getDetailsViewModel().wholeDetailsPublisher.receiveOnMain().sink { [weak self] details in
-            guard let self = self, let index = self.cellData.index(id: pageLinkViewModel.blockId) else {
-                return
-            }
+        let isLoadings = details.parentId == nil
             
-            var data = self.cellData[index]
-            data.title = details.name ?? ""
-            data.icon = details.documentIcon
-            
-            self.cellData[index] = data
-        }.store(in: &cellSubscriptions)
-        
         return PageCellData(
             id: pageLinkViewModel.blockId,
             destinationId: pageLinkViewModel.targetBlockId,
             icon: details.documentIcon,
             title: details.name ?? "",
-            type: "Page"
+            type: "Page",
+            isLoading: isLoadings
         )
     }
     

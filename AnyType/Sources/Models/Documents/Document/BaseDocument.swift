@@ -9,7 +9,7 @@ protocol BaseDocument: AnyObject {
     var userSession: BlockUserSessionModelProtocol? { get }
     var rootActiveModel: BlockActiveRecordModelProtocol? { get }
     
-    func pageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never>
+    func pageDetailsPublisher() -> AnyPublisher<DetailsProviderProtocol, Never>
     func open(_ value: ServiceSuccess)
     func handle(events: EventListening.PackOfEvents)
     func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never>
@@ -244,7 +244,7 @@ final class BaseDocumentImpl: BaseDocument {
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
-    func pageDetailsPublisher() -> AnyPublisher<DetailsEntryValueProvider, Never> {
+    func pageDetailsPublisher() -> AnyPublisher<DetailsProviderProtocol, Never> {
         defaultDetailsActiveModel.$currentDetails.eraseToAnyPublisher()
     }
 

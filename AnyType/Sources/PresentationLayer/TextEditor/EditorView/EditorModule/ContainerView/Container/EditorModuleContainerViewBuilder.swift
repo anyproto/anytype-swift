@@ -9,11 +9,10 @@ enum EditorModuleContainerViewBuilder {
     }
     
     static func view(id: String) -> EditorModuleContainerViewController {
-        let childComponent = childComponent(id: id)
+        let (childViewController, userActionsStream)  = childComponent(id: id)
         
-        let childViewController = childComponent.viewController
         let router = DocumentViewCompoundRouter()
-        router.configured(userActionsStream: childComponent.publicUserActionPublisher)
+        router.configured(userActionsStream: userActionsStream)
         
         let viewModel = EditorModuleContainerViewModel(router: router)
         

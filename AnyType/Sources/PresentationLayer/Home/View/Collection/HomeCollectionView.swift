@@ -22,6 +22,7 @@ struct HomeCollectionView: View {
                                 .frame(idealHeight: 124)
                         }
                     )
+                    .disabled(data.isLoading)
                 }
             }
             .padding()

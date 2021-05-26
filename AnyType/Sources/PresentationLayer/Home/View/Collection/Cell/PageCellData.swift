@@ -9,4 +9,5 @@ struct PageCellData: Identifiable {
     var icon: DocumentIcon?
     var title: String
     var type: String
+    var isLoading: Bool
 }

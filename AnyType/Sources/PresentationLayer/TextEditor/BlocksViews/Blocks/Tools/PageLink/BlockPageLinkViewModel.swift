@@ -5,6 +5,8 @@ import BlocksModels
 
 /// ViewModel for type `.link()` with style `.page`
 final class BlockPageLinkViewModel: BaseBlockViewModel {
+    public let targetBlockId: String
+    
     // Maybe we need also input and output subscribers.
     // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
     // We can't edit name of the block.
@@ -19,7 +21,9 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
-    override init(_ block: BlockActiveRecordModelProtocol) {
+    init(_ block: BlockActiveRecordModelProtocol, targetBlockId: String) {
+        self.targetBlockId = targetBlockId
+        
         super.init(block)
         self.setup(block: block)
     }
@@ -69,19 +73,6 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
             default: return
             }
         }
-    }
-
-    // MARK: Contextual Menu
-    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
-        .init(title: "", children: [
-            .create(action: .general(.addBlockBelow)),
-            .create(action: .specific(.turnInto)),
-            .create(action: .general(.delete)),
-            .create(action: .general(.duplicate)),
-            .create(action: .specific(.rename)),
-            .create(action: .general(.moveTo)),
-            .create(action: .specific(.backgroundColor)),
-        ])
     }
 }
 

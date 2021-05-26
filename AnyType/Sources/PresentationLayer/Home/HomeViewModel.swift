@@ -24,7 +24,7 @@ final class HomeViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     private var newPageSubscription: AnyCancellable?
             
-    private let document: BaseDocument = BaseDocumentImpl()
+    let document: BaseDocument = BaseDocumentImpl()
     
     init() {
         fetchDashboardData()
@@ -70,7 +70,7 @@ final class HomeViewModel: ObservableObject {
         return blockAdd?.blocks.first?.link.targetBlockID
     }
     
-    private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {        
+    private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
         document.updatePublisher().sink { [weak self] updateResult in
             self?.onDashboardUpdate(updateResult)
         }.store(in: &self.subscriptions)

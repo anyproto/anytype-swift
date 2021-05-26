@@ -10,15 +10,26 @@ struct PageCell: View {
             VStack(alignment: .leading) {
                 icon
                 iconSpacer
-                AnytypeText(cellData.title, style: .captionMedium).foregroundColor(.textPrimary)
+                title
                 textSpacer
-                AnytypeText(cellData.type, style: .footnote).foregroundColor(.textSecondary)
+                type
             }
             Spacer()
         }
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 12, trailing: 16))
         .background(Color.background)
         .cornerRadius(16)
+        .redacted(reason: cellData.isLoading ? .placeholder : [])
+    }
+    
+    private var title: some View {
+        let title = cellData.isLoading ? "Wake up, Neo" : cellData.title
+        return AnytypeText(title, style: .captionMedium).foregroundColor(.textPrimary)
+    }
+    
+    private var type: some View {
+        let type = cellData.isLoading ? "Red pill" : cellData.type
+        return AnytypeText(type, style: .footnote).foregroundColor(.textSecondary)
     }
     
     private var icon: some View {
