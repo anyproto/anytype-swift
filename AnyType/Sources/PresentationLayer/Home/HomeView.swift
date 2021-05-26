@@ -1,11 +1,17 @@
 import SwiftUI
 
 struct HomeView: View {
-    private let bottomSheetHeightRatio: CGFloat = 0.89
     @StateObject var model: HomeViewModel
     @StateObject private var accountData = AccountInfoDataAccessor()
 
     @State private var showSettings = false
+    
+    @State private var scrollOffset: CGFloat = 0
+    @State private var isSheetOpen = false
+    
+    private let bottomSheetHeightRatio: CGFloat = 0.89
+    private let sheetOpenOffset: CGFloat = -30
+    private let sheetCloseOffset: CGFloat = 60
     
     var body: some View {
         contentView
@@ -23,8 +29,21 @@ struct HomeView: View {
                     newPageNavigation
                     HomeProfileView()
                     
-                    HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio) {
-                        HomeTabsView()
+                    HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio, scrollOffset: $scrollOffset, isOpen: $isSheetOpen) {
+                        HomeTabsView(offsetChanged: { offset in
+                            if offset.y < sheetOpenOffset {
+                                withAnimation(.spring()) {
+                                    isSheetOpen = true
+                                }
+                            }
+                            if offset.y > sheetCloseOffset {
+                                withAnimation(.spring()) {
+                                    isSheetOpen = false
+                                }
+                            }
+                            
+                            scrollOffset = offset.y
+                        })
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height)
             }

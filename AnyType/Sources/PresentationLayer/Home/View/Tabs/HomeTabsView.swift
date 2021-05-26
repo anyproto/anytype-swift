@@ -2,20 +2,22 @@ import SwiftUI
 
 struct HomeTabsView: View {
     @State private var tabSelection = 1    
-        
+    
+    let offsetChanged: (CGPoint) -> Void
+    
     var body: some View {
         GeometryReader() { fullView in
-            VStack {
-                tabHeaders
+//            VStack {
+//                tabHeaders
                 tabs
-            }
+//            }
         }
         .animation(.interactiveSpring(), value: tabSelection)
     }
     
     var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView().tag(1)
+            HomeCollectionView(offsetChanged: offsetChanged).tag(1)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
@@ -61,7 +63,7 @@ struct HomeTabsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            HomeTabsView()
+            HomeTabsView(offsetChanged: { _ in })
                 .environmentObject(model)
         }
     }

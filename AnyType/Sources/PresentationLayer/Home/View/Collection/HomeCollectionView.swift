@@ -7,9 +7,10 @@ struct HomeCollectionView: View {
     ]
     
     @EnvironmentObject var model: HomeViewModel
+    let offsetChanged: (CGPoint) -> Void
     
     var body: some View {
-        ScrollView() {
+        OffsetAwareScrollView(offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns) {
                 ForEach(model.cellData) { data in
                     NavigationLink(
@@ -34,6 +35,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView()
+        HomeCollectionView(offsetChanged: { _ in })
     }
 }

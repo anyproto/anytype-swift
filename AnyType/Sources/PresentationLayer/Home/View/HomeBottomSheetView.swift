@@ -13,62 +13,60 @@ private struct HomeBottomSheetViewConfiguration {
     var snapDistance: CGFloat {
         maxHeight * snapRatio
     }
+    
+    var sheetOffset: CGFloat {
+        maxHeight - minHeight
+    }
 }
 
 struct HomeBottomSheetView<Content: View>: View {
+    @Binding var scrollOffset: CGFloat
+    @Binding var isOpen: Bool
+    
     private let content: Content
     private let config: HomeBottomSheetViewConfiguration
-
+    
     init(
         maxHeight: CGFloat,
+        scrollOffset: Binding<CGFloat>,
+        isOpen: Binding<Bool>,
         @ViewBuilder content: () -> Content
     ) {
         self.content = content()
+        self._scrollOffset = scrollOffset
+        self._isOpen = isOpen
         self.config = HomeBottomSheetViewConfiguration(maxHeight: maxHeight)
     }
     
-    @State private var isOpen: Bool = false
-    
     private var offset: CGFloat {
-        isOpen ? 0 : config.maxHeight - config.minHeight
+        var offset = isOpen ? 0 : config.sheetOffset
+        if !isOpen {
+            offset += max(scrollOffset, 0)
+        }
+        return offset
     }
-    
-    @GestureState private var translation: CGFloat = 0
 
     var body: some View {
+        
         GeometryReader { geometry in
-            VStack(spacing: 0) {
-                DragIndicator()
-                self.content
-            }
-            .frame(width: geometry.size.width, height: self.config.maxHeight, alignment: .top)
-            .background(HomeBackgroundBlurView())
-            .cornerRadius(config.cornerRadius, corners: [.topLeft, .topRight])
-            .frame(height: geometry.size.height, alignment: .bottom)
-            .offset(y: max(self.offset + self.translation, 0))
-            .animation(.interactiveSpring(), value: translation)
-            .gesture(
-                DragGesture().updating(self.$translation) { value, state, _ in
-                    state = value.translation.height
-                }.onEnded { value in
-                    guard abs(value.translation.height) > config.snapDistance else {
-                        return
-                    }
-                    withAnimation(.interactiveSpring()) {
-                        isOpen = value.translation.height < 0
-                    }
-                }
-            )
+            content
+                .frame(width: geometry.size.width, height: self.config.maxHeight, alignment: .top)
+                .background(HomeBackgroundBlurView())
+                .cornerRadius(config.cornerRadius, corners: [.topLeft, .topRight])
+                .frame(height: geometry.size.height, alignment: .bottom)
+                .offset(y: offset)
         }
     }
 }
 
 struct BottomSheetView_Previews: PreviewProvider {
-    @State private static var isOpen = false
-
     static var previews: some View {
         GeometryReader() { geometry in
-            HomeBottomSheetView(maxHeight: geometry.size.height * 0.8) {
+            HomeBottomSheetView(
+                maxHeight: geometry.size.height * 0.8,
+                scrollOffset: .constant(0),
+                isOpen: .constant(true)
+            ) {
                 Color.green
             }
         }

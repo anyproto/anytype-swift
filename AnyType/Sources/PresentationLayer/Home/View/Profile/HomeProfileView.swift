@@ -15,12 +15,12 @@ struct HomeProfileView: View {
                     avatar
                     
                     HStack {
-                        Button(action: {}) {
-                            HomeProfileViewButtonImage(image: Image.main.search)
-                        }
-                        Button(action: {}) {
-                            HomeProfileViewButtonImage(image: Image.main.marketplace).padding(10)
-                        }
+//                        Button(action: {}) {
+//                            HomeProfileViewButtonImage(image: Image.main.search)
+//                        }
+//                        Button(action: {}) {
+//                            HomeProfileViewButtonImage(image: Image.main.marketplace).padding(10)
+//                        }
                         Button(action: model.createNewPage) {
                             HomeProfileViewButtonImage(image: Image.main.draft)
                         }
