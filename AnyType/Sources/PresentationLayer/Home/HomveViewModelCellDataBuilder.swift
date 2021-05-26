@@ -14,36 +14,32 @@ extension HomeViewModel {
             }
             
         case .update(let payload):
-            for blockId in payload.updatedIds {
-                guard let newDetails = self.document.getDetails(by: blockId)?.currentDetails else {
-                    assertionFailure("Could not find object with id: \(blockId)")
-                    return
-                }
-    
-                cellData.first { $0.destinationId == blockId }.flatMap { data in
-                    var data = data
-                    
-                    data.title = newDetails.name ?? ""
-                    data.icon = newDetails.documentIcon
-                    data.isLoading = false
-
-                    cellData.index(id: data.id).flatMap { index in
-                        cellData[index] = data
-                    }
-                }
-            }
+            payload.updatedIds.forEach { updateCellWithTargetId($0) }
         }
+    }
+    
+    private func updateCellWithTargetId(_ blockId: BlockId) {
+        guard let newDetails = self.document.getDetails(by: blockId)?.currentDetails else {
+            assertionFailure("Could not find object with id: \(blockId)")
+            return
+        }
+
+        cellData.enumerated()
+            .first { $0.element.destinationId == blockId }
+            .flatMap { offset, data in
+                cellData[offset].title = newDetails.name ?? ""
+                cellData[offset].icon = newDetails.documentIcon
+                cellData[offset].isLoading = false
+            }
     }
     
     private func buldCellData(_ updateResult: DocumentViewModelUpdateResult) -> [PageCellData] {
         let viewModels = updateResult.models.compactMap { $0 as? BlockPageLinkViewModel }
-        cellSubscriptions = []
         return viewModels.map { buildPageCellData(pageLinkViewModel: $0) }
     }
     
     private func buildPageCellData(pageLinkViewModel: BlockPageLinkViewModel) -> PageCellData {
         let details = pageLinkViewModel.getDetailsViewModel().currentDetails
-        
         let isLoadings = details.parentId == nil
             
         return PageCellData(
@@ -55,17 +51,4 @@ extension HomeViewModel {
             isLoading: isLoadings
         )
     }
-    
-    private func destinationId(_ pageLinkViewModel: BlockPageLinkViewModel) -> String {
-        let targetBlockId: String
-        if case let .link(link) = pageLinkViewModel.getBlock().blockModel.information.content {
-            targetBlockId = link.targetBlockID
-        }
-        else {
-            assertionFailure("No target id for \(pageLinkViewModel)")
-            targetBlockId = ""
-        }
-        return targetBlockId
-    }
-    
 }

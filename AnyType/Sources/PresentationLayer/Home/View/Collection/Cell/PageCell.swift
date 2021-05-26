@@ -5,6 +5,10 @@ import SwiftUI
 struct PageCell: View {
     var cellData: PageCellData
     
+    private var isRedacted: Bool {
+        cellData.isLoading
+    }
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -19,16 +23,16 @@ struct PageCell: View {
         .padding(EdgeInsets(top: 16, leading: 16, bottom: 12, trailing: 16))
         .background(Color.background)
         .cornerRadius(16)
-        .redacted(reason: cellData.isLoading ? .placeholder : [])
+        .redacted(reason: isRedacted ? .placeholder : [])
     }
     
     private var title: some View {
-        let title = cellData.isLoading ? "Wake up, Neo" : cellData.title
+        let title = isRedacted ? RedactedText.pageTitle : cellData.title
         return AnytypeText(title, style: .captionMedium).foregroundColor(.textPrimary)
     }
     
     private var type: some View {
-        let type = cellData.isLoading ? "Red pill" : cellData.type
+        let type = isRedacted ? RedactedText.pageType : cellData.type
         return AnytypeText(type, style: .footnote).foregroundColor(.textSecondary)
     }
     

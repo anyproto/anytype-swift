@@ -1,4 +1,3 @@
-
 import BlocksModels
 
 /// Entity with change information which block should be inserted/moved after defined block

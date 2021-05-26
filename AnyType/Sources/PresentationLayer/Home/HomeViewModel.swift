@@ -15,8 +15,6 @@ final class HomeViewModel: ObservableObject {
     @Published var cellData: [PageCellData] = []
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
-    
-    var cellSubscriptions = [AnyCancellable]()
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
