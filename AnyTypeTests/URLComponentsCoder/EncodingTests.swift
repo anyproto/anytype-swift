@@ -1,5 +1,5 @@
 import XCTest
-@testable import AnyType
+@testable import Anytype
 
 fileprivate extension EncodingTests {
     struct Width: Codable, Hashable {

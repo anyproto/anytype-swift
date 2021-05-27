@@ -13,6 +13,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     // Add subscription on event.
     private var subscriptions: Set<AnyCancellable> = []
     private typealias State = BlockPageLinkState
+    private let router: EditorRouterProtocol?
     
     private var statePublisher: AnyPublisher<State, Never> = .empty()
     @Published private var state: State = .empty
@@ -21,10 +22,12 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
-    init(_ block: BlockActiveRecordModelProtocol, targetBlockId: String) {
+    init(_ block: BlockActiveRecordModelProtocol, targetBlockId: String, router: EditorRouterProtocol?) {
         self.targetBlockId = targetBlockId
-        
+        self.router = router
+
         super.init(block)
+
         self.setup(block: block)
     }
     
@@ -68,8 +71,8 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         switch event {
         case .didSelectRowInTableView:
             switch self.getBlock().blockModel.information.content {
-            case let .link(value):
-                self.send(userAction: .specific(.tool(.pageLink(.shouldShowPage(value.targetBlockID)))))
+            case let .link(linkContent):
+                router?.showPage(with: linkContent.targetBlockID)
             default: return
             }
         }

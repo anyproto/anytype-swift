@@ -28,6 +28,7 @@ enum EditorModuleContentViewBuilder {
         
         let childViewController = DocumentEditorViewController(viewModel: editorViewModel)
         editorViewModel.viewInput = childViewController
+        editorViewModel.editorRouter = EditorRouter(preseningViewController: childViewController)
         
         bottomMenuViewController.add(child: childViewController)
         

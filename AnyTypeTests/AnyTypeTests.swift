@@ -1,15 +1,15 @@
 //
-//  AnyTypeTests.swift
-//  AnyTypeTests
+//  AnytypeTests.swift
+//  AnytypeTests
 //
 //  Created by Denis Batvinkin on 18.07.2019.
 //  Copyright © 2019 AnyType. All rights reserved.
 //
 
 import XCTest
-@testable import AnyType
+@testable import Anytype
 
-class AnyTypeTests: XCTestCase {
+class AnytypeTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

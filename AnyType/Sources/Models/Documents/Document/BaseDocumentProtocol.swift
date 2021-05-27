@@ -3,7 +3,7 @@ import BlocksModels
 import Combine
 import os
 
-protocol BaseDocument: AnyObject {
+protocol BaseDocumentProtocol: AnyObject {
     var documentId: BlockId? { get }
     var defaultDetailsActiveModel: DetailsActiveModel { get }
     var userSession: BlockUserSessionModelProtocol? { get }
@@ -12,7 +12,8 @@ protocol BaseDocument: AnyObject {
     func pageDetailsPublisher() -> AnyPublisher<DetailsProviderProtocol, Never>
     func open(_ value: ServiceSuccess)
     func handle(events: PackOfEvents)
-    func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never>
+    /// Return publisher that received event on blocks update
+    var updateBlockModelPublisher: AnyPublisher<BaseDocument.UpdateResult, Never> { get }
     
     func getDetails(by id: DetailsId) -> DetailsActiveModel?
 }
@@ -21,14 +22,14 @@ private extension LoggerCategory {
     static let baseDocument: Self = "BaseDocument"
 }
 
-private extension BaseDocumentImpl {
+extension BaseDocument {
     struct UpdateResult {
         var updates: EventHandlerUpdate
         var models: [BlockActiveRecordModelProtocol]
     }
 }
 
-final class BaseDocumentImpl: BaseDocument {
+final class BaseDocument: BaseDocumentProtocol {
     var rootActiveModel: BlockActiveRecordModelProtocol? {
         guard let rootId = rootModel?.rootId else { return nil }
         return rootModel?.blocksContainer.choose(by: rootId)
@@ -81,16 +82,18 @@ final class BaseDocumentImpl: BaseDocument {
             _ = self.smartblockService.close(contextID: rootId, blockID: rootId)
         }
     }
-    
-    private lazy var blocksConverter = CompoundViewModelConverter(self)
-    func updatePublisher() -> AnyPublisher<DocumentViewModelUpdateResult, Never> {
-        modelsAndUpdatesPublisher()
-            .receiveOnMain()
-            .map { [weak self] update in
-                DocumentViewModelUpdateResult(
-                    updates: update.updates,
-                    models: self?.blocksConverter.convert(update.models) ?? []
-                )
+
+    // MARK: - BaseDocumentProtocol
+
+    var updateBlockModelPublisher: AnyPublisher<UpdateResult, Never> {
+        self.updatesPublisher().filter(\.hasUpdate)
+            .map { [weak self] updates in
+                if let rootId = self?.rootId,
+                   let container = self?.rootModel,
+                   let rootModel = container.blocksContainer.choose(by: rootId) {
+                    BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
+                }
+                return UpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
             }.eraseToAnyPublisher()
     }
 
@@ -184,24 +187,6 @@ final class BaseDocumentImpl: BaseDocument {
     }
     
     // MARK: - Publishers
-
-    
-    /// A publisher of updates and current models.
-    /// It could filter out updates with empty payload.
-    ///
-    /// - Returns: A publisher of updates and related models to these updates.
-    private func modelsAndUpdatesPublisher(
-    ) -> AnyPublisher<UpdateResult, Never> {
-        self.updatesPublisher().filter(\.hasUpdate)
-        .map { [weak self] updates in
-            if let rootId = self?.rootId,
-               let container = self?.rootModel,
-               let rootModel = container.blocksContainer.choose(by: rootId) {
-                BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
-            }
-            return UpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
-        }.eraseToAnyPublisher()
-    }
     
     /// A publisher of event processor did process events.
     /// It fires when event processor did finish process events.

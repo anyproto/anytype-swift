@@ -2,17 +2,20 @@ import Foundation
 import BlocksModels
 
 
-class CompoundViewModelConverter {
-    private weak var document: BaseDocument?
-    init(_ document: BaseDocument) {
+final class CompoundViewModelConverter {
+    private weak var document: BaseDocumentProtocol?
+
+    init(document: BaseDocumentProtocol) {
         self.document = document
     }
-    
-    func convert(_ blocks: [BlockActiveRecordModelProtocol]) -> [BaseBlockViewModel] {
-        blocks.compactMap(self.convert)
+
+    func convert(_ blocks: [BlockActiveRecordModelProtocol], router: EditorRouterProtocol?) -> [BaseBlockViewModel] {
+        blocks.compactMap { block in
+            createBlockViewModel(block, router: router)
+        }
     }
-    
-    func convert(_ block: BlockActiveRecordModelProtocol) -> BaseBlockViewModel? {
+
+    private func createBlockViewModel(_ block: BlockActiveRecordModelProtocol, router: EditorRouterProtocol?) -> BaseBlockViewModel? {
         switch block.blockModel.information.content {
         case .smartblock, .layout: return nil
         case let .text(content):
@@ -32,7 +35,7 @@ class CompoundViewModelConverter {
         case .divider: return DividerBlockViewModel.init(block)
         case .bookmark: return BlocksViews.Bookmark.Bookmark.ViewModel.init(block)
         case let .link(value):
-            let result = BlockPageLinkViewModel(block, targetBlockId: value.targetBlockID)
+            let result = BlockPageLinkViewModel(block, targetBlockId: value.targetBlockID, router: router)
             if let details = document?.getDetails(by: value.targetBlockID) {
                 _ = result.configured(details.wholeDetailsPublisher)
             }

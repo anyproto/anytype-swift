@@ -162,7 +162,6 @@ class DocumentViewCompoundRouter: DocumentViewBaseCompoundRouter {
         switch action {
         case let .specific(value):
             switch value {
-            case .tool: return self.router(of: ToolsBlocksViewsRouter.self)
             case .file: return self.router(of: FileBlocksViewsRouter.self)
             case .page: return self.router(of: PageBlocksViewsRouter.self)
             }
@@ -172,6 +171,6 @@ class DocumentViewCompoundRouter: DocumentViewBaseCompoundRouter {
     }
 
     override func defaultRouters() -> [DocumentViewBaseRouter] {
-        [ToolsBlocksViewsRouter(), FileBlocksViewsRouter(), ToolbarsRouter(), PageBlocksViewsRouter()]
+        [FileBlocksViewsRouter(), ToolbarsRouter(), PageBlocksViewsRouter()]
     }
 }

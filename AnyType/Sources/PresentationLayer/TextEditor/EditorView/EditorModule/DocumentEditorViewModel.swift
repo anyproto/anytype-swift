@@ -24,12 +24,15 @@ class DocumentEditorViewModel: ObservableObject {
 
     /// View Input
     weak var viewInput: EditorModuleDocumentViewInput?
+    /// Router for current page
+    var editorRouter: EditorRouterProtocol?
 
     /// Service
     private var blockActionsService: BlockActionsServiceSingle = .init()
     private lazy var blockActionHandler = BlockActionHandler(documentId: document.documentId, documentViewInteraction: self)
+    private lazy var blocksConverter = CompoundViewModelConverter(document: document)
 
-    let document: BaseDocument = BaseDocumentImpl()
+    let document: BaseDocumentProtocol = BaseDocument()
 
     var onDetailsViewModelUpdate: (() -> Void)?
     
@@ -181,12 +184,14 @@ class DocumentEditorViewModel: ObservableObject {
     }
 
     private func handleOpenDocument(_ value: ServiceSuccess) {
-        document.updatePublisher()
+        document.updateBlockModelPublisher
             .receiveOnMain()
-            .sink { [weak self] (value) in
-                switch value.updates {
+            .sink { [weak self] updateResult in
+                switch updateResult.updates {
                 case .general:
-                    self?.update(builders: value.models)
+                    if let blockViewModels = self?.blocksConverter.convert(updateResult.models, router: self?.editorRouter) {
+                        self?.update(builders: blockViewModels)
+                    }
                 case let .update(update):
                     if update.updatedIds.isEmpty {
                         return

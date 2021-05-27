@@ -10,7 +10,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private let defaultName = "Anytype User"
     
-    private let document: BaseDocument = BaseDocumentImpl()
+    private let document: BaseDocumentProtocol = BaseDocument()
     private var subscriptions: Set<AnyCancellable> = []
     
     private let middlewareConfigurationService = MiddlewareConfigurationService()

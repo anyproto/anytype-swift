@@ -18,11 +18,12 @@ final class HomeViewModel: ObservableObject {
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
+    private(set) lazy var blocksConverter = CompoundViewModelConverter(document: document)
     
     private var subscriptions = [AnyCancellable]()
     private var newPageSubscription: AnyCancellable?
             
-    let document: BaseDocument = BaseDocumentImpl()
+    let document: BaseDocumentProtocol = BaseDocument()
     
     init() {
         fetchDashboardData()
@@ -69,7 +70,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
-        document.updatePublisher().sink { [weak self] updateResult in
+        document.updateBlockModelPublisher.sink { [weak self] updateResult in
             self?.onDashboardUpdate(updateResult)
         }.store(in: &self.subscriptions)
         

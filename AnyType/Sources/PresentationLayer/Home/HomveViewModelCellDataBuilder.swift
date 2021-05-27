@@ -4,7 +4,7 @@ import BlocksModels
 // TODO: Use single subscriptions for all changes instead of per cell approach
 extension HomeViewModel {
     
-    func onDashboardUpdate(_ updateResult: DocumentViewModelUpdateResult) {
+    func onDashboardUpdate(_ updateResult: BaseDocument.UpdateResult) {
         switch updateResult.updates {
         case .general:
             let newCellData = buldCellData(updateResult)
@@ -38,8 +38,9 @@ extension HomeViewModel {
             }
     }
     
-    private func buldCellData(_ updateResult: DocumentViewModelUpdateResult) -> [PageCellData] {
-        let viewModels = updateResult.models.compactMap { $0 as? BlockPageLinkViewModel }
+    private func buldCellData(_ updateResult: BaseDocument.UpdateResult) -> [PageCellData] {
+        let blockViewModels = blocksConverter.convert(updateResult.models, router: nil)
+        let viewModels = blockViewModels.compactMap { $0 as? BlockPageLinkViewModel }
         return viewModels.map { buildPageCellData(pageLinkViewModel: $0) }
     }
     

@@ -22,7 +22,6 @@ extension BlocksViews {
         /// You should define a `.UserAction` payload enumeration in each namespace.
         /// After that you could add it as an entry of this enum.
         enum SpecificAction {
-            case tool(Tools.UserAction)
             case file(File.FileAction)
             case page(Page.UserAction)
         }
