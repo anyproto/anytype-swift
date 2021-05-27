@@ -4,13 +4,14 @@ import BlocksModels
 
 final class DocumentIconViewModel {
     
+    var onMediaPickerImageSelect: ((_ imagePath: String) -> Void)?
+
+    let documentIcon: DocumentIcon
+    
     // MARK: - Private variables
     
     private let fileService = BlockActionsServiceFile()
     
-    private var onMediaPickerImageSelect: ((String) -> Void)?
-    
-    private let documentIcon: DocumentIcon
     private let detailsActiveModel: DetailsActiveModel
     private let userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>
     
@@ -32,51 +33,6 @@ final class DocumentIconViewModel {
 
 extension DocumentIconViewModel {
     
-    func makeView() -> UIView {
-        switch documentIcon {
-        case let .emoji(iconEmoji):
-            return makeIconEmojiView(with: iconEmoji)
-        case let .imageId(imageId):
-            return makeIconImageView(with: imageId)
-        }
-    }
-    
-}
-
-// MARK: - Private extension
-
-private extension DocumentIconViewModel {
-    
-    func makeIconEmojiView(with emoji: IconEmoji) -> UIView {
-        let view = DocumentIconEmojiView().configured(with: emoji)
-        view.enableMenuInteraction { [weak self] userAction in
-            self?.handleIconUserAction(userAction)
-        }
-        
-        return view
-    }
-    
-    func makeIconImageView(with imageId: String) -> UIView {
-        let view = DocumentIconImageView().configured(with: .default(imageId: imageId))
-        view.enableMenuInteraction { [weak self] userAction in
-            self?.handleIconUserAction(userAction)
-        }
-        
-        onMediaPickerImageSelect = { imagePath in
-            DispatchQueue.main.async {
-                view.configure(model: .imageUploading(imagePath: imagePath))
-            }
-        }
-        
-        return view
-    }
-    
-}
-
-// MARK: - Actions handler
-
-private extension DocumentIconViewModel {
-    
     // Sorry 🙏🏽
     typealias BlockUserAction = BlocksViews.UserAction
     
@@ -92,6 +48,12 @@ private extension DocumentIconViewModel {
             removeIcon()
         }
     }
+    
+}
+
+// MARK: - Actions handler
+
+private extension DocumentIconViewModel {
     
     func showEmojiPicker() {
         let model = EmojiPicker.ViewModel()
@@ -137,7 +99,9 @@ private extension DocumentIconViewModel {
             
             let localPath = resultInformation.filePath
             
-            self.onMediaPickerImageSelect?(localPath)
+            DispatchQueue.main.async {
+                self.onMediaPickerImageSelect?(localPath)
+            }
             self.uploadSelectedIconImage(at: localPath)
         }
         

@@ -4,8 +4,6 @@ final class DocumentIconEmojiView: UIView {
     
     // MARK: - Private properties
     
-    private var menuInteractionHandler: IconMenuInteractionHandler?
-    
     private let emojiLabel: UILabel = UILabel()
         
     // MARK: Initialization
@@ -30,24 +28,6 @@ extension DocumentIconEmojiView: ConfigurableView {
     
     func configure(model: IconEmoji) {
         emojiLabel.text = model.value
-    }
-    
-}
-
-// MARK: - IconMenuInteractableView
-
-extension DocumentIconEmojiView: IconMenuInteractableView {
-    
-    func enableMenuInteraction(with onUserAction: @escaping (DocumentIconViewUserAction) -> Void) {
-        let handler = IconMenuInteractionHandler(
-            targetView: self,
-            onUserAction: onUserAction
-        )
-        
-        let interaction = UIContextMenuInteraction(delegate: handler)
-        addInteraction(interaction)
-        
-        menuInteractionHandler = handler
     }
     
 }
@@ -77,10 +57,6 @@ private extension DocumentIconEmojiView {
     func setUpLayout() {
         addSubview(emojiLabel)
         emojiLabel.pinAllEdges(to: self)
-        
-        layoutUsing.anchors {
-            $0.size(Constants.size)
-        }
     }
     
 }
@@ -91,7 +67,6 @@ private extension DocumentIconEmojiView {
     
     enum Constants {
         static let cornerRadius: CGFloat = 20
-        static let size = CGSize(width: 96, height: 96)
     }
     
 }

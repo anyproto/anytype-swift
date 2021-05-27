@@ -13,8 +13,6 @@ final class DocumentIconImageView: UIView {
     
     // MARK: - Private properties
     
-    private var menuInteractionHandler: IconMenuInteractionHandler?
-    
     private let imageView: UIImageView = UIImageView()
     
     private lazy var imageLoader = ImageLoader().configured(imageView)
@@ -39,62 +37,20 @@ final class DocumentIconImageView: UIView {
 
 extension DocumentIconImageView: ConfigurableView {
     
-    enum State {
-        case `default`(imageId: String)
-        case imageUploading(imagePath: String)
-    }
-    
-    func configure(model: State) {
-        switch model {
-        case let .default(imageId: imageId):
-            showImageWithId(imageId)
-        case let .imageUploading(imagePath: imagePath):
-            showLoaderWithImage(at: imagePath)
-        }
-        
-    }
-    
-    private func showImageWithId(_ imageId: String) {
-        imageView.removeAllSubviews()
-        
+    func configure(model: String) {
         let parameters = ImageParameters(width: .thumbnail)
         imageLoader.update(
-            imageId: imageId,
+            imageId: model,
             parameters: parameters,
             placeholder: PlaceholderImageBuilder.placeholder(
                 with: ImageGuideline(
-                    size: Constants.size,
+                    size: CGSize(width: 112, height: 112),
                     cornerRadius: Constants.cornerRadius,
                     backgroundColor: UIColor.grayscaleWhite
                 ),
                 color: UIColor.grayscale10
             )
         )
-    }
-    
-    private func showLoaderWithImage(at path: String) {
-        imageView.image = UIImage(contentsOfFile: path)
-        
-        imageView.addDimmedOverlay()
-        imageView.addActivityIndicatorView(with: .grayscale10)
-    }
-    
-}
-
-// MARK: - IconMenuInteractableView
-
-extension DocumentIconImageView: IconMenuInteractableView {
-    
-    func enableMenuInteraction(with onUserAction: @escaping (DocumentIconViewUserAction) -> Void) {
-        let handler = IconMenuInteractionHandler(
-            targetView: self,
-            onUserAction: onUserAction
-        )
-        
-        let interaction = UIContextMenuInteraction(delegate: handler)
-        addInteraction(interaction)
-        
-        menuInteractionHandler = handler
     }
     
 }
@@ -116,10 +72,6 @@ private extension DocumentIconImageView {
     func setUpLayout() {
         addSubview(imageView)
         imageView.pinAllEdges(to: self)
-
-        layoutUsing.anchors {
-            $0.size(Constants.size)
-        }
     }
     
 }
@@ -130,7 +82,6 @@ private extension DocumentIconImageView {
     
     enum Constants {
         static let cornerRadius: CGFloat = 22
-        static let size = CGSize(width: 112, height: 112)
     }
     
 }
