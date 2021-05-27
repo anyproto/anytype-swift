@@ -25,14 +25,13 @@ final class AuthService: NSObject, AuthServiceProtocol {
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receiveOnMain()
-            .sink(receiveCompletion: { result in
-            }) { [weak self] _ in
-                completion()
-                try? FileManager.default.removeItem(atPath: self?.localRepoService.middlewareRepoPath ?? "")
+            .sinkWithDefaultCompletion("Logout") { [weak self] _ in
                 try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
                 UserDefaultsConfig.usersIdKey = ""
                 UserDefaultsConfig.userName = ""
                 MiddlewareConfiguration.shared = nil
+                
+                completion()
         }
     }
 

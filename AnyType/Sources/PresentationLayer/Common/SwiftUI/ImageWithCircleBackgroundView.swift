@@ -43,7 +43,7 @@ struct ImageWithCircleBackgroundView: View {
 struct ImageWithCircleBackgroundView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ImageWithCircleBackgroundView(imageName: "logo-sign-part-mobile", backgroundColor: .secondarySystemBackground)
+            ImageWithCircleBackgroundView(imageName: "logo", backgroundColor: .secondarySystemBackground)
         }
     }
 }

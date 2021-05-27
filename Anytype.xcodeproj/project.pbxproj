@@ -297,7 +297,7 @@
 		3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */; };
 		3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D3F26317E3A00C7D1EA /* HomeTabsView.swift */; };
 		3D932D4D26317E9300C7D1EA /* NavigationButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D4B26317E9200C7D1EA /* NavigationButtonView.swift */; };
-		3D932D4E26317E9300C7D1EA /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D4C26317E9200C7D1EA /* StandardButton.swift */; };
+		3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */; };
 		3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5126317EFB00C7D1EA /* CommonViews+Pickers.swift */; };
 		3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */; };
 		3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */; };
@@ -344,6 +344,7 @@
 		3DC7862F265D30B700498993 /* EventHandler+BlockShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862E265D30B700498993 /* EventHandler+BlockShow.swift */; };
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
+		3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F260266018B000B115B9 /* StandardButton.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
 		3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */; };
@@ -841,7 +842,7 @@
 		3D932D3E26317E3A00C7D1EA /* HomeProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeProfileView.swift; sourceTree = "<group>"; };
 		3D932D3F26317E3A00C7D1EA /* HomeTabsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabsView.swift; sourceTree = "<group>"; };
 		3D932D4B26317E9200C7D1EA /* NavigationButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationButtonView.swift; sourceTree = "<group>"; };
-		3D932D4C26317E9200C7D1EA /* StandardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButton.swift; sourceTree = "<group>"; };
+		3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StandardButtonView.swift; sourceTree = "<group>"; };
 		3D932D5126317EFB00C7D1EA /* CommonViews+Pickers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommonViews+Pickers.swift"; sourceTree = "<group>"; };
 		3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommonViews+Pickers+File+UIKit.swift"; sourceTree = "<group>"; };
 		3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFilePickerViewModel.swift; sourceTree = "<group>"; };
@@ -887,6 +888,7 @@
 		3DC7862E265D30B700498993 /* EventHandler+BlockShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EventHandler+BlockShow.swift"; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
+		3DC9F260266018B000B115B9 /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardButton.swift; path = AnyType/Sources/PresentationLayer/Common/SwiftUI/Buttons/StandardButton.swift; sourceTree = SOURCE_ROOT; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
@@ -2421,7 +2423,8 @@
 			isa = PBXGroup;
 			children = (
 				3D932D4B26317E9200C7D1EA /* NavigationButtonView.swift */,
-				3D932D4C26317E9200C7D1EA /* StandardButton.swift */,
+				3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */,
+				3DC9F260266018B000B115B9 /* StandardButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -3496,7 +3499,7 @@
 				3DDC6A6A26270998004F5EA4 /* BlockPageLinkContentConfiguration.swift in Sources */,
 				0A72751324AB9FBA005DA617 /* MultiSelectionPaneDoneView.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* CodeBlockCellView.swift in Sources */,
-				3D932D4E26317E9300C7D1EA /* StandardButton.swift in Sources */,
+				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				3DB27C06261B0E9C005E523C /* KeyedDecodingContainer.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				3D07ED72261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift in Sources */,
@@ -3681,6 +3684,7 @@
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
+				3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */,
 				3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift in Sources */,
 				3D5321E0262445B200F0D4FF /* Localization.swift in Sources */,

@@ -2,7 +2,7 @@ import SwiftUI
 
 
 extension Image {
-    static let logo = Image("logo-sign-part-mobile")
+    static let logo = Image("logo")
     static let arrow = Image("arrowForward")
     
     static let checked = Image("TextEditor/Style/Text/Checkbox/checked")
@@ -27,5 +27,6 @@ extension Image {
     
     enum auth {
         static let qr = Image("auth_qr_code")
+        static let background = Image("mainAuthBackground")
     }
 }

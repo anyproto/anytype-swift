@@ -7,45 +7,63 @@ struct MainAuthView: View {
     
     var body: some View {
         ZStack {
-            Image("mainAuthBackground")
+            navigation
+            Image.auth.background
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
-            VStack(alignment: .leading) {
-                Image("logo")
-                    .padding(.leading, 20)
-                    .padding(.top, 30)
-                Spacer()
-                VStack {
-                    AnytypeText("Organize everything", style: .title)
-                        .padding(20)
-                    AnytypeText("OrganizeEverythingDescription", style: .body)
-                        .padding([.leading, .trailing, .bottom], 20)
-                    
-                    HStack(spacing: 0) {
-                        NavigationLink(destination: viewModel.showCreateProfileView(),
-                                       isActive: $viewModel.shouldShowCreateProfileView) {
-                            EmptyView()
-                        }
-                        StandardButton(disabled: false, text: "Sign up", style: .secondary) {
-                            self.viewModel.singUp()
-                        }
-                        .padding(.trailing, 12)
-                        
-                        NavigationLink(destination: viewModel.showLoginView(), isActive: $showLoginView) {
-                            EmptyView()
-                        }
-                        StandardButton(disabled: false, text: "Login", style: .primary) {
-                            self.showLoginView = true
-                        }
-                    }
-                    .padding([.leading, .trailing], 20)
-                    .padding(.bottom, 16)
+            contentView
+                
+            .errorToast(
+                isShowing: $viewModel.isShowingError, errorText: viewModel.error
+            )
+        }
+    }
+    
+    private var contentView: some View {
+        VStack() {
+            Spacer()
+            bottomSheet
+        }
+        .overlay(
+            Image.logo.padding(.leading, 20).padding(.top, 30),
+            alignment: .topLeading
+        )
+    }
+    
+    private var bottomSheet: some View {
+        VStack(alignment: .leading) {
+            VStack {
+                AnytypeText("Welcome to Anytype", style: .title)
+                    .padding(.bottom)
+                AnytypeText("OrganizeEverythingDescription", style: .body)
+                    .lineSpacing(7)
+            }.padding(20)
+            
+            HStack(spacing: 12) {
+                StandardButton(text: "Sign up", style: .secondary) {
+                    viewModel.singUp()
                 }
-                .background(Color.background)
-                .cornerRadius(12.0)
-                .padding(20)
+                
+                NavigationLink(
+                    destination: viewModel.loginView()
+                ) {
+                    StandardButtonView(text: "Login", style: .primary)
+                }
             }
-            .errorToast(isShowing: $viewModel.isShowingError, errorText: viewModel.error)
+            .padding([.leading, .trailing], 20)
+            .padding(.bottom, 16)
+        }
+        .background(Color.background)
+        .cornerRadius(12.0)
+        .padding(20)
+    }
+    
+    private var navigation: some View {
+        NavigationLink(
+            destination: viewModel.createProfileView(),
+            isActive: $viewModel.shouldShowCreateProfileView
+        ) {
+            EmptyView()
         }
     }
 }

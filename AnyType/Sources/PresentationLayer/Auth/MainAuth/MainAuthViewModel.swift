@@ -5,9 +5,8 @@ import SwiftUI
 class MainAuthViewModel: ObservableObject {
     private let localRepoService = ServiceLocator.shared.localRepoService()
     private let authService = ServiceLocator.shared.authService()
-    private let storeService = ServiceLocator.shared.keychainStoreService()
     
-    @Published var error: String = "" {
+    var error: String = "" {
         didSet {
             if !error.isEmpty {
                 isShowingError = true
@@ -16,13 +15,6 @@ class MainAuthViewModel: ObservableObject {
     }
     @Published var isShowingError: Bool = false
     @Published var shouldShowCreateProfileView: Bool = false
-    
-    init() {
-        // TODO: Move to auth service, and call this from fabric or coordiantor
-        try? FileManager.default.removeItem(atPath: localRepoService.middlewareRepoPath)
-        print("repoPath: \(localRepoService.middlewareRepoPath)")
-        
-    }
     
     func singUp() {
         authService.createWallet(in: localRepoService.middlewareRepoPath) { [weak self] result in
@@ -37,11 +29,11 @@ class MainAuthViewModel: ObservableObject {
     }
     
     // MARK: - Coordinator
-    func showCreateProfileView() -> some View {
+    func createProfileView() -> some View {
         return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
     }
     
-    func showLoginView() -> some View {
+    func loginView() -> some View {
         return LoginView(viewModel: LoginViewModel())
     }
 }

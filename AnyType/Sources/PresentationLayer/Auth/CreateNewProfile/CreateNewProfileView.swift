@@ -2,34 +2,23 @@ import SwiftUI
 
 
 struct CreateNewProfileView: View {
-    @ObservedObject var viewModel: CreateNewProfileViewModel
-    
-    var body: some View {
-        ZStack {
-            LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
-            NewProfileView(viewModel: viewModel)
-                .padding()
-        }
-    }
-}
-
-
-struct CreateNewProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateNewProfileView(viewModel: CreateNewProfileViewModel())
-    }
-}
-
-
-private struct NewProfileView: View {
     @State private var showImagePicker: Bool = false
     @State private var createAccount: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var viewModel: CreateNewProfileViewModel
     
+    
     var body: some View {
+        ZStack {
+            LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            contentView
+                .padding()
+        }
+    }
+    
+    private var contentView: some View {
         VStack {
             Spacer()
             VStack(alignment: .leading, spacing: 0) {
@@ -74,5 +63,12 @@ private struct NewProfileView: View {
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: self.$viewModel.image)
         }
+    }
+}
+
+
+struct CreateNewProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        CreateNewProfileView(viewModel: CreateNewProfileViewModel())
     }
 }
