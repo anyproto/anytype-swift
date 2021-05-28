@@ -211,13 +211,19 @@ extension DocumentIconView: UIContextMenuInteractionDelegate {
     ) -> UIContextMenuConfiguration? {
         guard isMenuInteractionEnabled else { return nil }
         
-        let actions = DocumentIconViewUserAction.allCases.map { action in
-            UIAction(
+        let actions = DocumentIconViewUserAction.allCases.map { action -> UIAction in
+            var menuAction = UIAction(
                 title: action.title,
                 image: action.icon
             ) { [weak self ] _ in
                 self?.menuActionHandler?(action)
             }
+            
+            if action == .remove {
+                menuAction.attributes = .destructive
+            }
+            
+            return menuAction
         }
         
         return UIContextMenuConfiguration(

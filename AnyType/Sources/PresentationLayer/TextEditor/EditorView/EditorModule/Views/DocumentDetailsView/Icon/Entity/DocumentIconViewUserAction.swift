@@ -39,7 +39,7 @@ extension DocumentIconViewUserAction {
         case .upload:
             return UIImage(named: "Emoji/ContextMenu/upload")
         case .remove:
-            return UIImage(named: "Emoji/ContextMenu/remove")
+            return UIImage(named: "Emoji/ContextMenu/remove")?.withRenderingMode(.alwaysTemplate)
         }
     }
     
