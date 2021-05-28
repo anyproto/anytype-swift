@@ -6,9 +6,11 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom).edgesIgnoringSafeArea(.all)
+            Gradients.authBackground
             keychainPhraseView.padding()
         }
+        .navigationBarHidden(true)
+        .modifier(LogoOverlay())
     }
 
     private var keychainPhraseView: some View {

@@ -345,6 +345,8 @@
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
 		3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F260266018B000B115B9 /* StandardButton.swift */; };
+		3DC9F268266020B800B115B9 /* AlphaInviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F267266020B800B115B9 /* AlphaInviteCodeView.swift */; };
+		3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F26B2660216500B115B9 /* LogoOverlay.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
 		3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */; };
@@ -889,6 +891,8 @@
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
 		3DC9F260266018B000B115B9 /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardButton.swift; path = AnyType/Sources/PresentationLayer/Common/SwiftUI/Buttons/StandardButton.swift; sourceTree = SOURCE_ROOT; };
+		3DC9F267266020B800B115B9 /* AlphaInviteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlphaInviteCodeView.swift; path = AnyType/Sources/PresentationLayer/Auth/CreateNewProfileFlow/AlphaInviteCode/AlphaInviteCodeView.swift; sourceTree = SOURCE_ROOT; };
+		3DC9F26B2660216500B115B9 /* LogoOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogoOverlay.swift; path = AnyType/Sources/PresentationLayer/Auth/CommonVIews/LogoOverlay.swift; sourceTree = SOURCE_ROOT; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
@@ -1137,12 +1141,13 @@
 		03074B86239514BF009FA7D0 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				3DC9F26A2660214E00B115B9 /* CommonVIews */,
+				3DC9F2692660213D00B115B9 /* PinCode */,
 				0372923223F9CB920033DFDB /* CompletionAuth */,
 				03507433239E72D7001CF477 /* MainAuth */,
-				03507436239E72FC001CF477 /* CreateNewProfile */,
+				03507436239E72FC001CF477 /* CreateNewProfileFlow */,
 				038A81FE23A0162B00B71388 /* Login */,
 				0372AB4323A09DE1008CF5B9 /* SelectProfile */,
-				039F6D7B239594B90097560A /* PinCodeView.swift */,
 				3DD2FC432620802900C65466 /* AuthAssembly.swift */,
 			);
 			path = Auth;
@@ -1262,14 +1267,14 @@
 			path = MainAuth;
 			sourceTree = "<group>";
 		};
-		03507436239E72FC001CF477 /* CreateNewProfile */ = {
+		03507436239E72FC001CF477 /* CreateNewProfileFlow */ = {
 			isa = PBXGroup;
 			children = (
+				3DC9F2662660209200B115B9 /* AlphaInviteCode */,
+				3DC9F2652660208300B115B9 /* CreateNewProfile */,
 				03B161A1239F3A3B00BF27D1 /* WaitingViewOnCreatAccount */,
-				03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */,
-				03992F642395D7A10027A4AD /* CreateNewProfileView.swift */,
 			);
-			path = CreateNewProfile;
+			path = CreateNewProfileFlow;
 			sourceTree = "<group>";
 		};
 		0372922C23F991660033DFDB /* Middleware */ = {
@@ -2626,6 +2631,39 @@
 			path = EventConverters;
 			sourceTree = "<group>";
 		};
+		3DC9F2652660208300B115B9 /* CreateNewProfile */ = {
+			isa = PBXGroup;
+			children = (
+				03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */,
+				03992F642395D7A10027A4AD /* CreateNewProfileView.swift */,
+			);
+			path = CreateNewProfile;
+			sourceTree = "<group>";
+		};
+		3DC9F2662660209200B115B9 /* AlphaInviteCode */ = {
+			isa = PBXGroup;
+			children = (
+				3DC9F267266020B800B115B9 /* AlphaInviteCodeView.swift */,
+			);
+			path = AlphaInviteCode;
+			sourceTree = "<group>";
+		};
+		3DC9F2692660213D00B115B9 /* PinCode */ = {
+			isa = PBXGroup;
+			children = (
+				039F6D7B239594B90097560A /* PinCodeView.swift */,
+			);
+			path = PinCode;
+			sourceTree = "<group>";
+		};
+		3DC9F26A2660214E00B115B9 /* CommonVIews */ = {
+			isa = PBXGroup;
+			children = (
+				3DC9F26B2660216500B115B9 /* LogoOverlay.swift */,
+			);
+			path = CommonVIews;
+			sourceTree = "<group>";
+		};
 		3DCE7A092615248A00E09593 /* Flattener */ = {
 			isa = PBXGroup;
 			children = (
@@ -3577,6 +3615,7 @@
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
+				3DC9F268266020B800B115B9 /* AlphaInviteCodeView.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */,
 				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,
 				EA2F0D60264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift in Sources */,
@@ -3713,6 +3752,7 @@
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,
+				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3DB27C07261B0E9C005E523C /* Decoder+Protocols.swift in Sources */,
 				3DD67EBC26528D260025ED6F /* EditorContainerRoutingProcessor.swift in Sources */,

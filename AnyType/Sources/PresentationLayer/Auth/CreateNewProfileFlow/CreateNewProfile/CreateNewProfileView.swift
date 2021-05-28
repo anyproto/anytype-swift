@@ -11,11 +11,12 @@ struct CreateNewProfileView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+            Gradients.authBackground
             contentView
                 .padding()
         }
+        .navigationBarHidden(true)
+        .modifier(LogoOverlay())
     }
     
     private var contentView: some View {

@@ -17,6 +17,8 @@ struct MainAuthView: View {
                 isShowing: $viewModel.isShowingError, errorText: viewModel.error
             )
         }
+        .navigationBarHidden(true)
+        .modifier(LogoOverlay())
     }
     
     private var contentView: some View {
@@ -24,10 +26,6 @@ struct MainAuthView: View {
             Spacer()
             bottomSheet
         }
-        .overlay(
-            Image.logo.padding(.leading, 20).padding(.top, 30),
-            alignment: .topLeading
-        )
     }
     
     private var bottomSheet: some View {
@@ -70,7 +68,6 @@ struct MainAuthView: View {
 
 
 struct MainAuthView_Previews : PreviewProvider {
-    
     static var previews: some View {
         MainAuthView(viewModel: MainAuthViewModel())
     }

@@ -11,8 +11,7 @@ struct CompletionAuthView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom)
-            .edgesIgnoringSafeArea(.all)
+            Gradients.authBackground
             VStack {
                 Spacer()
                 VStack(alignment: .leading, spacing: 0) {
@@ -34,6 +33,8 @@ struct CompletionAuthView: View {
             }
             .padding()
         }
+        .navigationBarHidden(true)
+        .modifier(LogoOverlay())
     }
 }
 

@@ -9,8 +9,7 @@ struct WaitingView: View {
     
     var body: some View {
         ZStack {
-            LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
+            Gradients.authBackground
             VStack(alignment: .leading) {
                 Spacer()
                 
@@ -50,6 +49,8 @@ struct WaitingView: View {
             }
             .padding(20)
         }
+        .navigationBarHidden(true)
+        .modifier(LogoOverlay())
     }
 }
 

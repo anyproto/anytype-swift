@@ -1,7 +1,10 @@
 import SwiftUI
 
 final class Gradients {
-    static let authBackground: Gradient = {
+    static let authBackground: some View = LinearGradient(gradient: authBackgroundGradient, startPoint: .top, endPoint: .bottom)
+        .ignoresSafeArea()
+    
+    private static let authBackgroundGradient: Gradient = {
         let color1 = Color(red: 0.57, green: 0.71, blue: 0.76)
         let color2 = Color(red: 0.72, green: 0.84, blue: 0.86)
         let color3 = Color(red: 0.81, green: 0.79, blue: 0.75)

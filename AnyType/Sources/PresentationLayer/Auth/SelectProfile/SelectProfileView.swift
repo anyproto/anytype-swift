@@ -17,43 +17,10 @@ struct SelectProfileView: View {
     var body: some View {
         HStack {
             ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
-                LinearGradient(gradient: Gradients.authBackground, startPoint: .top, endPoint: .bottom)
-                    .edgesIgnoringSafeArea(.all)
+                Gradients.authBackground
+                
                 if self.viewModel.isMultipleAccountsEnabled {
-                    VStack {
-                        ScrollView {
-                            VStack(alignment: .leading) {
-                                AnytypeText("Choose profile", style: .title)
-                                    .animation(nil)
-                                
-                                ForEach(self.viewModel.profilesViewModels) { profile in
-                                    Button(action: {
-                                        self.viewModel.selectProfile(id: profile.id)
-                                    }) {
-                                        ProfileNameView(viewModel: profile)
-                                    }
-                                    .transition(.opacity)
-                                }
-                                .animation(nil)
-                                NavigationLink(destination: self.viewModel.showCreateProfileView()) {
-                                    AddProfileView()
-                                }
-                                .animation(nil)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .overlay(
-                                GeometryReader { proxy in
-                                    self.contentHeight(proxy: proxy)
-                            })
-                                .animation(.easeInOut(duration: 0.6))
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: contentHeight)
-                        .padding()
-                        .background(Color.background)
-                        .cornerRadius(12)
-                        .animation(.easeInOut(duration: 0.5))
-                    }
-                    .padding()
+                    multipleAccountsPicket
                 } else {
                     ProgressView()
                 }
@@ -63,6 +30,8 @@ struct SelectProfileView: View {
             }
             .errorToast(isShowing: self.$viewModel.showError, errorText: self.viewModel.error ?? "")
         }
+        .navigationBarHidden(true)
+        .modifier(LogoOverlay())
     }
     
     private func contentHeight(proxy: GeometryProxy) -> some View {
@@ -70,6 +39,43 @@ struct SelectProfileView: View {
             self.contentHeight = proxy.size.height
         }
         return Color.clear
+    }
+    
+    private var multipleAccountsPicket: some View {
+        VStack {
+            ScrollView {
+                VStack(alignment: .leading) {
+                    AnytypeText("Choose profile", style: .title)
+                        .animation(nil)
+                    
+                    ForEach(self.viewModel.profilesViewModels) { profile in
+                        Button(action: {
+                            self.viewModel.selectProfile(id: profile.id)
+                        }) {
+                            ProfileNameView(viewModel: profile)
+                        }
+                        .transition(.opacity)
+                    }
+                    .animation(nil)
+                    NavigationLink(destination: self.viewModel.showCreateProfileView()) {
+                        AddProfileView()
+                    }
+                    .animation(nil)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .overlay(
+                    GeometryReader { proxy in
+                        self.contentHeight(proxy: proxy)
+                })
+                    .animation(.easeInOut(duration: 0.6))
+            }
+            .frame(maxWidth: .infinity, maxHeight: contentHeight)
+            .padding()
+            .background(Color.background)
+            .cornerRadius(12)
+            .animation(.easeInOut(duration: 0.5))
+        }
+        .padding()
     }
 }
 
