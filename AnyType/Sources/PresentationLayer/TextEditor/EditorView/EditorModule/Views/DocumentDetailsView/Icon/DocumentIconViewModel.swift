@@ -4,7 +4,7 @@ import BlocksModels
 
 final class DocumentIconViewModel {
     
-    var onMediaPickerImageSelect: ((_ imagePath: String) -> Void)?
+    var onMediaPickerImageSelect: (() -> Void)?
 
     let documentIcon: DocumentIcon
     
@@ -97,12 +97,11 @@ private extension DocumentIconViewModel {
             
             guard let self = self else { return }
             
-            let localPath = resultInformation.filePath
-            
             DispatchQueue.main.async {
-                self.onMediaPickerImageSelect?(localPath)
+                self.onMediaPickerImageSelect?()
             }
-            self.uploadSelectedIconImage(at: localPath)
+            
+            self.uploadSelectedIconImage(at: resultInformation.filePath)
         }
         
         userActionSubject.send(

@@ -245,6 +245,7 @@
 		12B69C97265D1D5F00D047E3 /* DocumentCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C96265D1D5F00D047E3 /* DocumentCoverView.swift */; };
 		12BC46D1265E930300797530 /* DocumentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC46D0265E930300797530 /* DocumentIconView.swift */; };
 		12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */; };
+		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
 		12DE403D264AD15D007B5074 /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE403C264AD15D007B5074 /* OptionalExtensions.swift */; };
 		12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4046264AE455007B5074 /* StackedLayout.swift */; };
@@ -793,6 +794,7 @@
 		12B69C96265D1D5F00D047E3 /* DocumentCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentCoverView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Cover/DocumentCoverView.swift; sourceTree = SOURCE_ROOT; };
 		12BC46D0265E930300797530 /* DocumentIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIconView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/DocumentIconView.swift; sourceTree = SOURCE_ROOT; };
 		12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsInformationProviderExtensions.swift; path = Anytype/Sources/Models/Extensions/DetailsInformationProviderExtensions.swift; sourceTree = SOURCE_ROOT; };
+		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
 		12DE403C264AD15D007B5074 /* OptionalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
 		12DE4046264AE455007B5074 /* StackedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackedLayout.swift; sourceTree = "<group>"; };
@@ -2124,8 +2126,8 @@
 			isa = PBXGroup;
 			children = (
 				12B69C93265D1C9200D047E3 /* Entity */,
-				12B69C91265D160E00D047E3 /* DocumentCoverViewModel.swift */,
 				12B69C96265D1D5F00D047E3 /* DocumentCoverView.swift */,
+				12B69C91265D160E00D047E3 /* DocumentCoverViewModel.swift */,
 			);
 			path = Cover;
 			sourceTree = "<group>";
@@ -2144,6 +2146,14 @@
 				12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		12C6342C26600A9300E1DF6F /* GestureRecognizer */ = {
+			isa = PBXGroup;
+			children = (
+				12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */,
+			);
+			path = GestureRecognizer;
 			sourceTree = "<group>";
 		};
 		12DE4038264ACF83007B5074 /* View protocols */ = {
@@ -2317,6 +2327,7 @@
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				12C6342C26600A9300E1DF6F /* GestureRecognizer */,
 				1280E205265C17CC00E5AEEE /* Utils */,
 				12DE403E264AE418007B5074 /* Layout */,
 				12DE4038264ACF83007B5074 /* View protocols */,
@@ -3806,6 +3817,7 @@
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				EA7DE3FE26397C08005AFEE2 /* BlockMenuActionsFilterService.swift in Sources */,
 				3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */,
+				12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				0A09661B25C0AD0800C004BD /* DetailsActiveModel.swift in Sources */,
 				533856892639B3BC005A06A9 /* StyleColorPanelLayout.swift in Sources */,

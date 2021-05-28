@@ -32,9 +32,17 @@ class ImageProperty {
     private func loadImage(imageId: String, parameters: ImageParameters) {
         guard property.isNil else { return }
         
-        URLResolver().obtainImageURLPublisher(imageId: imageId, parameters)
-            .safelyUnwrapOptionals().ignoreFailure().flatMap {
+        URLResolver()
+            .obtainImageURLPublisher(imageId: imageId, parameters)
+            .safelyUnwrapOptionals()
+            .ignoreFailure()
+            .flatMap {
                 ImageLoaderObject($0).imagePublisher
-            }.receive(on: RunLoop.main).sink { _ in }.store(in: &subscriptions)
+            }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] image in
+                self?.property = image
+            }
+            .store(in: &subscriptions)
     }
 }

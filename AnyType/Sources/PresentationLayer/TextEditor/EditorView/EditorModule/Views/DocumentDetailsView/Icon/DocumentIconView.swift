@@ -62,8 +62,8 @@ extension DocumentIconView: ConfigurableView {
         
         configureStateBaseOnIcon(viewModel.documentIcon, model.isBorderVisible)
         
-        viewModel.onMediaPickerImageSelect = { [weak self] imagePath in
-            self?.showLoaderWithImage(at: imagePath)
+        viewModel.onMediaPickerImageSelect = { [weak self] in
+            self?.showLoader()
         }
         
         menuActionHandler = { action in
@@ -129,29 +129,27 @@ extension DocumentIconView: ConfigurableView {
         }
     }
     
-    private func showLoaderWithImage(at _: String) {
-        // TODO: show image preview
-        activityIndicatorView.startAnimating()
-        
+    private func showLoader() {
         let animation = CATransition()
         animation.type = .fade;
         animation.duration = 0.3;
         activityIndicatorView.layer.add(animation, forKey: nil)
         
+        activityIndicatorView.startAnimating()
         activityIndicatorView.isHidden = false
     }
     
-    func hideLoader() {
+    private func hideLoader() {
         activityIndicatorView.stopAnimating()
         activityIndicatorView.isHidden = true
     }
     
-    func showEmojiView() {
+    private func showEmojiView() {
         iconEmojiView.isHidden = false
         iconImageView.isHidden = true
     }
     
-    func showImageView() {
+    private func showImageView() {
         iconEmojiView.isHidden = true
         iconImageView.isHidden = false
     }
@@ -212,7 +210,7 @@ extension DocumentIconView: UIContextMenuInteractionDelegate {
         guard isMenuInteractionEnabled else { return nil }
         
         let actions = DocumentIconViewUserAction.allCases.map { action -> UIAction in
-            var menuAction = UIAction(
+            let menuAction = UIAction(
                 title: action.title,
                 image: action.icon
             ) { [weak self ] _ in

@@ -53,8 +53,10 @@ private extension DetailsEntry {
                 return Google_Protobuf_Value(stringValue: string)
             }
             
-            if let double = self.value as? Double {
-                return Google_Protobuf_Value(numberValue: double)
+            if let coverType = self.value as? CoverType {
+                return Google_Protobuf_Value(
+                    numberValue: Double(coverType.rawValue)
+                )
             }
             
             assertionFailure("Implement converter from \(V.self) to `Google_Protobuf_Value`")

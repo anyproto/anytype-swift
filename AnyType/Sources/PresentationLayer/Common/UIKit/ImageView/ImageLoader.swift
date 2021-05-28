@@ -22,7 +22,7 @@ final class ImageLoader {
         parameters: ImageParameters = .init(width: .default),
         placeholder: UIImage? = nil
     ) {
-        property = ImageProperty(imageId: hash, .init(width: .default))
+        property = ImageProperty(imageId: hash, parameters)
         
         if let image = property?.property {
             imageView?.image = image

@@ -38,10 +38,9 @@ final class DocumentIconImageView: UIView {
 extension DocumentIconImageView: ConfigurableView {
     
     func configure(model: String) {
-        let parameters = ImageParameters(width: .thumbnail)
         imageLoader.update(
             imageId: model,
-            parameters: parameters,
+            parameters: ImageParameters(width: .thumbnail),
             placeholder: PlaceholderImageBuilder.placeholder(
                 with: ImageGuideline(
                     size: CGSize(width: 112, height: 112),
