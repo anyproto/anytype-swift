@@ -13,12 +13,16 @@ final class DocumentIconView: UIView {
         return indicator
     }()
     
+    private let containerView = UIView()
     private let iconEmojiView = DocumentIconEmojiView()
     private let iconImageView = DocumentIconImageView()
     
     // MARK: - Variables
     
     private var heightConstraint: NSLayoutConstraint!
+    
+    private var borderConstraintX: NSLayoutConstraint!
+    private var borderConstraintY: NSLayoutConstraint!
     
     private lazy var menuInteraction = UIContextMenuInteraction(delegate: self)
     private var menuActionHandler: ((DocumentIconViewUserAction) -> Void)?
@@ -43,55 +47,86 @@ final class DocumentIconView: UIView {
 
 extension DocumentIconView: ConfigurableView {
     
-    func configure(model: DocumentIconViewModel?) {
+    struct ConfigurationModel {
+        let viewModel: DocumentIconViewModel
+        let isBorderVisible: Bool
+    }
+    
+    func configure(model: ConfigurationModel?) {
         guard let model = model else {
             configureEmptyState()
             return
         }
         
-        configureStateBaseOnIcon(model.documentIcon)
+        let viewModel = model.viewModel
         
-        model.onMediaPickerImageSelect = { [weak self] imagePath in
+        configureStateBaseOnIcon(viewModel.documentIcon, model.isBorderVisible)
+        
+        viewModel.onMediaPickerImageSelect = { [weak self] imagePath in
             self?.showLoaderWithImage(at: imagePath)
         }
         
         menuActionHandler = { action in
-            model.handleIconUserAction(action)
+            viewModel.handleIconUserAction(action)
         }
-        
-        addInteraction(menuInteraction)
     }
     
     private func configureEmptyState() {
-        removeInteraction(menuInteraction)
-        heightConstraint.constant = 0
+        containerView.removeInteraction(menuInteraction)
         menuActionHandler = nil
         
-        hideLoader()
+        heightConstraint.constant = 0
+        borderConstraintY.constant = 0
+        borderConstraintX.constant = 0
         
+        hideLoader()
         iconEmojiView.isHidden = true
         iconImageView.isHidden = true
     }
     
-    private func configureStateBaseOnIcon(_ icon: DocumentIcon) {
+    private func configureStateBaseOnIcon(_ icon: DocumentIcon, _ isBorderVisible: Bool) {
         hideLoader()
         
         let height: CGFloat
         let cornerRadius: CGFloat
+        
         switch icon {
         case let .emoji(iconEmoji):
             height = Constants.Emoji.height
             cornerRadius = iconEmojiView.layer.cornerRadius
+            
             iconEmojiView.configure(model: iconEmoji)
             showEmojiView()
         case let .imageId(imageId):
             height = Constants.Image.height
             cornerRadius = iconImageView.layer.cornerRadius
+            
             iconImageView.configure(model: imageId)
             showImageView()
         }
-        activityIndicatorView.layer.cornerRadius = cornerRadius
+        
         heightConstraint.constant = height
+        containerView.layer.cornerRadius = cornerRadius
+        
+        configureBorder(
+            isVisible: isBorderVisible,
+            cornerRadius: cornerRadius
+        )
+        
+        containerView.addInteraction(menuInteraction)
+    }
+    
+    private func configureBorder(isVisible: Bool, cornerRadius: CGFloat) {
+        if isVisible {
+            borderConstraintX.constant = Constants.borderWidth
+            borderConstraintY.constant = Constants.borderWidth
+            layer.cornerRadius = cornerRadius + Constants.borderWidth
+
+        } else {
+            borderConstraintX.constant = 0
+            borderConstraintY.constant = 0
+            layer.cornerRadius = cornerRadius
+        }
     }
     
     private func showLoaderWithImage(at _: String) {
@@ -128,26 +163,35 @@ extension DocumentIconView: ConfigurableView {
 private extension DocumentIconView {
     
     func setupView() {
+        containerView.clipsToBounds = true
+        
+        backgroundColor = .grayscaleWhite
+        
         setupLayout()
     }
     
     func setupLayout() {
-        addSubview(iconEmojiView) {
-            $0.pinToSuperview()
-        }
-        
-        addSubview(iconImageView) {
-            $0.pinToSuperview()
-        }
-        
-        addSubview(activityIndicatorView) {
-            $0.pinToSuperview()
-        }
-        
-        layoutUsing.anchors {
-            $0.width.equal(to: heightAnchor)
+        addSubview(containerView) {
+            $0.center(in: self)
+            
+            $0.width.equal(to: $0.height)
             
             heightConstraint = $0.height.equal(to: 0)
+            
+            borderConstraintX = $0.leading.equal(to: leadingAnchor)
+            borderConstraintY = $0.top.equal(to: topAnchor)
+        }
+        
+        containerView.addSubview(iconEmojiView) {
+            $0.pinToSuperview()
+        }
+        
+        containerView.addSubview(iconImageView) {
+            $0.pinToSuperview()
+        }
+        
+        containerView.addSubview(activityIndicatorView) {
+            $0.pinToSuperview()
         }
     }
     
@@ -201,7 +245,7 @@ extension DocumentIconView: UIContextMenuInteractionDelegate {
                 return iconImageView
             }
             
-            return self
+            return containerView
         }()
         
         let parameters = UIPreviewParameters()
@@ -220,13 +264,13 @@ extension DocumentIconView: UIContextMenuInteractionDelegate {
 private extension DocumentIconView {
     
     enum Constants {
+        static let borderWidth: CGFloat = 4
+        
         enum Emoji {
-            static let cornerRadius: CGFloat = 20
             static let height: CGFloat = 96
         }
         
         enum Image {
-            static let cornerRadius: CGFloat = 22
             static let height: CGFloat = 122
         }
     }
