@@ -64,8 +64,9 @@ extension ListBlockActionService {
         }
 
         let blocksIds = blocks
+        let objectType = ""
 
-        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds)
+        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds, objectType: objectType)
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.convertChildrenToPages") { _ in }
             .store(in: &self.subscriptions)
     }

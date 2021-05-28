@@ -5,56 +5,75 @@
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
 
-extension Anytype_Model_PageDetails {
+extension Anytype_Model_ObjectDetails {
   public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
     self.details = details
   }
 }
 
-extension Anytype_Model_PageInfo {
-  public init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct, snippet: String, hasInboundLinks_p: Bool, pageType: Anytype_Model_PageInfo.TypeEnum) {
+extension Anytype_Model_ObjectInfo {
+  public init(
+    id: String, objectTypeUrls: [String], details: SwiftProtobuf.Google_Protobuf_Struct, relations: Anytype_Model_Relations, snippet: String, hasInboundLinks_p: Bool,
+    objectType: Anytype_Model_SmartBlockType
+  ) {
     self.id = id
+    self.objectTypeUrls = objectTypeUrls
     self.details = details
+    self.relations = relations
     self.snippet = snippet
     self.hasInboundLinks_p = hasInboundLinks_p
-    self.pageType = pageType
+    self.objectType = objectType
   }
 }
 
-extension Anytype_Model_PageInfoWithLinks {
-  public init(id: String, info: Anytype_Model_PageInfo, links: Anytype_Model_PageLinksInfo) {
+extension Anytype_Model_ObjectInfoWithLinks {
+  public init(id: String, info: Anytype_Model_ObjectInfo, links: Anytype_Model_ObjectLinksInfo) {
     self.id = id
     self.info = info
     self.links = links
   }
 }
 
-extension Anytype_Model_PageInfoWithOutboundLinks {
-  public init(id: String, info: Anytype_Model_PageInfo, outboundLinks: [Anytype_Model_PageInfo]) {
+extension Anytype_Model_ObjectInfoWithOutboundLinks {
+  public init(id: String, info: Anytype_Model_ObjectInfo, outboundLinks: [Anytype_Model_ObjectInfo]) {
     self.id = id
     self.info = info
     self.outboundLinks = outboundLinks
   }
 }
 
-extension Anytype_Model_PageInfoWithOutboundLinksIDs {
-  public init(id: String, info: Anytype_Model_PageInfo, outboundLinks: [String]) {
+extension Anytype_Model_ObjectInfoWithOutboundLinksIDs {
+  public init(id: String, info: Anytype_Model_ObjectInfo, outboundLinks: [String]) {
     self.id = id
     self.info = info
     self.outboundLinks = outboundLinks
   }
 }
 
-extension Anytype_Model_PageLinks {
+extension Anytype_Model_ObjectLinks {
   public init(inboundIds: [String], outboundIds: [String]) {
     self.inboundIds = inboundIds
     self.outboundIds = outboundIds
   }
 }
 
-extension Anytype_Model_PageLinksInfo {
-  public init(inbound: [Anytype_Model_PageInfo], outbound: [Anytype_Model_PageInfo]) {
+extension Anytype_Model_ObjectLinksInfo {
+  public init(inbound: [Anytype_Model_ObjectInfo], outbound: [Anytype_Model_ObjectInfo]) {
     self.inbound = inbound
     self.outbound = outbound
+  }
+}
+
+extension Anytype_Model_ObjectStoreChecksums {
+  public init(
+    bundledObjectTypes: String, bundledRelations: String, bundledLayouts: String, objectsForceReindexCounter: Int32, filesForceReindexCounter: Int32, idxRebuildCounter: Int32, fulltextRebuild: Int32
+  ) {
+    self.bundledObjectTypes = bundledObjectTypes
+    self.bundledRelations = bundledRelations
+    self.bundledLayouts = bundledLayouts
+    self.objectsForceReindexCounter = objectsForceReindexCounter
+    self.filesForceReindexCounter = filesForceReindexCounter
+    self.idxRebuildCounter = idxRebuildCounter
+    self.fulltextRebuild = fulltextRebuild
   }
 }

@@ -37,7 +37,7 @@ final class BlocksModelsParser {
     /// * This block could contain `details`. It is a structure ( or a dictionary ) with predefined fields.
     /// * This block also has type `smartblockType`. It is a `.case` from enumeration.
     ///
-    func parse(blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details], smartblockType: Anytype_SmartBlockType) -> PageEvent {
+    func parse(blocks: [Anytype_Model_Block], details: [Anytype_Event.Object.Details.Set], smartblockType: Anytype_Model_SmartBlockType) -> PageEvent {
         
         let root = blocks.first(where: {
             switch $0.content {

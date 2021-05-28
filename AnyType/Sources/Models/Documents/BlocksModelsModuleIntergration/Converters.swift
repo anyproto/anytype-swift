@@ -4,7 +4,7 @@ import BlocksModels
 extension BlocksModelsParser {
     enum PublicConverters {
         enum EventsDetails {
-            static func convert(event: Anytype_Event.Block.Set.Details) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+            static func convert(event: Anytype_Event.Object.Details.Set) -> [Anytype_Rpc.Block.Set.Details.Detail] {
                 Converters.EventDetailsAndSetDetailsConverter.convert(event: event)
             }
         }

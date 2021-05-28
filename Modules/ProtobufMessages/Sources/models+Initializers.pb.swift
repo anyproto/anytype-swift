@@ -49,20 +49,21 @@ extension Anytype_Model_Block.Content.Bookmark {
 }
 
 extension Anytype_Model_Block.Content.Dataview {
-  public init(databaseID: String, views: [Anytype_Model_Block.Content.Dataview.View], schemaURL: String) {
-    self.databaseID = databaseID
+  public init(source: String, views: [Anytype_Model_Block.Content.Dataview.View], relations: [Anytype_Model_Relation], activeView: String) {
+    self.source = source
     self.views = views
-    self.schemaURL = schemaURL
+    self.relations = relations
+    self.activeView = activeView
   }
 }
 
 extension Anytype_Model_Block.Content.Dataview.Filter {
   public init(
-    `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator, relationID: String, relationProperty: String, condition: Anytype_Model_Block.Content.Dataview.Filter.Condition,
+    `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator, relationKey: String, relationProperty: String, condition: Anytype_Model_Block.Content.Dataview.Filter.Condition,
     value: SwiftProtobuf.Google_Protobuf_Value
   ) {
     self.`operator` = `operator`
-    self.relationID = relationID
+    self.relationKey = relationKey
     self.relationProperty = relationProperty
     self.condition = condition
     self.value = value
@@ -70,25 +71,22 @@ extension Anytype_Model_Block.Content.Dataview.Filter {
 }
 
 extension Anytype_Model_Block.Content.Dataview.Relation {
-  public init(id: String, isVisible: Bool, width: Int32, options: Anytype_Model_Block.Content.Dataview.Relation.OneOf_Options?) {
-    self.id = id
+  public init(
+    key: String, isVisible: Bool, width: Int32, dateIncludeTime: Bool, timeFormat: Anytype_Model_Block.Content.Dataview.Relation.TimeFormat,
+    dateFormat: Anytype_Model_Block.Content.Dataview.Relation.DateFormat
+  ) {
+    self.key = key
     self.isVisible = isVisible
     self.width = width
-    self.options = options
-  }
-}
-
-extension Anytype_Model_Block.Content.Dataview.Relation.DateOptions {
-  public init(includeTime: Bool, timeFormat: Anytype_Model_Block.Content.Dataview.Relation.TimeFormat, dateFormat: Anytype_Model_Block.Content.Dataview.Relation.DateFormat) {
-    self.includeTime = includeTime
+    self.dateIncludeTime = dateIncludeTime
     self.timeFormat = timeFormat
     self.dateFormat = dateFormat
   }
 }
 
 extension Anytype_Model_Block.Content.Dataview.Sort {
-  public init(relationID: String, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) {
-    self.relationID = relationID
+  public init(relationKey: String, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) {
+    self.relationKey = relationKey
     self.type = type
   }
 }
@@ -145,6 +143,12 @@ extension Anytype_Model_Block.Content.Link {
   }
 }
 
+extension Anytype_Model_Block.Content.Relation {
+  public init(key: String) {
+    self.key = key
+  }
+}
+
 extension Anytype_Model_Block.Content.Text {
   public init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool, color: String) {
     self.text = text
@@ -186,6 +190,14 @@ extension Anytype_Model_BlockMetaOnly {
   }
 }
 
+extension Anytype_Model_Layout {
+  public init(id: Anytype_Model_ObjectType.Layout, name: String, requiredRelations: [Anytype_Model_Relation]) {
+    self.id = id
+    self.name = name
+    self.requiredRelations = requiredRelations
+  }
+}
+
 extension Anytype_Model_LinkPreview {
   public init(url: String, title: String, description_p: String, imageURL: String, faviconURL: String, type: Anytype_Model_LinkPreview.TypeEnum) {
     self.url = url
@@ -197,6 +209,22 @@ extension Anytype_Model_LinkPreview {
   }
 }
 
+extension Anytype_Model_ObjectType {
+  public init(
+    url: String, name: String, relations: [Anytype_Model_Relation], layout: Anytype_Model_ObjectType.Layout, iconEmoji: String, description_p: String, hidden: Bool,
+    types: [Anytype_Model_SmartBlockType]
+  ) {
+    self.url = url
+    self.name = name
+    self.relations = relations
+    self.layout = layout
+    self.iconEmoji = iconEmoji
+    self.description_p = description_p
+    self.hidden = hidden
+    self.types = types
+  }
+}
+
 extension Anytype_Model_Range {
   public init(from: Int32, to: Int32) {
     self.from = from
@@ -204,10 +232,72 @@ extension Anytype_Model_Range {
   }
 }
 
+extension Anytype_Model_Relation {
+  public init(
+    key: String, format: Anytype_Model_RelationFormat, name: String, defaultValue: SwiftProtobuf.Google_Protobuf_Value, dataSource: Anytype_Model_Relation.DataSource, hidden: Bool, readOnly: Bool,
+    multi: Bool, objectTypes: [String], selectDict: [Anytype_Model_Relation.Option], maxCount: Int32, description_p: String, scope: Anytype_Model_Relation.Scope, creator: String
+  ) {
+    self.key = key
+    self.format = format
+    self.name = name
+    self.defaultValue = defaultValue
+    self.dataSource = dataSource
+    self.hidden = hidden
+    self.readOnly = readOnly
+    self.multi = multi
+    self.objectTypes = objectTypes
+    self.selectDict = selectDict
+    self.maxCount = maxCount
+    self.description_p = description_p
+    self.scope = scope
+    self.creator = creator
+  }
+}
+
+extension Anytype_Model_Relation.Option {
+  public init(id: String, text: String, color: String, scope: Anytype_Model_Relation.Option.Scope) {
+    self.id = id
+    self.text = text
+    self.color = color
+    self.scope = scope
+  }
+}
+
+extension Anytype_Model_RelationWithValue {
+  public init(relation: Anytype_Model_Relation, value: SwiftProtobuf.Google_Protobuf_Value) {
+    self.relation = relation
+    self.value = value
+  }
+}
+
+extension Anytype_Model_Relations {
+  public init(relations: [Anytype_Model_Relation]) {
+    self.relations = relations
+  }
+}
+
+extension Anytype_Model_Restrictions {
+  public init(object: [Anytype_Model_Restrictions.ObjectRestriction], dataview: [Anytype_Model_Restrictions.DataviewRestrictions]) {
+    self.object = object
+    self.dataview = dataview
+  }
+}
+
+extension Anytype_Model_Restrictions.DataviewRestrictions {
+  public init(blockID: String, restrictions: [Anytype_Model_Restrictions.DataviewRestriction]) {
+    self.blockID = blockID
+    self.restrictions = restrictions
+  }
+}
+
 extension Anytype_Model_SmartBlockSnapshotBase {
-  public init(blocks: [Anytype_Model_Block], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(
+    blocks: [Anytype_Model_Block], details: SwiftProtobuf.Google_Protobuf_Struct, fileKeys: SwiftProtobuf.Google_Protobuf_Struct, extraRelations: [Anytype_Model_Relation], objectTypes: [String]
+  ) {
     self.blocks = blocks
     self.details = details
     self.fileKeys = fileKeys
+    self.extraRelations = extraRelations
+    self.objectTypes = objectTypes
   }
 }

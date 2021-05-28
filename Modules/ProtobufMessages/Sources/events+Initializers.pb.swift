@@ -12,7 +12,7 @@ import SwiftProtobuf
 /// Begin of classes
 
 /// Adapts interface of private framework.
-public protocol ServiceEventsHandlerProtocol: AnyObject {
+public protocol ServiceEventsHandlerProtocol: class {
   func handle(_ data: Data?)
 }
 
@@ -86,16 +86,82 @@ extension Anytype_Event.Block.Add {
   }
 }
 
-extension Anytype_Event.Block.Delete {
-  public init(blockIds: [String]) {
-    self.blockIds = blockIds
+extension Anytype_Event.Block.Dataview.RecordsDelete {
+  public init(id: String, viewID: String, removed: [String]) {
+    self.id = id
+    self.viewID = viewID
+    self.removed = removed
   }
 }
 
-extension Anytype_Event.Block.Delete.Dataview.View {
+extension Anytype_Event.Block.Dataview.RecordsInsert {
+  public init(id: String, viewID: String, records: [SwiftProtobuf.Google_Protobuf_Struct], insertPosition: UInt32) {
+    self.id = id
+    self.viewID = viewID
+    self.records = records
+    self.insertPosition = insertPosition
+  }
+}
+
+extension Anytype_Event.Block.Dataview.RecordsSet {
+  public init(id: String, viewID: String, records: [SwiftProtobuf.Google_Protobuf_Struct], total: UInt32) {
+    self.id = id
+    self.viewID = viewID
+    self.records = records
+    self.total = total
+  }
+}
+
+extension Anytype_Event.Block.Dataview.RecordsUpdate {
+  public init(id: String, viewID: String, records: [SwiftProtobuf.Google_Protobuf_Struct]) {
+    self.id = id
+    self.viewID = viewID
+    self.records = records
+  }
+}
+
+extension Anytype_Event.Block.Dataview.RelationDelete {
+  public init(id: String, relationKey: String) {
+    self.id = id
+    self.relationKey = relationKey
+  }
+}
+
+extension Anytype_Event.Block.Dataview.RelationSet {
+  public init(id: String, relationKey: String, relation: Anytype_Model_Relation) {
+    self.id = id
+    self.relationKey = relationKey
+    self.relation = relation
+  }
+}
+
+extension Anytype_Event.Block.Dataview.SourceSet {
+  public init(id: String, source: String) {
+    self.id = id
+    self.source = source
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewDelete {
   public init(id: String, viewID: String) {
     self.id = id
     self.viewID = viewID
+  }
+}
+
+extension Anytype_Event.Block.Dataview.ViewSet {
+  public init(id: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View, offset: UInt32, limit: UInt32) {
+    self.id = id
+    self.viewID = viewID
+    self.view = view
+    self.offset = offset
+    self.limit = limit
+  }
+}
+
+extension Anytype_Event.Block.Delete {
+  public init(blockIds: [String]) {
+    self.blockIds = blockIds
   }
 }
 
@@ -425,35 +491,6 @@ extension Anytype_Event.Block.Set.ChildrenIds {
   }
 }
 
-extension Anytype_Event.Block.Set.Dataview.Records {
-  public init(id: String, viewID: String, updated: [SwiftProtobuf.Google_Protobuf_Struct], inserted: [SwiftProtobuf.Google_Protobuf_Struct], insertPosition: UInt32, removed: [String], total: UInt32) {
-    self.id = id
-    self.viewID = viewID
-    self.updated = updated
-    self.inserted = inserted
-    self.insertPosition = insertPosition
-    self.removed = removed
-    self.total = total
-  }
-}
-
-extension Anytype_Event.Block.Set.Dataview.View {
-  public init(id: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View, offset: UInt32, limit: UInt32) {
-    self.id = id
-    self.viewID = viewID
-    self.view = view
-    self.offset = offset
-    self.limit = limit
-  }
-}
-
-extension Anytype_Event.Block.Set.Details {
-  public init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
-    self.id = id
-    self.details = details
-  }
-}
-
 extension Anytype_Event.Block.Set.Div {
   public init(id: String, style: Anytype_Event.Block.Set.Div.Style) {
     self.id = id
@@ -558,6 +595,19 @@ extension Anytype_Event.Block.Set.Link.TargetBlockId {
   }
 }
 
+extension Anytype_Event.Block.Set.Relation {
+  public init(id: String, key: Anytype_Event.Block.Set.Relation.Key) {
+    self.id = id
+    self.key = key
+  }
+}
+
+extension Anytype_Event.Block.Set.Relation.Key {
+  public init(value: String) {
+    self.value = value
+  }
+}
+
 extension Anytype_Event.Block.Set.Restrictions {
   public init(id: String, restrictions: Anytype_Model_Block.Restrictions) {
     self.id = id
@@ -609,18 +659,95 @@ extension Anytype_Event.Block.Set.Text.Text {
   }
 }
 
-extension Anytype_Event.Block.Show {
-  public init(rootID: String, blocks: [Anytype_Model_Block], details: [Anytype_Event.Block.Set.Details], type: Anytype_SmartBlockType) {
+extension Anytype_Event.Message {
+  public init(value: Anytype_Event.Message.OneOf_Value?) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Object.Details.Amend {
+  public init(id: String, details: [Anytype_Event.Object.Details.Amend.KeyValue]) {
+    self.id = id
+    self.details = details
+  }
+}
+
+extension Anytype_Event.Object.Details.Amend.KeyValue {
+  public init(key: String, value: SwiftProtobuf.Google_Protobuf_Value) {
+    self.key = key
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Object.Details.Set {
+  public init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
+    self.id = id
+    self.details = details
+  }
+}
+
+extension Anytype_Event.Object.Details.Unset {
+  public init(id: String, keys: [String]) {
+    self.id = id
+    self.keys = keys
+  }
+}
+
+extension Anytype_Event.Object.Relation.Remove {
+  public init(id: String, relationKey: String) {
+    self.id = id
+    self.relationKey = relationKey
+  }
+}
+
+extension Anytype_Event.Object.Relation.Set {
+  public init(id: String, relationKey: String, relation: Anytype_Model_Relation) {
+    self.id = id
+    self.relationKey = relationKey
+    self.relation = relation
+  }
+}
+
+extension Anytype_Event.Object.Relations.Amend {
+  public init(id: String, relations: [Anytype_Model_Relation]) {
+    self.id = id
+    self.relations = relations
+  }
+}
+
+extension Anytype_Event.Object.Relations.Remove {
+  public init(id: String, keys: [String]) {
+    self.id = id
+    self.keys = keys
+  }
+}
+
+extension Anytype_Event.Object.Relations.Set {
+  public init(id: String, relations: [Anytype_Model_Relation]) {
+    self.id = id
+    self.relations = relations
+  }
+}
+
+extension Anytype_Event.Object.Show {
+  public init(
+    rootID: String, blocks: [Anytype_Model_Block], details: [Anytype_Event.Object.Details.Set], type: Anytype_Model_SmartBlockType, objectTypes: [Anytype_Model_ObjectType],
+    relations: [Anytype_Model_Relation], restrictions: Anytype_Model_Restrictions
+  ) {
     self.rootID = rootID
     self.blocks = blocks
     self.details = details
     self.type = type
+    self.objectTypes = objectTypes
+    self.relations = relations
+    self.restrictions = restrictions
   }
 }
 
-extension Anytype_Event.Message {
-  public init(value: Anytype_Event.Message.OneOf_Value?) {
-    self.value = value
+extension Anytype_Event.Object.Show.RelationWithValuePerObject {
+  public init(objectID: String, relations: [Anytype_Model_RelationWithValue]) {
+    self.objectID = objectID
+    self.relations = relations
   }
 }
 

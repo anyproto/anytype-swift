@@ -6,7 +6,7 @@ import BlocksModels
 protocol ObjectActionsServiceProtocol {
     /// Protocol for convert children to page action.
     /// NOTE: Action supports List context.
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId]) -> AnyPublisher<Void, Error>
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<Void, Error>
     
     /// Protocol for set details action.
     /// NOTE: You have to convert value to List<Anytype_Rpc.Block.Set.Details.Detail>.
@@ -19,6 +19,7 @@ protocol ObjectActionsServiceProtocol {
         contextID: BlockId,
         targetID: BlockId,
         details: DetailsProviderProtocol,
-        position: BlockPosition
+        position: BlockPosition,
+        templateID: String
     ) -> AnyPublisher<ServiceSuccess, Error>
 }

@@ -20,13 +20,15 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct Anytype_Model_PageInfo {
+public struct Anytype_Model_ObjectInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var id: String = String()
 
+  public var objectTypeUrls: [String] = []
+
   public var details: SwiftProtobuf.Google_Protobuf_Struct {
     get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
     set {_details = newValue}
@@ -36,72 +38,30 @@ public struct Anytype_Model_PageInfo {
   /// Clears the value of `details`. Subsequent reads from it will return its default value.
   public mutating func clearDetails() {self._details = nil}
 
+  public var relations: Anytype_Model_Relations {
+    get {return _relations ?? Anytype_Model_Relations()}
+    set {_relations = newValue}
+  }
+  /// Returns true if `relations` has been explicitly set.
+  public var hasRelations: Bool {return self._relations != nil}
+  /// Clears the value of `relations`. Subsequent reads from it will return its default value.
+  public mutating func clearRelations() {self._relations = nil}
+
   public var snippet: String = String()
 
   public var hasInboundLinks_p: Bool = false
 
-  public var pageType: Anytype_Model_PageInfo.TypeEnum = .page
+  public var objectType: Anytype_Model_SmartBlockType = .breadcrumbs
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum TypeEnum: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case page // = 0
-    case home // = 1
-    case profilePage // = 2
-    case archive // = 3
-    case set // = 5
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .page
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .page
-      case 1: self = .home
-      case 2: self = .profilePage
-      case 3: self = .archive
-      case 5: self = .set
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .page: return 0
-      case .home: return 1
-      case .profilePage: return 2
-      case .archive: return 3
-      case .set: return 5
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
 
   public init() {}
 
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  fileprivate var _relations: Anytype_Model_Relations? = nil
 }
 
-#if swift(>=4.2)
-
-extension Anytype_Model_PageInfo.TypeEnum: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Model_PageInfo.TypeEnum] = [
-    .page,
-    .home,
-    .profilePage,
-    .archive,
-    .set,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
-public struct Anytype_Model_PageDetails {
+public struct Anytype_Model_ObjectDetails {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -122,7 +82,7 @@ public struct Anytype_Model_PageDetails {
   fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
 }
 
-public struct Anytype_Model_PageLinks {
+public struct Anytype_Model_ObjectLinks {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -136,29 +96,29 @@ public struct Anytype_Model_PageLinks {
   public init() {}
 }
 
-public struct Anytype_Model_PageLinksInfo {
+public struct Anytype_Model_ObjectLinksInfo {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var inbound: [Anytype_Model_PageInfo] = []
+  public var inbound: [Anytype_Model_ObjectInfo] = []
 
-  public var outbound: [Anytype_Model_PageInfo] = []
+  public var outbound: [Anytype_Model_ObjectInfo] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Anytype_Model_PageInfoWithLinks {
+public struct Anytype_Model_ObjectInfoWithLinks {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var id: String = String()
 
-  public var info: Anytype_Model_PageInfo {
-    get {return _info ?? Anytype_Model_PageInfo()}
+  public var info: Anytype_Model_ObjectInfo {
+    get {return _info ?? Anytype_Model_ObjectInfo()}
     set {_info = newValue}
   }
   /// Returns true if `info` has been explicitly set.
@@ -166,8 +126,8 @@ public struct Anytype_Model_PageInfoWithLinks {
   /// Clears the value of `info`. Subsequent reads from it will return its default value.
   public mutating func clearInfo() {self._info = nil}
 
-  public var links: Anytype_Model_PageLinksInfo {
-    get {return _links ?? Anytype_Model_PageLinksInfo()}
+  public var links: Anytype_Model_ObjectLinksInfo {
+    get {return _links ?? Anytype_Model_ObjectLinksInfo()}
     set {_links = newValue}
   }
   /// Returns true if `links` has been explicitly set.
@@ -179,19 +139,19 @@ public struct Anytype_Model_PageInfoWithLinks {
 
   public init() {}
 
-  fileprivate var _info: Anytype_Model_PageInfo? = nil
-  fileprivate var _links: Anytype_Model_PageLinksInfo? = nil
+  fileprivate var _info: Anytype_Model_ObjectInfo? = nil
+  fileprivate var _links: Anytype_Model_ObjectLinksInfo? = nil
 }
 
-public struct Anytype_Model_PageInfoWithOutboundLinks {
+public struct Anytype_Model_ObjectInfoWithOutboundLinks {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var id: String = String()
 
-  public var info: Anytype_Model_PageInfo {
-    get {return _info ?? Anytype_Model_PageInfo()}
+  public var info: Anytype_Model_ObjectInfo {
+    get {return _info ?? Anytype_Model_ObjectInfo()}
     set {_info = newValue}
   }
   /// Returns true if `info` has been explicitly set.
@@ -199,24 +159,24 @@ public struct Anytype_Model_PageInfoWithOutboundLinks {
   /// Clears the value of `info`. Subsequent reads from it will return its default value.
   public mutating func clearInfo() {self._info = nil}
 
-  public var outboundLinks: [Anytype_Model_PageInfo] = []
+  public var outboundLinks: [Anytype_Model_ObjectInfo] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
-  fileprivate var _info: Anytype_Model_PageInfo? = nil
+  fileprivate var _info: Anytype_Model_ObjectInfo? = nil
 }
 
-public struct Anytype_Model_PageInfoWithOutboundLinksIDs {
+public struct Anytype_Model_ObjectInfoWithOutboundLinksIDs {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var id: String = String()
 
-  public var info: Anytype_Model_PageInfo {
-    get {return _info ?? Anytype_Model_PageInfo()}
+  public var info: Anytype_Model_ObjectInfo {
+    get {return _info ?? Anytype_Model_ObjectInfo()}
     set {_info = newValue}
   }
   /// Returns true if `info` has been explicitly set.
@@ -230,21 +190,51 @@ public struct Anytype_Model_PageInfoWithOutboundLinksIDs {
 
   public init() {}
 
-  fileprivate var _info: Anytype_Model_PageInfo? = nil
+  fileprivate var _info: Anytype_Model_ObjectInfo? = nil
+}
+
+public struct Anytype_Model_ObjectStoreChecksums {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var bundledObjectTypes: String = String()
+
+  public var bundledRelations: String = String()
+
+  public var bundledLayouts: String = String()
+
+  /// increased in order to trigger all objects reindex
+  public var objectsForceReindexCounter: Int32 = 0
+
+  /// increased in order to fully reindex all objects
+  public var filesForceReindexCounter: Int32 = 0
+
+  /// increased in order to remove indexes and reindex everything. Automatically triggers objects and files reindex(one time only)
+  public var idxRebuildCounter: Int32 = 0
+
+  /// increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
+  public var fulltextRebuild: Int32 = 0
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype.model"
 
-extension Anytype_Model_PageInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".PageInfo"
+extension Anytype_Model_ObjectInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "details"),
-    3: .same(proto: "snippet"),
+    2: .same(proto: "objectTypeUrls"),
+    3: .same(proto: "details"),
+    4: .same(proto: "relations"),
+    5: .same(proto: "snippet"),
     6: .same(proto: "hasInboundLinks"),
-    7: .same(proto: "pageType"),
+    7: .same(proto: "objectType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -254,10 +244,12 @@ extension Anytype_Model_PageInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.snippet) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.objectTypeUrls) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 4: try { try decoder.decodeSingularMessageField(value: &self._relations) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.snippet) }()
       case 6: try { try decoder.decodeSingularBoolField(value: &self.hasInboundLinks_p) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.pageType) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.objectType) }()
       default: break
       }
     }
@@ -267,44 +259,42 @@ extension Anytype_Model_PageInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
+    if !self.objectTypeUrls.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectTypeUrls, fieldNumber: 2)
+    }
     if let v = self._details {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }
+    if let v = self._relations {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     }
     if !self.snippet.isEmpty {
-      try visitor.visitSingularStringField(value: self.snippet, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.snippet, fieldNumber: 5)
     }
     if self.hasInboundLinks_p != false {
       try visitor.visitSingularBoolField(value: self.hasInboundLinks_p, fieldNumber: 6)
     }
-    if self.pageType != .page {
-      try visitor.visitSingularEnumField(value: self.pageType, fieldNumber: 7)
+    if self.objectType != .breadcrumbs {
+      try visitor.visitSingularEnumField(value: self.objectType, fieldNumber: 7)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_PageInfo, rhs: Anytype_Model_PageInfo) -> Bool {
+  public static func ==(lhs: Anytype_Model_ObjectInfo, rhs: Anytype_Model_ObjectInfo) -> Bool {
     if lhs.id != rhs.id {return false}
+    if lhs.objectTypeUrls != rhs.objectTypeUrls {return false}
     if lhs._details != rhs._details {return false}
+    if lhs._relations != rhs._relations {return false}
     if lhs.snippet != rhs.snippet {return false}
     if lhs.hasInboundLinks_p != rhs.hasInboundLinks_p {return false}
-    if lhs.pageType != rhs.pageType {return false}
+    if lhs.objectType != rhs.objectType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Model_PageInfo.TypeEnum: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Page"),
-    1: .same(proto: "Home"),
-    2: .same(proto: "ProfilePage"),
-    3: .same(proto: "Archive"),
-    5: .same(proto: "Set"),
-  ]
-}
-
-extension Anytype_Model_PageDetails: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".PageDetails"
+extension Anytype_Model_ObjectDetails: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectDetails"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "details"),
   ]
@@ -328,15 +318,15 @@ extension Anytype_Model_PageDetails: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_PageDetails, rhs: Anytype_Model_PageDetails) -> Bool {
+  public static func ==(lhs: Anytype_Model_ObjectDetails, rhs: Anytype_Model_ObjectDetails) -> Bool {
     if lhs._details != rhs._details {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Model_PageLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".PageLinks"
+extension Anytype_Model_ObjectLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectLinks"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "inboundIDs"),
     2: .same(proto: "outboundIDs"),
@@ -365,7 +355,7 @@ extension Anytype_Model_PageLinks: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_PageLinks, rhs: Anytype_Model_PageLinks) -> Bool {
+  public static func ==(lhs: Anytype_Model_ObjectLinks, rhs: Anytype_Model_ObjectLinks) -> Bool {
     if lhs.inboundIds != rhs.inboundIds {return false}
     if lhs.outboundIds != rhs.outboundIds {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -373,8 +363,8 @@ extension Anytype_Model_PageLinks: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 }
 
-extension Anytype_Model_PageLinksInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".PageLinksInfo"
+extension Anytype_Model_ObjectLinksInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectLinksInfo"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "inbound"),
     2: .same(proto: "outbound"),
@@ -403,7 +393,7 @@ extension Anytype_Model_PageLinksInfo: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_PageLinksInfo, rhs: Anytype_Model_PageLinksInfo) -> Bool {
+  public static func ==(lhs: Anytype_Model_ObjectLinksInfo, rhs: Anytype_Model_ObjectLinksInfo) -> Bool {
     if lhs.inbound != rhs.inbound {return false}
     if lhs.outbound != rhs.outbound {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -411,8 +401,8 @@ extension Anytype_Model_PageLinksInfo: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 }
 
-extension Anytype_Model_PageInfoWithLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".PageInfoWithLinks"
+extension Anytype_Model_ObjectInfoWithLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectInfoWithLinks"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "info"),
@@ -446,7 +436,7 @@ extension Anytype_Model_PageInfoWithLinks: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_PageInfoWithLinks, rhs: Anytype_Model_PageInfoWithLinks) -> Bool {
+  public static func ==(lhs: Anytype_Model_ObjectInfoWithLinks, rhs: Anytype_Model_ObjectInfoWithLinks) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._info != rhs._info {return false}
     if lhs._links != rhs._links {return false}
@@ -455,8 +445,8 @@ extension Anytype_Model_PageInfoWithLinks: SwiftProtobuf.Message, SwiftProtobuf.
   }
 }
 
-extension Anytype_Model_PageInfoWithOutboundLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".PageInfoWithOutboundLinks"
+extension Anytype_Model_ObjectInfoWithOutboundLinks: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectInfoWithOutboundLinks"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "info"),
@@ -490,7 +480,7 @@ extension Anytype_Model_PageInfoWithOutboundLinks: SwiftProtobuf.Message, SwiftP
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_PageInfoWithOutboundLinks, rhs: Anytype_Model_PageInfoWithOutboundLinks) -> Bool {
+  public static func ==(lhs: Anytype_Model_ObjectInfoWithOutboundLinks, rhs: Anytype_Model_ObjectInfoWithOutboundLinks) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._info != rhs._info {return false}
     if lhs.outboundLinks != rhs.outboundLinks {return false}
@@ -499,8 +489,8 @@ extension Anytype_Model_PageInfoWithOutboundLinks: SwiftProtobuf.Message, SwiftP
   }
 }
 
-extension Anytype_Model_PageInfoWithOutboundLinksIDs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".PageInfoWithOutboundLinksIDs"
+extension Anytype_Model_ObjectInfoWithOutboundLinksIDs: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectInfoWithOutboundLinksIDs"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "info"),
@@ -534,10 +524,78 @@ extension Anytype_Model_PageInfoWithOutboundLinksIDs: SwiftProtobuf.Message, Swi
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Model_PageInfoWithOutboundLinksIDs, rhs: Anytype_Model_PageInfoWithOutboundLinksIDs) -> Bool {
+  public static func ==(lhs: Anytype_Model_ObjectInfoWithOutboundLinksIDs, rhs: Anytype_Model_ObjectInfoWithOutboundLinksIDs) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._info != rhs._info {return false}
     if lhs.outboundLinks != rhs.outboundLinks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectStoreChecksums"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "bundledObjectTypes"),
+    2: .same(proto: "bundledRelations"),
+    3: .same(proto: "bundledLayouts"),
+    4: .same(proto: "objectsForceReindexCounter"),
+    5: .same(proto: "filesForceReindexCounter"),
+    6: .same(proto: "idxRebuildCounter"),
+    7: .same(proto: "fulltextRebuild"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.bundledObjectTypes) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.bundledRelations) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.bundledLayouts) }()
+      case 4: try { try decoder.decodeSingularInt32Field(value: &self.objectsForceReindexCounter) }()
+      case 5: try { try decoder.decodeSingularInt32Field(value: &self.filesForceReindexCounter) }()
+      case 6: try { try decoder.decodeSingularInt32Field(value: &self.idxRebuildCounter) }()
+      case 7: try { try decoder.decodeSingularInt32Field(value: &self.fulltextRebuild) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.bundledObjectTypes.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledObjectTypes, fieldNumber: 1)
+    }
+    if !self.bundledRelations.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledRelations, fieldNumber: 2)
+    }
+    if !self.bundledLayouts.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledLayouts, fieldNumber: 3)
+    }
+    if self.objectsForceReindexCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.objectsForceReindexCounter, fieldNumber: 4)
+    }
+    if self.filesForceReindexCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.filesForceReindexCounter, fieldNumber: 5)
+    }
+    if self.idxRebuildCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.idxRebuildCounter, fieldNumber: 6)
+    }
+    if self.fulltextRebuild != 0 {
+      try visitor.visitSingularInt32Field(value: self.fulltextRebuild, fieldNumber: 7)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ObjectStoreChecksums, rhs: Anytype_Model_ObjectStoreChecksums) -> Bool {
+    if lhs.bundledObjectTypes != rhs.bundledObjectTypes {return false}
+    if lhs.bundledRelations != rhs.bundledRelations {return false}
+    if lhs.bundledLayouts != rhs.bundledLayouts {return false}
+    if lhs.objectsForceReindexCounter != rhs.objectsForceReindexCounter {return false}
+    if lhs.filesForceReindexCounter != rhs.filesForceReindexCounter {return false}
+    if lhs.idxRebuildCounter != rhs.idxRebuildCounter {return false}
+    if lhs.fulltextRebuild != rhs.fulltextRebuild {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

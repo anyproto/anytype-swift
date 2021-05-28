@@ -136,7 +136,7 @@ final class InnerEventConverter {
             })
             return .update(.init(updatedIds: [blockId]))
         
-        case let .blockSetDetails(value):
+        case let .objectDetailsSet(value):
             guard value.hasDetails else {
                 return .general
             }
@@ -286,7 +286,7 @@ final class InnerEventConverter {
         /// After we open document, we would like to receive all blocks of opened page.
         /// For that, we send `blockShow` event to `eventHandler`.
         ///
-        case .blockShow: return .general
+        case .objectShow: return .general
         default: return nil
         }
     }

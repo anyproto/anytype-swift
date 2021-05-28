@@ -226,15 +226,19 @@ final class BlockActionService {
     }
 
     func createPage(afterBlock: Information, position: BlockPosition = .bottom) {
-
         let targetId = ""
+        let templateID = ""
         let details: DetailsProviderProtocol = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(
             with: [
                 DetailsEntry(kind: .name, value: "")
             ]
         )
 
-        self.pageService.createPage(contextID: self.documentId, targetID: targetId, details: details, position: position)
+        self.pageService.createPage(contextID: self.documentId,
+                                    targetID: targetId,
+                                    details: details,
+                                    position: position,
+                                    templateID: templateID)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
                 self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
@@ -391,6 +395,7 @@ private extension BlockActionService {
 
     private func setPageStyle(block: Information, type: BlockContent) {
         let blockId = block.id
+        let objectType = ""
 
         guard case .smartblock = type else {
             assertionFailure("Set Page style cannot convert type: \(type)")
@@ -399,7 +404,7 @@ private extension BlockActionService {
 
         let blocksIds = [blockId]
 
-        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds)
+        self.pageService.convertChildrenToPages(contextID: self.documentId, blocksIds: blocksIds, objectType: objectType)
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.convertChildrenToPages") { _ in }
         .store(in: &self.subscriptions)
     }
