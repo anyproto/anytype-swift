@@ -61,7 +61,7 @@ private extension MediaPicker {
         picker.delegate = self
         
         embedChild(picker)
-        
+        picker.view.pinAllEdges(to: view)
     }
     
     func applyAppearanceForNavigationBar() {

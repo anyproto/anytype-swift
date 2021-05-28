@@ -19,6 +19,7 @@ extension CommonViews.ViewControllers.TransitionContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         rootViewController.flatMap { embedChild($0) }
+        rootViewController?.view.pinAllEdges(to: view)
     }
 }
 

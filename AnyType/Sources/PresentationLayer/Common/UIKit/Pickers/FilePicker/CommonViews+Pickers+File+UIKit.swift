@@ -92,7 +92,9 @@ extension Namespace.Picker {
     override func viewDidLoad() {
         super.viewDidLoad()
         applyAppearanceForNavigationBar()
-        embedChild(createPickerController())
+        let pickerViewController = createPickerController()
+        embedChild(pickerViewController)
+        pickerViewController.view.pinAllEdges(to: view)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

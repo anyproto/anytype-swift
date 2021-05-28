@@ -7,6 +7,7 @@ import Combine
 /// Very handy.
 ///
 typealias TransitionViewController = CommonViews.ViewControllers.TransitionContainerViewController
+
 class EditorModuleContainerViewController: UIViewController {
     private let transitionContainer = TransitionViewController()
     private var viewModel: EditorModuleContainerViewModel
@@ -89,7 +90,7 @@ extension EditorModuleContainerViewController {
     @objc func didDrag(sender: UIGestureRecognizer) {
         if let recognizer = sender as? UIPanGestureRecognizer {
             switch recognizer.state {
-                
+
             case .possible: return
             case .began: return
             case .changed:
@@ -108,11 +109,13 @@ extension EditorModuleContainerViewController {
     }
 }
 
-// MARK: View Lifecycle
+// MARK: - View Lifecycle
+
 extension EditorModuleContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         embedChild(childViewController)
+        childViewController.view.pinAllEdges(to: view)
         configuredTransitioning()
     }
     
