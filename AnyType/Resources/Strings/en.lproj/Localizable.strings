@@ -1,18 +1,6 @@
-"Welcome to AnyType!" = "Welcome to AnyType!";
-"Enter account seed" = "Enter account seed";
-"AnyTypeShortDescription" = "Anytype is a beautiful way to organize your life and work";
-"FirstCreateAnAccount" = "First, create an account";
-"Accounts" = "Accounts";
-"Create new account" = "Create new account";
-"I have an account" = "I have an account";
-"or create an account" = "or create an account";
-"Here's your recovery phrase" = "Here's your recovery phrase";
-"Please make sure to keep and back up your recovery phrases" = "Please make sure to keep and back up your recovery phrases properly to prevent loss";
-
 "Create pin code" = "Create pin code";
 "Verify pin code" = "Verify pin code";
 "Create a pin code description" = "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code";
-"Accounts" = "Accounts";
 "Recovery pharse is nil" = "Recovery pharse is nil";
 "node failed to start" = "node failed to start";
 "Toogle empty Click and drop block inside" = "Toogle empty Click and drop block inside";

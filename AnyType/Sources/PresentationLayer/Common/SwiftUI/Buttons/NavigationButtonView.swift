@@ -8,9 +8,9 @@ struct NavigationButtonView: View {
     var body: some View {
         AnytypeText(text, style: .heading)
             .padding(.all)
-            .foregroundColor(disabled ? .textSecondary : style.textColor())
+            .foregroundColor(disabled ? .textSecondary : style.textColor)
             .frame(minWidth: 0, maxWidth: .infinity)
-            .background(style.backgroundColor())
+            .background(style.backgroundColor)
             .cornerRadius(7)
             .disabled(disabled)
     }

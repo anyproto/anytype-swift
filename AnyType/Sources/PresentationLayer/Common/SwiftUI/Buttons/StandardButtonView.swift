@@ -4,7 +4,7 @@ enum StandardButtonStyle {
     case primary
     case secondary
     
-    func backgroundColor() -> Color {
+    var backgroundColor: Color {
         switch self {
         case .secondary:
             return .buttonSecondary
@@ -13,7 +13,7 @@ enum StandardButtonStyle {
         }
     }
     
-    func textColor() -> Color {
+    var textColor: Color {
         switch self {
         case .secondary:
             return .buttonSecondaryText
@@ -22,7 +22,7 @@ enum StandardButtonStyle {
         }
     }
     
-    func borderColor() -> Color? {
+    var borderColor: Color? {
         switch self {
         case .secondary:
             return .buttonSecondaryBorder
@@ -38,21 +38,18 @@ struct StandardButtonView: View {
     let style: StandardButtonStyle
     
     var body: some View {
-        var button = AnytypeText(text, style: .headline)
-                .padding(.all)
-                .foregroundColor(disabled ? .textSecondary : style.textColor())
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .background(style.backgroundColor())
-                .cornerRadius(8.0)
-        .eraseToAnyView()
-        
-        if let borderColor = style.borderColor(){
-            button = button.overlay(
-                RoundedRectangle(cornerRadius: 8.0).stroke(borderColor, lineWidth: 1)
-            ).eraseToAnyView()
-        }
-        
-        return button
+        AnytypeText(text, style: .headline)
+            .padding(.all)
+            .foregroundColor(disabled ? .textSecondary : style.textColor)
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .background(style.backgroundColor)
+            .cornerRadius(8.0)
+            .eraseToAnyView()
+            .ifLet(style.borderColor) { button, borderColor in
+                button.overlay(
+                    RoundedRectangle(cornerRadius: 8.0).stroke(borderColor, lineWidth: 1)
+                )
+            }
     }
 }
 
