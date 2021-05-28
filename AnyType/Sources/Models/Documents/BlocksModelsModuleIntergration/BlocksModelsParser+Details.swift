@@ -143,9 +143,6 @@ private extension Google_Protobuf_Value {
     
     func asIconEmojiEntry() -> DetailsEntry<AnyHashable>? {
         switch kind {
-        /// We don't display empty emoji so we must not create empty emoji details
-        case let .stringValue(string) where string.isEmpty:
-            return nil
         case let .stringValue(string):
             return DetailsEntry(kind: .iconEmoji, value: string)
         default:
