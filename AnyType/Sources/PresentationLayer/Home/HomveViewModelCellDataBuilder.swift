@@ -7,12 +7,7 @@ extension HomeViewModel {
     func onDashboardUpdate(_ updateResult: BaseDocument.UpdateResult) {
         switch updateResult.updates {
         case .general:
-            let newCellData = buldCellData(updateResult)
-
-            DispatchQueue.main.async { [weak self] in
-                self?.cellData = newCellData
-            }
-            
+            cellData = buldCellData(updateResult)            
         case .update(let payload):
             payload.updatedIds.forEach { updateCellWithTargetId($0) }
         }

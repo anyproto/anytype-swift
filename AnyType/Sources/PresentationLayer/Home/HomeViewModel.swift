@@ -70,7 +70,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
-        document.updateBlockModelPublisher.sink { [weak self] updateResult in
+        document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
             self?.onDashboardUpdate(updateResult)
         }.store(in: &self.subscriptions)
         

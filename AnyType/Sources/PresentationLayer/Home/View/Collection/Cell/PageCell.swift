@@ -27,7 +27,8 @@ struct PageCell: View {
     }
     
     private var title: some View {
-        let title = isRedacted ? RedactedText.pageTitle : cellData.title
+        var title = cellData.title.isEmpty ? "Untitled" : cellData.title
+        title = isRedacted ? RedactedText.pageTitle : title
         return AnytypeText(title, style: .captionMedium).foregroundColor(.textPrimary)
     }
     

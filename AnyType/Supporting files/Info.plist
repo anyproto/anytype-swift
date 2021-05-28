@@ -32,7 +32,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>We need camera to read barcode 🤖</string>
+	<string>We need camera to read qr 🤖</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>👻👻👻</string>
 	<key>UIAppFonts</key>
