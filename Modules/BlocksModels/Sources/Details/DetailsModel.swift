@@ -14,8 +14,8 @@ final class DetailsModel: ObservableObject {
     
     @Published private var detailsInformation: DetailsProviderProtocol
     
-    required init(details: DetailsProviderProtocol) {
-        self.detailsInformation = details
+    required init(detailsProvider: DetailsProviderProtocol) {
+        self.detailsInformation = detailsProvider
     }
     
 }
@@ -28,7 +28,7 @@ extension DetailsModel: DetailsModelProtocol {
         $detailsInformation.eraseToAnyPublisher()
     }
     
-    var details: DetailsProviderProtocol {
+    var detailsProvider: DetailsProviderProtocol {
         get {
             self.detailsInformation
         }

@@ -14,7 +14,7 @@ public protocol DetailsModelProtocol {
     
     var changeInformationPublisher: AnyPublisher<DetailsProviderProtocol, Never> { get }
 
-    var details: DetailsProviderProtocol { get set }
+    var detailsProvider: DetailsProviderProtocol { get set }
     
     var parent: DetailsId? { get set }
         

@@ -26,7 +26,7 @@ extension RootBlocksContainer: ContainerModel {
             self._blocksContainer = newValue
         }
     }
-    var detailsContainer: DetailsStorageProtocol {
+    var detailsStorage: DetailsStorageProtocol {
         get {
             self._detailsContainer
         }

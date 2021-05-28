@@ -57,8 +57,8 @@ public class BlockUpdater {
         if case let .link(link) = block.information.content {
             var details = DetailsProvider([:])
             details.parentId = link.targetBlockID
-            let model = DetailsModel(details: details)
-            self.container.detailsContainer.add(model)
+            let model = DetailsModel(detailsProvider: details)
+            self.container.detailsStorage.add(model)
         }
     }
 

@@ -136,26 +136,59 @@ final class InnerEventConverter {
             })
             return .update(.init(updatedIds: [blockId]))
         
+        case let .objectDetailsAmend(amend):
+            guard !amend.details.isEmpty else {
+                return .general
+            }
+            
+            let detailsId = amend.id
+            let details = amend.details
+            
+            let detailsEntries = BlocksModelsParser.Details.Converter.asModel(details: details)
+            
+            if let detailsActiveRecordModel = self.container?.detailsStorage.choose(by: detailsId) {
+                
+                var model = detailsActiveRecordModel.detailsModel
+                
+                var detailsSet = model.detailsProvider.details
+                detailsEntries.forEach { entry in
+                    detailsSet[entry.id] = entry
+                }
+                
+                var detailsProvider = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsSet)
+                detailsProvider.parentId = model.detailsProvider.parentId
+                
+                model.detailsProvider = detailsProvider
+            }
+            
+            return .update(EventHandlerUpdatePayload(updatedIds: [detailsId]))
+            
+        case .objectDetailsUnset:
+            assertionFailure("Not implemented")
+            return nil
+            
         case let .objectDetailsSet(value):
             guard value.hasDetails else {
                 return .general
             }
             let detailsId = value.id
             let details = value.details
-            let eventsDetails = BlocksModelsParser.PublicConverters.EventsDetails.convert(event: .init(id: detailsId, details: details))
+            let eventsDetails = BlocksModelsParser.PublicConverters.EventsDetails.convert(
+                event: Anytype_Event.Object.Details.Set(id: detailsId, details: details)
+            )
             let detailsModels = BlocksModelsParser.Details.Converter.asModel(details: eventsDetails)
             let detailsInformationModel = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
             
-            if let detailsModel = self.container?.detailsContainer.choose(by: detailsId) {
+            if let detailsModel = self.container?.detailsStorage.choose(by: detailsId) {
                 var model = detailsModel.detailsModel
                 var resultDetails = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
                 resultDetails.parentId = detailsId
-                model.details = resultDetails
+                model.detailsProvider = resultDetails
             }
             else {
                 var newDetailsModel = TopLevelBuilderImpl.detailsBuilder.build(information: detailsInformationModel)
                 newDetailsModel.parent = detailsId
-                self.container?.detailsContainer.add(newDetailsModel)
+                self.container?.detailsStorage.add(newDetailsModel)
             }
             /// Please, do not delete.
             /// We should discuss how we handle new details.

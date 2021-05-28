@@ -9,7 +9,7 @@ final class DetailsBuilder: DetailsBuilderProtocol {
     }
     
     func build(information: DetailsProviderProtocol) -> DetailsModelProtocol {
-        DetailsModel(details: information)
+        DetailsModel(detailsProvider: information)
     }
     
 }

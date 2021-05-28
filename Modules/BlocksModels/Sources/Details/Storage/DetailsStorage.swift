@@ -40,7 +40,7 @@ extension DetailsStorage: DetailsStorageProtocol {
     }
     
     func add(_ model: DetailsModelProtocol) {
-        let ourModel = DetailsModel(details: model.details)
+        let ourModel = DetailsModel(detailsProvider: model.detailsProvider)
         
         guard let parent = model.parent else {
             assertionFailure("We shouldn't add details with empty parent id. Skipping...")

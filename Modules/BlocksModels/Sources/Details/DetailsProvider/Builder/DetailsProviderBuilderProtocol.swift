@@ -10,8 +10,9 @@ import Foundation
 
 public protocol DetailsProviderBuilderProtocol {
     
-    func empty() -> DetailsProviderProtocol
+    func filled(with list: [DetailsId: DetailsEntry<AnyHashable>]) -> DetailsProviderProtocol
     
-    func filled(with list: [DetailsEntry<AnyHashable>]) -> DetailsProviderProtocol
+    func filled(with detailsEntries: [DetailsEntry<AnyHashable>]) -> DetailsProviderProtocol
+    
     
 }

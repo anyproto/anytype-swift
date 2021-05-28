@@ -156,7 +156,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private func configureDetails(for container: ContainerModel?) {
         guard let container = container,
               let rootId = container.rootId,
-              let ourModel = container.detailsContainer.choose(by: rootId)
+              let ourModel = container.detailsStorage.choose(by: rootId)
         else {
             Logger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
             return
@@ -217,7 +217,7 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Returns: details active model.
     ///
     func getDetails(by id: DetailsId) -> DetailsActiveModel? {
-        guard let value = self.rootModel?.detailsContainer.choose(by: id) else {
+        guard let value = self.rootModel?.detailsStorage.choose(by: id) else {
             Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }

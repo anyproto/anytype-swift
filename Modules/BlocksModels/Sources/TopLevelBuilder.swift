@@ -25,7 +25,7 @@ public enum TopLevelBuilderImpl: TopLevelBuilder {
         let container = RootBlocksContainer()
         container.rootId = rootId
         container.blocksContainer = blockContainer
-        container.detailsContainer = detailsContainer
+        container.detailsStorage = detailsContainer
         return container
     }
 }

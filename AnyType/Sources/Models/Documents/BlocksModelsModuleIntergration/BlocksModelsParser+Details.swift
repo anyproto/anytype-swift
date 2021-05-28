@@ -18,7 +18,9 @@ extension BlocksModelsParser {
 protocol _BlocksModelsParserDetailsConverterProtocol {
 
     static func asMiddleware(models: [DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail]
+    
     static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry<AnyHashable>]
+    static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsEntry<AnyHashable>]
     
 }
 
@@ -33,6 +35,10 @@ extension BlocksModelsParser.Details {
         }
         
         static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry<AnyHashable>] {
+            details.compactMap { $0.asModel }
+        }
+        
+        static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsEntry<AnyHashable>] {
             details.compactMap { $0.asModel }
         }
     }
@@ -65,6 +71,33 @@ private extension DetailsEntry {
     
 }
 
+private extension Anytype_Event.Object.Details.Amend.KeyValue {
+    
+    var asModel: DetailsEntry<AnyHashable>? {
+        guard let kind = DetailsKind(rawValue: self.key) else {
+            // TODO: Add assertionFailure for debug when all converters will be added
+            // TASK: https://app.clickup.com/t/h137nr
+            Logger.create(.blocksModelsParser).error("Add converters for this type: \(self.key)")
+//                assertionFailure("Add converters for this type: \(detail.key)")
+            return nil
+        }
+        
+        switch kind {
+        case .name:
+            return value.asNameEntry()
+        case .iconEmoji:
+            return value.asIconEmojiEntry()
+        case .iconImage:
+            return value.asIconImageEntry()
+        case .coverId:
+            return value.asCoverIdEntry()
+        case .coverType:
+            return value.asCoverTypeEntry()
+        }
+    }
+    
+}
+
 private extension Anytype_Rpc.Block.Set.Details.Detail {
     
     var asModel: DetailsEntry<AnyHashable>? {
@@ -78,20 +111,24 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
         
         switch kind {
         case .name:
-            return asNameEntry()
+            return value.asNameEntry()
         case .iconEmoji:
-            return asIconEmojiEntry()
+            return value.asIconEmojiEntry()
         case .iconImage:
-            return asIconImageEntry()
+            return value.asIconImageEntry()
         case .coverId:
-            return asCoverIdEntry()
+            return value.asCoverIdEntry()
         case .coverType:
-            return asCoverTypeEntry()
+            return value.asCoverTypeEntry()
         }
     }
     
+}
+
+private extension Google_Protobuf_Value {
+    
     func asNameEntry() -> DetailsEntry<AnyHashable>? {
-        switch self.value.kind {
+        switch kind {
         case let .stringValue(string):
             return DetailsEntry(kind: .name, value: string)
         default:
@@ -103,7 +140,7 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
     }
     
     func asIconEmojiEntry() -> DetailsEntry<AnyHashable>? {
-        switch self.value.kind {
+        switch kind {
         /// We don't display empty emoji so we must not create empty emoji details
         case let .stringValue(string) where string.isEmpty:
             return nil
@@ -118,7 +155,7 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
     }
     
     func asIconImageEntry() -> DetailsEntry<AnyHashable>? {
-        switch self.value.kind {
+        switch self.kind {
         case let .stringValue(string):
             return DetailsEntry(kind: .iconImage, value: string)
         default:
@@ -130,7 +167,7 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
     }
     
     func asCoverIdEntry() -> DetailsEntry<AnyHashable>? {
-        switch value.kind {
+        switch kind {
         case let .stringValue(string):
             return DetailsEntry(kind: .coverId, value: string)
         default:
@@ -142,7 +179,7 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
     }
     
     func asCoverTypeEntry() -> DetailsEntry<AnyHashable>? {
-        switch value.kind {
+        switch kind {
         case let .numberValue(number):
             guard let coverType = CoverType(rawValue: Int(number)) else { return nil }
             
