@@ -131,9 +131,9 @@ class SelectProfileViewModel: ObservableObject {
     
     // MARK: - Coordinator
     
-    func showCreateProfileView() -> some View {
-        return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
-    }
+//    func showCreateProfileView() -> some View {
+//        return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
+//    }
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()

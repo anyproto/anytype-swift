@@ -2,21 +2,13 @@ import Foundation
 import SwiftUI
 
 
-class CreateNewProfileViewModel: ObservableObject {
-    @Published var userName: String = ""
-    @Published var image: UIImage? = nil
-    @Published var disableButton: Bool = true
-    
-    private var waitingViewOnCreatAccountModel: WaitingViewOnCreatAccountModel
-    
-    init() {
-        waitingViewOnCreatAccountModel = WaitingViewOnCreatAccountModel(userName: "", image: nil)
-    }
-    
-    func showSetupWallet() -> some View {
-        waitingViewOnCreatAccountModel.userName = userName
-        waitingViewOnCreatAccountModel.image = image
-        
-        return WaitingViewOnCreatAccount(viewModel: waitingViewOnCreatAccountModel)
+class CreateNewProfileViewModel: ObservableObject {    
+    func showSetupWallet(signUpData: SignUpData, showWaitingView: Binding<Bool>) -> some View {
+        return WaitingViewOnCreatAccount(
+            viewModel: WaitingViewOnCreatAccountModel(
+                signUpData: signUpData,
+                showWaitingView: showWaitingView
+            )
+        )
     }
 }

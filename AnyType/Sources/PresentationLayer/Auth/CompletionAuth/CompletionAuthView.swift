@@ -11,11 +11,11 @@ struct CompletionAuthView: View {
     
     var body: some View {
         ZStack {
-            Gradients.authBackground
+            Gradients.authBackground()
             VStack {
                 Spacer()
                 VStack(alignment: .leading, spacing: 0) {
-                    ImageWithCircleBackgroundView(imageName: "congrats", backgroundColor: UIColor.init(named: "background"))
+                    ImageWithCircleBackgroundView(image: Image.auth.congrats, backgroundColor: UIColor.init(named: "background"))
                         .frame(width: 64, height: 64)
                     AnytypeText("Congratulations!", style: .bodyBold)
                         .padding(.top, 16)

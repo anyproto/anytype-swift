@@ -1,5 +1,16 @@
 import SwiftUI
 
+final class SignUpData: ObservableObject {
+    @Published var userName: String
+    @Published var image: UIImage?
+    @Published var inviteCode: String
+    
+    init() {
+        userName = ""
+        image = nil
+        inviteCode = ""
+    }
+}
 
 class WaitingViewOnCreatAccountModel: ObservableObject {
     private let storeService = ServiceLocator.shared.keychainStoreService()
@@ -7,48 +18,46 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
     
     private var diskStorage = DiskStorage()
     
-    var userName: String
-    var image: UIImage?
-    let alphaInviteCode = "elbrus"
+    private let signUpData: SignUpData
     
-    @Published var error: String?
+    @Published var error: String = ""
+    @Published var showError: Bool = false
     
-    init(userName: String, image: UIImage?) {
-        self.userName = userName
-        self.image = image
+    @Binding var showWaitingView: Bool
+    
+    init(signUpData: SignUpData, showWaitingView: Binding<Bool>) {
+        self.signUpData = signUpData
+        self._showWaitingView = showWaitingView
     }
     
     func createAccount() {
         var avatar = ProfileModel.Avatar.color(UIColor.randomColor().toHexString())
         
         DispatchQueue.global().async { [weak self] in
-            guard let stronSelf = self else { return }
+            guard let self = self else { return }
             
-            if let image = stronSelf.image,
-                let path = stronSelf.diskStorage.saveImage(imageName: "avatar_\(stronSelf.userName)_\(UUID())", image: image) {
+            if let image = self.signUpData.image,
+               let path = self.diskStorage.saveImage(imageName: "avatar_\(self.signUpData.userName)_\(UUID())", image: image) {
                 avatar = ProfileModel.Avatar.imagePath(path)
             }
-            let request = AuthModels.CreateAccount.Request(name: stronSelf.userName, avatar: avatar)
+            let request = AuthModels.CreateAccount.Request(name: self.signUpData.userName, avatar: avatar)
             
-            let alphaInviteCode = self?.alphaInviteCode ?? ""
-            stronSelf.authService.createAccount(profile: request, alphaInviteCode: alphaInviteCode) { result in
-                DispatchQueue.main.async {
+            self.authService.createAccount(profile: request, alphaInviteCode: self.signUpData.inviteCode) { result in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    
                     switch result {
-                    case .failure(let error):
-                        stronSelf.error = error.localizedDescription
+                    case .failure(_):
+                        self.error = "Sign up error"
+                        self.showError = true
                     case .success:
-                        windowHolder?.startNewRootView(stronSelf.obtainCompletionView())
+                        windowHolder?.startNewRootView(self.obtainCompletionView())
                     }
                 }
             }
         }
     }
     
-    func showCongratsView() -> some View {
-        obtainCompletionView()
-    }
-    
-    // TODO: Move to coordinator
     private func obtainCompletionView() -> some View {
         let completionView = CompletionAuthViewCoordinator()
         return completionView.start()

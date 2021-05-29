@@ -1,11 +1,13 @@
 import SwiftUI
 
 struct WaitingViewOnCreatAccount: View {
-    @ObservedObject var viewModel: WaitingViewOnCreatAccountModel
+    @StateObject var viewModel: WaitingViewOnCreatAccountModel
     
     var body: some View {
         VStack {
-            WaitingView(text: "Setting up the wallet…", errorState: !viewModel.error.isNil, errorText: viewModel.error)
+            WaitingView(text: "Setting up the wallet…", showError: $viewModel.showError, errorText: $viewModel.error) {
+                viewModel.showWaitingView = false
+            }
         }
         .onAppear {
             self.viewModel.createAccount()

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ImageWithCircleBackgroundView: View {
-    var imageName: String
+    var image: Image
     var backgroundColor: UIColor? // TODO: Remove it.
     var backgroundImage: UIImage?
     
@@ -34,7 +34,7 @@ struct ImageWithCircleBackgroundView: View {
     var body: some View {
         ZStack {
             self.chosenImage()
-            Image(self.imageName)
+            image
         }
         .clipShape(Circle())
     }
@@ -43,7 +43,7 @@ struct ImageWithCircleBackgroundView: View {
 struct ImageWithCircleBackgroundView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ImageWithCircleBackgroundView(imageName: "logo", backgroundColor: .secondarySystemBackground)
+            ImageWithCircleBackgroundView(image: .logo, backgroundColor: .secondarySystemBackground)
         }
     }
 }

@@ -346,8 +346,8 @@
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
 		3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F260266018B000B115B9 /* StandardButton.swift */; };
-		3DC9F268266020B800B115B9 /* AlphaInviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F267266020B800B115B9 /* AlphaInviteCodeView.swift */; };
 		3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F26B2660216500B115B9 /* LogoOverlay.swift */; };
+		3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F275266107C200B115B9 /* AlphaInviteCodeView.swift */; };
 		3DCE79FA2615215D00E09593 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE79F92615215D00E09593 /* EventHandler.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
 		3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */; };
@@ -893,8 +893,8 @@
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
 		3DC9F260266018B000B115B9 /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardButton.swift; path = AnyType/Sources/PresentationLayer/Common/SwiftUI/Buttons/StandardButton.swift; sourceTree = SOURCE_ROOT; };
-		3DC9F267266020B800B115B9 /* AlphaInviteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlphaInviteCodeView.swift; path = AnyType/Sources/PresentationLayer/Auth/CreateNewProfileFlow/AlphaInviteCode/AlphaInviteCodeView.swift; sourceTree = SOURCE_ROOT; };
 		3DC9F26B2660216500B115B9 /* LogoOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LogoOverlay.swift; path = AnyType/Sources/PresentationLayer/Auth/CommonVIews/LogoOverlay.swift; sourceTree = SOURCE_ROOT; };
+		3DC9F275266107C200B115B9 /* AlphaInviteCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlphaInviteCodeView.swift; path = AnyType/Sources/PresentationLayer/Auth/CreateNewProfileFlow/AlphaInviteCode/AlphaInviteCodeView.swift; sourceTree = SOURCE_ROOT; };
 		3DCE79F92615215D00E09593 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		3DD2FC48262085DF00C65466 /* SettingsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAssembly.swift; sourceTree = "<group>"; };
@@ -2654,7 +2654,7 @@
 		3DC9F2662660209200B115B9 /* AlphaInviteCode */ = {
 			isa = PBXGroup;
 			children = (
-				3DC9F267266020B800B115B9 /* AlphaInviteCodeView.swift */,
+				3DC9F275266107C200B115B9 /* AlphaInviteCodeView.swift */,
 			);
 			path = AlphaInviteCode;
 			sourceTree = "<group>";
@@ -3456,6 +3456,7 @@
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */,
 				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,
+				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
@@ -3626,7 +3627,6 @@
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
-				3DC9F268266020B800B115B9 /* AlphaInviteCodeView.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */,
 				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,
 				EA2F0D60264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift in Sources */,

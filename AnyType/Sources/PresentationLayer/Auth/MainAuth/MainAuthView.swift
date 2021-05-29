@@ -58,8 +58,8 @@ struct MainAuthView: View {
     
     private var navigation: some View {
         NavigationLink(
-            destination: viewModel.createProfileView(),
-            isActive: $viewModel.shouldShowCreateProfileView
+            destination: viewModel.signUpFlow(),
+            isActive: $viewModel.showSignUpFlow
         ) {
             EmptyView()
         }

@@ -3,15 +3,17 @@ import SwiftUI
 
 struct CreateNewProfileView: View {
     @State private var showImagePicker: Bool = false
-    @State private var createAccount: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var viewModel: CreateNewProfileViewModel
+    @EnvironmentObject var signUpData: SignUpData
+    
+    @Binding var showCreateNewProfile: Bool
     
     
     var body: some View {
         ZStack {
-            Gradients.authBackground
+            Gradients.authBackground()
             contentView
                 .padding()
         }
@@ -27,18 +29,17 @@ struct CreateNewProfileView: View {
                     .padding(.bottom, 27)
                 HStack {
                     Button(action: {
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         self.showImagePicker = true
                     }) {
-                        if !viewModel.image.isNil {
-                            ImageWithCircleBackgroundView(imageName: "photo", backgroundImage: viewModel.image)
+                        if !signUpData.image.isNil {
+                            ImageWithCircleBackgroundView(image: Image.auth.photo, backgroundImage: signUpData.image)
                         } else {
-                            ImageWithCircleBackgroundView(imageName: "photo", backgroundColor: .gray)
+                            ImageWithCircleBackgroundView(image: Image.auth.photo, backgroundColor: .gray)
                         }
                     }
                     .frame(width: 64, height: 64)
                     
-                    CustomTextField(text: $viewModel.userName, title: "Enter your name")
+                    CustomTextField(text: $signUpData.userName, title: "Enter your name")
                 }
                 .padding(.bottom, 24)
                 
@@ -47,12 +48,11 @@ struct CreateNewProfileView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                     
-                    NavigationLink(destination: viewModel.showSetupWallet(), isActive: $createAccount) {
-                        EmptyView()
-                    }
-                    StandardButton(disabled: self.viewModel.userName.count == 0, text: "Create", style: .primary) {
-                        self.createAccount = true
-                    }
+                    NavigationLink(
+                        destination: viewModel.showSetupWallet(signUpData: signUpData, showWaitingView: $showCreateNewProfile)
+                    ) {
+                        StandardButtonView(disabled: signUpData.userName.isEmpty, text: "Create", style: .primary)
+                    }.disabled(signUpData.userName.isEmpty)
                 }
                 .padding(.bottom, 16)
             }
@@ -62,7 +62,7 @@ struct CreateNewProfileView: View {
             .cornerRadius(12.0)
         }
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: self.$viewModel.image)
+            ImagePicker(image: $signUpData.image)
         }
     }
 }
@@ -70,6 +70,6 @@ struct CreateNewProfileView: View {
 
 struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        CreateNewProfileView(viewModel: CreateNewProfileViewModel())
+        CreateNewProfileView(viewModel: CreateNewProfileViewModel(), showCreateNewProfile: .constant(true))
     }
 }

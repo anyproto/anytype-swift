@@ -10,7 +10,7 @@ struct HomeView: View {
     @State private var isSheetOpen = false
     
     private let bottomSheetHeightRatio: CGFloat = 0.89
-    private let sheetOpenOffset: CGFloat = -30
+    private let sheetOpenOffset: CGFloat = -10
     private let sheetCloseOffset: CGFloat = 60
     
     var body: some View {

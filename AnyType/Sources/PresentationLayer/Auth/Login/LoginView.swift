@@ -6,7 +6,7 @@ struct LoginView: View {
     
     var body: some View {
         ZStack {
-            Gradients.authBackground
+            Gradients.authBackground()
             keychainPhraseView.padding()
         }
         .navigationBarHidden(true)
@@ -24,11 +24,11 @@ struct LoginView: View {
                 enterMnemonic
 
                 HStack(spacing: 12) {
-                    StandardButton(disabled: false, text: "Back", style: .secondary) {
+                    StandardButton(text: "Back", style: .secondary) {
                         self.presentationMode.wrappedValue.dismiss()
                     }
 
-                    StandardButton(disabled: false, text: "Login", style: .primary) {
+                    StandardButton(disabled: viewModel.seed.isEmpty, text: "Login", style: .primary) {
                         self.viewModel.recoverWallet()
                     }
                 }
@@ -42,7 +42,9 @@ struct LoginView: View {
                 QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
             }
         }
-        .errorToast(isShowing: $viewModel.showError, errorText: viewModel.error ?? "")
+        .ifLet(viewModel.error) { view, error in
+            view.errorToast(isShowing: $viewModel.showError, errorText: error)
+        }
     }
     
     // Workaround for text editor placeholder

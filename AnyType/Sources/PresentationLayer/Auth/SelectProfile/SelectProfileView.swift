@@ -1,11 +1,3 @@
-//
-//  SelectProfileView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 03.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import SwiftUI
 
 
@@ -17,7 +9,7 @@ struct SelectProfileView: View {
     var body: some View {
         HStack {
             ZStack(alignment: self.viewModel.isMultipleAccountsEnabled ? .bottom : .center) {
-                Gradients.authBackground
+                Gradients.authBackground()
                 
                 if self.viewModel.isMultipleAccountsEnabled {
                     multipleAccountsPicket
@@ -57,9 +49,9 @@ struct SelectProfileView: View {
                         .transition(.opacity)
                     }
                     .animation(nil)
-                    NavigationLink(destination: self.viewModel.showCreateProfileView()) {
-                        AddProfileView()
-                    }
+//                    NavigationLink(destination: self.viewModel.showCreateProfileView()) {
+//                        AddProfileView()
+//                    }
                     .animation(nil)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

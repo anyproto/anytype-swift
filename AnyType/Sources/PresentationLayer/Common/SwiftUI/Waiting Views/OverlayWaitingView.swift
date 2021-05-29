@@ -27,7 +27,6 @@ struct OverlayWaitingView<Presenting>: View where Presenting: View {
     }
 }
 
-#if DEBUG
 struct OverlayWaitingView_Previews: PreviewProvider {
     static var previews: some View {
         let view = VStack() {
@@ -36,5 +35,3 @@ struct OverlayWaitingView_Previews: PreviewProvider {
         return OverlayWaitingView(isShowing: .constant(true), presenting: view)
     }
 }
-#endif
-

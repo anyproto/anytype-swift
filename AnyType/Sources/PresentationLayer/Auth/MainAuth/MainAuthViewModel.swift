@@ -14,7 +14,7 @@ class MainAuthViewModel: ObservableObject {
         }
     }
     @Published var isShowingError: Bool = false
-    @Published var shouldShowCreateProfileView: Bool = false
+    @Published var showSignUpFlow: Bool = false
     
     func singUp() {
         authService.createWallet(in: localRepoService.middlewareRepoPath) { [weak self] result in
@@ -23,14 +23,14 @@ class MainAuthViewModel: ObservableObject {
                 // TODO: handel error
                 self?.error = error.localizedDescription
             case .success:
-                self?.shouldShowCreateProfileView = true
+                self?.showSignUpFlow = true
             }
         }
     }
     
     // MARK: - Coordinator
-    func createProfileView() -> some View {
-        return CreateNewProfileView(viewModel: CreateNewProfileViewModel())
+    func signUpFlow() -> some View {
+        return AlphaInviteCodeView(signUpData: SignUpData())
     }
     
     func loginView() -> some View {

@@ -60,8 +60,6 @@ final class AuthService: NSObject, AuthServiceProtocol {
         let name = profile.name
         let avatar = transform(profile.avatar)
 
-        // TODO: Add screen to set AlphaInviteCode.
-
         _ = Anytype_Rpc.Account.Create.Service.invoke(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode).sink(receiveCompletion: { result in
             switch result {
             case .finished: break

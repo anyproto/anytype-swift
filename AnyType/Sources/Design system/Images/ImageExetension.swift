@@ -28,5 +28,7 @@ extension Image {
     enum auth {
         static let qr = Image("auth_qr_code")
         static let background = Image("mainAuthBackground")
+        static let photo = Image("auth_photo_icon")
+        static let congrats = Image("auth_congrats")
     }
 }

@@ -1,20 +1,22 @@
 import SwiftUI
 
 struct WaitingView: View {
-    var text: String
-    var errorState: Bool
-    var errorText: String?
+    let text: String
+    @Binding var showError: Bool
+    @Binding var errorText: String
+    
+    var onErrorTap: (() -> ())
     
     @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         ZStack {
-            Gradients.authBackground
+            Gradients.authBackground()
             VStack(alignment: .leading) {
                 Spacer()
                 
                 VStack(alignment: .leading, spacing: 16) {
-                    if !errorState {
+                    if !showError {
                         Image("clock")
                             .background(Circle().fill(Color.background)
                                 .frame(width: 64, height: 64)
@@ -31,13 +33,14 @@ struct WaitingView: View {
                     
                     AnytypeText(text, style: .bodyBold)
                     
-                    if errorState, let errorText = errorText {
+                    if showError {
                         AnytypeText(errorText, style: .body)
                             .padding(.top, -10)
                             .transition(.opacity)
                         
                         StandardButton(disabled: false, text: "Ok", style: .secondary) {
-                            self.presentationMode.wrappedValue.dismiss()
+                            presentationMode.wrappedValue.dismiss()
+                            onErrorTap()
                         }
                         .transition(.opacity)
                     }
@@ -56,24 +59,6 @@ struct WaitingView: View {
 
 struct WaitingView_Previews: PreviewProvider {
     static var previews: some View {
-        WaitingView(text: "Setting up the wallet…", errorState: false, errorText: "Some error happens")
-    }
-}
-
-
-struct WaitingViewModifier: ViewModifier {
-    var showWaitingView: Bool = false
-    var text: String
-    var errorState: Bool
-    var errorText: String?
-    
-    func body(content: Content) -> some View {
-        VStack {
-            if showWaitingView {
-                WaitingView(text: text, errorState: errorState, errorText: errorText)
-            } else {
-                content
-            }
-        }
+        WaitingView(text: "Setting up the wallet…", showError: .constant(false), errorText: .constant("Some error happens"), onErrorTap: {})
     }
 }
