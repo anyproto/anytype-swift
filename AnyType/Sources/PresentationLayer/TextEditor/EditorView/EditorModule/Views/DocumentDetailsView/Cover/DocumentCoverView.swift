@@ -89,6 +89,7 @@ extension DocumentCoverView: ConfigurableView {
                 color: UIColor.grayscale10
             )
         )
+        imageView.contentMode = .scaleAspectFill
     }
     
     private func showImageBasedOnColor(_ color: UIColor) {
@@ -98,6 +99,7 @@ extension DocumentCoverView: ConfigurableView {
             ),
             color: color
         )
+        imageView.contentMode = .scaleAspectFill
     }
     
     private func showImageBaseOnGradient(_ startColor: UIColor, _ endColor: UIColor) {
@@ -108,6 +110,7 @@ extension DocumentCoverView: ConfigurableView {
             startPoint: CGPoint(x: 0.5, y: 0),
             endPoint: CGPoint(x: 0.5, y: 1)
         )
+        imageView.contentMode = .scaleToFill
     }
     
     private func hideLoader() {
@@ -122,8 +125,6 @@ extension DocumentCoverView: ConfigurableView {
 private extension DocumentCoverView {
     
     func setupView() {
-        // TODO: - load image with size of `ImageView`
-        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         
         addGestureRecognizer(
