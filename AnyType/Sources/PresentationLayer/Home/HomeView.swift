@@ -10,9 +10,7 @@ struct HomeView: View {
     @State private var isSheetOpen = false
     
     private let bottomSheetHeightRatio: CGFloat = 0.89
-    private let sheetOpenOffset: CGFloat = -10
-    private let sheetCloseOffset: CGFloat = 60
-    
+
     var body: some View {
         contentView
             .environment(\.font, .defaultAnytype)
@@ -30,20 +28,7 @@ struct HomeView: View {
                     HomeProfileView()
                     
                     HomeBottomSheetView(maxHeight: geometry.size.height * bottomSheetHeightRatio, scrollOffset: $scrollOffset, isOpen: $isSheetOpen) {
-                        HomeTabsView(offsetChanged: { offset in
-                            if offset.y < sheetOpenOffset {
-                                withAnimation(.spring()) {
-                                    isSheetOpen = true
-                                }
-                            }
-                            if offset.y > sheetCloseOffset {
-                                withAnimation(.spring()) {
-                                    isSheetOpen = false
-                                }
-                            }
-                            
-                            scrollOffset = offset.y
-                        })
+                        HomeTabsView(offsetChanged: offsetChanged)
                     }
                 }.frame(width: geometry.size.width, height: geometry.size.height)
             }
@@ -78,6 +63,30 @@ struct HomeView: View {
     
     private func makeNavigationBarTransparent() {
         windowHolder?.changeNavigationBarCollor(color: .clear)
+    }
+    
+    private let sheetOpenOffset: CGFloat = -5
+    private let sheetCloseOffset: CGFloat = 40
+    
+    private func offsetChanged(_ offset: CGPoint) {
+        if offset.y < sheetOpenOffset {
+            withAnimation(.spring()) {
+                if isSheetOpen == false {
+                    UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                }
+                isSheetOpen = true
+            }
+        }
+        if offset.y > sheetCloseOffset {
+            withAnimation(.spring()) {
+                if isSheetOpen == true {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                }
+                isSheetOpen = false
+            }
+        }
+
+        scrollOffset = offset.y
     }
 }
 

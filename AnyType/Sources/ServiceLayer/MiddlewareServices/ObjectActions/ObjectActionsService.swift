@@ -52,4 +52,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> AnyPublisher<Void, Error> {
         Anytype_Rpc.BlockList.ConvertChildrenToPages.Service.invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
+    
+    @discardableResult
+    func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) -> AnyPublisher<Void, Error> {
+        Anytype_Rpc.BlockList.Move.Service.invoke(
+            contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId, dropTargetID: dropPositionblockId, position: position
+        ).successToVoid().subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+    }
 }

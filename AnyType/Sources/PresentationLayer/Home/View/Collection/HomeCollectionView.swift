@@ -1,4 +1,6 @@
 import SwiftUI
+import UniformTypeIdentifiers
+
 
 struct HomeCollectionView: View {
     private let columns = [
@@ -8,6 +10,8 @@ struct HomeCollectionView: View {
     
     @EnvironmentObject var model: HomeViewModel
     let offsetChanged: (CGPoint) -> Void
+    
+    @State private var dropData = DropData()
     
     var body: some View {
         OffsetAwareScrollView(offsetChanged: offsetChanged) {
@@ -24,6 +28,15 @@ struct HomeCollectionView: View {
                         }
                     )
                     .disabled(data.isLoading)
+                    .onDrag {
+                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                        dropData.draggingCellData = data
+                        return NSItemProvider(object: data.id as NSString)
+                    }
+                    .onDrop(
+                        of: [UTType.text],
+                        delegate: HomeCollectionDropInsideDelegate(delegateData: data, cellData: $model.cellData, data: $dropData)
+                    )
                 }
             }
             .padding()

@@ -32,9 +32,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>We need camera to read qr 🤖</string>
+	<string>NSCameraUsageDescription</string>
 	<key>NSFaceIDUsageDescription</key>
-	<string>👻👻👻</string>
+	<string>NSFaceIDUsageDescription</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IBMPlexMono-Regular.ttf</string>
