@@ -1,44 +1,43 @@
 import Foundation
 import Combine
 import SwiftUI
-import os
 
-
-extension SettingsView {
-    struct AboutView: View {
-        @ObservedObject var viewModel: ViewModel
-        
-        var view: some View {
-            VStack {
-                DragIndicator()
-                AnytypeText("Anytype info", style: .title)
-                    .padding(.top, 34).fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
-                AnytypeText("\(LocalizedStringKey("Library version")) \(self.viewModel.libraryVersion)", style: .body)
-                    .padding(.top, 25)
-                Spacer()
+struct AboutView: View {
+    @ObservedObject var viewModel: ViewModel
+    
+    var body: some View {
+        contentView
+            .onAppear {
+                viewModel.viewLoaded()
             }
-            .padding([.leading, .trailing])
+    }
+    
+    var contentView: some View {
+        VStack {
+            DragIndicator()
+            AnytypeText("Anytype info", style: .title)
+                .padding(.top, 34)
+                .padding(.bottom, 25)
+                .fixedSize(horizontal: false, vertical: true).multilineTextAlignment(.center)
+            AnytypeText("Library version", style: .body)
+            AnytypeText(viewModel.libraryVersion, style: .body)
+            Spacer()
         }
-        
-        var body: some View {
-            self.view.onAppear {
-                self.viewModel.viewLoaded()
-            }
-        }
+        .padding([.leading, .trailing])
     }
 }
 
-extension SettingsView.AboutView {
+extension AboutView {
     class ViewModel: ObservableObject {
         private var configurationService: ConfigurationServiceProtocol = MiddlewareConfigurationService()
-        private var subscriptions: Set<AnyCancellable> = []
+        private var subscription: AnyCancellable?
         @Published var libraryVersion: String = ""
 
         func viewLoaded() {
-            self.configurationService.obtainLibraryVersion().receiveOnMain()
-                .sinkWithDefaultCompletion("Obtain library version") { [weak self] value in
-                    self?.libraryVersion = value.version
-                }.store(in: &self.subscriptions)
+            subscription = configurationService.obtainLibraryVersion().receiveOnMain()
+                .sinkWithDefaultCompletion("Obtain library version") { [weak self] version in
+                    self?.libraryVersion = version.version
+                }
         }
     }
 }

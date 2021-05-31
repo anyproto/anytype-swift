@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HomeProfileViewButtonImage: View {
+struct HomeProfileViewButtonImage<Image: View>: View {
     let image: Image
     
     var body: some View {

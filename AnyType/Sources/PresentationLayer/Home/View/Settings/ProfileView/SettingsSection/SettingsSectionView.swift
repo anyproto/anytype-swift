@@ -40,7 +40,7 @@ struct SettingsSectionView: View {
             )
             .modifier(DividerModifier())
             .sheet(isPresented: $viewModel.about) {
-                SettingsView.AboutView(viewModel: .init())
+                AboutView(viewModel: .init())
             }
         }
         .padding([.leading, .trailing], 20)

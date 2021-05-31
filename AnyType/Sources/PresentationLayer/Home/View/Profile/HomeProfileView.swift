@@ -13,21 +13,10 @@ struct HomeProfileView: View {
                 VStack {
                     hiText(containerHeight: geometry.size.height)
                     avatar
-                    
-                    HStack {
-//                        Button(action: {}) {
-//                            HomeProfileViewButtonImage(image: Image.main.search)
-//                        }
-//                        Button(action: {}) {
-//                            HomeProfileViewButtonImage(image: Image.main.marketplace).padding(10)
-//                        }
-                        Button(action: model.createNewPage) {
-                            HomeProfileViewButtonImage(image: Image.main.draft)
-                        }
-                    }
-                    .padding(.top, geometry.size.height * buttonsPaddingRatio)
+                    buttons.padding(.top, geometry.size.height * buttonsPaddingRatio)
                 }.frame(maxHeight: geometry.size.height / 2 - 30) // less then bottom sheet
                 Spacer()
+                slogan(containerHeight: geometry.size.height)
             }.frame(width: geometry.size.width, height: geometry.size.height)
             .animation(.default, value: accountData.blockId)
         }
@@ -60,6 +49,34 @@ struct HomeProfileView: View {
             name: accountData.name
         )
         .frame(width: 80, height: 80)
+    }
+    
+    private var buttons: some View {
+        HStack(spacing: 10) {
+            Button(action: {}) {
+                HomeProfileViewButtonImage(
+                    image: Image.main.search.renderingMode(.template).foregroundColor(.gray.opacity(0.4))
+                )
+            }.disabled(true)
+            Button(action: {}) {
+                HomeProfileViewButtonImage(
+                    image: Image.main.marketplace.renderingMode(.template).foregroundColor(.gray.opacity(0.4))
+                )
+            }.disabled(true)
+            Button(action: model.createNewPage) {
+                HomeProfileViewButtonImage(image: Image.main.draft)
+            }
+        }
+    }
+    
+    private func slogan(containerHeight: CGFloat) -> some View {
+        AnytypeText("The future will be the one you build", style: .title)
+            .padding(.bottom, containerHeight / 7)
+            .padding()
+            .multilineTextAlignment(.center)
+            .foregroundColor(.white)
+            .lineLimit(nil)
+            .fixedSize(horizontal: false, vertical: true)
     }
 }
 
