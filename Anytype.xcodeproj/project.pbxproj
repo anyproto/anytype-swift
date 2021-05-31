@@ -497,6 +497,9 @@
 		EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */; };
 		EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */; };
 		EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */; };
+		EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5FD4D2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift */; };
+		EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5FD502657DC97006BB24E /* KeyboardState.swift */; };
+		EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5FD532657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift */; };
 		EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9526270F73004C8C06 /* FileBlockRestrictions.swift */; };
 		EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9826270FE0004C8C06 /* DividerBlockRestrictions.swift */; };
 		EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */; };
@@ -1044,6 +1047,9 @@
 		EAC54F6825E97A5300B745A8 /* QuoteBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteBlockLeadingView.swift; sourceTree = "<group>"; };
 		EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Convenience.swift"; sourceTree = "<group>"; };
 		EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+ApplicationWindowInsetsProvider.swift"; sourceTree = "<group>"; };
+		EAC5FD4D2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEventsListenerHelper.swift; sourceTree = "<group>"; };
+		EAC5FD502657DC97006BB24E /* KeyboardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardState.swift; sourceTree = "<group>"; };
+		EAC5FD532657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewContentInsetsHelper.swift; sourceTree = "<group>"; };
 		EAC6BA9526270F73004C8C06 /* FileBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBlockRestrictions.swift; sourceTree = "<group>"; };
 		EAC6BA9826270FE0004C8C06 /* DividerBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockRestrictions.swift; sourceTree = "<group>"; };
 		EAC6BA9B26271061004C8C06 /* PageBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageBlockRestrictions.swift; sourceTree = "<group>"; };
@@ -2014,6 +2020,7 @@
 		0ACA781A23E5C9A300442690 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				EAC5FD4A2657DC3D006BB24E /* UIScrollView */,
 				3DF6F61A262ED50C000E05A5 /* FeatureFlags */,
 				3DB27BF0261B0E9C005E523C /* URLComponentsCoder */,
 				0A996BD023F0342A000FDC9C /* PlistReader.swift */,
@@ -3193,6 +3200,16 @@
 			path = Filtering;
 			sourceTree = "<group>";
 		};
+		EAC5FD4A2657DC3D006BB24E /* UIScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				EAC5FD4D2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift */,
+				EAC5FD502657DC97006BB24E /* KeyboardState.swift */,
+				EAC5FD532657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift */,
+			);
+			path = UIScrollView;
+			sourceTree = "<group>";
+		};
 		EAC6BAA1262711DA004C8C06 /* Validators */ = {
 			isa = PBXGroup;
 			children = (
@@ -3516,6 +3533,7 @@
 				0A78328A24BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
+				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */,
 				0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */,
@@ -3597,6 +3615,7 @@
 				EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */,
 				53F820A82648AEF5003FEB0B /* BottomMenuViewController.swift in Sources */,
 				0A0965F825BEF5B000C004BD /* EditorSelectionToolbarPresenter.swift in Sources */,
+				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
 				3DDF58962628C6440081C53E /* PageTitleViewModel.swift in Sources */,
 				0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */,
 				EA45749325F8CC08007D6C83 /* TextBlockContentConfiguration.swift in Sources */,
@@ -3629,6 +3648,7 @@
 				EA77E548262DF30B009F91D9 /* BlockMenuActionsHandler.swift in Sources */,
 				EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */,
 				EAC6BB5126288767004C8C06 /* BlocksAndHighlightingInputSwitcher.swift in Sources */,
+				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,

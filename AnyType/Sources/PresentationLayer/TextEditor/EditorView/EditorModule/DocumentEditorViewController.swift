@@ -4,7 +4,7 @@ import Combine
 import FloatingPanel
 
 
-final class DocumentEditorViewController: UICollectionViewController {
+final class DocumentEditorViewController: UIViewController {
 
     private enum Constants {
         static let headerReuseId = "header"
@@ -14,7 +14,22 @@ final class DocumentEditorViewController: UICollectionViewController {
 
     private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?
     private let viewModel: DocumentEditorViewModel
-
+    
+    private let collectionView: UICollectionView = {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
+        listConfiguration.headerMode = .supplementary
+        listConfiguration.backgroundColor = .white
+        listConfiguration.showsSeparators = false
+        let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
+        let collectionView = UICollectionView(frame: UIScreen.main.bounds,
+                                               collectionViewLayout: layout)
+        collectionView.allowsMultipleSelection = true
+        collectionView.backgroundColor = .systemBackground
+        return collectionView
+    }()
+    
+    private var insetsHelper: ScrollViewContentInsetsHelper?
+    
     private var subscriptions: Set<AnyCancellable> = []
     /// Gesture recognizer to handle taps in empty document
     private let listViewTapGestureRecognizer: UITapGestureRecognizer = {
@@ -25,11 +40,7 @@ final class DocumentEditorViewController: UICollectionViewController {
 
     init(viewModel: DocumentEditorViewModel) {
         self.viewModel = viewModel
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
-        listConfiguration.headerMode = .supplementary
-        listConfiguration.backgroundColor = .white
-        listConfiguration.showsSeparators = false
-        super.init(collectionViewLayout: UICollectionViewCompositionalLayout.list(using: listConfiguration))
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -49,17 +60,28 @@ final class DocumentEditorViewController: UICollectionViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        insetsHelper = nil
         guard isMovingFromParent else { return }
         self.viewModel.applyPendingChanges()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
+    }
 
     private func setupUI() {
+        setupCollectionView()
         setupCollectionViewDataSource()
-        collectionView.allowsMultipleSelection = true
-        collectionView.backgroundColor = .systemBackground
-        collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
-        
         setupInteractions()
+    }
+
+    private func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.pinAllEdges(to: view)
+        collectionView.dataSource = dataSource
+        collectionView.delegate = self
+        collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
 
 
@@ -72,11 +94,11 @@ final class DocumentEditorViewController: UICollectionViewController {
         }
 
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
-            self?.setuCell(cell: cell, indexPath: indexPath, item: item)
+            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
         let codeCellRegistration = UICollectionView.CellRegistration<CodeBlockCellView, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
-            self?.setuCell(cell: cell, indexPath: indexPath, item: item)
+            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
         dataSource = UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>(collectionView: collectionView) {
@@ -93,7 +115,7 @@ final class DocumentEditorViewController: UICollectionViewController {
         }
     }
 
-    private func setuCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
+    private func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
         cell.contentConfiguration = item.buildContentConfiguration()
         cell.indentationWidth = Constants.cellIndentationWidth
         cell.indentationLevel = item.indentationLevel()
@@ -143,6 +165,7 @@ final class DocumentEditorViewController: UICollectionViewController {
 
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
         guard let dataSource = dataSource else { return }
+
         let sectionSnapshot = dataSource.snapshot(for: .first)
         var snapshot = dataSource.snapshot()
         var itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
@@ -196,12 +219,8 @@ final class DocumentEditorViewController: UICollectionViewController {
     }
     
     private func handleDetailsViewModelUpdate() {
-        guard
-            collectionView.numberOfSections > 0,
-            let dataSource = dataSource
-        else { return }
-        
-        var snapshot = dataSource.snapshot()
+        guard collectionView.numberOfSections > 0 else { return }
+        guard var snapshot = dataSource?.snapshot() else { return }
 
         if let titleBlockView = snapshot.itemIdentifiers.first(where: { blockViewModel in
             guard blockViewModel.information.content.type == .text(.title) else {
@@ -270,8 +289,8 @@ extension DocumentEditorViewController {
 }
 
 // MARK: - UICollectionViewDelegate
-extension DocumentEditorViewController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension DocumentEditorViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.viewModel.didSelectBlock(at: indexPath)
         if self.viewModel.selectionEnabled() {
             return
@@ -279,15 +298,15 @@ extension DocumentEditorViewController {
         collectionView.deselectItem(at: indexPath, animated: false)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if !self.viewModel.selectionEnabled() {
             return
         }
         self.viewModel.didSelectBlock(at: indexPath)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let viewModel = self.dataSource?.itemIdentifier(for: indexPath) else { return false }
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        guard let viewModel = dataSource?.itemIdentifier(for: indexPath) else { return false }
         if self.viewModel.selectionEnabled() {
             if case let .text(text) = viewModel.getBlock().blockModel.information.content {
                 return text.contentType != .title
