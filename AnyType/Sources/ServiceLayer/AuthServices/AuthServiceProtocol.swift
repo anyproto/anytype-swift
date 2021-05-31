@@ -28,7 +28,7 @@ protocol AuthServiceProtocol {
     /// Create new account for current wallet
     /// - Parameter profile: User profile
     /// - Parameter OnCompletion: Called on completion with account id or AuthServiceError.
-    func createAccount(profile: AuthModels.CreateAccount.Request, alphaInviteCode: String, onCompletion: @escaping OnCompletion)
+    func createAccount(profile: CreateAccountRequest, alphaInviteCode: String, onCompletion: @escaping OnCompletion)
     
     /// Recover wallet with mnemonic phrase
     /// - Parameters:

@@ -48,12 +48,10 @@ final class AuthService: NSObject, AuthServiceProtocol {
         }
     }
 
-    func createAccount(profile: AuthModels.CreateAccount.Request, alphaInviteCode: String, onCompletion: @escaping OnCompletion) {
+    func createAccount(profile: CreateAccountRequest, alphaInviteCode: String, onCompletion: @escaping OnCompletion) {
         func transform(_ avatar: ProfileModel.Avatar) -> Anytype_Rpc.Account.Create.Request.OneOf_Avatar? {
             switch avatar {
-            case let .color(value): return .avatarColor(value)
             case let .imagePath(value): return .avatarLocalPath(value)
-                // possible @unknown default ???
             }
         }
         

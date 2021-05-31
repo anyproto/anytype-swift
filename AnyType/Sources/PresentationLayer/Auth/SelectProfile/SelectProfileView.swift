@@ -2,9 +2,11 @@ import SwiftUI
 
 
 struct SelectProfileView: View {
-    @ObservedObject var viewModel: SelectProfileViewModel
-    @State var showCreateProfileView = false
-    @State var contentHeight: CGFloat = 0
+    @StateObject var viewModel: SelectProfileViewModel
+    @State private var showCreateProfileView = false
+    @State private var contentHeight: CGFloat = 0
+    
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         HStack {
@@ -17,13 +19,15 @@ struct SelectProfileView: View {
                     ProgressView()
                 }
             }
-            .onAppear {
-                self.viewModel.accountRecover()
-            }
-            .errorToast(isShowing: self.$viewModel.showError, errorText: self.viewModel.error ?? "")
+        }
+        .errorToast(isShowing: $viewModel.showError, errorText: viewModel.error ?? "") {
+            presentationMode.wrappedValue.dismiss()
         }
         .navigationBarHidden(true)
         .modifier(LogoOverlay())
+        .onAppear {
+            viewModel.accountRecover()
+        }
     }
     
     private func contentHeight(proxy: GeometryProxy) -> some View {

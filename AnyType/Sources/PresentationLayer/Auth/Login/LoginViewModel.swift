@@ -24,6 +24,8 @@ class LoginViewModel: ObservableObject {
         }
     }
     
+    @Published var showSelectProfile = false
+    
     func onEntropySet() {
         authService.mnemonicByEntropy(entropy) { [weak self] result in
             switch result {
@@ -38,13 +40,13 @@ class LoginViewModel: ObservableObject {
     
     func recoverWallet() {
         authService.walletRecovery(mnemonic: seed, path: localRepoService.middlewareRepoPath) { result in
-            if case .failure(let .recoverWalletError(error)) = result {
-                self.error = error
-                return
-            }
-            
-            DispatchQueue.main.async {
-                windowHolder?.startNewRootView(SelectProfileView(viewModel: SelectProfileViewModel()))
+            DispatchQueue.main.async { [weak self] in
+                if case .failure(let .recoverWalletError(error)) = result {
+                    self?.error = error
+                    return
+                }
+                
+                self?.showSelectProfile = true
             }
         }
     }

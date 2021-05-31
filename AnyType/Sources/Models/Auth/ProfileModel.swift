@@ -8,7 +8,6 @@ struct ProfileModel {
     let profiles: [ProfileModel]
     
     enum Avatar {
-        case color(String)
         case imagePath(String)
     }
     

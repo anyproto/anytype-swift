@@ -7,6 +7,7 @@ struct LoginView: View {
     var body: some View {
         ZStack {
             Gradients.authBackground()
+            loginNavigation
             keychainPhraseView.padding()
         }
         .navigationBarHidden(true)
@@ -22,7 +23,7 @@ struct LoginView: View {
                 
                 scanQR
                 enterMnemonic
-
+ 
                 HStack(spacing: 12) {
                     StandardButton(text: "Back", style: .secondary) {
                         self.presentationMode.wrappedValue.dismiss()
@@ -37,7 +38,6 @@ struct LoginView: View {
             .padding()
             .background(Color.background)
             .cornerRadius(12.0)
-            .navigationBarBackButtonHidden(true)
             .sheet(isPresented: $viewModel.showQrCodeView) {
                 QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
             }
@@ -67,7 +67,6 @@ struct LoginView: View {
                 .padding(.bottom, 24)
                 .opacity(viewModel.seed.isEmpty ? 0.25 : 1)
         }
-
     }
     
     private var scanQR: some View {
@@ -85,6 +84,15 @@ struct LoginView: View {
                 }
                 Divider()
             }
+        }
+    }
+    
+    private var loginNavigation: some View {
+        NavigationLink(
+            destination: SelectProfileView(viewModel: SelectProfileViewModel()),
+            isActive: $viewModel.showSelectProfile
+        ) {
+            EmptyView()
         }
     }
 }

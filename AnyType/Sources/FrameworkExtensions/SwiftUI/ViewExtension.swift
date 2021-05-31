@@ -2,8 +2,8 @@ import SwiftUI
 
 
 extension View {
-    func errorToast(isShowing: Binding<Bool>, errorText: String) -> some View {
-        ErrorAlertView(isShowing: isShowing, errorText: errorText, presenting: self)
+    func errorToast(isShowing: Binding<Bool>, errorText: String, onOkPressed: @escaping () -> () = {}) -> some View {
+        ErrorAlertView(isShowing: isShowing, errorText: errorText, presenting: self, onOkPressed: onOkPressed)
     }
 
     func eraseToAnyView() -> AnyView {

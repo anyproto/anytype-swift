@@ -3832,10 +3832,6 @@ extension Anytype_Rpc.Account.Create {
         return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
       }
       // get first zero case.
-        if result.hasAccount {
-            return .success(result)
-        }
-        
       if result.error.code != .null {
         let domain = Anytype_Middleware_Error.domain
         let code = result.error.code.rawValue

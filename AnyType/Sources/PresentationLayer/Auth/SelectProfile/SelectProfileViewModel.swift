@@ -42,8 +42,8 @@ class SelectProfileViewModel: ObservableObject {
         DispatchQueue.global().async { [weak self] in
             self?.handleAccountShowEvent()
             self?.authService.accountRecover { result in
-                if case let .failure(.recoverAccountError(error)) = result {
-                    self?.error = error
+                if case .failure = result {
+                    self?.error = "Account recover error"
                 }
             }
         }
@@ -51,11 +51,13 @@ class SelectProfileViewModel: ObservableObject {
     
     func selectProfile(id: String) {
         self.authService.selectAccount(id: id, path: localRepoService.middlewareRepoPath) { result in
-            switch result {
-            case .success:
-                self.showHomeView()
-            case .failure(let error):
-                self.error = error.localizedDescription
+            DispatchQueue.main.async { [weak self] in
+                switch result {
+                case .success:
+                    self?.showHomeView()
+                case .failure(let error):
+                    self?.error = error.localizedDescription
+                }
             }
         }
     }

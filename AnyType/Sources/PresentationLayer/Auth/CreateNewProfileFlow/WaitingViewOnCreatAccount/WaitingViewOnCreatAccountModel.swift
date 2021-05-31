@@ -31,18 +31,10 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
     }
     
     func createAccount() {
-        var avatar = ProfileModel.Avatar.color(UIColor.randomColor().toHexString())
-        
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
             
-            if let image = self.signUpData.image,
-               let path = self.diskStorage.saveImage(imageName: "avatar_\(self.signUpData.userName)_\(UUID())", image: image) {
-                avatar = ProfileModel.Avatar.imagePath(path)
-            }
-            let request = AuthModels.CreateAccount.Request(name: self.signUpData.userName, avatar: avatar)
-            
-            self.authService.createAccount(profile: request, alphaInviteCode: self.signUpData.inviteCode) { result in
+            self.authService.createAccount(profile: self.buildRequest(), alphaInviteCode: self.signUpData.inviteCode) { result in
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     
@@ -56,6 +48,16 @@ class WaitingViewOnCreatAccountModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func buildRequest() -> CreateAccountRequest {
+        let imagePath = signUpData.image.flatMap {
+            diskStorage.saveImage(imageName: "avatar_\(signUpData.userName)_\(UUID())", image: $0)
+        }
+        
+        let avatar = ProfileModel.Avatar.imagePath(imagePath ?? "")
+                
+        return  CreateAccountRequest(name: signUpData.userName, avatar: avatar)
     }
     
     private func obtainCompletionView() -> some View {
