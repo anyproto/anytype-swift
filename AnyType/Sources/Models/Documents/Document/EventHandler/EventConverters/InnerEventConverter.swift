@@ -3,12 +3,12 @@ import BlocksModels
 
 final class InnerEventConverter {
     private var updater: BlockUpdater?
-    private weak var container: ContainerModel?
+    private weak var container: ContainerModelProtocol?
     
     private let parser: BlocksModelsParser
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(parser: BlocksModelsParser, updater: BlockUpdater?, container: ContainerModel?) {
+    init(parser: BlocksModelsParser, updater: BlockUpdater?, container: ContainerModelProtocol?) {
         self.parser = parser
         self.updater = updater
         self.container = container
@@ -29,8 +29,8 @@ final class InnerEventConverter {
         case let .blockAdd(value):
             value.blocks
                 .compactMap(self.parser.convert(block:))
-                .map(TopLevelBuilderImpl.blockBuilder.informationBuilder.build(information:))
-                .map(TopLevelBuilderImpl.blockBuilder.createBlockModel)
+                .map(TopLevelBuilder.blockBuilder.informationBuilder.build(information:))
+                .map(TopLevelBuilder.blockBuilder.createBlockModel)
                 .forEach { (value) in
                     self.updater?.insert(block: value)
                 }
@@ -146,16 +146,16 @@ final class InnerEventConverter {
             
             let detailsEntries = BlocksModelsParser.Details.Converter.asModel(details: details)
             
-            if let detailsActiveRecordModel = self.container?.detailsStorage.choose(by: detailsId) {
+            if let detailsModel = self.container?.detailsContainer.get(by: detailsId) {
                 
-                var model = detailsActiveRecordModel.detailsModel
+                var model = detailsModel
                 
                 var detailsSet = model.detailsProvider.details
                 detailsEntries.forEach { entry in
                     detailsSet[entry.id] = entry
                 }
                 
-                var detailsProvider = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsSet)
+                var detailsProvider = DetailsBuilder.detailsProviderBuilder.filled(with: detailsSet)
                 detailsProvider.parentId = model.detailsProvider.parentId
                 
                 model.detailsProvider = detailsProvider
@@ -177,18 +177,18 @@ final class InnerEventConverter {
                 event: Anytype_Event.Object.Details.Set(id: detailsId, details: details)
             )
             let detailsModels = BlocksModelsParser.Details.Converter.asModel(details: eventsDetails)
-            let detailsInformationModel = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
+            let detailsInformationModel = DetailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
             
-            if let detailsModel = self.container?.detailsStorage.choose(by: detailsId) {
-                var model = detailsModel.detailsModel
-                var resultDetails = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
+            if let detailsModel = self.container?.detailsContainer.get(by: detailsId) {
+                var model = detailsModel
+                var resultDetails = DetailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
                 resultDetails.parentId = detailsId
                 model.detailsProvider = resultDetails
             }
             else {
-                var newDetailsModel = TopLevelBuilderImpl.detailsBuilder.build(information: detailsInformationModel)
+                var newDetailsModel = DetailsBuilder.build(information: detailsInformationModel)
                 newDetailsModel.parent = detailsId
-                self.container?.detailsStorage.add(newDetailsModel)
+                self.container?.detailsContainer.add(newDetailsModel)
             }
             /// Please, do not delete.
             /// We should discuss how we handle new details.

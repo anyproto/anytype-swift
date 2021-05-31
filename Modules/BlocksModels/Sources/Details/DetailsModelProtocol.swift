@@ -16,6 +16,6 @@ public protocol DetailsModelProtocol {
 
     var detailsProvider: DetailsProviderProtocol { get set }
     
-    var parent: DetailsId? { get set }
+    var parent: ParentId? { get set }
         
 }

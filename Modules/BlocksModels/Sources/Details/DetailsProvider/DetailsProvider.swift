@@ -4,12 +4,12 @@ struct DetailsProvider: DetailsProviderProtocol {
     
     // MARK: - Properties
     
-    let details: [DetailsId: DetailsEntry<AnyHashable>]
+    let details: [ParentId: DetailsEntry<AnyHashable>]
     var parentId: String?
     
     // MARK: - Initialization
     
-    init(_ details: [DetailsId: DetailsEntry<AnyHashable>]) {
+    init(_ details: [ParentId: DetailsEntry<AnyHashable>]) {
         self.details = details
     }
     

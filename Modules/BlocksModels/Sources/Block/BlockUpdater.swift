@@ -3,9 +3,9 @@ import os
 
 
 public class BlockUpdater {
-    private let container: ContainerModel
+    private let container: ContainerModelProtocol
 
-    public init(_ container: ContainerModel) {
+    public init(_ container: ContainerModelProtocol) {
         self.container = container
     }
     /// Delete entry from a container
@@ -58,7 +58,7 @@ public class BlockUpdater {
             var details = DetailsProvider([:])
             details.parentId = link.targetBlockID
             let model = DetailsModel(detailsProvider: details)
-            self.container.detailsStorage.add(model)
+            self.container.detailsContainer.add(model)
         }
     }
 

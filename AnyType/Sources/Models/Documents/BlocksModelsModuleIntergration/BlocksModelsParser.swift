@@ -51,7 +51,7 @@ final class BlocksModelsParser {
         let parsedDetails = details.map { (value) -> DetailsProviderProtocol in
             let corrected = Converters.EventDetailsAndSetDetailsConverter.convert(event: value)
             let contentList = Details.Converter.asModel(details: corrected)
-            var result = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: contentList)
+            var result = DetailsBuilder.detailsProviderBuilder.filled(with: contentList)
             result.parentId = value.id
             return result
         }
@@ -72,7 +72,7 @@ final class BlocksModelsParser {
         guard let content = block.content, let converter = Converters.convert(middleware: content) else { return nil }
         guard let blockType = converter.blockType(content) else { return nil }
         
-        var information = TopLevelBuilderImpl.blockBuilder.informationBuilder.build(id: block.id, content: blockType)
+        var information = TopLevelBuilder.blockBuilder.informationBuilder.build(id: block.id, content: blockType)
 
         // TODO: Add fields and restrictions.
         // Add parsers for them and model.

@@ -1,4 +1,4 @@
 import Foundation
 
 public typealias BlockId = String
-public typealias DetailsId = String
+public typealias ParentId = String

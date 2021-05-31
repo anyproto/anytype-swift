@@ -17,7 +17,7 @@ class DetailsActiveModel {
     
     // MARK: Publishers
     
-    @Published private(set) var currentDetails: DetailsProviderProtocol = TopLevelBuilderImpl.detailsBuilder.detailsProviderBuilder.filled(with: [:])
+    @Published private(set) var currentDetails: DetailsProviderProtocol = DetailsBuilder.detailsProviderBuilder.filled(with: [:])
     private(set) var wholeDetailsPublisher: AnyPublisher<DetailsProviderProtocol, Never> = .empty() {
         didSet {
             self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in

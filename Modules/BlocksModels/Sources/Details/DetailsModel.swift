@@ -49,7 +49,7 @@ extension DetailsModel: DetailsModelProtocol {
     }
         
     /// TODO: Add parent to model or extend PageDetails to store parentId.
-    var parent: DetailsId? {
+    var parent: ParentId? {
         get {
             self.detailsInformation.parentId
         }

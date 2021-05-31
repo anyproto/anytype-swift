@@ -1,9 +1,9 @@
 import BlocksModels
 
 final class OurEventConverter {
-    private weak var container: ContainerModel?
+    private weak var container: ContainerModelProtocol?
     
-    init(container: ContainerModel?) {
+    init(container: ContainerModelProtocol?) {
         self.container = container
     }
     

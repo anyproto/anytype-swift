@@ -5,7 +5,7 @@ public struct TreeBlockBuilder {
     private var builder: BlockBuilderProtocol
 
     public static var defaultValue: Self = {
-        .init(builder: TopLevelBuilderImpl.blockBuilder)
+        .init(builder: TopLevelBuilder.blockBuilder)
     }()
 
     public init(builder: BlockBuilderProtocol) {

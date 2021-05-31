@@ -12,7 +12,7 @@ class EventHandler: EventHandlerProtocol {
     private var didProcessEventsSubject: PassthroughSubject<EventHandlerUpdate, Never> = .init()
     let didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never>
     
-    private weak var container: ContainerModel?
+    private weak var container: ContainerModelProtocol?
     
     private var updater: BlockUpdater?
     private var innerConverter: InnerEventConverter?
@@ -35,7 +35,7 @@ class EventHandler: EventHandlerProtocol {
         }
 
         if update.hasUpdate {
-            TopLevelBuilderImpl.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
+            TopLevelBuilder.blockBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
         }
 
         // Notify about updates if needed.
@@ -49,7 +49,7 @@ class EventHandler: EventHandlerProtocol {
     }
 
     // MARK: Configurations
-    func configured(_ container: ContainerModel) {
+    func configured(_ container: ContainerModelProtocol) {
         self.updater = BlockUpdater(container)
         self.container = container
         self.innerConverter = InnerEventConverter(parser: self.parser, updater: self.updater, container: self.container)

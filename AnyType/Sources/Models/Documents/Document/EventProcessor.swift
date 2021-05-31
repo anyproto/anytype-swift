@@ -13,7 +13,7 @@ class EventProcessor {
     // MARK: EventHandler interface
     var didProcessEventsPublisher: AnyPublisher<EventHandlerUpdate, Never> { self.eventHandler.didProcessEventsPublisher }
 
-    func configured(_ container: ContainerModel) {
+    func configured(_ container: ContainerModelProtocol) {
         eventHandler.configured(container)
         
         guard let rootId = container.rootId else {

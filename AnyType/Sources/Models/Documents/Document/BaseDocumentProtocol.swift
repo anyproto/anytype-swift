@@ -15,7 +15,7 @@ protocol BaseDocumentProtocol: AnyObject {
     /// Return publisher that received event on blocks update
     var updateBlockModelPublisher: AnyPublisher<BaseDocument.UpdateResult, Never> { get }
     
-    func getDetails(by id: DetailsId) -> DetailsActiveModel?
+    func getDetails(by id: ParentId) -> DetailsActiveModel?
 }
 
 private extension LoggerCategory {
@@ -44,7 +44,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private var rootId: BlockId? { self.rootModel?.rootId }
     
     /// RootModel
-    private var rootModel: ContainerModel? {
+    private var rootModel: ContainerModelProtocol? {
         didSet {
             self.handleNewRootModel(self.rootModel)
         }
@@ -129,13 +129,13 @@ final class BaseDocument: BaseDocumentProtocol {
         let rootId = value.contextID
         
         let blocksContainer = self.transformer.buildBlocksTree(from: event.blocks, with: rootId)
-        let parsedDetails = event.details.map(TopLevelBuilderImpl.detailsBuilder.build(information:))
+        let parsedDetails = event.details.map(DetailsBuilder.build(information:))
         
-        let detailsStorage = TopLevelBuilderImpl.detailsBuilder.emptyStorage()
+        let detailsStorage = DetailsBuilder.emptyDetailsContainer()
         parsedDetails.forEach { detailsStorage.add($0) }
         
         // Add details models to process.
-        self.rootModel = TopLevelBuilderImpl.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsStorage)
+        self.rootModel = TopLevelBuilder.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsStorage)
     }
 
     // MARK: - Configure Details
@@ -153,15 +153,15 @@ final class BaseDocument: BaseDocumentProtocol {
     /// It is the first place where you can configure default details with various handlers and other stuff.
     ///
     /// - Parameter container: A container in which this details is default.
-    private func configureDetails(for container: ContainerModel?) {
+    private func configureDetails(for container: ContainerModelProtocol?) {
         guard let container = container,
               let rootId = container.rootId,
-              let ourModel = container.detailsStorage.choose(by: rootId)
+              let ourModel = container.detailsContainer.get(by: rootId)
         else {
             Logger.create(.baseDocument).debug("configureDetails(for:). Our document is not ready yet")
             return
         }
-        let publisher = ourModel.changeInformationPublisher()
+        let publisher = ourModel.changeInformationPublisher
         self.defaultDetailsActiveModel.configured(documentId: rootId)
         self.defaultDetailsActiveModel.configured(publisher: publisher)
         self.defaultDetailsActiveModel.configured(eventSubject: self.detailsEventSubject)
@@ -169,7 +169,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
 
     // MARK: - Handle new root model
-    private func handleNewRootModel(_ container: ContainerModel?) {
+    private func handleNewRootModel(_ container: ContainerModelProtocol?) {
         if let container = container {
             eventProcessor.configured(container)
         }
@@ -216,14 +216,14 @@ final class BaseDocument: BaseDocumentProtocol {
     /// - Parameter id: Id of item for which we would like to listen events.
     /// - Returns: details active model.
     ///
-    func getDetails(by id: DetailsId) -> DetailsActiveModel? {
-        guard let value = self.rootModel?.detailsStorage.choose(by: id) else {
+    func getDetails(by id: ParentId) -> DetailsActiveModel? {
+        guard let value = self.rootModel?.detailsContainer.get(by: id) else {
             Logger.create(.baseDocument).debug("getDetails(by:). Our document is not ready yet")
             return nil
         }
         let result: DetailsActiveModel = .init()
         result.configured(documentId: id)
-        result.configured(publisher: value.changeInformationPublisher())
+        result.configured(publisher: value.changeInformationPublisher)
         return result
     }
     

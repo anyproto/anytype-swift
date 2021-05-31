@@ -3,35 +3,19 @@ import Foundation
 
 /// The main intention of this class is to store rootId and store all containers together.
 /// As soon as we don't use rootId in `Block.Container`, it is safe to transfer it here.
-final class RootBlocksContainer {
-    private var _rootId: BlockId?
-    private var _blocksContainer: BlockContainerModelProtocol = TopLevelBuilderImpl.blockBuilder.emptyContainer()
-    private var _detailsContainer: DetailsStorageProtocol = TopLevelBuilderImpl.detailsBuilder.emptyStorage()
-}
-
-extension RootBlocksContainer: ContainerModel {
-    var rootId: BlockId? {
-        get {
-            self._rootId
-        }
-        set {
-            self._rootId = newValue
-        }
+final class RootBlocksContainer: ContainerModelProtocol {
+    
+    let rootId: BlockId?
+    let blocksContainer: BlockContainerModelProtocol
+    let detailsContainer: DetailsContainerProtocol
+    
+    init(rootId: BlockId?,
+         blocksContainer: BlockContainerModelProtocol,
+         detailsContainer: DetailsContainerProtocol
+    ) {
+        self.rootId = rootId
+        self.blocksContainer = blocksContainer
+        self.detailsContainer = detailsContainer
     }
-    var blocksContainer: BlockContainerModelProtocol {
-        get {
-            self._blocksContainer
-        }
-        set {
-            self._blocksContainer = newValue
-        }
-    }
-    var detailsStorage: DetailsStorageProtocol {
-        get {
-            self._detailsContainer
-        }
-        set {
-            self._detailsContainer = newValue
-        }
-    }
+    
 }

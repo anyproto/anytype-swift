@@ -87,10 +87,10 @@ public extension BlockInformation.DetailsAsBlockConverter {
     struct IdentifierBuilder {
         
         static var separator: Character = "/"
-        public static func asBlockId(_ blockId: BlockId, _ id: DetailsId) -> BlockId {
+        public static func asBlockId(_ blockId: BlockId, _ id: ParentId) -> BlockId {
             blockId + "\(self.separator)" + id
         }
-        public static func asDetails(_ id: BlockId) -> (BlockId, DetailsId) {
+        public static func asDetails(_ id: BlockId) -> (BlockId, ParentId) {
             guard let index = id.lastIndex(of: self.separator) else { return (id, "") }
             let substring = id[index...].dropFirst()
             let prefix = String(id.prefix(upTo: index))
@@ -127,7 +127,7 @@ public extension BlockInformation {
         // MARK: - Public functions
         
         public func convertDetailsToBlock(_ details: DetailsEntry<AnyHashable>) -> BlockModelProtocol {
-            TopLevelBuilderImpl.blockBuilder.createBlockModel(
+            TopLevelBuilder.blockBuilder.createBlockModel(
                 with: DetailsAsInformationConverter(blockId: self.blockId)(details)
             )
         }

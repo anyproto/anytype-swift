@@ -1,14 +1,14 @@
 import Foundation
 
-final class DetailsBuilder: DetailsBuilderProtocol {
+public enum DetailsBuilder {
     
-    let detailsProviderBuilder: DetailsProviderBuilderProtocol = DetailsProviderBuilder()
+    public static let detailsProviderBuilder: DetailsProviderBuilderProtocol = DetailsProviderBuilder()
 
-    func emptyStorage() -> DetailsStorageProtocol {
-        DetailsStorage()
+    public static func emptyDetailsContainer() -> DetailsContainerProtocol {
+        DetailsContainer()
     }
     
-    func build(information: DetailsProviderProtocol) -> DetailsModelProtocol {
+    public static func build(information: DetailsProviderProtocol) -> DetailsModelProtocol {
         DetailsModel(detailsProvider: information)
     }
     
