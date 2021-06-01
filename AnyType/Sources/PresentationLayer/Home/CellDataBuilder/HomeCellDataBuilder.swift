@@ -8,17 +8,6 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func updatedCellData(newDetails: DetailsProviderProtocol, oldData: PageCellData) -> PageCellData {
-        return PageCellData(
-            id: oldData.id,
-            destinationId: oldData.destinationId,
-            icon: newDetails.documentIcon,
-            title: newDetails.name ?? "",
-            type: oldData.type,
-            isLoading: false
-        )
-    }
-    
     func buldCellData(_ updateResult: BaseDocumentUpdateResult) -> [PageCellData] {
         let links: [HomePageLink] = updateResult.models.compactMap { activeRecord in
             switch activeRecord.content {
@@ -27,14 +16,15 @@ final class HomeCellDataBuilder {
                 return HomePageLink(
                     blockId: activeRecord.blockId,
                     targetBlockId: link.targetBlockID,
-                    details: details
+                    details: details,
+                    type: link.style
                 )
             default:
                 return nil
             }
         }
         
-        return links.map { buildPageCellData(pageLink: $0) }
+        return links.filter{ $0.type == .page }.map { buildPageCellData(pageLink: $0) }
     }
     
     private func buildPageCellData(pageLink: HomePageLink) -> PageCellData {
@@ -43,8 +33,19 @@ final class HomeCellDataBuilder {
             destinationId: pageLink.targetBlockId,
             icon: pageLink.details?.documentIcon,
             title: pageLink.details?.name ?? "",
-            type: "Page",
+            type: pageLink.type.rawValue,
             isLoading: pageLink.isLoading
+        )
+    }
+    
+    func updatedCellData(newDetails: DetailsProviderProtocol, oldData: PageCellData) -> PageCellData {
+        return PageCellData(
+            id: oldData.id,
+            destinationId: oldData.destinationId,
+            icon: newDetails.documentIcon,
+            title: newDetails.name ?? "",
+            type: oldData.type,
+            isLoading: false
         )
     }
 }

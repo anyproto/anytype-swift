@@ -6,7 +6,7 @@ public enum BlockContent {
     case file(File)
     case divider(Divider)
     case bookmark(Bookmark)
-    case link(Link)
+    case link(BlockLink)
     case layout(Layout)
     
     public var type: BlockContentType {
@@ -319,36 +319,6 @@ public extension BlockContent.Bookmark {
     }
 }
 
-// MARK: ContentType / Link
-public extension BlockContent {
-    struct Link {
-        public var targetBlockID: String
-        public var style: Style
-        public var fields: [String: AnyHashable]
-        
-        // MARK: Designed initializer
-        public init(style: Style) {
-            self.init(targetBlockID: "", style: style, fields: [:])
-        }
-        
-        // MARK: - Memberwise initializer
-        public init(targetBlockID: String, style: Style, fields: [String : AnyHashable]) {
-            self.targetBlockID = targetBlockID
-            self.style = style
-            self.fields = fields
-        }
-    }
-}
-
-// MARK: ContentType / Link / Style
-public extension BlockContent.Link {
-    enum Style {
-        case page
-        case dataview
-        case archive
-    }
-}
-
 // MARK: ContentType / Layout
 public extension BlockContent {
     struct Layout {
@@ -378,5 +348,4 @@ extension BlockContent.File: Hashable {}
 extension BlockContent.File.Metadata: Hashable {}
 extension BlockContent.Divider: Hashable {}
 extension BlockContent.Bookmark: Hashable {}
-extension BlockContent.Link: Hashable {}
 extension BlockContent.Layout: Hashable {}

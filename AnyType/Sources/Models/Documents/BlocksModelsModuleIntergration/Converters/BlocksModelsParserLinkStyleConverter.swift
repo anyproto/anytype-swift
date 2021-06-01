@@ -3,10 +3,9 @@ import BlocksModels
 import ProtobufMessages
 
 final class BlocksModelsParserLinkStyleConverter {
-    typealias Model = BlockContent.Link.Style
     typealias MiddlewareModel = Anytype_Model_Block.Content.Link.Style
 
-    static func asModel(_ value: MiddlewareModel) -> Model? {
+    static func asModel(_ value: MiddlewareModel) -> BlockLink.Style? {
         switch value {
         case .page: return .page
         case .dataview: return .dataview
@@ -16,7 +15,7 @@ final class BlocksModelsParserLinkStyleConverter {
         }
     }
     
-    static func asMiddleware(_ value: Model) -> MiddlewareModel? {
+    static func asMiddleware(_ value: BlockLink.Style) -> MiddlewareModel? {
         switch value {
         case .page: return .page
         case .dataview: return .dataview
