@@ -14,7 +14,7 @@ struct CodeBlockRestrictions: BlockRestrictions {
                 .list(.checkbox), .list(.bulleted), .list(.numbered), .list(.toggle),
                 .objects(.page)]
     }
-    var availableAlignments: [BlockInformation.Alignment] {
+    var availableAlignments: [BlockInformationAlignment] {
         []
     }
 

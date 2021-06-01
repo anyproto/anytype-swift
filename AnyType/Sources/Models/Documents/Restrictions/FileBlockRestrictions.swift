@@ -12,7 +12,7 @@ struct FileBlockRestrictions: BlockRestrictions {
     var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes] {
         []
     }
-    var availableAlignments: [BlockInformation.Alignment] {
+    var availableAlignments: [BlockInformationAlignment] {
         []
     }
 }

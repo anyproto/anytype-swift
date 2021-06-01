@@ -112,5 +112,5 @@ extension BlockActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
     func didChangePublisher() -> AnyPublisher<Void, Never> { self.blockModel.didChangePublisher() }
     func didChange() { self.blockModel.didChange() }
     
-    func didChangeInformationPublisher() -> AnyPublisher<BlockInformation.InformationModel, Never> { self.blockModel.didChangeInformationPublisher() }
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModel, Never> { self.blockModel.didChangeInformationPublisher() }
 }

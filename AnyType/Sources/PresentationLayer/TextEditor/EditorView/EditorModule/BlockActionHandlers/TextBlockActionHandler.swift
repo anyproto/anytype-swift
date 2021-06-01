@@ -61,7 +61,7 @@ final class TextBlockActionHandler {
                 switch keyAction {
                 case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
                     let id = block.blockId
-                    let (blockId, _) = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
+                    let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
                     let block = block.container?.choose(by: blockId)
                     let parentId = block?.blockId
 

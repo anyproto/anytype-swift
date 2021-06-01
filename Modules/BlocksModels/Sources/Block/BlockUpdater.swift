@@ -69,7 +69,7 @@ public class BlockUpdater {
     ///   - children: new associated keys of children that will be set to parent.
     ///   - parent: an associated key to parent entry.
     public func set(children: [BlockId], parent: BlockId) {
-        self.container.blocksContainer.replace(childrenIds: children, parentId: parent, shouldSkipGuardAgainstMissingIds: true)
+        container.blocksContainer.replace(childrenIds: children, parentId: parent, shouldSkipGuardAgainstMissingIds: true)
     }
 
     /// This is the only one valid way to update properties of entry.

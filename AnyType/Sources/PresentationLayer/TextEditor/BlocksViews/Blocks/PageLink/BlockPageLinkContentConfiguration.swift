@@ -9,10 +9,10 @@ struct BlockPageLinkContentConfiguration: UIContentConfiguration, Hashable {
         hasher.combine(self.information)
     }
     
-    var information: BlockInformation.InformationModel
+    var information: BlockInformationModel
     weak var contextMenuHolder: BlockPageLinkViewModel?
     
-    init?(_ information: BlockInformation.InformationModel) {
+    init?(_ information: BlockInformationModel) {
         switch information.content {
         case let .link(value) where value.style == .page:
             self.information = .init(information: information)

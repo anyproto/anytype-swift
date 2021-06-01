@@ -6,7 +6,7 @@ enum BlockAlignmentAction: CaseIterable {
     case center
     case left
     
-    var blockAlignment: BlockInformation.Alignment {
+    var blockAlignment: BlockInformationAlignment {
         switch self {
         case .left:
             return .left

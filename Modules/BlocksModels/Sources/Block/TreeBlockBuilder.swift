@@ -29,7 +29,7 @@ public struct TreeBlockBuilder {
     // Consider unsorted (not sorted topologically) blocks.
     // At the end we _may_ don't know if these blocks have correct indices or not.
     // For that case we _should_ rerun building indices in second time after we determine root.
-    private func fromList(information: [BlockInformation.InformationModel], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
+    private func fromList(information: [BlockInformationModel], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
         fromList(information.compactMap(self.builder.createBlockModel), isRoot: isRoot)
     }
 
@@ -67,7 +67,7 @@ public struct TreeBlockBuilder {
     ///   - information: block information model array from which we build tree
     ///   - rootId: block root id (target rootId)
     /// - Returns: Container that represents the tree of blocks
-    public func buildBlocksTree(from information: [BlockInformation.InformationModel], with rootId: BlockId) -> BlockContainerModelProtocol {
+    public func buildBlocksTree(from information: [BlockInformationModel], with rootId: BlockId) -> BlockContainerModelProtocol {
         fromList(information: information, isRoot: { $0.information.id == rootId })
     }
 }

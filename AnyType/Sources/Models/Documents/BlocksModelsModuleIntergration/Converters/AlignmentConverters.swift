@@ -6,7 +6,7 @@ import ProtobufMessages
 
 final class BlocksModelsParserCommonAlignmentConverter {
     typealias MiddlewareModel = Anytype_Model_Block.Align
-    static func asModel(_ value: MiddlewareModel) -> BlockInformation.Alignment? {
+    static func asModel(_ value: MiddlewareModel) -> BlockInformationAlignment? {
         switch value {
         case .left: return .left
         case .center: return .center
@@ -15,7 +15,7 @@ final class BlocksModelsParserCommonAlignmentConverter {
         }
     }
     
-    static func asMiddleware(_ value: BlockInformation.Alignment) -> MiddlewareModel? {
+    static func asMiddleware(_ value: BlockInformationAlignment) -> MiddlewareModel? {
         switch value {
         case .left: return .left
         case .center: return .center
@@ -28,7 +28,7 @@ final class BlocksModelsParserCommonAlignmentConverter {
 // Later it will be separated into textAlignment and contentMode.
 final class BlocksModelsParserCommonAlignmentUIKitConverter {
     typealias UIKitModel = NSTextAlignment
-    static func asModel(_ value: UIKitModel) -> BlockInformation.Alignment? {
+    static func asModel(_ value: UIKitModel) -> BlockInformationAlignment? {
         switch value {
         case .left: return .left
         case .center: return .center
@@ -37,7 +37,7 @@ final class BlocksModelsParserCommonAlignmentUIKitConverter {
         }
     }
     
-    static func asUIKitModel(_ value: BlockInformation.Alignment) -> UIKitModel? {
+    static func asUIKitModel(_ value: BlockInformationAlignment) -> UIKitModel? {
         switch value {
         case .left: return .left
         case .center: return .center

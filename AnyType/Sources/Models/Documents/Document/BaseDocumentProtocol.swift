@@ -274,7 +274,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         guard let unwrappedDetailsContent = detailsContent else { return nil }
         
-        let block = BlockInformation.DetailsAsBlockConverter(
+        let block = DetailsAsBlockConverter(
             blockId: rootId
         ).convertDetailsToBlock(unwrappedDetailsContent)
         

@@ -16,7 +16,7 @@ struct CodeBlockContentConfiguration {
     weak var viewModel: CodeBlockViewModel?
 
     /// Block information
-    var information: BlockInformation.InformationModel
+    var information: BlockInformationModel
     private(set) var isSelected: Bool = false
 
     init(_ blockViewModel: CodeBlockViewModel) {

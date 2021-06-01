@@ -15,7 +15,7 @@ struct HeaderBlockRestrictions: BlockRestrictions {
                 .objects(.page),
                 .other(.code)]
     }
-    var availableAlignments: [BlockInformation.Alignment] {
-        BlockInformation.Alignment.allCases
+    var availableAlignments: [BlockInformationAlignment] {
+        BlockInformationAlignment.allCases
     }
 }

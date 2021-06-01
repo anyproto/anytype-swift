@@ -18,7 +18,7 @@ extension BlocksViews.Unknown.Label {
 // MARK: - State Converter
 extension BlocksViews.Unknown.Label.ViewModel {
     enum ResourceConverter {
-        typealias Model = BlockInformation.InformationModel
+        typealias Model = BlockInformationModel
         typealias OurModel = Resource
         static func asModel(_ value: OurModel) -> Model? {
             return nil
@@ -61,7 +61,7 @@ extension BlocksViews.Unknown.Label.ViewModel {
             hasher.combine(self.information)
         }
         
-        var information: BlockInformation.InformationModel
+        var information: BlockInformationModel
         fileprivate weak var contextMenuHolder: BlocksViews.Unknown.Label.ViewModel?
         
         init(_ information: Information) {

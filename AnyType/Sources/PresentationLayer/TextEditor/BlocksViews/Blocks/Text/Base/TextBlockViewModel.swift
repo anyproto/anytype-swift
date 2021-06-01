@@ -255,7 +255,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
 extension TextBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
         guard case let .text(text) = information.content else {
-            return "id: \(blockId) text block with wrong content type!!! See BlockInformation.InformationModel"
+            return "id: \(blockId) text block with wrong content type!!! See BlockInformationModel"
         }
         return "id: \(blockId)\ntext: \(text.attributedText.string.prefix(20))...\ntype: \(text.contentType)"
     }

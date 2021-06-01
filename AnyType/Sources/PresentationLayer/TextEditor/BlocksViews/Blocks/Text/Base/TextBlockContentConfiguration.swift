@@ -17,7 +17,7 @@ struct TextBlockContentConfiguration {
     private(set) var toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var viewModel: TextBlockViewModel
-    private(set) var information: BlockInformation.InformationModel
+    private(set) var information: BlockInformationModel
     private(set) var isSelected: Bool = false
 
     /// text block view model

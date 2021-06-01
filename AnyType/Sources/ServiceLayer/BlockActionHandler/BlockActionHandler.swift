@@ -27,7 +27,7 @@ extension BlockActionHandler {
         case setTextColor(UIColor)
         case setBackgroundColor(UIColor)
         case toggleFontStyle(TextAttributesType)
-        case setAlignment(BlockInformation.Alignment)
+        case setAlignment(BlockInformationAlignment)
         case setLink(String)
     }
 }
@@ -80,7 +80,7 @@ class BlockActionHandler {
 }
 
 private extension BlockActionHandler {
-    func setBlockColor(block: BlockInformation.InformationModel, color: UIColor, completion: @escaping Completion) {
+    func setBlockColor(block: BlockInformationModel, color: UIColor, completion: @escaping Completion) {
         // Important: we don't send command if color is wrong
         guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(color, background: false) else {
             assertionFailure("Wrong UIColor for setBlockColor command")
@@ -96,8 +96,8 @@ private extension BlockActionHandler {
             .store(in: &self.subscriptions)
     }
 
-    func setAlignment(block: BlockInformation.InformationModel,
-                      alignment: BlockInformation.Alignment,
+    func setAlignment(block: BlockInformationModel,
+                      alignment: BlockInformationAlignment,
                       completion: @escaping Completion) {
         let blockIds = [block.id]
 

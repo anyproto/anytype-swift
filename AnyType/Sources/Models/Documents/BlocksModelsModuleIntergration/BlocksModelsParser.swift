@@ -6,12 +6,12 @@ import ProtobufMessages
 
 
 final class BlocksModelsParser {
-    typealias Information = BlockInformation.InformationModel
+    typealias Information = BlockInformationModel
     typealias Model = BlockModelProtocol
     
     struct PageEvent {
         var rootId: String
-        var blocks: [BlockInformation.InformationModel] = []
+        var blocks: [BlockInformationModel] = []
         var details: [DetailsProviderProtocol] = []
         static func empty() -> Self { .init(rootId: "") }
     }

@@ -6,7 +6,7 @@ import UIKit
 protocol BlockActionsServiceListProtocol {
     typealias DividerStyle = BlockContent.Divider.Style
     typealias TextStyle = BlockContent.Text.ContentType
-    typealias Alignment = BlockInformation.Alignment
+    typealias Alignment = BlockInformationAlignment
     typealias Field = String
     
     func delete(blockIds: [String]) -> AnyPublisher<ServiceSuccess, Error>

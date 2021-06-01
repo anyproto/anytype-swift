@@ -14,7 +14,6 @@ class EventHandler: EventHandlerProtocol {
     
     private weak var container: ContainerModelProtocol?
     
-    private var updater: BlockUpdater?
     private var innerConverter: InnerEventConverter?
     private var ourConverter: OurEventConverter?
     
@@ -50,9 +49,8 @@ class EventHandler: EventHandlerProtocol {
 
     // MARK: Configurations
     func configured(_ container: ContainerModelProtocol) {
-        self.updater = BlockUpdater(container)
         self.container = container
-        self.innerConverter = InnerEventConverter(parser: self.parser, updater: self.updater, container: self.container)
+        self.innerConverter = InnerEventConverter(parser: self.parser, updater: BlockUpdater(container), container: self.container)
         self.ourConverter = OurEventConverter(container: self.container)
     }
 }

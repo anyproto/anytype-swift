@@ -2,13 +2,13 @@ import ProtobufMessages
 import BlocksModels
 
 final class InnerEventConverter {
-    private var updater: BlockUpdater?
+    private let updater: BlockUpdater
     private weak var container: ContainerModelProtocol?
     
     private let parser: BlocksModelsParser
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(parser: BlocksModelsParser, updater: BlockUpdater?, container: ContainerModelProtocol?) {
+    init(parser: BlocksModelsParser, updater: BlockUpdater, container: ContainerModelProtocol?) {
         self.parser = parser
         self.updater = updater
         self.container = container
@@ -19,7 +19,7 @@ final class InnerEventConverter {
 
         switch event {
         case let .blockSetFields(fields):
-            updater?.update(entry: fields.id) { block in
+            updater.update(entry: fields.id) { block in
                 var block = block
 
                 block.information.fields = fields.fields.toFieldTypeMap()
@@ -32,7 +32,7 @@ final class InnerEventConverter {
                 .map(TopLevelBuilder.blockBuilder.informationBuilder.build(information:))
                 .map(TopLevelBuilder.blockBuilder.createBlockModel)
                 .forEach { (value) in
-                    self.updater?.insert(block: value)
+                    updater.insert(block: value)
                 }
             // Because blockAdd message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
@@ -40,14 +40,14 @@ final class InnerEventConverter {
         
         case let .blockDelete(value):
             value.blockIds.forEach({ (value) in
-                self.updater?.delete(at: value)
+                updater.delete(at: value)
             })
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
         
         case let .blockSetChildrenIds(value):
-            updater?.set(children: value.childrenIds, parent: value.id)
+            updater.set(children: value.childrenIds, parent: value.id)
             return .general
         case let .blockSetText(value):
             let blockId = value.id
@@ -116,7 +116,7 @@ final class InnerEventConverter {
             let blockId = value.id
             let backgroundColor = value.backgroundColor
             
-            self.updater?.update(entry: blockId, update: { (value) in
+            updater.update(entry: blockId, update: { (value) in
                 var value = value
                 value.information.backgroundColor = backgroundColor
             })
@@ -130,7 +130,7 @@ final class InnerEventConverter {
                 return .general
             }
             
-            self.updater?.update(entry: blockId, update: { (value) in
+            updater.update(entry: blockId, update: { (value) in
                 var value = value
                 value.information.alignment = modelAlignment
             })
@@ -207,7 +207,7 @@ final class InnerEventConverter {
             
             let blockId = value.id
             let newUpdate = value
-            self.updater?.update(entry: blockId, update: { (value) in
+            updater.update(entry: blockId, update: { (value) in
                 var block = value
                 switch value.information.content {
                 case let .file(value):
@@ -251,7 +251,7 @@ final class InnerEventConverter {
             let blockId = value.id
             let newUpdate = value
             
-            self.updater?.update(entry: blockId, update: { (value) in
+            updater.update(entry: blockId, update: { (value) in
                 var block = value
                 switch value.information.content {
                 case let .bookmark(value):
@@ -298,7 +298,7 @@ final class InnerEventConverter {
             let blockId = value.id
             let newUpdate = value
             
-            self.updater?.update(entry: blockId, update: { (value) in
+            updater.update(entry: blockId, update: { (value) in
                 var block = value
                 switch value.information.content {
                 case let .divider(value):

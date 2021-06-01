@@ -5,7 +5,7 @@ public protocol BlockBuilderProtocol {
     func build(list: [BlockModelProtocol]) -> BlockContainerModelProtocol
     func buildTree(container: BlockContainerModelProtocol, rootId: String?)
     func emptyContainer() -> BlockContainerModelProtocol
-    func createBlockModel(with information: BlockInformation.InformationModel) -> BlockModelProtocol
+    func createBlockModel(with information: BlockInformationModel) -> BlockModelProtocol
     var informationBuilder: BlockInformationBuilderProtocol {get}
 }
 
@@ -40,7 +40,7 @@ class BlockBuilder: BlockBuilderProtocol {
         }
     }
     
-    func createBlockModel(with information: BlockInformation.InformationModel) -> BlockModelProtocol {
+    func createBlockModel(with information: BlockInformationModel) -> BlockModelProtocol {
         BlockModel(information: information)
     }
     

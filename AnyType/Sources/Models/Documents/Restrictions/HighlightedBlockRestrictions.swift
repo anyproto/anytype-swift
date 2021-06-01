@@ -15,7 +15,7 @@ struct HighlightedBlockRestrictions: BlockRestrictions {
                 .objects(.page),
                 .other(.code)]
     }
-    var availableAlignments: [BlockInformation.Alignment] {
+    var availableAlignments: [BlockInformationAlignment] {
         [.left, .right]
     }
 }
