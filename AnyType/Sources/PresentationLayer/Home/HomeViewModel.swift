@@ -18,12 +18,12 @@ final class HomeViewModel: ObservableObject {
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
-    private(set) lazy var blocksConverter = CompoundViewModelConverter(document: document)
     
     private var subscriptions = [AnyCancellable]()
     private var newPageSubscription: AnyCancellable?
             
     let document: BaseDocumentProtocol = BaseDocument()
+    private lazy var cellDataBuilder = HomveViewCellDataBuilder(document: document)
     
     init() {
         fetchDashboardData()
@@ -71,9 +71,31 @@ final class HomeViewModel: ObservableObject {
     
     private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
         document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
-            self?.onDashboardUpdate(updateResult)
+            self?.onDashboardChange(updateResult: updateResult)
         }.store(in: &self.subscriptions)
         
         document.open(serviceSuccess)
+    }
+    
+    private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
+        switch updateResult.updates {
+        case .general:
+            self.cellData = self.cellDataBuilder.buldCellData(updateResult)
+        case .update(let payload):
+            payload.updatedIds.forEach { updateCellWithTargetId($0) }
+        }
+    }
+    
+    private func updateCellWithTargetId(_ blockId: BlockId) {
+        guard let newDetails = document.getDetails(by: blockId)?.currentDetails else {
+            assertionFailure("Could not find object with id: \(blockId)")
+            return
+        }
+
+        cellData.enumerated()
+            .first { $0.element.destinationId == blockId }
+            .flatMap { offset, data in
+                cellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+            }
     }
 }

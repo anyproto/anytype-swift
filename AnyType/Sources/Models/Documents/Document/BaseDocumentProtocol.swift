@@ -13,7 +13,7 @@ protocol BaseDocumentProtocol: AnyObject {
     func open(_ value: ServiceSuccess)
     func handle(events: PackOfEvents)
     /// Return publisher that received event on blocks update
-    var updateBlockModelPublisher: AnyPublisher<BaseDocument.UpdateResult, Never> { get }
+    var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> { get }
     
     func getDetails(by id: ParentId) -> DetailsActiveModel?
 }
@@ -22,11 +22,9 @@ private extension LoggerCategory {
     static let baseDocument: Self = "BaseDocument"
 }
 
-extension BaseDocument {
-    struct UpdateResult {
-        var updates: EventHandlerUpdate
-        var models: [BlockActiveRecordModelProtocol]
-    }
+struct BaseDocumentUpdateResult {
+    var updates: EventHandlerUpdate
+    var models: [BlockActiveRecordModelProtocol]
 }
 
 final class BaseDocument: BaseDocumentProtocol {
@@ -85,7 +83,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - BaseDocumentProtocol
 
-    var updateBlockModelPublisher: AnyPublisher<UpdateResult, Never> {
+    var updateBlockModelPublisher: AnyPublisher<BaseDocumentUpdateResult, Never> {
         self.updatesPublisher().filter(\.hasUpdate)
             .map { [weak self] updates in
                 if let rootId = self?.rootId,
@@ -93,7 +91,7 @@ final class BaseDocument: BaseDocumentProtocol {
                    let rootModel = container.blocksContainer.choose(by: rootId) {
                     BlockFlattener.flattenIds(root: rootModel, in: container, options: .default)
                 }
-                return UpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
+                return BaseDocumentUpdateResult(updates: updates, models: self?.models(from: updates) ?? [])
             }.eraseToAnyPublisher()
     }
 

@@ -28,7 +28,7 @@ extension BlockActiveRecord: ObservableObject, BlockActiveRecordModelProtocol {
         self._nestedModel
     }
     
-    static var defaultIndentationLevel: Int { -1 }
+    static let defaultIndentationLevel = -1
     var indentationLevel: Int {
         if self.isRoot {
             return Self.defaultIndentationLevel

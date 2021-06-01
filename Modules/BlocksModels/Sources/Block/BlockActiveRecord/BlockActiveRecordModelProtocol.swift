@@ -5,7 +5,6 @@ public protocol BlockActiveRecordModelProtocol: BlockHasDidChangePublisherProtoc
     var container: BlockContainerModelProtocol? {get}
     var blockModel: BlockModelProtocol {get}
 
-    static var defaultIndentationLevel: Int {get}
     var indentationLevel: Int {get}
 
     var isRoot: Bool {get}

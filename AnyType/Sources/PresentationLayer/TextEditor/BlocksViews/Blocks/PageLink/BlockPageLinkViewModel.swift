@@ -22,13 +22,45 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
-    init(_ block: BlockActiveRecordModelProtocol, targetBlockId: String, router: EditorRouterProtocol?) {
+    init(
+        _ block: BlockActiveRecordModelProtocol,
+        targetBlockId: String,
+        publisher: AnyPublisher<DetailsProviderProtocol, Never>?,
+        router: EditorRouterProtocol?
+    ) {
         self.targetBlockId = targetBlockId
         self.router = router
-
+        
         super.init(block)
 
-        self.setup(block: block)
+        setup(block: block)
+        setupSubscriptions(publisher)
+    }
+    
+    /// NOTES by Dima Lobanov:
+    /// Look at this method carefully.
+    /// We have to pass publisher for `self.wholeDetailsViewModel`.
+    /// Why so?
+    ///
+    /// Short story: Link should listen their own Details publisher.
+    ///
+    /// Long story:
+    /// `BlockShow` will send details for open page with title and with icon.
+    /// These details are shown on page itself.
+    ///
+    /// But it also contains `details` for all `links` that this page `contains`.
+    ///
+    /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
+    ///
+    private func setupSubscriptions(_ publisher: AnyPublisher<DetailsProviderProtocol, Never>?) {
+        guard let publisher = publisher else {
+            return
+        }
+        
+        wholeDetailsViewModel.configured(publisher: publisher)
+        wholeDetailsViewModel.wholeDetailsPublisher.map(BlockPageLinkState.Converter.asOurModel).sink { [weak self] (value) in
+            self?.state = value
+        }.store(in: &subscriptions)
     }
     
     private func setup(block: BlockActiveRecordModelProtocol) {
@@ -82,31 +114,5 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
 extension BlockPageLinkViewModel {
     func applyOnUIView(_ view: BlockPageLinkUIKitView) {
         _ = view.configured(stateStream: self.statePublisher).configured(state: self._state)
-    }
-}
-
-// MARK: - Configurations
-extension BlockPageLinkViewModel {
-    /// NOTES:
-    /// Look at this method carefully.
-    /// We have to pass publisher for `self.wholeDetailsViewModel`.
-    /// Why so?
-    ///
-    /// Short story: Link should listen their own Details publisher.
-    ///
-    /// Long story:
-    /// `BlockShow` will send details for open page with title and with icon.
-    /// These details are shown on page itself.
-    ///
-    /// But it also contains `details` for all `links` that this page `contains`.
-    ///
-    /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
-    ///
-    func configured(_ publisher: AnyPublisher<DetailsProviderProtocol, Never>) -> Self {
-        self.wholeDetailsViewModel.configured(publisher: publisher)
-        self.wholeDetailsViewModel.wholeDetailsPublisher.map(BlockPageLinkState.Converter.asOurModel).sink { [weak self] (value) in
-            self?.state = value
-        }.store(in: &self.subscriptions)
-        return self
     }
 }
