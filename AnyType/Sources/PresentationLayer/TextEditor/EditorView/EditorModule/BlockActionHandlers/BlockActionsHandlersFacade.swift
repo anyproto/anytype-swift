@@ -216,7 +216,7 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
 /// This class should be moved to Middleware.
 /// We don't care about business logic on THIS level.
 struct BlockBuilder {
-    typealias Information = BlockInformationModel
+    typealias Information = BlockInformation
     typealias KeyboardAction = BlockTextView.UserAction.KeyboardAction
 
     static func newBlockId() -> BlockId { "" }

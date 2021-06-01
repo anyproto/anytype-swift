@@ -80,7 +80,7 @@ class BlockActionHandler {
 }
 
 private extension BlockActionHandler {
-    func setBlockColor(block: BlockInformationModel, color: UIColor, completion: @escaping Completion) {
+    func setBlockColor(block: BlockInformation, color: UIColor, completion: @escaping Completion) {
         // Important: we don't send command if color is wrong
         guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(color, background: false) else {
             assertionFailure("Wrong UIColor for setBlockColor command")
@@ -96,7 +96,7 @@ private extension BlockActionHandler {
             .store(in: &self.subscriptions)
     }
 
-    func setAlignment(block: BlockInformationModel,
+    func setAlignment(block: BlockInformation,
                       alignment: BlockInformationAlignment,
                       completion: @escaping Completion) {
         let blockIds = [block.id]

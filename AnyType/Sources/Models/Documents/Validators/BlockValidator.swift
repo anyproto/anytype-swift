@@ -9,7 +9,7 @@ struct BlockValidator {
         self.restrictionsFactory = restrictionsFactory
     }
     
-    func validate(information: inout BlockInformationModel) {
+    func validate(information: inout BlockInformation) {
         let restrictions = self.restrictionsFactory.makeRestrictions(for: information.content)
         if case let .text(text) = information.content {
             information.content = .text(self.validatedTextContent(content: text,

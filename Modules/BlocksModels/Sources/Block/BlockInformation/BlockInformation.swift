@@ -4,7 +4,7 @@ public enum BlockInformationAlignment: CaseIterable, Hashable {
     case left, center, right
 }
 
-public struct BlockInformationModel: Hashable {
+public struct BlockInformation: Hashable {
     public typealias ChildrenIds = [BlockId]
 
     public var id: BlockId
@@ -39,7 +39,4 @@ public struct BlockInformationModel: Hashable {
     private static let `defaultId`: BlockId = "DefaultIdentifier"
     private static let `defaultBlockType`: BlockContent = .text(.createDefault(text: "DefaultText"))
     private static let `default`: Self = .init(id: Self.defaultId, content: Self.defaultBlockType)
-}
-
-public enum BlockInformation {
 }

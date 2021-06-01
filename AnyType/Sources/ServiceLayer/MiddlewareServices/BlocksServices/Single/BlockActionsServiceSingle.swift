@@ -33,7 +33,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    func add(contextID: BlockId, targetID: BlockId, block: BlockInformationModel, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
+    func add(contextID: BlockId, targetID: BlockId, block: BlockInformation, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
         guard let blockInformation = self.parser.convert(information: block) else {
             return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
         }
@@ -52,7 +52,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     /// TODO: Remove it or implement it.
     /// Unused.
 
-    func replace(contextID: BlockId, blockID: BlockId, block: BlockInformationModel) -> AnyPublisher<ServiceSuccess, Error> {
+    func replace(contextID: BlockId, blockID: BlockId, block: BlockInformation) -> AnyPublisher<ServiceSuccess, Error> {
         assertionFailure("method is not implemented")
         return .empty()
     }

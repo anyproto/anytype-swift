@@ -3,7 +3,7 @@ import Combine
 import os
 
 final class BlockModel: ObservableObject {
-    @Published private var _information: BlockInformationModel
+    @Published private var _information: BlockInformation
     private var _parent: BlockId?
     private var _kind: BlockKind {
         switch self._information.content {
@@ -16,14 +16,14 @@ final class BlockModel: ObservableObject {
     private var _didChangeSubject: PassthroughSubject<Void, Never> = .init()
     private var _didChangePublisher: AnyPublisher<Void, Never>
 
-    required init(information: BlockInformationModel) {
+    required init(information: BlockInformation) {
         self._information = information
         self._didChangePublisher = self._didChangeSubject.eraseToAnyPublisher()
     }
 }
 
 extension BlockModel: BlockModelProtocol {
-    var information: BlockInformationModel {
+    var information: BlockInformation {
         get { self._information }
         set { self._information = newValue }
     }
@@ -38,7 +38,7 @@ extension BlockModel: BlockModelProtocol {
     func didChangePublisher() -> AnyPublisher<Void, Never> { self._didChangePublisher }
     func didChange() { self._didChangeSubject.send() }
     
-    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModel, Never> {
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformation, Never> {
         self.$_information.eraseToAnyPublisher()
     }
 }

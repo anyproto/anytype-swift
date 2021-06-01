@@ -2,15 +2,15 @@ import Foundation
 
 
 public protocol BlockInformationBuilderProtocol {
-    func build(id: BlockId, content: BlockContent) -> BlockInformationModel
-    func build(information: BlockInformationModel) -> BlockInformationModel
+    func build(id: BlockId, content: BlockContent) -> BlockInformation
+    func build(information: BlockInformation) -> BlockInformation
 }
 
 class BlockInformationBuilder: BlockInformationBuilderProtocol {
-    func build(id: BlockId, content: BlockContent) -> BlockInformationModel {
-        BlockInformationModel(id: id, content: content)
+    func build(id: BlockId, content: BlockContent) -> BlockInformation {
+        BlockInformation(id: id, content: content)
     }
-    func build(information: BlockInformationModel) -> BlockInformationModel {
-        BlockInformationModel.init(information: information)
+    func build(information: BlockInformation) -> BlockInformation {
+        BlockInformation.init(information: information)
     }
 }

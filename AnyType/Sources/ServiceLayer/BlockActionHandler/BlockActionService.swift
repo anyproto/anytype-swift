@@ -43,7 +43,7 @@ extension BlockActionService {
 /// Next, this response would be proceed by event handler.
 final class BlockActionService {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-    typealias Information = BlockInformationModel
+    typealias Information = BlockInformation
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     typealias BlockContentTypeText = BlockContent.Text.ContentType
 

@@ -6,12 +6,9 @@ import ProtobufMessages
 
 
 final class BlocksModelsParser {
-    typealias Information = BlockInformationModel
-    typealias Model = BlockModelProtocol
-    
     struct PageEvent {
         var rootId: String
-        var blocks: [BlockInformationModel] = []
+        var blocks: [BlockInformation] = []
         var details: [DetailsProviderProtocol] = []
         static func empty() -> Self { .init(rootId: "") }
     }
@@ -20,7 +17,7 @@ final class BlocksModelsParser {
     /// We should provide operations in Updater which rely on block.id.
     /// This allows us to build a tree and later insert subtree in our tree.
     ///
-    func parse(blocks: [Anytype_Model_Block]) -> [Information] {
+    func parse(blocks: [Anytype_Model_Block]) -> [BlockInformation] {
         // parse into middleware block information model.
         blocks.compactMap(self.convert(block:))
     }
@@ -49,7 +46,7 @@ final class BlocksModelsParser {
         let parsedBlocks = self.parse(blocks: blocks)
         
         let parsedDetails = details.map { (value) -> DetailsProviderProtocol in
-            let corrected = Converters.EventDetailsAndSetDetailsConverter.convert(event: value)
+            let corrected = EventDetailsAndSetDetailsConverter.convert(event: value)
             let contentList = Details.Converter.asModel(details: corrected)
             var result = DetailsBuilder.detailsProviderBuilder.filled(with: contentList)
             result.parentId = value.id
@@ -68,8 +65,8 @@ final class BlocksModelsParser {
     /// Converting Middleware model -> Our model
     ///
     /// - Parameter block: Middleware model
-    func convert(block: Anytype_Model_Block) -> Information? {
-        guard let content = block.content, let converter = Converters.convert(middleware: content) else { return nil }
+    func convert(block: Anytype_Model_Block) -> BlockInformation? {
+        guard let content = block.content, let converter = BlocksModelsConverter.convert(middleware: content) else { return nil }
         guard let blockType = converter.blockType(content) else { return nil }
         
         var information = TopLevelBuilder.blockBuilder.informationBuilder.build(id: block.id, content: blockType)
@@ -89,9 +86,9 @@ final class BlocksModelsParser {
     /// Converting Our model -> Middleware model
     ///
     /// - Parameter information: Our model
-    func convert(information: Information) -> Anytype_Model_Block? {
+    func convert(information: BlockInformation) -> Anytype_Model_Block? {
         let blockType = information.content
-        guard let converter = Converters.convert(block: blockType) else { return nil }
+        guard let converter = BlocksModelsConverter.convert(block: blockType) else { return nil }
         guard let content = converter.middleware(blockType) else { return nil }
 
         let id = information.id
@@ -113,13 +110,13 @@ final class BlocksModelsParser {
     /// - Parameter middlewareContent: Middleware Content
     /// - Returns: Our content
     func convert(middlewareContent: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
-        Converters.convert(middleware: middlewareContent)?.blockType(middlewareContent)
+        BlocksModelsConverter.convert(middleware: middlewareContent)?.blockType(middlewareContent)
     }
     
     /// Converting Our Content -> Middleware Content
     /// - Parameter content: Our content
     /// - Returns: Middleware Content
     func convert(content: BlockContent) -> Anytype_Model_Block.OneOf_Content? {
-        Converters.convert(block: content)?.middleware(content)
+        BlocksModelsConverter.convert(block: content)?.middleware(content)
     }
 }

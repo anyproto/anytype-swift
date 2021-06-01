@@ -1,27 +1,12 @@
 import ProtobufMessages
 import BlocksModels
 
-extension BlocksModelsParser {
-    enum PublicConverters {
-        enum EventsDetails {
-            static func convert(event: Anytype_Event.Object.Details.Set) -> [Anytype_Rpc.Block.Set.Details.Detail] {
-                Converters.EventDetailsAndSetDetailsConverter.convert(event: event)
-            }
-        }
-    }
+protocol BlocksModelsBaseContentConverter {
+    func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent?
+    func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content?
 }
 
-extension BlocksModelsParser {
-    enum Converters {
-        class BaseContentConverter {
-            open func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? { nil }
-            open func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? { nil }
-        }
-    }
-}
-
-// MARK: - Converters / Common
-extension BlocksModelsParser.Converters {
+enum BlocksModelsConverter {
     /// It is a Converters Factory, actually.
     private static var contentObjectAsEmptyPage: ContentObjectAsEmptyPage = .init()
     private static var contentLink: ContentLink = .init()
@@ -30,8 +15,8 @@ extension BlocksModelsParser.Converters {
     private static var contentBookmark: ContentBookmark = .init()
     private static var contentDivider: ContentDivider = .init()
     private static var contentLayout: ContentLayout = .init()
-    
-    static func convert(middleware: Anytype_Model_Block.OneOf_Content?) -> BaseContentConverter? {
+
+    static func convert(middleware: Anytype_Model_Block.OneOf_Content?) -> BlocksModelsBaseContentConverter? {
         switch middleware {
         case .smartblock: return self.contentObjectAsEmptyPage
         case .link: return self.contentLink
@@ -44,7 +29,7 @@ extension BlocksModelsParser.Converters {
         }
     }
 
-    static func convert(block: BlockContent?) -> BaseContentConverter? {
+    static func convert(block: BlockContent?) -> BlocksModelsBaseContentConverter? {
         switch block {
         case .smartblock: return self.contentObjectAsEmptyPage
         case .link: return self.contentLink

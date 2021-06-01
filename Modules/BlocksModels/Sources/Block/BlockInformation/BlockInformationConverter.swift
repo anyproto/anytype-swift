@@ -1,10 +1,7 @@
 /// What happens here?
 /// We convert details ( PageDetails ) to ready-to-use information.
 struct DetailsAsInformationConverter {
-    
-    var blockId: BlockId
-
-    private func detailsAsInformation(_ blockId: BlockId, _ details: DetailsEntry<AnyHashable>) -> BlockInformationModel {
+    static func convert(blockId: BlockId, details: DetailsEntry<AnyHashable>) -> BlockInformation {
         /// Our ID is <ID>/<Details.key>.
         /// Look at implementation in `IdentifierBuilder`
         
@@ -13,11 +10,7 @@ struct DetailsAsInformationConverter {
         /// Actually, we don't care about block type.
         /// We only take care about "distinct" block model.
         let content: BlockContent = .text(.empty())
-        return BlockInformationModel(id: id, content: content)
-    }
-
-    func callAsFunction(_ details: DetailsEntry<AnyHashable>) -> BlockInformationModel {
-        detailsAsInformation(self.blockId, details)
+        return BlockInformation(id: id, content: content)
     }
 }
 
@@ -44,7 +37,7 @@ public struct DetailsAsBlockConverter {
     
     public func convertDetailsToBlock(_ details: DetailsEntry<AnyHashable>) -> BlockModelProtocol {
         TopLevelBuilder.blockBuilder.createBlockModel(
-            with: DetailsAsInformationConverter(blockId: self.blockId)(details)
+            with: DetailsAsInformationConverter.convert(blockId: self.blockId, details: details)
         )
     }
     

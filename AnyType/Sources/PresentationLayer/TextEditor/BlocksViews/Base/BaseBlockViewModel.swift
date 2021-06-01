@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 
 class BaseBlockViewModel: ObservableObject {
-    typealias Information = BlockInformationModel
+    typealias Information = BlockInformation
 
     private enum Constants {
         static let maxIndentationLevel: Int = 4
@@ -167,7 +167,7 @@ class BaseBlockViewModel: ObservableObject {
     
     // MARK: - Subclass / Information
 
-    var information: BlockInformationModel { self.getBlock().blockModel.information }
+    var information: BlockInformation { self.getBlock().blockModel.information }
     
     // MARK: - Subclass / Diffable
 

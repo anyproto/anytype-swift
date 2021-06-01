@@ -173,7 +173,7 @@ final class InnerEventConverter {
             }
             let detailsId = value.id
             let details = value.details
-            let eventsDetails = BlocksModelsParser.PublicConverters.EventsDetails.convert(
+            let eventsDetails = EventDetailsAndSetDetailsConverter.convert(
                 event: Anytype_Event.Object.Details.Set(id: detailsId, details: details)
             )
             let detailsModels = BlocksModelsParser.Details.Converter.asModel(details: eventsDetails)

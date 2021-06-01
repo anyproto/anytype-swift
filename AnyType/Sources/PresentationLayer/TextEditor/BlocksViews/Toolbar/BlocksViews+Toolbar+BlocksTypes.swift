@@ -103,7 +103,6 @@ extension BlocksViews.Toolbar.BlocksTypes {
                 case .other: return UIColor.init(named: path + "Other") ?? .clear
                 }
             }
-//            func callAsFunction(_ type: BlocksTypes) -> UIColor { Self.color(for: type) }
         }
         struct Title {
             static func title(for type: BlocksTypes) -> String {
@@ -117,12 +116,10 @@ extension BlocksViews.Toolbar.BlocksTypes {
                 case .other: return "Other"
                 }
             }
-//            func callAsFunction(_ type: BlocksTypes) -> String { Self.title(for: type) }
         }
         struct Image {
             private static let imagesPrefix = "TextEditor/Toolbar/Blocks/New/NewTypes/"
             static func image(_ subpath: String) -> String { imagesPrefix + subpath }
-//            func callAsFunction(_ subpath: String) -> String { Self.image(subpath) }
         }
     }
 }

@@ -6,5 +6,5 @@ import Combine
 public protocol BlockHasDidChangePublisherProtocol {
     func didChangePublisher() -> AnyPublisher<Void, Never>
     func didChange()
-    func didChangeInformationPublisher() -> AnyPublisher<BlockInformationModel, Never>
+    func didChangeInformationPublisher() -> AnyPublisher<BlockInformation, Never>
 }

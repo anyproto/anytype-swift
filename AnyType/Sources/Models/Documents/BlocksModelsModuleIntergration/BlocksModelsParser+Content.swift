@@ -5,25 +5,15 @@ import BlocksModels
 import ProtobufMessages
 
 
-// MARK: Helper Converters / GoogleProtobufStructuresConverter
-extension BlocksModelsParser.Converters {
-    /// Convert (GoogleProtobufStruct) <-> (Dictionary<String, T>)
-    /// NOTE: You should define `T` generic parameter. `Any` type for that purpose is bad.
+/// Convert (GoogleProtobufStruct) <-> (Dictionary<String, T>)
+/// NOTE: You should define `T` generic parameter. `Any` type for that purpose is bad.
+///
+struct GoogleProtobufStructuresConverter {
+    /// NOTE: Don't delete this code.
+    /// You may need it.
+    /// Actually, we don't have now correct conversion from our structure to protobuf.
+    /// Look at `.structure` comments for details.
     ///
-    struct GoogleProtobufStructuresConverter {
-        /// THINK: Possible solution - Add converters as function structures.
-        struct AsStructure {
-            
-        }
-        struct AsDictionary {
-            
-        }
-
-        /// NOTE: Don't delete this code.
-        /// You may need it.
-        /// Actually, we don't have now correct conversion from our structure to protobuf.
-        /// Look at `.structure` comments for details.
-        ///
 //        enum AllowedType {
 //            case none
 //            case string(String)
@@ -31,54 +21,50 @@ extension BlocksModelsParser.Converters {
 //            case structure(AllowedType)
 //            case
 //        }
-        struct HashableConverter {
-            static func dictionary(_ from: Google_Protobuf_Struct) -> [String: AnyHashable] {
-                from.fields
-            }
-            static func structure(_ from: [String: Any]) -> Google_Protobuf_Struct {
-                return [:]
-            }
-        }
-        
-        static func dictionary(_ from: Google_Protobuf_Struct) -> [String: Any] {
+    struct HashableConverter {
+        static func dictionary(_ from: Google_Protobuf_Struct) -> [String: AnyHashable] {
             from.fields
         }
         static func structure(_ from: [String: Any]) -> Google_Protobuf_Struct {
-            /// NOTE: Not implemented.
-            /// Don't delete this code.
-            /// Read comments below.
-            ///
+            return [:]
+        }
+    }
+    
+    static func dictionary(_ from: Google_Protobuf_Struct) -> [String: Any] {
+        from.fields
+    }
+    static func structure(_ from: [String: Any]) -> Google_Protobuf_Struct {
+        /// NOTE: Not implemented.
+        /// Don't delete this code.
+        /// Read comments below.
+        ///
 //            let fields = from.compactMapValues({ (value) in
 //                Google_Protobuf_Any.init
 //                try? Google_Protobuf_Value.init(unpackingAny: value)
 //            })
-            /// HowTo:
-            /// We should use either our replica of GoogleProtobufStruct or we could use GoogleProtobufStruct directly.
-            /// Look at GoogleProtobufStruct.kind property type. It has indirect cases which are impossible to store without full support of same Struct type.
-            ///
-            assertionFailure("Do not forget to add conversion from our model to protobuf sutrcture: \(from)")
-            return [:]
-        }
+        /// HowTo:
+        /// We should use either our replica of GoogleProtobufStruct or we could use GoogleProtobufStruct directly.
+        /// Look at GoogleProtobufStruct.kind property type. It has indirect cases which are impossible to store without full support of same Struct type.
+        ///
+        assertionFailure("Do not forget to add conversion from our model to protobuf sutrcture: \(from)")
+        return [:]
     }
 }
 
-// MARK: Helper Converters / Details Converter
-extension BlocksModelsParser.Converters {
-    /// It seems that Middleware can't provide good model.
-    /// So, we need to convert this models by ourselves.
-    ///
-    struct EventDetailsAndSetDetailsConverter {
-        static func convert(event: Anytype_Event.Object.Details.Set) -> [Anytype_Rpc.Block.Set.Details.Detail] {
-            event.details.fields.map(Anytype_Rpc.Block.Set.Details.Detail.init(key:value:))
-        }
+/// It seems that Middleware can't provide good model.
+/// So, we need to convert this models by ourselves.
+///
+struct EventDetailsAndSetDetailsConverter {
+    static func convert(event: Anytype_Event.Object.Details.Set) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+        event.details.fields.map(Anytype_Rpc.Block.Set.Details.Detail.init(key:value:))
     }
 }
 
 /// TODO: Rethink parsing.
 /// We should process Smartblocks correctly.
 /// For now we are mapping them to our content type `.page` with style `.empty`
-extension BlocksModelsParser.Converters {
-    final class ContentObjectAsEmptyPage: BaseContentConverter {
+extension BlocksModelsConverter {
+    final class ContentObjectAsEmptyPage: BlocksModelsBaseContentConverter {
         func contentType(_ from: Anytype_Model_Block.Content.Smartblock) -> BlockContent.Smartblock.Style? {
             .page
         }
@@ -91,13 +77,13 @@ extension BlocksModelsParser.Converters {
             case .breadcrumbs: return .init()
             }
         }
-        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
             switch from {
             case let .smartblock(value): return self.contentType(value).flatMap({.smartblock(.init(style: $0))})
             default: return nil
             }
         }
-        override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
+        func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .smartblock(value): return self.style(value.style).flatMap(Anytype_Model_Block.OneOf_Content.smartblock)
             default: return nil
@@ -113,7 +99,7 @@ extension BlocksModelsParser.Converters {
 
 //// MARK: ContentPage
 //private extension BlockModels.Parser.Converters {
-//    class ContentPage: BaseContentConverter {
+//    class ContentPage: BlocksModelsBaseContentConverter {
 //        func contentType(_ from: Anytype_Model_Block.Content.Page.Style) -> BlockType.Page.Style? {
 //            switch from {
 //            case .empty: return .empty
@@ -130,13 +116,13 @@ extension BlocksModelsParser.Converters {
 //            case .set: return .set
 //            }
 //        }
-//        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
+//        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockType? {
 //            switch from {
 //            case let .page(value): return self.contentType(value.style).flatMap({BlockType.page(.init(style: $0))})
 //            default: return nil
 //            }
 //        }
-//        override func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
+//        func middleware(_ from: BlockType?) -> Anytype_Model_Block.OneOf_Content? {
 //            switch from {
 //            case let .page(value): return self.style(value.style).flatMap({.page(.init(style: $0))})
 //            default: return nil
@@ -146,10 +132,10 @@ extension BlocksModelsParser.Converters {
 //}
 
 // MARK: ContentLink
-extension BlocksModelsParser.Converters {
+extension BlocksModelsConverter {
     /// Convert (Anytype_Model_Block.OneOf_Content) <-> (BlockType) for contentType `.link(_)`.
-    class ContentLink: BaseContentConverter {
-        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+    class ContentLink: BlocksModelsBaseContentConverter {
+        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
             switch from {
             case let .link(value):
                 let fields = GoogleProtobufStructuresConverter.HashableConverter.dictionary(value.fields)
@@ -158,7 +144,7 @@ extension BlocksModelsParser.Converters {
             default: return nil
             }
         }
-        override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
+        func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .link(value):
                 let fields = GoogleProtobufStructuresConverter.structure(value.fields)
@@ -172,10 +158,10 @@ extension BlocksModelsParser.Converters {
 
 // MARK: - ContentText
 
-extension BlocksModelsParser.Converters {
-    class ContentText: BaseContentConverter {
+extension BlocksModelsConverter {
+    class ContentText: BlocksModelsBaseContentConverter {
         
-        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
             switch from {
             case let .text(value):
                 return BlocksModelsParserTextContentTypeConverter.asModel(value.style).flatMap {
@@ -194,7 +180,7 @@ extension BlocksModelsParser.Converters {
             }
         }
         
-        override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
+        func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .text(value):
                 let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(value.contentType)
@@ -215,9 +201,9 @@ extension BlocksModelsParser.Converters {
 }
 
 // MARK: ContentFile
-extension BlocksModelsParser.Converters {
-    class ContentFile: BaseContentConverter {
-        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+extension BlocksModelsConverter {
+    class ContentFile: BlocksModelsBaseContentConverter {
+        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
             switch from {
                 case let .file(value):
                     guard let state = BlocksModelsParserFileStateConverter.asModel(value.state) else { return nil }
@@ -237,7 +223,7 @@ extension BlocksModelsParser.Converters {
             }
         }
         
-        override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
+        func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
                 case let .file(value):
                     let metadata = value.metadata
@@ -261,9 +247,9 @@ extension BlocksModelsParser.Converters {
 }
 
 // MARK: ContentBookmark
-extension BlocksModelsParser.Converters {
-    class ContentBookmark: BaseContentConverter {
-        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+extension BlocksModelsConverter {
+    class ContentBookmark: BlocksModelsBaseContentConverter {
+        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
             switch from {
             case let .bookmark(value):
                 return BlocksModelsParserBookmarkTypeEnumConverter.asModel(value.type).flatMap(
@@ -273,7 +259,7 @@ extension BlocksModelsParser.Converters {
             }
         }
         
-        override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
+        func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .bookmark(value):
                 return BlocksModelsParserBookmarkTypeEnumConverter.asMiddleware(value.type).flatMap(
@@ -286,16 +272,16 @@ extension BlocksModelsParser.Converters {
 }
 
 // MARK: ContentDivider
-extension BlocksModelsParser.Converters {
-    class ContentDivider: BaseContentConverter {
-        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+extension BlocksModelsConverter {
+    class ContentDivider: BlocksModelsBaseContentConverter {
+        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
             switch from {
             case let .div(value): return BlocksModelsParserOtherDividerStyleConverter.asModel(value.style).flatMap({ .divider(.init(style: $0)) })
             default: return nil
             }
         }
         
-        override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
+        func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .divider(value): return BlocksModelsParserOtherDividerStyleConverter.asMiddleware(value.style).flatMap({ .div(.init(style: $0)) })
             default: return nil
@@ -305,9 +291,9 @@ extension BlocksModelsParser.Converters {
 }
 
 // MARK: ContentLayout
-extension BlocksModelsParser.Converters {
-    class ContentLayout: BaseContentConverter {        
-        override func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
+extension BlocksModelsConverter {
+    class ContentLayout: BlocksModelsBaseContentConverter {        
+        func blockType(_ from: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
             switch from {
             case let .layout(value):
                 return BlocksModelsParserLayoutStyleConverter.asModel(value.style).flatMap({ .layout(.init(style: $0)) })
@@ -315,7 +301,7 @@ extension BlocksModelsParser.Converters {
             }
         }
         
-        override func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
+        func middleware(_ from: BlockContent?) -> Anytype_Model_Block.OneOf_Content? {
             switch from {
             case let .layout(value):
                 return BlocksModelsParserLayoutStyleConverter.asMiddleware(value.style).flatMap({ .layout(.init(style: $0)) })
