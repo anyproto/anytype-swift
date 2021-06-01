@@ -44,7 +44,7 @@ extension Namespace {
                 
                 // Think what we should check...
                 // Empty URL?
-                if case let .bookmark(value) = self.getBlock().blockModel.information.content, !value.url.isEmpty {
+                if case let .bookmark(value) = self.getBlock().content, !value.url.isEmpty {
                     assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
                     return
                 }
@@ -57,7 +57,7 @@ extension Namespace {
             switch toolbarAction {
             case let .bookmark(.fetch(value)):
                 self.update { (block) in
-                    switch block.blockModel.information.content {
+                    switch block.content {
                     case let .bookmark(bookmark):
                         var bookmark = bookmark
                         bookmark.url = value.absoluteString
@@ -79,7 +79,7 @@ extension Namespace {
         ///
         override func makeDiffable() -> AnyHashable {
             let diffable = super.makeDiffable()
-            if case let .bookmark(value) = self.getBlock().blockModel.information.content {
+            if case let .bookmark(value) = self.getBlock().content {
                 let newDiffable: [String: AnyHashable] = [
                     "parent": diffable,
                     "bookmark": ["url": value.url, "title": value.title]

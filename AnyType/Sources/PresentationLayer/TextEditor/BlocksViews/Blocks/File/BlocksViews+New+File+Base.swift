@@ -32,7 +32,7 @@ extension Namespace {
         
         override func makeDiffable() -> AnyHashable {
             let diffable = super.makeDiffable()
-            if case let .file(value) = self.getBlock().blockModel.information.content {
+            if case let .file(value) = self.getBlock().content {
                 let newDiffable: [String: AnyHashable] = [
                     "parent": diffable,
                     "fileState": value.state
@@ -104,7 +104,7 @@ extension Namespace {
         }
         
         private func downloadFile() {
-            guard case let .file(file) = self.getBlock().blockModel.information.content else { return }
+            guard case let .file(file) = self.getBlock().content else { return }
             switch file.contentType {
             case .image:
                 return

@@ -77,7 +77,7 @@ private extension MarksPaneBlockActionHandler {
     }
 
     func handleFontAction(for block: BlockActiveRecordModelProtocol, range: NSRange, fontAction: MarksPane.Panes.StylePane.FontStyle.Action) {
-        guard case var .text(textContentType) = block.blockModel.information.content else { return }
+        guard case var .text(textContentType) = block.content else { return }
         var range = range
         var blockModel = block.blockModel
 

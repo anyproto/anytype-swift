@@ -453,7 +453,7 @@ extension BaseBlockViewModel: Identifiable {}
 /// Requirement: `BlockViewBuilderProtocol` is necessary for view model.
 /// We use these models in wrapped (Row contains viewModel) way in `UIKit`.
 extension BaseBlockViewModel {
-    var blockId: BlockId { self.getBlock().blockModel.information.id }
+    var blockId: BlockId { self.getBlock().blockId }
 }
 
 /// Requirement: `Blocks ViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.

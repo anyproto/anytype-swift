@@ -34,7 +34,7 @@ final class TextBlockActionHandler {
     }
 
     private func handlingInputAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockTextView.UserAction.InputAction) {
-        guard case var .text(textContentType) = block.blockModel.information.content else { return }
+        guard case var .text(textContentType) = block.content else { return }
         var blockModel = block.blockModel
 
         switch action {
@@ -57,13 +57,13 @@ final class TextBlockActionHandler {
     private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockTextView.UserAction.KeyboardAction) {
         switch action {
         case let .pressKey(keyAction):
-            if DetailsKind(rawValue: block.blockModel.information.id) == .name {
+            if DetailsKind(rawValue: block.blockId) == .name {
                 switch keyAction {
                 case .enterAtTheEndOfContent, .enterInsideContent, .enterOnEmptyContent:
-                    let id = block.blockModel.information.id
+                    let id = block.blockId
                     let (blockId, _) = BlockInformation.DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
                     let block = block.container?.choose(by: blockId)
-                    let parentId = block?.blockModel.information.id
+                    let parentId = block?.blockId
 
                     if let information = BlockBuilder.createDefaultInformation(), let parentId = parentId {
                         if block?.childrenIds().isEmpty == true {
@@ -84,7 +84,7 @@ final class TextBlockActionHandler {
             case let .enterInsideContent(left, payload):
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
                     if let oldText = left {
-                        guard case let .text(text) = block.blockModel.information.content else {
+                        guard case let .text(text) = block.content else {
                             assertionFailure("Only text block may send keyboard action")
                             return
                         }
@@ -94,7 +94,7 @@ final class TextBlockActionHandler {
                                            shouldSetFocusOnUpdate: true)
                     }
                     else {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
+                        self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: true)
                     }
                 }
 
@@ -106,21 +106,21 @@ final class TextBlockActionHandler {
                     return
                 }
                 if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: payload ?? "") {
-                    if !payload.isNil, case let .text(text) = block.blockModel.information.content {
+                    if !payload.isNil, case let .text(text) = block.content {
                         self.service.split(block: block.blockModel.information,
                                            oldText: "",
                                            newBlockContentType: text.contentType,
                                            shouldSetFocusOnUpdate: true)
                     }
                     else {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
+                        self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: true)
                     }
                 }
 
             case .enterAtTheEndOfContent:
                 // BUSINESS LOGIC:
                 // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
-                switch block.blockModel.information.content {
+                switch block.content {
                 case let .text(value) where value.contentType.isList && value.attributedText.string == "":
                     // Turn Into empty text block.
                     if let newContentType = BlockBuilder.createContentType(block: block, action: action, textPayload: value.attributedText.string) {
@@ -131,10 +131,10 @@ final class TextBlockActionHandler {
                     if let newBlock = BlockBuilder.createInformation(block: block, action: action, textPayload: "") {
                         /// TODO:
                         /// Uncomment when you are ready.
-                        //                        self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: true)
+                        //                        self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: true)
                         // "We should not use self.service.split here. Instead, we should self.service.add block. It is possible to swap them only after set focus total cleanup. Redo it."
 
-                        switch block.blockModel.information.content {
+                        switch block.content {
                         case let .text(payload):
                             let isListAndNotToggle = payload.contentType.isListAndNotToggle
                             let isToggleAndOpen = payload.contentType == .toggle && block.isToggled
@@ -145,7 +145,7 @@ final class TextBlockActionHandler {
                             switch (childrenIds.isEmpty, isToggleAndOpen, isListAndNotToggle) {
                             case (true, true, _):
                                 self.service.addChild(childBlock: newBlock,
-                                                      parentBlockId: block.blockModel.information.id)
+                                                      parentBlockId: block.blockId)
                             case (false, true, _), (false, _, true):
                                 let firstChildId = childrenIds[0]
                                 self.service.add(newBlock: newBlock,
@@ -172,14 +172,14 @@ final class TextBlockActionHandler {
                 guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                     assertionFailure("""
                         We can't find previous block to focus on at command .deleteWithPayload
-                        Block: \(block.blockModel.information.id)
+                        Block: \(block.blockId)
                         Moving to .delete command.
                         """
                     )
                     self.handlingKeyboardAction(block, .pressKey(.deleteOnEmptyContent))
                     return
                 }
-                let previousBlockId = previousModel.blockModel.information.id
+                let previousBlockId = previousModel.blockId
 
                 self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
                     .init(contextId: value.contextID, events: value.messages, ourEvents: [
@@ -193,11 +193,11 @@ final class TextBlockActionHandler {
                 self.service.delete(block: block.blockModel.information) { value in
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                         assertionFailure(
-                            "We can't find previous block to focus on at command .delete for block \(block.blockModel.information.id)"
+                            "We can't find previous block to focus on at command .delete for block \(block.blockId)"
                         )
                         return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                     }
-                    let previousBlockId = previousModel.blockModel.information.id
+                    let previousBlockId = previousModel.blockId
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [
                         .setFocus(.init(blockId: previousBlockId, position: .end))
                     ])

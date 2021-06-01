@@ -102,7 +102,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     override func handle(event: BlocksViews.UserEvent) {
         switch event {
         case .didSelectRowInTableView:
-            switch self.getBlock().blockModel.information.content {
+            switch self.getBlock().content {
             case let .link(linkContent):
                 router?.showPage(with: linkContent.targetBlockID)
             default: return

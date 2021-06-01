@@ -12,7 +12,7 @@ struct VideoBlockContentViewConfiguration {
     weak var blockViewModel: BaseBlockViewModel?
     
     init?(blockViewModel: BaseBlockViewModel) {
-        if case let .file(file) = blockViewModel.getBlock().blockModel.information.content {
+        if case let .file(file) = blockViewModel.getBlock().content {
             self.state = file.state
             self.metadata = file.metadata
             self.blockViewModel = blockViewModel

@@ -42,7 +42,7 @@ final class OurEventConverter {
 //                return nil
 //            }
             
-//            self.updater?.update(entry: focusedModel.blockModel.information.id, update: { (value) in
+//            self.updater?.update(entry: focusedModel.blockId, update: { (value) in
 //                switch value.information.content {
 //                case let .text(oldValue):
 //                    var newValue = oldValue
@@ -52,7 +52,7 @@ final class OurEventConverter {
 //                default: return
 //                }
 //            })
-//            switch model.blockModel.information.content {
+//            switch model.content {
 //            case let .text(value):
 //                var blockModel = model.blockModel
 //                var updatedValue = value

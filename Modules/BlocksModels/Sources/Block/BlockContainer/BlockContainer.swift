@@ -125,7 +125,7 @@ extension BlockContainer: BlockContainerModelProtocol {
             return
         }
         
-        let parentId = parent.blockModel.information.id
+        let parentId = parent.blockId
         
         self.insert(childId: child, parentId: parentId, at: index)
     }
@@ -137,7 +137,7 @@ extension BlockContainer: BlockContainerModelProtocol {
             return
         }
         
-        let parentId = parent.blockModel.information.id
+        let parentId = parent.blockId
         
         let newIndex = index.advanced(by: 1)
         self.insert(childId: child, parentId: parentId, at: newIndex)

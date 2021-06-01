@@ -29,15 +29,15 @@ enum BlockIndexWalker {
     ) -> BlockActiveRecordModelProtocol? {
         guard let parent = model.findParent() else {
             
-            assertionFailure("We don't have parent for model \(model.blockModel.information.id)")
+            assertionFailure("We don't have parent for model \(model.blockId)")
             return nil
         }
         
-        let id = model.blockModel.information.id
+        let id = model.blockId
         let childrenIds = parent.childrenIds()
         
         guard let childIndex = childrenIds.firstIndex(where: {$0 == id}) else {
-            assertionFailure("We can't find ourselves \(model.blockModel.information.id) in parent, so, skip it.")
+            assertionFailure("We can't find ourselves \(model.blockId) in parent, so, skip it.")
             return nil
         }
 

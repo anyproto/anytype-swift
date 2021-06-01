@@ -266,10 +266,10 @@
 		3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */; };
 		3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D091D4A2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift */; };
 		3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCA972664EFEC002F7A0D /* DropData.swift */; };
+		3D0BCACF26665794002F7A0D /* HomveViewCellDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCACE26665794002F7A0D /* HomveViewCellDataBuilder.swift */; };
 		3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB39263BE797007CC856 /* AsyncImage.swift */; };
 		3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB4E263C29E7007CC856 /* SwiftUIImageLoader.swift */; };
 		3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */; };
-		3D0BFB5C263C3596007CC856 /* HomveViewCellDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB5B263C3596007CC856 /* HomveViewCellDataBuilder.swift */; };
 		3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526B264D8BCF00B0E976 /* SettingsDividerModifier.swift */; };
 		3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */; };
 		3D155274264D976A00B0E976 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155273264D976A00B0E976 /* Snackbar.swift */; };
@@ -821,10 +821,10 @@
 		3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentView.swift; sourceTree = "<group>"; };
 		3D091D4A2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeCollectionDropInsideDelegate.swift; path = AnyType/Sources/PresentationLayer/Home/View/Collection/DragAndDrop/HomeCollectionDropInsideDelegate.swift; sourceTree = SOURCE_ROOT; };
 		3D0BCA972664EFEC002F7A0D /* DropData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DropData.swift; path = AnyType/Sources/PresentationLayer/Home/View/Collection/DragAndDrop/DropData.swift; sourceTree = SOURCE_ROOT; };
+		3D0BCACE26665794002F7A0D /* HomveViewCellDataBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomveViewCellDataBuilder.swift; sourceTree = "<group>"; };
 		3D0BFB39263BE797007CC856 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
 		3D0BFB4E263C29E7007CC856 /* SwiftUIImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIImageLoader.swift; sourceTree = "<group>"; };
 		3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
-		3D0BFB5B263C3596007CC856 /* HomveViewCellDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomveViewCellDataBuilder.swift; sourceTree = "<group>"; };
 		3D15526B264D8BCF00B0E976 /* SettingsDividerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDividerModifier.swift; sourceTree = "<group>"; };
 		3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		3D155273264D976A00B0E976 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
@@ -2299,6 +2299,15 @@
 			path = DragAndDrop;
 			sourceTree = "<group>";
 		};
+		3D0BCACD26665794002F7A0D /* CellDataBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				3D0BCACE26665794002F7A0D /* HomveViewCellDataBuilder.swift */,
+			);
+			name = CellDataBuilder;
+			path = AnyType/Sources/PresentationLayer/Home/CellDataBuilder;
+			sourceTree = SOURCE_ROOT;
+		};
 		3D15526E264D8DAC00B0E976 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -2426,11 +2435,11 @@
 		3D932D3626317E3A00C7D1EA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3D0BCACD26665794002F7A0D /* CellDataBuilder */,
 				3D932D3926317E3A00C7D1EA /* View */,
 				3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */,
 				3D932D3826317E3A00C7D1EA /* HomeView.swift */,
 				3D409BBF26309CE100E588A7 /* HomeViewModel.swift */,
-				3D0BFB5B263C3596007CC856 /* HomveViewCellDataBuilder.swift */,
 				3D850B9226456C89005805A8 /* HomeCoordinator.swift */,
 			);
 			path = Home;
@@ -3753,6 +3762,7 @@
 				0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */,
+				3D0BCACF26665794002F7A0D /* HomveViewCellDataBuilder.swift in Sources */,
 				0ADE618D2448878300244E49 /* BlocksViews+UserActions.swift in Sources */,
 				3DD67E9C2652705A0025ED6F /* EditorSelectionIncomingEvent.swift in Sources */,
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
@@ -3764,7 +3774,6 @@
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
 				0A203A8225470F0B00D3729A /* URLResolver.swift in Sources */,
 				1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */,
-				3D0BFB5C263C3596007CC856 /* HomveViewCellDataBuilder.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,

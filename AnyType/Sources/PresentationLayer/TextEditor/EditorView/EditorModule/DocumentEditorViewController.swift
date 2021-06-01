@@ -288,7 +288,7 @@ extension DocumentEditorViewController {
     private func updateVisibleNumberedItems() {
         self.collectionView.indexPathsForVisibleItems.forEach {
             guard let builder = self.viewModel.builders[safe: $0.row] else { return }
-            let content = builder.getBlock().blockModel.information.content
+            let content = builder.getBlock().content
             guard case let .text(text) = content, text.contentType == .numbered else { return }
             self.collectionView.cellForItem(at: $0)?.contentConfiguration = builder.buildContentConfiguration()
         }
@@ -315,12 +315,12 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard let viewModel = dataSource?.itemIdentifier(for: indexPath) else { return false }
         if self.viewModel.selectionEnabled() {
-            if case let .text(text) = viewModel.getBlock().blockModel.information.content {
+            if case let .text(text) = viewModel.getBlock().content {
                 return text.contentType != .title
             }
             return true
         }
-        switch viewModel.getBlock().blockModel.information.content {
+        switch viewModel.getBlock().content {
         case .text:
             return false
         case let .file(file) where [.done, .uploading].contains(file.state):

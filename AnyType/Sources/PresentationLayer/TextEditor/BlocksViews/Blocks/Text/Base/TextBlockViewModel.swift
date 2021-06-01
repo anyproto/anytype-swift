@@ -47,7 +47,7 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     // MARK: Contextual Menu
     override func makeContextualMenu() -> BlocksViews.ContextualMenu {
-        guard case let .text(text) = self.getBlock().blockModel.information.content else {
+        guard case let .text(text) = self.getBlock().content else {
             return .init(title: "", children: [])
         }
         var actions: [BlocksViews.ContextualMenu.MenuAction] = [.create(action: .general(.addBlockBelow))]
@@ -197,7 +197,7 @@ private extension TextBlockViewModel {
     func setModelData(attributedText: NSAttributedString) {
         // Update model.
         self.update { (block) in
-            switch block.blockModel.information.content {
+            switch block.content {
             case var .text(value):
                 guard value.attributedText != attributedText else { return }
                 let attributedText: NSAttributedString = .init(attributedString: attributedText)
@@ -211,8 +211,8 @@ private extension TextBlockViewModel {
 
     func apply(alignment: NSTextAlignment) -> AnyPublisher<Void, Error>? {
         let block = self.getBlock()
-        guard let contextID = block.findRoot()?.blockModel.information.id, case .text = block.blockModel.information.content else { return nil }
-        let blocksIds = [block.blockModel.information.id]
+        guard let contextID = block.findRoot()?.blockId, case .text = block.content else { return nil }
+        let blocksIds = [block.blockId]
         return self.service.setAlignment(contextID: contextID, blockIds: blocksIds, alignment: alignment)
     }
 

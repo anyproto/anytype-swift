@@ -119,7 +119,7 @@ extension BlockActionsHandlersFacade {
                 return
             }
 
-            switch lastChild.blockModel.information.content {
+            switch lastChild.content {
             case let .text(value) where value.attributedText.length == 0:
                 // TODO: Add assertionFailure for debug when all converters will be added
                 // TASK: https://app.clickup.com/t/h138gt
@@ -164,7 +164,7 @@ final class LinearIndexWalker {
 extension LinearIndexWalker {
     func model(beforeModel model: Model, includeParent: Bool, onlyFocused: Bool = true) -> Model? {
         /// Do we actually need parent?
-        guard let modelIndex = self.models.firstIndex(where: { $0.blockModel.information.id == model.blockModel.information.id }) else { return nil }
+        guard let modelIndex = self.models.firstIndex(where: { $0.blockId == model.blockId }) else { return nil }
 
         /// Iterate back
         /// Actually, `index(before:)` doesn't respect indices of collection.
@@ -181,7 +181,7 @@ extension LinearIndexWalker {
         /// Look at documentation how we should handle different blocks types.
         if index >= startIndex {
             let object = self.models[index]
-            switch object.blockModel.information.content {
+            switch object.content {
             case .text: return object
             default: return nil
             }
@@ -222,7 +222,7 @@ struct BlockBuilder {
     static func newBlockId() -> BlockId { "" }
 
     static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> Information? {
-        switch block.blockModel.information.content {
+        switch block.content {
         case .text:
             return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(TopLevelBuilder.blockBuilder.informationBuilder.build)
         default: return nil
@@ -243,7 +243,7 @@ struct BlockBuilder {
         guard let block = block else {
             return TopLevelBuilder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
         }
-        switch block.blockModel.information.content {
+        switch block.content {
         case let .text(value):
             switch value.contentType {
             case .toggle: return TopLevelBuilder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
@@ -255,7 +255,7 @@ struct BlockBuilder {
     }
 
     static func createContentType(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> BlockContent? {
-        switch block.blockModel.information.content {
+        switch block.content {
         case let .text(blockType):
             switch blockType.contentType {
             case .bulleted where blockType.attributedText.string != "": return .text(.init(contentType: .bulleted))

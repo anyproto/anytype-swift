@@ -16,7 +16,7 @@ final class CompoundViewModelConverter {
     }
 
     private func createBlockViewModel(_ block: BlockActiveRecordModelProtocol, router: EditorRouterProtocol?) -> BaseBlockViewModel? {
-        switch block.blockModel.information.content {
+        switch block.content {
         case .smartblock, .layout: return nil
         case let .text(content):
             switch content.contentType {

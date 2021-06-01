@@ -8,7 +8,7 @@ final class NumberedBlockNormalizer: BlockChildrenNormalizer {
         var number: Int = 0
         for id in ids {
             if let model = container.blocksContainer.choose(by: id) {
-                switch model.blockModel.information.content {
+                switch model.content {
                 case let .text(value) where value.contentType == .numbered:
                     number += 1
                     var blockModel = model.blockModel

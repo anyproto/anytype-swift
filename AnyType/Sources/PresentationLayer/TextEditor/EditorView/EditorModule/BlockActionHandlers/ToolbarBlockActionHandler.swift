@@ -35,7 +35,7 @@ final class ToolbarBlockActionHandler {
                     if case .text = newBlock.content {
                         shouldSetFocusOnUpdate = true
                     }
-                    self.service.add(newBlock: newBlock, afterBlockId: block.blockModel.information.id, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
+                    self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
                 }
             }
         case let .turnIntoBlock(value):
@@ -88,7 +88,7 @@ final class ToolbarBlockActionHandler {
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                         return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                     }
-                    let previousBlockId = previousModel.blockModel.information.id
+                    let previousBlockId = previousModel.blockId
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [
                         .setFocus(.init(blockId: previousBlockId, position: .end))
                     ])

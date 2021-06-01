@@ -54,7 +54,7 @@ final class BlockFlattener {
                                 options: BlockFlattenerOptions) -> [BlockId] {
         var result: Array<BlockId> = .init()
         let stack: DataStructures.Stack<BlockId> = .init()
-        stack.push(model.blockModel.information.id)
+        stack.push(model.blockId)
         var isInRootModel = true
         while !stack.isEmpty {
             if let value = stack.pop() {
@@ -108,7 +108,7 @@ final class BlockFlattener {
         ///
         /// But for any other parent block it will work properly.
         ///
-        let rootItemIsAlreadySkipped = !self.shouldKeep(item: model.blockModel.information.id, in: container)
+        let rootItemIsAlreadySkipped = !self.shouldKeep(item: model.blockId, in: container)
         if options.shouldIncludeRootNode || rootItemIsAlreadySkipped {
             return self.flatten(root: model,
                                 in: container,
@@ -134,7 +134,7 @@ private extension BlockFlattener {
         guard let model = container.blocksContainer.choose(by: item) else {
             return false
         }
-        switch model.blockModel.information.content {
+        switch model.content {
         case .smartblock, .layout: return false
         default: return true
         }
@@ -154,7 +154,7 @@ private extension BlockFlattener {
         guard let model = container.blocksContainer.choose(by: item) else {
             return []
         }
-        switch model.blockModel.information.content {
+        switch model.content {
         case let .text(value) where value.contentType == .toggle:
                 return ToggleFlattener(shouldCheckToggleFlag: shouldCheckIsToggleOpened).processedChildren(item,
                                                                                                            in: container)

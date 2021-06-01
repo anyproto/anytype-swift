@@ -320,7 +320,7 @@ extension DocumentEditorViewModel {
         guard let item = element(at: atIndex) else { return }
         self.set(selected: !self.selected(id: item.blockId),
                  id: item.blockId,
-                 type: item.getBlock().blockModel.information.content.type)
+                 type: item.getBlock().content.type)
     }
 }
 
@@ -434,7 +434,7 @@ extension DocumentEditorViewModel {
 extension DocumentEditorViewModel: EditorModuleSelectionHandlerHolderProtocol {
     func selectAll() {
         let ids = self.builders.dropFirst().reduce(into: [BlockId: BlockContentType]()) { result, model in
-            result[model.blockId] = model.getBlock().blockModel.information.content.type
+            result[model.blockId] = model.getBlock().content.type
         }
         self.select(ids: ids)
     }

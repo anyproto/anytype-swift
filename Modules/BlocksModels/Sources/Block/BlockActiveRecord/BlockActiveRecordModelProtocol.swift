@@ -25,4 +25,12 @@ public protocol BlockActiveRecordModelProtocol: BlockHasDidChangePublisherProtoc
 
 public extension BlockActiveRecordModelProtocol {
     mutating func unsetFocusAt() { self.focusAt = nil }
+    
+    var content: BlockContent {
+        blockModel.information.content
+    }
+    
+    var blockId: BlockId {
+        blockModel.information.id
+    }
 }

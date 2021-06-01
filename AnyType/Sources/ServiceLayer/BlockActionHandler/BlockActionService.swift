@@ -261,7 +261,7 @@ final class BlockActionService {
     func checked(block: BlockActiveRecordModelProtocol, newValue: Bool) {
         self.textService.checked(
             contextId: self.documentId,
-            blockId: block.blockModel.information.id,
+            blockId: block.blockId,
             newValue: newValue
         )
             .receiveOnMain()

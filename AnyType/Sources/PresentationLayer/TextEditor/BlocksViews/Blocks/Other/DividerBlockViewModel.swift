@@ -44,7 +44,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
     
     override func makeDiffable() -> AnyHashable {
         let diffable = super.makeDiffable()
-        if case let .divider(value) = self.getBlock().blockModel.information.content {
+        if case let .divider(value) = self.getBlock().content {
             let newDiffable: [String: AnyHashable] = [
                 "parent": diffable,
                 "dividerValue": value.style

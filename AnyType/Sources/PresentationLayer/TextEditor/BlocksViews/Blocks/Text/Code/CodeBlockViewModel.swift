@@ -154,7 +154,7 @@ private extension CodeBlockViewModel {
     func setModelData(attributedText: NSAttributedString) {
         // Update model.
         self.update { (block) in
-            switch block.blockModel.information.content {
+            switch block.content {
             case var .text(value):
                 guard value.attributedText != attributedText else { return }
                 let attributedText: NSAttributedString = .init(attributedString: attributedText)
