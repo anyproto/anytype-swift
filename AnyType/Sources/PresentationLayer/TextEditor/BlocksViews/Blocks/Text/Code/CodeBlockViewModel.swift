@@ -75,7 +75,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
         guard let contextId = getBlock().container?.rootId else { return }
 
         let blockFields = BlockFields(blockId: blockId, fields: [Constants.codeLanguageFieldName: language])
-        listService.setFields.action(contextID: contextId, blockFields: [blockFields]).sink { _ in } receiveValue: { _ in }.store(in: &subscriptions)
+        listService.setFields(contextID: contextId, blockFields: [blockFields]).sink { _ in } receiveValue: { _ in }.store(in: &subscriptions)
     }
 }
 

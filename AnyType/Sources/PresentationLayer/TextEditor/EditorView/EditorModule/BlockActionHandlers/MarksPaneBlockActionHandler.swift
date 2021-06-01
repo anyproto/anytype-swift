@@ -57,7 +57,7 @@ private extension MarksPaneBlockActionHandler {
         }
         let blockIds = [block.id]
 
-        self.listService.setBlockColor(contextID: self.contextId, blockIds: blockIds, color: color)
+        listService.setBlockColor(contextID: self.contextId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("setBlockColor") { [weak self] (value) in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
@@ -68,7 +68,7 @@ private extension MarksPaneBlockActionHandler {
     func setAlignment(block: BlockInformation.InformationModel, alignment: MarksPane.Panes.StylePane.Alignment.Action) {
         let blockIds = [block.id]
 
-        self.listService.setAlign.action(contextID: self.contextId, blockIds: blockIds, alignment: alignment.asModel())
+        listService.setAlign(contextID: self.contextId, blockIds: blockIds, alignment: alignment.asModel())
             .sinkWithDefaultCompletion("setAlignment") { [weak self] (value) in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))

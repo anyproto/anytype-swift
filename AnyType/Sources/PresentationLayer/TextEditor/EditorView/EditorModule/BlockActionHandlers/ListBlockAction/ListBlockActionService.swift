@@ -36,7 +36,7 @@ extension ListBlockActionService {
         // Shit Swift
         let blocksIds = blocks
         // TODO: Add Delete List
-        self.listService.delete.action(contextID: self.documentId, blocksIds: blocksIds).receiveOnMain()
+        self.listService.delete(contextID: self.documentId, blocksIds: blocksIds).receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.delete without payload") { [weak self] value in
                 self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
@@ -79,9 +79,10 @@ extension ListBlockActionService {
             return
         }
 
-        self.listService.setTextStyle.action(contextID: self.documentId, blockIds: blocksIds, style: text.contentType).receiveOnMain()
+        self.listService.setTextStyle(contextID: self.documentId, blockIds: blocksIds, style: text.contentType)
+            .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle with payload") { [weak self] (value) in
-            self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
+                self?.didReceiveEvent(.init(contextId: value.contextID, events: value.messages))
         }.store(in: &self.subscriptions)
     }
 }

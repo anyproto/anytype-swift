@@ -386,7 +386,7 @@ private extension BlockActionService {
 
         let blocksIds = [blockId]
 
-        self.listService.setDivStyle.action(contextID: self.documentId, blockIds: blocksIds, style: value.style)
+        listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: value.style)
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] (value) in
             let value = completion(value)
             self?.didReceiveEvent(nil, value)
@@ -475,7 +475,7 @@ extension BlockActionService {
         let blockIds = [blockId]
         let backgroundColor = color
 
-        self.listService.setBackgroundColor.action(contextID: self.documentId, blockIds: blockIds, color: backgroundColor)
+        listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: backgroundColor)
             .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] (value) in
                 let value = completion(value)
                 self?.didReceiveEvent(nil, value)
