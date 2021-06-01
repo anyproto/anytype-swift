@@ -110,8 +110,8 @@ final class DocumentEditorViewController: UIViewController {
             }
         }
 
-        dataSource?.supplementaryViewProvider = {
-            return self.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
+        dataSource?.supplementaryViewProvider = { [weak self] in
+            return self?.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
         }
     }
 
