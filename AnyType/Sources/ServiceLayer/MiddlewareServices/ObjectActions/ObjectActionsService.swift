@@ -19,7 +19,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             return Fail.init(error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
         
-        let convertedDetails = BlocksModelsParser.Details.Converter.asMiddleware(
+        let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(
             models: Array(details.details.values)
         )
         let preparedDetails = convertedDetails.map({($0.key, $0.value)})
@@ -39,7 +39,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     func setDetails(contextID: BlockId, details: [DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error> {
-        let middlewareDetails = BlocksModelsParser.Details.Converter.asMiddleware(models: details)
+        let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
         return setDetails(contextID: contextID, details: middlewareDetails)
     }
     

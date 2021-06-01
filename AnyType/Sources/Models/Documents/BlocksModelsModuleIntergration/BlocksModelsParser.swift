@@ -47,7 +47,7 @@ final class BlocksModelsParser {
         
         let parsedDetails = details.map { (value) -> DetailsProviderProtocol in
             let corrected = EventDetailsAndSetDetailsConverter.convert(event: value)
-            let contentList = Details.Converter.asModel(details: corrected)
+            let contentList = BlocksModelsDetailsConverter.asModel(details: corrected)
             var result = DetailsBuilder.detailsProviderBuilder.filled(with: contentList)
             result.parentId = value.id
             return result
@@ -66,8 +66,7 @@ final class BlocksModelsParser {
     ///
     /// - Parameter block: Middleware model
     func convert(block: Anytype_Model_Block) -> BlockInformation? {
-        guard let content = block.content, let converter = BlocksModelsConverter.convert(middleware: content) else { return nil }
-        guard let blockType = converter.blockType(content) else { return nil }
+        guard let content = block.content, let blockType = BlocksModelsConverter.convert(middleware: content) else { return nil }
         
         var information = TopLevelBuilder.blockBuilder.informationBuilder.build(id: block.id, content: blockType)
 
@@ -88,8 +87,7 @@ final class BlocksModelsParser {
     /// - Parameter information: Our model
     func convert(information: BlockInformation) -> Anytype_Model_Block? {
         let blockType = information.content
-        guard let converter = BlocksModelsConverter.convert(block: blockType) else { return nil }
-        guard let content = converter.middleware(blockType) else { return nil }
+        guard let content = BlocksModelsConverter.convert(block: blockType) else { return nil }
 
         let id = information.id
         let fields: Google_Protobuf_Struct = .init()
@@ -110,13 +108,13 @@ final class BlocksModelsParser {
     /// - Parameter middlewareContent: Middleware Content
     /// - Returns: Our content
     func convert(middlewareContent: Anytype_Model_Block.OneOf_Content) -> BlockContent? {
-        BlocksModelsConverter.convert(middleware: middlewareContent)?.blockType(middlewareContent)
+        BlocksModelsConverter.convert(middleware: middlewareContent)
     }
     
     /// Converting Our Content -> Middleware Content
     /// - Parameter content: Our content
     /// - Returns: Middleware Content
     func convert(content: BlockContent) -> Anytype_Model_Block.OneOf_Content? {
-        BlocksModelsConverter.convert(block: content)?.middleware(content)
+        BlocksModelsConverter.convert(block: content)
     }
 }

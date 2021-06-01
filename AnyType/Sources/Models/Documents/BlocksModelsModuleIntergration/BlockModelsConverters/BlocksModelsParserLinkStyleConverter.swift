@@ -15,7 +15,7 @@ final class BlocksModelsParserLinkStyleConverter {
         }
     }
     
-    static func asMiddleware(_ value: BlockLink.Style) -> MiddlewareModel? {
+    static func asMiddleware(_ value: BlockLink.Style) -> MiddlewareModel {
         switch value {
         case .page: return .page
         case .dataview: return .dataview

@@ -15,7 +15,7 @@ final class BlocksModelsParserLayoutStyleConverter {
         }
     }
     
-    static func asMiddleware(_ value: BlockContent.Layout.Style) -> MiddlewareModel? {
+    static func asMiddleware(_ value: BlockContent.Layout.Style) -> MiddlewareModel {
         switch value {
         case .row: return .row
         case .column: return .column

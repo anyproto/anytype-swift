@@ -17,7 +17,7 @@ final class BlocksModelsParserFileStateConverter {
         }
     }
     
-    static func asMiddleware(_ value: Model) -> MiddlewareModel? {
+    static func asMiddleware(_ value: Model) -> MiddlewareModel {
         switch value {
         case .empty: return .empty
         case .uploading: return .uploading

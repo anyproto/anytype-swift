@@ -63,9 +63,7 @@ class BlockActionsServiceList: BlockActionsServiceListProtocol {
     }
 
     func setDivStyle(contextID: BlockId, blockIds: [BlockId], style: DividerStyle) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let style = BlocksModelsParserOtherDividerStyleConverter.asMiddleware(style) else {
-            return Fail.init(error: PossibleError.setDividerStyleActionStyleConversionHasFailed).eraseToAnyPublisher()
-        }
+        let style = BlocksModelsParserOtherDividerStyleConverter.asMiddleware(style)
         return setDivStyle(contextID: contextID, blockIds: blockIds, style: style)
     }
     private func setDivStyle(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style) -> AnyPublisher<ServiceSuccess, Error> {

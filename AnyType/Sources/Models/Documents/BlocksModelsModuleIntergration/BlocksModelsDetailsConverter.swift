@@ -9,40 +9,20 @@ private extension LoggerCategory {
     static let blocksModelsParser: Self = "BlocksModelsParser"
 }
 
-// MARK: Details
-extension BlocksModelsParser {
-    enum Details {}
-}
-
-// MARK: Protocols
-protocol _BlocksModelsParserDetailsConverterProtocol {
-
-    static func asMiddleware(models: [DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail]
+/// Top converter which convert all details to and from protobuf.
+enum BlocksModelsDetailsConverter {
     
-    static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry<AnyHashable>]
-    static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsEntry<AnyHashable>]
-    
-}
-
-// MARK: Details / Converter
-extension BlocksModelsParser.Details {
-    /// Top converter which convert all details to and from protobuf.
-    ///
-    enum Converter: _BlocksModelsParserDetailsConverterProtocol {
-        
-        static func asMiddleware(models: [DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail] {
-            models.compactMap { $0.asMiddleware }
-        }
-        
-        static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry<AnyHashable>] {
-            details.compactMap { $0.asModel }
-        }
-        
-        static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsEntry<AnyHashable>] {
-            details.compactMap { $0.asModel }
-        }
+    static func asMiddleware(models: [DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+        models.compactMap { $0.asMiddleware }
     }
     
+    static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsEntry<AnyHashable>] {
+        details.compactMap { $0.asModel }
+    }
+    
+    static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsEntry<AnyHashable>] {
+        details.compactMap { $0.asModel }
+    }
 }
 
 private extension DetailsEntry {

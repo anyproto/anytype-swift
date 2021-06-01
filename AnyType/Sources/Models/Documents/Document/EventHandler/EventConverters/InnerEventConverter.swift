@@ -144,7 +144,7 @@ final class InnerEventConverter {
             let detailsId = amend.id
             let details = amend.details
             
-            let detailsEntries = BlocksModelsParser.Details.Converter.asModel(details: details)
+            let detailsEntries = BlocksModelsDetailsConverter.asModel(details: details)
             
             if let detailsModel = self.container?.detailsContainer.get(by: detailsId) {
                 
@@ -176,7 +176,7 @@ final class InnerEventConverter {
             let eventsDetails = EventDetailsAndSetDetailsConverter.convert(
                 event: Anytype_Event.Object.Details.Set(id: detailsId, details: details)
             )
-            let detailsModels = BlocksModelsParser.Details.Converter.asModel(details: eventsDetails)
+            let detailsModels = BlocksModelsDetailsConverter.asModel(details: eventsDetails)
             let detailsInformationModel = DetailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
             
             if let detailsModel = self.container?.detailsContainer.get(by: detailsId) {

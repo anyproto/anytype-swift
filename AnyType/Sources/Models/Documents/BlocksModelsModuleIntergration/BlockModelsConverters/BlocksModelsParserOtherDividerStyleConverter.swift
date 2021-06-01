@@ -22,7 +22,7 @@ final class BlocksModelsParserOtherDividerStyleConverter {
         }
     }
     
-    static func asMiddleware(_ value: Model) -> MiddlewareModel? {
+    static func asMiddleware(_ value: Model) -> MiddlewareModel {
         switch value {
         case .line: return .line
         case .dots: return .dots
