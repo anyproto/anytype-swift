@@ -471,6 +471,7 @@
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
 		EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */; };
 		EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */; };
+		EA6B090126663AA700038B4E /* ToggleBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6B090026663AA700038B4E /* ToggleBlockViewModel.swift */; };
 		EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */; };
 		EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF45260C8E420062273F /* ToggleFlattener.swift */; };
 		EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */; };
@@ -1020,6 +1021,7 @@
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
 		EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
 		EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Convenience.swift"; sourceTree = "<group>"; };
+		EA6B090026663AA700038B4E /* ToggleBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ToggleBlockViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Toggle/ToggleBlockViewModel.swift; sourceTree = SOURCE_ROOT; };
 		EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedBlockNormalizer.swift; sourceTree = "<group>"; };
 		EA6BAF45260C8E420062273F /* ToggleFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleFlattener.swift; sourceTree = "<group>"; };
 		EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsBuilder.swift; sourceTree = "<group>"; };
@@ -1740,6 +1742,7 @@
 		0A10CC5B248EC2FA000FF498 /* Text */ = {
 			isa = PBXGroup;
 			children = (
+				EA6B08FD26663A9500038B4E /* Toggle */,
 				EA6EC91925ED3DBD00740B31 /* Base */,
 				53BC399F261B78F4004D7EB6 /* Code */,
 				EA6EC91D25ED3DE000740B31 /* Quote */,
@@ -3162,6 +3165,14 @@
 			path = TurnIntoSelection;
 			sourceTree = "<group>";
 		};
+		EA6B08FD26663A9500038B4E /* Toggle */ = {
+			isa = PBXGroup;
+			children = (
+				EA6B090026663AA700038B4E /* ToggleBlockViewModel.swift */,
+			);
+			path = Toggle;
+			sourceTree = "<group>";
+		};
 		EA6EC91925ED3DBD00740B31 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -3510,6 +3521,7 @@
 				3DE6E3D226550FF8008FB0AF /* MultiSelectionPaneSelectAllViewModel.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,
 				EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */,
+				EA6B090126663AA700038B4E /* ToggleBlockViewModel.swift in Sources */,
 				EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */,
 				0A203A8A2547106100D3729A /* ImageProperty.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocumentProtocol.swift in Sources */,

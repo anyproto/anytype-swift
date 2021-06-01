@@ -171,7 +171,7 @@ class BaseBlockViewModel: ObservableObject {
     
     // MARK: - Subclass / Diffable
 
-    private(set) var diffable: AnyHashable = .init("")
+    private var diffable: AnyHashable = .init("")
     
     /// Here we use the following technique.
     /// As soon as we should recreate our ViewModels very often, we should keep their identity somewhere.
@@ -181,11 +181,9 @@ class BaseBlockViewModel: ObservableObject {
     /// Treat this property `_diffableStorage` as `initial` fingerprint of block.
     ///
     func makeDiffable() -> AnyHashable {
-        [
-            "Id": self.information.id,
-            "Content": BlockContentTypeIdentifier.identifier(self.information.content),
-            "Indentation": self.indentationLevel()
-        ] as [AnyHashable: AnyHashable]
+        [self.information.id,
+         BlockContentTypeIdentifier.identifier(self.information.content),
+         self.indentationLevel()] as [AnyHashable]
     }
     
     func updateDiffable() {
@@ -234,11 +232,11 @@ class BaseBlockViewModel: ObservableObject {
 // So if we need to reload cell then model should be recreated.
 extension BaseBlockViewModel: Hashable {
     static func == (lhs: BaseBlockViewModel, rhs: BaseBlockViewModel) -> Bool {
-        lhs.blockId == rhs.blockId && lhs.information == rhs.information
+        lhs.diffable == rhs.diffable
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.blockId)
+        hasher.combine(diffable)
     }
 }
 

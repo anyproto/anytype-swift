@@ -4,11 +4,8 @@ import Combine
 import UIKit
 import os
 import BlocksModels
-
-
-// MARK: - Base / ViewModel
-
-final class TextBlockViewModel: BaseBlockViewModel {
+ 
+class TextBlockViewModel: BaseBlockViewModel {
     private struct Options {
         var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
     }

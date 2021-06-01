@@ -22,6 +22,8 @@ final class CompoundViewModelConverter {
             switch content.contentType {
             case .code:
                 return CodeBlockViewModel(block)
+            case .toggle:
+                return ToggleBlockViewModel(block)
             default:
                 return TextBlockViewModel(block)
             }

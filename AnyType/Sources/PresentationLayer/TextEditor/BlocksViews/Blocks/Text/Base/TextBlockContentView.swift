@@ -74,7 +74,7 @@ final class TextBlockContentView: UIView & UIContentView {
                                                       action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setAttributedTitle(.init(string: NSLocalizedString("Toogle empty Click and drop block inside",
+        button.setAttributedTitle(.init(string: NSLocalizedString("Toggle empty Click and drop block inside",
                                                                   comment: ""),
                                         attributes: [.font: UIFont.bodyFont,
                                                      .foregroundColor: UIColor.textColor]),
@@ -104,10 +104,6 @@ final class TextBlockContentView: UIView & UIContentView {
             self.apply(configuration: configuration)
         }
     }
-
-    // MARK: Subscriptions
-
-    private var blockViewModelActionsSubscription: AnyCancellable?
 
     // MARK: - Initialization
 
@@ -194,7 +190,6 @@ final class TextBlockContentView: UIView & UIContentView {
             // In case of configurations is not equal we should check what exactly we should change
             // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
         createChildBlockButton.isHidden = true
-        blockViewModelActionsSubscription = nil
         textView.textView.selectedColor = nil
 
         switch text.contentType {
@@ -400,7 +395,6 @@ final class TextBlockContentView: UIView & UIContentView {
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
         textView.textView?.textContainerInset = Constants.Toggle.textContainerInsets
         let hasNoChildren = currentConfiguration.viewModel.getBlock().childrenIds().isEmpty
-        addBlockViewModelActionsSubscription()
         updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
     }
     
@@ -427,52 +421,6 @@ final class TextBlockContentView: UIView & UIContentView {
         }), for: .touchUpInside)
         button.tag = Constants.Toggle.buttonTag
         return button
-    }
-    
-    private func addBlockViewModelActionsSubscription() {
-        let publisher = currentConfiguration.viewModel.actionsPayloadSubject.eraseToAnyPublisher()
-
-        blockViewModelActionsSubscription = publisher.sink { [weak self] action in
-            guard let self = self else { return }
-
-            let blockViewModel = self.currentConfiguration.viewModel
-
-            switch action {
-            case let .textView(textViewInteraction):
-                switch textViewInteraction.action {
-                case let .textView(textView):
-                    switch textView {
-                    case let .keyboardAction(keyboardAction):
-                        switch keyboardAction {
-                        case let .pressKey(key):
-                            switch key {
-                            // We want do hide "Tap on empty..." button if enter was typed in toggle block
-                            case .enterInsideContent, .enterOnEmptyContent, .enterAtTheEndOfContent:
-                                if !self.createChildBlockButton.isHidden,
-                                   self.textView.textView.isFirstResponder,
-                                   blockViewModel.getBlock().childrenIds().isEmpty {
-                                    self.createChildBlockButton.isHidden = true
-                                }
-                            // We want to show "Tap on empty..." button, if last child block inside toggle was deleted
-                            case .deleteWithPayload, .deleteOnEmptyContent:
-                                if self.createChildBlockButton.isHidden,
-                                   blockViewModel.getBlock().childrenIds().count == 1,
-                                   let lastChild = blockViewModel.getBlock().container?.choose(by: blockViewModel.getBlock().childrenIds()[0]),
-                                   lastChild.isFirstResponder {
-                                    self.createChildBlockButton.isHidden = false
-                                }
-                            }
-                        }
-                    default:
-                        break
-                    }
-                default:
-                    break
-                }
-            default:
-                break
-            }
-        }
     }
     
     private func updateCreateChildButtonState(toggled: Bool, hasChildren: Bool) {

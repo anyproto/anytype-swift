@@ -156,15 +156,6 @@ class DocumentEditorViewModel: ObservableObject {
         }.store(in: &self.subscriptions)
     }
 
-    // TODO: Add caching?
-    private func update(builders: [BaseBlockViewModel]) {
-        let difference = builders.difference(from: self.builders) {$0.diffable == $1.diffable}
-        if !difference.isEmpty, let result = self.builders.applying(difference) {
-            self.builders = result
-            self.viewInput?.updateData(self.builders)
-        }
-    }
-
     private func obtainDocument(documentId: String?) {
         guard let documentId = documentId else { return }
         self.internalState = .loading
@@ -190,7 +181,8 @@ class DocumentEditorViewModel: ObservableObject {
                 switch updateResult.updates {
                 case .general:
                     if let blockViewModels = self?.blocksConverter.convert(updateResult.models, router: self?.editorRouter) {
-                        self?.update(builders: blockViewModels)
+                        self?.builders = blockViewModels
+                        self?.viewInput?.updateData(blockViewModels)
                     }
                 case let .update(update):
                     if update.updatedIds.isEmpty {
