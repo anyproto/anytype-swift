@@ -264,17 +264,24 @@ extension DocumentEditorViewController {
         collectionView.collectionViewLayout.invalidateLayout()
     }
         
-    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
+    private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>,
+                       completion: (() -> Void)? = nil) {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
         // For now animatingDifferences should be false otherwise some cells will not be reloading.
         self.dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
             self?.updateVisibleNumberedItems()
-            self?.focusOnFocusedBlock()
+            completion?()
             
             selectedCells?.forEach {
                 self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
             }
+        }
+    }
+    
+    private func applySnapshotAndSetFocus(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
+        apply(snapshot) { [weak self] in
+            self?.focusOnFocusedBlock()
         }
     }
     
@@ -349,7 +356,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
         snapshot.appendSections([.first])
         snapshot.appendItems(rows)
-        apply(snapshot)
+        applySnapshotAndSetFocus(snapshot)
     }
 
     func showCodeLanguageView(with languages: [String], completion: @escaping (String) -> Void) {

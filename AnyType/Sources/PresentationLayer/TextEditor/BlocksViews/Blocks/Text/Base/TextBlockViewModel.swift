@@ -74,7 +74,8 @@ final class TextBlockViewModel: BaseBlockViewModel {
         textView?.shouldResignFirstResponder()
         super.handle(contextualMenuAction: contextualMenuAction)
 
-        if !focusPosition.isNil {
+        // We want to restore focus only in case of turn into action
+        if !focusPosition.isNil, case let .specific(action) = contextualMenuAction, action == .turnInto {
             let focus = TextViewFocus(position: focusPosition)
             textView?.setFocus(focus)
         }
