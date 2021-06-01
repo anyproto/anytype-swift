@@ -23,7 +23,7 @@ final class HomeViewModel: ObservableObject {
     private var newPageSubscription: AnyCancellable?
             
     let document: BaseDocumentProtocol = BaseDocument()
-    private lazy var cellDataBuilder = HomveViewCellDataBuilder(document: document)
+    private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     
     init() {
         fetchDashboardData()
