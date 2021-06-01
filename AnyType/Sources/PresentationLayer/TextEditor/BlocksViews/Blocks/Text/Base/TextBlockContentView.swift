@@ -237,7 +237,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupForPlainText() {
         guard !self.topView.leftView.isNil else  { return }
         _ = self.topView.configured(leftChild: .empty())
-        self.textView.textView?.textContainerInset = Constants.Text.textContainerInsets
+        self.textView.textView.textContainerInset = Constants.Text.textContainerInsets
     }
     
     private func setupForText() {
@@ -269,10 +269,10 @@ final class TextBlockContentView: UIView & UIContentView {
         let attributes: [NSAttributedString.Key: Any] = [.font: font,
                                                          .foregroundColor: UIColor.secondaryTextColor]
 
-        self.textView.textView?.update(placeholder: .init(string: placeholer, attributes: attributes))
+        self.textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
         self.textView.textView.font = font
         self.textView.textView.typingAttributes = [.font: font]
-        self.textView.textView?.defaultFontColor = .textColor
+        self.textView.textView.defaultFontColor = .textColor
     }
     
     private func setupForCheckbox(checked: Bool) {
@@ -307,14 +307,14 @@ final class TextBlockContentView: UIView & UIContentView {
         }
 
         self.setupText(placeholer: NSLocalizedString("Checkbox placeholder", comment: ""), font: .bodyFont)
-        self.textView.textView?.textContainerInset = Constants.Checkbox.textContainerInsets
+        self.textView.textView.textContainerInset = Constants.Checkbox.textContainerInsets
         // selected color
         textView.textView.selectedColor = checked ? UIColor.secondaryTextColor : nil
     }
     
     private func setupForBulleted() {
         self.setupText(placeholer: NSLocalizedString("Bulleted placeholder", comment: ""), font: .bodyFont)
-        self.textView.textView?.textContainerInset = Constants.Bulleted.textContainerInsets
+        self.textView.textView.textContainerInset = Constants.Bulleted.textContainerInsets
         let isBulletedView = self.topView.leftView.subviews.first is UIImageView
         guard !isBulletedView else { return }
         
@@ -356,12 +356,12 @@ final class TextBlockContentView: UIView & UIContentView {
             ])
             _ = self.topView.configured(leftChild: container, setConstraints: true)
         }
-        self.textView.textView?.textContainerInset = Constants.Numbered.textContainerInsets
+        self.textView.textView.textContainerInset = Constants.Numbered.textContainerInsets
         self.setupText(placeholer: NSLocalizedString("Numbered placeholder", comment: ""), font: .bodyFont)
     }
     
     private func setupForQuote() {
-        self.textView.textView?.textContainerInset = Constants.Quote.textContainerInsets
+        self.textView.textView.textContainerInset = Constants.Quote.textContainerInsets
         self.setupText(placeholer: NSLocalizedString("Quote placeholder", comment: ""), font: .highlightFont)
         let isQuoteViewExist = self.topView.leftView.subviews.first is QuoteBlockLeadingView
         guard !isQuoteViewExist else { return }
@@ -393,7 +393,7 @@ final class TextBlockContentView: UIView & UIContentView {
         let toggled = currentConfiguration.viewModel.getBlock().isToggled
         toggleButton?.isSelected = toggled
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
-        textView.textView?.textContainerInset = Constants.Toggle.textContainerInsets
+        textView.textView.textContainerInset = Constants.Toggle.textContainerInsets
         let hasNoChildren = currentConfiguration.viewModel.getBlock().childrenIds().isEmpty
         updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
     }

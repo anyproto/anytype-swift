@@ -72,7 +72,7 @@ final class BlockPageLinkUIKitView: UIView {
                                                .underlineColor: UIColor.textColor]
         textView?.textView.textContainerInset = Constants.textContainerInset
         textView?.textView.defaultFontColor = .textColor
-        textView?.textView?.isUserInteractionEnabled = false
+        textView?.textView.isUserInteractionEnabled = false
     }
     
     func configured(stateStream: AnyPublisher<BlockPageLinkState, Never>) -> Self {

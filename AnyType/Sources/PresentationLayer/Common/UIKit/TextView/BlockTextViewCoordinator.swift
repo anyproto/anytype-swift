@@ -342,6 +342,10 @@ extension BlockTextViewCoordinator {
         let (range, storage) = tuple
         self.highlightedAccessoryView.model.update(range: range, attributedText: storage)
     }
+    
+    func switchInputs(_ textView: UITextView) {
+        self.inputSwitcher.switchInputs(self, textView: textView)
+    }
 }
 
 // MARK: Input Switching
@@ -355,10 +359,6 @@ private extension BlockTextViewCoordinator {
                                         textView: textView,
                                         accessoryView: accessoryView,
                                         inputView: inputView)
-    }
-    
-    func switchInputs(_ textView: UITextView) {
-        self.inputSwitcher.switchInputs(self, textView: textView)
     }
 }
 

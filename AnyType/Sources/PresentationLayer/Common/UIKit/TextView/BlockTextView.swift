@@ -18,7 +18,9 @@ final class BlockTextView: UIView {
             }.store(in: &subscriptions)
 
             coordinator?.configureEditingToolbarHandler(textView)
-
+            // Because we set new coordinator we want to use
+            // new coordinator's input views instead of old coordinator views
+            coordinator?.switchInputs(textView)
             _ = coordinator?.configured(textView, contextualMenuStream: textView.contextualMenuPublisher)
             // When sending signal with send() in textView
             // textStorageEventsSubject subscribers installed
@@ -30,9 +32,15 @@ final class BlockTextView: UIView {
         }
     }
 
-    // MARK: Views
-    private var contentView: UIView!
-    var textView: TextViewWithPlaceholder!
+    let textView: TextViewWithPlaceholder = {
+        let textView = TextViewWithPlaceholder()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.textContainer.lineFragmentPadding = 0.0
+        textView.isScrollEnabled = false
+        textView.backgroundColor = nil
+        textView.autocorrectionType = .no
+        return textView
+    }()
 
     // MARK: - Initialization
     
@@ -40,8 +48,7 @@ final class BlockTextView: UIView {
         super.init(frame: .zero)
 
         self.setupUIElements()
-        self.addLayout()
-        self.setupTextView()
+        textView.pinAllEdges(to: self)
 
         self.textView.firstResponderChangePublisher.sink(receiveValue: { [weak self] change in
             switch change {
@@ -59,52 +66,14 @@ final class BlockTextView: UIView {
     }
 
     func update(placeholder: Placeholder) {
-        self.textView?.update(placeholder: placeholder.placeholder)
+        self.textView.update(placeholder: placeholder.placeholder)
     }
 
     // MARK: - Setup views
 
     private func setupUIElements() {
         self.translatesAutoresizingMaskIntoConstraints = false
-
-        self.textView = {
-            let view = TextViewWithPlaceholder()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.contentView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            return view
-        }()
-
-        self.contentView.addSubview(self.textView)
-        self.addSubview(self.contentView)
-    }
-
-    private func setupTextView() {
-        textView.textContainer.lineFragmentPadding = 0.0
-        textView.isScrollEnabled = false
-        textView.backgroundColor = nil
-        textView.autocorrectionType = .no
-    }
-
-    // MARK: Layout
-    private func addLayout() {
-        if let view = self.contentView, let superview = view.superview {
-            view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-            view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-        }
-
-        if let view = self.textView, let superview = view.superview {
-            view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-            view.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-        }
+        addSubview(textView)
     }
 
     override var intrinsicContentSize: CGSize {
@@ -122,7 +91,7 @@ extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
 
     func setFocus(_ focus: TextViewFocus?) {
         guard let position = focus?.position else { return }
-        textView?.setFocus(position)
+        textView.setFocus(position)
     }
 
     func obtainFocusPosition() -> BlockFocusPosition? {
