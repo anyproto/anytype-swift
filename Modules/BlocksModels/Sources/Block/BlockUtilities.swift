@@ -1,10 +1,6 @@
 import Foundation
 import os
 
-public extension Block {
-    enum Utilities {}
-}
-
 // TODO: Implement custom Debug for our models.
 enum BlockDebug {
     static let maxDotsRepeating = 10

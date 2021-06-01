@@ -35,7 +35,7 @@ public struct TreeBlockBuilder {
 
     private func fromList(_ models: [BlockModelProtocol], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
         // 1. create dictionary: ID -> Model
-        var container = self.builder.build(list: models)
+        let container = self.builder.build(list: models)
 
         // 2. check if we have only one root
         let roots = models.filter(isRoot)
