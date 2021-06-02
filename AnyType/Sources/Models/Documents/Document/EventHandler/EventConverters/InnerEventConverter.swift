@@ -5,11 +5,9 @@ final class InnerEventConverter {
     private let updater: BlockUpdater
     private weak var container: ContainerModelProtocol?
     
-    private let parser: BlocksModelsParser
     private let blockValidator = BlockValidator(restrictionsFactory: BlockRestrictionsFactory())
     
-    init(parser: BlocksModelsParser, updater: BlockUpdater, container: ContainerModelProtocol?) {
-        self.parser = parser
+    init(updater: BlockUpdater, container: ContainerModelProtocol?) {
         self.updater = updater
         self.container = container
     }
@@ -28,7 +26,7 @@ final class InnerEventConverter {
             return nil
         case let .blockAdd(value):
             value.blocks
-                .compactMap(self.parser.convert(block:))
+                .compactMap(BlockModelsInformationConverter.convert(block:))
                 .map(TopLevelBuilder.blockBuilder.informationBuilder.build(information:))
                 .map(TopLevelBuilder.blockBuilder.createBlockModel)
                 .forEach { (value) in
@@ -98,7 +96,7 @@ final class InnerEventConverter {
                                                                       checked: newChecked,
                                                                       color: blockColor)
 
-            guard let blockContent = self.parser.convert(middlewareContent: .text(textContent)),
+            guard let blockContent = BlocksModelsConverter.convert(middleware: .text(textContent)),
                   case var .text(newTextBlockContentType) = blockContent else {
                 assertionFailure("We cannot parse style from value: \(value)")
                 return .general

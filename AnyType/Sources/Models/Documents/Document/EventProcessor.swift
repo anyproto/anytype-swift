@@ -28,7 +28,7 @@ class EventProcessor {
         eventHandler.handle(events: events)
     }
     
-    func handleBlockShow(events: PackOfEvents) -> [BlocksModelsParser.PageEvent] {
+    func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
         eventHandler.handleBlockShow(events: events)
     }
 }

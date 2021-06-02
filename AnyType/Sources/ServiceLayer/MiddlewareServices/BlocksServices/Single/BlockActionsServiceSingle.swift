@@ -14,9 +14,7 @@ private extension BlockActionsServiceSingle {
 }
 
 // MARK: Actions
-final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
-    private var parser: BlocksModelsParser = .init()
-    
+final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
     func open(contextID: BlockId, blockID: BlockId) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Open.Service.invoke(
             contextID: contextID, blockID: blockID
@@ -34,7 +32,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
     func add(contextID: BlockId, targetID: BlockId, block: BlockInformation, position: BlockPosition) -> AnyPublisher<ServiceSuccess, Error> {
-        guard let blockInformation = self.parser.convert(information: block) else {
+        guard let blockInformation = BlockModelsInformationConverter.convert(information: block) else {
             return Fail(error: PossibleError.addActionBlockIsNotParsed).eraseToAnyPublisher()
         }
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {

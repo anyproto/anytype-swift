@@ -17,7 +17,7 @@ class EventHandler: EventHandlerProtocol {
     private var innerConverter: InnerEventConverter?
     private var ourConverter: OurEventConverter?
     
-    let parser = BlocksModelsParser()
+    let pageEventConverter = PageEventConverter()
     
     init() {
         self.didProcessEventsPublisher = self.didProcessEventsSubject.eraseToAnyPublisher()
@@ -50,7 +50,18 @@ class EventHandler: EventHandlerProtocol {
     // MARK: Configurations
     func configured(_ container: ContainerModelProtocol) {
         self.container = container
-        self.innerConverter = InnerEventConverter(parser: self.parser, updater: BlockUpdater(container), container: self.container)
-        self.ourConverter = OurEventConverter(container: self.container)
+        self.innerConverter = InnerEventConverter(updater: BlockUpdater(container), container: self.container)
+        self.ourConverter = OurEventConverter(container: container)
+    }
+    
+    func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
+        events.events.compactMap(\.value).compactMap(self.handleBlockShow(event:))
+    }
+    
+    private func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> PageEvent {
+        switch event {
+        case let .objectShow(value): return pageEventConverter.convert(blocks: value.blocks, details: value.details, smartblockType: value.type)
+        default: return .empty()
+        }
     }
 }

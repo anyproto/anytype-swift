@@ -36,7 +36,7 @@ struct GoogleProtobufStructuresConverter {
         /// We should use either our replica of GoogleProtobufStruct or we could use GoogleProtobufStruct directly.
         /// Look at GoogleProtobufStruct.kind property type. It has indirect cases which are impossible to store without full support of same Struct type.
         ///
-        assertionFailure("Do not forget to add conversion from our model to protobuf sutrcture: \(from)")
+        assertionFailure("Do not forget to add conversion from our model to protobuf sucture: \(from)")
         return [:]
     }
 }
