@@ -23,20 +23,12 @@ class DashboardService: DashboardServiceProtocol {
     }
     
     func createNewPage(contextId: String) -> AnyPublisher<ServiceSuccess, Error> {
-        let targetId: String = ""
-        let templateID: String = ""
-        let details: DetailsProviderProtocol = DetailsBuilder.detailsProviderBuilder.filled(
-            with: [
-                DetailsEntry(kind: .name, value: "")
-            ]
-        )
-                
-        return objectsService.createPage(
+        objectsService.createPage(
             contextID: contextId,
-            targetID: targetId,
-            details: details,
+            targetID: "",
+            details: [.name: DetailsEntry(value: "")],
             position: .bottom,
-            templateID: templateID
+            templateID: ""
         )
     }
     

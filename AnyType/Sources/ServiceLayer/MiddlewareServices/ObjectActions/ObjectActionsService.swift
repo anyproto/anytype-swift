@@ -14,13 +14,18 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     // MARK: - ObjectActionsService / CreatePage
     /// Structure that adopts `CreatePage` action protocol
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
-    func createPage(contextID: BlockId, targetID: BlockId, details: DetailsProviderProtocol, position: BlockPosition, templateID: String) -> AnyPublisher<ServiceSuccess, Error> {
+    func createPage(contextID: BlockId,
+                    targetID: BlockId,
+                    details: [DetailsKind: DetailsEntry<AnyHashable>],
+                    position: BlockPosition,
+                    templateID: String
+    ) -> AnyPublisher<ServiceSuccess, Error> {
         guard let position = BlocksModelsParserCommonPositionConverter.asMiddleware(position) else {
             return Fail.init(error: ObjectActionsServicePossibleError.createPageActionPositionConversionHasFailed).eraseToAnyPublisher()
         }
         
         let convertedDetails = BlocksModelsDetailsConverter.asMiddleware(
-            models: Array(details.details.values)
+            models: details
         )
         let preparedDetails = convertedDetails.map({($0.key, $0.value)})
         let protobufDetails: [String: Google_Protobuf_Value] = .init(preparedDetails) { (lhs, rhs) in rhs }
@@ -38,7 +43,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     // MARK: - ObjectActionsService / SetDetails
-    func setDetails(contextID: BlockId, details: [DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error> {
+    func setDetails(contextID: BlockId, details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<ServiceSuccess, Error> {
         let middlewareDetails = BlocksModelsDetailsConverter.asMiddleware(models: details)
         return setDetails(contextID: contextID, details: middlewareDetails)
     }

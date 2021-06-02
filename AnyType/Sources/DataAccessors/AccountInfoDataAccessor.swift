@@ -29,6 +29,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private func setUpNameSubscription() {
         document.pageDetailsPublisher()
+            .safelyUnwrapOptionals()
             .map { $0.name }
             .safelyUnwrapOptionals()
             .receiveOnMain()
@@ -43,6 +44,7 @@ final class AccountInfoDataAccessor: ObservableObject {
     
     private func setUpImageSubscription() {
         document.pageDetailsPublisher()
+            .safelyUnwrapOptionals()
             .map { $0.iconImage }
             .safelyUnwrapOptionals()
             .receiveOnMain()

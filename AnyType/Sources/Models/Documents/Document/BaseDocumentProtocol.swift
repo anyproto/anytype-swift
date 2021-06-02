@@ -9,7 +9,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var userSession: BlockUserSessionModelProtocol? { get }
     var rootActiveModel: BlockActiveRecordModelProtocol? { get }
     
-    func pageDetailsPublisher() -> AnyPublisher<DetailsProviderProtocol, Never>
+    func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never>
     func open(_ value: ServiceSuccess)
     func handle(events: PackOfEvents)
     /// Return publisher that received event on blocks update
@@ -127,10 +127,17 @@ final class BaseDocument: BaseDocumentProtocol {
         let rootId = value.contextID
         
         let blocksContainer = self.transformer.buildBlocksTree(from: event.blocks, with: rootId)
-        let parsedDetails = event.details.map(DetailsBuilder.build(information:))
+        let parsedDetails = event.details.map {
+            LegacyDetailsModel(detailsData: $0)
+        }
         
         let detailsStorage = DetailsBuilder.emptyDetailsContainer()
-        parsedDetails.forEach { detailsStorage.add($0) }
+        parsedDetails.forEach {
+            detailsStorage.add(
+                model: $0,
+                by: $0.detailsData.parentId
+            )
+        }
         
         // Add details models to process.
         self.rootModel = RootBlocksContainer(
@@ -231,66 +238,8 @@ final class BaseDocument: BaseDocumentProtocol {
     
     /// Convenient publisher for accessing default details properties by typed enum.
     /// - Returns: Publisher of default details properties.
-    func pageDetailsPublisher() -> AnyPublisher<DetailsProviderProtocol, Never> {
+    func pageDetailsPublisher() -> AnyPublisher<DetailsData?, Never> {
         defaultDetailsActiveModel.$currentDetails.eraseToAnyPublisher()
-    }
-
-    // MARK: - Details Conversion to Blocks.
-    /// Deprecated.
-    ///
-    /// Now we use view models that uses only blocks.
-    /// So, we have to convert our details to blocks first.
-    private func convert(_ detailsActiveModel: DetailsActiveModel, of kind: DetailsKind) -> BlockActiveRecordModelProtocol? {
-        guard let rootId = self.rootId else {
-            Logger.create(.baseDocument).debug("convert(_:of:). Our document is not ready yet.")
-            return nil
-        }
-                
-        let detailsContent: DetailsEntry<AnyHashable>? = {
-            let details = detailsActiveModel.currentDetails
-
-            switch kind {
-            case .name:
-                return DetailsEntry(
-                    kind: .name,
-                    value: details.name ?? ""
-                )
-            case .iconEmoji:
-                return details.iconEmoji.flatMap {
-                    DetailsEntry(
-                        kind: .iconEmoji,
-                        value: $0
-                    )
-                }
-            case .iconImage:
-                return DetailsEntry(
-                    kind: .iconImage,
-                    value: details.iconImage ?? ""
-                )
-            case .coverId:
-                assertionFailure()
-                return nil
-            case .coverType:
-                assertionFailure()
-                return nil
-            }
-        }()
-        
-        guard let unwrappedDetailsContent = detailsContent else { return nil }
-        
-        let block = DetailsAsBlockConverter(
-            blockId: rootId
-        ).convertDetailsToBlock(unwrappedDetailsContent)
-        
-        let blockFromContainer = self.rootModel?.blocksContainer.get(by: block.information.id)
-        if !blockFromContainer.isNil {
-            Logger.create(.baseDocument).debug("convert(_:of:). We have already added details with id: \(block.information.id)")
-        }
-        else {
-            self.rootModel?.blocksContainer.add(block)
-        }
-        
-        return self.rootModel?.blocksContainer.choose(by: block.information.id)
     }
 
     // MARK: - Events

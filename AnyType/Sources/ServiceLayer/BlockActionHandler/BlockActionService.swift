@@ -225,19 +225,11 @@ final class BlockActionService {
     }
 
     func createPage(afterBlock: BlockInformation, position: BlockPosition = .bottom) {
-        let targetId = ""
-        let templateID = ""
-        let details: DetailsProviderProtocol = DetailsBuilder.detailsProviderBuilder.filled(
-            with: [
-                DetailsEntry(kind: .name, value: "")
-            ]
-        )
-
         self.pageService.createPage(contextID: self.documentId,
-                                    targetID: targetId,
-                                    details: details,
+                                    targetID: "",
+                                    details: [.name: DetailsEntry(value: "")],
                                     position: position,
-                                    templateID: templateID)
+                                    templateID: "")
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
                 self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))

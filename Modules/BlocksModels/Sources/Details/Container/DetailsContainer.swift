@@ -8,7 +8,7 @@
 
 final class DetailsContainer {
     
-    private var details: [String: DetailsModel] = [:]
+    private var details: [String: LegacyDetailsModel] = [:]
     
 }
 
@@ -16,24 +16,17 @@ final class DetailsContainer {
 
 extension DetailsContainer: DetailsContainerProtocol {
     
-    func get(by id: String) -> DetailsModelProtocol? {
+    func get(by id: String) -> LegacyDetailsModel? {
         details[id]
     }
     
-    func add(_ model: DetailsModelProtocol) {
-        let ourModel = DetailsModel(detailsProvider: model.detailsProvider)
-        
-        guard let parent = model.parent else {
-            assertionFailure("We shouldn't add details with empty parent id. Skipping...")
-            return
-        }
-        
-        if details[parent] != nil {
+    func add(model: LegacyDetailsModel, by id: ParentId) {
+        guard details[id] == nil else {
             assertionFailure("We shouldn't replace details by add operation. Skipping...")
             return
         }
         
-        details[parent] = ourModel
+        details[id] = model
     }
     
 }

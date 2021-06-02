@@ -70,8 +70,7 @@ class PageTitleViewModel: PageBlockViewModel {
             self.toModelTitleSubject.notableError().flatMap({ [weak self] value in
                 self?.pageDetailsViewModel?.update(
                     details: [
-                        DetailsEntry(
-                            kind: .name,
+                        .name: DetailsEntry(
                             value: value
                         )
                     ]

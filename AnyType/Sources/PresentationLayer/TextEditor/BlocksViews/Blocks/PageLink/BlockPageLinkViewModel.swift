@@ -25,7 +25,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     init(
         _ block: BlockActiveRecordModelProtocol,
         targetBlockId: String,
-        publisher: AnyPublisher<DetailsProviderProtocol, Never>?,
+        publisher: AnyPublisher<DetailsData, Never>?,
         router: EditorRouterProtocol?
     ) {
         self.targetBlockId = targetBlockId
@@ -52,7 +52,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     ///
     /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
     ///
-    private func setupSubscriptions(_ publisher: AnyPublisher<DetailsProviderProtocol, Never>?) {
+    private func setupSubscriptions(_ publisher: AnyPublisher<DetailsData, Never>?) {
         guard let publisher = publisher else {
             return
         }

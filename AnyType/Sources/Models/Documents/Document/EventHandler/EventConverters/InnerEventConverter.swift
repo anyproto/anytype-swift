@@ -135,31 +135,34 @@ final class InnerEventConverter {
             return .update(.init(updatedIds: [blockId]))
         
         case let .objectDetailsAmend(amend):
-            guard !amend.details.isEmpty else {
-                return .general
+            let updatedDetails = BlocksModelsDetailsConverter.asModel(
+                details: amend.details
+            )
+            
+            guard !updatedDetails.isEmpty else {
+                return nil
             }
             
-            let detailsId = amend.id
-            let details = amend.details
+            let id = amend.id
             
-            let detailsEntries = BlocksModelsDetailsConverter.asModel(details: details)
-            
-            if let detailsModel = self.container?.detailsContainer.get(by: detailsId) {
-                
-                var model = detailsModel
-                
-                var detailsSet = model.detailsProvider.details
-                detailsEntries.forEach { entry in
-                    detailsSet[entry.id] = entry
-                }
-                
-                var detailsProvider = DetailsBuilder.detailsProviderBuilder.filled(with: detailsSet)
-                detailsProvider.parentId = model.detailsProvider.parentId
-                
-                model.detailsProvider = detailsProvider
+            guard let detailsModel = self.container?.detailsContainer.get(by: id) else {
+                return nil
             }
             
-            return .update(EventHandlerUpdatePayload(updatedIds: [detailsId]))
+            let currentDetailsData = detailsModel.detailsData
+            
+            var currentDetails = currentDetailsData.details
+            updatedDetails.forEach { (key, value) in
+                currentDetails[key] = value
+            }
+        
+            // will trigger Publisher
+            detailsModel.detailsData = DetailsData(
+                details: currentDetails,
+                parentId: currentDetailsData.parentId
+            )
+            
+            return .update(EventHandlerUpdatePayload(updatedIds: [id]))
             
         case .objectDetailsUnset:
             assertionFailure("Not implemented")
@@ -170,23 +173,39 @@ final class InnerEventConverter {
                 return .general
             }
             let detailsId = value.id
-            let details = value.details
+            
             let eventsDetails = EventDetailsAndSetDetailsConverter.convert(
-                event: Anytype_Event.Object.Details.Set(id: detailsId, details: details)
+                event: Anytype_Event.Object.Details.Set(
+                    id: detailsId,
+                    details: value.details
+                )
             )
-            let detailsModels = BlocksModelsDetailsConverter.asModel(details: eventsDetails)
-            let detailsInformationModel = DetailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
+            
+            let details = BlocksModelsDetailsConverter.asModel(
+                details: eventsDetails
+            )
             
             if let detailsModel = self.container?.detailsContainer.get(by: detailsId) {
-                var model = detailsModel
-                var resultDetails = DetailsBuilder.detailsProviderBuilder.filled(with: detailsModels)
-                resultDetails.parentId = detailsId
-                model.detailsProvider = resultDetails
+                let model = detailsModel
+                let resultDetails = DetailsData(
+                    details: details,
+                    parentId: detailsId
+                )
+                
+                model.detailsData = resultDetails
             }
             else {
-                var newDetailsModel = DetailsBuilder.build(information: detailsInformationModel)
-                newDetailsModel.parent = detailsId
-                self.container?.detailsContainer.add(newDetailsModel)
+                let detailsData = DetailsData(
+                    details: details,
+                    parentId: detailsId
+                )
+                
+                let newDetailsModel = LegacyDetailsModel(detailsData: detailsData)
+
+                self.container?.detailsContainer.add(
+                    model: newDetailsModel,
+                    by: detailsId
+                )
             }
             /// Please, do not delete.
             /// We should discuss how we handle new details.

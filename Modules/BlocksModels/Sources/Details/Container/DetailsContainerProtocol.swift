@@ -8,7 +8,7 @@
 
 public protocol DetailsContainerProtocol {
     
-    func get(by id: ParentId) -> DetailsModelProtocol?
-    func add(_ model: DetailsModelProtocol)
+    func get(by id: ParentId) -> LegacyDetailsModel?
+    func add(model: LegacyDetailsModel, by id: ParentId)
     
 }

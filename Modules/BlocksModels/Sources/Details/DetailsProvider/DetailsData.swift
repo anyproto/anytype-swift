@@ -1,46 +1,47 @@
 import Foundation
 
-struct DetailsProvider: DetailsProviderProtocol {
+public struct DetailsData {
     
     // MARK: - Properties
     
-    let details: [ParentId: DetailsEntry<AnyHashable>]
-    var parentId: String?
+    public let details: [DetailsKind: DetailsEntry<AnyHashable>]
+    public let parentId: String
     
     // MARK: - Initialization
     
-    init(_ details: [ParentId: DetailsEntry<AnyHashable>]) {
+    public init(details: [DetailsKind: DetailsEntry<AnyHashable>], parentId: String) {
         self.details = details
+        self.parentId = parentId
     }
     
 }
 
 // MARK: - DetailsInformationProvider
 
-extension DetailsProvider: DetailsEntryValueProvider {
+extension DetailsData: DetailsEntryValueProvider {
     
-    var name: String? {
+    public var name: String? {
         return value(for: .name)
     }
     
-    var iconEmoji: String? {
+    public var iconEmoji: String? {
         return value(for: .iconEmoji)
     }
     
-    var iconImage: String? {
+    public var iconImage: String? {
         return value(for: .iconImage)
     }
     
-    var coverId: String? {
+    public var coverId: String? {
         return value(for: .coverId)
     }
     
-    var coverType: CoverType? {
+    public var coverType: CoverType? {
         return value(for: .coverType)
     }
     
     private func value<V>(for kind: DetailsKind) -> V? {
-        guard let entry = details[kind.rawValue] else {
+        guard let entry = details[kind] else {
             return nil
         }
         
@@ -50,4 +51,4 @@ extension DetailsProvider: DetailsEntryValueProvider {
 }
 
 // MARK: Hashable
-extension DetailsProvider: Hashable {}
+extension DetailsData: Hashable {}

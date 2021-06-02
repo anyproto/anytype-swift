@@ -196,6 +196,7 @@ class DocumentEditorViewModel: ObservableObject {
         document.open(value)
         
         document.pageDetailsPublisher()
+            .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] detailsProvider in
                 self?.updateDetailsViewModel(with: detailsProvider)

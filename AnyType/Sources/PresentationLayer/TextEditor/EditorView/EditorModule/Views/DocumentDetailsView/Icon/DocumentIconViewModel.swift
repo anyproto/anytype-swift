@@ -63,12 +63,10 @@ private extension DocumentIconViewModel {
             .sink { [weak self] emoji in
                 self?.updateDetails(
                     [
-                        DetailsEntry(
-                            kind: .iconEmoji,
+                        .iconEmoji: DetailsEntry(
                             value: emoji.unicode
                         ),
-                        DetailsEntry(
-                            kind: .iconImage,
+                        .iconImage: DetailsEntry(
                             value: ""
                         )
                     ]
@@ -125,12 +123,10 @@ private extension DocumentIconViewModel {
         .flatMap { [weak self] uploadedFile in
             self?.detailsActiveModel.update(
                 details: [
-                    DetailsEntry(
-                        kind: .iconEmoji,
+                    .iconEmoji: DetailsEntry(
                         value: ""
                     ),
-                    DetailsEntry(
-                        kind: .iconImage,
+                    .iconImage: DetailsEntry(
                         value: uploadedFile.hash
                     )
                 ]
@@ -145,12 +141,10 @@ private extension DocumentIconViewModel {
         
         updateDetails(
             [
-                DetailsEntry(
-                    kind: .iconEmoji,
+                .iconEmoji: DetailsEntry(
                     value: emoji.unicode
                 ),
-                DetailsEntry(
-                    kind: .iconImage,
+                .iconImage: DetailsEntry(
                     value: ""
                 )
             ]
@@ -160,19 +154,17 @@ private extension DocumentIconViewModel {
     func removeIcon() {
         updateDetails(
             [
-                DetailsEntry(
-                    kind: .iconEmoji,
+                .iconEmoji: DetailsEntry(
                     value: ""
                 ),
-                DetailsEntry(
-                    kind: .iconImage,
+                .iconImage: DetailsEntry(
                     value: ""
                 )
             ]
         )
     }
     
-    func updateDetails(_ details: [DetailsEntry<AnyHashable>]) {
+    func updateDetails(_ details: [DetailsKind: DetailsEntry<AnyHashable>]) {
         detailsActiveModel.update(
             details: details
         )?.sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in

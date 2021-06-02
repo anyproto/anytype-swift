@@ -10,15 +10,9 @@ import Foundation
 
 public struct DetailsEntry<V: Hashable> {
     
-    public let kind: DetailsKind
     public let value: V
     
-    public var id: String {
-        kind.rawValue
-    }
-    
-    public init(kind: DetailsKind, value: V) {
-        self.kind = kind
+    public init(value: V) {
         self.value = value
     }
        

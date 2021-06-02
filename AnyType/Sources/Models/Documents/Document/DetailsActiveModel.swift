@@ -17,8 +17,9 @@ class DetailsActiveModel {
     
     // MARK: Publishers
     
-    @Published private(set) var currentDetails: DetailsProviderProtocol = DetailsBuilder.detailsProviderBuilder.filled(with: [:])
-    private(set) var wholeDetailsPublisher: AnyPublisher<DetailsProviderProtocol, Never> = .empty() {
+    @Published private(set) var currentDetails: DetailsData?
+    
+    private(set) var wholeDetailsPublisher: AnyPublisher<DetailsData, Never> = .empty() {
         didSet {
             self.currentDetailsSubscription = self.wholeDetailsPublisher.sink { [weak self] (value) in
                 self?.currentDetails = value
@@ -39,7 +40,7 @@ extension DetailsActiveModel {
         self.documentId = documentId
     }
     
-    func configured(publisher: AnyPublisher<DetailsProviderProtocol, Never>) {
+    func configured(publisher: AnyPublisher<DetailsData, Never>) {
         self.wholeDetailsPublisher = publisher
     }
     
@@ -55,7 +56,7 @@ extension DetailsActiveModel {
     
     /// Maybe add AnyPublisher as Return result?
     
-    func update(details: [DetailsEntry<AnyHashable>]) -> AnyPublisher<Void, Error>? {
+    func update(details: [DetailsKind: DetailsEntry<AnyHashable>]) -> AnyPublisher<Void, Error>? {
         guard let documentId = self.documentId else {
             assertionFailure("update(details:). Our document is not ready yet")
             return nil

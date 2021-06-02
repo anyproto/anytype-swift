@@ -90,12 +90,10 @@ private extension DocumentCoverViewModel {
         .flatMap { [weak self] uploadedFile in
             self?.detailsActiveModel.update(
                 details: [
-                    DetailsEntry(
-                        kind: .coverType,
+                    .coverType: DetailsEntry(
                         value: CoverType.uploadedImage
                     ),
-                    DetailsEntry(
-                        kind: .coverId,
+                    .coverId: DetailsEntry(
                         value: uploadedFile.hash
                     )
                 ]

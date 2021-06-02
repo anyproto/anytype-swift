@@ -38,7 +38,7 @@ final class HomeCellDataBuilder {
         )
     }
     
-    func updatedCellData(newDetails: DetailsProviderProtocol, oldData: PageCellData) -> PageCellData {
+    func updatedCellData(newDetails: DetailsData, oldData: PageCellData) -> PageCellData {
         return PageCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,
