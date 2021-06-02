@@ -9,4 +9,8 @@ struct HomePageLink {
     var isLoading: Bool {
         details.isNil
     }
+    
+    var isArchived: Bool {
+        details?.isArchived ?? false
+    }
 }

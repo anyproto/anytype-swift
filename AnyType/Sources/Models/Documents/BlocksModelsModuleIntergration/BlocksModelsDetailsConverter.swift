@@ -11,23 +11,22 @@ private extension LoggerCategory {
 
 /// Top converter which convert all details to and from protobuf.
 enum BlocksModelsDetailsConverter {
-static func asMiddleware(models: [DetailsKind: DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail] {
-            models.compactMap { row in
-                Anytype_Rpc.Block.Set.Details.Detail.converted(
-                    kind: row.key,
-                    entry: row.value
-                )
-            }
+    static func asMiddleware(models: [DetailsKind: DetailsEntry<AnyHashable>]) -> [Anytype_Rpc.Block.Set.Details.Detail] {
+        models.compactMap { row in
+            Anytype_Rpc.Block.Set.Details.Detail.converted(
+                kind: row.key,
+                entry: row.value
+            )
         }
-        
-        static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsKind:  DetailsEntry<AnyHashable>] {
-            details.asModel()
-        }
-        
-        static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsKind: DetailsEntry<AnyHashable>] {
-            details.asModel()
-        }
-
+    }
+    
+    static func asModel(details: [Anytype_Rpc.Block.Set.Details.Detail]) -> [DetailsKind:  DetailsEntry<AnyHashable>] {
+        details.asModel()
+    }
+    
+    static func asModel(details: [Anytype_Event.Object.Details.Amend.KeyValue]) -> [DetailsKind: DetailsEntry<AnyHashable>] {
+        details.asModel()
+    }
 }
 
 private extension Anytype_Rpc.Block.Set.Details.Detail {
@@ -84,6 +83,8 @@ private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
                     return element.value.asCoverIdEntry()
                 case .coverType:
                     return element.value.asCoverTypeEntry()
+                case .isArchived:
+                    return element.value.asIsArchiveEntry()
                 }
             }()
             
@@ -123,6 +124,8 @@ private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyV
                     return element.value.asCoverIdEntry()
                 case .coverType:
                     return element.value.asCoverTypeEntry()
+                case .isArchived:
+                    return element.value.asIsArchiveEntry()
                 }
             }()
             
@@ -195,6 +198,18 @@ private extension Google_Protobuf_Value {
         default:
             assertionFailure(
                 "Unknown value \(self) for predefined suffix. \(DetailsKind.coverType)"
+            )
+            return nil
+        }
+    }
+    
+    func asIsArchiveEntry() -> DetailsEntry<AnyHashable>? {
+        switch kind {
+        case .boolValue(let isArchive):
+            return DetailsEntry(value: isArchive)
+        default:
+            assertionFailure(
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.isArchived)"
             )
             return nil
         }

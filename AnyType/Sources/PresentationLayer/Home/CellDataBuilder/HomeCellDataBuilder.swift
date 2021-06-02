@@ -24,7 +24,10 @@ final class HomeCellDataBuilder {
             }
         }
         
-        return links.filter{ $0.type == .page }.map { buildPageCellData(pageLink: $0) }
+        return links
+            .filter { $0.type == .page }
+            .filter { $0.isArchived == false }
+            .map { buildPageCellData(pageLink: $0) }
     }
     
     private func buildPageCellData(pageLink: HomePageLink) -> PageCellData {
