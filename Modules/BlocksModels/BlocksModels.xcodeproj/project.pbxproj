@@ -12,7 +12,6 @@
 		0A6D538C25D9C99F002F3F82 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536C25D9C99E002F3F82 /* BlockBuilder.swift */; };
 		0A6D538D25D9C99F002F3F82 /* BlockUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536D25D9C99E002F3F82 /* BlockUtilities.swift */; };
 		0A6D538F25D9C99F002F3F82 /* BlockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */; };
-		0A6D539125D9C99F002F3F82 /* TopLevelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537125D9C99E002F3F82 /* TopLevelBuilder.swift */; };
 		0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537225D9C99E002F3F82 /* BlockContent.swift */; };
 		0A6D539325D9C99F002F3F82 /* BlockInformationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537325D9C99E002F3F82 /* BlockInformationBuilder.swift */; };
 		0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537425D9C99E002F3F82 /* BlockInformation.swift */; };
@@ -55,7 +54,6 @@
 		0A6D536C25D9C99E002F3F82 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBuilder.swift; sourceTree = "<group>"; };
 		0A6D536D25D9C99E002F3F82 /* BlockUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockUtilities.swift; sourceTree = "<group>"; };
 		0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockUpdater.swift; sourceTree = "<group>"; };
-		0A6D537125D9C99E002F3F82 /* TopLevelBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopLevelBuilder.swift; sourceTree = "<group>"; };
 		0A6D537225D9C99E002F3F82 /* BlockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockContent.swift; sourceTree = "<group>"; };
 		0A6D537325D9C99E002F3F82 /* BlockInformationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationBuilder.swift; sourceTree = "<group>"; };
 		0A6D537425D9C99E002F3F82 /* BlockInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformation.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				0A6D537D25D9C99E002F3F82 /* Aliases.swift */,
-				0A6D537125D9C99E002F3F82 /* TopLevelBuilder.swift */,
 				0A6D537525D9C99E002F3F82 /* ContainerModelProtocol.swift */,
 				0A6D538725D9C99F002F3F82 /* RootBlocksContainer.swift */,
 				3D70BF1F261B055E008CED9E /* Details */,
@@ -402,7 +399,6 @@
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* BlockBuilder.swift in Sources */,
 				0A6D53A125D9C99F002F3F82 /* DetailsProviderBuilder.swift in Sources */,
-				0A6D539125D9C99F002F3F82 /* TopLevelBuilder.swift in Sources */,
 				0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */,
 				0A6D53A225D9C99F002F3F82 /* DetailsEntryValueProvider.swift in Sources */,
 				12FD4E3526582A4D00559612 /* DetailsProviderBuilderProtocol.swift in Sources */,

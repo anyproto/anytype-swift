@@ -9,14 +9,16 @@ public protocol BlockBuilderProtocol {
     var informationBuilder: BlockInformationBuilderProtocol {get}
 }
 
-class BlockBuilder: BlockBuilderProtocol {
-    func build(list: [BlockModelProtocol]) -> BlockContainerModelProtocol {
+public class TopLevelBlockBuilder: BlockBuilderProtocol {
+    public static let shared: BlockBuilderProtocol = TopLevelBlockBuilder()
+    
+    public func build(list: [BlockModelProtocol]) -> BlockContainerModelProtocol {
         let container = BlockContainer()
         list.forEach(container.add(_:))
         return container
     }
     
-    func emptyContainer() -> BlockContainerModelProtocol {
+    public func emptyContainer() -> BlockContainerModelProtocol {
         build(list: [])
     }
     
@@ -31,7 +33,7 @@ class BlockBuilder: BlockBuilderProtocol {
         }
     }
     
-    func buildTree(container: BlockContainerModelProtocol, rootId: String?) {
+    public func buildTree(container: BlockContainerModelProtocol, rootId: String?) {
         if let rootId = rootId {
             self.buildTreeRecursively(container: container, id: rootId)
         }
@@ -40,9 +42,9 @@ class BlockBuilder: BlockBuilderProtocol {
         }
     }
     
-    func createBlockModel(with information: BlockInformation) -> BlockModelProtocol {
+    public func createBlockModel(with information: BlockInformation) -> BlockModelProtocol {
         BlockModel(information: information)
     }
     
-    let informationBuilder: BlockInformationBuilderProtocol = BlockInformationBuilder()
+    public let informationBuilder: BlockInformationBuilderProtocol = BlockInformationBuilder()
 }

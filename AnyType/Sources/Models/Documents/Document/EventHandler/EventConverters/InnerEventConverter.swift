@@ -27,8 +27,8 @@ final class InnerEventConverter {
         case let .blockAdd(value):
             value.blocks
                 .compactMap(BlockModelsInformationConverter.convert(block:))
-                .map(TopLevelBuilder.blockBuilder.informationBuilder.build(information:))
-                .map(TopLevelBuilder.blockBuilder.createBlockModel)
+                .map(TopLevelBlockBuilder.shared.informationBuilder.build(information:))
+                .map(TopLevelBlockBuilder.shared.createBlockModel)
                 .forEach { (value) in
                     updater.insert(block: value)
                 }

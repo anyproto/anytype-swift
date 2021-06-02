@@ -224,7 +224,7 @@ struct BlockBuilder {
     static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> Information? {
         switch block.content {
         case .text:
-            return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(TopLevelBuilder.blockBuilder.informationBuilder.build)
+            return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(TopLevelBlockBuilder.shared.informationBuilder.build)
         default: return nil
         }
     }
@@ -234,22 +234,22 @@ struct BlockBuilder {
         case .addBlock:
             return self.createContentType(block: block, action: action, textPayload: textPayload)
                 .flatMap { (newBlockId(), $0) }
-                .map(TopLevelBuilder.blockBuilder.informationBuilder.build)
+                .map(TopLevelBlockBuilder.shared.informationBuilder.build)
         default: return nil
         }
     }
 
     static func createDefaultInformation(block: BlockActiveRecordModelProtocol? = nil) -> Information? {
         guard let block = block else {
-            return TopLevelBuilder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            return TopLevelBlockBuilder.shared.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
         }
         switch block.content {
         case let .text(value):
             switch value.contentType {
-            case .toggle: return TopLevelBuilder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            case .toggle: return TopLevelBlockBuilder.shared.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
             default: return nil
             }
-        case .smartblock: return TopLevelBuilder.blockBuilder.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+        case .smartblock: return TopLevelBlockBuilder.shared.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
         default: return nil
         }
     }

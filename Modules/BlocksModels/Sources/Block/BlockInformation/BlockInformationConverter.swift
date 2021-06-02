@@ -36,7 +36,7 @@ public struct DetailsAsBlockConverter {
     // MARK: - Public functions
     
     public func convertDetailsToBlock(_ details: DetailsEntry<AnyHashable>) -> BlockModelProtocol {
-        TopLevelBuilder.blockBuilder.createBlockModel(
+        TopLevelBlockBuilder.shared.createBlockModel(
             with: DetailsAsInformationConverter.convert(blockId: self.blockId, details: details)
         )
     }

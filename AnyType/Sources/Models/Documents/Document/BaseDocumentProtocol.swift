@@ -133,7 +133,11 @@ final class BaseDocument: BaseDocumentProtocol {
         parsedDetails.forEach { detailsStorage.add($0) }
         
         // Add details models to process.
-        self.rootModel = TopLevelBuilder.createRootContainer(rootId: rootId, blockContainer: blocksContainer, detailsContainer: detailsStorage)
+        self.rootModel = RootBlocksContainer(
+            rootId: rootId,
+            blocksContainer: blocksContainer,
+            detailsContainer: detailsStorage
+        )
     }
 
     // MARK: - Configure Details
