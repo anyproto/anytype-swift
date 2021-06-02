@@ -422,10 +422,10 @@ extension Namespace.ViewModel {
             hasher.combine(self.information)
         }
         
-        var information: Information
+        let information: BlockInformation
         fileprivate weak var contextMenuHolder: Namespace.ViewModel?
         
-        init(_ information: Information) {
+        init(_ information: BlockInformation) {
             /// We should warn if we have incorrect content type (?)
             /// Don't know :(
             /// Think about failable initializer

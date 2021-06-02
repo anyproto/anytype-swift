@@ -19,6 +19,8 @@ enum BlocksModelsConverter {
         case .bookmark(let data): return contentBookmark.blockType(data)
         case .div(let data): return contentDivider.blockType(data)
         case .layout(let data): return contentLayout.blockType(data)
+        
+        case .featuredRelations: return nil
         default:
             assertionFailure("No converter for type: \(String(describing: middleware))")
             return nil

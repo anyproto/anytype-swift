@@ -64,7 +64,7 @@ extension BlocksViews.Unknown.Label.ViewModel {
         var information: BlockInformation
         fileprivate weak var contextMenuHolder: BlocksViews.Unknown.Label.ViewModel?
         
-        init(_ information: Information) {
+        init(_ information: BlockInformation) {
             /// We could store somewhere which type we could treat as `Unknown`...
 //            switch information.content {
 //            case .bookmark: break

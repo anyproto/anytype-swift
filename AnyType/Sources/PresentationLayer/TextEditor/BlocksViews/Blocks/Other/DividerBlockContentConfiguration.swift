@@ -10,8 +10,6 @@ import MobileCoreServices
 /// We could map all states ( for example, image has several states ) to several different ContentViews.
 ///
 struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
-    typealias Information = BlockInformation
-    
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.information == rhs.information
     }
@@ -20,10 +18,10 @@ struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
         hasher.combine(self.information)
     }
     
-    var information: Information
+    var information: BlockInformation
     weak var contextMenuHolder: DividerBlockViewModel?
     
-    init(_ information: Information) {
+    init(_ information: BlockInformation) {
         /// We should warn if we have incorrect content type (?)
         /// Don't know :(
         /// Think about failable initializer

@@ -43,7 +43,6 @@ extension BlockActionService {
 /// Next, this response would be proceed by event handler.
 final class BlockActionService {
     typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-    typealias Information = BlockInformation
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     typealias BlockContentTypeText = BlockContent.Text.ContentType
 
@@ -195,17 +194,17 @@ final class BlockActionService {
 
     // MARK: Actions/Add
 
-    func addChild(childBlock: Information, parentBlockId: BlockId) {
+    func addChild(childBlock: BlockInformation, parentBlockId: BlockId) {
         // insert block as child to parent.
         self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
     }
 
-    func add(newBlock: Information, afterBlockId: BlockId, position: BlockPosition = .bottom, shouldSetFocusOnUpdate: Bool) {
+    func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, shouldSetFocusOnUpdate: Bool) {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Add.convert : Converter.Default.convert
         _add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
     }
 
-    func split(block: Information,
+    func split(block: BlockInformation,
                oldText: String,
                newBlockContentType: BlockContentTypeText,
                shouldSetFocusOnUpdate: Bool) {
@@ -216,7 +215,7 @@ final class BlockActionService {
                          conversion)
     }
 
-    func duplicate(block: Information) {
+    func duplicate(block: BlockInformation) {
         let targetId = block.id
         let blockIds: [String] = [targetId]
         let position: BlockPosition = .bottom
@@ -225,7 +224,7 @@ final class BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    func createPage(afterBlock: Information, position: BlockPosition = .bottom) {
+    func createPage(afterBlock: BlockInformation, position: BlockPosition = .bottom) {
         let targetId = ""
         let templateID = ""
         let details: DetailsProviderProtocol = DetailsBuilder.detailsProviderBuilder.filled(
@@ -247,7 +246,7 @@ final class BlockActionService {
 
     /// Turn Into
     // TODO: Add Div and ConvertChildrenToPages
-    func turnInto(block: Information, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
+    func turnInto(block: BlockInformation, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
         /// Also check for style later.
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.TurnInto.Text.convert : Converter.Default.convert
         _turnInto(block: block, type: type, conversion)
@@ -272,7 +271,7 @@ final class BlockActionService {
 }
 
 private extension BlockActionService {
-    func _add(newBlock: Information, afterBlockId: BlockId, position: BlockPosition = .bottom, _ completion: @escaping Conversion) {
+    func _add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, _ completion: @escaping Conversion) {
 
         // insert block after block
         // we could catch events and update model.
@@ -290,7 +289,7 @@ private extension BlockActionService {
     }
 
 
-    func _split(block: Information, oldText: String, _ completion: @escaping Conversion) {
+    func _split(block: BlockInformation, oldText: String, _ completion: @escaping Conversion) {
         // TODO: You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`
 
         // We are using old text as a cursor position.
@@ -313,7 +312,7 @@ private extension BlockActionService {
             }.store(in: &self.subscriptions)
     }
 
-    func _setTextAndSplit(block: Information,
+    func _setTextAndSplit(block: BlockInformation,
                           oldText: String,
                           newBlockContentType: BlockContentTypeText,
                           _ completion: @escaping Conversion) {
@@ -348,7 +347,7 @@ private extension BlockActionService {
     }
 
     // MARK: Delete
-    func _delete(block: Information, _ completion: @escaping Conversion) {
+    func _delete(block: BlockInformation, _ completion: @escaping Conversion) {
         let blockIds = [block.id]
         self.service.delete(contextID: self.documentId, blockIds: blockIds)
             .receiveOnMain()
@@ -368,7 +367,7 @@ private extension BlockActionService {
     }
 
     // MARK: - Turn Into
-    func _turnInto(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func _turnInto(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         switch type {
         case .text: self.setTextStyle(block: block, type: type, completion)
         case .smartblock: self.setPageStyle(block: block, type: type)
@@ -377,7 +376,7 @@ private extension BlockActionService {
         }
     }
 
-    private func setDividerStyle(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    private func setDividerStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
         guard case let .divider(value) = type else {
             assertionFailure("SetDividerStyle content is not divider: \(type)")
@@ -393,7 +392,7 @@ private extension BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    private func setPageStyle(block: Information, type: BlockContent) {
+    private func setPageStyle(block: BlockInformation, type: BlockContent) {
         let blockId = block.id
         let objectType = ""
 
@@ -409,7 +408,7 @@ private extension BlockActionService {
         .store(in: &self.subscriptions)
     }
 
-    private func setTextStyle(block: Information, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    private func setTextStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
 
         guard case let .text(text) = type else {
@@ -429,11 +428,11 @@ private extension BlockActionService {
 // MARK: - Delete
 
 extension BlockActionService {
-    func delete(block: Information, completion: @escaping Conversion) {
+    func delete(block: BlockInformation, completion: @escaping Conversion) {
         _delete(block: block, completion)
     }
 
-    func merge(firstBlock: Information, secondBlock: Information, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, _ completion: @escaping Conversion = Converter.Default.convert) {
         let firstBlockId = firstBlock.id
         let secondBlockId = secondBlock.id
 
@@ -449,7 +448,7 @@ extension BlockActionService {
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    private func _bookmarkFetch(block: Information, url: String, _ completion: @escaping Conversion = Converter.Default.convert) {
+    private func _bookmarkFetch(block: BlockInformation, url: String, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
         self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
             .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] (value) in
@@ -458,7 +457,7 @@ extension BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    func bookmarkFetch(block: Information, url: String) {
+    func bookmarkFetch(block: BlockInformation, url: String) {
         self._bookmarkFetch(block: block, url: url)
     }
 }
@@ -466,7 +465,7 @@ extension BlockActionService {
 // MARK: - SetBackgroundColor
 
 extension BlockActionService {
-    private func _setBackgroundColor(block: Information, color: UIColor, _ completion: @escaping Conversion = Converter.Default.convert) {
+    private func _setBackgroundColor(block: BlockInformation, color: UIColor, _ completion: @escaping Conversion = Converter.Default.convert) {
         guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(color, background: true) else {            assertionFailure("Wrong UIColor for setBackgroundColor command")
             return
         }
@@ -483,7 +482,7 @@ extension BlockActionService {
             .store(in: &self.subscriptions)
     }
 
-    func setBackgroundColor(block: Information, color: UIColor) {
+    func setBackgroundColor(block: BlockInformation, color: UIColor) {
         self._setBackgroundColor(block: block, color: color)
     }
 }
@@ -491,7 +490,7 @@ extension BlockActionService {
 // MARK: - UploadFile
 
 extension BlockActionService {
-    private func _upload(block: Information, filePath: String, _ completion: @escaping Conversion = Converter.Default.convert) {
+    private func _upload(block: BlockInformation, filePath: String, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
         self.fileService.uploadDataAtFilePath.action(contextID: self.documentId, blockID: blockId, filePath: filePath)
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] (value) in
@@ -500,7 +499,7 @@ extension BlockActionService {
         }.store(in: &self.subscriptions)
     }
     
-    func upload(block: Information, filePath: String) {
+    func upload(block: BlockInformation, filePath: String) {
         self._upload(block: block, filePath: filePath)
     }
 }

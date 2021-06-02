@@ -3,8 +3,6 @@ import Combine
 import BlocksModels
 
 class BaseBlockViewModel: ObservableObject {
-    typealias Information = BlockInformation
-
     private enum Constants {
         static let maxIndentationLevel: Int = 4
     }

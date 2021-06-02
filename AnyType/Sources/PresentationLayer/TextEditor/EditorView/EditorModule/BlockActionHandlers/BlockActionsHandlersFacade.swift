@@ -216,12 +216,11 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
 /// This class should be moved to Middleware.
 /// We don't care about business logic on THIS level.
 struct BlockBuilder {
-    typealias Information = BlockInformation
     typealias KeyboardAction = BlockTextView.UserAction.KeyboardAction
 
     static func newBlockId() -> BlockId { "" }
 
-    static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> Information? {
+    static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
         switch block.content {
         case .text:
             return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(TopLevelBlockBuilder.shared.informationBuilder.build)
@@ -229,7 +228,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createInformation(block: BlockActiveRecordModelProtocol, action: BlocksViews.Toolbar.UnderlyingAction, textPayload: String = "") -> Information? {
+    static func createInformation(block: BlockActiveRecordModelProtocol, action: BlocksViews.Toolbar.UnderlyingAction, textPayload: String = "") -> BlockInformation? {
         switch action {
         case .addBlock:
             return self.createContentType(block: block, action: action, textPayload: textPayload)
@@ -239,7 +238,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createDefaultInformation(block: BlockActiveRecordModelProtocol? = nil) -> Information? {
+    static func createDefaultInformation(block: BlockActiveRecordModelProtocol? = nil) -> BlockInformation? {
         guard let block = block else {
             return TopLevelBlockBuilder.shared.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
         }

@@ -284,7 +284,6 @@
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */; };
-		3D568F872666C0F700DC7881 /* HashableConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F862666C0F700DC7881 /* HashableConverter.swift */; };
 		3D568F892666C12700DC7881 /* ContentObjectAsEmptyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F882666C12700DC7881 /* ContentObjectAsEmptyPage.swift */; };
 		3D568F8B2666C17300DC7881 /* ContentLinkConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F8A2666C17300DC7881 /* ContentLinkConverter.swift */; };
 		3D568F8D2666C1CE00DC7881 /* ContentTextConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F8C2666C1CE00DC7881 /* ContentTextConverter.swift */; };
@@ -849,7 +848,6 @@
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAssembly.swift; sourceTree = "<group>"; };
-		3D568F862666C0F700DC7881 /* HashableConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HashableConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/ProtobufConverters/HashableConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D568F882666C12700DC7881 /* ContentObjectAsEmptyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentObjectAsEmptyPage.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/ProtobufConverters/ContentObjectAsEmptyPage.swift; sourceTree = SOURCE_ROOT; };
 		3D568F8A2666C17300DC7881 /* ContentLinkConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentLinkConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/ProtobufConverters/ContentLinkConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D568F8C2666C1CE00DC7881 /* ContentTextConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentTextConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/ProtobufConverters/ContentTextConverter.swift; sourceTree = SOURCE_ROOT; };
@@ -2432,7 +2430,6 @@
 		3D568F852666C0E600DC7881 /* ProtobufConverters */ = {
 			isa = PBXGroup;
 			children = (
-				3D568F862666C0F700DC7881 /* HashableConverter.swift */,
 				3D568F882666C12700DC7881 /* ContentObjectAsEmptyPage.swift */,
 				3D568F8A2666C17300DC7881 /* ContentLinkConverter.swift */,
 				3D568F8C2666C1CE00DC7881 /* ContentTextConverter.swift */,
@@ -3694,7 +3691,6 @@
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
 				0A2C0D55247144F4008ADD86 /* BlockTextViewCoordinator.swift in Sources */,
-				3D568F872666C0F700DC7881 /* HashableConverter.swift in Sources */,
 				03AA488D22FA5C8B00D756AA /* UserDefault.swift in Sources */,
 				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,

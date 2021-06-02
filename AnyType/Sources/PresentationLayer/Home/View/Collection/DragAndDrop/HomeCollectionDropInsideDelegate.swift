@@ -33,7 +33,6 @@ struct HomeCollectionDropInsideDelegate: DropDelegate {
         guard let draggingCellData = data.draggingCellData,
               let dropPositionCellData = data.dropPositionCellData,
               let direction = data.direction else {
-            assertionFailure("Could not perform drop with data \(String(describing: data))")
             return false
         }
         
