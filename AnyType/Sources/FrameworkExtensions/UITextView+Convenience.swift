@@ -9,13 +9,15 @@ extension UITextView {
     /// This method avoids this undesired behavior and set `typingAttributes` properly.
     ///
     /// - Parameters:
-    ///   - string: String to append
-    func appendStringToAttributedString(_ string: String) {
+    ///   - string: String to insert
+    func insertStringToAttributedString(_ string: String) {
         guard !string.isEmpty else { return }
         if attributedText.length == 0 {
             attributedText = NSAttributedString(string: string, attributes: typingAttributes)
         } else {
-            attributedText = attributedText?.attributedStringByAppending(string)
+            let selectedRangeLocation = selectedRange.location
+            attributedText = attributedText?.attributedStringByInserting(string, at: selectedRangeLocation)
+            selectedRange.location = selectedRangeLocation + string.count
         }
     }
     

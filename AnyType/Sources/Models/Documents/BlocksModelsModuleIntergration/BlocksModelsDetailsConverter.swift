@@ -47,11 +47,11 @@ private extension Anytype_Rpc.Block.Set.Details.Detail {
             return nil
         }()
         
-        guard let protobufValue = protobufValue else { return nil }
+        guard let value = protobufValue else { return nil }
         
         return Anytype_Rpc.Block.Set.Details.Detail(
             key: kind.rawValue,
-            value: protobufValue
+            value: value
         )
     }
     

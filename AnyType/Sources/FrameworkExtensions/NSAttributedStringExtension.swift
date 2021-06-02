@@ -51,19 +51,20 @@ extension NSAttributedString {
     ///
     /// - Parameters:
     ///  - string: String to append
+    ///  - index: Index where to insert string
     ///
     /// - Returns: New attributed string
-    func attributedStringByAppending(_ string: String) -> NSAttributedString {
+    func attributedStringByInserting(_ string: String, at index: Int) -> NSAttributedString {
         guard !string.isEmpty else { return self }
         let currentStringRange = NSRange(location: 0, length: self.string.count)
-        let stringToAppend = NSMutableAttributedString(string: string)
-        let stringToAppendRange = NSRange(location: 0, length: string.count)
+        let stringToInsert = NSMutableAttributedString(string: string)
+        let stringToInsertRange = NSRange(location: 0, length: string.count)
         enumerateAttributes(in: currentStringRange) { attributes, range, _ in
             guard range == currentStringRange else { return }
-            stringToAppend.addAttributes(attributes, range: stringToAppendRange)
+            stringToInsert.addAttributes(attributes, range: stringToInsertRange)
         }
         let mutableString = NSMutableAttributedString(attributedString: self)
-        mutableString.append(stringToAppend)
+        mutableString.insert(stringToInsert, at: index)
         return NSAttributedString(attributedString: mutableString)
     }
 }

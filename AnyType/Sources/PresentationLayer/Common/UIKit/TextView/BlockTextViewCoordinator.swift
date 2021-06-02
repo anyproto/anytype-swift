@@ -116,7 +116,7 @@ extension BlockTextViewCoordinator {
 
             switch action {
             case .slashMenu:
-                textView.appendStringToAttributedString(self.inputSwitcher.textToTriggerActionsViewDisplay)
+                textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerActionsViewDisplay)
                 self.inputSwitcher.showMenuActionsView(coordinator: self, textView: textView)
             case .multiActionMenu:
                 self.publishToOuterWorld(.showMultiActionMenuAction(.showMultiActionMenu))

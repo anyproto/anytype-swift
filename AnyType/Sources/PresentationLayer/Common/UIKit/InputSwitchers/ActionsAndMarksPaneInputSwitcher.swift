@@ -144,16 +144,16 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         // text was changed - "text" -> "text/"
         // but do not want to display in case
         // "text/a" -> "text/"
-        guard let caretPosition = textView.caretPosition(),
-              let textViewChange = textViewChange,
-              textViewChange != .deletingSymbols else { return }
+        guard let caretPosition = textView.caretPosition() else { return }
         if coordinator.menuActionsAccessoryView?.window != nil,
            let triggerSymbolPosition = actionsViewTriggerSymbolPosition,
            let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) {
             coordinator.menuActionsAccessoryView?.setFilterText(filterText: textView.text(in: range) ?? "")
             return
         }
-        if let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
+        if let textViewChange = textViewChange,
+           textViewChange != .deletingSymbols,
+           let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
            let text = textView.text(in: textRange),
            text.hasSuffix(textToTriggerActionsViewDisplay) {
             self.createDelayedActonsViewTask(coordinator: coordinator,
