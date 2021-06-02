@@ -86,13 +86,6 @@ final class DocumentEditorViewController: UIViewController {
 
 
     private func setupCollectionViewDataSource() {
-        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
-        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] (detailsView, string, indexPath) in
-            guard let viewModel = self?.viewModel.detailsViewModel else { return }
-
-            detailsView.configure(model: viewModel)
-        }
-
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -101,7 +94,7 @@ final class DocumentEditorViewController: UIViewController {
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
 
-        dataSource = UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>(collectionView: collectionView) {
+        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, item: BaseBlockViewModel) -> UICollectionViewCell? in
             if item is CodeBlockViewModel {
                 return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: item)
@@ -109,10 +102,19 @@ final class DocumentEditorViewController: UIViewController {
                 return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
             }
         }
+        
+        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
+        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] (detailsView, string, indexPath) in
+            guard let viewModel = self?.viewModel.detailsViewModel else { return }
 
-        dataSource?.supplementaryViewProvider = { [weak self] in
+            detailsView.configure(model: viewModel)
+        }
+        
+        dataSource.supplementaryViewProvider = { [weak self] in
             return self?.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
         }
+        
+        self.dataSource = dataSource
     }
 
     private func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {

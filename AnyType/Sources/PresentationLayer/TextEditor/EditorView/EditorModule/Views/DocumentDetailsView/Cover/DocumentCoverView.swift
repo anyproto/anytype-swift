@@ -16,14 +16,7 @@ final class DocumentCoverView: UIView {
     
     // MARK: - Views
     
-    private let activityIndicatorView: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.color = .grayscale10
-        indicator.backgroundColor = UIColor(white: 0.0, alpha: 0.32)
-        indicator.isHidden = true
-        
-        return indicator
-    }()
+    private let activityIndicatorView = ActivityIndicatorView()
 
     private let imageView = UIImageView()
     private lazy var imageLoader = ImageLoader().configured(imageView)
@@ -48,14 +41,13 @@ final class DocumentCoverView: UIView {
 
 extension DocumentCoverView {
     
-    func showLoader() {
+    func showLoader(with imagePath: String) {
         let animation = CATransition()
         animation.type = .fade;
         animation.duration = 0.3;
         activityIndicatorView.layer.add(animation, forKey: nil)
         
-        activityIndicatorView.startAnimating()
-        activityIndicatorView.isHidden = false
+        activityIndicatorView.show(with: UIImage(contentsOfFile: imagePath))
     }
     
 }
@@ -65,7 +57,7 @@ extension DocumentCoverView {
 extension DocumentCoverView: ConfigurableView {
     
     func configure(model: DocumentCover) {
-        hideLoader()
+        activityIndicatorView.hide()
         
         switch model {
         case let .imageId(imageId):
@@ -113,11 +105,6 @@ extension DocumentCoverView: ConfigurableView {
         imageView.contentMode = .scaleToFill
     }
     
-    private func hideLoader() {
-        activityIndicatorView.stopAnimating()
-        activityIndicatorView.isHidden = true
-    }
-    
 }
 
 // MARK: - Private extension
@@ -129,7 +116,12 @@ private extension DocumentCoverView {
         
         addGestureRecognizer(
             TapGestureRecognizerWithClosure { [weak self] in
-                self?.onCoverTap?()
+                guard
+                    let self = self,
+                    self.activityIndicatorView.isHidden
+                else { return }
+                
+                self.onCoverTap?()
             }
         )
         

@@ -4,14 +4,7 @@ final class DocumentIconView: UIView {
     
     // MARK: - Views
     
-    private let activityIndicatorView: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.color = .grayscale10
-        indicator.backgroundColor = UIColor(white: 0.0, alpha: 0.32)
-        indicator.isHidden = true
-        
-        return indicator
-    }()
+    private let activityIndicatorView = ActivityIndicatorView()
     
     private let containerView = UIView()
     private let iconEmojiView = DocumentIconEmojiView()
@@ -62,8 +55,8 @@ extension DocumentIconView: ConfigurableView {
         
         configureStateBaseOnIcon(viewModel.documentIcon, model.isBorderVisible)
         
-        viewModel.onMediaPickerImageSelect = { [weak self] in
-            self?.showLoader()
+        viewModel.onMediaPickerImageSelect = { [weak self] imagePath in
+            self?.showLoader(with: imagePath)
         }
         
         menuActionHandler = { action in
@@ -79,13 +72,13 @@ extension DocumentIconView: ConfigurableView {
         borderConstraintY.constant = 0
         borderConstraintX.constant = 0
         
-        hideLoader()
+        activityIndicatorView.hide()
         iconEmojiView.isHidden = true
         iconImageView.isHidden = true
     }
     
     private func configureStateBaseOnIcon(_ icon: DocumentIcon, _ isBorderVisible: Bool) {
-        hideLoader()
+        activityIndicatorView.hide()
         
         let height: CGFloat
         let cornerRadius: CGFloat
@@ -129,19 +122,13 @@ extension DocumentIconView: ConfigurableView {
         }
     }
     
-    private func showLoader() {
+    private func showLoader(with imagePath: String) {
         let animation = CATransition()
         animation.type = .fade;
         animation.duration = 0.3;
         activityIndicatorView.layer.add(animation, forKey: nil)
         
-        activityIndicatorView.startAnimating()
-        activityIndicatorView.isHidden = false
-    }
-    
-    private func hideLoader() {
-        activityIndicatorView.stopAnimating()
-        activityIndicatorView.isHidden = true
+        activityIndicatorView.show(with: UIImage(contentsOfFile: imagePath))
     }
     
     private func showEmojiView() {
