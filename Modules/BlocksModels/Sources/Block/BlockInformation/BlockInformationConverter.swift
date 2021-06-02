@@ -1,4 +1,3 @@
-
 /// TODO: Time to remove Details Crutches. ?????????????
 public struct DetailsAsBlockConverter {
     public struct IdentifierBuilder {

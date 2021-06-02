@@ -49,7 +49,6 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private let eventProcessor = EventProcessor()
-    private let transformer = TreeBlockBuilder.defaultValue
     
     /// Details Active Models
     /// But we have a lot of them, so, we should keep a list of them.
@@ -126,7 +125,7 @@ final class BaseDocument: BaseDocumentProtocol {
         // And then, sync builders
         let rootId = value.contextID
         
-        let blocksContainer = self.transformer.buildBlocksTree(from: event.blocks, with: rootId)
+        let blocksContainer = TreeBlockBuilder.buildBlocksTree(from: event.blocks, with: rootId)
         let parsedDetails = event.details.map {
             LegacyDetailsModel(detailsData: $0)
         }

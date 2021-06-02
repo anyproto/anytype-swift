@@ -223,7 +223,7 @@ struct BlockBuilder {
     static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
         switch block.content {
         case .text:
-            return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(TopLevelBlockBuilder.shared.informationBuilder.build)
+            return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(BlockInformationBuilder.build)
         default: return nil
         }
     }
@@ -233,22 +233,22 @@ struct BlockBuilder {
         case .addBlock:
             return self.createContentType(block: block, action: action, textPayload: textPayload)
                 .flatMap { (newBlockId(), $0) }
-                .map(TopLevelBlockBuilder.shared.informationBuilder.build)
+                .map(BlockInformationBuilder.build)
         default: return nil
         }
     }
 
     static func createDefaultInformation(block: BlockActiveRecordModelProtocol? = nil) -> BlockInformation? {
         guard let block = block else {
-            return TopLevelBlockBuilder.shared.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            return BlockInformationBuilder.build(id: newBlockId(), content: .text(.empty()))
         }
         switch block.content {
         case let .text(value):
             switch value.contentType {
-            case .toggle: return TopLevelBlockBuilder.shared.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            case .toggle: return BlockInformationBuilder.build(id: newBlockId(), content: .text(.empty()))
             default: return nil
             }
-        case .smartblock: return TopLevelBlockBuilder.shared.informationBuilder.build(id: newBlockId(), content: .text(.empty()))
+        case .smartblock: return BlockInformationBuilder.build(id: newBlockId(), content: .text(.empty()))
         default: return nil
         }
     }

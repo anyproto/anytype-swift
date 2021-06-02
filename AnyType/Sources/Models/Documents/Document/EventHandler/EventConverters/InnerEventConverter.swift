@@ -27,10 +27,10 @@ final class InnerEventConverter {
         case let .blockAdd(value):
             value.blocks
                 .compactMap(BlockModelsInformationConverter.convert(block:))
-                .map(TopLevelBlockBuilder.shared.informationBuilder.build(information:))
-                .map(TopLevelBlockBuilder.shared.createBlockModel)
-                .forEach { (value) in
-                    updater.insert(block: value)
+                .map(BlockInformationBuilder.build(information:))
+                .map(BlockModel.init)
+                .forEach { block in
+                    updater.insert(block: block)
                 }
             // Because blockAdd message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message

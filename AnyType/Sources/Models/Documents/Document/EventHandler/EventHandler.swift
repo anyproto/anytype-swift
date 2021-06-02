@@ -34,7 +34,7 @@ class EventHandler: EventHandlerProtocol {
         }
 
         if update.hasUpdate {
-            TopLevelBlockBuilder.shared.buildTree(container: container.blocksContainer, rootId: container.rootId)
+            BlockContainerBuilder.buildTree(container: container.blocksContainer, rootId: container.rootId)
         }
 
         // Notify about updates if needed.

@@ -1,17 +1,16 @@
 import Foundation
 import os
 
-public struct TreeBlockBuilder {
-    private var builder: BlockBuilderProtocol
-
-    public static var defaultValue: Self = {
-        .init(builder: TopLevelBlockBuilder.shared)
-    }()
-
-    public init(builder: BlockBuilderProtocol) {
-        self.builder = builder
+public enum TreeBlockBuilder {
+    /// Build blocks tree from middleware model
+    /// - Parameters:
+    ///   - information: block information model array from which we build tree
+    ///   - rootId: block root id (target rootId)
+    /// - Returns: Container that represents the tree of blocks
+    public static func buildBlocksTree(from information: [BlockInformation], with rootId: BlockId) -> BlockContainerModelProtocol {
+        fromList(information: information, isRoot: { $0.information.id == rootId })
     }
-
+    
     // Description
     //
     // Steps
@@ -29,20 +28,20 @@ public struct TreeBlockBuilder {
     // Consider unsorted (not sorted topologically) blocks.
     // At the end we _may_ don't know if these blocks have correct indices or not.
     // For that case we _should_ rerun building indices in second time after we determine root.
-    private func fromList(information: [BlockInformation], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
-        fromList(information.compactMap(self.builder.createBlockModel), isRoot: isRoot)
+    private static func fromList(information: [BlockInformation], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
+        fromList(information.compactMap(BlockModel.init), isRoot: isRoot)
     }
 
-    private func fromList(_ models: [BlockModelProtocol], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
+    private static func fromList(_ models: [BlockModelProtocol], isRoot: (BlockModelProtocol) -> Bool) -> BlockContainerModelProtocol {
         // 1. create dictionary: ID -> Model
-        let container = self.builder.build(list: models)
+        let container = BlockContainerBuilder.build(list: models)
 
         // 2. check if we have only one root
         let roots = models.filter(isRoot)
 
         guard roots.count != 0 else {
             assertionFailure("Unknown situation. We can't have zero roots.")
-            return self.builder.emptyContainer()
+            return BlockContainerBuilder.emptyContainer()
         }
 
         // 3. If we have several roots, so, notify about it.
@@ -57,31 +56,8 @@ public struct TreeBlockBuilder {
         container.rootId = rootId
 
         // 5. Build tree.
-        self.builder.buildTree(container: container, rootId: rootId)
+        BlockContainerBuilder.buildTree(container: container, rootId: rootId)
 
         return container
-    }
-
-    /// Build blocks tree from middleware model
-    /// - Parameters:
-    ///   - information: block information model array from which we build tree
-    ///   - rootId: block root id (target rootId)
-    /// - Returns: Container that represents the tree of blocks
-    public func buildBlocksTree(from information: [BlockInformation], with rootId: BlockId) -> BlockContainerModelProtocol {
-        fromList(information: information, isRoot: { $0.information.id == rootId })
-    }
-}
-
-// MARK: - ToList
-
-struct FromTreeToListTransformer {
-    private func toListRecursively(_ block: BlockActiveRecordModelProtocol) -> [BlockActiveRecordModelProtocol] {
-        var result: [BlockActiveRecordModelProtocol] = []
-        result.append(contentsOf: block.childrenIds().map(block.findChild(by:)).compactMap({$0}))
-        return result
-    }
-
-    public func toList(_ model: BlockActiveRecordModelProtocol) -> [BlockActiveRecordModelProtocol] {
-        self.toListRecursively(model)
     }
 }
