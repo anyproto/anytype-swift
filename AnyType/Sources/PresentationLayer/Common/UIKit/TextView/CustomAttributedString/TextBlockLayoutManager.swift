@@ -37,7 +37,35 @@ final class TextBlockLayoutManager: NSLayoutManager {
 
         super.showCGGlyphs(glyphs, positions: positions, count: glyphCount, font: font, textMatrix: textMatrix, attributes: attributes, in: CGContext)
     }
-
+    
+    override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
+        let characterRange = self.characterRange(forGlyphRange: glyphsToShow,
+                                                 actualGlyphRange: nil)
+        textStorage?.enumerateAttribute(.font,
+                                        in: characterRange,
+                                        using: { [weak self] value, subrange, _ in
+            // In case we found code font we should also will draw code background
+            guard let font = value as? UIFont,
+                    font.fontName == UIFont.codeFont.fontName else { return }
+            let targetRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
+            self?.drawCodeBackground(forGlyphRange: targetRange, color: UIColor.lightColdgray, origin: origin)
+        })
+        super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
+    }
+    
+    private func drawCodeBackground(forGlyphRange glyphRange: NSRange, color: UIColor, origin: CGPoint) {
+        guard let textContainer = textContainer(forGlyphAt: glyphRange.location,
+                                                effectiveRange: nil) else { return }
+        let withinRange = NSRange(location: NSNotFound, length: 0)
+        enumerateEnclosingRects(forGlyphRange: glyphRange,
+                                withinSelectedGlyphRange: withinRange,
+                                in: textContainer) { rect, _ in
+            let targetRect = rect.offsetBy(dx: origin.x, dy: origin.y)
+            color.setFill()
+            UIBezierPath(roundedRect: targetRect, cornerRadius: 4).fill()
+        }
+    }
+    
     private func obtainCustomFontColor(hasForegroundColor: Bool) -> CGColor? {
         if let primaryColor = primaryColor {
             return primaryColor.cgColor

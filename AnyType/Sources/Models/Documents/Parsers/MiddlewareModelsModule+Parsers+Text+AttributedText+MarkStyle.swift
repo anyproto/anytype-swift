@@ -142,7 +142,7 @@ extension Namespace {
             case .strikethrough: return .strikethrough( (attributes[.strikethroughStyle] as? Int) == 1 )
             case .underscored: return .underscored( (attributes[.underlineStyle] as? Int) == 1 )
             case .textColor: return .textColor( attributes[.foregroundColor] as? UIColor )
-            case .backgroundColor: return .backgroundColor( attributes[.backgroundColor] as? UIColor )
+            case .backgroundColor: return .backgroundColor(attributes[.backgroundColor] as? UIColor)
             case .link: return .link( attributes[.link] as? URL )
             }
         }
@@ -179,38 +179,8 @@ extension Namespace {
                 }
                 return .empty
             case let .keyboard(value):
-                var result: [NSAttributedString.Key : Any] = [:]
-                
-                if let font = old[.font] as? UIFont {
-                    let oldTraits = font.fontDescriptor.symbolicTraits
-                    let traits = value ? oldTraits.union(.traitMonoSpace) : oldTraits.symmetricDifference(.traitMonoSpace)
-                    // TODO: Simplify
-                    // AAAAA
-                    // It could be done as italic or bold, but it can't.
-                    // .traitMonoSpace change font family, so, we should extract traits and apply them to
-                    // value  - current font
-                    // !value - preferred body font
-                    if let newDescriptor = (value ? font : .preferredFont(forTextStyle: .body)).fontDescriptor.withSymbolicTraits(traits) {
-                        let newFont: UIFont = .init(descriptor: newDescriptor, size: font.pointSize)
-                        result.merge([.font : newFont], uniquingKeysWith: {(lhs,rhs) in rhs})
-                    }
-                }
-                
-                //TODO: Uncomment when you're ready.
-                // Maybe don't.
-                // It should be inconsistent with .from method.
-                // NOTE:
-                // We don't care about paragraphStyle, cause we set custom paragraph style IF value is true.
-                // otherwise, we set it to default or nil (?)
-                //                if value {
-                //                    result.merge([.paragraphStyle: NSParagraphStyle.keyboardStyle], uniquingKeysWith: {(lhs, rhs) in rhs})
-                //                }
-                //                else {
-                //                    // or set it to default
-                //                    _ = result.removeValue(forKey: .paragraphStyle)
-                //                }
-                
-                return .change(result)
+                guard let font = old[.font] as? UIFont else { return .change([:]) }
+                return .change([.font: value ? UIFont.codeFont : font])
             case let .strikethrough(value): return .change([.strikethroughStyle : value ? 1 : 0])
             case let .underscored(value): return .change([ .underlineStyle : value ? 1 : 0 ])
             case let .textColor(value): return .change([ .foregroundColor : value as Any ])
