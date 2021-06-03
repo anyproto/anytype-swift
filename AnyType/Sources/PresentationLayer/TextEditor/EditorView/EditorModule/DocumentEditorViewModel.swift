@@ -29,7 +29,10 @@ class DocumentEditorViewModel: ObservableObject {
 
     /// Service
     private var blockActionsService: BlockActionsServiceSingle = .init()
-    private lazy var blockActionHandler = BlockActionHandler(documentId: document.documentId, documentViewInteraction: self)
+    private lazy var blockActionHandler = BlockActionHandler(
+        documentId: document.documentId,
+        documentViewInteraction: self
+    )
     private lazy var blocksConverter = CompoundViewModelConverter(document: document)
 
     let document: BaseDocumentProtocol = BaseDocument()
@@ -427,7 +430,13 @@ extension DocumentEditorViewModel {
         guard let firstResponder = document.userSession?.firstResponder() else { return }
         
         blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] actionType, events in
-            self?.process(reaction: .shouldHandleEvent(.init(actionType: actionType, events: events)))
+            self?.process(
+                reaction: .shouldHandleEvent(
+                    .init(actionType: actionType,
+                          events: events
+                    )
+                )
+            )
         }
     }
 }

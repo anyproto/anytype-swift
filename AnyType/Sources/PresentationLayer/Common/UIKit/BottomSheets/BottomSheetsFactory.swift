@@ -71,13 +71,16 @@ final class BottomSheetsFactory {
             return ColorConverter.asModel(blockModel.information.backgroundColor, background: true)
         }
 
-        let contentVC = StyleViewController(viewControllerForPresenting: parentViewController,
-                                            style: textContentType,
-                                            askColor: askColor,
-                                            askBackgroundColor: askBackgroundColor,
-                                            askTextAttributes: askAttributes) { action in
+        let contentVC = StyleViewController(
+            viewControllerForPresenting: parentViewController,
+            style: textContentType,
+            askColor: askColor,
+            askBackgroundColor: askBackgroundColor,
+            askTextAttributes: askAttributes
+        ) { action in
             actionHandler(action)
         }
+        
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: parentViewController, animated: true)
     }

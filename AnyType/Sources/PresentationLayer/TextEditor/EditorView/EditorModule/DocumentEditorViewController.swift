@@ -371,9 +371,11 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         guard let viewControllerForPresenting = parent else { return }
         self.view.endEditing(true)
 
-        BottomSheetsFactory.createStyleBottomSheet(parentViewController: viewControllerForPresenting,
-                                                   delegate: self,
-                                                   blockModel: blockModel) { [weak self] action in
+        BottomSheetsFactory.createStyleBottomSheet(
+            parentViewController: viewControllerForPresenting,
+            delegate: self,
+            blockModel: blockModel
+        ) { [weak self] action in
             self?.viewModel.handleAction(action)
         }
 

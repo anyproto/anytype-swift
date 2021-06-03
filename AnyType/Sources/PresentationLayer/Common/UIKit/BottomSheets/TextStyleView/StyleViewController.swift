@@ -372,7 +372,10 @@ final class StyleViewController: UIViewController {
 
         let attributes = askTextAttributes()
 
-        let contentVC = TextAttributesViewController(attributesState: attributes, actionHandler: actionHandler)
+        let contentVC = TextAttributesViewController(
+            attributesState: attributes,
+            actionHandler: actionHandler
+        )
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: viewControllerForPresenting, animated: true)
     }

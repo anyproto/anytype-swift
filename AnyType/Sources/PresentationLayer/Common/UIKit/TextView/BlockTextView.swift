@@ -21,7 +21,10 @@ final class BlockTextView: UIView {
             // Because we set new coordinator we want to use
             // new coordinator's input views instead of old coordinator views
             coordinator?.switchInputs(textView)
-            _ = coordinator?.configured(textView, contextualMenuStream: textView.contextualMenuPublisher)
+            _ = coordinator?.configured(
+                textView,
+                contextualMenuStream: textView.contextualMenuPublisher
+            )
             // When sending signal with send() in textView
             // textStorageEventsSubject subscribers installed
             // in coordinator configured(textStorageStream:)

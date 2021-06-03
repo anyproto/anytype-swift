@@ -1,24 +1,21 @@
 import Foundation
 import UIKit
 import Combine
-import os
-
 
 extension BlockTextView {
-    enum ContextualMenu {}
-}
-
-extension BlockTextView.ContextualMenu {
-    enum Action {
+    
+    enum ContextualMenuAction {
         case style
         case color
         case background
     }
+    
 }
 
 // MARK: - TextStorageEvent
 
 extension TextViewWithPlaceholder {
+    
     enum TextStorageEvent {
         struct Payload {
             var attributedText: NSAttributedString
@@ -27,21 +24,25 @@ extension TextViewWithPlaceholder {
         case willProcessEditing(Payload)
         case didProcessEditing(Payload)
     }
+    
 }
 
 // MARK: - TextView
 
 final class TextViewWithPlaceholder: UITextView {
-    // MARK: Publishers
-    private var contextualMenuSubject: PassthroughSubject<BlockTextView.ContextualMenu.Action, Never> = .init()
-    private(set) var contextualMenuPublisher: AnyPublisher<BlockTextView.ContextualMenu.Action, Never> = .empty()
+    
+    // MARK: - Publishers
+    
+    private let contextualMenuSubject: PassthroughSubject<BlockTextView.ContextualMenuAction, Never> = .init()
+    private(set) var contextualMenuPublisher: AnyPublisher<BlockTextView.ContextualMenuAction, Never> = .empty()
 
-    private var firstResponderChangeSubject: PassthroughSubject<TextViewFirstResponderChange, Never> = .init()
+    private let firstResponderChangeSubject: PassthroughSubject<TextViewFirstResponderChange, Never> = .init()
     private(set) var firstResponderChangePublisher: AnyPublisher<TextViewFirstResponderChange, Never> = .empty()
 
-    // MARK: Views
+    // MARK: - Views
+    
     private lazy var placeholderLabel: UILabel = {
-        let label: UILabel = .init()
+        let label = UILabel()
         label.textColor = self.textColor
         label.font = self.font
         label.textAlignment = self.textAlignment
@@ -75,6 +76,8 @@ final class TextViewWithPlaceholder: UITextView {
         }
     }
 
+    // MARK: - Overrides
+    
     override var textContainerInset: UIEdgeInsets {
         didSet {
             self.updatePlaceholderLayout()
@@ -88,8 +91,21 @@ final class TextViewWithPlaceholder: UITextView {
             }
         }
     }
+    
+    override func becomeFirstResponder() -> Bool {
+        let value = super.becomeFirstResponder()
+        self.firstResponderChangeSubject.send(.become)
+        return value
+    }
 
-    // MARK: Initialization
+    override func resignFirstResponder() -> Bool {
+        let value = super.resignFirstResponder()
+        self.firstResponderChangeSubject.send(.resign)
+        return value
+    }
+
+    // MARK: - Initialization
+    
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         let textStorage = NSTextStorage()
         textStorage.addLayoutManager(blockLayoutManager)
@@ -105,22 +121,31 @@ final class TextViewWithPlaceholder: UITextView {
         super.init(coder: coder)
         self.setup()
     }
+    
+}
 
-    // MARK: Setup
-    private func setup() {
-        self.setupPublishers()
-        self.setupUIElements()
-        self.updatePlaceholderLayout()
-        self.setupMenu()
+// MARK: - Private extension
+
+private extension TextViewWithPlaceholder {
+    
+    func setup() {
+        setupPublishers()
+        setupUIElements()
+        updatePlaceholderLayout()
+        setupMenu()
+    }
+    
+    func setupPublishers() {
+        self.contextualMenuPublisher = self.contextualMenuSubject.eraseToAnyPublisher()
+        self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
     }
 
-    private func setupUIElements() {
+    func setupUIElements() {
         self.textStorage.delegate = self
         self.addSubview(self.placeholderLabel)
     }
 
-    // MARK: Add Layout
-    private func updatePlaceholderLayout() {
+    func updatePlaceholderLayout() {
         let view = self.placeholderLabel
         if let superview = view.superview {
             let insets = self.textContainerInset
@@ -140,28 +165,30 @@ final class TextViewWithPlaceholder: UITextView {
             NSLayoutConstraint.activate(self.placeholderConstraints)
         }
     }
-
-    private func setupPublishers() {
-        self.contextualMenuPublisher = self.contextualMenuSubject.eraseToAnyPublisher()
-        self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
+    
+    func setupMenu() {
+        UIMenuController.shared.menuItems = [
+            UIMenuItem(
+                title: "Style".localized,
+                action: #selector(contextualMenuItemDidSelectedForStyle)
+            ),
+            UIMenuItem(
+                title: "Color".localized,
+                action: #selector(contextualMenuItemDidSelectedForColor)
+            ),
+            UIMenuItem(
+                title: "Background".localized,
+                action: #selector(contextualMenuItemDidSelectedForBackground)
+            )
+        ]
     }
-
-    override func becomeFirstResponder() -> Bool {
-        let value = super.becomeFirstResponder()
-        self.firstResponderChangeSubject.send(.become)
-        return value
-    }
-
-    override func resignFirstResponder() -> Bool {
-        let value = super.resignFirstResponder()
-        self.firstResponderChangeSubject.send(.resign)
-        return value
-    }
+    
 }
 
 // MARK: - Contextual Menu
 
 extension TextViewWithPlaceholder {
+    
     @objc private func contextualMenuItemDidSelectedForStyle() {
         self.contextualMenuSubject.send(.style)
     }
@@ -174,13 +201,6 @@ extension TextViewWithPlaceholder {
         self.contextualMenuSubject.send(.background)
     }
     
-    private func setupMenu() {
-        UIMenuController.shared.menuItems = [
-            UIMenuItem(title: "Style".localized, action: #selector(contextualMenuItemDidSelectedForStyle)),
-            UIMenuItem(title: "Color".localized, action: #selector(contextualMenuItemDidSelectedForColor)),
-            UIMenuItem(title: "Background".localized, action: #selector(contextualMenuItemDidSelectedForBackground))
-        ]
-    }
 }
 
 // MARK: - NSTextStorageDelegate
@@ -194,7 +214,9 @@ extension TextViewWithPlaceholder: NSTextStorageDelegate {
 }
 
 // MARK: - Placeholder
+
 extension TextViewWithPlaceholder {
+    
     private func syncPlaceholder() {
         self.placeholderLabel.isHidden = !self.text.isEmpty
     }
@@ -202,4 +224,5 @@ extension TextViewWithPlaceholder {
     func update(placeholder: NSAttributedString?) {
         self.placeholderLabel.attributedText = placeholder
     }
+    
 }

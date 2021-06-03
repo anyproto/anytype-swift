@@ -178,7 +178,7 @@ extension BlockTextViewCoordinator {
     
     // MARK: - ContextualMenuHandling
     /// TODO: Put textView into it.
-    func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<BlockTextView.ContextualMenu.Action, Never>) -> Self {
+    func configured(_ view: UITextView, contextualMenuStream: AnyPublisher<BlockTextView.ContextualMenuAction, Never>) -> Self {
         self.contextualMenuSubscription = Publishers.CombineLatest(Just(view), contextualMenuStream).sink { [weak self] (tuple) in
             let (view, action) = tuple
             let range = view.selectedRange
@@ -311,7 +311,7 @@ private extension BlockTextViewCoordinator {
 // MARK: Marks Input View handling
 extension BlockTextViewCoordinator {
     private enum ActionToCategoryConverter {
-        typealias ContextualMenuAction = BlockTextView.ContextualMenu.Action
+        typealias ContextualMenuAction = BlockTextView.ContextualMenuAction
         typealias Category = MarksPane.Main.Section.Category
         static func asCategory(_ action: ContextualMenuAction) -> Category {
             switch action {
@@ -325,7 +325,7 @@ extension BlockTextViewCoordinator {
         let (range, storage) = tuple
         self.marksToolbarInputView.viewModel.update(range: range, attributedText: storage)
     }
-    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, BlockTextView.ContextualMenu.Action)) {
+    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, BlockTextView.ContextualMenuAction)) {
         let (range, storage, textView, action) = quadruple
         self.updateMarksInputView((range, storage, textView))
         self.marksToolbarInputView.viewModel.update(category: ActionToCategoryConverter.asCategory(action))
