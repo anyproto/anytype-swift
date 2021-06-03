@@ -8,14 +8,17 @@ import BlocksModels
 // MARK: - BlockTextView
 
 final class BlockTextView: UIView {
+    
     private var subscriptions: Set<AnyCancellable> = []
     weak var delegate: TextViewDelegate?
 
     var coordinator: BlockTextViewCoordinator? {
         didSet {
-            coordinator?.textSizeChangePublisher.sink { [weak self] _ in
-                self?.delegate?.sizeChanged()
-            }.store(in: &subscriptions)
+            coordinator?.textSizeChangePublisher
+                .sink { [weak self] _ in
+                    self?.delegate?.sizeChanged()
+                }
+                .store(in: &subscriptions)
 
             coordinator?.configureEditingToolbarHandler(textView)
             // Because we set new coordinator we want to use
@@ -37,7 +40,6 @@ final class BlockTextView: UIView {
 
     let textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
@@ -50,17 +52,7 @@ final class BlockTextView: UIView {
     init() {
         super.init(frame: .zero)
 
-        self.setupUIElements()
-        textView.pinAllEdges(to: self)
-
-        self.textView.firstResponderChangePublisher.sink(receiveValue: { [weak self] change in
-            switch change {
-            case .become:
-                self?.delegate?.changeFirstResponderState(change)
-            case .resign:
-                return
-            }
-        }).store(in: &subscriptions)
+        setupView()
     }
 
     @available(*, unavailable)
@@ -68,17 +60,8 @@ final class BlockTextView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func update(placeholder: Placeholder) {
-        self.textView.update(placeholder: placeholder.placeholder)
-    }
-
-    // MARK: - Setup views
-
-    private func setupUIElements() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(textView)
-    }
-
+    // MARK: - Override vars
+    
     override var intrinsicContentSize: CGSize {
         .zero
     }
@@ -88,12 +71,14 @@ final class BlockTextView: UIView {
 // MARK: - BlockTextViewInput
 
 extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
+    
     func shouldResignFirstResponder() {
         _ = textView.resignFirstResponder()
     }
 
     func setFocus(_ focus: TextViewFocus?) {
         guard let position = focus?.position else { return }
+        
         textView.setFocus(position)
     }
 
@@ -104,12 +89,8 @@ extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
     func apply(update: TextViewUpdate) {
         onUpdate(receive: update)
     }
-}
-
-// MARK: - Updates
-
-private extension BlockTextView {
-    func onUpdate(receive update: TextViewUpdate) {
+    
+    private func onUpdate(receive update: TextViewUpdate) {
         switch update {
         case let .text(value):
             // NOTE: Read these cases carefully.
@@ -169,44 +150,28 @@ private extension BlockTextView {
             self.onUpdate(receive: .auxiliary(value.auxiliary))
         }
     }
+    
 }
 
-// MARK: - Configuration
+// MARK: - Private extension
 
-extension BlockTextView {
-    func configured(placeholder: BlockTextView.Placeholder) -> Self {
-        self.update(placeholder: placeholder)
-        return self
-    }
-}
-
-// MARK: - Placeholder
-
-extension BlockTextView {
-    struct Placeholder {
-        private(set) var text: String?
-        private(set) var attributedText: NSAttributedString?
-        private(set) var attributes: [NSAttributedString.Key: Any] = [:]
+private extension BlockTextView {
+    
+    func setupView() {
+        addSubview(textView) {
+            $0.pinToSuperview()
+        }
         
-        fileprivate var placeholder: NSAttributedString {
-            if let result = attributedText {
-                return result
+        textView.firstResponderChangePublisher
+            .sink { [weak self] change in
+                switch change {
+                case .become:
+                    self?.delegate?.changeFirstResponderState(change)
+                case .resign:
+                    return
+                }
             }
-            else {
-                return NSMutableAttributedString.init(string: self.text ?? "", attributes: attributes)
-            }
-        }
-        
-        func configured(text: String?) -> Self {
-            .init(text: text, attributedText: self.attributedText, attributes: self.attributes)
-        }
-        
-        func configured(attributedText: NSAttributedString?) -> Self {
-            .init(text: self.text, attributedText: attributedText, attributes: self.attributes)
-        }
-        
-        func configured(attributes: [NSAttributedString.Key: Any] = [:]) -> Self {
-            .init(text: self.text, attributedText: self.attributedText, attributes: attributes)
-        }
+            .store(in: &subscriptions)
     }
+    
 }
