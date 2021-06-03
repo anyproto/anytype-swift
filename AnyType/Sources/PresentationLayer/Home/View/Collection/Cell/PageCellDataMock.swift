@@ -9,7 +9,8 @@ struct PageCellDataMock {
             icon: .emoji(IconEmoji("📘")!),
             title: "Ubik",
             type: "Book",
-            isLoading: false
+            isLoading: false,
+            isArchived: true
         ),
         PageCellData(
             id: "\(UUID())",
@@ -17,7 +18,8 @@ struct PageCellDataMock {
             icon: .none,
             title: "The president’s American Family Plan, which remains in flux, does not currently include does not currently include does not currently include",
             type: "Page",
-            isLoading: false
+            isLoading: false,
+            isArchived: true
         ),
         PageCellData(
             id: "\(UUID())",
@@ -25,7 +27,8 @@ struct PageCellDataMock {
             icon: .none,
             title: "GridItem",
             type: "Component",
-            isLoading: true
+            isLoading: true,
+            isArchived: true
         ),
         PageCellData(
             id: "\(UUID())",
@@ -33,7 +36,8 @@ struct PageCellDataMock {
             icon: .emoji(IconEmoji("📘")!),
             title: "Ubik",
             type: "Book",
-            isLoading: false
+            isLoading: false,
+            isArchived: true
         ),
         PageCellData(
             id: "\(UUID())",
@@ -41,7 +45,8 @@ struct PageCellDataMock {
             icon: .imageId("1337"),
             title: "Neo",
             type: "Character",
-            isLoading: false
+            isLoading: false,
+            isArchived: true
         ),
         PageCellData(
             id: "\(UUID())",
@@ -49,7 +54,8 @@ struct PageCellDataMock {
             icon: .imageId("1337"),
             title: "Neo",
             type: "Character",
-            isLoading: false
+            isLoading: false,
+            isArchived: true
         ),
         
         PageCellData(
@@ -58,7 +64,8 @@ struct PageCellDataMock {
             icon: .none,
             title: "Main",
             type: "Void",
-            isLoading: false
+            isLoading: false,
+            isArchived: true
         )
     ]
 }

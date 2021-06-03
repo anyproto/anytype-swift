@@ -12,12 +12,21 @@ extension HomeViewModel {
 }
 
 final class HomeViewModel: ObservableObject {
-    @Published var cellData: [PageCellData] = []
+    @Published fileprivate var cellData: [PageCellData] = []
+    
+    var favoritesCellData: [PageCellData] {
+        cellData.filter{ $0.isArchived == false}
+    }
+    var archiveCellData: [PageCellData] {
+        cellData.filter{ $0.isArchived == true}
+    }
+    
     @Published var newPageData = NewPageData(pageId: "", showingNewPage: false)
     let coordinator: HomeCoordinator = ServiceLocator.shared.homeCoordinator()
 
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let blockActionsService: BlockActionsServiceSingleProtocol = ServiceLocator.shared.blockActionsServiceSingle()
+    private let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     
     private var subscriptions = [AnyCancellable]()
     private var newPageSubscription: AnyCancellable?
@@ -29,7 +38,6 @@ final class HomeViewModel: ObservableObject {
         fetchDashboardData()
     }
     
-    // MARK: - Public
     private func fetchDashboardData() {        
         dashboardService.openDashboard()
             .sinkWithDefaultCompletion("Subscribe dashboard events") { [weak self] serviceSuccess in
@@ -37,6 +45,39 @@ final class HomeViewModel: ObservableObject {
             }.store(in: &self.subscriptions)
     }
     
+    private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
+        document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
+            self?.onDashboardChange(updateResult: updateResult)
+        }.store(in: &self.subscriptions)
+        
+        document.open(serviceSuccess)
+    }
+    
+    private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
+        switch updateResult.updates {
+        case .general:
+            cellData = cellDataBuilder.buldCellData(updateResult)
+        case .update(let payload):
+            payload.updatedIds.forEach { updateCellWithTargetId($0) }
+        }
+    }
+    
+    private func updateCellWithTargetId(_ blockId: BlockId) {
+        guard let newDetails = document.getDetails(by: blockId)?.currentDetails else {
+            assertionFailure("Could not find object with id: \(blockId)")
+            return
+        }
+
+        cellData.enumerated()
+            .first { $0.element.destinationId == blockId }
+            .flatMap { offset, data in
+                cellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
+            }
+    }
+}
+
+// MARK: - New page
+extension HomeViewModel {
     func createNewPage() {
         guard let rootId = document.documentId else { return }
         
@@ -68,34 +109,49 @@ final class HomeViewModel: ObservableObject {
         
         return blockAdd?.blocks.first?.link.targetBlockID
     }
-    
-    private func onOpenDashboard(_ serviceSuccess: ServiceSuccess) {
-        document.updateBlockModelPublisher.receiveOnMain().sink { [weak self] updateResult in
-            self?.onDashboardChange(updateResult: updateResult)
-        }.store(in: &self.subscriptions)
-        
-        document.open(serviceSuccess)
-    }
-    
-    private func onDashboardChange(updateResult: BaseDocumentUpdateResult) {
-        switch updateResult.updates {
-        case .general:
-            self.cellData = self.cellDataBuilder.buldCellData(updateResult)
-        case .update(let payload):
-            payload.updatedIds.forEach { updateCellWithTargetId($0) }
-        }
-    }
-    
-    private func updateCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.getDetails(by: blockId)?.currentDetails else {
-            assertionFailure("Could not find object with id: \(blockId)")
-            return
-        }
+}
 
-        cellData.enumerated()
-            .first { $0.element.destinationId == blockId }
-            .flatMap { offset, data in
-                cellData[offset] = cellDataBuilder.updatedCellData(newDetails: newDetails, oldData: data)
-            }
+
+// MARK: - CellDataManager
+protocol PageCellDataManager {
+    func onDrag(from: PageCellData, to: PageCellData) -> DropData.Direction?
+    func onDrop(from: PageCellData, to: PageCellData, direction: DropData.Direction) -> Bool
+}
+
+extension HomeViewModel: PageCellDataManager {
+    func onDrag(from: PageCellData, to: PageCellData) -> DropData.Direction? {
+        guard from.id != to.id else {
+            return nil
+        }
+        
+        guard let fromIndex = cellData.index(id: from.id),
+              let toIndex = cellData.index(id: to.id) else {
+            return nil
+        }
+        
+        let dropAfter = toIndex > fromIndex
+        
+        cellData.move(
+            fromOffsets: IndexSet(integer: fromIndex),
+            toOffset: dropAfter ? toIndex + 1 : toIndex
+        )
+        
+        return dropAfter ? .after : .before
+    }
+    
+    func onDrop(from: PageCellData, to: PageCellData, direction: DropData.Direction) -> Bool {
+        guard let homeBlockId = MiddlewareConfiguration.shared?.homeBlockID else {
+            assertionFailure("Shared configuration is nil")
+            return false
+        }
+        
+        objectActionsService.move(
+            dashboadId: homeBlockId,
+            blockId: from.id,
+            dropPositionblockId: to.id,
+            position: direction.toBlockModel()
+        )
+        
+        return true
     }
 }

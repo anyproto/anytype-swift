@@ -1,62 +1,53 @@
 import SwiftUI
 
 struct HomeTabsView: View {
+    @EnvironmentObject var model: HomeViewModel
     @State private var tabSelection = 1    
     
     let offsetChanged: (CGPoint) -> Void
     
     var body: some View {
-        GeometryReader() { fullView in
-//            VStack {
-//                tabHeaders
-                tabs
-//            }
+        VStack(spacing: 0) {
+            tabHeaders
+            tabs
         }
-        .animation(.interactiveSpring(), value: tabSelection)
     }
     
-    var tabs: some View {
+    private var tabs: some View {
         TabView(selection: $tabSelection) {
-            HomeCollectionView(offsetChanged: offsetChanged).tag(1)
+            HomeCollectionView(cellData: model.favoritesCellData, coordinator: model.coordinator, cellDataManager: model, offsetChanged: offsetChanged).tag(1)
+                .ignoresSafeArea()
+            HomeCollectionView(cellData: model.archiveCellData, coordinator: model.coordinator, cellDataManager: model, offsetChanged: offsetChanged).tag(4)
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
     }
     
     
-    var tabHeaders: some View {
+    private var tabHeaders: some View {
         HStack(){
             Button(action: {
-                tabSelection = 1
+                withAnimation(.spring()) {
+                    tabSelection = 1
+                }
             }) {
                 HomeTabsHeaderText(text: "Favorites", isSelected: tabSelection == 1)
             }
-
-            Button(action: {
-                tabSelection = 2
-            }) {
-                HomeTabsHeaderText(text: "Recent", isSelected: tabSelection == 2)
-            }.disabled(true)
             
             Button(action: {
-                tabSelection = 3
+                withAnimation(.spring()) {
+                    tabSelection = 4
+                }
             }) {
-                HomeTabsHeaderText(text: "Drafts", isSelected: tabSelection == 3)
-            }.disabled(true)
-            
-            Button(action: {
-                tabSelection = 4
-            }) {
-                HomeTabsHeaderText(text: "Bin", isSelected: tabSelection == 4)
-            }.disabled(true)
+                HomeTabsHeaderText(text: "Archive", isSelected: tabSelection == 4)
+            }
         }
-        .padding(EdgeInsets(top: 0, leading: 20, bottom: 10, trailing: 20))
+        .padding(.top)
     }
 }
 
 struct HomeTabsView_Previews: PreviewProvider {
     static var model: HomeViewModel {
         let model = HomeViewModel()
-        model.cellData = PageCellDataMock.data
         return model
     }
     

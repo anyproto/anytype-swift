@@ -9,25 +9,23 @@ final class HomeCellDataBuilder {
     }
     
     func buldCellData(_ updateResult: BaseDocumentUpdateResult) -> [PageCellData] {
-        let links: [HomePageLink] = updateResult.models.compactMap { activeRecord in
-            switch activeRecord.content {
-            case .link(let link):
-                let details = document.getDetails(by: link.targetBlockID)?.currentDetails
-                return HomePageLink(
-                    blockId: activeRecord.blockId,
-                    targetBlockId: link.targetBlockID,
-                    details: details,
-                    type: link.style
-                )
-            default:
-                return nil
-            }
-        }
+        let links: [HomePageLink] = updateResult.models.compactMap(activeRecordToPageLink)
         
         return links
             .filter { $0.type == .page }
-            .filter { $0.isArchived == false }
             .map { buildPageCellData(pageLink: $0) }
+    }
+    
+    private func activeRecordToPageLink(_ activeRecord: BlockActiveRecordModelProtocol) -> HomePageLink? {
+        guard case .link(let link) = activeRecord.content else { return nil }
+
+        let details = document.getDetails(by: link.targetBlockID)?.currentDetails
+        return HomePageLink(
+            blockId: activeRecord.blockId,
+            targetBlockId: link.targetBlockID,
+            details: details,
+            type: link.style
+        )
     }
     
     private func buildPageCellData(pageLink: HomePageLink) -> PageCellData {
@@ -37,7 +35,8 @@ final class HomeCellDataBuilder {
             icon: pageLink.details?.documentIcon,
             title: pageLink.details?.name ?? "",
             type: pageLink.type.rawValue,
-            isLoading: pageLink.isLoading
+            isLoading: pageLink.isLoading,
+            isArchived: pageLink.details?.isArchived ?? false
         )
     }
     
@@ -48,7 +47,8 @@ final class HomeCellDataBuilder {
             icon: newDetails.documentIcon,
             title: newDetails.name ?? "",
             type: oldData.type,
-            isLoading: false
+            isLoading: false,
+            isArchived: newDetails.isArchived ?? false
         )
     }
 }

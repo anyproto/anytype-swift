@@ -2,31 +2,24 @@ import SwiftUI
 
 
 struct HomeCollectionDropInsideDelegate: DropDelegate {
+    let cellDataManager: PageCellDataManager
     let delegateData: PageCellData
-    @Binding var cellData: [PageCellData]
+    var cellData: [PageCellData]
     @Binding var data: DropData
     
     func dropEntered(info: DropInfo) {
+        guard let draggingCellData = data.draggingCellData else {
+            return
+        }
+        
+        guard let direction = cellDataManager.onDrag(from: draggingCellData, to: delegateData) else {
+            return
+        }
+        
         UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         
-        guard let draggingCellData = data.draggingCellData,
-              let fromIndex = cellData.index(id: draggingCellData.id),
-              let toIndex = cellData.index(id: delegateData.id) else {
-            return
-        }
-        guard delegateData.id != draggingCellData.id else {
-            return
-        }
-        
-        let dropAfter = toIndex > fromIndex
         data.dropPositionCellData = delegateData
-        data.direction = dropAfter ? .after : .before
-        
-        
-        cellData.move(
-            fromOffsets: IndexSet(integer: fromIndex),
-            toOffset: dropAfter ? toIndex + 1 : toIndex
-        )
+        data.direction = direction
     }
 
     func performDrop(info: DropInfo) -> Bool {
@@ -36,23 +29,11 @@ struct HomeCollectionDropInsideDelegate: DropDelegate {
             return false
         }
         
-        guard let homeBlockId = MiddlewareConfiguration.shared?.homeBlockID else {
-            assertionFailure("Shared configuration is nil")
-            return false
-        }
-        
-        ObjectActionsService().move(
-            dashboadId: homeBlockId,
-            blockId: draggingCellData.id,
-            dropPositionblockId: dropPositionCellData.id,
-            position: direction.toBlockModel()
-        )
-        
         data.direction = nil
         data.draggingCellData = nil
         data.dropPositionCellData = nil
         
-        return true
+        return cellDataManager.onDrop(from: draggingCellData, to: dropPositionCellData, direction: direction)
     }
     
     func dropUpdated(info: DropInfo) -> DropProposal? {

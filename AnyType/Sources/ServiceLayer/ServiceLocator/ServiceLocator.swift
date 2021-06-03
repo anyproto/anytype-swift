@@ -38,6 +38,10 @@ final class ServiceLocator {
         BlockActionsServiceSingle()
     }
     
+    func objectActionsService() -> ObjectActionsServiceProtocol {
+        ObjectActionsService()
+    }
+    
     // MARK: - Coodrdinators
     func applicationCoordinator(window: MainWindow) -> ApplicationCoordinator {
         ApplicationCoordinator(

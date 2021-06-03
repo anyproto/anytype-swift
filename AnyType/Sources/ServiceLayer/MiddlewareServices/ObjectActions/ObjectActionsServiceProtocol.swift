@@ -1,5 +1,6 @@
 import Combine
 import BlocksModels
+import ProtobufMessages
 
 
 /// Protocol for Object actions service
@@ -22,4 +23,12 @@ protocol ObjectActionsServiceProtocol {
         position: BlockPosition,
         templateID: String
     ) -> AnyPublisher<ServiceSuccess, Error>
+    
+    @discardableResult
+    func move(
+        dashboadId: BlockId,
+        blockId: BlockId,
+        dropPositionblockId: BlockId,
+        position: Anytype_Model_Block.Position
+    ) -> AnyPublisher<Void, Error>
 }

@@ -39,23 +39,29 @@ struct PageCell: View {
     
     private var icon: some View {
         Group {
-            switch cellData.icon {
-            case let .emoji(emoji):
-                AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
-            case let .imageId(imageid):
-                AsyncImage(imageId: imageid, parameters: ImageParameters(width: .thumbnail))
-                    .aspectRatio(contentMode: .fill)
+            if isRedacted {
+                RoundedRectangle(cornerRadius: 10)
+                    .foregroundColor(Color.grayscale10)
                     .frame(width: 48, height: 48)
-                    .cornerRadius(10)
-            case .none:
-                EmptyView()
+            } else {
+                switch cellData.icon {
+                case let .emoji(emoji):
+                    AnytypeText(emoji.value, name: .inter, size: 48, weight: .regular)
+                case let .imageId(imageid):
+                    AsyncImage(imageId: imageid, parameters: ImageParameters(width: .thumbnail))
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 48, height: 48)
+                        .cornerRadius(10)
+                case .none:
+                    EmptyView()
+                }
             }
         }
     }
     
     private var iconSpacer: some View {
         Group {
-            if !cellData.icon.isNil {
+            if !cellData.icon.isNil || isRedacted {
                 Spacer()
             } else {
                 EmptyView()
@@ -65,10 +71,10 @@ struct PageCell: View {
     
     private var textSpacer: some View {
         Group {
-            if cellData.icon.isNil {
-                Spacer()
-            } else {
+            if !cellData.icon.isNil || isRedacted {
                 EmptyView()
+            } else {
+                Spacer()
             }
         }
     }

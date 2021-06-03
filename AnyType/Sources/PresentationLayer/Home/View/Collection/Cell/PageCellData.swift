@@ -10,4 +10,5 @@ struct PageCellData: Identifiable {
     let title: String
     let type: String
     let isLoading: Bool
+    let isArchived: Bool
 }

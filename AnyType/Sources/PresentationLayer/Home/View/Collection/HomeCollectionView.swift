@@ -8,7 +8,9 @@ struct HomeCollectionView: View {
         GridItem(.flexible()),
     ]
     
-    @EnvironmentObject var model: HomeViewModel
+    var cellData: [PageCellData]
+    let coordinator: HomeCoordinator
+    let cellDataManager: PageCellDataManager
     let offsetChanged: (CGPoint) -> Void
     
     @State private var dropData = DropData()
@@ -16,9 +18,9 @@ struct HomeCollectionView: View {
     var body: some View {
         OffsetAwareScrollView(offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns) {
-                ForEach(model.cellData) { data in
+                ForEach(cellData) { data in
                     NavigationLink(
-                        destination: model.coordinator.documentView(
+                        destination: coordinator.documentView(
                             selectedDocumentId: data.destinationId
                         ),
                         label: {
@@ -35,19 +37,18 @@ struct HomeCollectionView: View {
                     }
                     .onDrop(
                         of: [UTType.text],
-                        delegate: HomeCollectionDropInsideDelegate(delegateData: data, cellData: $model.cellData, data: $dropData)
+                        delegate: HomeCollectionDropInsideDelegate(cellDataManager: cellDataManager, delegateData: data, cellData: cellData, data: $dropData)
                     )
                 }
             }
             .padding()
         }
         .animation(.spring())
-        .ignoresSafeArea()
     }
 }
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(offsetChanged: { _ in })
+        HomeCollectionView(cellData: [], coordinator: ServiceLocator.shared.homeCoordinator(), cellDataManager: HomeViewModel(), offsetChanged: { _ in })
     }
 }
