@@ -10,6 +10,7 @@ typealias EditorModuleContentModule = (
 )
 
 enum EditorModuleContentViewBuilder {
+    
     static func сontent(id: String) -> EditorModuleContentModule {
         let bottomMenuViewController = BottomMenuViewController()
         
@@ -34,4 +35,5 @@ enum EditorModuleContentViewBuilder {
         
         return (bottomMenuViewController, editorViewModel.publicUserActionPublisher)
     }
+    
 }

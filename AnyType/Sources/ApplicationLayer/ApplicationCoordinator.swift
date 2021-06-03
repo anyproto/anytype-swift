@@ -103,15 +103,20 @@ protocol MainWindowHolder {
     func startNewRootView<ViewType: View>(_ view: ViewType)
     
     var rootNavigationController: UINavigationController { get }
-    func changeNavigationBarCollor(color: UIColor)
+    func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance)
+
 }
 
 extension ApplicationCoordinator: MainWindowHolder {
+    
     func startNewRootView<ViewType: View>(_ view: ViewType) {
         rootNavigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
     }
     
-    func changeNavigationBarCollor(color: UIColor) {
-        rootNavigationController.navigationBar.backgroundColor = color
+    func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance) {
+        rootNavigationController.navigationBar.compactAppearance = appearance
+        rootNavigationController.navigationBar.standardAppearance = appearance
+        rootNavigationController.navigationBar.scrollEdgeAppearance = appearance
     }
+
 }

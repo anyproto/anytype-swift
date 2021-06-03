@@ -1,3 +1,0 @@
-import Foundation
-
-enum EditorModule {}

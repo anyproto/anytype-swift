@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 
 
-class EditorSelectionHandler {
+final class EditorSelectionHandler {
     typealias SelectionEvent = EditorSelectionIncomingEvent
     /// Publishers
     private var subscription: AnyCancellable?

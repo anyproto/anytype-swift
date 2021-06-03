@@ -119,8 +119,15 @@ extension EditorModuleContainerViewController {
         configuredTransitioning()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        windowHolder?.changeNavigationBarCollor(color: .white)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.shadowImage = UIImage()
+        navBarAppearance.shadowColor = nil
+        
+        windowHolder?.modifyNavigationBarAppearance(navBarAppearance)
     }
+    
 }

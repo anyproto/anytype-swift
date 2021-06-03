@@ -62,7 +62,9 @@ struct HomeView: View {
     }
     
     private func makeNavigationBarTransparent() {
-        windowHolder?.changeNavigationBarCollor(color: .clear)
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        windowHolder?.modifyNavigationBarAppearance(navBarAppearance)
     }
     
     private let sheetOpenOffset: CGFloat = -5

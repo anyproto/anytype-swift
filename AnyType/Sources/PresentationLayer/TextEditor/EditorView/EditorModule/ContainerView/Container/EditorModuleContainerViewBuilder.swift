@@ -4,9 +4,6 @@ import SwiftUI
 
 
 enum EditorModuleContainerViewBuilder {
-    static func childComponent(id: String) -> EditorModuleContentModule {
-        EditorModuleContentViewBuilder.сontent(id: id)
-    }
     
     static func view(id: String) -> EditorModuleContainerViewController {
         let (childViewController, userActionsStream)  = childComponent(id: id)
@@ -24,4 +21,9 @@ enum EditorModuleContainerViewBuilder {
         
         return viewController
     }
+    
+    static func childComponent(id: String) -> EditorModuleContentModule {
+        EditorModuleContentViewBuilder.сontent(id: id)
+    }
+    
 }
