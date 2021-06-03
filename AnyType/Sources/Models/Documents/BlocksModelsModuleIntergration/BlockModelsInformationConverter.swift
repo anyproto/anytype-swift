@@ -6,7 +6,7 @@ class BlockModelsInformationConverter {
     static func convert(block: Anytype_Model_Block) -> BlockInformation? {
         guard let content = block.content, let blockType = BlocksModelsConverter.convert(middleware: content) else { return nil }
         
-        var information = BlockInformationBuilder.build(id: block.id, content: blockType)
+        var information = BlockInformation(id: block.id, content: blockType)
 
         // TODO: Add fields and restrictions.
         // Add parsers for them and model.

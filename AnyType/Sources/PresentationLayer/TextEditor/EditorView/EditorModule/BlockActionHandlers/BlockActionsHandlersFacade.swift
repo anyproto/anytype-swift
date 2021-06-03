@@ -223,7 +223,12 @@ struct BlockBuilder {
     static func createInformation(block: BlockActiveRecordModelProtocol, action: KeyboardAction, textPayload: String) -> BlockInformation? {
         switch block.content {
         case .text:
-            return self.createContentType(block: block, action: action, textPayload: textPayload).flatMap({(newBlockId(), $0)}).map(BlockInformationBuilder.build)
+            return createContentType(
+                block: block,
+                action: action,
+                textPayload: textPayload
+            ).flatMap { (newBlockId(), $0) }
+            .map(BlockInformation.init)
         default: return nil
         }
     }
@@ -233,22 +238,22 @@ struct BlockBuilder {
         case .addBlock:
             return self.createContentType(block: block, action: action, textPayload: textPayload)
                 .flatMap { (newBlockId(), $0) }
-                .map(BlockInformationBuilder.build)
+                .map(BlockInformation.init)
         default: return nil
         }
     }
 
     static func createDefaultInformation(block: BlockActiveRecordModelProtocol? = nil) -> BlockInformation? {
         guard let block = block else {
-            return BlockInformationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            return BlockInformation(id: newBlockId(), content: .text(.empty()))
         }
         switch block.content {
         case let .text(value):
             switch value.contentType {
-            case .toggle: return BlockInformationBuilder.build(id: newBlockId(), content: .text(.empty()))
+            case .toggle: return BlockInformation(id: newBlockId(), content: .text(.empty()))
             default: return nil
             }
-        case .smartblock: return BlockInformationBuilder.build(id: newBlockId(), content: .text(.empty()))
+        case .smartblock: return BlockInformation(id: newBlockId(), content: .text(.empty()))
         default: return nil
         }
     }

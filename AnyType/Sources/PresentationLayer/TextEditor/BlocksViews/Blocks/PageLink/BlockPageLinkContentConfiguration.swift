@@ -15,7 +15,7 @@ struct BlockPageLinkContentConfiguration: UIContentConfiguration, Hashable {
     init?(_ information: BlockInformation) {
         switch information.content {
         case let .link(value) where value.style == .page:
-            self.information = .init(information: information)
+            self.information = information
         default:
             return nil
         }

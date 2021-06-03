@@ -33,7 +33,7 @@ struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
             break
         }
         
-        self.information = .init(information: information)
+        self.information = information
     }
             
     /// UIContentConfiguration

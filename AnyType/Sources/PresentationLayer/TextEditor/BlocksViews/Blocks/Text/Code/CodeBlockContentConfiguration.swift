@@ -20,7 +20,7 @@ struct CodeBlockContentConfiguration {
     private(set) var isSelected: Bool = false
 
     init(_ blockViewModel: CodeBlockViewModel) {
-        self.information = .init(information: blockViewModel.information)
+        self.information = blockViewModel.information
     }
 }
 

@@ -258,7 +258,7 @@ extension Namespace.ViewModel {
                 break
             }
             
-            self.information = .init(information: information)
+            self.information = information
         }
                 
         /// UIContentConfiguration

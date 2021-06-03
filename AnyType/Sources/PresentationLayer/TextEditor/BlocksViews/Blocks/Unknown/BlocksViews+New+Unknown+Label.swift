@@ -74,7 +74,7 @@ extension BlocksViews.Unknown.Label.ViewModel {
 //                break
 //            }
             
-            self.information = .init(information: information)
+            self.information = information
         }
                 
         /// UIContentConfiguration
