@@ -17,8 +17,8 @@ extension BlockTextView {
         showStyleMenu,
         inputAction(InputAction),
         keyboardAction(KeyboardAction),
-        addBlockAction(AddBlockAction),
-        showMultiActionMenuAction(ShowMultiActionMenuAction),
+        addBlockAction,
+        showMultiActionMenuAction,
         changeCaretPosition(NSRange)
     }
 }
@@ -107,18 +107,3 @@ extension BlockTextView.UserAction {
         }
     }
 }
-
-// MARK: - AddBlockAction
-extension BlockTextView.UserAction {
-    enum AddBlockAction {
-        case addBlock
-    }
-}
-
-// MARK: - ShowMultiActionMenu
-extension BlockTextView.UserAction {
-    enum ShowMultiActionMenuAction {
-        case showMultiActionMenu
-    }
-}
-

@@ -13,11 +13,13 @@ import Combine
 
 /// Content configuration for text blocks
 struct TextBlockContentConfiguration {
-    private(set) var marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
-    private(set) var toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+    
+    let marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
+    let toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+    let viewModel: TextBlockViewModel
+    let information: BlockInformation
+    
     private(set) weak var textViewDelegate: TextViewDelegate?
-    private(set) var viewModel: TextBlockViewModel
-    private(set) var information: BlockInformation
     private(set) var isSelected: Bool = false
 
     /// text block view model
@@ -41,7 +43,7 @@ struct TextBlockContentConfiguration {
 extension TextBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
-        let view: TextBlockContentView = .init(configuration: self)
+        let view = TextBlockContentView(configuration: self)
         viewModel.addContextMenuIfNeeded(view)
         return view
     }
@@ -65,4 +67,5 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(information)
         hasher.combine(isSelected)
     }
+    
 }

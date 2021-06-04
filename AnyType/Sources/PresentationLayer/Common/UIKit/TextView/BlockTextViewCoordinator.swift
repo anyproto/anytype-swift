@@ -90,7 +90,7 @@ extension BlockTextViewCoordinator {
                 
             case .multiActionMenu:
                 self.userInteractionDelegate?.didReceiveAction(
-                    .showMultiActionMenuAction(.showMultiActionMenu)
+                    .showMultiActionMenuAction
                 )
                 
             case .showStyleMenu:

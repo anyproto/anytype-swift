@@ -24,12 +24,12 @@ final class BlocksModelsParserCommonAlignmentConverter {
     }
 }
     
-    
+
 // Later it will be separated into textAlignment and contentMode.
-final class BlocksModelsParserCommonAlignmentUIKitConverter {
-    typealias UIKitModel = NSTextAlignment
-    static func asModel(_ value: UIKitModel) -> BlockInformationAlignment? {
-        switch value {
+extension NSTextAlignment {
+    
+    var asBlockInformationAlignment: BlockInformationAlignment? {
+        switch self {
         case .left: return .left
         case .center: return .center
         case .right: return .right
@@ -37,11 +37,16 @@ final class BlocksModelsParserCommonAlignmentUIKitConverter {
         }
     }
     
-    static func asUIKitModel(_ value: BlockInformationAlignment) -> UIKitModel? {
-        switch value {
+}
+
+extension BlockInformationAlignment {
+    
+    var asTextAlignment: NSTextAlignment {
+        switch self {
         case .left: return .left
         case .center: return .center
         case .right: return .right
         }
     }
+    
 }

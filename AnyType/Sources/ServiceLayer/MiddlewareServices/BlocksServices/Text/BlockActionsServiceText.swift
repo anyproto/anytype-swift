@@ -46,7 +46,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     
     // MARK: SetAlignment
     func setAlignment(contextID: String, blockIds: [String], alignment: NSTextAlignment) -> AnyPublisher<Void, Error> {
-        let ourAlignment = BlocksModelsParserCommonAlignmentUIKitConverter.asModel(alignment)
+        let ourAlignment = alignment.asBlockInformationAlignment
         guard let middlewareAlignment = ourAlignment.flatMap(BlocksModelsParserCommonAlignmentConverter.asMiddleware) else {
             return Fail.init(error: PossibleError.setAlignmentActionAlignmentConversionHasFailed).eraseToAnyPublisher()
         }

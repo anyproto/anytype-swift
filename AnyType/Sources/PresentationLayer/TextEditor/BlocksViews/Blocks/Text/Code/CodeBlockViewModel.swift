@@ -180,14 +180,13 @@ private extension CodeBlockViewModel {
 extension CodeBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: BlockTextView.UserAction) {
         switch action {
-        case let .addBlockAction(value):
-            switch value {
-            case .addBlock:
-                self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
-            }
+        case .addBlockAction:
+            self.send(
+                userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject)))
+            )
         case .showStyleMenu:
             self.send(actionsPayload: .showStyleMenu(blockModel: self.getBlock().blockModel, blockViewModel: self))
-        case .showMultiActionMenuAction(.showMultiActionMenu):
+        case .showMultiActionMenuAction:
             self.textView?.shouldResignFirstResponder()
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
         case .inputAction, .keyboardAction:

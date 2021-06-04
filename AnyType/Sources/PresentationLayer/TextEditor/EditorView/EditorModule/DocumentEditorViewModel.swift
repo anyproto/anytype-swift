@@ -67,8 +67,8 @@ class DocumentEditorViewModel: ObservableObject {
     private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
 
-    private var listActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
-    lazy private var listActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = {
+    private var listActionsPayloadSubject: PassthroughSubject<Toolbar, Never> = .init()
+    lazy private var listActionsPayloadPublisher: AnyPublisher<Toolbar, Never> = {
         self.listActionsPayloadSubject.eraseToAnyPublisher()
     }()
 
@@ -335,7 +335,7 @@ private extension DocumentEditorViewModel {
         switch actionsPayload {
         case let .textView(value):
             switch value.action {
-            case .textView(.showMultiActionMenuAction(.showMultiActionMenu)):
+            case .textView(.showMultiActionMenuAction):
                 self.set(selectionEnabled: true)
             case let .textView(.changeCaretPosition(selectedRange)):
                 document.userSession?.setFocusAt(position: .at(selectedRange))
@@ -366,32 +366,41 @@ private extension DocumentEditorViewModel {
         case let .toolbar(value):
             let selectedIds = self.list()
             switch value {
-            case let .turnInto(payload): self.publicUserActionSubject.send(.toolbars(.turnIntoBlock(.init(output: self.listToolbarSubject, input: payload))))
-            case .delete: self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: .editBlock(.delete))))
-            case .copy: break
+            case let .turnInto(payload):
+                publicUserActionSubject.send(
+                    .toolbars(
+                        .turnIntoBlock(
+                            .init(output: self.listToolbarSubject, input: payload)
+                        )
+                    )
+                )
+            case .delete:
+                listActionsPayloadSubject.send(
+                    Toolbar(model: selectedIds, action: .editBlock(.delete))
+                )
+            case .copy:
+                break
             }
         }
     }
 
     func process(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
-        let selectedIds = self.list()
-        self.listActionsPayloadSubject.send(.toolbar(.init(model: selectedIds, action: toolbarAction)))
+        listActionsPayloadSubject.send(
+            Toolbar(
+                model: self.list(),
+                action: toolbarAction
+            )
+        )
     }
 }
 
 extension DocumentEditorViewModel {
-    enum ActionsPayload {
-        typealias ListModel = [BlockId]
-
-        struct Toolbar {
-            typealias Model = ListModel
-            typealias Action = BlocksViews.Toolbar.UnderlyingAction
-            var model: Model
-            var action: Action
-        }
-        
-        case toolbar(Toolbar)
+    
+    struct Toolbar {
+        let model: [BlockId]
+        let action: BlocksViews.Toolbar.UnderlyingAction
     }
+    
 }
 
 

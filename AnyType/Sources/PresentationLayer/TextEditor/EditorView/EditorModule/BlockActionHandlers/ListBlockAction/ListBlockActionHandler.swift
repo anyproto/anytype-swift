@@ -15,8 +15,8 @@ final class ListBlockActionHandler {
         case shouldHandleEvent(ShouldHandleEvent)
     }
 
-    typealias ActionsPayload = DocumentEditorViewModel.ActionsPayload
-    typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
+    typealias ActionsPayload = DocumentEditorViewModel.Toolbar
+    typealias ActionsPayloadToolbar = BlocksViews.Toolbar.UnderlyingAction
 
     typealias ListModel = [BlockId]
 
@@ -53,9 +53,10 @@ final class ListBlockActionHandler {
     }
 
     func didReceiveAction(action: ActionsPayload) {
-        switch action {
-        case let .toolbar(value): self.handlingToolbarAction(value.model, value.action)
-        }
+        handlingToolbarAction(
+            action.model,
+            action.action
+        )
     }
 
     func handlingToolbarAction(_ model: ListModel, _ action: ActionsPayloadToolbar) {
