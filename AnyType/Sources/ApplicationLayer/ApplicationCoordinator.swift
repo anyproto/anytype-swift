@@ -123,6 +123,8 @@ extension ApplicationCoordinator: MainWindowHolder {
         rootNavigationController.navigationBar.compactAppearance = appearance
         rootNavigationController.navigationBar.standardAppearance = appearance
         rootNavigationController.navigationBar.scrollEdgeAppearance = appearance
+        rootNavigationController.navigationBar.barTintColor = UIColor.grayscale50
+        rootNavigationController.navigationBar.tintColor = UIColor.grayscale50
     }
 
 }

@@ -31,7 +31,7 @@ enum MediaPickerContentType {
         case .images:
             return UTType.image.identifier
         case .videos:
-            return UTType.video.identifier
+            return UTType.quickTimeMovie.identifier
         }
     }
     
