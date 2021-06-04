@@ -1,16 +1,4 @@
-//
-//  SecureStoreServiceProtocol.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 11/07/2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
-
-// MARK: - SecureStoreServiceProtocol
-
-/// Protocol for interaction with store
-protocol SecureStoreServiceProtocol {
+protocol SeedServiceProtocol {
     
     /// Obtain seed for public key
     /// - Parameter name: public key

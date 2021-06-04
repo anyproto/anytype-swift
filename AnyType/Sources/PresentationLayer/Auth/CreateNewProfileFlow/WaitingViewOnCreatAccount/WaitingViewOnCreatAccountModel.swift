@@ -13,7 +13,7 @@ final class SignUpData: ObservableObject {
 }
 
 class WaitingViewOnCreatAccountModel: ObservableObject {
-    private let storeService = ServiceLocator.shared.keychainStoreService()
+    private let seedService = ServiceLocator.shared.seedService()
     private let authService = ServiceLocator.shared.authService()
     
     private var diskStorage = DiskStorage()

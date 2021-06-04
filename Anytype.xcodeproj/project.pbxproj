@@ -46,14 +46,14 @@
 		03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B1619F239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift */; };
 		03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */; };
 		03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53622DF6C9900DD91DE /* KeychainStore.swift */; };
-		03C5C53922DF6C9900DD91DE /* SecureStoreServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53722DF6C9900DD91DE /* SecureStoreServiceProtocol.swift */; };
+		03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C53722DF6C9900DD91DE /* SeedServiceProtocol.swift */; };
 		03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C5C53A22DF785000DD91DE /* Security.framework */; };
 		03C5C54322DFD90C00DD91DE /* AnytypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54222DFD90C00DD91DE /* AnytypeTests.swift */; };
 		03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54A22E09E0F00DD91DE /* SecureStoreQueryable.swift */; };
 		03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54C22E0A0C100DD91DE /* InternetProtocol.swift */; };
 		03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */; };
 		03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03C5C55022E0A3E800DD91DE /* KeychainError.swift */; };
-		03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3EFE230C0FF2003D5DFD /* KeychainStoreService.swift */; };
+		03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3EFE230C0FF2003D5DFD /* SeedService.swift */; };
 		03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3EFD230C0FC4003D5DFD /* AuthServiceProtocol.swift */; };
 		03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F09230C2464003D5DFD /* UIColorExtension.swift */; };
 		03CB3F0D230C3EAA003D5DFD /* ImageLoaderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB3F0C230C3EAA003D5DFD /* ImageLoaderObject.swift */; };
@@ -620,7 +620,7 @@
 		03B1619F239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingViewOnCreatAccountModel.swift; sourceTree = "<group>"; };
 		03B55545230AD13A0070FDF3 /* ActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		03C5C53622DF6C9900DD91DE /* KeychainStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
-		03C5C53722DF6C9900DD91DE /* SecureStoreServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStoreServiceProtocol.swift; sourceTree = "<group>"; };
+		03C5C53722DF6C9900DD91DE /* SeedServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedServiceProtocol.swift; sourceTree = "<group>"; };
 		03C5C53A22DF785000DD91DE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		03C5C54022DFD90C00DD91DE /* AnytypeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnytypeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03C5C54222DFD90C00DD91DE /* AnytypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypeTests.swift; sourceTree = "<group>"; };
@@ -630,7 +630,7 @@
 		03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetAuthenticationType.swift; sourceTree = "<group>"; };
 		03C5C55022E0A3E800DD91DE /* KeychainError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainError.swift; sourceTree = "<group>"; };
 		03CB3EFD230C0FC4003D5DFD /* AuthServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceProtocol.swift; sourceTree = "<group>"; };
-		03CB3EFE230C0FF2003D5DFD /* KeychainStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStoreService.swift; sourceTree = "<group>"; };
+		03CB3EFE230C0FF2003D5DFD /* SeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedService.swift; sourceTree = "<group>"; };
 		03CB3F09230C2464003D5DFD /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		03CB3F0C230C3EAA003D5DFD /* ImageLoaderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderObject.swift; sourceTree = "<group>"; };
 		03CB3F0F230C414C003D5DFD /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
@@ -1572,11 +1572,8 @@
 		03C5C53522DF6C9900DD91DE /* KeychainStore */ = {
 			isa = PBXGroup;
 			children = (
+				3D568FC7266A916400DC7881 /* Internals */,
 				03C5C53622DF6C9900DD91DE /* KeychainStore.swift */,
-				03C5C54A22E09E0F00DD91DE /* SecureStoreQueryable.swift */,
-				03C5C54C22E0A0C100DD91DE /* InternetProtocol.swift */,
-				03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */,
-				03C5C55022E0A3E800DD91DE /* KeychainError.swift */,
 			);
 			path = KeychainStore;
 			sourceTree = "<group>";
@@ -1644,8 +1641,8 @@
 		03DA0FD123A1DBA900C597BD /* SecureStoreService */ = {
 			isa = PBXGroup;
 			children = (
-				03C5C53722DF6C9900DD91DE /* SecureStoreServiceProtocol.swift */,
-				03CB3EFE230C0FF2003D5DFD /* KeychainStoreService.swift */,
+				03C5C53722DF6C9900DD91DE /* SeedServiceProtocol.swift */,
+				03CB3EFE230C0FF2003D5DFD /* SeedService.swift */,
 			);
 			path = SecureStoreService;
 			sourceTree = "<group>";
@@ -2463,6 +2460,17 @@
 				3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		3D568FC7266A916400DC7881 /* Internals */ = {
+			isa = PBXGroup;
+			children = (
+				03C5C54A22E09E0F00DD91DE /* SecureStoreQueryable.swift */,
+				03C5C54C22E0A0C100DD91DE /* InternetProtocol.swift */,
+				03C5C54E22E0A16700DD91DE /* InternetAuthenticationType.swift */,
+				03C5C55022E0A3E800DD91DE /* KeychainError.swift */,
+			);
+			path = Internals;
 			sourceTree = "<group>";
 		};
 		3D829177265E53A50007C152 /* Model */ = {
@@ -3621,7 +3629,7 @@
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
-				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
+				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */,
 				0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */,
 				3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */,
@@ -3913,7 +3921,7 @@
 				1200FCD3265272A4009269D4 /* DocumentIconViewUserAction.swift in Sources */,
 				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
-				03C5C53922DF6C9900DD91DE /* SecureStoreServiceProtocol.swift in Sources */,
+				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
 				0A78328124BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,

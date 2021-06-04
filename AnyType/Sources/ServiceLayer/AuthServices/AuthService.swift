@@ -11,14 +11,14 @@ private extension LoggerCategory {
 // rewrite it on top of Middleware services.
 final class AuthService: NSObject, AuthServiceProtocol {
     private let localRepoService: LocalRepoServiceProtocol
-    private let storeService: SecureStoreServiceProtocol
+    private let seedService: SeedServiceProtocol
     
     init(
         localRepoService: LocalRepoServiceProtocol,
-        storeService: SecureStoreServiceProtocol
+        seedService: SeedServiceProtocol
     ) {
         self.localRepoService = localRepoService
-        self.storeService = storeService
+        self.seedService = seedService
     }
 
     func logout(completion: @escaping () -> Void) {
@@ -26,7 +26,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receiveOnMain()
             .sinkWithDefaultCompletion("Logout") { [weak self] _ in
-                try? self?.storeService.removeSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
+                try? self?.seedService.removeSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
                 UserDefaultsConfig.usersIdKey = ""
                 UserDefaultsConfig.userName = ""
                 MiddlewareConfiguration.shared = nil
@@ -43,7 +43,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
             }
         }) { [weak self] (value) in
             Logger.create(.servicesAuthService).debug("seed: \(value.mnemonic, privacy: .private)")
-            try? self?.storeService.saveSeedForAccount(name: nil, seed: value.mnemonic, keychainPassword: .none)
+            try? self?.seedService.saveSeedForAccount(name: nil, seed: value.mnemonic, keychainPassword: .none)
             onCompletion(.success(()))
         }
     }
@@ -72,7 +72,7 @@ final class AuthService: NSObject, AuthServiceProtocol {
     }
 
     func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        try? self.storeService.saveSeedForAccount(name: nil, seed: mnemonic, keychainPassword: .none)
+        try? seedService.saveSeedForAccount(name: nil, seed: mnemonic, keychainPassword: .none)
         _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: path, mnemonic: mnemonic).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
@@ -125,9 +125,9 @@ final class AuthService: NSObject, AuthServiceProtocol {
 
 extension AuthService {
     private func replaceDefaultSeed(with name: String, keychainPassword: KeychainPasswordType) {
-        if let seed = try? self.storeService.obtainSeed(for: nil, keychainPassword: .none) {
-            try? self.storeService.saveSeedForAccount(name: name, seed: seed, keychainPassword: keychainPassword)
-            try? self.storeService.removeSeed(for: nil, keychainPassword: .none)
+        if let seed = try? seedService.obtainSeed(for: nil, keychainPassword: .none) {
+            try? seedService.saveSeedForAccount(name: name, seed: seed, keychainPassword: keychainPassword)
+            try? seedService.removeSeed(for: nil, keychainPassword: .none)
         }
     }
 }

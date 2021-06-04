@@ -4,10 +4,10 @@ class KeychainPhraseViewModel: ObservableObject {
     @Published var recoveryPhrase: String? = nil
     @Published var showSnackbar = false
     
-    private let keychainStoreService = ServiceLocator.shared.keychainStoreService()
+    private let seedService = ServiceLocator.shared.seedService()
 
     func obtainRecoveryPhrase() {
-        recoveryPhrase = try? keychainStoreService.obtainSeed(
+        recoveryPhrase = try? seedService.obtainSeed(
             for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence
         )
     }

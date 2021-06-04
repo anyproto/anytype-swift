@@ -1,17 +1,16 @@
-//
-//  KeychainStore.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 11/07/2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Security
 import LocalAuthentication
 import Foundation
 
+protocol KeychainStoreProtocol {
+    func storeItem(item: String, queryable: SecureStoreQueryable) throws
+    func retreiveItem(queryable: SecureStoreQueryable) throws -> String
+    func contains(queryable: SecureStoreQueryable) -> Bool
+    func removeItem(queryable: SecureStoreQueryable) throws
+}
+
 /// Wrapper for keychain store
-class KeychainStore {
+class KeychainStore: KeychainStoreProtocol {
     
     // MARK: - Public methods
     

@@ -15,9 +15,8 @@ final class ServiceLocator {
         LocalRepoService()
     }
     
-    /// creates new keychainStoreService
-    func keychainStoreService() -> SecureStoreServiceProtocol {
-        KeychainStoreService(
+    func seedService() -> SeedServiceProtocol {
+        SeedService(
             keychainStore: KeychainStore()
         )
     }
@@ -26,7 +25,7 @@ final class ServiceLocator {
     func authService() -> AuthServiceProtocol {
         AuthService(
             localRepoService: localRepoService(),
-            storeService: keychainStoreService()
+            seedService: seedService()
         )
     }
     
