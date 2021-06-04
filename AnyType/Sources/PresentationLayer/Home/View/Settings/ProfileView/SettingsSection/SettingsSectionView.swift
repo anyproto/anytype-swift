@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SettingsSectionView: View {
-    @ObservedObject var viewModel = SettingSectionViewModel()
+    @EnvironmentObject var viewModel: SettingSectionViewModel
 
     var body: some View {
         VStack(spacing: 12) {

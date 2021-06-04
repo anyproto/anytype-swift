@@ -7,9 +7,9 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             
-            AnytypeText("Back up your keychain phrase", style: .title)
+            AnytypeText("Keychain phrase", style: .title)
                 .padding(.top, 58)
-            AnytypeText("Your Keychain phrase protects your account", style: .body)
+            AnytypeText("Keychain phrase description", style: .body)
                 .padding(.top, 25)
             SeedPhraseView(phrase: $viewModel.recoveryPhrase, onTap: viewModel.onSeedViewTap)
                 .padding(.top, 34)
