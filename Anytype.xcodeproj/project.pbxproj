@@ -293,6 +293,7 @@
 		3D568F952666C2DA00DC7881 /* ContentLayoutConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F942666C2DA00DC7881 /* ContentLayoutConverter.swift */; };
 		3D568F972666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F962666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift */; };
 		3D568F9D2666D45B00DC7881 /* BlockModelsInformationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F9C2666D45B00DC7881 /* BlockModelsInformationConverter.swift */; };
+		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
 		3D829172265E50190007C152 /* RedactedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D829171265E50190007C152 /* RedactedText.swift */; };
 		3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82917A265E53BB0007C152 /* OurEvent.swift */; };
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
@@ -571,7 +572,7 @@
 		0303ECFE22D8EDAA005C552B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0303ED0022D8EDAA005C552B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0303ED0222D8EDAA005C552B /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		0303ED0422D8EDAD005C552B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0303ED0422D8EDAD005C552B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Anytype/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		0303ED0722D8EDAD005C552B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0303ED0A22D8EDAD005C552B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0303ED0C22D8EDAD005C552B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -857,6 +858,7 @@
 		3D568F942666C2DA00DC7881 /* ContentLayoutConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ContentLayoutConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/ProtobufConverters/ContentLayoutConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D568F962666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetailsAndSetDetailsConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/BlockModelsConverters/EventDetailsAndSetDetailsConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D568F9C2666D45B00DC7881 /* BlockModelsInformationConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockModelsInformationConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/BlockModelsInformationConverter.swift; sourceTree = SOURCE_ROOT; };
+		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = AnyType/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
 		3D829171265E50190007C152 /* RedactedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedText.swift; sourceTree = "<group>"; };
 		3D82917A265E53BB0007C152 /* OurEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -1381,8 +1383,9 @@
 		038FB5C422D8F284002B90B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0A996BD323F038CB000FDC9C /* Plists */,
+				3D568FB4266A287400DC7881 /* Colors.xcassets */,
 				0303ED0422D8EDAD005C552B /* Assets.xcassets */,
+				0A996BD323F038CB000FDC9C /* Plists */,
 				0339382422EF571600589108 /* Strings */,
 				0388BF7822F10D3D00B73E39 /* Fonts */,
 				0303ED0622D8EDAD005C552B /* Preview Content */,
@@ -3432,6 +3435,7 @@
 			files = (
 				0A5F5AAF24D177B300D0E962 /* TextEditor.ContextualMenu.Actions.strings in Resources */,
 				53178879260A29FC004F9F68 /* Inter.ttf in Resources */,
+				3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
 				0ABB73A425497DB700F32C6F /* GoogleService-Info.plist in Resources */,
 				3DB92F97264D57A100E83276 /* IBMPlexMono-Regular.ttf in Resources */,
