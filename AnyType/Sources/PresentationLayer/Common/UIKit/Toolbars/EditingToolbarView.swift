@@ -1,18 +1,6 @@
-//
-//  EditingToolbarView.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 14.04.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
 
-
-/// Editing Toolbar
-///
-/// [Design.](https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android-main-draft?node-id=3618%3A40)
-class EditingToolbarView: UIView {
+extension EditingToolbarView {
     typealias ActionHandler = (Action) -> Void
 
     /// Actions that emit toolbar on selection buttons
@@ -26,10 +14,14 @@ class EditingToolbarView: UIView {
         /// Show bottom sheet style menu
         case showStyleMenu
     }
+}
 
+
+/// [Design.](https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android-main-draft?node-id=3618%3A40)
+class EditingToolbarView: UIView {
     // MARK: - Views
 
-    private var stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -67,20 +59,12 @@ class EditingToolbarView: UIView {
     private func setupLayout() {
         stackView.edgesToSuperview()
     
-        addBarButtonItem(image: UIImage(named: "EditingToolbar/add_new")) { [weak self] _ in
+        addBarButtonItem(image: UIImage.edititngToolbar.addNew) { [weak self] _ in
             self?.actionHandler?(.slashMenu)
         }
 
-        addBarButtonItem(image: UIImage(named: "EditingToolbar/style")) {[weak self] _ in
+        addBarButtonItem(image: UIImage.edititngToolbar.style) {[weak self] _ in
             self?.actionHandler?(.showStyleMenu)
-        }
-
-        addBarButtonItem(image: UIImage(named: "EditingToolbar/move")) { [weak self] _ in
-            self?.actionHandler?(.multiActionMenu)
-        }
-
-        addBarButtonItem(image: UIImage(named: "EditingToolbar/mention")) {_ in
-            assertionFailure("Not implemented yet")
         }
 
         addBarButtonItem(title: "Done".localized) { [weak self]_ in
