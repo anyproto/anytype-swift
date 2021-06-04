@@ -70,6 +70,14 @@ final class CodeBlockViewModel: BaseBlockViewModel {
             textView?.setFocus(focus)
         }
     }
+    
+    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+        BlocksViews.ContextualMenu(title: "",
+                                   children: [.create(action: .general(.addBlockBelow)),
+                                              .create(action: .specific(.turnIntoPage)),
+                                              .create(action: .general(.delete)),
+                                              .create(action: .general(.duplicate))])
+    }
 
     func setCodeLanguage(_ language: String) {
         guard let contextId = getBlock().container?.rootId else { return }

@@ -211,7 +211,10 @@ class BaseBlockViewModel: ObservableObject {
             }
         case let .specific(value):
             switch value {
-            case .turnInto: self.send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject))))
+            case .turnInto:
+                send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject))))
+            case .turnIntoPage:
+                toolbarActionSubject.send(.turnIntoBlock(.objects(.page)))
             case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .style))))))
             case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .textColor))))))
             case .backgroundColor:

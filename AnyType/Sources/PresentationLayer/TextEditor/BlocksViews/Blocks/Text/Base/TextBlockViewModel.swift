@@ -53,13 +53,11 @@ class TextBlockViewModel: BaseBlockViewModel {
         var actions: [BlocksViews.ContextualMenu.MenuAction] = [.create(action: .general(.addBlockBelow))]
         if text.contentType != .title {
             actions.append(contentsOf: [
-                .create(action: .specific(.turnInto)),
+                .create(action: .specific(.turnIntoPage)),
                 .create(action: .general(.delete)),
-                .create(action: .general(.duplicate)),
-                .create(action: .general(.moveTo))
+                .create(action: .general(.duplicate))
             ])
         }
-        actions.append(.create(action: .specific(.style)))
         return .init(title: "", children: actions)
     }
     
@@ -72,7 +70,7 @@ class TextBlockViewModel: BaseBlockViewModel {
         super.handle(contextualMenuAction: contextualMenuAction)
 
         // We want to restore focus only in case of turn into action
-        if !focusPosition.isNil, case let .specific(action) = contextualMenuAction, action == .turnInto {
+        if !focusPosition.isNil, case let .specific(action) = contextualMenuAction, action == .turnIntoPage {
             let focus = TextViewFocus(position: focusPosition)
             textView?.setFocus(focus)
         }

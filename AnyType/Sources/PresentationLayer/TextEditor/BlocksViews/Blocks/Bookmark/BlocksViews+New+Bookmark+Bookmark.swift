@@ -137,8 +137,6 @@ extension Namespace {
                 .create(action: .general(.addBlockBelow)),
                 .create(action: .general(.delete)),
                 .create(action: .general(.duplicate)),
-                .create(action: .general(.moveTo)),
-                .create(action: .specific(.turnInto)),
             ])
         }
     }

@@ -12,6 +12,7 @@
 "General.MoveTo" = "Move to";
 
 "Specific.TurnInto" = "Turn into";
+"Specific.TurnIntoPage" = "Turn into Page";
 "Specific.Style" = "Style";
 "Specific.Color" = "Color";
 "Specific.BackgroundColor" = "Background";

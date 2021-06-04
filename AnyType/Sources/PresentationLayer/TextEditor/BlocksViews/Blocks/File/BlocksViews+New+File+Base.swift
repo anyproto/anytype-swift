@@ -58,8 +58,7 @@ extension Namespace {
                 .create(action: .general(.delete)),
                 .create(action: .general(.duplicate)),
                 .create(action: .specific(.download)),
-                .create(action: .specific(.replace)),
-                .create(action: .general(.moveTo)),
+                .create(action: .specific(.replace))
             ])
         }
         

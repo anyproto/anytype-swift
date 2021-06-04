@@ -23,6 +23,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case let .specific(value):
                     switch value {
                     case .turnInto: return "Specific.TurnInto"
+                    case .turnIntoPage: return "Specific.TurnIntoPage"
                     case .style: return "Specific.Style"
                     case .color: return "Specific.Color"
                     case .backgroundColor: return "Specific.BackgroundColor"
@@ -46,7 +47,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case .general(.moveTo): return "TextEditor/ContextMenu/General/moveTo"
                 case let .specific(value):
                     switch value {
-                    case .turnInto: return "TextEditor/ContextMenu/Specific/turnInto"
+                    case .turnInto, .turnIntoPage: return "TextEditor/ContextMenu/Specific/turnInto"
                     case .style: return "TextEditor/ContextMenu/Specific/style"
                     case .color: return ""
                     case .backgroundColor: return ""
@@ -66,6 +67,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 .general(.duplicate),
                 .general(.moveTo),
                 .specific(.turnInto),
+                .specific(.turnIntoPage),
                 .specific(.style),
                 .specific(.color),
                 .specific(.backgroundColor),
@@ -84,6 +86,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case let .specific(value):
                     switch value {
                     case .turnInto: return ".specific(.turnInto)"
+                    case .turnIntoPage: return ".specific(.turnIntoPage)"
                     case .style: return ".specific(.style)"
                     case .color: return ".specific(.color)"
                     case .backgroundColor: return ".specific(.backgroundColor)"
@@ -169,6 +172,7 @@ extension BlocksViews.ContextualMenu.MenuAction.Action {
 extension BlocksViews.ContextualMenu.MenuAction.Action {
     enum SpecificAction {
         case turnInto
+        case turnIntoPage
         /// Text
         case style
         case color

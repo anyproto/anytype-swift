@@ -109,6 +109,13 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
             }
         }
     }
+    
+    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+        BlocksViews.ContextualMenu(title: "",
+                                   children: [.create(action: .general(.addBlockBelow)),
+                                              .create(action: .general(.delete)),
+                                              .create(action: .general(.duplicate))])
+    }
 }
 
 extension BlockPageLinkViewModel {
