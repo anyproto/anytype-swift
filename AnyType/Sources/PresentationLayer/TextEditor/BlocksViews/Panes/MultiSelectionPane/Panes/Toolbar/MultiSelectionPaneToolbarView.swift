@@ -95,7 +95,7 @@ final class MultiSelectionPaneToolbarView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel = {
             let view = UILabel()
-            view.textColor = .accentItemColor
+            view.textColor = .pureAmber
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()

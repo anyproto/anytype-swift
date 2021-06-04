@@ -294,6 +294,8 @@
 		3D568F972666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F962666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift */; };
 		3D568F9D2666D45B00DC7881 /* BlockModelsInformationConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568F9C2666D45B00DC7881 /* BlockModelsInformationConverter.swift */; };
 		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
+		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
+		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
 		3D829172265E50190007C152 /* RedactedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D829171265E50190007C152 /* RedactedText.swift */; };
 		3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82917A265E53BB0007C152 /* OurEvent.swift */; };
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
@@ -859,6 +861,8 @@
 		3D568F962666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventDetailsAndSetDetailsConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/BlockModelsConverters/EventDetailsAndSetDetailsConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D568F9C2666D45B00DC7881 /* BlockModelsInformationConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockModelsInformationConverter.swift; path = AnyType/Sources/Models/Documents/BlocksModelsModuleIntergration/BlockModelsInformationConverter.swift; sourceTree = SOURCE_ROOT; };
 		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = AnyType/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
+		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "AnyType/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
+		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "AnyType/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
 		3D829171265E50190007C152 /* RedactedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedactedText.swift; sourceTree = "<group>"; };
 		3D82917A265E53BB0007C152 /* OurEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
@@ -1466,6 +1470,7 @@
 		038FB5CB22D8F380002B90B8 /* FrameworkExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				3D568FC2266A713300DC7881 /* UIKit */,
 				3DB7DCB3263AA5D100635E4C /* SwiftUI */,
 				3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */,
 				039F669823C7FD1D00DBE36A /* GeometryExtension.swift */,
@@ -2452,6 +2457,14 @@
 			path = ProtobufConverters;
 			sourceTree = "<group>";
 		};
+		3D568FC2266A713300DC7881 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		3D829177265E53A50007C152 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2984,6 +2997,7 @@
 		535B56E42628767300D218E7 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
+				3D568FC0266A5D8600DC7881 /* ColorName.swift */,
 				03CB3F09230C2464003D5DFD /* UIColorExtension.swift */,
 				0ACA781B23E5C9A300442690 /* ColorExtension.swift */,
 				039F6D79239591C80097560A /* Gradients.swift */,
@@ -3553,6 +3567,7 @@
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				1280E209265C17F800E5AEEE /* PlaceholderImageBuilder.swift in Sources */,
+				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
 				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */,
@@ -3850,6 +3865,7 @@
 				3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */,
 				3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift in Sources */,
+				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
 				3D5321E0262445B200F0D4FF /* Localization.swift in Sources */,
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
 				1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */,

@@ -132,15 +132,8 @@ public extension UIView {
     }
     
     private func generateRandomColors(ofCount count: Int) -> [UIColor] {
-        (0..<count).map(generateRandomColor)
+        (0..<count).map { _ in
+            UIColor.randomColor()
+        }
     }
-    
-    private func generateRandomColor(forIndex _: Int) -> UIColor {
-        let red = CGFloat.random(in: 0...1)
-        let green = CGFloat.random(in: 0...1)
-        let blue = CGFloat.random(in: 0...1)
-        
-        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-    }
-    
 }

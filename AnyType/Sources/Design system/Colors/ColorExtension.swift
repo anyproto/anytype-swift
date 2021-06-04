@@ -2,23 +2,21 @@ import SwiftUI
 
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=3681%3A1219
 extension Color {
-    static let textPrimary = Color("textPrimary")
-    static let textSecondary = Color("textSecondary")
-    static let textTertiary = Color("textTertiary")
+    static let textPrimary = Color(ColorName.textPrimary)
+    static let textSecondary = Color(ColorName.textSecondary)
+    static let textTertiary = Color(ColorName.textTertiary)
     
-    
-    static let background = Color("background")
-    
+    static let background = Color(ColorName.grayscaleWhite)
     
     static let divider = Color("divider")
     static let stroke = Color("stroke")
     
     
-    static let pureAmber = Color("pureAmber")
-    static let pureRed = Color("pureRed")
-    static let pureBlue = Color("pureBlue")
-    static let lightBlue = Color("lightBlue")
-    static let darkBlue = Color("darkBlue")
+    static let pureAmber = Color(ColorName.pureAmber)
+    static let pureRed = Color(ColorName.pureRed)
+    static let pureBlue = Color(ColorName.pureBlue)
+    static let lightBlue = Color(ColorName.lightBlue)
+    static let darkBlue = Color(ColorName.darkBlue)
     
     
     // Mapping

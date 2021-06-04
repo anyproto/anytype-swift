@@ -1,123 +1,30 @@
-//
-//  UIColorExtension.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 20.08.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import UIKit
 
 
 extension UIColor {
-    
-    var isTransparent: Bool {
-        !self.cgColor.alpha.isEqual(to: 1)
-    }
-    
-    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
-        return UIGraphicsImageRenderer(size: size).image { rendererContext in
-            self.setFill()
-            rendererContext.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
-        }
-    }
-    
-    static func randomColor() -> UIColor {
-        let random = { CGFloat(arc4random_uniform(256)) / 255.0 }
-        return UIColor(red: random(), green: random(), blue: random(), alpha: 1)
-    }
-    
-    func toHexString() -> String {
-        var r:CGFloat = 0
-        var g:CGFloat = 0
-        var b:CGFloat = 0
-        var a:CGFloat = 0
-
-        getRed(&r, green: &g, blue: &b, alpha: &a)
-
-        let rgb:Int = (Int)(r*0xff)<<16 | (Int)(g*0xff)<<8 | (Int)(b*0xff)<<0
-
-        return String(format:"#%06x", rgb)
-    }
-    
-    convenience init(hexString: String, alpha: CGFloat = 1) {
-        let chars = Array(hexString.dropFirst())
-        self.init(red:   .init(strtoul(String(chars[0...1]), nil ,16)) / 255,
-                  green: .init(strtoul(String(chars[2...3]), nil ,16)) / 255,
-                  blue:  .init(strtoul(String(chars[4...5]), nil ,16)) / 255,
-                  alpha: alpha)
-        
-    }
-    
     static var highlighterColor: UIColor {
         .init(red: 255.0/255.0, green: 181.0/255.0, blue: 34.0/255.0, alpha: 1)
     }
     
-    static var textColor: UIColor {
-        .init(red: 44.0/255.0, green: 43.0/255.0, blue: 39.0/255.0, alpha: 1)
-    }
-    
-    static var secondaryTextColor: UIColor {
-        .init(red: 172.0/255.0, green: 169.0/255.0, blue: 150.0/255.0, alpha: 1)
-    }
+    static let textColor = color(name: ColorName.textPrimary)
+    static let secondaryTextColor = color(name: ColorName.textSecondary)
+    static let tertiaryTextColor = color(name: ColorName.textTertiary)
     
     static var selectedItemColor: UIColor {
         .init(red: 229.0/255.0, green: 239.0/255.0, blue: 249.0/255.0, alpha: 1)
     }
     
-    static var accentItemColor: UIColor {
-        .orange
-    }
-
-    static var activeOrange: UIColor {
-        .init(hexString: "#F6A927")
-    }
+    static let grayscale90 = color(name: ColorName.grayscale90)
     
-
-    /// Color that can be used in case if we couldn't parse color from middleware
-    static var defaultColor: UIColor {
-        .grayscale90
-    }
-    
-    static var grayscale90: UIColor {
-        UIColor(hexString: "#2C2B27")
-    }
-    
-    static var pureLemon: UIColor {
-        UIColor(hexString: "#ECD91B")
-    }
-    
-    static var pureAmber: UIColor {
-        UIColor(hexString: "#FFB522")
-    }
-    
-    static var pureRed: UIColor {
-        UIColor(hexString: "#F55522")
-    }
-    
-    static var purePink: UIColor {
-        UIColor(hexString: "#E51CA0")
-    }
-    
-    static var purePurple: UIColor {
-        UIColor(hexString: "#AB50CC")
-    }
-    
-    static var pureUltramarine: UIColor {
-        UIColor(hexString: "#3E58EB")
-    }
-    
-    static var pureBlue: UIColor {
-        UIColor(hexString: "#2AA7EE")
-    }
-    
-    static var pureTeal: UIColor {
-        UIColor(hexString: "#0FC8BA")
-    }
-    
-    static var green: UIColor {
-        UIColor(hexString: "#5DD400")
-    }
+    static let pureAmber = color(name: ColorName.pureAmber)
+    static let pureLemon = color(name: ColorName.pureLemon)
+    static let pureRed = color(name: ColorName.pureRed)
+    static let purePink = color(name: ColorName.purePink)
+    static let purePurple = color(name: ColorName.purePurple)
+    static let pureUltramarine = color(name: ColorName.pureUltramarine)
+    static let pureBlue = color(name: ColorName.pureBlue)
+    static let pureTeal = color(name: ColorName.pureTeal)
+    static let pureGreen = color(name: ColorName.pureGreen)
     
     static var coldgray: UIColor {
         UIColor(hexString: "#8C9EA5")
@@ -141,9 +48,7 @@ extension UIColor {
 
     // MARK: - Color for background
 
-    static var grayscaleWhite: UIColor {
-        .init(hexString: "#FFFFFF")
-    }
+    static let grayscaleWhite = color(name: ColorName.grayscaleWhite)
 
     static var lightColdgray: UIColor {
         .init(hexString: "#EBEFF1")
@@ -173,9 +78,7 @@ extension UIColor {
         .init(hexString: "#E4E7FC")
     }
 
-    static var lightBlue: UIColor {
-        .init(hexString: "#D6EFFD")
-    }
+    static let lightBlue = color(name: ColorName.lightBlue)
 
     static var lightTeal: UIColor {
         .init(hexString: "#D6F5F3")
@@ -187,5 +90,12 @@ extension UIColor {
 
     static var selected: UIColor {
         .init(hexString: "#867D42", alpha: 0.1)
+    }
+    
+    /// Color that can be used in case if we couldn't parse color from middleware
+    static let defaultColor = grayscale90
+    
+    private static func color(name: String) -> UIColor {
+        UIColor(named: name) ?? defaultColor
     }
 }

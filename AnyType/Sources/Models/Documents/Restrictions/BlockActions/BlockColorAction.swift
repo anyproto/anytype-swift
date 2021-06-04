@@ -35,7 +35,7 @@ enum BlockColorAction: CaseIterable {
         case .teal:
             return .pureTeal
         case .green:
-            return .green
+            return .pureGreen
         case .coldgray:
             return .coldgray
         }

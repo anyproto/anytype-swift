@@ -84,7 +84,7 @@ class EditingToolbarView: UIView {
         let button = UIButton()
         button.setImage(image, for: .normal)
         button.setTitle(title, for: .normal)
-        button.setTitleColor(.activeOrange, for: .normal)
+        button.setTitleColor(.pureAmber, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
         stackView.addArrangedSubview(button)
     }
