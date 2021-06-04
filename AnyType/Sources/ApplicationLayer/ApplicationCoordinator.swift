@@ -14,6 +14,8 @@ class ApplicationCoordinator {
     
     private let authAssembly: AuthAssembly
     
+    private(set) lazy var rootNavigationController = createNavigationController()
+    
     init(
         window: MainWindow,
         shakeHandler: ShakeHandler,
@@ -79,9 +81,8 @@ class ApplicationCoordinator {
     private func showAuthScreen() {
         startNewRootView(authAssembly.authView())
     }
-    
-    // MARK: - rootNavigationController
-    let rootNavigationController: UINavigationController = {
+        
+    fileprivate func createNavigationController() -> UINavigationController {
         let controller = UINavigationController()
         
         let navBarAppearance = UINavigationBarAppearance()
@@ -95,7 +96,7 @@ class ApplicationCoordinator {
         controller.navigationBar.tintColor = UIColor.grayscale50
 
         return controller
-    }()
+    }
 }
 
 // MARK: - MainWindowHolder
@@ -110,7 +111,12 @@ protocol MainWindowHolder {
 extension ApplicationCoordinator: MainWindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType) {
+        let rootNavigationController = createNavigationController()
         rootNavigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
+        self.rootNavigationController = rootNavigationController
+        
+        window.rootViewController = rootNavigationController
+        window.makeKeyAndVisible()
     }
     
     func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance) {
