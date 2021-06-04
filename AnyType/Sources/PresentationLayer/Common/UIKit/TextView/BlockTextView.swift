@@ -43,7 +43,7 @@ final class BlockTextView: UIView {
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
-        textView.autocorrectionType = .no
+        textView.autocorrectionType = .default
         return textView
     }()
 
