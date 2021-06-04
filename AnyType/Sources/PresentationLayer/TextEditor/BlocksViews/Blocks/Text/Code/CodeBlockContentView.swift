@@ -105,15 +105,17 @@ final class CodeBlockContentView: UIView & UIContentView {
 
     private func makeCoordinator() -> BlockTextViewCoordinator {
         let blockRestrictions = BlockRestrictionsFactory().makeRestrictions(for: .text(.code))
-        let coordinarot = BlockTextViewCoordinator(blockRestrictions:blockRestrictions ,menuItemsBuilder: nil, blockMenuActionsHandler: nil)
-        textViewCoordinator = coordinarot
-        coordinarot.configureEditingToolbarHandler(textView)
+        let coordinator = BlockTextViewCoordinator(blockRestrictions:blockRestrictions ,menuItemsBuilder: nil, blockMenuActionsHandler: nil)
+        textViewCoordinator = coordinator
+        coordinator.configureEditingToolbarHandler(textView)
 
-        coordinarot.textSizeChangePublisher.sink { [weak self] _ in
+        coordinator.textSizeChangePublisher.sink { [weak self] _ in
             self?.currentConfiguration.viewModel?.needsUpdateLayout()
         }.store(in: &subscriptions)
 
-        return coordinarot.configure(currentConfiguration.viewModel)
+        coordinator.userInteractionDelegate = currentConfiguration.viewModel
+        
+        return coordinator
     }
 
     // MARK: - Setup view

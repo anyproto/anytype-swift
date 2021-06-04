@@ -123,13 +123,23 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private func makeCoordinator() -> BlockTextViewCoordinator {
         let factory = BlockRestrictionsFactory()
-        let restrictions = factory.makeRestrictions(for: currentConfiguration.information.content.type)
-        let actionsHandler = BlockMenuActionsHandlerImp(marksPaneActionSubject: currentConfiguration.marksPaneActionSubject,
-                                                        addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject)
-        let coordinator = BlockTextViewCoordinator(blockRestrictions: restrictions,
-                                                   menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
-                                                    blockMenuActionsHandler: actionsHandler)
-        return coordinator.configure(currentConfiguration.viewModel)
+        let restrictions = factory.makeRestrictions(
+            for: currentConfiguration.information.content.type
+        )
+        
+        let actionsHandler = BlockMenuActionsHandlerImp(
+            marksPaneActionSubject: currentConfiguration.marksPaneActionSubject,
+            addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject
+        )
+        
+        let coordinator = BlockTextViewCoordinator(
+            blockRestrictions: restrictions,
+            menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
+            blockMenuActionsHandler: actionsHandler
+        )
+        coordinator.userInteractionDelegate = currentConfiguration.viewModel
+        
+        return coordinator
     }
 
     // MARK: - Setup views

@@ -116,6 +116,7 @@ extension Namespace.MarkStyleModifier {
         return self
     }
     
+    @discardableResult
     public func applyStyle(style: MarkStyle, rangeOrWholeString either: RangeEither) -> Self {
         switch either {
         case let .range(value): return applyStyle(style: style, range: value)

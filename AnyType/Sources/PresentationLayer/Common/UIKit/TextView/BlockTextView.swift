@@ -24,7 +24,7 @@ final class BlockTextView: UIView {
             // Because we set new coordinator we want to use
             // new coordinator's input views instead of old coordinator views
             coordinator?.switchInputs(textView)
-            _ = coordinator?.configured(
+            coordinator?.configure(
                 textView,
                 contextualMenuStream: textView.contextualMenuPublisher
             )
