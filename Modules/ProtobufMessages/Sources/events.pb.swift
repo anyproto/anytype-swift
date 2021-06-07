@@ -688,7 +688,7 @@ public struct Anytype_Event {
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      /// Amend existing state
+      /// Amend (i.e. add a new key-value pair or update an existing key-value pair) existing state
       public struct Amend {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
