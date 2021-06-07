@@ -83,7 +83,7 @@ private extension DocumentCoverViewModel {
     }
     
     func uploadSelectedIconImage(at localPath: String) {
-        fileService.uploadFile.action(
+        fileService.uploadFile(
             url: "",
             localPath: localPath,
             type: .image,

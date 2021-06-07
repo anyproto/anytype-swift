@@ -35,6 +35,8 @@
 	<string>NSCameraUsageDescription</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>NSFaceIDUsageDescription</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>NSLocalNetworkUsageDescription</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>IBMPlexMono-Regular.ttf</string>

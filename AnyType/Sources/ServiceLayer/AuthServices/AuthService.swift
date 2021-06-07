@@ -8,8 +8,7 @@ private extension LoggerCategory {
     static let servicesAuthService: Self = "Services.AuthService"
 }
 
-// rewrite it on top of Middleware services.
-final class AuthService: NSObject, AuthServiceProtocol {
+final class AuthService: AuthServiceProtocol {
     private let localRepoService: LocalRepoServiceProtocol
     private let seedService: SeedServiceProtocol
     

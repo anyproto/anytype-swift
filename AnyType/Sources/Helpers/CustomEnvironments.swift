@@ -1,21 +1,6 @@
 import SwiftUI
 
 
-struct FileServiceKey: EnvironmentKey {
-    static let defaultValue: BlockActionsServiceFile = .init()
-}
-
-extension EnvironmentValues {
-    var fileService: BlockActionsServiceFile {
-        get {
-            self[FileServiceKey.self]
-        }
-        set {
-            self[FileServiceKey.self] = newValue
-        }
-    }
-}
-
 struct ShowViewFramesKey: EnvironmentKey {
     static let defaultValue: Bool = false
 }

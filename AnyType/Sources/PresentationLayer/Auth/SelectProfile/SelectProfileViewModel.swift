@@ -20,11 +20,9 @@ class SelectProfileViewModel: ObservableObject {
     
     private let localRepoService  = ServiceLocator.shared.localRepoService()
     private let authService  = ServiceLocator.shared.authService()
-
-    @Environment(\.fileService) private var fileService
+    private let fileService = ServiceLocator.shared.fileService()
     
     private var cancellable: AnyCancellable?
-    private var avatarCancellable: AnyCancellable?
     
     @Published var profilesViewModels = [ProfileNameViewModel]()
     @Published var error: String? {
@@ -68,35 +66,37 @@ class SelectProfileViewModel: ObservableObject {
         cancellable = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)
             .compactMap { notification in
                 return notification.object as? Anytype_Event
-        }
-        .map(\.messages)
-        .map {
-            $0.filter { message in
-                guard let value = message.value else { return false }
-                
-                if case Anytype_Event.Message.OneOf_Value.accountShow = value {
-                    return true
+            }
+            .map(\.messages)
+            .map {
+                $0.filter { message in
+                    guard let value = message.value else { return false }
+                    
+                    if case Anytype_Event.Message.OneOf_Value.accountShow = value {
+                        return true
+                    }
+                    return false
                 }
-                return false
             }
-        }
-        .receiveOnMain()
-        .sink { [weak self] events in
-            guard let self = self else {
-                return
-            }
-            
-            for event in events {
-                let account = event.accountShow.account
+            .filter { $0.count > 0 } 
+            .receiveOnMain()
+            .sink { [weak self] events in
+                guard let self = self else {
+                    return
+                }
+                
                 
                 if self.isMultipleAccountsEnabled {
-                    let profileViewModel = self.profileViewModelFromAccount(account)
-                    self.profilesViewModels.append(profileViewModel)
+                    for event in events {
+                        let account = event.accountShow.account
+                        
+                        let profileViewModel = self.profileViewModelFromAccount(account)
+                        self.profilesViewModels.append(profileViewModel)
+                    }
                 } else {
-                    self.selectProfile(id: account.id)
+                    self.selectProfile(id: events[0].accountShow.account.id)
                 }
             }
-        }
     }
     
     private func profileViewModelFromAccount(_ account: Anytype_Model_Account) -> ProfileNameViewModel {
@@ -118,7 +118,7 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     private func downloadAvatarImage(imageSize: Int32, hash: String, profileViewModel: ProfileNameViewModel) {
-        _ = self.fileService.fetchImageAsBlob.action(hash: hash, wantWidth: imageSize).receiveOnMain()
+        _ = self.fileService.fetchImageAsBlob(hash: hash, wantWidth: imageSize).receiveOnMain()
             .sink(receiveCompletion: { [weak self] result in
                 switch result {
                 case .finished:
@@ -126,8 +126,8 @@ class SelectProfileViewModel: ObservableObject {
                 case .failure(let error):
                     self?.error = error.localizedDescription
                 }
-            }) { response in
-                profileViewModel.image = UIImage(data: response.blob)
+            }) { blob in
+                profileViewModel.image = UIImage(data: blob)
         }
     }
     

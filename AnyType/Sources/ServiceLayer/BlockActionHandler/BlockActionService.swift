@@ -484,7 +484,7 @@ extension BlockActionService {
 extension BlockActionService {
     private func _upload(block: BlockInformation, filePath: String, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
-        self.fileService.uploadDataAtFilePath.action(contextID: self.documentId, blockID: blockId, filePath: filePath)
+        self.fileService.uploadDataAtFilePath(contextID: self.documentId, blockID: blockId, filePath: filePath)
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] (value) in
                 let value = completion(value)
                 self?.didReceiveEvent(nil, value)
