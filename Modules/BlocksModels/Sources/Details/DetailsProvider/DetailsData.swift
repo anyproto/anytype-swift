@@ -44,6 +44,10 @@ extension DetailsData: DetailsEntryValueProvider {
         return value(for: .isArchived)
     }
     
+    public var description: String? {
+        return value(for: .description)
+    }
+    
     private func value<V>(for kind: DetailsKind) -> V? {
         guard let entry = details[kind] else {
             return nil

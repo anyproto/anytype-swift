@@ -85,6 +85,8 @@ private extension Array where Element == Anytype_Rpc.Block.Set.Details.Detail {
                     return element.value.asCoverTypeEntry()
                 case .isArchived:
                     return element.value.asIsArchiveEntry()
+                case .description:
+                    return element.value.asDescriptionEntry()
                 }
             }()
             
@@ -126,6 +128,8 @@ private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyV
                     return element.value.asCoverTypeEntry()
                 case .isArchived:
                     return element.value.asIsArchiveEntry()
+                case .description:
+                    return element.value.asDescriptionEntry()
                 }
             }()
             
@@ -215,4 +219,15 @@ private extension Google_Protobuf_Value {
         }
     }
     
+    func asDescriptionEntry() -> DetailsEntry<AnyHashable>? {
+        switch kind {
+        case let .stringValue(string):
+            return DetailsEntry(value: string)
+        default:
+            assertionFailure(
+                "Unknown value \(self) for predefined suffix. \(DetailsKind.description)"
+            )
+            return nil
+        }
+    }
 }

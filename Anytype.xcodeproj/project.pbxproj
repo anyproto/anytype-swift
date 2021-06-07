@@ -483,6 +483,11 @@
 		EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */; };
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
 		EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */; };
+		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
+		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
+		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
+		EA5FB42B266A970F00DCD56C /* MentionDisplayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */; };
+		EA5FB44F266E2B6400DCD56C /* MentionsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB44E266E2B6400DCD56C /* MentionsParser.swift */; };
 		EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */; };
 		EA6B090126663AA700038B4E /* ToggleBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6B090026663AA700038B4E /* ToggleBlockViewModel.swift */; };
 		EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */; };
@@ -1046,6 +1051,11 @@
 		EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoaderReturnValue.swift; sourceTree = "<group>"; };
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
 		EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
+		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
+		EA5FB423266A970E00DCD56C /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
+		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
+		EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionDisplayData.swift; sourceTree = "<group>"; };
+		EA5FB44E266E2B6400DCD56C /* MentionsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsParser.swift; sourceTree = "<group>"; };
 		EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Convenience.swift"; sourceTree = "<group>"; };
 		EA6B090026663AA700038B4E /* ToggleBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ToggleBlockViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Toggle/ToggleBlockViewModel.swift; sourceTree = SOURCE_ROOT; };
 		EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedBlockNormalizer.swift; sourceTree = "<group>"; };
@@ -1434,6 +1444,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				EA5FB452266E2F6500DCD56C /* Mention */,
 				531197DE26430A8200FFC71E /* BlockActionHandler */,
 				3D07ED0A261C92A800C007E2 /* ShakeHandler */,
 				0ACA781023E5C99A00442690 /* ServiceLocator */,
@@ -1450,6 +1461,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EA5FB453266E309700DCD56C /* Mention */,
 				12BE8E5826565D6D000C95B9 /* Extensions */,
 				0372922C23F991660033DFDB /* Middleware */,
 				030DF4B12399345C00AD3BC3 /* Auth */,
@@ -1935,6 +1947,7 @@
 				0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */,
 				0A78328524BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift */,
 				0A78328724BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift */,
+				EA5FB44E266E2B6400DCD56C /* MentionsParser.swift */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -3215,6 +3228,7 @@
 		EA289B9E2629B24C00EA869F /* BlockActions */ = {
 			isa = PBXGroup;
 			children = (
+				EA5FB421266A970E00DCD56C /* Mention */,
 				EA289B9F2629B25C00EA869F /* BlockMenuItems */,
 			);
 			path = BlockActions;
@@ -3243,6 +3257,31 @@
 				EA289BBA2629D52C00EA869F /* TurnIntoSelectionStorage.swift */,
 			);
 			path = TurnIntoSelection;
+			sourceTree = "<group>";
+		};
+		EA5FB421266A970E00DCD56C /* Mention */ = {
+			isa = PBXGroup;
+			children = (
+				EA5FB423266A970E00DCD56C /* MentionSection.swift */,
+				EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */,
+			);
+			path = Mention;
+			sourceTree = "<group>";
+		};
+		EA5FB452266E2F6500DCD56C /* Mention */ = {
+			isa = PBXGroup;
+			children = (
+				EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */,
+			);
+			path = Mention;
+			sourceTree = "<group>";
+		};
+		EA5FB453266E309700DCD56C /* Mention */ = {
+			isa = PBXGroup;
+			children = (
+				EA5FB424266A970E00DCD56C /* MentionObject.swift */,
+			);
+			path = Mention;
 			sourceTree = "<group>";
 		};
 		EA6B08FD26663A9500038B4E /* Toggle */ = {
@@ -3490,12 +3529,14 @@
 			files = (
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				53856BF0265BCD4B00CB1FAE /* ProtobufExtenstion.swift in Sources */,
+				EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */,
 				0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */,
 				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
 				0A0965E925BEF5B000C004BD /* DocumentViewRouting+Protocols.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
 				EA289B932629A89400EA869F /* BlockMenuItemSimpleDisplayData.swift in Sources */,
 				0AA9B04C249F65F200F2962C /* MultiSelectionPaneToolbarView.swift in Sources */,
+				EA5FB44F266E2B6400DCD56C /* MentionsParser.swift in Sources */,
 				0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */,
 				5338E7F225DC730A008CB97D /* MarksPaneBlockActionHandler.swift in Sources */,
 				3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */,
@@ -3632,6 +3673,8 @@
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
+				EA5FB42B266A970F00DCD56C /* MentionDisplayData.swift in Sources */,
+				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */,
 				0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */,
@@ -3835,6 +3878,7 @@
 				0A2C0D68247145BD008ADD86 /* TextView+BlocksToolbar+UnderlyingActions.swift in Sources */,
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
+				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
 				3D180230264E9C9F00224815 /* EditorModuleContainerViewModel.swift in Sources */,
@@ -3862,6 +3906,7 @@
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				0A78328E24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift in Sources */,
+				EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */,
 				0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */,
 				0A2C0D6C247145BD008ADD86 /* TextView+BlocksAccessoryView.swift in Sources */,
 				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
