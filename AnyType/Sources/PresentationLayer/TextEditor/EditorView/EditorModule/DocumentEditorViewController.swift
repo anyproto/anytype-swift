@@ -31,7 +31,7 @@ final class DocumentEditorViewController: UIViewController {
     private var insetsHelper: ScrollViewContentInsetsHelper?
     
     private var subscriptions: Set<AnyCancellable> = []
-    /// Gesture recognizer to handle taps in empty document
+    // Gesture recognizer to handle taps in empty document
     private let listViewTapGestureRecognizer: UITapGestureRecognizer = {
         let recognizer: UITapGestureRecognizer = .init()
         recognizer.cancelsTouchesInView = false
@@ -83,7 +83,6 @@ final class DocumentEditorViewController: UIViewController {
         collectionView.delegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
-
 
     private func setupCollectionViewDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
@@ -159,47 +158,6 @@ final class DocumentEditorViewController: UIViewController {
         self.viewModel.selectionHandler?.selectionEventPublisher().sink(receiveValue: { [weak self] value in
             self?.handleSelection(event: value)
         }).store(in: &self.subscriptions)
-        
-        viewModel.onDetailsViewModelUpdate = { [weak self] in
-            self?.handleDetailsViewModelUpdate()
-        }
-    }
-
-    private func handleUpdateBlocks(blockIds: Set<BlockId>) {
-        guard let dataSource = dataSource else { return }
-
-        let sectionSnapshot = dataSource.snapshot(for: .first)
-        var snapshot = dataSource.snapshot()
-        var itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
-        let focusedViewModelIndex = itemsForUpdate.firstIndex(where: { viewModel -> Bool in
-            guard let indexPath = dataSource.indexPath(for: viewModel) else { return false }
-            return collectionView.cellForItem(at: indexPath)?.isAnySubviewFirstResponder() ?? false
-        })
-        if let index = focusedViewModelIndex {
-            updateFocusedViewModel(viewModel: itemsForUpdate.remove(at: index))
-        }
-        if itemsForUpdate.isEmpty {
-            return
-        }
-        snapshot.reloadItems(itemsForUpdate)
-        apply(snapshot)
-    }
-    
-    private func updateFocusedViewModel(viewModel: BaseBlockViewModel) {
-        guard let indexPath = dataSource?.indexPath(for: viewModel) else { return }
-        guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-
-        let textModel = viewModel as? TextBlockViewModel
-        let focusPosition = textModel?.focusPosition()
-        cell.indentationLevel = viewModel.indentationLevel()
-        cell.contentConfiguration = viewModel.buildContentConfiguration()
-        let prefferedSize = cell.systemLayoutSizeFitting(CGSize(width: cell.frame.size.width,
-                                                                height: UIView.layoutFittingCompressedSize.height))
-        if cell.frame.size.height != prefferedSize.height {
-            updateView()
-        }
-        let focus = TextViewFocus(position: focusPosition)
-        textModel?.set(focus: focus)
     }
     
     private func handleSelection(event: EditorSelectionIncomingEvent) {
@@ -219,21 +177,6 @@ final class DocumentEditorViewController: UIViewController {
             collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
         }
     }
-    
-    private func handleDetailsViewModelUpdate() {
-        guard collectionView.numberOfSections > 0 else { return }
-        guard var snapshot = dataSource?.snapshot() else { return }
-
-        if let titleBlockView = snapshot.itemIdentifiers.first(where: { blockViewModel in
-            guard blockViewModel.information.content.type == .text(.title) else {
-                return false
-            }
-            return true
-        }) {
-            snapshot.reloadItems([titleBlockView])
-            apply(snapshot)
-        }
-    }
         
     private func deselectAllBlocks() {
         self.collectionView.deselectAllSelectedItems()
@@ -241,42 +184,42 @@ final class DocumentEditorViewController: UIViewController {
     }
 }
 
-// MARK: - HeaderView PageDetails
-
-extension DocumentEditorViewController {
-    
-    private func focusOnFocusedBlock() {
-        guard let dataSource = self.dataSource else { return }
-        let snapshot = dataSource.snapshot(for: .first)
-        let userSession = viewModel.document.userSession
-        if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt() {
-            let itemIdentifiers = snapshot.visibleItems
-
-            if let index = itemIdentifiers.firstIndex(where: { $0.blockId == id }),
-               let textBlock = itemIdentifiers[index] as? TextBlockViewModel {
-                textBlock.set(focus: .init(position: focusedAt))
-            }
-        }
-    }
-}
-
 // MARK: - Initial Update data
+
 extension DocumentEditorViewController {
     private func updateView() {
-        collectionView.collectionViewLayout.invalidateLayout()
+        UIView.performWithoutAnimation {
+            dataSource?.refresh(animatingDifferences: true)
+        }
+    }
+
+    private func handleUpdateBlocks(blockIds: Set<BlockId>) {
+        guard let dataSource = dataSource else { return }
+
+        let sectionSnapshot = dataSource.snapshot(for: .first)
+        var snapshot = dataSource.snapshot()
+        let itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
+
+        if itemsForUpdate.isEmpty {
+            return
+        }
+        snapshot.reloadItems(itemsForUpdate)
+        applySnapshotAndSetFocus(snapshot)
     }
         
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>,
                        completion: (() -> Void)? = nil) {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
-        // For now animatingDifferences should be false otherwise some cells will not be reloading.
-        self.dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
-            self?.updateVisibleNumberedItems()
-            completion?()
-            
-            selectedCells?.forEach {
-                self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
+        UIView.performWithoutAnimation {
+            self.dataSource?.apply(snapshot, animatingDifferences: true) { [weak self] in
+                self?.updateVisibleNumberedItems()
+
+                completion?()
+
+                selectedCells?.forEach {
+                    self?.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
+                }
             }
         }
     }
@@ -286,13 +229,23 @@ extension DocumentEditorViewController {
             self?.focusOnFocusedBlock()
         }
     }
-    
+
+    // TODO: It should not be here. Move it to TextBlockViewModel
     private func updateVisibleNumberedItems() {
         self.collectionView.indexPathsForVisibleItems.forEach {
-            guard let builder = self.viewModel.builders[safe: $0.row] else { return }
+            guard let builder = self.viewModel.blocksViewModels[safe: $0.row] else { return }
             let content = builder.getBlock().content
             guard case let .text(text) = content, text.contentType == .numbered else { return }
             self.collectionView.cellForItem(at: $0)?.contentConfiguration = builder.buildContentConfiguration()
+        }
+    }
+
+    private func focusOnFocusedBlock() {
+        let userSession = viewModel.document.userSession
+        // TODO: we should move this logic to TextBlockViewModel
+        if let id = userSession?.firstResponderId(), let focusedAt = userSession?.focusAt(),
+           let blockViewModel = viewModel.blocksViewModels.first(where: { $0.blockId == id }) as? TextBlockViewModel {
+                blockViewModel.set(focus: focusedAt)
         }
     }
 }
@@ -341,17 +294,17 @@ extension DocumentEditorViewController {
 // MARK: - EditorModuleDocumentViewInput
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
-    func setFocus(at index: Int) {
-        guard !self.viewModel.selectionEnabled() else { return }
-        guard let snapshot = self.dataSource?.snapshot() else { return }
 
-        let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
-
-        if let textItem = itemIdentifiers[index] as? TextBlockViewModel {
-            let userSession = viewModel.document.userSession
-            let focus = TextViewFocus(position: userSession?.focusAt() ?? .end)
-            textItem.set(focus: focus)
+    func refreshViewLayout() {
+        // Workaround: Supplementary view reloaded only on reloadSections but we couldn't use it as it reloads all items.
+        // That couse dismiss keyboard.
+        // In case if we need complete reload, we can add "hidden" uitextview behinde uicollection view to prevent dismiss keyboard.
+        collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).forEach { [weak self] view in
+            if let view = view as? DocumentDetailsView, let details = self?.viewModel.detailsViewModel{
+                view.configure(model: details)
+            }
         }
+        dataSource?.refresh(animatingDifferences: true)
     }
     
     func updateData(_ rows: [BaseBlockViewModel]) {
@@ -401,7 +354,7 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
         }
 
         if let blockViewModel = blockViewModel as? TextBlockViewModel {
-            let focus = TextViewFocus(position: userSession?.focusAt() ?? .end)
+            let focus = userSession?.focusAt() ?? .end
             blockViewModel.set(focus: focus)
         }
     }

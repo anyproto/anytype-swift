@@ -28,15 +28,17 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     private var subscriptions: Set<AnyCancellable> = []
     private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
 
-    weak var textView: (TextViewUpdatable & TextViewManagingFocus)?
     weak var codeBlockView: CodeBlockViewInteractable?
 
     // MARK: Services
     private var service: BlockActionsServiceText = .init()
     private let listService: BlockActionsServiceList = .init()
 
-    // MARK: View states
-    private(set) var codeLanguage: String? = "Swift"
+    // MARK: View state
+    @Published private(set) var shouldResignFirstResponder = PassthroughSubject<Void, Never>()
+    @Published private(set) var textViewUpdate: TextViewUpdate?
+    @Published var focus: BlockFocusPosition?
+    @Published var codeLanguage: String? = "Swift"
 
     // MARK: - Life cycle
 
@@ -58,17 +60,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     }
 
     override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
-        // After we show contextual menu on UITextView (which is first responder)
-        // displaying keyboard on such UITextView becomes impossible (only caret show)
-        // it is possible to show it only by changing first responder with other UITextView
-        let focusPosition = textView?.obtainFocusPosition()
-        textView?.shouldResignFirstResponder()
         super.handle(contextualMenuAction: contextualMenuAction)
-
-        if !focusPosition.isNil {
-            let focus = TextViewFocus(position: focusPosition)
-            textView?.setFocus(focus)
-        }
     }
     
     override func makeContextualMenu() -> BlocksViews.ContextualMenu {
@@ -125,8 +117,8 @@ private extension CodeBlockViewModel {
                 return .payload(.init(attributedString: textContent.attributedText, auxiliary: .init(textAlignment: .left,
                                                                                               blockColor: blockColor)))
             }
-            .sink { [weak self] (value) in
-                self?.textView?.apply(update: value)
+            .sink { [weak self] textViewUpdate in
+                self?.textViewUpdate = textViewUpdate
             }.store(in: &self.subscriptions)
 
         // update code block model
@@ -139,12 +131,8 @@ private extension CodeBlockViewModel {
 // MARK: - Set Focus
 
 extension CodeBlockViewModel {
-    func set(focus: TextViewFocus?) {
-        textView?.setFocus(focus)
-    }
-
-    func focusPosition() -> BlockFocusPosition? {
-        textView?.obtainFocusPosition()
+    func set(focus: BlockFocusPosition?) {
+        self.focus = focus
     }
 }
 
@@ -187,7 +175,7 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
         case .showStyleMenu:
             self.send(actionsPayload: .showStyleMenu(blockModel: self.getBlock().blockModel, blockViewModel: self))
         case .showMultiActionMenuAction:
-            self.textView?.shouldResignFirstResponder()
+            self.shouldResignFirstResponder.send()
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
         case .inputAction, .keyboardAction:
             self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))

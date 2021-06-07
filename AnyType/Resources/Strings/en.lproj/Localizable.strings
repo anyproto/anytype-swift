@@ -3,7 +3,7 @@
 "Create a pin code description" = "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code";
 "Recovery pharse is nil" = "Recovery pharse is nil";
 "node failed to start" = "node failed to start";
-"Toggle empty Click and drop block inside" = "Toggle empty Click and drop block inside";
+"Toggle empty Click and drop block inside" = "Toggle empty. Click and drop block inside";
 "Quote placeholder" = "Quote";
 "Header 1 placeholder" = "Header 1";
 "Header 2 placeholder" = "Header 2";

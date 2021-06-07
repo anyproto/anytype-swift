@@ -8,7 +8,6 @@ import BlocksModels
 
 final class TextBlockContentView: UIView & UIContentView {
     // MARK: Constants
-
     private enum LayoutConstants {
         static let insets: UIEdgeInsets = .init(top: 1, left: 20, bottom: -1, right: -20)
         static let backgroundViewInsets: UIEdgeInsets = .init(top: 1, left: 0, bottom: -1, right: 0)
@@ -77,7 +76,7 @@ final class TextBlockContentView: UIView & UIContentView {
         button.setAttributedTitle(.init(string: NSLocalizedString("Toggle empty Click and drop block inside",
                                                                   comment: ""),
                                         attributes: [.font: UIFont.bodyFont,
-                                                     .foregroundColor: UIColor.textColor]),
+                                                     .foregroundColor: UIColor.secondaryTextColor]),
                                   for: .normal)
         button.contentHorizontalAlignment = .leading
         button.isHidden = true
@@ -104,6 +103,9 @@ final class TextBlockContentView: UIView & UIContentView {
             self.apply(configuration: configuration)
         }
     }
+
+    // Combine Subscriptions
+    private var subscriptions: Set<AnyCancellable> = .init()
 
     // MARK: - Initialization
 
@@ -187,6 +189,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private func applyNewConfiguration() {
         // reset content cell to plain text
         setupForText()
+        subscriptions.removeAll()
 
         self.currentConfiguration.viewModel.addContextMenuIfNeeded(self)
 
@@ -194,11 +197,10 @@ final class TextBlockContentView: UIView & UIContentView {
         textView.textView.attributedText = nil
         textView.coordinator = makeCoordinator()
         textView.delegate = currentConfiguration.textViewDelegate
-        currentConfiguration.viewModel.textView = textView
 
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
-            // In case of configurations is not equal we should check what exactly we should change
-            // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
+        // In case of configurations is not equal we should check what exactly we should change
+        // Because configurations for checkbox block and numbered block may not be equal, so we must rebuld whole view
         createChildBlockButton.isHidden = true
         textView.textView.selectedColor = nil
 
@@ -227,8 +229,23 @@ final class TextBlockContentView: UIView & UIContentView {
             break
         }
 
-        // TODO: textview - do wee need it?
-        self.currentConfiguration.viewModel.refreshTextViewModel()
+        currentConfiguration.viewModel.setFocus.sink { [weak self] focus in
+            self?.textView.setFocus(focus)
+        }.store(in: &subscriptions)
+
+        currentConfiguration.viewModel.shouldResignFirstResponder.sink { [weak self] _ in
+            self?.textView.shouldResignFirstResponder()
+        }.store(in: &subscriptions)
+
+        currentConfiguration.viewModel.$textViewUpdate.sink { [weak self] textUpdate in
+            guard let textUpdate = textUpdate, let self = self else { return }
+            let cursorPosition = self.textView.textView.selectedRange
+            self.textView.apply(update: textUpdate)
+            self.textView.textView.selectedRange = cursorPosition
+        }.store(in: &subscriptions)
+
+        currentConfiguration.viewModel.refreshedTextViewUpdate()
+
 
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
         backgroundColorView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)

@@ -6,22 +6,13 @@ import BlocksModels
 /// ViewModel for type `.link()` with style `.page`
 final class BlockPageLinkViewModel: BaseBlockViewModel {
     public let targetBlockId: String
-    
-    // Maybe we need also input and output subscribers.
-    // MAYBE PAGE BLOCK IS ORDINARY TEXT BLOCK?
-    // We can't edit name of the block.
-    // Add subscription on event.
     private var subscriptions: Set<AnyCancellable> = []
-    private typealias State = BlockPageLinkState
     private let router: EditorRouterProtocol?
-    
-    private var statePublisher: AnyPublisher<State, Never> = .empty()
-    @Published private var state: State = .empty
+
+    @Published private(set) var state: BlockPageLinkState = .empty
     private var wholeDetailsViewModel: DetailsActiveModel = .init()
-    weak var textView: (TextViewUpdatable & TextViewManagingFocus)?
-    
-    func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
-    
+
+
     init(
         _ block: BlockActiveRecordModelProtocol,
         targetBlockId: String,
@@ -36,6 +27,8 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         setup(block: block)
         setupSubscriptions(publisher)
     }
+
+    func getDetailsViewModel() -> DetailsActiveModel { self.wholeDetailsViewModel }
     
     /// NOTES by Dima Lobanov:
     /// Look at this method carefully.
@@ -51,7 +44,6 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     /// But it also contains `details` for all `links` that this page `contains`.
     ///
     /// So, if you change `details` or `title` of a `page` that this `link` is point to, so, all opened pages with link to changed page will receive updates.
-    ///
     private func setupSubscriptions(_ publisher: AnyPublisher<DetailsData, Never>?) {
         guard let publisher = publisher else {
             return
@@ -70,21 +62,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
             switch value.style {
             case .page:
                 let pageId = value.targetBlockID // do we need it?
-                self.wholeDetailsViewModel.configured(documentId: pageId)
-                
-                /// One possible way to do it is to get access to a container in flattener.
-                /// Possible (?)
-                /// OR
-                /// We could set container to all page links when we parsing data.
-                /// We could add additional field which stores publisher.
-                /// In this case we move whole notification logic into model.
-                /// Well, not so bad (?)
-                
-                self.$state.map(\.title).safelyUnwrapOptionals().receiveOnMain().sink { [weak self] (value) in
-                    self?.textView?.apply(update: .text(value))
-                }.store(in: &self.subscriptions)
-                
-                self.statePublisher = self.$state.eraseToAnyPublisher()
+                wholeDetailsViewModel.configured(documentId: pageId)
             default: return
             }
         default: return
@@ -93,7 +71,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     
     override func makeContentConfiguration() -> UIContentConfiguration {
         if var configuration = BlockPageLinkContentConfiguration(self.getBlock().blockModel.information) {
-            configuration.contextMenuHolder = self
+            configuration.viewModel = self
             return configuration
         }
         return super.makeContentConfiguration()
@@ -115,11 +93,5 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
                                    children: [.create(action: .general(.addBlockBelow)),
                                               .create(action: .general(.delete)),
                                               .create(action: .general(.duplicate))])
-    }
-}
-
-extension BlockPageLinkViewModel {
-    func applyOnUIView(_ view: BlockPageLinkUIKitView) {
-        _ = view.configured(stateStream: self.statePublisher).configured(state: self._state)
     }
 }

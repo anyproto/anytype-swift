@@ -3,17 +3,16 @@ import BlocksModels
 
 /// Input data for document view
 protocol EditorModuleDocumentViewInput: AnyObject {
-    
-    /// Set focus
-    ///
-    /// - Parameter index: Block index
-    func setFocus(at index: Int)
- 
     /// Update data with new rows
     ///
     /// - Parameters:
     ///   - rows: Rows to display
     func updateData(_ rows: [BaseBlockViewModel])
+
+    /// Update view layout.
+    ///
+    /// Could be useful when subview data updated.
+    func refreshViewLayout()
 
     /// Show code language view selection.
     /// 

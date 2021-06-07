@@ -1,10 +1,14 @@
 
 import BlocksModels
 
+
 final class ToggleBlockViewModel: TextBlockViewModel {
     
-    override func makeDiffable() -> AnyHashable {
-        let diffable = super.makeDiffable()
-        return [diffable, getBlock().isToggled, getBlock().childrenIds().isEmpty]
+    override var diffable: AnyHashable {
+        let diffable = super.diffable
+
+        return [diffable,
+                getBlock().isToggled,
+                getBlock().childrenIds()]
     }
 }

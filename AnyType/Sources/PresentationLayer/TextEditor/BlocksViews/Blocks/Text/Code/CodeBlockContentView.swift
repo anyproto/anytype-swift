@@ -166,7 +166,6 @@ final class CodeBlockContentView: UIView & UIContentView {
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
 
         currentConfiguration.viewModel?.addContextMenuIfNeeded(self)
-        currentConfiguration.viewModel?.textView = textView
         currentConfiguration.viewModel?.codeBlockView = self
         codeSelectButton.setText(currentConfiguration.viewModel?.codeLanguage ?? Constants.defaultLanguage)
 

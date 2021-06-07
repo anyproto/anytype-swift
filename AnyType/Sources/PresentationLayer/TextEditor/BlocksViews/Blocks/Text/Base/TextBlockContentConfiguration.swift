@@ -44,7 +44,6 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         let view = TextBlockContentView(configuration: self)
-        viewModel.addContextMenuIfNeeded(view)
         return view
     }
     

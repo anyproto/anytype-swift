@@ -84,9 +84,9 @@ extension UITextView: TextViewManagingFocus, TextViewUpdatable {
         resignFirstResponder()
     }
 
-    func setFocus(_ focus: TextViewFocus?) {
-        guard let position = focus?.position else { return }
-        setFocus(position)
+    func setFocus(_ focus: BlockFocusPosition?) {
+        guard let focus = focus else { return }
+        setFocus(focus)
     }
 
     func obtainFocusPosition() -> BlockFocusPosition? {

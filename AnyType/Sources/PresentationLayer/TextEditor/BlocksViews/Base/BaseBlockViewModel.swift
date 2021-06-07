@@ -2,6 +2,7 @@ import UIKit
 import Combine
 import BlocksModels
 
+
 class BaseBlockViewModel: ObservableObject {
     private enum Constants {
         static let maxIndentationLevel: Int = 4
@@ -11,12 +12,11 @@ class BaseBlockViewModel: ObservableObject {
     /// our Block
     /// Maybe we should made it Observable?.. Let think a bit about it.
     private var block: BlockActiveRecordModelProtocol
-    
+
     // MARK: - Initialization
 
     init(_ block: BlockActiveRecordModelProtocol) {
         self.block = block
-        self.diffable = makeDiffable()
         self.configure()
     }
     
@@ -122,6 +122,10 @@ class BaseBlockViewModel: ObservableObject {
         case .backgroundColor: return // set background color of view and send sets background color.
         }
     }
+
+    /// Update view data manually.
+    /// Override in subclasses.
+    func updateView() {}
     
     // MARK: - Setup / Publishers
 
@@ -169,23 +173,10 @@ class BaseBlockViewModel: ObservableObject {
     
     // MARK: - Subclass / Diffable
 
-    private var diffable: AnyHashable = .init("")
-    
-    /// Here we use the following technique.
-    /// As soon as we should recreate our ViewModels very often, we should keep their identity somewhere.
-    /// So, it is kind of "fingerprint" of "initial" block.
-    /// As soon as we use `block` as `shared` entity, we should struggle with its nature in this way.
-    /// Again.
-    /// Treat this property `_diffableStorage` as `initial` fingerprint of block.
-    ///
-    func makeDiffable() -> AnyHashable {
-        [self.information.id,
+    var diffable: AnyHashable {
+        [information.id,
          BlockContentTypeIdentifier.identifier(self.information.content),
-         self.indentationLevel()] as [AnyHashable]
-    }
-    
-    func updateDiffable() {
-        diffable = makeDiffable()
+         indentationLevel()] as [AnyHashable]
     }
     
     // MARK: - Subclass / Views
@@ -228,14 +219,12 @@ class BaseBlockViewModel: ObservableObject {
 
 // MARK: - Hashable
 
-// TODO: Need futher investigation. Doesn't called in collection view.
-// Likely reference types has other way to be unique in collection view.
-// So if we need to reload cell then model should be recreated.
+// TIP: Doesn't called in collection view.
 extension BaseBlockViewModel: Hashable {
     static func == (lhs: BaseBlockViewModel, rhs: BaseBlockViewModel) -> Bool {
         lhs.diffable == rhs.diffable
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(diffable)
     }

@@ -15,7 +15,8 @@ final class CompoundViewModelConverter {
         }
     }
 
-    private func createBlockViewModel(_ block: BlockActiveRecordModelProtocol, router: EditorRouterProtocol?) -> BaseBlockViewModel? {
+    private func createBlockViewModel(_ block: BlockActiveRecordModelProtocol,
+                                      router: EditorRouterProtocol?) -> BaseBlockViewModel? {
         switch block.content {
         case .smartblock, .layout: return nil
         case let .text(content):
@@ -29,13 +30,13 @@ final class CompoundViewModelConverter {
             }
         case let .file(value):
             switch value.contentType {
-            case .file: return BlocksViews.File.File.ViewModel.init(block)
-            case .none: return BlocksViews.Unknown.Label.ViewModel.init(block)
-            case .image: return BlocksViews.File.Image.ViewModel.init(block)
+            case .file: return BlocksViews.File.File.ViewModel(block)
+            case .none: return BlocksViews.Unknown.Label.ViewModel(block)
+            case .image: return BlocksViews.File.Image.ViewModel(block)
             case .video: return VideoBlockViewModel(block)
             }
-        case .divider: return DividerBlockViewModel.init(block)
-        case .bookmark: return BlocksViews.Bookmark.Bookmark.ViewModel.init(block)
+        case .divider: return DividerBlockViewModel(block)
+        case .bookmark: return BlocksViews.Bookmark.Bookmark.ViewModel(block)
         case let .link(value):
             let publisher = document?.getDetails(by: value.targetBlockID)?.wholeDetailsPublisher
             return BlockPageLinkViewModel(block, targetBlockId: value.targetBlockID, publisher: publisher, router: router)

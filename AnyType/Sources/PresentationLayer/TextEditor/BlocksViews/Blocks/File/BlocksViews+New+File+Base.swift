@@ -30,8 +30,8 @@ extension Namespace {
             self.setupSubscribers()
         }
         
-        override func makeDiffable() -> AnyHashable {
-            let diffable = super.makeDiffable()
+        override var diffable: AnyHashable {
+            let diffable = super.diffable
             if case let .file(value) = self.getBlock().content {
                 let newDiffable: [String: AnyHashable] = [
                     "parent": diffable,

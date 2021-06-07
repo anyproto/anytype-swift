@@ -71,14 +71,8 @@ extension Namespace {
             }
         }
         
-        /// TODO: Fix it.
-        /// We should add diffable here.
-        /// It will save us from UI glitches when scrolling...
-        /// OR
-        /// We could use SwiftUI for these views...
-        ///
-        override func makeDiffable() -> AnyHashable {
-            let diffable = super.makeDiffable()
+        override var diffable: AnyHashable {
+            let diffable = super.diffable
             if case let .bookmark(value) = self.getBlock().content {
                 let newDiffable: [String: AnyHashable] = [
                     "parent": diffable,

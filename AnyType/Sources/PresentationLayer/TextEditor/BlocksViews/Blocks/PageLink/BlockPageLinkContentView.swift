@@ -1,13 +1,16 @@
 import UIKit
 import BlocksModels
+import Combine
+
 
 final class BlockPageLinkContentView: UIView & UIContentView {
-    struct Layout {
-        let insets: UIEdgeInsets = .init(top: 5, left: 20, bottom: 5, right: 20)
+    private enum LayoutConstants {
+        static let insets: UIEdgeInsets = .init(top: 5, left: 20, bottom: 5, right: 20)
     }
-    
+
+    private var subscriptions: Set<AnyCancellable> = []
     private let topView: BlockPageLinkUIKitView = .init()
-    private let layout: Layout = .init()
+
     private var currentConfiguration: BlockPageLinkContentConfiguration
     var configuration: UIContentConfiguration {
         get { self.currentConfiguration }
@@ -32,7 +35,7 @@ final class BlockPageLinkContentView: UIView & UIContentView {
     private func setup() {
         self.topView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(self.topView)
-        self.topView.edgesToSuperview(insets: self.layout.insets)
+        self.topView.edgesToSuperview(insets: LayoutConstants.insets)
     }
     
     private func apply(configuration: BlockPageLinkContentConfiguration) {
@@ -42,8 +45,11 @@ final class BlockPageLinkContentView: UIView & UIContentView {
     }
     
     private func applyNewConfiguration() {
-        self.currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
-        self.currentConfiguration.contextMenuHolder?.applyOnUIView(self.topView)
-        currentConfiguration.contextMenuHolder?.textView = self.topView.textView
+        subscriptions.removeAll()
+        currentConfiguration.viewModel?.addContextMenuIfNeeded(self)
+
+        currentConfiguration.viewModel?.$state.sink { [weak self] state in
+            self?.topView.apply(state)
+        }.store(in: &subscriptions)
     }
 }

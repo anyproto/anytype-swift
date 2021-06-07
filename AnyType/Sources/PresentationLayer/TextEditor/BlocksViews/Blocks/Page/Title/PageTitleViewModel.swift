@@ -13,7 +13,6 @@ class PageTitleViewModel: PageBlockViewModel {
     // Add subscription on event.
     
     private var subscriptions: Set<AnyCancellable> = []
-    private weak var textView: TextViewUpdatable?
 
     /// Points of truth.
     /// We could use it as input and output subscribers.
@@ -30,6 +29,8 @@ class PageTitleViewModel: PageBlockViewModel {
     ///
     //        @Published private var toModelTitle: String = ""
     private var toModelTitleSubject: PassthroughSubject<String, Never> = .init()
+
+    @Published private(set) var textViewUpdate: TextViewUpdate?
     
     // MARK: - Placeholder
     lazy private var placeholder: NSAttributedString = {
@@ -49,7 +50,7 @@ class PageTitleViewModel: PageBlockViewModel {
     // MARK: - Setup
     private func setupSubscribers() {
         self.$toViewTitle.removeDuplicates().receiveOnMain().sink { [weak self] (value) in
-            self?.textView?.apply(update: .text(value))
+            self?.textViewUpdate = .text(value)
         }.store(in: &self.subscriptions)
     }
     

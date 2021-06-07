@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 
+
 final class BlockPageLinkUIKitView: UIView {
 
     private enum Constants {
@@ -8,24 +9,9 @@ final class BlockPageLinkUIKitView: UIView {
         static let textContainerInset: UIEdgeInsets = .init(top: 4, left: 4, bottom: 4, right: 8)
     }
     
-    // MARK: Publishers
-    private var subscriptions: Set<AnyCancellable> = []
-    private var stateStream: AnyPublisher<BlockPageLinkState, Never> = .empty() {
-        willSet {
-            self.subscriptions = []
-        }
-        didSet {
-            stateStream.receiveOnMain().sink { [weak self] (value) in
-                self?.apply(value)
-            }.store(in: &self.subscriptions)
-        }
-    }
-    @Published private var state: BlockPageLinkState = .empty
-    
     // MARK: Views
     // |    topView    | : | leftView | textView |
     // |   leftView    | : |  button  |
-    
     let topView: TopWithChildUIKitView = .init()
     let textView: BlockTextView = {
         let placeholder = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""),
@@ -51,7 +37,6 @@ final class BlockPageLinkUIKitView: UIView {
     func setup() {
         self.setupUIElements()
         self.self.topView.edgesToSuperview()
-        self.apply(self.state)
     }
     
     // MARK: UI Elements
@@ -73,16 +58,6 @@ final class BlockPageLinkUIKitView: UIView {
         textView?.textView.textContainerInset = Constants.textContainerInset
         textView?.textView.defaultFontColor = .textColor
         textView?.textView.isUserInteractionEnabled = false
-    }
-    
-    func configured(stateStream: AnyPublisher<BlockPageLinkState, Never>) -> Self {
-        self.stateStream = stateStream
-        return self
-    }
-    
-    func configured(state: Published<BlockPageLinkState>) -> Self {
-        self._state = state
-        return self
     }
 }
 

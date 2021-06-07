@@ -14,7 +14,7 @@ extension DocumentEditorViewModel {
     var state: State {
         switch self.internalState {
         case .loading: return .loading
-        default: return self.builders.isEmpty ? .empty : .ready
+        default: return self.blocksViewModels.isEmpty ? .empty : .ready
         }
     }
 }
@@ -37,20 +37,14 @@ class DocumentEditorViewModel: ObservableObject {
 
     let document: BaseDocumentProtocol = BaseDocument()
 
-    var onDetailsViewModelUpdate: (() -> Void)?
-    
     /// DocumentDetailsViewModel
-    private(set) var detailsViewModel: DocumentDetailsViewModel? {
-        didSet {
-            onDetailsViewModelUpdate?()
-        }
-    }
+    private(set) var detailsViewModel: DocumentDetailsViewModel?
     
     /// User Interaction Processor
     private lazy var oldblockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
     private var listBlockActionHandler: ListBlockActionHandler = .init()
 
-    /// Combine Subscriptions
+    // Combine Subscriptions
     private var subscriptions: Set<AnyCancellable> = .init()
 
     /// Selection Handler
@@ -77,9 +71,9 @@ class DocumentEditorViewModel: ObservableObject {
     // MARK: Page View Models
 
     /// Builders to build block views
-    @Published private(set) var builders: [BaseBlockViewModel] = [] {
+    @Published private(set) var blocksViewModels: [BaseBlockViewModel] = [] {
         didSet {
-            if self.builders.isEmpty {
+            if self.blocksViewModels.isEmpty {
                 self.set(selectionEnabled: false)
             }
         }
@@ -154,7 +148,7 @@ class DocumentEditorViewModel: ObservableObject {
             self?.process(reaction: value)
         }.store(in: &self.subscriptions)
 
-        self.$builders.sink { [weak self] value in
+        self.$blocksViewModels.sink { [weak self] value in
             self?.enhanceUserActionsAndPayloads(value)
         }.store(in: &self.subscriptions)
     }
@@ -181,18 +175,17 @@ class DocumentEditorViewModel: ObservableObject {
         document.updateBlockModelPublisher
             .receiveOnMain()
             .sink { [weak self] updateResult in
+                guard let self = self else { return }
+                
                 switch updateResult.updates {
                 case .general:
-                    if let blockViewModels = self?.blocksConverter.convert(updateResult.models, router: self?.editorRouter) {
-                        self?.builders = blockViewModels
-                        self?.viewInput?.updateData(blockViewModels)
-                    }
+                    let blocksViewModels = self.blocksConverter.convert(updateResult.models, router: self.editorRouter)
+                    self.update(blocksViewModels: blocksViewModels)
                 case let .update(update):
                     if update.updatedIds.isEmpty {
                         return
                     }
-                    self?.updateDiffableValuesForBlockIds(update.updatedIds)
-                    self?.updateElementsSubject.send(update.updatedIds)
+                    self.updateElementsSubject.send(update.updatedIds)
                 }
             }.store(in: &self.subscriptions)
             
@@ -203,10 +196,24 @@ class DocumentEditorViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] detailsProvider in
                 self?.updateDetailsViewModel(with: detailsProvider)
+
+                let blocksViewModelsToUpdate = self?.blocksViewModels.first(where: { blockViewModel in
+                    blockViewModel.information.content.type == .text(.title)
+                })
+                blocksViewModelsToUpdate?.updateView()
+                self?.viewInput?.refreshViewLayout()
             }
             .store(in: &subscriptions)
 
         self.configureInteractions(document.documentId)
+    }
+
+    private func update(blocksViewModels: [BaseBlockViewModel]) {
+        let difference = blocksViewModels.difference(from: self.blocksViewModels) {$0.diffable == $1.diffable}
+        if !difference.isEmpty, let result = self.blocksViewModels.applying(difference) {
+            self.blocksViewModels = result
+            self.viewInput?.updateData(result)
+        }
     }
     
     private func updateDetailsViewModel(with detailsProvider: DetailsEntryValueProvider) {
@@ -229,14 +236,6 @@ class DocumentEditorViewModel: ObservableObject {
             iconViewModel: iconViewModel,
             coverViewModel: coverViewModel
         )
-    }
-    
-    private func updateDiffableValuesForBlockIds(_ ids: Set<BlockId>) {
-        // In case we update just several blocks (for example turn into Paragraph -> Header)
-        // we also need to update diffable value for such blocks
-        // to reduce updates when we will calculate differencies using diff algorithm
-        let updatedViewModels = builders.filter { ids.contains($0.blockId) }
-        updatedViewModels.forEach { $0.updateDiffable() }
     }
 
     private func configureInteractions(_ documentId: BlockId?) {
@@ -264,20 +263,19 @@ private extension DocumentEditorViewModel {
     func process(reaction: BlockActionService.Reaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
-            let events = value.events
-            let actionType = value.actionType
 
-            document.handle(events: events)
-
-            switch actionType {
-            case .deleteBlock, .merge:
-                let firstResponderBlockId = document.userSession?.firstResponderId()
-                
-                if let firstResponderIndex = self.builders.firstIndex(where: { $0.blockId == firstResponderBlockId }) {
-                    self.viewInput?.setFocus(at: firstResponderIndex)
+            value.events.ourEvents.forEach { event in
+                switch event {
+                case let .setFocus(focus):
+                    if let blockViewModel = blocksViewModels.first(where: { $0.blockId == focus.blockId }) as? TextBlockViewModel {
+                        blockViewModel.set(focus: focus.position ?? .end)
+                    }
+                default: return
                 }
-            default: break
             }
+
+            let events = value.events
+            document.handle(events: events)
         default: return
         }
     }
@@ -313,11 +311,11 @@ extension DocumentEditorViewModel {
     }
 
     private func element(at: IndexPath) -> BaseBlockViewModel? {
-        guard self.builders.indices.contains(at.row) else {
+        guard self.blocksViewModels.indices.contains(at.row) else {
             assertionFailure("Row doesn't exist")
             return nil
         }
-        return self.builders[at.row]
+        return self.blocksViewModels[at.row]
     }
 
     private func didSelect(atIndex: IndexPath) {
@@ -452,7 +450,7 @@ extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel: EditorModuleSelectionHandlerHolderProtocol {
     func selectAll() {
-        let ids = self.builders.dropFirst().reduce(into: [BlockId: BlockContentType]()) { result, model in
+        let ids = self.blocksViewModels.dropFirst().reduce(into: [BlockId: BlockContentType]()) { result, model in
             result[model.blockId] = model.getBlock().content.type
         }
         self.select(ids: ids)
