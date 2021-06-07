@@ -23,7 +23,7 @@ enum AuthServiceError: Error {
 // Wallet may contain many accounts
 protocol AuthServiceProtocol {
     /// Create new wallet
-    func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult)
+    func createWallet(onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Create new account for current wallet
     /// - Parameter profile: User profile
@@ -33,9 +33,8 @@ protocol AuthServiceProtocol {
     /// Recover wallet with mnemonic phrase
     /// - Parameters:
     ///   - mnemonic: String mnemonic phrase
-    ///   - path: Path to wallet repo
     ///   - onCompletion: Called on completion
-    func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult)
+    func walletRecovery(mnemonic: String, onCompletion: @escaping OnCompletionWithEmptyResult)
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult)
@@ -43,9 +42,8 @@ protocol AuthServiceProtocol {
     /// Select account from wallet
     /// - Parameters:
     ///   - id: acount hash id
-    ///   - path: path to wallet
     ///   - onCompletion: Called on completion.
-    func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion)
+    func selectAccount(id: String, onCompletion: @escaping OnCompletion)
     
     /// Get mnemonic (keychain phrase) by entropy from qr code
     func mnemonicByEntropy(_ entropy: String, completion: @escaping OnCompletion)

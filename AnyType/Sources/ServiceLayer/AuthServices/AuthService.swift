@@ -9,15 +9,16 @@ private extension LoggerCategory {
 }
 
 final class AuthService: AuthServiceProtocol {
-    private let localRepoService: LocalRepoServiceProtocol
     private let seedService: SeedServiceProtocol
+    
+    private let rootPath: String
     
     init(
         localRepoService: LocalRepoServiceProtocol,
         seedService: SeedServiceProtocol
     ) {
-        self.localRepoService = localRepoService
         self.seedService = seedService
+        self.rootPath = localRepoService.middlewareRepoPath
     }
 
     func logout(completion: @escaping () -> Void) {
@@ -34,8 +35,8 @@ final class AuthService: AuthServiceProtocol {
         }
     }
 
-    func createWallet(in path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: path).sink(receiveCompletion: { result in
+    func createWallet(onCompletion: @escaping OnCompletionWithEmptyResult) {
+        _ = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: rootPath).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.createWalletError()))
@@ -70,9 +71,9 @@ final class AuthService: AuthServiceProtocol {
         }
     }
 
-    func walletRecovery(mnemonic: String, path: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
+    func walletRecovery(mnemonic: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
         try? seedService.saveSeedForAccount(name: nil, seed: mnemonic, keychainPassword: .none)
-        _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: path, mnemonic: mnemonic).sink(receiveCompletion: { result in
+        _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: rootPath, mnemonic: mnemonic).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.recoverWalletError()))
@@ -93,8 +94,8 @@ final class AuthService: AuthServiceProtocol {
         }
     }
 
-    func selectAccount(id: String, path: String, onCompletion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: path).sink(receiveCompletion: { result in
+    func selectAccount(id: String, onCompletion: @escaping OnCompletion) {
+        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.selectAccountError()))

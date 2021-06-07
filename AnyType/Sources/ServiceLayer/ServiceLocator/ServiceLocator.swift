@@ -50,7 +50,6 @@ final class ServiceLocator {
         ApplicationCoordinator(
             window: window,
             shakeHandler: ShakeHandler(window),
-            localRepoService: localRepoService(),
             authService: authService(),
             firebaseService: firebaseService(),
             authAssembly: authAssembly()

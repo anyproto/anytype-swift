@@ -2,9 +2,7 @@ import UIKit
 import SwiftUI
 
 
-struct ProfileModel {
-    private let localRepoService = ServiceLocator.shared.localRepoService()
-    
+struct ProfileModel {    
     let profiles: [ProfileModel]
     
     enum Avatar {

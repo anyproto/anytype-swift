@@ -18,7 +18,6 @@ class ProfileNameViewModel: ObservableObject, Identifiable {
 class SelectProfileViewModel: ObservableObject {
     let isMultipleAccountsEnabled = false // Not supported yet
     
-    private let localRepoService  = ServiceLocator.shared.localRepoService()
     private let authService  = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
     
@@ -48,7 +47,7 @@ class SelectProfileViewModel: ObservableObject {
     }
     
     func selectProfile(id: String) {
-        self.authService.selectAccount(id: id, path: localRepoService.middlewareRepoPath) { result in
+        self.authService.selectAccount(id: id) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                 case .success:
@@ -60,7 +59,7 @@ class SelectProfileViewModel: ObservableObject {
         }
     }
     
-    // MARK: private func
+    // MARK: - Private func
     
     private func handleAccountShowEvent() {
         cancellable = NotificationCenter.Publisher(center: .default, name: .middlewareEvent, object: nil)

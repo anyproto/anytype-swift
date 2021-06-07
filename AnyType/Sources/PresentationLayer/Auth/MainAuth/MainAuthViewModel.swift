@@ -3,7 +3,6 @@ import SwiftUI
 
 
 class MainAuthViewModel: ObservableObject {
-    private let localRepoService = ServiceLocator.shared.localRepoService()
     private let authService = ServiceLocator.shared.authService()
     
     var error: String = "" {
@@ -17,7 +16,7 @@ class MainAuthViewModel: ObservableObject {
     @Published var showSignUpFlow: Bool = false
     
     func singUp() {
-        authService.createWallet(in: localRepoService.middlewareRepoPath) { [weak self] result in
+        authService.createWallet() { [weak self] result in
             switch result {
             case .failure(let error):
                 // TODO: handel error

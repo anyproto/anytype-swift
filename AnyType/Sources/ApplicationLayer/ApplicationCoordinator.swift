@@ -8,7 +8,6 @@ class ApplicationCoordinator {
     
     private let shakeHandler: ShakeHandler
     
-    private let localRepoService: LocalRepoServiceProtocol
     private let authService: AuthServiceProtocol
     private let firebaseService: FirebaseService
     
@@ -19,7 +18,6 @@ class ApplicationCoordinator {
     init(
         window: MainWindow,
         shakeHandler: ShakeHandler,
-        localRepoService: LocalRepoServiceProtocol,
         authService: AuthServiceProtocol,
         firebaseService: FirebaseService,
         authAssembly: AuthAssembly
@@ -27,7 +25,6 @@ class ApplicationCoordinator {
         self.window = window
         self.shakeHandler = shakeHandler
         
-        self.localRepoService = localRepoService
         self.authService = authService
         self.firebaseService = firebaseService
         
@@ -61,7 +58,7 @@ class ApplicationCoordinator {
             return
         }
         
-        self.authService.selectAccount(id: userId, path: localRepoService.middlewareRepoPath) { [weak self] result in
+        self.authService.selectAccount(id: userId) { [weak self] result in
             switch result {
             case .success:
                 self?.showHomeScreen()

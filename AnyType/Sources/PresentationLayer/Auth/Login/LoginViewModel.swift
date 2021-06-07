@@ -3,7 +3,6 @@ import SwiftUI
 
 class LoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
-    private let localRepoService = ServiceLocator.shared.localRepoService()
 
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
@@ -39,7 +38,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func recoverWallet() {
-        authService.walletRecovery(mnemonic: seed, path: localRepoService.middlewareRepoPath) { result in
+        authService.walletRecovery(mnemonic: seed) { result in
             DispatchQueue.main.async { [weak self] in
                 if case .failure(let .recoverWalletError(error)) = result {
                     self?.error = error
