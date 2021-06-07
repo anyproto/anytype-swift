@@ -7,9 +7,7 @@ class KeychainPhraseViewModel: ObservableObject {
     private let seedService = ServiceLocator.shared.seedService()
 
     func obtainRecoveryPhrase() {
-        recoveryPhrase = try? seedService.obtainSeed(
-            for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence
-        )
+        recoveryPhrase = try? seedService.obtainSeed()
     }
 
     func onSeedViewTap() {

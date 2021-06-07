@@ -100,8 +100,15 @@ extension TextBlockViewModel {
             let alignment = information.alignment.asTextAlignment
             let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(blockType.color)
 
-            textViewUpdate = TextViewUpdate.payload(.init(attributedString: attributedText,
-                                                              auxiliary: .init(textAlignment: alignment ?? .left, blockColor: blockColor)))
+            textViewUpdate = TextViewUpdate.payload(
+                .init(
+                    attributedString: attributedText,
+                    auxiliary: .init(
+                        textAlignment: alignment,
+                        blockColor: blockColor
+                    )
+                )
+            )
         default: return
         }
     }

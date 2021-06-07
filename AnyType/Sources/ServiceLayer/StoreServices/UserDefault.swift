@@ -25,21 +25,6 @@ struct UserDefault<T> {
 struct UserDefaultsConfig {
     @UserDefault("userId", defaultValue: "")
     static var usersIdKey: String
-    
-    @UserDefault("userName", defaultValue: "")
-    static var userName: String//Dictionary<String, String>
-    
-    @UserDefault("notificationUpdates", defaultValue: false)
-    static var notificationUpdates: Bool
-    
-    @UserDefault("notificationNewInvites", defaultValue: false)
-    static var notificationNewInvites: Bool
-    
-    @UserDefault("notificationNewComments", defaultValue: false)
-    static var notificationNewComments: Bool
-    
-    @UserDefault("notificationNewDevice", defaultValue: false)
-    static var notificationNewDevice: Bool
 }
 
 // Services handling

@@ -1,6 +1,8 @@
-private enum SeedServiceConstants {
-    static let serviceName = "com.AnyType.seed"
-    static let defaultName = "defaultAnyTypeSeed"
+private extension SeedService {
+    enum Constants {
+        static let serviceName = "com.AnyType.seed"
+        static let defaultName = "AnyTypeSeed"
+    }
 }
 
 /// Keychain store serivce
@@ -10,31 +12,23 @@ final class SeedService: SeedServiceProtocol {
         self.keychainStore = keychainStore
     }
     
-    func removeSeed(for publicKey: String?, keychainPassword: KeychainPasswordType?) throws {
-        let seedQuery = GenericPasswordQueryable(
-            account: publicKey ?? SeedServiceConstants.defaultName,
-            service: SeedServiceConstants.serviceName,
-            keyChainPassword: keychainPassword
-        )
-        try keychainStore.removeItem(queryable: seedQuery)
+    func removeSeed() throws {
+        try keychainStore.removeItem(queryable: query())
     }
     
-    func obtainSeed(for name: String?, keychainPassword: KeychainPasswordType?) throws -> String {
-        let seedQuery = GenericPasswordQueryable(
-            account: name ?? SeedServiceConstants.defaultName,
-            service: SeedServiceConstants.serviceName,
-            keyChainPassword: keychainPassword
-        )
-        let seed = try keychainStore.retreiveItem(queryable: seedQuery)
-        return seed
+    func obtainSeed() throws -> String {
+        try keychainStore.retreiveItem(queryable: query())
     }
     
-    func saveSeedForAccount(name: String?, seed: String, keychainPassword: KeychainPasswordType?) throws {
-        let seedQuery = GenericPasswordQueryable(
-            account: name ?? SeedServiceConstants.defaultName,
-            service: SeedServiceConstants.serviceName,
-            keyChainPassword: keychainPassword
+    func saveSeed(_ seed: String) throws {
+        try keychainStore.storeItem(item: seed, queryable: query())
+    }
+    
+    private func query() -> GenericPasswordQueryable {
+        GenericPasswordQueryable(
+            account: Constants.defaultName,
+            service: Constants.serviceName,
+            keyChainPassword: .none
         )
-        try keychainStore.storeItem(item: seed, queryable: seedQuery)
     }
 }

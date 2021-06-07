@@ -10,7 +10,6 @@ private extension LoggerCategory {
 
 final class AuthService: AuthServiceProtocol {
     private let seedService: SeedServiceProtocol
-    
     private let rootPath: String
     
     init(
@@ -26,9 +25,8 @@ final class AuthService: AuthServiceProtocol {
             .subscribe(on: DispatchQueue.global(qos: .background))
             .receiveOnMain()
             .sinkWithDefaultCompletion("Logout") { [weak self] _ in
-                try? self?.seedService.removeSeed(for: UserDefaultsConfig.usersIdKey, keychainPassword: .userPresence)
+                try? self?.seedService.removeSeed()
                 UserDefaultsConfig.usersIdKey = ""
-                UserDefaultsConfig.userName = ""
                 MiddlewareConfiguration.shared = nil
                 
                 completion()
@@ -43,7 +41,8 @@ final class AuthService: AuthServiceProtocol {
             }
         }) { [weak self] (value) in
             Logger.create(.servicesAuthService).debug("seed: \(value.mnemonic, privacy: .private)")
-            try? self?.seedService.saveSeedForAccount(name: nil, seed: value.mnemonic, keychainPassword: .none)
+            try? self?.seedService.saveSeed(value.mnemonic)
+        
             onCompletion(.success(()))
         }
     }
@@ -63,71 +62,60 @@ final class AuthService: AuthServiceProtocol {
             case .finished: break
             case .failure(_): onCompletion(.failure(.createAccountError()))
             }
-        }) { [weak self] (value) in
-            UserDefaultsConfig.usersIdKey = value.account.id
-            UserDefaultsConfig.userName = value.account.name
-            self?.replaceDefaultSeed(with: value.account.id, keychainPassword: .userPresence)
-            onCompletion(.success(value.account.id))
+        }) { response in
+            UserDefaultsConfig.usersIdKey = response.account.id
+            onCompletion(.success(response.account.id))
         }
     }
 
     func walletRecovery(mnemonic: String, onCompletion: @escaping OnCompletionWithEmptyResult) {
-        try? seedService.saveSeedForAccount(name: nil, seed: mnemonic, keychainPassword: .none)
+        try? seedService.saveSeed(mnemonic)
         _ = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: rootPath, mnemonic: mnemonic).sink(receiveCompletion: { result in
             switch result {
             case .finished: break
             case .failure(_): onCompletion(.failure(.recoverWalletError()))
             }
-        }) { (value) in
+        }) { _ in
             onCompletion(.success(()))
         }
     }
 
     func accountRecover(onCompletion: @escaping OnCompletionWithEmptyResult) {
-        _ = Anytype_Rpc.Account.Recover.Service.invoke().subscribe(on: DispatchQueue.global()).receiveOnMain().sink(receiveCompletion: { result in
-            switch result {
-            case .finished: break
-            case let .failure(error): onCompletion(.failure(.recoverAccountError(message: error.localizedDescription)))
-            }
-        }) { (value) in
+        _ = Anytype_Rpc.Account.Recover.Service.invoke()
+            .subscribe(on: DispatchQueue.global())
+            .receiveOnMain()
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case let .failure(error): onCompletion(.failure(.recoverAccountError(message: error.localizedDescription)))
+                }
+            }) { _ in
             onCompletion(.success(()))
         }
     }
 
     func selectAccount(id: String, onCompletion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath).sink(receiveCompletion: { result in
-            switch result {
-            case .finished: break
-            case .failure(_): onCompletion(.failure(.selectAccountError()))
-            }
-        }) { [weak self] (value) in
-            UserDefaultsConfig.usersIdKey = value.account.id
-            UserDefaultsConfig.userName = value.account.name
-            self?.replaceDefaultSeed(with: value.account.id, keychainPassword: .userPresence)
-            onCompletion(.success(value.account.id))
+        _ = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure(_): onCompletion(.failure(.selectAccountError()))
+                }
+            }) { response in
+                UserDefaultsConfig.usersIdKey = response.account.id
+                onCompletion(.success(response.account.id))
         }
     }
     
     func mnemonicByEntropy(_ entropy: String, completion: @escaping OnCompletion) {
-        _ = Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy).sink(receiveCompletion: { result in
-            switch result {
-            case .finished: break
-            case .failure(_): completion(.failure(.selectAccountError()))
+        _ = Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy)
+            .sink(receiveCompletion: { result in
+                switch result {
+                case .finished: break
+                case .failure(_): completion(.failure(.selectAccountError()))
+                }
+            }) { response in
+                completion(.success(response.mnemonic))
             }
-        }) { response in
-            completion(.success(response.mnemonic))
-        }
-    }
-}
-
-
-// MARK: - Private methods
-
-extension AuthService {
-    private func replaceDefaultSeed(with name: String, keychainPassword: KeychainPasswordType) {
-        if let seed = try? seedService.obtainSeed(for: nil, keychainPassword: .none) {
-            try? seedService.saveSeedForAccount(name: name, seed: seed, keychainPassword: keychainPassword)
-            try? seedService.removeSeed(for: nil, keychainPassword: .none)
-        }
     }
 }
