@@ -122,6 +122,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                      accessoryView: coordinator.menuActionsAccessoryView,
                      inputView: nil)
         coordinator.menuActionsAccessoryView?.blockMenuActionsHandler.didShowMenuView(from: textView)
+        actionsViewTriggerSymbolPosition = textView.caretPosition()
     }
     
     // We do want to continue displaying menu view
