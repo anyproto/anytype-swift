@@ -295,16 +295,13 @@ extension DocumentEditorViewController {
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
-    func refreshViewLayout() {
-        // Workaround: Supplementary view reloaded only on reloadSections but we couldn't use it as it reloads all items.
-        // That couse dismiss keyboard.
-        // In case if we need complete reload, we can add "hidden" uitextview behinde uicollection view to prevent dismiss keyboard.
-        collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader).forEach { [weak self] view in
-            if let view = view as? DocumentDetailsView, let details = self?.viewModel.detailsViewModel{
-                view.configure(model: details)
-            }
-        }
-        dataSource?.refresh(animatingDifferences: true)
+    func reloadFirstSection() {
+        // Workaround: Supplementary view reloaded only on reloadSections
+        // That couse dismiss keyboard if keyboard is open and you update details on desktop
+        guard var snapshot = dataSource?.snapshot() else { return }
+        
+        snapshot.reloadSections([.first])
+        apply(snapshot)
     }
     
     func updateData(_ rows: [BaseBlockViewModel]) {

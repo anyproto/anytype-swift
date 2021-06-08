@@ -12,7 +12,7 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     /// Update view layout.
     ///
     /// Could be useful when subview data updated.
-    func refreshViewLayout()
+    func reloadFirstSection()
 
     /// Show code language view selection.
     /// 

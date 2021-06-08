@@ -193,13 +193,18 @@ class DocumentEditorViewModel: ObservableObject {
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .sink { [weak self] detailsProvider in
-                self?.updateDetailsViewModel(with: detailsProvider)
+                guard let self = self else { return }
+                
+                self.updateDetailsViewModel(with: detailsProvider)
 
-                let blocksViewModelsToUpdate = self?.blocksViewModels.first(where: { blockViewModel in
-                    blockViewModel.information.content.type == .text(.title)
-                })
+                let blocksViewModelsToUpdate = self.blocksViewModels.first(
+                    where: { blockViewModel in
+                        blockViewModel.information.content.type == .text(.title)
+                    }
+                )
                 blocksViewModelsToUpdate?.updateView()
-                self?.viewInput?.refreshViewLayout()
+                
+                self.viewInput?.reloadFirstSection()
             }
             .store(in: &subscriptions)
 
