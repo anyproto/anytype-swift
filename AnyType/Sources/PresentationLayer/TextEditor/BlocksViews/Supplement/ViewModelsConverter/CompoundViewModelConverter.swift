@@ -31,7 +31,7 @@ final class CompoundViewModelConverter {
         case let .file(value):
             switch value.contentType {
             case .file: return BlocksViews.File.File.ViewModel(block)
-            case .none: return BlocksViews.Unknown.Label.ViewModel(block)
+            case .none: return UnknownLabelViewModel(block)
             case .image: return BlocksViews.File.Image.ViewModel(block)
             case .video: return VideoBlockViewModel(block)
             }
