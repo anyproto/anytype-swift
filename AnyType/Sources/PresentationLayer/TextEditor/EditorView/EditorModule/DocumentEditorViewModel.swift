@@ -60,12 +60,13 @@ class DocumentEditorViewModel: ObservableObject {
         }
     }
     
-    private var internalState: State = .loading
+    private var loading = true
     var state: State {
-        switch self.internalState {
-        case .loading: return .loading
-        default: return self.blocksViewModels.isEmpty ? .empty : .ready
+        if loading {
+            return .loading
         }
+        
+        return self.blocksViewModels.isEmpty ? .empty : .ready
     }
 
     /// We should update some items in place.
@@ -143,7 +144,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     private func obtainDocument(documentId: String?) {
         guard let documentId = documentId else { return }
-        self.internalState = .loading
+        self.loading = true
 
         self.blockActionsService.open(contextID: documentId, blockID: documentId)
             .receiveOnMain()
@@ -151,7 +152,7 @@ class DocumentEditorViewModel: ObservableObject {
                 switch value {
                 case .finished: break
                 case let .failure(error):
-                    self?.internalState = .empty
+                    self?.loading = false
                     self?.error = error.localizedDescription
                 }
             }, receiveValue: { [weak self] value in

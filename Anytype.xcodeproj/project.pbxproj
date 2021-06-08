@@ -361,6 +361,10 @@
 		3DBED675266F720D00B9E9AB /* BlockActionServiceConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */; };
 		3DBED677266F731700B9E9AB /* DocumentEditorViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED676266F731700B9E9AB /* DocumentEditorViewState.swift */; };
 		3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */; };
+		3DBED67D266F8D5300B9E9AB /* LinearIndexWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */; };
+		3DBED681266F8DBB00B9E9AB /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */; };
+		3DBED683266F8E5800B9E9AB /* DocumentModelListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED682266F8E5800B9E9AB /* DocumentModelListProvider.swift */; };
+		3DBED685266F8F0300B9E9AB /* DocumentViewInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareListener.swift */; };
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
@@ -937,6 +941,10 @@
 		3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceConverter.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceConverter.swift; sourceTree = SOURCE_ROOT; };
 		3DBED676266F731700B9E9AB /* DocumentEditorViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentEditorViewState.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/DocumentEditorViewState.swift; sourceTree = SOURCE_ROOT; };
 		3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionTypes.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionTypes.swift; sourceTree = SOURCE_ROOT; };
+		3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinearIndexWalker.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/LinearIndexWalker.swift; sourceTree = SOURCE_ROOT; };
+		3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
+		3DBED682266F8E5800B9E9AB /* DocumentModelListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentModelListProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/DocumentModelListProvider.swift; sourceTree = SOURCE_ROOT; };
+		3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewInteraction.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/DocumentViewInteraction.swift; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
@@ -3002,6 +3010,10 @@
 				5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */,
 				5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */,
 				5338E7F725DC736A008CB97D /* UserActionHandler.swift */,
+				3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */,
+				3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */,
+				3DBED682266F8E5800B9E9AB /* DocumentModelListProvider.swift */,
+				3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */,
 			);
 			path = BlockActionHandlers;
 			sourceTree = "<group>";
@@ -3679,12 +3691,14 @@
 				3DB7DCB5263AA5E000635E4C /* ViewBoundsExtension.swift in Sources */,
 				0ACA780A23E5C96700442690 /* TextView+MarkStyle.swift in Sources */,
 				EA4AC405261C32C1002E961E /* DimmingPresentationController.swift in Sources */,
+				3DBED681266F8DBB00B9E9AB /* BlockBuilder.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				534B7F2026264E8B00D712B2 /* EditingToolbarView.swift in Sources */,
 				0A78327624BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift in Sources */,
 				EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */,
 				03F910B823A93E8300DF2F36 /* ProfileModel.swift in Sources */,
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
+				3DBED685266F8F0300B9E9AB /* DocumentViewInteraction.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
 				53F8211326529D26003FEB0B /* TextViewUpdatable.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
@@ -3809,6 +3823,7 @@
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
+				3DBED67D266F8D5300B9E9AB /* LinearIndexWalker.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
@@ -3873,6 +3888,7 @@
 				53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */,
 				0A203A8625470FAE00D3729A /* ImageCache.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
+				3DBED683266F8E5800B9E9AB /* DocumentModelListProvider.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
 				0A72751124AB9B57005DA617 /* MultiSelectionPaneSelectAllBarButtonItem.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
