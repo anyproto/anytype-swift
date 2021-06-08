@@ -81,33 +81,24 @@ extension HomeViewModel {
     func createNewPage() {
         guard let rootId = document.documentId else { return }
         
-        newPageSubscription = dashboardService.createNewPage(contextId: rootId).receiveOnMain()
+        newPageSubscription = dashboardService.createNewPage(contextId: rootId)
+            .receiveOnMain()
             .sinkWithDefaultCompletion("Create page") { [weak self] success in
-            guard let self = self else {
-                return
-            }
-            
-            self.document.handle(events: .init(contextId: success.contextID, events: success.messages))
-            
-            guard let newBlockId = self.extractNewBlockId(serviceSuccess: success) else {
-                assertionFailure("No new block id in create new page response")
-                return
-            }
-            
-            self.newPageData = NewPageData(pageId: newBlockId, showingNewPage: true)
+                guard let self = self else {
+                    return
+                }
+
+                self.document.handle(
+                    events: PackOfEvents(contextId: success.contextID, events: success.messages)
+                )
+
+                guard let newBlockId = success.newBlockId else {
+                    assertionFailure("No new block id in create new page response")
+                    return
+                }
+
+                self.newPageData = NewPageData(pageId: newBlockId, showingNewPage: true)
         }
-    }
-    
-    private func extractNewBlockId(serviceSuccess: ServiceSuccess) -> String? {
-        let blockAdd = serviceSuccess.messages.compactMap { message -> Anytype_Event.Block.Add?  in
-            if case let .blockAdd(value)? = message.value {
-                return value
-            }
-            
-            return nil
-        }.first
-        
-        return blockAdd?.blocks.first?.link.targetBlockID
     }
 }
 

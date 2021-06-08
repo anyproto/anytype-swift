@@ -52,13 +52,16 @@ struct HomeView: View {
     }
     
     private var newPageNavigation: some View {
-        NavigationLink(
-            destination: model.coordinator.documentView(
-                selectedDocumentId: model.newPageData.pageId
-            ).edgesIgnoringSafeArea(.all),
-            isActive: $model.newPageData.showingNewPage,
-            label: { EmptyView() }
-        )
+        Group {
+            NavigationLink(
+                destination: model.coordinator.documentView(
+                    selectedDocumentId: model.newPageData.pageId
+                ),
+                isActive: $model.newPageData.showingNewPage,
+                label: { EmptyView() }
+            )
+            NavigationLink(destination: EmptyView(), label: {}) // https://stackoverflow.com/a/67104650/6252099
+        }
     }
     
     private func makeNavigationBarTransparent() {

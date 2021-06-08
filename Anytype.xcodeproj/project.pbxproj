@@ -356,6 +356,7 @@
 		3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */; };
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
+		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareListener.swift */; };
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
@@ -927,6 +928,7 @@
 		3DB92FA2264D8B0100E83276 /* SettingsSectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionView.swift; sourceTree = "<group>"; };
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
+		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "AnyType/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
@@ -2519,6 +2521,7 @@
 		3D932D3626317E3A00C7D1EA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				3DBED669266F696B00B9E9AB /* Extensions */,
 				3D0BCACD26665794002F7A0D /* CellDataBuilder */,
 				3D932D3926317E3A00C7D1EA /* View */,
 				3D932D3726317E3A00C7D1EA /* HomeViewAssembly.swift */,
@@ -2747,6 +2750,14 @@
 				3D15526B264D8BCF00B0E976 /* SettingsDividerModifier.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3DBED669266F696B00B9E9AB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3DC78632265D43E900498993 /* EventConverters */ = {
@@ -3674,7 +3685,7 @@
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
 				EA5FB42B266A970F00DCD56C /* MentionDisplayData.swift in Sources */,
-				03CB3EFF230C0FF2003D5DFD /* KeychainStoreService.swift in Sources */,
+				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				3D82917B265E53BB0007C152 /* OurEvent.swift in Sources */,
 				0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */,
@@ -3916,6 +3927,7 @@
 				0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* NotificationEventListener.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
+				3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
 				3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */,
