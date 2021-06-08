@@ -72,7 +72,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     }
 
     func setCodeLanguage(_ language: String) {
-        guard let contextId = getBlock().container?.rootId else { return }
+        guard let contextId = block.container?.rootId else { return }
 
         let blockFields = BlockFields(blockId: blockId, fields: [Constants.codeLanguageFieldName: language])
         listService.setFields(contextID: contextId, blockFields: [blockFields]).sink { _ in } receiveValue: { _ in }.store(in: &subscriptions)
@@ -83,7 +83,7 @@ final class CodeBlockViewModel: BaseBlockViewModel {
 
 extension CodeBlockViewModel: TextViewDelegate {
     func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        send(actionsPayload: .becomeFirstResponder(getBlock().blockModel))
+        send(actionsPayload: .becomeFirstResponder(block.blockModel))
     }
 
     func sizeChanged() {
@@ -97,9 +97,9 @@ private extension CodeBlockViewModel {
 
     func setupSubscribers() {
         // Update text view in code block
-        self.getBlock().didChangePublisher().receive(on: serialQueue)
+        block.didChangePublisher().receive(on: serialQueue)
             .map { [weak self] _ -> BlockContent.Text? in
-                let value = self?.getBlock().blockModel.information
+                let value = self?.block.blockModel.information
 
                 if let lang = value?.fields[Constants.codeLanguageFieldName]?.stringValue {
                     self?.codeLanguage = lang
@@ -140,7 +140,7 @@ extension CodeBlockViewModel {
 
 extension CodeBlockViewModel {
     func send(textViewAction: TextBlockUserInteraction) {
-        self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: textViewAction)))
+        self.send(actionsPayload: .textView(.init(model: block, action: textViewAction)))
     }
 }
 
@@ -173,15 +173,15 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
                 userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject)))
             )
         case .showStyleMenu:
-            self.send(actionsPayload: .showStyleMenu(blockModel: self.getBlock().blockModel, blockViewModel: self))
+            self.send(actionsPayload: .showStyleMenu(blockModel: block.blockModel, blockViewModel: self))
         case .showMultiActionMenuAction:
             self.shouldResignFirstResponder.send()
-            self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
+            self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
         case .inputAction, .keyboardAction:
-            self.send(actionsPayload: .textView(.init(model: self.getBlock(), action: .textView(action))))
+            self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
         case .changeCaretPosition:
             typealias TextBlockInteraction = BaseBlockViewModel.ActionsPayload.TextBlocksViewsUserInteraction
-            self.send(actionsPayload: .textView(TextBlockInteraction(model: getBlock(), action: .textView(action))))
+            self.send(actionsPayload: .textView(TextBlockInteraction(model: block, action: .textView(action))))
         }
     }
 }

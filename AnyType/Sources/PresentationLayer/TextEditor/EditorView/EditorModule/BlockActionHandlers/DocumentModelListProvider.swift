@@ -13,6 +13,6 @@ struct DocumentModelListProvider: UserInteractionHandlerListModelsProvider {
     }
 
     var getModels: [BlockActiveRecordModelProtocol] {
-        self.model?.blocksViewModels.compactMap { $0.getBlock() } ?? []
+        self.model?.blocksViewModels.compactMap { $0.block } ?? []
     }
 }

@@ -49,7 +49,7 @@ class TextBlockViewModel: BaseBlockViewModel {
     // MARK: - Contextual Menu
     
     override func makeContextualMenu() -> BlocksViews.ContextualMenu {
-        guard case let .text(text) = self.getBlock().content else {
+        guard case let .text(text) = block.content else {
             return .init(title: "", children: [])
         }
         
@@ -90,7 +90,7 @@ class TextBlockViewModel: BaseBlockViewModel {
 extension TextBlockViewModel {
 
     func refreshedTextViewUpdate() {
-        let block = self.getBlock()
+        let block = block
         let information = block.blockModel.information
 
         switch information.content {
@@ -120,7 +120,7 @@ extension TextBlockViewModel {
 extension TextBlockViewModel: TextViewDelegate {
     
     func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        send(actionsPayload: .becomeFirstResponder(getBlock().blockModel))
+        send(actionsPayload: .becomeFirstResponder(block.blockModel))
     }
 
     func sizeChanged() {
@@ -135,7 +135,7 @@ private extension TextBlockViewModel {
 
     func setupSubscribers() {
         // ToView
-        let alignmentPublisher = self.getBlock().didChangeInformationPublisher()
+        let alignmentPublisher = block.didChangeInformationPublisher()
             .map(\.alignment)
             .map { $0.asTextAlignment }
             .removeDuplicates()
@@ -145,10 +145,10 @@ private extension TextBlockViewModel {
         // Maybe we should do it differently.
         // We change subscription on didChangePublisher to reflect changes ONLY from specific events like `Merge`.
         // If we listen `changeInformationPublisher()`, we will receive whole data from every change.
-        let modelDidChangeOnMergePublisher = self.getBlock().didChangePublisher()
+        let modelDidChangeOnMergePublisher = block.didChangePublisher()
             .receive(on: serialQueue)
             .map { [weak self] _ -> BlockContent.Text? in
-                guard let value = self?.getBlock().blockModel.information else { return nil }
+                guard let value = self?.block.blockModel.information else { return nil }
                 
                 switch value.content {
                 case let .text(value):
@@ -217,7 +217,7 @@ extension TextBlockViewModel {
         self.send(
             actionsPayload: .textView(
                 .init(
-                    model: self.getBlock(),
+                    model: block,
                     action: textViewAction
                 )
             )
@@ -249,7 +249,7 @@ private extension TextBlockViewModel {
     }
 
     func apply(alignment: NSTextAlignment) -> AnyPublisher<Void, Error>? {
-        let block = self.getBlock()
+        let block = block
         
         guard
             let contextID = block.findRoot()?.blockId,
@@ -293,7 +293,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
             case .showStyleMenu:
                 self.send(
                     actionsPayload: .showStyleMenu(
-                        blockModel: self.getBlock().blockModel,
+                        blockModel: block.blockModel,
                         blockViewModel: self
                     )
                 )
@@ -302,7 +302,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 self.send(
                     actionsPayload: .textView(
                         .init(
-                            model: self.getBlock(),
+                            model: block,
                             action: .textView(action)
                         )
                     )
@@ -311,7 +311,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 self.send(
                     actionsPayload: .textView(
                         .init(
-                            model: self.getBlock(),
+                            model: block,
                             action: .textView(action))
                     )
                 )
@@ -319,7 +319,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 self.send(
                     actionsPayload: .textView(
                         BaseBlockViewModel.ActionsPayload.TextBlocksViewsUserInteraction(
-                            model: getBlock(),
+                            model: block,
                             action: .textView(action)
                         )
                     )

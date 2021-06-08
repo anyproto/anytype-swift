@@ -8,7 +8,7 @@ import BlocksModels
 extension BlocksViews.Unknown.Label {
     class ViewModel: BlocksViews.Unknown.Base.ViewModel {
         override func makeContentConfiguration() -> UIContentConfiguration {
-            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            var configuration = ContentConfiguration.init(block.blockModel.information)
             configuration.contextMenuHolder = self
             return configuration
         }

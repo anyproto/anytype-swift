@@ -32,7 +32,7 @@ extension Namespace {
         
         override var diffable: AnyHashable {
             let diffable = super.diffable
-            if case let .file(value) = self.getBlock().content {
+            if case let .file(value) = block.content {
                 let newDiffable: [String: AnyHashable] = [
                     "parent": diffable,
                     "fileState": value.state
@@ -103,7 +103,7 @@ extension Namespace {
         }
         
         private func downloadFile() {
-            guard case let .file(file) = self.getBlock().content else { return }
+            guard case let .file(file) = block.content else { return }
             switch file.contentType {
             case .image:
                 return
@@ -118,7 +118,7 @@ extension Namespace {
         }
         
         private func setupSubscribers() {
-            let fileContentPublisher = self.getBlock().didChangeInformationPublisher().map({ value -> File? in
+            let fileContentPublisher = block.didChangeInformationPublisher().map({ value -> File? in
                 switch value.content {
                 case let .file(value): return value
                 default: return nil
@@ -138,7 +138,7 @@ extension Namespace {
         }
         
         private func sendFile(at filePath: String) {
-            self.send(actionsPayload: .userAction(.init(model: self.getBlock(),
+            self.send(actionsPayload: .userAction(.init(model: block,
                                                         action: .specific(.file(.shouldUploadFile(.init(filePath: filePath)))))))
         }
     }

@@ -8,36 +8,23 @@ class BaseBlockViewModel: ObservableObject {
         static let maxIndentationLevel: Int = 4
     }
     
-    // MARK: Variables
-    /// our Block
-    /// Maybe we should made it Observable?.. Let think a bit about it.
-    private var block: BlockActiveRecordModelProtocol
+    private(set) var block: BlockActiveRecordModelProtocol
 
     // MARK: - Initialization
 
     init(_ block: BlockActiveRecordModelProtocol) {
         self.block = block
-        self.configure()
+        
+        setupPublishers()
+        setupSubscriptions()
     }
     
-    /// Configure
-    /// Call this method before you want to use view model.
-    func configure() {
-        self.setupPublishers()
-        self.setupSubscriptions()
-    }
-            
     // MARK: - Subclass / Blocks
-    
-    // MARK: Block model processing
-    func getBlock() -> BlockActiveRecordModelProtocol { self.block }
-
-    func isRealBlock() -> Bool { self.getBlock().blockModel.kind == .block }
-
-    func update(block: (inout BlockActiveRecordModelProtocol) -> ()) {
-        if isRealBlock() {
-            self.block = update(getBlock(), body: block)
-//                self.blockUpdatesSubject.send(self.block)
+    func update(body: (inout BlockActiveRecordModelProtocol) -> ()) {
+        let isRealBlock = block.blockModel.kind == .block
+        
+        if isRealBlock {
+            block = update(block, body: body)
         }
     }
     
@@ -164,12 +151,12 @@ class BaseBlockViewModel: ObservableObject {
                     
     // MARK: - Indentation
     func indentationLevel() -> Int {
-        min(self.getBlock().indentationLevel, Constants.maxIndentationLevel)
+        min(block.indentationLevel, Constants.maxIndentationLevel)
     }
     
     // MARK: - Subclass / Information
 
-    var information: BlockInformation { self.getBlock().blockModel.information }
+    var information: BlockInformation { block.blockModel.information }
     
     // MARK: - Subclass / Diffable
 
@@ -213,7 +200,7 @@ class BaseBlockViewModel: ObservableObject {
             case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .style))))))
             case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .textColor))))))
             case .backgroundColor:
-                let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(self.getBlock().blockModel.information.backgroundColor, background: true) ?? .defaultColor
+                let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(block.blockModel.information.backgroundColor, background: true) ?? .defaultColor
                 self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: .init(backgroundColor: color), section: .backgroundColor, shouldPluginOutputIntoInput: true))))))
             default: return
             }
@@ -280,99 +267,9 @@ extension BaseBlockViewModel {
     }
 }
 
-// MARK: - Contextual Menu
-
-extension BaseBlockViewModel {
-    func buildContextualMenu() -> BlocksViews.ContextualMenu {
-        self.makeContextualMenu()
-    }
-}
-
-// MARK: - UIContextMenuInteractionDelegate
-
-private extension BaseBlockViewModel {
-    class ContextualMenuInteractor: NSObject, UIContextMenuInteractionDelegate {
-        // MARK: Conversion BlocksViews.ContextualMenu.MenuAction <-> UIAction.Identifier
-        enum IdentifierConverter {
-            static func action(for menuAction: BlocksViews.ContextualMenu.MenuAction) -> UIAction.Identifier? {
-                menuAction.identifier.flatMap({UIAction.Identifier.init($0)})
-            }
-            static func menuAction(for identifier: UIAction.Identifier?) -> BlocksViews.ContextualMenu.MenuAction.Action? {
-                identifier.flatMap({BlocksViews.ContextualMenu.MenuAction.Resources.IdentifierBuilder.action(for: $0.rawValue)})
-            }
-        }
-        
-        // MARK: Provider
-        /// Actually, Self
-        weak var provider: BaseBlockViewModel?
-        
-        // MARK: Subject ( Subsribe on it ).
-        var actionSubject: PassthroughSubject<BlocksViews.ContextualMenu.MenuAction.Action, Never> = .init()
-        
-        // MARK: Conversion BlocksViews.ContextualMenu and BlocksViews.ContextualMenu.MenuAction
-        static func menu(from: BlocksViews.ContextualMenu?) -> UIMenu? {
-            from.flatMap{ .init(title: $0.title, image: nil, identifier: nil, options: .init(), children: []) }
-        }
-        
-        static func action(from action: BlocksViews.ContextualMenu.MenuAction, handler: @escaping (UIAction) -> ()) -> UIAction {
-            .init(title: action.payload.title, image: action.payload.currentImage, identifier: IdentifierConverter.action(for: action), discoverabilityTitle: nil, attributes: [], state: .off, handler: handler)
-        }
-        
-        // MARK: Delegate methods
-
-        func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-            .init(identifier: "" as NSCopying, previewProvider: nil) { [weak self] (value) -> UIMenu? in
-                let menu = self?.provider?.buildContextualMenu()
-                return menu.flatMap {
-                    .init(title: $0.title, image: nil, identifier: nil, options: .init(), children: $0.children.map { [weak self] child in
-                        ContextualMenuInteractor.action(from: child) { [weak self] (action) in
-                            IdentifierConverter.menuAction(for: action.identifier).flatMap({self?.actionSubject.send($0)})
-                        }
-                    })
-                }
-            }
-        }
-    }
-}
-
 // MARK: - UIKit / Context menu embedding
 
 extension BaseBlockViewModel {
-    class OurContextMenuInteraction: UIContextMenuInteraction {
-        /// Uncomment later if needed.
-        /// Also, you should update delegate by `update(delegate:)` when view apply(configuration:) method has been called.
-        typealias Delegate = UIContextMenuInteractionDelegate
-
-        class ProxyChain: NSObject, Delegate {
-            private var delegate: Delegate?
-            func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-                self.delegate?.contextMenuInteraction(interaction, configurationForMenuAtLocation: location)
-            }
-            func update(_ delegate: Delegate?) {
-                self.delegate = delegate
-            }
-        }
-
-        /// Proxy
-        private var proxyChain: ProxyChain = .init()
-        private var ourDelegate: Delegate { self.proxyChain }
-
-        /// Initialization
-        override init(delegate: Delegate) {
-            self.proxyChain.update(delegate)
-            super.init(delegate: self.proxyChain)
-        }
-
-        func update(delegate: Delegate) {
-            self.proxyChain.update(delegate)
-        }
-
-        /// UIContextMenuInteractionDelegate
-        func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
-            self.ourDelegate.contextMenuInteraction(interaction, configurationForMenuAtLocation: location)
-        }
-    }
-
     /// We need this method, because it goes insane if you add hundreds of interactions.
     /// True story.
     ///
@@ -447,7 +344,7 @@ extension BaseBlockViewModel: Identifiable {}
 /// Requirement: `BlockViewBuilderProtocol` is necessary for view model.
 /// We use these models in wrapped (Row contains viewModel) way in `UIKit`.
 extension BaseBlockViewModel {
-    var blockId: BlockId { self.getBlock().blockId }
+    var blockId: BlockId { block.blockId }
 }
 
 /// Requirement: `Blocks ViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.

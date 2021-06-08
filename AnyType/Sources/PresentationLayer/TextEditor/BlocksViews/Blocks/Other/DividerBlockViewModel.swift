@@ -12,7 +12,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
     private var publisher: AnyPublisher<BlockContent.Divider, Never> = .empty()
     
     override func makeContentConfiguration() -> UIContentConfiguration {
-        var configuration = DividerBlockContentConfiguration(self.getBlock().blockModel.information)
+        var configuration = DividerBlockContentConfiguration(block.blockModel.information)
         configuration.contextMenuHolder = self
         return configuration
     }
@@ -29,7 +29,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
     }
     
     func setupSubscribers() {
-        let publisher = self.getBlock().didChangeInformationPublisher().map({ value -> BlockContent.Divider? in
+        let publisher = block.didChangeInformationPublisher().map({ value -> BlockContent.Divider? in
             switch value.content {
             case let .divider(value): return value
             default: return nil
@@ -44,7 +44,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
     
     override var diffable: AnyHashable {
         let diffable = super.diffable
-        if case let .divider(value) = self.getBlock().content {
+        if case let .divider(value) = block.content {
             let newDiffable: [String: AnyHashable] = [
                 "parent": diffable,
                 "dividerValue": value.style

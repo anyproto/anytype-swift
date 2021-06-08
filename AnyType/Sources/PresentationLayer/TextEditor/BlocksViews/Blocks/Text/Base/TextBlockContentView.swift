@@ -67,7 +67,7 @@ final class TextBlockContentView: UIView & UIContentView {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
             guard let self = self else { return }
 
-            let block = self.currentConfiguration.viewModel.getBlock()
+            let block = self.currentConfiguration.viewModel.block
             self.createChildBlockButton.isHidden = true
             self.currentConfiguration.viewModel.send(actionsPayload: .textView(.init(model: block,
                                                       action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
@@ -417,11 +417,11 @@ final class TextBlockContentView: UIView & UIContentView {
             _ = self.topView.configured(leftChild: container, setConstraints: true)
             toggleButton = button
         }
-        let toggled = currentConfiguration.viewModel.getBlock().isToggled
+        let toggled = currentConfiguration.viewModel.block.isToggled
         toggleButton?.isSelected = toggled
         setupText(placeholer: NSLocalizedString("Toggle placeholder", comment: ""), font: .bodyFont)
         textView.textView.textContainerInset = Constants.Toggle.textContainerInsets
-        let hasNoChildren = currentConfiguration.viewModel.getBlock().childrenIds().isEmpty
+        let hasNoChildren = currentConfiguration.viewModel.block.childrenIds().isEmpty
         updateCreateChildButtonState(toggled: toggled, hasChildren: !hasNoChildren)
     }
     
@@ -437,11 +437,11 @@ final class TextBlockContentView: UIView & UIContentView {
             let blockViewModel = self.currentConfiguration.viewModel
             button?.isSelected.toggle()
             blockViewModel.update { $0.isToggled.toggle() }
-            let toggled = blockViewModel.getBlock().isToggled
+            let toggled = blockViewModel.block.isToggled
             blockViewModel.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
             let oldValue = self.createChildBlockButton.isHidden
             self.updateCreateChildButtonState(toggled: toggled,
-                                              hasChildren: !blockViewModel.getBlock().childrenIds().isEmpty)
+                                              hasChildren: !blockViewModel.block.childrenIds().isEmpty)
             if oldValue != self.createChildBlockButton.isHidden {
                 blockViewModel.needsUpdateLayout()
             }

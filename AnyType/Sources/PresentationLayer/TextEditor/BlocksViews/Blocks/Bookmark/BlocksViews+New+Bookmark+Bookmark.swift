@@ -24,7 +24,7 @@ extension Namespace {
         private var publisher: AnyPublisher<BlockContent.Bookmark, Never> = .empty()
                 
         override func makeContentConfiguration() -> UIContentConfiguration {
-            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            var configuration = ContentConfiguration.init(block.blockModel.information)
             configuration.contextMenuHolder = self
             return configuration
         }
@@ -44,7 +44,7 @@ extension Namespace {
                 
                 // Think what we should check...
                 // Empty URL?
-                if case let .bookmark(value) = self.getBlock().content, !value.url.isEmpty {
+                if case let .bookmark(value) = block.content, !value.url.isEmpty {
                     assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
                     return
                 }
@@ -73,7 +73,7 @@ extension Namespace {
         
         override var diffable: AnyHashable {
             let diffable = super.diffable
-            if case let .bookmark(value) = self.getBlock().content {
+            if case let .bookmark(value) = block.content {
                 let newDiffable: [String: AnyHashable] = [
                     "parent": diffable,
                     "bookmark": ["url": value.url, "title": value.title]
@@ -91,7 +91,7 @@ extension Namespace {
 //            self.toolbarSubscription = self.toolbarActionSubject.sink { [weak self] (value) in
 //                self?.handle(toolbarAction: value)
 //            }
-            self.publisher = self.getBlock().didChangeInformationPublisher().map({ value -> BlockContent.Bookmark? in
+            self.publisher = block.didChangeInformationPublisher().map({ value -> BlockContent.Bookmark? in
                 switch value.content {
                 case let .bookmark(value): return value
                 default: return nil

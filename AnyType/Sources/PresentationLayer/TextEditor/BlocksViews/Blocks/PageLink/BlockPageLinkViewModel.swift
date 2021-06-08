@@ -70,7 +70,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     }
     
     override func makeContentConfiguration() -> UIContentConfiguration {
-        if var configuration = BlockPageLinkContentConfiguration(self.getBlock().blockModel.information) {
+        if var configuration = BlockPageLinkContentConfiguration(block.blockModel.information) {
             configuration.viewModel = self
             return configuration
         }
@@ -80,7 +80,7 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
     override func handle(event: BlocksViews.UserEvent) {
         switch event {
         case .didSelectRowInTableView:
-            switch self.getBlock().content {
+            switch block.content {
             case let .link(linkContent):
                 router?.showPage(with: linkContent.targetBlockID)
             default: return

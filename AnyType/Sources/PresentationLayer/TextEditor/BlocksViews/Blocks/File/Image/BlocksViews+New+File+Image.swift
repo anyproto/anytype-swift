@@ -11,7 +11,7 @@ extension Namespace {
     final class ViewModel: BlocksViews.File.Base.ViewModel {
         
         override func makeContentConfiguration() -> UIContentConfiguration {
-            var configuration = ContentConfiguration.init(self.getBlock().blockModel.information)
+            var configuration = ContentConfiguration.init(block.blockModel.information)
             configuration.contextMenuHolder = self
             return configuration
         }
