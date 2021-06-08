@@ -90,7 +90,7 @@ class TextBlockViewModel: BaseBlockViewModel {
 extension TextBlockViewModel {
 
     func refreshedTextViewUpdate() {
-        let block = block
+        let block = self.block
         let information = block.blockModel.information
 
         switch information.content {
@@ -249,7 +249,7 @@ private extension TextBlockViewModel {
     }
 
     func apply(alignment: NSTextAlignment) -> AnyPublisher<Void, Error>? {
-        let block = block
+        let block = self.block
         
         guard
             let contextID = block.findRoot()?.blockId,

@@ -178,15 +178,25 @@ extension Namespace {
                     }
                 }
                 return .empty
-            case let .keyboard(value):
-                guard let font = old[.font] as? UIFont else { return .change([:]) }
-                return .change([.font: value ? UIFont.codeFont : font])
+            case let .keyboard(hasStyle):
+                return keyboardUpdate(with: old, hasStyle: hasStyle)
             case let .strikethrough(value): return .change([.strikethroughStyle : value ? 1 : 0])
             case let .underscored(value): return .change([ .underlineStyle : value ? 1 : 0 ])
             case let .textColor(value): return .change([ .foregroundColor : value as Any ])
             case let .backgroundColor(value): return .change([ .backgroundColor : value as Any ])
             case let .link(value): return .changeAndDeletedKeys([ .link : value as Any ], value.isNil ? [.link] : [])
             }
+        }
+        
+        private func keyboardUpdate(with attributes: [NSAttributedString.Key: Any], hasStyle: Bool) -> Update {
+            guard let font = attributes[.font] as? UIFont else { return .change([:]) }
+            let oldTraits = font.fontDescriptor.symbolicTraits
+            let traits = hasStyle ? oldTraits.union(.traitMonoSpace) : oldTraits.symmetricDifference(.traitMonoSpace)
+            if let newDescriptor = (hasStyle ? font : .preferredFont(forTextStyle: .body)).fontDescriptor.withSymbolicTraits(traits) {
+                let newFont = UIFont(descriptor: newDescriptor, size: font.pointSize)
+                return .change([.font: newFont])
+            }
+            return .change([.font: font])
         }
         
         
