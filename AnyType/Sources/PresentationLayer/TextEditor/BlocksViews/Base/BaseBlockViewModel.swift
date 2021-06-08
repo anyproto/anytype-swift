@@ -149,9 +149,11 @@ class BaseBlockViewModel: ObservableObject {
     // MARK: - Subclass / Diffable
 
     var diffable: AnyHashable {
-        [information.id,
-         BlockContentTypeIdentifier.identifier(self.information.content),
-         indentationLevel()] as [AnyHashable]
+        [
+            information.id,
+            information.content.identifier,
+            indentationLevel()
+        ] as [AnyHashable]
     }
     
     // MARK: - Subclass / Views

@@ -59,7 +59,7 @@ extension UnknownLabelViewModel {
         }
         
         private func handle(_ value: BlockInformation) {
-            let content = BlockContentTypeIdentifier.identifier(value.content)
+            let content = value.content.identifier
             let model = Resource(blockName: value.id, blockType: content)
             self.topView.text = model.description
         }

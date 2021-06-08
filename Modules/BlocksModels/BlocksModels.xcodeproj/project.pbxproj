@@ -38,6 +38,7 @@
 		3DB7DCA42639DBE100635E4C /* BlockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA32639DBE100635E4C /* BlockModel.swift */; };
 		3DB7DCA82639DC0100635E4C /* BlockUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* BlockUserSession.swift */; };
 		3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */; };
+		3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */; };
 		53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */; };
 		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,7 @@
 		3DB7DCA32639DBE100635E4C /* BlockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModel.swift; sourceTree = "<group>"; };
 		3DB7DCA72639DC0100635E4C /* BlockUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserSession.swift; sourceTree = "<group>"; };
 		3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainer.swift; sourceTree = "<group>"; };
+		3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentIdentifiers.swift; sourceTree = "<group>"; };
 		53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,6 +206,7 @@
 		3D70BF1E261B0551008CED9E /* Block */ = {
 			isa = PBXGroup;
 			children = (
+				3DBED6A2266FC0EB00B9E9AB /* Utils */,
 				3DAAEF9626668CC900FA067E /* BlockInformation */,
 				3D0BCADF26666BE9002F7A0D /* BlockContent */,
 				3D0BCABB26663A88002F7A0D /* BlockUserSession */,
@@ -215,7 +218,6 @@
 				0A6D537F25D9C99E002F3F82 /* BlockHasDidChangePublisherProtocol.swift */,
 				0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */,
 				0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */,
-				0A6D536D25D9C99E002F3F82 /* BlockUtilities.swift */,
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
 			);
 			path = Block;
@@ -251,6 +253,15 @@
 				3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */,
 			);
 			path = BlockContainer;
+			sourceTree = "<group>";
+		};
+		3DBED6A2266FC0EB00B9E9AB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0A6D536D25D9C99E002F3F82 /* BlockUtilities.swift */,
+				3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		53856BE0265BC19400CB1FAE /* Frameworks */ = {
@@ -357,6 +368,7 @@
 				0A6D53A425D9C99F002F3F82 /* DetailsBuilder.swift in Sources */,
 				0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */,
 				3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */,
+				3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */,
 				12A259B826580B4B00B71DA1 /* DetailsContainerProtocol.swift in Sources */,
 				0A6D53A725D9C99F002F3F82 /* RootBlocksContainer.swift in Sources */,
 				12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */,

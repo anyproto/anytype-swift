@@ -83,39 +83,3 @@ enum BlockFirstResponderResolver {
         model.unsetFocusAt()
     }
 }
-
-/// It is necessary to determine a kind of content in terms of something "Hashable and Equatable"
-/// Actually, we could use `-> AnyHashable` type here as result type.
-/// But it is fine to use `String` here.
-public enum BlockContentTypeIdentifier {
-    public typealias Identifier = String
-
-    private static func subIdentifier(_ content: BlockContent.Text) -> Identifier {
-        switch content.contentType {
-        case .title: return ".title"
-        case .text: return ".text"
-        case .header: return ".header"
-        case .header2: return ".header2"
-        case .header3: return ".header3"
-        case .header4: return ".header4"
-        case .quote: return ".quote"
-        case .checkbox: return ".checkbox"
-        case .bulleted: return ".bulleted"
-        case .numbered: return ".numbered"
-        case .toggle: return ".toggle"
-        case .code: return ".code"
-        }
-    }
-
-    public static func identifier(_ content: BlockContent) -> Identifier {
-        switch content {
-        case .smartblock(_): return ".smartblock"
-        case let .text(value): return ".text" + self.subIdentifier(value)
-        case .file(_): return ".file"
-        case .divider(_): return ".divider"
-        case .bookmark(_): return ".bookmark"
-        case .link(_): return ".link"
-        case .layout(_): return ".layout"
-        }
-    }
-}
