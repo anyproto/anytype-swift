@@ -284,6 +284,13 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
             return true
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+
+        guard let blockViewModel = dataSource?.itemIdentifier(for: indexPath) else { return nil }
+        return blockViewModel.contextMenuInteraction()
+    }
 }
 
 // MARK: TODO: Remove later.

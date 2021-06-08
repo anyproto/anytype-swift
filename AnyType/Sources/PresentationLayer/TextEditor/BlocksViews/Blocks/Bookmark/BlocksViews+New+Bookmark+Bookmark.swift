@@ -686,7 +686,6 @@ extension Namespace.ViewModel {
         /// UIContentConfiguration
         func makeContentView() -> UIView & UIContentView {
             let view = ContentView(configuration: self)
-            self.contextMenuHolder?.addContextMenuIfNeeded(view)
             return view
         }
         
@@ -766,7 +765,6 @@ private extension Namespace.ViewModel {
         }
         
         private func applyNewConfiguration() {
-            currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
             switch self.currentConfiguration.information.content {
             case let .bookmark(value): self.handle(value)
             default: return

@@ -38,7 +38,6 @@ final class VideoBlockContentView: UIView, UIContentView {
         self.currentConfiguration = configuration
         super.init(frame: .zero)
         self.setup()
-        self.currentConfiguration.blockViewModel?.addContextMenuIfNeeded(self)
         switch self.currentConfiguration.state {
         case .done:
             self.addVideoViewAndRemoveEmptyView()
@@ -105,7 +104,6 @@ final class VideoBlockContentView: UIView, UIContentView {
     }
     
     private func applyNewConfiguration(oldState: VideoBlockContentViewConfiguration.State) {
-        self.currentConfiguration.blockViewModel?.addContextMenuIfNeeded(self)
         switch (oldState, self.currentConfiguration.state) {
         case (.done, .done):
             self.setVideoURL()

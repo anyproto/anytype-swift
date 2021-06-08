@@ -28,7 +28,6 @@ extension CodeBlockContentConfiguration: UIContentConfiguration {
 
     func makeContentView() -> UIView & UIContentView {
         let view: CodeBlockContentView = .init(configuration: self)
-        viewModel?.addContextMenuIfNeeded(view)
         return view
     }
 

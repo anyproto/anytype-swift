@@ -82,21 +82,12 @@ class DividerBlockContentView: UIView & UIContentView {
         self.apply(configuration: configuration)
     }
     
-    private func apply(configuration: DividerBlockContentConfiguration, forced: Bool) {
-        if forced {
-            self.currentConfiguration?.contextMenuHolder?.addContextMenuIfNeeded(self)
-        }
-    }
-    
     private func apply(configuration: DividerBlockContentConfiguration) {
         guard self.currentConfiguration != configuration else {
-            self.apply(configuration: configuration, forced: true)
             return
         }
-        
         self.currentConfiguration = configuration
-        self.apply(configuration: configuration, forced: true)
-        
+
         self.cleanupOnNewConfiguration()
         switch self.currentConfiguration.information.content {
         case let .divider(value):

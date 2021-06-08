@@ -80,7 +80,6 @@ extension BlocksViews.Unknown.Label.ViewModel {
         /// UIContentConfiguration
         func makeContentView() -> UIView & UIContentView {
             let view = ContentView(configuration: self)
-            self.contextMenuHolder?.addContextMenuIfNeeded(view)
             return view
         }
         

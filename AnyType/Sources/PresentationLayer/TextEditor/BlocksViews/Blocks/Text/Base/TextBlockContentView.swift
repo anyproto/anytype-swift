@@ -191,8 +191,6 @@ final class TextBlockContentView: UIView & UIContentView {
         setupForText()
         subscriptions.removeAll()
 
-        self.currentConfiguration.viewModel.addContextMenuIfNeeded(self)
-
         // it's important to clean old attributed string
         textView.textView.attributedText = nil
         textView.coordinator = makeCoordinator()

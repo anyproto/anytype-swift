@@ -51,8 +51,8 @@ final class BlockActionsHandlersFacade {
     func setup() {
         self.reactionPublisher = self.reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
         // config block action service with completion that send value to subscriber (EditorModule.Document.ViewController.ViewModel)
-        _ = self.service.configured { [weak self] (actionType, value) in
-            self?.reactionSubject.send(.shouldHandleEvent(.init(actionType: actionType, events: value)))
+        _ = self.service.configured { [weak self] (actionType, events) in
+            self?.reactionSubject.send(.shouldHandleEvent(.init(actionType: actionType, events: events)))
         }
     }
 

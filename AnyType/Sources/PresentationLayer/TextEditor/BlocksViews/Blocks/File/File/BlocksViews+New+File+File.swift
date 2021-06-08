@@ -12,8 +12,7 @@ extension Namespace {
     final class ViewModel: BlocksViews.File.Base.ViewModel {
         
         override func makeContentConfiguration() -> UIContentConfiguration {
-            var configuration = ContentConfiguration.init(block.blockModel.information)
-            configuration.contextMenuHolder = self
+            let configuration = ContentConfiguration.init(block.blockModel.information)
             return configuration
         }
         
@@ -423,8 +422,7 @@ extension Namespace.ViewModel {
         }
         
         let information: BlockInformation
-        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
-        
+
         init(_ information: BlockInformation) {
             /// We should warn if we have incorrect content type (?)
             /// Don't know :(
@@ -443,7 +441,6 @@ extension Namespace.ViewModel {
         /// UIContentConfiguration
         func makeContentView() -> UIView & UIContentView {
             let view = ContentView(configuration: self)
-            self.contextMenuHolder?.addContextMenuIfNeeded(view)
             return view
         }
         
@@ -506,7 +503,6 @@ private extension Namespace.ViewModel {
         }
         
         private func applyNewConfiguration() {
-            currentConfiguration.contextMenuHolder?.addContextMenuIfNeeded(self)
             switch self.currentConfiguration.information.content {
             case let .file(value):
                 handle(value)

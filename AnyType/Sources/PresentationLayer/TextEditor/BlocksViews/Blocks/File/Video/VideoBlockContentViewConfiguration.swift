@@ -26,7 +26,6 @@ extension VideoBlockContentViewConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         let view: VideoBlockContentView = .init(configuration: self)
-        self.blockViewModel?.addContextMenuIfNeeded(view)
         return view
     }
     

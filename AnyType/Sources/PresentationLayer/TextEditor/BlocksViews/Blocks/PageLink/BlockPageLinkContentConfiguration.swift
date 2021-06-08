@@ -17,7 +17,6 @@ struct BlockPageLinkContentConfiguration: UIContentConfiguration, Hashable {
 
     func makeContentView() -> UIView & UIContentView {
         let view = BlockPageLinkContentView(configuration: self)
-        self.viewModel?.addContextMenuIfNeeded(view)
         return view
     }
 

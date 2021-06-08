@@ -16,7 +16,6 @@ class BaseBlockViewModel: ObservableObject {
         self.block = block
         
         setupPublishers()
-        setupSubscriptions()
     }
     
     // MARK: - Subclass / Blocks
@@ -134,21 +133,10 @@ class BaseBlockViewModel: ObservableObject {
         self.actionsPayloadPublisher = Publishers.Merge3(actionsPayloadPublisher.eraseToAnyPublisher(), toolbarActionPublisher.eraseToAnyPublisher(), marksPaneActionPublisher.eraseToAnyPublisher()).eraseToAnyPublisher()
     }
     
-    // MARK: - Setup / Subscriptions
-
-    private func setupSubscriptions() {
-        self.contextualMenuInteractor.provider = self
-        self.contextualMenuInteractor.actionSubject.sink { [weak self] (value) in
-            self?.handle(contextualMenuAction: value)
-        }.store(in: &self.subscriptions)
-    }
-    
     // MARK: - Contextual Menu
 
     private var subscriptions: Set<AnyCancellable> = []
-    private var contextualMenuInteractor: ContextualMenuInteractor = .init()
-    weak var contextualMenuDelegate: UIContextMenuInteractionDelegate? { self.contextualMenuInteractor }
-                    
+
     // MARK: - Indentation
     func indentationLevel() -> Int {
         min(block.indentationLevel, Constants.maxIndentationLevel)
@@ -236,14 +224,6 @@ extension BaseBlockViewModel {
     
     func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) {
         self.actionsPayloadSubject = actionsPayloadSubject
-        /// Discussion:
-        /// Do we have here retain cycle?
-        /// I guess that we don't have.
-        /// Because (self.flatMap) here stands for Optional<Self> and this is value type.
-        /// Next, we call function from Optional<Self>: `.flatMap`
-//        let toolbarPublisher = self.toolbarActionPublisher.map({ [weak self] value in
-//            self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
-//        }).safelyUnwrapOptionals()
         
         let toolbarPublisher = self.toolbarActionPublisher.map({ [weak self] value -> ActionsPayload? in
             guard let block = self?.block else { return nil }
@@ -254,12 +234,6 @@ extension BaseBlockViewModel {
             self.flatMap({ActionsPayload.marksPane(.init(model: $0.block, action: value))})
         }).safelyUnwrapOptionals()
 
-
-        /// Discussion:
-        /// Do we have here retain cycle?
-        /// `toolbarPublisher` is stored in our property, yes.
-        /// However, we use some transforms on our publisher.
-//        self.actionsPayloadSubjectSubscription = toolbarPublisher.subscribe(self.actionsPayloadSubject)
         let allInOnePublisher = Publishers.Merge(toolbarPublisher, marksPanePublisher)
         self.actionsPayloadSubjectSubscription = allInOnePublisher.sink(receiveValue: { [weak self] (value) in
             self?.actionsPayloadSubject.send(value)
@@ -267,32 +241,31 @@ extension BaseBlockViewModel {
     }
 }
 
-// MARK: - UIKit / Context menu embedding
+// MARK: - Contextual Menu
 
 extension BaseBlockViewModel {
-    /// We need this method, because it goes insane if you add hundreds of interactions.
-    /// True story.
-    ///
-    /// HINT: We could add setter/getter `self.delegate` for `OurContextMenuInteraction` and update only delegate instead of add/removing.
-    func addContextMenuIfNeeded(_ view: UIView) {
-        self.updateContextMenu(view)
-    }
 
-    private func addContextMenu(_ view: UIView) {
-        if let delegate = self.contextualMenuDelegate {
-            let interaction = OurContextMenuInteraction.init(delegate: delegate)
-            view.addInteraction(interaction)
-        }
-    }
+    func contextMenuInteraction() -> UIContextMenuConfiguration? {
+        UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { [weak self] (value) -> UIMenu? in
+            guard let menu = self?.makeContextualMenu() else { return nil }
 
-    private func updateContextMenu(_ view: UIView) {
-        if let interaction = view.interactions.first(where: {$0 is OurContextMenuInteraction}) as? OurContextMenuInteraction {
-            if let delegate = self.contextualMenuDelegate {
-                interaction.update(delegate: delegate)
+            let uiActions = menu.children.map { action -> UIAction in
+                var identifier: UIAction.Identifier? = nil
+                if let identifierStr = action.identifier {
+                    identifier = UIAction.Identifier(identifierStr)
+                }
+
+                let action = UIAction(title: action.payload.title,
+                                      image: action.payload.currentImage,
+                                      identifier: identifier,
+                                      state: .off) { action in
+                    if let identifier = BlocksViews.ContextualMenu.MenuAction.Resources.IdentifierBuilder.action(for: action.identifier.rawValue) {
+                        self?.handle(contextualMenuAction: identifier)
+                    }
+                }
+                return action
             }
-        }
-        else {
-            self.addContextMenu(view)
+            return UIMenu(title: menu.title, children: uiActions)
         }
     }
 }
