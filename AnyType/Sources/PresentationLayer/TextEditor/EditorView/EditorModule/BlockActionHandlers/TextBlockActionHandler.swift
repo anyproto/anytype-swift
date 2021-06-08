@@ -184,10 +184,15 @@ final class TextBlockActionHandler {
                 let previousBlockId = previousModel.blockId
 
                 self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
-                    .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setTextMerge(.init(blockId: previousBlockId)),
-                        .setFocus(.init(blockId: previousBlockId, position: .end))
-                    ])
+                    var ourEvents = [OurEvent]()
+                    if case let .text(text) = previousModel.blockModel.information.content {
+                        let range = NSRange(location: text.attributedText.length, length: 0)
+                        ourEvents.append(contentsOf: [
+                            .setTextMerge(.init(blockId: previousBlockId)),
+                            .setFocus(.init(blockId: previousBlockId, position: .at(range)))
+                        ])
+                    }
+                    return PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: ourEvents)
                 }
                 break
 
