@@ -4,10 +4,11 @@ import Combine
 
 extension BlockTextView {
     
-    enum ContextualMenuAction {
-        case style
-        case color
-        case background
+    // Menu displayed while text is selected
+    enum ContextMenuAction: CaseIterable {
+        case bold
+        case italic
+        case strikethrough
     }
     
 }
@@ -33,8 +34,8 @@ final class TextViewWithPlaceholder: UITextView {
     
     // MARK: - Publishers
     
-    private let contextualMenuSubject: PassthroughSubject<BlockTextView.ContextualMenuAction, Never> = .init()
-    private(set) var contextualMenuPublisher: AnyPublisher<BlockTextView.ContextualMenuAction, Never> = .empty()
+    private let contextMenuSubject: PassthroughSubject<BlockTextView.ContextMenuAction, Never> = .init()
+    private(set) var contextMenuPublisher: AnyPublisher<BlockTextView.ContextMenuAction, Never> = .empty()
 
     private let firstResponderChangeSubject: PassthroughSubject<TextViewFirstResponderChange, Never> = .init()
     private(set) var firstResponderChangePublisher: AnyPublisher<TextViewFirstResponderChange, Never> = .empty()
@@ -136,7 +137,7 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupPublishers() {
-        self.contextualMenuPublisher = self.contextualMenuSubject.eraseToAnyPublisher()
+        self.contextMenuPublisher = self.contextMenuSubject.eraseToAnyPublisher()
         self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
     }
 
@@ -167,20 +168,23 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupMenu() {
-        UIMenuController.shared.menuItems = [
-            UIMenuItem(
-                title: "Style".localized,
-                action: #selector(contextualMenuItemDidSelectedForStyle)
-            ),
-            UIMenuItem(
-                title: "Color".localized,
-                action: #selector(contextualMenuItemDidSelectedForColor)
-            ),
-            UIMenuItem(
-                title: "Background".localized,
-                action: #selector(contextualMenuItemDidSelectedForBackground)
+        UIMenuController.shared.menuItems = BlockTextView.ContextMenuAction.allCases.map { item in
+            let selector: Selector = {
+                switch item {
+                case .bold:
+                    return #selector(didSelecteContextMenuActionBold)
+                case .italic:
+                    return #selector(didSelecteContextMenuActionItalic)
+                case .strikethrough:
+                    return #selector(didSelecteContextMenuActionStrikethrough)
+                }
+            }()
+            
+            return UIMenuItem(
+                title: item.title,
+                action: selector
             )
-        ]
+        }
     }
     
 }
@@ -189,16 +193,16 @@ private extension TextViewWithPlaceholder {
 
 extension TextViewWithPlaceholder {
     
-    @objc private func contextualMenuItemDidSelectedForStyle() {
-        self.contextualMenuSubject.send(.style)
+    @objc private func didSelecteContextMenuActionBold() {
+        contextMenuSubject.send(.bold)
     }
     
-    @objc private func contextualMenuItemDidSelectedForColor() {
-        self.contextualMenuSubject.send(.color)
+    @objc private func didSelecteContextMenuActionItalic() {
+        contextMenuSubject.send(.italic)
     }
     
-    @objc private func contextualMenuItemDidSelectedForBackground() {
-        self.contextualMenuSubject.send(.background)
+    @objc private func didSelecteContextMenuActionStrikethrough() {
+        contextMenuSubject.send(.strikethrough)
     }
     
 }
@@ -223,6 +227,23 @@ extension TextViewWithPlaceholder {
     
     func update(placeholder: NSAttributedString?) {
         self.placeholderLabel.attributedText = placeholder
+    }
+    
+}
+
+// MARK: - ContextMenuAction
+
+private extension BlockTextView.ContextMenuAction {
+    
+    var title: String {
+        switch self {
+        case .bold:
+            return "Bold".localized
+        case .italic:
+            return "Italic".localized
+        case .strikethrough:
+            return "Strikethrough".localized
+        }
     }
     
 }

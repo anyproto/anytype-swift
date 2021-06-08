@@ -21,7 +21,16 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) var detailsViewModel: DocumentDetailsViewModel?
     
     /// User Interaction Processor
-    private lazy var oldblockActionHandler = BlockActionsHandlersFacade(documentViewInteraction: self)
+    private lazy var oldblockActionHandler = BlockActionsHandlersFacade(
+        newTextBlockActionHandler: { [weak self] action, block in
+            self?.blockActionHandler?.handleBlockAction(
+                action,
+                block: block,
+                completion: nil
+            )
+        },
+        documentViewInteraction: self
+    )
     private let listBlockActionHandler = ListBlockActionHandler()
     private lazy var blockActionHandler = BlockActionHandler(
         documentId: document.documentId,

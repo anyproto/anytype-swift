@@ -26,7 +26,7 @@ final class BlockTextView: UIView {
             coordinator?.switchInputs(textView)
             coordinator?.configure(
                 textView,
-                contextualMenuStream: textView.contextualMenuPublisher
+                contextualMenuStream: textView.contextMenuPublisher
             )
             // When sending signal with send() in textView
             // textStorageEventsSubject subscribers installed

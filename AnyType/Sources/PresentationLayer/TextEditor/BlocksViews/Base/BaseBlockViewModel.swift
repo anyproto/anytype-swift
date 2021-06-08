@@ -453,9 +453,11 @@ extension BaseBlockViewModel {
 /// Requirement: `Blocks ViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.
 /// We could send events to `userActionPublisher`.
 extension BaseBlockViewModel: BlocksViewsUserActionsEmittingProtocol {
+    
     func send(userAction: BlocksViews.UserAction) {
         self.userActionSubject.send(userAction)
     }
+    
 }
 
 /// Requirement: `BlocksViewsUserActionsSubscribingProtocol` is necessary for routing and outer world.

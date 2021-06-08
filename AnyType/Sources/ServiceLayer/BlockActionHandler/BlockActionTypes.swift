@@ -14,7 +14,7 @@ extension BlockActionHandler {
         case turnInto(BlockContent.Text.ContentType)
         case setTextColor(UIColor)
         case setBackgroundColor(UIColor)
-        case toggleFontStyle(TextAttributesType)
+        case toggleFontStyle(TextAttributesType, NSRange = NSRange(location: 0, length: 0))
         case setAlignment(BlockInformationAlignment)
         case setLink(String)
     }

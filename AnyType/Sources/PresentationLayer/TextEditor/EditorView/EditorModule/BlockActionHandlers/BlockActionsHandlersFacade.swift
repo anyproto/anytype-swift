@@ -16,19 +16,34 @@ final class BlockActionsHandlersFacade {
     private var indexWalker: LinearIndexWalker?
     private weak var documentViewInteraction: DocumentViewInteraction?
     
-    private lazy var textBlockActionHandler: TextBlockActionHandler = .init(contextId: self.documentId, service: service, indexWalker: indexWalker)
-    private lazy var toolbarBlockActionHandler: ToolbarBlockActionHandler = .init(service: service, indexWalker: indexWalker)
-    private lazy var marksPaneBlockActionHandler: MarksPaneBlockActionHandler = .init(documentViewInteraction: self.documentViewInteraction,
-                                                                                      service: service,
-                                                                                      contextId: self.documentId,
-                                                                                      subject: reactionSubject)
+    private let newTextBlockActionHandler: ((BlockActionHandler.ActionType, BlockModelProtocol) -> Void)
+    private lazy var textBlockActionHandler = TextBlockActionHandler(
+        contextId: self.documentId,
+        service: service,
+        indexWalker: indexWalker
+    )
+    
+    private lazy var toolbarBlockActionHandler = ToolbarBlockActionHandler(
+        service: service,
+        indexWalker: indexWalker
+    )
+    
+    private lazy var marksPaneBlockActionHandler = MarksPaneBlockActionHandler(
+        documentViewInteraction: self.documentViewInteraction,
+        service: service,
+        contextId: self.documentId,
+        subject: reactionSubject
+    )
+    
     private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
     private lazy var userActionHandler: UserActionHandler = .init(service: service)
 
     private let reactionSubject: PassthroughSubject<BlockActionService.Reaction?, Never> = .init()
     private(set) var reactionPublisher: AnyPublisher<BlockActionService.Reaction, Never> = .empty()
 
-    init(documentViewInteraction: DocumentViewInteraction) {
+    init(newTextBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
+         documentViewInteraction: DocumentViewInteraction) {
+        self.newTextBlockActionHandler = newTextBlockActionHandler
         self.documentViewInteraction = documentViewInteraction
         self.setup()
     }
@@ -69,7 +84,17 @@ final class BlockActionsHandlersFacade {
         case let .marksPane(value): self.marksPaneBlockActionHandler.handlingMarksPaneAction(value.model, value.action)
         case let .textView(value):
             switch value.action {
-            case let .textView(action): textBlockActionHandler.handlingTextViewAction(value.model, action)
+            case let .textView(action):
+                guard case let .inputAction(.changeTextStyle(styleAction, range)) = action else {
+                    textBlockActionHandler.handlingTextViewAction(value.model, action)
+                    return
+                }
+                
+                newTextBlockActionHandler(
+                    .toggleFontStyle(styleAction.asActionType, range),
+                    value.model.blockModel
+                )
+                
             case let .buttonView(action):
                 self.buttonBlockActionHandler.handlingButtonViewAction(value.model, action)
             }
@@ -124,4 +149,21 @@ extension BlockActionsHandlersFacade {
             }
         }
     }
+}
+
+// MARK: - BlockTextView.ContextMenuAction
+
+private extension BlockTextView.ContextMenuAction {
+    
+    var asActionType: BlockActionHandler.ActionType.TextAttributesType {
+        switch self {
+        case .bold:
+            return .bold
+        case .italic:
+            return .italic
+        case .strikethrough:
+            return .strikethrough
+        }
+    }
+    
 }

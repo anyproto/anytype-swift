@@ -51,6 +51,8 @@ final class TextBlockActionHandler {
                             """
                         )
                 { _ in }.store(in: &self.subscriptions)
+        case .changeTextStyle:
+            assertionFailure("We handle this update in `BlockActionHandler`")
         }
     }
 

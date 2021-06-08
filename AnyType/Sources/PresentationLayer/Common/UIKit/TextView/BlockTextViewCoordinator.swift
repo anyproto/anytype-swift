@@ -168,16 +168,28 @@ extension BlockTextViewCoordinator {
     /// TODO: Put textView into it.
     func configure(
         _ view: UITextView,
-        contextualMenuStream: AnyPublisher<BlockTextView.ContextualMenuAction, Never>
+        contextualMenuStream: AnyPublisher<BlockTextView.ContextMenuAction, Never>
     ) {
-        self.contextualMenuSubscription = Publishers.CombineLatest(Just(view), contextualMenuStream)
-            .sink { [weak self] tuple in
-                let (view, action) = tuple
-                let range = view.selectedRange
-                let attributedText = view.textStorage
-                self?.updateMarksInputView((range, attributedText, view, action))
-                self?.switchInputs(view)
-            }
+        self.contextualMenuSubscription = Publishers.CombineLatest(
+            Just(view),
+            contextualMenuStream
+        )
+        .sink { [weak self] (view, action) in
+            guard let self = self else { return }
+            
+            let range = view.selectedRange
+            let textStorage = view.textStorage
+            
+            self.userInteractionDelegate?.didReceiveAction(
+                BlockTextView.UserAction.inputAction(
+                    BlockTextView.UserAction.InputAction.changeTextStyle(action, range)
+                )
+            )
+            
+            // looks like following functions do nothing
+            self.updateMarksInputView((range, textStorage, view, action))
+            self.switchInputs(view)
+        }
     }
     
     func focusPosition() -> BlockFocusPosition? {
@@ -284,11 +296,11 @@ extension BlockTextViewCoordinator {
         marksToolbarInputView.viewModel.update(range: range, attributedText: storage)
     }
     
-    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, BlockTextView.ContextualMenuAction)) {
+    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, BlockTextView.ContextMenuAction)) {
         let (range, storage, textView, action) = quadruple
         
         updateMarksInputView((range, storage, textView))
-        marksToolbarInputView.viewModel.update(category: action.asCategory)
+        action.asCategory.flatMap { marksToolbarInputView.viewModel.update(category: $0) }
     }
     
     func updateMarksInputView(_ triple: (NSRange, NSTextStorage, UITextView)) {
@@ -545,14 +557,10 @@ private extension MarksPane.Main.Panes.StylePane.Alignment.Action {
 
 // MARK: - BlockTextView.ContextualMenuAction
 
-private extension BlockTextView.ContextualMenuAction {
+private extension BlockTextView.ContextMenuAction {
     
-    var asCategory: MarksPane.Main.Section.Category {
-        switch self {
-        case .style: return .style
-        case .color: return .textColor
-        case .background: return .backgroundColor
-        }
+    var asCategory: MarksPane.Main.Section.Category? {
+        return nil
     }
     
 }

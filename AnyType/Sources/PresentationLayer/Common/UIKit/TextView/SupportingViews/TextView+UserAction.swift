@@ -12,15 +12,16 @@ import UIKit
 
 // MARK: UserActions
 extension BlockTextView {
+    
     public enum UserAction {
-        case
-        showStyleMenu,
-        inputAction(InputAction),
-        keyboardAction(KeyboardAction),
-        addBlockAction,
-        showMultiActionMenuAction,
-        changeCaretPosition(NSRange)
+        case showStyleMenu
+        case inputAction(InputAction)
+        case keyboardAction(KeyboardAction)
+        case addBlockAction
+        case showMultiActionMenuAction
+        case changeCaretPosition(NSRange)
     }
+    
 }
 
 // MARK: - InputAction
@@ -28,6 +29,7 @@ extension BlockTextView.UserAction {
     // Actions with text
     enum InputAction {
         case changeText(NSAttributedString)
+        case changeTextStyle(BlockTextView.ContextMenuAction, NSRange)
     }
 }
 

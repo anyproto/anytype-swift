@@ -25,9 +25,9 @@ class BlockActionHandler {
 
     // MARK: - Public methods
 
-    func handleBlockAction(_ action: ActionType, block: BlockModelProtocol, completion: @escaping Completion) {
+    func handleBlockAction(_ action: ActionType, block: BlockModelProtocol, completion:  Completion?) {
         service.configured { actionType, events in
-            completion(actionType, events)
+            completion?(actionType, events)
         }
 
         switch action {
@@ -38,8 +38,8 @@ class BlockActionHandler {
             setBlockColor(block: block.information, color: color, completion: completion)
         case let .setBackgroundColor(color):
             service.setBackgroundColor(block: block.information, color: color)
-        case let .toggleFontStyle(fontAttributes):
-            handleFontAction(for: block, range: NSRange.init(location: 0, length: 0), fontAction: fontAttributes)
+        case let .toggleFontStyle(fontAttributes, range):
+            handleFontAction(for: block, range: range, fontAction: fontAttributes)
         case let .setAlignment(alignment):
             setAlignment(block: block.information, alignment: alignment, completion: completion)
         default:
@@ -49,7 +49,7 @@ class BlockActionHandler {
 }
 
 private extension BlockActionHandler {
-    func setBlockColor(block: BlockInformation, color: UIColor, completion: @escaping Completion) {
+    func setBlockColor(block: BlockInformation, color: UIColor, completion: Completion?) {
         // Important: we don't send command if color is wrong
         guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(color, background: false) else {
             assertionFailure("Wrong UIColor for setBlockColor command")
@@ -60,20 +60,20 @@ private extension BlockActionHandler {
         listService.setBlockColor(contextID: self.documentId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("setBlockColor") { value in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                completion(nil, value)
+                completion?(nil, value)
             }
             .store(in: &self.subscriptions)
     }
 
     func setAlignment(block: BlockInformation,
                       alignment: BlockInformationAlignment,
-                      completion: @escaping Completion) {
+                      completion: Completion?) {
         let blockIds = [block.id]
 
         listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                completion(nil, value)
+                completion?(nil, value)
             }
             .store(in: &self.subscriptions)
     }
