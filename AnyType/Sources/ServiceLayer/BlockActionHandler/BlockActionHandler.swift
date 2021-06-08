@@ -1,38 +1,7 @@
-//
-//  BlockActionHandler.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 05.05.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import UIKit
 import BlocksModels
 import Combine
 
-
-// MARK: - Action Type
-
-extension BlockActionHandler {
-    /// Action on style view
-    enum ActionType: Hashable {
-        enum TextAttributesType {
-            case bold
-            case italic
-            case strikethrough
-            case keyboard
-        }
-
-        case turnInto(BlockContent.Text.ContentType)
-        case setTextColor(UIColor)
-        case setBackgroundColor(UIColor)
-        case toggleFontStyle(TextAttributesType)
-        case setAlignment(BlockInformationAlignment)
-        case setLink(String)
-    }
-}
-
-// MARK: - BlockActionHandler
 
 /// Actions from block
 class BlockActionHandler {

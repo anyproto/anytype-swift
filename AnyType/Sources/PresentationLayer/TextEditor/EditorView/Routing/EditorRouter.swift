@@ -1,17 +1,9 @@
-//
-//  EditorRouter.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 26.05.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
-
+import BlocksModels
 
 /// Presenting new view on screen in editor
 protocol EditorRouterProtocol {
-    func showPage(with id: String)
+    func showPage(with id: BlockId)
 }
 
 
@@ -23,8 +15,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
 
     /// Show page
-    /// - Parameter id: page id
-    func showPage(with id: String) {
+    func showPage(with id: BlockId) {
         let presentedDocumentView = EditorModuleContainerViewBuilder.view(id: id)
         // TODO: - show?? Really?
         preseningViewController?.show(presentedDocumentView, sender: nil)

@@ -5,55 +5,38 @@ import os
 import BlocksModels
 
 
-extension DocumentEditorViewModel {
-    enum State {
-        case loading
-        case empty
-        case ready
-    }
-    var state: State {
-        switch self.internalState {
-        case .loading: return .loading
-        default: return self.blocksViewModels.isEmpty ? .empty : .ready
-        }
-    }
-}
- 
 class DocumentEditorViewModel: ObservableObject {
-    typealias BlocksUserAction = BlocksViews.UserAction
-
     /// View Input
     weak var viewInput: EditorModuleDocumentViewInput?
     /// Router for current page
     var editorRouter: EditorRouterProtocol?
+    
+    let document: BaseDocumentProtocol = BaseDocument()
 
     /// Service
-    private var blockActionsService: BlockActionsServiceSingle = .init()
-    private lazy var blockActionHandler = BlockActionHandler(
-        documentId: document.documentId,
-        documentViewInteraction: self
-    )
+    private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private lazy var blocksConverter = CompoundViewModelConverter(document: document)
-
-    let document: BaseDocumentProtocol = BaseDocument()
 
     /// DocumentDetailsViewModel
     private(set) var detailsViewModel: DocumentDetailsViewModel?
     
     /// User Interaction Processor
-    private lazy var oldblockActionHandler: BlockActionsHandlersFacade = .init(documentViewInteraction: self)
-    private var listBlockActionHandler: ListBlockActionHandler = .init()
-
+    private lazy var oldblockActionHandler = BlockActionsHandlersFacade(documentViewInteraction: self)
+    private let listBlockActionHandler = ListBlockActionHandler()
+    private lazy var blockActionHandler = BlockActionHandler(
+        documentId: document.documentId,
+        documentViewInteraction: self
+    )
+    
     // Combine Subscriptions
-    private var subscriptions: Set<AnyCancellable> = .init()
+    private var subscriptions = Set<AnyCancellable>()
 
-    /// Selection Handler
-    private(set) var selectionHandler: EditorModuleSelectionHandlerProtocol?
+    let selectionHandler: EditorModuleSelectionHandlerProtocol
 
     private var listToolbarSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
 
-    private let publicUserActionSubject: PassthroughSubject<BlocksUserAction, Never> = .init()
-    lazy var publicUserActionPublisher: AnyPublisher<BlocksUserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
+    private let publicUserActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
+    lazy var publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
 
     private var publicActionsPayloadSubject: PassthroughSubject<BaseBlockViewModel.ActionsPayload, Never> = .init()
     lazy var publicActionsPayloadPublisher: AnyPublisher<BaseBlockViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
@@ -68,8 +51,6 @@ class DocumentEditorViewModel: ObservableObject {
 
     @Published var error: String?
 
-    // MARK: Page View Models
-
     /// Builders to build block views
     @Published private(set) var blocksViewModels: [BaseBlockViewModel] = [] {
         didSet {
@@ -78,7 +59,14 @@ class DocumentEditorViewModel: ObservableObject {
             }
         }
     }
+    
     private var internalState: State = .loading
+    var state: State {
+        switch self.internalState {
+        case .loading: return .loading
+        default: return self.blocksViewModels.isEmpty ? .empty : .ready
+        }
+    }
 
     /// We should update some items in place.
     /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
@@ -92,8 +80,8 @@ class DocumentEditorViewModel: ObservableObject {
 
     // MARK: - Initialization
     init(
-        documentId: String,
-        selectionHandler: EditorModuleSelectionHandlerProtocol?,
+        documentId: BlockId,
+        selectionHandler: EditorModuleSelectionHandlerProtocol,
         selectionPresenter: EditorSelectionToolbarPresenter
     ) {
         self.selectionHandler = selectionHandler

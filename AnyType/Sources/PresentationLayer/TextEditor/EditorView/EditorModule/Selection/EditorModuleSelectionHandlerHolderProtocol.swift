@@ -9,52 +9,52 @@ protocol EditorModuleSelectionHandlerHolderProtocol: EditorModuleHasSelectionHan
 
 // MARK: Selection / DocumentViewModel Protocol
 protocol EditorModuleHasSelectionHandlerProtocol: EditorModuleSelectionHandlerProtocol {
-    var selectionHandler: EditorModuleSelectionHandlerProtocol? {get}
+    var selectionHandler: EditorModuleSelectionHandlerProtocol {get}
 }
 
 extension EditorModuleHasSelectionHandlerProtocol {
     func selectionEnabled() -> Bool {
-        self.selectionHandler?.selectionEnabled() ?? false
+        selectionHandler.selectionEnabled()
     }
     
     func set(selectionEnabled: Bool) {
-        self.selectionHandler?.set(selectionEnabled: selectionEnabled)
+        selectionHandler.set(selectionEnabled: selectionEnabled)
     }
     
     func deselect(ids: [BlockId: BlockContentType]) {
-        self.selectionHandler?.deselect(ids: ids)
+        selectionHandler.deselect(ids: ids)
     }
     
     func select(ids: [BlockId: BlockContentType]) {
-        self.selectionHandler?.select(ids: ids)
+        selectionHandler.select(ids: ids)
     }
     
     func list() -> [BlockId] {
-        self.selectionHandler?.list() ?? []
+        selectionHandler.list()
     }
         
     func clear() {
-        self.selectionHandler?.clear()
+        selectionHandler.clear()
     }
     
     func selectionEventPublisher() -> AnyPublisher<SelectionEvent, Never> {
-        self.selectionHandler?.selectionEventPublisher() ?? .empty()
+        selectionHandler.selectionEventPublisher()
     }
     
     func set(selected: Bool, id: BlockId, type: BlockContentType) {
-        self.selectionHandler?.set(selected: selected, id: id, type: type)
+        selectionHandler.set(selected: selected, id: id, type: type)
     }
     
     func selected(id: BlockId) -> Bool {
-        self.selectionHandler?.selected(id: id) ?? false
+        selectionHandler.selected(id: id)
     }
 
     func selectionCellEvent(_ id: BlockId) -> EditorSelectionIncomingCellEvent {
-        self.selectionHandler?.selectionCellEvent(id) ?? .unknown
+        selectionHandler.selectionCellEvent(id)
     }
     
     func selectionCellEventPublisher(_ id: BlockId) -> AnyPublisher<EditorSelectionIncomingCellEvent, Never> {
-        self.selectionHandler?.selectionCellEventPublisher(id) ?? .empty()
+        selectionHandler.selectionCellEventPublisher(id)
     }
 }
 

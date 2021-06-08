@@ -357,6 +357,10 @@
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
+		3DBED671266F711000B9E9AB /* BlockActionServiceReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED670266F711000B9E9AB /* BlockActionServiceReaction.swift */; };
+		3DBED675266F720D00B9E9AB /* BlockActionServiceConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */; };
+		3DBED677266F731700B9E9AB /* DocumentEditorViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED676266F731700B9E9AB /* DocumentEditorViewState.swift */; };
+		3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareListener.swift */; };
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
@@ -929,6 +933,10 @@
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "AnyType/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
+		3DBED670266F711000B9E9AB /* BlockActionServiceReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceReaction.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceReaction.swift; sourceTree = SOURCE_ROOT; };
+		3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceConverter.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceConverter.swift; sourceTree = SOURCE_ROOT; };
+		3DBED676266F731700B9E9AB /* DocumentEditorViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentEditorViewState.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/DocumentEditorViewState.swift; sourceTree = SOURCE_ROOT; };
+		3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionTypes.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionTypes.swift; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
@@ -1758,8 +1766,9 @@
 				5338E7E425DC32E5008CB97D /* BlockActionHandlers */,
 				533341ED262E0D5100238121 /* ContainerView */,
 				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
-				3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */,
 				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
+				3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */,
+				3DBED676266F731700B9E9AB /* DocumentEditorViewState.swift */,
 			);
 			path = EditorModule;
 			sourceTree = "<group>";
@@ -2915,6 +2924,9 @@
 			children = (
 				53F820BF2648B257003FEB0B /* BlockActionService.swift */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
+				3DBED670266F711000B9E9AB /* BlockActionServiceReaction.swift */,
+				3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */,
+				3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */,
 			);
 			path = BlockActionHandler;
 			sourceTree = "<group>";
@@ -3654,6 +3666,7 @@
 				EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */,
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
 				5338E7F825DC736A008CB97D /* UserActionHandler.swift in Sources */,
+				3DBED671266F711000B9E9AB /* BlockActionServiceReaction.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
 				3DE6E3D226550FF8008FB0AF /* MultiSelectionPaneSelectAllViewModel.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,
@@ -3760,6 +3773,7 @@
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				0A0965E625BEF5B000C004BD /* DocumentViewBaseRouter.swift in Sources */,
 				5338E7FE25DD2F74008CB97D /* ListBlockActionHandler.swift in Sources */,
+				3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
 				0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */,
@@ -3812,6 +3826,7 @@
 				0A0965EA25BEF5B000C004BD /* ToolbarsRouter.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */,
+				3DBED677266F731700B9E9AB /* DocumentEditorViewState.swift in Sources */,
 				3DD67EFE2653ECDC0025ED6F /* MultiSelectionPaneToolbarViewModel.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
 				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
@@ -3990,6 +4005,7 @@
 				EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */,
 				EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */,
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
+				3DBED675266F720D00B9E9AB /* BlockActionServiceConverter.swift in Sources */,
 				0AAF8C2C2492355100C18D09 /* MarksPane+ViewController+Presentation.swift in Sources */,
 				0A9D49E0244905F2007F0992 /* BlocksViews+UserEvents+Protocol.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,

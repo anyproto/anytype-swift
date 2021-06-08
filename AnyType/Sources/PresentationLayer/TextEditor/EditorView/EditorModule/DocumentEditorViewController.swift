@@ -155,7 +155,7 @@ final class DocumentEditorViewController: UIViewController {
             self?.handleUpdateBlocks(blockIds: value)
         }.store(in: &self.subscriptions)
 
-        self.viewModel.selectionHandler?.selectionEventPublisher().sink(receiveValue: { [weak self] value in
+        self.viewModel.selectionHandler.selectionEventPublisher().sink(receiveValue: { [weak self] value in
             self?.handleSelection(event: value)
         }).store(in: &self.subscriptions)
     }

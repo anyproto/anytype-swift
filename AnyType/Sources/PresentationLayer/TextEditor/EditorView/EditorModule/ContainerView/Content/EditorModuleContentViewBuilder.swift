@@ -11,13 +11,13 @@ typealias EditorModuleContentModule = (
 
 enum EditorModuleContentViewBuilder {
     
-    static func сontent(id: String) -> EditorModuleContentModule {
-        let bottomMenuViewController = BottomMenuViewController()
+    static func сontent(id: BlockId) -> EditorModuleContentModule {
+        let bottomMenuController = BottomMenuViewController()
         
         let selectionHandler: EditorModuleSelectionHandlerProtocol = EditorSelectionHandler()
         
         let presenter = EditorSelectionToolbarPresenter(
-            bottomMenuViewController: bottomMenuViewController,
+            bottomMenuViewController: bottomMenuController,
             selectionEventPublisher:selectionHandler.selectionEventPublisher()
         )
         
@@ -27,13 +27,13 @@ enum EditorModuleContentViewBuilder {
             selectionPresenter: presenter
         )
         
-        let childViewController = DocumentEditorViewController(viewModel: editorViewModel)
-        editorViewModel.viewInput = childViewController
-        editorViewModel.editorRouter = EditorRouter(preseningViewController: childViewController)
+        let editorController = DocumentEditorViewController(viewModel: editorViewModel)
+        editorViewModel.viewInput = editorController
+        editorViewModel.editorRouter = EditorRouter(preseningViewController: editorController)
         
-        bottomMenuViewController.add(child: childViewController)
+        bottomMenuController.add(child: editorController)
         
-        return (bottomMenuViewController, editorViewModel.publicUserActionPublisher)
+        return (bottomMenuController, editorViewModel.publicUserActionPublisher)
     }
     
 }
