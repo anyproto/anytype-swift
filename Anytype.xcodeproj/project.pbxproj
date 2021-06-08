@@ -494,6 +494,13 @@
 		EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */; };
 		EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */; };
 		EA4ED4BF2630932600CF7937 /* DismissableInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */; };
+		EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A0266E5CB5004A820B /* FilterableItemsHolder.swift */; };
+		EA5521A9266E5D6D004A820B /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A5266E5D6D004A820B /* MentionView.swift */; };
+		EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A6266E5D6D004A820B /* MentionsViewController.swift */; };
+		EA5521AB266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A7266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift */; };
+		EA5521AC266E5D6D004A820B /* MentionWithEmojiContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A8266E5D6D004A820B /* MentionWithEmojiContentView.swift */; };
+		EA5521B1266E5E13004A820B /* MentionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B0266E5E13004A820B /* MentionsViewModel.swift */; };
+		EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B3266E5EE7004A820B /* MentionsView.swift */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
 		EA5FB429266A970F00DCD56C /* MentionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB423266A970E00DCD56C /* MentionSection.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
@@ -1073,6 +1080,13 @@
 		EA4AC465261CB701002E961E /* FileLoaderReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoaderReturnValue.swift; sourceTree = "<group>"; };
 		EA4AC46A261CBDE4002E961E /* FileLoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLoadingState.swift; sourceTree = "<group>"; };
 		EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissableInputAccessoryView.swift; sourceTree = "<group>"; };
+		EA5521A0266E5CB5004A820B /* FilterableItemsHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterableItemsHolder.swift; sourceTree = "<group>"; };
+		EA5521A5266E5D6D004A820B /* MentionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
+		EA5521A6266E5D6D004A820B /* MentionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
+		EA5521A7266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionWithEmojiContentConfiguration.swift; sourceTree = "<group>"; };
+		EA5521A8266E5D6D004A820B /* MentionWithEmojiContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionWithEmojiContentView.swift; sourceTree = "<group>"; };
+		EA5521B0266E5E13004A820B /* MentionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsViewModel.swift; sourceTree = "<group>"; };
+		EA5521B3266E5EE7004A820B /* MentionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsView.swift; sourceTree = "<group>"; };
 		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		EA5FB423266A970E00DCD56C /* MentionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionSection.swift; sourceTree = "<group>"; };
 		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
@@ -1731,6 +1745,7 @@
 		0A08D4C024AF81F30088ECC2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				EA5521AE266E5DA3004A820B /* Mention */,
 				0A08D4C324AF824D0088ECC2 /* CommonViews+ViewControllers.swift */,
 				0A08D4C524AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift */,
 			);
@@ -3269,6 +3284,7 @@
 		EA289B9E2629B24C00EA869F /* BlockActions */ = {
 			isa = PBXGroup;
 			children = (
+				EA5521A0266E5CB5004A820B /* FilterableItemsHolder.swift */,
 				EA5FB421266A970E00DCD56C /* Mention */,
 				EA289B9F2629B25C00EA869F /* BlockMenuItems */,
 			);
@@ -3300,11 +3316,24 @@
 			path = TurnIntoSelection;
 			sourceTree = "<group>";
 		};
+		EA5521AE266E5DA3004A820B /* Mention */ = {
+			isa = PBXGroup;
+			children = (
+				EA5521A6266E5D6D004A820B /* MentionsViewController.swift */,
+				EA5521A7266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift */,
+				EA5521A8266E5D6D004A820B /* MentionWithEmojiContentView.swift */,
+				EA5FB423266A970E00DCD56C /* MentionSection.swift */,
+				EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */,
+				EA5521B0266E5E13004A820B /* MentionsViewModel.swift */,
+				EA5521B3266E5EE7004A820B /* MentionsView.swift */,
+			);
+			path = Mention;
+			sourceTree = "<group>";
+		};
 		EA5FB421266A970E00DCD56C /* Mention */ = {
 			isa = PBXGroup;
 			children = (
-				EA5FB423266A970E00DCD56C /* MentionSection.swift */,
-				EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */,
+				EA5521A5266E5D6D004A820B /* MentionView.swift */,
 			);
 			path = Mention;
 			sourceTree = "<group>";
@@ -3620,6 +3649,7 @@
 				EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				0A0965EC25BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift in Sources */,
+				EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
@@ -3732,6 +3762,7 @@
 				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */,
+				EA5521AB266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
 				3DBED69D266FBABC00B9E9AB /* UnknownLabelResource.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
@@ -3796,6 +3827,7 @@
 				5338E7FE25DD2F74008CB97D /* ListBlockActionHandler.swift in Sources */,
 				3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
+				EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
 				0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */,
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
@@ -3815,6 +3847,7 @@
 				12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */,
 				3DE6E3D726551127008FB0AF /* MultiSelectionPaneSelectAllActions.swift in Sources */,
 				03CCADAE2304589E00701782 /* PinCodeValidator.swift in Sources */,
+				EA5521B1266E5E13004A820B /* MentionsViewModel.swift in Sources */,
 				3DB27C0A261B0E9C005E523C /* UnkeyedDecodingContainer.swift in Sources */,
 				0A996BBB23EDD102000FDC9C /* MainWindow.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
@@ -3846,6 +3879,7 @@
 				3D929B6226332ACA0063F1BE /* PageCellData.swift in Sources */,
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
 				0A0965EA25BEF5B000C004BD /* ToolbarsRouter.swift in Sources */,
+				EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */,
 				3DBED677266F731700B9E9AB /* DocumentEditorViewState.swift in Sources */,
@@ -3912,6 +3946,7 @@
 				3D568F892666C12700DC7881 /* ContentObjectAsEmptyPage.swift in Sources */,
 				3DB27C05261B0E9C005E523C /* Decoder.swift in Sources */,
 				EAC54F6925E97A5300B745A8 /* QuoteBlockLeadingView.swift in Sources */,
+				EA5521A9266E5D6D004A820B /* MentionView.swift in Sources */,
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				3D568F972666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift in Sources */,
@@ -3982,6 +4017,7 @@
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
 				3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */,
 				0ACAAD692588DD0F00DF1C82 /* ImageLoader.swift in Sources */,
+				EA5521AC266E5D6D004A820B /* MentionWithEmojiContentView.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,

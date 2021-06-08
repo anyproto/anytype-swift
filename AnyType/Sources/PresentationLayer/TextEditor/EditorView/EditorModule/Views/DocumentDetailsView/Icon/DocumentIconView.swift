@@ -88,7 +88,7 @@ extension DocumentIconView: ConfigurableView {
             height = Constants.Emoji.height
             cornerRadius = iconEmojiView.layer.cornerRadius
             
-            iconEmojiView.configure(model: iconEmoji)
+            iconEmojiView.configure(model: iconEmoji.value)
             showEmojiView()
         case let .imageId(imageId):
             height = Constants.Image.height

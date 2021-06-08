@@ -8,6 +8,14 @@ final class DocumentIconEmojiView: UIView {
         
     // MARK: Initialization
     
+    init(cornerRadius: CGFloat = Constants.cornerRadius,
+         font: UIFont = .systemFont(ofSize: 64)) {
+        super.init(frame: .zero)
+        setupView()
+        emojiLabel.font = font
+        layer.cornerRadius = cornerRadius
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -26,8 +34,8 @@ final class DocumentIconEmojiView: UIView {
 
 extension DocumentIconEmojiView: ConfigurableView {
     
-    func configure(model: IconEmoji) {
-        emojiLabel.text = model.value
+    func configure(model: String) {
+        emojiLabel.text = model
     }
     
 }
@@ -49,6 +57,7 @@ private extension DocumentIconEmojiView {
     func configureEmojiLabel() {
         emojiLabel.backgroundColor = .grayscale10
         emojiLabel.font = .systemFont(ofSize: 64) // Used only for emoji
+        emojiLabel.textColor = .secondaryTextColor
         emojiLabel.textAlignment = .center
         emojiLabel.adjustsFontSizeToFitWidth = true
         emojiLabel.isUserInteractionEnabled = false

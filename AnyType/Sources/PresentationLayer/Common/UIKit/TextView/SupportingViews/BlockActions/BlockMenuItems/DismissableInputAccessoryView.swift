@@ -2,8 +2,13 @@
 import UIKit
 
 class DismissableInputAccessoryView: UIView {
+
+    private enum Constants {
+        static let separatorHeight: CGFloat = 0.5
+    }
     
     let dismissHandler: () -> Void
+    private(set) weak var topSeparator: UIView?
     private var transparentView: UIView?
     
     init(frame: CGRect,
@@ -19,9 +24,31 @@ class DismissableInputAccessoryView: UIView {
     }
     
     override func didMoveToWindow() {
-        guard let window = window else { return }
+        guard let window = window else {
+            topSeparator?.removeFromSuperview()
+            topSeparator = nil
+            return
+        }
         transparentView?.removeFromSuperview()
+        topSeparator?.removeFromSuperview()
         addTransparentViewForDismissAction(parentView: window)
+        addTopSeparator()
+    }
+    
+    func didShow(from textView: UITextView) {}
+    
+    private func addTopSeparator() {
+        let topSeparator = UIView()
+        topSeparator.translatesAutoresizingMaskIntoConstraints = false
+        topSeparator.backgroundColor = .systemGray4
+        addSubview(topSeparator)
+        NSLayoutConstraint.activate([
+            topSeparator.topAnchor.constraint(equalTo: topAnchor),
+            topSeparator.heightAnchor.constraint(equalToConstant: Constants.separatorHeight),
+            topSeparator.leadingAnchor.constraint(equalTo: leadingAnchor),
+            topSeparator.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+        self.topSeparator = topSeparator
     }
     
     private func addTransparentViewForDismissAction(parentView: UIWindow) {

@@ -121,7 +121,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                      textView: textView,
                      accessoryView: coordinator.menuActionsAccessoryView,
                      inputView: nil)
-        coordinator.menuActionsAccessoryView?.blockMenuActionsHandler.didShowMenuView(from: textView)
+        coordinator.menuActionsAccessoryView?.didShow(from: textView)
         actionsViewTriggerSymbolPosition = textView.caretPosition()
     }
     
@@ -166,7 +166,6 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                                              textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
             self?.showMenuActionsView(coordinator: coordinator, textView: textView)
-            self?.actionsViewTriggerSymbolPosition = textView.caretPosition()
         })
         self.displayActionsViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)
