@@ -195,10 +195,14 @@ class BaseBlockViewModel: ObservableObject {
         switch contextualMenuAction {
         case let .general(value):
             switch value {
-            case .addBlockBelow: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject, input: nil))))
-            case .delete: self.toolbarActionSubject.send(.editBlock(.delete))
-            case .duplicate: self.toolbarActionSubject.send(.editBlock(.duplicate))
-            case .moveTo: break
+            case .addBlockBelow:
+                toolbarActionSubject.send(.addBlock(.text(.text)))
+            case .delete:
+                toolbarActionSubject.send(.editBlock(.delete))
+            case .duplicate:
+                toolbarActionSubject.send(.editBlock(.duplicate))
+            case .moveTo:
+                break
             }
         case let .specific(value):
             switch value {
