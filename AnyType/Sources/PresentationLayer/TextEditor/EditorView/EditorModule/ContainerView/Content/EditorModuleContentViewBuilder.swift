@@ -16,15 +16,9 @@ enum EditorModuleContentViewBuilder {
         
         let selectionHandler: EditorModuleSelectionHandlerProtocol = EditorSelectionHandler()
         
-        let presenter = EditorSelectionToolbarPresenter(
-            bottomMenuViewController: bottomMenuController,
-            selectionEventPublisher:selectionHandler.selectionEventPublisher()
-        )
-        
         let editorViewModel = DocumentEditorViewModel(
             documentId: id,
-            selectionHandler: selectionHandler,
-            selectionPresenter: presenter
+            selectionHandler: selectionHandler
         )
         
         let editorController = DocumentEditorViewController(viewModel: editorViewModel)

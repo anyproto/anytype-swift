@@ -76,21 +76,13 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = .empty()
     private var lastSetTextClosure: (() -> Void)?
     
-    // Used for subscription storage
-    private let selectionPresenter: EditorSelectionToolbarPresenter
 
     // MARK: - Initialization
     init(
         documentId: BlockId,
-        selectionHandler: EditorModuleSelectionHandlerProtocol,
-        selectionPresenter: EditorSelectionToolbarPresenter
+        selectionHandler: EditorModuleSelectionHandlerProtocol
     ) {
         self.selectionHandler = selectionHandler
-        self.selectionPresenter = selectionPresenter
-        
-        selectionPresenter.userAction.sink { [weak self] (value) in
-            self?.process(value)
-        }.store(in: &self.subscriptions)
         
         self.setupSubscriptions()
 
@@ -103,10 +95,6 @@ class DocumentEditorViewModel: ObservableObject {
         self.updateElementsPublisher = self.updateElementsSubject.eraseToAnyPublisher()
 
         self.obtainDocument(documentId: documentId)
-    }
-    
-    func setNavigationItem(_ item: UINavigationItem?) {
-        selectionPresenter.navigationItem = item
     }
 
     /// Apply last setText action, to ensure text was saved after document was closed
@@ -337,38 +325,6 @@ private extension DocumentEditorViewModel {
         case let .becomeFirstResponder(blockModel):
             document.userSession?.setFirstResponder(with: blockModel)
         case .toolbar, .marksPane, .userAction: return
-        }
-    }
-
-    func process(_ value: EditorSelectionToolbarPresenter.SelectionAction) {
-        switch value {
-        case let .selection(value):
-            switch value {
-            case let .selectAll(value):
-                switch value {
-                case .selectAll: self.selectAll()
-                case .deselectAll: self.deselectAll()
-                }
-            case .done(.done): self.set(selectionEnabled: false)
-            }
-        case let .toolbar(value):
-            let selectedIds = self.list()
-            switch value {
-            case let .turnInto(payload):
-                publicUserActionSubject.send(
-                    .toolbars(
-                        .turnIntoBlock(
-                            .init(output: self.listToolbarSubject, input: payload)
-                        )
-                    )
-                )
-            case .delete:
-                listActionsPayloadSubject.send(
-                    Toolbar(model: selectedIds, action: .editBlock(.delete))
-                )
-            case .copy:
-                break
-            }
         }
     }
 
