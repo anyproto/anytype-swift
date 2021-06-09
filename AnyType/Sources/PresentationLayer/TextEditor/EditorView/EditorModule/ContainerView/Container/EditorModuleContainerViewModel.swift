@@ -2,33 +2,25 @@ import Foundation
 import UIKit
 import Combine
 
-
-// MARK: Actions
-extension EditorModuleContainerViewModel {
-    /// An outgoing action that will come from this view model.
-    ///
-    /// Generally, corresponing `ViewController` of this `viewModel` will subscribe on these actions.
-    ///
-    enum Action {
-        case show(UIViewController)
-        case child(UIViewController)
-        case showDocument(EditorModuleContentModule)
-        case childDocument(EditorModuleContentModule)
-        case pop
-    }
-}
-
-// MARK: ViewModel
-class EditorModuleContainerViewModel {
-    private var router: DocumentViewBaseRouter
+final class EditorModuleContainerViewModel {
+    
+    // MARK: - Private variables
+    
+    private let router: DocumentViewBaseRouter
     private let routingProcessor: EditorContainerRoutingProcessor
     
     private var subscription: AnyCancellable?
     
+    // MARK: - Initializers
+    
     init(router: DocumentViewBaseRouter) {
         self.router = router
-        self.routingProcessor = EditorContainerRoutingProcessor(eventsPublisher: router.outputEventsPublisher)
+        self.routingProcessor = EditorContainerRoutingProcessor(
+            eventsPublisher: router.outputEventsPublisher
+        )
     }
+    
+    // MARK: - Internal functions
     
     /// And publish on actions that associated controller will handle.
     func actionPublisher() -> AnyPublisher<Action, Never> {
@@ -44,9 +36,29 @@ class EditorModuleContainerViewModel {
     }
 }
 
-// MARK: Configurations
+// MARK: - Configurations
+
 extension EditorModuleContainerViewModel {
+    
     func configured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) {
-        router.configured(userActionsStream: userActionsStream)
+        router.configure(userActionsStream: userActionsStream)
     }
+    
+}
+
+// MARK: - Actions
+
+extension EditorModuleContainerViewModel {
+    /// An outgoing action that will come from this view model.
+    ///
+    /// Generally, corresponing `ViewController` of this `viewModel` will subscribe on these actions.
+    ///
+    enum Action {
+        case show(UIViewController)
+        case child(UIViewController)
+        case showDocument(EditorModuleContentModule)
+        case childDocument(EditorModuleContentModule)
+        case pop
+    }
+    
 }

@@ -255,6 +255,7 @@
 		12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4054264AE455007B5074 /* LayoutAnchorType.swift */; };
 		12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4055264AE455007B5074 /* LayoutDimension.swift */; };
 		12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */; };
+		12E014D4266FCA7A008036B0 /* MainWindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */; };
 		3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */; };
@@ -848,6 +849,7 @@
 		12DE4054264AE455007B5074 /* LayoutAnchorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAnchorType.swift; sourceTree = "<group>"; };
 		12DE4055264AE455007B5074 /* LayoutDimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutDimension.swift; sourceTree = "<group>"; };
 		12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowHolder.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsConverter.swift; sourceTree = "<group>"; };
 		3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileStateConverter.swift; sourceTree = "<group>"; };
@@ -1477,6 +1479,7 @@
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
 				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
 				0A996BBA23EDD102000FDC9C /* MainWindow.swift */,
+				12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -2433,8 +2436,8 @@
 		3D180224264E9C9F00224815 /* Content */ = {
 			isa = PBXGroup;
 			children = (
-				0A0965D025BEF5B000C004BD /* BottomMenuViewController.swift */,
 				3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */,
+				0A0965D025BEF5B000C004BD /* BottomMenuViewController.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -2442,9 +2445,9 @@
 		3D180228264E9C9F00224815 /* Container */ = {
 			isa = PBXGroup;
 			children = (
-				3D180229264E9C9F00224815 /* EditorModuleContainerViewModel.swift */,
 				3D18022A264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift */,
 				3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */,
+				3D180229264E9C9F00224815 /* EditorModuleContainerViewModel.swift */,
 				3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */,
 				3DD67EBB26528D260025ED6F /* EditorContainerRoutingProcessor.swift */,
 			);
@@ -3828,6 +3831,7 @@
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
 				3DB27C06261B0E9C005E523C /* KeyedDecodingContainer.swift in Sources */,
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
+				12E014D4266FCA7A008036B0 /* MainWindowHolder.swift in Sources */,
 				3D07ED72261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift in Sources */,
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				0AA9B04E249F6D9500F2962C /* MultiSelectionPaneSelectionView.swift in Sources */,

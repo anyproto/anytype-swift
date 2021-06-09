@@ -16,7 +16,7 @@ final class EditorRouter: EditorRouterProtocol {
 
     /// Show page
     func showPage(with id: BlockId) {
-        let presentedDocumentView = EditorModuleContainerViewBuilder.view(id: id)
+        let presentedDocumentView = EditorModuleContainerViewBuilder.makeView(with: id)
         // TODO: - show?? Really?
         preseningViewController?.show(presentedDocumentView, sender: nil)
     }

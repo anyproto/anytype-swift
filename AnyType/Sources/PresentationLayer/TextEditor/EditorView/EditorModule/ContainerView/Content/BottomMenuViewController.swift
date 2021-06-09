@@ -2,17 +2,20 @@ import Foundation
 import UIKit
 
 final class BottomMenuViewController: UIViewController {
+    
+    // MARK: - Private variables
+    
     private let animationDuration: TimeInterval = 0.3
     
-    private var containerView = UIView()
+    private let containerView = UIView()
     
-    private var bottomView = UIView()
+    private let bottomView = UIView()
     private var bottomViewBottomConstraint = NSLayoutConstraint()
     private let bottomViewHeight: CGFloat = 48
     
     private var childViewController: UIViewController?
 
-    // MARK: View lifecycle
+    // MARK: - Override functions
     
     override func viewDidLoad() {
         super.viewDidLoad()

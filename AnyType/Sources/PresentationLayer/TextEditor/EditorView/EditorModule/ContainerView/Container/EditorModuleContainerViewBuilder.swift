@@ -5,16 +5,17 @@ import SwiftUI
 
 enum EditorModuleContainerViewBuilder {
     
-    static func view(id: String) -> EditorModuleContainerViewController {
-        let (childViewController, userActionsStream)  = childComponent(id: id)
+    static func makeView(with id: String) -> EditorModuleContainerViewController {
+        let (childViewController, userActionsStream) = childComponent(id: id)
         
         let router = DocumentViewCompoundRouter()
-        router.configured(userActionsStream: userActionsStream)
+        router.configure(userActionsStream: userActionsStream)
         
         let viewModel = EditorModuleContainerViewModel(router: router)
         
         let viewController = EditorModuleContainerViewController(
-            viewModel: viewModel, childViewController: childViewController
+            viewModel: viewModel,
+            childViewController: childViewController
         )
 
         windowHolder?.rootNavigationController.delegate = viewController

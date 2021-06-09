@@ -3,17 +3,11 @@ import UIKit
 import Combine
 import FloatingPanel
 
-
 final class DocumentEditorViewController: UIViewController {
 
-    private enum Constants {
-        static let headerReuseId = "header"
-        static let cellIndentationWidth: CGFloat = 24
-        static let cellReuseId: String = NSStringFromClass(UICollectionViewListCell.self)
-    }
-
+    // MARK: - Private variables
+    
     private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?
-    private let viewModel: DocumentEditorViewModel
     
     private let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
@@ -37,7 +31,11 @@ final class DocumentEditorViewController: UIViewController {
         recognizer.cancelsTouchesInView = false
         return recognizer
     }()
+    
+    private let viewModel: DocumentEditorViewModel
 
+    // MARK: - Initializers
+    
     init(viewModel: DocumentEditorViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -47,6 +45,8 @@ final class DocumentEditorViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Overrided functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
@@ -55,7 +55,9 @@ final class DocumentEditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        viewModel.setNavigationItem(windowHolder?.rootNavigationController.navigationBar.topItem)
+        viewModel.setNavigationItem(
+            windowHolder?.rootNavigationController.navigationBar.topItem
+        )
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,120 +72,6 @@ final class DocumentEditorViewController: UIViewController {
         insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
     }
 
-    private func setupUI() {
-        setupCollectionView()
-        setupCollectionViewDataSource()
-        setupInteractions()
-    }
-
-    private func setupCollectionView() {
-        view.addSubview(collectionView)
-        collectionView.pinAllEdges(to: view)
-        collectionView.dataSource = dataSource
-        collectionView.delegate = self
-        collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
-    }
-
-    private func setupCollectionViewDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
-            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
-        }
-
-        let codeCellRegistration = UICollectionView.CellRegistration<CodeBlockCellView, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
-            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
-        }
-
-        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>(collectionView: collectionView) {
-            (collectionView: UICollectionView, indexPath: IndexPath, item: BaseBlockViewModel) -> UICollectionViewCell? in
-            if item is CodeBlockViewModel {
-                return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: item)
-            } else {
-                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
-            }
-        }
-        
-        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
-        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] (detailsView, string, indexPath) in
-            guard let viewModel = self?.viewModel.detailsViewModel else { return }
-
-            detailsView.configure(model: viewModel)
-        }
-        
-        dataSource.supplementaryViewProvider = { [weak self] in
-            return self?.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
-        }
-        
-        self.dataSource = dataSource
-    }
-
-    private func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
-        cell.contentConfiguration = item.buildContentConfiguration()
-        cell.indentationWidth = Constants.cellIndentationWidth
-        cell.indentationLevel = item.indentationLevel()
-        cell.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
-
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = .clear
-        cell.selectedBackgroundView = backgroundView
-    }
-
-    private func setupInteractions() {
-        self.configured()
-        
-        listViewTapGestureRecognizer.addTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
-        self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
-    }
-
-    @objc private func tapOnListViewGestureRecognizerHandler() {
-        guard viewModel.selectionEnabled() == false else {
-            return
-        }
-        
-        let location = self.listViewTapGestureRecognizer.location(in: listViewTapGestureRecognizer.view)
-        guard collectionView.visibleCells.first(where: {$0.frame.contains(location)}).isNil else {
-            return
-        }
-        
-        viewModel.handlingTapOnEmptySpot()
-    }
-
-    /// Add handlers to viewModel state changes
-    private func configured() {
-        self.viewModel.publicSizeDidChangePublisher.receiveOnMain().sink { [weak self] (value) in
-            self?.updateView()
-        }.store(in: &self.subscriptions)
-
-        self.viewModel.updateElementsPublisher.sink { [weak self] value in
-            self?.handleUpdateBlocks(blockIds: value)
-        }.store(in: &self.subscriptions)
-
-        self.viewModel.selectionHandler.selectionEventPublisher().sink(receiveValue: { [weak self] value in
-            self?.handleSelection(event: value)
-        }).store(in: &self.subscriptions)
-    }
-    
-    private func handleSelection(event: EditorSelectionIncomingEvent) {
-        switch event {
-        case .selectionDisabled:
-            deselectAllBlocks()
-        case let .selectionEnabled(event):
-            switch event {
-            case .isEmpty:
-                deselectAllBlocks()
-            case let .nonEmpty(count, _):
-                // We always count with this "1" because of top title block, which is not selectable
-                if count == collectionView.numberOfItems(inSection: 0) - 1 {
-                    collectionView.selectAllItems(startingFrom: 1)
-                }
-            }
-            collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
-        }
-    }
-        
-    private func deselectAllBlocks() {
-        self.collectionView.deselectAllSelectedItems()
-        self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
-    }
 }
 
 // MARK: - Initial Update data
@@ -389,4 +277,137 @@ extension DocumentEditorViewController: FloatingPanelControllerDelegate {
             blockViewModel.set(focus: focus)
         }
     }
+}
+
+// MARK: - Private extension
+
+private extension DocumentEditorViewController {
+    
+    func setupUI() {
+        setupCollectionView()
+        setupCollectionViewDataSource()
+        setupInteractions()
+    }
+
+    func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.pinAllEdges(to: view)
+        collectionView.dataSource = dataSource
+        collectionView.delegate = self
+        collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
+    }
+
+    func setupCollectionViewDataSource() {
+        let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
+            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
+        }
+
+        let codeCellRegistration = UICollectionView.CellRegistration<CodeBlockCellView, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
+            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
+        }
+
+        let dataSource = UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>(collectionView: collectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, item: BaseBlockViewModel) -> UICollectionViewCell? in
+            if item is CodeBlockViewModel {
+                return collectionView.dequeueConfiguredReusableCell(using: codeCellRegistration, for: indexPath, item: item)
+            } else {
+                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: item)
+            }
+        }
+        
+        let supplementaryRegistration = UICollectionView.SupplementaryRegistration
+        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] (detailsView, string, indexPath) in
+            guard let viewModel = self?.viewModel.detailsViewModel else { return }
+
+            detailsView.configure(model: viewModel)
+        }
+        
+        dataSource.supplementaryViewProvider = { [weak self] in
+            return self?.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
+        }
+        
+        self.dataSource = dataSource
+    }
+
+    func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
+        cell.contentConfiguration = item.buildContentConfiguration()
+        cell.indentationWidth = Constants.cellIndentationWidth
+        cell.indentationLevel = item.indentationLevel()
+        cell.contentView.isUserInteractionEnabled = !self.viewModel.selectionEnabled()
+
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .clear
+        cell.selectedBackgroundView = backgroundView
+    }
+
+    func setupInteractions() {
+        self.configured()
+        
+        listViewTapGestureRecognizer.addTarget(self, action: #selector(tapOnListViewGestureRecognizerHandler))
+        self.view.addGestureRecognizer(self.listViewTapGestureRecognizer)
+    }
+
+    @objc func tapOnListViewGestureRecognizerHandler() {
+        guard viewModel.selectionEnabled() == false else {
+            return
+        }
+        
+        let location = self.listViewTapGestureRecognizer.location(in: listViewTapGestureRecognizer.view)
+        guard collectionView.visibleCells.first(where: {$0.frame.contains(location)}).isNil else {
+            return
+        }
+        
+        viewModel.handlingTapOnEmptySpot()
+    }
+
+    /// Add handlers to viewModel state changes
+    func configured() {
+        self.viewModel.publicSizeDidChangePublisher.receiveOnMain().sink { [weak self] (value) in
+            self?.updateView()
+        }.store(in: &self.subscriptions)
+
+        self.viewModel.updateElementsPublisher.sink { [weak self] value in
+            self?.handleUpdateBlocks(blockIds: value)
+        }.store(in: &self.subscriptions)
+
+        self.viewModel.selectionHandler.selectionEventPublisher().sink(receiveValue: { [weak self] value in
+            self?.handleSelection(event: value)
+        }).store(in: &self.subscriptions)
+    }
+    
+    func handleSelection(event: EditorSelectionIncomingEvent) {
+        switch event {
+        case .selectionDisabled:
+            deselectAllBlocks()
+        case let .selectionEnabled(event):
+            switch event {
+            case .isEmpty:
+                deselectAllBlocks()
+            case let .nonEmpty(count, _):
+                // We always count with this "1" because of top title block, which is not selectable
+                if count == collectionView.numberOfItems(inSection: 0) - 1 {
+                    collectionView.selectAllItems(startingFrom: 1)
+                }
+            }
+            collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = false }
+        }
+    }
+        
+    func deselectAllBlocks() {
+        self.collectionView.deselectAllSelectedItems()
+        self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
+    }
+    
+}
+
+// MARK: - Constants
+
+private extension DocumentEditorViewController {
+    
+    enum Constants {
+        static let headerReuseId = "header"
+        static let cellIndentationWidth: CGFloat = 24
+        static let cellReuseId: String = NSStringFromClass(UICollectionViewListCell.self)
+    }
+    
 }

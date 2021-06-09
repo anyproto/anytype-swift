@@ -6,6 +6,7 @@ final class ServiceLocator {
     static let shared = ServiceLocator()
     
     // MARK: - Services
+    
     func firebaseService() -> FirebaseService {
         FirebaseService()
     }
@@ -46,33 +47,22 @@ final class ServiceLocator {
     }
     
     // MARK: - Coodrdinators
+    
     func applicationCoordinator(window: MainWindow) -> ApplicationCoordinator {
         ApplicationCoordinator(
             window: window,
             shakeHandler: ShakeHandler(window),
             authService: authService(),
             firebaseService: firebaseService(),
-            authAssembly: authAssembly()
+            authAssembly: AuthAssembly()
         )
     }
     
     func homeCoordinator() -> HomeCoordinator {
         HomeCoordinator(
-            settingsAssembly: settingsAssembly(),
-            editorAssembly: editorAssembly()
+            settingsAssembly: SettingsAssembly(),
+            editorAssembly:  EditorAssembly()
         )
     }
-    
-    // MARK: - Assembly
-    func authAssembly() -> AuthAssembly {
-        AuthAssembly()
-    }
-    
-    func settingsAssembly() -> SettingsAssembly {
-        SettingsAssembly()
-    }
-    
-    func editorAssembly() -> EditorAssembly {
-        EditorAssembly()
-    }
+
 }

@@ -4,14 +4,21 @@ import Combine
 import os
 
 struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
-    private(set) var documentId: String
     
-    func makeUIViewController(context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>) -> EditorModuleContainerViewController {
-        return EditorModuleContainerViewBuilder.view(id: documentId)
+    let documentId: String
+    
+    // MARK: - UIViewControllerRepresentable
+    
+    func makeUIViewController(
+        context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>
+    ) -> EditorModuleContainerViewController {
+        EditorModuleContainerViewBuilder.makeView(with: documentId)
     }
     
     func updateUIViewController(
         _ uiViewController: EditorModuleContainerViewController,
         context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>
-    ) { }
+    ) {
+    }
+    
 }

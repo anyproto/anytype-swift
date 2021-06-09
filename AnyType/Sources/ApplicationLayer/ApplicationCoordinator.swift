@@ -2,8 +2,10 @@ import UIKit
 import SwiftUI
 import Combine
 
-
-class ApplicationCoordinator {
+final class ApplicationCoordinator {
+    
+    // MARK: - Private variables
+    
     private let window: MainWindow
     
     private let shakeHandler: ShakeHandler
@@ -14,6 +16,8 @@ class ApplicationCoordinator {
     private let authAssembly: AuthAssembly
     
     private(set) lazy var rootNavigationController = createNavigationController()
+    
+    // MARK: - Initializers
     
     init(
         window: MainWindow,
@@ -39,45 +43,6 @@ class ApplicationCoordinator {
         runServicesOnStartup()
         login()
     }
-    
-    private func runAtFirstLaunch() {
-        if UserDefaultsConfig.installedAtDate.isNil {
-            UserDefaultsConfig.installedAtDate = Date()
-        }
-    }
-    
-    private func runServicesOnStartup() {
-        shakeHandler.run()
-        firebaseService.setup()
-    }
-
-    private func login() {
-        let userId = UserDefaultsConfig.usersIdKey // TODO: Remove static
-        guard userId.isEmpty == false else {
-            showAuthScreen()
-            return
-        }
-        
-        self.authService.selectAccount(id: userId) { [weak self] result in
-            switch result {
-            case .success:
-                self?.showHomeScreen()
-            case .failure:
-                self?.showAuthScreen()
-            }
-        }
-    }
-    
-    private func showHomeScreen() {
-        let homeAssembly = HomeViewAssembly()
-        let view = homeAssembly.createHomeView()
-        
-        startNewRootView(view)
-    }
-    
-    private func showAuthScreen() {
-        startNewRootView(authAssembly.authView())
-    }
         
     fileprivate func createNavigationController() -> UINavigationController {
         let controller = UINavigationController()
@@ -96,20 +61,61 @@ class ApplicationCoordinator {
     }
 }
 
-// MARK: - MainWindowHolder
-protocol MainWindowHolder {
-    func startNewRootView<ViewType: View>(_ view: ViewType)
-    
-    var rootNavigationController: UINavigationController { get }
-    func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance)
+// MARK: - Private extension
 
+private extension ApplicationCoordinator {
+ 
+    func runAtFirstLaunch() {
+        guard UserDefaultsConfig.installedAtDate.isNil else { return }
+        
+        UserDefaultsConfig.installedAtDate = Date()
+    }
+    
+    func runServicesOnStartup() {
+        shakeHandler.run()
+        firebaseService.setup()
+    }
+
+    func login() {
+        let userId = UserDefaultsConfig.usersIdKey // TODO: Remove static
+        guard userId.isEmpty == false else {
+            showAuthScreen()
+            return
+        }
+        
+        self.authService.selectAccount(id: userId) { [weak self] result in
+            switch result {
+            case .success:
+                self?.showHomeScreen()
+            case .failure:
+                self?.showAuthScreen()
+            }
+        }
+    }
+    
+    func showHomeScreen() {
+        let homeAssembly = HomeViewAssembly()
+        let view = homeAssembly.createHomeView()
+        
+        startNewRootView(view)
+    }
+    
+    func showAuthScreen() {
+        startNewRootView(authAssembly.authView())
+    }
+    
 }
+
+// MARK: - MainWindowHolde
 
 extension ApplicationCoordinator: MainWindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType) {
         let rootNavigationController = createNavigationController()
-        rootNavigationController.setViewControllers([UIHostingController(rootView: view)], animated: false)
+        rootNavigationController.setViewControllers(
+            [UIHostingController(rootView: view)],
+            animated: false
+        )
         self.rootNavigationController = rootNavigationController
         
         window.rootViewController = rootNavigationController
