@@ -16,7 +16,7 @@ struct HomeCollectionView: View {
     @State private var dropData = DropData()
     
     var body: some View {
-        OffsetAwareScrollView(offsetChanged: offsetChanged) {
+        OffsetAwareScrollView(showsIndicators: false, offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns) {
                 ForEach(cellData) { data in
                     NavigationLink(

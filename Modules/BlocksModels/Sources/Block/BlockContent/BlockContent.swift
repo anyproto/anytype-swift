@@ -29,65 +29,6 @@ public enum BlockContent {
     }
 }
 
-/// ContentType / Cases
-public extension BlockContent {
-    var kind: Kind { .init(attribute: self, strategy: .topLevel) }
-    var deepKind: Kind { .init(attribute: self, strategy: .levelOne) }
-}
-
-public extension BlockContent {
-    struct KindComparator: Equatable {
-        fileprivate enum Strategy {
-            case topLevel
-            case levelOne
-            func same(_ lhs: Element, _ rhs: Element) -> Bool {
-                switch self {
-                case .topLevel:
-                    switch (lhs, rhs) {
-                    case (.text, .text): return true
-                    case (.smartblock, .smartblock): return true
-                    case (.file, .file): return true
-                    case (.divider, .divider): return true
-                    case (.bookmark, .bookmark): return true
-                    case (.link, .link): return true
-                    default: return false
-                    }
-                case .levelOne:
-                    guard Strategy.topLevel.same(lhs, rhs) else {
-                        return false
-                    }
-                    switch (lhs, rhs) {
-                    case let (.text(left), .text(right)): return left.contentType == right.contentType
-                    case let (.divider(left), .divider(right)): return left.style == right.style
-                    default: return true
-                    }
-                }
-            }
-        }
-        
-        typealias Element = BlockContent
-        
-        var attribute: Element
-        fileprivate var strategy: Strategy = .topLevel
-        
-        func sameKind(_ value: Element) -> Bool {
-            self.same(self.attribute, value)
-        }
-        func sameKind(_ value: Kind) -> Bool {
-            self.same(self.attribute, value.attribute)
-        }
-        func same(_ lhs: Element, _ rhs: Element) -> Bool {
-            self.strategy.same(lhs, rhs)
-        }
-        
-        public static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.sameKind(rhs)
-        }
-    }
-    
-    typealias Kind = KindComparator
-}
-
 // MARK: ContentType / Text
 public extension BlockContent {
     struct Text {
