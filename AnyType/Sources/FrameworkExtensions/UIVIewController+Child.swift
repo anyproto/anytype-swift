@@ -13,8 +13,9 @@ extension UIViewController {
         }
         vc.didMove(toParent: self)
     }
+    
     /// Sugar for removing view controller from parent
-    func removeEmbededChildViewController() {
+    func removeFromParentEmbed() {
         guard parent != nil else {
             return
         }

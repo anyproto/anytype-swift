@@ -279,6 +279,7 @@
 		3D180231264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift */; };
 		3D180232264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */; };
 		3D180233264E9C9F00224815 /* EditorModuleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */; };
+		3D2EFDF52670B99300585AD2 /* EditorFloater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EFDF42670B99300585AD2 /* EditorFloater.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
@@ -367,6 +368,7 @@
 		3DBED69F266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED69E266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift */; };
 		3DBED6A1266FBF6A00B9E9AB /* UnknownLabelContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A0266FBF6A00B9E9AB /* UnknownLabelContentView.swift */; };
 		3DBED6AB266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */; };
+		3DBED6B8266FF4A800B9E9AB /* FloaterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareListener.swift */; };
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
@@ -870,6 +872,7 @@
 		3D18022A264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewRepresentable.swift; sourceTree = "<group>"; };
 		3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewBuilder.swift; sourceTree = "<group>"; };
 		3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewController.swift; sourceTree = "<group>"; };
+		3D2EFDF42670B99300585AD2 /* EditorFloater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorFloater.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/EditorFloater.swift; sourceTree = SOURCE_ROOT; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -956,6 +959,7 @@
 		3DBED69E266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelContentConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelContentConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3DBED6A0266FBF6A00B9E9AB /* UnknownLabelContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelContentView.swift; sourceTree = SOURCE_ROOT; };
 		3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ContextMenuAction+TextAttributesType.swift"; path = "AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/Extensions/ContextMenuAction+TextAttributesType.swift"; sourceTree = SOURCE_ROOT; };
+		3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
@@ -1785,6 +1789,7 @@
 		0A0965C725BEF5B000C004BD /* EditorModule */ = {
 			isa = PBXGroup;
 			children = (
+				3DBED6B2266FF47D00B9E9AB /* SwiftUI */,
 				3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */,
 				3D180220264E9C0000224815 /* CollectionModel */,
 				12858E79264ABA9900A7FE0F /* Views */,
@@ -2803,6 +2808,15 @@
 				3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */,
 			);
 			path = Extensions;
+            sourceTree = "<group>";
+        };
+		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */,
+				3D2EFDF42670B99300585AD2 /* EditorFloater.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		3DC78632265D43E900498993 /* EventConverters */ = {
@@ -3745,6 +3759,7 @@
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
 				3DBED685266F8F0300B9E9AB /* DocumentViewInteraction.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
+				3DBED6B8266FF4A800B9E9AB /* FloaterWrapper.swift in Sources */,
 				53F8211326529D26003FEB0B /* TextViewUpdatable.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
@@ -3783,6 +3798,7 @@
 				12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */,
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,
+				3D2EFDF52670B99300585AD2 /* EditorFloater.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
