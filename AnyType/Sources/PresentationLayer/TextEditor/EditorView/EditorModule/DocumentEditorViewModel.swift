@@ -21,7 +21,7 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) var detailsViewModel: DocumentDetailsViewModel?
     
     /// User Interaction Processor
-    private lazy var oldblockActionHandler = BlockActionsHandlersFacade(
+    private lazy var oldBlockActionHandler = BlockActionsHandlersFacade(
         newTextBlockActionHandler: { [weak self] action, block in
             self?.blockActionHandler?.handleBlockAction(
                 action,
@@ -67,15 +67,6 @@ class DocumentEditorViewModel: ObservableObject {
                 self.set(selectionEnabled: false)
             }
         }
-    }
-    
-    private var loading = true
-    var state: State {
-        if loading {
-            return .loading
-        }
-        
-        return self.blocksViewModels.isEmpty ? .empty : .ready
     }
 
     /// We should update some items in place.
@@ -130,7 +121,7 @@ class DocumentEditorViewModel: ObservableObject {
             self?.process(actionsPayload: value)
         }.store(in: &self.subscriptions)
 
-        _ = self.oldblockActionHandler.configured(self.publicActionsPayloadPublisher)
+        _ = self.oldBlockActionHandler.configured(self.publicActionsPayloadPublisher)
 
         self.listToolbarSubject.sink { [weak self] (value) in
             self?.process(toolbarAction: value)
@@ -138,7 +129,7 @@ class DocumentEditorViewModel: ObservableObject {
 
         _ = self.listBlockActionHandler.configured(self.listActionsPayloadPublisher)
 
-        self.oldblockActionHandler.reactionPublisher.sink { [weak self] (value) in
+        self.oldBlockActionHandler.reactionPublisher.sink { [weak self] (value) in
             self?.process(reaction: value)
         }.store(in: &self.subscriptions)
 
@@ -153,7 +144,6 @@ class DocumentEditorViewModel: ObservableObject {
 
     private func obtainDocument(documentId: String?) {
         guard let documentId = documentId else { return }
-        self.loading = true
 
         self.blockActionsService.open(contextID: documentId, blockID: documentId)
             .receiveOnMain()
@@ -161,7 +151,6 @@ class DocumentEditorViewModel: ObservableObject {
                 switch value {
                 case .finished: break
                 case let .failure(error):
-                    self?.loading = false
                     self?.error = error.localizedDescription
                 }
             }, receiveValue: { [weak self] value in
@@ -246,7 +235,7 @@ class DocumentEditorViewModel: ObservableObject {
             assertionFailure("configureInteractions(_:). DocumentId is not configured.")
             return
         }
-        _ = self.oldblockActionHandler.configured(documentId: documentId).configured(self)
+        _ = self.oldBlockActionHandler.configured(documentId: documentId).configured(self)
         _ = self.listBlockActionHandler.configured(documentId: documentId)
     }
     
@@ -295,10 +284,8 @@ private extension DocumentEditorViewModel {
 // MARK: - On Tap Gesture
 
 extension DocumentEditorViewModel {
-    func handlingTapIfEmpty() {
-        oldblockActionHandler.createEmptyBlock(
-            listIsEmpty: state == .empty, parentModel: document.rootActiveModel
-        )
+    func handlingTapOnEmptySpot() {
+        oldBlockActionHandler.createEmptyBlock()
     }
 }
 

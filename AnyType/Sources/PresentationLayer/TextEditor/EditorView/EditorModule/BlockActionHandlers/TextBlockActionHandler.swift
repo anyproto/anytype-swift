@@ -66,8 +66,9 @@ final class TextBlockActionHandler {
                     let (blockId, _) = DetailsAsBlockConverter.IdentifierBuilder.asDetails(id)
                     let block = block.container?.choose(by: blockId)
                     let parentId = block?.blockId
+                    let information = BlockBuilder.createDefaultInformation()
 
-                    if let information = BlockBuilder.createDefaultInformation(), let parentId = parentId {
+                    if let parentId = parentId {
                         if block?.childrenIds().isEmpty == true {
                             self.service.addChild(childBlock: information, parentBlockId: parentId)
                         }

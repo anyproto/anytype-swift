@@ -106,64 +106,11 @@ final class BlockActionsHandlersFacade {
     }
 }
 
-// MARK: TODO - Move to enum or wrap in another protocol
 extension BlockActionsHandlersFacade {
-    func createEmptyBlock(listIsEmpty: Bool, parentModel: BlockActiveRecordModelProtocol?) {
-        if listIsEmpty {
-            if let defaultBlock = BlockBuilder.createDefaultInformation() {
-                self.service.addChild(childBlock: defaultBlock, parentBlockId: self.documentId)
-            }
-        }
-        else {
-            // Unknown for now.
-            // Check that previous ( last block ) is not nil.
-            // We must provide a smartblock of page to solve it.
-            //
-            guard let parentModel = parentModel else {
-                // We don't have parentModel, so, we can't proceed.
-                assertionFailure("createEmptyBlock.listIsEmpty. We don't have parent model.")
-                return
-            }
-            guard let lastChildId = parentModel.childrenIds().last else {
-                // We don't have children, let's do nothing.
-                assertionFailure("createEmptyBlock.listIsEmpty. Children are empty.")
-                return
-            }
-            guard let lastChild = parentModel.container?.choose(by: lastChildId) else {
-                // No child - nothing to do.
-                assertionFailure("createEmptyBlock.listIsEmpty. Last child doesn't exist.")
-                return
-            }
-
-            switch lastChild.content {
-            case let .text(value) where value.attributedText.length == 0:
-                // TODO: Add assertionFailure for debug when all converters will be added
-                // TASK: https://app.clickup.com/t/h138gt
-                Logger.create(.blockActionsHandlersFacade).error("createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
-//                assertionFailure("createEmptyBlock.listIsEmpty. Last block is text and it is empty. Skipping..")
-                return
-            default:
-                if let defaultBlock = BlockBuilder.createDefaultInformation() {
-                    self.service.addChild(childBlock: defaultBlock, parentBlockId: self.documentId)
-                }
-            }
-        }
+    func createEmptyBlock() {
+        self.service.addChild(
+            childBlock: BlockBuilder.createDefaultInformation(),
+            parentBlockId: self.documentId
+        )
     }
-}
-
-// MARK: - BlockTextView.ContextMenuAction
-
-private extension BlockTextView.ContextMenuAction {
-    
-    var asActionType: BlockActionHandler.ActionType.TextAttributesType {
-        switch self {
-        case .bold:
-            return .bold
-        case .italic:
-            return .italic
-        case .strikethrough:
-            return .strikethrough
-        }
-    }
-    
 }

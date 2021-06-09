@@ -27,11 +27,12 @@ struct BlockBuilder {
         default: return nil
         }
     }
+    
+    static func createDefaultInformation() -> BlockInformation {
+        return BlockInformation(id: newBlockId(), content: .text(.empty()))
+    }
 
-    static func createDefaultInformation(block: BlockActiveRecordModelProtocol? = nil) -> BlockInformation? {
-        guard let block = block else {
-            return BlockInformation(id: newBlockId(), content: .text(.empty()))
-        }
+    static func createDefaultInformation(block: BlockActiveRecordModelProtocol) -> BlockInformation? {
         switch block.content {
         case let .text(value):
             switch value.contentType {

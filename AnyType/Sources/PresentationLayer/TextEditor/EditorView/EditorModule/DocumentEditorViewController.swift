@@ -135,14 +135,16 @@ final class DocumentEditorViewController: UIViewController {
     }
 
     @objc private func tapOnListViewGestureRecognizerHandler() {
-        if self.viewModel.selectionEnabled() {
+        guard viewModel.selectionEnabled() == false else {
             return
         }
-        let location = self.listViewTapGestureRecognizer.location(in: self.listViewTapGestureRecognizer.view)
-        if !self.collectionView.visibleCells.first(where: {$0.frame.contains(location)}).isNil {
+        
+        let location = self.listViewTapGestureRecognizer.location(in: listViewTapGestureRecognizer.view)
+        guard collectionView.visibleCells.first(where: {$0.frame.contains(location)}).isNil else {
             return
         }
-        self.viewModel.handlingTapIfEmpty()
+        
+        viewModel.handlingTapOnEmptySpot()
     }
 
     /// Add handlers to viewModel state changes
