@@ -3,9 +3,6 @@ import os
 
 
 final class ToolbarBlockActionHandler {
-    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-//    typealias ActionsPayloadToolbar = ActionsPayload.Toolbar.Action
-
     private let service: BlockActionService
     private var indexWalker: LinearIndexWalker?
 

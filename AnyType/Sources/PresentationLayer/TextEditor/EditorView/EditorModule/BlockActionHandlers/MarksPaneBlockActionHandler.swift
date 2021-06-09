@@ -5,7 +5,6 @@ import BlocksModels
 
 
 final class MarksPaneBlockActionHandler {
-    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     typealias ActionsPayloadMarksPane = MarksPane.Main.Action
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     

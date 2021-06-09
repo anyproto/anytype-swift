@@ -180,7 +180,7 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
         case .inputAction, .keyboardAction:
             self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
         case .changeCaretPosition:
-            typealias TextBlockInteraction = BaseBlockViewModel.ActionsPayload.TextBlocksViewsUserInteraction
+            typealias TextBlockInteraction = ActionsPayload.TextBlocksViewsUserInteraction
             self.send(actionsPayload: .textView(TextBlockInteraction(model: block, action: .textView(action))))
         }
     }

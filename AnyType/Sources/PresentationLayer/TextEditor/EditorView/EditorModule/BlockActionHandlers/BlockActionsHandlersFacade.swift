@@ -8,8 +8,6 @@ private extension LoggerCategory {
 }
 
 final class BlockActionsHandlersFacade {
-    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-
     private var subscription: AnyCancellable?
     private let service: BlockActionService = .init(documentId: "")
     private var documentId: String = ""

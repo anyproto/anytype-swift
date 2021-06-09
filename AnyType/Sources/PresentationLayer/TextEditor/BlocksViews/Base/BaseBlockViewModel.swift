@@ -343,3 +343,17 @@ extension BaseBlockViewModel: BlocksViewsUserActionsReceivingProtocol {
         self.handle(event: event)
     }
 }
+
+extension BaseBlockViewModel {
+    // Send actions payload
+    func send(actionsPayload: ActionsPayload) {
+        actionsPayloadSubject.send(actionsPayload)
+    }
+
+    /// Ask update layout
+    ///
+    /// View could ask to update layout due to some inner layout events (view could changed its size, position or similar)
+    func needsUpdateLayout() {
+        sizeDidChangeSubject.send()
+    }
+}

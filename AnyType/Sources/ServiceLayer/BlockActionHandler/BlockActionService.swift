@@ -11,7 +11,6 @@ extension LoggerCategory {
 /// Each method should return not a block, but a response.
 /// Next, this response would be proceed by event handler.
 final class BlockActionService {
-    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     typealias BlockContentTypeText = BlockContent.Text.ContentType
 

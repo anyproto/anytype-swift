@@ -47,8 +47,8 @@ class DocumentEditorViewModel: ObservableObject {
     private let publicUserActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
     lazy var publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
 
-    private var publicActionsPayloadSubject: PassthroughSubject<BaseBlockViewModel.ActionsPayload, Never> = .init()
-    lazy var publicActionsPayloadPublisher: AnyPublisher<BaseBlockViewModel.ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
+    private var publicActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
+    lazy var publicActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
 
     private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
@@ -319,7 +319,7 @@ extension DocumentEditorViewModel {
 // MARK: - Process actions
 
 private extension DocumentEditorViewModel {
-    func process(actionsPayload: BaseBlockViewModel.ActionsPayload) {
+    func process(actionsPayload: ActionsPayload) {
         switch actionsPayload {
         case let .textView(value):
             switch value.action {

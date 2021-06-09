@@ -4,8 +4,6 @@ import Combine
 
 
 final class TextBlockActionHandler {
-    typealias ActionsPayload = BaseBlockViewModel.ActionsPayload
-
     private var subscriptions: Set<AnyCancellable> = []
     private let service: BlockActionService
     private var textService: BlockActionsServiceText = .init()

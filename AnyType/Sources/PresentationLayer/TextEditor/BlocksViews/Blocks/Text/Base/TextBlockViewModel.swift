@@ -317,7 +317,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
             case .changeCaretPosition:
                 self.send(
                     actionsPayload: .textView(
-                        BaseBlockViewModel.ActionsPayload.TextBlocksViewsUserInteraction(
+                        ActionsPayload.TextBlocksViewsUserInteraction(
                             model: block,
                             action: .textView(action)
                         )
