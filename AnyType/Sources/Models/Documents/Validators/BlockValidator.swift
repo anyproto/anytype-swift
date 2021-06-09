@@ -23,7 +23,7 @@ struct BlockValidator {
         }
     }
     
-    func validatedTextContent(content: BlockContent.Text, restrictions: BlockRestrictions) -> BlockContent.Text {
+    func validatedTextContent(content: BlockText, restrictions: BlockRestrictions) -> BlockText {
         let marks = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: content.attributedText).marks.marks
         let filteredMarks = marks.filter {
             switch $0.type {
@@ -47,7 +47,7 @@ struct BlockValidator {
         let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(text: content.attributedText.string,
                                                                                                     marks: .init(marks: filteredMarks),
                                                                                                     style: style)
-        return BlockContent.Text(attributedText: attributedString,
+        return BlockText(attributedText: attributedString,
                                  color: content.color,
                                  contentType: content.contentType,
                                  checked: content.checked,

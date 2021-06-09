@@ -11,7 +11,7 @@ extension BlockActionHandler {
             case keyboard
         }
 
-        case turnInto(BlockContent.Text.ContentType)
+        case turnInto(BlockText.ContentType)
         case setTextColor(UIColor)
         case setBackgroundColor(UIColor)
         case toggleFontStyle(TextAttributesType, NSRange = NSRange(location: 0, length: 0))

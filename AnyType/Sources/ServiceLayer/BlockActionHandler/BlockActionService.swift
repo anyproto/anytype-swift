@@ -12,7 +12,7 @@ extension LoggerCategory {
 /// Next, this response would be proceed by event handler.
 final class BlockActionService {
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
-    typealias BlockContentTypeText = BlockContent.Text.ContentType
+    typealias BlockContentTypeText = BlockText.ContentType
 
     private var documentId: String
 

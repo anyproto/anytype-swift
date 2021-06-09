@@ -39,6 +39,7 @@
 		3DB7DCA82639DC0100635E4C /* BlockUserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* BlockUserSession.swift */; };
 		3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */; };
 		3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */; };
+		3DE511F926711E5C00153962 /* BlockText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE511F826711E5C00153962 /* BlockText.swift */; };
 		53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */; };
 		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,7 @@
 		3DB7DCA72639DC0100635E4C /* BlockUserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserSession.swift; sourceTree = "<group>"; };
 		3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainer.swift; sourceTree = "<group>"; };
 		3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentIdentifiers.swift; sourceTree = "<group>"; };
+		3DE511F826711E5C00153962 /* BlockText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockText.swift; sourceTree = "<group>"; };
 		53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,6 +201,7 @@
 			children = (
 				0A6D537225D9C99E002F3F82 /* BlockContent.swift */,
 				3D0BCAE026666C0E002F7A0D /* BlockLink.swift */,
+				3DE511F826711E5C00153962 /* BlockText.swift */,
 			);
 			path = BlockContent;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				3DB7DCA82639DC0100635E4C /* BlockUserSession.swift in Sources */,
 				12A259B42658030A00B71DA1 /* DetailsData.swift in Sources */,
 				3DAAEF9826668CF400FA067E /* BlockInformationConverter.swift in Sources */,
+				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,
 				0A6D53A425D9C99F002F3F82 /* DetailsBuilder.swift in Sources */,
 				0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */,
 				3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */,

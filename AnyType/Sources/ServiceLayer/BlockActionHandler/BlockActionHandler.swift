@@ -32,7 +32,7 @@ class BlockActionHandler {
 
         switch action {
         case let .turnInto(textStyle):
-            let textBlockContentType: BlockContent = .text(BlockContent.Text(contentType: textStyle))
+            let textBlockContentType: BlockContent = .text(BlockText(contentType: textStyle))
             service.turnInto(block: block.information, type: textBlockContentType, shouldSetFocusOnUpdate: false)
         case let .setTextColor(color):
             setBlockColor(block: block.information, color: color, completion: completion)

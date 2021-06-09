@@ -98,7 +98,7 @@ private extension CodeBlockViewModel {
     func setupSubscribers() {
         // Update text view in code block
         block.didChangePublisher().receive(on: serialQueue)
-            .map { [weak self] _ -> BlockContent.Text? in
+            .map { [weak self] _ -> BlockText? in
                 let value = self?.block.blockModel.information
 
                 if let lang = value?.fields[Constants.codeLanguageFieldName]?.stringValue {

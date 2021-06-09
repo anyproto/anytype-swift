@@ -93,7 +93,7 @@ struct BlockBuilder {
                 switch value {
                 case .lineDivider: return .divider(.init(style: .line))
                 case .dotsDivider: return .divider(.init(style: .dots))
-                case .code: return .text(BlockContent.Text(contentType: .code))
+                case .code: return .text(BlockText(contentType: .code))
                 }
             default: return nil
             }

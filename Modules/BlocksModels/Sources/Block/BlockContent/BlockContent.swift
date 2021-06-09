@@ -2,7 +2,7 @@ import Foundation
 
 public enum BlockContent {
     case smartblock(Smartblock)
-    case text(Text)
+    case text(BlockText)
     case file(File)
     case divider(Divider)
     case bookmark(Bookmark)
@@ -25,85 +25,6 @@ public enum BlockContent {
             return .link(link.style)
         case let .layout(layout):
             return .layout(layout.style)
-        }
-    }
-}
-
-// MARK: ContentType / Text
-public extension BlockContent {
-    struct Text {
-        private static var defaultChecked = false
-        private static var defaultColor = ""
-        public var attributedText: NSAttributedString
-
-        /// Block color
-        public var color: String
-        public var contentType: ContentType
-        public var checked: Bool
-        public var number: Int
-        
-        // MARK: - Memberwise initializer
-        public init(attributedText: NSAttributedString, color: String, contentType: ContentType, checked: Bool, number: Int = 1) {
-            self.attributedText = attributedText
-            self.color = color
-            self.contentType = contentType
-            self.checked = checked
-            self.number = number
-        }
-    }
-}
-
-// MARK: ContentType / Text / Supplements
-public extension BlockContent.Text {
-    init(contentType: ContentType) {
-        self.init(attributedText: .init(), color: Self.defaultColor, contentType: contentType, checked: Self.defaultChecked)
-    }
-            
-    // MARK: - Create
-
-    static func empty() -> Self {
-        self.createDefault(text: "")
-    }
-
-    static func createDefault(text: String) -> Self {
-        .init(attributedText: .init(string: text), color: Self.defaultColor, contentType: .text, checked: Self.defaultChecked)
-    }
-}
-
-// MARK: ContentType / Text / ContentType
-public extension BlockContent.Text {
-    enum ContentType {
-        case title
-        case text
-        case header
-        case header2
-        case header3
-        case header4
-        case quote
-        case checkbox
-        case bulleted
-        case numbered
-        case toggle
-        case code
-        
-        /// Returns true in case of content type is list, otherwise returns false
-        public var isList: Bool {
-            switch self {
-            case .checkbox, .bulleted, .numbered, .toggle:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        /// Returns true in case of .checkbox, .bulleted, .numbered, otherwise returns false
-        public var isListAndNotToggle: Bool {
-            switch self {
-            case .checkbox , .bulleted, .numbered:
-                return true
-            default:
-                return false
-            }
         }
     }
 }
@@ -284,7 +205,6 @@ public extension BlockContent.Layout {
 // MARK: - ContentType / Hashable
 extension BlockContent: Hashable {}
 extension BlockContent.Smartblock: Hashable {}
-extension BlockContent.Text: Hashable {}
 extension BlockContent.File: Hashable {}
 extension BlockContent.File.Metadata: Hashable {}
 extension BlockContent.Divider: Hashable {}

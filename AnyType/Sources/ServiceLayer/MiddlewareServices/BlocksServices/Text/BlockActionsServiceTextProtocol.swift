@@ -6,7 +6,7 @@ import BlocksModels
 
 /// Protocol for TextBlockActions service.
 protocol BlockActionsServiceTextProtocol {
-    typealias Style = BlockContent.Text.ContentType
+    typealias Style = BlockText.ContentType
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ServiceSuccess, Error>
     func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ServiceSuccess, Error>

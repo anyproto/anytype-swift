@@ -5,7 +5,7 @@ class ContentTextConverter {
     
     func blockType(_ from: Anytype_Model_Block.Content.Text) -> BlockContent? {
         return BlocksModelsParserTextContentTypeConverter.asModel(from.style).flatMap {
-            typealias Text = BlockContent.Text
+            typealias Text = BlockText
             let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(
                 text: from.text,
                 marks: from.marks,
@@ -18,7 +18,7 @@ class ContentTextConverter {
         }
     }
     
-func middleware(_ from: BlockContent.Text) -> Anytype_Model_Block.OneOf_Content {
+func middleware(_ from: BlockText) -> Anytype_Model_Block.OneOf_Content {
         let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(from.contentType)
         return .text(
             .init(

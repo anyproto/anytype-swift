@@ -2,8 +2,6 @@ import UIKit
 import BlocksModels
 
 extension UIFont {
-    typealias TextBlockContentType = BlockContent.Text.ContentType
-
     private enum Graphik {
         static let graphikLCGSemibold = "GraphikLCG-Semibold"
     }
@@ -71,7 +69,7 @@ extension UIFont {
     ///
     /// - Parameters:
     /// - textType: Text block style
-    static func font(for textType: TextBlockContentType) -> UIFont {
+    static func font(for textType: BlockText.ContentType) -> UIFont {
         switch textType {
         case .title:
             return .titleFont

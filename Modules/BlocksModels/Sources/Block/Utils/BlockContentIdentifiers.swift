@@ -12,7 +12,7 @@ extension BlockContent {
     }
 }
 
-extension BlockContent.Text {
+extension BlockText {
     public var textIdentifier: String {
         switch self.contentType {
         case .title: return ".title"
