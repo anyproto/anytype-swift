@@ -432,7 +432,6 @@
 		53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A772637637200968B8E /* StyleColorCellView.swift */; };
 		53EA4A7C2637638800968B8E /* StyleColorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7B2637638800968B8E /* StyleColorContentView.swift */; };
 		53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */; };
-		53F820A82648AEF5003FEB0B /* BottomMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965D025BEF5B000C004BD /* BottomMenuViewController.swift */; };
 		53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F820BF2648B257003FEB0B /* BlockActionService.swift */; };
 		53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8210C26528D19003FEB0B /* TextViewDelegate.swift */; };
 		53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */; };
@@ -667,7 +666,6 @@
 		0A0965C925BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleSelectionHandlerHolderProtocol.swift; sourceTree = "<group>"; };
 		0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewModel.swift; sourceTree = "<group>"; };
 		0A0965CE25BEF5B000C004BD /* EditorSelectionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSelectionHandler.swift; sourceTree = "<group>"; };
-		0A0965D025BEF5B000C004BD /* BottomMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomMenuViewController.swift; sourceTree = "<group>"; };
 		0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewController.swift; sourceTree = "<group>"; };
 		0A0965E125BEF5B000C004BD /* DocumentSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentSection.swift; sourceTree = "<group>"; };
 		0A09660F25C06DBA00C004BD /* EventProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventProcessor.swift; sourceTree = "<group>"; };
@@ -2379,7 +2377,6 @@
 			isa = PBXGroup;
 			children = (
 				3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */,
-				0A0965D025BEF5B000C004BD /* BottomMenuViewController.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -3751,7 +3748,6 @@
 				0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */,
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */,
-				53F820A82648AEF5003FEB0B /* BottomMenuViewController.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
 				3DDF58962628C6440081C53E /* PageTitleViewModel.swift in Sources */,
 				0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */,

@@ -36,16 +36,6 @@ final class EditorModuleContainerViewModel {
     }
 }
 
-// MARK: - Configurations
-
-extension EditorModuleContainerViewModel {
-    
-    func configured(userActionsStream: DocumentViewBaseRouter.UserActionPublisher) {
-        router.configure(userActionsStream: userActionsStream)
-    }
-    
-}
-
 // MARK: - Actions
 
 extension EditorModuleContainerViewModel {

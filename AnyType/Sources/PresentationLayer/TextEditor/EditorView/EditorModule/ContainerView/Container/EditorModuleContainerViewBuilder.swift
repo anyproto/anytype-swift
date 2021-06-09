@@ -17,8 +17,6 @@ enum EditorModuleContainerViewBuilder {
             viewModel: viewModel,
             childViewController: childViewController
         )
-
-        windowHolder?.rootNavigationController.delegate = viewController
         
         return viewController
     }
