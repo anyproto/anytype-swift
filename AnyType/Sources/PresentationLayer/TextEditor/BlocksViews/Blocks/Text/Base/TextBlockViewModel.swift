@@ -206,7 +206,6 @@ extension TextBlockViewModel {
     func set(focus: BlockFocusPosition) {
         self.setFocus.send(focus)
     }
-    
 }
 
 // MARK: - Actions Payload Legacy

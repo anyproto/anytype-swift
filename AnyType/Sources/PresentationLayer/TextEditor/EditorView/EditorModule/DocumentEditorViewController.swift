@@ -198,13 +198,38 @@ extension DocumentEditorViewController {
 
         let sectionSnapshot = dataSource.snapshot(for: .first)
         var snapshot = dataSource.snapshot()
-        let itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
+        var itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
+
+        let focusedViewModelIndex = itemsForUpdate.firstIndex(where: { viewModel -> Bool in
+            guard let indexPath = dataSource.indexPath(for: viewModel) else { return false }
+            return collectionView.cellForItem(at: indexPath)?.isAnySubviewFirstResponder() ?? false
+        })
+        if let index = focusedViewModelIndex {
+            updateFocusedViewModel(blockViewModel: itemsForUpdate.remove(at: index))
+        }
 
         if itemsForUpdate.isEmpty {
             return
         }
         snapshot.reloadItems(itemsForUpdate)
-        applySnapshotAndSetFocus(snapshot)
+        apply(snapshot)
+    }
+
+    private func updateFocusedViewModel(blockViewModel: BaseBlockViewModel) {
+        guard let indexPath = dataSource?.indexPath(for: blockViewModel) else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+
+        let textModel = blockViewModel as? TextBlockViewModel
+        cell.indentationLevel = blockViewModel.indentationLevel()
+        cell.contentConfiguration = blockViewModel.buildContentConfiguration()
+        let prefferedSize = cell.systemLayoutSizeFitting(CGSize(width: cell.frame.size.width,
+                                                                height: UIView.layoutFittingCompressedSize.height))
+        if cell.frame.size.height != prefferedSize.height {
+            updateView()
+        }
+        if let focusAt = viewModel.document.userSession?.focusAt() {
+            textModel?.set(focus: focusAt)
+        }
     }
         
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>,
