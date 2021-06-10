@@ -29,6 +29,7 @@ class DocumentEditorViewModel: ObservableObject {
                 completion: nil
             )
         },
+        publisher: publicActionsPayloadPublisher,
         documentViewInteraction: self
     )
     private let listBlockActionHandler = ListBlockActionHandler()
@@ -109,8 +110,6 @@ class DocumentEditorViewModel: ObservableObject {
             self?.process(actionsPayload: value)
         }.store(in: &self.subscriptions)
 
-        _ = self.oldBlockActionHandler.configured(self.publicActionsPayloadPublisher)
-
         self.listToolbarSubject.sink { [weak self] (value) in
             self?.process(toolbarAction: value)
         }.store(in: &self.subscriptions)
@@ -121,8 +120,8 @@ class DocumentEditorViewModel: ObservableObject {
             self?.process(events: events)
         }.store(in: &self.subscriptions)
 
-        self.listBlockActionHandler.reactionPublisher.sink { [weak self] (value) in
-            self?.process(reaction: value)
+        self.listBlockActionHandler.reactionPublisher.sink { [weak self] events in
+            self?.process(listEvents: events)
         }.store(in: &self.subscriptions)
 
         self.$blocksViewModels.sink { [weak self] value in
@@ -254,12 +253,8 @@ private extension DocumentEditorViewModel {
         document.handle(events: events)
     }
 
-    func process(reaction: ListBlockActionHandler.Reaction) {
-        switch reaction {
-        case let .shouldHandleEvent(value):
-            let events = value.payload.events
-            document.handle(events: events)
-        }
+    func process(listEvents: PackOfEvents) {
+        document.handle(events: listEvents)
     }
 }
 

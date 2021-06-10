@@ -39,29 +39,23 @@ final class BlockActionsHandlersFacade {
     private let reactionSubject: PassthroughSubject<PackOfEvents?, Never> = .init()
     lazy var reactionPublisher: AnyPublisher<PackOfEvents, Never> = reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
 
-    init(newTextBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
-         documentViewInteraction: DocumentViewInteraction) {
+    init(
+        newTextBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
+        publisher: AnyPublisher<ActionsPayload, Never>,
+        documentViewInteraction: DocumentViewInteraction
+    ) {
         self.newTextBlockActionHandler = newTextBlockActionHandler
         self.documentViewInteraction = documentViewInteraction
-        self.setup()
-    }
-
-    func setup() {
+        
+        
+        self.subscription = publisher.sink { [weak self] action in
+            self?.didReceiveAction(action: action)
+        }
+        
         // config block action service with completion that send value to subscriber (EditorModule.Document.ViewController.ViewModel)
         _ = self.service.configured { [weak self] events in
             self?.reactionSubject.send(events)
         }
-    }
-
-    /// Attaches subscriber to base blocks views (BlocksViews.Base) publisher
-    /// - Parameter publisher: Publisher that send action from block view to this handler
-    /// - Returns: self
-    func configured(_ publisher: AnyPublisher<ActionsPayload, Never>) -> Self {
-        self.subscription = publisher
-            .sink { [weak self] (value) in
-            self?.didReceiveAction(action: value)
-        }
-        return self
     }
 
     func configured(documentId: String) -> Self {
@@ -105,7 +99,7 @@ final class BlockActionsHandlersFacade {
 
 extension BlockActionsHandlersFacade {
     func createEmptyBlock() {
-        self.service.addChild(
+        service.addChild(
             childBlock: BlockBuilder.createDefaultInformation(),
             parentBlockId: self.documentId
         )

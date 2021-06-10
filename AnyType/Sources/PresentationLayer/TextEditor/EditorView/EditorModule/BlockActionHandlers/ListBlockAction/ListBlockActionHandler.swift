@@ -4,40 +4,20 @@ import BlocksModels
 
 
 final class ListBlockActionHandler {
-    enum Reaction {
-        struct ShouldHandleEvent {
-            var payload: Payload
-            struct Payload {
-                var events: PackOfEvents
-            }
-        }
-
-        case shouldHandleEvent(ShouldHandleEvent)
-    }
-
     typealias ActionsPayload = DocumentEditorViewModel.Toolbar
     typealias ActionsPayloadToolbar = BlocksViews.Toolbar.UnderlyingAction
-
-    typealias ListModel = [BlockId]
 
     private var documentId: String = ""
     private var subscription: AnyCancellable?
 
-    private let service: ListBlockActionService = .init(documentId: "")
-
-    private var reactionSubject: PassthroughSubject<Reaction?, Never> = .init()
-    var reactionPublisher: AnyPublisher<Reaction, Never> = .empty()
-
-    init() {
-        self.setup()
+    private lazy var service: ListBlockActionService = ListBlockActionService(documentId: "") { [weak self] events in
+        self?.reactionSubject.send(events)
     }
 
-    func setup() {
-        self.reactionPublisher = self.reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
-        _ = self.service.configured { [weak self] (value) in
-            self?.reactionSubject.send(.shouldHandleEvent(.init(payload: .init(events: value))))
-        }
-    }
+    private var reactionSubject: PassthroughSubject<PackOfEvents?, Never> = .init()
+    lazy var reactionPublisher: AnyPublisher<PackOfEvents, Never> = reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
+
+
 
     func configured(documentId: String) -> Self {
         self.documentId = documentId
@@ -59,7 +39,7 @@ final class ListBlockActionHandler {
         )
     }
 
-    func handlingToolbarAction(_ model: ListModel, _ action: ActionsPayloadToolbar) {
+    func handlingToolbarAction(_ model: [BlockId], _ action: ActionsPayloadToolbar) {
         switch action {
         case .addBlock: break
         case let .turnIntoBlock(value):

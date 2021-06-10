@@ -14,17 +14,13 @@ final class ListBlockActionService {
 
     private var didReceiveEvent: (PackOfEvents) -> () = { _ in }
 
-    init(documentId: String) {
+    init(documentId: String, didReceiveEvent: @escaping (PackOfEvents) -> ()) {
         self.documentId = documentId
+        self.didReceiveEvent = didReceiveEvent
     }
 
     func configured(documentId: String) -> Self {
         self.documentId = documentId
-        return self
-    }
-
-    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) -> Self {
-        self.didReceiveEvent = didReceiveEvent
         return self
     }
 }
