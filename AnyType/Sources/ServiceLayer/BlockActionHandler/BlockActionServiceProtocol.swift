@@ -5,7 +5,7 @@ protocol BlockActionServiceProtocol {
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     
     func configured(documentId: String) -> Self
-    func configured(didReceiveEvent: @escaping (BlockActionServiceReaction.ActionType?, PackOfEvents) -> ()) -> Self
+    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) -> Self
     
     func upload(block: BlockInformation, filePath: String)
     

@@ -36,8 +36,8 @@ final class BlockActionsHandlersFacade {
     private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
     private lazy var userActionHandler: UserActionHandler = .init(service: service)
 
-    private let reactionSubject: PassthroughSubject<BlockActionServiceReaction?, Never> = .init()
-    private(set) var reactionPublisher: AnyPublisher<BlockActionServiceReaction, Never> = .empty()
+    private let reactionSubject: PassthroughSubject<PackOfEvents?, Never> = .init()
+    lazy var reactionPublisher: AnyPublisher<PackOfEvents, Never> = reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
 
     init(newTextBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
          documentViewInteraction: DocumentViewInteraction) {
@@ -47,10 +47,9 @@ final class BlockActionsHandlersFacade {
     }
 
     func setup() {
-        self.reactionPublisher = self.reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
         // config block action service with completion that send value to subscriber (EditorModule.Document.ViewController.ViewModel)
-        _ = self.service.configured { [weak self] (actionType, events) in
-            self?.reactionSubject.send(.shouldHandleEvent(.init(actionType: actionType, events: events)))
+        _ = self.service.configured { [weak self] events in
+            self?.reactionSubject.send(events)
         }
     }
 

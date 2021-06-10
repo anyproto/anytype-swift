@@ -5,7 +5,7 @@ import Combine
 
 /// Actions from block
 class BlockActionHandler {
-    typealias Completion = (BlockActionServiceReaction.ActionType?, PackOfEvents) -> Void
+    typealias Completion = (PackOfEvents) -> Void
 
     private let service: BlockActionServiceProtocol
     private let listService: BlockActionsServiceList = .init()
@@ -26,8 +26,8 @@ class BlockActionHandler {
     // MARK: - Public methods
 
     func handleBlockAction(_ action: ActionType, block: BlockModelProtocol, completion:  Completion?) {
-        service.configured { actionType, events in
-            completion?(actionType, events)
+        service.configured { events in
+            completion?(events)
         }
 
         switch action {
@@ -60,7 +60,7 @@ private extension BlockActionHandler {
         listService.setBlockColor(contextID: self.documentId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("setBlockColor") { value in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                completion?(nil, value)
+                completion?(value)
             }
             .store(in: &self.subscriptions)
     }
@@ -73,7 +73,7 @@ private extension BlockActionHandler {
         listService.setAlign(contextID: self.documentId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { value in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                completion?(nil, value)
+                completion?(value)
             }
             .store(in: &self.subscriptions)
     }

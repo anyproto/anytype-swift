@@ -349,7 +349,6 @@
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
-		3DBED671266F711000B9E9AB /* BlockActionServiceReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED670266F711000B9E9AB /* BlockActionServiceReaction.swift */; };
 		3DBED675266F720D00B9E9AB /* BlockActionServiceConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */; };
 		3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */; };
 		3DBED67D266F8D5300B9E9AB /* LinearIndexWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */; };
@@ -923,9 +922,8 @@
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "AnyType/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
-		3DBED670266F711000B9E9AB /* BlockActionServiceReaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceReaction.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceReaction.swift; sourceTree = SOURCE_ROOT; };
 		3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceConverter.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceConverter.swift; sourceTree = SOURCE_ROOT; };
-		3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionTypes.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionTypes.swift; sourceTree = SOURCE_ROOT; };
+		3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionTypes.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/Models/BlockActionTypes.swift; sourceTree = SOURCE_ROOT; };
 		3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinearIndexWalker.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/LinearIndexWalker.swift; sourceTree = SOURCE_ROOT; };
 		3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DBED682266F8E5800B9E9AB /* DocumentModelListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentModelListProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/DocumentModelListProvider.swift; sourceTree = SOURCE_ROOT; };
@@ -2863,6 +2861,14 @@
 			path = Title;
 			sourceTree = "<group>";
 		};
+		3DE511FE26712FBE00153962 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3DF6F61A262ED50C000E05A5 /* FeatureFlags */ = {
 			isa = PBXGroup;
 			children = (
@@ -2874,11 +2880,10 @@
 		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
+				3DE511FE26712FBE00153962 /* Models */,
 				53F820BF2648B257003FEB0B /* BlockActionService.swift */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
-				3DBED670266F711000B9E9AB /* BlockActionServiceReaction.swift */,
 				3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */,
-				3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */,
 				3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */,
 			);
 			path = BlockActionHandler;
@@ -3625,7 +3630,6 @@
 				EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */,
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
 				5338E7F825DC736A008CB97D /* UserActionHandler.swift in Sources */,
-				3DBED671266F711000B9E9AB /* BlockActionServiceReaction.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,
 				EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */,

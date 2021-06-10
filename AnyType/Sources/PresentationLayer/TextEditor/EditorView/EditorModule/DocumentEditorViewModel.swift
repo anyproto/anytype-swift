@@ -117,8 +117,8 @@ class DocumentEditorViewModel: ObservableObject {
 
         _ = self.listBlockActionHandler.configured(self.listActionsPayloadPublisher)
 
-        self.oldBlockActionHandler.reactionPublisher.sink { [weak self] (value) in
-            self?.process(reaction: value)
+        self.oldBlockActionHandler.reactionPublisher.sink { [weak self] events in
+            self?.process(events: events)
         }.store(in: &self.subscriptions)
 
         self.listBlockActionHandler.reactionPublisher.sink { [weak self] (value) in
@@ -240,24 +240,18 @@ extension DocumentEditorViewModel: DocumentViewInteraction {
 // MARK: - Reactions
 
 private extension DocumentEditorViewModel {
-    func process(reaction: BlockActionServiceReaction) {
-        switch reaction {
-        case let .shouldHandleEvent(value):
-
-            value.events.ourEvents.forEach { event in
-                switch event {
-                case let .setFocus(focus):
-                    if let blockViewModel = blocksViewModels.first(where: { $0.blockId == focus.blockId }) as? TextBlockViewModel {
-                        blockViewModel.set(focus: focus.position ?? .end)
-                    }
-                default: return
+    func process(events: PackOfEvents) {
+        events.ourEvents.forEach { event in
+            switch event {
+            case let .setFocus(focus):
+                if let blockViewModel = blocksViewModels.first(where: { $0.blockId == focus.blockId }) as? TextBlockViewModel {
+                    blockViewModel.set(focus: focus.position ?? .end)
                 }
+            default: return
             }
-
-            let events = value.events
-            document.handle(events: events)
-        default: return
         }
+
+        document.handle(events: events)
     }
 
     func process(reaction: ListBlockActionHandler.Reaction) {
@@ -382,14 +376,8 @@ extension DocumentEditorViewModel {
     func handleAction(_ action: BlockActionHandler.ActionType) {
         guard let firstResponder = document.userSession?.firstResponder() else { return }
         
-        blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] actionType, events in
-            self?.process(
-                reaction: .shouldHandleEvent(
-                    .init(actionType: actionType,
-                          events: events
-                    )
-                )
-            )
+        blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] events in
+            self?.process(events: events)
         }
     }
 }

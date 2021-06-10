@@ -13,14 +13,14 @@ final class MarksPaneBlockActionHandler {
     private let listService: BlockActionsServiceList = .init()
     private let contextId: String
     private var subscriptions: [AnyCancellable] = []
-    private weak var subject: PassthroughSubject<BlockActionServiceReaction?, Never>?
+    private weak var subject: PassthroughSubject<PackOfEvents?, Never>?
     private weak var documentViewInteraction: DocumentViewInteraction?
 
     init(
         documentViewInteraction: DocumentViewInteraction?,
         service: BlockActionServiceProtocol,
         contextId: String,
-        subject: PassthroughSubject<BlockActionServiceReaction?, Never>
+        subject: PassthroughSubject<PackOfEvents?, Never>
     ) {
         self.documentViewInteraction = documentViewInteraction
         self.service = service
@@ -64,7 +64,7 @@ private extension MarksPaneBlockActionHandler {
         listService.setBlockColor(contextID: self.contextId, blockIds: blockIds, color: color)
             .sinkWithDefaultCompletion("setBlockColor") { [weak self] (value) in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
+                self?.subject?.send(value)
             }
             .store(in: &self.subscriptions)
     }
@@ -75,7 +75,7 @@ private extension MarksPaneBlockActionHandler {
         listService.setAlign(contextID: self.contextId, blockIds: blockIds, alignment: alignment.asModel())
             .sinkWithDefaultCompletion("setAlignment") { [weak self] (value) in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
-                self?.subject?.send(.shouldHandleEvent(.init(actionType: nil, events: value)))
+                self?.subject?.send(value)
             }
             .store(in: &self.subscriptions)
     }

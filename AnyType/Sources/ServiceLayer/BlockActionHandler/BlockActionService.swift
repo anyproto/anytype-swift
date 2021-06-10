@@ -18,7 +18,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let bookmarkService = BlockActionsServiceBookmark()
     private let fileService = BlockActionsServiceFile()
 
-    private var didReceiveEvent: (BlockActionServiceReaction.ActionType?, PackOfEvents) -> () = { _,_  in }
+    private var didReceiveEvent: (PackOfEvents) -> () = { _  in }
 
     init(documentId: String) {
         self.documentId = documentId
@@ -29,7 +29,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     /// - Parameters:
     ///   - events: Event to handle
     func receiveOurEvents(_ events: [OurEvent]) {
-        self.didReceiveEvent(nil, .init(contextId: documentId, events: [], ourEvents: events))
+        self.didReceiveEvent(PackOfEvents(contextId: documentId, events: [], ourEvents: events))
     }
 
     func configured(documentId: String) -> Self {
@@ -38,7 +38,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     @discardableResult
-    func configured(didReceiveEvent: @escaping (BlockActionServiceReaction.ActionType?, PackOfEvents) -> ()) -> Self {
+    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) -> Self {
         self.didReceiveEvent = didReceiveEvent
         return self
     }
@@ -74,7 +74,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             blockIds: blockIds,
             position: position
         ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
-            self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
+            self?.didReceiveEvent(PackOfEvents(contextId: value.contextID, events: value.messages))
         }.store(in: &self.subscriptions)
     }
 
@@ -86,7 +86,7 @@ final class BlockActionService: BlockActionServiceProtocol {
                                     templateID: "")
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.createPage with payload") { [weak self] (value) in
-                self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
+                self?.didReceiveEvent(PackOfEvents(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
     }
 
@@ -111,7 +111,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         )
             .receiveOnMain()
             .sinkWithDefaultCompletion("textService.checked with payload") { [weak self] value in
-                self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
+                self?.didReceiveEvent(PackOfEvents(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
     }
     
@@ -130,7 +130,7 @@ final class BlockActionService: BlockActionServiceProtocol {
                 }
             }) { [weak self] value in
                 let value = completion(value)
-                self?.didReceiveEvent(.deleteBlock, value)
+                self?.didReceiveEvent(value)
             }.store(in: &self.subscriptions)
     }
 }
@@ -149,7 +149,7 @@ private extension BlockActionService {
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
                 let value = completion(value)
-                self?.didReceiveEvent(nil, value)
+                self?.didReceiveEvent(value)
             }.store(in: &self.subscriptions)
     }
 
@@ -167,13 +167,13 @@ private extension BlockActionService {
             return
         }
 
-        let range: NSRange = .init(location: position, length: 0)
+        let range = NSRange(location: position, length: 0)
 
         self.textService.split(contextID: self.documentId, blockID: blockId, range: range, style: type.contentType)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.split without payload") { [weak self] (value) in
                 let value = completion(value)
-                self?.didReceiveEvent(nil, value)
+                self?.didReceiveEvent(value)
             }.store(in: &self.subscriptions)
     }
 
@@ -195,7 +195,7 @@ private extension BlockActionService {
             return
         }
 
-        let range: NSRange = .init(location: position, length: 0)
+        let range = NSRange(location: position, length: 0)
 
         let documentId = self.documentId
 
@@ -209,7 +209,7 @@ private extension BlockActionService {
             let value = completion(value)
             var theValue = value
             theValue.ourEvents = [.setTextMerge(.init(blockId: blockId))] + theValue.ourEvents
-            self?.didReceiveEvent(nil, theValue)
+            self?.didReceiveEvent(theValue)
         }.store(in: &self.subscriptions)
     }
 
@@ -234,7 +234,7 @@ private extension BlockActionService {
         listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: value.style)
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] (value) in
             let value = completion(value)
-            self?.didReceiveEvent(nil, value)
+            self?.didReceiveEvent(value)
         }.store(in: &self.subscriptions)
     }
 
@@ -266,7 +266,7 @@ private extension BlockActionService {
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] value in
                 let value = completion(value)
-                self?.didReceiveEvent(nil, value)
+                self?.didReceiveEvent(value)
             }.store(in: &self.subscriptions)
     }
 }
@@ -282,7 +282,7 @@ extension BlockActionService {
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] value in
                 let value = completion(value)
-                self?.didReceiveEvent(.merge, value)
+                self?.didReceiveEvent(value)
             }.store(in: &self.subscriptions)
     }
 }
@@ -295,7 +295,7 @@ extension BlockActionService {
         self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
             .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] (value) in
                 let value = completion(value)
-                self?.didReceiveEvent(nil, value)
+                self?.didReceiveEvent(value)
         }.store(in: &self.subscriptions)
     }
 
@@ -319,7 +319,7 @@ extension BlockActionService {
         listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: backgroundColor)
             .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] (value) in
                 let value = completion(value)
-                self?.didReceiveEvent(nil, value)
+                self?.didReceiveEvent(value)
             }
             .store(in: &self.subscriptions)
     }
@@ -337,7 +337,7 @@ extension BlockActionService {
         self.fileService.uploadDataAtFilePath(contextID: self.documentId, blockID: blockId, filePath: filePath)
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] (value) in
                 let value = completion(value)
-                self?.didReceiveEvent(nil, value)
+                self?.didReceiveEvent(value)
         }.store(in: &self.subscriptions)
     }
     
