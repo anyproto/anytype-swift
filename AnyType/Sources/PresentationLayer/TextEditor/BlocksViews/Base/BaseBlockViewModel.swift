@@ -187,7 +187,13 @@ class BaseBlockViewModel: ObservableObject {
                 send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject))))
             case .turnIntoPage:
                 toolbarActionSubject.send(.turnIntoBlock(.objects(.page)))
-            case .style: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .style))))))
+            case .style:
+                send(
+                    actionsPayload: .showStyleMenu(
+                        blockModel: block.blockModel,
+                        blockViewModel: self
+                    )
+                )
             case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .textColor))))))
             case .backgroundColor:
                 let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(block.blockModel.information.backgroundColor, background: true) ?? .defaultColor

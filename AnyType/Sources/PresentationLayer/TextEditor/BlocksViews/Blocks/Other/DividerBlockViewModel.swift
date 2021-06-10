@@ -59,8 +59,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
         .init(title: "", children: [
             .create(action: .general(.addBlockBelow)),
             .create(action: .general(.delete)),
-            .create(action: .general(.duplicate)),
-            .create(action: .specific(.turnInto))
+            .create(action: .general(.duplicate))
         ])
     }
     

@@ -64,7 +64,8 @@ class TextBlockViewModel: BaseBlockViewModel {
                 contentsOf: [
                     .create(action: .specific(.turnIntoPage)),
                     .create(action: .general(.delete)),
-                    .create(action: .general(.duplicate))
+                    .create(action: .general(.duplicate)),
+                    .create(action: .specific(.style))
                 ]
             )
             
@@ -73,10 +74,6 @@ class TextBlockViewModel: BaseBlockViewModel {
         
         
         return .init(title: "", children: actions)
-    }
-    
-    override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
-        super.handle(contextualMenuAction: contextualMenuAction)
     }
 
     override func updateView() {

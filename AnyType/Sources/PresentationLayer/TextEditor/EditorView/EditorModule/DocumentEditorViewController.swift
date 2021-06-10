@@ -5,9 +5,7 @@ import FloatingPanel
 
 final class DocumentEditorViewController: UIViewController {
 
-    // MARK: - Private variables
-    
-    private var dataSource: UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel>?
+    private lazy var dataSource = makeCollectionViewDataSource()
     
     private let collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
@@ -64,7 +62,6 @@ final class DocumentEditorViewController: UIViewController {
         super.viewWillAppear(animated)
         insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
     }
-
 }
 
 // MARK: - Initial Update data
@@ -72,13 +69,11 @@ final class DocumentEditorViewController: UIViewController {
 extension DocumentEditorViewController {
     private func updateView() {
         UIView.performWithoutAnimation {
-            dataSource?.refresh(animatingDifferences: true)
+            dataSource.refresh(animatingDifferences: true)
         }
     }
 
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
-        guard let dataSource = dataSource else { return }
-
         let sectionSnapshot = dataSource.snapshot(for: .first)
         var snapshot = dataSource.snapshot()
         var itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
@@ -120,7 +115,7 @@ extension DocumentEditorViewController {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
         UIView.performWithoutAnimation {
-            self.dataSource?.apply(snapshot, animatingDifferences: true) { [weak self] in
+            self.dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
                 self?.updateVisibleNumberedItems()
 
                 completion?()
@@ -176,7 +171,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let viewModel = dataSource?.itemIdentifier(for: indexPath) else { return false }
+        guard let viewModel = dataSource.itemIdentifier(for: indexPath) else { return false }
         if self.viewModel.selectionEnabled() {
             if case let .text(text) = viewModel.block.content {
                 return text.contentType != .title
@@ -196,7 +191,7 @@ extension DocumentEditorViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
 
-        guard let blockViewModel = dataSource?.itemIdentifier(for: indexPath) else { return nil }
+        guard let blockViewModel = dataSource.itemIdentifier(for: indexPath) else { return nil }
         return blockViewModel.contextMenuInteraction()
     }
 }
@@ -213,7 +208,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
     func reloadFirstSection() {
         // Workaround: Supplementary view reloaded only on reloadSections
         // That couse dismiss keyboard if keyboard is open and you update details on desktop
-        guard var snapshot = dataSource?.snapshot() else { return }
+        var snapshot = dataSource.snapshot()
         
         snapshot.reloadSections([.first])
         apply(snapshot)
@@ -244,7 +239,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             self?.viewModel.handleAction(action)
         }
 
-        if let indexPath = dataSource?.indexPath(for: blockViewModel) {
+        if let indexPath = dataSource.indexPath(for: blockViewModel) {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
     }
@@ -252,22 +247,29 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
 
 extension DocumentEditorViewController: FloatingPanelControllerDelegate {
     func floatingPanelDidRemove(_ fpc: FloatingPanelController) {
+        let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first
         collectionView.deselectAllSelectedItems()
-        
-        guard let snapshot = self.dataSource?.snapshot() else { return }
 
         let userSession = viewModel.document.userSession
         let blockModel = userSession?.firstResponder()
 
-        let itemIdentifiers = snapshot.itemIdentifiers(inSection: .first)
-
-        let blockViewModel = itemIdentifiers.first { blockViewModel in
-            blockViewModel.blockId == blockModel?.information.id
-        }
+        guard let indexPath = selectedIndexPath,
+              let blockViewModel = dataSource.itemIdentifier(for: indexPath),
+              blockViewModel.blockId == blockModel?.information.id else { return }
 
         if let blockViewModel = blockViewModel as? TextBlockViewModel {
             let focus = userSession?.focusAt() ?? .end
             blockViewModel.set(focus: focus)
+        }
+    }
+    
+    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
+        // Initialy keyboard is shown and we open context menu, so keyboard moves away
+        // Then we select "Style" item from menu and display bottom sheet
+        // Then system call "becomeFirstResponder" on UITextView which was firstResponder
+        // and keyboard covers bottom sheet, this method helps us to unsure bottom sheet is visible
+        if fpc.state == FloatingPanelState.full {
+            view.endEditing(true)
         }
     }
 }
@@ -278,7 +280,6 @@ private extension DocumentEditorViewController {
     
     func setupUI() {
         setupCollectionView()
-        setupCollectionViewDataSource()
         setupInteractions()
     }
 
@@ -290,7 +291,7 @@ private extension DocumentEditorViewController {
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
 
-    func setupCollectionViewDataSource() {
+    private func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel> {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -319,7 +320,7 @@ private extension DocumentEditorViewController {
             return self?.collectionView.dequeueConfiguredReusableSupplementary(using: supplementaryRegistration, for: $2)
         }
         
-        self.dataSource = dataSource
+        return dataSource
     }
 
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BaseBlockViewModel) {
@@ -398,9 +399,7 @@ private extension DocumentEditorViewController {
 private extension DocumentEditorViewController {
     
     enum Constants {
-        static let headerReuseId = "header"
         static let cellIndentationWidth: CGFloat = 24
-        static let cellReuseId: String = NSStringFromClass(UICollectionViewListCell.self)
     }
     
 }
