@@ -5,12 +5,12 @@ import Combine
 
 final class TextBlockActionHandler {
     private var subscriptions: Set<AnyCancellable> = []
-    private let service: BlockActionService
+    private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
     private var indexWalker: LinearIndexWalker?
 
-    init(contextId: String, service: BlockActionService, indexWalker: LinearIndexWalker?) {
+    init(contextId: String, service: BlockActionServiceProtocol, indexWalker: LinearIndexWalker?) {
         self.service = service
         self.contextId = contextId
         self.indexWalker = indexWalker

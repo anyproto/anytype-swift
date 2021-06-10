@@ -3,10 +3,10 @@ import os
 
 
 final class ToolbarBlockActionHandler {
-    private let service: BlockActionService
+    private let service: BlockActionServiceProtocol
     private var indexWalker: LinearIndexWalker?
 
-    init(service: BlockActionService, indexWalker: LinearIndexWalker?) {
+    init(service: BlockActionServiceProtocol, indexWalker: LinearIndexWalker?) {
         self.service = service
         self.indexWalker = indexWalker
     }

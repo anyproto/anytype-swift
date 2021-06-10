@@ -8,15 +8,20 @@ final class MarksPaneBlockActionHandler {
     typealias ActionsPayloadMarksPane = MarksPane.Main.Action
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     
-    private let service: BlockActionService
+    private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let listService: BlockActionsServiceList = .init()
     private let contextId: String
     private var subscriptions: [AnyCancellable] = []
-    private weak var subject: PassthroughSubject<BlockActionService.Reaction?, Never>?
+    private weak var subject: PassthroughSubject<BlockActionServiceReaction?, Never>?
     private weak var documentViewInteraction: DocumentViewInteraction?
 
-    init(documentViewInteraction: DocumentViewInteraction?, service: BlockActionService, contextId: String, subject: PassthroughSubject<BlockActionService.Reaction?, Never>) {
+    init(
+        documentViewInteraction: DocumentViewInteraction?,
+        service: BlockActionServiceProtocol,
+        contextId: String,
+        subject: PassthroughSubject<BlockActionServiceReaction?, Never>
+    ) {
         self.documentViewInteraction = documentViewInteraction
         self.service = service
         self.contextId = contextId

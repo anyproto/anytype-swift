@@ -1,11 +1,3 @@
-//
-//  BlockActionsService+Single.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 14.06.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import BlocksModels

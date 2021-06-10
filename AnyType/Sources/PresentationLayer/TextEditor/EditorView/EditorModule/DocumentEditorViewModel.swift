@@ -240,7 +240,7 @@ extension DocumentEditorViewModel: DocumentViewInteraction {
 // MARK: - Reactions
 
 private extension DocumentEditorViewModel {
-    func process(reaction: BlockActionService.Reaction) {
+    func process(reaction: BlockActionServiceReaction) {
         switch reaction {
         case let .shouldHandleEvent(value):
 

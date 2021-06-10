@@ -3,31 +3,22 @@ import BlocksModels
 import os
 import UIKit
 
-
 extension LoggerCategory {
     static let blockActionService: Self = "blockActionService"
 }
 
-/// Each method should return not a block, but a response.
-/// Next, this response would be proceed by event handler.
-final class BlockActionService {
-    typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
-    typealias BlockContentTypeText = BlockText.ContentType
-
-    private var documentId: String
+final class BlockActionService: BlockActionServiceProtocol {
+    private var documentId: BlockId
 
     private var subscriptions: [AnyCancellable] = []
-    private let service: BlockActionsServiceSingle = .init()
-    private let pageService: ObjectActionsService = .init()
-    private let textService: BlockActionsServiceText = .init()
-    private let listService: BlockActionsServiceList = .init()
-    private let bookmarkService: BlockActionsServiceBookmark = .init()
-    private let fileService: BlockActionsServiceFile = .init()
+    private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
+    private let pageService = ObjectActionsService()
+    private let textService = BlockActionsServiceText()
+    private let listService = BlockActionsServiceList()
+    private let bookmarkService = BlockActionsServiceBookmark()
+    private let fileService = BlockActionsServiceFile()
 
-    private var didReceiveEvent: (Reaction.ActionType?, PackOfEvents) -> () = { _,_  in }
-
-    // We also need a handler of events.
-    private let eventHandling: String = ""
+    private var didReceiveEvent: (BlockActionServiceReaction.ActionType?, PackOfEvents) -> () = { _,_  in }
 
     init(documentId: String) {
         self.documentId = documentId
@@ -47,7 +38,7 @@ final class BlockActionService {
     }
 
     @discardableResult
-    func configured(didReceiveEvent: @escaping (Reaction.ActionType?, PackOfEvents) -> ()) -> Self {
+    func configured(didReceiveEvent: @escaping (BlockActionServiceReaction.ActionType?, PackOfEvents) -> ()) -> Self {
         self.didReceiveEvent = didReceiveEvent
         return self
     }
@@ -61,25 +52,28 @@ final class BlockActionService {
 
     func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, shouldSetFocusOnUpdate: Bool) {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Add.convert : Converter.Default.convert
-        _add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
+        add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
     }
 
     func split(block: BlockInformation,
                oldText: String,
-               newBlockContentType: BlockContentTypeText,
+               newBlockContentType: BlockText.ContentType,
                shouldSetFocusOnUpdate: Bool) {
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Split.convert : Converter.Default.convert
-        _setTextAndSplit(block: block,
-                         oldText: oldText,
-                         newBlockContentType: newBlockContentType,
-                         conversion)
+        setTextAndSplit(block: block, oldText: oldText, newBlockContentType: newBlockContentType, conversion)
     }
 
     func duplicate(block: BlockInformation) {
         let targetId = block.id
         let blockIds: [String] = [targetId]
         let position: BlockPosition = .bottom
-        self.service.duplicate(contextID: self.documentId, targetID: targetId, blockIds: blockIds, position: position).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
+        
+        singleService.duplicate(
+            contextID: documentId,
+            targetID: targetId,
+            blockIds: blockIds,
+            position: position
+        ).sinkWithDefaultCompletion("blocksActions.service.duplicate") { [weak self] (value) in
             self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
         }.store(in: &self.subscriptions)
     }
@@ -101,7 +95,7 @@ final class BlockActionService {
     func turnInto(block: BlockInformation, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
         /// Also check for style later.
         let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.TurnInto.Text.convert : Converter.Default.convert
-        _turnInto(block: block, type: type, conversion)
+        turnInto(block: block, type: type, conversion)
     }
     
     /// Set checkbox state for block
@@ -120,10 +114,29 @@ final class BlockActionService {
                 self?.didReceiveEvent(nil, .init(contextId: value.contextID, events: value.messages))
             }.store(in: &self.subscriptions)
     }
+    
+    func delete(block: BlockInformation, completion: @escaping Conversion) {
+        let blockIds = [block.id]
+        singleService.delete(contextID: self.documentId, blockIds: blockIds)
+            .receiveOnMain()
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished: return
+                case let .failure(error):
+                    // It occurs if you press delete at the beginning of title block
+                    Logger.create(.blockActionService).debug(
+                        "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
+                    )
+                }
+            }) { [weak self] value in
+                let value = completion(value)
+                self?.didReceiveEvent(.deleteBlock, value)
+            }.store(in: &self.subscriptions)
+    }
 }
 
 private extension BlockActionService {
-    func _add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, _ completion: @escaping Conversion) {
+    func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, _ completion: @escaping Conversion) {
 
         // insert block after block
         // we could catch events and update model.
@@ -132,7 +145,7 @@ private extension BlockActionService {
 
         let targetId = afterBlockId
 
-        self.service.add(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
+        singleService.add(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
                 let value = completion(value)
@@ -141,7 +154,7 @@ private extension BlockActionService {
     }
 
 
-    func _split(block: BlockInformation, oldText: String, _ completion: @escaping Conversion) {
+    func split(block: BlockInformation, oldText: String, _ completion: @escaping Conversion) {
         // TODO: You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`
 
         // We are using old text as a cursor position.
@@ -164,10 +177,12 @@ private extension BlockActionService {
             }.store(in: &self.subscriptions)
     }
 
-    func _setTextAndSplit(block: BlockInformation,
-                          oldText: String,
-                          newBlockContentType: BlockContentTypeText,
-                          _ completion: @escaping Conversion) {
+    func setTextAndSplit(
+        block: BlockInformation,
+        oldText: String,
+        newBlockContentType: BlockText.ContentType,
+        _ completion: @escaping Conversion
+    ) {
         // TODO: "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
 
         let blockId = block.id
@@ -198,28 +213,7 @@ private extension BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    // MARK: Delete
-    func _delete(block: BlockInformation, _ completion: @escaping Conversion) {
-        let blockIds = [block.id]
-        self.service.delete(contextID: self.documentId, blockIds: blockIds)
-            .receiveOnMain()
-            .sink(receiveCompletion: { completion in
-                switch completion {
-                case .finished: return
-                case let .failure(error):
-                    // It occurs if you press delete at the beginning of title block
-                    Logger.create(.blockActionService).debug(
-                        "blocksActions.service.delete without payload got error: \(error.localizedDescription)"
-                    )
-                }
-            }) { [weak self] value in
-                let value = completion(value)
-                self?.didReceiveEvent(.deleteBlock, value)
-            }.store(in: &self.subscriptions)
-    }
-
-    // MARK: - Turn Into
-    func _turnInto(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func turnInto(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         switch type {
         case .text: self.setTextStyle(block: block, type: type, completion)
         case .smartblock: self.setPageStyle(block: block, type: type)
@@ -228,7 +222,7 @@ private extension BlockActionService {
         }
     }
 
-    private func setDividerStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func setDividerStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
         guard case let .divider(value) = type else {
             assertionFailure("SetDividerStyle content is not divider: \(type)")
@@ -244,7 +238,7 @@ private extension BlockActionService {
         }.store(in: &self.subscriptions)
     }
 
-    private func setPageStyle(block: BlockInformation, type: BlockContent) {
+    func setPageStyle(block: BlockInformation, type: BlockContent) {
         let blockId = block.id
         let objectType = ""
 
@@ -260,7 +254,7 @@ private extension BlockActionService {
         .store(in: &self.subscriptions)
     }
 
-    private func setTextStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func setTextStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
         let blockId = block.id
 
         guard case let .text(text) = type else {
@@ -280,10 +274,6 @@ private extension BlockActionService {
 // MARK: - Delete
 
 extension BlockActionService {
-    func delete(block: BlockInformation, completion: @escaping Conversion) {
-        _delete(block: block, completion)
-    }
-
     func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, _ completion: @escaping Conversion = Converter.Default.convert) {
         let firstBlockId = firstBlock.id
         let secondBlockId = secondBlock.id

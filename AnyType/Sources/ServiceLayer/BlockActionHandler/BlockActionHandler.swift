@@ -5,9 +5,9 @@ import Combine
 
 /// Actions from block
 class BlockActionHandler {
-    typealias Completion = (BlockActionService.Reaction.ActionType?, PackOfEvents) -> Void
+    typealias Completion = (BlockActionServiceReaction.ActionType?, PackOfEvents) -> Void
 
-    private let service: BlockActionService
+    private let service: BlockActionServiceProtocol
     private let listService: BlockActionsServiceList = .init()
     private let textService: BlockActionsServiceText = .init()
     private let documentId: String
@@ -20,7 +20,7 @@ class BlockActionHandler {
         guard let documentId = documentId else { return nil }
         self.documentViewInteraction = documentViewInteraction
         self.documentId = documentId
-        self.service = .init(documentId: documentId)
+        self.service = BlockActionService(documentId: documentId)
     }
 
     // MARK: - Public methods

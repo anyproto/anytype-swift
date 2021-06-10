@@ -9,7 +9,7 @@ private extension LoggerCategory {
 
 final class BlockActionsHandlersFacade {
     private var subscription: AnyCancellable?
-    private let service: BlockActionService = .init(documentId: "")
+    private let service: BlockActionServiceProtocol = BlockActionService(documentId: "")
     private var documentId: String = ""
     private var indexWalker: LinearIndexWalker?
     private weak var documentViewInteraction: DocumentViewInteraction?
@@ -36,8 +36,8 @@ final class BlockActionsHandlersFacade {
     private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
     private lazy var userActionHandler: UserActionHandler = .init(service: service)
 
-    private let reactionSubject: PassthroughSubject<BlockActionService.Reaction?, Never> = .init()
-    private(set) var reactionPublisher: AnyPublisher<BlockActionService.Reaction, Never> = .empty()
+    private let reactionSubject: PassthroughSubject<BlockActionServiceReaction?, Never> = .init()
+    private(set) var reactionPublisher: AnyPublisher<BlockActionServiceReaction, Never> = .empty()
 
     init(newTextBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
          documentViewInteraction: DocumentViewInteraction) {

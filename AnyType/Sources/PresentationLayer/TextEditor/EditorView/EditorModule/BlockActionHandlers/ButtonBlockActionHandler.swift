@@ -1,18 +1,10 @@
-//
-//  ButtonBlockActionHandler.swift
-//  AnyType
-//
-//  Created by Denis Batvinkin on 17.02.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import BlocksModels
 
 
 final class ButtonBlockActionHandler {
-    private let service: BlockActionService
+    private let service: BlockActionServiceProtocol
 
-    init(service: BlockActionService) {
+    init(service: BlockActionServiceProtocol) {
         self.service = service
     }
 
