@@ -5,6 +5,8 @@ import FloatingPanel
 
 final class DocumentEditorViewController: UIViewController {
 
+    var router: DocumentViewCompoundRouter?
+    
     private lazy var dataSource = makeCollectionViewDataSource()
     
     private let collectionView: UICollectionView = {
@@ -60,6 +62,9 @@ final class DocumentEditorViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        windowHolder?.configureNavigationBarWithOpaqueBackground()
+        
         insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
     }
 }
@@ -94,7 +99,7 @@ extension DocumentEditorViewController {
     }
 
     private func updateFocusedViewModel(blockViewModel: BaseBlockViewModel) {
-        guard let indexPath = dataSource?.indexPath(for: blockViewModel) else { return }
+        guard let indexPath = dataSource.indexPath(for: blockViewModel) else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
 
         let textModel = blockViewModel as? TextBlockViewModel

@@ -7,6 +7,7 @@ protocol MainWindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType)
     
-    func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance)
+    func configureNavigationBarWithOpaqueBackground()
+    func configureNavigationBarWithTransparentBackground()
 
 }

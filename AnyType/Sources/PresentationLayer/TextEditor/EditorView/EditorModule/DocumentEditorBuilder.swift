@@ -4,14 +4,9 @@ import SwiftUI
 import Combine
 import BlocksModels
 
-typealias EditorModuleContentModule = (
-    viewController: DocumentEditorViewController,
-    publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never>
-)
-
-enum EditorModuleContentViewBuilder {
+enum DocumentEditorBuilder {
     
-    static func сontent(id: BlockId) -> EditorModuleContentModule {
+    static func build(id: BlockId) -> DocumentEditorViewController {
         let selectionHandler: EditorModuleSelectionHandlerProtocol = EditorSelectionHandler()
         
         let editorViewModel = DocumentEditorViewModel(
@@ -21,12 +16,19 @@ enum EditorModuleContentViewBuilder {
         
         let editorController = DocumentEditorViewController(viewModel: editorViewModel)
         
+        let router = DocumentViewCompoundRouter(
+            viewController: editorController,
+            userActionsStream: editorViewModel.publicUserActionPublisher
+        )
+        
+        editorController.router = router
+        
         editorViewModel.viewInput = editorController
         editorViewModel.editorRouter = EditorRouter(
             preseningViewController: editorController
         )
         
-        return (editorController, editorViewModel.publicUserActionPublisher)
+        return editorController
     }
     
 }

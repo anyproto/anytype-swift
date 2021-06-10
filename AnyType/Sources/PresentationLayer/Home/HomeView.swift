@@ -16,7 +16,9 @@ struct HomeView: View {
             .environment(\.font, .defaultAnytype)
             .environmentObject(model)
             .environmentObject(accountData)
-            .onAppear(perform: makeNavigationBarTransparent)
+            .onAppear {
+                windowHolder?.configureNavigationBarWithTransparentBackground()
+            }
     }
     
     private var contentView: some View {
@@ -63,13 +65,7 @@ struct HomeView: View {
             NavigationLink(destination: EmptyView(), label: {}) // https://stackoverflow.com/a/67104650/6252099
         }
     }
-    
-    private func makeNavigationBarTransparent() {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        windowHolder?.modifyNavigationBarAppearance(navBarAppearance)
-    }
-    
+
     private let sheetOpenOffset: CGFloat = -5
     private let sheetCloseOffset: CGFloat = 40
     

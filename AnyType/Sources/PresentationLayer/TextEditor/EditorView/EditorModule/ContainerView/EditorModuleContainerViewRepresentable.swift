@@ -11,12 +11,12 @@ struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
     
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>
-    ) -> EditorModuleContainerViewController {
-        EditorModuleContainerViewBuilder.makeView(with: documentId)
+    ) -> DocumentEditorViewController {
+        DocumentEditorBuilder.build(id: documentId)
     }
     
     func updateUIViewController(
-        _ uiViewController: EditorModuleContainerViewController,
+        _ uiViewController: DocumentEditorViewController,
         context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>
     ) {
     }

@@ -122,12 +122,27 @@ extension ApplicationCoordinator: MainWindowHolder {
         window.makeKeyAndVisible()
     }
     
-    func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance) {
+    func configureNavigationBarWithOpaqueBackground() {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.shadowImage = UIImage()
+        navBarAppearance.shadowColor = nil
+        
+        modifyNavigationBarAppearance(navBarAppearance)
+    }
+    
+    func configureNavigationBarWithTransparentBackground() {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        
+        modifyNavigationBarAppearance(navBarAppearance)
+    }
+    
+    private func modifyNavigationBarAppearance(_ appearance: UINavigationBarAppearance) {
         rootNavigationController.navigationBar.compactAppearance = appearance
         rootNavigationController.navigationBar.standardAppearance = appearance
         rootNavigationController.navigationBar.scrollEdgeAppearance = appearance
         rootNavigationController.navigationBar.barTintColor = UIColor.grayscale50
         rootNavigationController.navigationBar.tintColor = UIColor.grayscale50
     }
-
 }

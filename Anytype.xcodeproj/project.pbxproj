@@ -247,6 +247,8 @@
 		12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4055264AE455007B5074 /* LayoutDimension.swift */; };
 		12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */; };
 		12E014D4266FCA7A008036B0 /* MainWindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */; };
+		12E014F826722FEA008036B0 /* DocumentViewCompoundRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */; };
+		12E014FC2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */; };
 		3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */; };
@@ -266,11 +268,8 @@
 		3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */; };
 		3D155274264D976A00B0E976 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155273264D976A00B0E976 /* Snackbar.swift */; };
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
-		3D18022E264E9C9F00224815 /* EditorModuleContentViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */; };
-		3D180230264E9C9F00224815 /* EditorModuleContainerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D180229264E9C9F00224815 /* EditorModuleContainerViewModel.swift */; };
+		3D18022E264E9C9F00224815 /* DocumentEditorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D180226264E9C9F00224815 /* DocumentEditorBuilder.swift */; };
 		3D180231264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift */; };
-		3D180232264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */; };
-		3D180233264E9C9F00224815 /* EditorModuleContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */; };
 		3D2EFDF52670B99300585AD2 /* EditorFloater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EFDF42670B99300585AD2 /* EditorFloater.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
@@ -374,7 +373,6 @@
 		3DD67E9C2652705A0025ED6F /* EditorSelectionIncomingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67E9B2652705A0025ED6F /* EditorSelectionIncomingEvent.swift */; };
 		3DD67E9F2652708A0025ED6F /* EditorSelectionHandlerStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67E9E2652708A0025ED6F /* EditorSelectionHandlerStorage.swift */; };
 		3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67EA2265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift */; };
-		3DD67EBC26528D260025ED6F /* EditorContainerRoutingProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD67EBB26528D260025ED6F /* EditorContainerRoutingProcessor.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockPageLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockPageLinkUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */; };
 		3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */; };
@@ -822,6 +820,8 @@
 		12DE4055264AE455007B5074 /* LayoutDimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutDimension.swift; sourceTree = "<group>"; };
 		12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowHolder.swift; sourceTree = "<group>"; };
+		12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewCompoundRouter.swift; sourceTree = "<group>"; };
+		12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewBaseCompoundRouter.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsConverter.swift; sourceTree = "<group>"; };
 		3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileStateConverter.swift; sourceTree = "<group>"; };
@@ -841,11 +841,8 @@
 		3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		3D155273264D976A00B0E976 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
-		3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContentViewBuilder.swift; sourceTree = "<group>"; };
-		3D180229264E9C9F00224815 /* EditorModuleContainerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewModel.swift; sourceTree = "<group>"; };
+		3D180226264E9C9F00224815 /* DocumentEditorBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorBuilder.swift; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewRepresentable.swift; sourceTree = "<group>"; };
-		3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewBuilder.swift; sourceTree = "<group>"; };
-		3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleContainerViewController.swift; sourceTree = "<group>"; };
 		3D2EFDF42670B99300585AD2 /* EditorFloater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorFloater.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/EditorFloater.swift; sourceTree = SOURCE_ROOT; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -947,7 +944,6 @@
 		3DD67E9B2652705A0025ED6F /* EditorSelectionIncomingEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionIncomingEvent.swift; sourceTree = "<group>"; };
 		3DD67E9E2652708A0025ED6F /* EditorSelectionHandlerStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionHandlerStorage.swift; sourceTree = "<group>"; };
 		3DD67EA2265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorModuleSelectionHandlerProtocol.swift; sourceTree = "<group>"; };
-		3DD67EBB26528D260025ED6F /* EditorContainerRoutingProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorContainerRoutingProcessor.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockPageLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockPageLinkUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkUIKitView.swift; sourceTree = "<group>"; };
 		3DDC6A662627089E004F5EA4 /* BlockPageLinkContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkContentView.swift; sourceTree = "<group>"; };
@@ -1762,6 +1758,7 @@
 				EA289BB72629D50000EA869F /* TurnIntoSelection */,
 				5338E7E425DC32E5008CB97D /* BlockActionHandlers */,
 				533341ED262E0D5100238121 /* ContainerView */,
+				3D180226264E9C9F00224815 /* DocumentEditorBuilder.swift */,
 				0A0965D825BEF5B000C004BD /* DocumentEditorViewController.swift */,
 				0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */,
 				3DD67E9026526D8D0025ED6F /* EditorModuleDocumentViewInput.swift */,
@@ -2371,26 +2368,6 @@
 			path = CollectionModel;
 			sourceTree = "<group>";
 		};
-		3D180224264E9C9F00224815 /* Content */ = {
-			isa = PBXGroup;
-			children = (
-				3D180226264E9C9F00224815 /* EditorModuleContentViewBuilder.swift */,
-			);
-			path = Content;
-			sourceTree = "<group>";
-		};
-		3D180228264E9C9F00224815 /* Container */ = {
-			isa = PBXGroup;
-			children = (
-				3D18022A264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift */,
-				3D18022B264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift */,
-				3D180229264E9C9F00224815 /* EditorModuleContainerViewModel.swift */,
-				3D18022C264E9C9F00224815 /* EditorModuleContainerViewController.swift */,
-				3DD67EBB26528D260025ED6F /* EditorContainerRoutingProcessor.swift */,
-			);
-			path = Container;
-			sourceTree = "<group>";
-		};
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2929,8 +2906,7 @@
 		533341ED262E0D5100238121 /* ContainerView */ = {
 			isa = PBXGroup;
 			children = (
-				3D180228264E9C9F00224815 /* Container */,
-				3D180224264E9C9F00224815 /* Content */,
+				3D18022A264E9C9F00224815 /* EditorModuleContainerViewRepresentable.swift */,
 			);
 			path = ContainerView;
 			sourceTree = "<group>";
@@ -3096,6 +3072,8 @@
 			children = (
 				3DD67EDC2653B1030025ED6F /* Routers */,
 				0A0965C225BEF5B000C004BD /* DocumentViewBaseRouter.swift */,
+				12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */,
+				12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */,
 				0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */,
 				0A0965C325BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift */,
 			);
@@ -3588,7 +3566,6 @@
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
 				EA955D742646836D00817F80 /* BlockChildrenIdsUpdates.swift in Sources */,
-				3D180233264E9C9F00224815 /* EditorModuleContainerViewController.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
@@ -3721,6 +3698,7 @@
 				5338E80225DD3090008CB97D /* ListBlockActionService.swift in Sources */,
 				122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */,
 				3D9D048C265C49F1009412B8 /* ActionsPayload.swift in Sources */,
+				12E014FC2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift in Sources */,
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
 				3DC78638265D571500498993 /* OurEventConverter.swift in Sources */,
@@ -3746,7 +3724,6 @@
 				0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
-				3D180232264E9C9F00224815 /* EditorModuleContainerViewBuilder.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
 				0ADE619324488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift in Sources */,
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
@@ -3833,7 +3810,7 @@
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
 				03E2AD5323A93D1C00C701CE /* KeyboardObserver.swift in Sources */,
 				0A68C77C240D52B3001E2F44 /* DataStructures+GroupBy.swift in Sources */,
-				3D18022E264E9C9F00224815 /* EditorModuleContentViewBuilder.swift in Sources */,
+				3D18022E264E9C9F00224815 /* DocumentEditorBuilder.swift in Sources */,
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
@@ -3886,7 +3863,6 @@
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
 				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
-				3D180230264E9C9F00224815 /* EditorModuleContainerViewModel.swift in Sources */,
 				3D932D4D26317E9300C7D1EA /* NavigationButtonView.swift in Sources */,
 				53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */,
 				EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */,
@@ -3907,6 +3883,7 @@
 				1247231B264EB21800B1E753 /* CharacterExtensions.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */,
+				12E014F826722FEA008036B0 /* DocumentViewCompoundRouter.swift in Sources */,
 				3DBED6A1266FBF6A00B9E9AB /* UnknownLabelContentView.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
@@ -3959,7 +3936,6 @@
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3DB27C07261B0E9C005E523C /* Decoder+Protocols.swift in Sources */,
-				3DD67EBC26528D260025ED6F /* EditorContainerRoutingProcessor.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,
 				1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
