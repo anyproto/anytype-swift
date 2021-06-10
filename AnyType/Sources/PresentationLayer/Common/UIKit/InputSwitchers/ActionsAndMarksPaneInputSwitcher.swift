@@ -8,9 +8,11 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     }
     
     let textToTriggerActionsViewDisplay = "/"
-    private var displayActionsViewTask: DispatchWorkItem?
-    private var actionsViewTriggerSymbolPosition: UITextPosition?
+    let textToTriggerMentionViewDisplay = "@"
+    private var displayAcessoryViewTask: DispatchWorkItem?
+    private var accessoryViewTriggerSymbolPosition: UITextPosition?
     var textViewChange: TextViewTextChangeType?
+    private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsHolder)?
     
     override func switchInputs(_ inputViewKeyboardSize: CGSize,
                                animated: Bool,
@@ -54,9 +56,9 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                                     selectionLength: Int,
                                     accessoryView: UIView?,
                                     inputView: UIView?) -> InputSwitcherTriplet? {
-        if shouldContinueToDisplayActionsMenu(coordinator: coordinator, textView: textView) {
+        if shouldContinueToDisplayAccessoryView(coordinator: coordinator, textView: textView) {
             return InputSwitcherTriplet(shouldAnimate: false,
-                                        accessoryView: coordinator.menuActionsAccessoryView,
+                                        accessoryView: accessoryView,
                                         inputView: nil)
         }
         switch (selectionLength, accessoryView, inputView) {
@@ -94,7 +96,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     
     override func switchInputs(_ coordinator: BlockTextViewCoordinator,
                                textView: UITextView) {
-        self.updateActionsViewDisplayState(coordinator: coordinator, textView: textView)
+        self.updateDisplayedAccessoryViewState(coordinator: coordinator, textView: textView)
         showEditingBars(coordinator: coordinator, textView: textView)
     }
     
@@ -114,60 +116,67 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         self.didSwitchViews(coordinator, textView: textView)
     }
     
-    func showMenuActionsView(coordinator: BlockTextViewCoordinator,
-                             textView: UITextView) {
-        switchInputs(.zero,
-                     animated: true,
+    func showAccessoryView(accessoryView: (DismissableInputAccessoryView & FilterableItemsHolder)?,
+                           textView: UITextView) {
+        switchInputs(.zero, animated: true,
                      textView: textView,
-                     accessoryView: coordinator.menuActionsAccessoryView,
+                     accessoryView: accessoryView,
                      inputView: nil)
-        coordinator.menuActionsAccessoryView?.didShow(from: textView)
-        actionsViewTriggerSymbolPosition = textView.caretPosition()
+        displayedView = accessoryView
+        accessoryView?.didShow(from: textView)
+        accessoryViewTriggerSymbolPosition = textView.caretPosition()
     }
     
-    // We do want to continue displaying menu view
+    // We do want to continue displaying menu view or mention view
     // if current caret position more far from begining
-    // then / symbol and if menu view displays any items(not empty)
-    private func shouldContinueToDisplayActionsMenu(coordinator: BlockTextViewCoordinator,
-                                                    textView: UITextView) -> Bool {
-        guard let menuView = coordinator.menuActionsAccessoryView,
-              !menuView.window.isNil,
-              let triggerSymbolPosition = actionsViewTriggerSymbolPosition,
+    // then / or @ symbol and if menu view displays any items(not empty)
+    private func shouldContinueToDisplayAccessoryView(coordinator: BlockTextViewCoordinator,
+                                                      textView: UITextView) -> Bool {
+        guard let accessoryView = displayedView,
+              !accessoryView.window.isNil,
+              let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
               let caretPosition = textView.caretPosition(),
               textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
-              menuView.isDisplayingAnyItems() else { return false }
+              accessoryView.isDisplayingAnyItems() else { return false }
         return true
     }
     
-    private func updateActionsViewDisplayState(coordinator: BlockTextViewCoordinator, textView: UITextView) {
-        self.displayActionsViewTask?.cancel()
-        // We want do to display actions menu in case
-        // text was changed - "text" -> "text/"
-        // but do not want to display in case
-        // "text/a" -> "text/"
+    private func updateDisplayedAccessoryViewState(coordinator: BlockTextViewCoordinator, textView: UITextView) {
+        displayAcessoryViewTask?.cancel()
+    // We want do to display actions menu in case
+    // text was changed - "text" -> "text/"
+    // but do not want to display in case
+    // "text/a" -> "text/"
         guard let caretPosition = textView.caretPosition() else { return }
-        if coordinator.menuActionsAccessoryView?.window != nil,
-           let triggerSymbolPosition = actionsViewTriggerSymbolPosition,
+        if let accessoryView = displayedView,
+           !accessoryView.window.isNil,
+           let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
            let range = textView.textRange(from: triggerSymbolPosition, to: caretPosition) {
-            coordinator.menuActionsAccessoryView?.setFilterText(filterText: textView.text(in: range) ?? "")
+            accessoryView.setFilterText(filterText: textView.text(in: range) ?? "")
             return
         }
-        if let textViewChange = textViewChange,
-           textViewChange != .deletingSymbols,
-           let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
-           let text = textView.text(in: textRange),
-           text.hasSuffix(textToTriggerActionsViewDisplay) {
-            self.createDelayedActonsViewTask(coordinator: coordinator,
-                                             textView: textView)
+        
+        guard let textRange = textView.textRange(from: textView.beginningOfDocument, to: caretPosition),
+              let text = textView.text(in: textRange),
+        let textViewChange = textViewChange,
+           textViewChange != .deletingSymbols else { return }
+        
+        if text.hasSuffix(textToTriggerActionsViewDisplay) {
+            createDelayedAcessoryViewTask(accessoryView: coordinator.menuActionsAccessoryView,
+                                          textView: textView)
+        } else if text.hasSuffix(textToTriggerMentionViewDisplay) {
+            createDelayedAcessoryViewTask(accessoryView: coordinator.mentionView,
+                                          textView: textView)
         }
     }
     
-    private func createDelayedActonsViewTask(coordinator: BlockTextViewCoordinator,
+    private func createDelayedAcessoryViewTask(accessoryView: (DismissableInputAccessoryView & FilterableItemsHolder)?,
                                              textView: UITextView) {
         let task = DispatchWorkItem(block: { [weak self] in
-            self?.showMenuActionsView(coordinator: coordinator, textView: textView)
+            self?.showAccessoryView(accessoryView: accessoryView,
+                                    textView: textView)
         })
-        self.displayActionsViewTask = task
+        self.displayAcessoryViewTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + Constants.displayActionsViewDelay, execute: task)
     }
 }

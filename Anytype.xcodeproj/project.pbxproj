@@ -981,7 +981,6 @@
 		5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPaneBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E7F725DC736A008CB97D /* UserActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionHandler.swift; sourceTree = "<group>"; };
-		5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionService.swift; sourceTree = "<group>"; };
 		5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E80125DD3090008CB97D /* ListBlockActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionService.swift; sourceTree = "<group>"; };
 		534B7F1F26264E8B00D712B2 /* EditingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingToolbarView.swift; sourceTree = "<group>"; };
@@ -1146,7 +1145,6 @@
 				03C5C54122DFD90C00DD91DE /* AnytypeTests */,
 				0303ECFC22D8EDAA005C552B /* Products */,
 				ED79E6F7693FFE933050D8BC /* Frameworks */,
-				53F820BA2648B150003FEB0B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -3101,14 +3099,6 @@
 				53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */,
 			);
 			path = ColorCell;
-			sourceTree = "<group>";
-		};
-		53F820BA2648B150003FEB0B /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				5338E7FA25DC7AF5008CB97D /* BlockActionService.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		A3940BB2245AB46600CD6F37 /* EmojiView */ = {

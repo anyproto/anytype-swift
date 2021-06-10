@@ -32,6 +32,7 @@ final class MentionsViewController: UITableViewController {
         tableView.rowHeight = Constants.cellHeight
         tableView.estimatedRowHeight = UITableView.automaticDimension
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
+        tableView.tableFooterView = UIView(frame: .zero)
         viewModel.setup(with: self)
     }
     

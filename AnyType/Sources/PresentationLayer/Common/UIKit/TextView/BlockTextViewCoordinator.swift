@@ -35,6 +35,16 @@ final class BlockTextViewCoordinator: NSObject {
     private(set) lazy var editingToolbarAccessoryView = EditingToolbarView()
 
     private(set) var menuActionsAccessoryView: BlockActionsView?
+    
+    private(set) lazy var mentionView: MentionView = {
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self, let textView = self.textView else { return }
+            self.inputSwitcher.showEditingBars(coordinator: self, textView: textView)
+        }
+        return MentionView(frame: CGRect(origin: .zero,
+                                         size: Constants.menuActionsViewSize),
+                           dismissHandler: dismissActionsMenu)
+    }()
 
     /// MarksInputView
     private(set) lazy var marksToolbarInputView = MarksPane.Main.ViewModelHolder()
@@ -58,7 +68,7 @@ final class BlockTextViewCoordinator: NSObject {
          blockMenuActionsHandler: BlockMenuActionsHandler?
     ) {
         self.blockRestrictions = blockRestrictions
-
+        
         super.init()
         
         tryToConfigureMenuActionsAccessoryView(with: menuItemsBuilder, blockMenuActionsHandler)
@@ -86,8 +96,8 @@ extension BlockTextViewCoordinator {
                 textView.insertStringToAttributedString(
                     self.inputSwitcher.textToTriggerActionsViewDisplay
                 )
-                self.inputSwitcher.showMenuActionsView(coordinator: self, textView: textView)
-                
+                self.inputSwitcher.showAccessoryView(accessoryView: self.menuActionsAccessoryView,
+                                                     textView: textView)
             case .multiActionMenu:
                 self.userInteractionDelegate?.didReceiveAction(
                     .showMultiActionMenuAction
@@ -98,6 +108,10 @@ extension BlockTextViewCoordinator {
                 
             case .keyboardDismiss:
                 UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+            case .mention:
+                textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerMentionViewDisplay)
+                self.inputSwitcher.showAccessoryView(accessoryView: self.mentionView,
+                                                     textView: textView)
             }
         }
     }

@@ -2,7 +2,7 @@
 import UIKit
 
 final class MentionView: DismissableInputAccessoryView {
-    
+
     private weak var mentionsController: MentionsViewController?
     
     override func didMoveToWindow() {

@@ -13,6 +13,8 @@ extension EditingToolbarView {
         case keyboardDismiss
         /// Show bottom sheet style menu
         case showStyleMenu
+        /// Show mention menu
+        case mention
     }
 }
 
@@ -66,7 +68,7 @@ class EditingToolbarView: UIView {
         addBarButtonItem(image: UIImage.edititngToolbar.style) {[weak self] _ in
             self?.actionHandler?(.showStyleMenu)
         }
-
+        
         addBarButtonItem(title: "Done".localized) { [weak self]_ in
             self?.actionHandler?(.keyboardDismiss)
         }
