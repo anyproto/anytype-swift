@@ -5,7 +5,7 @@ protocol BlockActionServiceProtocol {
     typealias Conversion = (ServiceSuccess) -> (PackOfEvents)
     
     func configured(documentId: String) -> Self
-    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) -> Self
+    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ())
     
     func upload(block: BlockInformation, filePath: String)
     
@@ -14,7 +14,7 @@ protocol BlockActionServiceProtocol {
     func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(childBlock: BlockInformation, parentBlockId: BlockId)
     
-    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, _ completion: @escaping Conversion)
+    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, ourEvents: [OurEvent])
     
     func delete(block: BlockInformation, completion: @escaping Conversion)
     
@@ -40,9 +40,5 @@ extension BlockActionServiceProtocol {
     
     func createPage(afterBlock: BlockInformation, position: BlockPosition = .bottom) {
         createPage(afterBlock: afterBlock, position: position)
-    }
-    
-    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, _ completion: @escaping Conversion = Converter.Default.convert) {
-        merge(firstBlock: firstBlock, secondBlock: secondBlock, completion)
     }
 }

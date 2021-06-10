@@ -2,7 +2,6 @@ import UIKit
 import BlocksModels
 import Combine
 
-
 /// Actions from block
 class BlockActionHandler {
     typealias Completion = (PackOfEvents) -> Void

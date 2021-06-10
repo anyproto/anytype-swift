@@ -349,7 +349,6 @@
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
-		3DBED675266F720D00B9E9AB /* BlockActionServiceConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */; };
 		3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */; };
 		3DBED67D266F8D5300B9E9AB /* LinearIndexWalker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */; };
 		3DBED681266F8DBB00B9E9AB /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */; };
@@ -385,6 +384,7 @@
 		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */; };
 		3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */; };
+		3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5120D2672202300153962 /* ServiceSuccess+Conversion.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
 		3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */; };
 		3DF6F628262EDA31000E05A5 /* FeatureFlagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */; };
@@ -922,12 +922,11 @@
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "AnyType/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
-		3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceConverter.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceConverter.swift; sourceTree = SOURCE_ROOT; };
 		3DBED678266F7A4C00B9E9AB /* BlockActionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionTypes.swift; path = Anytype/Sources/ServiceLayer/BlockActionHandler/Models/BlockActionTypes.swift; sourceTree = SOURCE_ROOT; };
 		3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LinearIndexWalker.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/LinearIndexWalker.swift; sourceTree = SOURCE_ROOT; };
 		3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/BlockBuilder.swift; sourceTree = SOURCE_ROOT; };
 		3DBED682266F8E5800B9E9AB /* DocumentModelListProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentModelListProvider.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/DocumentModelListProvider.swift; sourceTree = SOURCE_ROOT; };
-		3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewInteraction.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/DocumentViewInteraction.swift; sourceTree = SOURCE_ROOT; };
+		3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewInteraction.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/Protocols/DocumentViewInteraction.swift; sourceTree = SOURCE_ROOT; };
 		3DBED69C266FBABC00B9E9AB /* UnknownLabelResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelResource.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelResource.swift; sourceTree = SOURCE_ROOT; };
 		3DBED69E266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelContentConfiguration.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelContentConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3DBED6A0266FBF6A00B9E9AB /* UnknownLabelContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelContentView.swift; sourceTree = SOURCE_ROOT; };
@@ -958,6 +957,7 @@
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE2964F26175FA700EADB0A /* CodableAndDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableAndDictionary.swift; sourceTree = "<group>"; };
 		3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceProtocol.swift; path = AnyType/Sources/ServiceLayer/BlockActionHandler/BlockActionServiceProtocol.swift; sourceTree = SOURCE_ROOT; };
+		3DE5120D2672202300153962 /* ServiceSuccess+Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+Conversion.swift"; path = "AnyType/Sources/ServiceLayer/BlockActionHandler/Extensions/ServiceSuccess+Conversion.swift"; sourceTree = SOURCE_ROOT; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
 		3DF6F61B262ED51E000E05A5 /* FeatureFlags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlags.swift; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* FeatureFlagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureFlagsView.swift; sourceTree = "<group>"; };
@@ -2869,6 +2869,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3DE5120926721CCC00153962 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		3DE5120C2672201200153962 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3DE5120D2672202300153962 /* ServiceSuccess+Conversion.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3DF6F61A262ED50C000E05A5 /* FeatureFlags */ = {
 			isa = PBXGroup;
 			children = (
@@ -2880,10 +2896,10 @@
 		531197DE26430A8200FFC71E /* BlockActionHandler */ = {
 			isa = PBXGroup;
 			children = (
+				3DE5120C2672201200153962 /* Extensions */,
 				3DE511FE26712FBE00153962 /* Models */,
 				53F820BF2648B257003FEB0B /* BlockActionService.swift */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
-				3DBED674266F720D00B9E9AB /* BlockActionServiceConverter.swift */,
 				3DE511FA2671275700153962 /* BlockActionServiceProtocol.swift */,
 			);
 			path = BlockActionHandler;
@@ -2952,6 +2968,7 @@
 		5338E7E425DC32E5008CB97D /* BlockActionHandlers */ = {
 			isa = PBXGroup;
 			children = (
+				3DE5120926721CCC00153962 /* Protocols */,
 				3DBED6A7266FEB5600B9E9AB /* Extensions */,
 				5338E80025DD3077008CB97D /* ListBlockAction */,
 				5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */,
@@ -2963,7 +2980,6 @@
 				3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */,
 				3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */,
 				3DBED682266F8E5800B9E9AB /* DocumentModelListProvider.swift */,
-				3DBED684266F8F0300B9E9AB /* DocumentViewInteraction.swift */,
 			);
 			path = BlockActionHandlers;
 			sourceTree = "<group>";
@@ -3971,7 +3987,6 @@
 				EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */,
 				EAC6BA9C26271061004C8C06 /* PageBlockRestrictions.swift in Sources */,
 				030DF4B32399347000AD3BC3 /* AuthModels.swift in Sources */,
-				3DBED675266F720D00B9E9AB /* BlockActionServiceConverter.swift in Sources */,
 				0AAF8C2C2492355100C18D09 /* MarksPane+ViewController+Presentation.swift in Sources */,
 				0A9D49E0244905F2007F0992 /* BlocksViews+UserEvents+Protocol.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
@@ -3987,6 +4002,7 @@
 				0AAF8C2D2492355100C18D09 /* MarksPane+ViewController+Presentation+Transition.swift in Sources */,
 				533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
+				3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */,
 				0ACFCCF9249C17DC002E0477 /* ServiceSuccess.swift in Sources */,
 				0A996BBD23EDE790000FDC9C /* ShakeHandler.swift in Sources */,
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,

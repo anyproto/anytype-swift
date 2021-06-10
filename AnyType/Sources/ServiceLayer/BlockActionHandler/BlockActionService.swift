@@ -37,10 +37,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         return self
     }
 
-    @discardableResult
-    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) -> Self {
+    func configured(didReceiveEvent: @escaping (PackOfEvents) -> ()) {
         self.didReceiveEvent = didReceiveEvent
-        return self
     }
 
     // MARK: Actions/Add
@@ -51,16 +49,43 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, shouldSetFocusOnUpdate: Bool) {
-        let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Add.convert : Converter.Default.convert
-        add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, conversion)
+        singleService.add(contextID: self.documentId, targetID: afterBlockId, block: newBlock, position: position)
+            .receiveOnMain()
+            .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
+                let value = shouldSetFocusOnUpdate ? value.addEvent : value.defaultEvent
+                self?.didReceiveEvent(value)
+            }.store(in: &self.subscriptions)
     }
 
     func split(block: BlockInformation,
                oldText: String,
                newBlockContentType: BlockText.ContentType,
                shouldSetFocusOnUpdate: Bool) {
-        let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.Split.convert : Converter.Default.convert
-        setTextAndSplit(block: block, oldText: oldText, newBlockContentType: newBlockContentType, conversion)
+        let blockId = block.id
+        // We are using old text as a cursor position.
+        let position = oldText.count
+
+        let content = block.content
+        guard case let .text(type) = content else {
+            assertionFailure("We have unsupported content type: \(content)")
+            return
+        }
+
+        let range = NSRange(location: position, length: 0)
+
+        let documentId = self.documentId
+
+        self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
+            return self?.textService.split(
+                contextID: documentId,
+                blockID: blockId,
+                range: range,
+                style: newBlockContentType) ?? .empty()
+        }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
+            var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
+            events.ourEvents = [.setTextMerge(.init(blockId: blockId))] + events.ourEvents
+            self?.didReceiveEvent(events)
+        }.store(in: &self.subscriptions)
     }
 
     func duplicate(block: BlockInformation) {
@@ -90,12 +115,13 @@ final class BlockActionService: BlockActionServiceProtocol {
             }.store(in: &self.subscriptions)
     }
 
-    /// Turn Into
-    // TODO: Add Div and ConvertChildrenToPages
     func turnInto(block: BlockInformation, type: BlockContent, shouldSetFocusOnUpdate: Bool) {
-        /// Also check for style later.
-        let conversion: Conversion = shouldSetFocusOnUpdate ? Converter.TurnInto.Text.convert : Converter.Default.convert
-        turnInto(block: block, type: type, conversion)
+        switch type {
+        case .text: setTextStyle(block: block, type: type, shouldFocus: shouldSetFocusOnUpdate)
+        case .smartblock: setPageStyle(block: block, type: type)
+        case .divider: setDividerStyle(block: block, type: type)
+        default: return
+        }
     }
     
     /// Set checkbox state for block
@@ -136,24 +162,6 @@ final class BlockActionService: BlockActionServiceProtocol {
 }
 
 private extension BlockActionService {
-    func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, _ completion: @escaping Conversion) {
-
-        // insert block after block
-        // we could catch events and update model.
-        // or we could just update model after sending event.
-        // for now we just update model on success.
-
-        let targetId = afterBlockId
-
-        singleService.add(contextID: self.documentId, targetID: targetId, block: newBlock, position: position)
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
-            }.store(in: &self.subscriptions)
-    }
-
-
     func split(block: BlockInformation, oldText: String, _ completion: @escaping Conversion) {
         // TODO: You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`
 
@@ -177,52 +185,7 @@ private extension BlockActionService {
             }.store(in: &self.subscriptions)
     }
 
-    func setTextAndSplit(
-        block: BlockInformation,
-        oldText: String,
-        newBlockContentType: BlockText.ContentType,
-        _ completion: @escaping Conversion
-    ) {
-        // TODO: "You should update parameter `oldText`. It shouldn't be a plain `String`. It should be either `Int32` to reflect cursor position or it should be `NSAttributedString`." )
-
-        let blockId = block.id
-        // We are using old text as a cursor position.
-        let position = oldText.count
-
-        let content = block.content
-        guard case let .text(type) = content else {
-            assertionFailure("We have unsupported content type: \(content)")
-            return
-        }
-
-        let range = NSRange(location: position, length: 0)
-
-        let documentId = self.documentId
-
-        self.textService.setText(contextID: documentId, blockID: blockId, attributedString: type.attributedText).flatMap({ [weak self] value -> AnyPublisher<ServiceSuccess, Error> in
-            return self?.textService.split(
-                contextID: documentId,
-                blockID: blockId,
-                range: range,
-                style: newBlockContentType) ?? .empty()
-        }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] (value) in
-            let value = completion(value)
-            var theValue = value
-            theValue.ourEvents = [.setTextMerge(.init(blockId: blockId))] + theValue.ourEvents
-            self?.didReceiveEvent(theValue)
-        }.store(in: &self.subscriptions)
-    }
-
-    func turnInto(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
-        switch type {
-        case .text: self.setTextStyle(block: block, type: type, completion)
-        case .smartblock: self.setPageStyle(block: block, type: type)
-        case .divider: self.setDividerStyle(block: block, type: type, completion)
-        default: return
-        }
-    }
-
-    func setDividerStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func setDividerStyle(block: BlockInformation, type: BlockContent) {
         let blockId = block.id
         guard case let .divider(value) = type else {
             assertionFailure("SetDividerStyle content is not divider: \(type)")
@@ -232,9 +195,8 @@ private extension BlockActionService {
         let blocksIds = [blockId]
 
         listService.setDivStyle(contextID: self.documentId, blockIds: blocksIds, style: value.style)
-            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] (value) in
-            let value = completion(value)
-            self?.didReceiveEvent(value)
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setDivStyle") { [weak self] serviceSuccess in
+                self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
     }
 
@@ -254,7 +216,7 @@ private extension BlockActionService {
         .store(in: &self.subscriptions)
     }
 
-    func setTextStyle(block: BlockInformation, type: BlockContent, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func setTextStyle(block: BlockInformation, type: BlockContent, shouldFocus: Bool) {
         let blockId = block.id
 
         guard case let .text(text) = type else {
@@ -264,9 +226,9 @@ private extension BlockActionService {
 
         self.textService.setStyle(contextID: self.documentId, blockID: blockId, style: text.contentType)
             .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] value in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
+            .sinkWithDefaultCompletion("blocksActions.service.turnInto.setTextStyle") { [weak self] serviceSuccess in
+                let events = shouldFocus ? serviceSuccess.turnIntoTextEvent : serviceSuccess.defaultEvent
+                self?.didReceiveEvent(events)
             }.store(in: &self.subscriptions)
     }
 }
@@ -274,15 +236,16 @@ private extension BlockActionService {
 // MARK: - Delete
 
 extension BlockActionService {
-    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, ourEvents: [OurEvent]) {
         let firstBlockId = firstBlock.id
         let secondBlockId = secondBlock.id
 
         self.textService.merge(contextID: self.documentId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .receiveOnMain()
-            .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] value in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
+            .sinkWithDefaultCompletion("blocksActions.service.merge with payload") { [weak self] serviceSuccess in
+                var events = serviceSuccess.defaultEvent
+                events.ourEvents = ourEvents
+                self?.didReceiveEvent(events)
             }.store(in: &self.subscriptions)
     }
 }
@@ -290,24 +253,19 @@ extension BlockActionService {
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    private func _bookmarkFetch(block: BlockInformation, url: String, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func bookmarkFetch(block: BlockInformation, url: String) {
         let blockId = block.id
         self.bookmarkService.fetchBookmark.action(contextID: self.documentId, blockID: blockId, url: url)
-            .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] (value) in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
+            .sinkWithDefaultCompletion("blocksActions.service.bookmarkFetch") { [weak self] serviceSuccess in
+                self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
-    }
-
-    func bookmarkFetch(block: BlockInformation, url: String) {
-        self._bookmarkFetch(block: block, url: url)
     }
 }
 
 // MARK: - SetBackgroundColor
 
 extension BlockActionService {
-    private func _setBackgroundColor(block: BlockInformation, color: UIColor, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func setBackgroundColor(block: BlockInformation, color: UIColor) {
         guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(color, background: true) else {            assertionFailure("Wrong UIColor for setBackgroundColor command")
             return
         }
@@ -317,31 +275,21 @@ extension BlockActionService {
         let backgroundColor = color
 
         listService.setBackgroundColor(contextID: self.documentId, blockIds: blockIds, color: backgroundColor)
-            .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] (value) in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
+            .sinkWithDefaultCompletion("listService.setBackgroundColor") { [weak self] serviceSuccess in
+                self?.didReceiveEvent(serviceSuccess.defaultEvent)
             }
             .store(in: &self.subscriptions)
-    }
-
-    func setBackgroundColor(block: BlockInformation, color: UIColor) {
-        self._setBackgroundColor(block: block, color: color)
     }
 }
 
 // MARK: - UploadFile
 
 extension BlockActionService {
-    private func _upload(block: BlockInformation, filePath: String, _ completion: @escaping Conversion = Converter.Default.convert) {
+    func upload(block: BlockInformation, filePath: String) {
         let blockId = block.id
         self.fileService.uploadDataAtFilePath(contextID: self.documentId, blockID: blockId, filePath: filePath)
-            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] (value) in
-                let value = completion(value)
-                self?.didReceiveEvent(value)
+            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { [weak self] serviceSuccess in
+                self?.didReceiveEvent(serviceSuccess.defaultEvent)
         }.store(in: &self.subscriptions)
-    }
-    
-    func upload(block: BlockInformation, filePath: String) {
-        self._upload(block: block, filePath: filePath)
     }
 }

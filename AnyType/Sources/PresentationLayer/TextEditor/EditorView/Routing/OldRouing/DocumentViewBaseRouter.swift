@@ -166,7 +166,6 @@ class DocumentViewCompoundRouter: DocumentViewBaseCompoundRouter {
             case .page: return self.router(of: PageBlocksViewsRouter.self)
             }
         case .toolbars: return self.router(of: ToolbarsRouter.self)
-        default: return nil
         }
     }
 

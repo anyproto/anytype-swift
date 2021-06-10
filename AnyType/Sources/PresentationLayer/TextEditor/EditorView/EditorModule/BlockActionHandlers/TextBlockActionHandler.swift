@@ -181,18 +181,17 @@ final class TextBlockActionHandler {
                     return
                 }
                 let previousBlockId = previousModel.blockId
-
-                self.service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information) { value in
-                    var ourEvents = [OurEvent]()
-                    if case let .text(text) = previousModel.blockModel.information.content {
-                        let range = NSRange(location: text.attributedText.length, length: 0)
-                        ourEvents.append(contentsOf: [
-                            .setTextMerge(.init(blockId: previousBlockId)),
-                            .setFocus(.init(blockId: previousBlockId, position: .at(range)))
-                        ])
-                    }
-                    return PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: ourEvents)
+                
+                var ourEvents = [OurEvent]()
+                if case let .text(text) = previousModel.blockModel.information.content {
+                    let range = NSRange(location: text.attributedText.length, length: 0)
+                    ourEvents.append(contentsOf: [
+                        .setTextMerge(.init(blockId: previousBlockId)),
+                        .setFocus(.init(blockId: previousBlockId, position: .at(range)))
+                    ])
                 }
+
+                service.merge(firstBlock: previousModel.blockModel.information, secondBlock: block.blockModel.information, ourEvents: ourEvents)
                 break
 
             case .deleteOnEmptyContent:

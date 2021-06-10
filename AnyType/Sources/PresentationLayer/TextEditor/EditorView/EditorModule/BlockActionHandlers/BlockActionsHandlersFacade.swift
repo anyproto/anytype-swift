@@ -60,12 +60,12 @@ final class BlockActionsHandlersFacade {
 
     func configured(documentId: String) -> Self {
         self.documentId = documentId
-        _ = self.service.configured(documentId: documentId)
+        _ = service.configured(documentId: documentId)
         return self
     }
 
     func configured(_ model: DocumentEditorViewModel) -> Self {
-        self.indexWalker = .init(DocumentModelListProvider.init(model: model))
+        indexWalker = LinearIndexWalker(model)
         return self
     }
 

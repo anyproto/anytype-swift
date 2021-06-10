@@ -1,31 +1,21 @@
 import BlocksModels
 
 final class LinearIndexWalker {
-    typealias Model = BlockActiveRecordModelProtocol
+    private var models: [BlockActiveRecordModelProtocol] = []
+    private var defaultModels: [BlockActiveRecordModelProtocol]
 
-    private var models: [Model] = []
-    var listModelsProvider: UserInteractionHandlerListModelsProvider
-
-    init(_ listModelsProvider: UserInteractionHandlerListModelsProvider) {
-        self.listModelsProvider = listModelsProvider
-    }
-
-    private func configured(models: [Model]) {
-        self.models = models
-    }
-
-    private func configured(listModelsProvider: UserInteractionHandlerListModelsProvider) {
-        self.listModelsProvider = listModelsProvider
+    init(_ model: DocumentEditorViewModel) {
+        defaultModels = model.blocksViewModels.compactMap { $0.block }
     }
 
     func renew() {
-        self.configured(models: self.listModelsProvider.getModels)
+        models = defaultModels
     }
 }
 
 // MARK: Search
 extension LinearIndexWalker {
-    func model(beforeModel model: Model, includeParent: Bool, onlyFocused: Bool = true) -> Model? {
+    func model(beforeModel model: BlockActiveRecordModelProtocol, includeParent: Bool, onlyFocused: Bool = true) -> BlockActiveRecordModelProtocol? {
         /// Do we actually need parent?
         guard let modelIndex = self.models.firstIndex(where: { $0.blockId == model.blockId }) else { return nil }
 

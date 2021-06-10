@@ -1,11 +1,3 @@
-//
-//  BlocksViews+UserActions.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 16.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 
@@ -26,8 +18,6 @@ extension BlocksViews {
             case page(Page.UserAction)
         }
 
-        // when a model is about to update.
-        case updated(TextContent)
         case toolbars(ToolbarOpenAction)
         case specific(SpecificAction)
     }
