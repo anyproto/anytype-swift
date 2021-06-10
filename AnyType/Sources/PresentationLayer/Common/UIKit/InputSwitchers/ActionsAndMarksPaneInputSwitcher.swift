@@ -164,9 +164,6 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         if text.hasSuffix(textToTriggerActionsViewDisplay) {
             createDelayedAcessoryViewTask(accessoryView: coordinator.menuActionsAccessoryView,
                                           textView: textView)
-        } else if text.hasSuffix(textToTriggerMentionViewDisplay) {
-            createDelayedAcessoryViewTask(accessoryView: coordinator.mentionView,
-                                          textView: textView)
         }
     }
     
