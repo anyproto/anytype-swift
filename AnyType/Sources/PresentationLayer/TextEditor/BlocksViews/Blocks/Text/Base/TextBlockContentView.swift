@@ -191,6 +191,8 @@ final class TextBlockContentView: UIView & UIContentView {
         setupForText()
         subscriptions.removeAll()
 
+        textView.coordinator = nil
+        textView.delegate = nil
         // it's important to clean old attributed string
         textView.textView.attributedText = nil
         textView.coordinator = makeCoordinator()

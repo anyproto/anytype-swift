@@ -98,19 +98,13 @@ extension DocumentEditorViewController {
     }
 
     private func updateFocusedViewModel(blockViewModel: BaseBlockViewModel) {
-        guard let indexPath = dataSource.indexPath(for: blockViewModel) else { return }
-        guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-
-        let textModel = blockViewModel as? TextBlockViewModel
-        cell.indentationLevel = blockViewModel.indentationLevel()
-        cell.contentConfiguration = blockViewModel.buildContentConfiguration()
-        let prefferedSize = cell.systemLayoutSizeFitting(CGSize(width: cell.frame.size.width,
-                                                                height: UIView.layoutFittingCompressedSize.height))
-        if cell.frame.size.height != prefferedSize.height {
+        let needToUpdateView = gentlyReloadCell(for: blockViewModel)
+        if needToUpdateView {
             updateView()
         }
-        if let focusAt = viewModel.document.userSession?.focusAt() {
-            textModel?.set(focus: focusAt)
+        if let textViewModel = blockViewModel as? TextBlockViewModel,
+           let focusAt = viewModel.document.userSession?.focusAt() {
+            textViewModel.set(focus: focusAt)
         }
     }
         
@@ -120,7 +114,13 @@ extension DocumentEditorViewController {
 
         UIView.performWithoutAnimation {
             self.dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
-                self?.updateVisibleNumberedItems()
+                self?.updateVisibleBlocks(satisfying: { (content) -> Bool in
+                    if case let .text(text) = content,
+                       [.toggle, .numbered].contains(text.contentType) {
+                        return true
+                    }
+                    return false
+                })
 
                 completion?()
 
@@ -136,14 +136,28 @@ extension DocumentEditorViewController {
             self?.focusOnFocusedBlock()
         }
     }
+    
+    private func gentlyReloadCell(for blockViewModel: BaseBlockViewModel) -> Bool {
+        guard let indexPath = dataSource.indexPath(for: blockViewModel) else { return false }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return false }
+
+        cell.indentationLevel = blockViewModel.indentationLevel()
+        cell.contentConfiguration = blockViewModel.buildContentConfiguration()
+        let prefferedSize = cell.systemLayoutSizeFitting(CGSize(width: cell.frame.size.width,
+                                                                height: UIView.layoutFittingCompressedSize.height))
+        return cell.frame.size.height != prefferedSize.height
+    }
 
     // TODO: It should not be here. Move it to TextBlockViewModel
-    private func updateVisibleNumberedItems() {
-        self.collectionView.indexPathsForVisibleItems.forEach {
-            guard let builder = self.viewModel.blocksViewModels[safe: $0.row] else { return }
-            let content = builder.block.content
-            guard case let .text(text) = content, text.contentType == .numbered else { return }
-            self.collectionView.cellForItem(at: $0)?.contentConfiguration = builder.buildContentConfiguration()
+    private func updateVisibleBlocks(satisfying: (BlockContent) -> Bool) {
+        var needToUpdateView = false
+        collectionView.indexPathsForVisibleItems.forEach {
+            guard let blockViewModel = dataSource.itemIdentifier(for: $0),
+                  satisfying(blockViewModel.block.content) else { return }
+            needToUpdateView = needToUpdateView || gentlyReloadCell(for: blockViewModel)
+        }
+        if needToUpdateView {
+            updateView()
         }
     }
 
@@ -350,12 +364,11 @@ private extension DocumentEditorViewController {
             return
         }
         
-        let location = self.listViewTapGestureRecognizer.location(in: listViewTapGestureRecognizer.view)
-        guard collectionView.visibleCells.first(where: {$0.frame.contains(location)}).isNil else {
-            return
-        }
+        let location = self.listViewTapGestureRecognizer.location(in: collectionView)
         
-        viewModel.handlingTapOnEmptySpot()
+        if location.y > (collectionView.visibleCells.last?.frame.maxY ?? 0) {
+            viewModel.handlingTapOnEmptySpot()
+        }
     }
 
     /// Add handlers to viewModel state changes
