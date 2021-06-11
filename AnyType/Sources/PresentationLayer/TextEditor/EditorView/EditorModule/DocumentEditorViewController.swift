@@ -2,10 +2,13 @@ import BlocksModels
 import UIKit
 import Combine
 import FloatingPanel
+import SwiftUI
 
 final class DocumentEditorViewController: UIViewController {
 
     var router: DocumentViewCompoundRouter?
+    
+    private let bottomFloaterBuilder = BottomFloaterBuilder()
     
     private lazy var dataSource = makeCollectionViewDataSource()
     
@@ -49,23 +52,32 @@ final class DocumentEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.setupUI()
-    }
-    
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        insetsHelper = nil
-        guard isMovingFromParent else { return }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        parent?.navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: .more,
+            style: .plain,
+            target: self,
+            action: #selector(showDocumentSettings)
+        )
+        
         windowHolder?.configureNavigationBarWithOpaqueBackground()
         
         insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        insetsHelper = nil
+        guard isMovingFromParent else { return }
+    }
+    
 }
 
 // MARK: - Initial Update data
@@ -309,7 +321,7 @@ private extension DocumentEditorViewController {
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
 
-    private func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel> {
+    func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<DocumentSection, BaseBlockViewModel> {
         let cellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, BaseBlockViewModel> { [weak self] (cell, indexPath, item) in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -407,6 +419,17 @@ private extension DocumentEditorViewController {
     func deselectAllBlocks() {
         self.collectionView.deselectAllSelectedItems()
         self.collectionView.visibleCells.forEach { $0.contentView.isUserInteractionEnabled = true }
+    }
+   
+    @objc
+    func showDocumentSettings() {
+        UISelectionFeedbackGenerator().selectionChanged()
+        
+        let vc = bottomFloaterBuilder.builBottomFloater {
+            DocumentSettingsView().padding(8)
+        }
+        
+        present(vc, animated: false)
     }
     
 }

@@ -16,7 +16,7 @@ struct SettingsSectionItemView: View {
                 if comingSoon {
                     AnytypeText("Soon", style: .body).foregroundColor(.textTertiary)
                 } else {
-                    Image.arrow
+                    Image.arrow.frame(width: 24, height: 24)
                 }
             }
         }

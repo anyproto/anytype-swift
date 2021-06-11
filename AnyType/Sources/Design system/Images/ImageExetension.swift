@@ -32,3 +32,13 @@ extension Image {
         static let congrats = Image("auth_congrats")
     }
 }
+
+extension Image {
+    
+    enum ObjectSettings {
+        static let icon = Image("object_settings_icon")
+        static let cover = Image("object_settings_cover")
+        static let layout = Image("object_settings_layout")
+    }
+    
+}

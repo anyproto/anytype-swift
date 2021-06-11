@@ -224,6 +224,11 @@
 		1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */; };
 		1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */; };
 		1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */; };
+		128495D126726EE300351C66 /* DocumentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D026726EE300351C66 /* DocumentSettingsView.swift */; };
+		128495D32672701500351C66 /* DocumentSettingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D22672701500351C66 /* DocumentSettingsListView.swift */; };
+		128495D52672708F00351C66 /* DocumentSettingsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */; };
+		128495D7267273DD00351C66 /* DocumentSettingsListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D6267273DD00351C66 /* DocumentSettingsListRowView.swift */; };
+		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */; };
 		12A21FF72655643200207DD4 /* DocumentIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A21FF62655643200207DD4 /* DocumentIconImageView.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
@@ -266,7 +271,6 @@
 		3D155274264D976A00B0E976 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155273264D976A00B0E976 /* Snackbar.swift */; };
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
-		3D2EFDF52670B99300585AD2 /* EditorFloater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2EFDF42670B99300585AD2 /* EditorFloater.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
@@ -788,6 +792,11 @@
 		1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageGuideline.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Utils/ImageGuideline.swift; sourceTree = SOURCE_ROOT; };
 		1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCornersGuideline.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Utils/ImageCornersGuideline.swift; sourceTree = SOURCE_ROOT; };
+		128495D026726EE300351C66 /* DocumentSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsView.swift; sourceTree = "<group>"; };
+		128495D22672701500351C66 /* DocumentSettingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListView.swift; sourceTree = "<group>"; };
+		128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListViewModel.swift; sourceTree = "<group>"; };
+		128495D6267273DD00351C66 /* DocumentSettingsListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListRowView.swift; sourceTree = "<group>"; };
+		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsView.swift; sourceTree = "<group>"; };
 		12A21FF62655643200207DD4 /* DocumentIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIconImageView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/DocumentIconImageView.swift; sourceTree = SOURCE_ROOT; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
@@ -830,7 +839,6 @@
 		3D155273264D976A00B0E976 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
-		3D2EFDF42670B99300585AD2 /* EditorFloater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EditorFloater.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/EditorFloater.swift; sourceTree = SOURCE_ROOT; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
@@ -2128,6 +2136,25 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		128495CF26726EBC00351C66 /* DocumentSettings */ = {
+			isa = PBXGroup;
+			children = (
+				128495D026726EE300351C66 /* DocumentSettingsView.swift */,
+				128495D22672701500351C66 /* DocumentSettingsListView.swift */,
+				128495D6267273DD00351C66 /* DocumentSettingsListRowView.swift */,
+				128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */,
+			);
+			path = DocumentSettings;
+			sourceTree = "<group>";
+		};
+		128495DC2673705000351C66 /* SettingsDividerModifier */ = {
+			isa = PBXGroup;
+			children = (
+				3D15526B264D8BCF00B0E976 /* SettingsDividerModifier.swift */,
+			);
+			path = SettingsDividerModifier;
+			sourceTree = "<group>";
+		};
 		12858E79264ABA9900A7FE0F /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -2360,6 +2387,7 @@
 				EAC6BB4926288680004C8C06 /* InputSwitchers */,
 				534B7F1B26264E0100D712B2 /* Toolbars */,
 				3D829171265E50190007C152 /* RedactedText.swift */,
+				128495DF267371B900351C66 /* BottomFloaterBuilder.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2367,6 +2395,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				128495DC2673705000351C66 /* SettingsDividerModifier */,
 				3D155276264D977600B0E976 /* Popups */,
 				3D932D4A26317E9200C7D1EA /* Buttons */,
 				0A005AAF24C5D2F1000520AA /* ImagePicker */,
@@ -2674,7 +2703,6 @@
 			isa = PBXGroup;
 			children = (
 				3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */,
-				3D15526B264D8BCF00B0E976 /* SettingsDividerModifier.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2698,9 +2726,9 @@
 		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				128495CF26726EBC00351C66 /* DocumentSettings */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
 				3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */,
-				3D2EFDF42670B99300585AD2 /* EditorFloater.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -3558,6 +3586,7 @@
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
+				128495D32672701500351C66 /* DocumentSettingsListView.swift in Sources */,
 				3D568F912666C27100DC7881 /* ContentBookmarkConverter.swift in Sources */,
 				EA77E527262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
@@ -3622,12 +3651,12 @@
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */,
+				128495D126726EE300351C66 /* DocumentSettingsView.swift in Sources */,
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */,
 				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,
-				3D2EFDF52670B99300585AD2 /* EditorFloater.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
@@ -3679,6 +3708,7 @@
 				EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
 				0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */,
+				128495D7267273DD00351C66 /* DocumentSettingsListRowView.swift in Sources */,
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
@@ -3817,6 +3847,7 @@
 				3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
+				128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */,
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
@@ -3851,6 +3882,7 @@
 				A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */,
 				1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
+				128495D52672708F00351C66 /* DocumentSettingsListViewModel.swift in Sources */,
 				EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,

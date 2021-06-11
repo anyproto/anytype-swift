@@ -2,7 +2,9 @@ import UIKit
 
 extension UIImage {
     static let back = UIImage(named: "TextEditor/Toolbar/Blocks/Back")
+    static let more = UIImage(named: "TextEditor/More")
 }
+
 
 extension UIImage {
     enum edititngToolbar {

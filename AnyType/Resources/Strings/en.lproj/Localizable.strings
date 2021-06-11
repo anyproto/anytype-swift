@@ -156,3 +156,12 @@
 "Error account recover" = "Error account recover";
 
 "Search for language" = "Search for language";
+
+// Object settings
+
+"Icon" = "Icon";
+"Emoji or image for object" = "Emoji or image for object";
+"Cover" = "Cover";
+"Background picture" = "Background picture";
+"Layout" = "Layout";
+"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
