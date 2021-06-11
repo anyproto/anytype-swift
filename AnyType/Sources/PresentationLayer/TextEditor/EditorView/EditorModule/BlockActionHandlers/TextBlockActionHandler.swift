@@ -4,7 +4,6 @@ import Combine
 
 
 final class TextBlockActionHandler {
-    private var subscriptions: Set<AnyCancellable> = []
     private let service: BlockActionServiceProtocol
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
@@ -39,14 +38,7 @@ final class TextBlockActionHandler {
             textContentType.attributedText = attributedText
             blockModel.information.content = .text(textContentType)
 
-            self.textService.setText(contextID: self.contextId, blockID: blockId, attributedString: attributedText)
-                .sinkWithDefaultCompletion("""
-                            TextBlocksViews setBlockText
-                            ParentId: \(String(describing: blockModel.parent))
-                            BlockId: \(blockModel.information.id)
-                            """
-                        )
-                { _ in }.store(in: &self.subscriptions)
+            textService.setText(contextID: contextId, blockID: blockId, attributedString: attributedText)
         case .changeTextStyle:
             assertionFailure("We handle this update in `BlockActionHandler`")
         }
@@ -195,7 +187,7 @@ final class TextBlockActionHandler {
                 break
 
             case .deleteOnEmptyContent:
-                self.service.delete(block: block.blockModel.information) { value in
+                service.delete(block: block.blockModel.information) { value in
                     guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
                         assertionFailure(
                             "We can't find previous block to focus on at command .delete for block \(block.blockId)"

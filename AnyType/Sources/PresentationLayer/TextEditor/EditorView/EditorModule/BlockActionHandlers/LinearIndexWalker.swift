@@ -1,10 +1,10 @@
 import BlocksModels
 
 final class LinearIndexWalker {
-    private let models: [BlockActiveRecordModelProtocol]
+    private weak var viewModel: DocumentEditorViewModel?
 
     init(_ model: DocumentEditorViewModel) {
-        models = model.blocksViewModels.compactMap { $0.block }
+        self.viewModel = model
     }
 }
 
@@ -15,6 +15,11 @@ extension LinearIndexWalker {
         includeParent: Bool,
         onlyFocused: Bool = true
     ) -> BlockActiveRecordModelProtocol? {
+        guard let viewModel = viewModel else {
+            return nil
+        }
+        
+        let models = viewModel.blocksViewModels.compactMap { $0.block }
         /// Do we actually need parent?
         guard let modelIndex = models.firstIndex(where: { $0.blockId == model.blockId }) else { return nil }
 

@@ -46,5 +46,6 @@ protocol BlockActionsServiceTextProtocol {
     /// We consume middleware marks and convert them to NSAttributedString.
     /// Later, TextView update NSAttributedString and send updates back.
     ///
+    @discardableResult
     func setText(contextID: BlockId, blockID: BlockId, attributedString: NSAttributedString) -> AnyPublisher<Void, Error>
 }

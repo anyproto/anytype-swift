@@ -101,25 +101,23 @@ extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
         removeTextAfterInitialAndCurrentCaretPositions()
         switch action {
         case let .actions(action):
-            self.handleActions(action)
+            handleActions(action)
         case let .alignment(alignmnet):
-            self.handleAlignment(alignmnet)
+            handleAlignment(alignmnet)
         case let .style(style):
-            self.handleStyle(style)
+            handleStyle(style)
         case let .media(media):
-            let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(media.blockViewsType)
-            self.addBlockAndActionsSubject.send(.addBlock(type))
+            addBlockAndActionsSubject.send(.addBlock(media.blockViewsType))
         case .objects:
             break
         case .relations:
             break
         case let .other(other):
-            let type = BlocksViews.Toolbar.UnderlyingAction.BlockType.convert(other.blockViewsType)
-            self.addBlockAndActionsSubject.send(.addBlock(type))
+            addBlockAndActionsSubject.send(.addBlock(other.blockViewsType))
         case let .color(color):
-            self.marksPaneActionSubject.send(.textColor(NSRange(), .setColor(color.color)))
+            marksPaneActionSubject.send(.textColor(NSRange(), .setColor(color.color)))
         case let .background(color):
-            self.marksPaneActionSubject.send(.backgroundColor(NSRange(), .setColor(color.color)))
+            marksPaneActionSubject.send(.backgroundColor(NSRange(), .setColor(color.color)))
         }
     }
     

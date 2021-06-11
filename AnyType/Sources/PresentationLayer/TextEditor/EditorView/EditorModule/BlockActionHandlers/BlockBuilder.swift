@@ -21,7 +21,7 @@ struct BlockBuilder {
     static func createInformation(block: BlockActiveRecordModelProtocol, action: BlocksViews.Toolbar.UnderlyingAction, textPayload: String = "") -> BlockInformation? {
         switch action {
         case .addBlock:
-            return self.createContentType(block: block, action: action, textPayload: textPayload)
+            return createContentType(block: block, action: action, textPayload: textPayload)
                 .flatMap { (newBlockId(), $0) }
                 .map(BlockInformation.init)
         default: return nil

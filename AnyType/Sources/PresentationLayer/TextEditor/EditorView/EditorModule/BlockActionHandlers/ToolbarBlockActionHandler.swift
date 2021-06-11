@@ -17,21 +17,21 @@ final class ToolbarBlockActionHandler {
 
     func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: BlocksViews.Toolbar.UnderlyingAction) {
         switch action {
-        case let .addBlock(value):
-            switch value {
+        case let .addBlock(blockType):
+            switch blockType {
             case .objects(.page):
-                self.service.createPage(afterBlock: block.blockModel.information)
+                service.createPage(afterBlock: block.blockModel.information)
             default:
-                if let newBlock = BlockBuilder.createInformation(block: block, action: action) {
-                    /// Business logic.
-                    /// If we create block that can capture focus ( text block in our case )
-                    /// Do it!
-                    var shouldSetFocusOnUpdate = false
-                    if case .text = newBlock.content {
-                        shouldSetFocusOnUpdate = true
-                    }
-                    service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
+                guard let newBlock = BlockBuilder.createInformation(block: block, action: action) else {
+                    return
                 }
+                
+                var shouldSetFocusOnUpdate = false
+                if case .text = newBlock.content {
+                    shouldSetFocusOnUpdate = true
+                }
+                
+                service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
             }
         case let .turnIntoBlock(value):
             // TODO: Add turn into

@@ -72,10 +72,10 @@ extension BlocksViews.Toolbar.ViewController {
         private func publisher(style: Style) -> AnyPublisher<UnderlyingAction, Never> {
             switch style.style {
             case .addBlock: return self.addBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
-                UnderlyingAction.addBlock(UnderlyingAction.BlockType.convert(value))
+                UnderlyingAction.addBlock(value)
             }.eraseToAnyPublisher()
             case .turnIntoBlock: return self.turnIntoBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in            
-                UnderlyingAction.turnIntoBlock(UnderlyingAction.BlockType.convert(value))
+                UnderlyingAction.turnIntoBlock(value)
             }.eraseToAnyPublisher()
             case .bookmark: return self.bookmarkViewModel.userAction.map({ value in
                 UnderlyingAction.bookmark(.fetch(value))

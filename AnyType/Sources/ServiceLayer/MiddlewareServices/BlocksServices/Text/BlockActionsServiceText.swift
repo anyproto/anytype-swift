@@ -13,18 +13,15 @@ private extension BlockActionsServiceText {
     }
 }
 
-final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
-    typealias Success = ServiceSuccess
-    // MARK: SetText
+final class BlockActionsServiceText: BlockActionsServiceTextProtocol {    
+    @discardableResult
     func setText(contextID: String, blockID: String, attributedString: NSAttributedString) -> AnyPublisher<Void, Error> {
-        // convert attributed string to marks here?
-        let result = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
-        return setText(contextID: contextID, blockID: blockID, text: result.text, marks: result.marks)
-    }
-    private func setText(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> AnyPublisher<Void, Error> {
-        /// TODO: Add private queue, don't use global queue.
-        Anytype_Rpc.Block.Set.Text.Text.Service.invoke(contextID: contextID, blockID: blockID, text: text, marks: marks, queue: .global()).successToVoid().subscribe(on: DispatchQueue.global())
-        .eraseToAnyPublisher()
+        let middlewareString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asMiddleware(attributedText: attributedString)
+        return Anytype_Rpc.Block.Set.Text.Text.Service
+            .invoke(contextID: contextID, blockID: blockID, text: middlewareString.text, marks: middlewareString.marks, queue: .global())
+            .successToVoid()
+            .subscribe(on: DispatchQueue.global())
+            .eraseToAnyPublisher()
     }
     
     // MARK: SetStyle
@@ -32,8 +29,8 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
         let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)
         return setStyle(contextID: contextID, blockID: blockID, style: style)
     }
-    private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-        Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+    private func setStyle(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.Block.Set.Text.Style.Service.invoke(contextID: contextID, blockID: blockID, style: style).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
     
@@ -58,26 +55,26 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
     }
     
     // MARK: Split
-    func split(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<Success, Error> {
+    func split(contextID: BlockId, blockID: BlockId, range: NSRange, style: Style) -> AnyPublisher<ServiceSuccess, Error> {
         let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(style)
         let middlewareRange = MiddlewareModelsModule.Parsers.Text.AttributedText.RangeConverter.asMiddleware(range)
         return split(contextID: contextID, blockID: blockID, range: middlewareRange, style: style)
     }
-    private func split(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<Success, Error> {
-        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: .bottom, queue: .global()).map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global())
+    private func split(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style) -> AnyPublisher<ServiceSuccess, Error> {
+        Anytype_Rpc.Block.Split.Service.invoke(contextID: contextID, blockID: blockID, range: range, style: style, mode: .bottom, queue: .global()).map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global())
         .eraseToAnyPublisher()
     }
 
     // MARK: Merge
-    func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<Success, Error> {
+    func merge(contextID: BlockId, firstBlockID: BlockId, secondBlockID: BlockId) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Merge.Service.invoke(
             contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID, queue: .global()
         )    
-        .map(\.event).map(Success.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
+        .map(\.event).map(ServiceSuccess.init(_:)).subscribe(on: DispatchQueue.global()).eraseToAnyPublisher()
     }
     
     // MARK: Checked
-    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<Success, Error> {
+    func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) -> AnyPublisher<ServiceSuccess, Error> {
         Anytype_Rpc.Block.Set.Text.Checked.Service.invoke(
             contextID: contextId,
             blockID: blockId,
@@ -85,7 +82,7 @@ final class BlockActionsServiceText: BlockActionsServiceTextProtocol {
             queue: .global()
         )
             .map(\.event)
-            .map(Success.init(_:))
+            .map(ServiceSuccess.init(_:))
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
