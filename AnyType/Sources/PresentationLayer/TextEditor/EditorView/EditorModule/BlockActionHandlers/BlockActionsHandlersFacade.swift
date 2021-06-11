@@ -34,7 +34,6 @@ final class BlockActionsHandlersFacade {
     )
     
     private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
-    private lazy var userActionHandler: UserActionHandler = .init(service: service)
 
     private let reactionSubject: PassthroughSubject<PackOfEvents?, Never> = .init()
     lazy var reactionPublisher: AnyPublisher<PackOfEvents, Never> = reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
@@ -89,7 +88,10 @@ final class BlockActionsHandlersFacade {
             case let .buttonView(action):
                 self.buttonBlockActionHandler.handlingButtonViewAction(value.model, action)
             }
-        case let .userAction(value): self.userActionHandler.handlingUserAction(value.model, value.action)
+        case let .userAction(userAction):
+            if case let .specific(.file(.shouldUploadFile(uploadData))) = userAction.action {
+                service.upload(block: userAction.model.blockModel.information, filePath: uploadData.filePath)
+            }
         case .showCodeLanguageView: return
         case .showStyleMenu: return
         case .becomeFirstResponder: return

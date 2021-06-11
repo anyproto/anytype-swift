@@ -57,7 +57,6 @@ final class DocumentEditorViewController: UIViewController {
         super.viewWillDisappear(animated)
         insetsHelper = nil
         guard isMovingFromParent else { return }
-        self.viewModel.applyPendingChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {

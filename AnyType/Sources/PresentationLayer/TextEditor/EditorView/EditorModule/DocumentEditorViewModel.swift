@@ -32,7 +32,6 @@ class DocumentEditorViewModel: ObservableObject {
         publisher: publicActionsPayloadPublisher,
         documentViewInteraction: self
     )
-    private let listBlockActionHandler = ListBlockActionHandler()
     private lazy var blockActionHandler = BlockActionHandler(
         documentId: document.documentId,
         documentViewInteraction: self
@@ -43,8 +42,6 @@ class DocumentEditorViewModel: ObservableObject {
 
     let selectionHandler: EditorModuleSelectionHandlerProtocol
 
-    private var listToolbarSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
-
     private let publicUserActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
     lazy var publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
 
@@ -53,11 +50,6 @@ class DocumentEditorViewModel: ObservableObject {
 
     private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
-
-    private var listActionsPayloadSubject: PassthroughSubject<Toolbar, Never> = .init()
-    lazy private var listActionsPayloadPublisher: AnyPublisher<Toolbar, Never> = {
-        self.listActionsPayloadSubject.eraseToAnyPublisher()
-    }()
 
     @Published var error: String?
 
@@ -75,7 +67,6 @@ class DocumentEditorViewModel: ObservableObject {
     /// Its `Output` is a `List<BlockId>`
     private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never> = .init()
     private(set) var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = .empty()
-    private var lastSetTextClosure: (() -> Void)?
     
 
     // MARK: - Initialization
@@ -98,11 +89,6 @@ class DocumentEditorViewModel: ObservableObject {
         self.obtainDocument(documentId: documentId)
     }
 
-    /// Apply last setText action, to ensure text was saved after document was closed
-    func applyPendingChanges() {
-        self.lastSetTextClosure?()
-    }
-
     // MARK: - Setup subscriptions
 
     private func setupSubscriptions() {
@@ -110,18 +96,8 @@ class DocumentEditorViewModel: ObservableObject {
             self?.process(actionsPayload: value)
         }.store(in: &self.subscriptions)
 
-        self.listToolbarSubject.sink { [weak self] (value) in
-            self?.process(toolbarAction: value)
-        }.store(in: &self.subscriptions)
-
-        _ = self.listBlockActionHandler.configured(self.listActionsPayloadPublisher)
-
         self.oldBlockActionHandler.reactionPublisher.sink { [weak self] events in
             self?.process(events: events)
-        }.store(in: &self.subscriptions)
-
-        self.listBlockActionHandler.reactionPublisher.sink { [weak self] events in
-            self?.process(listEvents: events)
         }.store(in: &self.subscriptions)
 
         self.$blocksViewModels.sink { [weak self] value in
@@ -129,9 +105,7 @@ class DocumentEditorViewModel: ObservableObject {
         }.store(in: &self.subscriptions)
     }
 
-    private func obtainDocument(documentId: String?) {
-        guard let documentId = documentId else { return }
-
+    private func obtainDocument(documentId: String) {
         self.blockActionsService.open(contextID: documentId, blockID: documentId)
             .receiveOnMain()
             .sink(receiveCompletion: { [weak self] (value) in
@@ -223,7 +197,6 @@ class DocumentEditorViewModel: ObservableObject {
             return
         }
         _ = self.oldBlockActionHandler.configured(documentId: documentId).configured(self)
-        _ = self.listBlockActionHandler.configured(documentId: documentId)
     }
     
 }
@@ -251,10 +224,6 @@ private extension DocumentEditorViewModel {
         }
 
         document.handle(events: events)
-    }
-
-    func process(listEvents: PackOfEvents) {
-        document.handle(events: listEvents)
     }
 }
 
@@ -315,15 +284,6 @@ private extension DocumentEditorViewModel {
             document.userSession?.setFirstResponder(with: blockModel)
         case .toolbar, .marksPane, .userAction: return
         }
-    }
-
-    func process(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
-        listActionsPayloadSubject.send(
-            Toolbar(
-                model: self.list(),
-                action: toolbarAction
-            )
-        )
     }
 }
 

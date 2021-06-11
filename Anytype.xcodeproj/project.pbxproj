@@ -404,9 +404,6 @@
 		5338E7EF25DC72AD008CB97D /* ToolbarBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */; };
 		5338E7F225DC730A008CB97D /* MarksPaneBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */; };
 		5338E7F525DC7345008CB97D /* ButtonBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */; };
-		5338E7F825DC736A008CB97D /* UserActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7F725DC736A008CB97D /* UserActionHandler.swift */; };
-		5338E7FE25DD2F74008CB97D /* ListBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */; };
-		5338E80225DD3090008CB97D /* ListBlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E80125DD3090008CB97D /* ListBlockActionService.swift */; };
 		534B7F2026264E8B00D712B2 /* EditingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534B7F1F26264E8B00D712B2 /* EditingToolbarView.swift */; };
 		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
@@ -974,9 +971,6 @@
 		5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPaneBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBlockActionHandler.swift; sourceTree = "<group>"; };
-		5338E7F725DC736A008CB97D /* UserActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActionHandler.swift; sourceTree = "<group>"; };
-		5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionHandler.swift; sourceTree = "<group>"; };
-		5338E80125DD3090008CB97D /* ListBlockActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBlockActionService.swift; sourceTree = "<group>"; };
 		534B7F1F26264E8B00D712B2 /* EditingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingToolbarView.swift; sourceTree = "<group>"; };
 		534D19C62623A7220080AEF0 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
@@ -2946,27 +2940,16 @@
 			children = (
 				3DE5120926721CCC00153962 /* Protocols */,
 				3DBED6A7266FEB5600B9E9AB /* Extensions */,
-				5338E80025DD3077008CB97D /* ListBlockAction */,
 				5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */,
 				5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */,
 				5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */,
 				5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */,
 				5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */,
-				5338E7F725DC736A008CB97D /* UserActionHandler.swift */,
 				3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */,
 				3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */,
 				3DBED682266F8E5800B9E9AB /* DocumentModelListProvider.swift */,
 			);
 			path = BlockActionHandlers;
-			sourceTree = "<group>";
-		};
-		5338E80025DD3077008CB97D /* ListBlockAction */ = {
-			isa = PBXGroup;
-			children = (
-				5338E7FD25DD2F74008CB97D /* ListBlockActionHandler.swift */,
-				5338E80125DD3090008CB97D /* ListBlockActionService.swift */,
-			);
-			path = ListBlockAction;
 			sourceTree = "<group>";
 		};
 		534B7F1B26264E0100D712B2 /* Toolbars */ = {
@@ -3622,7 +3605,6 @@
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */,
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
-				5338E7F825DC736A008CB97D /* UserActionHandler.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,
 				EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */,
@@ -3695,7 +3677,6 @@
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
 				0ABB2A432480205F00A7144A /* MarksPane+ViewController.swift in Sources */,
 				0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */,
-				5338E80225DD3090008CB97D /* ListBlockActionService.swift in Sources */,
 				122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */,
 				3D9D048C265C49F1009412B8 /* ActionsPayload.swift in Sources */,
 				12E014FC2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift in Sources */,
@@ -3730,7 +3711,6 @@
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				0A0965E625BEF5B000C004BD /* DocumentViewBaseRouter.swift in Sources */,
-				5338E7FE25DD2F74008CB97D /* ListBlockActionHandler.swift in Sources */,
 				3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */,
