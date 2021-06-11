@@ -115,14 +115,14 @@ extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
 extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
     struct TextColor {
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = MarksPane.Panes.Color.UserResponse
+        typealias Input = MarksPane.Panes.Color.Attribute
         var output: Output
         var input: Input?
     }
     
     struct BackgroundColor {
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = MarksPane.Panes.Color.UserResponse
+        typealias Input = MarksPane.Panes.Color.Attribute
         var output: Output
         var input: Input?
     }

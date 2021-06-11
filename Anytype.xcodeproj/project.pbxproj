@@ -173,7 +173,7 @@
 		0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168DC254060E40097CB23 /* MediaPicker.swift */; };
 		0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
-		0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */; };
+		0ABB2A3424801D9000A7144A /* BlockInformationAlignmentConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */; };
 		0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */; };
 		0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */; };
 		0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */; };
@@ -741,7 +741,7 @@
 		0AA168DC254060E40097CB23 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileContentTypeConverter.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+AlignmentModel.swift"; sourceTree = "<group>"; };
+		0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationAlignmentConverter.swift; sourceTree = "<group>"; };
 		0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+FontStyleModel.swift"; sourceTree = "<group>"; };
 		0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes.swift"; sourceTree = "<group>"; };
 		0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane.swift"; sourceTree = "<group>"; };
@@ -1986,7 +1986,7 @@
 			children = (
 				0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */,
 				0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */,
-				0ABB2A2524801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift */,
+				0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */,
 				0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */,
 				0ABB2A2924801D9000A7144A /* MarksPane+Panes+ColorPane.swift */,
 			);
@@ -3926,7 +3926,7 @@
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
 				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
 				1200FCD3265272A4009269D4 /* DocumentIconViewUserAction.swift in Sources */,
-				0ABB2A3424801D9000A7144A /* MarksPane+Panes+StylePane+AlignmentModel.swift in Sources */,
+				0ABB2A3424801D9000A7144A /* BlockInformationAlignmentConverter.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,

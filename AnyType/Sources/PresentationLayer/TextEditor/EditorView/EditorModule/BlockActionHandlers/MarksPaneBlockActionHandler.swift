@@ -69,10 +69,10 @@ private extension MarksPaneBlockActionHandler {
             .store(in: &self.subscriptions)
     }
 
-    func setAlignment(block: BlockInformation, alignment: MarksPane.Panes.StylePane.Alignment.Action) {
+    func setAlignment(block: BlockInformation, alignment: BlockInformationAlignment) {
         let blockIds = [block.id]
 
-        listService.setAlign(contextID: self.contextId, blockIds: blockIds, alignment: alignment.asModel())
+        listService.setAlign(contextID: self.contextId, blockIds: blockIds, alignment: alignment)
             .sinkWithDefaultCompletion("setAlignment") { [weak self] (value) in
                 let value = PackOfEvents(contextId: value.contextID, events: value.messages, ourEvents: [])
                 self?.subject?.send(value)

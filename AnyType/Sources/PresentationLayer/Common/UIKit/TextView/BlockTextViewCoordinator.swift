@@ -459,18 +459,6 @@ private extension MarksPane.Main.Panes.StylePane.FontStyle.Action {
     
 }
 
-private extension MarksPane.Main.Panes.StylePane.Alignment.Action {
-    
-    var asTextAlignment: NSTextAlignment {
-        switch self {
-        case .left: return .left
-        case .center: return .center
-        case .right: return .right
-        }
-    }
-    
-}
-
 // MARK: - BlockTextView.ContextualMenuAction
 
 private extension BlockTextView.ContextMenuAction {

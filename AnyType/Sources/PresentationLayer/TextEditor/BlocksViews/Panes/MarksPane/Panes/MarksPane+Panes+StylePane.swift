@@ -1,15 +1,8 @@
-//
-//  MarksPane+Panes+StylePane.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 13.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Combine
 import SwiftUI
+import BlocksModels
 
 // MARK: Style pane
 extension MarksPane.Panes {
@@ -36,7 +29,7 @@ extension MarksPane.Panes.StylePane {
     ///
     enum Attribute {
         case fontStyle(FontStyle.Attribute)
-        case alignment(Alignment.Attribute)
+        case alignment(BlockInformationAlignment)
     }
 
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
@@ -52,8 +45,10 @@ extension MarksPane.Panes.StylePane {
         }
         static func convert(_ input: Input) -> Output? {
             switch input {
-            case let .markStyle(style): return FontStyle.Converter.state(style).flatMap(Attribute.fontStyle)
-            case let .textAlignment(alignment): return Alignment.Converter.state(alignment).flatMap(Attribute.alignment)
+            case let .markStyle(style):
+                return FontStyle.Converter.state(style).flatMap(Attribute.fontStyle)
+            case let .textAlignment(alignment):
+                return BlockInformationAlignmentConverter.convert(alignment).flatMap(Attribute.alignment)
             }
         }
         /// All functions have name `state`.
@@ -65,7 +60,7 @@ extension MarksPane.Panes.StylePane {
         }
         
         private static func state(_ alignment: NSTextAlignment) -> Attribute? {
-            Alignment.Converter.state(alignment).flatMap(Attribute.alignment)
+            BlockInformationAlignmentConverter.convert(alignment).flatMap(Attribute.alignment)
         }
         
         static func state(_ alignment: NSTextAlignment?) -> Attribute? {
@@ -91,7 +86,7 @@ extension MarksPane.Panes.StylePane {
     ///
     enum UserResponse {
         case fontStyle(FontStyle.UserResponse)
-        case alignment(Alignment.UserResponse)
+        case alignment(BlockInformationAlignment)
     }
         
     /// `Action` is an action from User, when he pressed current cell in this pane.
@@ -100,86 +95,12 @@ extension MarksPane.Panes.StylePane {
     ///
     enum Action {
         case fontStyle(FontStyle.Action)
-        case alignment(Alignment.Action)
+        case alignment(BlockInformationAlignment)
         
         static func from(_ attribute: Attribute) -> Self {
             switch attribute {
             case let .fontStyle(value): return .fontStyle(.from(attribute: value))
-            case let .alignment(value): return .alignment(.from(attribute: value))
-            }
-        }
-    }
-}
-
-// MARK: ListDataSource
-extension MarksPane.Panes.StylePane {
-    /// `ListDataSource` is intended to manipulate with data at index paths.
-    /// Also, it knows about the count of entries in a row at section.
-    ///
-    /// Responsibilities:
-    /// - Get sections count and count of items in section.
-    /// - Conversion between `IndexPath` and `Attribute`.
-    /// - Resources for items at `IndexPath` or for `Attribute`.
-    ///
-    enum ListDataSource {
-
-        /// Since we have only two rows on our screen in current design, we are fine with constant `2`.
-        /// - Returns: A count of sections (actually, rows) of cells in a pane.
-        ///
-        static func sectionsCount() -> Int {
-            return 2
-        }
-
-        /// Well, we determine number of sections ( or rows ) in our pane.
-        /// Now we have to determine count of items in a section ( in a row ).
-        /// For that, we do this lookup in section index.
-        ///
-        /// WARNING:
-        /// This method returns `valid` indices even for `section > sectionsCount` and for `section < 0`
-        ///
-        static func itemsCount(section: Int) -> Int {
-            switch section {
-            case 0: return FontStyle.ListDataSource.itemsCount(section: 0)
-            case 1: return Alignment.ListDataSource.itemsCount(section: 0)
-            default: return 0
-            }
-        }
-
-        // MARK: Conversion: IndexPath and Attribute
-        /// We should determine an indexPath for a specific case of `enum Attribute`.
-        /// Here we do it.
-        static func indexPath(attribute: Attribute) -> IndexPath {
-            switch attribute {
-            case let .fontStyle(value): return FontStyle.ListDataSource.indexPath(attribute: value)
-            case let .alignment(value):
-                let section = 1
-                var item = Alignment.ListDataSource.indexPath(attribute: value)
-                item.section = section
-                return item
-            }
-        }
-
-        /// We should determine a case of `enum Attribute` for specific indexPath.
-        /// Here we do it.
-        ///
-        /// WARNING:
-        /// This method uses a fact about indexPath.
-        /// IndexPath doesn't align to a zero and uses `continuous numbering`.
-        /// It `does not` reset `indexPath.item` to a `zero` in `new` section.
-        ///
-        static func attribute(at indexPath: IndexPath) -> Attribute {
-            switch indexPath.section {
-            case 0: return .fontStyle(FontStyle.ListDataSource.attribute(at: indexPath))
-            case 1: return .alignment(Alignment.ListDataSource.attribute(at: .init(item: indexPath.item, section: 0)))
-            default: return .alignment(.left) // Actually, unreachable.
-            }
-        }
-
-        // MARK: Conversion: String and Attribute
-        static func imageResource(attribute: Attribute) -> String {
-            switch attribute {
-            case let .fontStyle(value): return FontStyle.ListDataSource.imageResource(attribute: value)
-            case let .alignment(value): return Alignment.ListDataSource.imageResource(attribute: value)
+            case let .alignment(value): return .alignment(value)
             }
         }
     }
