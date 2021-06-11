@@ -55,7 +55,9 @@ class EventHandler: EventHandlerProtocol {
     }
     
     func handleBlockShow(events: PackOfEvents) -> [PageEvent] {
-        events.events.compactMap(\.value).compactMap(self.handleBlockShow(event:))
+        events.events.compactMap(\.value).compactMap(
+            self.handleBlockShow(event:)
+        )
     }
     
     private func handleBlockShow(event: Anytype_Event.Message.OneOf_Value) -> PageEvent {

@@ -51,8 +51,6 @@ class DocumentEditorViewModel: ObservableObject {
     private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
 
-    @Published var error: String?
-
     /// Builders to build block views
     @Published private(set) var blocksViewModels: [BaseBlockViewModel] = [] {
         didSet {
@@ -66,7 +64,7 @@ class DocumentEditorViewModel: ObservableObject {
     /// For that, we use this subject which send events that some items are just updated, not removed or deleted.
     /// Its `Output` is a `List<BlockId>`
     private let updateElementsSubject: PassthroughSubject<Set<BlockId>, Never> = .init()
-    private(set) var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = .empty()
+    lazy var updateElementsPublisher: AnyPublisher<Set<BlockId>, Never> = updateElementsSubject.eraseToAnyPublisher()
     
 
     // MARK: - Initialization
@@ -76,47 +74,32 @@ class DocumentEditorViewModel: ObservableObject {
     ) {
         self.selectionHandler = selectionHandler
         
-        self.setupSubscriptions()
-
-        // TODO: Deprecated.
-        // We should rename it.
-        // Our case would be the following
-        // We should expose one publisher that will publish different updates (delete/update/add) to outer world.
-        // Or to our view controller.
-        // Maybe it will publish only resulted collection of elements.
-        self.updateElementsPublisher = self.updateElementsSubject.eraseToAnyPublisher()
-
-        self.obtainDocument(documentId: documentId)
+        setupSubscriptions()
+        obtainDocument(documentId: documentId)
     }
 
     // MARK: - Setup subscriptions
 
     private func setupSubscriptions() {
-        self.publicActionsPayloadPublisher.sink { [weak self] (value) in
+        publicActionsPayloadPublisher.sink { [weak self] (value) in
             self?.process(actionsPayload: value)
         }.store(in: &self.subscriptions)
 
-        self.oldBlockActionHandler.reactionPublisher.sink { [weak self] events in
+        oldBlockActionHandler.reactionPublisher.sink { [weak self] events in
             self?.process(events: events)
         }.store(in: &self.subscriptions)
 
-        self.$blocksViewModels.sink { [weak self] value in
+        $blocksViewModels.sink { [weak self] value in
             self?.enhanceUserActionsAndPayloads(value)
         }.store(in: &self.subscriptions)
     }
 
     private func obtainDocument(documentId: String) {
-        self.blockActionsService.open(contextID: documentId, blockID: documentId)
+        blockActionsService.open(contextID: documentId, blockID: documentId)
             .receiveOnMain()
-            .sink(receiveCompletion: { [weak self] (value) in
-                switch value {
-                case .finished: break
-                case let .failure(error):
-                    self?.error = error.localizedDescription
-                }
-            }, receiveValue: { [weak self] value in
+            .sinkWithDefaultCompletion("Open document with id: \(documentId)") { [weak self] value in
                 self?.handleOpenDocument(value)
-            }).store(in: &self.subscriptions)
+            }.store(in: &self.subscriptions)
     }
 
     private func handleOpenDocument(_ value: ServiceSuccess) {
@@ -205,7 +188,7 @@ class DocumentEditorViewModel: ObservableObject {
 
 extension DocumentEditorViewModel: DocumentViewInteraction {
     func updateBlocks(with ids: Set<BlockId>) {
-        self.updateElementsSubject.send(ids)
+        updateElementsSubject.send(ids)
     }
 }
 
@@ -215,9 +198,9 @@ private extension DocumentEditorViewModel {
     func process(events: PackOfEvents) {
         events.ourEvents.forEach { event in
             switch event {
-            case let .setFocus(focus):
-                if let blockViewModel = blocksViewModels.first(where: { $0.blockId == focus.blockId }) as? TextBlockViewModel {
-                    blockViewModel.set(focus: focus.position ?? .end)
+            case let .setFocus(blockId, position):
+                if let blockViewModel = blocksViewModels.first(where: { $0.blockId == blockId }) as? TextBlockViewModel {
+                    blockViewModel.set(focus: position)
                 }
             default: return
             }

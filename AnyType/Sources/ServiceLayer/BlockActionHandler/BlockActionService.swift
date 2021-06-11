@@ -44,12 +44,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     // MARK: Actions/Add
 
     func addChild(childBlock: BlockInformation, parentBlockId: BlockId) {
-        // insert block as child to parent.
-        self.add(newBlock: childBlock, afterBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
+        add(newBlock: childBlock, targetBlockId: parentBlockId, position: .inner, shouldSetFocusOnUpdate: true)
     }
 
-    func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, shouldSetFocusOnUpdate: Bool) {
-        singleService.add(contextID: self.documentId, targetID: afterBlockId, block: newBlock, position: position)
+    func add(newBlock: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
+        singleService.add(contextID: self.documentId, targetID: targetBlockId, block: newBlock, position: position)
             .receiveOnMain()
             .sinkWithDefaultCompletion("blocksActions.service.add") { [weak self] (value) in
                 let value = shouldSetFocusOnUpdate ? value.addEvent : value.defaultEvent
@@ -83,7 +82,7 @@ final class BlockActionService: BlockActionServiceProtocol {
                 style: newBlockContentType) ?? .empty()
         }).sinkWithDefaultCompletion("blocksActions.service.setTextAndSplit") { [weak self] serviceSuccess in
             var events = shouldSetFocusOnUpdate ? serviceSuccess.splitEvent : serviceSuccess.defaultEvent
-            events.ourEvents = [.setTextMerge(.init(blockId: blockId))] + events.ourEvents
+            events.ourEvents = [.setTextMerge(blockId: blockId)] + events.ourEvents
             self?.didReceiveEvent(events)
         }.store(in: &self.subscriptions)
     }

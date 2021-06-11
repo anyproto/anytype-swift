@@ -7,7 +7,7 @@ extension ServiceSuccess {
         let textMessage = messages.first { $0.value == .blockSetText($0.blockSetText) }
         
         let ourEvents: [OurEvent] = textMessage.flatMap {
-            [.setFocus(.init(blockId: $0.blockSetText.id, position: .beginning))]
+            [.setFocus(blockId: $0.blockSetText.id, position: .beginning)]
         } ?? []
 
         return PackOfEvents(contextId: contextID, events: messages, ourEvents: ourEvents)
@@ -16,7 +16,7 @@ extension ServiceSuccess {
     var addEvent: PackOfEvents {
         let addEntryMessage = messages.first { $0.value == .blockAdd($0.blockAdd) }
         let ourEvents: [OurEvent] = addEntryMessage?.blockAdd.blocks.first.flatMap {
-            [.setFocus(.init(blockId: $0.id, position: .beginning))]
+            [.setFocus(blockId: $0.id, position: .beginning)]
         } ?? []
         
         return .init(contextId: contextID, events: messages, ourEvents: ourEvents)
@@ -59,7 +59,7 @@ extension ServiceSuccess {
         let focusedBlockId = setChildrenEvent.childrenIds[focusedIndex]
 
         return PackOfEvents(contextId: contextID, events: messages, ourEvents: [
-            .setFocus(.init(blockId: focusedBlockId, position: .beginning))
+            .setFocus(blockId: focusedBlockId, position: .beginning)
         ])
     }
 }

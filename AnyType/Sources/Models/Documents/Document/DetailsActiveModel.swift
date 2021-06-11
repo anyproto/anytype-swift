@@ -8,12 +8,7 @@ class DetailsActiveModel {
     
     private var documentId: String?
     
-    /// TODO:
-    /// Add DI later.
-    /// Or remove service from this model completely.
-    /// We could use events/actions and send them directly to `user interaction handler`, which will send result to `event handler`.
-    ///
-    private let service: ObjectActionsService = .init()
+    private let service = ObjectActionsService()
     
     // MARK: Publishers
     

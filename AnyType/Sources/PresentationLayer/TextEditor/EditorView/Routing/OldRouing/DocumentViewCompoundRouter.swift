@@ -43,8 +43,6 @@ final class DocumentViewCompoundRouter: DocumentViewBaseCompoundRouter {
             }
         case .toolbars:
             return router(of: ToolbarsRouter.self)
-        default:
-            return nil
         }
     }
     
@@ -78,11 +76,11 @@ private extension DocumentViewCompoundRouter {
             switch event {
             case let .child(id):
                 return .child(
-                    DocumentEditorBuilder.build(id: id)
+                    EditorAssembly.build(id: id)
                 )
             case let .show(id):
                 return .show(
-                    DocumentEditorBuilder.build(id: id)
+                    EditorAssembly.build(id: id)
                 )
             }
         }()

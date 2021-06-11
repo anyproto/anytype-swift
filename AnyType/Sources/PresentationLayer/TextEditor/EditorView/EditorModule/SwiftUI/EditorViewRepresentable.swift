@@ -3,21 +3,21 @@ import SwiftUI
 import Combine
 import os
 
-struct EditorModuleContainerViewRepresentable: UIViewControllerRepresentable {
+struct EditorViewRepresentable: UIViewControllerRepresentable {
     
     let documentId: String
     
     // MARK: - UIViewControllerRepresentable
     
     func makeUIViewController(
-        context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>
+        context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> DocumentEditorViewController {
-        DocumentEditorBuilder.build(id: documentId)
+        EditorAssembly.build(id: documentId)
     }
     
     func updateUIViewController(
         _ uiViewController: DocumentEditorViewController,
-        context: UIViewControllerRepresentableContext<EditorModuleContainerViewRepresentable>
+        context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) {
     }
     

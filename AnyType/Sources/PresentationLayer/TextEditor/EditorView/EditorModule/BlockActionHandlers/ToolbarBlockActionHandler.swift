@@ -12,9 +12,7 @@ final class ToolbarBlockActionHandler {
     }
 
     func model(beforeModel: BlockActiveRecordModelProtocol, includeParent: Bool) -> BlockActiveRecordModelProtocol? {
-        //        TopLevel.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
-        self.indexWalker?.renew()
-        return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
+        return indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
 
     func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: BlocksViews.Toolbar.UnderlyingAction) {
@@ -32,7 +30,7 @@ final class ToolbarBlockActionHandler {
                     if case .text = newBlock.content {
                         shouldSetFocusOnUpdate = true
                     }
-                    self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
+                    service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
                 }
             }
         case let .turnIntoBlock(value):
@@ -87,7 +85,7 @@ final class ToolbarBlockActionHandler {
                     }
                     let previousBlockId = previousModel.blockId
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setFocus(.init(blockId: previousBlockId, position: .end))
+                        .setFocus(blockId: previousBlockId, position: .end)
                     ])
                 }
             case .duplicate: self.service.duplicate(block: block.blockModel.information)

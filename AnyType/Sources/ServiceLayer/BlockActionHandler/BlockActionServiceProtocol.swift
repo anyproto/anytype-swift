@@ -11,7 +11,7 @@ protocol BlockActionServiceProtocol {
     
     func turnInto(block: BlockInformation, type: BlockContent, shouldSetFocusOnUpdate: Bool)
     
-    func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
+    func add(newBlock: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
     func addChild(childBlock: BlockInformation, parentBlockId: BlockId)
     
     func merge(firstBlock: BlockInformation, secondBlock: BlockInformation, ourEvents: [OurEvent])
@@ -33,11 +33,7 @@ protocol BlockActionServiceProtocol {
     func receiveOurEvents(_ events: [OurEvent])
 }
 
-extension BlockActionServiceProtocol {
-    func add(newBlock: BlockInformation, afterBlockId: BlockId, position: BlockPosition = .bottom, shouldSetFocusOnUpdate: Bool) {
-        add(newBlock: newBlock, afterBlockId: afterBlockId, position: position, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
-    }
-    
+extension BlockActionServiceProtocol {    
     func createPage(afterBlock: BlockInformation, position: BlockPosition = .bottom) {
         createPage(afterBlock: afterBlock, position: position)
     }

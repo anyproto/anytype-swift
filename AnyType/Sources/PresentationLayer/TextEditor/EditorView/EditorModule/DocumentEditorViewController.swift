@@ -360,15 +360,15 @@ private extension DocumentEditorViewController {
 
     /// Add handlers to viewModel state changes
     func configured() {
-        self.viewModel.publicSizeDidChangePublisher.receiveOnMain().sink { [weak self] (value) in
+        viewModel.publicSizeDidChangePublisher.receiveOnMain().sink { [weak self] (value) in
             self?.updateView()
         }.store(in: &self.subscriptions)
 
-        self.viewModel.updateElementsPublisher.sink { [weak self] value in
+        viewModel.updateElementsPublisher.sink { [weak self] value in
             self?.handleUpdateBlocks(blockIds: value)
         }.store(in: &self.subscriptions)
 
-        self.viewModel.selectionHandler.selectionEventPublisher().sink(receiveValue: { [weak self] value in
+        viewModel.selectionHandler.selectionEventPublisher().sink(receiveValue: { [weak self] value in
             self?.handleSelection(event: value)
         }).store(in: &self.subscriptions)
     }

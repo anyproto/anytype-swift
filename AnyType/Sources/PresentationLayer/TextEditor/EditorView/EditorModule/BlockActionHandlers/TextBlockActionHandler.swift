@@ -26,9 +26,7 @@ final class TextBlockActionHandler {
     }
 
     func model(beforeModel: BlockActiveRecordModelProtocol, includeParent: Bool) -> BlockActiveRecordModelProtocol? {
-        //        TopLevel.BlockUtilities.IndexWalker.model(beforeModel: beforeModel, includeParent: includeParent)
-        self.indexWalker?.renew()
-        return self.indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
+        return indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
 
     private func handlingInputAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockTextView.UserAction.InputAction) {
@@ -72,7 +70,7 @@ final class TextBlockActionHandler {
                         }
                         else {
                             let first = block?.childrenIds().first
-                            self.service.add(newBlock: information, afterBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
+                            service.add(newBlock: information, targetBlockId: first ?? "", position: .top, shouldSetFocusOnUpdate: true)
                         }
                     }
 
@@ -95,7 +93,7 @@ final class TextBlockActionHandler {
                                            shouldSetFocusOnUpdate: true)
                     }
                     else {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: true)
+                        self.service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true)
                     }
                 }
 
@@ -114,7 +112,7 @@ final class TextBlockActionHandler {
                                            shouldSetFocusOnUpdate: true)
                     }
                     else {
-                        self.service.add(newBlock: newBlock, afterBlockId: block.blockId, shouldSetFocusOnUpdate: true)
+                        self.service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: true)
                     }
                 }
 
@@ -149,10 +147,12 @@ final class TextBlockActionHandler {
                                                       parentBlockId: block.blockId)
                             case (false, true, _), (false, _, true):
                                 let firstChildId = childrenIds[0]
-                                self.service.add(newBlock: newBlock,
-                                                 afterBlockId: firstChildId,
-                                                 position: .top,
-                                                 shouldSetFocusOnUpdate: true)
+                                self.service.add(
+                                    newBlock: newBlock,
+                                    targetBlockId: firstChildId,
+                                    position: .top,
+                                    shouldSetFocusOnUpdate: true
+                                )
                             default:
                                 let newContentType = payload.contentType.isList ? payload.contentType : .text
                                 let oldText = payload.attributedText.string
@@ -186,8 +186,8 @@ final class TextBlockActionHandler {
                 if case let .text(text) = previousModel.blockModel.information.content {
                     let range = NSRange(location: text.attributedText.length, length: 0)
                     ourEvents.append(contentsOf: [
-                        .setTextMerge(.init(blockId: previousBlockId)),
-                        .setFocus(.init(blockId: previousBlockId, position: .at(range)))
+                        .setTextMerge(blockId: previousBlockId),
+                        .setFocus(blockId: previousBlockId, position: .at(range))
                     ])
                 }
 
@@ -204,7 +204,7 @@ final class TextBlockActionHandler {
                     }
                     let previousBlockId = previousModel.blockId
                     return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setFocus(.init(blockId: previousBlockId, position: .end))
+                        .setFocus(blockId: previousBlockId, position: .end)
                     ])
                 }
             }
