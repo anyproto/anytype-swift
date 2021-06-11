@@ -110,8 +110,6 @@ extension BlocksViews.Toolbar.BlocksTypes {
                 case .text: return "Text"
                 case .list: return "List"
                 case .objects: return "Objects"
-//                case .page: return "Page"
-//                case .media: return "Objects"
                 case .tool: return "Tool"
                 case .other: return "Other"
                 }

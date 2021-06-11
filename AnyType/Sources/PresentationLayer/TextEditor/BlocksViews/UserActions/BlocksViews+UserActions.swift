@@ -112,19 +112,18 @@ extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
     }
 }
 
+import UIKit
 extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
     struct TextColor {
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = MarksPane.Panes.Color.Attribute
         var output: Output
-        var input: Input?
+        var input: UIColor?
     }
     
     struct BackgroundColor {
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = MarksPane.Panes.Color.Attribute
         var output: Output
-        var input: Input?
+        var input: UIColor?
     }
     
     struct Style {

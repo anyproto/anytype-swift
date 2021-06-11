@@ -19,11 +19,11 @@ final class BlockMenuActionsHandlerImp {
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :
-            self.marksPaneActionSubject.send(.style(.init(), .alignment(.left)))
+            marksPaneActionSubject.send(.style(.alignment(.left)))
         case .right:
-            self.marksPaneActionSubject.send(.style(.init(), .alignment(.right)))
+            marksPaneActionSubject.send(.style(.alignment(.right)))
         case .center:
-            self.marksPaneActionSubject.send(.style(.init(), .alignment(.center)))
+            marksPaneActionSubject.send(.style(.alignment(.center)))
         }
     }
     
@@ -48,13 +48,13 @@ final class BlockMenuActionsHandlerImp {
         case .toggle:
             self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
         case .bold:
-            self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.bold)))
+            self.marksPaneActionSubject.send(.style(.fontStyle(.bold(true))))
         case .italic:
-            self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.italic)))
+            self.marksPaneActionSubject.send(.style(.fontStyle(.italic(true))))
         case .breakthrough:
-            self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.strikethrough)))
+            self.marksPaneActionSubject.send(.style(.fontStyle(.strikethrough(true))))
         case .code:
-            self.marksPaneActionSubject.send(.style(NSRange(), .fontStyle(.keyboard)))
+            self.marksPaneActionSubject.send(.style(.fontStyle(.keyboard(true))))
         case .link:
             break
         }
@@ -115,9 +115,9 @@ extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
         case let .other(other):
             addBlockAndActionsSubject.send(.addBlock(other.blockViewsType))
         case let .color(color):
-            marksPaneActionSubject.send(.textColor(NSRange(), .setColor(color.color)))
+            marksPaneActionSubject.send(.textColor(color.color))
         case let .background(color):
-            marksPaneActionSubject.send(.backgroundColor(NSRange(), .setColor(color.color)))
+            marksPaneActionSubject.send(.backgroundColor(color.color))
         }
     }
     

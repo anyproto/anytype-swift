@@ -9,29 +9,7 @@ extension MarksPane.Panes {
     enum StylePane {}
 }
 
-// MARK: States and Actions
-/// A set of Input(`Attribute`, `UserResponse`) and Output(`Action`) types.
-/// `Attribute` refers to possible values of Input.
-/// `UserResponse` refers to a set of possible values of Input.
-/// `UserResponse` := (`Optional<Attribute>`, `Attribute`) | (`[Attribute]`)
-/// `UserResponse` is `exclusive` ( `Optional<Attribute> | Attribute` ) or `inclusive` (`[Attribute]`).
-///
 extension MarksPane.Panes.StylePane {
-    /// An `Attribute` from UserResponse.
-    /// When user press something in related UI component, you should update state of this UI component.
-    /// For us, it is a selection of UITextView.
-    ///
-    /// So, we receive attributes from selection of UITextView.
-    ///
-    /// This attribute refers to this update.
-    ///
-    /// That is why you have `Converter` from `TextView.MarkStyle`
-    ///
-    enum Attribute {
-        case fontStyle(FontStyle.Attribute)
-        case alignment(BlockInformationAlignment)
-    }
-
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
     /// Most functions have the same name and they are dispatching by a type of argument.
     /// Parameter name `style` refers to `TextView.MarkStyle`
@@ -85,23 +63,12 @@ extension MarksPane.Panes.StylePane {
     /// Next, appropriate method will update current value of `UserResponse` in this pane.
     ///
     enum UserResponse {
-        case fontStyle(FontStyle.UserResponse)
+        case fontStyle([FontStyle.Attribute])
         case alignment(BlockInformationAlignment)
     }
         
-    /// `Action` is an action from User, when he pressed current cell in this pane.
-    /// This pane is set of panes, so, whenever user pressed a cell in child pane, update will deliver to OuterWorld.
-    /// It refers to outgoing ( or `to OuterWorld` ) publisher.
-    ///
-    enum Action {
-        case fontStyle(FontStyle.Action)
+    enum Attribute {
+        case fontStyle(FontStyle.Attribute)
         case alignment(BlockInformationAlignment)
-        
-        static func from(_ attribute: Attribute) -> Self {
-            switch attribute {
-            case let .fontStyle(value): return .fontStyle(.from(attribute: value))
-            case let .alignment(value): return .alignment(value)
-            }
-        }
     }
 }

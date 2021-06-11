@@ -312,7 +312,10 @@ extension DocumentEditorViewModel {
 
     /// Block action handler
     func handleAction(_ action: BlockActionHandler.ActionType) {
-        guard let firstResponder = document.userSession?.firstResponder() else { return }
+        guard let firstResponder = document.userSession?.firstResponder() else {
+            assertionFailure("No first responder for action \(action)")
+            return
+        }
         
         blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] events in
             self?.process(events: events)

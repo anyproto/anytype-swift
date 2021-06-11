@@ -30,23 +30,17 @@ final class MarksPaneBlockActionHandler {
     
     func handlingMarksPaneAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionsPayloadMarksPane) {
         switch action {
-        case let .style(range, styleAction):
+        case let .style(styleAction):
             switch styleAction {
             case let .alignment(alignmentAction):
                 self.setAlignment(block: block.blockModel.information, alignment: alignmentAction)
             case let .fontStyle(fontAction):
-                self.handleFontAction(for: block, range: range, fontAction: fontAction)
+                self.handleFontAction(for: block, range: NSRange(), fontAction: fontAction)
             }
-        case let .textColor(_, colorAction):
-            switch colorAction {
-            case let .setColor(color):
-                self.setBlockColor(block: block.blockModel.information, color: color)
-            }
-        case let .backgroundColor(_, action):
-            switch action {
-            case let .setColor(value):
-                self.service.setBackgroundColor(block: block.blockModel.information, color: value)
-            }
+        case let .textColor(color):
+            setBlockColor(block: block.blockModel.information, color: color)
+        case let .backgroundColor(color):
+            service.setBackgroundColor(block: block.blockModel.information, color: color)
         }
     }
 }
@@ -80,7 +74,7 @@ private extension MarksPaneBlockActionHandler {
             .store(in: &self.subscriptions)
     }
 
-    func handleFontAction(for block: BlockActiveRecordModelProtocol, range: NSRange, fontAction: MarksPane.Panes.StylePane.FontStyle.Action) {
+    func handleFontAction(for block: BlockActiveRecordModelProtocol, range: NSRange, fontAction: MarksPane.Panes.StylePane.FontStyle.Attribute) {
         guard case var .text(textContentType) = block.content else { return }
         var range = range
         var blockModel = block.blockModel

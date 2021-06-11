@@ -23,44 +23,23 @@ extension MarksPane.Panes.Color {
 
 // MARK: States and Actions
 extension MarksPane.Panes.Color {
-    /// An `Attribute` from UserResponse.
-    /// When user press something in related UI component, you should update state of this UI component.
-    /// For us, it is a selection of UITextView.
-    ///
-    /// So, we receive attributes from selection of UITextView.
-    ///
-    /// This attribute refers to this update.
-    ///
-    /// That is why you have `Converter` from `TextView.MarkStyle`
-    enum Attribute {
-        case setColor(UIColor)
-    }
-    
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
     ///
     enum Converter {
-        private static func state(_ style: BlockTextView.MarkStyle, background: Bool) -> Attribute? {
+        private static func state(_ style: BlockTextView.MarkStyle, background: Bool) -> UIColor? {
             switch style {
-            case let .textColor(color): return .setColor(color ?? .defaultColor)
-            case let .backgroundColor(color): return .setColor(color ?? .grayscaleWhite)
+            case let .textColor(color): return color ?? .defaultColor
+            case let .backgroundColor(color): return color ?? .grayscaleWhite
             default: return nil
             }
         }
         
-        static func state(_ style: BlockTextView.MarkStyle?, background: Bool) -> Attribute? {
+        static func state(_ style: BlockTextView.MarkStyle?, background: Bool) -> UIColor? {
             style.flatMap({state($0, background: background)})
         }
         
-        static func states(_ styles: [BlockTextView.MarkStyle], background: Bool) -> [Attribute] {
+        static func states(_ styles: [BlockTextView.MarkStyle], background: Bool) -> [UIColor] {
             styles.compactMap({state($0, background: background)})
         }
-    }
-    
-    /// `Action` is an action from User, when he pressed current cell in this pane.
-    /// It refers to outgoing ( or `to OuterWorld` ) publisher.
-    ///
-    enum Action {
-        // Maybe better to use Colors?
-        case setColor(UIColor)
     }
 }

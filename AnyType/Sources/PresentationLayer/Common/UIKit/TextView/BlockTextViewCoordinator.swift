@@ -446,7 +446,7 @@ private extension UIGestureRecognizer.State {
 
 // MARK: - MarksPane.Main.Panes.StylePane extensions
 
-private extension MarksPane.Main.Panes.StylePane.FontStyle.Action {
+private extension MarksPane.Main.Panes.StylePane.FontStyle.Attribute {
     
     var asMarkStyle: BlockTextView.MarkStyle {
         switch self {
@@ -455,16 +455,6 @@ private extension MarksPane.Main.Panes.StylePane.FontStyle.Action {
         case .strikethrough: return .strikethrough(false)
         case .keyboard: return .keyboard(false)
         }
-    }
-    
-}
-
-// MARK: - BlockTextView.ContextualMenuAction
-
-private extension BlockTextView.ContextMenuAction {
-    
-    var asCategory: MarksPane.Main.Section.Category? {
-        return nil
     }
     
 }

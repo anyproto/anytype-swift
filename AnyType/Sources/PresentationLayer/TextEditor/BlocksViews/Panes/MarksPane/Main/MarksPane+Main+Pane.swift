@@ -1,32 +1,13 @@
-//
-//  MarksPane+ViewModel.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 14.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 import Combine
 
 // MARK: States and Actions
 extension MarksPane.Main {
-    /// An `Attribute` from UserResponse.
-    /// When user press something in related UI component, you should update state of this UI component.
-    /// For us, it is a selection of UITextView.
-    ///
-    /// So, we receive attributes from selection of UITextView.
-    ///
-    /// This attribute refers to this update.
-    ///
-    /// That is why you have `Converter` from `TextView.MarkStyle`
-    ///
-    /// This `Attribute` aggregates different attributes from different panes.
     enum Attribute {
         case style(Panes.StylePane.Attribute)
-        case textColor(Panes.Color.Attribute)
-        case backgroundColor(Panes.Color.Attribute)
+        case textColor(UIColor)
+        case backgroundColor(UIColor)
     }
 
     /// `Converter` converts `TextView.MarkStyle` -> `Attribute`.
@@ -107,8 +88,8 @@ extension MarksPane.Main {
     /// It refers to outgoing ( or `to OuterWorld` ) publisher.
     ///
     enum Action {
-        case style(NSRange, Panes.StylePane.Action)
-        case textColor(NSRange, Panes.Color.Action)
-        case backgroundColor(NSRange, Panes.Color.Action)
+        case style(Panes.StylePane.Attribute)
+        case textColor(UIColor)
+        case backgroundColor(UIColor)
     }
 }
