@@ -85,15 +85,6 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         }
     }
     
-    override func didSwitchViews(_ coordinator: BlockTextViewCoordinator,
-                                 textView: UITextView) {
-        if (textView.inputView == coordinator.marksToolbarInputView.view) {
-            let range = textView.selectedRange
-            let attributedText = textView.textStorage
-            coordinator.updateMarksInputView((range, attributedText, textView))
-        }
-    }
-    
     override func switchInputs(_ coordinator: BlockTextViewCoordinator,
                                textView: UITextView) {
         self.updateDisplayedAccessoryViewState(coordinator: coordinator, textView: textView)

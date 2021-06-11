@@ -18,20 +18,3 @@ import UIKit
 ///
 
 enum MarksPane {}
-
-// MARK: Style
-extension MarksPane {
-    enum Style {
-        static let `default`: Self = .presentation
-        case presentation
-        func backgroundColor() -> UIColor {
-            switch self {
-            case .presentation: return .init(red: 0.953, green: 0.949, blue: 0.925, alpha: 1) // #F3F2EC
-            }
-        }
-        func accentColor() -> UIColor {
-            UIColor.init(named: "TextEditor/Colors/DefaultOrange") ?? .orange
-        }
-    }
-}
-

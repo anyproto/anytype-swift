@@ -46,13 +46,6 @@ final class BlockTextViewCoordinator: NSObject {
                            dismissHandler: dismissActionsMenu)
     }()
 
-    /// MarksInputView
-    private(set) lazy var marksToolbarInputView = MarksPane.Main.ViewModelHolder()
-    private var marksToolbarHandler: AnyCancellable? // Hm... we need what?
-    /// We need handler which connects contextual menu action and will handle "changing" of value in marksToolbar and also trigger it appearance.
-    /// Also, we need handler which connects marks processing.
-    /// And also, we need a handler which updates current state of marks ( like updateHighlightingMenu )
-
     private(set) var defaultKeyboardRect: CGRect = .zero
     private lazy var pressingEnterTimeChecker = TimeChecker(
         threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing
@@ -115,68 +108,6 @@ extension BlockTextViewCoordinator {
             }
         }
     }
-
-    // MARK: - Publishers / Marks Pane
-    /// We could apply new attributes somewhere else.
-    /// 
-    /// TODO:
-    /// Remove it from here.
-    func configureMarksPanePublisher(_ view: UITextView) {
-        self.marksToolbarHandler = Publishers.CombineLatest(Just(view), self.marksToolbarInputView.viewModel.userAction).sink { [weak self] value in
-            let (textView, action) = value
-            let attributedText = textView.textStorage
-            let modifier = BlockTextView.MarkStyleModifier(
-                attributedText: attributedText
-            ).update(by: textView)
-            
-            Logger.create(.textViewUIKitTextViewCoordinator).debug("MarksPane action \(String.init(describing: action))")
-            
-            switch action {
-            case let .style(range, attribute):
-                guard range.length > 0 else { return }
-                
-                switch attribute {
-                case let .fontStyle(attribute):
-                    let theMark = attribute.asMarkStyle
-                    guard
-                        let style = modifier.getMarkStyle(style: theMark, at: .range(range))
-                    else {
-                        return
-                    }
-                    
-                    modifier.applyStyle(
-                        style: style.opposite(),
-                        rangeOrWholeString: .range(range)
-                    )
-                case let .alignment(attribute):
-                    textView.textAlignment = attribute.asTextAlignment
-                }
-                
-                self?.updateMarksInputView((range, attributedText, textView))
-                
-            case let .textColor(range, attribute):
-                guard range.length > 0 else { return }
-                
-                switch attribute {
-                case let .setColor(color):
-                    modifier.applyStyle(style: .textColor(color), rangeOrWholeString: .range(range))
-                    self?.updateMarksInputView((range, attributedText))
-                }
-                
-            case let .backgroundColor(range, attribute):
-                guard range.length > 0 else { return }
-                
-                switch attribute {
-                case let .setColor(color):
-                    modifier.applyStyle(
-                        style: .backgroundColor(color),
-                        rangeOrWholeString: .range(range)
-                    )
-                    self?.updateMarksInputView((range, attributedText))
-                }
-            }
-        }
-    }
     
     // MARK: - ContextualMenuHandling
     /// TODO: Put textView into it.
@@ -192,7 +123,6 @@ extension BlockTextViewCoordinator {
             guard let self = self else { return }
             
             let range = view.selectedRange
-            let textStorage = view.textStorage
             
             self.userInteractionDelegate?.didReceiveAction(
                 BlockTextView.UserAction.inputAction(
@@ -201,7 +131,6 @@ extension BlockTextViewCoordinator {
             )
             
             // looks like following functions do nothing
-            self.updateMarksInputView((range, textStorage, view, action))
             self.switchInputs(view)
         }
     }
@@ -300,33 +229,6 @@ private extension BlockTextViewCoordinator {
             }
         }
     }    
-}
-
-// MARK: Marks Input View handling
-extension BlockTextViewCoordinator {
-    
-    func updateMarksInputView(_ tuple: (NSRange, NSTextStorage)) {
-        let (range, storage) = tuple
-        marksToolbarInputView.viewModel.update(range: range, attributedText: storage)
-    }
-    
-    func updateMarksInputView(_ quadruple: (NSRange, NSTextStorage, UITextView, BlockTextView.ContextMenuAction)) {
-        let (range, storage, textView, action) = quadruple
-        
-        updateMarksInputView((range, storage, textView))
-        action.asCategory.flatMap { marksToolbarInputView.viewModel.update(category: $0) }
-    }
-    
-    func updateMarksInputView(_ triple: (NSRange, NSTextStorage, UITextView)) {
-        let (range, storage, textView) = triple
-        
-        marksToolbarInputView.viewModel.update(
-            range: range,
-            attributedText: storage,
-            alignment: textView.textAlignment
-        )
-    }
-    
 }
 
 // MARK: Highlighted Accessory view handling

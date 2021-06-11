@@ -34,7 +34,6 @@ final class BlockTextView: UIView {
             // method have not being called, it leads us to
             // deleting text in textView without updating it in block model
             textView.delegate = coordinator
-            coordinator?.configureMarksPanePublisher(textView)
         }
     }
 
