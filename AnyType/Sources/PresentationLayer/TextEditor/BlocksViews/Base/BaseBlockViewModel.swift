@@ -14,8 +14,6 @@ class BaseBlockViewModel: ObservableObject {
 
     init(_ block: BlockActiveRecordModelProtocol) {
         self.block = block
-        
-        setupPublishers()
     }
     
     // MARK: - Subclass / Blocks
@@ -34,7 +32,7 @@ class BaseBlockViewModel: ObservableObject {
     /// If you would like to show controllers or action panes, you should listen events from this publisher.
     ///
     private var userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
-    public var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = .empty()
+    public lazy var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = userActionSubject.eraseToAnyPublisher()
     
     // MARK: Toolbar Action Publisher
 
@@ -49,7 +47,7 @@ class BaseBlockViewModel: ObservableObject {
     /// If user press something, then AddBlockToolbar will send user action to `PassthroughSubject` ( or `toolbarActionSubject` in our case ).
     ///
     public private(set) var toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
-    public var toolbarActionPublisher: AnyPublisher<BlocksViews.Toolbar.UnderlyingAction, Never> = .empty()
+    public lazy var toolbarActionPublisher: AnyPublisher<BlocksViews.Toolbar.UnderlyingAction, Never> = toolbarActionSubject.eraseToAnyPublisher()
     
     // MARK: Marks Pane Publisher
 
@@ -67,16 +65,11 @@ class BaseBlockViewModel: ObservableObject {
     /// If user press something, then MarksPane will send user action to `PassthroughSubject` ( or `marksPaneActionSubject` in our case )
     ///
     public private(set) var marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never> = .init()
-    public var marksPaneActionPublisher: AnyPublisher<MarksPane.Main.Action, Never> = .empty()
+    public lazy var marksPaneActionPublisher: AnyPublisher<MarksPane.Main.Action, Never> = marksPaneActionSubject.eraseToAnyPublisher()
 
     // MARK: Actions Payload Publisher
 
-    /// This solo Publisher `actionsPayloadPublisher` merges all actions into meta `ActionsPayload` action.
-    /// If you need to process whole user input for specific BlocksViewModel, you need to listen this publisher.
-    ///
     private(set) var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
-    // TODO: what purpose is it here for?
-    public var actionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = .empty()
     
     /// We use this subject with `.send()` internally.
     /// Also, we merged it with toolbar action publisher.
@@ -112,27 +105,7 @@ class BaseBlockViewModel: ObservableObject {
     /// Update view data manually.
     /// Override in subclasses.
     func updateView() {}
-    
-    // MARK: - Setup / Publishers
 
-    private func setupPublishers() {
-        self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
-        self.toolbarActionPublisher = self.toolbarActionSubject.eraseToAnyPublisher()
-        self.marksPaneActionPublisher = self.marksPaneActionSubject.eraseToAnyPublisher()
-
-        // TODO: what purpose is it here for?
-        let actionsPayloadPublisher = self.actionsPayloadSubject
-        let toolbarActionPublisher = self.toolbarActionPublisher.map({ [weak self] value in
-            self.flatMap({ActionsPayload.toolbar(.init(model: $0.block, action: value))})
-        }).safelyUnwrapOptionals()
-        let marksPaneActionPublisher = self.marksPaneActionSubject.map({ [weak self] value in
-            self.flatMap({ActionsPayload.marksPane(.init(model: $0.block, action: value))})
-        }).safelyUnwrapOptionals()
-
-        // TODO: what purpose is it here for?
-        self.actionsPayloadPublisher = Publishers.Merge3(actionsPayloadPublisher.eraseToAnyPublisher(), toolbarActionPublisher.eraseToAnyPublisher(), marksPaneActionPublisher.eraseToAnyPublisher()).eraseToAnyPublisher()
-    }
-    
     // MARK: - Contextual Menu
 
     private var subscriptions: Set<AnyCancellable> = []

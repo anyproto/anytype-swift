@@ -46,7 +46,7 @@ class DocumentEditorViewModel: ObservableObject {
     lazy var publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
 
     private var publicActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
-    lazy var publicActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> = { self.publicActionsPayloadSubject.eraseToAnyPublisher() }()
+    lazy var publicActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> =  self.publicActionsPayloadSubject.eraseToAnyPublisher()
 
     private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()

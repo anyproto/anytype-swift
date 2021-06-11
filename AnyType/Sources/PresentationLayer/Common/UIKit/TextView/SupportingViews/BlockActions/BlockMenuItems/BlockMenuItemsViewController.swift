@@ -103,7 +103,7 @@ extension BlockMenuItemsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.coordinator.didSelect(self.items[indexPath.row], in: self)
+        coordinator.didSelect(items[indexPath.row], in: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

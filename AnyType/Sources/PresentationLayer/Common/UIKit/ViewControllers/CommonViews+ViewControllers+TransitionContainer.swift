@@ -57,7 +57,7 @@ extension CommonViews.ViewControllers.TransitionContainerViewController: UIViewC
         self.presentationAnimator
     }
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        (self.dismissalAnimator as? MarksPane.ViewController.TransitionController)?.configured(presentedViewController: dismissed)
+        nil
     }
     func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         self.presentationInteractor
