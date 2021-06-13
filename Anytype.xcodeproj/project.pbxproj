@@ -174,7 +174,7 @@
 		0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
 		0ABB2A3424801D9000A7144A /* BlockInformationAlignmentConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */; };
-		0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */; };
+		0ABB2A3524801D9000A7144A /* BlockTextMarkStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2624801D9000A7144A /* BlockTextMarkStyleConverter.swift */; };
 		0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */; };
 		0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */; };
 		0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2924801D9000A7144A /* MarksPane+Panes+ColorPane.swift */; };
@@ -402,7 +402,6 @@
 		5338E7E725DC3352008CB97D /* BlockActionsHandlersFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */; };
 		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
 		5338E7EF25DC72AD008CB97D /* ToolbarBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */; };
-		5338E7F225DC730A008CB97D /* MarksPaneBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */; };
 		5338E7F525DC7345008CB97D /* ButtonBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */; };
 		534B7F2026264E8B00D712B2 /* EditingToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534B7F1F26264E8B00D712B2 /* EditingToolbarView.swift */; };
 		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
@@ -742,7 +741,7 @@
 		0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileContentTypeConverter.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationAlignmentConverter.swift; sourceTree = "<group>"; };
-		0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane+FontStyleModel.swift"; sourceTree = "<group>"; };
+		0ABB2A2624801D9000A7144A /* BlockTextMarkStyleConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextMarkStyleConverter.swift; sourceTree = "<group>"; };
 		0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes.swift"; sourceTree = "<group>"; };
 		0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane.swift"; sourceTree = "<group>"; };
 		0ABB2A2924801D9000A7144A /* MarksPane+Panes+ColorPane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+ColorPane.swift"; sourceTree = "<group>"; };
@@ -967,7 +966,6 @@
 		5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsHandlersFacade.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarBlockActionHandler.swift; sourceTree = "<group>"; };
-		5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarksPaneBlockActionHandler.swift; sourceTree = "<group>"; };
 		5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonBlockActionHandler.swift; sourceTree = "<group>"; };
 		534B7F1F26264E8B00D712B2 /* EditingToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingToolbarView.swift; sourceTree = "<group>"; };
 		534D19C62623A7220080AEF0 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
@@ -1987,7 +1985,7 @@
 				0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */,
 				0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */,
 				0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */,
-				0ABB2A2624801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift */,
+				0ABB2A2624801D9000A7144A /* BlockTextMarkStyleConverter.swift */,
 				0ABB2A2924801D9000A7144A /* MarksPane+Panes+ColorPane.swift */,
 			);
 			path = Panes;
@@ -2938,7 +2936,6 @@
 				5338E7E625DC3352008CB97D /* BlockActionsHandlersFacade.swift */,
 				5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */,
 				5338E7EE25DC72AD008CB97D /* ToolbarBlockActionHandler.swift */,
-				5338E7F125DC730A008CB97D /* MarksPaneBlockActionHandler.swift */,
 				5338E7F425DC7345008CB97D /* ButtonBlockActionHandler.swift */,
 				3DBED67C266F8D5300B9E9AB /* LinearIndexWalker.swift */,
 				3DBED680266F8DBB00B9E9AB /* BlockBuilder.swift */,
@@ -3499,7 +3496,6 @@
 				EA289B932629A89400EA869F /* BlockMenuItemSimpleDisplayData.swift in Sources */,
 				EA5FB44F266E2B6400DCD56C /* MentionsParser.swift in Sources */,
 				0A78328C24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift in Sources */,
-				5338E7F225DC730A008CB97D /* MarksPaneBlockActionHandler.swift in Sources */,
 				3DD67EA3265271410025ED6F /* EditorModuleSelectionHandlerProtocol.swift in Sources */,
 				0AA00C4824CDB65F00870C18 /* BlocksModelsParserOtherDividerStyleConverter.swift in Sources */,
 				12B69C97265D1D5F00D047E3 /* DocumentCoverView.swift in Sources */,
@@ -3868,7 +3864,7 @@
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
-				0ABB2A3524801D9000A7144A /* MarksPane+Panes+StylePane+FontStyleModel.swift in Sources */,
+				0ABB2A3524801D9000A7144A /* BlockTextMarkStyleConverter.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* NotificationEventListener.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */,

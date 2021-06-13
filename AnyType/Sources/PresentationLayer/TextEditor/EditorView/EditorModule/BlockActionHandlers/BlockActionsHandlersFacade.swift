@@ -15,6 +15,7 @@ final class BlockActionsHandlersFacade {
     private weak var documentViewInteraction: DocumentViewInteraction?
     
     private let newTextBlockActionHandler: ((BlockActionHandler.ActionType, BlockModelProtocol) -> Void)
+    private let newBlockActionHandler: (BlockActionHandler.ActionType, BlockModelProtocol) -> Void
     private lazy var textBlockActionHandler = TextBlockActionHandler(
         contextId: self.documentId,
         service: service,
@@ -26,13 +27,6 @@ final class BlockActionsHandlersFacade {
         indexWalker: indexWalker
     )
     
-    private lazy var marksPaneBlockActionHandler = MarksPaneBlockActionHandler(
-        documentViewInteraction: self.documentViewInteraction,
-        service: service,
-        contextId: self.documentId,
-        subject: reactionSubject
-    )
-    
     private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
 
     private let reactionSubject: PassthroughSubject<PackOfEvents?, Never> = .init()
@@ -40,11 +34,13 @@ final class BlockActionsHandlersFacade {
 
     init(
         newTextBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
+        newBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
         publisher: AnyPublisher<ActionsPayload, Never>,
         documentViewInteraction: DocumentViewInteraction
     ) {
         self.newTextBlockActionHandler = newTextBlockActionHandler
         self.documentViewInteraction = documentViewInteraction
+        self.newBlockActionHandler = newBlockActionHandler
         
         
         self.subscription = publisher.sink { [weak self] action in
@@ -72,7 +68,19 @@ final class BlockActionsHandlersFacade {
         switch action {
         case let .toolbar(value): self.toolbarBlockActionHandler.handlingToolbarAction(value.model, value.action)
         case let .marksPane(value):
-            self.marksPaneBlockActionHandler.handlingMarksPaneAction(value.model, value.action)
+            switch value.action {
+            case let .backgroundColor(color):
+                newBlockActionHandler(.setBackgroundColor(color), value.model.blockModel)
+            case let .textColor(color):
+                newBlockActionHandler(.setTextColor(color), value.model.blockModel)
+            case let .style(style):
+                switch style {
+                case let .alignment(alignment):
+                    newBlockActionHandler(.setAlignment(alignment), value.model.blockModel)
+                case let .fontStyle(fontStyle):
+                    newBlockActionHandler(.toggleFontStyle(fontStyle, NSRange()), value.model.blockModel)
+                }
+            }
         case let .textView(value):
             switch value.action {
             case let .textView(action):

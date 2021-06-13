@@ -446,7 +446,7 @@ private extension UIGestureRecognizer.State {
 
 // MARK: - MarksPane.Main.Panes.StylePane extensions
 
-private extension MarksPane.Main.Panes.StylePane.FontStyle.Attribute {
+private extension BlockActionHandler.ActionType.TextAttributesType {
     
     var asMarkStyle: BlockTextView.MarkStyle {
         switch self {

@@ -7,14 +7,10 @@ import BlocksModels
 
 
 enum BlockInformationAlignmentConverter {
-    static func convert(_ alignment: NSTextAlignment?) -> BlockInformationAlignment? {
-        alignment.flatMap(descriptive)
-    }
-    
-    private static func descriptive(_ style: NSTextAlignment) -> BlockInformationAlignment? {
-        let result = self.state(style)
+    static func convert(_ alignment: NSTextAlignment) -> BlockInformationAlignment? {
+        let result = self.state(alignment)
         if result.isNil {
-            assertionFailure("We receive uncommon result. We should map it to correct attribute != nil. Style is: \(style)")
+            assertionFailure("We receive uncommon result. We should map it to correct attribute != nil. Style is: \(alignment)")
         }
         return result
     }

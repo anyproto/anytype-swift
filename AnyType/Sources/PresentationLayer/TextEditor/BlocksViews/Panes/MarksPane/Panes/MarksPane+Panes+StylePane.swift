@@ -24,7 +24,7 @@ extension MarksPane.Panes.StylePane {
         static func convert(_ input: Input) -> Output? {
             switch input {
             case let .markStyle(style):
-                return FontStyle.Converter.state(style).flatMap(Attribute.fontStyle)
+                return BlockTextMarkStyleConverter.convert(style).flatMap(Attribute.fontStyle)
             case let .textAlignment(alignment):
                 return BlockInformationAlignmentConverter.convert(alignment).flatMap(Attribute.alignment)
             }
@@ -34,7 +34,7 @@ extension MarksPane.Panes.StylePane {
         ///
 
         private static func state(_ style: BlockTextView.MarkStyle) -> Attribute? {
-            FontStyle.Converter.state(style).flatMap(Attribute.fontStyle)
+            BlockTextMarkStyleConverter.convert(style).flatMap(Attribute.fontStyle)
         }
         
         private static func state(_ alignment: NSTextAlignment) -> Attribute? {
@@ -63,12 +63,12 @@ extension MarksPane.Panes.StylePane {
     /// Next, appropriate method will update current value of `UserResponse` in this pane.
     ///
     enum UserResponse {
-        case fontStyle([FontStyle.Attribute])
+        case fontStyle([BlockActionHandler.ActionType.TextAttributesType])
         case alignment(BlockInformationAlignment)
     }
         
     enum Attribute {
-        case fontStyle(FontStyle.Attribute)
+        case fontStyle(BlockActionHandler.ActionType.TextAttributesType)
         case alignment(BlockInformationAlignment)
     }
 }

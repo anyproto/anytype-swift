@@ -29,9 +29,20 @@ class DocumentEditorViewModel: ObservableObject {
                 completion: nil
             )
         },
+        newBlockActionHandler: newBlockActionHandler,
         publisher: publicActionsPayloadPublisher,
         documentViewInteraction: self
     )
+    
+    private func newBlockActionHandler(
+        action: BlockActionHandler.ActionType,
+        model: BlockModelProtocol
+    ) {
+        blockActionHandler?.handleBlockAction(action, block: model) { [weak self] events in
+            self?.process(events: events)
+        }
+    }
+    
     private lazy var blockActionHandler = BlockActionHandler(
         documentId: document.documentId,
         documentViewInteraction: self

@@ -30,31 +30,31 @@ final class BlockMenuActionsHandlerImp {
     private func handleStyle(_ style: BlockStyleAction) {
         switch style {
         case .text:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.text)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.text)))
         case .title:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h1)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h1)))
         case .heading:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h2)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h2)))
         case .subheading:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h3)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h3)))
         case .highlighted:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.text(.highlighted)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.highlighted)))
         case .checkbox:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.checkbox)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.checkbox)))
         case .bulleted:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.bulleted)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.bulleted)))
         case .numberedList:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.numbered)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.numbered)))
         case .toggle:
-            self.addBlockAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
+            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
         case .bold:
-            self.marksPaneActionSubject.send(.style(.fontStyle(.bold(true))))
+            marksPaneActionSubject.send(.style(.fontStyle(.bold)))
         case .italic:
-            self.marksPaneActionSubject.send(.style(.fontStyle(.italic(true))))
+            marksPaneActionSubject.send(.style(.fontStyle(.italic)))
         case .breakthrough:
-            self.marksPaneActionSubject.send(.style(.fontStyle(.strikethrough(true))))
+            marksPaneActionSubject.send(.style(.fontStyle(.strikethrough)))
         case .code:
-            self.marksPaneActionSubject.send(.style(.fontStyle(.keyboard(true))))
+            marksPaneActionSubject.send(.style(.fontStyle(.keyboard)))
         case .link:
             break
         }

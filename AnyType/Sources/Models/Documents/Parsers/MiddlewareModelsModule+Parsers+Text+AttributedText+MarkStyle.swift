@@ -1,21 +1,9 @@
-//
-//  MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 14.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
 fileprivate typealias Namespace = MiddlewareModelsModule.Parsers.Text.AttributedText
 
 extension Namespace {
-    /// First, we use it in UI.
-    /// But now we use it also as a presentation of Middleware MarkStyle.
-    /// We have middleware marks that don't have one-to-one map to our attributes in NSAttributedString.
-    /// So, we have intermediate presentation (this `MarkStyle`) which could be easily convert from middleware (business logic) styles to `NSAttributedString` parameters.
     enum MarkStyle: Equatable, CaseIterable {
         enum Update {
             case empty
