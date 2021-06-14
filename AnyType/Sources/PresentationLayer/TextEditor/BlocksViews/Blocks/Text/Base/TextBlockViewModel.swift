@@ -26,12 +26,21 @@ class TextBlockViewModel: BaseBlockViewModel {
     private(set) var shouldResignFirstResponder = PassthroughSubject<Void, Never>()
     @Published private(set) var textViewUpdate: TextViewUpdate?
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
+    
+    private weak var blockActionHandler: NewBlockActionHandler?
 
     // MARK: - Life cycle
 
     override init(_ block: BlockActiveRecordModelProtocol) {
-        super.init(block)
+        assertionFailure("Do not use this init")
         
+        super.init(block)
+        setupSubscribers()
+    }
+    
+    init(_ block: BlockActiveRecordModelProtocol, blockActionHandler: NewBlockActionHandler?) {
+        self.blockActionHandler = blockActionHandler
+        super.init(block)
         setupSubscribers()
     }
 
@@ -41,8 +50,8 @@ class TextBlockViewModel: BaseBlockViewModel {
         TextBlockContentConfiguration(
             textViewDelegate: self,
             viewModel: self,
-            marksPaneActionSubject: marksPaneActionSubject,
-            toolbarActionSubject: toolbarActionSubject
+            toolbarActionSubject: toolbarActionSubject,
+            blockActionHandler: blockActionHandler
         )
     }
 

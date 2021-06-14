@@ -266,7 +266,7 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             delegate: self,
             blockModel: blockModel
         ) { [weak self] action in
-            self?.viewModel.handleAction(action)
+            self?.viewModel.handleActionForFirstResponder(action)
         }
 
         if let indexPath = dataSource.indexPath(for: blockViewModel) {

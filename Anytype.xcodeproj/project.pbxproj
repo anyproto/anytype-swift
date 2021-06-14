@@ -173,7 +173,6 @@
 		0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168DC254060E40097CB23 /* MediaPicker.swift */; };
 		0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
-		0ABB2A3A24801D9000A7144A /* MarksPaneMainAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2C24801D9000A7144A /* MarksPaneMainAttribute.swift */; };
 		0ABB73A425497DB700F32C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */; };
 		0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB73A82549975800F32C6F /* FirebaseService.swift */; };
 		0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77DA23E44B8F00442690 /* TextView+Protocols.swift */; };
@@ -733,7 +732,6 @@
 		0AA168DC254060E40097CB23 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileContentTypeConverter.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0ABB2A2C24801D9000A7144A /* MarksPaneMainAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarksPaneMainAttribute.swift; sourceTree = "<group>"; };
 		0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0ABB73A82549975800F32C6F /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		0ACA77DA23E44B8F00442690 /* TextView+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+Protocols.swift"; sourceTree = "<group>"; };
@@ -1199,7 +1197,6 @@
 			children = (
 				0A19E2B22444C9430078DFAB /* Base */,
 				0A10CC5A248EC2EE000FF498 /* Blocks */,
-				0ABB2A1D24801A3700A7144A /* Panes */,
 				0A1DACC1244DD34B0007BC5D /* Toolbar */,
 				0A19E2B12444C8F30078DFAB /* Supplement */,
 				0ADE618B2448877300244E49 /* UserActions */,
@@ -1945,22 +1942,6 @@
 				0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */,
 			);
 			path = Plists;
-			sourceTree = "<group>";
-		};
-		0ABB2A1D24801A3700A7144A /* Panes */ = {
-			isa = PBXGroup;
-			children = (
-				0ABB2A2324801D9000A7144A /* MarksPane */,
-			);
-			path = Panes;
-			sourceTree = "<group>";
-		};
-		0ABB2A2324801D9000A7144A /* MarksPane */ = {
-			isa = PBXGroup;
-			children = (
-				0ABB2A2C24801D9000A7144A /* MarksPaneMainAttribute.swift */,
-			);
-			path = MarksPane;
 			sourceTree = "<group>";
 		};
 		0ABB73A72549974300F32C6F /* Firebase */ = {
@@ -3651,7 +3632,6 @@
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
-				0ABB2A3A24801D9000A7144A /* MarksPaneMainAttribute.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,

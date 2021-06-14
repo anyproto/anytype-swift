@@ -4,9 +4,11 @@ import BlocksModels
 
 final class CompoundViewModelConverter {
     private weak var document: BaseDocumentProtocol?
+    private weak var blockActionHandler: NewBlockActionHandler?
 
-    init(document: BaseDocumentProtocol) {
+    init(document: BaseDocumentProtocol, blockActionHandler: NewBlockActionHandler) {
         self.document = document
+        self.blockActionHandler = blockActionHandler
     }
 
     func convert(_ blocks: [BlockActiveRecordModelProtocol], router: EditorRouterProtocol?) -> [BaseBlockViewModel] {
@@ -26,7 +28,7 @@ final class CompoundViewModelConverter {
             case .toggle:
                 return ToggleBlockViewModel(block)
             default:
-                return TextBlockViewModel(block)
+                return TextBlockViewModel(block, blockActionHandler: blockActionHandler)
             }
         case let .file(value):
             switch value.contentType {

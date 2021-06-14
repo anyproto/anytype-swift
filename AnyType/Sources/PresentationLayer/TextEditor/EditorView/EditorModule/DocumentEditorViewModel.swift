@@ -4,7 +4,6 @@ import Combine
 import os
 import BlocksModels
 
-
 class DocumentEditorViewModel: ObservableObject {
     /// View Input
     weak var viewInput: EditorModuleDocumentViewInput?
@@ -15,33 +14,17 @@ class DocumentEditorViewModel: ObservableObject {
 
     /// Service
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
-    private lazy var blocksConverter = CompoundViewModelConverter(document: document)
+    private lazy var blocksConverter = CompoundViewModelConverter(document: document, blockActionHandler: self)
 
     /// DocumentDetailsViewModel
     private(set) var detailsViewModel: DocumentDetailsViewModel?
     
     /// User Interaction Processor
     private lazy var oldBlockActionHandler = BlockActionsHandlersFacade(
-        newTextBlockActionHandler: { [weak self] action, block in
-            self?.blockActionHandler?.handleBlockAction(
-                action,
-                block: block,
-                completion: nil
-            )
-        },
-        newBlockActionHandler: newBlockActionHandler,
+        newBlockActionHandler: self,
         publisher: publicActionsPayloadPublisher,
         documentViewInteraction: self
     )
-    
-    private func newBlockActionHandler(
-        action: BlockActionHandler.ActionType,
-        model: BlockModelProtocol
-    ) {
-        blockActionHandler?.handleBlockAction(action, block: model) { [weak self] events in
-            self?.process(events: events)
-        }
-    }
     
     private lazy var blockActionHandler = BlockActionHandler(
         documentId: document.documentId,
@@ -312,7 +295,6 @@ extension DocumentEditorViewModel {
             block.configured(userActionSubject: publicUserActionSubject)
             block.configured(actionsPayloadSubject: publicActionsPayloadSubject)
             block.configured(sizeDidChangeSubject: publicSizeDidChangeSubject)
-            block.configured(actionHandler: newBlockActionHandler)
         }
     }
     
@@ -320,18 +302,32 @@ extension DocumentEditorViewModel {
 
 // MARK: - Public methods for view controller
 
-extension DocumentEditorViewModel {
+protocol NewBlockActionHandler: AnyObject {
+    func handleAction(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol)
+    func handleActionForFirstResponder(_ action: BlockActionHandler.ActionType)
+    func handleActionWithoutCompletion(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol)
+}
+
+extension DocumentEditorViewModel: NewBlockActionHandler {
 
     /// Block action handler
-    func handleAction(_ action: BlockActionHandler.ActionType) {
+    func handleActionForFirstResponder(_ action: BlockActionHandler.ActionType) {
         guard let firstResponder = document.userSession?.firstResponder() else {
             assertionFailure("No first responder for action \(action)")
             return
         }
         
-        blockActionHandler?.handleBlockAction(action, block: firstResponder) { [weak self] events in
+        handleAction(action, model: firstResponder)
+    }
+    
+    func handleAction(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol) {
+        blockActionHandler?.handleBlockAction(action, block: model) { [weak self] events in
             self?.process(events: events)
         }
+    }
+    
+    func handleActionWithoutCompletion(_ action: BlockActionHandler.ActionType, model: BlockModelProtocol) {
+        blockActionHandler?.handleBlockAction(action, block: model, completion: nil)
     }
 }
 

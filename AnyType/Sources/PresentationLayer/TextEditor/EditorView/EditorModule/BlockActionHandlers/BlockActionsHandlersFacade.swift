@@ -14,8 +14,7 @@ final class BlockActionsHandlersFacade {
     private var indexWalker: LinearIndexWalker?
     private weak var documentViewInteraction: DocumentViewInteraction?
     
-    private let newTextBlockActionHandler: ((BlockActionHandler.ActionType, BlockModelProtocol) -> Void)
-    private let newBlockActionHandler: (BlockActionHandler.ActionType, BlockModelProtocol) -> Void
+    private weak var newBlockActionHandler: NewBlockActionHandler?
     private lazy var textBlockActionHandler = TextBlockActionHandler(
         contextId: self.documentId,
         service: service,
@@ -33,12 +32,10 @@ final class BlockActionsHandlersFacade {
     lazy var reactionPublisher: AnyPublisher<PackOfEvents, Never> = reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
 
     init(
-        newTextBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
-        newBlockActionHandler: @escaping (BlockActionHandler.ActionType, BlockModelProtocol) -> Void,
+        newBlockActionHandler: NewBlockActionHandler,
         publisher: AnyPublisher<ActionsPayload, Never>,
         documentViewInteraction: DocumentViewInteraction
     ) {
-        self.newTextBlockActionHandler = newTextBlockActionHandler
         self.documentViewInteraction = documentViewInteraction
         self.newBlockActionHandler = newBlockActionHandler
         
@@ -75,9 +72,9 @@ final class BlockActionsHandlersFacade {
                     return
                 }
                 
-                newTextBlockActionHandler(
+                newBlockActionHandler?.handleActionWithoutCompletion(
                     .toggleFontStyle(styleAction.asActionType, range),
-                    value.model.blockModel
+                    model: value.model.blockModel
                 )
                 
             case let .buttonView(action):

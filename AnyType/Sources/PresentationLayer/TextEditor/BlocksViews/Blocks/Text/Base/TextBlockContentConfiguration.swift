@@ -1,42 +1,30 @@
-//
-//  TextBlockContentConfiguration.swift
-//  AnyType
-//
-//  Created by Kovalev Alexander on 10.03.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 import BlocksModels
 import UIKit
 import Combine
 
 
-/// Content configuration for text blocks
 struct TextBlockContentConfiguration {
     
-    let marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>
     let toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     let viewModel: TextBlockViewModel
     let information: BlockInformation
+    weak var blockActionHandler: NewBlockActionHandler?
+    
     
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var isSelected: Bool = false
-
-    /// text block view model
-
-    /// Block information
     
     init(
-         textViewDelegate: TextViewDelegate?,
-         viewModel: TextBlockViewModel,
-         marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>,
-         toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        textViewDelegate: TextViewDelegate?,
+        viewModel: TextBlockViewModel,
+        toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>,
+        blockActionHandler: NewBlockActionHandler?
     ) {
-        self.marksPaneActionSubject = marksPaneActionSubject
         self.toolbarActionSubject = toolbarActionSubject
         self.textViewDelegate = textViewDelegate
         self.information = viewModel.information
         self.viewModel = viewModel
+        self.blockActionHandler = blockActionHandler
     }
 }
 

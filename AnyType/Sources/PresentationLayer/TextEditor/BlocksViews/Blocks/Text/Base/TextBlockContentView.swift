@@ -130,8 +130,8 @@ final class TextBlockContentView: UIView & UIContentView {
         )
         
         let actionsHandler = BlockMenuActionsHandlerImp(
-            marksPaneActionSubject: currentConfiguration.marksPaneActionSubject,
-            addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject
+            addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject,
+            blockActionHandler: currentConfiguration.blockActionHandler
         )
         
         let coordinator = BlockTextViewCoordinator(

@@ -48,17 +48,12 @@ class BaseBlockViewModel: ObservableObject {
     ///
     public private(set) var toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
     public lazy var toolbarActionPublisher: AnyPublisher<BlocksViews.Toolbar.UnderlyingAction, Never> = toolbarActionSubject.eraseToAnyPublisher()
-    
-    // MARK: Marks Pane Publisher
-
-    public let marksPaneActionSubject = PassthroughSubject<MarksPaneMainAttribute, Never>()
 
     // MARK: Actions Payload Publisher
 
     private(set) var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
     
     private var actionsPayloadSubjectSubscription: AnyCancellable?
-    private var marksPaneSubscription: AnyCancellable?
     
     /// DidChange Size Subject.
     /// Whenever item changes size ( or thinking so ), we have to notify our document view model about it.
@@ -172,23 +167,6 @@ extension BaseBlockViewModel {
     func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
         self.userActionSubject = userActionSubject
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
-    }
-    
-    func configured(actionHandler: @escaping ((BlockActionHandler.ActionType, BlockModelProtocol) -> Void)) {
-        marksPaneSubscription = marksPaneActionSubject.sink { [weak self] marksPaneAction in
-            let model = self!.block.blockModel
-            
-            switch marksPaneAction {
-            case let .backgroundColor(color):
-                actionHandler(.setBackgroundColor(color), model)
-            case let .textColor(color):
-                actionHandler(.setTextColor(color), model)
-            case let .alignment(alignment):
-                actionHandler(.setAlignment(alignment), model)
-            case let .fontStyle(fontStyle):
-                actionHandler(.toggleFontStyle(fontStyle, NSRange()), model)
-            }
-        }
     }
     
     func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) {

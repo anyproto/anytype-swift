@@ -5,25 +5,74 @@ import UIKit
 
 final class BlockMenuActionsHandlerImp {
     
-    private let marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>
     private let addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
+    private weak var blockActionHandler: NewBlockActionHandler?
     
-    init(marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>,
-         addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>) {
-        self.marksPaneActionSubject = marksPaneActionSubject
+    init(
+        addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>,
+        blockActionHandler: NewBlockActionHandler?
+    ) {
         self.addBlockAndActionsSubject = addBlockAndActionsSubject
+        self.blockActionHandler = blockActionHandler
+    }
+}
+
+extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
+    
+    func handle(action: BlockActionType) {
+        removeSlashMenuText()
+        
+        switch action {
+        case let .actions(action):
+            handleActions(action)
+        case let .alignment(alignmnet):
+            handleAlignment(alignmnet)
+        case let .style(style):
+            handleStyle(style)
+        case let .media(media):
+            addBlockAndActionsSubject.send(.addBlock(media.blockViewsType))
+        case .objects:
+            break
+        case .relations:
+            break
+        case let .other(other):
+            addBlockAndActionsSubject.send(.addBlock(other.blockViewsType))
+        case let .color(color):
+            blockActionHandler?.handleActionForFirstResponder(
+                .setTextColor(color.color)
+            )
+        case let .background(color):
+            blockActionHandler?.handleActionForFirstResponder(
+                .setBackgroundColor(color.color)
+            )
+        }
     }
     
+    func didShowMenuView(from textView: UITextView) {
+        self.textView = textView
+        guard let caretPosition = textView.caretPosition() else { return }
+        // -1 because in text "Hello, everyone/" we want to store position before slash, not after
+        initialCaretPosition = textView.position(from: caretPosition, offset: -1)
+    }
+}
+
+private extension BlockMenuActionsHandlerImp {
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :
-            marksPaneActionSubject.send(.alignment(.left))
+            blockActionHandler?.handleActionForFirstResponder(
+                .setAlignment(.left)
+            )
         case .right:
-            marksPaneActionSubject.send(.alignment(.right))
+            blockActionHandler?.handleActionForFirstResponder(
+                .setAlignment(.right)
+            )
         case .center:
-            marksPaneActionSubject.send(.alignment(.center))
+            blockActionHandler?.handleActionForFirstResponder(
+                .setAlignment(.center)
+            )
         }
     }
     
@@ -48,13 +97,21 @@ final class BlockMenuActionsHandlerImp {
         case .toggle:
             addBlockAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
         case .bold:
-            marksPaneActionSubject.send(.fontStyle(.bold))
+            blockActionHandler?.handleActionForFirstResponder(
+                .toggleFontStyle(.bold)
+            )
         case .italic:
-            marksPaneActionSubject.send(.fontStyle(.italic))
+            blockActionHandler?.handleActionForFirstResponder(
+                .toggleFontStyle(.italic)
+            )
         case .breakthrough:
-            marksPaneActionSubject.send(.fontStyle(.strikethrough))
+            blockActionHandler?.handleActionForFirstResponder(
+                .toggleFontStyle(.strikethrough)
+            )
         case .code:
-            marksPaneActionSubject.send(.fontStyle(.keyboard))
+            blockActionHandler?.handleActionForFirstResponder(
+                .toggleFontStyle(.keyboard)
+            )
         case .link:
             break
         }
@@ -62,24 +119,17 @@ final class BlockMenuActionsHandlerImp {
     
     private func handleActions(_ action: BlockAction) {
         switch action {
-        case .cleanStyle:
-            break
         case .delete:
-            self.addBlockAndActionsSubject.send(.editBlock(.delete))
+            addBlockAndActionsSubject.send(.editBlock(.delete))
         case .duplicate:
-            self.addBlockAndActionsSubject.send(.editBlock(.duplicate))
-        case .copy:
-            break
-        case .paste:
-            break
-        case .move:
-            break
-        case .moveTo:
+            addBlockAndActionsSubject.send(.editBlock(.duplicate))
+            
+        case .cleanStyle, .copy, .paste, .move, .moveTo:
             break
         }
     }
     
-    private func removeTextAfterInitialAndCurrentCaretPositions() {
+    private func removeSlashMenuText() {
         // After we select any action from actions menu we must delete /symbol
         // and all text which was typed after /
         //
@@ -92,39 +142,5 @@ final class BlockMenuActionsHandlerImp {
             return
         }
         textView.replace(textRange, withText: "")
-    }
-}
-
-extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
-    
-    func handle(action: BlockActionType) {
-        removeTextAfterInitialAndCurrentCaretPositions()
-        switch action {
-        case let .actions(action):
-            handleActions(action)
-        case let .alignment(alignmnet):
-            handleAlignment(alignmnet)
-        case let .style(style):
-            handleStyle(style)
-        case let .media(media):
-            addBlockAndActionsSubject.send(.addBlock(media.blockViewsType))
-        case .objects:
-            break
-        case .relations:
-            break
-        case let .other(other):
-            addBlockAndActionsSubject.send(.addBlock(other.blockViewsType))
-        case let .color(color):
-            marksPaneActionSubject.send(.textColor(color.color))
-        case let .background(color):
-            marksPaneActionSubject.send(.backgroundColor(color.color))
-        }
-    }
-    
-    func didShowMenuView(from textView: UITextView) {
-        self.textView = textView
-        guard let caretPosition = textView.caretPosition() else { return }
-        // -1 because in text "Hello, everyone/" we want to store position before slash, not after
-        initialCaretPosition = textView.position(from: caretPosition, offset: -1)
     }
 }
