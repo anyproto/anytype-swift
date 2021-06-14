@@ -210,3 +210,13 @@ extension BlockContent.File.Metadata: Hashable {}
 extension BlockContent.Divider: Hashable {}
 extension BlockContent.Bookmark: Hashable {}
 extension BlockContent.Layout: Hashable {}
+
+public extension BlockContent {
+    var isText: Bool {
+        if case .text = self {
+            return true
+        }
+        
+        return false
+    }
+}

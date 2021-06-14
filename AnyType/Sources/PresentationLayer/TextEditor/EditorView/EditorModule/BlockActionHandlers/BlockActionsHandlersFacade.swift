@@ -63,7 +63,7 @@ final class BlockActionsHandlersFacade {
 
     func didReceiveAction(action: ActionsPayload) {
         switch action {
-        case let .toolbar(value): self.toolbarBlockActionHandler.handlingToolbarAction(value.model, value.action)
+        case let .toolbar(value): toolbarBlockActionHandler.handlingToolbarAction(value.model, value.action)
         case let .textView(value):
             switch value.action {
             case let .textView(action):

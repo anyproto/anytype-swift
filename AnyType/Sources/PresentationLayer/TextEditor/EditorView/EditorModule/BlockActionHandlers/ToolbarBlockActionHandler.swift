@@ -26,12 +26,10 @@ final class ToolbarBlockActionHandler {
                     return
                 }
                 
-                var shouldSetFocusOnUpdate = false
-                if case .text = newBlock.content {
-                    shouldSetFocusOnUpdate = true
-                }
+                let shouldSetFocusOnUpdate = newBlock.content.isText ? true : false
+                let position: BlockPosition = block.isTextAndEmpty ? .replace : .bottom
                 
-                service.add(newBlock: newBlock, targetBlockId: block.blockId, position: .bottom, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
+                service.add(newBlock: newBlock, targetBlockId: block.blockId, position: position, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
             }
         case let .turnIntoBlock(value):
             // TODO: Add turn into

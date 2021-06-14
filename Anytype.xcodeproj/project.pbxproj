@@ -1440,26 +1440,15 @@
 		038FB5CB22D8F380002B90B8 /* FrameworkExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				3DC06DFC26774DD6005F0A45 /* Combine */,
 				3D568FC2266A713300DC7881 /* UIKit */,
 				3DB7DCB3263AA5D100635E4C /* SwiftUI */,
-				3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */,
-				039F669823C7FD1D00DBE36A /* GeometryExtension.swift */,
-				03A24B8B231EC07700DA7369 /* ArrayExtension.swift */,
 				0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */,
-				034A30402405CDBE002599E2 /* CombineExtension.swift */,
-				0A0AA749240146B5003A2935 /* UIView+Extensions.swift */,
 				538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */,
-				EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */,
 				EAC5728C2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift */,
 				EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */,
-				EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */,
-				EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */,
 				5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */,
-				EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */,
-				EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */,
 				EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */,
-				3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */,
-				531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -2352,7 +2341,15 @@
 		3D568FC2266A713300DC7881 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */,
+				EAFDEFBE26381E22001B07E4 /* UITextView+Convenience.swift */,
+				EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */,
+				EA77E52D262DB2CD009F91D9 /* UIButton+Convenience.swift */,
+				EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */,
+				EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */,
+				0A0AA749240146B5003A2935 /* UIView+Extensions.swift */,
 				3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */,
+				531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -2600,6 +2597,9 @@
 		3DB7DCB3263AA5D100635E4C /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				03A24B8B231EC07700DA7369 /* ArrayExtension.swift */,
+				3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */,
+				039F669823C7FD1D00DBE36A /* GeometryExtension.swift */,
 				03475B6E2306031D00F8FCE7 /* ViewExtension.swift */,
 				3DB7DCB4263AA5E000635E4C /* ViewBoundsExtension.swift */,
 				3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */,
@@ -2651,6 +2651,14 @@
 				3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */,
 			);
 			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		3DC06DFC26774DD6005F0A45 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				034A30402405CDBE002599E2 /* CombineExtension.swift */,
+			);
+			path = Combine;
 			sourceTree = "<group>";
 		};
 		3DC78632265D43E900498993 /* EventConverters */ = {

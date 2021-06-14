@@ -34,3 +34,14 @@ public extension BlockActiveRecordModelProtocol {
         blockModel.information.id
     }
 }
+
+public extension BlockActiveRecordModelProtocol {
+    var isTextAndEmpty: Bool {
+        switch blockModel.information.content {
+        case .text(let textData):
+            return textData.attributedText.string.isEmpty
+        default:
+            return false
+        }
+    }
+}
