@@ -5,7 +5,7 @@ class PageBlocksViewsRouter: DocumentViewBaseCompoundRouter {
     // MARK: Subclassing
     override func match(action: BlocksViews.UserAction) -> DocumentViewBaseRouter? {
         switch action {
-        case .specific(.page): return self.router(of: EmojiViewRouter.self)
+        case .page: return router(of: EmojiViewRouter.self)
         default: return nil
         }
     }
@@ -29,7 +29,7 @@ extension PageBlocksViewsRouter {
         
         override func receive(action: BlocksViews.UserAction) {
             switch action {
-            case let .specific(.page(.emoji(value))): self.handle(action: value)
+            case let .page(.emoji(value)): self.handle(action: value)
             default: return
             }
         }

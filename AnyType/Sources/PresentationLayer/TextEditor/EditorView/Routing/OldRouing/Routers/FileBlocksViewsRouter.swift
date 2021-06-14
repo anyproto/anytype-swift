@@ -5,7 +5,7 @@ import UIKit
 class FileBlocksViewsRouter: DocumentViewBaseCompoundRouter {
     override func match(action: BlocksViews.UserAction) -> DocumentViewBaseRouter? {
         switch action {
-        case .specific(.file): return self.router(of: FileRouter.self)
+        case .file: return self.router(of: FileRouter.self)
         default: return nil
         }
     }
@@ -66,7 +66,7 @@ extension FileBlocksViewsRouter {
         
         override func receive(action: BlocksViews.UserAction) {
             switch action {
-            case let .specific(.file(value)): self.handle(action: value)
+            case let .file(value): handle(action: value)
             default: return
             }
         }

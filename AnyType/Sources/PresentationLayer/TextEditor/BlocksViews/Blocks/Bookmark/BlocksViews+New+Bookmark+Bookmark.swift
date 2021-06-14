@@ -36,21 +36,18 @@ extension Namespace {
         }
         
         // MARK: Subclassing / Events
-        override func handle(event: BlocksViews.UserEvent) {
-            switch event {
-            case .didSelectRowInTableView:
-                // we should show image picker only for empty state
-                // TODO: Need to think about error state, reload or something
-                
-                // Think what we should check...
-                // Empty URL?
-                if case let .bookmark(value) = block.content, !value.url.isEmpty {
-                    assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
-                    return
-                }
-                                
-                self.send(userAction: .toolbars(.bookmark(.init(output: self.toolbarActionSubject))))
+        override func didSelectRowInTableView() {
+            // we should show image picker only for empty state
+            // TODO: Need to think about error state, reload or something
+            
+            // Think what we should check...
+            // Empty URL?
+            if case let .bookmark(value) = block.content, !value.url.isEmpty {
+                assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
+                return
             }
+                            
+            self.send(userAction: .bookmark(.init(output: self.toolbarActionSubject)))
         }
         
         override func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {

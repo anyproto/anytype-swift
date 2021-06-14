@@ -42,14 +42,11 @@ extension Namespace {
             return diffable
         }
         
-        override func handle(event: BlocksViews.UserEvent) {
-            switch event {
-            case .didSelectRowInTableView:
-                if self.state == .uploading {
-                    return
-                }
-                self.handleReplace()
+        override func didSelectRowInTableView() {
+            if self.state == .uploading {
+                return
             }
+            self.handleReplace()
         }
         
         override func makeContextualMenu() -> BlocksViews.ContextualMenu {
@@ -110,7 +107,7 @@ extension Namespace {
             case .video, .file:
                 URLResolver().obtainFileURLPublisher(fileId: file.metadata.hash).sink(receiveCompletion: { _ in }, receiveValue: { [weak self] url in
                     guard let url = url else { return }
-                    self?.send(userAction: .specific(.file(.shouldSaveFile(.init(fileURL: url)))))
+                    self?.send(userAction: .file(.shouldSaveFile(.init(fileURL: url))))
                 }).store(in: &self.subscriptions)
             case .none:
                 return
@@ -138,8 +135,15 @@ extension Namespace {
         }
         
         private func sendFile(at filePath: String) {
-            self.send(actionsPayload: .userAction(.init(model: block,
-                                                        action: .specific(.file(.shouldUploadFile(.init(filePath: filePath)))))))
+            self.send(
+                actionsPayload: .userAction(
+                    .init(
+                        model: block,
+                        action: .file(
+                            .shouldUploadFile(.init(filePath: filePath)))
+                    )
+                )
+            )
         }
     }
 }

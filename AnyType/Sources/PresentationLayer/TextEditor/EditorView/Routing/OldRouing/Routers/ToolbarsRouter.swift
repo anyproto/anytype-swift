@@ -9,10 +9,10 @@ class ToolbarsRouter: DocumentViewBaseCompoundRouter {
     // MARK: Subclassing
     override func match(action: BlocksViews.UserAction) -> DocumentViewBaseRouter? {
         switch action {
-        case .toolbars(.addBlock): return self.router(of: AddBlockToolbarRouter.self)
-        case .toolbars(.turnIntoBlock): return self.router(of: TurnIntoToolbarRouter.self)
-        case .toolbars(.bookmark): return self.router(of: BookmarkToolbarRouter.self)
-        case .specific:
+        case .addBlock: return router(of: AddBlockToolbarRouter.self)
+        case .turnIntoBlock: return router(of: TurnIntoToolbarRouter.self)
+        case .bookmark: return router(of: BookmarkToolbarRouter.self)
+        case .file, .page:
             return nil
         }
     }
@@ -30,7 +30,7 @@ extension ToolbarsRouter {
         ///
         private class NavigationBar: UINavigationBar {}
 
-        private func handle(action: BlocksViews.UserAction.ToolbarOpenAction) {
+        private func handle(action: BlocksViews.UserAction) {
             switch action {
             case let .turnIntoBlock(payload):
                 let style = BlocksViews.Toolbar.ViewController.ViewModel.Style(style: .turnIntoBlock,
@@ -67,11 +67,7 @@ extension ToolbarsRouter {
         // MARK: Subclassing
         override func receive(action: BlocksViews.UserAction) {
             switch action {
-            case let .toolbars(value):
-                switch value {
-                case .turnIntoBlock: self.handle(action: value)
-                default: return
-                }
+            case .turnIntoBlock: self.handle(action: action)
             default: return
             }
         }
@@ -87,7 +83,7 @@ extension ToolbarsRouter {
         ///
         private class NavigationBar: UINavigationBar {}
                 
-        private func handle(action: BlocksViews.UserAction.ToolbarOpenAction) {
+        private func handle(action: BlocksViews.UserAction) {
             switch action {
             case let .addBlock(payload):
                 let viewModel = BlocksViews.Toolbar.ViewController.ViewModel(.init(style: .addBlock))
@@ -123,11 +119,7 @@ extension ToolbarsRouter {
         // MARK: Subclassing
         override func receive(action: BlocksViews.UserAction) {
             switch action {
-            case let .toolbars(value):
-                switch value {
-                case .addBlock: self.handle(action: value)
-                default: return
-                }
+            case .addBlock: self.handle(action: action)
             default: return
             }
         }
@@ -139,7 +131,7 @@ extension ToolbarsRouter {
     /// It is processing Bookmark toolbar appearing.
     ///
     class BookmarkToolbarRouter: DocumentViewBaseRouter {
-        private func hanlde(action: BlocksViews.UserAction.ToolbarOpenAction) {
+        private func hanlde(action: BlocksViews.UserAction) {
             switch action {
             case let .bookmark(payload):
                 let viewModel = BlocksViews.Toolbar.ViewController.ViewModel(.init(style: .bookmark))
@@ -159,11 +151,7 @@ extension ToolbarsRouter {
         // MARK: Subclassing
         override func receive(action: BlocksViews.UserAction) {
             switch action {
-            case let .toolbars(value):
-                switch value {
-                case .bookmark: self.hanlde(action: value)
-                default: return
-                }
+            case .bookmark: hanlde(action: action)
             default: return
             }
         }

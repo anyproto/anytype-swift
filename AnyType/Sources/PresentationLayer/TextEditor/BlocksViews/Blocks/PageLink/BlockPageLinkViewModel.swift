@@ -77,14 +77,11 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         return super.makeContentConfiguration()
     }
     
-    override func handle(event: BlocksViews.UserEvent) {
-        switch event {
-        case .didSelectRowInTableView:
-            switch block.content {
-            case let .link(linkContent):
-                router?.showPage(with: linkContent.targetBlockID)
-            default: return
-            }
+    override func didSelectRowInTableView() {
+        switch block.content {
+        case let .link(linkContent):
+            router?.showPage(with: linkContent.targetBlockID)
+        default: return
         }
     }
     

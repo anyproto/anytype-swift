@@ -102,7 +102,7 @@ class BaseBlockViewModel: ObservableObject {
     
     // MARK: - Subclass / Events
 
-    func handle(event: BlocksViews.UserEvent) {}
+    func didSelectRowInTableView() {}
     
     // MARK: - Subclass / ContextualMenu
 
@@ -124,7 +124,7 @@ class BaseBlockViewModel: ObservableObject {
         case let .specific(value):
             switch value {
             case .turnInto:
-                send(userAction: .toolbars(.turnIntoBlock(.init(output: self.toolbarActionSubject))))
+                send(userAction: .turnIntoBlock(.init(output: self.toolbarActionSubject)))
             case .turnIntoPage:
                 toolbarActionSubject.send(.turnIntoBlock(.objects(.page)))
             case .style:
@@ -275,14 +275,6 @@ extension BaseBlockViewModel: BlocksViewsUserActionsEmittingProtocol {
 /// Requirement: `BlocksViewsUserActionsSubscribingProtocol` is necessary for routing and outer world.
 /// We could subscribe on `userActionPublisher` and react on changes.
 extension BaseBlockViewModel: BlocksViewsUserActionsSubscribingProtocol {}
-
-/// Requirement: `BlocksViewsUserActionsReceivingProtocol` is necessary for communication from outer space.
-/// We could send events to blocks views to perform actions and get reactions.
-extension BaseBlockViewModel: BlocksViewsUserActionsReceivingProtocol {
-    func receive(event: BlocksViews.UserEvent) {
-        self.handle(event: event)
-    }
-}
 
 extension BaseBlockViewModel {
     // Send actions payload

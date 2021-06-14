@@ -216,11 +216,11 @@ extension DocumentEditorViewModel {
 
 extension DocumentEditorViewModel {
     func didSelectBlock(at index: IndexPath) {
-        if self.selectionEnabled() {
-            self.didSelect(atIndex: index)
+        if selectionEnabled() {
+            didSelect(atIndex: index)
             return
         }
-        self.element(at: index)?.receive(event: .didSelectRowInTableView)
+        element(at: index)?.didSelectRowInTableView()
     }
 
     private func element(at: IndexPath) -> BaseBlockViewModel? {

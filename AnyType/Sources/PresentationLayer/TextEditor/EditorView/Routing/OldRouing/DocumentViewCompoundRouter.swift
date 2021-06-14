@@ -34,14 +34,11 @@ final class DocumentViewCompoundRouter: DocumentViewBaseCompoundRouter {
     
     override func match(action: BlocksViews.UserAction) -> DocumentViewBaseRouter? {
         switch action {
-        case let .specific(value):
-            switch value {
-            case .file:
-                return router(of: FileBlocksViewsRouter.self)
-            case .page:
-                return router(of: PageBlocksViewsRouter.self)
-            }
-        case .toolbars:
+        case .file:
+            return router(of: FileBlocksViewsRouter.self)
+        case .page:
+            return router(of: PageBlocksViewsRouter.self)
+        case .addBlock, .bookmark, .turnIntoBlock:
             return router(of: ToolbarsRouter.self)
         }
     }
