@@ -1,7 +1,7 @@
 
 import UIKit
 
-enum BlockColorAction: CaseIterable {
+enum BlockColor: CaseIterable {
     case black
     case lemon
     case amber
@@ -37,7 +37,7 @@ enum BlockColorAction: CaseIterable {
         case .green:
             return .pureGreen
         case .coldgray:
-            return .coldgray
+            return .darkColdGray
         }
     }
     

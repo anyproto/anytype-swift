@@ -26,16 +26,11 @@ extension UIColor {
     static let pureTeal = color(name: ColorName.pureTeal)
     static let pureGreen = color(name: ColorName.pureGreen)
     
-    static var coldgray: UIColor {
-        UIColor(hexString: "#8C9EA5")
-    }
+    static let darkColdGray = color(name: ColorName.darkColdGray)
+    static let lightColdGray = color(name: ColorName.lightColdGray)
 
     static var grayscale30: UIColor {
         .init(hexString: "#DFDDD0")
-    }
-
-    static var grayscale50: UIColor {
-        .init(hexString: "#ACA996")
     }
 
     static var darkGreen: UIColor {
@@ -49,10 +44,6 @@ extension UIColor {
     // MARK: - Color for background
 
     static let grayscaleWhite = color(name: ColorName.grayscaleWhite)
-
-    static var lightColdgray: UIColor {
-        .init(hexString: "#EBEFF1")
-    }
 
     static var lightLemon: UIColor {
         .init(hexString: "#FEF9CC")

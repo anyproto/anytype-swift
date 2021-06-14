@@ -7,6 +7,9 @@ enum ColorName {
     static let grayscaleWhite = "grayscaleWhite"
     static let grayscale90 = "grayscale90"
     
+    static let darkColdGray = "darkColdGray"
+    static let lightColdGray = "lightColdGray"
+    
     static let pureAmber = "pureAmber"
     static let pureRed = "pureRed"
     static let pureLemon = "pureLemon"

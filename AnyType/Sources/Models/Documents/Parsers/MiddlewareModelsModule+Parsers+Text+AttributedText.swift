@@ -25,7 +25,6 @@ extension Namespace {
                             marks: Anytype_Model_Block.Content.Text.Marks,
                             style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
             // Map attributes to our internal format.
-            typealias MarkStyle = MiddlewareModelsModule.Parsers.Text.AttributedText.AttributeConverter.ModelTuple
             let markAttributes: [(range: NSRange, markStyle: MarkStyle)]
 
             markAttributes = marks.marks.compactMap { value -> (NSRange, MarkStyle)? in
@@ -51,7 +50,7 @@ extension Namespace {
             
             // Apply attributes
             markAttributes.forEach { value in
-                _ = modifier.applyStyle(style: value.markStyle.attribute, rangeOrWholeString: .range(value.range))
+                _ = modifier.applyStyle(style: value.markStyle, rangeOrWholeString: .range(value.range))
             }
             
             return modifier.attributedString
@@ -110,7 +109,7 @@ extension Namespace {
             
             let middlewareMarks = filteredMarkStyles.compactMap { (tuple) -> [Anytype_Model_Block.Content.Text.Mark]? in
                 let (key, value) = tuple
-                let type = AttributeConverter.asMiddleware(.init(attribute: key.markStyle))
+                let type = AttributeConverter.asMiddleware(key.markStyle)
 
                 // For example, return nil if we couldn't convert UIColor to middlware color so
                 // all ranges will be skipped for this `mark` value
@@ -191,37 +190,33 @@ private extension Namespace {
             var value: String
         }
         
-        struct ModelTuple {
-            var attribute: MarkStyle
-        }
-        
-        static func asModel(_ tuple: MiddlewareTuple) -> ModelTuple? {
+        static func asModel(_ tuple: MiddlewareTuple) -> MarkStyle? {
             switch tuple.attribute {
-            case .strikethrough: return .init(attribute: .strikethrough(true))
-            case .keyboard: return .init(attribute: .keyboard(true))
-            case .italic: return .init(attribute: .italic(true))
-            case .bold: return .init(attribute: .bold(true))
-            case .underscored: return .init(attribute: .underscored(true))
-            case .link: return .init(attribute: .link(URLConverter.asModel(tuple.value)))
+            case .strikethrough: return .strikethrough(true)
+            case .keyboard: return .keyboard(true)
+            case .italic: return .italic(true)
+            case .bold: return .bold(true)
+            case .underscored: return .underscored(true)
+            case .link: return .link(URLConverter.asModel(tuple.value))
 
             case .textColor:
                 guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(tuple.value) else {
                     return nil
                 }
-                return .init(attribute: .textColor(color))
+                return .textColor(color)
 
             case .backgroundColor:
                 guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(tuple.value, background: true) else {
                     return nil
                 }
-                return .init(attribute: .backgroundColor(color))
+                return .backgroundColor(color)
 
             default: return nil
             }
         }
 
-        static func asMiddleware(_ tuple: ModelTuple) -> MiddlewareTuple? {
-            switch tuple.attribute {
+        static func asMiddleware(_ style: MarkStyle) -> MiddlewareTuple? {
+            switch style {
             case .bold: return .init(attribute: .bold, value: "")
             case .italic: return .init(attribute: .italic, value: "")
             case .keyboard: return .init(attribute: .keyboard, value: "")

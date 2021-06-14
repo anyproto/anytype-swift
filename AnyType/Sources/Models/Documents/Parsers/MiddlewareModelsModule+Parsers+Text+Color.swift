@@ -2,14 +2,9 @@ import Foundation
 import UIKit
 import os
 
-fileprivate typealias Namespace = MiddlewareModelsModule.Parsers.Text
-
-extension Namespace.Color {
-    /// This is Converter between our high-level `UIColor` representation of color and middleware color names as String.
-    ///
-    /// In API you will see nullable parameters.
+extension MiddlewareModelsModule.Parsers.Text.Color {
     enum Converter {
-        enum Colors: CaseIterable {
+        enum Colors {
             case `default`, grey, yellow, orange, red, pink, purple, blue, ice, teal, lime
 
             init?(name: String) {
@@ -27,7 +22,7 @@ extension Namespace.Color {
             func color(background: Bool = false) -> UIColor {
                 switch self {
                 case .default: return background ? .grayscaleWhite : .grayscale90
-                case .grey: return background ? .lightColdgray : .grayscale50
+                case .grey: return background ? .lightColdGray : .darkColdGray
                 case .yellow: return background ? .lightLemon : .pureLemon
                 case .orange: return background ? .lightAmber : .pureAmber
                 case .red: return background ? .lightRed : .pureRed
@@ -36,7 +31,7 @@ extension Namespace.Color {
                 case .blue: return background ? .lightUltramarine : .pureUltramarine
                 case .ice: return background ? .lightBlue : .pureBlue
                 case .teal: return background ? .lightTeal : .pureTeal
-                case .lime: return background ? .lightGreen : .darkGreen
+                case .lime: return background ? .lightGreen : .pureGreen
                 }
             }
 

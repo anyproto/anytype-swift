@@ -188,7 +188,7 @@ final class CodeBlockContentView: UIView & UIContentView {
 
     private func setupBackgroundColor() {
         typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        let color = ColorConverter.Colors(name: currentConfiguration.information.backgroundColor)?.color(background: true) ?? UIColor.lightColdgray
+        let color = ColorConverter.Colors(name: currentConfiguration.information.backgroundColor)?.color(background: true) ?? UIColor.lightColdGray
         textView.backgroundColor = color
     }
 }

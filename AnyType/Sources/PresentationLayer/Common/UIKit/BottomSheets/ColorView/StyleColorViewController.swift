@@ -29,14 +29,14 @@ private struct ColorItem: Hashable {
     private let identifier = UUID()
 
     static let all: [ColorItem] = [
-        UIColor.grayscale90, UIColor.grayscale50, UIColor.pureLemon,
+        UIColor.grayscale90, UIColor.darkColdGray, UIColor.pureLemon,
         UIColor.pureAmber, UIColor.pureRed, UIColor.purePink,
         UIColor.purePurple, UIColor.pureUltramarine, UIColor.pureBlue,
         UIColor.pureTeal, UIColor.darkGreen
     ].map { ColorItem.init(color: $0) }
 
     static let backgroundItems: [ColorItem] = [
-        UIColor.grayscaleWhite, UIColor.lightColdgray, UIColor.lightLemon,
+        UIColor.grayscaleWhite, UIColor.darkColdGray, UIColor.lightLemon,
         UIColor.lightAmber, UIColor.lightRed, UIColor.lightPink,
         UIColor.lightPurple, UIColor.lightUltramarine, UIColor.lightBlue,
         UIColor.lightTeal, UIColor.lightGreen

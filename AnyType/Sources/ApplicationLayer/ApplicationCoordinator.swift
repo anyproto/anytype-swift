@@ -54,8 +54,8 @@ final class ApplicationCoordinator {
         controller.navigationBar.standardAppearance = navBarAppearance
         controller.navigationBar.scrollEdgeAppearance = navBarAppearance
         
-        controller.navigationBar.barTintColor = UIColor.grayscale50
-        controller.navigationBar.tintColor = UIColor.grayscale50
+        controller.navigationBar.barTintColor = UIColor.darkColdGray
+        controller.navigationBar.tintColor = UIColor.darkColdGray
 
         return controller
     }
@@ -142,7 +142,7 @@ extension ApplicationCoordinator: MainWindowHolder {
         rootNavigationController.navigationBar.compactAppearance = appearance
         rootNavigationController.navigationBar.standardAppearance = appearance
         rootNavigationController.navigationBar.scrollEdgeAppearance = appearance
-        rootNavigationController.navigationBar.barTintColor = UIColor.grayscale50
-        rootNavigationController.navigationBar.tintColor = UIColor.grayscale50
+        rootNavigationController.navigationBar.barTintColor = UIColor.darkColdGray
+        rootNavigationController.navigationBar.tintColor = UIColor.darkColdGray
     }
 }

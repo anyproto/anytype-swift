@@ -21,6 +21,8 @@ enum BlocksModelsConverter {
         case .layout(let data): return contentLayout.blockType(data)
         
         case .featuredRelations: return nil
+        case .relation: return nil
+            
         default:
             assertionFailure("No converter for type: \(String(describing: middleware))")
             return nil

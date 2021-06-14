@@ -6,7 +6,7 @@ enum BlockActionType {
     case relations
     case other(BlockOtherAction)
     case actions(BlockAction)
-    case color(BlockColorAction)
+    case color(BlockColor)
     case background(BlockBackgroundColorAction)
     case alignment(BlockAlignmentAction)
     

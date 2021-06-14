@@ -26,7 +26,7 @@ final class CompoundViewModelConverter {
             case .code:
                 return CodeBlockViewModel(block)
             case .toggle:
-                return ToggleBlockViewModel(block)
+                return ToggleBlockViewModel(block, blockActionHandler: blockActionHandler)
             default:
                 return TextBlockViewModel(block, blockActionHandler: blockActionHandler)
             }
