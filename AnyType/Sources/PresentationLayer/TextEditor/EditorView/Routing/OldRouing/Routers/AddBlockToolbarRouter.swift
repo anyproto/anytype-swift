@@ -10,7 +10,7 @@ class AddBlockToolbarRouter {
         self.baseViewController = baseViewController
     }
             
-    func handle(payload: BlocksViews.UserAction.AddBlock) {
+    func handle(payload: BlockUserAction.AddBlock) {
         let viewModel = BlocksViews.Toolbar.ViewController.ViewModel(.init(style: .addBlock))
         let controller = BlocksViews.Toolbar.ViewController.init(model: viewModel)
         

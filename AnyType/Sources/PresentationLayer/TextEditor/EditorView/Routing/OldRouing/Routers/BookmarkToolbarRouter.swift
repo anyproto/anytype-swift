@@ -1,20 +1,18 @@
 import UIKit
 
 class BookmarkToolbarRouter {
-    private weak var mainController: UIViewController?
-    init(vc: UIViewController?) {
-        self.mainController = vc
+    private weak var baseController: UIViewController?
+    init(baseController: UIViewController?) {
+        self.baseController = baseController
     }
     
-    func hanlde(bookmark: BlocksViews.UserAction.Bookmark) {
+    func hanlde(bookmarkOutput: BookmarkOutput) {
         let viewModel = BlocksViews.Toolbar.ViewController.ViewModel(.init(style: .bookmark))
         
-        let subject = bookmark.output
-        
         /// We want to receive values.
-        viewModel.subscribe(subject: subject, keyPath: \.action)
+        viewModel.subscribe(subject: bookmarkOutput, keyPath: \.action)
         
         let controller = BlocksViews.Toolbar.ViewController(model: viewModel)
-        mainController?.present(controller, animated: true, completion: nil)
+        baseController?.present(controller, animated: true, completion: nil)
     }
 }

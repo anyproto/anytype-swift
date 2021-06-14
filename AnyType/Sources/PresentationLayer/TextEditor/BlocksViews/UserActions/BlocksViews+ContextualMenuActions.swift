@@ -1,11 +1,3 @@
-//
-//  BlocksViews+ContextualMenuActions.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 21.05.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

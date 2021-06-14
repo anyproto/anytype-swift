@@ -26,13 +26,9 @@ class BaseBlockViewModel: ObservableObject {
     }
     
     // MARK: - Events
-    // MARK: User Action Publisher
-
-    /// This publisher sends actions to, in most cases, routing.
-    /// If you would like to show controllers or action panes, you should listen events from this publisher.
-    ///
-    private var userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
-    public lazy var userActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = userActionSubject.eraseToAnyPublisher()
+    
+    private var userActionSubject = PassthroughSubject<BlockUserAction, Never>()
+    public lazy var userActionPublisher = userActionSubject.eraseToAnyPublisher()
     
     // MARK: Toolbar Action Publisher
 
@@ -142,6 +138,10 @@ class BaseBlockViewModel: ObservableObject {
             }
         }
     }
+    
+    func send(userAction: BlockUserAction) {
+        userActionSubject.send(userAction)
+    }
 }
 
 // MARK: - Hashable
@@ -164,7 +164,7 @@ extension BaseBlockViewModel {
         self.sizeDidChangeSubject = sizeDidChangeSubject
     }
 
-    func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
+    func configured(userActionSubject: PassthroughSubject<BlockUserAction, Never>) {
         self.userActionSubject = userActionSubject
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
     }
@@ -261,20 +261,6 @@ extension BaseBlockViewModel: Identifiable {}
 extension BaseBlockViewModel {
     var blockId: BlockId { block.blockId }
 }
-
-/// Requirement: `Blocks ViewsUserActionsEmittingProtocol` is necessary to subclasses of view model.
-/// We could send events to `userActionPublisher`.
-extension BaseBlockViewModel: BlocksViewsUserActionsEmittingProtocol {
-    
-    func send(userAction: BlocksViews.UserAction) {
-        self.userActionSubject.send(userAction)
-    }
-    
-}
-
-/// Requirement: `BlocksViewsUserActionsSubscribingProtocol` is necessary for routing and outer world.
-/// We could subscribe on `userActionPublisher` and react on changes.
-extension BaseBlockViewModel: BlocksViewsUserActionsSubscribingProtocol {}
 
 extension BaseBlockViewModel {
     // Send actions payload

@@ -66,7 +66,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
     override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
         switch contextualMenuAction {
         case .specific(.turnInto):
-            let input: BlocksViews.UserAction.TurnIntoBlock.Input = .init(payload: .init(filtering: .other([.lineDivider, .dotsDivider])))
+            let input: FilteringPayload = .other([.lineDivider, .dotsDivider])
             self.send(userAction: .turnIntoBlock(.init(output: self.toolbarActionSubject, input: input)))
         default: super.handle(contextualMenuAction: contextualMenuAction)
         }

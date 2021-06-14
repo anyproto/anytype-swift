@@ -36,14 +36,14 @@ class DocumentEditorViewModel: ObservableObject {
 
     let selectionHandler: EditorModuleSelectionHandlerProtocol
 
-    private let publicUserActionSubject: PassthroughSubject<BlocksViews.UserAction, Never> = .init()
-    lazy var publicUserActionPublisher: AnyPublisher<BlocksViews.UserAction, Never> = { self.publicUserActionSubject.eraseToAnyPublisher() }()
+    private let publicUserActionSubject = PassthroughSubject<BlockUserAction, Never>()
+    lazy var publicUserActionPublisher = publicUserActionSubject.eraseToAnyPublisher()
 
-    private var publicActionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
-    lazy var publicActionsPayloadPublisher: AnyPublisher<ActionsPayload, Never> =  self.publicActionsPayloadSubject.eraseToAnyPublisher()
+    private var publicActionsPayloadSubject = PassthroughSubject<ActionsPayload, Never>()
+    lazy var publicActionsPayloadPublisher = publicActionsPayloadSubject.eraseToAnyPublisher()
 
-    private var publicSizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
-    lazy private(set) var publicSizeDidChangePublisher: AnyPublisher<Void, Never> = { self.publicSizeDidChangeSubject.eraseToAnyPublisher() }()
+    private var publicSizeDidChangeSubject = PassthroughSubject<Void, Never>()
+    lazy var publicSizeDidChangePublisher = publicSizeDidChangeSubject.eraseToAnyPublisher()
 
     /// Builders to build block views
     @Published private(set) var blocksViewModels: [BaseBlockViewModel] = [] {

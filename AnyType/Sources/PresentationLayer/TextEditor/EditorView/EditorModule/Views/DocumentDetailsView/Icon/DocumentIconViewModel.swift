@@ -13,7 +13,7 @@ final class DocumentIconViewModel {
     private let fileService = BlockActionsServiceFile()
     
     private let detailsActiveModel: DetailsActiveModel
-    private let userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>
+    private let userActionSubject: PassthroughSubject<BlockUserAction, Never>
     
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -21,7 +21,7 @@ final class DocumentIconViewModel {
     
     init(documentIcon: DocumentIcon,
          detailsActiveModel: DetailsActiveModel,
-         userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
+         userActionSubject: PassthroughSubject<BlockUserAction, Never>) {
         self.documentIcon = documentIcon
         self.detailsActiveModel = detailsActiveModel
         self.userActionSubject = userActionSubject
@@ -31,11 +31,7 @@ final class DocumentIconViewModel {
 
 // MARK: - Internal functions
 
-extension DocumentIconViewModel {
-    
-    // Sorry 🙏🏽
-    typealias BlockUserAction = BlocksViews.UserAction
-    
+extension DocumentIconViewModel {    
     func handleIconUserAction(_ action: DocumentIconViewUserAction) {
         switch action {
         case .select:
@@ -96,9 +92,7 @@ private extension DocumentIconViewModel {
             self.uploadSelectedIconImage(at: path)
         }
         
-        userActionSubject.send(
-            BlockUserAction.file(.shouldShowImagePicker(model))
-        )
+        userActionSubject.send(BlockUserAction.file(.shouldShowImagePicker(model)))
     }
     
     func uploadSelectedIconImage(at localPath: String) {

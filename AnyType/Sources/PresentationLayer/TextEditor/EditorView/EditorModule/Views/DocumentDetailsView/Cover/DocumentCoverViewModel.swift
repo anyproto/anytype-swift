@@ -10,7 +10,7 @@ final class DocumentCoverViewModel {
     
     private let fileService = BlockActionsServiceFile()
     private let detailsActiveModel: DetailsActiveModel
-    private let userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>
+    private let userActionSubject: PassthroughSubject<BlockUserAction, Never>
     
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -20,7 +20,7 @@ final class DocumentCoverViewModel {
     
     init(cover: DocumentCover,
          detailsActiveModel: DetailsActiveModel,
-         userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
+         userActionSubject: PassthroughSubject<BlockUserAction, Never>) {
         self.cover = cover
         self.detailsActiveModel = detailsActiveModel
         self.userActionSubject = userActionSubject
@@ -48,10 +48,6 @@ extension DocumentCoverViewModel {
 }
 
 private extension DocumentCoverViewModel {
-    
-    // Sorry 🙏🏽
-    typealias BlockUserAction = BlocksViews.UserAction
-    
     func showImagePicker() {
         let model = MediaPicker.ViewModel(type: .images)
         model.onResultInformationObtain = { [weak self] resultInformation in
@@ -72,9 +68,7 @@ private extension DocumentCoverViewModel {
         }
         
         userActionSubject.send(
-            BlockUserAction.file(
-                BlockUserAction.File.FileAction.shouldShowImagePicker(model)
-            )
+            BlockUserAction.file(.shouldShowImagePicker(model))
         )
     }
     

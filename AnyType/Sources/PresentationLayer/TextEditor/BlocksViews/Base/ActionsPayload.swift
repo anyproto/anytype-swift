@@ -20,7 +20,7 @@ enum ActionsPayload {
     /// For seamless usage of UserAction as "Payload"
     struct UserAction {
         let model: BlockActiveRecordModelProtocol
-        let action: BlocksViews.UserAction
+        let action: BlockUserAction
     }
 
     /// Text blocks draft.

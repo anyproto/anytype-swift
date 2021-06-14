@@ -47,7 +47,7 @@ extension Namespace {
                 return
             }
                             
-            self.send(userAction: .bookmark(.init(output: self.toolbarActionSubject)))
+            send(userAction: .bookmark(toolbarActionSubject))
         }
         
         override func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {

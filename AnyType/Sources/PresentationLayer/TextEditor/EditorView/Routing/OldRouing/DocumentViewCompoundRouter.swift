@@ -12,12 +12,12 @@ final class DocumentViewCompoundRouter {
     
     init(
         viewController: UIViewController,
-        userActionsStream: AnyPublisher<BlocksViews.UserAction, Never>
+        userActionsStream: AnyPublisher<BlockUserAction, Never>
     ) {
         fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
         emojiRouter = EmojiViewRouter(viewController: viewController)
         addBlockRouter = AddBlockToolbarRouter(baseViewController: viewController)
-        bookmarkRouter = BookmarkToolbarRouter(vc: viewController)
+        bookmarkRouter = BookmarkToolbarRouter(baseController: viewController)
         turnIntoRouter = TurnIntoToolbarRouter(baseViewController: viewController)
         
         userActionsStreamSubscription = userActionsStream.sink { [weak self] value in
@@ -25,7 +25,7 @@ final class DocumentViewCompoundRouter {
         }
     }
     
-    func receive(action: BlocksViews.UserAction) {
+    func receive(action: BlockUserAction) {
         switch action {
         case let .file(fileAction):
             fileRouter.handle(action: fileAction)
@@ -33,8 +33,8 @@ final class DocumentViewCompoundRouter {
             emojiRouter.handle(model: emojiModel)
         case let .addBlock(addBlock):
             addBlockRouter.handle(payload: addBlock)
-        case let .bookmark(bookmark):
-            bookmarkRouter.hanlde(bookmark: bookmark)
+        case let .bookmark(payload):
+            bookmarkRouter.hanlde(bookmarkOutput: payload)
         case let .turnIntoBlock(payload):
             turnIntoRouter.handle(payload: payload)
         }

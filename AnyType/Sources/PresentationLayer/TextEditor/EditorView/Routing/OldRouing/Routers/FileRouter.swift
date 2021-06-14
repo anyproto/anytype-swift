@@ -12,7 +12,7 @@ final class FileRouter {
         self.viewController = viewController
     }
     
-    func handle(action: BlocksViews.UserAction.File.FileAction) {
+    func handle(action: BlockUserAction.FileAction) {
         switch action {
         case let .shouldShowFilePicker(model):
             let vc = CommonViews.Pickers.File.Picker(model)
