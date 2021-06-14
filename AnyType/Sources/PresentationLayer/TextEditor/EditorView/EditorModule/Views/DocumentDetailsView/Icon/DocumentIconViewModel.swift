@@ -119,12 +119,12 @@ private extension DocumentIconViewModel {
     }
     
     func setRandomEmoji() {
-        let emoji = EmojiPicker.Manager().random()
+        let emoji = EmojiProvider.shared.randomEmoji()
         
         updateDetails(
             [
                 .iconEmoji: DetailsEntry(
-                    value: emoji.unicode
+                    value: emoji?.unicode ?? ""
                 ),
                 .iconImage: DetailsEntry(
                     value: ""

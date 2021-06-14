@@ -14,46 +14,36 @@ extension EmojiPicker  {
     class ViewModel: ObservableObject {
         
         struct SearchResult {
-            var notFound: Bool
-            var keyword: String
+            let notFound: Bool
+            let keyword: String
         }
-        
-        typealias Emoji = EmojiPicker.Manager.Emoji
-        typealias Category =  EmojiPicker.Manager.Category
-        
-        @Published var searchResult: SearchResult = .init(notFound: false, keyword: "")
+                
+        @Published var searchResult = SearchResult(notFound: false, keyword: "")
         @Published var selectedEmoji: Emoji?
         
         var userEventSubject: PassthroughSubject<UserEvent, Never> = .init()
 
-        public var emojisSorted: [[Category: [Emoji]]]  = .init()
-        
-        private let emojiManager = EmojiPicker.Manager()
-        
+        private let emojiProvider = EmojiProvider.shared
+
+        private var emojiGroups: [EmojiGroup] = []
+                        
         init() {
             self.setupDefaultGroup()
         }
         
         private func setupDefaultGroup() {
-            let list = emojiManager.emojis
-            // Create dictionary with grouped value by 'category'
-            self.updateGroup(with: list)
-        }
-        
-        private func updateGroup(with list: [Emoji]) {
-            emojisSorted = Dictionary(grouping: list, by: { $0.category }).sorted(by: {$0.key < $1.key}).reversed().map{([$0.key: $0.value])}
+            self.emojiGroups = emojiProvider.emojiGroups
         }
         
         public func filterEmojies(with keyword: String) {
             if keyword.count == 0 {
                 setupDefaultGroup()
-            }
-            else {
-                let list = emojiManager.emojis(keywords: [keyword])
-                updateGroup(with: list)
+            } else {
+                let list = emojiProvider.filteredEmojiGroups(keyword: keyword)
+                self.emojiGroups = list
             }
             
-            searchResult = .init(notFound: emojisSorted.isEmpty, keyword: keyword)
+            searchResult = SearchResult(notFound: emojiGroups.isEmpty, keyword: keyword)
         }
         
     }
@@ -64,27 +54,22 @@ extension EmojiPicker  {
 extension EmojiPicker.ViewModel {
     
     func numberOfSections() -> Int {
-        emojisSorted.count
+        emojiGroups.count
     }
 
-    func countOfElements(at: Int) -> Int {
-        emojisSorted[at].first?.value.count ?? 0
+    func countOfElements(at index: Int) -> Int {
+        emojiGroups[safe: index]?.emojis.count ?? 0
     }
 
-    func element(at: IndexPath) -> Emoji? {
-        emojisSorted[at.section].first?.value[at.row]
+    func element(at indexPath: IndexPath) -> Emoji? {
+        emojiGroups[safe: indexPath.section]?.emojis[safe: indexPath.row]
     }
     
-    func sectionTitle(at: IndexPath) -> String {
-        let category = self.getCategory(at: at.section)
-        return category.rawValue
-    }
-    
-    func getCategory(at: Int) -> Category {
-        guard let category = emojisSorted[at].first?.key else {
-            return .ufo
+    func sectionTitle(at indexPath: IndexPath) -> String {
+        guard let title = emojiGroups[safe: indexPath.section]?.name else {
+            return ""
         }
-        return category
+        return title
     }
 
 }
