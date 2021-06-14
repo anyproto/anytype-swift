@@ -173,15 +173,7 @@
 		0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA168DC254060E40097CB23 /* MediaPicker.swift */; };
 		0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */; };
 		0AAC96682340C288006CE58C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0AAC96662340C288006CE58C /* Localizable.strings */; };
-		0ABB2A3424801D9000A7144A /* BlockInformationAlignmentConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */; };
-		0ABB2A3524801D9000A7144A /* BlockTextMarkStyleConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2624801D9000A7144A /* BlockTextMarkStyleConverter.swift */; };
-		0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */; };
-		0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */; };
-		0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2924801D9000A7144A /* MarksPane+Panes+ColorPane.swift */; };
-		0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2B24801D9000A7144A /* MarksPane+Main+Section.swift */; };
-		0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2C24801D9000A7144A /* MarksPane+Main+Pane.swift */; };
-		0ABB2A3B24801D9000A7144A /* MarksPane+Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2D24801D9000A7144A /* MarksPane+Main.swift */; };
-		0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2E24801D9000A7144A /* MarksPane.swift */; };
+		0ABB2A3A24801D9000A7144A /* MarksPaneMainAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB2A2C24801D9000A7144A /* MarksPaneMainAttribute.swift */; };
 		0ABB73A425497DB700F32C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */; };
 		0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB73A82549975800F32C6F /* FirebaseService.swift */; };
 		0ACA77DB23E44B8F00442690 /* TextView+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACA77DA23E44B8F00442690 /* TextView+Protocols.swift */; };
@@ -741,15 +733,7 @@
 		0AA168DC254060E40097CB23 /* MediaPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPicker.swift; sourceTree = "<group>"; };
 		0AA9401224C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileContentTypeConverter.swift; sourceTree = "<group>"; };
 		0AAC96672340C288006CE58C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformationAlignmentConverter.swift; sourceTree = "<group>"; };
-		0ABB2A2624801D9000A7144A /* BlockTextMarkStyleConverter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockTextMarkStyleConverter.swift; sourceTree = "<group>"; };
-		0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes.swift"; sourceTree = "<group>"; };
-		0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+StylePane.swift"; sourceTree = "<group>"; };
-		0ABB2A2924801D9000A7144A /* MarksPane+Panes+ColorPane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Panes+ColorPane.swift"; sourceTree = "<group>"; };
-		0ABB2A2B24801D9000A7144A /* MarksPane+Main+Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Main+Section.swift"; sourceTree = "<group>"; };
-		0ABB2A2C24801D9000A7144A /* MarksPane+Main+Pane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Main+Pane.swift"; sourceTree = "<group>"; };
-		0ABB2A2D24801D9000A7144A /* MarksPane+Main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MarksPane+Main.swift"; sourceTree = "<group>"; };
-		0ABB2A2E24801D9000A7144A /* MarksPane.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarksPane.swift; sourceTree = "<group>"; };
+		0ABB2A2C24801D9000A7144A /* MarksPaneMainAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarksPaneMainAttribute.swift; sourceTree = "<group>"; };
 		0ABB73A325497DB600F32C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0ABB73A82549975800F32C6F /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
 		0ACA77DA23E44B8F00442690 /* TextView+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextView+Protocols.swift"; sourceTree = "<group>"; };
@@ -1974,33 +1958,9 @@
 		0ABB2A2324801D9000A7144A /* MarksPane */ = {
 			isa = PBXGroup;
 			children = (
-				0ABB2A2424801D9000A7144A /* Panes */,
-				0ABB2A2A24801D9000A7144A /* Main */,
-				0ABB2A2E24801D9000A7144A /* MarksPane.swift */,
+				0ABB2A2C24801D9000A7144A /* MarksPaneMainAttribute.swift */,
 			);
 			path = MarksPane;
-			sourceTree = "<group>";
-		};
-		0ABB2A2424801D9000A7144A /* Panes */ = {
-			isa = PBXGroup;
-			children = (
-				0ABB2A2724801D9000A7144A /* MarksPane+Panes.swift */,
-				0ABB2A2824801D9000A7144A /* MarksPane+Panes+StylePane.swift */,
-				0ABB2A2524801D9000A7144A /* BlockInformationAlignmentConverter.swift */,
-				0ABB2A2624801D9000A7144A /* BlockTextMarkStyleConverter.swift */,
-				0ABB2A2924801D9000A7144A /* MarksPane+Panes+ColorPane.swift */,
-			);
-			path = Panes;
-			sourceTree = "<group>";
-		};
-		0ABB2A2A24801D9000A7144A /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				0ABB2A2D24801D9000A7144A /* MarksPane+Main.swift */,
-				0ABB2A2C24801D9000A7144A /* MarksPane+Main+Pane.swift */,
-				0ABB2A2B24801D9000A7144A /* MarksPane+Main+Section.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		0ABB73A72549974300F32C6F /* Firebase */ = {
@@ -3545,7 +3505,6 @@
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
-				0ABB2A3B24801D9000A7144A /* MarksPane+Main.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* PageCell.swift in Sources */,
@@ -3576,7 +3535,6 @@
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
 				1280E209265C17F800E5AEEE /* PlaceholderImageBuilder.swift in Sources */,
 				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
-				0ABB2A3724801D9000A7144A /* MarksPane+Panes+StylePane.swift in Sources */,
 				3DBED6AB266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift in Sources */,
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */,
@@ -3654,7 +3612,6 @@
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */,
-				0ABB2A3624801D9000A7144A /* MarksPane+Panes.swift in Sources */,
 				0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */,
 				0A9F926C247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift in Sources */,
 				3D15526C264D8BCF00B0E976 /* SettingsDividerModifier.swift in Sources */,
@@ -3694,7 +3651,7 @@
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsFactory.swift in Sources */,
-				0ABB2A3A24801D9000A7144A /* MarksPane+Main+Pane.swift in Sources */,
+				0ABB2A3A24801D9000A7144A /* MarksPaneMainAttribute.swift in Sources */,
 				0A70816523968410004B04AB /* BlocksViews.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */,
 				0A0AA75724018631003A2935 /* DataStructures.swift in Sources */,
@@ -3809,7 +3766,6 @@
 				0ACA77FF23E5C15D00442690 /* TextView+UserAction.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				EA77E525262DAAA6009F91D9 /* BlockMenuItemsViewController.swift in Sources */,
-				0ABB2A3C24801D9000A7144A /* MarksPane.swift in Sources */,
 				0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */,
 				0AA00C5224CF057300870C18 /* BlocksModelsParserBookmarkTypeEnumConverter.swift in Sources */,
 				0A1DACCD244E189E0007BC5D /* BlocksViews+Toolbar+ViewController.swift in Sources */,
@@ -3832,7 +3788,6 @@
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
-				0ABB2A3924801D9000A7144A /* MarksPane+Main+Section.swift in Sources */,
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
 				3D932D4D26317E9300C7D1EA /* NavigationButtonView.swift in Sources */,
 				53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */,
@@ -3868,7 +3823,6 @@
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
-				0ABB2A3524801D9000A7144A /* BlockTextMarkStyleConverter.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* NotificationEventListener.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */,
@@ -3924,9 +3878,7 @@
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				0A08D4C624AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift in Sources */,
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
-				0ABB2A3824801D9000A7144A /* MarksPane+Panes+ColorPane.swift in Sources */,
 				1200FCD3265272A4009269D4 /* DocumentIconViewUserAction.swift in Sources */,
-				0ABB2A3424801D9000A7144A /* BlockInformationAlignmentConverter.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,

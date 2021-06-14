@@ -11,11 +11,6 @@ enum ActionsPayload {
         let action: BlocksViews.Toolbar.UnderlyingAction
     }
 
-    struct MarksPaneHolder {
-        let model: BlockActiveRecordModelProtocol
-        let action: MarksPane.Main.Action
-    }
-
     /// For backward compatibility.
     struct TextBlocksViewsUserInteraction {
         let model: BlockActiveRecordModelProtocol
@@ -43,7 +38,6 @@ enum ActionsPayload {
     }
 
     case toolbar(Toolbar)
-    case marksPane(MarksPaneHolder)
     case textView(TextBlocksViewsUserInteraction)
     case userAction(UserAction)
     /// show code language view

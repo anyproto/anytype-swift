@@ -67,20 +67,6 @@ final class BlockActionsHandlersFacade {
     func didReceiveAction(action: ActionsPayload) {
         switch action {
         case let .toolbar(value): self.toolbarBlockActionHandler.handlingToolbarAction(value.model, value.action)
-        case let .marksPane(value):
-            switch value.action {
-            case let .backgroundColor(color):
-                newBlockActionHandler(.setBackgroundColor(color), value.model.blockModel)
-            case let .textColor(color):
-                newBlockActionHandler(.setTextColor(color), value.model.blockModel)
-            case let .style(style):
-                switch style {
-                case let .alignment(alignment):
-                    newBlockActionHandler(.setAlignment(alignment), value.model.blockModel)
-                case let .fontStyle(fontStyle):
-                    newBlockActionHandler(.toggleFontStyle(fontStyle, NSRange()), value.model.blockModel)
-                }
-            }
         case let .textView(value):
             switch value.action {
             case let .textView(action):

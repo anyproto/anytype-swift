@@ -5,12 +5,12 @@ import UIKit
 
 final class BlockMenuActionsHandlerImp {
     
-    private let marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
+    private let marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>
     private let addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
     
-    init(marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>,
+    init(marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>,
          addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>) {
         self.marksPaneActionSubject = marksPaneActionSubject
         self.addBlockAndActionsSubject = addBlockAndActionsSubject
@@ -19,11 +19,11 @@ final class BlockMenuActionsHandlerImp {
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :
-            marksPaneActionSubject.send(.style(.alignment(.left)))
+            marksPaneActionSubject.send(.alignment(.left))
         case .right:
-            marksPaneActionSubject.send(.style(.alignment(.right)))
+            marksPaneActionSubject.send(.alignment(.right))
         case .center:
-            marksPaneActionSubject.send(.style(.alignment(.center)))
+            marksPaneActionSubject.send(.alignment(.center))
         }
     }
     
@@ -48,13 +48,13 @@ final class BlockMenuActionsHandlerImp {
         case .toggle:
             addBlockAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
         case .bold:
-            marksPaneActionSubject.send(.style(.fontStyle(.bold)))
+            marksPaneActionSubject.send(.fontStyle(.bold))
         case .italic:
-            marksPaneActionSubject.send(.style(.fontStyle(.italic)))
+            marksPaneActionSubject.send(.fontStyle(.italic))
         case .breakthrough:
-            marksPaneActionSubject.send(.style(.fontStyle(.strikethrough)))
+            marksPaneActionSubject.send(.fontStyle(.strikethrough))
         case .code:
-            marksPaneActionSubject.send(.style(.fontStyle(.keyboard)))
+            marksPaneActionSubject.send(.fontStyle(.keyboard))
         case .link:
             break
         }

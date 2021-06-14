@@ -41,7 +41,6 @@ extension BlocksViews.UserAction {
         case addBlock(AddBlock)
         case turnIntoBlock(TurnIntoBlock)
         case bookmark(Bookmark)
-        case marksPane(MarksPane)
     }
 }
 
@@ -77,58 +76,6 @@ extension BlocksViews.UserAction.ToolbarOpenAction {
     struct Bookmark {
         typealias Input = Void
         typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        var output: Output
-        var input: Input?
-    }
-}
-
-// MARK: - Marks Pane
-
-extension BlocksViews.UserAction.ToolbarOpenAction {
-    enum MarksPane {
-        case setTextColor(TextColor)
-        case setBackgroundColor(BackgroundColor)
-        case setStyle(Style)
-        case mainPane(MainPane)
-    }
-}
-
-extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
-    struct MainPane {
-        typealias Output = PassthroughSubject<MarksPane.Main.Action, Never>
-        struct Input {
-            var userResponse: MarksPane.Main.RawUserResponse?
-            var section: MarksPane.Main.Section.Category?
-            
-            /// Connect output to input.
-            ///
-            /// It means that if you want to keep GUI in consistency, you have to provide full cycle from GUI to Model and backward.
-            /// However, you could cheat a bit.
-            /// You could connect output from this GUI to its input.
-            var shouldPluginOutputIntoInput: Bool = false
-        }
-        var output: Output
-        var input: Input?
-    }
-}
-
-import UIKit
-extension BlocksViews.UserAction.ToolbarOpenAction.MarksPane {
-    struct TextColor {
-        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        var output: Output
-        var input: UIColor?
-    }
-    
-    struct BackgroundColor {
-        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        var output: Output
-        var input: UIColor?
-    }
-    
-    struct Style {
-        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-        typealias Input = MarksPane.Panes.StylePane.UserResponse
         var output: Output
         var input: Input?
     }

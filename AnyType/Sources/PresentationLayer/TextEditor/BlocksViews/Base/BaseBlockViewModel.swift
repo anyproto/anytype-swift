@@ -51,34 +51,14 @@ class BaseBlockViewModel: ObservableObject {
     
     // MARK: Marks Pane Publisher
 
-    /// This Pair ( Publisher and Subject ) can manipuate with `MarksPane.Main.Action`.
-    /// If you would like to show `MarksPane`, you will need to configure specific action.
-    ///
-    /// These steps are necessary.
-    ///
-    /// 1. Create and action that will show desired MarksPane ( our MarksPane ).
-    /// 2. Set Output to `marksPaneActionSubject` for this MarksPane.
-    /// 3. Send `showEvent` to `userActionSubject` with desired configured action ( show(MarksPaneToolbar(action(output))) )
-    /// 4. Also, if you would like configuration, you could set input as init-parameters. Look at apropriate `Input`.
-    /// 5. Listen `marksPaneActionPublisher` for incoming events from user.
-    ///
-    /// If user press something, then MarksPane will send user action to `PassthroughSubject` ( or `marksPaneActionSubject` in our case )
-    ///
-    public private(set) var marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never> = .init()
-    public lazy var marksPaneActionPublisher: AnyPublisher<MarksPane.Main.Action, Never> = marksPaneActionSubject.eraseToAnyPublisher()
+    public let marksPaneActionSubject = PassthroughSubject<MarksPaneMainAttribute, Never>()
 
     // MARK: Actions Payload Publisher
 
     private(set) var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
     
-    /// We use this subject with `.send()` internally.
-    /// Also, we merged it with toolbar action publisher.
-    /// For that reason, we should add subscription and subscribe this subject on toolbar publisher.
-    /// self.subscription = `toolbarPublisher.subscribe(self.actionsPayloadSubject)`.
-    /// We need it to receive updates from toolbar actions
-    /// And from our actions.
-    ///
     private var actionsPayloadSubjectSubscription: AnyCancellable?
+    private var marksPaneSubscription: AnyCancellable?
     
     /// DidChange Size Subject.
     /// Whenever item changes size ( or thinking so ), we have to notify our document view model about it.
@@ -93,14 +73,6 @@ class BaseBlockViewModel: ObservableObject {
     /// Default implementation do nothing
     func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {}
     
-    func handle(marksPaneAction: MarksPane.Main.Action) {
-        // Do nothing? We need external custom processors?
-        switch marksPaneAction {
-        case .style: return
-        case .textColor: return
-        case .backgroundColor: return // set background color of view and send sets background color.
-        }
-    }
 
     /// Update view data manually.
     /// Override in subclasses.
@@ -167,10 +139,10 @@ class BaseBlockViewModel: ObservableObject {
                         blockViewModel: self
                     )
                 )
-            case .color: self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: nil, section: .textColor))))))
+            case .color:
+                break
             case .backgroundColor:
-                let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(block.blockModel.information.backgroundColor, background: true) ?? .defaultColor
-                self.send(userAction: .toolbars(.marksPane(.mainPane(.init(output: self.marksPaneActionSubject, input: .init(userResponse: .init(backgroundColor: color), section: .backgroundColor, shouldPluginOutputIntoInput: true))))))
+                break
             default: return
             }
         }
@@ -193,7 +165,6 @@ extension BaseBlockViewModel: Hashable {
 // MARK: - Configurations
 
 extension BaseBlockViewModel {
-    /// TODO: Remove later. Maybe we don't need this publisher.
     func configured(sizeDidChangeSubject: PassthroughSubject<Void, Never>) {
         self.sizeDidChangeSubject = sizeDidChangeSubject
     }
@@ -201,6 +172,23 @@ extension BaseBlockViewModel {
     func configured(userActionSubject: PassthroughSubject<BlocksViews.UserAction, Never>) {
         self.userActionSubject = userActionSubject
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
+    }
+    
+    func configured(actionHandler: @escaping ((BlockActionHandler.ActionType, BlockModelProtocol) -> Void)) {
+        marksPaneSubscription = marksPaneActionSubject.sink { [weak self] marksPaneAction in
+            let model = self!.block.blockModel
+            
+            switch marksPaneAction {
+            case let .backgroundColor(color):
+                actionHandler(.setBackgroundColor(color), model)
+            case let .textColor(color):
+                actionHandler(.setTextColor(color), model)
+            case let .alignment(alignment):
+                actionHandler(.setAlignment(alignment), model)
+            case let .fontStyle(fontStyle):
+                actionHandler(.toggleFontStyle(fontStyle, NSRange()), model)
+            }
+        }
     }
     
     func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) {
@@ -211,12 +199,7 @@ extension BaseBlockViewModel {
             return ActionsPayload.toolbar(.init(model: block, action: value))
         }).safelyUnwrapOptionals()
         
-        let marksPanePublisher = self.marksPaneActionPublisher.map({ [weak self] value in
-            self.flatMap({ActionsPayload.marksPane(.init(model: $0.block, action: value))})
-        }).safelyUnwrapOptionals()
-
-        let allInOnePublisher = Publishers.Merge(toolbarPublisher, marksPanePublisher)
-        self.actionsPayloadSubjectSubscription = allInOnePublisher.sink(receiveValue: { [weak self] (value) in
+        self.actionsPayloadSubjectSubscription = toolbarPublisher.sink(receiveValue: { [weak self] (value) in
             self?.actionsPayloadSubject.send(value)
         })
     }

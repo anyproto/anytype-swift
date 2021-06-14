@@ -276,7 +276,7 @@ private extension DocumentEditorViewModel {
             viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
         case let .becomeFirstResponder(blockModel):
             document.userSession?.setFirstResponder(with: blockModel)
-        case .toolbar, .marksPane, .userAction: return
+        case .toolbar, .userAction: return
         }
     }
 }
@@ -312,6 +312,7 @@ extension DocumentEditorViewModel {
             block.configured(userActionSubject: publicUserActionSubject)
             block.configured(actionsPayloadSubject: publicActionsPayloadSubject)
             block.configured(sizeDidChangeSubject: publicSizeDidChangeSubject)
+            block.configured(actionHandler: newBlockActionHandler)
         }
     }
     

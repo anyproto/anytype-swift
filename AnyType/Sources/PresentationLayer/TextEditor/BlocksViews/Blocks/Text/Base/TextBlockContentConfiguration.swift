@@ -14,7 +14,7 @@ import Combine
 /// Content configuration for text blocks
 struct TextBlockContentConfiguration {
     
-    let marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>
+    let marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>
     let toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     let viewModel: TextBlockViewModel
     let information: BlockInformation
@@ -29,7 +29,7 @@ struct TextBlockContentConfiguration {
     init(
          textViewDelegate: TextViewDelegate?,
          viewModel: TextBlockViewModel,
-         marksPaneActionSubject: PassthroughSubject<MarksPane.Main.Action, Never>,
+         marksPaneActionSubject: PassthroughSubject<MarksPaneMainAttribute, Never>,
          toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     ) {
         self.marksPaneActionSubject = marksPaneActionSubject

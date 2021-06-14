@@ -12,8 +12,6 @@ class ToolbarsRouter: DocumentViewBaseCompoundRouter {
         case .toolbars(.addBlock): return self.router(of: AddBlockToolbarRouter.self)
         case .toolbars(.turnIntoBlock): return self.router(of: TurnIntoToolbarRouter.self)
         case .toolbars(.bookmark): return self.router(of: BookmarkToolbarRouter.self)
-        case .toolbars(.marksPane):
-            return nil
         case .specific:
             return nil
         }
