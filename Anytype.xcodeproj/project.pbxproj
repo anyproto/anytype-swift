@@ -224,10 +224,10 @@
 		1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */; };
 		1280E20D265C1B5300E5AEEE /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */; };
 		1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */; };
-		128495D126726EE300351C66 /* DocumentSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D026726EE300351C66 /* DocumentSettingsView.swift */; };
-		128495D32672701500351C66 /* DocumentSettingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D22672701500351C66 /* DocumentSettingsListView.swift */; };
+		128495D126726EE300351C66 /* DocumentSettingsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D026726EE300351C66 /* DocumentSettingsContentView.swift */; };
+		128495D32672701500351C66 /* DocumentSettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D22672701500351C66 /* DocumentSettingsList.swift */; };
 		128495D52672708F00351C66 /* DocumentSettingsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */; };
-		128495D7267273DD00351C66 /* DocumentSettingsListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D6267273DD00351C66 /* DocumentSettingsListRowView.swift */; };
+		128495D7267273DD00351C66 /* DocumentSettingsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */; };
 		128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128495DF267371B900351C66 /* BottomFloaterBuilder.swift */; };
 		12858E7D264ABAC200A7FE0F /* DocumentDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */; };
 		12A21FF72655643200207DD4 /* DocumentIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A21FF62655643200207DD4 /* DocumentIconImageView.swift */; };
@@ -251,6 +251,7 @@
 		12E014D4266FCA7A008036B0 /* MainWindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */; };
 		12E014F826722FEA008036B0 /* DocumentViewCompoundRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */; };
 		12E014FC2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */; };
+		12E28DDA26739BBA00C97370 /* DocumentSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E28DD926739BBA00C97370 /* DocumentSetting.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */; };
 		3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */; };
@@ -791,10 +792,10 @@
 		1280E20A265C1A5700E5AEEE /* UIImageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageExtensions.swift; sourceTree = SOURCE_ROOT; };
 		1280E20C265C1B5300E5AEEE /* ImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageGuideline.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Utils/ImageGuideline.swift; sourceTree = SOURCE_ROOT; };
 		1280E20E265C1B7900E5AEEE /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCornersGuideline.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Utils/ImageCornersGuideline.swift; sourceTree = SOURCE_ROOT; };
-		128495D026726EE300351C66 /* DocumentSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsView.swift; sourceTree = "<group>"; };
-		128495D22672701500351C66 /* DocumentSettingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListView.swift; sourceTree = "<group>"; };
+		128495D026726EE300351C66 /* DocumentSettingsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsContentView.swift; sourceTree = "<group>"; };
+		128495D22672701500351C66 /* DocumentSettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsList.swift; sourceTree = "<group>"; };
 		128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListViewModel.swift; sourceTree = "<group>"; };
-		128495D6267273DD00351C66 /* DocumentSettingsListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListRowView.swift; sourceTree = "<group>"; };
+		128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSettingsListRow.swift; sourceTree = "<group>"; };
 		128495DF267371B900351C66 /* BottomFloaterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFloaterBuilder.swift; sourceTree = "<group>"; };
 		12858E7C264ABAC200A7FE0F /* DocumentDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsView.swift; sourceTree = "<group>"; };
 		12A21FF62655643200207DD4 /* DocumentIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIconImageView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/DocumentIconImageView.swift; sourceTree = SOURCE_ROOT; };
@@ -818,6 +819,7 @@
 		12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowHolder.swift; sourceTree = "<group>"; };
 		12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewCompoundRouter.swift; sourceTree = "<group>"; };
 		12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewBaseCompoundRouter.swift; sourceTree = "<group>"; };
+		12E28DD926739BBA00C97370 /* DocumentSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSetting.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsConverter.swift; sourceTree = "<group>"; };
 		3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileStateConverter.swift; sourceTree = "<group>"; };
@@ -2137,9 +2139,10 @@
 		128495CF26726EBC00351C66 /* DocumentSettings */ = {
 			isa = PBXGroup;
 			children = (
-				128495D026726EE300351C66 /* DocumentSettingsView.swift */,
-				128495D22672701500351C66 /* DocumentSettingsListView.swift */,
-				128495D6267273DD00351C66 /* DocumentSettingsListRowView.swift */,
+				128495D026726EE300351C66 /* DocumentSettingsContentView.swift */,
+				128495D22672701500351C66 /* DocumentSettingsList.swift */,
+				128495D6267273DD00351C66 /* DocumentSettingsListRow.swift */,
+				12E28DD926739BBA00C97370 /* DocumentSetting.swift */,
 				128495D42672708F00351C66 /* DocumentSettingsListViewModel.swift */,
 			);
 			path = DocumentSettings;
@@ -3582,7 +3585,7 @@
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
-				128495D32672701500351C66 /* DocumentSettingsListView.swift in Sources */,
+				128495D32672701500351C66 /* DocumentSettingsList.swift in Sources */,
 				3D568F912666C27100DC7881 /* ContentBookmarkConverter.swift in Sources */,
 				EA77E527262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,
@@ -3647,7 +3650,7 @@
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */,
-				128495D126726EE300351C66 /* DocumentSettingsView.swift in Sources */,
+				128495D126726EE300351C66 /* DocumentSettingsContentView.swift in Sources */,
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */,
@@ -3658,6 +3661,7 @@
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
+				12E28DDA26739BBA00C97370 /* DocumentSetting.swift in Sources */,
 				53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */,
@@ -3704,7 +3708,7 @@
 				EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
 				0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */,
-				128495D7267273DD00351C66 /* DocumentSettingsListRowView.swift in Sources */,
+				128495D7267273DD00351C66 /* DocumentSettingsListRow.swift in Sources */,
 				5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */,
 				EAC6BA9626270F73004C8C06 /* FileBlockRestrictions.swift in Sources */,
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,

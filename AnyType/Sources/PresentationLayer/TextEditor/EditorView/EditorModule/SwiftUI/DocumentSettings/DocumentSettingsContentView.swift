@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct DocumentSettingsView: View {
+struct DocumentSettingsContentView: View {
     
     @StateObject private var settingsListViewModel = DocumentSettingsListViewModel()
     var body: some View {
@@ -9,10 +9,11 @@ struct DocumentSettingsView: View {
             spacing: 0
         ) {
             DragIndicator()
-            DocumentSettingsListView()
+            DocumentSettingsList()
         }
         .background(Color.background)
         .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
         .environmentObject(settingsListViewModel)
     }
 }

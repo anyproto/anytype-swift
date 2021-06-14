@@ -426,10 +426,10 @@ private extension DocumentEditorViewController {
         UISelectionFeedbackGenerator().selectionChanged()
         
         let vc = bottomFloaterBuilder.builBottomFloater {
-            DocumentSettingsView().padding(8)
+            DocumentSettingsContentView().padding(8)
         }
         
-        present(vc, animated: false)
+        present(vc, animated: true)
     }
     
 }
