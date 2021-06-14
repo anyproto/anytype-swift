@@ -77,12 +77,9 @@
 		0A08D4C224AF822C0088ECC2 /* CommonViewsNamespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08D4C124AF822B0088ECC2 /* CommonViewsNamespace.swift */; };
 		0A08D4C424AF824D0088ECC2 /* CommonViews+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08D4C324AF824D0088ECC2 /* CommonViews+ViewControllers.swift */; };
 		0A08D4C624AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08D4C524AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift */; };
-		0A0965E425BEF5B000C004BD /* PageBlocksViewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C025BEF5B000C004BD /* PageBlocksViewsRouter.swift */; };
-		0A0965E525BEF5B000C004BD /* FileBlocksViewsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C125BEF5B000C004BD /* FileBlocksViewsRouter.swift */; };
-		0A0965E625BEF5B000C004BD /* DocumentViewBaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C225BEF5B000C004BD /* DocumentViewBaseRouter.swift */; };
-		0A0965E725BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C325BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift */; };
-		0A0965E925BEF5B000C004BD /* DocumentViewRouting+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */; };
-		0A0965EA25BEF5B000C004BD /* ToolbarsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C625BEF5B000C004BD /* ToolbarsRouter.swift */; };
+		0A0965E425BEF5B000C004BD /* EmojiViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C025BEF5B000C004BD /* EmojiViewRouter.swift */; };
+		0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C125BEF5B000C004BD /* FileRouter.swift */; };
+		0A0965EA25BEF5B000C004BD /* TurnIntoToolbarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C625BEF5B000C004BD /* TurnIntoToolbarRouter.swift */; };
 		0A0965EC25BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965C925BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift */; };
 		0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */; };
 		0A0965F125BEF5B000C004BD /* EditorSelectionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0965CE25BEF5B000C004BD /* EditorSelectionHandler.swift */; };
@@ -238,7 +235,6 @@
 		12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */; };
 		12E014D4266FCA7A008036B0 /* MainWindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */; };
 		12E014F826722FEA008036B0 /* DocumentViewCompoundRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */; };
-		12E014FC2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */; };
 		12E28DDA26739BBA00C97370 /* DocumentSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E28DD926739BBA00C97370 /* DocumentSetting.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */; };
@@ -346,6 +342,8 @@
 		3DBED6A1266FBF6A00B9E9AB /* UnknownLabelContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A0266FBF6A00B9E9AB /* UnknownLabelContentView.swift */; };
 		3DBED6AB266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */; };
 		3DBED6B8266FF4A800B9E9AB /* FloaterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */; };
+		3DC06DF9267681E0005F0A45 /* BookmarkToolbarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC06DF8267681E0005F0A45 /* BookmarkToolbarRouter.swift */; };
+		3DC06DFB26768363005F0A45 /* AddBlockToolbarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC06DFA26768363005F0A45 /* AddBlockToolbarRouter.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareListener.swift */; };
 		3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* InnerEventConverter.swift */; };
 		3DC78638265D571500498993 /* OurEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* OurEventConverter.swift */; };
@@ -420,7 +418,6 @@
 		53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */; };
 		53F8211326529D26003FEB0B /* TextViewUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211226529D26003FEB0B /* TextViewUpdatable.swift */; };
 		53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8215A2655C871003FEB0B /* BottomSheetsFactory.swift */; };
-		A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */; };
 		A34FA1B1245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */; };
 		A34FA1B5245AF6DC00C395C0 /* EmojiPicker+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */; };
 		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
@@ -638,12 +635,9 @@
 		0A08D4C124AF822B0088ECC2 /* CommonViewsNamespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonViewsNamespace.swift; sourceTree = "<group>"; };
 		0A08D4C324AF824D0088ECC2 /* CommonViews+ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonViews+ViewControllers.swift"; sourceTree = "<group>"; };
 		0A08D4C524AF827C0088ECC2 /* CommonViews+ViewControllers+TransitionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommonViews+ViewControllers+TransitionContainer.swift"; sourceTree = "<group>"; };
-		0A0965C025BEF5B000C004BD /* PageBlocksViewsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageBlocksViewsRouter.swift; sourceTree = "<group>"; };
-		0A0965C125BEF5B000C004BD /* FileBlocksViewsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBlocksViewsRouter.swift; sourceTree = "<group>"; };
-		0A0965C225BEF5B000C004BD /* DocumentViewBaseRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewBaseRouter.swift; sourceTree = "<group>"; };
-		0A0965C325BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentViewRoutingOutputEvent.swift; sourceTree = "<group>"; };
-		0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DocumentViewRouting+Protocols.swift"; sourceTree = "<group>"; };
-		0A0965C625BEF5B000C004BD /* ToolbarsRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarsRouter.swift; sourceTree = "<group>"; };
+		0A0965C025BEF5B000C004BD /* EmojiViewRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiViewRouter.swift; sourceTree = "<group>"; };
+		0A0965C125BEF5B000C004BD /* FileRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileRouter.swift; sourceTree = "<group>"; };
+		0A0965C625BEF5B000C004BD /* TurnIntoToolbarRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TurnIntoToolbarRouter.swift; sourceTree = "<group>"; };
 		0A0965C925BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorModuleSelectionHandlerHolderProtocol.swift; sourceTree = "<group>"; };
 		0A0965CB25BEF5B000C004BD /* DocumentEditorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentEditorViewModel.swift; sourceTree = "<group>"; };
 		0A0965CE25BEF5B000C004BD /* EditorSelectionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSelectionHandler.swift; sourceTree = "<group>"; };
@@ -794,7 +788,6 @@
 		12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		12E014D3266FCA7A008036B0 /* MainWindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowHolder.swift; sourceTree = "<group>"; };
 		12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewCompoundRouter.swift; sourceTree = "<group>"; };
-		12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewBaseCompoundRouter.swift; sourceTree = "<group>"; };
 		12E28DD926739BBA00C97370 /* DocumentSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSetting.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsConverter.swift; sourceTree = "<group>"; };
@@ -900,6 +893,8 @@
 		3DBED6A0266FBF6A00B9E9AB /* UnknownLabelContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UnknownLabelContentView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Unknown/UnknownLabelContentView.swift; sourceTree = SOURCE_ROOT; };
 		3DBED6AA266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ContextMenuAction+TextAttributesType.swift"; path = "AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/BlockActionHandlers/Extensions/ContextMenuAction+TextAttributesType.swift"; sourceTree = SOURCE_ROOT; };
 		3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FloaterWrapper.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/SwiftUI/FloaterWrapper.swift; sourceTree = SOURCE_ROOT; };
+		3DC06DF8267681E0005F0A45 /* BookmarkToolbarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BookmarkToolbarRouter.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Routing/OldRouing/Routers/BookmarkToolbarRouter.swift; sourceTree = SOURCE_ROOT; };
+		3DC06DFA26768363005F0A45 /* AddBlockToolbarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddBlockToolbarRouter.swift; path = AnyType/Sources/PresentationLayer/TextEditor/EditorView/Routing/OldRouing/Routers/AddBlockToolbarRouter.swift; sourceTree = SOURCE_ROOT; };
 		3DC7862C265D251900498993 /* MiddlewareListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* InnerEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* OurEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEventConverter.swift; sourceTree = "<group>"; };
@@ -971,7 +966,6 @@
 		53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewManagingFocus.swift; sourceTree = "<group>"; };
 		53F8211226529D26003FEB0B /* TextViewUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewUpdatable.swift; sourceTree = "<group>"; };
 		53F8215A2655C871003FEB0B /* BottomSheetsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetsFactory.swift; sourceTree = "<group>"; };
-		A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+UserAction+Page.swift"; sourceTree = "<group>"; };
 		A34FA1B0245ACCEA00C395C0 /* EmojiPicker+ViewController+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+ViewController+EmptyView.swift"; sourceTree = "<group>"; };
 		A34FA1B4245AF6DC00C395C0 /* EmojiPicker+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EmojiPicker+Manager.swift"; sourceTree = "<group>"; };
 		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
@@ -2001,7 +1995,6 @@
 				0ADE619224488FFD00244E49 /* BlocksViews+UserAction+Protocols.swift */,
 				0ADE618C2448878300244E49 /* BlocksViews+UserActions.swift */,
 				0ADE618E24488C5400244E49 /* BlocksViews+UserAction+File.swift */,
-				A31F979824728A93007D4FC5 /* BlocksViews+UserAction+Page.swift */,
 			);
 			path = UserActions;
 			sourceTree = "<group>";
@@ -2740,9 +2733,11 @@
 		3DD67EDC2653B1030025ED6F /* Routers */ = {
 			isa = PBXGroup;
 			children = (
-				0A0965C025BEF5B000C004BD /* PageBlocksViewsRouter.swift */,
-				0A0965C625BEF5B000C004BD /* ToolbarsRouter.swift */,
-				0A0965C125BEF5B000C004BD /* FileBlocksViewsRouter.swift */,
+				0A0965C025BEF5B000C004BD /* EmojiViewRouter.swift */,
+				0A0965C625BEF5B000C004BD /* TurnIntoToolbarRouter.swift */,
+				0A0965C125BEF5B000C004BD /* FileRouter.swift */,
+				3DC06DF8267681E0005F0A45 /* BookmarkToolbarRouter.swift */,
+				3DC06DFA26768363005F0A45 /* AddBlockToolbarRouter.swift */,
 			);
 			path = Routers;
 			sourceTree = "<group>";
@@ -2980,11 +2975,7 @@
 			isa = PBXGroup;
 			children = (
 				3DD67EDC2653B1030025ED6F /* Routers */,
-				0A0965C225BEF5B000C004BD /* DocumentViewBaseRouter.swift */,
-				12E014FB2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift */,
 				12E014F726722FEA008036B0 /* DocumentViewCompoundRouter.swift */,
-				0A0965C525BEF5B000C004BD /* DocumentViewRouting+Protocols.swift */,
-				0A0965C325BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift */,
 			);
 			path = OldRouing;
 			sourceTree = "<group>";
@@ -3426,7 +3417,6 @@
 				EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */,
 				0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */,
 				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
-				0A0965E925BEF5B000C004BD /* DocumentViewRouting+Protocols.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
 				EA289B932629A89400EA869F /* BlockMenuItemSimpleDisplayData.swift in Sources */,
 				EA5FB44F266E2B6400DCD56C /* MentionsParser.swift in Sources */,
@@ -3440,7 +3430,7 @@
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				0A2C0D64247145BD008ADD86 /* TextView+BlocksToolbar.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
-				0A0965E425BEF5B000C004BD /* PageBlocksViewsRouter.swift in Sources */,
+				0A0965E425BEF5B000C004BD /* EmojiViewRouter.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
@@ -3505,6 +3495,7 @@
 				EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */,
 				0A31FDF724CF0DDC006D9B4E /* BlocksModelsParserLinkStyleConverter.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
+				3DC06DF9267681E0005F0A45 /* BookmarkToolbarRouter.swift in Sources */,
 				1280E209265C17F800E5AEEE /* PlaceholderImageBuilder.swift in Sources */,
 				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
 				3DBED6AB266FEB6500B9E9AB /* ContextMenuAction+TextAttributesType.swift in Sources */,
@@ -3600,7 +3591,6 @@
 				0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */,
 				122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */,
 				3D9D048C265C49F1009412B8 /* ActionsPayload.swift in Sources */,
-				12E014FC2672300C008036B0 /* DocumentViewBaseCompoundRouter.swift in Sources */,
 				EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */,
 				0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */,
 				3DC78638265D571500498993 /* OurEventConverter.swift in Sources */,
@@ -3630,7 +3620,6 @@
 				531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */,
 				03CB3F10230C414C003D5DFD /* ImageService.swift in Sources */,
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
-				0A0965E625BEF5B000C004BD /* DocumentViewBaseRouter.swift in Sources */,
 				3DBED679266F7A4C00B9E9AB /* BlockActionTypes.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */,
@@ -3681,7 +3670,7 @@
 				3DB27C1E261B12C1005E523C /* CodingPathConverter.swift in Sources */,
 				3D929B6226332ACA0063F1BE /* PageCellData.swift in Sources */,
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
-				0A0965EA25BEF5B000C004BD /* ToolbarsRouter.swift in Sources */,
+				0A0965EA25BEF5B000C004BD /* TurnIntoToolbarRouter.swift in Sources */,
 				EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */,
@@ -3747,7 +3736,6 @@
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				3D568F972666D0FA00DC7881 /* EventDetailsAndSetDetailsConverter.swift in Sources */,
-				0A0965E725BEF5B000C004BD /* DocumentViewRoutingOutputEvent.swift in Sources */,
 				EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				3DA3693D2629B6BE001557C9 /* EventHandlerUpdate.swift in Sources */,
@@ -3792,6 +3780,7 @@
 				0A2C0D6C247145BD008ADD86 /* TextView+BlocksAccessoryView.swift in Sources */,
 				0372922E23F991B60033DFDB /* MiddlewareModels.swift in Sources */,
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
+				3DC06DFB26768363005F0A45 /* AddBlockToolbarRouter.swift in Sources */,
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* NotificationEventListener.swift in Sources */,
@@ -3818,7 +3807,6 @@
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift in Sources */,
-				A31F979924728A93007D4FC5 /* BlocksViews+UserAction+Page.swift in Sources */,
 				0ADE618F24488C5400244E49 /* BlocksViews+UserAction+File.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
@@ -3826,7 +3814,7 @@
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */,
 				533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */,
-				0A0965E525BEF5B000C004BD /* FileBlocksViewsRouter.swift in Sources */,
+				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViews+Toolbar.swift in Sources */,

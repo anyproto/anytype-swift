@@ -74,13 +74,7 @@ private extension DocumentIconViewModel {
             }
             .store(in: &subscriptions)
         
-        userActionSubject.send(
-            BlockUserAction.page(
-                BlockUserAction.Page.UserAction.emoji(
-                    BlockUserAction.Page.UserAction.EmojiAction.shouldShowEmojiPicker(model)
-                )
-            )
-        )
+        userActionSubject.send(BlockUserAction.emoji(model))
     }
     
     func showImagePicker() {
@@ -103,11 +97,7 @@ private extension DocumentIconViewModel {
         }
         
         userActionSubject.send(
-            BlockUserAction.file(
-                BlockUserAction.File.FileAction.shouldShowImagePicker(
-                    .init(model: model)
-                )
-            )
+            BlockUserAction.file(.shouldShowImagePicker(model))
         )
     }
     

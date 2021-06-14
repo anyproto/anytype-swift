@@ -10,6 +10,6 @@ final class VideoBlockViewModel: BlocksViews.File.Base.ViewModel {
     override func handleReplace() {
         let model: MediaPicker.ViewModel = .init(type: .videos)
         self.configureMediaPickerViewModel(model)
-        self.send(userAction: .file(.shouldShowImagePicker(.init(model: model))))
+        self.send(userAction: .file(.shouldShowImagePicker(model)))
     }
 }

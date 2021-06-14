@@ -107,7 +107,7 @@ extension Namespace {
             case .video, .file:
                 URLResolver().obtainFileURLPublisher(fileId: file.metadata.hash).sink(receiveCompletion: { _ in }, receiveValue: { [weak self] url in
                     guard let url = url else { return }
-                    self?.send(userAction: .file(.shouldSaveFile(.init(fileURL: url))))
+                    self?.send(userAction: .file(.shouldSaveFile(fileURL: url)))
                 }).store(in: &self.subscriptions)
             case .none:
                 return
@@ -140,7 +140,7 @@ extension Namespace {
                     .init(
                         model: block,
                         action: .file(
-                            .shouldUploadFile(.init(filePath: filePath)))
+                            .shouldUploadFile(filePath: filePath))
                     )
                 )
             )

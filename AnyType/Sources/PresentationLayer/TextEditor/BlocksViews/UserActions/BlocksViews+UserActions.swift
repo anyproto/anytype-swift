@@ -4,7 +4,7 @@ import Combine
 extension BlocksViews {
     enum UserAction {
         case file(File.FileAction)
-        case page(Page.UserAction)
+        case emoji(EmojiPicker.ViewModel)
         
         case addBlock(AddBlock)
         case turnIntoBlock(TurnIntoBlock)

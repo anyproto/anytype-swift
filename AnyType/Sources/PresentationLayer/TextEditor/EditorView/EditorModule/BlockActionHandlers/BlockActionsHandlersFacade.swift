@@ -81,8 +81,8 @@ final class BlockActionsHandlersFacade {
                 self.buttonBlockActionHandler.handlingButtonViewAction(value.model, action)
             }
         case let .userAction(userAction):
-            if case let .file(.shouldUploadFile(uploadData)) = userAction.action {
-                service.upload(block: userAction.model.blockModel.information, filePath: uploadData.filePath)
+            if case let .file(.shouldUploadFile(filePath)) = userAction.action {
+                service.upload(block: userAction.model.blockModel.information, filePath: filePath)
             }
         case .showCodeLanguageView: return
         case .showStyleMenu: return

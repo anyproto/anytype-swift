@@ -73,9 +73,7 @@ private extension DocumentCoverViewModel {
         
         userActionSubject.send(
             BlockUserAction.file(
-                BlockUserAction.File.FileAction.shouldShowImagePicker(
-                    .init(model: model)
-                )
+                BlockUserAction.File.FileAction.shouldShowImagePicker(model)
             )
         )
     }

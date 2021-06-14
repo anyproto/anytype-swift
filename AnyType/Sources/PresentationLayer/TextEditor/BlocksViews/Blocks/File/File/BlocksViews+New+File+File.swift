@@ -19,7 +19,7 @@ extension Namespace {
         override func handleReplace() {
             let model: CommonViews.Pickers.File.Picker.ViewModel = .init()
             self.configureListening(model)
-            self.send(userAction: .file(.shouldShowFilePicker(.init(model: model))))
+            self.send(userAction: .file(.shouldShowFilePicker(model)))
         }
     }
 }
