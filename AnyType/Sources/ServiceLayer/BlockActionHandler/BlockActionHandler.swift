@@ -49,8 +49,7 @@ class BlockActionHandler {
 
 private extension BlockActionHandler {
     func setBlockColor(block: BlockInformation, color: UIColor, completion: Completion?) {
-        // Important: we don't send command if color is wrong
-        guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(color, background: false) else {
+        guard let color = MiddlewareColorConverter.asMiddleware(color, background: false) else {
             assertionFailure("Wrong UIColor for setBlockColor command")
             return
         }
@@ -140,11 +139,10 @@ private extension BlockActionHandler {
                 .sink(receiveCompletion: {_ in }, receiveValue: {})
                 .store(in: &self.subscriptions)
         case .keyboard:
-            typealias ColorsConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
             // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
-            var keyboardColor = ColorsConverter.Colors.grey.color(background: true)
-            let backgroundColor = ColorsConverter.asModel(newBlock.information.backgroundColor, background: true)
-            keyboardColor = backgroundColor == keyboardColor ? ColorsConverter.Colors.default.color(background: true) : keyboardColor
+            var keyboardColor = MiddlewareColor.grey.color(background: true)
+            let backgroundColor = MiddlewareColorConverter.asModel(newBlock.information.backgroundColor, background: true)
+            keyboardColor = backgroundColor == keyboardColor ? MiddlewareColor.default.color(background: true) : keyboardColor
 
             self.service.setBackgroundColor(block: newBlock.information, color: keyboardColor)
         }

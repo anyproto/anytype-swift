@@ -78,7 +78,7 @@ final class CodeBlockContentView: UIView & UIContentView {
         button.translatesAutoresizingMaskIntoConstraints = false
 
         button.label.font = UIFont.bodyFont
-        button.label.textColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.Colors.grey.color()
+        button.label.textColor = MiddlewareColor.grey.color()
         let image = UIImage(named: "TextEditor/Toolbar/turn_into_arrow")
         button.setImage(image)
 
@@ -163,7 +163,7 @@ final class CodeBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
-        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+        typealias ColorConverter = MiddlewareColorConverter
 
         currentConfiguration.viewModel?.codeBlockView = self
         codeSelectButton.setText(currentConfiguration.viewModel?.codeLanguage ?? Constants.defaultLanguage)
@@ -187,8 +187,8 @@ final class CodeBlockContentView: UIView & UIContentView {
     }
 
     private func setupBackgroundColor() {
-        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
-        let color = ColorConverter.Colors(name: currentConfiguration.information.backgroundColor)?.color(background: true) ?? UIColor.lightColdGray
+        typealias ColorConverter = MiddlewareColorConverter
+        let color = MiddlewareColor(name: currentConfiguration.information.backgroundColor)?.color(background: true) ?? UIColor.lightColdGray
         textView.backgroundColor = color
     }
 }

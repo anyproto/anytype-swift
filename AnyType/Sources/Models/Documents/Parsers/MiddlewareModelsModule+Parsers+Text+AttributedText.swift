@@ -200,13 +200,13 @@ private extension Namespace {
             case .link: return .link(URLConverter.asModel(tuple.value))
 
             case .textColor:
-                guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(tuple.value) else {
+                guard let color = MiddlewareColorConverter.asModel(tuple.value) else {
                     return nil
                 }
                 return .textColor(color)
 
             case .backgroundColor:
-                guard let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(tuple.value, background: true) else {
+                guard let color = MiddlewareColorConverter.asModel(tuple.value, background: true) else {
                     return nil
                 }
                 return .backgroundColor(color)
@@ -225,12 +225,12 @@ private extension Namespace {
 
             case let .textColor(value):
                 guard let uiColor = value,
-                      let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(uiColor) else { return nil }
+                      let color = MiddlewareColorConverter.asMiddleware(uiColor) else { return nil }
                 return .init(attribute: .textColor, value: color)
 
             case let .backgroundColor(value):
                 guard let uiColor = value,
-                      let color = MiddlewareModelsModule.Parsers.Text.Color.Converter.asMiddleware(uiColor, background: true) else {
+                      let color = MiddlewareColorConverter.asMiddleware(uiColor, background: true) else {
                     return nil
                 }
                 return .init(attribute: .backgroundColor, value: color)

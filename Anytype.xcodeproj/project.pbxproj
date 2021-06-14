@@ -444,7 +444,7 @@
 		EA289BDC262AE59200EA869F /* BlockMediaAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BDB262AE59200EA869F /* BlockMediaAction.swift */; };
 		EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */; };
 		EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE4262AE61200EA869F /* BlockAction.swift */; };
-		EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE7262AE62E00EA869F /* BlockColorAction.swift */; };
+		EA289BE8262AE62E00EA869F /* BlockColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE7262AE62E00EA869F /* BlockColor.swift */; };
 		EA289BEC262AE66000EA869F /* BlockBackgroundColorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */; };
 		EA2F0D60264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */; };
 		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
@@ -990,7 +990,7 @@
 		EA289BDB262AE59200EA869F /* BlockMediaAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMediaAction.swift; sourceTree = "<group>"; };
 		EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockOtherAction.swift; sourceTree = "<group>"; };
 		EA289BE4262AE61200EA869F /* BlockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAction.swift; sourceTree = "<group>"; };
-		EA289BE7262AE62E00EA869F /* BlockColorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockColorAction.swift; sourceTree = "<group>"; };
+		EA289BE7262AE62E00EA869F /* BlockColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockColor.swift; sourceTree = "<group>"; };
 		EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBackgroundColorAction.swift; sourceTree = "<group>"; };
 		EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuItemSimpleDisplayDataFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
@@ -3086,7 +3086,7 @@
 				EA289BDB262AE59200EA869F /* BlockMediaAction.swift */,
 				EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */,
 				EA289BE4262AE61200EA869F /* BlockAction.swift */,
-				EA289BE7262AE62E00EA869F /* BlockColorAction.swift */,
+				EA289BE7262AE62E00EA869F /* BlockColor.swift */,
 				EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */,
 				EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */,
 				EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */,
@@ -3519,7 +3519,7 @@
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
-				EA289BE8262AE62E00EA869F /* BlockColorAction.swift in Sources */,
+				EA289BE8262AE62E00EA869F /* BlockColor.swift in Sources */,
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,

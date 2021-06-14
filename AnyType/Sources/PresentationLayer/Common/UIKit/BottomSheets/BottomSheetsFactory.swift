@@ -62,7 +62,7 @@ final class BottomSheetsFactory {
             return attributes
         }
 
-        typealias ColorConverter = MiddlewareModelsModule.Parsers.Text.Color.Converter
+        typealias ColorConverter = MiddlewareColorConverter
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = blockModel.information.content else { return nil }
             return ColorConverter.asModel(textContent.color, background: false)

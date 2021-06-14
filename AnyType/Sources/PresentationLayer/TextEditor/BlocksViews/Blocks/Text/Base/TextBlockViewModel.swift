@@ -104,7 +104,7 @@ extension TextBlockViewModel {
             let attributedText = blockType.attributedText
             
             let alignment = information.alignment.asTextAlignment
-            let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(blockType.color)
+            let blockColor = MiddlewareColorConverter.asModel(blockType.color)
 
             textViewUpdate = TextViewUpdate.payload(
                 .init(
@@ -169,7 +169,7 @@ private extension TextBlockViewModel {
             .receiveOnMain()
             .map { value -> TextViewUpdate in
                 let (text, alignment) = value
-                let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(text.color)
+                let blockColor = MiddlewareColorConverter.asModel(text.color)
                 return .payload(.init(attributedString: text.attributedText, auxiliary: .init(textAlignment: alignment,
                                                                                               blockColor: blockColor)))
             }

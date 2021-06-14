@@ -58,7 +58,7 @@ final class ButtonWithImage: UIControl {
 
         label.font = UIFont.bodyFont
         label.isHidden = true
-        label.textColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.Colors.grey.color()
+        label.textColor = MiddlewareColor.grey.color()
         label.isUserInteractionEnabled = false
 
         addSubview(container)

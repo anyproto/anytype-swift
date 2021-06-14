@@ -113,7 +113,7 @@ private extension CodeBlockViewModel {
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .map { textContent -> TextViewUpdate in
-                let blockColor = MiddlewareModelsModule.Parsers.Text.Color.Converter.asModel(textContent.color)
+                let blockColor = MiddlewareColorConverter.asModel(textContent.color)
                 return .payload(.init(attributedString: textContent.attributedText, auxiliary: .init(textAlignment: .left,
                                                                                               blockColor: blockColor)))
             }
