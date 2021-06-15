@@ -11,6 +11,8 @@ final class EmojiProvider {
     // MARK: - Internal functions
     
     func filteredEmojiGroups(keyword: String) -> [EmojiGroup] {
+        guard !keyword.isEmpty else { return emojiGroups }
+        
         let lowercasedKeyword = keyword.lowercased()
         
         let filteredGroups: [EmojiGroup] = emojiGroups.compactMap { group in

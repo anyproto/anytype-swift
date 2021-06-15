@@ -222,6 +222,9 @@
 		12BC46D1265E930300797530 /* DocumentIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BC46D0265E930300797530 /* DocumentIconView.swift */; };
 		12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
+		12D94FD12678CD1F00F794EB /* DocumentIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */; };
+		12D94FD32678DA6300F794EB /* EmojiGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D94FD22678DA6300F794EB /* EmojiGridView.swift */; };
+		12D950042678EFE800F794EB /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D950032678EFE800F794EB /* SearchBar.swift */; };
 		12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4039264AD006007B5074 /* ConfigurableView.swift */; };
 		12DE403D264AD15D007B5074 /* OptionalExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE403C264AD15D007B5074 /* OptionalExtensions.swift */; };
 		12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4046264AE455007B5074 /* StackedLayout.swift */; };
@@ -776,6 +779,9 @@
 		12BC46D0265E930300797530 /* DocumentIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIconView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/DocumentIconView.swift; sourceTree = SOURCE_ROOT; };
 		12BE8E5B26565D85000C95B9 /* DetailsInformationProviderExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailsInformationProviderExtensions.swift; path = Anytype/Sources/Models/Extensions/DetailsInformationProviderExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
+		12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPicker.swift; sourceTree = "<group>"; };
+		12D94FD22678DA6300F794EB /* EmojiGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiGridView.swift; sourceTree = "<group>"; };
+		12D950032678EFE800F794EB /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		12DE4039264AD006007B5074 /* ConfigurableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableView.swift; sourceTree = "<group>"; };
 		12DE403C264AD15D007B5074 /* OptionalExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalExtensions.swift; sourceTree = "<group>"; };
 		12DE4046264AE455007B5074 /* StackedLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackedLayout.swift; sourceTree = "<group>"; };
@@ -2110,6 +2116,15 @@
 			path = GestureRecognizer;
 			sourceTree = "<group>";
 		};
+		12D94FCF2678CD1200F794EB /* DocumentIconPicker */ = {
+			isa = PBXGroup;
+			children = (
+				12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */,
+				12D94FD22678DA6300F794EB /* EmojiGridView.swift */,
+			);
+			path = DocumentIconPicker;
+			sourceTree = "<group>";
+		};
 		12DE4038264ACF83007B5074 /* View protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -2360,6 +2375,7 @@
 				3D0BFB39263BE797007CC856 /* AsyncImage.swift */,
 				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
 				3DB92F84264BF69900E83276 /* View+CornerRadius.swift */,
+				12D950032678EFE800F794EB /* SearchBar.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2686,6 +2702,7 @@
 		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				12D94FCF2678CD1200F794EB /* DocumentIconPicker */,
 				128495CF26726EBC00351C66 /* DocumentSettings */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
 				3DBED6B7266FF4A800B9E9AB /* FloaterWrapper.swift */,
@@ -3512,6 +3529,7 @@
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* PageCell.swift in Sources */,
+				12D94FD12678CD1F00F794EB /* DocumentIconPicker.swift in Sources */,
 				3DD2FC49262085DF00C65466 /* SettingsAssembly.swift in Sources */,
 				0A78327424BC82B400A1B6F6 /* PageEventConverter.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
@@ -3826,6 +3844,7 @@
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
 				3DC06DFB26768363005F0A45 /* AddBlockToolbarRouter.swift in Sources */,
 				0A09660425BEF5B000C004BD /* DocumentSection.swift in Sources */,
+				12D950042678EFE800F794EB /* SearchBar.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				0A2CEDF124A8DB5700D1DCBC /* NotificationEventListener.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
@@ -3857,6 +3876,7 @@
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				3DB92FA4264D8B0100E83276 /* SettingSectionViewModel.swift in Sources */,
 				533856852638CBE0005A06A9 /* SimpleSegmentControl.swift in Sources */,
+				12D94FD32678DA6300F794EB /* EmojiGridView.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,

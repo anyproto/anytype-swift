@@ -28,7 +28,7 @@ struct DocumentSettingsListRow: View {
                 }
             }
         }
-        .disabled(setting.isAvailable)
+        .disabled(!setting.isAvailable)
     }
 }
 

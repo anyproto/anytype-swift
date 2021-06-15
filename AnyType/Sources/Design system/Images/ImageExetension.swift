@@ -35,6 +35,11 @@ extension Image {
 
 extension Image {
     
+    enum SearchBar {
+        static let magnifyingglass = Image(systemName: "magnifyingglass")
+        static let circleFill = Image(systemName: "multiply.circle.fill")
+    }
+    
     enum ObjectSettings {
         static let icon = Image("object_settings_icon")
         static let cover = Image("object_settings_cover")

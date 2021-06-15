@@ -11,10 +11,13 @@ struct DocumentSettingsList: View {
                     icon: Image.ObjectSettings.icon,
                     title: "Icon",
                     subtitle: "Emoji or image for object",
-                    isAvailable: false
+                    isAvailable: true
                 ),
                 pressed: $viewModel.isIconSelected
             )
+            .sheet(isPresented: $viewModel.isIconSelected) {
+                DocumentIconPicker()
+            }
             .modifier(DividerModifier())
             
             DocumentSettingsListRow(
