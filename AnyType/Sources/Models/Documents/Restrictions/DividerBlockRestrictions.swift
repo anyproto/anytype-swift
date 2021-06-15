@@ -9,7 +9,7 @@ struct DividerBlockRestrictions: BlockRestrictions {
     var canApplyBlockColor: Bool { false }
     var canApplyBackgroundColor: Bool { true }
     var canApplyMention: Bool { false }
-    var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes] {
+    var turnIntoStyles: [BlockToolbar.BlocksTypes] {
         [.other(.lineDivider), .other(.dotsDivider)]
     }
     var availableAlignments: [BlockInformationAlignment] {

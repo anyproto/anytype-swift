@@ -18,7 +18,7 @@ protocol BlocksViewsToolbarBlocksTypesProtocol {
 
 extension BlocksViewsToolbarBlocksTypesProtocol {
     var image: String {
-        BlocksViews.Toolbar.BlocksTypes.Resources.Image.image(self.imageName)
+        BlockToolbar.BlocksTypes.Resources.Image.image(self.imageName)
     }
     
     var imagePath: String { "" }
@@ -40,7 +40,7 @@ extension BlocksViewsToolbarBlocksTypesProtocol {
     
 }
 
-extension BlocksViews.Toolbar {
+extension BlockToolbar {
     enum BlocksTypes: Hashable, Comparable {
         case text(Text), list(List), objects(Objects), tool(Tool), other(Other)
         static var allCases: [Self] = [.text(.text), .list(.bulleted), objects(.bookmark), .other(.lineDivider)]
@@ -48,7 +48,7 @@ extension BlocksViews.Toolbar {
 }
 
 // MARK: Internals
-extension BlocksViews.Toolbar.BlocksTypes {
+extension BlockToolbar.BlocksTypes {
     enum Text: Hashable, CaseIterable, Comparable {
         case text, h1, h2, h3, highlighted
     }
@@ -71,13 +71,13 @@ extension BlocksViews.Toolbar.BlocksTypes {
 }
 
 // MARK: Identifiable
-extension BlocksViews.Toolbar.BlocksTypes: Identifiable {
+extension BlockToolbar.BlocksTypes: Identifiable {
     var id: String { Resources.Title.title(for: self) }
 }
 
 // MARK: Resources
-extension BlocksViews.Toolbar.BlocksTypes {
-    typealias BlocksTypes = BlocksViews.Toolbar.BlocksTypes
+extension BlockToolbar.BlocksTypes {
+    typealias BlocksTypes = BlockToolbar.BlocksTypes
     enum Resources {
         struct Color {
             private static let path = "TextEditor/Toolbar/Blocks/New/Types/TypesColors/"
@@ -111,12 +111,12 @@ extension BlocksViews.Toolbar.BlocksTypes {
     }
 }
 
-extension BlocksViews.Toolbar.BlocksTypes {
+extension BlockToolbar.BlocksTypes {
     var title: String { Resources.Title.title(for: self) }
 }
 
 // MARK: Protocol Adoption / BlocksViewsToolbarBlocksTypesProtocol
-extension BlocksViews.Toolbar.BlocksTypes.Text: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockToolbar.BlocksTypes.Text: BlocksViewsToolbarBlocksTypesProtocol {
     var imageName: String {
         switch self {
         case .text: return "Text/Text"
@@ -137,7 +137,7 @@ extension BlocksViews.Toolbar.BlocksTypes.Text: BlocksViewsToolbarBlocksTypesPro
     }
 }
 
-extension BlocksViews.Toolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockToolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesProtocol {
     var imageName: String {
         switch self {
         case .bulleted: return "List/Bulleted"
@@ -156,7 +156,7 @@ extension BlocksViews.Toolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesPro
     }
 }
 
-extension BlocksViews.Toolbar.BlocksTypes.Objects: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockToolbar.BlocksTypes.Objects: BlocksViewsToolbarBlocksTypesProtocol {
     var imageName: String {
         switch self {
         case .page: return "Objects/Page"
@@ -179,7 +179,7 @@ extension BlocksViews.Toolbar.BlocksTypes.Objects: BlocksViewsToolbarBlocksTypes
     }
 }
 
-extension BlocksViews.Toolbar.BlocksTypes.Tool: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockToolbar.BlocksTypes.Tool: BlocksViewsToolbarBlocksTypesProtocol {
     var imageName: String {
         switch self {
         case .contact: return "Tool/Contact"
@@ -198,7 +198,7 @@ extension BlocksViews.Toolbar.BlocksTypes.Tool: BlocksViewsToolbarBlocksTypesPro
     }
 }
 
-extension BlocksViews.Toolbar.BlocksTypes.Other: BlocksViewsToolbarBlocksTypesProtocol {
+extension BlockToolbar.BlocksTypes.Other: BlocksViewsToolbarBlocksTypesProtocol {
     var imageName: String {
         switch self {
         case .lineDivider: return "Other/LineDivider"

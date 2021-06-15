@@ -9,7 +9,7 @@ struct HeaderBlockRestrictions: BlockRestrictions {
     var canApplyBlockColor: Bool { true }
     var canApplyBackgroundColor: Bool { true }
     var canApplyMention: Bool { true }
-    var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes] {
+    var turnIntoStyles: [BlockToolbar.BlocksTypes] {
         [.text(.text), .text(.h1), .text(.h2), .text(.h3), .text(.highlighted),
                 .list(.checkbox), .list(.bulleted), .list(.numbered), .list(.toggle),
                 .objects(.page),

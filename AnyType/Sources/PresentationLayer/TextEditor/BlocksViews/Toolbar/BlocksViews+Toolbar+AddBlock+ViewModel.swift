@@ -11,7 +11,7 @@ import Combine
 import SwiftUI
 
 // MARK: ViewModelBuilder
-extension BlocksViews.Toolbar.AddBlock {
+extension BlockToolbar.AddBlock {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
@@ -26,7 +26,7 @@ extension BlocksViews.Toolbar.AddBlock {
 }
 
 // MARK: ViewModel / Types Filtering
-extension BlocksViews.Toolbar.AddBlock.ViewModel {
+extension BlockToolbar.AddBlock.ViewModel {
     struct BlocksTypesCasesFiltering {
         static func text(_ value: [Types.Text]) -> Self { .init(text: value) }
         static func list(_ value: [Types.List]) -> Self { .init(list: value) }
@@ -88,7 +88,7 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
             return self
         }
         
-        mutating func append(_ values: [BlocksViews.Toolbar.BlocksTypes]) {
+        mutating func append(_ values: [BlockToolbar.BlocksTypes]) {
             values.forEach {
                 switch $0 {
                 case let .text(text):
@@ -109,7 +109,7 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
 }
 
 // MARK: ViewModel
-extension BlocksViews.Toolbar.AddBlock {
+extension BlockToolbar.AddBlock {
     /// View model for a whole List with cells.
     /// Cells are grouped in Sections.
     /// For us, Categories (Sections) are values of BlocksTypes.
@@ -160,8 +160,8 @@ extension BlocksViews.Toolbar.AddBlock {
 }
 
 // MARK: ViewModel / Configuration
-extension BlocksViews.Toolbar.AddBlock.ViewModel {
-    typealias BlocksTypes = BlocksViews.Toolbar.AddBlock.BlocksTypes
+extension BlockToolbar.AddBlock.ViewModel {
+    typealias BlocksTypes = BlockToolbar.AddBlock.BlocksTypes
     func configured(title: String) -> Self {
         self.title = title
         return self
@@ -173,9 +173,9 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
 }
 
 // MARK: ViewModel / Internal
-extension BlocksViews.Toolbar.AddBlock.ViewModel {
-    typealias Types = BlocksViews.Toolbar.BlocksTypes
-    typealias Cell = BlocksViews.Toolbar.AddBlock.Cell
+extension BlockToolbar.AddBlock.ViewModel {
+    typealias Types = BlockToolbar.BlocksTypes
+    typealias Cell = BlockToolbar.AddBlock.Cell
 
     /// Actually, it was ViewData for one Cell.
     /// It is Deprecated.
@@ -228,7 +228,7 @@ extension BlocksViews.Toolbar.AddBlock.ViewModel {
 }
 
 // MARK: Category
-extension BlocksViews.Toolbar.AddBlock.Category {
+extension BlockToolbar.AddBlock.Category {
     struct ViewModel {
         let title: String
         var uppercasedTitle: String { title.uppercased() }
@@ -236,7 +236,7 @@ extension BlocksViews.Toolbar.AddBlock.Category {
 }
 
 // MARK: Cell
-extension BlocksViews.Toolbar.AddBlock.Cell {
+extension BlockToolbar.AddBlock.Cell {
     class ViewModel: ObservableObject, Identifiable {
         @Published var indexPath: IndexPath?
         let section: Int

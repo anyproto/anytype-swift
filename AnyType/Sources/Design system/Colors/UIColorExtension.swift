@@ -37,9 +37,7 @@ extension UIColor {
         .init(hexString: "#57C600")
     }
 
-    static var grayscale10: UIColor {
-        .init(hexString: "#F3F2EC")
-    }
+    static let grayscale10 = color(name: ColorName.grayscale10)
 
     // MARK: - Color for background
 

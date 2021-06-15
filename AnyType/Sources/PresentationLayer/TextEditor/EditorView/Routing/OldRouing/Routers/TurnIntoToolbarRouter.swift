@@ -13,12 +13,12 @@ class TurnIntoToolbarRouter {
     }
 
     func handle(payload: BlockUserAction.TurnIntoBlock) {
-        let style = BlocksViews.Toolbar.ViewController.ViewModel.Style(
+        let style = BlockToolbarViewModel.Style(
             style: .turnIntoBlock,
             filtering: payload.input
         )
-        let viewModel = BlocksViews.Toolbar.ViewController.ViewModel(style)
-        let controller = BlocksViews.Toolbar.ViewController.init(model: viewModel)
+        let viewModel = BlockToolbarViewModel(style)
+        let controller = BlockToolbarViewController.init(model: viewModel)
         let subject = payload.output
         
         /// NOTE: Tough point.

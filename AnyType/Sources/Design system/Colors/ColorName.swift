@@ -22,4 +22,6 @@ enum ColorName {
     static let pureBlue = "pureBlue"
     static let lightBlue = "lightBlue"
     static let darkBlue = "darkBlue"
+    
+    static let grayscale10 = "grayscale10"
 }

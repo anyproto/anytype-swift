@@ -4,13 +4,13 @@ import UIKit
 
 final class SlashMenuActionsHandlerImp {
     
-    private let addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+    private let addBlockAndActionsSubject: PassthroughSubject<BlockToolbar.UnderlyingAction, Never>
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
     private weak var blockActionHandler: NewBlockActionHandler?
     
     init(
-        addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>,
+        addBlockAndActionsSubject: PassthroughSubject<BlockToolbar.UnderlyingAction, Never>,
         blockActionHandler: NewBlockActionHandler?
     ) {
         self.addBlockAndActionsSubject = addBlockAndActionsSubject

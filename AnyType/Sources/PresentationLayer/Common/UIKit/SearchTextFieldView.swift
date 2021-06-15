@@ -105,7 +105,7 @@ extension SearchTextFieldView {
         }
         
         func backgroundColor() -> UIColor {
-            #colorLiteral(red: 0.9529411765, green: 0.9490196078, blue: 0.9254901961, alpha: 1) // #F3F2EC
+            .grayscale10
         }
     }
 }

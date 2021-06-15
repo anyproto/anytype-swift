@@ -9,7 +9,7 @@ struct BookmarkBlockRestrictions: BlockRestrictions {
     var canApplyBlockColor: Bool { false }
     var canApplyBackgroundColor: Bool { true }
     var canApplyMention: Bool { false }
-    var turnIntoStyles: [BlocksViews.Toolbar.BlocksTypes] {
+    var turnIntoStyles: [BlockToolbar.BlocksTypes] {
         []
     }
     var availableAlignments: [BlockInformationAlignment] {

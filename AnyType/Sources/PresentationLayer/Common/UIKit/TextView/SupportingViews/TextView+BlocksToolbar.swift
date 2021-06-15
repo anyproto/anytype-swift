@@ -1,11 +1,3 @@
-//
-//  TextView+BlocksToolbar.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 15.12.2019.
-//  Copyright © 2019 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import UIKit
@@ -18,7 +10,7 @@ extension CustomTextView.BlockToolbar {
         case presentation
         func backgroundColor() -> UIColor {
             switch self {
-            case .presentation: return .init(red: 0.953, green: 0.949, blue: 0.925, alpha: 1) // #F3F2EC
+            case .presentation: return .grayscale10
             }
         }
     }

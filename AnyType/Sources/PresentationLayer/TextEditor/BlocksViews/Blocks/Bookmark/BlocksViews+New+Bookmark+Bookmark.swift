@@ -50,7 +50,7 @@ extension Namespace {
             send(userAction: .bookmark(toolbarActionSubject))
         }
         
-        override func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {
+        override func handle(toolbarAction: BlockToolbar.UnderlyingAction) {
             switch toolbarAction {
             case let .bookmark(.fetch(value)):
                 self.update { (block) in

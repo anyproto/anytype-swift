@@ -3,11 +3,11 @@ import SwiftUI
 import Combine
 import os
 
-fileprivate typealias Namespace = BlocksViews.Toolbar.Bookmark
+fileprivate typealias Namespace = BlockToolbar.Bookmark
 
 
 // MARK: AddBlock
-extension BlocksViews.Toolbar {
+extension BlockToolbar {
     enum Bookmark {}
 }
 
@@ -17,7 +17,7 @@ extension Namespace {
         static func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let controller = UIHostingController(rootView: InputView.init(model: viewModel.wrappedValue))
             let view = controller.view
-            view?.backgroundColor = BlocksViews.Toolbar.backgroundColor()
+            view?.backgroundColor = BlockToolbar.backgroundColor()
             return view
         }
     }

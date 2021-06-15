@@ -1,8 +1,8 @@
 import Foundation
 import UIKit
 
-extension BlocksViews.Toolbar {
-    typealias BlockType = BlocksViews.Toolbar.AddBlock.BlocksTypes
+extension BlockToolbar {
+    typealias BlockType = BlockToolbar.AddBlock.BlocksTypes
     
     enum UnderlyingAction {
         enum ChangeColor {

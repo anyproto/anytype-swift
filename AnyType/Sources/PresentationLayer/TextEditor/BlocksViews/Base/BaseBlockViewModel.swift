@@ -44,8 +44,8 @@ class BaseBlockViewModel: ObservableObject {
     ///
     /// If user press something, then AddBlockToolbar will send user action to `PassthroughSubject` ( or `toolbarActionSubject` in our case ).
     ///
-    public private(set) var toolbarActionSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never> = .init()
-    public lazy var toolbarActionPublisher: AnyPublisher<BlocksViews.Toolbar.UnderlyingAction, Never> = toolbarActionSubject.eraseToAnyPublisher()
+    public private(set) var toolbarActionSubject: PassthroughSubject<BlockToolbar.UnderlyingAction, Never> = .init()
+    public lazy var toolbarActionPublisher: AnyPublisher<BlockToolbar.UnderlyingAction, Never> = toolbarActionSubject.eraseToAnyPublisher()
 
     // MARK: Actions Payload Publisher
 
@@ -59,7 +59,7 @@ class BaseBlockViewModel: ObservableObject {
     /// - Parameter toolbarAction: Toolbar action type
     ///
     /// Default implementation do nothing
-    func handle(toolbarAction: BlocksViews.Toolbar.UnderlyingAction) {}
+    func handle(toolbarAction: BlockToolbar.UnderlyingAction) {}
     
 
     /// Update view data manually.

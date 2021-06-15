@@ -11,12 +11,12 @@ import UIKit
 import SwiftUI
 
 // MARK: TurnInto
-extension BlocksViews.Toolbar {
+extension BlockToolbar {
     enum TurnIntoBlock {}
 }
 
 // MARK: View
-extension BlocksViews.Toolbar.TurnIntoBlock {
-    typealias InputViewBuilder = BlocksViews.Toolbar.AddBlock.InputViewBuilder
-    typealias InputView = BlocksViews.Toolbar.AddBlock.InputView
+extension BlockToolbar.TurnIntoBlock {
+    typealias InputViewBuilder = BlockToolbar.AddBlock.InputViewBuilder
+    typealias InputView = BlockToolbar.AddBlock.InputView
 }

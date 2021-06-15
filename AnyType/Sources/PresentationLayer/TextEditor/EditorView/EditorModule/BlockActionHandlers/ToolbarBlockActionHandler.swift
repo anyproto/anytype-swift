@@ -15,7 +15,7 @@ final class ToolbarBlockActionHandler {
         return indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
 
-    func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: BlocksViews.Toolbar.UnderlyingAction) {
+    func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockToolbar.UnderlyingAction) {
         switch action {
         case let .addBlock(blockType):
             switch blockType {

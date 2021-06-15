@@ -7,12 +7,12 @@ class BookmarkToolbarRouter {
     }
     
     func hanlde(bookmarkOutput: BookmarkOutput) {
-        let viewModel = BlocksViews.Toolbar.ViewController.ViewModel(.init(style: .bookmark))
+        let viewModel = BlockToolbarViewModel(.init(style: .bookmark))
         
         /// We want to receive values.
         viewModel.subscribe(subject: bookmarkOutput, keyPath: \.action)
         
-        let controller = BlocksViews.Toolbar.ViewController(model: viewModel)
+        let controller = BlockToolbarViewController(model: viewModel)
         baseController?.present(controller, animated: true, completion: nil)
     }
 }

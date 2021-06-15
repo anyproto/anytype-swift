@@ -11,8 +11,8 @@ class AddBlockToolbarRouter {
     }
             
     func handle(payload: BlockUserAction.AddBlock) {
-        let viewModel = BlocksViews.Toolbar.ViewController.ViewModel(.init(style: .addBlock))
-        let controller = BlocksViews.Toolbar.ViewController.init(model: viewModel)
+        let viewModel = BlockToolbarViewModel(.init(style: .addBlock))
+        let controller = BlockToolbarViewController.init(model: viewModel)
         
         let subject = payload.output
         

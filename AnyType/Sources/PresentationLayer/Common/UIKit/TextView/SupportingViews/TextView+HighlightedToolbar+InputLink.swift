@@ -50,7 +50,7 @@ extension CustomTextView.HighlightedToolbar.InputLink {
         case presentation
         func backgroundColor() -> UIColor {
             switch self {
-            case .presentation: return .init(red: 0.953, green: 0.949, blue: 0.925, alpha: 1) // #F3F2EC
+            case .presentation: return .grayscale10
             }
         }
     }

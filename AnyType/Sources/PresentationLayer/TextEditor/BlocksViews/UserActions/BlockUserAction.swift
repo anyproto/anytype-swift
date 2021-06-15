@@ -1,8 +1,8 @@
 import Foundation
 import Combine
 
-typealias BookmarkOutput = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
-typealias FilteringPayload = BlocksViews.Toolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering
+typealias BookmarkOutput = PassthroughSubject<BlockToolbar.UnderlyingAction, Never>
+typealias FilteringPayload = BlockToolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering
 
 enum BlockUserAction {
     case file(FileAction)
@@ -15,13 +15,13 @@ enum BlockUserAction {
 
 extension BlockUserAction {
     struct AddBlock {
-        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        typealias Output = PassthroughSubject<BlockToolbar.UnderlyingAction, Never>
         var output: Output
         var input: FilteringPayload?
     }
     
     struct TurnIntoBlock {
-        typealias Output = PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
+        typealias Output = PassthroughSubject<BlockToolbar.UnderlyingAction, Never>
         var output: Output
         var input: FilteringPayload?
     }

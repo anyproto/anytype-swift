@@ -2,10 +2,8 @@ import Foundation
 import Combine
 import SwiftUI
 
-fileprivate typealias Namespace = BlocksViews.Toolbar.Bookmark
-
 // MARK: ViewModelBuilder
-extension Namespace {
+extension BlockToolbar.Bookmark {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
@@ -15,7 +13,7 @@ extension Namespace {
 }
 
 // MARK: ViewModel
-extension Namespace {
+extension BlockToolbar.Bookmark {
     class ViewModel: ObservableObject {
         // MARK: Public / Publishers
         /// It is a chosen block type publisher.
@@ -26,7 +24,7 @@ extension Namespace {
         var title = "Paste or type url"
         var buttonTitle = "Add bookmark"
 
-        @ObservedObject var webViewModel: BlocksViews.Toolbar.Bookmark.WebView.ViewModel = .init()
+        @ObservedObject var webViewModel: BlockToolbar.Bookmark.WebView.ViewModel = .init()
         
         @Published var typingURL: String = "" {
             didSet {
@@ -49,7 +47,7 @@ extension Namespace {
 }
 
 // MARK: ViewModel / Configuration
-extension Namespace.ViewModel {
+extension BlockToolbar.Bookmark.ViewModel {
     func configured(title: String) -> Self {
         self.title = title
         return self

@@ -18,7 +18,7 @@ struct BlockBuilder {
         }
     }
 
-    static func createInformation(block: BlockActiveRecordModelProtocol, action: BlocksViews.Toolbar.UnderlyingAction, textPayload: String = "") -> BlockInformation? {
+    static func createInformation(block: BlockActiveRecordModelProtocol, action: BlockToolbar.UnderlyingAction, textPayload: String = "") -> BlockInformation? {
         switch action {
         case .addBlock:
             return createContentType(block: block, action: action, textPayload: textPayload)
@@ -60,7 +60,7 @@ struct BlockBuilder {
     }
 
     static func createContentType(block: BlockActiveRecordModelProtocol,
-                                  action: BlocksViews.Toolbar.UnderlyingAction,
+                                  action: BlockToolbar.UnderlyingAction,
                                   textPayload: String = "") -> BlockContent? {
         switch action {
         case let .addBlock(blockType):
