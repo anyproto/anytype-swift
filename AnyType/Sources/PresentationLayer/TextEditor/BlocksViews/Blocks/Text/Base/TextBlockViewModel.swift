@@ -159,7 +159,7 @@ private extension TextBlockViewModel {
             .receive(on: serialQueue)
             .map { [weak self] _ -> BlockText? in
                 guard let value = self?.block.blockModel.information else { return nil }
-                
+
                 switch value.content {
                 case let .text(value):
                     return value
@@ -244,17 +244,17 @@ extension TextBlockViewModel {
 private extension TextBlockViewModel {
     
     func setModelData(attributedText: NSAttributedString) {
-        // Update model.
+        // Update model
         self.update { block in
             switch block.content {
             case var .text(value):
                 guard value.attributedText != attributedText else { return }
-                
+
                 value.attributedText = NSAttributedString(attributedString: attributedText)
-                
+
                 var blockModel = block.blockModel
                 blockModel.information.content = .text(value)
-                
+
             default:
                 return
             }

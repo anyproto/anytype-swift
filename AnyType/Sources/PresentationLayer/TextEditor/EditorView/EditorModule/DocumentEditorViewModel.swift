@@ -129,8 +129,12 @@ class DocumentEditorViewModel: ObservableObject {
                     }
                 )
                 blocksViewModelsToUpdate?.updateView()
-                
-                self.viewInput?.reloadFirstSection()
+
+                // Following if condition could prevent dismiss keyborad on reload section when focus in the title block.
+                // So if details event only for title then we skip reload section.
+                if detailsProvider.details.count > 1 || detailsProvider.details[.name].isNil {
+                    self.viewInput?.reloadFirstSection()
+                }
             }
             .store(in: &subscriptions)
 
