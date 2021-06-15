@@ -1,17 +1,6 @@
-//
-//  BlocksViews+Toolbar+BlocksTypes.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 20.04.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
-// MARK: BlocksViewsToolbarBlocksTypesProtocol
-/// This protocol provides resources getters for each subtype in Category.
-///
 protocol BlocksViewsToolbarBlocksTypesProtocol {
     var imagePath: String {get}
     var imageName: String {get}
@@ -166,27 +155,6 @@ extension BlocksViews.Toolbar.BlocksTypes.List: BlocksViewsToolbarBlocksTypesPro
         }
     }
 }
-
-//extension BlocksViews.Toolbar.BlocksTypes.Page: BlocksViewsToolbarBlocksTypesProtocol {
-//    var subpath: String {
-//        switch self {
-//        case .page: return "Page/Page"
-//        case .existingTool: return "Page/ExistingPage"
-//        }
-//    }
-//    var title: String {
-//        switch self {
-//        case .page: return self.path.components(separatedBy: "/").last ?? ""
-//        case .existingTool: return "Existing Page"
-//        }
-//    }
-//    var subtitleName: String {
-//        switch self {
-//        case .page: return "Page.Page"
-//        case .existingTool: return "Page.ExistingPage"
-//        }
-//    }
-//}
 
 extension BlocksViews.Toolbar.BlocksTypes.Objects: BlocksViewsToolbarBlocksTypesProtocol {
     var imageName: String {

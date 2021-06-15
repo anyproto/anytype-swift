@@ -1,11 +1,3 @@
-//
-//  BlocksViews+Toolbar+Bookmark+ViewModel.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 27.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import Combine
 import SwiftUI

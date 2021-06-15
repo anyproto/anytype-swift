@@ -256,6 +256,7 @@
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* DefaultCompletion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */; };
+		3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */; };
 		3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D409BBF26309CE100E588A7 /* HomeViewModel.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */; };
@@ -808,6 +809,7 @@
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
+		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAssembly.swift; sourceTree = "<group>"; };
@@ -1776,6 +1778,7 @@
 		0A1DACC1244DD34B0007BC5D /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
+				3D3D894B2678D07D008C2B26 /* SwiftUI */,
 				0A1DACC2244DD35C0007BC5D /* BlocksViews+Toolbar.swift */,
 				0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */,
 				0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */,
@@ -2265,6 +2268,14 @@
 				0A0965E125BEF5B000C004BD /* DocumentSection.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3D3D894B2678D07D008C2B26 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		3D486C132631726400A9B625 /* UIKit */ = {
@@ -3484,6 +3495,7 @@
 				3DB27C02261B0E9C005E523C /* Encoder.swift in Sources */,
 				3D568F932666C29F00DC7881 /* ContentDividerConverter.swift in Sources */,
 				0A3EE0D224EAC6080074DCDF /* CoreLayer.swift in Sources */,
+				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				0A2C0D56247144F4008ADD86 /* TextViewWithPlaceholder.swift in Sources */,
 				12DE403D264AD15D007B5074 /* OptionalExtensions.swift in Sources */,
 				EA77E506262D91A0009F91D9 /* BlockActionsBuilder.swift in Sources */,

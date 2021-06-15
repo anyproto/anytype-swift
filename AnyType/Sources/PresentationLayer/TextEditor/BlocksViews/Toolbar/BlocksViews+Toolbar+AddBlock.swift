@@ -23,7 +23,7 @@ extension BlocksViews.Toolbar.AddBlock {
             )
             let controller = UIHostingController(rootView: inputView)
             let view = controller.view
-            view?.backgroundColor = BlocksViews.Toolbar.Style.default.backgroundColor()
+            view?.backgroundColor = BlocksViews.Toolbar.backgroundColor()
             return view
         }
     }
