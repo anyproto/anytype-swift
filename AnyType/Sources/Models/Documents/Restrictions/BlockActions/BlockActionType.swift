@@ -7,7 +7,7 @@ enum BlockActionType {
     case other(BlockOtherAction)
     case actions(BlockAction)
     case color(BlockColor)
-    case background(BlockBackgroundColorAction)
+    case background(BlockBackgroundColor)
     case alignment(BlockAlignmentAction)
     
     var displayData: BlockMenuItemSimpleDisplayData {

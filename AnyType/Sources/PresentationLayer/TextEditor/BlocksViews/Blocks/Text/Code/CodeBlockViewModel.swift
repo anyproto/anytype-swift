@@ -105,9 +105,13 @@ private extension CodeBlockViewModel {
             .safelyUnwrapOptionals()
             .receiveOnMain()
             .map { textContent -> TextViewUpdate in
-                let blockColor = MiddlewareColorConverter.asModel(textContent.color)
-                return .payload(.init(attributedString: textContent.attributedText, auxiliary: .init(textAlignment: .left,
-                                                                                              tertiaryColor: blockColor)))
+                let blockColor = MiddlewareColorConverter.asUIColor(name: textContent.color, background: false)
+                return .payload(
+                    .init(
+                        attributedString: textContent.attributedText,
+                        auxiliary: .init(textAlignment: .left, tertiaryColor: blockColor)
+                    )
+                )
             }
             .sink { [weak self] textViewUpdate in
                 self?.textViewUpdate = textViewUpdate

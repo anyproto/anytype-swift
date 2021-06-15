@@ -84,6 +84,6 @@ struct BlockActionsBuilder {
         if !restrictions.canApplyBackgroundColor {
             return nil
         }
-        return .menu(.background, BlockBackgroundColorAction.allCases.map { .action(.background($0)) })
+        return .menu(.background, BlockBackgroundColor.allCases.map { .action(.background($0)) })
     }
 }

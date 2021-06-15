@@ -57,11 +57,23 @@ enum MiddlewareColor {
 }
 
 enum MiddlewareColorConverter {
-    static func asModel(_ name: String, background: Bool = false) -> UIColor? {
+    static func asUIColor(name: String, background: Bool) -> UIColor? {
         MiddlewareColor(name: name)?.color(background: background)
     }
 
-    static func asMiddleware(_ color: UIColor, background: Bool = false) -> String? {
+    static func asString(_ color: UIColor, background: Bool) -> String? {
         MiddlewareColor.name(color, background: background)
+    }
+    
+    static func asString(_ color: BlockColor) -> String? {
+        MiddlewareColor.name(color.color, background: false)
+    }
+    
+    static func asMiddleware(_ backgroundColor: BlockBackgroundColor) -> MiddlewareColor? {
+        MiddlewareColor.allCases.first(where: {$0.color(background: true) == backgroundColor.color})
+    }
+    
+    static func asMiddleware(name: String) -> MiddlewareColor? {
+        MiddlewareColor(name: name)
     }
 }

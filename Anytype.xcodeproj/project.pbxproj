@@ -148,7 +148,7 @@
 		0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */; };
 		0A78327424BC82B400A1B6F6 /* PageEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78326E24B8D2A200A1B6F6 /* PageEventConverter.swift */; };
 		0A78327624BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78327524BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift */; };
-		0A78328124BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328024BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift */; };
+		0A78328124BDEAD300A1B6F6 /* MiddlewareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328024BDEAD300A1B6F6 /* MiddlewareColor.swift */; };
 		0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */; };
 		0A78328624BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328524BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift */; };
 		0A78328824BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A78328724BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift */; };
@@ -448,7 +448,7 @@
 		EA289BE2262AE5E100EA869F /* BlockOtherAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */; };
 		EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE4262AE61200EA869F /* BlockAction.swift */; };
 		EA289BE8262AE62E00EA869F /* BlockColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BE7262AE62E00EA869F /* BlockColor.swift */; };
-		EA289BEC262AE66000EA869F /* BlockBackgroundColorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */; };
+		EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA289BEB262AE66000EA869F /* BlockBackgroundColor.swift */; };
 		EA2F0D60264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */; };
 		EA2F0D65264EB4900039C1CB /* BlockActionAndFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */; };
 		EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */; };
@@ -701,7 +701,7 @@
 		0A78327024B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserTextContentTypeConverter.swift; sourceTree = "<group>"; };
 		0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentConverters.swift; sourceTree = "<group>"; };
 		0A78327524BC83A500A1B6F6 /* BlocksModelsDetailsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsDetailsConverter.swift; sourceTree = "<group>"; };
-		0A78328024BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers+Text+Color.swift"; sourceTree = "<group>"; };
+		0A78328024BDEAD300A1B6F6 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
 		0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers+Text+AttributedText.swift"; sourceTree = "<group>"; };
 		0A78328524BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift"; sourceTree = "<group>"; };
 		0A78328724BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift"; sourceTree = "<group>"; };
@@ -996,7 +996,7 @@
 		EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockOtherAction.swift; sourceTree = "<group>"; };
 		EA289BE4262AE61200EA869F /* BlockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockAction.swift; sourceTree = "<group>"; };
 		EA289BE7262AE62E00EA869F /* BlockColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockColor.swift; sourceTree = "<group>"; };
-		EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBackgroundColorAction.swift; sourceTree = "<group>"; };
+		EA289BEB262AE66000EA869F /* BlockBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBackgroundColor.swift; sourceTree = "<group>"; };
 		EA2F0D5F264EAFD50039C1CB /* BlockMenuItemSimpleDisplayDataFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuItemSimpleDisplayDataFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionAndFilterMatch.swift; sourceTree = "<group>"; };
 		EA2F0D6C264EBA1B0039C1CB /* TextViewTextChangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTextChangeType.swift; sourceTree = "<group>"; };
@@ -1896,7 +1896,7 @@
 				0A78328B24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift */,
 				0A78328D24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift */,
 				0A78328924BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift */,
-				0A78328024BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift */,
+				0A78328024BDEAD300A1B6F6 /* MiddlewareColor.swift */,
 				0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */,
 				0A78328524BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift */,
 				0A78328724BDEB6600A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyleModifier.swift */,
@@ -3094,7 +3094,7 @@
 				EA289BE1262AE5E100EA869F /* BlockOtherAction.swift */,
 				EA289BE4262AE61200EA869F /* BlockAction.swift */,
 				EA289BE7262AE62E00EA869F /* BlockColor.swift */,
-				EA289BEB262AE66000EA869F /* BlockBackgroundColorAction.swift */,
+				EA289BEB262AE66000EA869F /* BlockBackgroundColor.swift */,
 				EA77E505262D91A0009F91D9 /* BlockActionsBuilder.swift */,
 				EA77E50B262DA103009F91D9 /* BlockMenuItemType.swift */,
 				EA77E57C262EEF1F009F91D9 /* BlockAlignmentAction.swift */,
@@ -3847,7 +3847,7 @@
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,
 				0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */,
-				0A78328124BDEAD300A1B6F6 /* MiddlewareModelsModule+Parsers+Text+Color.swift in Sources */,
+				0A78328124BDEAD300A1B6F6 /* MiddlewareColor.swift in Sources */,
 				0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */,
 				3DD67E9F2652708A0025ED6F /* EditorSelectionHandlerStorage.swift in Sources */,
 				EA2F0D75264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift in Sources */,
@@ -3870,7 +3870,7 @@
 				0A996BBD23EDE790000FDC9C /* ShakeHandler.swift in Sources */,
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,
 				3D568F8F2666C22D00DC7881 /* ContentFileConverter.swift in Sources */,
-				EA289BEC262AE66000EA869F /* BlockBackgroundColorAction.swift in Sources */,
+				EA289BEC262AE66000EA869F /* BlockBackgroundColor.swift in Sources */,
 				0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,

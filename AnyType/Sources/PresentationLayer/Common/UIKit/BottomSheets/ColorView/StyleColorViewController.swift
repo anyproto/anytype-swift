@@ -10,29 +10,26 @@ private enum SectionKind: Int, CaseIterable {
         case .main:
             return 6
         case .last:
-            return ColorItem.all.count % 6
+            return ColorItem.text.count % 6
         }
     }
 }
 
-private struct ColorItem: Hashable {
-    let color: UIColor
+private enum ColorItem: Hashable {
+    case text(BlockColor)
+    case background(BlockBackgroundColor)
+    
+    var color: UIColor {
+        switch self {
+        case .background(let color):
+            return color.color
+        case .text(let color):
+            return color.color
+        }
+    }
 
-    private let identifier = UUID()
-
-    static let all: [ColorItem] = [
-        UIColor.grayscale90, UIColor.darkColdGray, UIColor.pureLemon,
-        UIColor.pureAmber, UIColor.pureRed, UIColor.purePink,
-        UIColor.purePurple, UIColor.pureUltramarine, UIColor.pureBlue,
-        UIColor.pureTeal, UIColor.darkGreen
-    ].map { ColorItem.init(color: $0) }
-
-    static let backgroundItems: [ColorItem] = [
-        UIColor.grayscaleWhite, UIColor.darkColdGray, UIColor.lightLemon,
-        UIColor.lightAmber, UIColor.lightRed, UIColor.lightPink,
-        UIColor.lightPurple, UIColor.lightUltramarine, UIColor.lightBlue,
-        UIColor.lightTeal, UIColor.lightGreen
-    ].map { ColorItem.init(color: $0) }
+    static let text = BlockColor.allCases.map { ColorItem.text($0) }
+    static let background = BlockBackgroundColor.allCases.map { ColorItem.background($0) }
 }
 
 extension StyleColorViewController {
@@ -176,15 +173,15 @@ final class StyleColorViewController: UIViewController {
         }
 
         // initial data
-        updateSnapshot(with: ColorItem.all)
+        updateSnapshot(with: ColorItem.text)
     }
 
     @objc private func segmentActionHandler() {
         switch colorKindSegmentControl.selectedItemIndex {
         case .color:
-            updateSnapshot(with: ColorItem.all)
+            updateSnapshot(with: ColorItem.text)
         case .backgroundColor:
-            updateSnapshot(with: ColorItem.backgroundItems)
+            updateSnapshot(with: ColorItem.background)
         }
     }
 
@@ -215,16 +212,16 @@ extension StyleColorViewController: UICollectionViewDelegate {
             return false
         }
         collectionView.deselectAllSelectedItems()
-
-        switch colorKindSegmentControl.selectedItemIndex {
-        case .color:
-            color = colorItem.color
-            actionHandler(.setTextColor(colorItem.color))
-            return true
-        case .backgroundColor:
-            backgroundColor = colorItem.color
-            actionHandler(.setBackgroundColor(colorItem.color))
-            return true
+        
+        switch colorItem {
+        case .text(let color):
+            self.color = color.color
+            actionHandler(.setTextColor(color))
+        case .background(let color):
+            self.backgroundColor = color.color
+            actionHandler(.setBackgroundColor(color))
         }
+        
+        return true
     }
 }

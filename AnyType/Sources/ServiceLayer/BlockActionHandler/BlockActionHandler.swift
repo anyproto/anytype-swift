@@ -48,8 +48,8 @@ class BlockActionHandler {
 }
 
 private extension BlockActionHandler {
-    func setBlockColor(block: BlockInformation, color: UIColor, completion: Completion?) {
-        guard let color = MiddlewareColorConverter.asMiddleware(color, background: false) else {
+    func setBlockColor(block: BlockInformation, color: BlockColor, completion: Completion?) {
+        guard let color = MiddlewareColorConverter.asString(color) else {
             assertionFailure("Wrong UIColor for setBlockColor command")
             return
         }
@@ -140,11 +140,11 @@ private extension BlockActionHandler {
                 .store(in: &self.subscriptions)
         case .keyboard:
             // TODO: Implement keyboard style https://app.clickup.com/t/fz48tc
-            var keyboardColor = MiddlewareColor.grey.color(background: true)
-            let backgroundColor = MiddlewareColorConverter.asModel(newBlock.information.backgroundColor, background: true)
-            keyboardColor = backgroundColor == keyboardColor ? MiddlewareColor.default.color(background: true) : keyboardColor
+            let keyboardColor = MiddlewareColor.grey
+            let backgroundColor = MiddlewareColorConverter.asMiddleware(name: newBlock.information.backgroundColor)
+            let color = backgroundColor == keyboardColor ? MiddlewareColor.default : keyboardColor
 
-            self.service.setBackgroundColor(block: newBlock.information, color: keyboardColor)
+            service.setBackgroundColor(block: newBlock.information, color: color)
         }
     }
 }

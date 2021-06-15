@@ -240,7 +240,10 @@ final class TextBlockContentView: UIView & UIContentView {
 
 
         typealias ColorConverter = MiddlewareColorConverter
-        backgroundColorView.backgroundColor = ColorConverter.asModel(self.currentConfiguration.information.backgroundColor, background: true)
+        backgroundColorView.backgroundColor = ColorConverter.asUIColor(
+            name: self.currentConfiguration.information.backgroundColor,
+            background: true
+        )
 
         selectionView.layer.borderWidth = 0.0
         selectionView.layer.borderColor = nil

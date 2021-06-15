@@ -41,11 +41,11 @@ extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
             addBlockAndActionsSubject.send(.addBlock(other.blockViewsType))
         case let .color(color):
             blockActionHandler?.handleActionForFirstResponder(
-                .setTextColor(color.color)
+                .setTextColor(color)
             )
         case let .background(color):
             blockActionHandler?.handleActionForFirstResponder(
-                .setBackgroundColor(color.color)
+                .setBackgroundColor(color)
             )
         }
     }

@@ -149,8 +149,6 @@ final class CodeBlockContentView: UIView & UIContentView {
     }
 
     private func applyNewConfiguration() {
-        typealias ColorConverter = MiddlewareColorConverter
-
         currentConfiguration.viewModel?.codeBlockView = self
         codeSelectButton.setText(currentConfiguration.viewModel?.codeLanguage ?? Constants.defaultLanguage)
 
@@ -172,7 +170,6 @@ final class CodeBlockContentView: UIView & UIContentView {
     }
 
     private func setupBackgroundColor() {
-        typealias ColorConverter = MiddlewareColorConverter
         let color = MiddlewareColor(name: currentConfiguration.information.backgroundColor)?.color(background: true) ?? UIColor.lightColdGray
         textView.backgroundColor = color
     }

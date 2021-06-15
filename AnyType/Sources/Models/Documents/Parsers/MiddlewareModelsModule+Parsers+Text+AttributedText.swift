@@ -1,11 +1,3 @@
-//
-//  MiddlewareModelsModule+Parsers+Text+AttributedText.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 14.07.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import BlocksModels
 import UIKit
 import ProtobufMessages
@@ -200,13 +192,13 @@ private extension Namespace {
             case .link: return .link(URLConverter.asModel(tuple.value))
 
             case .textColor:
-                guard let color = MiddlewareColorConverter.asModel(tuple.value) else {
+                guard let color = MiddlewareColorConverter.asUIColor(name: tuple.value, background: false) else {
                     return nil
                 }
                 return .textColor(color)
 
             case .backgroundColor:
-                guard let color = MiddlewareColorConverter.asModel(tuple.value, background: true) else {
+                guard let color = MiddlewareColorConverter.asUIColor(name: tuple.value, background: true) else {
                     return nil
                 }
                 return .backgroundColor(color)
@@ -225,12 +217,12 @@ private extension Namespace {
 
             case let .textColor(value):
                 guard let uiColor = value,
-                      let color = MiddlewareColorConverter.asMiddleware(uiColor) else { return nil }
+                      let color = MiddlewareColorConverter.asString(uiColor, background: false) else { return nil }
                 return .init(attribute: .textColor, value: color)
 
             case let .backgroundColor(value):
                 guard let uiColor = value,
-                      let color = MiddlewareColorConverter.asMiddleware(uiColor, background: true) else {
+                      let color = MiddlewareColorConverter.asString(uiColor, background: true) else {
                     return nil
                 }
                 return .init(attribute: .backgroundColor, value: color)

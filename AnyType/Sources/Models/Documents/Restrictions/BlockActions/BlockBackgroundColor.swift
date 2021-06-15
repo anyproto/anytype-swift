@@ -1,7 +1,7 @@
 
 import UIKit
 
-enum BlockBackgroundColorAction: CaseIterable {
+enum BlockBackgroundColor: CaseIterable {
     case `default`
     case lemon
     case amber

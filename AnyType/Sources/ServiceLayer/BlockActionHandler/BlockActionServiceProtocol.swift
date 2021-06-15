@@ -24,7 +24,8 @@ protocol BlockActionServiceProtocol {
     
     func bookmarkFetch(block: BlockInformation, url: String)
     
-    func setBackgroundColor(block: BlockInformation, color: UIColor)
+    func setBackgroundColor(block: BlockInformation, color: BlockBackgroundColor)
+    func setBackgroundColor(block: BlockInformation, color: MiddlewareColor)
     
     func checked(block: BlockActiveRecordModelProtocol, newValue: Bool)
     
