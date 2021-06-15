@@ -51,7 +51,6 @@ final class ServiceLocator {
     func applicationCoordinator(window: MainWindow) -> ApplicationCoordinator {
         ApplicationCoordinator(
             window: window,
-            shakeHandler: ShakeHandler(window),
             authService: authService(),
             firebaseService: firebaseService(),
             authAssembly: AuthAssembly()

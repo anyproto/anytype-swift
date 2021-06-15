@@ -4,11 +4,7 @@ import Combine
 
 final class ApplicationCoordinator {
     
-    // MARK: - Private variables
-    
     private let window: MainWindow
-    
-    private let shakeHandler: ShakeHandler
     
     private let authService: AuthServiceProtocol
     private let firebaseService: FirebaseService
@@ -21,13 +17,11 @@ final class ApplicationCoordinator {
     
     init(
         window: MainWindow,
-        shakeHandler: ShakeHandler,
         authService: AuthServiceProtocol,
         firebaseService: FirebaseService,
         authAssembly: AuthAssembly
     ) {
         self.window = window
-        self.shakeHandler = shakeHandler
         
         self.authService = authService
         self.firebaseService = firebaseService
@@ -40,7 +34,7 @@ final class ApplicationCoordinator {
         window.makeKeyAndVisible()
         
         runAtFirstLaunch()
-        runServicesOnStartup()
+        firebaseService.setup()
         login()
     }
         
@@ -69,11 +63,6 @@ private extension ApplicationCoordinator {
         guard UserDefaultsConfig.installedAtDate.isNil else { return }
         
         UserDefaultsConfig.installedAtDate = Date()
-    }
-    
-    func runServicesOnStartup() {
-        shakeHandler.run()
-        firebaseService.setup()
     }
 
     func login() {

@@ -21,16 +21,13 @@ final class AuthService: AuthServiceProtocol {
     }
 
     func logout(completion: @escaping () -> Void) {
-        _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: true)
-            .subscribe(on: DispatchQueue.global(qos: .background))
-            .receiveOnMain()
-            .sinkWithDefaultCompletion("Logout") { [weak self] _ in
-                try? self?.seedService.removeSeed()
-                UserDefaultsConfig.usersIdKey = ""
-                MiddlewareConfiguration.shared = nil
-                
-                completion()
-        }
+        _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: false)
+        
+        try? seedService.removeSeed()
+        UserDefaultsConfig.usersIdKey = ""
+        MiddlewareConfiguration.shared = nil
+        
+        completion()
     }
 
     func createWallet(onCompletion: @escaping OnCompletionWithEmptyResult) {

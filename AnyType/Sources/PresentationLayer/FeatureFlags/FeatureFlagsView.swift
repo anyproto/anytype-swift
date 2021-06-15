@@ -11,6 +11,7 @@ struct FeatureFlagsView: View {
             .padding()
         }
         .navigationTitle("Feature flags 🤖")
+        .embedInNavigation()
     }
 }
 
