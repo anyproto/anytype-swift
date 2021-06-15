@@ -178,6 +178,8 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
         case .changeCaretPosition:
             typealias TextBlockInteraction = ActionsPayload.TextBlocksViewsUserInteraction
             self.send(actionsPayload: .textView(TextBlockInteraction(model: block, action: .textView(action))))
+        case .shouldChangeText:
+            break
         }
     }
 }

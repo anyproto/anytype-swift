@@ -21,6 +21,9 @@ final class TextBlockActionHandler {
         case let .inputAction(value): self.handlingInputAction(block, value)
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition, .addBlockAction:
             break
+        case let .shouldChangeText(range, replacementText, mentionsHolder):
+            mentionsHolder.removeMentionIfNeeded(replacementRange: range,
+                                                 replacementText: replacementText)
         }
     }
 

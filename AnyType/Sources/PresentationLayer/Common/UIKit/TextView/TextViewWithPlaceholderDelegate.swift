@@ -23,6 +23,10 @@ extension CustomTextView: UITextViewDelegate {
         if text == "\n" && !pressingEnterTimeChecker.exceedsTimeInterval() {
             return false
         }
+        
+        userInteractionDelegate?.didReceiveAction(.shouldChangeText(range: range,
+                                                                    replacementText: text,
+                                                                    mentionsHolder: textView))
 
         CustomTextView.UserAction.KeyboardAction.convert(
             textView,

@@ -20,6 +20,7 @@ extension CustomTextView {
         case addBlockAction
         case showMultiActionMenuAction
         case changeCaretPosition(NSRange)
+        case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)
     }
     
 }

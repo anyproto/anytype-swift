@@ -35,7 +35,8 @@ extension Namespace {
                 .underscored(false),
                 .textColor(nil),
                 .backgroundColor(nil),
-                .link(nil)
+                .link(nil),
+                .mention(nil)
             ]
         }
         
@@ -85,6 +86,8 @@ extension Namespace {
         // NSAttributedString.Key.link
         case link(URL?)
         
+        case mention(String?)
+        
         // MARK: Opposite
         func opposite() -> Self {
             switch self {
@@ -105,6 +108,8 @@ extension Namespace {
                 .backgroundColor(value) // or nil maybe?
             case let .link(value): return
                 .link(value) // or nil maybe?
+            case let .mention(pageId):
+                return .mention(pageId)
             }
         }
         
@@ -132,6 +137,8 @@ extension Namespace {
             case .textColor: return .textColor( attributes[.foregroundColor] as? UIColor )
             case .backgroundColor: return .backgroundColor(attributes[.backgroundColor] as? UIColor)
             case .link: return .link( attributes[.link] as? URL )
+            case .mention:
+                return .mention(attributes[.mention] as? String)
             }
         }
         
@@ -173,6 +180,7 @@ extension Namespace {
             case let .textColor(value): return .change([ .foregroundColor : value as Any ])
             case let .backgroundColor(value): return .change([ .backgroundColor : value as Any ])
             case let .link(value): return .changeAndDeletedKeys([ .link : value as Any ], value.isNil ? [.link] : [])
+            case let .mention(pageId): return .change([.mention: pageId as Any])
             }
         }
         

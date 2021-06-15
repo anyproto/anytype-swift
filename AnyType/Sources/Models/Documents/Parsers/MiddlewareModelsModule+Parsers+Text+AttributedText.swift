@@ -123,22 +123,8 @@ extension Namespace {
 
 private extension Namespace.MarkStyle {
     struct HashableKey: Hashable {
-        typealias Style = Namespace.MarkStyle
 
-        var markStyle: Style
-
-        private func string(mark: Style) -> String {
-            switch mark {
-            case let .bold(value): return "bold - " + String(describing: value)
-            case let .italic(value): return "italic - " + String(describing: value)
-            case let .keyboard(value): return "keyboard - " + String(describing: value)
-            case let .strikethrough(value): return "strikethrough - " + String(describing: value)
-            case let .underscored(value): return "underscored - " + String(describing: value)
-            case let .textColor(value): return "textColor - " + String(describing: value)
-            case let .backgroundColor(value): return "backgroundColor - " + String(describing: value)
-            case let .link(value): return "link - " + String(describing: value)
-            }
-        }
+        let markStyle: Namespace.MarkStyle
 
         func hash(into hasher: inout Hasher) {
             hasher.combine(String(describing: markStyle))
@@ -202,8 +188,11 @@ private extension Namespace {
                     return nil
                 }
                 return .backgroundColor(color)
-
-            default: return nil
+            case .mention:
+                return .mention(tuple.value)
+            case .UNRECOGNIZED:
+                assertionFailure("Unrecognized markup")
+                return nil
             }
         }
 
@@ -228,6 +217,9 @@ private extension Namespace {
                 return .init(attribute: .backgroundColor, value: color)
 
             case let .link(value): return .init(attribute: .link, value: URLConverter.asMiddleware(value))
+            case let .mention(pageId):
+                guard let pageId = pageId else { return nil }
+                return MiddlewareTuple(attribute: .mention, value: pageId)
             }
         }
     }

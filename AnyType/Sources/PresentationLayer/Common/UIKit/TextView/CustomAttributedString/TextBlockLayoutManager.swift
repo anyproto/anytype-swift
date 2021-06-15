@@ -38,6 +38,35 @@ final class TextBlockLayoutManager: NSLayoutManager {
         super.showCGGlyphs(glyphs, positions: positions, count: glyphCount, font: font, textMatrix: textMatrix, attributes: attributes, in: CGContext)
     }
     
+    override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
+            let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
+            textStorage?.enumerateAttribute(.mention,
+                                            in: characterRange,
+                                            options: .longestEffectiveRangeNotRequired,
+                                            using: { value, subrange, _ in
+                guard value is String else { return }
+                let mentionGlypeRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
+                drawMention(forGlyphRange: mentionGlypeRange, origin: origin)
+            })
+            super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
+        }
+         
+    private func drawMention(forGlyphRange mentionGlypeRange: NSRange, origin: CGPoint) {
+            guard let textContainer = textContainer(forGlyphAt: mentionGlypeRange.location,
+                                                    effectiveRange: nil) else { return }
+            let withinRange = NSRange(location: NSNotFound, length: 0)
+            enumerateEnclosingRects(forGlyphRange: mentionGlypeRange,
+                                    withinSelectedGlyphRange: withinRange,
+                                    in: textContainer) { rect, _ in
+                let mentionTextRect = rect.offsetBy(dx: origin.x, dy: origin.y)
+                UIColor.textColor.setFill()
+                UIBezierPath(rect: CGRect(origin: CGPoint(x: mentionTextRect.minX,
+                                                          y: mentionTextRect.maxY),
+                                          size: CGSize(width: mentionTextRect.width,
+                                                       height: 1))).fill()
+            }
+        }
+    
     private func obtainCustomFontColor(hasForegroundColor: Bool) -> CGColor? {
         if let primaryColor = primaryColor {
             return primaryColor.cgColor

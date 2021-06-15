@@ -79,11 +79,11 @@ private extension EmojiProvider{
                     return nil
                 }()
                 
-                guard let emoji = emoji else { return nil }
+                guard let emojiSymbol = emoji else { return nil }
                 
                 return Emoji(
-                    unicode: emoji,
-                    name: emoji.unicodeScalars.first?.properties.name ?? ""
+                    unicode: emojiSymbol,
+                    name: emojiSymbol.unicodeScalars.first?.properties.name ?? ""
                 )
             }
             

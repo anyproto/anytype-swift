@@ -25,6 +25,8 @@ extension CustomTextView.HighlightedToolbar {
             case link(URL?) // should retrieve in custom place
             case textColor(UIColor?) // should retrieve in custom place
             case backgroundColor(UIColor?) // should retrieve in custom place
+            case mention(String?)
+            
             static func convert(_ type: CustomTextView.MarkStyle) -> Self {
                 switch type {
                 case let .bold(value): return .bold(value)
@@ -35,6 +37,7 @@ extension CustomTextView.HighlightedToolbar {
                 case let .textColor(value): return .textColor(value)
                 case let .backgroundColor(value): return .backgroundColor(value)
                 case let .link(value): return .link(value)
+                case let .mention(pageId): return .mention(pageId)
                 }
             }
         }

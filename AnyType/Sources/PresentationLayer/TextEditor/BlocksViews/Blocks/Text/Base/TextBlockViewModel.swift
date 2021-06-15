@@ -335,6 +335,9 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                         )
                     )
                 )
+            case let .shouldChangeText(range, replacementText, mentionsHolder):
+                mentionsHolder.removeMentionIfNeeded(replacementRange: range,
+                                                     replacementText: replacementText)
             }
         }
 }

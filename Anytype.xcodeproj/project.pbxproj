@@ -496,6 +496,8 @@
 		EA7DE40426397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE40326397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift */; };
 		EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */; };
 		EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */; };
+		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
+		EAADB1A52678CD6E004B0AF2 /* UITextView+MentionsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+MentionsHolder.swift */; };
 		EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */; };
 		EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */; };
 		EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC54F6425E9458200B745A8 /* UIFont+Typography.swift */; };
@@ -515,6 +517,7 @@
 		EAC6BB54262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */; };
 		EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* BlockActionsView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
+		EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */; };
 		EAF2D88E2653C43400AA6446 /* TopUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */; };
 		EAF2D8962653C4C600AA6446 /* TopWithChildUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
@@ -1048,6 +1051,8 @@
 		EA7DE40326397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsFilterEntry.swift; sourceTree = "<group>"; };
 		EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdatePayload.swift; sourceTree = "<group>"; };
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
+		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
+		EAADB1A42678CD6E004B0AF2 /* UITextView+MentionsHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+MentionsHolder.swift"; sourceTree = "<group>"; };
 		EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattenerOptions.swift; sourceTree = "<group>"; };
 		EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChildrenNormalizer.swift; sourceTree = "<group>"; };
 		EAC54F5E25E93B3700B745A8 /* GraphikLCG-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GraphikLCG-Semibold.ttf"; sourceTree = "<group>"; };
@@ -1068,6 +1073,7 @@
 		EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsAndMarksPaneInputSwitcher.swift; sourceTree = "<group>"; };
 		EAC6BB5626289201004C8C06 /* BlockActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
+		EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.KeyExtension.swift; sourceTree = "<group>"; };
 		EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUIKitView.swift; sourceTree = "<group>"; };
 		EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWithChildUIKitView.swift; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -1628,6 +1634,7 @@
 				0A2C0D52247144F4008ADD86 /* CustomTextView.swift */,
 				537A73842677FA5F001FEBBB /* TextViewWithPlaceholderDelegate.swift */,
 				0A2C0D51247144F3008ADD86 /* TextViewWithPlaceholder.swift */,
+				EAADB19F2678CD43004B0AF2 /* Mentionable.swift */,
 			);
 			path = TextView;
 			sourceTree = "<group>";
@@ -2139,6 +2146,7 @@
 				12DE403C264AD15D007B5074 /* OptionalExtensions.swift */,
 				12472316264EAFD400B1E753 /* StringExtensions.swift */,
 				1247231A264EB21800B1E753 /* CharacterExtensions.swift */,
+				EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2406,6 +2414,7 @@
 				0A0AA749240146B5003A2935 /* UIView+Extensions.swift */,
 				3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */,
 				531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */,
+				EAADB1A42678CD6E004B0AF2 /* UITextView+MentionsHolder.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -3524,6 +3533,7 @@
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
+				EAADB1A52678CD6E004B0AF2 /* UITextView+MentionsHolder.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* DocumentEditorViewController.swift in Sources */,
 				0372923423F9CC230033DFDB /* CompletionAuthViewCoordinator.swift in Sources */,
@@ -3870,6 +3880,7 @@
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksViews+New+File+Base.swift in Sources */,
+				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
 				3DD2FC4F2620884300C65466 /* AccountInfoDataAccessor.swift in Sources */,
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
 				3DBED69F266FBBD100B9E9AB /* UnknownLabelContentConfiguration.swift in Sources */,
@@ -3917,6 +3928,7 @@
 				0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */,
 				3DC78636265D443F00498993 /* InnerEventConverter.swift in Sources */,
 				0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */,
+				EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
 				533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
@@ -4141,7 +4153,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
-					"$(PROJECT_DIR)/Modules/BlocksModels/build/Release-iphoneos",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Anytype/Supporting files/Info.plist";
@@ -4170,7 +4181,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Dependencies/Middleware",
-					"$(PROJECT_DIR)/Modules/BlocksModels/build/Release-iphoneos",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/Anytype/Supporting files/Info.plist";
