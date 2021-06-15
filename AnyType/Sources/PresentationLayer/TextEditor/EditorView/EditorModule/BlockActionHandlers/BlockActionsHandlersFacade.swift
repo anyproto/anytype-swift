@@ -86,7 +86,6 @@ final class BlockActionsHandlersFacade {
             }
         case .showCodeLanguageView: return
         case .showStyleMenu: return
-        case .becomeFirstResponder: return
         }
     }
 }

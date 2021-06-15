@@ -26,6 +26,7 @@ final class DocumentEditorViewController: UIViewController {
     }()
     
     private var insetsHelper: ScrollViewContentInsetsHelper?
+    private var contentOffset: CGPoint = .zero
     
     private var subscriptions: Set<AnyCancellable> = []
     // Gesture recognizer to handle taps in empty document
@@ -273,6 +274,19 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
     }
+
+    func needsUpdateLayout() {
+        updateView()
+    }
+
+    func textBlockWillBeginEditing() {
+        contentOffset = collectionView.contentOffset
+    }
+    
+    func textBlockDidBeginEditing() {
+        collectionView.setContentOffset(contentOffset, animated: false)
+    }
+
 }
 
 extension DocumentEditorViewController: FloatingPanelControllerDelegate {
@@ -385,10 +399,6 @@ private extension DocumentEditorViewController {
 
     /// Add handlers to viewModel state changes
     func configured() {
-        viewModel.publicSizeDidChangePublisher.receiveOnMain().sink { [weak self] (value) in
-            self?.updateView()
-        }.store(in: &self.subscriptions)
-
         viewModel.updateElementsPublisher.sink { [weak self] value in
             self?.handleUpdateBlocks(blockIds: value)
         }.store(in: &self.subscriptions)

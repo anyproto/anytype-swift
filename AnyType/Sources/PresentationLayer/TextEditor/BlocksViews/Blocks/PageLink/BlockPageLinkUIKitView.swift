@@ -13,12 +13,13 @@ final class BlockPageLinkUIKitView: UIView {
     // |    topView    | : | leftView | textView |
     // |   leftView    | : |  button  |
     let topView: TopWithChildUIKitView = .init()
-    let textView: BlockTextView = {
+    let textView: UITextView = {
         let placeholder = NSAttributedString(string: NSLocalizedString("Untitled", comment: ""),
                                              attributes: [.foregroundColor: UIColor.secondaryTextColor,
                                                           .font: UIFont.bodyFont])
-        let view = BlockTextView()
-        view.textView.update(placeholder: placeholder)
+        let view = UITextView()
+        view.isScrollEnabled = false
+        view.attributedText = placeholder
         return view
     }()
             
@@ -48,16 +49,16 @@ final class BlockPageLinkUIKitView: UIView {
     }
                     
     // MARK: Configured
-    func configured(textView: BlockTextView?) {
+    func configured(textView: UITextView) {
         _ = self.topView.configured(textView: textView)
-        textView?.textView.font = .bodyFont
-        textView?.textView.typingAttributes = [.font: UIFont.bodyFont,
+        textView.font = .bodyFont
+        textView.typingAttributes = [.font: UIFont.bodyFont,
                                                .foregroundColor: UIColor.textColor,
                                                .underlineStyle: NSUnderlineStyle.single.rawValue,
                                                .underlineColor: UIColor.textColor]
-        textView?.textView.textContainerInset = Constants.textContainerInset
-        textView?.textView.defaultFontColor = .textColor
-        textView?.textView.isUserInteractionEnabled = false
+        textView.textContainerInset = Constants.textContainerInset
+        textView.textColor = .textColor
+        textView.isUserInteractionEnabled = false
     }
 }
 
@@ -87,6 +88,6 @@ extension BlockPageLinkUIKitView {
                 return label
             }
         }())
-        self.textView.textView.text = state.title
+        textView.text = state.title
     }
 }

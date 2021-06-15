@@ -72,7 +72,7 @@ extension UITextView: TextViewManagingFocus, TextViewUpdatable {
 
             textStorage.setAttributedString(text)
         case let .auxiliary(value):
-            self.backgroundColor = value.blockColor
+            self.backgroundColor = value.tertiaryColor
             self.textAlignment = value.textAlignment
         case let .payload(value):
             self.apply(update: .attributedText(value.attributedString))

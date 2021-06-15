@@ -42,8 +42,8 @@ final class CodeBlockViewModel: BaseBlockViewModel {
 
     // MARK: - Life cycle
 
-    override init(_ block: BlockActiveRecordModelProtocol) {
-        super.init(block)
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
+        super.init(block, delegate: delegate)
         self.setupSubscribers()
 
         if let lang = block.blockModel.information.fields[Constants.codeLanguageFieldName]?.stringValue {
@@ -77,17 +77,9 @@ final class CodeBlockViewModel: BaseBlockViewModel {
         let blockFields = BlockFields(blockId: blockId, fields: [Constants.codeLanguageFieldName: language])
         listService.setFields(contextID: contextId, blockFields: [blockFields]).sink { _ in } receiveValue: { _ in }.store(in: &subscriptions)
     }
-}
 
-// MARK: - TextViewDelegate
-
-extension CodeBlockViewModel: TextViewDelegate {
-    func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        send(actionsPayload: .becomeFirstResponder(block.blockModel))
-    }
-
-    func sizeChanged() {
-        needsUpdateLayout()
+    func becomeFirstResponder() {
+        baseBlockDelegate?.becomeFirstResponder(for: block.blockModel)
     }
 }
 
@@ -115,7 +107,7 @@ private extension CodeBlockViewModel {
             .map { textContent -> TextViewUpdate in
                 let blockColor = MiddlewareColorConverter.asModel(textContent.color)
                 return .payload(.init(attributedString: textContent.attributedText, auxiliary: .init(textAlignment: .left,
-                                                                                              blockColor: blockColor)))
+                                                                                              tertiaryColor: blockColor)))
             }
             .sink { [weak self] textViewUpdate in
                 self?.textViewUpdate = textViewUpdate
@@ -166,7 +158,7 @@ private extension CodeBlockViewModel {
 // MARK: - TextViewUserInteractionProtocol
 
 extension CodeBlockViewModel: TextViewUserInteractionProtocol {
-    func didReceiveAction(_ action: BlockTextView.UserAction) {
+    func didReceiveAction(_ action: CustomTextView.UserAction) {
         switch action {
         case .addBlockAction:
             self.send(

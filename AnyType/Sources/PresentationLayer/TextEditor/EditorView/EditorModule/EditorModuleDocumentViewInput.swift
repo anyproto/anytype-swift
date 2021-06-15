@@ -23,4 +23,13 @@ protocol EditorModuleDocumentViewInput: AnyObject {
 
     /// Show style menu
     func showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel)
+
+    /// Ask view rebuild layout
+    func needsUpdateLayout()
+
+    /// Tells the delegate when editing of the text block begins
+    func textBlockDidBeginEditing()
+
+    /// Tells the delegate when editing of the text block will begin
+    func textBlockWillBeginEditing()
 }

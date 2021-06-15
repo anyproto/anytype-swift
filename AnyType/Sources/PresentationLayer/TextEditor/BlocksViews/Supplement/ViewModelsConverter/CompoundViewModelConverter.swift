@@ -11,37 +11,47 @@ final class CompoundViewModelConverter {
         self.blockActionHandler = blockActionHandler
     }
 
-    func convert(_ blocks: [BlockActiveRecordModelProtocol], router: EditorRouterProtocol?) -> [BaseBlockViewModel] {
+    func convert(_ blocks: [BlockActiveRecordModelProtocol],
+                 router: EditorRouterProtocol?,
+                 editorViewModel: DocumentEditorViewModel) -> [BaseBlockViewModel] {
         blocks.compactMap { block in
-            createBlockViewModel(block, router: router)
+            createBlockViewModel(block, router: router, editorViewModel: editorViewModel)
         }
     }
 
     private func createBlockViewModel(_ block: BlockActiveRecordModelProtocol,
-                                      router: EditorRouterProtocol?) -> BaseBlockViewModel? {
+                                      router: EditorRouterProtocol?,
+                                      editorViewModel: DocumentEditorViewModel) -> BaseBlockViewModel? {
         switch block.content {
         case .smartblock, .layout: return nil
         case let .text(content):
             switch content.contentType {
             case .code:
-                return CodeBlockViewModel(block)
+                return CodeBlockViewModel(block, delegate: editorViewModel)
             case .toggle:
-                return ToggleBlockViewModel(block, blockActionHandler: blockActionHandler)
+                return ToggleBlockViewModel(block, blockActionHandler: blockActionHandler, delegate: editorViewModel)
             default:
-                return TextBlockViewModel(block, blockActionHandler: blockActionHandler)
+                return TextBlockViewModel(block, blockActionHandler: blockActionHandler, delegate: editorViewModel)
             }
         case let .file(value):
             switch value.contentType {
-            case .file: return BlocksViews.File.File.ViewModel(block)
-            case .none: return UnknownLabelViewModel(block)
-            case .image: return BlocksViews.File.Image.ViewModel(block)
-            case .video: return VideoBlockViewModel(block)
+            case .file: return BlocksViews.File.File.ViewModel(block, delegate: editorViewModel)
+            case .none: return UnknownLabelViewModel(block, delegate: editorViewModel)
+            case .image: return BlocksViews.File.Image.ViewModel(block, delegate: editorViewModel)
+            case .video: return VideoBlockViewModel(block, delegate: editorViewModel)
             }
-        case .divider: return DividerBlockViewModel(block)
-        case .bookmark: return BlocksViews.Bookmark.Bookmark.ViewModel(block)
+        case .divider: return DividerBlockViewModel(block, delegate: editorViewModel)
+        case .bookmark: return BlocksViews.Bookmark.Bookmark.ViewModel(block, delegate: editorViewModel)
         case let .link(value):
             let publisher = document?.getDetails(by: value.targetBlockID)?.wholeDetailsPublisher
-            return BlockPageLinkViewModel(block, targetBlockId: value.targetBlockID, publisher: publisher, router: router)
+
+            return BlockPageLinkViewModel(
+                block,
+                targetBlockId: value.targetBlockID,
+                publisher: publisher,
+                router: router,
+                delegate: editorViewModel
+            )
         }
     }
 }

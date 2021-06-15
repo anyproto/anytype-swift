@@ -18,7 +18,7 @@ enum TextViewUpdate {
 
     struct Auxiliary {
         var textAlignment: NSTextAlignment
-        var blockColor: UIColor?
+        var tertiaryColor: UIColor?
     }
 
     case text(String)

@@ -30,17 +30,16 @@ class TextBlockViewModel: BaseBlockViewModel {
     private weak var blockActionHandler: NewBlockActionHandler?
 
     // MARK: - Life cycle
-
-    override init(_ block: BlockActiveRecordModelProtocol) {
-        assertionFailure("Do not use this init")
-        
-        super.init(block)
-        setupSubscribers()
-    }
     
-    init(_ block: BlockActiveRecordModelProtocol, blockActionHandler: NewBlockActionHandler?) {
+    init(
+        _ block: BlockActiveRecordModelProtocol,
+        blockActionHandler: NewBlockActionHandler?,
+        delegate: BaseBlockDelegate
+    ) {
         self.blockActionHandler = blockActionHandler
-        super.init(block)
+
+        super.init(block, delegate: delegate)
+
         setupSubscribers()
     }
 
@@ -88,7 +87,6 @@ class TextBlockViewModel: BaseBlockViewModel {
     override func updateView() {
         refreshedTextViewUpdate()
     }
-    
 }
 
 // MARK: - Methods called by View
@@ -111,7 +109,7 @@ extension TextBlockViewModel {
                     attributedString: attributedText,
                     auxiliary: .init(
                         textAlignment: alignment,
-                        blockColor: blockColor
+                        tertiaryColor: blockColor
                     )
                 )
             )
@@ -124,15 +122,21 @@ extension TextBlockViewModel {
 // MARK: - TextViewDelegate
 
 extension TextBlockViewModel: TextViewDelegate {
+    func willBeginEditing() {
+        baseBlockDelegate?.willBeginEditing()
+    }
+
+    func didBeginEditing() {
+        baseBlockDelegate?.didBeginEditing()
+    }
     
     func changeFirstResponderState(_ change: TextViewFirstResponderChange) {
-        send(actionsPayload: .becomeFirstResponder(block.blockModel))
+        baseBlockDelegate?.becomeFirstResponder(for: block.blockModel)
     }
 
     func sizeChanged() {
-        needsUpdateLayout()
+        baseBlockDelegate?.blockSizeChanged()
     }
-    
 }
 
 // MARK: - Setup
@@ -171,7 +175,7 @@ private extension TextBlockViewModel {
                 let (text, alignment) = value
                 let blockColor = MiddlewareColorConverter.asModel(text.color)
                 return .payload(.init(attributedString: text.attributedText, auxiliary: .init(textAlignment: alignment,
-                                                                                              blockColor: blockColor)))
+                                                                                              tertiaryColor: blockColor)))
             }
             .sink { [weak self] (textViewUpdate) in
                 guard let self = self else { return }
@@ -287,7 +291,7 @@ private extension TextBlockViewModel {
 
 extension TextBlockViewModel: TextViewUserInteractionProtocol {
     
-    func didReceiveAction(_ action: BlockTextView.UserAction) {
+    func didReceiveAction(_ action: CustomTextView.UserAction) {
             switch action {
             case .addBlockAction:
                 self.send(

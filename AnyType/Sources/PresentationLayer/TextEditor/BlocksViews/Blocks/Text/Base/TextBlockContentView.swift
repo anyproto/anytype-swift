@@ -59,9 +59,23 @@ final class TextBlockContentView: UIView & UIContentView {
     // MARK: Views
 
     private let topView = TopWithChildUIKitView()
-    private let textView = BlockTextView()
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
+
+    private lazy var textView: CustomTextView = {
+        let actionsHandler = BlockMenuActionsHandlerImp(
+            addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject,
+            blockActionHandler: currentConfiguration.blockActionHandler
+        )
+        let restrictions = BlockRestrictionsFactory().makeRestrictions(
+            for: currentConfiguration.information.content.type
+        )
+        let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
+
+        return CustomTextView(shouldHandleEnterKey: restrictions.canCreateBlockBelowOnEnter,
+                             menuItemsBuilder: blockActionBuilder,
+                             blockMenuActionsHandler: actionsHandler)
+    }()
 
     private lazy var createChildBlockButton: UIButton = {
         let button: UIButton = .init(primaryAction: .init(handler: { [weak self] _ in
@@ -123,27 +137,6 @@ final class TextBlockContentView: UIView & UIContentView {
         self.applyNewConfiguration()
     }
 
-    private func makeCoordinator() -> BlockTextViewCoordinator {
-        let factory = BlockRestrictionsFactory()
-        let restrictions = factory.makeRestrictions(
-            for: currentConfiguration.information.content.type
-        )
-        
-        let actionsHandler = BlockMenuActionsHandlerImp(
-            addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject,
-            blockActionHandler: currentConfiguration.blockActionHandler
-        )
-        
-        let coordinator = BlockTextViewCoordinator(
-            blockRestrictions: restrictions,
-            menuItemsBuilder: BlockActionsBuilder(restrictions: restrictions),
-            blockMenuActionsHandler: actionsHandler
-        )
-        coordinator.userInteractionDelegate = currentConfiguration.viewModel
-        
-        return coordinator
-    }
-
     // MARK: - Setup views
 
     private func setupViews() {
@@ -191,12 +184,11 @@ final class TextBlockContentView: UIView & UIContentView {
         setupForText()
         subscriptions.removeAll()
 
-        textView.coordinator = nil
         textView.delegate = nil
         // it's important to clean old attributed string
         textView.textView.attributedText = nil
-        textView.coordinator = makeCoordinator()
         textView.delegate = currentConfiguration.textViewDelegate
+        textView.userInteractionDelegate = currentConfiguration.viewModel
 
         guard case let .text(text) = self.currentConfiguration.information.content else { return }
         // In case of configurations is not equal we should check what exactly we should change
@@ -443,7 +435,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.updateCreateChildButtonState(toggled: toggled,
                                               hasChildren: !blockViewModel.block.childrenIds().isEmpty)
             if oldValue != self.createChildBlockButton.isHidden {
-                blockViewModel.needsUpdateLayout()
+                blockViewModel.baseBlockDelegate?.blockSizeChanged()
             }
         }), for: .touchUpInside)
         button.tag = Constants.Toggle.buttonTag

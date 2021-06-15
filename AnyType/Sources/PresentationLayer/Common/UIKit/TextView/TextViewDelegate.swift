@@ -22,4 +22,10 @@ protocol TextViewDelegate: AnyObject {
 
     /// Text view become first responder.
     func changeFirstResponderState(_ change: TextViewFirstResponderChange)
+
+    /// Text will begin editing
+    func willBeginEditing()
+
+    /// Text did begin editing
+    func didBeginEditing()
 }

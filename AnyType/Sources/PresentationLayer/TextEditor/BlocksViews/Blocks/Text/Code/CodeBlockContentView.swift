@@ -37,9 +37,10 @@ final class CodeBlockContentView: UIView & UIContentView {
     // MARK: - State properties
 
     private var subscriptions: Set<AnyCancellable> = []
-    private var textViewCoordinator: BlockTextViewCoordinator?
 
     let textStorage = CodeAttributedString()
+    private var textSize: CGSize?
+    weak var userInteractionDelegate: TextViewUserInteractionProtocol?
 
     private var currentConfiguration: CodeBlockContentConfiguration
     /// Block content configuration
@@ -67,6 +68,7 @@ final class CodeBlockContentView: UIView & UIContentView {
         textView.isScrollEnabled = false
         textView.backgroundColor = .clear
         textView.font = .codeFont
+        textView.delegate = self
         textStorage.highlightDelegate = self
         codeSelectButton.setText(Constants.defaultLanguage)
 
@@ -101,28 +103,12 @@ final class CodeBlockContentView: UIView & UIContentView {
         self.applyNewConfiguration()
     }
 
-    // MARK: - Fabric methods
-
-    private func makeCoordinator() -> BlockTextViewCoordinator {
-        let blockRestrictions = BlockRestrictionsFactory().makeRestrictions(for: .text(.code))
-        let coordinator = BlockTextViewCoordinator(blockRestrictions:blockRestrictions ,menuItemsBuilder: nil, blockMenuActionsHandler: nil)
-        textViewCoordinator = coordinator
-        coordinator.configureEditingToolbarHandler(textView)
-
-        coordinator.textSizeChangePublisher.sink { [weak self] _ in
-            self?.currentConfiguration.viewModel?.needsUpdateLayout()
-        }.store(in: &subscriptions)
-
-        coordinator.userInteractionDelegate = currentConfiguration.viewModel
-        
-        return coordinator
-    }
-
     // MARK: - Setup view
 
     private func setupViews() {
         textView.textContainerInset = LayoutConstants.textInsets
 
+        userInteractionDelegate = currentConfiguration.viewModel
         textView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(textView)
         addSubview(codeSelectButton)
@@ -168,7 +154,6 @@ final class CodeBlockContentView: UIView & UIContentView {
         currentConfiguration.viewModel?.codeBlockView = self
         codeSelectButton.setText(currentConfiguration.viewModel?.codeLanguage ?? Constants.defaultLanguage)
 
-        textView.delegate = makeCoordinator()
         if case let .text(content) = currentConfiguration.information.content {
             textView.font = UIFont.codeFont
             textView.text = content.attributedText.string
@@ -198,7 +183,7 @@ final class CodeBlockContentView: UIView & UIContentView {
 extension CodeBlockContentView: HighlightDelegate {
     func didHighlight(_ range: NSRange, success: Bool) {
         DispatchQueue.main.async {
-            self.currentConfiguration.viewModel?.needsUpdateLayout()
+            self.currentConfiguration.viewModel?.baseBlockDelegate?.blockSizeChanged()
             self.setupBackgroundColor()
         }
     }
@@ -212,5 +197,25 @@ extension CodeBlockContentView: CodeBlockViewInteractable {
             self.codeSelectButton.setText(language)
             self.textStorage.language = language
         }
+    }
+}
+
+extension CodeBlockContentView: UITextViewDelegate {
+
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        self.currentConfiguration.viewModel?.becomeFirstResponder()
+        return true
+    }
+
+    func textViewDidChange(_ textView: UITextView) {
+        let contentSize = textView.intrinsicContentSize
+
+        userInteractionDelegate?.didReceiveAction(
+            CustomTextView.UserAction.inputAction(.changeText(textView.attributedText))
+        )
+
+        guard textSize?.height != contentSize.height else { return }
+        textSize = contentSize
+        self.currentConfiguration.viewModel?.baseBlockDelegate?.blockSizeChanged()
     }
 }

@@ -128,7 +128,7 @@ final class TopWithChildUIKitView: UIView {
         return self
     }
 
-    func configured(textView: BlockTextView?) -> Self {
+    func configured(textView: UIView?) -> Self {
         _ = self.topView.configured(textView: textView)
         return self
     }

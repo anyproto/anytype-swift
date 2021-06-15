@@ -2,7 +2,8 @@ import Foundation
 import UIKit
 import Combine
 
-extension BlockTextView {
+
+extension CustomTextView {
     
     // Menu displayed while text is selected
     enum ContextMenuAction: CaseIterable {
@@ -10,7 +11,6 @@ extension BlockTextView {
         case italic
         case strikethrough
     }
-    
 }
 
 // MARK: - TextStorageEvent
@@ -25,17 +25,15 @@ extension TextViewWithPlaceholder {
         case willProcessEditing(Payload)
         case didProcessEditing(Payload)
     }
-    
 }
 
 // MARK: - TextView
 
 final class TextViewWithPlaceholder: UITextView {
-    
+
+    weak var userInteractionDelegate: TextViewUserInteractionProtocol?
+
     // MARK: - Publishers
-    
-    private let contextMenuSubject: PassthroughSubject<BlockTextView.ContextMenuAction, Never> = .init()
-    private(set) var contextMenuPublisher: AnyPublisher<BlockTextView.ContextMenuAction, Never> = .empty()
 
     private let firstResponderChangeSubject: PassthroughSubject<TextViewFirstResponderChange, Never> = .init()
     private(set) var firstResponderChangePublisher: AnyPublisher<TextViewFirstResponderChange, Never> = .empty()
@@ -56,10 +54,10 @@ final class TextViewWithPlaceholder: UITextView {
 
     private var placeholderConstraints: [NSLayoutConstraint] = []
 
-    /// Block color
-    var blockColor: UIColor? {
+    /// Custom color that applyed after `primaryColor`and `foregroundColor`
+    var tertiaryColor: UIColor? {
         didSet {
-            blockLayoutManager.tertiaryColor = blockColor
+            blockLayoutManager.tertiaryColor = tertiaryColor
         }
     }
 
@@ -122,7 +120,6 @@ final class TextViewWithPlaceholder: UITextView {
         super.init(coder: coder)
         self.setup()
     }
-    
 }
 
 // MARK: - Private extension
@@ -137,7 +134,6 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupPublishers() {
-        self.contextMenuPublisher = self.contextMenuSubject.eraseToAnyPublisher()
         self.firstResponderChangePublisher = self.firstResponderChangeSubject.eraseToAnyPublisher()
     }
 
@@ -168,7 +164,7 @@ private extension TextViewWithPlaceholder {
     }
     
     func setupMenu() {
-        UIMenuController.shared.menuItems = BlockTextView.ContextMenuAction.allCases.map { item in
+        UIMenuController.shared.menuItems = CustomTextView.ContextMenuAction.allCases.map { item in
             let selector: Selector = {
                 switch item {
                 case .bold:
@@ -186,7 +182,6 @@ private extension TextViewWithPlaceholder {
             )
         }
     }
-    
 }
 
 // MARK: - Contextual Menu
@@ -194,17 +189,26 @@ private extension TextViewWithPlaceholder {
 extension TextViewWithPlaceholder {
     
     @objc private func didSelecteContextMenuActionBold() {
-        contextMenuSubject.send(.bold)
+        handleMenuAction(.bold)
     }
     
     @objc private func didSelecteContextMenuActionItalic() {
-        contextMenuSubject.send(.italic)
+        handleMenuAction(.italic)
     }
     
     @objc private func didSelecteContextMenuActionStrikethrough() {
-        contextMenuSubject.send(.strikethrough)
+        handleMenuAction(.strikethrough)
     }
-    
+
+    private func handleMenuAction(_ action: CustomTextView.ContextMenuAction) {
+        let range = selectedRange
+
+        self.userInteractionDelegate?.didReceiveAction(
+            CustomTextView.UserAction.inputAction(
+                CustomTextView.UserAction.InputAction.changeTextStyle(action, range)
+            )
+        )
+    }
 }
 
 // MARK: - NSTextStorageDelegate
@@ -228,12 +232,11 @@ extension TextViewWithPlaceholder {
     func update(placeholder: NSAttributedString?) {
         self.placeholderLabel.attributedText = placeholder
     }
-    
 }
 
 // MARK: - ContextMenuAction
 
-private extension BlockTextView.ContextMenuAction {
+private extension CustomTextView.ContextMenuAction {
     
     var title: String {
         switch self {
@@ -245,5 +248,4 @@ private extension BlockTextView.ContextMenuAction {
             return "Strikethrough".localized
         }
     }
-    
 }

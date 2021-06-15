@@ -30,8 +30,8 @@ extension Namespace {
         }
         
         // MARK: Subclassing
-        override init(_ block: BlockActiveRecordModelProtocol) {
-            super.init(block)
+        override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
+            super.init(block, delegate: delegate)
             self.setup()
         }
         

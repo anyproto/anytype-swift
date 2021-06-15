@@ -3,6 +3,7 @@ import UIKit
 import Combine
 import BlocksModels
 
+
 /// ViewModel for type `.link()` with style `.page`
 final class BlockPageLinkViewModel: BaseBlockViewModel {
     public let targetBlockId: String
@@ -17,12 +18,13 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         _ block: BlockActiveRecordModelProtocol,
         targetBlockId: String,
         publisher: AnyPublisher<DetailsData, Never>?,
-        router: EditorRouterProtocol?
+        router: EditorRouterProtocol?,
+        delegate: BaseBlockDelegate?
     ) {
         self.targetBlockId = targetBlockId
         self.router = router
         
-        super.init(block)
+        super.init(block, delegate: delegate)
 
         setup(block: block)
         setupSubscriptions(publisher)

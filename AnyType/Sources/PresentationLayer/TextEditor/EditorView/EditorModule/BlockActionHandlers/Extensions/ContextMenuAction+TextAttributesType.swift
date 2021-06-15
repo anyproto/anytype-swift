@@ -1,4 +1,4 @@
-extension BlockTextView.ContextMenuAction {
+extension CustomTextView.ContextMenuAction {
     
     var asActionType: BlockActionHandler.ActionType.TextAttributesType {
         switch self {

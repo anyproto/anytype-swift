@@ -9,5 +9,5 @@
 import Foundation
 
 protocol TextViewUserInteractionProtocol: AnyObject {
-    func didReceiveAction(_ action: BlockTextView.UserAction)
+    func didReceiveAction(_ action: CustomTextView.UserAction)
 }

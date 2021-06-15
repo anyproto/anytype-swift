@@ -5,39 +5,32 @@ import os
 import BlocksModels
 
 
-// MARK: - BlockTextView
+// MARK: - CustomTextView
 
-final class BlockTextView: UIView {
-    
+final class CustomTextView: UIView {
+
+    enum Constants {
+        /// Minimum time interval to stay idle to handle consequent return key presses
+        static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
+        static let menuActionsViewSize = CGSize(
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.isFourInch ? 160 : 215
+        )
+    }
+
     private var subscriptions: Set<AnyCancellable> = []
     weak var delegate: TextViewDelegate?
-
-    var coordinator: BlockTextViewCoordinator? {
+    weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
         didSet {
-            coordinator?.textSizeChangePublisher
-                .sink { [weak self] _ in
-                    self?.delegate?.sizeChanged()
-                }
-                .store(in: &subscriptions)
-
-            coordinator?.configureEditingToolbarHandler(textView)
-            // Because we set new coordinator we want to use
-            // new coordinator's input views instead of old coordinator views
-            coordinator?.switchInputs(textView)
-            coordinator?.configure(
-                textView,
-                contextualMenuStream: textView.contextMenuPublisher
-            )
-            // When sending signal with send() in textView
-            // textStorageEventsSubject subscribers installed
-            // in coordinator configured(textStorageStream:)
-            // method have not being called, it leads us to
-            // deleting text in textView without updating it in block model
-            textView.delegate = coordinator
+            textView.userInteractionDelegate = userInteractionDelegate
         }
     }
 
-    let textView: TextViewWithPlaceholder = {
+    private(set) lazy var pressingEnterTimeChecker = TimeChecker(
+        threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing
+    )
+
+    private(set) var textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
@@ -46,12 +39,38 @@ final class BlockTextView: UIView {
         return textView
     }()
 
+    private(set) var defaultKeyboardRect: CGRect = .zero
+    private(set) var shouldHandleEnterKey: Bool = true
+    var textSize: CGSize?
+    
+    /// ActionsAccessoryView
+    private(set) lazy var editingToolbarAccessoryView = EditingToolbarView()
+    private(set) lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
+    /// HighlightedAccessoryView
+    private(set) lazy var highlightedAccessoryView = CustomTextView.HighlightedToolbar.AccessoryView()
+    private(set) var menuActionsAccessoryView: BlockActionsView?
+
+    private(set) lazy var mentionView: MentionView = {
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self else { return }
+            self.inputSwitcher.showEditingBars(customTextView: self)
+        }
+        return MentionView(frame: CGRect(origin: .zero,
+                                         size: Constants.menuActionsViewSize),
+                           dismissHandler: dismissActionsMenu)
+    }()
+
     // MARK: - Initialization
     
-    init() {
+    init(shouldHandleEnterKey: Bool,
+        menuItemsBuilder: BlockActionsBuilder?,
+        blockMenuActionsHandler: BlockMenuActionsHandler?) {
+
         super.init(frame: .zero)
 
         setupView()
+        tryToConfigureMenuActionsAccessoryView(with: menuItemsBuilder, blockMenuActionsHandler)
+        configureEditingToolbarHandler(textView)
     }
 
     @available(*, unavailable)
@@ -69,7 +88,7 @@ final class BlockTextView: UIView {
 
 // MARK: - BlockTextViewInput
 
-extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
+extension CustomTextView: TextViewManagingFocus, TextViewUpdatable {
     
     func shouldResignFirstResponder() {
         _ = textView.resignFirstResponder()
@@ -82,7 +101,12 @@ extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
     }
 
     func obtainFocusPosition() -> BlockFocusPosition? {
-        coordinator?.focusPosition()
+        guard textView.isFirstResponder else { return nil }
+        let caretLocation = textView.selectedRange.location
+        if caretLocation == 0 {
+            return .beginning
+        }
+        return .at(textView.selectedRange)
     }
 
     func apply(update: TextViewUpdate) {
@@ -137,7 +161,7 @@ extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
                 // self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
             }
         case let .auxiliary(value):
-            self.textView.blockColor = value.blockColor
+            self.textView.tertiaryColor = value.tertiaryColor
             self.textView.textAlignment = value.textAlignment
         case let .payload(value):
             self.onUpdate(receive: .attributedText(value.attributedString))
@@ -149,14 +173,15 @@ extension BlockTextView: TextViewManagingFocus, TextViewUpdatable {
             self.onUpdate(receive: .auxiliary(value.auxiliary))
         }
     }
-    
 }
 
 // MARK: - Private extension
 
-private extension BlockTextView {
+private extension CustomTextView {
     
     func setupView() {
+        textView.delegate = self
+
         addSubview(textView) {
             $0.pinToSuperview()
         }
@@ -172,5 +197,56 @@ private extension BlockTextView {
             }
             .store(in: &subscriptions)
     }
-    
+
+    func configureEditingToolbarHandler(_ textView: UITextView) {
+        self.editingToolbarAccessoryView.setActionHandler { [weak self] action in
+            guard let self = self else { return }
+
+            self.inputSwitcher.switchInputs(customTextView: self)
+
+            switch action {
+            case .slashMenu:
+                textView.insertStringToAttributedString(
+                    self.inputSwitcher.textToTriggerActionsViewDisplay
+                )
+                self.inputSwitcher.showAccessoryView(accessoryView: self.menuActionsAccessoryView,
+                                                     textView: textView)
+            case .multiActionMenu:
+                self.userInteractionDelegate?.didReceiveAction(
+                    .showMultiActionMenuAction
+                )
+
+            case .showStyleMenu:
+                self.userInteractionDelegate?.didReceiveAction(.showStyleMenu)
+
+            case .keyboardDismiss:
+                UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+            case .mention:
+                textView.insertStringToAttributedString(self.inputSwitcher.textToTriggerMentionViewDisplay)
+                self.inputSwitcher.showAccessoryView(accessoryView: self.mentionView,
+                                                     textView: textView)
+            }
+        }
+    }
+
+    func tryToConfigureMenuActionsAccessoryView(with menuItemsBuilder: BlockActionsBuilder?, _ blockMenuActionsHandler: BlockMenuActionsHandler?) {
+        guard
+            let menuItemsBuilder = menuItemsBuilder,
+            let blockMenuActionsHandler = blockMenuActionsHandler
+        else { return }
+
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self else { return }
+
+            self.inputSwitcher.showEditingBars(customTextView: self)
+        }
+
+        let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
+        self.menuActionsAccessoryView = BlockActionsView(
+            frame: actionViewRect,
+            menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
+            blockMenuActionsHandler: blockMenuActionsHandler,
+            actionsMenuDismissHandler: dismissActionsMenu
+        )
+    }
 }

@@ -9,11 +9,13 @@ class BaseBlockViewModel: ObservableObject {
     }
     
     private(set) var block: BlockActiveRecordModelProtocol
+    private(set) weak var baseBlockDelegate: BaseBlockDelegate?
 
     // MARK: - Initialization
 
-    init(_ block: BlockActiveRecordModelProtocol) {
+    init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
         self.block = block
+        self.baseBlockDelegate = delegate
     }
     
     // MARK: - Subclass / Blocks
@@ -50,11 +52,6 @@ class BaseBlockViewModel: ObservableObject {
     private(set) var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
     
     private var actionsPayloadSubjectSubscription: AnyCancellable?
-    
-    /// DidChange Size Subject.
-    /// Whenever item changes size ( or thinking so ), we have to notify our document view model about it.
-    /// This can be done via "PassthroughSubject as Delegate" technique.
-    var sizeDidChangeSubject: PassthroughSubject<Void, Never> = .init()
     
     // MARK: - Handle events
 
@@ -160,10 +157,7 @@ extension BaseBlockViewModel: Hashable {
 // MARK: - Configurations
 
 extension BaseBlockViewModel {
-    func configured(sizeDidChangeSubject: PassthroughSubject<Void, Never>) {
-        self.sizeDidChangeSubject = sizeDidChangeSubject
-    }
-
+    
     func configured(userActionSubject: PassthroughSubject<BlockUserAction, Never>) {
         self.userActionSubject = userActionSubject
         self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
@@ -266,12 +260,5 @@ extension BaseBlockViewModel {
     // Send actions payload
     func send(actionsPayload: ActionsPayload) {
         actionsPayloadSubject.send(actionsPayload)
-    }
-
-    /// Ask update layout
-    ///
-    /// View could ask to update layout due to some inner layout events (view could changed its size, position or similar)
-    func needsUpdateLayout() {
-        sizeDidChangeSubject.send()
     }
 }

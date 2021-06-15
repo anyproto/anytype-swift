@@ -44,6 +44,4 @@ enum ActionsPayload {
     case showCodeLanguageView(languages: [String], completion: (String) -> Void)
     /// show style menu
     case showStyleMenu(blockModel: BlockModelProtocol, blockViewModel: BaseBlockViewModel)
-    /// tell that block become first responder
-    case becomeFirstResponder(BlockModelProtocol)
 }

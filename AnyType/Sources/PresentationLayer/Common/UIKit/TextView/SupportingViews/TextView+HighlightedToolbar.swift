@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-extension BlockTextView {
+extension CustomTextView {
     enum HighlightedToolbar {}
 }
 
 // MARK: UnderlyingAction
-extension BlockTextView.HighlightedToolbar {
+extension CustomTextView.HighlightedToolbar {
     enum UnderlyingAction {
         enum MarksType {
             case bold(Bool)
@@ -25,7 +25,7 @@ extension BlockTextView.HighlightedToolbar {
             case link(URL?) // should retrieve in custom place
             case textColor(UIColor?) // should retrieve in custom place
             case backgroundColor(UIColor?) // should retrieve in custom place
-            static func convert(_ type: BlockTextView.MarkStyle) -> Self {
+            static func convert(_ type: CustomTextView.MarkStyle) -> Self {
                 switch type {
                 case let .bold(value): return .bold(value)
                 case let .italic(value): return .italic(value)

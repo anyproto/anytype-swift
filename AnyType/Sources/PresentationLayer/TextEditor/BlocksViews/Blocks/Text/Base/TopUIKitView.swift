@@ -136,7 +136,7 @@ final class TopUIKitView: UIView {
     }
 
     // MARK: Configured
-    func configured(textView: BlockTextView?) -> Self {
+    func configured(textView: UIView?) -> Self {
         self.updateIfNeeded(rightView: textView)
         return self
     }

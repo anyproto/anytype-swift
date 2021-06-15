@@ -12,9 +12,9 @@ import Combine
 import SwiftUI
 
 // MARK: - UIKit / UITextView / AccessoryView
-extension BlockTextView.HighlightedToolbar {
+extension CustomTextView.HighlightedToolbar {
     class AccessoryView: UIView {
-        typealias Style = BlockTextView.Style
+        typealias Style = CustomTextView.Style
         // MARK: Variables
         var style: Style = .default
         var model: ViewModel = .init()
@@ -97,7 +97,7 @@ extension BlockTextView.HighlightedToolbar {
         var changeColorButton: UIButton!
         var dismissKeyboardButton: UIButton!
         
-        var toolbarView: BlockTextView.BaseToolbarView!
+        var toolbarView: CustomTextView.BaseToolbarView!
         var contentView: UIView!
 
         // MARK: Public API Configurations
@@ -191,7 +191,7 @@ extension BlockTextView.HighlightedToolbar {
             }()
             
             self.toolbarView = {
-                let view = BlockTextView.BaseToolbarView()
+                let view = CustomTextView.BaseToolbarView()
                 return view
             }()
             
@@ -240,7 +240,7 @@ extension BlockTextView.HighlightedToolbar {
     }
 }
 
-extension BlockTextView.HighlightedToolbar {
+extension CustomTextView.HighlightedToolbar {
     // MARK: UserResponse State
     enum State {
         case bold(Bool)
@@ -251,7 +251,7 @@ extension BlockTextView.HighlightedToolbar {
     }
 
     class StatesConvertor {
-        static func state(_ style: BlockTextView.MarkStyle?) -> State? {
+        static func state(_ style: CustomTextView.MarkStyle?) -> State? {
             guard let style = style else { return nil }
             switch style {
             case let .bold(value): return .bold(value)
@@ -263,7 +263,7 @@ extension BlockTextView.HighlightedToolbar {
             }
         }
 
-        static func states(_ styles: [BlockTextView.MarkStyle]) -> [State] {
+        static func states(_ styles: [CustomTextView.MarkStyle]) -> [State] {
             styles.compactMap(state)
         }
     }
@@ -321,8 +321,8 @@ extension BlockTextView.HighlightedToolbar {
         }
         
         // MARK: ViewModels
-        @ObservedObject var inputLinkViewModel: BlockTextView.HighlightedToolbar.InputLink.ViewModel
-        @ObservedObject var changeColorViewModel: BlockTextView.BlockToolbar.ChangeColor.ViewModel
+        @ObservedObject var inputLinkViewModel: CustomTextView.HighlightedToolbar.InputLink.ViewModel
+        @ObservedObject var changeColorViewModel: CustomTextView.BlockToolbar.ChangeColor.ViewModel
 
         // MARK: Publishers
         @Published fileprivate var userResponse: UserResponse = .zero
@@ -374,10 +374,10 @@ extension BlockTextView.HighlightedToolbar {
                 let viewModel = self.inputLinkViewModel
                 viewModel.title = value
                 viewModel.link = url?.absoluteString ?? ""
-                return BlockTextView.HighlightedToolbar.InputLink.InputViewBuilder.createView(self._inputLinkViewModel)
+                return CustomTextView.HighlightedToolbar.InputLink.InputViewBuilder.createView(self._inputLinkViewModel)
             })
             case .link(_, _): return
-            case let .changeColorView(range, _): self.userAction = .changeColorView(range, BlockTextView.BlockToolbar.ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
+            case let .changeColorView(range, _): self.userAction = .changeColorView(range, CustomTextView.BlockToolbar.ChangeColor.InputViewBuilder.createView(self._changeColorViewModel))
             case .changeColor(_, _, _): return
             }
         }
@@ -385,7 +385,7 @@ extension BlockTextView.HighlightedToolbar {
         // MARK: Public Setters
         func update(range: NSRange, attributedText: NSMutableAttributedString) {
             self.range = range
-            let modifier = BlockTextView.MarkStyleModifier(attributedText: attributedText)
+            let modifier = CustomTextView.MarkStyleModifier(attributedText: attributedText)
             let styles = modifier.getMarkStyles(at: .range(range))
             let states = StatesConvertor.states(styles)
             self.userResponse = .init(range: range, states: states)

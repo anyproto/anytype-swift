@@ -1,7 +1,7 @@
 import BlocksModels
 
 struct BlockBuilder {
-    typealias KeyboardAction = BlockTextView.UserAction.KeyboardAction
+    typealias KeyboardAction = CustomTextView.UserAction.KeyboardAction
 
     static func newBlockId() -> BlockId { "" }
 

@@ -11,7 +11,7 @@ class InputSwitcher {
     ///   - textView: textView which would reload input views.
     ///   - accessoryView: accessory view which will be taken in account in switching
     ///   - inputView: input view which will be taken in account in switching
-     func switchInputs(_ inputViewKeyboardSize: CGSize,
+     func switchInputs(inputViewKeyboardSize: CGSize,
                        animated: Bool,
                        textView: UITextView,
                        accessoryView: UIView?,
@@ -43,8 +43,7 @@ class InputSwitcher {
     ///   - accessoryView: current accessory view.
     ///   - inputView: current input view.
     /// - Returns: A triplet of flag, accessory view and input view. Flag equal `shouldAnimate` and indicates if we need animation in switching.
-    func variantsFromState(_ coordinator: BlockTextViewCoordinator,
-                           textView: UITextView,
+    func variantsFromState(customTextView: CustomTextView,
                            selectionLength: Int,
                            accessoryView: UIView?,
                            inputView: UIView?) -> InputSwitcherTriplet? {
@@ -55,25 +54,28 @@ class InputSwitcher {
     /// - Parameters:
     ///   - coordinator: Coordinator which will provide data to correct views.
     ///   - textView: textView which will handle input views.
-    func switchInputs(_ coordinator: BlockTextViewCoordinator,
-                      textView: UITextView) {
-        guard let triplet = self.variantsFromState(coordinator, textView: textView, selectionLength: textView.selectedRange.length, accessoryView: textView.inputAccessoryView, inputView: textView.inputView) else { return }
+    func switchInputs(customTextView: CustomTextView) {
+        guard let triplet = self.variantsFromState(
+            customTextView: customTextView,
+            selectionLength: customTextView.textView.selectedRange.length,
+            accessoryView: customTextView.textView.inputAccessoryView,
+            inputView: customTextView.textView.inputView
+        ) else { return }
         
         let (shouldAnimate, accessoryView, inputView) = (triplet.shouldAnimate, triplet.accessoryView, triplet.inputView)
         
         if shouldAnimate {
-            textView.inputAccessoryView = accessoryView
-            textView.inputView = inputView
-            textView.reloadInputViews()
+            customTextView.textView.inputAccessoryView = accessoryView
+            customTextView.textView.inputView = inputView
+            customTextView.textView.reloadInputViews()
         }
         
-        self.didSwitchViews(coordinator, textView: textView)
+        self.didSwitchViews(customTextView: customTextView)
     }
     
     /// When we switch views, we could prepare our views.
     /// - Parameters:
     ///   - coordinator: current coordinator
     ///   - textView: text view that switch views.
-    func didSwitchViews(_ coordinator: BlockTextViewCoordinator,
-                        textView: UITextView) {}
+    func didSwitchViews(customTextView: CustomTextView) {}
 }

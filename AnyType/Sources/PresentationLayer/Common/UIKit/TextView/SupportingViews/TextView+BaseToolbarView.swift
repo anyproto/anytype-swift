@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: Style
-extension BlockTextView {
+extension CustomTextView {
     enum Style {
         static let `default`: Self = .presentation
         case debug, presentation
@@ -39,7 +39,7 @@ extension BlockTextView {
 }
 
 // MARK: Layout
-extension BlockTextView {
+extension CustomTextView {
     struct Layout {
         static var `default` = Self.init()
         enum StackViewSpacing {
@@ -61,7 +61,7 @@ extension BlockTextView {
 }
 
 // MARK: BaseToolbarView
-extension BlockTextView {
+extension CustomTextView {
     /// This is base toolbar view with two left and right stack view.
     ///
     class BaseToolbarView: UIView {
@@ -125,10 +125,10 @@ extension BlockTextView {
         // MARK: Layout
         private func addLayout() {
             if let view = self.contentView, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: BlockTextView.Layout.default.leadingOffset()).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: BlockTextView.Layout.default.trailingOffset()).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: BlockTextView.Layout.default.topOffset()).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: BlockTextView.Layout.default.bottomOffset()).isActive = true
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: CustomTextView.Layout.default.leadingOffset()).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: CustomTextView.Layout.default.trailingOffset()).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: CustomTextView.Layout.default.topOffset()).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: CustomTextView.Layout.default.bottomOffset()).isActive = true
             }
             if let view = self.leftStackView, let superview = view.superview {
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
@@ -145,7 +145,7 @@ extension BlockTextView {
 }
 
 // MARK: BaseSingleToolbarView
-extension BlockTextView {
+extension CustomTextView {
     /// This is base tooblar view with Single stack view.
     ///
     class BaseSingleToolbarView: UIView {
@@ -197,10 +197,10 @@ extension BlockTextView {
         // MARK: Layout
         private func addLayout() {
             if let view = self.contentView, let superview = view.superview {
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: BlockTextView.Layout.default.leadingOffset()).isActive = true
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: BlockTextView.Layout.default.trailingOffset()).isActive = true
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: BlockTextView.Layout.default.topOffset()).isActive = true
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: BlockTextView.Layout.default.bottomOffset()).isActive = true
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: CustomTextView.Layout.default.leadingOffset()).isActive = true
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: CustomTextView.Layout.default.trailingOffset()).isActive = true
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: CustomTextView.Layout.default.topOffset()).isActive = true
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: CustomTextView.Layout.default.bottomOffset()).isActive = true
             }
             if let view = self.stackView, let superview = view.superview {
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true

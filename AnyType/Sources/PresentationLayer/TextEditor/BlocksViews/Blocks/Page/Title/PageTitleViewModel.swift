@@ -33,6 +33,7 @@ class PageTitleViewModel: PageBlockViewModel {
     @Published private(set) var textViewUpdate: TextViewUpdate?
     
     // MARK: - Placeholder
+
     lazy private var placeholder: NSAttributedString = {
         let text: NSString = "Untitled"
         let attributedString: NSMutableAttributedString = .init(string: text as String)
@@ -42,12 +43,14 @@ class PageTitleViewModel: PageBlockViewModel {
     }()
     
     // MARK: - Initialization
-    override init(_ block: BlockActiveRecordModelProtocol) {
-        super.init(block)
+
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
+        super.init(block, delegate: delegate)
         self.setupSubscribers()
     }
 
     // MARK: - Setup
+
     private func setupSubscribers() {
         self.$toViewTitle.removeDuplicates().receiveOnMain().sink { [weak self] (value) in
             self?.textViewUpdate = .text(value)
@@ -84,7 +87,7 @@ class PageTitleViewModel: PageBlockViewModel {
 
 // MARK: - TextViewEvents
 extension PageTitleViewModel: TextViewUserInteractionProtocol {
-    func didReceiveAction(_ action: BlockTextView.UserAction) {
+    func didReceiveAction(_ action: CustomTextView.UserAction) {
         switch action {
 //        case let .addBlockAction(value):
 //            switch value {

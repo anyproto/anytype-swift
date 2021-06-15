@@ -11,7 +11,7 @@ import UIKit
 
 
 // MARK: UserActions
-extension BlockTextView {
+extension CustomTextView {
     
     public enum UserAction {
         case showStyleMenu
@@ -25,16 +25,16 @@ extension BlockTextView {
 }
 
 // MARK: - InputAction
-extension BlockTextView.UserAction {
+extension CustomTextView.UserAction {
     // Actions with text
     enum InputAction {
         case changeText(NSAttributedString)
-        case changeTextStyle(BlockTextView.ContextMenuAction, NSRange)
+        case changeTextStyle(CustomTextView.ContextMenuAction, NSRange)
     }
 }
 
 // MARK: - KeyboardAction
-extension BlockTextView.UserAction {
+extension CustomTextView.UserAction {
     // Actions with input custom keys
     enum KeyboardAction {
         /// Press some `Key`

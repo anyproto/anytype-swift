@@ -15,7 +15,7 @@
 ///
 /// This `UserInteraction` enumeration wrap `TextView.UserAction` and `ButtonView.UserAction` together
 enum TextBlockUserInteraction {
-    case textView(BlockTextView.UserAction)
+    case textView(CustomTextView.UserAction)
     case buttonView(ButtonView.UserAction)
 }
 

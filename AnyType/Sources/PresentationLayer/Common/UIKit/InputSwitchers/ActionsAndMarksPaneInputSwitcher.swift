@@ -14,7 +14,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsHolder)?
     
-    override func switchInputs(_ inputViewKeyboardSize: CGSize,
+    override func switchInputs(inputViewKeyboardSize: CGSize,
                                animated: Bool,
                                textView: UITextView,
                                accessoryView: UIView?,
@@ -51,12 +51,11 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         }
     }
 
-    override func variantsFromState(_ coordinator: BlockTextViewCoordinator,
-                                    textView: UITextView,
+    override func variantsFromState(customTextView: CustomTextView,
                                     selectionLength: Int,
                                     accessoryView: UIView?,
                                     inputView: UIView?) -> InputSwitcherTriplet? {
-        if shouldContinueToDisplayAccessoryView(coordinator: coordinator, textView: textView) {
+        if shouldContinueToDisplayAccessoryView(customTextView: customTextView) {
             return InputSwitcherTriplet(shouldAnimate: false,
                                         accessoryView: accessoryView,
                                         inputView: nil)
@@ -65,7 +64,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         // Length == 0, => set actions toolbar and restore default keyboard.
         case (0, _, _):
             return .init(shouldAnimate: false,
-                         accessoryView: coordinator.editingToolbarAccessoryView,
+                         accessoryView: customTextView.editingToolbarAccessoryView,
                          inputView: nil)
         // Length != 0 and is ActionsToolbarAccessoryView => set marks pane input view and restore default accessory view (?).
         case (_, is EditingToolbarView, _):
@@ -73,9 +72,9 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                          accessoryView: accessoryView,
                          inputView: nil)
         // Length != 0 and is InputLink.ContainerView when textView.isFirstResponder => set highlighted accessory view and restore default keyboard.
-        case (_, is BlockTextView.HighlightedToolbar.InputLink.ContainerView, _) where textView.isFirstResponder:
+        case (_, is CustomTextView.HighlightedToolbar.InputLink.ContainerView, _) where customTextView.textView.isFirstResponder:
             return .init(shouldAnimate: false,
-                         accessoryView: coordinator.highlightedAccessoryView,
+                         accessoryView: customTextView.highlightedAccessoryView,
                          inputView: nil)
         // Otherwise, we need to keep accessory view and keyboard.
         default:
@@ -85,31 +84,29 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         }
     }
     
-    override func switchInputs(_ coordinator: BlockTextViewCoordinator,
-                               textView: UITextView) {
-        self.updateDisplayedAccessoryViewState(coordinator: coordinator, textView: textView)
-        showEditingBars(coordinator: coordinator, textView: textView)
+    override func switchInputs(customTextView: CustomTextView) {
+        self.updateDisplayedAccessoryViewState(customTextView: customTextView)
+        showEditingBars(customTextView: customTextView)
     }
     
-    func showEditingBars(coordinator: BlockTextViewCoordinator,
-                              textView: UITextView) {
-        guard let triplet = self.variantsFromState(coordinator,
-                                                   textView: textView,
-                                                   selectionLength: textView.selectedRange.length,
-                                                   accessoryView: textView.inputAccessoryView,
-                                                   inputView: textView.inputView) else { return }
-        self.switchInputs(coordinator.defaultKeyboardRect.size,
+    func showEditingBars(customTextView: CustomTextView) {
+        guard let triplet = self.variantsFromState(customTextView: customTextView,
+                                                   selectionLength: customTextView.textView.selectedRange.length,
+                                                   accessoryView: customTextView.textView.inputAccessoryView,
+                                                   inputView: customTextView.textView.inputView) else { return }
+        self.switchInputs(inputViewKeyboardSize: customTextView.defaultKeyboardRect.size,
                           animated: triplet.shouldAnimate,
-                          textView: textView,
+                          textView: customTextView.textView,
                           accessoryView: triplet.accessoryView,
                           inputView: triplet.inputView)
         
-        self.didSwitchViews(coordinator, textView: textView)
+        self.didSwitchViews(customTextView: customTextView)
     }
     
     func showAccessoryView(accessoryView: (DismissableInputAccessoryView & FilterableItemsHolder)?,
                            textView: UITextView) {
-        switchInputs(.zero, animated: true,
+        switchInputs(inputViewKeyboardSize: .zero,
+                     animated: true,
                      textView: textView,
                      accessoryView: accessoryView,
                      inputView: nil)
@@ -121,23 +118,23 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     // We do want to continue displaying menu view or mention view
     // if current caret position more far from begining
     // then / or @ symbol and if menu view displays any items(not empty)
-    private func shouldContinueToDisplayAccessoryView(coordinator: BlockTextViewCoordinator,
-                                                      textView: UITextView) -> Bool {
+    private func shouldContinueToDisplayAccessoryView(customTextView: CustomTextView) -> Bool {
         guard let accessoryView = displayedView,
               !accessoryView.window.isNil,
               let triggerSymbolPosition = accessoryViewTriggerSymbolPosition,
-              let caretPosition = textView.caretPosition(),
-              textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
+              let caretPosition = customTextView.textView.caretPosition(),
+              customTextView.textView.compare(triggerSymbolPosition, to: caretPosition) != .orderedDescending,
               accessoryView.isDisplayingAnyItems() else { return false }
         return true
     }
     
-    private func updateDisplayedAccessoryViewState(coordinator: BlockTextViewCoordinator, textView: UITextView) {
+    private func updateDisplayedAccessoryViewState(customTextView: CustomTextView) {
+        let textView = customTextView.textView
         displayAcessoryViewTask?.cancel()
-    // We want do to display actions menu in case
-    // text was changed - "text" -> "text/"
-    // but do not want to display in case
-    // "text/a" -> "text/"
+        // We want do to display actions menu in case
+        // text was changed - "text" -> "text/"
+        // but do not want to display in case
+        // "text/a" -> "text/"
         guard let caretPosition = textView.caretPosition() else { return }
         if let accessoryView = displayedView,
            !accessoryView.window.isNil,
@@ -153,7 +150,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
            textViewChange != .deletingSymbols else { return }
         
         if text.hasSuffix(textToTriggerActionsViewDisplay) {
-            createDelayedAcessoryViewTask(accessoryView: coordinator.menuActionsAccessoryView,
+            createDelayedAcessoryViewTask(accessoryView: customTextView.menuActionsAccessoryView,
                                           textView: textView)
         }
     }

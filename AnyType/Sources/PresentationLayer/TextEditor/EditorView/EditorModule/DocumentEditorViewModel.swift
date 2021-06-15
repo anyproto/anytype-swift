@@ -42,9 +42,6 @@ class DocumentEditorViewModel: ObservableObject {
     private var publicActionsPayloadSubject = PassthroughSubject<ActionsPayload, Never>()
     lazy var publicActionsPayloadPublisher = publicActionsPayloadSubject.eraseToAnyPublisher()
 
-    private var publicSizeDidChangeSubject = PassthroughSubject<Void, Never>()
-    lazy var publicSizeDidChangePublisher = publicSizeDidChangeSubject.eraseToAnyPublisher()
-
     /// Builders to build block views
     @Published private(set) var blocksViewModels: [BaseBlockViewModel] = [] {
         didSet {
@@ -104,7 +101,9 @@ class DocumentEditorViewModel: ObservableObject {
                 
                 switch updateResult.updates {
                 case .general:
-                    let blocksViewModels = self.blocksConverter.convert(updateResult.models, router: self.editorRouter)
+                    let blocksViewModels = self.blocksConverter.convert(updateResult.models,
+                                                                        router: self.editorRouter,
+                                                                        editorViewModel: self)
                     self.update(blocksViewModels: blocksViewModels)
                 case let .update(update):
                     if update.updatedIds.isEmpty {
@@ -257,8 +256,6 @@ private extension DocumentEditorViewModel {
             viewInput?.showCodeLanguageView(with: languages, completion: completion)
         case let .showStyleMenu(blockModel, blockViewModel):
             viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
-        case let .becomeFirstResponder(blockModel):
-            document.userSession?.setFirstResponder(with: blockModel)
         case .toolbar, .userAction: return
         }
     }
@@ -275,9 +272,31 @@ extension DocumentEditorViewModel {
 
 
 // MARK: - Debug
+
 extension DocumentEditorViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
         "\(String(reflecting: Self.self)) -> \(String(describing: document.documentId))"
+    }
+}
+
+// MARK: - Base block delegate
+
+extension DocumentEditorViewModel: BaseBlockDelegate {
+
+    func blockSizeChanged() {
+        viewInput?.needsUpdateLayout()
+    }
+
+    func becomeFirstResponder(for block: BlockModelProtocol) {
+        document.userSession?.setFirstResponder(with: block)
+    }
+
+    func didBeginEditing() {
+        viewInput?.textBlockDidBeginEditing()
+    }
+
+    func willBeginEditing() {
+        viewInput?.textBlockWillBeginEditing()
     }
 }
 
@@ -294,7 +313,6 @@ extension DocumentEditorViewModel {
         builders.forEach { block in
             block.configured(userActionSubject: publicUserActionSubject)
             block.configured(actionsPayloadSubject: publicActionsPayloadSubject)
-            block.configured(sizeDidChangeSubject: publicSizeDidChangeSubject)
         }
     }
     
