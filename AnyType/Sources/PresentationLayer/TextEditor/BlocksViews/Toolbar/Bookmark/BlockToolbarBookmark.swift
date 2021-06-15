@@ -3,16 +3,11 @@ import SwiftUI
 import Combine
 import os
 
-fileprivate typealias Namespace = BlockToolbar.Bookmark
 
-
-// MARK: AddBlock
-extension BlockToolbar {
-    enum Bookmark {}
-}
+enum BlockToolbarBookmark {}
 
 // MARK: InputViewBuilder
-extension Namespace {
+extension BlockToolbarBookmark {
     enum InputViewBuilder {
         static func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let controller = UIHostingController(rootView: InputView.init(model: viewModel.wrappedValue))
@@ -24,7 +19,7 @@ extension Namespace {
 }
 
 // MARK: Style
-extension Namespace {
+extension BlockToolbarBookmark {
     enum Style {
         func fontSize() -> CGFloat {
             switch self {
@@ -59,13 +54,13 @@ extension Namespace {
 
 // MARK: View
 /// TODO: Refactor later.
-extension Namespace {
+extension BlockToolbarBookmark {
     struct Layout {
         var webViewHeight: CGFloat = 300
     }
 }
 
-extension Namespace {
+extension BlockToolbarBookmark {
     struct InputView: View {
         @ObservedObject var model: ViewModel
         var layout: Layout = .init()
@@ -96,7 +91,7 @@ extension Namespace {
 }
 
 // MARK: - View / Style
-extension Namespace.InputView {
+extension BlockToolbarBookmark.InputView {
     enum Style {
         case presentation
         
@@ -117,7 +112,7 @@ extension Namespace.InputView {
 }
 
 // MARK: - View / RoundedButtonViewModifier
-extension Namespace.InputView {
+extension BlockToolbarBookmark.InputView {
     struct RoundedButtonViewModifier: ViewModifier {
         var style: Style.Button
         func body(content: Content) -> some View { content.padding(10)
@@ -137,7 +132,7 @@ extension Namespace.InputView {
 }
 
 import WebKit
-extension Namespace {
+extension BlockToolbarBookmark {
     // MARK: - View / WebView
     struct WebView: UIViewRepresentable {
         var urlType: WebUrl = .publicUrl
@@ -244,7 +239,7 @@ extension Namespace {
     }
 }
 
-extension Namespace.WebView {
+extension BlockToolbarBookmark.WebView {
     class ViewModel: ObservableObject {
         var webViewNavigationPublisher = PassthroughSubject<WebViewNavigation, Never>()
         var showLoader = PassthroughSubject<Bool, Never>()

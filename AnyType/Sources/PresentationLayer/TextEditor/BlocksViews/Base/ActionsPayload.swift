@@ -8,7 +8,7 @@ import UIKit
 enum ActionsPayload {
     struct Toolbar {
         let model: BlockActiveRecordModelProtocol
-        let action: BlockToolbar.UnderlyingAction
+        let action: BlockToolbarAction
     }
 
     /// For backward compatibility.

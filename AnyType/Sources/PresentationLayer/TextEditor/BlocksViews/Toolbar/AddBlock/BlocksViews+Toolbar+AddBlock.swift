@@ -4,14 +4,12 @@ import Combine
 import os
 
 
-extension BlockToolbar {
-    enum AddBlock {
-        typealias BlocksTypes = BlockToolbar.BlocksTypes
-    }
+enum BlockToolbarAddBlock {
+    typealias BlocksTypes = BlockToolbarBlocksTypes
 }
 
 // MARK: InputViewBuilder
-extension BlockToolbar.AddBlock {
+extension BlockToolbarAddBlock {
     enum InputViewBuilder {
         static func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let inputView = InputView(
@@ -30,9 +28,9 @@ extension BlockToolbar.AddBlock {
 }
 
 // MARK: View
-extension BlockToolbar.AddBlock {
+extension BlockToolbarAddBlock {
     struct InputView: View {
-        typealias Types = BlockToolbar.BlocksTypes
+        typealias Types = BlockToolbarBlocksTypes
         typealias TypesColor = Types.Resources.Color
 
         private var safeCategoryIndex: Int { categoryIndex ?? 0 }
@@ -74,7 +72,7 @@ extension BlockToolbar.AddBlock {
 }
 
 // MARK: Category
-extension BlockToolbar.AddBlock {
+extension BlockToolbarAddBlock {
     struct Category: View {
         var viewModel: ViewModel
         var cells: [Cell.ViewModel]
@@ -97,7 +95,7 @@ extension BlockToolbar.AddBlock {
 }
 
 // MARK: Cell
-extension BlockToolbar.AddBlock.Cell {
+extension BlockToolbarAddBlock.Cell {
     enum ButtonColorScheme {
         case selected
         func backgroundColor() -> UIColor {
@@ -114,7 +112,7 @@ extension BlockToolbar.AddBlock.Cell {
     }
 }
 
-extension BlockToolbar.AddBlock {
+extension BlockToolbarAddBlock {
     struct Cell: View {
         var viewModel: ViewModel
         var view: some View {

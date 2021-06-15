@@ -265,7 +265,7 @@ extension DocumentEditorViewModel {
     
     struct Toolbar {
         let model: [BlockId]
-        let action: BlockToolbar.UnderlyingAction
+        let action: BlockToolbarAction
     }
     
 }

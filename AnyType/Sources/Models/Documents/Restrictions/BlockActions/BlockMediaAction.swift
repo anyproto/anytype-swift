@@ -51,7 +51,7 @@ enum BlockMediaAction: CaseIterable {
         }
     }
     
-    var blockViewsType: BlockToolbar.BlocksTypes {
+    var blockViewsType: BlockToolbarBlocksTypes {
         switch self {
         case .file:
             return .objects(.file)

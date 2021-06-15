@@ -3,7 +3,7 @@ import Combine
 import SwiftUI
 
 // MARK: ViewModelBuilder
-extension BlockToolbar.Bookmark {
+extension BlockToolbarBookmark {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
@@ -13,7 +13,7 @@ extension BlockToolbar.Bookmark {
 }
 
 // MARK: ViewModel
-extension BlockToolbar.Bookmark {
+extension BlockToolbarBookmark {
     class ViewModel: ObservableObject {
         // MARK: Public / Publishers
         /// It is a chosen block type publisher.
@@ -24,7 +24,7 @@ extension BlockToolbar.Bookmark {
         var title = "Paste or type url"
         var buttonTitle = "Add bookmark"
 
-        @ObservedObject var webViewModel: BlockToolbar.Bookmark.WebView.ViewModel = .init()
+        @ObservedObject var webViewModel: BlockToolbarBookmark.WebView.ViewModel = .init()
         
         @Published var typingURL: String = "" {
             didSet {
@@ -47,7 +47,7 @@ extension BlockToolbar.Bookmark {
 }
 
 // MARK: ViewModel / Configuration
-extension BlockToolbar.Bookmark.ViewModel {
+extension BlockToolbarBookmark.ViewModel {
     func configured(title: String) -> Self {
         self.title = title
         return self

@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: ViewModelBuilder
-extension BlockToolbar.TurnIntoBlock {
+extension BlockToolbarTurnIntoBlock {
     enum ViewModelBuilder {
         static func create() -> ViewModel {
             let viewModel: ViewModel = .init()
@@ -24,7 +24,7 @@ extension BlockToolbar.TurnIntoBlock {
 }
 
 // MARK: ViewModel
-extension BlockToolbar.TurnIntoBlock {
-    typealias BlocksTypes = BlockToolbar.BlocksTypes
-    typealias ViewModel = BlockToolbar.AddBlock.ViewModel
+extension BlockToolbarTurnIntoBlock {
+    typealias BlocksTypes = BlockToolbarBlocksTypes
+    typealias ViewModel = BlockToolbarAddBlock.ViewModel
 }

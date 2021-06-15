@@ -2,11 +2,8 @@ import SwiftUI
 import Combine
 
 final class BlockToolbarViewModel {
-    typealias UnderlyingAction = BlockToolbar.UnderlyingAction
-    typealias Toolbar = BlockToolbar
-    
     // MARK: Variables
-    var action: AnyPublisher<UnderlyingAction, Never> = .empty()
+    var action: AnyPublisher<BlockToolbarAction, Never> = .empty()
     var dismissControllerPublisher: AnyPublisher<Void, Never> = .empty()
     private var style: Style
     
@@ -14,21 +11,21 @@ final class BlockToolbarViewModel {
     private var subscriptions: Set<AnyCancellable> = []
             
     // MARK: Models
-    @ObservedObject private var addBlockViewModel: Toolbar.AddBlock.ViewModel
-    @ObservedObject private var turnIntoBlockViewModel: Toolbar.TurnIntoBlock.ViewModel
-    @ObservedObject private var bookmarkViewModel: Toolbar.Bookmark.ViewModel
+    @ObservedObject private var addBlockViewModel: BlockToolbarAddBlock.ViewModel
+    @ObservedObject private var turnIntoBlockViewModel: BlockToolbarTurnIntoBlock.ViewModel
+    @ObservedObject private var bookmarkViewModel: BlockToolbarBookmark.ViewModel
     
     // MARK: Setup
-    private func publisher(style: Style) -> AnyPublisher<UnderlyingAction, Never> {
+    private func publisher(style: Style) -> AnyPublisher<BlockToolbarAction, Never> {
         switch style.style {
         case .addBlock: return self.addBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
-            UnderlyingAction.addBlock(value)
+            BlockToolbarAction.addBlock(value)
         }.eraseToAnyPublisher()
         case .turnIntoBlock: return self.turnIntoBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
-            UnderlyingAction.turnIntoBlock(value)
+            BlockToolbarAction.turnIntoBlock(value)
         }.eraseToAnyPublisher()
         case .bookmark: return self.bookmarkViewModel.userAction.map({ value in
-            UnderlyingAction.bookmark(.fetch(value))
+            BlockToolbarAction.bookmark(.fetch(value))
         }).eraseToAnyPublisher()
         }
     }
@@ -40,9 +37,9 @@ final class BlockToolbarViewModel {
     // MARK: Initialization
     init(_ style: Style) {
         self.style = style
-        self.addBlockViewModel = Toolbar.AddBlock.ViewModelBuilder.create()
-        self.turnIntoBlockViewModel = Toolbar.TurnIntoBlock.ViewModelBuilder.create()
-        self.bookmarkViewModel = Toolbar.Bookmark.ViewModelBuilder.create()
+        self.addBlockViewModel = BlockToolbarAddBlock.ViewModelBuilder.create()
+        self.turnIntoBlockViewModel = BlockToolbarTurnIntoBlock.ViewModelBuilder.create()
+        self.bookmarkViewModel = BlockToolbarBookmark.ViewModelBuilder.create()
         
         if let filtering = self.style.filtering {
             _ = self.addBlockViewModel.configured(filtering: filtering)
@@ -54,9 +51,9 @@ final class BlockToolbarViewModel {
     // MARK: Get Chosen View
     func chosenView() -> StyleAndViewAndPayload {
         switch self.style.style {
-        case .addBlock: return .init(style: self.style, view: Toolbar.AddBlock.InputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
-        case .turnIntoBlock: return .init(style: self.style, view: Toolbar.TurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
-        case .bookmark: return .init(style: self.style, view: Toolbar.Bookmark.InputViewBuilder.createView(self._bookmarkViewModel), payload: .init(title: self.bookmarkViewModel.title))
+        case .addBlock: return .init(style: self.style, view: BlockToolbarAddBlock.InputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
+        case .turnIntoBlock: return .init(style: self.style, view: BlockToolbarTurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
+        case .bookmark: return .init(style: self.style, view: BlockToolbarBookmark.InputViewBuilder.createView(self._bookmarkViewModel), payload: .init(title: self.bookmarkViewModel.title))
         }
     }
 }
@@ -94,9 +91,9 @@ extension BlockToolbarViewModel {
         }
         
         fileprivate var style: OurStyle = .addBlock
-        fileprivate var filtering: BlockToolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering?
+        fileprivate var filtering: BlockToolbarAddBlock.ViewModel.BlocksTypesCasesFiltering?
         
-        init(style: BlockToolbarViewModel.Style.OurStyle = .addBlock, filtering: BlockToolbar.AddBlock.ViewModel.BlocksTypesCasesFiltering? = nil) {
+        init(style: BlockToolbarViewModel.Style.OurStyle = .addBlock, filtering: BlockToolbarAddBlock.ViewModel.BlocksTypesCasesFiltering? = nil) {
             self.style = style
             self.filtering = filtering
         }

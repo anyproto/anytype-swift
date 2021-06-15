@@ -102,9 +102,9 @@
 		0A10CC86248ED549000FF498 /* DocumentIconEmojiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */; };
 		0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */; };
 		0A1DACC3244DD35C0007BC5D /* BlocksViewsToolbarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC2244DD35C0007BC5D /* BlocksViewsToolbarColor.swift */; };
-		0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */; };
+		0A1DACC5244DDB050007BC5D /* BlockToolbarBlocksTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlockToolbarBlocksTypes.swift */; };
 		0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */; };
-		0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCA244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift */; };
+		0A1DACCB244E08930007BC5D /* BlockToolbarAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCA244E08930007BC5D /* BlockToolbarAction.swift */; };
 		0A1DACCD244E189E0007BC5D /* BlockToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCC244E189E0007BC5D /* BlockToolbarViewController.swift */; };
 		0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */; };
 		0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */; };
@@ -184,8 +184,8 @@
 		0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */; };
 		0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24724CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift */; };
 		0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */; };
-		0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24B24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift */; };
-		0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */; };
+		0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */; };
+		0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24D24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift */; };
 		0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694B25D57F2D00669F8C /* BlockActionsServiceText.swift */; };
 		0AD7695025D5854700669F8C /* BlockActionsServiceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7694F25D5854700669F8C /* BlockActionsServiceList.swift */; };
 		0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695225D58D6000669F8C /* BlockActionsServiceBookmark.swift */; };
@@ -662,9 +662,9 @@
 		0A10CC83248ED4AF000FF498 /* PageTitleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTitleState.swift; sourceTree = "<group>"; };
 		0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconEmojiView.swift; sourceTree = "<group>"; };
 		0A1DACC2244DD35C0007BC5D /* BlocksViewsToolbarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewsToolbarColor.swift; sourceTree = "<group>"; };
-		0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+BlocksTypes.swift"; sourceTree = "<group>"; };
+		0A1DACC4244DDB050007BC5D /* BlockToolbarBlocksTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBlocksTypes.swift; sourceTree = "<group>"; };
 		0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock.swift"; sourceTree = "<group>"; };
-		0A1DACCA244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+UnderlyingAction.swift"; sourceTree = "<group>"; };
+		0A1DACCA244E08930007BC5D /* BlockToolbarAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarAction.swift; sourceTree = "<group>"; };
 		0A1DACCC244E189E0007BC5D /* BlockToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarViewController.swift; sourceTree = "<group>"; };
 		0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift"; sourceTree = "<group>"; };
@@ -738,8 +738,8 @@
 		0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceBookmarkProtocol.swift; sourceTree = "<group>"; };
 		0AD6B24724CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Bookmark+Bookmark.swift"; sourceTree = "<group>"; };
-		0AD6B24B24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+Bookmark.swift"; sourceTree = "<group>"; };
-		0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+Bookmark+ViewModel.swift"; sourceTree = "<group>"; };
+		0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBookmark.swift; sourceTree = "<group>"; };
+		0AD6B24D24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBookmarkViewModel.swift; sourceTree = "<group>"; };
 		0AD7694B25D57F2D00669F8C /* BlockActionsServiceText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceText.swift; sourceTree = "<group>"; };
 		0AD7694F25D5854700669F8C /* BlockActionsServiceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceList.swift; sourceTree = "<group>"; };
 		0AD7695225D58D6000669F8C /* BlockActionsServiceBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceBookmark.swift; sourceTree = "<group>"; };
@@ -1780,17 +1780,14 @@
 		0A1DACC1244DD34B0007BC5D /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
+				3D3D895B2678EC4A008C2B26 /* AddBlock */,
+				3D3D895A2678EC21008C2B26 /* TurnIntoBlock */,
+				3D3D89572678EBC8008C2B26 /* Bookmark */,
 				3D3D89522678DDC8008C2B26 /* BlockToolbarViewController */,
 				3D3D894B2678D07D008C2B26 /* SwiftUI */,
 				0A1DACC2244DD35C0007BC5D /* BlocksViewsToolbarColor.swift */,
-				0A1DACC4244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift */,
-				0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */,
-				0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */,
-				0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */,
-				0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */,
-				0A1DACCA244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift */,
-				0AD6B24B24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift */,
-				0AD6B24D24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift */,
+				0A1DACC4244DDB050007BC5D /* BlockToolbarBlocksTypes.swift */,
+				0A1DACCA244E08930007BC5D /* BlockToolbarAction.swift */,
 			);
 			path = Toolbar;
 			sourceTree = "<group>";
@@ -2287,6 +2284,33 @@
 				3D3D89532678DE5D008C2B26 /* BlockToolbarViewModel.swift */,
 			);
 			path = BlockToolbarViewController;
+			sourceTree = "<group>";
+		};
+		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */,
+				0AD6B24D24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift */,
+			);
+			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		3D3D895A2678EC21008C2B26 /* TurnIntoBlock */ = {
+			isa = PBXGroup;
+			children = (
+				0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */,
+				0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */,
+			);
+			path = TurnIntoBlock;
+			sourceTree = "<group>";
+		};
+		3D3D895B2678EC4A008C2B26 /* AddBlock */ = {
+			isa = PBXGroup;
+			children = (
+				0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */,
+				0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */,
+			);
+			path = AddBlock;
 			sourceTree = "<group>";
 		};
 		3D486C132631726400A9B625 /* UIKit */ = {
@@ -3434,7 +3458,7 @@
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				53856BF0265BCD4B00CB1FAE /* ProtobufExtenstion.swift in Sources */,
 				EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */,
-				0A1DACC5244DDB050007BC5D /* BlocksViews+Toolbar+BlocksTypes.swift in Sources */,
+				0A1DACC5244DDB050007BC5D /* BlockToolbarBlocksTypes.swift in Sources */,
 				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
 				EA289B932629A89400EA869F /* BlockMenuItemSimpleDisplayData.swift in Sources */,
@@ -3478,7 +3502,7 @@
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				0A0965EC25BEF5B000C004BD /* EditorModuleSelectionHandlerHolderProtocol.swift in Sources */,
 				EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */,
-				0AD6B24C24CF633F0097A841 /* BlocksViews+Toolbar+Bookmark.swift in Sources */,
+				0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
 				0A78327124B8D2B400A1B6F6 /* BlocksModelsParserTextContentTypeConverter.swift in Sources */,
 				3DB7DCC3263B095E00635E4C /* RandomAccessCollection+Indexed.swift in Sources */,
@@ -3494,7 +3518,7 @@
 				0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */,
 				3D0BFB3A263BE797007CC856 /* AsyncImage.swift in Sources */,
 				3DD67E9126526D8D0025ED6F /* EditorModuleDocumentViewInput.swift in Sources */,
-				0AD6B24E24CF634E0097A841 /* BlocksViews+Toolbar+Bookmark+ViewModel.swift in Sources */,
+				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
 				03B161A0239F3A3200BF27D1 /* WaitingViewOnCreatAccountModel.swift in Sources */,
 				EAF2D8962653C4C600AA6446 /* TopWithChildUIKitView.swift in Sources */,
 				0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */,
@@ -3582,7 +3606,7 @@
 				EA2F0D6D264EBA1B0039C1CB /* TextViewTextChangeType.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
-				0A1DACCB244E08930007BC5D /* BlocksViews+Toolbar+UnderlyingAction.swift in Sources */,
+				0A1DACCB244E08930007BC5D /* BlockToolbarAction.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */,
 				EA5521AB266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
