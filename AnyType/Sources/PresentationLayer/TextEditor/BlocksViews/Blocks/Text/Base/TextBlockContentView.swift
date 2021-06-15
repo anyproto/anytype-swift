@@ -63,7 +63,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private let selectionView = UIView()
 
     private lazy var textView: CustomTextView = {
-        let actionsHandler = BlockMenuActionsHandlerImp(
+        let actionsHandler = SlashMenuActionsHandlerImp(
             addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject,
             blockActionHandler: currentConfiguration.blockActionHandler
         )
@@ -72,9 +72,11 @@ final class TextBlockContentView: UIView & UIContentView {
         )
         let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
 
-        return CustomTextView(shouldHandleEnterKey: restrictions.canCreateBlockBelowOnEnter,
-                             menuItemsBuilder: blockActionBuilder,
-                             blockMenuActionsHandler: actionsHandler)
+        return CustomTextView(
+            shouldHandleEnterKey: restrictions.canCreateBlockBelowOnEnter,
+            menuItemsBuilder: blockActionBuilder,
+            slashMenuActionsHandler: actionsHandler
+        )
     }()
 
     private lazy var createChildBlockButton: UIButton = {

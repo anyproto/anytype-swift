@@ -62,14 +62,15 @@ final class CustomTextView: UIView {
 
     // MARK: - Initialization
     
-    init(shouldHandleEnterKey: Bool,
+    init(
+        shouldHandleEnterKey: Bool,
         menuItemsBuilder: BlockActionsBuilder?,
-        blockMenuActionsHandler: BlockMenuActionsHandler?) {
-
+        slashMenuActionsHandler: SlashMenuActionsHandler?
+    ) {
         super.init(frame: .zero)
 
         setupView()
-        tryToConfigureMenuActionsAccessoryView(with: menuItemsBuilder, blockMenuActionsHandler)
+        tryToConfigureMenuActionsAccessoryView(with: menuItemsBuilder, slashMenuActionsHandler: slashMenuActionsHandler)
         configureEditingToolbarHandler(textView)
     }
 
@@ -229,11 +230,13 @@ private extension CustomTextView {
         }
     }
 
-    func tryToConfigureMenuActionsAccessoryView(with menuItemsBuilder: BlockActionsBuilder?, _ blockMenuActionsHandler: BlockMenuActionsHandler?) {
-        guard
-            let menuItemsBuilder = menuItemsBuilder,
-            let blockMenuActionsHandler = blockMenuActionsHandler
-        else { return }
+    func tryToConfigureMenuActionsAccessoryView(
+        with menuItemsBuilder: BlockActionsBuilder?,
+        slashMenuActionsHandler: SlashMenuActionsHandler?
+    ) {
+        guard let menuItemsBuilder = menuItemsBuilder, let slashMenuActionsHandler = slashMenuActionsHandler else {
+            return
+        }
 
         let dismissActionsMenu = { [weak self] in
             guard let self = self else { return }
@@ -245,7 +248,7 @@ private extension CustomTextView {
         self.menuActionsAccessoryView = BlockActionsView(
             frame: actionViewRect,
             menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
-            blockMenuActionsHandler: blockMenuActionsHandler,
+            slashMenuActionsHandler: slashMenuActionsHandler,
             actionsMenuDismissHandler: dismissActionsMenu
         )
     }

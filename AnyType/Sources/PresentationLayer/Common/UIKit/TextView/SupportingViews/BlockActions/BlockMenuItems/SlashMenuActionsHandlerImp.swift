@@ -1,9 +1,8 @@
-
 import BlocksModels
 import Combine
 import UIKit
 
-final class BlockMenuActionsHandlerImp {
+final class SlashMenuActionsHandlerImp {
     
     private let addBlockAndActionsSubject: PassthroughSubject<BlocksViews.Toolbar.UnderlyingAction, Never>
     private var initialCaretPosition: UITextPosition?
@@ -19,7 +18,7 @@ final class BlockMenuActionsHandlerImp {
     }
 }
 
-extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
+extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
     
     func handle(action: BlockActionType) {
         removeSlashMenuText()
@@ -58,7 +57,7 @@ extension BlockMenuActionsHandlerImp: BlockMenuActionsHandler {
     }
 }
 
-private extension BlockMenuActionsHandlerImp {
+private extension SlashMenuActionsHandlerImp {
     private func handleAlignment(_ alignment: BlockAlignmentAction) {
         switch alignment {
         case .left :

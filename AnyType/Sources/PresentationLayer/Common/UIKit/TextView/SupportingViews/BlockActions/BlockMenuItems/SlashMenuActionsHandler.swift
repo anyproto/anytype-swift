@@ -1,7 +1,6 @@
-
 import UIKit
 
-protocol BlockMenuActionsHandler {
+protocol SlashMenuActionsHandler {
     func handle(action: BlockActionType)
     func didShowMenuView(from textView: UITextView)
 }

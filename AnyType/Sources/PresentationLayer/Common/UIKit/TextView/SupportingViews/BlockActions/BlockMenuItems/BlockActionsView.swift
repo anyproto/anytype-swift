@@ -5,16 +5,18 @@ final class BlockActionsView: DismissableInputAccessoryView {
     private weak var menuNavigationController: UINavigationController?
     private weak var menuItemsViewController: BlockMenuItemsViewController?
     private let menuItems: [BlockActionMenuItem]
-    private let blockMenuActionsHandler: BlockMenuActionsHandler
+    private let slashMenuActionsHandler: SlashMenuActionsHandler
     
     init(frame: CGRect,
          menuItems: [BlockActionMenuItem],
-         blockMenuActionsHandler: BlockMenuActionsHandler,
+         slashMenuActionsHandler: SlashMenuActionsHandler,
          actionsMenuDismissHandler: @escaping () -> Void) {
         self.menuItems = menuItems
-        self.blockMenuActionsHandler = blockMenuActionsHandler
-        super.init(frame: frame,
-                   dismissHandler: actionsMenuDismissHandler)
+        self.slashMenuActionsHandler = slashMenuActionsHandler
+        super.init(
+            frame: frame,
+            dismissHandler: actionsMenuDismissHandler
+        )
     }
     
     private func setup(parentViewController: UIViewController) {
@@ -42,11 +44,11 @@ final class BlockActionsView: DismissableInputAccessoryView {
     }
     
     override func didShow(from textView: UITextView) {
-        blockMenuActionsHandler.didShowMenuView(from: textView)
+        slashMenuActionsHandler.didShowMenuView(from: textView)
     }
     
     private func makeMenuController() -> UINavigationController {
-        let coordinator = BlockMenuItemsViewControllerCoordinatorImp(actionsHandler: self.blockMenuActionsHandler,
+        let coordinator = BlockMenuItemsViewControllerCoordinatorImp(actionsHandler: self.slashMenuActionsHandler,
                                                                      dismissHandler: dismissHandler)
         let controller = BlockMenuItemsViewController(coordinator: coordinator,
                                                       items: self.menuItems)
