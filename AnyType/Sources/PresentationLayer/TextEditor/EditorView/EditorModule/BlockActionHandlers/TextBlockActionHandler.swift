@@ -17,34 +17,35 @@ final class TextBlockActionHandler {
 
     func handlingTextViewAction(_ block: BlockActiveRecordModelProtocol, _ action: CustomTextView.UserAction) {
         switch action {
-        case let .keyboardAction(value): self.handlingKeyboardAction(block, value)
-        case let .inputAction(value): self.handlingInputAction(block, value)
+        case let .keyboardAction(value):
+            handlingKeyboardAction(block, value)
+        case let .changeText(text):
+            handleChangeText(block, text: text)
+        case .changeTextStyle:
+            assertionFailure("We handle this update in `BlockActionHandler`")
         case .showMultiActionMenuAction, .showStyleMenu, .changeCaretPosition, .addBlockAction:
             break
         case let .shouldChangeText(range, replacementText, mentionsHolder):
-            mentionsHolder.removeMentionIfNeeded(replacementRange: range,
-                                                 replacementText: replacementText)
+            mentionsHolder.removeMentionIfNeeded(
+                replacementRange: range,
+                replacementText: replacementText
+            )
         }
     }
 
     func model(beforeModel: BlockActiveRecordModelProtocol, includeParent: Bool) -> BlockActiveRecordModelProtocol? {
         return indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
     }
-
-    private func handlingInputAction(_ block: BlockActiveRecordModelProtocol, _ action: CustomTextView.UserAction.InputAction) {
+    
+    private func handleChangeText(_ block: BlockActiveRecordModelProtocol, text: NSAttributedString) {
         guard case var .text(textContentType) = block.content else { return }
         var blockModel = block.blockModel
 
-        switch action {
-        case let .changeText(attributedText):
-            let blockId = blockModel.information.id
-            textContentType.attributedText = attributedText
-            blockModel.information.content = .text(textContentType)
+        let blockId = blockModel.information.id
+        textContentType.attributedText = text
+        blockModel.information.content = .text(textContentType)
 
-            textService.setText(contextID: contextId, blockID: blockId, attributedString: attributedText)
-        case .changeTextStyle:
-            assertionFailure("We handle this update in `BlockActionHandler`")
-        }
+        textService.setText(contextID: contextId, blockID: blockId, attributedString: text)
     }
 
     private func handlingKeyboardAction(_ block: BlockActiveRecordModelProtocol, _ action: CustomTextView.UserAction.KeyboardAction) {

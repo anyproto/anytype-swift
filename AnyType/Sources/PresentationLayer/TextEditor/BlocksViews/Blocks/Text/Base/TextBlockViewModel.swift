@@ -318,12 +318,13 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                         )
                     )
                 )
-            case .inputAction, .keyboardAction:
+            case .keyboardAction, .changeText, .changeTextStyle:
                 self.send(
                     actionsPayload: .textView(
                         .init(
                             model: block,
-                            action: .textView(action))
+                            action: .textView(action)
+                        )
                     )
                 )
             case .changeCaretPosition:

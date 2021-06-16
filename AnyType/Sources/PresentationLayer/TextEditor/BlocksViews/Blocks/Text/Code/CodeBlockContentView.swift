@@ -208,7 +208,7 @@ extension CodeBlockContentView: UITextViewDelegate {
         let contentSize = textView.intrinsicContentSize
 
         userInteractionDelegate?.didReceiveAction(
-            CustomTextView.UserAction.inputAction(.changeText(textView.attributedText))
+            .changeText(textView.attributedText)
         )
 
         guard textSize?.height != contentSize.height else { return }

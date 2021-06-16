@@ -67,7 +67,7 @@ final class BlockActionsHandlersFacade {
         case let .textView(value):
             switch value.action {
             case let .textView(action):
-                guard case let .inputAction(.changeTextStyle(styleAction, range)) = action else {
+                guard case let .changeTextStyle(styleAction, range) = action else {
                     textBlockActionHandler.handlingTextViewAction(value.model, action)
                     return
                 }

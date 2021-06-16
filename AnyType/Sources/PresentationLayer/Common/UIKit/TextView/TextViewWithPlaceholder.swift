@@ -203,10 +203,8 @@ extension TextViewWithPlaceholder {
     private func handleMenuAction(_ action: CustomTextView.ContextMenuAction) {
         let range = selectedRange
 
-        self.userInteractionDelegate?.didReceiveAction(
-            CustomTextView.UserAction.inputAction(
-                CustomTextView.UserAction.InputAction.changeTextStyle(action, range)
-            )
+        userInteractionDelegate?.didReceiveAction(
+            .changeTextStyle(action, range)
         )
     }
 }
@@ -237,7 +235,7 @@ extension TextViewWithPlaceholder {
 // MARK: - ContextMenuAction
 
 private extension CustomTextView.ContextMenuAction {
-    
+
     var title: String {
         switch self {
         case .bold:

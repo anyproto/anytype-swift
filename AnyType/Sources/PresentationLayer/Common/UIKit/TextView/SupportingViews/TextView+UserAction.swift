@@ -1,11 +1,3 @@
-//
-//  TextView+UserAction.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 01.02.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -15,7 +7,10 @@ extension CustomTextView {
     
     public enum UserAction {
         case showStyleMenu
-        case inputAction(InputAction)
+        
+        case changeText(NSAttributedString)
+        case changeTextStyle(CustomTextView.ContextMenuAction, NSRange)
+        
         case keyboardAction(KeyboardAction)
         case addBlockAction
         case showMultiActionMenuAction
@@ -23,15 +18,6 @@ extension CustomTextView {
         case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)
     }
     
-}
-
-// MARK: - InputAction
-extension CustomTextView.UserAction {
-    // Actions with text
-    enum InputAction {
-        case changeText(NSAttributedString)
-        case changeTextStyle(CustomTextView.ContextMenuAction, NSRange)
-    }
 }
 
 // MARK: - KeyboardAction

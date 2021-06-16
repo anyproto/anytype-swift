@@ -173,7 +173,7 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
         case .showMultiActionMenuAction:
             self.shouldResignFirstResponder.send()
             self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
-        case .inputAction, .keyboardAction:
+        case .changeText, .keyboardAction, .changeTextStyle:
             self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
         case .changeCaretPosition:
             typealias TextBlockInteraction = ActionsPayload.TextBlocksViewsUserInteraction

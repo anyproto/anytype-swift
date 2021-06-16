@@ -4,11 +4,7 @@ import Combine
 import os
 import BlocksModels
 
-
-// MARK: - CustomTextView
-
-final class CustomTextView: UIView {
-
+extension CustomTextView {
     enum Constants {
         /// Minimum time interval to stay idle to handle consequent return key presses
         static let thresholdDelayBetweenConsequentReturnKeyPressing: CFTimeInterval = 0.5
@@ -17,8 +13,12 @@ final class CustomTextView: UIView {
             height: UIScreen.main.isFourInch ? 160 : 215
         )
     }
+}
 
-    private var subscriptions: Set<AnyCancellable> = []
+
+final class CustomTextView: UIView {
+    private var firstResponderSubscription: AnyCancellable?
+    
     weak var delegate: TextViewDelegate?
     weak var userInteractionDelegate: TextViewUserInteractionProtocol? {
         didSet {
@@ -26,11 +26,9 @@ final class CustomTextView: UIView {
         }
     }
 
-    private(set) lazy var pressingEnterTimeChecker = TimeChecker(
-        threshold: Constants.thresholdDelayBetweenConsequentReturnKeyPressing
-    )
+    let pressingEnterTimeChecker = TimeChecker()
 
-    private(set) var textView: TextViewWithPlaceholder = {
+    let textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
@@ -42,9 +40,8 @@ final class CustomTextView: UIView {
     let createNewBlockOnEnter: Bool
     var textSize: CGSize?
     
-    /// ActionsAccessoryView
-    private(set) lazy var editingToolbarAccessoryView = EditingToolbarView()
-    private(set) lazy var inputSwitcher = ActionsAndMarksPaneInputSwitcher()
+    let editingToolbarAccessoryView = EditingToolbarView()
+    let inputSwitcher = ActionsAndMarksPaneInputSwitcher()
     /// HighlightedAccessoryView
     private(set) lazy var highlightedAccessoryView = CustomTextView.HighlightedToolbar.AccessoryView()
     private(set) var menuActionsAccessoryView: BlockActionsView?
@@ -54,9 +51,9 @@ final class CustomTextView: UIView {
             guard let self = self else { return }
             self.inputSwitcher.showEditingBars(customTextView: self)
         }
-        return MentionView(frame: CGRect(origin: .zero,
-                                         size: Constants.menuActionsViewSize),
-                           dismissHandler: dismissActionsMenu)
+        return MentionView(
+            frame: CGRect(origin: .zero, size: Constants.menuActionsViewSize),
+            dismissHandler: dismissActionsMenu)
     }()
 
     // MARK: - Initialization
@@ -187,7 +184,7 @@ private extension CustomTextView {
             $0.pinToSuperview()
         }
         
-        textView.firstResponderChangePublisher
+        firstResponderSubscription = textView.firstResponderChangePublisher
             .sink { [weak self] change in
                 switch change {
                 case .become:
@@ -196,7 +193,6 @@ private extension CustomTextView {
                     return
                 }
             }
-            .store(in: &subscriptions)
     }
 
     func configureEditingToolbarHandler(_ textView: UITextView) {
