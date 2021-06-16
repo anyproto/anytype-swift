@@ -40,7 +40,8 @@ final class CompoundViewModelConverter {
             case .image: return BlocksViews.File.Image.ViewModel(block, delegate: editorViewModel)
             case .video: return VideoBlockViewModel(block, delegate: editorViewModel)
             }
-        case .divider: return DividerBlockViewModel(block, delegate: editorViewModel)
+        case .divider(let content):
+            return DividerBlockViewModel(block, content: content, delegate: editorViewModel)
         case .bookmark: return BlocksViews.Bookmark.Bookmark.ViewModel(block, delegate: editorViewModel)
         case let .link(value):
             let publisher = document?.getDetails(by: value.targetBlockID)?.wholeDetailsPublisher

@@ -13,4 +13,8 @@ extension UIImage {
         static let move = UIImage(named: "EditingToolbar/move")
         static let mention = UIImage(named: "EditingToolbar/mention")
     }
+    
+    enum divider {
+        static let dots = UIImage(named: "TextEditor/Style/Other/Divider/Dots")
+    }
 }

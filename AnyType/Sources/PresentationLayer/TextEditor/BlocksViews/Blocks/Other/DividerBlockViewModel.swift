@@ -7,43 +7,27 @@ import MobileCoreServices
 
 
 class DividerBlockViewModel: BaseBlockViewModel {
-    private var subscription: AnyCancellable?
-    @Published private var statePublished: BlockContent.Divider.Style?
-    private var publisher: AnyPublisher<BlockContent.Divider, Never> = .empty()
+    private let content: BlockContent.Divider
+    
+    init(
+        _ block: BlockActiveRecordModelProtocol,
+        content: BlockContent.Divider,
+        delegate: BaseBlockDelegate?
+    ) {
+        self.content = content
+        super.init(block, delegate: delegate)
+    }
     
     override func makeContentConfiguration() -> UIContentConfiguration {
-        return DividerBlockContentConfiguration(block.blockModel.information)
-    }
-    
-    // MARK: Subclassing
-    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
-        super.init(block, delegate: delegate)
-        self.setup()
-    }
-    
-    // MARK: Subclassing / Events
-    private func setup() {
-        let publisher = block.didChangeInformationPublisher().map({ value -> BlockContent.Divider? in
-            switch value.content {
-            case let .divider(value): return value
-            default: return nil
-            }
-        }).safelyUnwrapOptionals().eraseToAnyPublisher()
-        self.subscription = publisher.sink(receiveValue: { [weak self] (value) in
-            self?.statePublished = value.style
-        })
+        return DividerBlockContentConfiguration(content: content)
     }
     
     override var diffable: AnyHashable {
-        let diffable = super.diffable
-        if case let .divider(value) = block.content {
-            let newDiffable: [String: AnyHashable] = [
-                "parent": diffable,
-                "dividerValue": value.style
-            ]
-            return .init(newDiffable)
-        }
-        return diffable
+        let newDiffable: [String: AnyHashable] = [
+            "parent": super.diffable,
+            "dividerValue": content.style
+        ]
+        return .init(newDiffable)
     }
     
     // MARK: Contextual Menu

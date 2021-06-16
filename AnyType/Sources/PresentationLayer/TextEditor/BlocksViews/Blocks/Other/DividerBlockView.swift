@@ -1,32 +1,16 @@
 import UIKit
 import Combine
 
-extension DividerBlockUIKitViewWithDivider {
-    struct Layout {
-        var dividerViewInsets: UIEdgeInsets = .init(top: 6, left: 6, bottom: 6, right: 6)
-        var dividerHeight: CGFloat = 2
-    }
-
-    struct Resource {
-        var dotsImagePath: String = "TextEditor/Style/Other/Divider/Dots"
-    }
-}
-
-
-class DividerBlockUIKitViewWithDivider: UIView {
-    var layout: Layout = .init()
-    var resource: Resource = .init()
-    
-    // MARK: - Publishers
-    private var subscription: AnyCancellable?
-    @Published private var hasError: Bool = false
-    
+class DividerBlockView: UIView {
     // MARK: Views
     private var contentView: UIView!
     
     private var lineView: UIView!
     private var dotsView: UIView!
     private var dotsImageViews: [UIImageView] = []
+    
+    private let dividerViewInsets = UIEdgeInsets(top: 6, left: 6, bottom: 6, right: 6)
+    private let dividerHeight: CGFloat = 1
             
     // MARK: Initialization
     override init(frame: CGRect) {
@@ -66,7 +50,7 @@ class DividerBlockUIKitViewWithDivider: UIView {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             /// Add imageViews
-            let image: UIImage? = UIImage.init(named: self.resource.dotsImagePath)
+            let image = UIImage.divider.dots
             let leftImageView: UIImageView = .init(image: image)
             let centerImageView: UIImageView = .init(image: image)
             let rightImageView: UIImageView = .init(image: image)
@@ -94,10 +78,10 @@ class DividerBlockUIKitViewWithDivider: UIView {
     private func addLayout() {
         if let view = self.contentView, let superview = view.superview {
             NSLayoutConstraint.activate([
-                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.dividerViewInsets.left),
-                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -self.layout.dividerViewInsets.right),
-                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.dividerViewInsets.top),
-                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.dividerViewInsets.bottom)
+                view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: dividerViewInsets.left),
+                view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -dividerViewInsets.right),
+                view.topAnchor.constraint(equalTo: superview.topAnchor, constant: dividerViewInsets.top),
+                view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -dividerViewInsets.bottom)
             ])
         }
         
@@ -107,7 +91,7 @@ class DividerBlockUIKitViewWithDivider: UIView {
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                view.heightAnchor.constraint(equalToConstant: self.layout.dividerHeight)
+                view.heightAnchor.constraint(equalToConstant: dividerHeight)
             ])
         }
         
@@ -117,7 +101,7 @@ class DividerBlockUIKitViewWithDivider: UIView {
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-                view.heightAnchor.constraint(equalToConstant: self.layout.dividerHeight)
+                view.heightAnchor.constraint(equalToConstant: dividerHeight)
             ])
         }
         
@@ -167,12 +151,5 @@ class DividerBlockUIKitViewWithDivider: UIView {
     func toLineView() {
         self.lineView.isHidden = false
         self.dotsView.isHidden = true
-    }
-    
-    // MARK: - Configurations
-    func configured(_ stream: Published<Bool>) {}
-    
-    func configured(_ resource: Resource) {
-        self.resource = resource
     }
 }

@@ -7,16 +7,8 @@ import MobileCoreServices
 
 
 struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
-    let information: BlockInformation
+    let content: BlockContent.Divider
     
-    init(_ information: BlockInformation) {
-        if case .divider = information.content {
-            assertionFailure("Can't create content configuration for content: \(information.content)")
-        }
-        
-        self.information = information
-    }
-            
     // MARK:  - UIContentConfiguration
     func makeContentView() -> UIView & UIContentView {
         return DividerBlockContentView(configuration: self)
@@ -28,10 +20,10 @@ struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
     
     // MARK: - Hashable
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.information == rhs.information
+        lhs.content == rhs.content
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.information)
+        hasher.combine(content)
     }
 }
