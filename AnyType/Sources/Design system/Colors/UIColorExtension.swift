@@ -81,6 +81,9 @@ extension UIColor {
         .init(hexString: "#867D42", alpha: 0.1)
     }
     
+    static let buttonActive = color(name: ColorName.buttonActive)
+    static let buttonSelected = color(name: ColorName.buttonSelected)
+    
     /// Color that can be used in case if we couldn't parse color from middleware
     static let defaultColor = grayscale90
     

@@ -37,19 +37,16 @@ struct EmojiGridView: View {
     
     private func makeEmptySearchResultView(placeholder: String) -> some View {
         VStack {
+            // TODO: - fix localisation. it does not work now
             AnytypeText(
-                // TODO: - fix localisation. it does not work now
                 "There is no emoji named" + " \"\(placeholder)\"",
-                name: .inter,
-                size: 17,
-                weight: .regular
+                style: .headline
             )
             .multilineTextAlignment(.center)
+            
             AnytypeText(
                 "Try to find a new one or upload your image",
-                name: .inter,
-                size: 17,
-                weight: .regular
+                style: .headline
             )
             .foregroundColor(Color.textSecondary)
             .multilineTextAlignment(.center)
@@ -77,7 +74,16 @@ struct EmojiGridView: View {
                         }
                     }
                 }
-        }
+        }.gesture(
+            DragGesture().onChanged { _ in
+                UIApplication.shared.sendAction(
+                    #selector(UIResponder.resignFirstResponder),
+                    to: nil,
+                    from: nil,
+                    for: nil
+                )
+            }
+        )
         .padding(.horizontal, 16)
     }
     

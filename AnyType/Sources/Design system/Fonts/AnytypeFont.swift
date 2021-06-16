@@ -62,11 +62,11 @@ struct AnytypeFontBuilder {
             return .graphik
             
         case .subheading, .headline, .body, .caption, .footnote, .caption2:
-            fallthrough
+            return .inter
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
-            fallthrough
+            return .inter
         case .headlineSemibold, .bodySemibold:
-            fallthrough
+            return .inter
         case .bodyBold:
             return .inter
             
@@ -97,12 +97,11 @@ struct AnytypeFontBuilder {
     private static func weight(_ textStyle: TextStyle) -> Font.Weight {
         switch textStyle {
         case .title, .heading:
-            fallthrough
+            return .regular
         case .headline, .body, .caption, .footnote, .caption2:
-            fallthrough
+            return .regular
         case .codeBlock:
             return .regular
-            
         case .headlineMedium, .bodyMedium, .captionMedium, .footnoteMedium, .caption2Medium:
             return .medium
         case .headlineSemibold, .bodySemibold:

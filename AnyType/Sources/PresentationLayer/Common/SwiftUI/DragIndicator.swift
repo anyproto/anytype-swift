@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct DragIndicator: View {
+    var bottomPadding: CGFloat = 6
+    
     var body: some View {
         HStack {
             Spacer()
@@ -9,7 +11,8 @@ struct DragIndicator: View {
                 .frame(width: 48, height: 5)
             Spacer()
         }
-        .padding()
+        .frame(height: 16)
+        .padding(.bottom, bottomPadding)
     }
 }
 

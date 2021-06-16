@@ -27,6 +27,9 @@ extension Color {
     static let buttonSecondaryBorder = stroke
     static let buttonSecondaryText = textPrimary
     
+    static let buttonActive = Color(ColorName.buttonActive)
+    static let buttonSelected = Color(ColorName.buttonSelected)
+    
     // Custom
     static let toastBackground = Color("toastBackground")
     static let grayscale10 = Color(ColorName.grayscale10)
