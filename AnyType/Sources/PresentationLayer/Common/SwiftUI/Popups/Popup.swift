@@ -338,7 +338,7 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
 
         return sheet
             .offset(y: dragOffset())
-            .simultaneousGesture(drag)
+            .gesture(drag)
         #else
         return sheet
         #endif

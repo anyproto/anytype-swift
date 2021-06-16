@@ -10,6 +10,7 @@ protocol BlockRestrictions {
     var canApplyMention: Bool { get }
     var turnIntoStyles: [BlockToolbarBlocksTypes] { get }
     var availableAlignments: [BlockInformationAlignment] { get }
+    
     /// If block can create block below current on enter pressing
     var canCreateBlockBelowOnEnter: Bool { get }
 }

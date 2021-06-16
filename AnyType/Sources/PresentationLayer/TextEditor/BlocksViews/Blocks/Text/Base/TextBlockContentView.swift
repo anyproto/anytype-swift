@@ -73,7 +73,7 @@ final class TextBlockContentView: UIView & UIContentView {
         let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
 
         return CustomTextView(
-            shouldHandleEnterKey: restrictions.canCreateBlockBelowOnEnter,
+            createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
             menuItemsBuilder: blockActionBuilder,
             slashMenuActionsHandler: actionsHandler
         )

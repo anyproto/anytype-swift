@@ -1,18 +1,10 @@
-//
-//  TextViewWithPlaceholderDelegate.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 14.06.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 
 
 extension CustomTextView: UITextViewDelegate {
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard shouldHandleEnterKey else { return true }
+        guard createNewBlockOnEnter else { return true }
 
         // In the case of frequent pressing of enter
         // we can send multiple split requests to middle
@@ -24,9 +16,13 @@ extension CustomTextView: UITextViewDelegate {
             return false
         }
         
-        userInteractionDelegate?.didReceiveAction(.shouldChangeText(range: range,
-                                                                    replacementText: text,
-                                                                    mentionsHolder: textView))
+        userInteractionDelegate?.didReceiveAction(
+            .shouldChangeText(
+                range: range,
+                replacementText: text,
+                mentionsHolder: textView
+            )
+        )
 
         CustomTextView.UserAction.KeyboardAction.convert(
             textView,

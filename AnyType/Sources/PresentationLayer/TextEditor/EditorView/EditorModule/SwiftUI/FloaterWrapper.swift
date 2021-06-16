@@ -3,7 +3,7 @@ import SwiftUI
 struct FloaterWrapper<Content :View>: View {
     var onHide: () -> () = {}
     
-    @State private var showSettings = false
+    @State private var showFloater = false
     private let content: Content
     
     init(@ViewBuilder content: () -> Content) {
@@ -13,11 +13,11 @@ struct FloaterWrapper<Content :View>: View {
     var body: some View {
         Color.clear
             .ignoresSafeArea()
-            .bottomFloater(isPresented: $showSettings) {
+            .bottomFloater(isPresented: $showFloater) {
                 content
             }
-            .onChange(of: showSettings) { showSettings in
-                if showSettings == false {
+            .onChange(of: showFloater) { showSettings in
+                if showFloater == false {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                         onHide()
                     }
@@ -25,7 +25,7 @@ struct FloaterWrapper<Content :View>: View {
             }
             .onAppear {
                 withAnimation(.ripple) {
-                    showSettings = true
+                    showFloater = true
                 }
             }
     }

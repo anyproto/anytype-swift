@@ -94,11 +94,13 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
                                                    selectionLength: customTextView.textView.selectedRange.length,
                                                    accessoryView: customTextView.textView.inputAccessoryView,
                                                    inputView: customTextView.textView.inputView) else { return }
-        self.switchInputs(inputViewKeyboardSize: customTextView.defaultKeyboardRect.size,
-                          animated: triplet.shouldAnimate,
-                          textView: customTextView.textView,
-                          accessoryView: triplet.accessoryView,
-                          inputView: triplet.inputView)
+        self.switchInputs(
+            inputViewKeyboardSize: .zero,
+            animated: triplet.shouldAnimate,
+            textView: customTextView.textView,
+            accessoryView: triplet.accessoryView,
+            inputView: triplet.inputView
+        )
         
         self.didSwitchViews(customTextView: customTextView)
     }

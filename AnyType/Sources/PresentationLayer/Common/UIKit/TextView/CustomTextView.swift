@@ -39,8 +39,7 @@ final class CustomTextView: UIView {
         return textView
     }()
 
-    private(set) var defaultKeyboardRect: CGRect = .zero
-    private(set) var shouldHandleEnterKey: Bool = true
+    let createNewBlockOnEnter: Bool
     var textSize: CGSize?
     
     /// ActionsAccessoryView
@@ -63,10 +62,11 @@ final class CustomTextView: UIView {
     // MARK: - Initialization
     
     init(
-        shouldHandleEnterKey: Bool,
+        createNewBlockOnEnter: Bool,
         menuItemsBuilder: BlockActionsBuilder?,
         slashMenuActionsHandler: SlashMenuActionsHandler?
     ) {
+        self.createNewBlockOnEnter = createNewBlockOnEnter
         super.init(frame: .zero)
 
         setupView()

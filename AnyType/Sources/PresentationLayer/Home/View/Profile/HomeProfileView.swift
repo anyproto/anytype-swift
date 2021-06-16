@@ -71,7 +71,7 @@ struct HomeProfileView: View {
     
     private func slogan(containerHeight: CGFloat) -> some View {
         AnytypeText("The future will be the one you build", style: .title)
-            .padding(.bottom, containerHeight / 7)
+            .padding(.bottom, containerHeight / 6)
             .padding()
             .multilineTextAlignment(.center)
             .foregroundColor(.white)
