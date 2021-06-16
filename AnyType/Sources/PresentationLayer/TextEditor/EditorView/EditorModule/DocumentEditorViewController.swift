@@ -439,7 +439,7 @@ private extension DocumentEditorViewController {
             DocumentSettingsContentView().padding(8)
         }
         
-        present(vc, animated: true)
+        present(vc, animated: false)
     }
     
 }

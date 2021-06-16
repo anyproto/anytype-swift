@@ -7,7 +7,6 @@ struct BottomFloaterBuilder {
             rootView: FloaterWrapper(content: content)
         )
         controller.modalPresentationStyle = .overCurrentContext
-        controller.modalTransitionStyle = .crossDissolve
         
         controller.view.backgroundColor = .clear
         controller.view.isOpaque = false
