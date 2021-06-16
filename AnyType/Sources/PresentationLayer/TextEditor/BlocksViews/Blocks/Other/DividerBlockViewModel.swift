@@ -8,13 +8,11 @@ import MobileCoreServices
 
 class DividerBlockViewModel: BaseBlockViewModel {
     private var subscription: AnyCancellable?
-    @Published private var statePublished: DividerBlockUIKitViewState?
+    @Published private var statePublished: BlockContent.Divider.Style?
     private var publisher: AnyPublisher<BlockContent.Divider, Never> = .empty()
     
     override func makeContentConfiguration() -> UIContentConfiguration {
-        var configuration = DividerBlockContentConfiguration(block.blockModel.information)
-        configuration.contextMenuHolder = self
-        return configuration
+        return DividerBlockContentConfiguration(block.blockModel.information)
     }
     
     // MARK: Subclassing
@@ -25,10 +23,6 @@ class DividerBlockViewModel: BaseBlockViewModel {
     
     // MARK: Subclassing / Events
     private func setup() {
-        self.setupSubscribers()
-    }
-    
-    func setupSubscribers() {
         let publisher = block.didChangeInformationPublisher().map({ value -> BlockContent.Divider? in
             switch value.content {
             case let .divider(value): return value
@@ -36,9 +30,7 @@ class DividerBlockViewModel: BaseBlockViewModel {
             }
         }).safelyUnwrapOptionals().eraseToAnyPublisher()
         self.subscription = publisher.sink(receiveValue: { [weak self] (value) in
-            let style = DividerBlockUIKitViewStateConverter.asOurModel(value.style)
-            let state = style.flatMap(DividerBlockUIKitViewState.init)
-            self?.statePublished = state
+            self?.statePublished = value.style
         })
     }
     

@@ -15,12 +15,7 @@ extension DividerBlockUIKitViewWithDivider {
 
 class DividerBlockUIKitViewWithDivider: UIView {
     var layout: Layout = .init()
-    var resource: Resource = .init() {
-        didSet {
-//                self.placeholderLabel.text = self.resource.placeholderText
-//                self.placeholderIcon.image = UIImage.init(named: self.resource.imagePath)
-        }
-    }
+    var resource: Resource = .init()
     
     // MARK: - Publishers
     private var subscription: AnyCancellable?
@@ -86,35 +81,6 @@ class DividerBlockUIKitViewWithDivider: UIView {
             view.addSubview(rightImageView)
             
             self.dotsImageViews = [leftImageView, centerImageView, rightImageView]
-            
-//                if let superview = centerImageView.superview {
-//                    NSLayoutConstraint.activate([
-//                        view.centerXAnchor.constraint(equalTo: superview.centerXAnchor),
-//                        view.topAnchor.constraint(equalTo: superview.topAnchor),
-//                        view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-//                    ])
-//                }
-//
-//                if let superview = leftImageView.superview {
-//                    let rightView = centerImageView
-//                    NSLayoutConstraint.activate([
-//                        view.topAnchor.constraint(equalTo: superview.topAnchor),
-//                        view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-//                        view.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor),
-//                        view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -10)
-//                    ])
-//                }
-//
-//                if let superview = rightImageView.superview {
-//                    let leftView = centerImageView
-//                    NSLayoutConstraint.activate([
-//                        view.topAnchor.constraint(equalTo: superview.topAnchor),
-//                        view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
-//                        view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 10),
-//                        view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor)
-//                    ])
-//                }
-
             
             return view
         }()

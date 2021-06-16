@@ -243,7 +243,6 @@
 		3D07ED41261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */; };
 		3D07ED48261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED47261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift */; };
 		3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */; };
-		3D07ED6F261F4A7E00C007E2 /* DividerBlockUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */; };
 		3D07ED72261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */; };
 		3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */; };
 		3D091D4B2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D091D4A2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift */; };
@@ -803,7 +802,6 @@
 		3D07ED40261DDB9B00C007E2 /* BlocksModelsParserFileStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserFileStateConverter.swift; sourceTree = "<group>"; };
 		3D07ED47261DE2A200C007E2 /* BlocksModelsParserCommonPositionConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsParserCommonPositionConverter.swift; sourceTree = "<group>"; };
 		3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockViewModel.swift; sourceTree = "<group>"; };
-		3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitView.swift; sourceTree = "<group>"; };
 		3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockUIKitViewWithDivider.swift; sourceTree = "<group>"; };
 		3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockContentView.swift; sourceTree = "<group>"; };
 		3D091D4A2662F233004699E7 /* HomeCollectionDropInsideDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeCollectionDropInsideDelegate.swift; path = AnyType/Sources/PresentationLayer/Home/View/Collection/DragAndDrop/HomeCollectionDropInsideDelegate.swift; sourceTree = SOURCE_ROOT; };
@@ -1661,7 +1659,6 @@
 			children = (
 				0AA00C4324CB02D400870C18 /* DividerBlockContentConfiguration.swift */,
 				3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */,
-				3D07ED6E261F4A7E00C007E2 /* DividerBlockUIKitView.swift */,
 				3D07ED71261F4B5A00C007E2 /* DividerBlockUIKitViewWithDivider.swift */,
 				3D07ED75261F4D6500C007E2 /* DividerBlockContentView.swift */,
 			);
@@ -3755,7 +3752,6 @@
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
 				0A78328624BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift in Sources */,
 				03E2AD4F23A93CC100C701CE /* CustomTextField.swift in Sources */,
-				3D07ED6F261F4A7E00C007E2 /* DividerBlockUIKitView.swift in Sources */,
 				3DD67E99265270450025ED6F /* EditorSelectionIncomingCellEvent.swift in Sources */,
 				3DDC6A672627089E004F5EA4 /* BlockPageLinkContentView.swift in Sources */,
 				A3940BB7245AB47700CD6F37 /* EmojiPicker+ViewController.swift in Sources */,

@@ -6,51 +6,32 @@ import BlocksModels
 import MobileCoreServices
 
 
-/// As soon as we have builder in this type ( makeContentView )
-/// We could map all states ( for example, image has several states ) to several different ContentViews.
-///
 struct DividerBlockContentConfiguration: UIContentConfiguration, Hashable {
+    let information: BlockInformation
+    
+    init(_ information: BlockInformation) {
+        if case .divider = information.content {
+            assertionFailure("Can't create content configuration for content: \(information.content)")
+        }
+        
+        self.information = information
+    }
+            
+    // MARK:  - UIContentConfiguration
+    func makeContentView() -> UIView & UIContentView {
+        return DividerBlockContentView(configuration: self)
+    }
+    
+    func updated(for state: UIConfigurationState) -> DividerBlockContentConfiguration {
+        return self
+    }
+    
+    // MARK: - Hashable
     static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.information == rhs.information
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.information)
-    }
-    
-    var information: BlockInformation
-    weak var contextMenuHolder: DividerBlockViewModel?
-    
-    init(_ information: BlockInformation) {
-        /// We should warn if we have incorrect content type (?)
-        /// Don't know :(
-        /// Think about failable initializer
-        
-        switch information.content {
-        case .divider: break
-        default:
-            assertionFailure("Can't create content configuration for content: \(information.content)")
-            break
-        }
-        
-        self.information = information
-    }
-            
-    /// UIContentConfiguration
-    func makeContentView() -> UIView & UIContentView {
-        let view = DividerBlockContentView(configuration: self)
-//            self.contextMenuHolder?.addContextMenu(view)
-        return view
-    }
-    
-    /// Hm, we could use state as from-user action channel.
-    /// for example, if we have value "Checked"
-    /// And we pressed something, we should do the following:
-    /// We should pass value of state to a configuration.
-    /// Next, configuration will send this value to a view model.
-    /// Is it what we should use?
-    func updated(for state: UIConfigurationState) -> DividerBlockContentConfiguration {
-        /// do something
-        return self
     }
 }

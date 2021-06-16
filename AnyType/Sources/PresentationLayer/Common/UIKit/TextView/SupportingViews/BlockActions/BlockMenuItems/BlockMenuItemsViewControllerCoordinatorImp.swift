@@ -25,8 +25,8 @@ final class BlockMenuItemsViewControllerCoordinatorImp: BlockMenuItemsViewContro
             childController.title = type.title
             controler.navigationController?.pushViewController(childController, animated: true)
         case let .action(action):
-            self.actionsHandler.handle(action: action)
-            self.dismissHandler()
+            actionsHandler.handle(action: action)
+            dismissHandler()
         case .sectionDivider:
             break
         }
