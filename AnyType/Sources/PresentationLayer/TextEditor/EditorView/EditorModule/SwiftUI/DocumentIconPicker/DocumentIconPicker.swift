@@ -16,21 +16,43 @@ struct DocumentIconPicker: View {
         }
     }
     
+    @State private var imageURL: URL?
     @State private var tabSelection: IconTab = .emoji
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator(bottomPadding: 0)
-            navigationBarView
-            TabView(selection: $tabSelection) {
-                EmojiGridView().tag(IconTab.emoji)
+            if tabSelection == .emoji {
+                emojiTab
+                    .transition(
+                        .asymmetric(
+                            insertion: .move(edge: .leading),
+                            removal: .move(edge: .trailing)
+                        )
+                    )
+            } else if tabSelection == .upload {
+                MediaPickerView(
+                    selectedMediaUrl: $imageURL,
+                    contentType: .images
+                )
+                .transition(
+                    .asymmetric(
+                        insertion: .move(edge: .trailing),
+                        removal: .move(edge: .leading)
+                    )
+                )
                 
-                Text("Upload").tag(IconTab.upload)
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             tabHeaders
         }
         .ignoresSafeArea(.keyboard)
+    }
+    
+    private var emojiTab: some View {
+        VStack(spacing: 0) {
+            DragIndicator(bottomPadding: 0)
+            navigationBarView
+            EmojiGridView()
+        }
     }
     
     private var navigationBarView: some View {
@@ -58,7 +80,11 @@ struct DocumentIconPicker: View {
     private var tabHeaders: some View {
         HStack {
             Button {
-                tabSelection = .emoji
+                UISelectionFeedbackGenerator().selectionChanged()
+                withAnimation {
+                    tabSelection = .emoji
+                }
+                
             } label: {
                 AnytypeText(IconTab.emoji.title, style: .headline)
                     .foregroundColor(tabSelection == .emoji ? Color.buttonSelected : Color.buttonActive)
@@ -66,15 +92,19 @@ struct DocumentIconPicker: View {
             .frame(maxWidth: .infinity)
             
             Button {
-                tabSelection = .random
+                UISelectionFeedbackGenerator().selectionChanged()
             } label: {
                 AnytypeText(IconTab.random.title, style: .headline)
-                    .foregroundColor(tabSelection == .random ? Color.buttonSelected : Color.buttonActive)
+                    .foregroundColor(Color.buttonActive)
             }
             .frame(maxWidth: .infinity)
             
             Button {
-                tabSelection = .upload
+                UISelectionFeedbackGenerator().selectionChanged()
+                withAnimation {
+                    tabSelection = .upload
+                }
+                
             } label: {
                 AnytypeText(IconTab.upload.title, style: .headline)
                     .foregroundColor(tabSelection == .upload ? Color.buttonSelected : Color.buttonActive)
