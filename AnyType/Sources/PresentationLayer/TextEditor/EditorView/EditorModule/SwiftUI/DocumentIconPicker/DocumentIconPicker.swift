@@ -2,6 +2,10 @@ import SwiftUI
 
 struct DocumentIconPicker: View {
     
+    @EnvironmentObject var iconViewModel: DocumentIconPickerViewModel
+    
+    @Environment(\.presentationMode) private var presentationMode
+    
     private enum IconTab {
         case emoji
         case random
@@ -65,7 +69,8 @@ struct DocumentIconPicker: View {
             HStack {
                 Spacer()
                 Button {
-                    debugPrint("")
+                    iconViewModel.removeIcon()
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     AnytypeText("Remove", style: .headline)
                         .foregroundColor(.red)
@@ -93,6 +98,11 @@ struct DocumentIconPicker: View {
             
             Button {
                 UISelectionFeedbackGenerator().selectionChanged()
+                EmojiProvider.shared.randomEmoji().flatMap {
+                    iconViewModel.setEmoji($0.unicode)
+                    presentationMode.wrappedValue.dismiss()
+                }
+                
             } label: {
                 AnytypeText(IconTab.random.title, style: .headline)
                     .foregroundColor(Color.buttonActive)

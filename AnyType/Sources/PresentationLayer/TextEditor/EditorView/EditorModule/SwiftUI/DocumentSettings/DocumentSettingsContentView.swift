@@ -2,7 +2,10 @@ import SwiftUI
 
 struct DocumentSettingsContentView: View {
     
+    let documentIconPickerViewModel: DocumentIconPickerViewModel
+    
     @StateObject private var settingsListViewModel = DocumentSettingsListViewModel()
+    
     var body: some View {
         VStack(
             alignment: .center,
@@ -15,6 +18,7 @@ struct DocumentSettingsContentView: View {
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
         .environmentObject(settingsListViewModel)
+        .environmentObject(documentIconPickerViewModel)
     }
 }
 
