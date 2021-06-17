@@ -79,14 +79,14 @@ private extension DocumentCoverViewModel {
             type: .image,
             disableEncryption: false
         )
-        .flatMap { [weak self] uploadedFile in
+        .flatMap { [weak self] uploadedFileHash in
             self?.detailsActiveModel.update(
                 details: [
                     .coverType: DetailsEntry(
                         value: CoverType.uploadedImage
                     ),
                     .coverId: DetailsEntry(
-                        value: uploadedFile.hash
+                        value: uploadedFileHash
                     )
                 ]
             ) ?? .empty()

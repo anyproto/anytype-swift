@@ -36,6 +36,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case stobjectType // = 96
   case file // = 256
   case template // = 288
+  case bundledTemplate // = 289
   case marketplaceType // = 272
   case marketplaceRelation // = 273
   case marketplaceTemplate // = 274
@@ -64,6 +65,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 273: self = .marketplaceRelation
     case 274: self = .marketplaceTemplate
     case 288: self = .template
+    case 289: self = .bundledTemplate
     case 512: self = .bundledRelation
     case 513: self = .indexedRelation
     case 514: self = .bundledObjectType
@@ -87,6 +89,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .marketplaceRelation: return 273
     case .marketplaceTemplate: return 274
     case .template: return 288
+    case .bundledTemplate: return 289
     case .bundledRelation: return 512
     case .indexedRelation: return 513
     case .bundledObjectType: return 514
@@ -112,6 +115,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .stobjectType,
     .file,
     .template,
+    .bundledTemplate,
     .marketplaceType,
     .marketplaceRelation,
     .marketplaceTemplate,
@@ -1830,40 +1834,52 @@ public struct Anytype_Model_Restrictions {
 
   public enum ObjectRestriction: SwiftProtobuf.Enum {
     public typealias RawValue = Int
+    case none // = 0
 
     /// restricts delete
-    case delete // = 0
+    case delete // = 1
 
     /// restricts work with relations
-    case relation // = 1
+    case relations // = 2
 
-    /// restricts edit a header (title, description, etc.)
-    case header // = 2
+    /// restricts work with blocks
+    case blocks // = 3
 
-    /// restricts create a new block
-    case createBlock // = 3
+    /// restricts work with details
+    case details // = 4
+    case typeChange // = 5
+    case layoutChange // = 6
+    case template // = 7
     case UNRECOGNIZED(Int)
 
     public init() {
-      self = .delete
+      self = .none
     }
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0: self = .delete
-      case 1: self = .relation
-      case 2: self = .header
-      case 3: self = .createBlock
+      case 0: self = .none
+      case 1: self = .delete
+      case 2: self = .relations
+      case 3: self = .blocks
+      case 4: self = .details
+      case 5: self = .typeChange
+      case 6: self = .layoutChange
+      case 7: self = .template
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .delete: return 0
-      case .relation: return 1
-      case .header: return 2
-      case .createBlock: return 3
+      case .none: return 0
+      case .delete: return 1
+      case .relations: return 2
+      case .blocks: return 3
+      case .details: return 4
+      case .typeChange: return 5
+      case .layoutChange: return 6
+      case .template: return 7
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -1872,35 +1888,32 @@ public struct Anytype_Model_Restrictions {
 
   public enum DataviewRestriction: SwiftProtobuf.Enum {
     public typealias RawValue = Int
-    case createView // = 0
-    case filters // = 1
-    case createRelation // = 2
-    case createObject // = 3
-    case editObject // = 4
+    case dvnone // = 0
+    case dvrelation // = 1
+    case dvcreateObject // = 2
+    case dvviews // = 3
     case UNRECOGNIZED(Int)
 
     public init() {
-      self = .createView
+      self = .dvnone
     }
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0: self = .createView
-      case 1: self = .filters
-      case 2: self = .createRelation
-      case 3: self = .createObject
-      case 4: self = .editObject
+      case 0: self = .dvnone
+      case 1: self = .dvrelation
+      case 2: self = .dvcreateObject
+      case 3: self = .dvviews
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .createView: return 0
-      case .filters: return 1
-      case .createRelation: return 2
-      case .createObject: return 3
-      case .editObject: return 4
+      case .dvnone: return 0
+      case .dvrelation: return 1
+      case .dvcreateObject: return 2
+      case .dvviews: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -1929,21 +1942,24 @@ public struct Anytype_Model_Restrictions {
 extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_Restrictions.ObjectRestriction] = [
+    .none,
     .delete,
-    .relation,
-    .header,
-    .createBlock,
+    .relations,
+    .blocks,
+    .details,
+    .typeChange,
+    .layoutChange,
+    .template,
   ]
 }
 
 extension Anytype_Model_Restrictions.DataviewRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_Restrictions.DataviewRestriction] = [
-    .createView,
-    .filters,
-    .createRelation,
-    .createObject,
-    .editObject,
+    .dvnone,
+    .dvrelation,
+    .dvcreateObject,
+    .dvviews,
   ]
 }
 
@@ -2368,6 +2384,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     273: .same(proto: "MarketplaceRelation"),
     274: .same(proto: "MarketplaceTemplate"),
     288: .same(proto: "Template"),
+    289: .same(proto: "BundledTemplate"),
     512: .same(proto: "BundledRelation"),
     513: .same(proto: "IndexedRelation"),
     514: .same(proto: "BundledObjectType"),
@@ -4026,20 +4043,23 @@ extension Anytype_Model_Restrictions: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Delete"),
-    1: .same(proto: "Relation"),
-    2: .same(proto: "Header"),
-    3: .same(proto: "CreateBlock"),
+    0: .same(proto: "None"),
+    1: .same(proto: "Delete"),
+    2: .same(proto: "Relations"),
+    3: .same(proto: "Blocks"),
+    4: .same(proto: "Details"),
+    5: .same(proto: "TypeChange"),
+    6: .same(proto: "LayoutChange"),
+    7: .same(proto: "Template"),
   ]
 }
 
 extension Anytype_Model_Restrictions.DataviewRestriction: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "CreateView"),
-    1: .same(proto: "Filters"),
-    2: .same(proto: "CreateRelation"),
-    3: .same(proto: "CreateObject"),
-    4: .same(proto: "EditObject"),
+    0: .same(proto: "DVNone"),
+    1: .same(proto: "DVRelation"),
+    2: .same(proto: "DVCreateObject"),
+    3: .same(proto: "DVViews"),
   ]
 }
 

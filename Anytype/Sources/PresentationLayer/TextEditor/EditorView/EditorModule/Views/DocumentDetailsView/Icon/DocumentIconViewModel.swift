@@ -102,14 +102,14 @@ private extension DocumentIconViewModel {
             type: .image,
             disableEncryption: false
         )
-        .flatMap { [weak self] uploadedFile in
+        .flatMap { [weak self] uploadedFileHash in
             self?.detailsActiveModel.update(
                 details: [
                     .iconEmoji: DetailsEntry(
                         value: ""
                     ),
                     .iconImage: DetailsEntry(
-                        value: uploadedFile.hash
+                        value: uploadedFileHash
                     )
                 ]
             ) ?? .empty()

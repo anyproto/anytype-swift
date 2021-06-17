@@ -68,6 +68,7 @@ extension Anytype_Rpc.Block.Get.Marks.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Undo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Redo.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Open.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Show.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error: Swift.Error {}
@@ -116,6 +117,10 @@ extension Anytype_Rpc.Object.RelationOptionDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationListAvailable.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Search.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Export.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ExportTemplates.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}
+extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error: Swift.Error {}
+extension Anytype_Rpc.CloneTemplate.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ApplyTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Sync.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Thread.Response.Error: Swift.Error {}

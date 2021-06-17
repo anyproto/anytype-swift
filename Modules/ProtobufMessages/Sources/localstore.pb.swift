@@ -216,6 +216,8 @@ public struct Anytype_Model_ObjectStoreChecksums {
   /// increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
   public var fulltextRebuild: Int32 = 0
 
+  public var bundledTemplates: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -543,6 +545,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     5: .same(proto: "filesForceReindexCounter"),
     6: .same(proto: "idxRebuildCounter"),
     7: .same(proto: "fulltextRebuild"),
+    8: .same(proto: "bundledTemplates"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -558,6 +561,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 5: try { try decoder.decodeSingularInt32Field(value: &self.filesForceReindexCounter) }()
       case 6: try { try decoder.decodeSingularInt32Field(value: &self.idxRebuildCounter) }()
       case 7: try { try decoder.decodeSingularInt32Field(value: &self.fulltextRebuild) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.bundledTemplates) }()
       default: break
       }
     }
@@ -585,6 +589,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if self.fulltextRebuild != 0 {
       try visitor.visitSingularInt32Field(value: self.fulltextRebuild, fieldNumber: 7)
     }
+    if !self.bundledTemplates.isEmpty {
+      try visitor.visitSingularStringField(value: self.bundledTemplates, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -596,6 +603,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.filesForceReindexCounter != rhs.filesForceReindexCounter {return false}
     if lhs.idxRebuildCounter != rhs.idxRebuildCounter {return false}
     if lhs.fulltextRebuild != rhs.fulltextRebuild {return false}
+    if lhs.bundledTemplates != rhs.bundledTemplates {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
