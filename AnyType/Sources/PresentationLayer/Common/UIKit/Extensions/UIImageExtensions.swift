@@ -87,4 +87,27 @@ extension UIImage {
         }
     }
     
+    /// Use this method when you want to crop image of create new one with paddings
+    ///
+    /// - Parameters:
+    ///   - size: Size of new image
+    ///   - offset: Origin of where to start drawing current image
+    /// - Returns: New image
+    func imageDrawn(on size: CGSize, offset: CGPoint) -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: CGRect(origin: .zero, size: size))
+        return renderer.image { context in
+            draw(in: CGRect(origin: offset, size: self.size))
+        }
+    }
+    
+    /// Create new image with desired size
+    ///
+    /// - Parameters:
+    ///   - scaledSize: Size of new image
+    /// - Returns: New image
+    func scaled(to scaledSize: CGSize) -> UIImage {
+        let rect = CGRect(origin: .zero, size: scaledSize)
+        let renderer = UIGraphicsImageRenderer(bounds: rect)
+        return renderer.image { _ in draw(in: rect)}
+    }
 }

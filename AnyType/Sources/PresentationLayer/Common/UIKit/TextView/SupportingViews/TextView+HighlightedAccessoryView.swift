@@ -385,7 +385,7 @@ extension CustomTextView.HighlightedToolbar {
         // MARK: Public Setters
         func update(range: NSRange, attributedText: NSMutableAttributedString) {
             self.range = range
-            let modifier = CustomTextView.MarkStyleModifier(attributedText: attributedText)
+            let modifier = MarkStyleModifier(attributedText: attributedText)
             let styles = modifier.getMarkStyles(at: .range(range))
             let states = StatesConvertor.states(styles)
             self.userResponse = .init(range: range, states: states)

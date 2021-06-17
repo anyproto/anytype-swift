@@ -39,17 +39,17 @@ final class TextBlockLayoutManager: NSLayoutManager {
     }
     
     override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
-            let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
-            textStorage?.enumerateAttribute(.mention,
-                                            in: characterRange,
-                                            options: .longestEffectiveRangeNotRequired,
-                                            using: { value, subrange, _ in
-                guard value is String else { return }
-                let mentionGlypeRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
-                drawMention(forGlyphRange: mentionGlypeRange, origin: origin)
-            })
-            super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
-        }
+        let characterRange = self.characterRange(forGlyphRange: glyphsToShow, actualGlyphRange: nil)
+        textStorage?.enumerateAttribute(.mention,
+                                        in: characterRange,
+                                        options: .longestEffectiveRangeNotRequired,
+                                        using: { value, subrange, _ in
+                                            guard value is String else { return }
+                                            let mentionGlypeRange = glyphRange(forCharacterRange: subrange, actualCharacterRange: nil)
+                                            drawMention(forGlyphRange: mentionGlypeRange, origin: origin)
+                                        })
+        super.drawGlyphs(forGlyphRange: glyphsToShow, at: origin)
+    }
          
     private func drawMention(forGlyphRange mentionGlypeRange: NSRange, origin: CGPoint) {
             guard let textContainer = textContainer(forGlyphAt: mentionGlypeRange.location,

@@ -17,9 +17,7 @@ extension Namespace {
                             marks: Anytype_Model_Block.Content.Text.Marks,
                             style: Anytype_Model_Block.Content.Text.Style) -> NSAttributedString {
             // Map attributes to our internal format.
-            let markAttributes: [(range: NSRange, markStyle: MarkStyle)]
-
-            markAttributes = marks.marks.compactMap { value -> (NSRange, MarkStyle)? in
+            var markAttributes = marks.marks.compactMap { value -> (range: NSRange, markStyle: MarkStyle)? in
                 guard let markValue = AttributeConverter.asModel(.init(attribute: value.type, value: value.param)) else {
                     return nil
                 }
@@ -27,7 +25,7 @@ extension Namespace {
             }
             
             // Create modifier of an attributed string.
-            let modifier = MarkStyleModifier.init(attributedText: .init(string: text))
+            let modifier = MarkStyleModifier(attributedText: .init(string: text))
 
             // We have to set some font, because all styles `change` font attribute.
             // Not the best place to set attribute, however, we don't have best place...
@@ -40,21 +38,44 @@ extension Namespace {
             let range: NSRange = .init(location: 0, length: modifier.attributedString.length)
             modifier.attributedString.addAttribute(.font, value: defaultFont, range: range)
             
-            // Apply attributes
-            markAttributes.forEach { value in
-                _ = modifier.applyStyle(style: value.markStyle, rangeOrWholeString: .range(value.range))
+            // We need to separate mention marks from others
+            // because mention not only adds attributes to attributed string
+            // it will add 1 attachment for icon, so resulting string length will change
+            // and other marks range might become broken
+            //
+            // If we will add mentions after other markup and starting from tail of string
+            // it will not break ranges
+            var mentionMarks = [(range: NSRange, markStyle: MarkStyle)]()
+            
+            markAttributes.removeAll { (range, markStyle) -> Bool in
+                if case .mention = markStyle {
+                    mentionMarks.append((range: range, markStyle: markStyle))
+                    return true
+                }
+                return false
+            }
+            
+            mentionMarks.sort { $0.range.location > $1.range.location }
+            
+            markAttributes.forEach { attribute in
+                modifier.applyStyle(style: attribute.markStyle, rangeOrWholeString: .range(attribute.range))
+            }
+            mentionMarks.forEach {
+                modifier.applyStyle(style: $0.markStyle, rangeOrWholeString: .range($0.range))
             }
             
             return modifier.attributedString
         }
         
         static func asMiddleware(attributedText: NSAttributedString) -> MiddlewareResult {
-            let wholeText = attributedText.string
-            let wholeStringRange: NSRange = .init(location: 0, length: attributedText.length)
-                        
             // 1. Iterate over all ranges in a string.
             var marksStyles: [MarkStyle.HashableKey: NSMutableIndexSet] = [:]
-            attributedText.enumerateAttributes(in: wholeStringRange, options: []) { (attributes, range, booleanFlag) in
+            let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
+            // We remove mention attachments to save correct markup ranges
+            mutableAttributedText.removeAllMentionAttachmets()
+            let wholeText = mutableAttributedText.string
+            let wholeStringRange = NSRange(location: 0, length: mutableAttributedText.length)
+            mutableAttributedText.enumerateAttributes(in: wholeStringRange, options: []) { (attributes, range, booleanFlag) in
                 
                 // 2. Take all attributes in specific range and convert them to
                 let marks = MarkStyle.from(attributes: attributes)

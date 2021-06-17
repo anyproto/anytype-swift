@@ -6,7 +6,7 @@
 //  Copyright © 2021 AnyType. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     
@@ -22,4 +22,15 @@ extension String {
         !isEmpty && !contains { !$0.isEmoji }
     }
     
+    func image(contextSize: CGSize,
+               imageSize: CGSize,
+               imageOffset: CGPoint = .zero,
+               font: UIFont) -> UIImage? {
+        let rect = CGRect(origin: .zero, size: contextSize)
+        let renderer = UIGraphicsImageRenderer(bounds: rect)
+        return renderer.image { _ in
+            let imageRect = CGRect(origin: imageOffset, size: imageSize)
+            (self as AnyObject).draw(in: imageRect, withAttributes: [.font: font])
+        }
+    }
 }
