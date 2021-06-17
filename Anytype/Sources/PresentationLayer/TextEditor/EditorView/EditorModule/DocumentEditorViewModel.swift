@@ -142,7 +142,7 @@ class DocumentEditorViewModel: ObservableObject {
     }
 
     private func update(blocksViewModels: [BaseBlockViewModel]) {
-        let difference = blocksViewModels.difference(from: self.blocksViewModels) {$0.diffable == $1.diffable}
+        let difference = blocksViewModels.difference(from: self.blocksViewModels) { $0.diffable == $1.diffable }
         if !difference.isEmpty, let result = self.blocksViewModels.applying(difference) {
             self.blocksViewModels = result
             self.viewInput?.updateData(result)

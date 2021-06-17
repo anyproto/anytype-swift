@@ -83,8 +83,7 @@ class BaseBlockViewModel: ObservableObject {
 
     var diffable: AnyHashable {
         [
-            information.id,
-            information.content.identifier,
+            information,
             indentationLevel()
         ] as [AnyHashable]
     }

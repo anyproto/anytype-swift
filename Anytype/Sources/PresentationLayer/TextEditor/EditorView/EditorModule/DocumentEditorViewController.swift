@@ -66,7 +66,6 @@ final class DocumentEditorViewController: UIViewController {
             target: self,
             action: #selector(showDocumentSettings)
         )
-        
         windowHolder?.configureNavigationBarWithOpaqueBackground()
         
         insetsHelper = ScrollViewContentInsetsHelper(scrollView: collectionView)
@@ -122,11 +121,12 @@ extension DocumentEditorViewController {
     }
         
     private func apply(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>,
+                       animatingDifferences: Bool = true,
                        completion: (() -> Void)? = nil) {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
         UIView.performWithoutAnimation {
-            self.dataSource.apply(snapshot, animatingDifferences: true) { [weak self] in
+            self.dataSource.apply(snapshot, animatingDifferences: animatingDifferences) { [weak self] in
                 self?.updateVisibleBlocks(satisfying: { (content) -> Bool in
                     if case let .text(text) = content,
                        [.toggle, .numbered].contains(text.contentType) {
@@ -134,7 +134,6 @@ extension DocumentEditorViewController {
                     }
                     return false
                 })
-
                 completion?()
 
                 selectedCells?.forEach {
@@ -144,8 +143,9 @@ extension DocumentEditorViewController {
         }
     }
     
-    private func applySnapshotAndSetFocus(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>) {
-        apply(snapshot) { [weak self] in
+    private func applySnapshotAndSetFocus(_ snapshot: NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>,
+                                          animatingDifferences: Bool = true) {
+        apply(snapshot, animatingDifferences: animatingDifferences) { [weak self] in
             self?.focusOnFocusedBlock()
         }
     }
@@ -164,10 +164,12 @@ extension DocumentEditorViewController {
     // TODO: It should not be here. Move it to TextBlockViewModel
     private func updateVisibleBlocks(satisfying: (BlockContent) -> Bool) {
         var needToUpdateView = false
-        collectionView.indexPathsForVisibleItems.forEach {
-            guard let blockViewModel = dataSource.itemIdentifier(for: $0),
-                  satisfying(blockViewModel.block.content) else { return }
-            needToUpdateView = needToUpdateView || gentlyReloadCell(for: blockViewModel)
+
+        let sectionSnapshot = dataSource.snapshot(for: .first)
+
+        sectionSnapshot.visibleItems.forEach { item in
+            guard satisfying(item.block.content) else { return }
+            needToUpdateView = needToUpdateView || gentlyReloadCell(for: item)
         }
         if needToUpdateView {
             updateView()
@@ -240,7 +242,6 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         // Workaround: Supplementary view reloaded only on reloadSections
         // That couse dismiss keyboard if keyboard is open and you update details on desktop
         var snapshot = dataSource.snapshot()
-        
         snapshot.reloadSections([.first])
         apply(snapshot)
     }
@@ -249,7 +250,13 @@ extension DocumentEditorViewController: EditorModuleDocumentViewInput {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
         snapshot.appendSections([.first])
         snapshot.appendItems(rows)
-        applySnapshotAndSetFocus(snapshot)
+        // When we use apply data source without animation it's called reloadData under hood so it force to reload all cells.
+        // We need it here cause items (BaseBlockViewModel) for collection is reference type.
+        // The reason why we need it for ref type is follow - for reference type diffable data source compare items by pointer (address in memory).
+        // So if item has changes, collection view will not see it cause pointer will be the same.
+        // In future if we need animation we should use value type insted of reference as collection item.
+        // Also we need restore focus due to reloadData сause dismissing keyboard.
+        applySnapshotAndSetFocus(snapshot, animatingDifferences: false)
     }
 
     func showCodeLanguageView(with languages: [String], completion: @escaping (String) -> Void) {
@@ -330,7 +337,7 @@ private extension DocumentEditorViewController {
     func setupCollectionView() {
         view.addSubview(collectionView)
         collectionView.pinAllEdges(to: view)
-        collectionView.dataSource = dataSource
+        
         collectionView.delegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }

@@ -67,21 +67,14 @@ extension CustomTextView.UserAction {
                 // Press enter at the end.
                 case let (text, at, "\n") where text?.count == at.location + at.length: return .enterAtTheEndOfContent
 
-                // Here - Compex stuff.
-                // We replace characters in string. // Possible Optimization: find index of "\n" insertion.
-                // Next, we split this string by "\n".
-                // And after that we create payload with left and right parts of the string.
-                //
-                // In this case we press enter somewhere in the middle of the text.
-                // We would like to keep left and right parts of the string in payload.
-                // However, we would like to omit right part of the string in text.
-                // So, we cut text to the right of "\n".
-                // But, not here.
+                // Somewhere in the middle of text
                 case let (text, at, "\n"):
-                    guard let text = text, let theRange = Range(at, in: text) else { return nil }
-                    let separated = text.replacingCharacters(in: theRange, with: "\n").split(separator: "\n")
-                    let (left, right) = (separated.first.flatMap(String.init), separated.last.flatMap(String.init))
-                    return .enterInsideContent(left, right)
+                    guard let text = text else { return nil }
+                    // split text on two part - top and bottom text
+                    let topString = text.prefix(at.location)
+                    let bottomStringStart = text.index(text.startIndex, offsetBy: at.location + at.length)
+                    let bottomString = text[bottomStringStart..<text.endIndex]
+                    return .enterInsideContent(String(topString), String(bottomString))
 
                 // Text is empty and range is equal .zero and we press backspace.
                 // That means, that our string is empty and we press delete on textView with empty text.
