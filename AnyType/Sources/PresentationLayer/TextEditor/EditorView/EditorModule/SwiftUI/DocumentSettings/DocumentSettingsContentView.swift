@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DocumentSettingsContentView: View {
     
-    let documentIconPickerViewModel: DocumentIconPickerViewModel
+    @StateObject var documentIconPickerViewModel: DocumentIconPickerViewModel
     
     @StateObject private var settingsListViewModel = DocumentSettingsListViewModel()
     

@@ -439,7 +439,7 @@ private extension DocumentEditorViewController {
             DocumentSettingsContentView(
                 documentIconPickerViewModel: DocumentIconPickerViewModel(
                     fileService: BlockActionsServiceFile(),
-                    detailsActiveModel: viewModel.document.defaultDetailsActiveModel
+                    detailsActiveModel: self.viewModel.document.defaultDetailsActiveModel
                 )
             )
             .padding(8)
