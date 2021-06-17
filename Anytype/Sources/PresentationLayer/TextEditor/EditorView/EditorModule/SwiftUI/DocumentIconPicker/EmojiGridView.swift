@@ -3,6 +3,8 @@ import SwiftUI
 
 struct EmojiGridView: View {
     
+    let onEmojiSelect: (Emoji) -> ()
+    
     @State private var searchText = ""
     
     private let columns = [
@@ -58,22 +60,7 @@ struct EmojiGridView: View {
     
     private func makeEmojiGrid(groups: [EmojiGroup]) -> some View {
         ScrollView(showsIndicators: false) {
-            LazyVGrid(
-                columns: columns,
-                spacing: 10,
-                pinnedViews: [.sectionHeaders]
-            ) {
-                    ForEach(groups, id: \.name) { group in
-                        Section(
-                            header: makeSectionView(title: group.name)
-                        ) {
-                            ForEach(group.emojis, id: \.unicode) { emoji in
-                                Text(emoji.unicode)
-                                    .font(.system(size: 40))
-                            }
-                        }
-                    }
-                }
+            makeGridView(groups: groups)
         }.gesture(
             DragGesture().onChanged { _ in
                 UIApplication.shared.sendAction(
@@ -85,6 +72,26 @@ struct EmojiGridView: View {
             }
         )
         .padding(.horizontal, 16)
+    }
+    
+    private func makeGridView(groups: [EmojiGroup]) -> some View {
+        LazyVGrid(
+            columns: columns,
+            spacing: 12,
+            pinnedViews: [.sectionHeaders]
+        ) {
+                ForEach(groups, id: \.name) { group in
+                    Section(header: makeSectionView(title: group.name)) {
+                        ForEach(group.emojis, id: \.unicode) { emoji in
+                            Button {
+                                onEmojiSelect(emoji)
+                            } label: {
+                                Text(emoji.unicode).font(.system(size: 40))
+                            }
+                        }
+                    }
+                }
+            }
     }
     
     private func makeSectionView(title: String) -> some View {
@@ -106,6 +113,6 @@ struct EmojiGridView: View {
 
 struct EmojiGridView_Previews: PreviewProvider {
     static var previews: some View {
-        EmojiGridView()
+        EmojiGridView(onEmojiSelect: { _ in })
     }
 }

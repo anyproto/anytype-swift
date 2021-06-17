@@ -3,7 +3,6 @@ import SwiftUI
 struct DocumentIconPicker: View {
     
     @EnvironmentObject var iconViewModel: DocumentIconPickerViewModel
-    
     @Environment(\.presentationMode) private var presentationMode
     
     private enum IconTab {
@@ -55,7 +54,9 @@ struct DocumentIconPicker: View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
             navigationBarView
-            EmojiGridView()
+            EmojiGridView { emoji in
+                handleSelectedEmoji(emoji)
+            }
         }
     }
     
@@ -99,8 +100,7 @@ struct DocumentIconPicker: View {
             Button {
                 UISelectionFeedbackGenerator().selectionChanged()
                 EmojiProvider.shared.randomEmoji().flatMap {
-                    iconViewModel.setEmoji($0.unicode)
-                    presentationMode.wrappedValue.dismiss()
+                    handleSelectedEmoji($0)
                 }
                 
             } label: {
@@ -122,6 +122,11 @@ struct DocumentIconPicker: View {
             .frame(maxWidth: .infinity)
         }
         .frame(height: 48)
+    }
+    
+    private func handleSelectedEmoji(_ emoji: Emoji) {
+        iconViewModel.setEmoji(emoji.unicode)
+        presentationMode.wrappedValue.dismiss()
     }
     
 }
