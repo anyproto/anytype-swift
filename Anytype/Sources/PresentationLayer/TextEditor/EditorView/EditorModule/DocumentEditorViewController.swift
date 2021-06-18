@@ -443,13 +443,14 @@ private extension DocumentEditorViewController {
         UISelectionFeedbackGenerator().selectionChanged()
         
         let vc = bottomFloaterBuilder.builBottomFloater {
-            DocumentSettingsContentView(
-                documentIconPickerViewModel: DocumentIconPickerViewModel(
+            DocumentSettingsContentView()
+            .padding(8)
+            .environmentObject(
+                DocumentIconPickerViewModel(
                     fileService: BlockActionsServiceFile(),
                     detailsActiveModel: self.viewModel.document.defaultDetailsActiveModel
                 )
             )
-            .padding(8)
         }
         
         present(vc, animated: false)

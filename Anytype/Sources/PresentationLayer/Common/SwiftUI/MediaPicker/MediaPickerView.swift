@@ -2,10 +2,9 @@ import PhotosUI
 import SwiftUI
 
 struct MediaPickerView: UIViewControllerRepresentable {
-    
-    @Binding var selectedMediaUrl: URL?
-    
+
     let contentType: MediaPickerContentType
+    let onMediaSelect: (NSItemProvider?) -> Void
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
@@ -34,19 +33,7 @@ struct MediaPickerView: UIViewControllerRepresentable {
         }
         
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            guard let chosen = results.first?.itemProvider else {
-                return
-            }
-            
-            process(chosen: chosen)
-        }
-        
-        func process(chosen itemProvider: NSItemProvider) {
-            itemProvider.loadFileRepresentation(
-                forTypeIdentifier: parent.contentType.typeIdentifier
-            ) { [weak self] url, error in
-                self?.parent.selectedMediaUrl = url
-            }
+            parent.onMediaSelect(results.first?.itemProvider)
         }
     }
 }

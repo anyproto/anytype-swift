@@ -1,49 +1,18 @@
 import SwiftUI
 
 struct DocumentIconPicker: View {
-    
-    @EnvironmentObject var iconViewModel: DocumentIconPickerViewModel
+
+    @EnvironmentObject private var iconViewModel: DocumentIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
-    
-    private enum IconTab {
-        case emoji
-        case random
-        case upload
-        
-        var title: String {
-            switch self {
-            case .emoji: return "Emoji"
-            case .random: return "Random"
-            case .upload: return "Upload"
-            }
-        }
-    }
-    
-    @State private var imageURL: URL?
+
     @State private var tabSelection: IconTab = .emoji
     
     var body: some View {
         VStack(spacing: 0) {
             if tabSelection == .emoji {
                 emojiTab
-                    .transition(
-                        .asymmetric(
-                            insertion: .move(edge: .leading),
-                            removal: .move(edge: .trailing)
-                        )
-                    )
             } else if tabSelection == .upload {
-                MediaPickerView(
-                    selectedMediaUrl: $imageURL,
-                    contentType: .images
-                )
-                .transition(
-                    .asymmetric(
-                        insertion: .move(edge: .trailing),
-                        removal: .move(edge: .leading)
-                    )
-                )
-                
+                mediaPickerView
             }
             tabHeaders
         }
@@ -58,6 +27,12 @@ struct DocumentIconPicker: View {
                 handleSelectedEmoji(emoji)
             }
         }
+        .transition(
+            .asymmetric(
+                insertion: .move(edge: .leading),
+                removal: .move(edge: .trailing)
+            )
+        )
     }
     
     private var navigationBarView: some View {
@@ -83,6 +58,21 @@ struct DocumentIconPicker: View {
         .frame(height: 48)
     }
     
+    private var mediaPickerView: some View {
+        MediaPickerView(contentType: iconViewModel.mediaPickerContentType) { item in
+            item.flatMap {
+                iconViewModel.uploadImage(from: $0)
+            }
+            presentationMode.wrappedValue.dismiss()
+        }
+        .transition(
+            .asymmetric(
+                insertion: .move(edge: .trailing),
+                removal: .move(edge: .leading)
+            )
+        )
+    }
+    
     private var tabHeaders: some View {
         HStack {
             Button {
@@ -98,7 +88,6 @@ struct DocumentIconPicker: View {
             .frame(maxWidth: .infinity)
             
             Button {
-                UISelectionFeedbackGenerator().selectionChanged()
                 EmojiProvider.shared.randomEmoji().flatMap {
                     handleSelectedEmoji($0)
                 }
@@ -127,6 +116,26 @@ struct DocumentIconPicker: View {
     private func handleSelectedEmoji(_ emoji: Emoji) {
         iconViewModel.setEmoji(emoji.unicode)
         presentationMode.wrappedValue.dismiss()
+    }
+    
+}
+
+// MARK: - Private extension
+
+private extension DocumentIconPicker {
+    
+    enum IconTab {
+        case emoji
+        case random
+        case upload
+        
+        var title: String {
+            switch self {
+            case .emoji: return "Emoji"
+            case .random: return "Random"
+            case .upload: return "Upload"
+            }
+        }
     }
     
 }

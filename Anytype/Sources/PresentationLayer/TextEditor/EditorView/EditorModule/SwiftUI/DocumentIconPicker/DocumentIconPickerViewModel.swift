@@ -4,12 +4,15 @@ import BlocksModels
 
 final class DocumentIconPickerViewModel: ObservableObject {
     
+    let mediaPickerContentType: MediaPickerContentType = .images
+
     // MARK: - Private variables
     
     private let fileService: BlockActionsServiceFile
     private let detailsActiveModel: DetailsActiveModel
     
-    private var subscriptions: Set<AnyCancellable> = []
+    private var uploadImageSubscription: AnyCancellable?
+    private var updateDetailsSubscription: AnyCancellable?
     
     // MARK: - Initializer
     
@@ -31,22 +34,14 @@ extension DocumentIconPickerViewModel {
         )
     }
     
-    func uploadImage(at url: URL) {
-        fileService.uploadFile(
-            url: "",
-            localPath: url.relativePath,
-            type: .image,
-            disableEncryption: false
-        )
-        .sinkWithDefaultCompletion("Emoji uploadImage upload image") { [weak self] uploadedImageHash in
-            self?.updateDetails(
-                [
-                    .iconEmoji: DetailsEntry(value: ""),
-                    .iconImage: DetailsEntry(value: uploadedImageHash)
-                ]
-            )
+    func uploadImage(from itemProvider: NSItemProvider) {
+        itemProvider.loadFileRepresentation(
+            forTypeIdentifier: mediaPickerContentType.typeIdentifier
+        ) { [weak self] url, error in
+            url.flatMap {
+                self?.uploadImage(at: $0)
+            }
         }
-        .store(in: &self.subscriptions)
     }
     
     func removeIcon() {
@@ -62,12 +57,28 @@ extension DocumentIconPickerViewModel {
 
 private extension DocumentIconPickerViewModel {
     
+    func uploadImage(at url: URL) {
+        uploadImageSubscription = fileService.uploadFile(
+            url: "",
+            localPath: url.relativePath,
+            type: .image,
+            disableEncryption: false
+        )
+        .sinkWithDefaultCompletion("Emoji uploadImage upload image") { [weak self] uploadedImageHash in
+            self?.updateDetails(
+                [
+                    .iconEmoji: DetailsEntry(value: ""),
+                    .iconImage: DetailsEntry(value: uploadedImageHash)
+                ]
+            )
+        }
+    }
+    
     func updateDetails(_ details: [DetailsKind: DetailsEntry<AnyHashable>]) {
-        detailsActiveModel.update(
+        updateDetailsSubscription = detailsActiveModel.update(
             details: details
         )?
         .sinkWithDefaultCompletion("Emoji setDetails remove icon emoji") { _ in }
-        .store(in: &subscriptions)
     }
     
 }
