@@ -17,9 +17,6 @@ final class DocumentIconView: UIView {
     private var borderConstraintX: NSLayoutConstraint!
     private var borderConstraintY: NSLayoutConstraint!
     
-    private lazy var menuInteraction = UIContextMenuInteraction(delegate: self)
-    private var menuActionHandler: ((DocumentIconViewUserAction) -> Void)?
-    
     // MARK: Initialization
     
     override init(frame: CGRect) {
@@ -55,19 +52,12 @@ extension DocumentIconView: ConfigurableView {
         
         configureStateBaseOnIcon(viewModel.documentIcon, model.isBorderVisible)
         
-        viewModel.onMediaPickerImageSelect = { [weak self] imagePath in
-            self?.showLoader(with: imagePath)
-        }
-        
-        menuActionHandler = { action in
-            viewModel.handleIconUserAction(action)
+        viewModel.onMediaPickerImageSelect = { [weak self] image in
+            self?.showLoader(with: image)
         }
     }
     
     private func configureEmptyState() {
-        containerView.removeInteraction(menuInteraction)
-        menuActionHandler = nil
-        
         heightConstraint.constant = 0
         borderConstraintY.constant = 0
         borderConstraintX.constant = 0
@@ -105,8 +95,6 @@ extension DocumentIconView: ConfigurableView {
             isVisible: isBorderVisible,
             cornerRadius: cornerRadius
         )
-        
-        containerView.addInteraction(menuInteraction)
     }
     
     private func configureBorder(isVisible: Bool, cornerRadius: CGFloat) {
@@ -122,13 +110,13 @@ extension DocumentIconView: ConfigurableView {
         }
     }
     
-    private func showLoader(with imagePath: String) {
+    private func showLoader(with image: UIImage) {
         let animation = CATransition()
         animation.type = .fade;
         animation.duration = 0.3;
         activityIndicatorView.layer.add(animation, forKey: nil)
         
-        activityIndicatorView.show(with: UIImage(contentsOfFile: imagePath))
+        activityIndicatorView.show(with: image)
     }
     
     private func showEmojiView() {
@@ -181,76 +169,6 @@ private extension DocumentIconView {
     }
     
 }
-
-// MARK: - UIContextMenuInteractionDelegate
-
-extension DocumentIconView: UIContextMenuInteractionDelegate {
-
-    var isMenuInteractionEnabled: Bool {
-        activityIndicatorView.isHidden
-    }
-    
-    func contextMenuInteraction(
-        _ interaction: UIContextMenuInteraction,
-        configurationForMenuAtLocation location: CGPoint
-    ) -> UIContextMenuConfiguration? {
-        guard isMenuInteractionEnabled else { return nil }
-        
-        let actions = DocumentIconViewUserAction.allCases.map { action -> UIAction in
-            let menuAction = UIAction(
-                title: action.title,
-                image: action.icon
-            ) { [weak self ] _ in
-                self?.menuActionHandler?(action)
-            }
-            
-            if action == .remove {
-                menuAction.attributes = .destructive
-            }
-            
-            return menuAction
-        }
-        
-        return UIContextMenuConfiguration(
-            identifier: nil,
-            previewProvider: nil,
-            actionProvider: { suggestedActions in
-                UIMenu(
-                    title: "",
-                    children: actions
-                )
-            }
-        )
-    }
-
-    func contextMenuInteraction(
-        _ interaction: UIContextMenuInteraction,
-        previewForHighlightingMenuWithConfiguration configuration: UIContextMenuConfiguration
-    ) -> UITargetedPreview? {
-        let targetView: UIView = {
-            if !iconEmojiView.isHidden {
-                return iconEmojiView
-            }
-            
-            if !iconImageView.isHidden {
-                return iconImageView
-            }
-            
-            return containerView
-        }()
-        
-        let parameters = UIPreviewParameters()
-        
-        parameters.visiblePath = UIBezierPath(
-            roundedRect: targetView.bounds,
-            cornerRadius: targetView.layer.cornerRadius
-        )
-        
-        return UITargetedPreview(view: targetView, parameters: parameters)
-    }
-
-}
-
 
 private extension DocumentIconView {
     

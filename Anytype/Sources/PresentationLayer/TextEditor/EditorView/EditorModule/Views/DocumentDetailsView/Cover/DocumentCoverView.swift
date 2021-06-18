@@ -41,13 +41,13 @@ final class DocumentCoverView: UIView {
 
 extension DocumentCoverView {
     
-    func showLoader(with imagePath: String) {
+    func showLoader(with image: UIImage) {
         let animation = CATransition()
         animation.type = .fade;
         animation.duration = 0.3;
         activityIndicatorView.layer.add(animation, forKey: nil)
         
-        activityIndicatorView.show(with: UIImage(contentsOfFile: imagePath))
+        activityIndicatorView.show(with: image)
     }
     
 }

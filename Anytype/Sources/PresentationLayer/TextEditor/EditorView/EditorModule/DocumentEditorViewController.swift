@@ -446,10 +446,7 @@ private extension DocumentEditorViewController {
             DocumentSettingsContentView()
             .padding(8)
             .environmentObject(
-                DocumentIconPickerViewModel(
-                    fileService: BlockActionsServiceFile(),
-                    detailsActiveModel: self.viewModel.document.defaultDetailsActiveModel
-                )
+                self.viewModel.documentIconPickerViewModel
             )
         }
         

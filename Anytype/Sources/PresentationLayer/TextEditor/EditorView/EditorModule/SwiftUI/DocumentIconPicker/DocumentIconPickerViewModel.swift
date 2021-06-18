@@ -58,9 +58,16 @@ extension DocumentIconPickerViewModel {
 private extension DocumentIconPickerViewModel {
     
     func uploadImage(at url: URL) {
+        let localPath = url.relativePath
+        
+        NotificationCenter.default.post(
+            name: .documentIconImageUploadingEvent,
+            object: localPath
+        )
+        
         uploadImageSubscription = fileService.uploadFile(
             url: "",
-            localPath: url.relativePath,
+            localPath: localPath,
             type: .image,
             disableEncryption: false
         )

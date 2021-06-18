@@ -14,7 +14,7 @@ final class DocumentCoverViewModel {
     
     private var subscriptions: Set<AnyCancellable> = []
     
-    private var onMediaPickerImageSelect: ((String) -> Void)?
+    private var onMediaPickerImageSelect: ((UIImage) -> Void)?
     
     // MARK: - Initializer
     
@@ -38,9 +38,10 @@ extension DocumentCoverViewModel {
             self?.showImagePicker()
         }
         
-        onMediaPickerImageSelect = { [weak view] imagePath in
-            view?.showLoader(with: imagePath)
-        }
+        // TODO: - will be fixed in next PRs
+//        onMediaPickerImageSelect = { [weak view] image in
+//            view?.showLoader(with: image)
+//        }
         
         return view
     }
@@ -60,9 +61,9 @@ private extension DocumentCoverViewModel {
             
             let path = resultInformation.filePath
             
-            DispatchQueue.main.async {
-                self.onMediaPickerImageSelect?(path)
-            }
+//            DispatchQueue.main.async {
+//                self.onMediaPickerImageSelect?(path)
+//            }
             
             self.uploadSelectedIconImage(at: path)
         }
