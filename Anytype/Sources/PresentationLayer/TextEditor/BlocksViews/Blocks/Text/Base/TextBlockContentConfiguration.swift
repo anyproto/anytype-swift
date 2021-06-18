@@ -9,7 +9,7 @@ struct TextBlockContentConfiguration {
     let viewModel: TextBlockViewModel
     let information: BlockInformation
     weak var blockActionHandler: NewBlockActionHandler?
-    
+    private let textViewConfigurator: CustomTextViewConfigurator
     
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var isSelected: Bool = false
@@ -18,13 +18,15 @@ struct TextBlockContentConfiguration {
         textViewDelegate: TextViewDelegate?,
         viewModel: TextBlockViewModel,
         toolbarActionSubject: PassthroughSubject<BlockToolbarAction, Never>,
-        blockActionHandler: NewBlockActionHandler?
+        blockActionHandler: NewBlockActionHandler?,
+        textViewConfigurator: CustomTextViewConfigurator
     ) {
         self.toolbarActionSubject = toolbarActionSubject
         self.textViewDelegate = textViewDelegate
         self.information = viewModel.information
         self.viewModel = viewModel
         self.blockActionHandler = blockActionHandler
+        self.textViewConfigurator = textViewConfigurator
     }
 }
 
@@ -32,6 +34,7 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         let view = TextBlockContentView(configuration: self)
+        textViewConfigurator.configure(textView: view.textView)
         return view
     }
     

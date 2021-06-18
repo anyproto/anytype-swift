@@ -46,11 +46,15 @@ class TextBlockViewModel: BaseBlockViewModel {
     // MARK: - Subclassing accessors
 
     override func makeContentConfiguration() -> UIContentConfiguration {
-        TextBlockContentConfiguration(
+        let configutator = MentionsTextViewConfigurator { [weak self] pageId in
+            self?.send(textViewAction: .textView(.showPage(pageId)))
+        }
+        return TextBlockContentConfiguration(
             textViewDelegate: self,
             viewModel: self,
             toolbarActionSubject: toolbarActionSubject,
-            blockActionHandler: blockActionHandler
+            blockActionHandler: blockActionHandler,
+            textViewConfigurator: configutator
         )
     }
 
@@ -339,6 +343,8 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
             case let .shouldChangeText(range, replacementText, mentionsHolder):
                 mentionsHolder.removeMentionIfNeeded(replacementRange: range,
                                                      replacementText: replacementText)
+            case let .showPage(pageId):
+                send(textViewAction: .textView(.showPage(pageId)))
             }
         }
 }

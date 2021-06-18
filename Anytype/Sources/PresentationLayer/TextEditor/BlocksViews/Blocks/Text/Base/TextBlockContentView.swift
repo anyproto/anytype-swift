@@ -62,7 +62,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private let backgroundColorView = UIView()
     private let selectionView = UIView()
 
-    private lazy var textView: CustomTextView = {
+    private(set) lazy var textView: CustomTextView = {
         let actionsHandler = SlashMenuActionsHandlerImp(
             addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject,
             blockActionHandler: currentConfiguration.blockActionHandler

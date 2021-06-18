@@ -496,8 +496,8 @@
 		EA7DE40426397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7DE40326397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift */; };
 		EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */; };
 		EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */; };
-		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
 		EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */; };
+		EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB19F2678CD43004B0AF2 /* Mentionable.swift */; };
 		EAADB1A52678CD6E004B0AF2 /* UITextView+MentionsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1A42678CD6E004B0AF2 /* UITextView+MentionsHolder.swift */; };
 		EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1AD2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift */; };
 		EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */; };
@@ -524,6 +524,9 @@
 		EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* BlockActionsView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
 		EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */; };
+		EAE6BDB8267CB0D800275788 /* CustomTextViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDB7267CB0D800275788 /* CustomTextViewConfigurator.swift */; };
+		EAE6BDBD267CB11D00275788 /* MentionsTextViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */; };
+		EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDBF267CB69700275788 /* MentionButton.swift */; };
 		EAF2D88E2653C43400AA6446 /* TopUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */; };
 		EAF2D8962653C4C600AA6446 /* TopWithChildUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
@@ -1057,8 +1060,8 @@
 		EA7DE40326397D40005AFEE2 /* BlockMenuActionsFilterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMenuActionsFilterEntry.swift; sourceTree = "<group>"; };
 		EAA703382643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandlerUpdatePayload.swift; sourceTree = "<group>"; };
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
-		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
 		EAADB16E26776DDD004B0AF2 /* MentionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAttachment.swift; sourceTree = "<group>"; };
+		EAADB19F2678CD43004B0AF2 /* Mentionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mentionable.swift; sourceTree = "<group>"; };
 		EAADB1A42678CD6E004B0AF2 /* UITextView+MentionsHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+MentionsHolder.swift"; sourceTree = "<group>"; };
 		EAADB1AD2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLayoutManager+Convenience.swift"; sourceTree = "<group>"; };
 		EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleModifier.swift; sourceTree = "<group>"; };
@@ -1086,6 +1089,9 @@
 		EAC6BB5626289201004C8C06 /* BlockActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
 		EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.KeyExtension.swift; sourceTree = "<group>"; };
+		EAE6BDB7267CB0D800275788 /* CustomTextViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewConfigurator.swift; sourceTree = "<group>"; };
+		EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsTextViewConfigurator.swift; sourceTree = "<group>"; };
+		EAE6BDBF267CB69700275788 /* MentionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionButton.swift; sourceTree = "<group>"; };
 		EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUIKitView.swift; sourceTree = "<group>"; };
 		EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWithChildUIKitView.swift; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -2977,6 +2983,7 @@
 		534CAC0025FA6F230026FB93 /* SupportingViews */ = {
 			isa = PBXGroup;
 			children = (
+				EAE6BDC2267CB6A000275788 /* Mentions */,
 				EA289B9E2629B24C00EA869F /* BlockActions */,
 				0A2C0D62247145BD008ADD86 /* TextView+BlocksAccessoryView.swift */,
 				0A2C0D5A247145BC008ADD86 /* TextView+BlocksToolbar.swift */,
@@ -2988,6 +2995,7 @@
 				0ACA780423E5C96700442690 /* TextView+MarkStyle.swift */,
 				0ACA77DA23E44B8F00442690 /* TextView+Protocols.swift */,
 				0ACA77FE23E5C15D00442690 /* TextView+UserAction.swift */,
+				EAE6BDB7267CB0D800275788 /* CustomTextViewConfigurator.swift */,
 			);
 			path = SupportingViews;
 			sourceTree = "<group>";
@@ -3339,6 +3347,15 @@
 			path = InputSwitchers;
 			sourceTree = "<group>";
 		};
+		EAE6BDC2267CB6A000275788 /* Mentions */ = {
+			isa = PBXGroup;
+			children = (
+				EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */,
+				EAE6BDBF267CB69700275788 /* MentionButton.swift */,
+			);
+			path = Mentions;
+			sourceTree = "<group>";
+		};
 		EAF98379261B8B92001D4C55 /* LoadingViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3685,6 +3702,7 @@
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
+				EAE6BDB8267CB0D800275788 /* CustomTextViewConfigurator.swift in Sources */,
 				12E28DDA26739BBA00C97370 /* DocumentSetting.swift in Sources */,
 				53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
@@ -3751,6 +3769,7 @@
 				A3940BB8245AB47700CD6F37 /* EmojiPicker+ViewModel.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
+				EAE6BDBD267CB11D00275788 /* MentionsTextViewConfigurator.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* DocumentEditorViewModel.swift in Sources */,
 				3D568F9D2666D45B00DC7881 /* BlockModelsInformationConverter.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
@@ -3925,6 +3944,7 @@
 				0A1DACC3244DD35C0007BC5D /* BlocksViewsToolbarColor.swift in Sources */,
 				3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
+				EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				3DB27C07261B0E9C005E523C /* Decoder+Protocols.swift in Sources */,
 				3D932D5626317EFC00C7D1EA /* CommonViews+Pickers.swift in Sources */,

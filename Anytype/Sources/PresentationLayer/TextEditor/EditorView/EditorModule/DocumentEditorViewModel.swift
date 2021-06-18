@@ -176,7 +176,7 @@ class DocumentEditorViewModel: ObservableObject {
             assertionFailure("configureInteractions(_:). DocumentId is not configured.")
             return
         }
-        _ = self.oldBlockActionHandler.configured(documentId: documentId).configured(self)
+        oldBlockActionHandler.configured(documentId: documentId).configured(self)
     }
     
 }

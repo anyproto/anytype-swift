@@ -8,6 +8,7 @@ final class TextBlockActionHandler {
     private var textService: BlockActionsServiceText = .init()
     private let contextId: String
     private var indexWalker: LinearIndexWalker?
+    var router: EditorRouterProtocol?
 
     init(contextId: String, service: BlockActionServiceProtocol, indexWalker: LinearIndexWalker?) {
         self.service = service
@@ -30,6 +31,8 @@ final class TextBlockActionHandler {
                 replacementRange: range,
                 replacementText: replacementText
             )
+        case let .showPage(pageId):
+            router?.showPage(with: pageId)
         }
     }
 

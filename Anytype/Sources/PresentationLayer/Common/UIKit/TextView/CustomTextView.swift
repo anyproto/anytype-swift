@@ -132,7 +132,7 @@ extension CustomTextView: TextViewManagingFocus, TextViewUpdatable {
                 self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
             }
         case let .attributedText(value):
-            let text = NSMutableAttributedString.init(attributedString: value)
+            let text = NSMutableAttributedString(attributedString: value)
 
             // TODO: Poem "Do we need to add font?"
             //
@@ -147,17 +147,7 @@ extension CustomTextView: TextViewManagingFocus, TextViewUpdatable {
             guard text != self.textView.textStorage else {
                 return
             }
-            if self.textView.textStorage.length == 0 {
-                self.textView.textStorage.setAttributedString(text)
-            }
-            else {
-                /// Actually, we should add more logic here.
-                /// If it is happenning, that means, that some event occurs when user typing or when page is already open.
-                /// It may be a blockSetText event from external user.
-                /// Lets keep it simple for now.
-                self.textView.textStorage.setAttributedString(text)
-                // self.textView.textStorage.replaceCharacters(in: .init(location: 0, length: self.textView.textStorage.length), with: value)
-            }
+            textView.textStorage.setAttributedString(text)
         case let .auxiliary(value):
             self.textView.tertiaryColor = value.tertiaryColor
             self.textView.textAlignment = value.textAlignment

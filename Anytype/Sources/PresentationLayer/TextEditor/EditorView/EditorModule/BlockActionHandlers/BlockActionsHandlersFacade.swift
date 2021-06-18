@@ -56,9 +56,9 @@ final class BlockActionsHandlersFacade {
         return self
     }
 
-    func configured(_ model: DocumentEditorViewModel) -> Self {
+    func configured(_ model: DocumentEditorViewModel) {
         indexWalker = LinearIndexWalker(model)
-        return self
+        textBlockActionHandler.router = model.editorRouter
     }
 
     func didReceiveAction(action: ActionsPayload) {
