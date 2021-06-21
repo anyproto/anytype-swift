@@ -103,10 +103,10 @@
 		0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */; };
 		0A1DACC3244DD35C0007BC5D /* BlocksViewsToolbarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC2244DD35C0007BC5D /* BlocksViewsToolbarColor.swift */; };
 		0A1DACC5244DDB050007BC5D /* BlockToolbarBlocksTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC4244DDB050007BC5D /* BlockToolbarBlocksTypes.swift */; };
-		0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */; };
+		0A1DACC7244DEA3D0007BC5D /* BlockToolbarAddBlockCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACC6244DEA3D0007BC5D /* BlockToolbarAddBlockCell.swift */; };
 		0A1DACCB244E08930007BC5D /* BlockToolbarAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCA244E08930007BC5D /* BlockToolbarAction.swift */; };
 		0A1DACCD244E189E0007BC5D /* BlockToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACCC244E189E0007BC5D /* BlockToolbarViewController.swift */; };
-		0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */; };
+		0A1DACD1244FA8230007BC5D /* BlockToolbarAddBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD0244FA8230007BC5D /* BlockToolbarAddBlockViewModel.swift */; };
 		0A1DACD324505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */; };
 		0A1DACD524505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */; };
 		0A1F0D9324DDCE0100A8B488 /* ProfileStory+AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */; };
@@ -296,6 +296,13 @@
 		3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */; };
 		3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9226456C89005805A8 /* HomeCoordinator.swift */; };
 		3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D850B9E26458CC2005805A8 /* DragIndicator.swift */; };
+		3D8922362680D6FC0023E705 /* BlockToolbarAddBlockInputViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8922352680D6FC0023E705 /* BlockToolbarAddBlockInputViewBuilder.swift */; };
+		3D8922382680D70F0023E705 /* BlockToolbarAddBlockInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8922372680D70F0023E705 /* BlockToolbarAddBlockInputView.swift */; };
+		3D89223A2680D7280023E705 /* BlockToolbarAddBlockCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8922392680D7280023E705 /* BlockToolbarAddBlockCategory.swift */; };
+		3D89223F2680D7DC0023E705 /* BlockToolbarAddBlockCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D89223E2680D7DC0023E705 /* BlockToolbarAddBlockCellViewModel.swift */; };
+		3D8922412680D8870023E705 /* BlockToolbarAddBlockCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8922402680D8870023E705 /* BlockToolbarAddBlockCategoryViewModel.swift */; };
+		3D8922432680D8FB0023E705 /* BlockToolbarAddBlockViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8922422680D8FB0023E705 /* BlockToolbarAddBlockViewModelBuilder.swift */; };
+		3D8922452680D9180023E705 /* BlocksTypesCasesFiltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8922442680D9180023E705 /* BlocksTypesCasesFiltering.swift */; };
 		3D8A82D82656EDF400C4A9CD /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A82D72656EDF400C4A9CD /* Popup.swift */; };
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnytypeFont.swift */; };
@@ -693,10 +700,10 @@
 		0A10CC85248ED549000FF498 /* DocumentIconEmojiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconEmojiView.swift; sourceTree = "<group>"; };
 		0A1DACC2244DD35C0007BC5D /* BlocksViewsToolbarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksViewsToolbarColor.swift; sourceTree = "<group>"; };
 		0A1DACC4244DDB050007BC5D /* BlockToolbarBlocksTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBlocksTypes.swift; sourceTree = "<group>"; };
-		0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock.swift"; sourceTree = "<group>"; };
+		0A1DACC6244DEA3D0007BC5D /* BlockToolbarAddBlockCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockToolbarAddBlockCell.swift; path = ../BlockToolbarAddBlockCell.swift; sourceTree = "<group>"; };
 		0A1DACCA244E08930007BC5D /* BlockToolbarAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarAction.swift; sourceTree = "<group>"; };
 		0A1DACCC244E189E0007BC5D /* BlockToolbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarViewController.swift; sourceTree = "<group>"; };
-		0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+AddBlock+ViewModel.swift"; sourceTree = "<group>"; };
+		0A1DACD0244FA8230007BC5D /* BlockToolbarAddBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarAddBlockViewModel.swift; sourceTree = "<group>"; };
 		0A1DACD224505E070007BC5D /* BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock+ViewModel.swift"; sourceTree = "<group>"; };
 		0A1DACD424505E580007BC5D /* BlocksViews+Toolbar+TurnIntoBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+Toolbar+TurnIntoBlock.swift"; sourceTree = "<group>"; };
 		0A1F0D9224DDCE0100A8B488 /* ProfileStory+AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ProfileStory+AboutView.swift"; sourceTree = "<group>"; };
@@ -879,6 +886,13 @@
 		3D82917A265E53BB0007C152 /* OurEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OurEvent.swift; sourceTree = "<group>"; };
 		3D850B9226456C89005805A8 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		3D850B9E26458CC2005805A8 /* DragIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragIndicator.swift; sourceTree = "<group>"; };
+		3D8922352680D6FC0023E705 /* BlockToolbarAddBlockInputViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockToolbarAddBlockInputViewBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/AddBlock/View/BlockToolbarAddBlockInputViewBuilder.swift; sourceTree = SOURCE_ROOT; };
+		3D8922372680D70F0023E705 /* BlockToolbarAddBlockInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockToolbarAddBlockInputView.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/AddBlock/View/BlockToolbarAddBlockInputView.swift; sourceTree = SOURCE_ROOT; };
+		3D8922392680D7280023E705 /* BlockToolbarAddBlockCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockToolbarAddBlockCategory.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/AddBlock/View/BlockToolbarAddBlockCategory.swift; sourceTree = SOURCE_ROOT; };
+		3D89223E2680D7DC0023E705 /* BlockToolbarAddBlockCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockToolbarAddBlockCellViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/AddBlock/BlockToolbarAddBlockCellViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D8922402680D8870023E705 /* BlockToolbarAddBlockCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockToolbarAddBlockCategoryViewModel.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/AddBlock/BlockToolbarAddBlockCategoryViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D8922422680D8FB0023E705 /* BlockToolbarAddBlockViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockToolbarAddBlockViewModelBuilder.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/AddBlock/BlockToolbarAddBlockViewModelBuilder.swift; sourceTree = SOURCE_ROOT; };
+		3D8922442680D9180023E705 /* BlocksTypesCasesFiltering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlocksTypesCasesFiltering.swift; path = AnyType/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/AddBlock/BlocksTypesCasesFiltering.swift; sourceTree = SOURCE_ROOT; };
 		3D8A82D72656EDF400C4A9CD /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnytypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFont.swift; sourceTree = "<group>"; };
@@ -2407,8 +2421,12 @@
 		3D3D895B2678EC4A008C2B26 /* AddBlock */ = {
 			isa = PBXGroup;
 			children = (
-				0A1DACC6244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift */,
-				0A1DACD0244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift */,
+				3D8922322680D6E20023E705 /* View */,
+				0A1DACD0244FA8230007BC5D /* BlockToolbarAddBlockViewModel.swift */,
+				3D89223E2680D7DC0023E705 /* BlockToolbarAddBlockCellViewModel.swift */,
+				3D8922402680D8870023E705 /* BlockToolbarAddBlockCategoryViewModel.swift */,
+				3D8922422680D8FB0023E705 /* BlockToolbarAddBlockViewModelBuilder.swift */,
+				3D8922442680D9180023E705 /* BlocksTypesCasesFiltering.swift */,
 			);
 			path = AddBlock;
 			sourceTree = "<group>";
@@ -2518,6 +2536,17 @@
 				3D82917A265E53BB0007C152 /* OurEvent.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3D8922322680D6E20023E705 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0A1DACC6244DEA3D0007BC5D /* BlockToolbarAddBlockCell.swift */,
+				3D8922352680D6FC0023E705 /* BlockToolbarAddBlockInputViewBuilder.swift */,
+				3D8922372680D70F0023E705 /* BlockToolbarAddBlockInputView.swift */,
+				3D8922392680D7280023E705 /* BlockToolbarAddBlockCategory.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		3D929B29263302010063F1BE /* Example */ = {
@@ -3583,7 +3612,7 @@
 				120F7D4E267D025A00327734 /* CoverGradient.swift in Sources */,
 				EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */,
 				0A1DACC5244DDB050007BC5D /* BlockToolbarBlocksTypes.swift in Sources */,
-				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
+				0A1DACC7244DEA3D0007BC5D /* BlockToolbarAddBlockCell.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
 				EA289B932629A89400EA869F /* BlockMenuItemSimpleDisplayData.swift in Sources */,
 				EA5FB44F266E2B6400DCD56C /* MentionsParser.swift in Sources */,
@@ -3746,10 +3775,12 @@
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
 				3DBED69D266FBABC00B9E9AB /* UnknownLabelResource.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
+				3D8922362680D6FC0023E705 /* BlockToolbarAddBlockInputViewBuilder.swift in Sources */,
 				EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */,
 				032E00122395D0C400620E1A /* WaitingView.swift in Sources */,
 				3DA12E632636F3560085D008 /* ImageParameters.swift in Sources */,
 				128495D126726EE300351C66 /* DocumentSettingsContentView.swift in Sources */,
+				3D8922452680D9180023E705 /* BlocksTypesCasesFiltering.swift in Sources */,
 				127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */,
 				3DA369472629D781001557C9 /* ImageWithCircleBackgroundView.swift in Sources */,
 				12B69C95265D1CA300D047E3 /* DocumentCover.swift in Sources */,
@@ -3766,10 +3797,12 @@
 				53F8210D26528D1A003FEB0B /* TextViewDelegate.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D850B9326456C89005805A8 /* HomeCoordinator.swift in Sources */,
+				3D8922382680D70F0023E705 /* BlockToolbarAddBlockInputView.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
 				120F7D82267F8AED00327734 /* BookmarkViewModelContentView.swift in Sources */,
 				3D568F8B2666C17300DC7881 /* ContentLinkConverter.swift in Sources */,
 				03913E59230B5DAA0040CD4B /* SelectColorView.swift in Sources */,
+				3D89223A2680D7280023E705 /* BlockToolbarAddBlockCategory.swift in Sources */,
 				0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */,
 				122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */,
 				3D9D048C265C49F1009412B8 /* ActionsPayload.swift in Sources */,
@@ -3790,6 +3823,7 @@
 				EA45749725F8D2EB007D6C83 /* TextBlockContentView.swift in Sources */,
 				EA0BF07A25D5CC1900B2A747 /* TimeChecker.swift in Sources */,
 				EA289BD9262AE56D00EA869F /* BlockStyleAction.swift in Sources */,
+				3D8922432680D8FB0023E705 /* BlockToolbarAddBlockViewModelBuilder.swift in Sources */,
 				EA77E526262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift in Sources */,
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
@@ -3892,6 +3926,7 @@
 				0ACA780E23E5C96700442690 /* TextView+BaseToolbarView.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
 				EA77E528262DAAA6009F91D9 /* BaseBlockMenuItemsViewController.swift in Sources */,
+				3D8922412680D8870023E705 /* BlockToolbarAddBlockCategoryViewModel.swift in Sources */,
 				0A0965F125BEF5B000C004BD /* EditorSelectionHandler.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift in Sources */,
 				EAC54F6525E9458200B745A8 /* UIFont+Typography.swift in Sources */,
@@ -3946,7 +3981,7 @@
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
 				3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */,
 				120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */,
-				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
+				0A1DACD1244FA8230007BC5D /* BlockToolbarAddBlockViewModel.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
@@ -3978,6 +4013,7 @@
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
 				3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */,
 				3DB27C03261B0E9C005E523C /* SingleValueEncodingContainer.swift in Sources */,
+				3D89223F2680D7DC0023E705 /* BlockToolbarAddBlockCellViewModel.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
 				3D5321E0262445B200F0D4FF /* Localization.swift in Sources */,

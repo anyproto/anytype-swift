@@ -2,8 +2,6 @@ import Foundation
 import UIKit
 
 enum BlockToolbarAction {
-    typealias BlockType = BlockToolbarAddBlock.BlocksTypes
-    
     enum ChangeColor {
         case textColor(UIColor)
         case backgroundColor(UIColor)
@@ -17,8 +15,8 @@ enum BlockToolbarAction {
         case fetch(URL)
     }
     
-    case addBlock(BlockType)
-    case turnIntoBlock(BlockType)
+    case addBlock(BlockToolbarBlocksTypes)
+    case turnIntoBlock(BlockToolbarBlocksTypes)
     case changeColor(ChangeColor)
     case editBlock(EditAction)
     case bookmark(BookmarkAction)

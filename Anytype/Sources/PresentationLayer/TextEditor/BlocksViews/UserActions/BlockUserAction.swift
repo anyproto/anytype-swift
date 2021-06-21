@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 typealias BookmarkOutput = PassthroughSubject<BlockToolbarAction, Never>
-typealias FilteringPayload = BlockToolbarAddBlock.ViewModel.BlocksTypesCasesFiltering
+typealias FilteringPayload = BlocksTypesCasesFiltering
 
 enum BlockUserAction {
     case file(FileAction)

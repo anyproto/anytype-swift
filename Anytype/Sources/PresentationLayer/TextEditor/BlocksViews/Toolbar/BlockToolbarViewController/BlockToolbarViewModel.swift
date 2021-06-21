@@ -11,7 +11,7 @@ final class BlockToolbarViewModel {
     private var subscriptions: Set<AnyCancellable> = []
             
     // MARK: Models
-    @ObservedObject private var addBlockViewModel: BlockToolbarAddBlock.ViewModel
+    @ObservedObject private var addBlockViewModel: BlockToolbarAddBlockViewModel
     @ObservedObject private var turnIntoBlockViewModel: BlockToolbarTurnIntoBlock.ViewModel
     @ObservedObject private var bookmarkViewModel: BlockToolbarBookmark.ViewModel
     
@@ -37,7 +37,7 @@ final class BlockToolbarViewModel {
     // MARK: Initialization
     init(_ style: Style) {
         self.style = style
-        self.addBlockViewModel = BlockToolbarAddBlock.ViewModelBuilder.create()
+        self.addBlockViewModel = BlockToolbarAddBlockViewModelBuilder.create()
         self.turnIntoBlockViewModel = BlockToolbarTurnIntoBlock.ViewModelBuilder.create()
         self.bookmarkViewModel = BlockToolbarBookmark.ViewModelBuilder.create()
         
@@ -51,7 +51,7 @@ final class BlockToolbarViewModel {
     // MARK: Get Chosen View
     func chosenView() -> StyleAndViewAndPayload {
         switch self.style.style {
-        case .addBlock: return .init(style: self.style, view: BlockToolbarAddBlock.InputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
+        case .addBlock: return .init(style: self.style, view: BlockToolbarAddBlockInputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
         case .turnIntoBlock: return .init(style: self.style, view: BlockToolbarTurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
         case .bookmark: return .init(style: self.style, view: BlockToolbarBookmark.InputViewBuilder.createView(self._bookmarkViewModel), payload: .init(title: self.bookmarkViewModel.title))
         }
@@ -91,9 +91,9 @@ extension BlockToolbarViewModel {
         }
         
         fileprivate var style: OurStyle = .addBlock
-        fileprivate var filtering: BlockToolbarAddBlock.ViewModel.BlocksTypesCasesFiltering?
+        fileprivate var filtering: BlocksTypesCasesFiltering?
         
-        init(style: BlockToolbarViewModel.Style.OurStyle = .addBlock, filtering: BlockToolbarAddBlock.ViewModel.BlocksTypesCasesFiltering? = nil) {
+        init(style: BlockToolbarViewModel.Style.OurStyle = .addBlock, filtering: BlocksTypesCasesFiltering? = nil) {
             self.style = style
             self.filtering = filtering
         }

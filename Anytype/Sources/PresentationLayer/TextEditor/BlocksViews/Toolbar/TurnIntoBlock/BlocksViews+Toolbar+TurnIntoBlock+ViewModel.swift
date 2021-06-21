@@ -26,5 +26,5 @@ extension BlockToolbarTurnIntoBlock {
 // MARK: ViewModel
 extension BlockToolbarTurnIntoBlock {
     typealias BlocksTypes = BlockToolbarBlocksTypes
-    typealias ViewModel = BlockToolbarAddBlock.ViewModel
+    typealias ViewModel = BlockToolbarAddBlockViewModel
 }

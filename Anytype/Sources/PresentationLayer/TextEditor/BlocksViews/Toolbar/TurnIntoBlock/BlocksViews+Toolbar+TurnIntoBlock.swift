@@ -6,6 +6,6 @@ enum BlockToolbarTurnIntoBlock {}
 
 // MARK: View
 extension BlockToolbarTurnIntoBlock {
-    typealias InputViewBuilder = BlockToolbarAddBlock.InputViewBuilder
-    typealias InputView = BlockToolbarAddBlock.InputView
+    typealias InputViewBuilder = BlockToolbarAddBlockInputViewBuilder
+    typealias InputView = BlockToolbarAddBlockInputView
 }
