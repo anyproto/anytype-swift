@@ -81,26 +81,21 @@ private extension MediaPicker {
 extension MediaPicker: PHPickerViewControllerDelegate {
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        /// We should load photo via item provider.
-        self.dismiss(animated: true)
-        
-        if let chosen = results.first?.itemProvider {
-            self.process(chosen: chosen)
+        guard let chosen = results.first?.itemProvider else {
+            self.dismiss(animated: true)
+            return
         }
-    }
-    
-}
-
-// MARK: - Process
-
-private extension MediaPicker {
-    
-    func process(chosen itemProvider: NSItemProvider) {
-        itemProvider.loadFileRepresentation(
+        
+        chosen.loadFileRepresentation(
             forTypeIdentifier: viewModel.type.typeIdentifier
         ) { [weak self] url, error in
+            guard let self = self else { return }
             
-            self?.viewModel.process(url)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true)
+            }
+            
+            self.viewModel.process(url)
         }
     }
     

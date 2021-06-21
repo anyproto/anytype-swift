@@ -64,15 +64,19 @@ final class VideoBlockContentView: UIView, UIContentView {
         self.addSubview(self.videoVC.view)
         self.videoVC.view.edgesToSuperview(insets: Constants.videoViewInsets)
         self.videoVC.view.heightAnchor.constraint(equalToConstant: Constants.videoViewHeight).isActive = true
+        
         self.setVideoURL()
     }
     
     private func setVideoURL() {
-        self.subscription = URLResolver.init().obtainFileURLPublisher(fileId: self.currentConfiguration.metadata.hash).sink { _ in
-        } receiveValue: { [weak self] url in
-            guard let url = url else { return }
-            self?.videoVC.player = .init(url: url)
-        }
+        self.subscription = URLResolver().obtainFileURLPublisher(fileId: self.currentConfiguration.metadata.hash)
+            .receiveOnMain()
+            .sink { _ in }
+                receiveValue: { [weak self] url in
+                    guard let url = url else { return }
+                    
+                    self?.videoVC.player = .init(url: url)
+                }
     }
     
     private func addEmptyViewAndRemoveVideoView() {
