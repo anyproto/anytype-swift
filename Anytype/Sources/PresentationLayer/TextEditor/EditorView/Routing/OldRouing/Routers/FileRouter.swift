@@ -47,6 +47,9 @@ final class FileRouter {
                         self?.viewController?.present(controller, animated: true, completion: nil)
                     }
                   })
-        viewController?.present(loadingVC, animated: true, completion: nil)
+        
+        DispatchQueue.main.async {
+            self.viewController?.present(loadingVC, animated: true, completion: nil)
+        }
     }
 }

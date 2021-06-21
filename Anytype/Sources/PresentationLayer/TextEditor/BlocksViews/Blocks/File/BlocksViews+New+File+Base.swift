@@ -105,10 +105,16 @@ extension Namespace {
             case .image:
                 return
             case .video, .file:
-                URLResolver().obtainFileURLPublisher(fileId: file.metadata.hash).sink(receiveCompletion: { _ in }, receiveValue: { [weak self] url in
-                    guard let url = url else { return }
-                    self?.send(userAction: .file(.shouldSaveFile(fileURL: url)))
-                }).store(in: &self.subscriptions)
+                URLResolver().obtainFileURLPublisher(fileId: file.metadata.hash)
+                    .sink(
+                        receiveCompletion: { _ in },
+                        receiveValue: { [weak self] url in
+                            guard let url = url else { return }
+                            self?.send(userAction: .file(.shouldSaveFile(fileURL: url)))
+                        }
+                    )
+                    .store(in: &self.subscriptions)
+                
             case .none:
                 return
             }
