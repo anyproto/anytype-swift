@@ -52,9 +52,12 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         }
         
         wholeDetailsViewModel.configured(publisher: publisher)
-        wholeDetailsViewModel.wholeDetailsPublisher.map(BlockPageLinkState.Converter.asOurModel).sink { [weak self] (value) in
-            self?.state = value
-        }.store(in: &subscriptions)
+        wholeDetailsViewModel.wholeDetailsPublisher
+            .map(BlockPageLinkState.Converter.asOurModel)
+            .receiveOnMain()
+            .sink { [weak self] (value) in
+                self?.state = value
+            }.store(in: &subscriptions)
     }
     
     private func setup(block: BlockActiveRecordModelProtocol) {
