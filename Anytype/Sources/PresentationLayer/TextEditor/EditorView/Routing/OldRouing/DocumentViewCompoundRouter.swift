@@ -7,7 +7,6 @@ final class DocumentViewCompoundRouter {
     private let fileRouter: FileRouter
     private let addBlockRouter: AddBlockToolbarRouter
     private let bookmarkRouter: BookmarkToolbarRouter
-    private let turnIntoRouter: TurnIntoToolbarRouter
     
     init(
         viewController: UIViewController,
@@ -16,7 +15,6 @@ final class DocumentViewCompoundRouter {
         fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
         addBlockRouter = AddBlockToolbarRouter(baseViewController: viewController)
         bookmarkRouter = BookmarkToolbarRouter(baseController: viewController)
-        turnIntoRouter = TurnIntoToolbarRouter(baseViewController: viewController)
         
         userActionsStreamSubscription = userActionsStream.sink { [weak self] value in
             self?.receive(action: value)
@@ -31,8 +29,6 @@ final class DocumentViewCompoundRouter {
             addBlockRouter.handle(payload: addBlock)
         case let .bookmark(payload):
             bookmarkRouter.hanlde(bookmarkOutput: payload)
-        case let .turnIntoBlock(payload):
-            turnIntoRouter.handle(payload: payload)
         }
     }
 }

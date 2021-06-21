@@ -26,7 +26,7 @@ class BlockToolbarAddBlockViewModel: ObservableObject {
         self.nestedCategories.availableCategories()
     }
             
-    var nestedCategories: BlocksTypesCasesFiltering = .init()
+    var nestedCategories = BlocksTypesCasesFiltering()
 
     // MARK: Initialization
     init() {
@@ -41,10 +41,6 @@ class BlockToolbarAddBlockViewModel: ObservableObject {
 extension BlockToolbarAddBlockViewModel {
     func configured(title: String) -> Self {
         self.title = title
-        return self
-    }
-    func configured(filtering: BlocksTypesCasesFiltering) -> Self {
-        self.nestedCategories = filtering
         return self
     }
 }

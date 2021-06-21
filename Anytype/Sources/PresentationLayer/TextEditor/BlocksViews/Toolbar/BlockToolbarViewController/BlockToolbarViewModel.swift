@@ -12,17 +12,13 @@ final class BlockToolbarViewModel {
             
     // MARK: Models
     @ObservedObject private var addBlockViewModel: BlockToolbarAddBlockViewModel
-    @ObservedObject private var turnIntoBlockViewModel: BlockToolbarTurnIntoBlock.ViewModel
     @ObservedObject private var bookmarkViewModel: BlockToolbarBookmark.ViewModel
     
     // MARK: Setup
     private func publisher(style: Style) -> AnyPublisher<BlockToolbarAction, Never> {
-        switch style.style {
+        switch style {
         case .addBlock: return self.addBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
             BlockToolbarAction.addBlock(value)
-        }.eraseToAnyPublisher()
-        case .turnIntoBlock: return self.turnIntoBlockViewModel.chosenBlockTypePublisher.safelyUnwrapOptionals().map { value in
-            BlockToolbarAction.turnIntoBlock(value)
         }.eraseToAnyPublisher()
         case .bookmark: return self.bookmarkViewModel.userAction.map({ value in
             BlockToolbarAction.bookmark(.fetch(value))
@@ -38,21 +34,15 @@ final class BlockToolbarViewModel {
     init(_ style: Style) {
         self.style = style
         self.addBlockViewModel = BlockToolbarAddBlockViewModelBuilder.create()
-        self.turnIntoBlockViewModel = BlockToolbarTurnIntoBlock.ViewModelBuilder.create()
         self.bookmarkViewModel = BlockToolbarBookmark.ViewModelBuilder.create()
         
-        if let filtering = self.style.filtering {
-            _ = self.addBlockViewModel.configured(filtering: filtering)
-            _ = self.turnIntoBlockViewModel.configured(filtering: filtering)
-        }
         self.setup(style: style)
     }
             
     // MARK: Get Chosen View
     func chosenView() -> StyleAndViewAndPayload {
-        switch self.style.style {
+        switch style {
         case .addBlock: return .init(style: self.style, view: BlockToolbarAddBlockInputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
-        case .turnIntoBlock: return .init(style: self.style, view: BlockToolbarAddBlockInputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
         case .bookmark: return .init(style: self.style, view: BlockToolbarBookmark.InputViewBuilder.createView(self._bookmarkViewModel), payload: .init(title: self.bookmarkViewModel.title))
         }
     }
@@ -81,21 +71,7 @@ extension BlockToolbarViewModel {
 
 // MARK: Style
 extension BlockToolbarViewModel {
-    /// Necessary for different toolbars.
-    /// We should add turnInto later.
-    /// And may be we could add action toolbar here...
-    ///
-    struct Style {
-        enum OurStyle {
-            case addBlock, turnIntoBlock, bookmark
-        }
-        
-        fileprivate var style: OurStyle = .addBlock
-        fileprivate var filtering: BlocksTypesCasesFiltering?
-        
-        init(style: BlockToolbarViewModel.Style.OurStyle = .addBlock, filtering: BlocksTypesCasesFiltering? = nil) {
-            self.style = style
-            self.filtering = filtering
-        }
+    enum Style {
+        case addBlock, bookmark
     }
 }

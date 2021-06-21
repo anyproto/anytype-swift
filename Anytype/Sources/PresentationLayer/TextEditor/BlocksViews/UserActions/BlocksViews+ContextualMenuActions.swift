@@ -14,7 +14,6 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case .general(.moveTo): return "General.MoveTo"
                 case let .specific(value):
                     switch value {
-                    case .turnInto: return "Specific.TurnInto"
                     case .turnIntoPage: return "Specific.TurnIntoPage"
                     case .style: return "Specific.Style"
                     case .color: return "Specific.Color"
@@ -39,7 +38,7 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case .general(.moveTo): return "TextEditor/ContextMenu/General/moveTo"
                 case let .specific(value):
                     switch value {
-                    case .turnInto, .turnIntoPage: return "TextEditor/ContextMenu/Specific/turnInto"
+                    case .turnIntoPage: return "TextEditor/ContextMenu/Specific/turnInto"
                     case .style: return "TextEditor/ContextMenu/Specific/style"
                     case .color: return ""
                     case .backgroundColor: return ""
@@ -58,7 +57,6 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 .general(.delete),
                 .general(.duplicate),
                 .general(.moveTo),
-                .specific(.turnInto),
                 .specific(.turnIntoPage),
                 .specific(.style),
                 .specific(.color),
@@ -77,7 +75,6 @@ extension BlocksViews.ContextualMenu.MenuAction {
                 case .general(.moveTo): return ".general(.moveTo)"
                 case let .specific(value):
                     switch value {
-                    case .turnInto: return ".specific(.turnInto)"
                     case .turnIntoPage: return ".specific(.turnIntoPage)"
                     case .style: return ".specific(.style)"
                     case .color: return ".specific(.color)"
@@ -163,7 +160,6 @@ extension BlocksViews.ContextualMenu.MenuAction.Action {
 // MARK:
 extension BlocksViews.ContextualMenu.MenuAction.Action {
     enum SpecificAction {
-        case turnInto
         case turnIntoPage
         /// Text
         case style

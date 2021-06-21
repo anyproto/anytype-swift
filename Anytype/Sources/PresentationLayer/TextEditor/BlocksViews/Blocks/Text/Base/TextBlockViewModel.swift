@@ -213,7 +213,7 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
             switch action {
             case .addBlockAction:
                 self.send(
-                    userAction: .addBlock(.init(output: self.toolbarActionSubject))
+                    userAction: .addBlock(toolbarActionSubject)
                 )
             case .showStyleMenu:
                 self.send(

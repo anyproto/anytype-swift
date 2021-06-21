@@ -10,11 +10,9 @@ class AddBlockToolbarRouter {
         self.baseViewController = baseViewController
     }
             
-    func handle(payload: BlockUserAction.AddBlock) {
-        let viewModel = BlockToolbarViewModel(.init(style: .addBlock))
+    func handle(payload: AddBlockOutput) {
+        let viewModel = BlockToolbarViewModel(.addBlock)
         let controller = BlockToolbarViewController.init(model: viewModel)
-        
-        let subject = payload.output
         
         /// NOTE: Tough point.
         /// We have a view model here.
@@ -26,7 +24,7 @@ class AddBlockToolbarRouter {
         /// ViewModel.action -> Publish Action.
         /// Subject <- Published Action.
         /// ViewModel.subscription = subject.send(ViewModel.action.publishedValue)
-        viewModel.subscribe(subject: subject, keyPath: \.action)
+        viewModel.subscribe(subject: payload, keyPath: \.action)
         
         // TODO: Rethink.
         // Should we configure appearance of controller here?

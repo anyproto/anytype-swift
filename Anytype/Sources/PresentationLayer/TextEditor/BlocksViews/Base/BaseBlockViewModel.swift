@@ -108,8 +108,6 @@ class BaseBlockViewModel: ObservableObject {
             }
         case let .specific(value):
             switch value {
-            case .turnInto:
-                send(userAction: .turnIntoBlock(.init(output: self.toolbarActionSubject)))
             case .turnIntoPage:
                 toolbarActionSubject.send(.turnIntoBlock(.objects(.page)))
             case .style:
