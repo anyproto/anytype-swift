@@ -59,7 +59,7 @@ final class InnerEventConverter {
                 assertionFailure("We cannot parse style from value: \(value)\n reason: block model doesn't support text")
                 return .general
             }
-            let newText = value.hasText ? value.text.value : oldText.attributedText.string
+            let newText = value.hasText ? value.text.value : oldText.attributedText.clearedFromMentionAtachmentsString()
             let newChecked = value.hasChecked ? value.checked.value : oldText.checked
 
             let style: Anytype_Model_Block.Content.Text.Style

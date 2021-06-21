@@ -17,7 +17,6 @@ final class MentionAttachment: NSTextAttachment {
     private var iconSize: CGSize?
     private var font: UIFont?
     private var imageProperty: ImageProperty?
-    private(set) var mentionRect: CGRect?
     
     init(name: String, pageId: String) {
         self.pageId = pageId
@@ -66,7 +65,6 @@ final class MentionAttachment: NSTextAttachment {
             guard let mention = mentions.first,
                   let iconData = mention.iconData else { return }
             self?.displayIcon(from: iconData)
-            self?.calculateMentionRect()
         }
         subscriptions.append(subscription)
     }
@@ -114,29 +112,5 @@ final class MentionAttachment: NSTextAttachment {
     private func emojiSize() -> CGSize {
         let size = iconSize ?? Constants.defaultIconSize
         return size + CGSize(width: Constants.iconLeadingSpace, height: 0)
-    }
-    
-    private func calculateMentionRect() {
-        guard let attributedString = layoutManager?.textStorage,
-              attributedString.length > 0,
-              let textContainer = layoutManager?.textContainers.first else { return }
-        var mentionAttachmentRange: NSRange?
-        attributedString.enumerateAttribute(.attachment,
-                                            in: NSRange(location: 0,
-                                                        length: attributedString.length)) { value, subrange, shouldStop in
-            guard let attachment = value as? MentionAttachment,
-                  attachment.name == name else { return }
-            mentionAttachmentRange = subrange
-            shouldStop[0] = true
-        }
-        guard let mentionRange = mentionAttachmentRange else { return }
-        let wholeMentionRange = NSRange(location: mentionRange.location, length: mentionRange.length + name.count)
-        layoutManager?.enumerateEnclosingRects(forGlyphRange: wholeMentionRange,
-                                               withinSelectedGlyphRange: NSRange(location: NSNotFound,
-                                                                                 length: 0),
-                                               in: textContainer) { rect, shouldStop in
-            self.mentionRect = rect
-            shouldStop[0] = true
-        }
     }
 }

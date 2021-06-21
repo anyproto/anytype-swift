@@ -187,8 +187,11 @@ final class TextBlockContentView: UIView & UIContentView {
         subscriptions.removeAll()
 
         textView.delegate = nil
+        // We don't want to handle delegate methods after 'attributedText = nil' it cause side effects
+        textView.textView.delegate = nil
         // it's important to clean old attributed string
         textView.textView.attributedText = nil
+        textView.textView.delegate = textView
         textView.delegate = currentConfiguration.textViewDelegate
         textView.userInteractionDelegate = currentConfiguration.viewModel
 
@@ -256,6 +259,7 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.layer.borderColor = UIColor.pureAmber.cgColor
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
+        currentConfiguration.textViewConfigurator.configure(textView: textView)
     }
     
     private func setupForPlainText() {

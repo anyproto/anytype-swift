@@ -9,6 +9,6 @@ extension NSMutableAttributedString {
             guard attachment is MentionAttachment else { return }
             attachmentRanges.append(range)
         }
-        attachmentRanges.forEach { deleteCharacters(in: $0) }
+        attachmentRanges.reversed().forEach { deleteCharacters(in: $0) }
     }
 }

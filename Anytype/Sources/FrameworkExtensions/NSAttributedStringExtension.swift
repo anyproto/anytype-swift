@@ -67,4 +67,11 @@ extension NSAttributedString {
         mutableString.insert(stringToInsert, at: index)
         return NSAttributedString(attributedString: mutableString)
     }
+    
+    /// Prefer this function over standard 'string'
+    func clearedFromMentionAtachmentsString() -> String {
+        let mutableCopy = NSMutableAttributedString(attributedString: self)
+        mutableCopy.removeAllMentionAttachmets()
+        return mutableCopy.string
+    }
 }

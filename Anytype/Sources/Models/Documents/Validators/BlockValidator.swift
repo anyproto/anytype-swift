@@ -44,7 +44,7 @@ struct BlockValidator {
             }
         }
         let style = BlocksModelsParserTextContentTypeConverter.asMiddleware(content.contentType)
-        let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(text: content.attributedText.string,
+        let attributedString = MiddlewareModelsModule.Parsers.Text.AttributedText.Converter.asModel(text: content.attributedText.clearedFromMentionAtachmentsString(),
                                                                                                     marks: .init(marks: filteredMarks),
                                                                                                     style: style)
         return BlockText(attributedText: attributedString,

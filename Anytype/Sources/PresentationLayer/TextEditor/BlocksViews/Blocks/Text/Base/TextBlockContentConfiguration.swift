@@ -9,7 +9,7 @@ struct TextBlockContentConfiguration {
     let viewModel: TextBlockViewModel
     let information: BlockInformation
     weak var blockActionHandler: NewBlockActionHandler?
-    private let textViewConfigurator: CustomTextViewConfigurator
+    let textViewConfigurator: CustomTextViewConfigurator
     
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var isSelected: Bool = false
@@ -34,7 +34,6 @@ extension TextBlockContentConfiguration: UIContentConfiguration {
     
     func makeContentView() -> UIView & UIContentView {
         let view = TextBlockContentView(configuration: self)
-        textViewConfigurator.configure(textView: view.textView)
         return view
     }
     
