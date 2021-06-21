@@ -71,6 +71,7 @@ struct DocumentIconPicker: View {
             randomEmojiButtonView
             viewForTab(.upload)
         }
+.frame(height: 48)
         .frame(maxWidth: .infinity)
     }
     
@@ -111,6 +112,11 @@ struct DocumentIconPicker: View {
 // MARK: - Private extension
 
 private extension DocumentIconPicker {
+    
+    enum BottomTabViewItem: Hashable {
+        case tab(Tab)
+        case randomEmojiButton
+    }
     
     enum Tab {
         case emoji

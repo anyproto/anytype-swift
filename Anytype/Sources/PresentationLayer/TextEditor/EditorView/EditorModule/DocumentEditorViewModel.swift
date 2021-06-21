@@ -13,10 +13,6 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) lazy var settingViewModel = DocumentSettingViewModel(
         detailsActiveModel: document.defaultDetailsActiveModel
     )
-    private(set) lazy var documentCoverPickerViewModel = DocumentCoverPickerViewModel(
-        fileService: BlockActionsServiceFile(),
-        detailsActiveModel: document.defaultDetailsActiveModel
-    )
     
     let document: BaseDocumentProtocol = BaseDocument()
 

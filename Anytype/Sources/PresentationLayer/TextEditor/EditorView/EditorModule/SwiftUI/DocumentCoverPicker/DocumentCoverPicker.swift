@@ -24,7 +24,15 @@ struct DocumentCoverPicker: View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
             navigationBarView
-            CoverColorsGridView()
+            CoverColorsGridView { cover in
+                switch cover {
+                case let .color(color):
+                    viewModel.setColor(color.name)
+                case let .gradient(gradient):
+                    viewModel.setGradient(gradient.name)
+                }
+                presentationMode.wrappedValue.dismiss()
+            }
         }
         .transition(
             .asymmetric(
@@ -36,8 +44,10 @@ struct DocumentCoverPicker: View {
     
     private var uploadTabView: some View {
         MediaPickerView(contentType: viewModel.mediaPickerContentType) { itemProvider in
-            // TODO: - implement
-            debugPrint(itemProvider)
+            itemProvider.flatMap {
+                viewModel.uploadImage(from: $0)
+            }
+            presentationMode.wrappedValue.dismiss()
         }
         .transition(
             .asymmetric(
@@ -53,7 +63,8 @@ struct DocumentCoverPicker: View {
                 .multilineTextAlignment(.center)
         } rightButton: {
             Button {
-                // TODO: - implement
+                viewModel.removeCover()
+                presentationMode.wrappedValue.dismiss()
             } label: {
                 AnytypeText("Remove", style: .headline)
                     .foregroundColor(.red)

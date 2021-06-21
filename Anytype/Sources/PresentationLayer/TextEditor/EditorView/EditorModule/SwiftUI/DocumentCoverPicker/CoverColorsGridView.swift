@@ -10,6 +10,8 @@ import SwiftUI
 
 struct CoverColorsGridView: View {
     
+    let onCoverSelect: (Cover) -> ()
+    
     private let columns = [
         GridItem(.flexible(), spacing: 16),
         GridItem(.flexible())
@@ -36,7 +38,7 @@ struct CoverColorsGridView: View {
                     .cornerRadius(4)
                     .frame(height: 112)
                     .onTapGesture {
-                        debugPrint(color.hex)
+                        onCoverSelect(.color(color))
                     }
             }
         }
@@ -49,16 +51,25 @@ struct CoverColorsGridView: View {
                 .cornerRadius(4)
                 .frame(height: 112)
                 .onTapGesture {
-                    debugPrint(gradient.name)
+                    onCoverSelect(.gradient(gradient))
                 }
             }
         }
     }
 }
 
+extension CoverColorsGridView {
+    
+    enum Cover {
+        case color(CoverColor)
+        case gradient(CoverGradient)
+    }
+    
+}
+
 struct CoverColorsGridView_Previews: PreviewProvider {
     static var previews: some View {
-        CoverColorsGridView()
+        CoverColorsGridView(onCoverSelect: { _ in })
     }
 }
 

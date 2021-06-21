@@ -7,4 +7,8 @@ extension Notification.Name {
         "DocumentIconImageUploadingEvent"
     )
     
+    static let documentCoverImageUploadingEvent = Notification.Name(
+        "DocumentCoverImageUploadingEvent"
+    )
+    
 }
