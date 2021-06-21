@@ -4,7 +4,7 @@ import UIKit
 extension CustomTextView: UITextViewDelegate {
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        guard createNewBlockOnEnter else { return true }
+        guard options.createNewBlockOnEnter else { return true }
 
         // In the case of frequent pressing of enter
         // we can send multiple split requests to middle

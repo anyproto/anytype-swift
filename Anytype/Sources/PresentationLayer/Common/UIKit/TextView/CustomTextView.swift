@@ -15,6 +15,13 @@ extension CustomTextView {
     }
 }
 
+extension CustomTextView {
+    struct Options {
+        let createNewBlockOnEnter: Bool
+        let autocorrect: Bool
+    }
+}
+
 
 final class CustomTextView: UIView {
     private var firstResponderSubscription: AnyCancellable?
@@ -28,16 +35,15 @@ final class CustomTextView: UIView {
 
     let pressingEnterTimeChecker = TimeChecker()
 
-    let textView: TextViewWithPlaceholder = {
+    lazy var textView: TextViewWithPlaceholder = {
         let textView = TextViewWithPlaceholder()
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
-        textView.autocorrectionType = .default
+        textView.autocorrectionType = options.autocorrect ? .yes : .no
         return textView
     }()
 
-    let createNewBlockOnEnter: Bool
     var textSize: CGSize?
     
     let editingToolbarAccessoryView = EditingToolbarView()
@@ -56,18 +62,20 @@ final class CustomTextView: UIView {
             dismissHandler: dismissActionsMenu)
     }()
 
+    let options: Options
+    
     // MARK: - Initialization
     
     init(
-        createNewBlockOnEnter: Bool,
-        menuItemsBuilder: BlockActionsBuilder?,
-        slashMenuActionsHandler: SlashMenuActionsHandler?
+        options: Options,
+        menuItemsBuilder: BlockActionsBuilder,
+        slashMenuActionsHandler: SlashMenuActionsHandler
     ) {
-        self.createNewBlockOnEnter = createNewBlockOnEnter
+        self.options = options
         super.init(frame: .zero)
 
         setupView()
-        tryToConfigureMenuActionsAccessoryView(with: menuItemsBuilder, slashMenuActionsHandler: slashMenuActionsHandler)
+        configureMenuActionsAccessoryView(with: menuItemsBuilder, slashMenuActionsHandler: slashMenuActionsHandler)
         configureEditingToolbarHandler(textView)
     }
 
@@ -216,14 +224,10 @@ private extension CustomTextView {
         }
     }
 
-    func tryToConfigureMenuActionsAccessoryView(
-        with menuItemsBuilder: BlockActionsBuilder?,
-        slashMenuActionsHandler: SlashMenuActionsHandler?
+    func configureMenuActionsAccessoryView(
+        with menuItemsBuilder: BlockActionsBuilder,
+        slashMenuActionsHandler: SlashMenuActionsHandler
     ) {
-        guard let menuItemsBuilder = menuItemsBuilder, let slashMenuActionsHandler = slashMenuActionsHandler else {
-            return
-        }
-
         let dismissActionsMenu = { [weak self] in
             guard let self = self else { return }
 

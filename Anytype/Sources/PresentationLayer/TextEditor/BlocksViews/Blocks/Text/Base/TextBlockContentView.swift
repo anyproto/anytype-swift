@@ -67,13 +67,20 @@ final class TextBlockContentView: UIView & UIContentView {
             addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject,
             blockActionHandler: currentConfiguration.blockActionHandler
         )
+        
         let restrictions = BlockRestrictionsFactory().makeRestrictions(
             for: currentConfiguration.information.content.type
         )
-        let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
-
-        return CustomTextView(
+        
+        let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
+        let options = CustomTextView.Options(
             createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
+            autocorrect: autocorrect
+        )
+
+        let blockActionBuilder = BlockActionsBuilder(restrictions: restrictions)
+        return CustomTextView(
+            options: options,
             menuItemsBuilder: blockActionBuilder,
             slashMenuActionsHandler: actionsHandler
         )
