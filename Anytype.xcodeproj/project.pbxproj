@@ -200,6 +200,14 @@
 		120F7D82267F8AED00327734 /* BookmarkViewModelContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D81267F8AED00327734 /* BookmarkViewModelContentView.swift */; };
 		120F7D84267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D83267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift */; };
 		120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D85267F9E8000327734 /* URLExtensions.swift */; };
+		120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */; };
+		120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */; };
+		120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D47267CFB0100327734 /* CoverColorsGridView.swift */; };
+		120F7D4A267CFDE000327734 /* CoverColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D49267CFDE000327734 /* CoverColor.swift */; };
+		120F7D4C267D006F00327734 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D4B267D006F00327734 /* CoverConstants.swift */; };
+		120F7D4E267D025A00327734 /* CoverGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D4D267D025A00327734 /* CoverGradient.swift */; };
+		120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D57267D071400327734 /* PickerSectionHeaderView.swift */; };
+		120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D5B267D0C4400327734 /* Color+Extensions.swift */; };
 		1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211D6592667CED000541D9C /* ActivityIndicatorView.swift */; };
 		1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222B9DD26551A9A0095D444 /* DocumentIcon.swift */; };
 		122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122FC4C42654195C00D9892D /* IconEmoji.swift */; };
@@ -774,6 +782,14 @@
 		120F7D81267F8AED00327734 /* BookmarkViewModelContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModelContentView.swift; sourceTree = "<group>"; };
 		120F7D83267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModelContentConfiguration.swift; sourceTree = "<group>"; };
 		120F7D85267F9E8000327734 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCoverPicker.swift; sourceTree = "<group>"; };
+		120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineNavigationBar.swift; sourceTree = "<group>"; };
+		120F7D47267CFB0100327734 /* CoverColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColorsGridView.swift; sourceTree = "<group>"; };
+		120F7D49267CFDE000327734 /* CoverColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverColor.swift; sourceTree = "<group>"; };
+		120F7D4B267D006F00327734 /* CoverConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
+		120F7D4D267D025A00327734 /* CoverGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverGradient.swift; sourceTree = "<group>"; };
+		120F7D57267D071400327734 /* PickerSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerSectionHeaderView.swift; sourceTree = "<group>"; };
+		120F7D5B267D0C4400327734 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		1211D6592667CED000541D9C /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		1222B9DD26551A9A0095D444 /* DocumentIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIcon.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/Entity/DocumentIcon.swift; sourceTree = SOURCE_ROOT; };
 		122FC4C42654195C00D9892D /* IconEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconEmoji.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/Entity/IconEmoji.swift; sourceTree = SOURCE_ROOT; };
@@ -2040,6 +2056,15 @@
 			path = MediaPicker;
 			sourceTree = "<group>";
 		};
+		120F7D42267CCD9F00327734 /* DocumentCoverPicker */ = {
+			isa = PBXGroup;
+			children = (
+				120F7D43267CD1AC00327734 /* DocumentCoverPicker.swift */,
+				120F7D47267CFB0100327734 /* CoverColorsGridView.swift */,
+			);
+			path = DocumentCoverPicker;
+			sourceTree = "<group>";
+		};
 		12114058264BEE36008F91C3 /* DocumentDetailsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2143,6 +2168,9 @@
 			isa = PBXGroup;
 			children = (
 				12B69C94265D1CA300D047E3 /* DocumentCover.swift */,
+				120F7D49267CFDE000327734 /* CoverColor.swift */,
+				120F7D4B267D006F00327734 /* CoverConstants.swift */,
+				120F7D4D267D025A00327734 /* CoverGradient.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -2166,8 +2194,8 @@
 		12D94FCF2678CD1200F794EB /* DocumentIconPicker */ = {
 			isa = PBXGroup;
 			children = (
-				1206DBA0267A5693000A48A7 /* DocumentIconPickerViewModel.swift */,
 				12D94FD02678CD1F00F794EB /* DocumentIconPicker.swift */,
+				1206DBA0267A5693000A48A7 /* DocumentIconPickerViewModel.swift */,
 				12D94FD22678DA6300F794EB /* EmojiGridView.swift */,
 			);
 			path = DocumentIconPicker;
@@ -2429,6 +2457,8 @@
 				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
 				3DB92F84264BF69900E83276 /* View+CornerRadius.swift */,
 				12D950032678EFE800F794EB /* SearchBar.swift */,
+				120F7D45267CD2BA00327734 /* InlineNavigationBar.swift */,
+				120F7D57267D071400327734 /* PickerSectionHeaderView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2716,6 +2746,7 @@
 				3DB7DCBB263AA96600635E4C /* ViewOnGeometryChange.swift */,
 				3DB7DCC2263B095E00635E4C /* RandomAccessCollection+Indexed.swift */,
 				3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */,
+				120F7D5B267D0C4400327734 /* Color+Extensions.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2757,6 +2788,7 @@
 		3DBED6B2266FF47D00B9E9AB /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				120F7D42267CCD9F00327734 /* DocumentCoverPicker */,
 				12D94FCF2678CD1200F794EB /* DocumentIconPicker */,
 				128495CF26726EBC00351C66 /* DocumentSettings */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
@@ -3542,6 +3574,7 @@
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				53856BF0265BCD4B00CB1FAE /* ProtobufExtenstion.swift in Sources */,
+				120F7D4E267D025A00327734 /* CoverGradient.swift in Sources */,
 				EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */,
 				0A1DACC5244DDB050007BC5D /* BlockToolbarBlocksTypes.swift in Sources */,
 				0A1DACC7244DEA3D0007BC5D /* BlocksViews+Toolbar+AddBlock.swift in Sources */,
@@ -3613,6 +3646,7 @@
 				0A09661025C06DBA00C004BD /* EventProcessor.swift in Sources */,
 				EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
+				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				03CB3F0A230C2464003D5DFD /* UIColorExtension.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
@@ -3635,7 +3669,9 @@
 				0A2ADCEA2497CFDC00FA135D /* BlockActionsServiceTextProtocol.swift in Sources */,
 				3DA12E78263737200085D008 /* PageCellDataMock.swift in Sources */,
 				3DB27C0C261B0E9C005E523C /* AnyCodingKey.swift in Sources */,
+				120F7D48267CFB0100327734 /* CoverColorsGridView.swift in Sources */,
 				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
+				120F7D4C267D006F00327734 /* CoverConstants.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				12BE8E5C26565D85000C95B9 /* DetailsInformationProviderExtensions.swift in Sources */,
@@ -3652,6 +3688,7 @@
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				EA289BE8262AE62E00EA869F /* BlockColor.swift in Sources */,
+				120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */,
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,
@@ -3812,6 +3849,7 @@
 				0A0965EA25BEF5B000C004BD /* TurnIntoToolbarRouter.swift in Sources */,
 				120F7D80267F8A2B00327734 /* BookmarkViewModelResource.swift in Sources */,
 				EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */,
+				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
@@ -3900,6 +3938,7 @@
 				3DD67E9C2652705A0025ED6F /* EditorSelectionIncomingEvent.swift in Sources */,
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
 				3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */,
+				120F7D44267CD1AC00327734 /* DocumentCoverPicker.swift in Sources */,
 				0A1DACD1244FA8230007BC5D /* BlocksViews+Toolbar+AddBlock+ViewModel.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				128495E0267371B900351C66 /* BottomFloaterBuilder.swift in Sources */,
@@ -4002,6 +4041,7 @@
 				0A2ADCE02496921500FA135D /* PackOfEvents.swift in Sources */,
 				EAADB1A02678CD43004B0AF2 /* Mentionable.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
+				120F7D4A267CFDE000327734 /* CoverColor.swift in Sources */,
 				533856B2263C1565005A06A9 /* TextAttributesPanelLayout.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				3DE5120E2672202300153962 /* ServiceSuccess+Conversion.swift in Sources */,

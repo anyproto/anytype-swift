@@ -25,10 +25,13 @@ struct DocumentSettingsList: View {
                     icon: Image.ObjectSettings.cover,
                     title: "Cover",
                     subtitle: "Background picture",
-                    isAvailable: false
+                    isAvailable: true
                 ),
                 pressed: $viewModel.isCoverSelected
             )
+            .sheet(isPresented: $viewModel.isCoverSelected) {
+                DocumentCoverPicker()
+            }
             .modifier(DividerModifier())
             
             DocumentSettingsListRow(

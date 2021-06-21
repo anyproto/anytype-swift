@@ -81,7 +81,7 @@ struct EmojiGridView: View {
             pinnedViews: [.sectionHeaders]
         ) {
                 ForEach(groups, id: \.name) { group in
-                    Section(header: makeSectionView(title: group.name)) {
+                    Section(header: PickerSectionHeaderView(title: group.name)) {
                         ForEach(group.emojis, id: \.unicode) { emoji in
                             Button {
                                 onEmojiSelect(emoji)
@@ -92,21 +92,6 @@ struct EmojiGridView: View {
                     }
                 }
             }
-    }
-    
-    private func makeSectionView(title: String) -> some View {
-        HStack {
-            Spacer()
-            AnytypeText(
-                title,
-                style: .captionMedium
-            )
-            .foregroundColor(Color.textSecondary)
-            Spacer()
-        }
-        .padding(.top, 18)
-        .padding(.bottom, 12)
-        .background(Color.background)
     }
     
 }

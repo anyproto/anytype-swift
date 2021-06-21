@@ -36,26 +36,18 @@ struct DocumentIconPicker: View {
     }
     
     private var navigationBarView: some View {
-        HStack {
-            Spacer()
-                .frame(maxWidth: .infinity)
-            AnytypeText("Chanje icon", style: .headlineSemibold)
+        InlineNavigationBar {
+            AnytypeText("Change icon", style: .headlineSemibold)
                 .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
-            HStack {
-                Spacer()
-                Button {
-                    iconViewModel.removeIcon()
-                    presentationMode.wrappedValue.dismiss()
-                } label: {
-                    AnytypeText("Remove", style: .headline)
-                        .foregroundColor(.red)
-                }
-                .padding(.horizontal)
+        } rightButton: {
+            Button {
+                iconViewModel.removeIcon()
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                AnytypeText("Remove", style: .headline)
+                    .foregroundColor(.red)
             }
-            .frame(maxWidth: .infinity)
         }
-        .frame(height: 48)
     }
     
     private var mediaPickerView: some View {
