@@ -28,16 +28,8 @@ extension BookmarkViewModel {
                         url: value.url,
                         title: value.title,
                         subtitle: value.theDescription,
-                        image: .init(
-                            hash: value.imageHash,
-                            url: nil,
-                            data: nil
-                        ),
-                        icon: .init(
-                            hash: value.faviconHash,
-                            url: nil,
-                            data: nil
-                        )
+                        imageHash: value.imageHash,
+                        iconHash: value.faviconHash
                     )
                 )
             }
@@ -47,16 +39,8 @@ extension BookmarkViewModel {
                     url: value.url,
                     title: value.title,
                     subtitle: value.theDescription,
-                    image: .init(
-                        hash: value.imageHash,
-                        url: nil,
-                        data: nil
-                    ),
-                    icon: .init(
-                        hash: value.faviconHash,
-                        url: nil,
-                        data: nil
-                    )
+                    imageHash: value.imageHash,
+                    iconHash: value.faviconHash
                 )
             )
         }

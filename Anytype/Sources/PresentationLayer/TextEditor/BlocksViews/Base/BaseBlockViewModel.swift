@@ -54,14 +54,7 @@ class BaseBlockViewModel: ObservableObject {
     private var actionsPayloadSubjectSubscription: AnyCancellable?
     
     // MARK: - Handle events
-
-    /// This methods can be overriden in subclasses
-    /// - Parameter toolbarAction: Toolbar action type
-    ///
-    /// Default implementation do nothing
-    func handle(toolbarAction: BlockToolbarAction) {}
     
-
     /// Update view data manually.
     /// Override in subclasses.
     func updateView() {}

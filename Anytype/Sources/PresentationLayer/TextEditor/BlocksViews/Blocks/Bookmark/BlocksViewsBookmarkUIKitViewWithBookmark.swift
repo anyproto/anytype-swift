@@ -12,11 +12,10 @@ import BlocksModels
 
 // MARK: - UIKitViewWithBookmark
 extension BlocksViews.Bookmark {
-    class UIKitViewWithBookmark: UIView {
+    
+    final class UIKitViewWithBookmark: UIView {
         /// Variables
-        private var style: Style = .presentation
-        
-        private var layout: Layout = .init()
+        private let style: Style = .presentation
         
         /// Publishers
         private var subscription: AnyCancellable?
@@ -105,8 +104,8 @@ extension BlocksViews.Bookmark {
                 let view = UIImageView()
                 view.contentMode = .scaleAspectFit
                 view.clipsToBounds = true
-                view.heightAnchor.constraint(equalToConstant: self.layout.iconHeight).isActive = true
-                view.widthAnchor.constraint(equalToConstant: self.layout.iconHeight).isActive = true
+                view.heightAnchor.constraint(equalToConstant: Constants.Layout.iconHeight).isActive = true
+                view.widthAnchor.constraint(equalToConstant: Constants.Layout.iconHeight).isActive = true
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
@@ -156,24 +155,24 @@ extension BlocksViews.Bookmark {
             
             if let view = self.leftStackView, let superview = view.superview {
                 NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: self.layout.commonInsets.left),
-                    view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -self.layout.commonInsets.right),
-                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: self.layout.commonInsets.top),
-                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -self.layout.commonInsets.bottom)
+                    view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: Constants.Layout.commonInsets.left),
+                    view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor, constant: -Constants.Layout.commonInsets.right),
+                    view.topAnchor.constraint(equalTo: superview.topAnchor, constant: Constants.Layout.commonInsets.top),
+                    view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -Constants.Layout.commonInsets.bottom)
                 ])
             }
         }
         
         func addLayoutForImageView() {
             if let view = self.imageView, let superview = view.superview, let leftView = self.leftStackView {
-                self.imageViewWidthConstraint = view.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: self.layout.imageSizeFactor)
+                self.imageViewWidthConstraint = view.widthAnchor.constraint(equalTo: superview.widthAnchor, multiplier: Constants.Layout.imageSizeFactor)
                 self.imageViewWidthConstraint?.isActive = true
                 
-                self.imageViewHeightConstraint = view.heightAnchor.constraint(equalToConstant: self.layout.imageHeightConstant)
+                self.imageViewHeightConstraint = view.heightAnchor.constraint(equalToConstant: Constants.Layout.imageHeightConstant)
                 self.imageViewHeightConstraint?.isActive = true
 //                self.imageViewHeightConstraint?.priority = .defaultLow
                 NSLayoutConstraint.activate([
-                    view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: self.layout.commonInsets.left),
+                    view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: Constants.Layout.commonInsets.left),
                     view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                     view.topAnchor.constraint(greaterThanOrEqualTo: superview.topAnchor),
                     view.bottomAnchor.constraint(lessThanOrEqualTo: superview.bottomAnchor)
@@ -230,16 +229,18 @@ extension BlocksViews.Bookmark {
 
 // MARK: - UIKitViewWithBookmark / Apply
 extension BlocksViews.Bookmark.UIKitViewWithBookmark {
+    
     func apply(_ value: BookmarkViewModel.Resource?) {
         self.handle(value)
     }
+    
 }
-
 
 // MARK: - UIView / WithBookmark / Style
 private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
     enum Style {
         case presentation
+        
         var titleFont: UIFont {
             switch self {
             case .presentation: return .systemFont(ofSize: 15, weight: .semibold)
@@ -276,12 +277,15 @@ private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
 
 // MARK: - UIView / WithBookmark / Layout
 private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
-    struct Layout {
-        var commonInsets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
-        var spacing: CGFloat = 5
-        var imageSizeFactor: CGFloat = 1 / 3
-        var imageHeightConstant: CGFloat = 150
-        var iconHeight: CGFloat = 24
+    
+    enum Constants {
+        enum Layout {
+            static let commonInsets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
+            static let spacing: CGFloat = 5
+            static let imageSizeFactor: CGFloat = 1 / 3
+            static let imageHeightConstant: CGFloat = 150
+            static let iconHeight: CGFloat = 24
+        }
     }
 }
 
