@@ -50,7 +50,7 @@ final class CustomTextView: UIView {
     let inputSwitcher = ActionsAndMarksPaneInputSwitcher()
     /// HighlightedAccessoryView
     private(set) lazy var highlightedAccessoryView = CustomTextView.HighlightedToolbar.AccessoryView()
-    private(set) var menuActionsAccessoryView: BlockActionsView?
+    private(set) var menuActionsAccessoryView: SlashMenuView?
 
     private(set) lazy var mentionView: MentionView = {
         let dismissActionsMenu = { [weak self] in
@@ -235,7 +235,7 @@ private extension CustomTextView {
         }
 
         let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
-        self.menuActionsAccessoryView = BlockActionsView(
+        self.menuActionsAccessoryView = SlashMenuView(
             frame: actionViewRect,
             menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
             slashMenuActionsHandler: slashMenuActionsHandler,

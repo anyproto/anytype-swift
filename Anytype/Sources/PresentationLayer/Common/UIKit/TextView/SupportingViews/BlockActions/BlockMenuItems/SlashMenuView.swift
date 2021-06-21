@@ -1,6 +1,6 @@
 import UIKit
 
-final class BlockActionsView: DismissableInputAccessoryView {
+final class SlashMenuView: DismissableInputAccessoryView {
     
     private weak var menuNavigationController: UINavigationController?
     private weak var menuItemsViewController: BlockMenuItemsViewController?
@@ -60,7 +60,7 @@ final class BlockActionsView: DismissableInputAccessoryView {
     }
 }
 
-extension BlockActionsView: UINavigationControllerDelegate {
+extension SlashMenuView: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController,
                               willShow viewController: UIViewController,
                               animated: Bool) {
@@ -70,7 +70,7 @@ extension BlockActionsView: UINavigationControllerDelegate {
     }
 }
 
-extension BlockActionsView: FilterableItemsHolder {
+extension SlashMenuView: FilterableItemsHolder {
     
     func setFilterText(filterText: String) {
         guard let menuItemsController = self.menuItemsViewController else { return }

@@ -536,7 +536,7 @@
 		EAC6BB4B26288691004C8C06 /* InputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB4A26288691004C8C06 /* InputSwitcher.swift */; };
 		EAC6BB4E262886DA004C8C06 /* InputSwitcherTriplet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB4D262886DA004C8C06 /* InputSwitcherTriplet.swift */; };
 		EAC6BB54262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */; };
-		EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* BlockActionsView.swift */; };
+		EAC6BB5726289201004C8C06 /* SlashMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB5626289201004C8C06 /* SlashMenuView.swift */; };
 		EAC6BB6D2628B6B1004C8C06 /* SelectionBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */; };
 		EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */; };
 		EAE6BDB8267CB0D800275788 /* CustomTextViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDB7267CB0D800275788 /* CustomTextViewConfigurator.swift */; };
@@ -1116,7 +1116,7 @@
 		EAC6BB4A26288691004C8C06 /* InputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSwitcher.swift; sourceTree = "<group>"; };
 		EAC6BB4D262886DA004C8C06 /* InputSwitcherTriplet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputSwitcherTriplet.swift; sourceTree = "<group>"; };
 		EAC6BB53262888B0004C8C06 /* ActionsAndMarksPaneInputSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsAndMarksPaneInputSwitcher.swift; sourceTree = "<group>"; };
-		EAC6BB5626289201004C8C06 /* BlockActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsView.swift; sourceTree = "<group>"; };
+		EAC6BB5626289201004C8C06 /* SlashMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuView.swift; sourceTree = "<group>"; };
 		EAC6BB6C2628B6B1004C8C06 /* SelectionBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionBucket.swift; sourceTree = "<group>"; };
 		EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.KeyExtension.swift; sourceTree = "<group>"; };
 		EAE6BDB7267CB0D800275788 /* CustomTextViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewConfigurator.swift; sourceTree = "<group>"; };
@@ -3262,7 +3262,7 @@
 				EA77E51F262DAAA5009F91D9 /* BlockMenuItemsViewController.swift */,
 				EA77E523262DAAA6009F91D9 /* BlockMenuItemsViewControllerCoordinator.swift */,
 				EA77E522262DAAA5009F91D9 /* BlockMenuItemsViewControllerCoordinatorImp.swift */,
-				EAC6BB5626289201004C8C06 /* BlockActionsView.swift */,
+				EAC6BB5626289201004C8C06 /* SlashMenuView.swift */,
 				EA77E547262DF30B009F91D9 /* SlashMenuActionsHandler.swift */,
 				EA77E54A262DF398009F91D9 /* SlashMenuActionsHandlerImp.swift */,
 				EA4ED4BE2630932600CF7937 /* DismissableInputAccessoryView.swift */,
@@ -3690,7 +3690,7 @@
 				53BC39A3261B7934004D7EB6 /* CodeBlockContentView.swift in Sources */,
 				EA77E50C262DA103009F91D9 /* BlockMenuItemType.swift in Sources */,
 				124C162B264D5B6A003C411C /* DocumentDetailsViewModel.swift in Sources */,
-				EAC6BB5726289201004C8C06 /* BlockActionsView.swift in Sources */,
+				EAC6BB5726289201004C8C06 /* SlashMenuView.swift in Sources */,
 				EA6B090126663AA700038B4E /* ToggleBlockViewModel.swift in Sources */,
 				EA77E52E262DB2CD009F91D9 /* UIButton+Convenience.swift in Sources */,
 				0A203A8A2547106100D3729A /* ImageProperty.swift in Sources */,
