@@ -1,8 +1,5 @@
-import Foundation
-import SwiftUI
 import Combine
 import UIKit
-import os
 import BlocksModels
  
 class TextBlockViewModel: BaseBlockViewModel {
@@ -10,16 +7,7 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     private let serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
 
-    private let service: BlockActionsServiceText = .init()
-
-    // TODO: Rethink. We only need one (?) publisher to a model?
-    private let toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
-    private let toModelAlignmentSubject: PassthroughSubject<NSTextAlignment, Never> = .init()
-
-    // For OuterWorld.
-    // We should notify about user input.
-    // And here we have this publisher.
-    private var textViewModelSubscriptions: Set<AnyCancellable> = []
+    private let service = BlockActionsServiceText()
     private var subscriptions: Set<AnyCancellable> = []
 
     // MARK: View state
@@ -189,32 +177,6 @@ private extension TextBlockViewModel {
                 guard let self = self else { return }
                 self.textViewUpdate = textViewUpdate
             }.store(in: &self.subscriptions)
-
-        /// FromModel
-        /// ???
-        /// Actually, when we open page, we get BlockShow event.
-        /// This event contains actual state of all blocks.
-
-        /// ToModel
-        /// Maybe add throttle.
-
-        self.toModelTextSubject
-            .receive(on: serialQueue)
-            .sink { [weak self] value in
-                self?.setModelData(attributedText: value)
-            }
-            .store(in: &self.subscriptions)
-
-        self.toModelAlignmentSubject.debounce(
-            for: Constants.throttlingInterval,
-            scheduler: serialQueue
-        )
-        .notableError()
-        .flatMap { [weak self] value in
-            self?.apply(alignment: value) ?? .empty()
-        }
-        .sinkWithDefaultCompletion("TextBlocksViews setAlignment") { _ in }
-        .store(in: &self.subscriptions)
     }
 }
 
@@ -239,58 +201,6 @@ extension TextBlockViewModel {
                 )
             )
         )
-    }
-    
-}
-
-// MARK: - ViewModel / Apply to model
-
-private extension TextBlockViewModel {
-    
-    func setModelData(attributedText: NSAttributedString) {
-        // Update model
-        self.update { block in
-            switch block.content {
-            case var .text(value):
-                guard value.attributedText != attributedText else { return }
-
-                value.attributedText = NSAttributedString(attributedString: attributedText)
-
-                var blockModel = block.blockModel
-                blockModel.information.content = .text(value)
-
-            default:
-                return
-            }
-        }
-    }
-
-    func apply(alignment: NSTextAlignment) -> AnyPublisher<Void, Error>? {
-        let block = self.block
-        
-        guard
-            let contextID = block.findRoot()?.blockId,
-            case .text = block.content
-        else { return nil }
-        
-        return self.service.setAlignment(
-            contextID: contextID,
-            blockIds: [block.blockId],
-            alignment: alignment
-        )
-    }
-
-    func apply(update: TextViewUpdate) {
-        switch update {
-        case let .text(value):
-            setModelData(attributedText: NSAttributedString(string: value))
-        case let .attributedText(value):
-            setModelData(attributedText: value)
-        case .auxiliary:
-            return
-        case .payload:
-            return
-        }
     }
     
 }
@@ -360,16 +270,6 @@ extension TextBlockViewModel: CustomDebugStringConvertible {
         let address = String(format: "%p", unsafeBitCast(self, to: Int.self))
 
         return "\(address)\nid: \(blockId)\ntext: \(text.attributedText.string.prefix(20))...\ntype: \(text.contentType)\n"
-    }
-    
-}
-
-// MARK: - Constants
-
-private extension TextBlockViewModel {
-    
-    enum Constants {
-        static let throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
     }
     
 }
