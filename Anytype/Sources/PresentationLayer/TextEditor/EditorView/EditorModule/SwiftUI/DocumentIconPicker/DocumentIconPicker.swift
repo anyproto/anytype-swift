@@ -71,8 +71,7 @@ struct DocumentIconPicker: View {
             randomEmojiButtonView
             viewForTab(.upload)
         }
-.frame(height: 48)
-        .frame(maxWidth: .infinity)
+        .frame(height: 48)
     }
     
     private func viewForTab(_ tab: Tab) -> some View {

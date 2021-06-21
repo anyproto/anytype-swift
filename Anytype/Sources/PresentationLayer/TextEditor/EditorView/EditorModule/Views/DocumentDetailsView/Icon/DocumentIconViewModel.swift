@@ -6,14 +6,14 @@ final class DocumentIconViewModel {
     
     var onMediaPickerImageSelect: ((UIImage) -> Void)?
 
-    let documentIcon: DocumentIcon
+    let icon: DocumentIcon
     
     private var notificationSubscription: AnyCancellable?
         
     // MARK: - Initializer
     
-    init(documentIcon: DocumentIcon) {
-        self.documentIcon = documentIcon
+    init(icon: DocumentIcon) {
+        self.icon = icon
         
         notificationSubscription = NotificationCenter.Publisher(
             center: .default,

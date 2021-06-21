@@ -50,7 +50,7 @@ extension DocumentIconView: ConfigurableView {
         
         let viewModel = model.viewModel
         
-        configureStateBaseOnIcon(viewModel.documentIcon, model.isBorderVisible)
+        configureStateBaseOnIcon(viewModel.icon, model.isBorderVisible)
         
         viewModel.onMediaPickerImageSelect = { [weak self] image in
             self?.showLoader(with: image)

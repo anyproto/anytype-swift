@@ -1,18 +1,7 @@
-//
-//  DocumentCoverView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 25.05.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
 
 import UIKit
 
 final class DocumentCoverView: UIView {
-    
-    // MARK: - Internal variables
-    
-    var onCoverTap: (() -> Void)?
     
     // MARK: - Views
     
@@ -20,6 +9,10 @@ final class DocumentCoverView: UIView {
 
     private let imageView = UIImageView()
     private lazy var imageLoader = ImageLoader().configured(imageView)
+    
+    // MARK: - Variables
+    
+    private var heightConstraint: NSLayoutConstraint!
     
     // MARK: Initialization
     
@@ -37,29 +30,37 @@ final class DocumentCoverView: UIView {
     
 }
 
-// MARK: - Internal functions
-
-extension DocumentCoverView {
-    
-    func showLoader(with image: UIImage) {
-        let animation = CATransition()
-        animation.type = .fade;
-        animation.duration = 0.3;
-        activityIndicatorView.layer.add(animation, forKey: nil)
-        
-        activityIndicatorView.show(with: image)
-    }
-    
-}
-
 // MARK: - ConfigurableView
 
 extension DocumentCoverView: ConfigurableView {
     
-    func configure(model: DocumentCover) {
+    func configure(model: DocumentCoverViewModel?) {
         activityIndicatorView.hide()
         
-        switch model {
+        guard let model = model else {
+            configureEmptyState()
+            return
+        }
+        
+        configureStateWith(model.cover)
+        
+        model.onMediaPickerImageSelect = { [weak self] image in
+            self?.showLoader(with: image)
+        }
+    }
+    
+    private func configureEmptyState() {
+        heightConstraint.constant = 0
+        
+        imageView.isHidden = true
+        imageView.image = nil
+    }
+    
+    private func configureStateWith(_ cover: DocumentCover) {
+        heightConstraint.constant = Constants.height
+        imageView.isHidden = false
+        
+        switch cover {
         case let .imageId(imageId):
             showImageWithId(imageId)
         case let .color(color):
@@ -105,6 +106,15 @@ extension DocumentCoverView: ConfigurableView {
         imageView.contentMode = .scaleToFill
     }
     
+    private func showLoader(with image: UIImage) {
+        let animation = CATransition()
+        animation.type = .fade;
+        animation.duration = 0.3;
+        activityIndicatorView.layer.add(animation, forKey: nil)
+        
+        activityIndicatorView.show(with: image)
+    }
+    
 }
 
 // MARK: - Private extension
@@ -114,23 +124,12 @@ private extension DocumentCoverView {
     func setupView() {
         imageView.clipsToBounds = true
         
-        addGestureRecognizer(
-            TapGestureRecognizerWithClosure { [weak self] in
-                guard
-                    let self = self,
-                    self.activityIndicatorView.isHidden
-                else { return }
-                
-                self.onCoverTap?()
-            }
-        )
-        
         setupLayout()
     }
     
     func setupLayout() {
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
+            self.heightConstraint = $0.height.equal(to: 0)
         }
         
         addSubview(imageView) {

@@ -13,6 +13,10 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) lazy var settingViewModel = DocumentSettingViewModel(
         detailsActiveModel: document.defaultDetailsActiveModel
     )
+    private(set) lazy var documentCoverPickerViewModel = DocumentCoverPickerViewModel(
+        fileService: BlockActionsServiceFile(),
+        detailsActiveModel: document.defaultDetailsActiveModel
+    )
     
     let document: BaseDocumentProtocol = BaseDocument()
 
@@ -155,14 +159,10 @@ class DocumentEditorViewModel: ObservableObject {
     
     private func updateDetailsViewModel(with detailsProvider: DetailsEntryValueProvider) {
         let iconViewModel: DocumentIconViewModel? = detailsProvider.documentIcon.flatMap {
-            DocumentIconViewModel(documentIcon: $0)
+            DocumentIconViewModel(icon: $0)
         }
         let coverViewModel: DocumentCoverViewModel? = detailsProvider.documentCover.flatMap {
-            DocumentCoverViewModel(
-                cover: $0,
-                detailsActiveModel: self.document.defaultDetailsActiveModel,
-                userActionSubject: self.publicUserActionSubject
-            )
+            DocumentCoverViewModel(cover: $0)
         }
         
         self.detailsViewModel = DocumentDetailsViewModel(

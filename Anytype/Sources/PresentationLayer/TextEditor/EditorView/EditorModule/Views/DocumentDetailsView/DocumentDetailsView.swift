@@ -8,13 +8,12 @@
 
 import Foundation
 import UIKit
-import Combine
 
 final class DocumentDetailsView: UICollectionReusableView {
     
     // MARK: - Views
 
-    private var coverView: UIView?
+    private let coverView = DocumentCoverView()
     private let iconView = DocumentIconView()
 
     // MARK: Initialization
@@ -22,13 +21,13 @@ final class DocumentDetailsView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupView()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        setupView()
+        setupLayout()
     }
     
     // MARK: - Override functions
@@ -36,7 +35,7 @@ final class DocumentDetailsView: UICollectionReusableView {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        removeCoverView()
+        coverView.configure(model: nil)
         iconView.configure(model: nil)
     }
     
@@ -47,7 +46,8 @@ final class DocumentDetailsView: UICollectionReusableView {
 extension DocumentDetailsView: ConfigurableView {
     
     func configure(model: DocumentDetailsViewModel) {
-        configureCoverView(with: model.coverViewModel)
+        coverView.configure(model: model.coverViewModel)
+                
         iconView.configure(
             model: model.iconViewModel.flatMap {
                 DocumentIconView.ConfigurationModel(
@@ -64,43 +64,18 @@ extension DocumentDetailsView: ConfigurableView {
 
 private extension DocumentDetailsView {
     
-    func configureCoverView(with coverViewModel: DocumentCoverViewModel?) {
-        removeCoverView()
-        
-        guard let coverView = coverViewModel?.makeView() else { return }
-        
-        addSubview(coverView)
-        coverView.layoutUsing.anchors {
+    func setupLayout() {
+        addSubview(coverView) {
             $0.leading.equal(to: leadingAnchor)
             $0.trailing.equal(to: trailingAnchor)
-            $0.top.equal(to: topAnchor)
+            $0.top.equal(to: topAnchor, priority: .defaultLow)
             $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
         }
         
-        self.coverView = coverView
-        bringSubviewToFront(iconView)
-    }
-    
-    func removeCoverView() {
-        coverView?.removeFromSuperview()
-        coverView = nil
-    }
-    
-}
-
-// MARK: - Private extension
-
-private extension DocumentDetailsView {
-    
-    func setupView() {
-        setupLayout()
-    }
-    
-    func setupLayout() {
         addSubview(iconView) {
             $0.leading.equal(to: leadingAnchor, constant: Constants.iconEdgeInsets.leading)
             $0.bottom.equal(to: bottomAnchor, constant: -Constants.iconEdgeInsets.bottom)
-            $0.top.greaterThanOrEqual(to: topAnchor, constant: Constants.iconEdgeInsets.top)
+            $0.top.greaterThanOrEqual(to: topAnchor, constant: Constants.iconEdgeInsets.top, priority: .defaultHigh)
         }
     }
     
