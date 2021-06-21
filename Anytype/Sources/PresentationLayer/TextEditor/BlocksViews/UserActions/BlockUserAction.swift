@@ -6,7 +6,6 @@ typealias FilteringPayload = BlocksTypesCasesFiltering
 
 enum BlockUserAction {
     case file(FileAction)
-    case emoji(EmojiPicker.ViewModel)
     
     case addBlock(AddBlock)
     case turnIntoBlock(TurnIntoBlock)
@@ -15,14 +14,12 @@ enum BlockUserAction {
 
 extension BlockUserAction {
     struct AddBlock {
-        typealias Output = PassthroughSubject<BlockToolbarAction, Never>
-        var output: Output
+        var output: PassthroughSubject<BlockToolbarAction, Never>
         var input: FilteringPayload?
     }
     
     struct TurnIntoBlock {
-        typealias Output = PassthroughSubject<BlockToolbarAction, Never>
-        var output: Output
+        var output: PassthroughSubject<BlockToolbarAction, Never>
         var input: FilteringPayload?
     }
     

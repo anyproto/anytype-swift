@@ -3,21 +3,6 @@ import Combine
 import SwiftUI
 
 
-// MARK: ViewModel
-/// View model for a whole List with cells.
-/// Cells are grouped in Sections.
-/// For us, Categories (Sections) are values of BlocksTypes.
-/// And Cells in each Category (Section) are enum that is associated with concrete value of BlocksTypes enum.
-/// In this example,
-///
-/// enum First {
-///  enum Second {case b}
-///  case a(Second)
-///}
-///
-/// Sections equal to all cases of First enum ({case a})
-/// Cells in {case a} are equal to cases in Second enum ({case b})
-///
 class BlockToolbarAddBlockViewModel: ObservableObject {
     // MARK: Public / Publishers
     /// It is a chosen block type publisher.

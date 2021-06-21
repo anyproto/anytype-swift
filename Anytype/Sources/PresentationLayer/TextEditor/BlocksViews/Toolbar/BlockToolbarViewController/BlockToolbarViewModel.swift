@@ -52,7 +52,7 @@ final class BlockToolbarViewModel {
     func chosenView() -> StyleAndViewAndPayload {
         switch self.style.style {
         case .addBlock: return .init(style: self.style, view: BlockToolbarAddBlockInputViewBuilder.createView(self._addBlockViewModel), payload: .init(title: self.addBlockViewModel.title))
-        case .turnIntoBlock: return .init(style: self.style, view: BlockToolbarTurnIntoBlock.InputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
+        case .turnIntoBlock: return .init(style: self.style, view: BlockToolbarAddBlockInputViewBuilder.createView(self._turnIntoBlockViewModel), payload: .init(title: self.turnIntoBlockViewModel.title))
         case .bookmark: return .init(style: self.style, view: BlockToolbarBookmark.InputViewBuilder.createView(self._bookmarkViewModel), payload: .init(title: self.bookmarkViewModel.title))
         }
     }
