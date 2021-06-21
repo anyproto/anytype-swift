@@ -1,37 +1,17 @@
-//
-//  CodeBlockViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 23.05.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Combine
 import UIKit
 import BlocksModels
-
-
-// MARK: - CodeBlockViewModel
 
 final class CodeBlockViewModel: BaseBlockViewModel {
     private enum Constants {
         static let codeLanguageFieldName = "lang"
     }
-
-    private struct Options {
-        var throttlingInterval: DispatchQueue.SchedulerTimeType.Stride = .seconds(1)
-    }
-
+    
     private var serialQueue = DispatchQueue(label: "BlocksViews.Text.Base.SerialQueue")
-    private var textOptions: Options = .init()
 
     private var subscriptions: Set<AnyCancellable> = []
-    private var toModelTextSubject: PassthroughSubject<NSAttributedString, Never> = .init()
 
     weak var codeBlockView: CodeBlockViewInteractable?
-
-    // MARK: Services
-    private var service: BlockActionsServiceText = .init()
     private let listService: BlockActionsServiceList = .init()
 
     // MARK: View state
@@ -39,8 +19,6 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     @Published private(set) var textViewUpdate: TextViewUpdate?
     @Published var focus: BlockFocusPosition?
     @Published var codeLanguage: String? = "Swift"
-
-    // MARK: - Life cycle
 
     override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
         super.init(block, delegate: delegate)
@@ -57,10 +35,6 @@ final class CodeBlockViewModel: BaseBlockViewModel {
         var configuration = CodeBlockContentConfiguration(self)
         configuration.viewModel = self
         return configuration
-    }
-
-    override func handle(contextualMenuAction: BlocksViews.ContextualMenu.MenuAction.Action) {
-        super.handle(contextualMenuAction: contextualMenuAction)
     }
     
     override func makeContextualMenu() -> BlocksViews.ContextualMenu {
@@ -116,11 +90,6 @@ private extension CodeBlockViewModel {
             .sink { [weak self] textViewUpdate in
                 self?.textViewUpdate = textViewUpdate
             }.store(in: &self.subscriptions)
-
-        // update code block model
-        self.toModelTextSubject.receive(on: serialQueue).sink { [weak self] (value) in
-            self?.setModelData(attributedText: value)
-        }.store(in: &self.subscriptions)
     }
 }
 
@@ -129,33 +98,6 @@ private extension CodeBlockViewModel {
 extension CodeBlockViewModel {
     func set(focus: BlockFocusPosition?) {
         self.focus = focus
-    }
-}
-
-// MARK: - Actions Payload Legacy
-
-extension CodeBlockViewModel {
-    func send(textViewAction: TextBlockUserInteraction) {
-        self.send(actionsPayload: .textView(.init(model: block, action: textViewAction)))
-    }
-}
-
-// MARK: - Apply to model
-
-private extension CodeBlockViewModel {
-    func setModelData(attributedText: NSAttributedString) {
-        // Update model.
-        self.update { (block) in
-            switch block.content {
-            case var .text(value):
-                guard value.attributedText != attributedText else { return }
-                let attributedText: NSAttributedString = .init(attributedString: attributedText)
-                value.attributedText = attributedText
-                var blockModel = block.blockModel
-                blockModel.information.content = .text(value)
-            default: return
-            }
-        }
     }
 }
 
