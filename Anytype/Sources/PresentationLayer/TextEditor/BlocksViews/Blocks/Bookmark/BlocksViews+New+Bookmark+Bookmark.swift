@@ -10,136 +10,132 @@ import MobileCoreServices
 // In this case we will receive simple updates of all views.
 
 // MARK: ViewModel
-extension BlocksViews.Bookmark {
-    class ViewModel: BaseBlockViewModel {
-        private var service: BlockActionsServiceBookmark = .init()
-        
-        private var subscription: AnyCancellable?
-        private var toolbarSubscription: AnyCancellable?
-        @Published private var resourcePublished: Resource?
-        var imagesPublished: Resource.ImageLoader = .init()
-        private var publisher: AnyPublisher<BlockContent.Bookmark, Never> = .empty()
-                
-        override func makeContentConfiguration() -> UIContentConfiguration {
-            var configuration = ContentConfiguration.init(block.blockModel.information)
-            configuration.contextMenuHolder = self
-            return configuration
-        }
-        
-        // MARK: Subclassing
-        override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
-            super.init(block, delegate: delegate)
-            self.setup()
-        }
-        
-        // MARK: Subclassing / Events
-        override func didSelectRowInTableView() {
-            // we should show image picker only for empty state
-            // TODO: Need to think about error state, reload or something
+class BookmarkViewModel: BaseBlockViewModel {
+    private var service: BlockActionsServiceBookmark = .init()
+    
+    private var subscription: AnyCancellable?
+    private var toolbarSubscription: AnyCancellable?
+    @Published private var resourcePublished: Resource?
+    var imagesPublished: Resource.ImageLoader = .init()
+    private var publisher: AnyPublisher<BlockContent.Bookmark, Never> = .empty()
             
-            // Think what we should check...
-            // Empty URL?
-            if case let .bookmark(value) = block.content, !value.url.isEmpty {
-                assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
-                return
-            }
-                            
-            send(userAction: .bookmark(toolbarActionSubject))
-        }
+    override func makeContentConfiguration() -> UIContentConfiguration {
+        var configuration = ContentConfiguration.init(block.blockModel.information)
+        configuration.contextMenuHolder = self
+        return configuration
+    }
+    
+    // MARK: Subclassing
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
+        super.init(block, delegate: delegate)
+        self.setup()
+    }
+    
+    // MARK: Subclassing / Events
+    override func didSelectRowInTableView() {
+        // we should show image picker only for empty state
+        // TODO: Need to think about error state, reload or something
         
-        override func handle(toolbarAction: BlockToolbarAction) {
-            switch toolbarAction {
-            case let .bookmark(.fetch(value)):
-                self.update { (block) in
-                    switch block.content {
-                    case let .bookmark(bookmark):
-                        var bookmark = bookmark
-                        bookmark.url = value.absoluteString
+        // Think what we should check...
+        // Empty URL?
+        if case let .bookmark(value) = block.content, !value.url.isEmpty {
+            assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
+            return
+        }
                         
-                        var blockModel = block.blockModel
-                        blockModel.information.content = .bookmark(bookmark)
-                    default: return
-                    }
+        send(userAction: .bookmark(toolbarActionSubject))
+    }
+    
+    override func handle(toolbarAction: BlockToolbarAction) {
+        switch toolbarAction {
+        case let .bookmark(.fetch(value)):
+            self.update { (block) in
+                switch block.content {
+                case let .bookmark(bookmark):
+                    var bookmark = bookmark
+                    bookmark.url = value.absoluteString
+                    
+                    var blockModel = block.blockModel
+                    blockModel.information.content = .bookmark(bookmark)
+                default: return
                 }
-            default: return
             }
+        default: return
         }
-        
-        override var diffable: AnyHashable {
-            let diffable = super.diffable
-            if case let .bookmark(value) = block.content {
-                let newDiffable: [String: AnyHashable] = [
-                    "parent": diffable,
-                    "bookmark": ["url": value.url, "title": value.title]
-                ]
-                return .init(newDiffable)
-            }
-            return diffable
+    }
+    
+    override var diffable: AnyHashable {
+        let diffable = super.diffable
+        if case let .bookmark(value) = block.content {
+            let newDiffable: [String: AnyHashable] = [
+                "parent": diffable,
+                "bookmark": ["url": value.url, "title": value.title]
+            ]
+            return .init(newDiffable)
         }
+        return diffable
+    }
 
-        private func setup() {
-            self.setupSubscribers()
-        }
-        
-        func setupSubscribers() {
+    private func setup() {
+        self.setupSubscribers()
+    }
+    
+    func setupSubscribers() {
 //            self.toolbarSubscription = self.toolbarActionSubject.sink { [weak self] (value) in
 //                self?.handle(toolbarAction: value)
 //            }
-            self.publisher = block.didChangeInformationPublisher().map({ value -> BlockContent.Bookmark? in
-                switch value.content {
-                case let .bookmark(value): return value
-                default: return nil
-                }
-            }).safelyUnwrapOptionals().eraseToAnyPublisher()
-            
-            /// Also embed image data to state.            
-            self.subscription = self.publisher.sink(receiveValue: { [weak self] (value) in
-                let resource = ResourceConverter.asOurModel(value)
-                self?.resourcePublished = resource
-                self?.setupImages(resource)
-            })
-        }
-        
-        // MARK: Images
-        func setupImages(_ resource: Resource?) {
-            switch resource?.state {
-            case let .fetched(payload):
-                switch (payload.hasImage(), payload.hasIcon()) {
-                case (false, false): self.imagesPublished.resetImages()
-                default:
-                    if payload.hasImage() {
-                        self.imagesPublished.subscribeImage(payload.image)
-                    }
-                    if payload.hasIcon() {
-                        /// create publisher that uploads image
-                        self.imagesPublished.subscribeIcon(payload.icon)
-                    }
-                }
-            default: return
+        self.publisher = block.didChangeInformationPublisher().map({ value -> BlockContent.Bookmark? in
+            switch value.content {
+            case let .bookmark(value): return value
+            default: return nil
             }
-        }
-                
-        // MARK: Contextual Menu
-        override func makeContextualMenu() -> BlocksViews.ContextualMenu {
-            .init(title: "", children: [
-                .create(action: .general(.addBlockBelow)),
-                .create(action: .general(.delete)),
-                .create(action: .general(.duplicate)),
-            ])
+        }).safelyUnwrapOptionals().eraseToAnyPublisher()
+        
+        /// Also embed image data to state.
+        self.subscription = self.publisher.sink(receiveValue: { [weak self] (value) in
+            let resource = ResourceConverter.asOurModel(value)
+            self?.resourcePublished = resource
+            self?.setupImages(resource)
+        })
+    }
+    
+    // MARK: Images
+    func setupImages(_ resource: Resource?) {
+        switch resource?.state {
+        case let .fetched(payload):
+            switch (payload.hasImage(), payload.hasIcon()) {
+            case (false, false): self.imagesPublished.resetImages()
+            default:
+                if payload.hasImage() {
+                    self.imagesPublished.subscribeImage(payload.image)
+                }
+                if payload.hasIcon() {
+                    /// create publisher that uploads image
+                    self.imagesPublished.subscribeIcon(payload.icon)
+                }
+            }
+        default: return
         }
     }
+            
+    // MARK: Contextual Menu
+    override func makeContextualMenu() -> BlocksViews.ContextualMenu {
+        .init(title: "", children: [
+            .create(action: .general(.addBlockBelow)),
+            .create(action: .general(.delete)),
+            .create(action: .general(.duplicate)),
+        ])
+    }
 }
-
 // MARK: - State Converter
-extension BlocksViews.Bookmark.ViewModel {
+extension BookmarkViewModel {
+    
     enum ResourceConverter {
-        typealias Model = BlockContent.Bookmark
-        typealias OurModel = Resource
-        static func asModel(_ value: OurModel) -> Model? {
+        static func asModel(_ value: Resource) -> BlockContent.Bookmark? {
             return nil
         }
         
-        static func asOurModel(_ value: Model) -> OurModel? {
+        static func asOurModel(_ value: BlockContent.Bookmark) -> Resource? {
             if value.url.isEmpty {
                 return .empty()
             }
@@ -153,11 +149,8 @@ extension BlocksViews.Bookmark.ViewModel {
     }
 }
 
-// MARK: - ViewModel / Downloading Images
-private extension BlocksViews.Bookmark.ViewModel {}
-
 // MARK: - Resource
-extension BlocksViews.Bookmark.ViewModel {
+extension BookmarkViewModel {
     
     class Resource {
         
@@ -271,11 +264,6 @@ private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
     }
 }
 
-// MARK: - UIView / WithBookmark / Resource
-private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
-    typealias Resource = BlocksViews.Bookmark.ViewModel.Resource
-}
-
 // MARK: - UIKitViewWithBookmark
 private extension BlocksViews.Bookmark {
     class UIKitViewWithBookmark: UIView {
@@ -286,8 +274,8 @@ private extension BlocksViews.Bookmark {
         
         /// Publishers
         private var subscription: AnyCancellable?
-        private var resourceStream: AnyPublisher<Resource?, Never> = .empty()
-        @Published var resource: Resource? {
+        private var resourceStream: AnyPublisher<BookmarkViewModel.Resource?, Never> = .empty()
+        @Published var resource: BookmarkViewModel.Resource? {
             didSet {
                 self.handle(self.resource)
             }
@@ -448,7 +436,7 @@ private extension BlocksViews.Bookmark {
         }
         
         /// Configurations
-        private func handle(_ value: Resource?) {
+        private func handle(_ value: BookmarkViewModel.Resource?) {
             guard let value = value else {
                 print("value is nil!")
                 return
@@ -484,7 +472,7 @@ private extension BlocksViews.Bookmark {
             }
         }
         
-        func configured(_ stream: AnyPublisher<Resource?, Never>) {
+        func configured(_ stream: AnyPublisher<BookmarkViewModel.Resource?, Never>) {
             self.resourceStream = stream
             self.subscription = self.resourceStream.receiveOnMain().sink(receiveValue: { [weak self] (value) in
                 print("state value: \(String(describing: value))")
@@ -496,7 +484,7 @@ private extension BlocksViews.Bookmark {
 
 // MARK: - UIKitViewWithBookmark / Apply
 extension BlocksViews.Bookmark.UIKitViewWithBookmark {
-    func apply(_ value: Resource?) {
+    func apply(_ value: BookmarkViewModel.Resource?) {
         self.handle(value)
     }
 }
@@ -602,7 +590,7 @@ private extension BlocksViews.Bookmark {
             }
         }
                         
-        private func handle(_ resource: BlocksViews.Bookmark.ViewModel.Resource) {
+        private func handle(_ resource: BookmarkViewModel.Resource) {
             switch resource.state {
             case .empty:
                 self.addSubview(self.emptyView)
@@ -617,7 +605,7 @@ private extension BlocksViews.Bookmark {
             }
         }
                 
-        func configured(publisher: AnyPublisher<BlocksViews.Bookmark.ViewModel.Resource?, Never>) -> Self {
+        func configured(publisher: AnyPublisher<BookmarkViewModel.Resource?, Never>) -> Self {
             self.subscription = publisher.receiveOnMain().safelyUnwrapOptionals().sink { [weak self] (value) in
                 self?.handle(value)
             }
@@ -626,7 +614,7 @@ private extension BlocksViews.Bookmark {
             return self
         }
         
-        private func configured(published: AnyPublisher<UIKitViewWithBookmark.Resource?, Never>) -> Self {
+        private func configured(published: AnyPublisher<BookmarkViewModel.Resource?, Never>) -> Self {
             self.bookmarkView.configured(published)
             return self
         }
@@ -635,19 +623,19 @@ private extension BlocksViews.Bookmark {
 
 // MARK: UIKitView / Apply
 extension BlocksViews.Bookmark.UIKitView {
-    func apply(_ value: BlocksViews.Bookmark.ViewModel.Resource?) {
+    func apply(_ value: BookmarkViewModel.Resource?) {
         guard let value = value else { return }
         self.bookmarkView.apply(value)
         self.handle(value)
     }
     func apply(_ value: BlockContent.Bookmark) {
-        let model = BlocksViews.Bookmark.ViewModel.ResourceConverter.asOurModel(value)
+        let model = BookmarkViewModel.ResourceConverter.asOurModel(value)
         self.apply(model)
     }
 }
 
 // MARK: ContentConfiguration
-extension BlocksViews.Bookmark.ViewModel {
+extension BookmarkViewModel {
     
     /// As soon as we have builder in this type ( makeContentView )
     /// We could map all states ( for example, image has several states ) to several different ContentViews.
@@ -661,7 +649,7 @@ extension BlocksViews.Bookmark.ViewModel {
         }
         
         var information: BlockInformation
-        fileprivate weak var contextMenuHolder: BlocksViews.Bookmark.ViewModel?
+        fileprivate weak var contextMenuHolder: BookmarkViewModel?
         
         init(_ information: BlockInformation) {
             /// We should warn if we have incorrect content type (?)
@@ -698,7 +686,7 @@ extension BlocksViews.Bookmark.ViewModel {
 }
 
 // MARK: - ContentView
-private extension BlocksViews.Bookmark.ViewModel {
+private extension BookmarkViewModel {
     final class ContentView: UIView & UIContentView {
         
         private enum Constants {
@@ -735,7 +723,7 @@ private extension BlocksViews.Bookmark.ViewModel {
             topView.pinAllEdges(to: self, insets: Constants.topViewInsets)
         }
         
-        private func handle(_ value: BlocksViews.Bookmark.ViewModel.Resource?) {
+        private func handle(_ value: BookmarkViewModel.Resource?) {
             value?.imageLoader = self.currentConfiguration.contextMenuHolder?.imagesPublished
             self.topView.apply(value)
         }
@@ -755,7 +743,7 @@ private extension BlocksViews.Bookmark.ViewModel {
                 self.imageSubscription = item
             }
             
-            let model = BlocksViews.Bookmark.ViewModel.ResourceConverter.asOurModel(value)
+            let model = BookmarkViewModel.ResourceConverter.asOurModel(value)
             self.handle(model)
         }
         
