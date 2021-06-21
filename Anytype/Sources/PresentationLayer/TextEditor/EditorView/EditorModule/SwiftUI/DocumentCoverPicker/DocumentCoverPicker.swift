@@ -11,16 +11,16 @@ struct DocumentCoverPicker: View {
         VStack(spacing: 0) {
             switch selectedTab {
             case .gallery:
-                galleryTab
+                galleryTabView
             case .upload:
-                uploadTab
+                uploadTabView
             }
             
             tabHeaders
         }
     }
     
-    private var galleryTab: some View {
+    private var galleryTabView: some View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
             navigationBarView
@@ -34,7 +34,7 @@ struct DocumentCoverPicker: View {
         )
     }
     
-    private var uploadTab: some View {
+    private var uploadTabView: some View {
         MediaPickerView(contentType: viewModel.mediaPickerContentType) { itemProvider in
             // TODO: - implement
             debugPrint(itemProvider)

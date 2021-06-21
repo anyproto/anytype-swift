@@ -4,22 +4,22 @@ struct DocumentIconPicker: View {
 
     @EnvironmentObject private var iconViewModel: DocumentIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
-
-    @State private var tabSelection: Tab = .emoji
-    
+    @State private var selectedTab: Tab = .emoji
+        
     var body: some View {
         VStack(spacing: 0) {
-            if tabSelection == .emoji {
-                emojiTab
-            } else if tabSelection == .upload {
-                mediaPickerView
+            switch selectedTab {
+            case .emoji:
+                emojiTabView
+            case .upload:
+                uploadTabView
             }
-            tabHeaders
+            tabBarView
         }
         .ignoresSafeArea(.keyboard)
     }
     
-    private var emojiTab: some View {
+    private var emojiTabView: some View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
             navigationBarView
@@ -50,7 +50,7 @@ struct DocumentIconPicker: View {
         }
     }
     
-    private var mediaPickerView: some View {
+    private var uploadTabView: some View {
         MediaPickerView(contentType: iconViewModel.mediaPickerContentType) { item in
             item.flatMap {
                 iconViewModel.uploadImage(from: $0)
@@ -65,32 +65,38 @@ struct DocumentIconPicker: View {
         )
     }
     
-    private var tabHeaders: some View {
+    private var tabBarView: some View {
         HStack {
-            ForEach(Tab.allCases, id: \.self) { tab in
-                tabHeaderButton(tab)
-            }
+            viewForTab(.emoji)
+            randomEmojiButtonView
+            viewForTab(.upload)
         }
-        .frame(height: 48)
+        .frame(maxWidth: .infinity)
     }
     
-    private func tabHeaderButton(_ tab: Tab) -> some View {
+    private func viewForTab(_ tab: Tab) -> some View {
         Button {
-            switch tab {
-            case .random:
-                EmojiProvider.shared.randomEmoji().flatMap {
-                    handleSelectedEmoji($0)
-                }
-            default:
-                UISelectionFeedbackGenerator().selectionChanged()
-                withAnimation {
-                    tabSelection = tab
-                }
+            UISelectionFeedbackGenerator().selectionChanged()
+            withAnimation {
+                selectedTab = tab
             }
             
         } label: {
             AnytypeText(tab.title, style: .headline)
-                .foregroundColor(tabSelection == tab ? Color.buttonSelected : Color.buttonActive)
+                .foregroundColor(selectedTab == tab ? Color.buttonSelected : Color.buttonActive)
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    private var randomEmojiButtonView: some View {
+        Button {
+            EmojiProvider.shared.randomEmoji().flatMap {
+                handleSelectedEmoji($0)
+            }
+            
+        } label: {
+            AnytypeText("Random", style: .headline)
+                .foregroundColor(Color.buttonActive)
         }
         .frame(maxWidth: .infinity)
     }
@@ -106,15 +112,13 @@ struct DocumentIconPicker: View {
 
 private extension DocumentIconPicker {
     
-    enum Tab: CaseIterable {
+    enum Tab {
         case emoji
-        case random
         case upload
         
         var title: String {
             switch self {
             case .emoji: return "Emoji"
-            case .random: return "Random"
             case .upload: return "Upload"
             }
         }
