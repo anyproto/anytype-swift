@@ -8,7 +8,6 @@ final class DocumentEditorViewController: UIViewController {
 
     var router: DocumentViewCompoundRouter?
     
-    private let bottomFloaterBuilder = BottomFloaterBuilder()
     
     private lazy var dataSource = makeCollectionViewDataSource()
     
@@ -442,15 +441,10 @@ private extension DocumentEditorViewController {
     func showDocumentSettings() {
         UISelectionFeedbackGenerator().selectionChanged()
         
-        let vc = bottomFloaterBuilder.builBottomFloater {
-            DocumentSettingsContentView()
-            .padding(8)
-            .environmentObject(
-                self.viewModel.documentIconPickerViewModel
-            )
-        }
-        
-        present(vc, animated: false)
+        present(
+            viewModel.settingViewModel.makeSettingsViewController(),
+            animated: false
+        )
     }
     
 }

@@ -10,8 +10,7 @@ class DocumentEditorViewModel: ObservableObject {
     /// Router for current page
     var editorRouter: EditorRouterProtocol?
     
-    private(set) lazy var documentIconPickerViewModel = DocumentIconPickerViewModel(
-        fileService: BlockActionsServiceFile(),
+    private(set) lazy var settingViewModel = DocumentSettingViewModel(
         detailsActiveModel: document.defaultDetailsActiveModel
     )
     

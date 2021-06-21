@@ -5,7 +5,7 @@ struct DocumentIconPicker: View {
     @EnvironmentObject private var iconViewModel: DocumentIconPickerViewModel
     @Environment(\.presentationMode) private var presentationMode
 
-    @State private var tabSelection: IconTab = .emoji
+    @State private var tabSelection: Tab = .emoji
     
     var body: some View {
         VStack(spacing: 0) {
@@ -67,42 +67,32 @@ struct DocumentIconPicker: View {
     
     private var tabHeaders: some View {
         HStack {
-            Button {
-                UISelectionFeedbackGenerator().selectionChanged()
-                withAnimation {
-                    tabSelection = .emoji
-                }
-                
-            } label: {
-                AnytypeText(IconTab.emoji.title, style: .headline)
-                    .foregroundColor(tabSelection == .emoji ? Color.buttonSelected : Color.buttonActive)
+            ForEach(Tab.allCases, id: \.self) { tab in
+                tabHeaderButton(tab)
             }
-            .frame(maxWidth: .infinity)
-            
-            Button {
+        }
+        .frame(height: 48)
+    }
+    
+    private func tabHeaderButton(_ tab: Tab) -> some View {
+        Button {
+            switch tab {
+            case .random:
                 EmojiProvider.shared.randomEmoji().flatMap {
                     handleSelectedEmoji($0)
                 }
-                
-            } label: {
-                AnytypeText(IconTab.random.title, style: .headline)
-                    .foregroundColor(Color.buttonActive)
-            }
-            .frame(maxWidth: .infinity)
-            
-            Button {
+            default:
                 UISelectionFeedbackGenerator().selectionChanged()
                 withAnimation {
-                    tabSelection = .upload
+                    tabSelection = tab
                 }
-                
-            } label: {
-                AnytypeText(IconTab.upload.title, style: .headline)
-                    .foregroundColor(tabSelection == .upload ? Color.buttonSelected : Color.buttonActive)
             }
-            .frame(maxWidth: .infinity)
+            
+        } label: {
+            AnytypeText(tab.title, style: .headline)
+                .foregroundColor(tabSelection == tab ? Color.buttonSelected : Color.buttonActive)
         }
-        .frame(height: 48)
+        .frame(maxWidth: .infinity)
     }
     
     private func handleSelectedEmoji(_ emoji: Emoji) {
@@ -116,7 +106,7 @@ struct DocumentIconPicker: View {
 
 private extension DocumentIconPicker {
     
-    enum IconTab {
+    enum Tab: CaseIterable {
         case emoji
         case random
         case upload
