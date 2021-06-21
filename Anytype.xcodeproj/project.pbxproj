@@ -181,7 +181,6 @@
 		0ACFCCF7249C17B5002E0477 /* BlockActionsServiceListProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */; };
 		0ACFCCF9249C17DC002E0477 /* ServiceSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFCCF8249C17DC002E0477 /* ServiceSuccess.swift */; };
 		0AD6B24524CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */; };
-		0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24724CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift */; };
 		0AD6B24A24CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */; };
 		0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */; };
 		0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD6B24D24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift */; };
@@ -749,7 +748,6 @@
 		0ACFCCF6249C17B5002E0477 /* BlockActionsServiceListProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceListProtocol.swift; sourceTree = "<group>"; };
 		0ACFCCF8249C17DC002E0477 /* ServiceSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceSuccess.swift; sourceTree = "<group>"; };
 		0AD6B24424CF12CC0097A841 /* BlockActionsServiceBookmarkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceBookmarkProtocol.swift; sourceTree = "<group>"; };
-		0AD6B24724CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+Bookmark+Bookmark.swift"; sourceTree = "<group>"; };
 		0AD6B24B24CF633F0097A841 /* BlockToolbarBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBookmark.swift; sourceTree = "<group>"; };
 		0AD6B24D24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockToolbarBookmarkViewModel.swift; sourceTree = "<group>"; };
@@ -2000,7 +1998,6 @@
 		0AD6B24624CF5D0A0097A841 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
-				0AD6B24724CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift */,
 				0AD6B24924CF5DC00097A841 /* BlocksViews+New+Bookmark+Bookmark.swift */,
 			);
 			path = Bookmark;
@@ -3793,7 +3790,6 @@
 				0A83081525D572630067EEC9 /* BlockActionsServiceSingle.swift in Sources */,
 				1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */,
 				0303ED0122D8EDAA005C552B /* SceneDelegate.swift in Sources */,
-				0AD6B24824CF5D4B0097A841 /* BlocksViews+New+Bookmark.swift in Sources */,
 				EA77E57D262EEF1F009F91D9 /* BlockAlignmentAction.swift in Sources */,
 				0A10CC84248ED4AF000FF498 /* PageTitleState.swift in Sources */,
 				A3940BB9245AB47700CD6F37 /* EmojiPicker+Cell.swift in Sources */,

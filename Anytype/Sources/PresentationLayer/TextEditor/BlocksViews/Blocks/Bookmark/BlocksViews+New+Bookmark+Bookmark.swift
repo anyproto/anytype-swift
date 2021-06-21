@@ -5,16 +5,13 @@ import os
 import BlocksModels
 import MobileCoreServices
 
-fileprivate typealias Namespace = BlocksViews.Bookmark.Bookmark
-
-
 // TODO: Rethink.
 // Maybe we should use SwiftUI which will be embedded in UIKit.
 // In this case we will receive simple updates of all views.
 
 // MARK: ViewModel
-extension Namespace {
-    class ViewModel: BlocksViews.Bookmark.Base.ViewModel {
+extension BlocksViews.Bookmark {
+    class ViewModel: BaseBlockViewModel {
         private var service: BlockActionsServiceBookmark = .init()
         
         private var subscription: AnyCancellable?
@@ -134,7 +131,7 @@ extension Namespace {
 }
 
 // MARK: - State Converter
-extension Namespace.ViewModel {
+extension BlocksViews.Bookmark.ViewModel {
     enum ResourceConverter {
         typealias Model = BlockContent.Bookmark
         typealias OurModel = Resource
@@ -157,10 +154,11 @@ extension Namespace.ViewModel {
 }
 
 // MARK: - ViewModel / Downloading Images
-private extension Namespace.ViewModel {}
+private extension BlocksViews.Bookmark.ViewModel {}
 
 // MARK: - Resource
-extension Namespace.ViewModel {
+extension BlocksViews.Bookmark.ViewModel {
+    
     class Resource {
         
         class ImageLoader {
@@ -225,7 +223,7 @@ extension Namespace.ViewModel {
 }
 
 // MARK: - UIView / WithBookmark / Style
-private extension Namespace.UIKitViewWithBookmark {
+private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
     enum Style {
         case presentation
         var titleFont: UIFont {
@@ -263,7 +261,7 @@ private extension Namespace.UIKitViewWithBookmark {
 }
 
 // MARK: - UIView / WithBookmark / Layout
-private extension Namespace.UIKitViewWithBookmark {
+private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
     struct Layout {
         var commonInsets: UIEdgeInsets = .init(top: 16, left: 16, bottom: 16, right: 16)
         var spacing: CGFloat = 5
@@ -274,12 +272,12 @@ private extension Namespace.UIKitViewWithBookmark {
 }
 
 // MARK: - UIView / WithBookmark / Resource
-private extension Namespace.UIKitViewWithBookmark {
-    typealias Resource = Namespace.ViewModel.Resource
+private extension BlocksViews.Bookmark.UIKitViewWithBookmark {
+    typealias Resource = BlocksViews.Bookmark.ViewModel.Resource
 }
 
 // MARK: - UIKitViewWithBookmark
-private extension Namespace {
+private extension BlocksViews.Bookmark {
     class UIKitViewWithBookmark: UIView {
         /// Variables
         var style: Style = .presentation
@@ -497,14 +495,14 @@ private extension Namespace {
 }
 
 // MARK: - UIKitViewWithBookmark / Apply
-extension Namespace.UIKitViewWithBookmark {
+extension BlocksViews.Bookmark.UIKitViewWithBookmark {
     func apply(_ value: Resource?) {
         self.handle(value)
     }
 }
 
 // MARK: - UIKitView / Layout
-private extension Namespace.UIKitView {
+private extension BlocksViews.Bookmark.UIKitView {
     struct Layout {
         var imageContentViewDefaultHeight: CGFloat = 250
         var imageViewTop: CGFloat = 4
@@ -514,7 +512,7 @@ private extension Namespace.UIKitView {
 }
 
 // MARK: - UIKitView / Resource
-private extension Namespace.UIKitView {
+private extension BlocksViews.Bookmark.UIKitView {
     struct Resource {
         var emptyViewPlaceholderTitle = "Add a web bookmark"
         var emptyViewImagePath = "TextEditor/Style/Bookmark/Empty"
@@ -522,7 +520,7 @@ private extension Namespace.UIKitView {
 }
 
 // MARK: - UIKitView
-private extension Namespace {
+private extension BlocksViews.Bookmark {
     class UIKitView: UIView {
         
         typealias EmptyView = BlocksViews.File.Base.TopUIKitEmptyView
@@ -604,7 +602,7 @@ private extension Namespace {
             }
         }
                         
-        private func handle(_ resource: Namespace.ViewModel.Resource) {
+        private func handle(_ resource: BlocksViews.Bookmark.ViewModel.Resource) {
             switch resource.state {
             case .empty:
                 self.addSubview(self.emptyView)
@@ -619,7 +617,7 @@ private extension Namespace {
             }
         }
                 
-        func configured(publisher: AnyPublisher<Namespace.ViewModel.Resource?, Never>) -> Self {
+        func configured(publisher: AnyPublisher<BlocksViews.Bookmark.ViewModel.Resource?, Never>) -> Self {
             self.subscription = publisher.receiveOnMain().safelyUnwrapOptionals().sink { [weak self] (value) in
                 self?.handle(value)
             }
@@ -636,20 +634,20 @@ private extension Namespace {
 }
 
 // MARK: UIKitView / Apply
-extension Namespace.UIKitView {
-    func apply(_ value: Namespace.ViewModel.Resource?) {
+extension BlocksViews.Bookmark.UIKitView {
+    func apply(_ value: BlocksViews.Bookmark.ViewModel.Resource?) {
         guard let value = value else { return }
         self.bookmarkView.apply(value)
         self.handle(value)
     }
     func apply(_ value: BlockContent.Bookmark) {
-        let model = Namespace.ViewModel.ResourceConverter.asOurModel(value)
+        let model = BlocksViews.Bookmark.ViewModel.ResourceConverter.asOurModel(value)
         self.apply(model)
     }
 }
 
 // MARK: ContentConfiguration
-extension Namespace.ViewModel {
+extension BlocksViews.Bookmark.ViewModel {
     
     /// As soon as we have builder in this type ( makeContentView )
     /// We could map all states ( for example, image has several states ) to several different ContentViews.
@@ -663,7 +661,7 @@ extension Namespace.ViewModel {
         }
         
         var information: BlockInformation
-        fileprivate weak var contextMenuHolder: Namespace.ViewModel?
+        fileprivate weak var contextMenuHolder: BlocksViews.Bookmark.ViewModel?
         
         init(_ information: BlockInformation) {
             /// We should warn if we have incorrect content type (?)
@@ -700,14 +698,14 @@ extension Namespace.ViewModel {
 }
 
 // MARK: - ContentView
-private extension Namespace.ViewModel {
+private extension BlocksViews.Bookmark.ViewModel {
     final class ContentView: UIView & UIContentView {
         
         private enum Constants {
             static let topViewInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20)
         }
         
-        private let topView = Namespace.UIKitView()
+        private let topView = BlocksViews.Bookmark.UIKitView()
         private var imageSubscription: AnyCancellable?
         private var iconSubscription: AnyCancellable?
         private var currentConfiguration: ContentConfiguration
@@ -737,7 +735,7 @@ private extension Namespace.ViewModel {
             topView.pinAllEdges(to: self, insets: Constants.topViewInsets)
         }
         
-        private func handle(_ value: Namespace.ViewModel.Resource?) {
+        private func handle(_ value: BlocksViews.Bookmark.ViewModel.Resource?) {
             value?.imageLoader = self.currentConfiguration.contextMenuHolder?.imagesPublished
             self.topView.apply(value)
         }
@@ -757,7 +755,7 @@ private extension Namespace.ViewModel {
                 self.imageSubscription = item
             }
             
-            let model = Namespace.ViewModel.ResourceConverter.asOurModel(value)
+            let model = BlocksViews.Bookmark.ViewModel.ResourceConverter.asOurModel(value)
             self.handle(model)
         }
         
