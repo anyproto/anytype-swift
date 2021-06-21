@@ -43,7 +43,11 @@ final class CompoundViewModelConverter {
         case .divider(let content):
             return DividerBlockViewModel(block, content: content, delegate: editorViewModel)
         case .bookmark:
-            return BookmarkViewModel(block, delegate: editorViewModel)
+            return BookmarkViewModel(
+                block: block,
+                delegate: editorViewModel,
+                router: router
+            )
         case let .link(value):
             let publisher = document?.getDetails(by: value.targetBlockID)?.wholeDetailsPublisher
 

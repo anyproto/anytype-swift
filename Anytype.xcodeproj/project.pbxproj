@@ -199,6 +199,7 @@
 		120F7D80267F8A2B00327734 /* BookmarkViewModelResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D7F267F8A2B00327734 /* BookmarkViewModelResource.swift */; };
 		120F7D82267F8AED00327734 /* BookmarkViewModelContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D81267F8AED00327734 /* BookmarkViewModelContentView.swift */; };
 		120F7D84267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D83267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift */; };
+		120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D85267F9E8000327734 /* URLExtensions.swift */; };
 		1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211D6592667CED000541D9C /* ActivityIndicatorView.swift */; };
 		1222B9DE26551A9A0095D444 /* DocumentIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1222B9DD26551A9A0095D444 /* DocumentIcon.swift */; };
 		122FC4C52654195C00D9892D /* IconEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122FC4C42654195C00D9892D /* IconEmoji.swift */; };
@@ -772,6 +773,7 @@
 		120F7D7F267F8A2B00327734 /* BookmarkViewModelResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModelResource.swift; sourceTree = "<group>"; };
 		120F7D81267F8AED00327734 /* BookmarkViewModelContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModelContentView.swift; sourceTree = "<group>"; };
 		120F7D83267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModelContentConfiguration.swift; sourceTree = "<group>"; };
+		120F7D85267F9E8000327734 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		1211D6592667CED000541D9C /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		1222B9DD26551A9A0095D444 /* DocumentIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentIcon.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/Entity/DocumentIcon.swift; sourceTree = SOURCE_ROOT; };
 		122FC4C42654195C00D9892D /* IconEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IconEmoji.swift; path = Anytype/Sources/PresentationLayer/TextEditor/EditorView/EditorModule/Views/DocumentDetailsView/Icon/Entity/IconEmoji.swift; sourceTree = SOURCE_ROOT; };
@@ -2188,6 +2190,7 @@
 				EADD27DA26737A1A00853264 /* NSAttributedString.KeyExtension.swift */,
 				EAADB1B92678FE01004B0AF2 /* CGSizeExtension.swift */,
 				EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */,
+				120F7D85267F9E8000327734 /* URLExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3957,6 +3960,7 @@
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				3DB27C01261B0E9C005E523C /* UnkeyedEncodingContainer.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
+				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				0A1DACC3244DD35C0007BC5D /* BlocksViewsToolbarColor.swift in Sources */,
 				3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */,
 				120F7D84267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift in Sources */,

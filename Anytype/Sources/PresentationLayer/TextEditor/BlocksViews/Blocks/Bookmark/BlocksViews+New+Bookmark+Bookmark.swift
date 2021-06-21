@@ -15,14 +15,21 @@ final class BookmarkViewModel: BaseBlockViewModel {
     let imagesPublished = Resource.ImageLoader()
     
     private let service = BlockActionsServiceBookmark()
-       
+    private let router: EditorRouterProtocol?
+    
     private var subscription: AnyCancellable?
     
     // MARK: - Initializers
     
-    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
-        super.init(block, delegate: delegate)
+    init(
+        block: BlockActiveRecordModelProtocol,
+        delegate: BaseBlockDelegate?,
+        router: EditorRouterProtocol?
         
+    ) {
+        self.router = router
+        super.init(block, delegate: delegate)
+
         setup()
     }
     
@@ -35,17 +42,15 @@ final class BookmarkViewModel: BaseBlockViewModel {
     }
     
     override func didSelectRowInTableView() {
-        // we should show image picker only for empty state
-        // TODO: Need to think about error state, reload or something
+        guard case let .bookmark(value) = block.content else { return }
         
-        // Think what we should check...
-        // Empty URL?
-        if case let .bookmark(value) = block.content, !value.url.isEmpty {
-            assertionFailure("User pressed on BookmarkBlocksViews when our state is not empty. Our URL is not empty")
-            return
+        if !value.url.isEmpty {
+            URL(string: value.url).flatMap {
+                router?.openUrl($0)
+            }
+        } else {
+            send(userAction: .bookmark(toolbarActionSubject))
         }
-                        
-        send(userAction: .bookmark(toolbarActionSubject))
     }
     
     override var diffable: AnyHashable {
