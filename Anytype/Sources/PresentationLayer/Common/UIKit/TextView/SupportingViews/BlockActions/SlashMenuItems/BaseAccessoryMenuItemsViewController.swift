@@ -1,6 +1,6 @@
 import UIKit
 
-class BaseBlockMenuItemsViewController: UIViewController {
+class BaseAccessoryMenuItemsViewController: UIViewController {
     
     private enum Constants {
         static let topBarHeight: CGFloat = 30

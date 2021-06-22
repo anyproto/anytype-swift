@@ -1,5 +1,5 @@
 import UIKit
 
-protocol BlockMenuItemsViewControllerCoordinator {
+protocol SlashMenuItemsViewControllerCoordinator {
     func didSelect(_ menuItem: BlockActionMenuItem, in controler: UIViewController)
 }

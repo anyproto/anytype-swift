@@ -1,7 +1,7 @@
 
 import Foundation
 
-enum BlockMenuItemType {
+enum SlashMenuItemType {
     case style
     case media
     case objects
@@ -58,7 +58,7 @@ enum BlockMenuItemType {
         }
     }
     
-    var displayData: BlockMenuItemSimpleDisplayData {
-        BlockMenuItemSimpleDisplayData(imageName: self.iconName, title: self.title)
+    var displayData: SlashMenuItemDisplayData {
+        SlashMenuItemDisplayData(imageName: self.iconName, title: self.title)
     }
 }

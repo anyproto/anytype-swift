@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct BlockMenuActionsFilterEntry {
+struct SlashMenuActionsFilterEntry {
     let headerTitle: String
     let actions: [BlockActionType]
 }

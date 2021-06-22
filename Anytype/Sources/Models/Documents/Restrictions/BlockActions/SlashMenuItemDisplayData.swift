@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct BlockMenuItemSimpleDisplayData {
+struct SlashMenuItemDisplayData {
     let imageName: String
     let title: String
     let subtitle: String?
@@ -13,7 +13,7 @@ struct BlockMenuItemSimpleDisplayData {
         self.subtitle = subtitle
     }
     
-    func matchBy(string: String) -> BlockMenuItemSimpleDisplayDataFilterMatch? {
+    func matchBy(string: String) -> SlashMenuItemFilterMatch? {
         let lowecasedTitle = title.lowercased()
         let subtitle = self.subtitle?.lowercased()
         let comparators = [BlockActionDisplayDataFilterComparator(predicate: { lowecasedTitle == $0 },

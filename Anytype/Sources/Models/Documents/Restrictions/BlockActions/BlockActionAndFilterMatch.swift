@@ -1,5 +1,5 @@
 
 struct BlockActionAndFilterMatch {
     let action: BlockActionType
-    let filterMatch: BlockMenuItemSimpleDisplayDataFilterMatch
+    let filterMatch: SlashMenuItemFilterMatch
 }

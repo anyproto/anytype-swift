@@ -1,7 +1,7 @@
 
 import Foundation
 
-final class BlockMenuActionsFilterService {
+final class SlashMenuActionsFilterService {
     
     let initialMenuItems: [BlockActionMenuItem]
     private lazy var initialFilterEntries = initialMenuItems.compactMap { $0.filterEntry() }
@@ -16,14 +16,14 @@ final class BlockMenuActionsFilterService {
         // after filtering by string "Text" it will be change to ["Style" [Text]]
         // and then converted to menu items - [.divider("Style"),
         //                                     .action(Text)]
-        let result = initialFilterEntries.compactMap { entry -> BlockMenuActionsFilterEntry? in
+        let result = initialFilterEntries.compactMap { entry -> SlashMenuActionsFilterEntry? in
             var filteredActions: [BlockActionAndFilterMatch] = entry.actions.compactMap {
                 guard let filterMatch = $0.displayData.matchBy(string: string) else { return nil }
                 return BlockActionAndFilterMatch(action: $0, filterMatch: filterMatch)
             }
             filteredActions.sort { $0.filterMatch < $1.filterMatch }
             guard !filteredActions.isEmpty else { return nil }
-            return BlockMenuActionsFilterEntry(headerTitle: entry.headerTitle,
+            return SlashMenuActionsFilterEntry(headerTitle: entry.headerTitle,
                                                actions: filteredActions.map(\.action))
         }
         return result.reduce(into: [BlockActionMenuItem]()) { result, filterEntry in
@@ -35,7 +35,7 @@ final class BlockMenuActionsFilterService {
 
 fileprivate extension BlockActionMenuItem {
     
-    func filterEntry() -> BlockMenuActionsFilterEntry? {
+    func filterEntry() -> SlashMenuActionsFilterEntry? {
         switch self {
         case .sectionDivider:
             return nil
@@ -43,7 +43,7 @@ fileprivate extension BlockActionMenuItem {
             return nil
         case let .menu(menuType, items):
             let actions = items.flatMap { $0.actions() }
-            return BlockMenuActionsFilterEntry(headerTitle: menuType.title, actions: actions)
+            return SlashMenuActionsFilterEntry(headerTitle: menuType.title, actions: actions)
         }
     }
 }

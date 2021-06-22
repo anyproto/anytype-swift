@@ -1,6 +1,6 @@
 import UIKit
 
-final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
+final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
     
     private enum Constants {
         static let cellReuseId = NSStringFromClass(UITableViewCell.self)
@@ -15,7 +15,7 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
         static let imageToTextPadding: CGFloat = 22
     }
     
-    private let coordinator: BlockMenuItemsViewControllerCoordinator
+    private let coordinator: SlashMenuItemsViewControllerCoordinator
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.tableFooterView = UIView(frame: .zero)
@@ -25,7 +25,7 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.cellReuseId)
         return tableView
     }()
-    private let filterService: BlockMenuActionsFilterService
+    private let filterService: SlashMenuActionsFilterService
     private(set) var items: [BlockActionMenuItem] {
         didSet {
             tableView.reloadData()
@@ -38,10 +38,10 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
         }
     }
     
-    init(coordinator: BlockMenuItemsViewControllerCoordinator, items: [BlockActionMenuItem]) {
+    init(coordinator: SlashMenuItemsViewControllerCoordinator, items: [BlockActionMenuItem]) {
         self.coordinator = coordinator
         self.items = items
-        self.filterService = BlockMenuActionsFilterService(initialMenuItems: items)
+        self.filterService = SlashMenuActionsFilterService(initialMenuItems: items)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -73,7 +73,7 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
     }
     
     private func setup(configuration: UIListContentConfiguration,
-                       displayData: BlockMenuItemSimpleDisplayData) -> UIListContentConfiguration {
+                       displayData: SlashMenuItemDisplayData) -> UIListContentConfiguration {
         var configuration = configuration
         configuration.text = displayData.title
         configuration.textProperties.font = .bodyFont
@@ -91,7 +91,7 @@ final class BlockMenuItemsViewController: BaseBlockMenuItemsViewController {
     }
 }
 
-extension BlockMenuItemsViewController: UITableViewDelegate {
+extension SlashMenuItemsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         switch items[indexPath.row] {
         case .sectionDivider:
@@ -117,7 +117,7 @@ extension BlockMenuItemsViewController: UITableViewDelegate {
     }
 }
 
-extension BlockMenuItemsViewController: UITableViewDataSource {
+extension SlashMenuItemsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.items.count
     }

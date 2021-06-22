@@ -3,7 +3,7 @@ import UIKit
 final class SlashMenuView: DismissableInputAccessoryView {
     
     private weak var menuNavigationController: UINavigationController?
-    private weak var menuItemsViewController: BlockMenuItemsViewController?
+    private weak var menuItemsViewController: SlashMenuItemsViewController?
     private let menuItems: [BlockActionMenuItem]
     private let slashMenuActionsHandler: SlashMenuActionsHandler
     
@@ -48,9 +48,9 @@ final class SlashMenuView: DismissableInputAccessoryView {
     }
     
     private func makeMenuController() -> UINavigationController {
-        let coordinator = BlockMenuItemsViewControllerCoordinatorImp(actionsHandler: self.slashMenuActionsHandler,
+        let coordinator = SlashMenuItemsViewControllerCoordinatorImp(actionsHandler: self.slashMenuActionsHandler,
                                                                      dismissHandler: dismissHandler)
-        let controller = BlockMenuItemsViewController(coordinator: coordinator,
+        let controller = SlashMenuItemsViewController(coordinator: coordinator,
                                                       items: self.menuItems)
         menuItemsViewController = controller
         let navigationController = UINavigationController(rootViewController: controller)
@@ -64,7 +64,7 @@ extension SlashMenuView: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController,
                               willShow viewController: UIViewController,
                               animated: Bool) {
-        let baseBlockMenuItemsController = viewController as? BaseBlockMenuItemsViewController
+        let baseBlockMenuItemsController = viewController as? BaseAccessoryMenuItemsViewController
         let isPresentingFirstController = viewController == navigationController.viewControllers.first
         baseBlockMenuItemsController?.setTopBarHidden(isPresentingFirstController)
     }

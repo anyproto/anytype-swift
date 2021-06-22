@@ -3,5 +3,5 @@ import Foundation
 
 struct BlockActionDisplayDataFilterComparator {
     let predicate: (String) -> Bool
-    let result: BlockMenuItemSimpleDisplayDataFilterMatch
+    let result: SlashMenuItemFilterMatch
 }

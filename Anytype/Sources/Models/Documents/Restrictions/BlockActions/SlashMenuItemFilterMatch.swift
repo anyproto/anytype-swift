@@ -1,7 +1,7 @@
 
 import Foundation
 
-enum BlockMenuItemSimpleDisplayDataFilterMatch: Comparable {
+enum SlashMenuItemFilterMatch: Comparable {
     case fullTitle
     case titleSubstring
     case fullSubtitle
