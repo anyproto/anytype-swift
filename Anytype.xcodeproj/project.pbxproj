@@ -92,7 +92,6 @@
 		0A0AA7592401865A003A2935 /* DataStructures+IndexDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */; };
 		0A0BDCC724B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */; };
 		0A10CC59248EB5EC000FF498 /* BaseBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC58248EB5EC000FF498 /* BaseBlockViewModel.swift */; };
-		0A10CC76248EC517000FF498 /* TextBlockUserInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC75248EC517000FF498 /* TextBlockUserInteraction.swift */; };
 		0A10CC7E248ED08C000FF498 /* BlocksViews+New+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7D248ED08C000FF498 /* BlocksViews+New+File.swift */; };
 		0A10CC80248ED13B000FF498 /* BlocksViews+New+File+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */; };
 		0A10CC82248ED45C000FF498 /* PageBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CC81248ED45C000FF498 /* PageBlockViewModel.swift */; };
@@ -666,7 +665,6 @@
 		0A0AA7582401865A003A2935 /* DataStructures+IndexDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataStructures+IndexDictionary.swift"; sourceTree = "<group>"; };
 		0A0BDCC624B27D1900956038 /* TextEditor.Toolbar.Blocks.Types.Subtitle.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = TextEditor.Toolbar.Blocks.Types.Subtitle.strings; sourceTree = "<group>"; };
 		0A10CC58248EB5EC000FF498 /* BaseBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseBlockViewModel.swift; sourceTree = "<group>"; };
-		0A10CC75248EC517000FF498 /* TextBlockUserInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockUserInteraction.swift; sourceTree = "<group>"; };
 		0A10CC7B248ECF2D000FF498 /* BlockPageLinkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPageLinkViewModel.swift; sourceTree = "<group>"; };
 		0A10CC7D248ED08C000FF498 /* BlocksViews+New+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File.swift"; sourceTree = "<group>"; };
 		0A10CC7F248ED13B000FF498 /* BlocksViews+New+File+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlocksViews+New+File+Image.swift"; sourceTree = "<group>"; };
@@ -3212,7 +3210,6 @@
 				EA45749225F8CC08007D6C83 /* TextBlockContentConfiguration.swift */,
 				EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */,
 				53BC39B3261C7972004D7EB6 /* TextBlockViewModel.swift */,
-				0A10CC75248EC517000FF498 /* TextBlockUserInteraction.swift */,
 				EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */,
 				EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */,
 			);
@@ -3593,7 +3590,6 @@
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
-				0A10CC76248EC517000FF498 /* TextBlockUserInteraction.swift in Sources */,
 				0A2C0D6B247145BD008ADD86 /* TextView+HighlightedToolbar.swift in Sources */,
 				0A78328A24BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,

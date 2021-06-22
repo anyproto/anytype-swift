@@ -246,9 +246,9 @@ private extension DocumentEditorViewModel {
         switch actionsPayload {
         case let .textView(_, action):
             switch action {
-            case .textView(.showMultiActionMenuAction):
+            case .showMultiActionMenuAction:
                 self.set(selectionEnabled: true)
-            case let .textView(.changeCaretPosition(selectedRange)):
+            case let .changeCaretPosition(selectedRange):
                 document.userSession?.setFocusAt(position: .at(selectedRange))
             default: return
             }
@@ -257,7 +257,7 @@ private extension DocumentEditorViewModel {
             viewInput?.showCodeLanguageView(with: languages, completion: completion)
         case let .showStyleMenu(blockModel, blockViewModel):
             viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
-        case .toolbar, .uploadFile: return
+        case .toolbar, .uploadFile, .buttonView: return
         }
     }
 }

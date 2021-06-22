@@ -88,6 +88,6 @@ class PageTitleViewModel: PageBlockViewModel {
 // MARK: - TextViewEvents
 extension PageTitleViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
-        send(action: .textView(model: block, action: .textView(action)))
+        send(action: .textView(model: block, action: action))
     }
 }

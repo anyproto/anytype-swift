@@ -35,7 +35,7 @@ class TextBlockViewModel: BaseBlockViewModel {
 
     override func makeContentConfiguration() -> UIContentConfiguration {
         let configutator = MentionsTextViewConfigurator { [weak self] pageId in
-            self?.send(textViewAction: .textView(.showPage(pageId)))
+            self?.send(textViewAction: .showPage(pageId))
         }
         return TextBlockContentConfiguration(
             textViewDelegate: self,
@@ -192,8 +192,12 @@ extension TextBlockViewModel {
 
 extension TextBlockViewModel {
     
-    func send(textViewAction: TextBlockUserInteraction) {
+    func send(textViewAction: TextViewAction) {
         self.send(action: .textView(model: block, action: textViewAction))
+    }
+    
+    func send(buttonAction: ActionPayload.ButtonAction) {
+        self.send(action: .buttonView(model: block, action: buttonAction))
     }
     
 }
@@ -208,18 +212,16 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
                 self.send(action: .showStyleMenu(model: block.blockModel, viewModel: self))
             case .showMultiActionMenuAction:
                 self.shouldResignFirstResponder.send()
-                self.send(action: .textView(model: block, action: .textView(action)))
-            case .keyboardAction, .changeText, .changeTextStyle:
-                self.send(action: .textView(model: block, action: .textView(action)))
-            case .changeCaretPosition:
-                self.send(action: .textView(model: block, action: .textView(action)))
+                self.send(action: .textView(model: block, action: action))
+            case .keyboardAction, .changeText, .changeTextStyle, .changeCaretPosition:
+                self.send(action: .textView(model: block, action: action))
             case let .shouldChangeText(range, replacementText, mentionsHolder):
                 mentionsHolder.removeMentionIfNeeded(
                     replacementRange: range,
                     replacementText: replacementText
                 )
             case let .showPage(pageId):
-                send(textViewAction: .textView(.showPage(pageId)))
+                send(textViewAction: .showPage(pageId))
             }
         }
 }

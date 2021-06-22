@@ -65,21 +65,17 @@ final class BlockActionsHandlersFacade {
         switch action {
         case let .toolbar(model, action): toolbarBlockActionHandler.handlingToolbarAction(model, action)
         case let .textView(model, action):
-            switch action {
-            case let .textView(action):
-                guard case let .changeTextStyle(styleAction, range) = action else {
-                    textBlockActionHandler.handlingTextViewAction(model, action)
-                    return
-                }
-                
-                newBlockActionHandler?.handleActionWithoutCompletion(
-                    .toggleFontStyle(styleAction.asActionType, range),
-                    model: model.blockModel
-                )
-                
-            case let .buttonView(action):
-                self.buttonBlockActionHandler.handlingButtonViewAction(model, action)
+            guard case let .changeTextStyle(styleAction, range) = action else {
+                textBlockActionHandler.handlingTextViewAction(model, action)
+                return
             }
+            
+            newBlockActionHandler?.handleActionWithoutCompletion(
+                .toggleFontStyle(styleAction.asActionType, range),
+                model: model.blockModel
+            )
+        case let .buttonView(model: model, action: action):
+            buttonBlockActionHandler.handlingButtonViewAction(model, action)
         case let .uploadFile(model, filePath):
             service.upload(block: model.blockModel.information, filePath: filePath)
         case .showCodeLanguageView: return

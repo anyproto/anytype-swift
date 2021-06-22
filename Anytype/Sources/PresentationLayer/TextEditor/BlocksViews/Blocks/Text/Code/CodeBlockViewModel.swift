@@ -110,11 +110,11 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
             self.send(action: .showStyleMenu(model: block.blockModel, viewModel: self))
         case .showMultiActionMenuAction:
             self.shouldResignFirstResponder.send()
-            self.send(action: .textView(model: block, action: .textView(action)))
+            self.send(action: .textView(model: block, action: action))
         case .changeText, .keyboardAction, .changeTextStyle:
-            self.send(action: .textView(model: block, action: .textView(action)))
+            self.send(action: .textView(model: block, action: action))
         case .changeCaretPosition:
-            self.send(action: .textView(model: block, action: .textView(action)))
+            self.send(action: .textView(model: block, action: action))
         case .shouldChangeText, .showPage:
             break
         }

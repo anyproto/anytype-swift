@@ -8,7 +8,7 @@ final class ButtonBlockActionHandler {
         self.service = service
     }
 
-    func handlingButtonViewAction(_ block: BlockActiveRecordModelProtocol, _ action: TextBlockUserInteraction.ButtonView.UserAction) {
+    func handlingButtonViewAction(_ block: BlockActiveRecordModelProtocol, _ action: ActionPayload.ButtonAction) {
         switch action {
         case .toggle(.toggled):
             self.service.receiveOurEvents([.setToggled(blockId: block.blockId)])

@@ -81,7 +81,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
             self.currentConfiguration.setupMentionsInteraction(self.textView)
             if let attributedText = self.textView.textView.attributedText {
-                self.currentConfiguration.viewModel.send(textViewAction: .textView(.changeText(attributedText)))
+                self.currentConfiguration.viewModel.send(textViewAction: .changeText(attributedText))
             }
         }
         
@@ -109,7 +109,7 @@ final class TextBlockContentView: UIView & UIContentView {
             self.currentConfiguration.viewModel.send(
                 action: .textView(
                     model: block,
-                    action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent)))
+                    action: .keyboardAction(.pressKey(.enterAtTheEndOfContent))
                 )
             )
         }))
@@ -344,7 +344,7 @@ final class TextBlockContentView: UIView & UIContentView {
             button.isSelected = checked
             button.addAction(UIAction(handler: { [weak button, weak self] _ in
                 guard let self = self, let button = button else { return }
-                self.currentConfiguration.viewModel.send(textViewAction: .buttonView(.checkbox(!button.isSelected)))
+                self.currentConfiguration.viewModel.send(buttonAction: .checkbox(!button.isSelected))
             }), for: .touchUpInside)
             
             let container: UIView = .init()
@@ -464,7 +464,7 @@ final class TextBlockContentView: UIView & UIContentView {
             button?.isSelected.toggle()
             blockViewModel.update { $0.isToggled.toggle() }
             let toggled = blockViewModel.block.isToggled
-            blockViewModel.send(textViewAction: .buttonView(.toggle(.toggled(toggled))))
+            blockViewModel.send(buttonAction: .toggle(.toggled(toggled)))
             let oldValue = self.createChildBlockButton.isHidden
             self.updateCreateChildButtonState(toggled: toggled,
                                               hasChildren: !blockViewModel.block.childrenIds().isEmpty)
