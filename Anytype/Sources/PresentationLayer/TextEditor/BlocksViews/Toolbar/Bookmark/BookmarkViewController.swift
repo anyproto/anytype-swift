@@ -3,15 +3,15 @@ import UIKit
 import Combine
 import SwiftUI
 
-final class BlockToolbarViewController: UIViewController {
+final class BookmarkViewController: UIViewController {
     // MARK: Variables
-    private let model: BlockToolbarViewModel
+    private let model: BookmarkToolbarViewModel
     
     // MARK: Subscriptions
     private var subscriptions: Set<AnyCancellable> = []
     
     // MARK: Initialization
-    init(model: BlockToolbarViewModel) {
+    init(model: BookmarkToolbarViewModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
         model.dismissControllerPublisher.sink { [weak self] (value) in

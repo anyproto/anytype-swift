@@ -106,8 +106,6 @@ extension CodeBlockViewModel {
 extension CodeBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
         switch action {
-        case .addBlockAction:
-            self.send(userAction: .addBlock(toolbarActionSubject))
         case .showStyleMenu:
             self.send(actionsPayload: .showStyleMenu(blockModel: block.blockModel, blockViewModel: self))
         case .showMultiActionMenuAction:

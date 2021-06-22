@@ -211,10 +211,6 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
     
     func didReceiveAction(_ action: CustomTextView.UserAction) {
             switch action {
-            case .addBlockAction:
-                self.send(
-                    userAction: .addBlock(toolbarActionSubject)
-                )
             case .showStyleMenu:
                 self.send(
                     actionsPayload: .showStyleMenu(

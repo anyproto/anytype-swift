@@ -12,7 +12,6 @@ extension CustomTextView {
         case changeTextStyle(CustomTextView.ContextMenuAction, NSRange)
         
         case keyboardAction(KeyboardAction)
-        case addBlockAction
         case showMultiActionMenuAction
         case changeCaretPosition(NSRange)
         case shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable)

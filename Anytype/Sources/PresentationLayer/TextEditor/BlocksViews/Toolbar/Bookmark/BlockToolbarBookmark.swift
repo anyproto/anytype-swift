@@ -12,7 +12,7 @@ extension BlockToolbarBookmark {
         static func createView(_ viewModel: ObservedObject<ViewModel>) -> UIView? {
             let controller = UIHostingController(rootView: InputView.init(model: viewModel.wrappedValue))
             let view = controller.view
-            view?.backgroundColor = BlockToolbar.backgroundColor()
+            view?.backgroundColor = .grayscale10
             return view
         }
     }

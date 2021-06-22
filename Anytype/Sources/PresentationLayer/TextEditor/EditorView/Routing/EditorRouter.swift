@@ -6,6 +6,7 @@ import SafariServices
 protocol EditorRouterProtocol {
     func showPage(with id: BlockId)
     func openUrl(_ url: URL)
+//    func showBookmark()
 }
 
 

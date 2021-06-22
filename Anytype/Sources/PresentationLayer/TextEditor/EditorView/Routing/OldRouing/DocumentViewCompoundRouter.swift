@@ -5,7 +5,6 @@ final class DocumentViewCompoundRouter {
     private var userActionsStreamSubscription: AnyCancellable?
     
     private let fileRouter: FileRouter
-    private let addBlockRouter: AddBlockToolbarRouter
     private let bookmarkRouter: BookmarkToolbarRouter
     
     init(
@@ -13,7 +12,6 @@ final class DocumentViewCompoundRouter {
         userActionsStream: AnyPublisher<BlockUserAction, Never>
     ) {
         fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
-        addBlockRouter = AddBlockToolbarRouter(baseViewController: viewController)
         bookmarkRouter = BookmarkToolbarRouter(baseController: viewController)
         
         userActionsStreamSubscription = userActionsStream.sink { [weak self] value in
@@ -25,8 +23,6 @@ final class DocumentViewCompoundRouter {
         switch action {
         case let .file(fileAction):
             fileRouter.handle(action: fileAction)
-        case let .addBlock(addBlock):
-            addBlockRouter.handle(payload: addBlock)
         case let .bookmark(payload):
             bookmarkRouter.hanlde(bookmarkOutput: payload)
         }
