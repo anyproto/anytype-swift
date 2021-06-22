@@ -1,4 +1,3 @@
-
 import Combine
 import UIKit
 
@@ -9,9 +8,11 @@ final class MentionsViewModel {
     private var subscription: AnyCancellable?
     private var imageLoadingSubscriptions = [AnyCancellable]()
     private var imageStorage = [String: ImageProperty]()
+    private let selectionHandler: (MentionObject) -> Void
     
-    init(service: MentionObjectsService) {
+    init(service: MentionObjectsService, selectionHandler: @escaping (MentionObject) -> Void) {
         self.service = service
+        self.selectionHandler = selectionHandler
     }
     
     func setFilterString(_ string: String) {
@@ -26,10 +27,10 @@ final class MentionsViewModel {
     }
     
     func didSelectMention(_ mention: MentionObject) {
-        
+        selectionHandler(mention)
     }
     
-    func createNewMention() {
+    func didSelectCreateNewMention() {
         
     }
     

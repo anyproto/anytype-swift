@@ -17,6 +17,28 @@ extension UITextView: Mentionable {
         }
     }
     
+    func insert(_ mention: MentionObject,
+                from: UITextPosition,
+                to: UITextPosition) {
+        guard let name = mention.name else { return }
+        let pageId = mention.id
+        let length = offset(from: from, to: to)
+        let location = offset(from: beginningOfDocument, to: from)
+        let replacementRange = NSRange(location: location, length: length)
+        let attributedString = NSMutableAttributedString(attributedString: attributedText)
+        attributedString.deleteCharacters(in: replacementRange)
+        
+        let mentionAttachment = MentionAttachment(name: name, pageId: pageId)
+        let mentionsString = NSMutableAttributedString(attachment: mentionAttachment)
+        let mentionNameString = NSAttributedString(string: name,
+                                                   attributes: [.mention: pageId,
+                                                                .font: font ?? .bodyFont])
+        mentionsString.append(mentionNameString)
+        
+        attributedString.insert(mentionsString, at: location)
+        attributedText = attributedString
+    }
+    
     private func removeMentionInteractionButton(from range: NSRange) {
         guard let start = position(from: beginningOfDocument, offset: range.location),
               let end = position(from: start, offset: range.length),

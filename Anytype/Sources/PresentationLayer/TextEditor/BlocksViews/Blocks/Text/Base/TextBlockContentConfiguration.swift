@@ -9,7 +9,8 @@ struct TextBlockContentConfiguration {
     let viewModel: TextBlockViewModel
     let information: BlockInformation
     weak var blockActionHandler: NewBlockActionHandler?
-    let textViewConfigurator: CustomTextViewConfigurator
+    private let mentionsConfigurator: MentionsTextViewConfigurator
+    var textViewConfigurator: CustomTextViewConfigurator { mentionsConfigurator }
     
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var isSelected: Bool = false
@@ -19,14 +20,18 @@ struct TextBlockContentConfiguration {
         viewModel: TextBlockViewModel,
         toolbarActionSubject: PassthroughSubject<BlockToolbarAction, Never>,
         blockActionHandler: NewBlockActionHandler?,
-        textViewConfigurator: CustomTextViewConfigurator
+        mentionsConfigurator: MentionsTextViewConfigurator
     ) {
         self.toolbarActionSubject = toolbarActionSubject
         self.textViewDelegate = textViewDelegate
         self.information = viewModel.information
         self.viewModel = viewModel
         self.blockActionHandler = blockActionHandler
-        self.textViewConfigurator = textViewConfigurator
+        self.mentionsConfigurator = mentionsConfigurator
+    }
+    
+    func setupMentionsInteraction(_ customTextView: CustomTextView) {
+        mentionsConfigurator.configure(textView: customTextView)
     }
 }
 

@@ -69,6 +69,10 @@ class EditingToolbarView: UIView {
             self?.actionHandler?(.showStyleMenu)
         }
         
+        addBarButtonItem(image: UIImage.edititngToolbar.mention) { [weak self] _ in
+            self?.actionHandler?(.mention)
+        }
+        
         addBarButtonItem(title: "Done".localized) { [weak self]_ in
             self?.actionHandler?(.keyboardDismiss)
         }

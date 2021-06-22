@@ -4,6 +4,14 @@ import UIKit
 final class MentionView: DismissableInputAccessoryView {
 
     private weak var mentionsController: MentionsViewController?
+    private let mentionsSelectionHandler: (MentionObject) -> Void
+    
+    init(frame: CGRect,
+         dismissHandler: @escaping () -> Void,
+         mentionsSelectionHandler: @escaping (MentionObject) -> Void) {
+        self.mentionsSelectionHandler = mentionsSelectionHandler
+        super.init(frame: frame, dismissHandler: dismissHandler)
+    }
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
@@ -13,7 +21,8 @@ final class MentionView: DismissableInputAccessoryView {
     
     private func addMentionsController(to controller: UIViewController) {
         let service = MentionObjectsService()
-        let viewModel = MentionsViewModel(service: service)
+        let viewModel = MentionsViewModel(service: service,
+                                          selectionHandler: mentionsSelectionHandler)
         let mentionsController = MentionsViewController(style: .plain,
                                                         viewModel: viewModel)
         mentionsController.view.translatesAutoresizingMaskIntoConstraints = false

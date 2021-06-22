@@ -50,7 +50,20 @@ final class CustomTextView: UIView {
     let inputSwitcher = ActionsAndMarksPaneInputSwitcher()
     /// HighlightedAccessoryView
     private(set) lazy var highlightedAccessoryView = CustomTextView.HighlightedToolbar.AccessoryView()
-    private(set) var menuActionsAccessoryView: SlashMenuView?
+    private(set) lazy var menuActionsAccessoryView: SlashMenuView = {
+        let dismissActionsMenu = { [weak self] in
+            guard let self = self else { return }
+            self.inputSwitcher.showEditingBars(customTextView: self)
+        }
+
+        let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
+        return SlashMenuView(
+            frame: actionViewRect,
+            menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
+            slashMenuActionsHandler: slashMenuActionsHandler,
+            actionsMenuDismissHandler: dismissActionsMenu
+        )
+    }()
 
     private(set) lazy var mentionView: MentionView = {
         let dismissActionsMenu = { [weak self] in
@@ -59,23 +72,28 @@ final class CustomTextView: UIView {
         }
         return MentionView(
             frame: CGRect(origin: .zero, size: Constants.menuActionsViewSize),
-            dismissHandler: dismissActionsMenu)
+            dismissHandler: dismissActionsMenu,
+            mentionsSelectionHandler: mentionsSelectionHandler)
     }()
 
     let options: Options
-    
-    // MARK: - Initialization
+    private let menuItemsBuilder: BlockActionsBuilder
+    private let slashMenuActionsHandler: SlashMenuActionsHandler
+    private let mentionsSelectionHandler: (MentionObject) -> Void
     
     init(
         options: Options,
         menuItemsBuilder: BlockActionsBuilder,
-        slashMenuActionsHandler: SlashMenuActionsHandler
+        slashMenuActionsHandler: SlashMenuActionsHandler,
+        mentionsSelectionHandler: @escaping (MentionObject) -> Void
     ) {
         self.options = options
+        self.menuItemsBuilder = menuItemsBuilder
+        self.slashMenuActionsHandler = slashMenuActionsHandler
+        self.mentionsSelectionHandler = mentionsSelectionHandler
         super.init(frame: .zero)
 
         setupView()
-        configureMenuActionsAccessoryView(with: menuItemsBuilder, slashMenuActionsHandler: slashMenuActionsHandler)
         configureEditingToolbarHandler(textView)
     }
 
@@ -222,24 +240,5 @@ private extension CustomTextView {
                                                      textView: textView)
             }
         }
-    }
-
-    func configureMenuActionsAccessoryView(
-        with menuItemsBuilder: BlockActionsBuilder,
-        slashMenuActionsHandler: SlashMenuActionsHandler
-    ) {
-        let dismissActionsMenu = { [weak self] in
-            guard let self = self else { return }
-
-            self.inputSwitcher.showEditingBars(customTextView: self)
-        }
-
-        let actionViewRect = CGRect(origin: .zero, size: Constants.menuActionsViewSize)
-        self.menuActionsAccessoryView = SlashMenuView(
-            frame: actionViewRect,
-            menuItems: menuItemsBuilder.makeBlockActionsMenuItems(),
-            slashMenuActionsHandler: slashMenuActionsHandler,
-            actionsMenuDismissHandler: dismissActionsMenu
-        )
     }
 }

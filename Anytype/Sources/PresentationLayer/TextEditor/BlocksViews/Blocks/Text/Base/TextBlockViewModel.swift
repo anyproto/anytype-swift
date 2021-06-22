@@ -42,7 +42,7 @@ class TextBlockViewModel: BaseBlockViewModel {
             viewModel: self,
             toolbarActionSubject: toolbarActionSubject,
             blockActionHandler: blockActionHandler,
-            textViewConfigurator: configutator
+            mentionsConfigurator: configutator
         )
     }
 

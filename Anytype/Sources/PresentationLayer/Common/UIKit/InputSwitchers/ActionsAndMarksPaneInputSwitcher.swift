@@ -10,7 +10,7 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     let textToTriggerActionsViewDisplay = "/"
     let textToTriggerMentionViewDisplay = "@"
     private var displayAcessoryViewTask: DispatchWorkItem?
-    private var accessoryViewTriggerSymbolPosition: UITextPosition?
+    private(set) var accessoryViewTriggerSymbolPosition: UITextPosition?
     var textViewChange: TextViewTextChangeType?
     private weak var displayedView: (DismissableInputAccessoryView & FilterableItemsHolder)?
     
@@ -90,6 +90,8 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     }
     
     func showEditingBars(customTextView: CustomTextView) {
+        accessoryViewTriggerSymbolPosition = nil
+        displayedView = nil
         guard let triplet = self.variantsFromState(customTextView: customTextView,
                                                    selectionLength: customTextView.textView.selectedRange.length,
                                                    accessoryView: customTextView.textView.inputAccessoryView,
@@ -153,6 +155,9 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         
         if text.hasSuffix(textToTriggerActionsViewDisplay) {
             createDelayedAcessoryViewTask(accessoryView: customTextView.menuActionsAccessoryView,
+                                          textView: textView)
+        } else if text.hasSuffix(textToTriggerMentionViewDisplay) {
+            createDelayedAcessoryViewTask(accessoryView: customTextView.mentionView,
                                           textView: textView)
         }
     }

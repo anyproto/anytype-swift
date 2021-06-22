@@ -40,7 +40,7 @@ final class MentionsViewController: UITableViewController {
         guard let item = dataSource.itemIdentifier(for: indexPath) else { return }
         switch item {
         case .createNewObject:
-            viewModel.createNewMention()
+            viewModel.didSelectCreateNewMention()
         case let .mention(mention):
             viewModel.didSelectMention(mention)
         }

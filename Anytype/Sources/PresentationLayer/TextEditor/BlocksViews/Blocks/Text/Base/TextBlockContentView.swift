@@ -72,6 +72,19 @@ final class TextBlockContentView: UIView & UIContentView {
             for: currentConfiguration.information.content.type
         )
         
+        let mentionsSelectionHandler = { [weak self] (mention: MentionObject) in
+            guard let self = self,
+                  let mentionSymbolPosition = self.textView.inputSwitcher.accessoryViewTriggerSymbolPosition,
+                  let previousToMentionSymbol = self.textView.textView.position(from: mentionSymbolPosition,
+                                                                                offset: -1),
+                  let caretPosition = self.textView.textView.caretPosition() else { return }
+            self.textView.textView.insert(mention, from: previousToMentionSymbol, to: caretPosition)
+            self.currentConfiguration.setupMentionsInteraction(self.textView)
+            if let attributedText = self.textView.textView.attributedText {
+                self.currentConfiguration.viewModel.send(textViewAction: .textView(.changeText(attributedText)))
+            }
+        }
+        
         let autocorrect = currentConfiguration.information.content.type == .text(.title) ? false : true
         let options = CustomTextView.Options(
             createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
@@ -82,7 +95,8 @@ final class TextBlockContentView: UIView & UIContentView {
         return CustomTextView(
             options: options,
             menuItemsBuilder: blockActionBuilder,
-            slashMenuActionsHandler: actionsHandler
+            slashMenuActionsHandler: actionsHandler,
+            mentionsSelectionHandler: mentionsSelectionHandler
         )
     }()
 
