@@ -71,25 +71,19 @@ final class ToolbarBlockActionHandler {
             default:
                 assertionFailure("TurnInto for that style is not implemented \(String(describing: action))")
             }
-
-        case let .editBlock(value):
-            switch value {
-            case .delete:
-                // TODO: think how to manage duplicated coded in diff handlers
-                // self.handlingKeyboardAction(block, .pressKey(.delete))
-                self.service.delete(block: block.blockModel.information) { value in
-                    guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
-                        return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
-                    }
-                    let previousBlockId = previousModel.blockId
-                    return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                        .setFocus(blockId: previousBlockId, position: .end)
-                    ])
+        case .deleteBlock:
+            // TODO: think how to manage duplicated coded in diff handlers
+            // self.handlingKeyboardAction(block, .pressKey(.delete))
+            self.service.delete(block: block.blockModel.information) { value in
+                guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
+                    return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
                 }
-            case .duplicate: self.service.duplicate(block: block.blockModel.information)
+                let previousBlockId = previousModel.blockId
+                return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                    .setFocus(blockId: previousBlockId, position: .end)
+                ])
             }
-        case let .fetch(url: url):
-            service.bookmarkFetch(block: block.blockModel.information, url: url.absoluteString)
+        case .duplicateBlock: self.service.duplicate(block: block.blockModel.information)
         }
     }
 }

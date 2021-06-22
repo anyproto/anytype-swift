@@ -25,8 +25,6 @@ final class BlockActionsHandlersFacade {
         service: service,
         indexWalker: indexWalker
     )
-    
-    private lazy var buttonBlockActionHandler: ButtonBlockActionHandler = .init(service: service)
 
     private let reactionSubject: PassthroughSubject<PackOfEvents?, Never> = .init()
     lazy var reactionPublisher: AnyPublisher<PackOfEvents, Never> = reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
@@ -63,7 +61,6 @@ final class BlockActionsHandlersFacade {
 
     func didReceiveAction(action: ActionPayload) {
         switch action {
-        case let .toolbar(model, action): toolbarBlockActionHandler.handlingToolbarAction(model, action)
         case let .textView(model, action):
             guard case let .changeTextStyle(styleAction, range) = action else {
                 textBlockActionHandler.handlingTextViewAction(model, action)
@@ -74,12 +71,17 @@ final class BlockActionsHandlersFacade {
                 .toggleFontStyle(styleAction.asActionType, range),
                 model: model.blockModel
             )
-        case let .buttonView(model: model, action: action):
-            buttonBlockActionHandler.handlingButtonViewAction(model, action)
         case let .uploadFile(model, filePath):
             service.upload(block: model.blockModel.information, filePath: filePath)
         case .showCodeLanguageView: return
         case .showStyleMenu: return
+        case let .toolbar(model, action): toolbarBlockActionHandler.handlingToolbarAction(model, action)
+        case let .fetch(block: model, url: url):
+            service.bookmarkFetch(block: model.blockModel.information, url: url.absoluteString)
+        case let .checkboxTap(block: model, selected: selected):
+            service.checked(block: model, newValue: selected)
+        case let .toggle(block: model, _):
+            service.receiveOurEvents([.setToggled(blockId: model.blockId)])
         }
     }
 }

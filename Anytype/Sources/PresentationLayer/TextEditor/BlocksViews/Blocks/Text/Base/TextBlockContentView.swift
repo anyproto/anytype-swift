@@ -108,8 +108,8 @@ final class TextBlockContentView: UIView & UIContentView {
             self.createChildBlockButton.isHidden = true
             self.currentConfiguration.viewModel.send(
                 action: .textView(
-                    model: block,
-                    action: .keyboardAction(.pressKey(.enterAtTheEndOfContent))
+                    block: block,
+                    action: .keyboardAction(.enterAtTheEndOfContent)
                 )
             )
         }))
@@ -344,7 +344,7 @@ final class TextBlockContentView: UIView & UIContentView {
             button.isSelected = checked
             button.addAction(UIAction(handler: { [weak button, weak self] _ in
                 guard let self = self, let button = button else { return }
-                self.currentConfiguration.viewModel.send(buttonAction: .checkbox(!button.isSelected))
+                self.currentConfiguration.viewModel.onCheckboxTap(selected: !button.isSelected)
             }), for: .touchUpInside)
             
             let container: UIView = .init()
@@ -464,7 +464,7 @@ final class TextBlockContentView: UIView & UIContentView {
             button?.isSelected.toggle()
             blockViewModel.update { $0.isToggled.toggle() }
             let toggled = blockViewModel.block.isToggled
-            blockViewModel.send(buttonAction: .toggle(.toggled(toggled)))
+            blockViewModel.onToggleTap(toggled: toggled)
             let oldValue = self.createChildBlockButton.isHidden
             self.updateCreateChildButtonState(toggled: toggled,
                                               hasChildren: !blockViewModel.block.childrenIds().isEmpty)

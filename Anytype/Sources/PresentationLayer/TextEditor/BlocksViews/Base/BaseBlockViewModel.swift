@@ -95,9 +95,9 @@ class BaseBlockViewModel: ObservableObject {
             case .addBlockBelow:
                 toolbarActionSubject.send(.addBlock(.text(.text)))
             case .delete:
-                toolbarActionSubject.send(.editBlock(.delete))
+                toolbarActionSubject.send(.deleteBlock)
             case .duplicate:
-                toolbarActionSubject.send(.editBlock(.duplicate))
+                toolbarActionSubject.send(.duplicateBlock)
             case .moveTo:
                 break
             }
@@ -106,7 +106,7 @@ class BaseBlockViewModel: ObservableObject {
             case .turnIntoPage:
                 toolbarActionSubject.send(.turnIntoBlock(.objects(.page)))
             case .style:
-                send(action: .showStyleMenu(model: block.blockModel, viewModel: self))
+                send(action: .showStyleMenu(block: block.blockModel, viewModel: self))
             case .color:
                 break
             case .backgroundColor:
@@ -139,7 +139,7 @@ extension BaseBlockViewModel {
         
         let toolbarPublisher = self.toolbarActionPublisher.map { [weak self] value -> ActionPayload? in
             guard let block = self?.block else { return nil }
-            return ActionPayload.toolbar(model: block, action: value)
+            return ActionPayload.toolbar(block: block, action: value)
         }.safelyUnwrapOptionals()
         
         self.actionsPayloadSubjectSubscription = toolbarPublisher.sink(receiveValue: { [weak self] (value) in

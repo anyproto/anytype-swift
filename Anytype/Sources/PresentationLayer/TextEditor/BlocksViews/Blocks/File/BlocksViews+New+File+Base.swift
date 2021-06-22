@@ -1,11 +1,3 @@
-//
-//  BlocksViews+New+File+Base.swift
-//  AnyType
-//
-//  Created by Dmitry Lobanov on 09.11.2020.
-//  Copyright © 2020 AnyType. All rights reserved.
-//
-
 import Combine
 import BlocksModels
 import UIKit
@@ -143,7 +135,7 @@ extension Namespace {
         }
         
         private func sendFile(at filePath: String) {
-            send(action: .uploadFile(model: block, filePath: filePath))
+            send(action: .uploadFile(block: block, filePath: filePath))
         }
     }
 }

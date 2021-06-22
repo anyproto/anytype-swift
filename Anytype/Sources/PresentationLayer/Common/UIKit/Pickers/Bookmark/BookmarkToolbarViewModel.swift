@@ -1,8 +1,9 @@
 import SwiftUI
 import Combine
+import BlocksModels
 
 final class BookmarkToolbarViewModel {
-    let action: AnyPublisher<BlockToolbarAction, Never>
+    let action: AnyPublisher<ActionPayload, Never>
     let dismissControllerPublisher: AnyPublisher<Void, Never>
     
     // MARK: Subscriptions
@@ -11,13 +12,16 @@ final class BookmarkToolbarViewModel {
     // MARK: Models
     @ObservedObject private var bookmarkViewModel: BlockToolbarBookmark.ViewModel
     
+    private let model: BlockActiveRecordModelProtocol
+    
     // MARK: Initialization
-    init() {
+    init(model: BlockActiveRecordModelProtocol) {
+        self.model = model
         let bookmarkViewModel = BlockToolbarBookmark.ViewModelBuilder.create()
         self.bookmarkViewModel = bookmarkViewModel
         
         self.action = bookmarkViewModel.userAction.map { value in
-            BlockToolbarAction.fetch(url: value)
+            ActionPayload.fetch(block: model, url: value)
         } .eraseToAnyPublisher()
         
         self.dismissControllerPublisher = self.action.successToVoid().eraseToAnyPublisher()

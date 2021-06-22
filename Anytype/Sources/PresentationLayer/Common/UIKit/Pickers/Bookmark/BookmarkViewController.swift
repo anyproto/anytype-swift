@@ -14,7 +14,7 @@ final class BookmarkViewController: UIViewController {
     init(model: BookmarkToolbarViewModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
-        model.dismissControllerPublisher.sink { [weak self] (value) in
+        model.dismissControllerPublisher.sink { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
         }.store(in: &self.subscriptions)
     }

@@ -193,11 +193,15 @@ extension TextBlockViewModel {
 extension TextBlockViewModel {
     
     func send(textViewAction: TextViewAction) {
-        self.send(action: .textView(model: block, action: textViewAction))
+        self.send(action: .textView(block: block, action: textViewAction))
     }
     
-    func send(buttonAction: ActionPayload.ButtonAction) {
-        self.send(action: .buttonView(model: block, action: buttonAction))
+    func onCheckboxTap(selected: Bool) {
+        send(action: .checkboxTap(block: block, selected: selected))
+    }
+    
+    func onToggleTap(toggled: Bool) {
+        send(action: .toggle(block: block, toggled: toggled))
     }
     
 }
@@ -209,12 +213,12 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
             switch action {
             case .showStyleMenu:
-                self.send(action: .showStyleMenu(model: block.blockModel, viewModel: self))
+                self.send(action: .showStyleMenu(block: block.blockModel, viewModel: self))
             case .showMultiActionMenuAction:
                 self.shouldResignFirstResponder.send()
-                self.send(action: .textView(model: block, action: action))
+                self.send(action: .textView(block: block, action: action))
             case .keyboardAction, .changeText, .changeTextStyle, .changeCaretPosition:
-                self.send(action: .textView(model: block, action: action))
+                self.send(action: .textView(block: block, action: action))
             case let .shouldChangeText(range, replacementText, mentionsHolder):
                 mentionsHolder.removeMentionIfNeeded(
                     replacementRange: range,

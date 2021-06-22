@@ -2,28 +2,17 @@ import BlocksModels
 import UIKit
 
 typealias TextViewAction = CustomTextView.UserAction
-
 enum ActionPayload {
-    case toolbar(model: BlockActiveRecordModelProtocol, action: BlockToolbarAction)
+    case toolbar(block: BlockActiveRecordModelProtocol, action: BlockToolbarAction)
+    case fetch(block: BlockActiveRecordModelProtocol, url: URL)
     
-    case buttonView(model: BlockActiveRecordModelProtocol, action: ButtonAction)
-    case textView(model: BlockActiveRecordModelProtocol, action: TextViewAction)
+    case textView(block: BlockActiveRecordModelProtocol, action: TextViewAction)
     
-    case uploadFile(model: BlockActiveRecordModelProtocol, filePath: String)
-    case showStyleMenu(model: BlockModelProtocol, viewModel: BaseBlockViewModel)
+    case uploadFile(block: BlockActiveRecordModelProtocol, filePath: String)
+    case showStyleMenu(block: BlockModelProtocol, viewModel: BaseBlockViewModel)
     
     case showCodeLanguageView(languages: [String], completion: (String) -> Void)
+    
+    case checkboxTap(block: BlockActiveRecordModelProtocol, selected: Bool)
+    case toggle(block: BlockActiveRecordModelProtocol, toggled: Bool)
 }
-
-
-extension ActionPayload {
-    enum ButtonAction {
-        enum Toggle {
-            case toggled(Bool)
-            case insertFirst(Bool)
-        }
-        case toggle(Toggle)
-        case checkbox(Bool)
-    }
-}
-
