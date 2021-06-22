@@ -181,7 +181,6 @@
 		0AD7695325D58D6000669F8C /* BlockActionsServiceBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695225D58D6000669F8C /* BlockActionsServiceBookmark.swift */; };
 		0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695525D58F1700669F8C /* BlockActionsServiceOther.swift */; };
 		0AD7695925D5908E00669F8C /* BlockActionsServiceFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */; };
-		0ADE618D2448878300244E49 /* BlockUserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADE618C2448878300244E49 /* BlockUserAction.swift */; };
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
 		1206DBA1267A5693000A48A7 /* DocumentIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DBA0267A5693000A48A7 /* DocumentIconPickerViewModel.swift */; };
@@ -750,7 +749,6 @@
 		0AD7695225D58D6000669F8C /* BlockActionsServiceBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceBookmark.swift; sourceTree = "<group>"; };
 		0AD7695525D58F1700669F8C /* BlockActionsServiceOther.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceOther.swift; sourceTree = "<group>"; };
 		0AD7695825D5908E00669F8C /* BlockActionsServiceFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionsServiceFile.swift; sourceTree = "<group>"; };
-		0ADE618C2448878300244E49 /* BlockUserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockUserAction.swift; sourceTree = "<group>"; };
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
 		1206DBA0267A5693000A48A7 /* DocumentIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentIconPickerViewModel.swift; sourceTree = "<group>"; };
@@ -2012,7 +2010,6 @@
 			isa = PBXGroup;
 			children = (
 				0A9F926B247AF7E5008E932C /* BlocksViews+ContextualMenuActions.swift */,
-				0ADE618C2448878300244E49 /* BlockUserAction.swift */,
 			);
 			path = UserActions;
 			sourceTree = "<group>";
@@ -3831,7 +3828,6 @@
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseService.swift in Sources */,
 				3D0BCACF26665794002F7A0D /* HomeCellDataBuilder.swift in Sources */,
-				0ADE618D2448878300244E49 /* BlockUserAction.swift in Sources */,
 				3DD67E9C2652705A0025ED6F /* EditorSelectionIncomingEvent.swift in Sources */,
 				120F7D5E267D1AC200327734 /* DocumentCoverPickerViewModel.swift in Sources */,
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,

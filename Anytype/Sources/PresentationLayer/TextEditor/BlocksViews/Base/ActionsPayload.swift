@@ -17,12 +17,6 @@ enum ActionsPayload {
         let action: TextBlockUserInteraction
     }
 
-    /// For seamless usage of UserAction as "Payload"
-    struct UserAction {
-        let model: BlockActiveRecordModelProtocol
-        let action: BlockUserAction
-    }
-
     /// Text blocks draft.
     /// It should hold also toggle from `TextBlocksViewsUserInteraction`.
     /// Name it properly.
@@ -36,10 +30,15 @@ enum ActionsPayload {
         var model: BlockActiveRecordModelProtocol
         var action: Action
     }
+    
+    struct UploadFileData {
+        let model: BlockActiveRecordModelProtocol
+        let filePath: String
+    }
 
     case toolbar(Toolbar)
     case textView(TextBlocksViewsUserInteraction)
-    case userAction(UserAction)
+    case uploadFile(UploadFileData)
     /// show code language view
     case showCodeLanguageView(languages: [String], completion: (String) -> Void)
     /// show style menu

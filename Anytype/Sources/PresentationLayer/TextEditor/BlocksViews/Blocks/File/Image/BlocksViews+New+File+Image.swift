@@ -18,7 +18,7 @@ extension Namespace {
         override func handleReplace() {
             let model: MediaPicker.ViewModel = .init(type: .images)
             configureMediaPickerViewModel(model)
-            router?.file(action: .shouldShowImagePicker(model))
+            router?.showImagePicker(model: model)
         }
     }
 }

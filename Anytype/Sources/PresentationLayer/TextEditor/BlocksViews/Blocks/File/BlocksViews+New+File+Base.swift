@@ -112,7 +112,7 @@ extension Namespace {
                         receiveCompletion: { _ in },
                         receiveValue: { [weak self] url in
                             guard let url = url else { return }
-                            self?.router?.file(action: .shouldSaveFile(fileURL: url))
+                            self?.router?.saveFile(fileURL: url)
                         }
                     )
                     .store(in: &self.subscriptions)
@@ -143,15 +143,9 @@ extension Namespace {
         }
         
         private func sendFile(at filePath: String) {
-            self.send(
-                actionsPayload: .userAction(
-                    .init(
-                        model: block,
-                        action: .file(
-                            .shouldUploadFile(filePath: filePath))
-                    )
-                )
-            )
+            send(actionsPayload: .uploadFile(
+                .init(model: block, filePath: filePath)
+            ))
         }
     }
 }

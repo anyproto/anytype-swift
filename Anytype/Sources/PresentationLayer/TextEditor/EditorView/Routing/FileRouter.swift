@@ -11,22 +11,8 @@ final class FileRouter {
         self.fileLoader = fileLoader
         self.viewController = viewController
     }
-    
-    func handle(action: BlockUserAction.FileAction) {
-        switch action {
-        case let .shouldShowFilePicker(model):
-            let vc = CommonViews.Pickers.File.Picker(model)
-            viewController?.present(vc, animated: true, completion: nil)
-        case let .shouldShowImagePicker(model):
-            let vc = MediaPicker(viewModel: model)
-            viewController?.present(vc, animated: true, completion: nil)
-        case let .shouldSaveFile(fileURL):
-            saveFile(fileURL: fileURL)
-        default: return
-        }
-    }
-    
-    private func saveFile(fileURL: URL) {
+        
+    func saveFile(fileURL: URL) {
         let value = self.fileLoader.loadFile(remoteFileURL: fileURL)
         let informationText = NSLocalizedString("Loading, please wait", comment: "")
         let cancelHandler: () -> Void = { value.task.cancel() }

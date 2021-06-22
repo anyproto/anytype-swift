@@ -3,12 +3,19 @@ import BlocksModels
 import SafariServices
 import Combine
 
-/// Presenting new view on screen in editor
+typealias FilePickerModel = CommonViews.Pickers.File.Picker.ViewModel
+typealias MediaPickerModel = MediaPicker.ViewModel
+
 protocol EditorRouterProtocol {
+    
     func showPage(with id: BlockId)
     func openUrl(_ url: URL)
     func showBookmark(actionsSubject: PassthroughSubject<BlockToolbarAction, Never>)
-    func file(action: BlockUserAction.FileAction)
+    
+    func showFilePicker(model: FilePickerModel)
+    func showImagePicker(model: MediaPickerModel)
+    
+    func saveFile(fileURL: URL)
 }
 
 
@@ -47,7 +54,17 @@ final class EditorRouter: EditorRouterProtocol {
         preseningViewController?.present(controller, animated: true, completion: nil)
     }
     
-    func file(action: BlockUserAction.FileAction) {
-        fileRouter.handle(action: action)
+    func showFilePicker(model: FilePickerModel) {
+        let vc = CommonViews.Pickers.File.Picker(model)
+        preseningViewController?.present(vc, animated: true, completion: nil)
+    }
+    
+    func showImagePicker(model: MediaPickerModel) {
+        let vc = MediaPicker(viewModel: model)
+        preseningViewController?.present(vc, animated: true, completion: nil)
+    }
+    
+    func saveFile(fileURL: URL) {
+        fileRouter.saveFile(fileURL: fileURL)
     }
 }
