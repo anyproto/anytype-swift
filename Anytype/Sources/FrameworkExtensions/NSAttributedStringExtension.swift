@@ -55,14 +55,11 @@ extension NSAttributedString {
     ///
     /// - Returns: New attributed string
     func attributedStringByInserting(_ string: String, at index: Int) -> NSAttributedString {
-        guard !string.isEmpty else { return self }
-        let currentStringRange = NSRange(location: 0, length: self.string.count)
-        let stringToInsert = NSMutableAttributedString(string: string)
-        let stringToInsertRange = NSRange(location: 0, length: string.count)
-        enumerateAttributes(in: currentStringRange) { attributes, range, _ in
-            guard range == currentStringRange else { return }
-            stringToInsert.addAttributes(attributes, range: stringToInsertRange)
-        }
+        guard !string.isEmpty, index <= length else { return self }
+        let attributesIndex = index == length ? index - 1 : index
+        let stringToInsert = NSAttributedString(string: string,
+                                                attributes: attributes(at: attributesIndex,
+                                                                       effectiveRange: nil))
         let mutableString = NSMutableAttributedString(attributedString: self)
         mutableString.insert(stringToInsert, at: index)
         return NSAttributedString(attributedString: mutableString)
