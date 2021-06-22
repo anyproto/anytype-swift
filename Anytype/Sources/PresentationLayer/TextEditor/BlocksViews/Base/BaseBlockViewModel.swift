@@ -44,7 +44,7 @@ class BaseBlockViewModel: ObservableObject {
 
     // MARK: Actions Payload Publisher
 
-    private(set) var actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never> = .init()
+    private(set) var actionsPayloadSubject: PassthroughSubject<ActionPayload, Never> = .init()
     
     private var actionsPayloadSubjectSubscription: AnyCancellable?
     
@@ -106,12 +106,7 @@ class BaseBlockViewModel: ObservableObject {
             case .turnIntoPage:
                 toolbarActionSubject.send(.turnIntoBlock(.objects(.page)))
             case .style:
-                send(
-                    actionsPayload: .showStyleMenu(
-                        blockModel: block.blockModel,
-                        blockViewModel: self
-                    )
-                )
+                send(action: .showStyleMenu(model: block.blockModel, viewModel: self))
             case .color:
                 break
             case .backgroundColor:
@@ -139,13 +134,13 @@ extension BaseBlockViewModel: Hashable {
 
 extension BaseBlockViewModel {
     
-    func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) {
+    func configured(actionsPayloadSubject: PassthroughSubject<ActionPayload, Never>) {
         self.actionsPayloadSubject = actionsPayloadSubject
         
-        let toolbarPublisher = self.toolbarActionPublisher.map({ [weak self] value -> ActionsPayload? in
+        let toolbarPublisher = self.toolbarActionPublisher.map { [weak self] value -> ActionPayload? in
             guard let block = self?.block else { return nil }
-            return ActionsPayload.toolbar(.init(model: block, action: value))
-        }).safelyUnwrapOptionals()
+            return ActionPayload.toolbar(model: block, action: value)
+        }.safelyUnwrapOptionals()
         
         self.actionsPayloadSubjectSubscription = toolbarPublisher.sink(receiveValue: { [weak self] (value) in
             self?.actionsPayloadSubject.send(value)
@@ -234,7 +229,7 @@ extension BaseBlockViewModel {
 
 extension BaseBlockViewModel {
     // Send actions payload
-    func send(actionsPayload: ActionsPayload) {
-        actionsPayloadSubject.send(actionsPayload)
+    func send(action: ActionPayload) {
+        actionsPayloadSubject.send(action)
     }
 }

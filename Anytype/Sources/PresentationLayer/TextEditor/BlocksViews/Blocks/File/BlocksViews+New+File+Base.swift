@@ -143,9 +143,7 @@ extension Namespace {
         }
         
         private func sendFile(at filePath: String) {
-            send(actionsPayload: .uploadFile(
-                .init(model: block, filePath: filePath)
-            ))
+            send(action: .uploadFile(model: block, filePath: filePath))
         }
     }
 }

@@ -33,7 +33,7 @@ final class BlockActionsHandlersFacade {
 
     init(
         newBlockActionHandler: NewBlockActionHandler,
-        publisher: AnyPublisher<ActionsPayload, Never>,
+        publisher: AnyPublisher<ActionPayload, Never>,
         documentViewInteraction: DocumentViewInteraction
     ) {
         self.documentViewInteraction = documentViewInteraction
@@ -61,27 +61,27 @@ final class BlockActionsHandlersFacade {
         textBlockActionHandler.router = model.editorRouter
     }
 
-    func didReceiveAction(action: ActionsPayload) {
+    func didReceiveAction(action: ActionPayload) {
         switch action {
-        case let .toolbar(value): toolbarBlockActionHandler.handlingToolbarAction(value.model, value.action)
-        case let .textView(value):
-            switch value.action {
+        case let .toolbar(model, action): toolbarBlockActionHandler.handlingToolbarAction(model, action)
+        case let .textView(model, action):
+            switch action {
             case let .textView(action):
                 guard case let .changeTextStyle(styleAction, range) = action else {
-                    textBlockActionHandler.handlingTextViewAction(value.model, action)
+                    textBlockActionHandler.handlingTextViewAction(model, action)
                     return
                 }
                 
                 newBlockActionHandler?.handleActionWithoutCompletion(
                     .toggleFontStyle(styleAction.asActionType, range),
-                    model: value.model.blockModel
+                    model: model.blockModel
                 )
                 
             case let .buttonView(action):
-                self.buttonBlockActionHandler.handlingButtonViewAction(value.model, action)
+                self.buttonBlockActionHandler.handlingButtonViewAction(model, action)
             }
-        case let .uploadFile(data):
-            service.upload(block: data.model.blockModel.information, filePath: data.filePath)
+        case let .uploadFile(model, filePath):
+            service.upload(block: model.blockModel.information, filePath: filePath)
         case .showCodeLanguageView: return
         case .showStyleMenu: return
         }

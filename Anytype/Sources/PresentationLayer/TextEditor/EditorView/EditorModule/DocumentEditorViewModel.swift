@@ -44,7 +44,7 @@ class DocumentEditorViewModel: ObservableObject {
 
     let selectionHandler: EditorModuleSelectionHandlerProtocol
 
-    private var publicActionsPayloadSubject = PassthroughSubject<ActionsPayload, Never>()
+    private var publicActionsPayloadSubject = PassthroughSubject<ActionPayload, Never>()
     lazy var publicActionsPayloadPublisher = publicActionsPayloadSubject.eraseToAnyPublisher()
 
     /// Builders to build block views
@@ -242,10 +242,10 @@ extension DocumentEditorViewModel {
 // MARK: - Process actions
 
 private extension DocumentEditorViewModel {
-    func process(actionsPayload: ActionsPayload) {
+    func process(actionsPayload: ActionPayload) {
         switch actionsPayload {
-        case let .textView(value):
-            switch value.action {
+        case let .textView(_, action):
+            switch action {
             case .textView(.showMultiActionMenuAction):
                 self.set(selectionEnabled: true)
             case let .textView(.changeCaretPosition(selectedRange)):

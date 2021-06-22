@@ -106,8 +106,12 @@ final class TextBlockContentView: UIView & UIContentView {
 
             let block = self.currentConfiguration.viewModel.block
             self.createChildBlockButton.isHidden = true
-            self.currentConfiguration.viewModel.send(actionsPayload: .textView(.init(model: block,
-                                                      action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent))))))
+            self.currentConfiguration.viewModel.send(
+                action: .textView(
+                    model: block,
+                    action: .textView(.keyboardAction(.pressKey(.enterAtTheEndOfContent)))
+                )
+            )
         }))
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setAttributedTitle(.init(string: NSLocalizedString("Toggle empty Click and drop block inside",

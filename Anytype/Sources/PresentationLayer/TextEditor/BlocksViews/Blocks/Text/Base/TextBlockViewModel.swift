@@ -193,14 +193,7 @@ extension TextBlockViewModel {
 extension TextBlockViewModel {
     
     func send(textViewAction: TextBlockUserInteraction) {
-        self.send(
-            actionsPayload: .textView(
-                .init(
-                    model: block,
-                    action: textViewAction
-                )
-            )
-        )
+        self.send(action: .textView(model: block, action: textViewAction))
     }
     
 }
@@ -212,43 +205,19 @@ extension TextBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
             switch action {
             case .showStyleMenu:
-                self.send(
-                    actionsPayload: .showStyleMenu(
-                        blockModel: block.blockModel,
-                        blockViewModel: self
-                    )
-                )
+                self.send(action: .showStyleMenu(model: block.blockModel, viewModel: self))
             case .showMultiActionMenuAction:
                 self.shouldResignFirstResponder.send()
-                self.send(
-                    actionsPayload: .textView(
-                        .init(
-                            model: block,
-                            action: .textView(action)
-                        )
-                    )
-                )
+                self.send(action: .textView(model: block, action: .textView(action)))
             case .keyboardAction, .changeText, .changeTextStyle:
-                self.send(
-                    actionsPayload: .textView(
-                        .init(
-                            model: block,
-                            action: .textView(action)
-                        )
-                    )
-                )
+                self.send(action: .textView(model: block, action: .textView(action)))
             case .changeCaretPosition:
-                self.send(
-                    actionsPayload: .textView(
-                        ActionsPayload.TextBlocksViewsUserInteraction(
-                            model: block,
-                            action: .textView(action)
-                        )
-                    )
-                )
+                self.send(action: .textView(model: block, action: .textView(action)))
             case let .shouldChangeText(range, replacementText, mentionsHolder):
-                mentionsHolder.removeMentionIfNeeded(replacementRange: range,
-                                                     replacementText: replacementText)
+                mentionsHolder.removeMentionIfNeeded(
+                    replacementRange: range,
+                    replacementText: replacementText
+                )
             case let .showPage(pageId):
                 send(textViewAction: .textView(.showPage(pageId)))
             }

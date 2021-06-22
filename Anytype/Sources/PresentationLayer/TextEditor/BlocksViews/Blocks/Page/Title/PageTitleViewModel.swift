@@ -88,17 +88,6 @@ class PageTitleViewModel: PageBlockViewModel {
 // MARK: - TextViewEvents
 extension PageTitleViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
-        switch action {
-//        case let .addBlockAction(value):
-//            switch value {
-//            case .addBlock: self.send(userAction: .toolbars(.addBlock(.init(output: self.toolbarActionSubject))))
-//            }
-        
-//        case .showMultiActionMenuAction(.showMultiActionMenu):
-//            self.getUIKitViewModel().shouldResignFirstResponder()
-//            self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
-            
-        default: self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
-        }
+        send(action: .textView(model: block, action: .textView(action)))
     }
 }

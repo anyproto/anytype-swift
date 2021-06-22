@@ -107,15 +107,14 @@ extension CodeBlockViewModel: TextViewUserInteractionProtocol {
     func didReceiveAction(_ action: CustomTextView.UserAction) {
         switch action {
         case .showStyleMenu:
-            self.send(actionsPayload: .showStyleMenu(blockModel: block.blockModel, blockViewModel: self))
+            self.send(action: .showStyleMenu(model: block.blockModel, viewModel: self))
         case .showMultiActionMenuAction:
             self.shouldResignFirstResponder.send()
-            self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
+            self.send(action: .textView(model: block, action: .textView(action)))
         case .changeText, .keyboardAction, .changeTextStyle:
-            self.send(actionsPayload: .textView(.init(model: block, action: .textView(action))))
+            self.send(action: .textView(model: block, action: .textView(action)))
         case .changeCaretPosition:
-            typealias TextBlockInteraction = ActionsPayload.TextBlocksViewsUserInteraction
-            self.send(actionsPayload: .textView(TextBlockInteraction(model: block, action: .textView(action))))
+            self.send(action: .textView(model: block, action: .textView(action)))
         case .shouldChangeText, .showPage:
             break
         }
