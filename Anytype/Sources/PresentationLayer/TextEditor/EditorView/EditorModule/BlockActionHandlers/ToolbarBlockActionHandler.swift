@@ -88,11 +88,8 @@ final class ToolbarBlockActionHandler {
                 }
             case .duplicate: self.service.duplicate(block: block.blockModel.information)
             }
-        case let .bookmark(value):
-            switch value {
-            case let .fetch(value): self.service.bookmarkFetch(block: block.blockModel.information, url: value.absoluteString)
-            }
-        default: return
+        case let .fetch(url: url):
+            service.bookmarkFetch(block: block.blockModel.information, url: url.absoluteString)
         }
     }
 }

@@ -829,7 +829,7 @@
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* DefaultCompletion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCompletion.swift; sourceTree = "<group>"; };
-		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Toolbar/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
+		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D409BBF26309CE100E588A7 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorAssembly.swift; sourceTree = "<group>"; };
@@ -1215,8 +1215,6 @@
 			children = (
 				0A19E2B22444C9430078DFAB /* Base */,
 				0A10CC5A248EC2EE000FF498 /* Blocks */,
-				0A1DACC1244DD34B0007BC5D /* Toolbar */,
-				0A19E2B12444C8F30078DFAB /* Supplement */,
 				0ADE618B2448877300244E49 /* UserActions */,
 				0A70816423968410004B04AB /* BlocksViews.swift */,
 			);
@@ -1726,6 +1724,7 @@
 		0A0965C725BEF5B000C004BD /* EditorModule */ = {
 			isa = PBXGroup;
 			children = (
+				0A19E2B12444C8F30078DFAB /* Converter */,
 				3DBED6B2266FF47D00B9E9AB /* SwiftUI */,
 				3D180220264E9C0000224815 /* Models */,
 				12858E79264ABA9900A7FE0F /* Views */,
@@ -1786,12 +1785,12 @@
 			path = Page;
 			sourceTree = "<group>";
 		};
-		0A19E2B12444C8F30078DFAB /* Supplement */ = {
+		0A19E2B12444C8F30078DFAB /* Converter */ = {
 			isa = PBXGroup;
 			children = (
-				0ACC357325C850DC0003CF3A /* ViewModelsConverter */,
+				0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */,
 			);
-			path = Supplement;
+			path = Converter;
 			sourceTree = "<group>";
 		};
 		0A19E2B22444C9430078DFAB /* Base */ = {
@@ -1800,19 +1799,10 @@
 				537F49712677EB6700C81BA0 /* BaseBlockDelegate.swift */,
 				0A10CC58248EB5EC000FF498 /* BaseBlockViewModel.swift */,
 				3D9D048B265C49F1009412B8 /* ActionsPayload.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		0A1DACC1244DD34B0007BC5D /* Toolbar */ = {
-			isa = PBXGroup;
-			children = (
-				3D3D89572678EBC8008C2B26 /* Bookmark */,
-				3D3D894B2678D07D008C2B26 /* SwiftUI */,
 				0A1DACC4244DDB050007BC5D /* BlockToolbarBlocksTypes.swift */,
 				0A1DACCA244E08930007BC5D /* BlockToolbarAction.swift */,
 			);
-			path = Toolbar;
+			path = Base;
 			sourceTree = "<group>";
 		};
 		0A1F0D9124DDCE0100A8B488 /* About */ = {
@@ -1982,14 +1972,6 @@
 				0ACAAD682588DD0F00DF1C82 /* ImageLoader.swift */,
 			);
 			path = ImageView;
-			sourceTree = "<group>";
-		};
-		0ACC357325C850DC0003CF3A /* ViewModelsConverter */ = {
-			isa = PBXGroup;
-			children = (
-				0ACC357525C851650003CF3A /* CompoundViewModelConverter.swift */,
-			);
-			path = ViewModelsConverter;
 			sourceTree = "<group>";
 		};
 		0AD6B24624CF5D0A0097A841 /* Bookmark */ = {
@@ -2332,14 +2314,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3D3D894B2678D07D008C2B26 /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
-			);
-			path = SwiftUI;
-			sourceTree = "<group>";
-		};
 		3D3D89572678EBC8008C2B26 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
@@ -2397,6 +2371,7 @@
 				3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */,
 				3DB1E7412639A85600F479BB /* VisualEffectBlur.swift */,
 				3D0BFB39263BE797007CC856 /* AsyncImage.swift */,
+				3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */,
 				3D850B9E26458CC2005805A8 /* DragIndicator.swift */,
 				3DB92F84264BF69900E83276 /* View+CornerRadius.swift */,
 				12D950032678EFE800F794EB /* SearchBar.swift */,
@@ -2538,6 +2513,7 @@
 			children = (
 				127DE74A26579F380047A99A /* MediaPicker */,
 				3D932D5126317EFB00C7D1EA /* CommonViews+Pickers.swift */,
+				3D3D89572678EBC8008C2B26 /* Bookmark */,
 				3D932D5226317EFB00C7D1EA /* FilePicker */,
 			);
 			path = Pickers;

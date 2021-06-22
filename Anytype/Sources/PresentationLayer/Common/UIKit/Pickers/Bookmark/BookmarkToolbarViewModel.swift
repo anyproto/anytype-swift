@@ -2,9 +2,8 @@ import SwiftUI
 import Combine
 
 final class BookmarkToolbarViewModel {
-    // MARK: Variables
-    var action: AnyPublisher<BlockToolbarAction, Never> = .empty()
-    var dismissControllerPublisher: AnyPublisher<Void, Never> = .empty()
+    let action: AnyPublisher<BlockToolbarAction, Never>
+    let dismissControllerPublisher: AnyPublisher<Void, Never>
     
     // MARK: Subscriptions
     private var subscriptions: Set<AnyCancellable> = []
@@ -12,27 +11,21 @@ final class BookmarkToolbarViewModel {
     // MARK: Models
     @ObservedObject private var bookmarkViewModel: BlockToolbarBookmark.ViewModel
     
-    // MARK: Setup
-    private func publisher() -> AnyPublisher<BlockToolbarAction, Never> {
-        return self.bookmarkViewModel.userAction.map({ value in
-            BlockToolbarAction.bookmark(.fetch(value))
-        }).eraseToAnyPublisher()
-    }
-    private func setup() {
-        self.action = self.publisher()
-        self.dismissControllerPublisher = self.action.successToVoid().eraseToAnyPublisher()
-    }
-    
     // MARK: Initialization
     init() {
-        self.bookmarkViewModel = BlockToolbarBookmark.ViewModelBuilder.create()
+        let bookmarkViewModel = BlockToolbarBookmark.ViewModelBuilder.create()
+        self.bookmarkViewModel = bookmarkViewModel
         
-        self.setup()
+        self.action = bookmarkViewModel.userAction.map { value in
+            BlockToolbarAction.fetch(url: value)
+        } .eraseToAnyPublisher()
+        
+        self.dismissControllerPublisher = self.action.successToVoid().eraseToAnyPublisher()
     }
             
     // MARK: Get Chosen View
     func chosenView() -> StyleAndViewAndPayload {
-        return .init(
+        return StyleAndViewAndPayload(
             view: BlockToolbarBookmark.InputViewBuilder.createView(self._bookmarkViewModel),
             payload: .init(title: self.bookmarkViewModel.title)
         )
