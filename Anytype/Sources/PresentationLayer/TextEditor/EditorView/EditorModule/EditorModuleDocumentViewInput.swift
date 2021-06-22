@@ -9,11 +9,8 @@ protocol EditorModuleDocumentViewInput: AnyObject {
     ///   - rows: Rows to display
     func updateData(_ rows: [BaseBlockViewModel])
 
-    /// Update view layout.
-    ///
-    /// Could be useful when subview data updated.
-    func reloadFirstSection()
-
+    func updateHeader()
+    
     /// Show code language view selection.
     /// 
     /// - Parameters:

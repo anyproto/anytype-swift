@@ -1,4 +1,4 @@
-struct IconEmoji {
+struct IconEmoji: Hashable {
     
     let value: String
     

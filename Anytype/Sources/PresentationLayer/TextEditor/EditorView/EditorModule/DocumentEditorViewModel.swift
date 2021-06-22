@@ -13,10 +13,6 @@ class DocumentEditorViewModel: ObservableObject {
     private(set) lazy var settingViewModel = DocumentSettingViewModel(
         detailsActiveModel: document.defaultDetailsActiveModel
     )
-    private(set) lazy var documentCoverPickerViewModel = DocumentCoverPickerViewModel(
-        fileService: BlockActionsServiceFile(),
-        detailsActiveModel: document.defaultDetailsActiveModel
-    )
     
     let document: BaseDocumentProtocol = BaseDocument()
 
@@ -24,8 +20,8 @@ class DocumentEditorViewModel: ObservableObject {
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private lazy var blocksConverter = CompoundViewModelConverter(document: document, blockActionHandler: self)
 
-    /// DocumentDetailsViewModel
-    private(set) var detailsViewModel: DocumentDetailsViewModel?
+    private(set) var documentIcon: DocumentIcon?
+    private(set) var documentCover: DocumentCover?
     
     /// User Interaction Processor
     private lazy var oldBlockActionHandler = BlockActionsHandlersFacade(
@@ -126,20 +122,10 @@ class DocumentEditorViewModel: ObservableObject {
             .sink { [weak self] detailsProvider in
                 guard let self = self else { return }
                 
-                self.updateDetailsViewModel(with: detailsProvider)
-
-                let blocksViewModelsToUpdate = self.blocksViewModels.first(
-                    where: { blockViewModel in
-                        blockViewModel.information.content.type == .text(.title)
-                    }
-                )
-                blocksViewModelsToUpdate?.updateView()
-
-                // Following if condition could prevent dismiss keyborad on reload section when focus in the title block.
-                // So if details event only for title then we skip reload section.
-                if detailsProvider.details.count > 1 || detailsProvider.details[.name].isNil {
-                    self.viewInput?.reloadFirstSection()
-                }
+                self.documentIcon = detailsProvider.documentIcon
+                self.documentCover = detailsProvider.documentCover
+                
+                self.viewInput?.updateHeader()
             }
             .store(in: &subscriptions)
 
@@ -152,20 +138,6 @@ class DocumentEditorViewModel: ObservableObject {
             self.blocksViewModels = result
             self.viewInput?.updateData(result)
         }
-    }
-    
-    private func updateDetailsViewModel(with detailsProvider: DetailsEntryValueProvider) {
-        let iconViewModel: DocumentIconViewModel? = detailsProvider.documentIcon.flatMap {
-            DocumentIconViewModel(icon: $0)
-        }
-        let coverViewModel: DocumentCoverViewModel? = detailsProvider.documentCover.flatMap {
-            DocumentCoverViewModel(cover: $0)
-        }
-        
-        self.detailsViewModel = DocumentDetailsViewModel(
-            iconViewModel: iconViewModel,
-            coverViewModel: coverViewModel
-        )
     }
 
     private func configureInteractions(_ documentId: BlockId?) {

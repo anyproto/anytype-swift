@@ -86,7 +86,12 @@ extension DocumentEditorViewController {
     }
 
     private func handleUpdateBlocks(blockIds: Set<BlockId>) {
-        let sectionSnapshot = dataSource.snapshot(for: .first)
+        let sectionSnapshot = dataSource.snapshot(
+            for: DocumentSection(
+                icon: viewModel.documentIcon,
+                cover: viewModel.documentCover
+            )
+        )
         var snapshot = dataSource.snapshot()
         var itemsForUpdate = sectionSnapshot.visibleItems.filter { blockIds.contains($0.blockId) }
 
@@ -167,7 +172,12 @@ extension DocumentEditorViewController {
     private func updateVisibleBlocks(satisfying: (BlockContent) -> Bool) {
         var needToUpdateView = false
 
-        let sectionSnapshot = dataSource.snapshot(for: .first)
+        let sectionSnapshot = dataSource.snapshot(
+            for: DocumentSection(
+                icon: viewModel.documentIcon,
+                cover: viewModel.documentCover
+            )
+        )
 
         sectionSnapshot.visibleItems.forEach { item in
             guard satisfying(item.block.content) else { return }
@@ -239,18 +249,28 @@ extension DocumentEditorViewController {
 // MARK: - EditorModuleDocumentViewInput
 
 extension DocumentEditorViewController: EditorModuleDocumentViewInput {
-
-    func reloadFirstSection() {
-        // Workaround: Supplementary view reloaded only on reloadSections
-        // That couse dismiss keyboard if keyboard is open and you update details on desktop
-        var snapshot = dataSource.snapshot()
-        snapshot.reloadSections([.first])
+    
+    func updateHeader() {
+        var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
+        snapshot.appendSections([
+            DocumentSection(
+                icon: viewModel.documentIcon,
+                cover: viewModel.documentCover
+            )
+        ])
+        
+        snapshot.appendItems(dataSource.snapshot().itemIdentifiers)
         apply(snapshot)
     }
     
     func updateData(_ rows: [BaseBlockViewModel]) {
         var snapshot = NSDiffableDataSourceSnapshot<DocumentSection, BaseBlockViewModel>()
-        snapshot.appendSections([.first])
+        snapshot.appendSections([
+            DocumentSection(
+                icon: viewModel.documentIcon,
+                cover: viewModel.documentCover
+            )
+        ])
         snapshot.appendItems(rows)
         // When we use apply data source without animation it's called reloadData under hood so it force to reload all cells.
         // We need it here cause items (BaseBlockViewModel) for collection is reference type.
@@ -363,10 +383,23 @@ private extension DocumentEditorViewController {
         }
         
         let supplementaryRegistration = UICollectionView.SupplementaryRegistration
-        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { [weak self] (detailsView, string, indexPath) in
-            guard let viewModel = self?.viewModel.detailsViewModel else { return }
+        <DocumentDetailsView>(elementKind: UICollectionView.elementKindSectionHeader) { detailsView, string, indexPath in
+            guard
+                let section = dataSource.snapshot().sectionIdentifiers[safe: indexPath.section]
+            else {
+                return
+            }
+            
+            let detailsViewModel = DocumentDetailsViewModel(
+                iconViewModel: section.icon.flatMap {
+                    DocumentIconViewModel(icon: $0)
+                },
+                coverViewModel: section.cover.flatMap {
+                    DocumentCoverViewModel(cover: $0)
+                }
+            )
 
-            detailsView.configure(model: viewModel)
+            detailsView.configure(model: detailsViewModel)
         }
         
         dataSource.supplementaryViewProvider = { [weak self] in
