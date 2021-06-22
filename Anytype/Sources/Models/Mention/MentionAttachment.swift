@@ -11,6 +11,7 @@ final class MentionAttachment: NSTextAttachment {
     
     let pageId: String
     let name: String
+    private let iconData: DocumentIcon?
     private weak var layoutManager: NSLayoutManager?
     private let mentionService = MentionObjectsService(pageObjectsCount: 1)
     private var subscriptions = [AnyCancellable]()
@@ -18,11 +19,12 @@ final class MentionAttachment: NSTextAttachment {
     private var font: UIFont?
     private var imageProperty: ImageProperty?
     
-    init(name: String, pageId: String) {
+    init(name: String, pageId: String, iconData: DocumentIcon? = nil) {
         self.pageId = pageId
         self.name = name
+        self.iconData = iconData
         super.init(data: nil, ofType: nil)
-        mentionService.setFilterString(name)
+        mentionService.filterString = name
     }
     
     required init?(coder: NSCoder) {
@@ -42,7 +44,9 @@ final class MentionAttachment: NSTextAttachment {
                                              at: charIndex + 1,
                                              effectiveRange: nil) as? UIFont
         }
-        if subscriptions.isEmpty {
+        if let iconData = iconData {
+            displayIcon(from: iconData)
+        } else if subscriptions.isEmpty {
             loadMention()
         }
         return super.attachmentBounds(for: textContainer,

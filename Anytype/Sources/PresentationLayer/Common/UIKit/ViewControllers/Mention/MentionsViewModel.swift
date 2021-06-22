@@ -1,7 +1,14 @@
+import BlocksModels
 import Combine
+import ProtobufMessages
+import SwiftProtobuf
 import UIKit
 
 final class MentionsViewModel {
+    
+    private enum Constants {
+        static let defaultNewMentionName = "Untitled".localized
+    }
     
     private let service: MentionObjectsService
     private weak var view: MentionsView?
@@ -16,7 +23,7 @@ final class MentionsViewModel {
     }
     
     func setFilterString(_ string: String) {
-        service.setFilterString(string)
+        service.filterString = string
         imageLoadingSubscriptions.removeAll()
         obtainMentions()
     }
@@ -28,10 +35,29 @@ final class MentionsViewModel {
     
     func didSelectMention(_ mention: MentionObject) {
         selectionHandler(mention)
+        view?.dismiss()
     }
     
     func didSelectCreateNewMention() {
-        
+        let name = service.filterString.isEmpty ? Constants.defaultNewMentionName : service.filterString
+        guard let emoji = EmojiProvider.shared.randomEmoji()?.unicode else { return }
+        let service = Anytype_Rpc.Page.Create.Service.self
+        let emojiValue = Google_Protobuf_Value(stringValue: emoji)
+        let nameValue = Google_Protobuf_Value(stringValue: name)
+        let details = Google_Protobuf_Struct(fields: [DetailsKind.name.rawValue: nameValue,
+                                                      DetailsKind.iconEmoji.rawValue: emojiValue])
+        switch service.invoke(details: details) {
+        case let .success(response):
+            let mention = MentionObject(
+                id: response.pageID,
+                name: name,
+                description: nil,
+                iconData: DocumentIcon(emoji: emoji)
+            )
+            didSelectMention(mention)
+        case let .failure(error):
+            assertionFailure(error.localizedDescription)
+        }
     }
     
     func image(for mention: MentionObject) -> UIImage? {

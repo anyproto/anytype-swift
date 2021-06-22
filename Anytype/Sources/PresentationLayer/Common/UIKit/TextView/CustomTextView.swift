@@ -53,6 +53,7 @@ final class CustomTextView: UIView {
     private(set) lazy var menuActionsAccessoryView: SlashMenuView = {
         let dismissActionsMenu = { [weak self] in
             guard let self = self else { return }
+            self.inputSwitcher.cleanupDisplayedView()
             self.inputSwitcher.showEditingBars(customTextView: self)
         }
 
@@ -68,6 +69,7 @@ final class CustomTextView: UIView {
     private(set) lazy var mentionView: MentionView = {
         let dismissActionsMenu = { [weak self] in
             guard let self = self else { return }
+            self.inputSwitcher.cleanupDisplayedView()
             self.inputSwitcher.showEditingBars(customTextView: self)
         }
         return MentionView(

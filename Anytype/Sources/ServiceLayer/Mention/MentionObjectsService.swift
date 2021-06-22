@@ -7,19 +7,18 @@ final class MentionObjectsService {
     private lazy var accessQueue = DispatchQueue(label: "com.anytype.mentionAccessQueue")
     private let pageObjectsCount: Int32
     private var offset = Int32(0)
-    private var filterString = ""
+    var filterString = "" {
+        didSet {
+            offset = 0
+            possibleToObtainNextPage = true
+        }
+    }
     private let parser: MentionsParser
     private(set) var possibleToObtainNextPage = true
     
     init(pageObjectsCount: Int32 = 100, parser: MentionsParser = MentionsParser()) {
         self.parser = parser
         self.pageObjectsCount = pageObjectsCount
-    }
-    
-    func setFilterString(_ string: String) {
-        filterString = string
-        offset = 0
-        possibleToObtainNextPage = true
     }
     
     func obtainMentionsPublisher() -> AnyPublisher<[MentionObject], Error> {

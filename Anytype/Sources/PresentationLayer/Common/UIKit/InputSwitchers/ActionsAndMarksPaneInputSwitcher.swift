@@ -54,11 +54,13 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
     override func variantsFromState(customTextView: CustomTextView,
                                     selectionLength: Int,
                                     accessoryView: UIView?,
-                                    inputView: UIView?) -> InputSwitcherTriplet? {
+                                    inputView: UIView?) -> InputSwitcherTriplet {
         if shouldContinueToDisplayAccessoryView(customTextView: customTextView) {
             return InputSwitcherTriplet(shouldAnimate: false,
                                         accessoryView: accessoryView,
                                         inputView: nil)
+        } else {
+            cleanupDisplayedView()
         }
         switch (selectionLength, accessoryView, inputView) {
         // Length == 0, => set actions toolbar and restore default keyboard.
@@ -89,13 +91,16 @@ final class ActionsAndMarksPaneInputSwitcher: InputSwitcher {
         showEditingBars(customTextView: customTextView)
     }
     
-    func showEditingBars(customTextView: CustomTextView) {
-        accessoryViewTriggerSymbolPosition = nil
+    func cleanupDisplayedView() {
         displayedView = nil
-        guard let triplet = self.variantsFromState(customTextView: customTextView,
-                                                   selectionLength: customTextView.textView.selectedRange.length,
-                                                   accessoryView: customTextView.textView.inputAccessoryView,
-                                                   inputView: customTextView.textView.inputView) else { return }
+        accessoryViewTriggerSymbolPosition = nil
+    }
+    
+    func showEditingBars(customTextView: CustomTextView) {
+        let triplet = variantsFromState(customTextView: customTextView,
+                                        selectionLength: customTextView.textView.selectedRange.length,
+                                        accessoryView: customTextView.textView.inputAccessoryView,
+                                        inputView: customTextView.textView.inputView)
         self.switchInputs(
             inputViewKeyboardSize: .zero,
             animated: triplet.shouldAnimate,

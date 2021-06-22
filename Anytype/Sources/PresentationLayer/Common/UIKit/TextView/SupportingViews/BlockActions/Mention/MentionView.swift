@@ -24,7 +24,8 @@ final class MentionView: DismissableInputAccessoryView {
         let viewModel = MentionsViewModel(service: service,
                                           selectionHandler: mentionsSelectionHandler)
         let mentionsController = MentionsViewController(style: .plain,
-                                                        viewModel: viewModel)
+                                                        viewModel: viewModel,
+                                                        dismissAction: dismissHandler)
         mentionsController.view.translatesAutoresizingMaskIntoConstraints = false
         controller.addChild(mentionsController)
         addSubview(mentionsController.view)

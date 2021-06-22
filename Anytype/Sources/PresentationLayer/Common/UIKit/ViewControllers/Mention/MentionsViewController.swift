@@ -16,9 +16,13 @@ final class MentionsViewController: UITableViewController {
     
     let viewModel: MentionsViewModel
     private lazy var dataSource = makeDataSource()
+    private let dismissAction: () -> Void
     
-    init(style: UITableView.Style, viewModel: MentionsViewModel) {
+    init(style: UITableView.Style,
+         viewModel: MentionsViewModel,
+         dismissAction: @escaping () -> Void) {
         self.viewModel = viewModel
+        self.dismissAction = dismissAction
         super.init(style: style)
     }
     
@@ -126,5 +130,9 @@ extension MentionsViewController: MentionsView {
             snapshot.reloadItems([mention])
             self.dataSource.apply(snapshot)
         }
+    }
+    
+    func dismiss() {
+        dismissAction()
     }
 }
