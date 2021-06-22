@@ -27,11 +27,6 @@ class BaseBlockViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Events
-    
-    private var userActionSubject = PassthroughSubject<BlockUserAction, Never>()
-    public lazy var userActionPublisher = userActionSubject.eraseToAnyPublisher()
-    
     // MARK: Toolbar Action Publisher
 
     /// This Pair ( Publisher and Subject ) can manipulate with `ActionsPayload.Toolbar.Action`.
@@ -125,10 +120,6 @@ class BaseBlockViewModel: ObservableObject {
             }
         }
     }
-    
-    func send(userAction: BlockUserAction) {
-        userActionSubject.send(userAction)
-    }
 }
 
 // MARK: - Hashable
@@ -147,11 +138,6 @@ extension BaseBlockViewModel: Hashable {
 // MARK: - Configurations
 
 extension BaseBlockViewModel {
-    
-    func configured(userActionSubject: PassthroughSubject<BlockUserAction, Never>) {
-        self.userActionSubject = userActionSubject
-        self.userActionPublisher = self.userActionSubject.eraseToAnyPublisher()
-    }
     
     func configured(actionsPayloadSubject: PassthroughSubject<ActionsPayload, Never>) {
         self.actionsPayloadSubject = actionsPayloadSubject

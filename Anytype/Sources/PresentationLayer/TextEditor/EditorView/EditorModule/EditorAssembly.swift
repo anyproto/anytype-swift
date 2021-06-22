@@ -17,13 +17,6 @@ final class EditorAssembly {
         
         let editorController = DocumentEditorViewController(viewModel: editorViewModel)
         
-        let router = DocumentViewCompoundRouter(
-            viewController: editorController,
-            userActionsStream: editorViewModel.publicUserActionPublisher
-        )
-        
-        editorController.router = router
-        
         editorViewModel.viewInput = editorController
         editorViewModel.editorRouter = EditorRouter(
             preseningViewController: editorController

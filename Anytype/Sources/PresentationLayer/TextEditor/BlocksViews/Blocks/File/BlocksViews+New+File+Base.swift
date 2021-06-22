@@ -25,9 +25,11 @@ extension Namespace {
         private var subscriptions: Set<AnyCancellable> = []
         @Published var state: State? { willSet { self.objectWillChange.send() } }
         
-        override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
+        let router: EditorRouterProtocol?
+        init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, router: EditorRouterProtocol?) {
+            self.router = router
             super.init(block, delegate: delegate)
-            self.setupSubscribers()
+            setupSubscribers()
         }
         
         override var diffable: AnyHashable {
@@ -110,7 +112,7 @@ extension Namespace {
                         receiveCompletion: { _ in },
                         receiveValue: { [weak self] url in
                             guard let url = url else { return }
-                            self?.send(userAction: .file(.shouldSaveFile(fileURL: url)))
+                            self?.router?.file(action: .shouldSaveFile(fileURL: url))
                         }
                     )
                     .store(in: &self.subscriptions)

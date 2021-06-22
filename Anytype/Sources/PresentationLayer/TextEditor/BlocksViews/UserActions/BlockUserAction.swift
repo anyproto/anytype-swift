@@ -3,11 +3,7 @@ import Combine
 
 enum BlockUserAction {
     case file(FileAction)
-    case bookmark(BookmarkOutput)
 }
-
-
-typealias BookmarkOutput = PassthroughSubject<BlockToolbarAction, Never>
 
 extension BlockUserAction {
     enum FileAction {

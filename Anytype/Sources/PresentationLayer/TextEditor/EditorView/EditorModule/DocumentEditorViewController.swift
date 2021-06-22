@@ -5,9 +5,6 @@ import FloatingPanel
 import SwiftUI
 
 final class DocumentEditorViewController: UIViewController {
-
-    var router: DocumentViewCompoundRouter?
-    
     
     private lazy var dataSource = makeCollectionViewDataSource()
     

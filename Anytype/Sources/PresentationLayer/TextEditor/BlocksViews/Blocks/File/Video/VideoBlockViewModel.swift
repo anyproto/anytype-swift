@@ -1,4 +1,4 @@
-
+import BlocksModels
 import UIKit
 
 final class VideoBlockViewModel: BlocksViews.File.Base.ViewModel {
@@ -9,7 +9,7 @@ final class VideoBlockViewModel: BlocksViews.File.Base.ViewModel {
     
     override func handleReplace() {
         let model: MediaPicker.ViewModel = .init(type: .videos)
-        self.configureMediaPickerViewModel(model)
-        self.send(userAction: .file(.shouldShowImagePicker(model)))
+        configureMediaPickerViewModel(model)
+        router?.file(action: .shouldShowImagePicker(model))
     }
 }

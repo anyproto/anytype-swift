@@ -44,9 +44,6 @@ class DocumentEditorViewModel: ObservableObject {
 
     let selectionHandler: EditorModuleSelectionHandlerProtocol
 
-    private let publicUserActionSubject = PassthroughSubject<BlockUserAction, Never>()
-    lazy var publicUserActionPublisher = publicUserActionSubject.eraseToAnyPublisher()
-
     private var publicActionsPayloadSubject = PassthroughSubject<ActionsPayload, Never>()
     lazy var publicActionsPayloadPublisher = publicActionsPayloadSubject.eraseToAnyPublisher()
 
@@ -315,7 +312,6 @@ extension DocumentEditorViewModel: BaseBlockDelegate {
 extension DocumentEditorViewModel {
     func enhanceUserActionsAndPayloads(_ builders: [BaseBlockViewModel]) {
         builders.forEach { block in
-            block.configured(userActionSubject: publicUserActionSubject)
             block.configured(actionsPayloadSubject: publicActionsPayloadSubject)
         }
     }

@@ -49,7 +49,7 @@ final class BookmarkViewModel: BaseBlockViewModel {
                 router?.openUrl($0)
             }
         } else {
-            send(userAction: .bookmark(toolbarActionSubject))
+            router?.showBookmark(actionsSubject: toolbarActionSubject)
         }
     }
     
