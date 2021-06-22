@@ -99,6 +99,12 @@ extension DocumentEditorViewController {
         }
 
         if itemsForUpdate.isEmpty {
+            updateVisibleBlocks { content -> Bool in
+                if case let .text(text) = content, text.contentType == .numbered {
+                    return true
+                }
+                return false
+            }
             return
         }
         snapshot.reloadItems(itemsForUpdate)
