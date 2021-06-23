@@ -27,7 +27,7 @@ final class TurnIntoSelectionStorage {
         }
     }
     
-    func turnIntoOptions() -> [BlockToolbarBlocksTypes] {
+    func turnIntoOptions() -> [BlockViewType] {
         guard let initialResult = self.storage.first?.value.turnIntoOptions else { return [] }
         let turnIntoTypesIntersection = self.storage.values.reduce(into: initialResult) { result, bucket in
             result = result.intersection(bucket.turnIntoOptions)

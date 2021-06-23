@@ -9,7 +9,7 @@ struct FileBlockRestrictions: BlockRestrictions {
     var canApplyBlockColor: Bool { false }
     var canApplyBackgroundColor: Bool { true }
     var canApplyMention: Bool { false }
-    var turnIntoStyles: [BlockToolbarBlocksTypes] {
+    var turnIntoStyles: [BlockViewType] {
         []
     }
     var availableAlignments: [BlockInformationAlignment] {

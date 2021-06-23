@@ -284,7 +284,7 @@ final class TextBlockContentView: UIView & UIContentView {
             selectionView.layer.borderColor = UIColor.pureAmber.cgColor
             selectionView.backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
         }
-        currentConfiguration.textViewConfigurator.configure(textView: textView)
+        currentConfiguration.mentionsConfigurator.configure(textView: textView)
     }
     
     private func setupForPlainText() {

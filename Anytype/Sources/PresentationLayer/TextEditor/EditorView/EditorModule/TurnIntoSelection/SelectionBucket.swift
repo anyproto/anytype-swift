@@ -3,5 +3,5 @@ import Foundation
 
 struct SelectionBucket {
     var count = 0
-    let turnIntoOptions: Set<BlockToolbarBlocksTypes>
+    let turnIntoOptions: Set<BlockViewType>
 }

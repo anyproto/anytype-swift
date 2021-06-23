@@ -106,7 +106,7 @@ enum BlockStyleAction: CaseIterable {
         }
     }
     
-    var blockViewsType: BlockToolbarBlocksTypes? {
+    var blockViewsType: BlockViewType? {
         switch self {
         case .text:
             return .text(.text)

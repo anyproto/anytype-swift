@@ -2,6 +2,6 @@ import Foundation
 import UIKit
 
 enum BlockToolbarAction {    
-    case addBlock(BlockToolbarBlocksTypes)
-    case turnIntoBlock(BlockToolbarBlocksTypes)
+    case addBlock(BlockViewType)
+    case turnIntoBlock(BlockViewType)
 }

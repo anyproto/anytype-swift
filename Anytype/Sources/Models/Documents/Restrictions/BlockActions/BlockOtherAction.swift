@@ -21,7 +21,7 @@ enum BlockOtherAction: CaseIterable {
         }
     }
     
-    var blockViewsType: BlockToolbarBlocksTypes {
+    var blockViewsType: BlockViewType {
         switch self {
         case .dotsDivider:
             return .other(.dotsDivider)

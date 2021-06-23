@@ -9,8 +9,7 @@ struct TextBlockContentConfiguration {
     let viewModel: TextBlockViewModel
     let information: BlockInformation
     weak var blockActionHandler: NewBlockActionHandler?
-    private let mentionsConfigurator: MentionsTextViewConfigurator
-    var textViewConfigurator: CustomTextViewConfigurator { mentionsConfigurator }
+    let mentionsConfigurator: MentionsTextViewConfigurator
     
     private(set) weak var textViewDelegate: TextViewDelegate?
     private(set) var isSelected: Bool = false
