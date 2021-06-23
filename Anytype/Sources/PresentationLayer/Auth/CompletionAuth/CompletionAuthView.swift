@@ -40,7 +40,9 @@ struct CompletionAuthView: View {
 
 struct CompletionAuthView_Previews: PreviewProvider {
     static var previews: some View {
-        let completionViewModel = CompletionAuthViewModel(coordinator: CompletionAuthViewCoordinator())
+        let seedService = ServiceLocator.shared.seedService()
+        let completionViewModel = CompletionAuthViewModel(coordinator: CompletionAuthViewCoordinator(),
+                                                          loginStateService: LoginStateService(seedService: seedService))
         return CompletionAuthView(viewModel: completionViewModel, delegate: nil)
     }
 }

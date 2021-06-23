@@ -45,7 +45,9 @@ struct BlockActionsBuilder {
     }
     
     private func makeObjectsMenuItem() -> BlockActionMenuItem? {
-        nil
+        let objects = ObjectTypeService.shared.objects
+        guard !objects.isEmpty else { return nil }
+        return .menu(.objects, objects.map { .action(.objects($0)) })
     }
     
     private func makeRelationMenuItem() -> BlockActionMenuItem? {

@@ -1,7 +1,7 @@
 
 import UIKit
 
-final class MentionWithEmojiContentView: UIView, UIContentView {
+final class ContentViewWithEmoji: UIView, UIContentView {
     
     private enum Constants {
         static let cornerRadius: CGFloat = 8
@@ -15,13 +15,13 @@ final class MentionWithEmojiContentView: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         get  { currentConfiguration }
         set {
-            guard let configuration = newValue as? MentionWithEmojiContentConfiguration,
+            guard let configuration = newValue as? ContentConfigurationWithEmoji,
                   configuration != currentConfiguration else { return }
             currentConfiguration = configuration
             applyNewConfiguration()
         }
     }
-    private var currentConfiguration: MentionWithEmojiContentConfiguration
+    private var currentConfiguration: ContentConfigurationWithEmoji
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +32,7 @@ final class MentionWithEmojiContentView: UIView, UIContentView {
     private let subtitleLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .captionFont
+        label.font = .smallBodyFont
         label.textColor = .secondaryTextColor
         return label
     }()
@@ -43,7 +43,7 @@ final class MentionWithEmojiContentView: UIView, UIContentView {
         return view
     }()
     
-    init(contentConfiguration: MentionWithEmojiContentConfiguration) {
+    init(contentConfiguration: ContentConfigurationWithEmoji) {
         self.currentConfiguration = contentConfiguration
         super.init(frame: .zero)
         setup()

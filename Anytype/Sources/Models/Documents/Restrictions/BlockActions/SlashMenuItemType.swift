@@ -57,8 +57,8 @@ enum SlashMenuItemType {
             return "TextEditor/Toolbar/Blocks/AlignmentLeft"
         }
     }
-    
+
     var displayData: SlashMenuItemDisplayData {
-        SlashMenuItemDisplayData(imageName: self.iconName, title: self.title)
+        SlashMenuItemDisplayData(iconData: .imageNamed(iconName), title: self.title)
     }
 }

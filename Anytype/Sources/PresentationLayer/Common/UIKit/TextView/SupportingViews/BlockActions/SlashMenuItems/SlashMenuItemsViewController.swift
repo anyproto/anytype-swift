@@ -72,17 +72,49 @@ final class SlashMenuItemsViewController: BaseAccessoryMenuItemsViewController {
         ])
     }
     
-    private func setup(configuration: UIListContentConfiguration,
-                       displayData: SlashMenuItemDisplayData) -> UIListContentConfiguration {
-        var configuration = configuration
-        configuration.text = displayData.title
+    private func configuration(for item: BlockActionMenuItem) -> UIContentConfiguration {
+        switch item {
+        case let .menu(itemType, _):
+            return makeConfiguration(displayData: itemType.displayData)
+        case let .action(action):
+            return makeConfiguration(displayData: action.displayData)
+        case let .sectionDivider(divider):
+            return makeConfigurationForDivider(title: divider)
+        }
+    }
+    
+    private func makeConfigurationForDivider(title: String) -> UIContentConfiguration {
+        var configuration = UIListContentConfiguration.subtitleCell()
+        configuration.textProperties.font = .captionFont
+        configuration.text = title
+        return configuration
+    }
+    
+    private func makeConfiguration(displayData: SlashMenuItemDisplayData) -> UIContentConfiguration {
+        switch displayData.iconData {
+        case let .imageNamed(imageName):
+            return makeConfiguration(with: displayData.title,
+                                     subtitle: displayData.subtitle,
+                                     imageName: imageName)
+        case let .emoji(emoji):
+            return ContentConfigurationWithEmoji(emoji: emoji,
+                                                 name: displayData.title,
+                                                 description: displayData.subtitle)
+        }
+    }
+    
+    private func makeConfiguration(with title: String,
+                                   subtitle: String?,
+                                   imageName: String) -> UIContentConfiguration {
+        var configuration = UIListContentConfiguration.subtitleCell()
+        configuration.text = title
         configuration.textProperties.font = .bodyFont
         configuration.textProperties.color = .textColor
-        configuration.image = UIImage(named: displayData.imageName)
+        configuration.image = UIImage(named: imageName)
         configuration.imageToTextPadding = Constants.imageToTextPadding
         configuration.imageProperties.reservedLayoutSize = Constants.imageSize
         configuration.imageProperties.maximumSize = Constants.imageSize
-        if let subtitle = displayData.subtitle {
+        if let subtitle = subtitle {
             configuration.secondaryText = subtitle
             configuration.secondaryTextProperties.font = .smallBodyFont
             configuration.secondaryTextProperties.color = .secondaryTextColor
@@ -124,23 +156,18 @@ extension SlashMenuItemsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellReuseId, for: indexPath)
-        var configuration = UIListContentConfiguration.subtitleCell()
         cell.accessoryType = .none
         let item = self.items[indexPath.row]
         switch item {
-        case let .action(action):
-            configuration = self.setup(configuration: configuration, displayData: action.displayData)
+        case .action:
             cell.separatorInset = Constants.separatorInsets
-        case let .menu(type, children):
-            configuration = self.setup(configuration: configuration, displayData: type.displayData)
+        case let .menu(_, children):
             cell.accessoryType = children.isEmpty ? .none : .disclosureIndicator
             cell.separatorInset = Constants.separatorInsets
-        case let .sectionDivider(title):
-            configuration.textProperties.font = .captionFont
-            configuration.text = title
+        case .sectionDivider:
             cell.separatorInset = Constants.dividerSeparatorInsets
         }
-        cell.contentConfiguration = configuration
+        cell.contentConfiguration = configuration(for: item)
         return cell
     }
 }

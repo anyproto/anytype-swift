@@ -9,7 +9,9 @@ final class CompletionAuthViewCoordinator {
     
     // Used as assembly
     func start() -> CompletionAuthView {
-        let viewModel = CompletionAuthViewModel(coordinator: self)
+        let seedService = ServiceLocator.shared.seedService()
+        let viewModel = CompletionAuthViewModel(coordinator: self,
+                                                loginStateService: LoginStateService(seedService: seedService))
         var view = CompletionAuthView(viewModel: viewModel)
         view.delegate = viewModel
         

@@ -464,8 +464,8 @@
 		EA5521A3266E5CB5004A820B /* FilterableItemsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A0266E5CB5004A820B /* FilterableItemsHolder.swift */; };
 		EA5521A9266E5D6D004A820B /* MentionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A5266E5D6D004A820B /* MentionView.swift */; };
 		EA5521AA266E5D6D004A820B /* MentionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A6266E5D6D004A820B /* MentionsViewController.swift */; };
-		EA5521AB266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A7266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift */; };
-		EA5521AC266E5D6D004A820B /* MentionWithEmojiContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A8266E5D6D004A820B /* MentionWithEmojiContentView.swift */; };
+		EA5521AB266E5D6D004A820B /* ContentConfigurationWithEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A7266E5D6D004A820B /* ContentConfigurationWithEmoji.swift */; };
+		EA5521AC266E5D6D004A820B /* ContentViewWithEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */; };
 		EA5521B1266E5E13004A820B /* MentionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B0266E5E13004A820B /* MentionsViewModel.swift */; };
 		EA5521B4266E5EE7004A820B /* MentionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5521B3266E5EE7004A820B /* MentionsView.swift */; };
 		EA5FB428266A970F00DCD56C /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */; };
@@ -524,6 +524,11 @@
 		EAE6BDB8267CB0D800275788 /* CustomTextViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDB7267CB0D800275788 /* CustomTextViewConfigurator.swift */; };
 		EAE6BDBD267CB11D00275788 /* MentionsTextViewConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */; };
 		EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDBF267CB69700275788 /* MentionButton.swift */; };
+		EAE6BDF72680C99500275788 /* ObjectTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDF62680C99500275788 /* ObjectTypeService.swift */; };
+		EAE6BDFC2680CC5900275788 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BDFB2680CC5900275788 /* ObjectType.swift */; };
+		EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BE012680CD3E00275788 /* ObjectTypeParser.swift */; };
+		EAE6BE092680D0CE00275788 /* SlashMenuItemIconData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BE082680D0CE00275788 /* SlashMenuItemIconData.swift */; };
+		EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE6BE242681FC5C00275788 /* LoginStateService.swift */; };
 		EAF2D88E2653C43400AA6446 /* TopUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */; };
 		EAF2D8962653C4C600AA6446 /* TopWithChildUIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */; };
 		EAF9837B261B8BB6001D4C55 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */; };
@@ -1025,8 +1030,8 @@
 		EA5521A0266E5CB5004A820B /* FilterableItemsHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterableItemsHolder.swift; sourceTree = "<group>"; };
 		EA5521A5266E5D6D004A820B /* MentionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionView.swift; sourceTree = "<group>"; };
 		EA5521A6266E5D6D004A820B /* MentionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsViewController.swift; sourceTree = "<group>"; };
-		EA5521A7266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionWithEmojiContentConfiguration.swift; sourceTree = "<group>"; };
-		EA5521A8266E5D6D004A820B /* MentionWithEmojiContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionWithEmojiContentView.swift; sourceTree = "<group>"; };
+		EA5521A7266E5D6D004A820B /* ContentConfigurationWithEmoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentConfigurationWithEmoji.swift; sourceTree = "<group>"; };
+		EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewWithEmoji.swift; sourceTree = "<group>"; };
 		EA5521B0266E5E13004A820B /* MentionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsViewModel.swift; sourceTree = "<group>"; };
 		EA5521B3266E5EE7004A820B /* MentionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsView.swift; sourceTree = "<group>"; };
 		EA5FB422266A970E00DCD56C /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
@@ -1086,6 +1091,11 @@
 		EAE6BDB7267CB0D800275788 /* CustomTextViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewConfigurator.swift; sourceTree = "<group>"; };
 		EAE6BDBC267CB11D00275788 /* MentionsTextViewConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionsTextViewConfigurator.swift; sourceTree = "<group>"; };
 		EAE6BDBF267CB69700275788 /* MentionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionButton.swift; sourceTree = "<group>"; };
+		EAE6BDF62680C99500275788 /* ObjectTypeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeService.swift; sourceTree = "<group>"; };
+		EAE6BDFB2680CC5900275788 /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectType.swift; sourceTree = "<group>"; };
+		EAE6BE012680CD3E00275788 /* ObjectTypeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeParser.swift; sourceTree = "<group>"; };
+		EAE6BE082680D0CE00275788 /* SlashMenuItemIconData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuItemIconData.swift; sourceTree = "<group>"; };
+		EAE6BE242681FC5C00275788 /* LoginStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStateService.swift; sourceTree = "<group>"; };
 		EAF2D88D2653C43400AA6446 /* TopUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUIKitView.swift; sourceTree = "<group>"; };
 		EAF2D8952653C4C600AA6446 /* TopWithChildUIKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopWithChildUIKitView.swift; sourceTree = "<group>"; };
 		EAF9837A261B8BB6001D4C55 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
@@ -1428,6 +1438,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				EAE6BDF52680C98700275788 /* Objects */,
 				EA5FB452266E2F6500DCD56C /* Mention */,
 				531197DE26430A8200FFC71E /* BlockActionHandler */,
 				0ACA781023E5C99A00442690 /* ServiceLocator */,
@@ -1444,6 +1455,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				EAE6BDFA2680CC3A00275788 /* ObjectType */,
 				EA5FB453266E309700DCD56C /* Mention */,
 				12BE8E5826565D6D000C95B9 /* Extensions */,
 				0372922C23F991660033DFDB /* Middleware */,
@@ -1578,6 +1590,7 @@
 			children = (
 				03CB3EFD230C0FC4003D5DFD /* AuthServiceProtocol.swift */,
 				0339676F2397DA7E000CB7BA /* AuthService.swift */,
+				EAE6BE242681FC5C00275788 /* LoginStateService.swift */,
 			);
 			path = AuthServices;
 			sourceTree = "<group>";
@@ -1901,15 +1914,15 @@
 		0A78328424BDEB2A00A1B6F6 /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				EAE6BE002680CD2900275788 /* ObjectTypes */,
+				EAE6BDFF2680CD2200275788 /* Mentions */,
+				EAE6BDFE2680CD1800275788 /* Marks */,
 				0A78328B24BDEC2700A1B6F6 /* MiddlewareModelsModule.swift */,
 				0A78328D24BDEC3800A1B6F6 /* MiddlewareModelsModule+Parsers.swift */,
 				0A78328924BDEBF000A1B6F6 /* MiddlewareModelsModule+Parsers+Text.swift */,
 				0A78328024BDEAD300A1B6F6 /* MiddlewareColor.swift */,
 				0A78328224BDEAE700A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText.swift */,
 				0A78328524BDEB5900A1B6F6 /* MiddlewareModelsModule+Parsers+Text+AttributedText+MarkStyle.swift */,
-				EA5FB44E266E2B6400DCD56C /* MentionsParser.swift */,
-				EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */,
-				EAADB1B52678EC9D004B0AF2 /* RangedEither.swift */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -3115,6 +3128,7 @@
 				EA2F0D5F264EAFD50039C1CB /* SlashMenuItemFilterMatch.swift */,
 				EA2F0D64264EB4900039C1CB /* BlockActionAndFilterMatch.swift */,
 				EA2F0D74264ED3D30039C1CB /* BlockActionDisplayDataFilterComparator.swift */,
+				EAE6BE082680D0CE00275788 /* SlashMenuItemIconData.swift */,
 			);
 			path = BlockActions;
 			sourceTree = "<group>";
@@ -3158,8 +3172,8 @@
 			isa = PBXGroup;
 			children = (
 				EA5521A6266E5D6D004A820B /* MentionsViewController.swift */,
-				EA5521A7266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift */,
-				EA5521A8266E5D6D004A820B /* MentionWithEmojiContentView.swift */,
+				EA5521A7266E5D6D004A820B /* ContentConfigurationWithEmoji.swift */,
+				EA5521A8266E5D6D004A820B /* ContentViewWithEmoji.swift */,
 				EA5FB423266A970E00DCD56C /* MentionSection.swift */,
 				EA5FB425266A970E00DCD56C /* MentionDisplayData.swift */,
 				EA5521B0266E5E13004A820B /* MentionsViewModel.swift */,
@@ -3273,6 +3287,47 @@
 				EAE6BDBF267CB69700275788 /* MentionButton.swift */,
 			);
 			path = Mentions;
+			sourceTree = "<group>";
+		};
+		EAE6BDF52680C98700275788 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				EAE6BDF62680C99500275788 /* ObjectTypeService.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		EAE6BDFA2680CC3A00275788 /* ObjectType */ = {
+			isa = PBXGroup;
+			children = (
+				EAE6BDFB2680CC5900275788 /* ObjectType.swift */,
+			);
+			path = ObjectType;
+			sourceTree = "<group>";
+		};
+		EAE6BDFE2680CD1800275788 /* Marks */ = {
+			isa = PBXGroup;
+			children = (
+				EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */,
+				EAADB1B52678EC9D004B0AF2 /* RangedEither.swift */,
+			);
+			path = Marks;
+			sourceTree = "<group>";
+		};
+		EAE6BDFF2680CD2200275788 /* Mentions */ = {
+			isa = PBXGroup;
+			children = (
+				EA5FB44E266E2B6400DCD56C /* MentionsParser.swift */,
+			);
+			path = Mentions;
+			sourceTree = "<group>";
+		};
+		EAE6BE002680CD2900275788 /* ObjectTypes */ = {
+			isa = PBXGroup;
+			children = (
+				EAE6BE012680CD3E00275788 /* ObjectTypeParser.swift */,
+			);
+			path = ObjectTypes;
 			sourceTree = "<group>";
 		};
 		EAF98379261B8B92001D4C55 /* LoadingViewController */ = {
@@ -3607,7 +3662,7 @@
 				5338568726397EB9005A06A9 /* SegmentItemView.swift in Sources */,
 				0A1DACCB244E08930007BC5D /* BlockToolbarAction.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplication+ApplicationWindowInsetsProvider.swift in Sources */,
-				EA5521AB266E5D6D004A820B /* MentionWithEmojiContentConfiguration.swift in Sources */,
+				EA5521AB266E5D6D004A820B /* ContentConfigurationWithEmoji.swift in Sources */,
 				0ACDB078255AA12D00B8B0D8 /* BlockActionsServiceOtherProtocol.swift in Sources */,
 				3DBED69D266FBABC00B9E9AB /* UnknownLabelResource.swift in Sources */,
 				0ACA781D23E5C9A300442690 /* ColorExtension.swift in Sources */,
@@ -3703,6 +3758,7 @@
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				3DBED67D266F8D5300B9E9AB /* LinearIndexWalker.swift in Sources */,
+				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,
 				3DB1E7422639A85600F479BB /* VisualEffectBlur.swift in Sources */,
@@ -3710,6 +3766,7 @@
 				EA77E548262DF30B009F91D9 /* SlashMenuActionsHandler.swift in Sources */,
 				EAA703392643FD6800C4F7F7 /* EventHandlerUpdatePayload.swift in Sources */,
 				EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */,
+				EAE6BE092680D0CE00275788 /* SlashMenuItemIconData.swift in Sources */,
 				3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */,
 				3DE2965026175FA700EADB0A /* CodableAndDictionary.swift in Sources */,
 				3DA369442629D71D001557C9 /* Image+CorrectAspectRatio.swift in Sources */,
@@ -3763,6 +3820,7 @@
 				0A203A8625470FAE00D3729A /* ImageCache.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				0AD7695625D58F1700669F8C /* BlockActionsServiceOther.swift in Sources */,
+				EAE6BDFC2680CC5900275788 /* ObjectType.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				3D0BFB4F263C29E7007CC856 /* SwiftUIImageLoader.swift in Sources */,
@@ -3842,7 +3900,7 @@
 				0AD7694C25D57F2D00669F8C /* BlockActionsServiceText.swift in Sources */,
 				3DF6F61C262ED51E000E05A5 /* FeatureFlags.swift in Sources */,
 				0ACAAD692588DD0F00DF1C82 /* ImageLoader.swift in Sources */,
-				EA5521AC266E5D6D004A820B /* MentionWithEmojiContentView.swift in Sources */,
+				EA5521AC266E5D6D004A820B /* ContentViewWithEmoji.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0AA9401324C192BE006B1774 /* BlocksModelsParserFileContentTypeConverter.swift in Sources */,
@@ -3860,6 +3918,7 @@
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				3DE511FB2671275700153962 /* BlockActionServiceProtocol.swift in Sources */,
+				EAE6BE022680CD3E00275788 /* ObjectTypeParser.swift in Sources */,
 				120F7D84267F8B5900327734 /* BookmarkViewModelContentConfiguration.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				EAE6BDC0267CB69700275788 /* MentionButton.swift in Sources */,
@@ -3925,6 +3984,7 @@
 				0A10CC98248FFDE7000FF498 /* BlockPageLinkViewModel.swift in Sources */,
 				EA289BE5262AE61200EA869F /* BlockAction.swift in Sources */,
 				EAC6BB4B26288691004C8C06 /* InputSwitcher.swift in Sources */,
+				EAE6BDF72680C99500275788 /* ObjectTypeService.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				3D347BE6268205B1004BACD5 /* BookmarkViewController.swift in Sources */,
 				0A005AAC24C4731D000520AA /* BlocksViews+New+File+File.swift in Sources */,

@@ -66,11 +66,11 @@ final class MentionsViewController: UITableViewController {
     private func confguration(for mention: MentionObject) -> UIContentConfiguration {
         switch mention.iconData {
         case .none:
-            return MentionWithEmojiContentConfiguration(emoji: mention.name?.first?.uppercased() ?? "",
+            return ContentConfigurationWithEmoji(emoji: mention.name?.first?.uppercased() ?? "",
                                                         name: mention.name,
                                                         description: mention.description)
         case let .emoji(emoji):
-            return MentionWithEmojiContentConfiguration(emoji: emoji.value,
+            return ContentConfigurationWithEmoji(emoji: emoji.value,
                                                         name: mention.name,
                                                         description: mention.description)
         case .imageId:

@@ -24,9 +24,11 @@ final class ServiceLocator {
     
     /// creates new authService
     func authService() -> AuthServiceProtocol {
-        AuthService(
+        let service = seedService()
+        return AuthService(
             localRepoService: localRepoService(),
-            seedService: seedService()
+            seedService: service,
+            loginStateService: LoginStateService(seedService: service)
         )
     }
     

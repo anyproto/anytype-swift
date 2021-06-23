@@ -11,22 +11,22 @@ private extension LoggerCategory {
 final class AuthService: AuthServiceProtocol {
     private let seedService: SeedServiceProtocol
     private let rootPath: String
+    private let loginStateService: LoginStateService
     
     init(
         localRepoService: LocalRepoServiceProtocol,
-        seedService: SeedServiceProtocol
+        seedService: SeedServiceProtocol,
+        loginStateService: LoginStateService
     ) {
         self.seedService = seedService
         self.rootPath = localRepoService.middlewareRepoPath
+        self.loginStateService = loginStateService
     }
 
     func logout(completion: @escaping () -> Void) {
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: false)
         
-        try? seedService.removeSeed()
-        UserDefaultsConfig.usersIdKey = ""
-        MiddlewareConfiguration.shared = nil
-        
+        loginStateService.cleanStateAfterLogout()
         completion()
     }
 
@@ -98,8 +98,9 @@ final class AuthService: AuthServiceProtocol {
                 case .finished: break
                 case .failure(_): onCompletion(.failure(.selectAccountError()))
                 }
-            }) { response in
+            }) { [weak self] response in
                 UserDefaultsConfig.usersIdKey = response.account.id
+                self?.loginStateService.setupStateAfterLoginOrAuth()
                 onCompletion(.success(response.account.id))
         }
     }

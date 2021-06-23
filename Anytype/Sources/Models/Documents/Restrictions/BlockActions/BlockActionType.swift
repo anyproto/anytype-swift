@@ -2,7 +2,7 @@
 enum BlockActionType {
     case style(BlockStyleAction)
     case media(BlockMediaAction)
-    case objects
+    case objects(ObjectType)
     case relations
     case other(BlockOtherAction)
     case actions(BlockAction)
@@ -13,21 +13,25 @@ enum BlockActionType {
     var displayData: SlashMenuItemDisplayData {
         switch self {
         case let .actions(action):
-            return SlashMenuItemDisplayData(imageName: action.iconName, title: action.title)
+            return SlashMenuItemDisplayData(iconData: .imageNamed(action.iconName), title: action.title)
         case let .alignment(alignment):
-            return SlashMenuItemDisplayData(imageName: alignment.iconName, title: alignment.title)
+            return SlashMenuItemDisplayData(iconData: .imageNamed(alignment.iconName), title: alignment.title)
         case let .background(color):
-            return SlashMenuItemDisplayData(imageName: color.iconName, title: color.title)
+            return SlashMenuItemDisplayData(iconData: .imageNamed(color.iconName), title: color.title)
         case let .color(color):
-            return SlashMenuItemDisplayData(imageName: color.iconName, title: color.title)
+            return SlashMenuItemDisplayData(iconData: .imageNamed(color.iconName), title: color.title)
         case let .media(media):
-            return SlashMenuItemDisplayData(imageName: media.iconName, title: media.title, subtitle: media.subtitle)
+            return SlashMenuItemDisplayData(iconData: .imageNamed(media.iconName), title: media.title, subtitle: media.subtitle)
         case let .style(style):
-            return SlashMenuItemDisplayData(imageName: style.iconName, title: style.title, subtitle: style.subtitle)
+            return SlashMenuItemDisplayData(iconData: .imageNamed(style.iconName), title: style.title, subtitle: style.subtitle)
         case let .other(other):
-            return SlashMenuItemDisplayData(imageName: other.iconName, title: other.title)
-        case .objects, .relations:
-            return SlashMenuItemDisplayData(imageName: "", title: "")
+            return SlashMenuItemDisplayData(iconData: .imageNamed(other.iconName), title: other.title)
+        case let .objects(object):
+            return SlashMenuItemDisplayData(iconData: .emoji(object.emoji),
+                                            title: object.name,
+                                            subtitle: object.description)
+        case .relations:
+            return SlashMenuItemDisplayData(iconData: .imageNamed(""), title: "")
         }
     }
 }

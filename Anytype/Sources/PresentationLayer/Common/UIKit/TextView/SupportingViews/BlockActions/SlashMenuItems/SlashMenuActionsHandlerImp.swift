@@ -33,7 +33,7 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
         case let .media(media):
             addBlockAndActionsSubject.send(.addBlock(media.blockViewsType))
         case .objects:
-            break
+            addBlockAndActionsSubject.send(.addBlock(.objects(.page)))
         case .relations:
             break
         case let .other(other):
