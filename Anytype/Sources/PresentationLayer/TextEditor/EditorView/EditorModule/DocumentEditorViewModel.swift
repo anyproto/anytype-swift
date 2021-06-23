@@ -230,21 +230,11 @@ private extension DocumentEditorViewModel {
             viewInput?.showCodeLanguageView(with: languages, completion: completion)
         case let .showStyleMenu(blockModel, blockViewModel):
             viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
-        case .toolbar, .uploadFile, .fetch, .checkboxTap, .toggle:
+        case .uploadFile, .fetch, .checkboxTap, .toggle:
             return
         }
     }
 }
-
-extension DocumentEditorViewModel {
-    
-    struct Toolbar {
-        let model: [BlockId]
-        let action: BlockToolbarAction
-    }
-    
-}
-
 
 // MARK: - Debug
 

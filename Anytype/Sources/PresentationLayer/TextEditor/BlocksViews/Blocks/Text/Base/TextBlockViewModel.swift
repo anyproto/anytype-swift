@@ -34,7 +34,6 @@ class TextBlockViewModel: BaseBlockViewModel {
         return TextBlockContentConfiguration(
             textViewDelegate: self,
             viewModel: self,
-            toolbarActionSubject: toolbarActionSubject,
             blockActionHandler: actionHandler,
             mentionsConfigurator: configutator
         )

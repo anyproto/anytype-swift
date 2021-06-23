@@ -5,7 +5,6 @@ import Combine
 
 struct TextBlockContentConfiguration {
     
-    let toolbarActionSubject: PassthroughSubject<BlockToolbarAction, Never>
     let viewModel: TextBlockViewModel
     let information: BlockInformation
     weak var blockActionHandler: NewBlockActionHandler?
@@ -17,11 +16,9 @@ struct TextBlockContentConfiguration {
     init(
         textViewDelegate: TextViewDelegate?,
         viewModel: TextBlockViewModel,
-        toolbarActionSubject: PassthroughSubject<BlockToolbarAction, Never>,
         blockActionHandler: NewBlockActionHandler?,
         mentionsConfigurator: MentionsTextViewConfigurator
     ) {
-        self.toolbarActionSubject = toolbarActionSubject
         self.textViewDelegate = textViewDelegate
         self.information = viewModel.information
         self.viewModel = viewModel

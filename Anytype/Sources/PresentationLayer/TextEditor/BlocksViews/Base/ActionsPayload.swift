@@ -3,7 +3,6 @@ import UIKit
 
 typealias TextViewAction = CustomTextView.UserAction
 enum ActionPayload {
-    case toolbar(block: BlockActiveRecordModelProtocol, action: BlockToolbarAction)
     case fetch(block: BlockActiveRecordModelProtocol, url: URL)
     
     case textView(block: BlockActiveRecordModelProtocol, action: TextViewAction)

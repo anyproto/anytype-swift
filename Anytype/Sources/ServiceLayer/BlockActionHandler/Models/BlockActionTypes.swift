@@ -20,5 +20,7 @@ extension BlockActionHandler {
         
         case duplicate
         case delete
+        case addBlock(BlockViewType)
+        case turnIntoBlock(BlockViewType)
     }
 }

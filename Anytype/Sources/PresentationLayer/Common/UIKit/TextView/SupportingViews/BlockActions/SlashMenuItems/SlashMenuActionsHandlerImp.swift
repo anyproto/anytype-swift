@@ -4,16 +4,11 @@ import UIKit
 
 final class SlashMenuActionsHandlerImp {
     
-    private let addBlockAndActionsSubject: PassthroughSubject<BlockToolbarAction, Never>
     private var initialCaretPosition: UITextPosition?
     private weak var textView: UITextView?
     private weak var blockActionHandler: NewBlockActionHandler?
     
-    init(
-        addBlockAndActionsSubject: PassthroughSubject<BlockToolbarAction, Never>,
-        blockActionHandler: NewBlockActionHandler?
-    ) {
-        self.addBlockAndActionsSubject = addBlockAndActionsSubject
+    init(blockActionHandler: NewBlockActionHandler?) {
         self.blockActionHandler = blockActionHandler
     }
 }
@@ -31,13 +26,13 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
         case let .style(style):
             handleStyle(style)
         case let .media(media):
-            addBlockAndActionsSubject.send(.addBlock(media.blockViewsType))
+            blockActionHandler?.handleActionForFirstResponder(.addBlock(media.blockViewsType))
         case .objects:
             addBlockAndActionsSubject.send(.addBlock(.objects(.page)))
         case .relations:
             break
         case let .other(other):
-            addBlockAndActionsSubject.send(.addBlock(other.blockViewsType))
+            blockActionHandler?.handleActionForFirstResponder(.addBlock(other.blockViewsType))
         case let .color(color):
             blockActionHandler?.handleActionForFirstResponder(
                 .setTextColor(color)
@@ -78,39 +73,31 @@ private extension SlashMenuActionsHandlerImp {
     private func handleStyle(_ style: BlockStyleAction) {
         switch style {
         case .text:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.text)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.text)))
         case .title:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h1)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.h1)))
         case .heading:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h2)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.h2)))
         case .subheading:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.h3)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.h3)))
         case .highlighted:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.text(.highlighted)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.text(.highlighted)))
         case .checkbox:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.checkbox)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.checkbox)))
         case .bulleted:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.bulleted)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.bulleted)))
         case .numberedList:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.numbered)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.numbered)))
         case .toggle:
-            addBlockAndActionsSubject.send(.turnIntoBlock(.list(.toggle)))
+            blockActionHandler?.handleActionForFirstResponder(.turnIntoBlock(.list(.toggle)))
         case .bold:
-            blockActionHandler?.handleActionForFirstResponder(
-                .toggleFontStyle(.bold)
-            )
+            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.bold))
         case .italic:
-            blockActionHandler?.handleActionForFirstResponder(
-                .toggleFontStyle(.italic)
-            )
+            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.italic))
         case .breakthrough:
-            blockActionHandler?.handleActionForFirstResponder(
-                .toggleFontStyle(.strikethrough)
-            )
+            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.strikethrough))
         case .code:
-            blockActionHandler?.handleActionForFirstResponder(
-                .toggleFontStyle(.keyboard)
-            )
+            blockActionHandler?.handleActionForFirstResponder(.toggleFontStyle(.keyboard))
         case .link:
             break
         }

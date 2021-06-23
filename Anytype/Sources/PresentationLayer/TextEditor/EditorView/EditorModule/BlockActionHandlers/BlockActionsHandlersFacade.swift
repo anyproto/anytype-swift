@@ -20,11 +20,6 @@ final class BlockActionsHandlersFacade {
         service: service,
         indexWalker: indexWalker
     )
-    
-    private lazy var toolbarBlockActionHandler = ToolbarBlockActionHandler(
-        service: service,
-        indexWalker: indexWalker
-    )
 
     private let reactionSubject: PassthroughSubject<PackOfEvents?, Never> = .init()
     lazy var reactionPublisher: AnyPublisher<PackOfEvents, Never> = reactionSubject.safelyUnwrapOptionals().eraseToAnyPublisher()
@@ -75,7 +70,6 @@ final class BlockActionsHandlersFacade {
             service.upload(block: model.blockModel.information, filePath: filePath)
         case .showCodeLanguageView: return
         case .showStyleMenu: return
-        case let .toolbar(model, action): toolbarBlockActionHandler.handlingToolbarAction(model, action)
         case let .fetch(block: model, url: url):
             service.bookmarkFetch(block: model.blockModel.information, url: url.absoluteString)
         case let .checkboxTap(block: model, selected: selected):

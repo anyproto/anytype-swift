@@ -49,11 +49,81 @@ class BlockActionHandler {
             assertionFailure("Action has not implemented yet \(String(describing: action))")
         case .delete:
             delete(block: block)
+        case let .addBlock(type):
+            addBlock(block: block, type: type)
+        case let .turnIntoBlock(type):
+            turnIntoBlock(block: block, type: type)
+        }
+    }
+    
+    private func turnIntoBlock(block: BlockModelProtocol, type: BlockViewType) {
+        switch type {
+       case let .text(value): // Set Text Style
+           let type: BlockContent
+           switch value {
+           case .text: type = .text(.empty())
+           case .h1: type = .text(.init(contentType: .header))
+           case .h2: type = .text(.init(contentType: .header2))
+           case .h3: type = .text(.init(contentType: .header3))
+           case .highlighted: type = .text(.init(contentType: .quote))
+           }
+           self.service.turnInto(block: block.information, type: type, shouldSetFocusOnUpdate: false)
+
+       case let .list(value): // Set Text Style
+           let type: BlockContent
+           switch value {
+           case .bulleted: type = .text(.init(contentType: .bulleted))
+           case .checkbox: type = .text(.init(contentType: .checkbox))
+           case .numbered: type = .text(.init(contentType: .numbered))
+           case .toggle: type = .text(.init(contentType: .toggle))
+           }
+           self.service.turnInto(block: block.information, type: type, shouldSetFocusOnUpdate: false)
+
+       case let .other(value): // Change divider style.
+           let type: BlockContent
+           switch value {
+           case .lineDivider: type = .divider(.init(style: .line))
+           case .dotsDivider: type = .divider(.init(style: .dots))
+           case .code: return
+           }
+           self.service.turnInto(block: block.information, type: type, shouldSetFocusOnUpdate: false)
+
+       case .objects(.page):
+           let type: BlockContent = .smartblock(.init(style: .page))
+           self.service.turnInto(block: block.information, type: type, shouldSetFocusOnUpdate: false)
+
+        case .objects(.file):
+            assertionFailure("TurnInto for that style is not implemented \(type)")
+        case .objects(.picture):
+            assertionFailure("TurnInto for that style is not implemented \(type)")
+        case .objects(.video):
+            assertionFailure("TurnInto for that style is not implemented \(type)")
+        case .objects(.bookmark):
+            assertionFailure("TurnInto for that style is not implemented \(type)")
+        case .objects(.linkToObject):
+            assertionFailure("TurnInto for that style is not implemented \(type)")
+        case .tool(_):
+            assertionFailure("TurnInto for that style is not implemented \(type)")
+        }
+    }
+    
+    private func addBlock(block: BlockModelProtocol, type: BlockViewType) {
+        switch type {
+        case .objects(.page):
+            service.createPage(afterBlock: block.information)
+        default:
+            guard let newBlock = BlockBuilder.createInformation(blockType: type) else {
+                return
+            }
+
+            let shouldSetFocusOnUpdate = newBlock.content.isText ? true : false
+            let position: BlockPosition = block.isTextAndEmpty ? .replace : .bottom
+
+            service.add(newBlock: newBlock, targetBlockId: block.information.id, position: position, shouldSetFocusOnUpdate: shouldSetFocusOnUpdate)
         }
     }
     
     private func delete(block: BlockModelProtocol) {
-        
         // TODO: think how to manage duplicated coded in diff handlers
         // self.handlingKeyboardAction(block, .pressKey(.delete))
         service.delete(block: block.information) { [weak self] value in

@@ -18,13 +18,9 @@ struct BlockBuilder {
         }
     }
 
-    static func createInformation(block: BlockActiveRecordModelProtocol, action: BlockToolbarAction, textPayload: String = "") -> BlockInformation? {
-        switch action {
-        case .addBlock:
-            return createContentType(block: block, action: action, textPayload: textPayload)
-                .flatMap { (newBlockId(), $0) }
-                .map(BlockInformation.init)
-        default: return nil
+    static func createInformation(blockType: BlockViewType) -> BlockInformation? {
+        return createContentType(blockType: blockType).flatMap {
+            BlockInformation(id: newBlockId(), content: $0)
         }
     }
     
@@ -59,45 +55,40 @@ struct BlockBuilder {
         }
     }
 
-    static func createContentType(block: BlockActiveRecordModelProtocol,
-                                  action: BlockToolbarAction,
-                                  textPayload: String = "") -> BlockContent? {
-        switch action {
-        case let .addBlock(blockType):
-            switch blockType {
-            case let .text(value):
-                switch value {
-                case .text: return .text(.init(contentType: .text))
-                case .h1: return .text(.init(contentType: .header))
-                case .h2: return .text(.init(contentType: .header2))
-                case .h3: return .text(.init(contentType: .header3))
-                case .highlighted: return .text(.init(contentType: .quote))
-                }
-            case let .list(value):
-                switch value {
-                case .bulleted: return .text(.init(contentType: .bulleted))
-                case .checkbox: return .text(.init(contentType: .checkbox))
-                case .numbered: return .text(.init(contentType: .numbered))
-                case .toggle: return .text(.init(contentType: .toggle))
-                }
-            case let .objects(mediaType):
-                switch mediaType {
-                case .page: return .link(.init(style: .page))
-                case .picture: return .file(.init(contentType: .image))
-                case .bookmark: return .bookmark(.empty())
-                case .file: return .file(.init(contentType: .file))
-                case .video: return .file(.init(contentType: .video))
-                case .linkToObject: return nil
-                }
-            case let .other(value):
-                switch value {
-                case .lineDivider: return .divider(.init(style: .line))
-                case .dotsDivider: return .divider(.init(style: .dots))
-                case .code: return .text(BlockText(contentType: .code))
-                }
-            default: return nil
+    private static func createContentType(blockType: BlockViewType) -> BlockContent? {
+        switch blockType {
+        case let .text(value):
+            switch value {
+            case .text: return .text(.init(contentType: .text))
+            case .h1: return .text(.init(contentType: .header))
+            case .h2: return .text(.init(contentType: .header2))
+            case .h3: return .text(.init(contentType: .header3))
+            case .highlighted: return .text(.init(contentType: .quote))
             }
-        default: return nil
+        case let .list(value):
+            switch value {
+            case .bulleted: return .text(.init(contentType: .bulleted))
+            case .checkbox: return .text(.init(contentType: .checkbox))
+            case .numbered: return .text(.init(contentType: .numbered))
+            case .toggle: return .text(.init(contentType: .toggle))
+            }
+        case let .objects(mediaType):
+            switch mediaType {
+            case .page: return .link(.init(style: .page))
+            case .picture: return .file(.init(contentType: .image))
+            case .bookmark: return .bookmark(.empty())
+            case .file: return .file(.init(contentType: .file))
+            case .video: return .file(.init(contentType: .video))
+            case .linkToObject: return nil
+            }
+        case let .other(value):
+            switch value {
+            case .lineDivider: return .divider(.init(style: .line))
+            case .dotsDivider: return .divider(.init(style: .dots))
+            case .code: return .text(BlockText(contentType: .code))
+            }
+        case .tool(_):
+            return nil
         }
     }
 }

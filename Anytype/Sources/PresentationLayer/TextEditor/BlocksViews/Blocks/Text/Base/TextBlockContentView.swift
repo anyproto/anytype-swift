@@ -64,7 +64,6 @@ final class TextBlockContentView: UIView & UIContentView {
 
     private(set) lazy var textView: CustomTextView = {
         let actionsHandler = SlashMenuActionsHandlerImp(
-            addBlockAndActionsSubject: currentConfiguration.toolbarActionSubject,
             blockActionHandler: currentConfiguration.blockActionHandler
         )
         

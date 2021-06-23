@@ -28,27 +28,10 @@ class BaseBlockViewModel: ObservableObject {
             block = update(block, body: body)
         }
     }
-    
-    // MARK: Toolbar Action Publisher
-
-    /// This Pair ( Publisher and Subject ) can manipulate with `ActionsPayload.Toolbar.Action`.
-    /// For example, if you would like to show AddBlock toolbar, you will do these steps:
-    ///
-    /// 1. Create an action that will show desired Toolbar ( AddBlock in our case. )
-    /// 2. Set Output to `toolbarActionSubject` for this AddBlock Toolbar.
-    /// 3. Send `showEvent` to `userActionSubject` with desired configured action ( show(AddBlockToolbar(action(output)))
-    /// 4. Listen `toolbarActionPublisher` for incoming events from user.
-    ///
-    /// If user press something, then AddBlockToolbar will send user action to `PassthroughSubject` ( or `toolbarActionSubject` in our case ).
-    ///
-    public private(set) var toolbarActionSubject: PassthroughSubject<BlockToolbarAction, Never> = .init()
-    public lazy var toolbarActionPublisher: AnyPublisher<BlockToolbarAction, Never> = toolbarActionSubject.eraseToAnyPublisher()
 
     // MARK: Actions Payload Publisher
 
     private(set) var actionsPayloadSubject: PassthroughSubject<ActionPayload, Never> = .init()
-    
-    private var actionsPayloadSubjectSubscription: AnyCancellable?
     
     // MARK: - Handle events
     
@@ -95,7 +78,7 @@ class BaseBlockViewModel: ObservableObject {
         case let .general(value):
             switch value {
             case .addBlockBelow:
-                toolbarActionSubject.send(.addBlock(.text(.text)))
+                actionHandler?.handleAction(.addBlock(.text(.text)), model: block.blockModel)
             case .delete:
                 actionHandler?.handleAction(.delete, model: block.blockModel)
             case .duplicate:
@@ -106,7 +89,7 @@ class BaseBlockViewModel: ObservableObject {
         case let .specific(value):
             switch value {
             case .turnIntoPage:
-                toolbarActionSubject.send(.turnIntoBlock(.objects(.page)))
+                actionHandler?.handleAction(.turnIntoBlock(.objects(.page)), model: block.blockModel)
             case .style:
                 send(action: .showStyleMenu(block: block.blockModel, viewModel: self))
             case .color:
@@ -138,15 +121,6 @@ extension BaseBlockViewModel {
     
     func configured(actionsPayloadSubject: PassthroughSubject<ActionPayload, Never>) {
         self.actionsPayloadSubject = actionsPayloadSubject
-        
-        let toolbarPublisher = self.toolbarActionPublisher.map { [weak self] value -> ActionPayload? in
-            guard let block = self?.block else { return nil }
-            return ActionPayload.toolbar(block: block, action: value)
-        }.safelyUnwrapOptionals()
-        
-        self.actionsPayloadSubjectSubscription = toolbarPublisher.sink(receiveValue: { [weak self] (value) in
-            self?.actionsPayloadSubject.send(value)
-        })
     }
 }
 
