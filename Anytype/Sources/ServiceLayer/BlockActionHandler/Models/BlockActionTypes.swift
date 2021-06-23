@@ -22,5 +22,10 @@ extension BlockActionHandler {
         case delete
         case addBlock(BlockViewType)
         case turnIntoBlock(BlockViewType)
+        
+        case fetch(url: URL)
+
+        case toggle
+        case checkbox(selected: Bool)
     }
 }

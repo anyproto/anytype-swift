@@ -27,7 +27,7 @@ protocol BlockActionServiceProtocol {
     func setBackgroundColor(block: BlockInformation, color: BlockBackgroundColor)
     func setBackgroundColor(block: BlockInformation, color: MiddlewareColor)
     
-    func checked(block: BlockActiveRecordModelProtocol, newValue: Bool)
+    func checked(blockId: BlockId, newValue: Bool)
     
     func duplicate(block: BlockInformation)
     

@@ -3,28 +3,32 @@ import Combine
 import BlocksModels
 
 final class BookmarkToolbarViewModel {
-    let action: AnyPublisher<ActionPayload, Never>
-    let dismissControllerPublisher: AnyPublisher<Void, Never>
+    private weak var actionHandler: NewBlockActionHandler?
+    weak var controller: BookmarkViewController!
     
     // MARK: Subscriptions
-    private var subscriptions: Set<AnyCancellable> = []
+    private var subscription: AnyCancellable?
             
     // MARK: Models
     @ObservedObject private var bookmarkViewModel: BlockToolbarBookmark.ViewModel
     
     private let model: BlockActiveRecordModelProtocol
+    private let completion: (URL) -> ()
     
     // MARK: Initialization
-    init(model: BlockActiveRecordModelProtocol) {
+    init(
+        model: BlockActiveRecordModelProtocol,
+        completion: @escaping (URL) -> ()
+    ) {
         self.model = model
         let bookmarkViewModel = BlockToolbarBookmark.ViewModelBuilder.create()
         self.bookmarkViewModel = bookmarkViewModel
+        self.completion = completion
         
-        self.action = bookmarkViewModel.userAction.map { value in
-            ActionPayload.fetch(block: model, url: value)
-        } .eraseToAnyPublisher()
-        
-        self.dismissControllerPublisher = self.action.successToVoid().eraseToAnyPublisher()
+        subscription = bookmarkViewModel.userAction.sink { [weak self] url in
+            self?.controller?.dismiss(animated: true, completion: nil)
+            completion(url)
+        }
     }
             
     // MARK: Get Chosen View
@@ -33,15 +37,6 @@ final class BookmarkToolbarViewModel {
             view: BlockToolbarBookmark.InputViewBuilder.createView(self._bookmarkViewModel),
             payload: .init(title: self.bookmarkViewModel.title)
         )
-    }
-}
-
-// MARK: Subscriptions
-// TODO: Move this method to protocol.
-// Theoretically each class can get power of this method.
-extension BookmarkToolbarViewModel {
-    func subscribe<S, T>(subject: S, keyPath: KeyPath<BookmarkToolbarViewModel, T>) where T: Publisher, S: Subject, T.Output == S.Output, T.Failure == S.Failure {
-        self[keyPath: keyPath].subscribe(subject).store(in: &self.subscriptions)
     }
 }
 

@@ -70,12 +70,6 @@ final class BlockActionsHandlersFacade {
             service.upload(block: model.blockModel.information, filePath: filePath)
         case .showCodeLanguageView: return
         case .showStyleMenu: return
-        case let .fetch(block: model, url: url):
-            service.bookmarkFetch(block: model.blockModel.information, url: url.absoluteString)
-        case let .checkboxTap(block: model, selected: selected):
-            service.checked(block: model, newValue: selected)
-        case let .toggle(block: model, _):
-            service.receiveOurEvents([.setToggled(blockId: model.blockId)])
         }
     }
 }

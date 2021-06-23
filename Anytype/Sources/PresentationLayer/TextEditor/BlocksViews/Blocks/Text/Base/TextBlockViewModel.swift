@@ -190,11 +190,11 @@ extension TextBlockViewModel {
     }
     
     func onCheckboxTap(selected: Bool) {
-        send(action: .checkboxTap(block: block, selected: selected))
+        actionHandler?.handleAction(.checkbox(selected: selected), model: block.blockModel)
     }
     
     func onToggleTap(toggled: Bool) {
-        send(action: .toggle(block: block, toggled: toggled))
+        actionHandler?.handleAction(.toggle, model: block.blockModel)
     }
     
 }

@@ -230,7 +230,7 @@ private extension DocumentEditorViewModel {
             viewInput?.showCodeLanguageView(with: languages, completion: completion)
         case let .showStyleMenu(blockModel, blockViewModel):
             viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
-        case .uploadFile, .fetch, .checkboxTap, .toggle:
+        case .uploadFile:
             return
         }
     }

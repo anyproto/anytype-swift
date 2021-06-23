@@ -5,11 +5,6 @@ import os
 import BlocksModels
 import MobileCoreServices
 
-// TODO: Rethink.
-// Maybe we should use SwiftUI which will be embedded in UIKit.
-// In this case we will receive simple updates of all views.
-
-// MARK: ViewModel
 final class BookmarkViewModel: BaseBlockViewModel {
     
     let imagesPublished = Resource.ImageLoader()
@@ -26,7 +21,6 @@ final class BookmarkViewModel: BaseBlockViewModel {
         delegate: BaseBlockDelegate?,
         router: EditorRouterProtocol?,
         actionHandler: NewBlockActionHandler?
-        
     ) {
         self.router = router
         super.init(block, delegate: delegate, actionHandler: actionHandler)
@@ -50,7 +44,10 @@ final class BookmarkViewModel: BaseBlockViewModel {
                 router?.openUrl($0)
             }
         } else {
-            router?.showBookmark(model: block, actionsSubject: actionsPayloadSubject)
+            router?.showBookmark(model: block) { [weak self] url in
+                guard let self = self else { return }
+                self.actionHandler?.handleAction(.fetch(url: url), model: self.block.blockModel)
+            }
         }
     }
     

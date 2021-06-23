@@ -53,6 +53,12 @@ class BlockActionHandler {
             addBlock(block: block, type: type)
         case let .turnIntoBlock(type):
             turnIntoBlock(block: block, type: type)
+        case let .fetch(url: url):
+            service.bookmarkFetch(block: block.information, url: url.absoluteString)
+        case .toggle:
+            service.receiveOurEvents([.setToggled(blockId: block.information.id)])
+        case .checkbox(selected: let selected):
+            service.checked(blockId: block.information.id, newValue: selected)
         }
     }
     

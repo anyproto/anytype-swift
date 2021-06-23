@@ -7,16 +7,10 @@ final class BookmarkViewController: UIViewController {
     // MARK: Variables
     private let model: BookmarkToolbarViewModel
     
-    // MARK: Subscriptions
-    private var subscriptions: Set<AnyCancellable> = []
-    
     // MARK: Initialization
     init(model: BookmarkToolbarViewModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
-        model.dismissControllerPublisher.sink { [weak self] _ in
-            self?.dismiss(animated: true, completion: nil)
-        }.store(in: &self.subscriptions)
     }
     
     required init?(coder: NSCoder) {

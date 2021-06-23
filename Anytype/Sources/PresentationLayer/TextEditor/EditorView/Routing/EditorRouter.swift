@@ -10,7 +10,7 @@ protocol EditorRouterProtocol {
     
     func showPage(with id: BlockId)
     func openUrl(_ url: URL)
-    func showBookmark(model: BlockActiveRecordModelProtocol, actionsSubject: PassthroughSubject<ActionPayload, Never>)
+    func showBookmark(model: BlockActiveRecordModelProtocol, completion: @escaping (URL) -> ())
     
     func showFilePicker(model: FilePickerModel)
     func showImagePicker(model: MediaPickerModel)
@@ -44,13 +44,10 @@ final class EditorRouter: EditorRouterProtocol {
         preseningViewController?.present(safariController, animated: true, completion: nil)
     }
     
-    func showBookmark(model: BlockActiveRecordModelProtocol, actionsSubject: PassthroughSubject<ActionPayload, Never>) {
-        let viewModel = BookmarkToolbarViewModel(model: model)
-        
-        /// We want to receive values.
-        viewModel.subscribe(subject: actionsSubject, keyPath: \.action)
-        
+    func showBookmark(model: BlockActiveRecordModelProtocol, completion: @escaping (URL) -> ()) {
+        let viewModel = BookmarkToolbarViewModel(model: model, completion: completion)
         let controller = BookmarkViewController(model: viewModel)
+        viewModel.controller = controller
         preseningViewController?.present(controller, animated: true, completion: nil)
     }
     

@@ -28,7 +28,7 @@ extension SlashMenuActionsHandlerImp: SlashMenuActionsHandler {
         case let .media(media):
             blockActionHandler?.handleActionForFirstResponder(.addBlock(media.blockViewsType))
         case .objects:
-            addBlockAndActionsSubject.send(.addBlock(.objects(.page)))
+            blockActionHandler?.handleActionForFirstResponder(.addBlock(.objects(.page)))
         case .relations:
             break
         case let .other(other):

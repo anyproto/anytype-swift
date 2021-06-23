@@ -123,17 +123,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    /// Set checkbox state for block
-    ///
-    /// - Parameters:
-    ///   - block: Block to change checkbox state
-    ///   - newValue: New value of checkbox
-    func checked(block: BlockActiveRecordModelProtocol, newValue: Bool) {
-        self.textService.checked(
-            contextId: self.documentId,
-            blockId: block.blockId,
-            newValue: newValue
-        )
+    func checked(blockId: BlockId, newValue: Bool) {
+        self.textService.checked(contextId: documentId, blockId: blockId, newValue: newValue)
             .receiveOnMain()
             .sinkWithDefaultCompletion("textService.checked with payload") { [weak self] value in
                 self?.didReceiveEvent(PackOfEvents(contextId: value.contextID, events: value.messages))
