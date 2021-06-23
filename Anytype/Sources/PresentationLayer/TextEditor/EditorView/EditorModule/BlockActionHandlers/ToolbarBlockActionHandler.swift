@@ -11,11 +11,7 @@ final class ToolbarBlockActionHandler {
         self.indexWalker = indexWalker
     }
 
-    func model(beforeModel: BlockActiveRecordModelProtocol, includeParent: Bool) -> BlockActiveRecordModelProtocol? {
-        return indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
-    }
-
-    func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockToolbarAction) {
+func handlingToolbarAction(_ block: BlockActiveRecordModelProtocol, _ action: BlockToolbarAction) {
         switch action {
         case let .addBlock(blockType):
             switch blockType {
@@ -71,19 +67,6 @@ final class ToolbarBlockActionHandler {
             default:
                 assertionFailure("TurnInto for that style is not implemented \(String(describing: action))")
             }
-        case .deleteBlock:
-            // TODO: think how to manage duplicated coded in diff handlers
-            // self.handlingKeyboardAction(block, .pressKey(.delete))
-            self.service.delete(block: block.blockModel.information) { value in
-                guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
-                    return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
-                }
-                let previousBlockId = previousModel.blockId
-                return .init(contextId: value.contextID, events: value.messages, ourEvents: [
-                    .setFocus(blockId: previousBlockId, position: .end)
-                ])
-            }
-        case .duplicateBlock: self.service.duplicate(block: block.blockModel.information)
         }
     }
 }

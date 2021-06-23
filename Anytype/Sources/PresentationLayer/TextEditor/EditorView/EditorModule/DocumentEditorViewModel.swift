@@ -32,7 +32,8 @@ class DocumentEditorViewModel: ObservableObject {
     
     private lazy var blockActionHandler = BlockActionHandler(
         documentId: document.documentId,
-        documentViewInteraction: self
+        documentViewInteraction: self,
+        indexWalker: LinearIndexWalker(self)
     )
     
     // Combine Subscriptions
@@ -229,7 +230,8 @@ private extension DocumentEditorViewModel {
             viewInput?.showCodeLanguageView(with: languages, completion: completion)
         case let .showStyleMenu(blockModel, blockViewModel):
             viewInput?.showStyleMenu(blockModel: blockModel, blockViewModel: blockViewModel)
-        case .toolbar, .uploadFile, .fetch, .checkboxTap, .toggle: return
+        case .toolbar, .uploadFile, .fetch, .checkboxTap, .toggle:
+            return
         }
     }
 }

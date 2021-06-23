@@ -19,12 +19,13 @@ final class BlockPageLinkViewModel: BaseBlockViewModel {
         targetBlockId: String,
         publisher: AnyPublisher<DetailsData, Never>?,
         router: EditorRouterProtocol?,
-        delegate: BaseBlockDelegate?
+        delegate: BaseBlockDelegate?,
+        actionHandler: NewBlockActionHandler?
     ) {
         self.targetBlockId = targetBlockId
         self.router = router
         
-        super.init(block, delegate: delegate)
+        super.init(block, delegate: delegate, actionHandler: actionHandler)
 
         setup(block: block)
         setupSubscriptions(publisher)

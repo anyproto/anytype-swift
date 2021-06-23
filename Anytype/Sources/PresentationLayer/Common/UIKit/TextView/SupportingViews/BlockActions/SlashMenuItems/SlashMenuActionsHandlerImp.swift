@@ -119,9 +119,9 @@ private extension SlashMenuActionsHandlerImp {
     private func handleActions(_ action: BlockAction) {
         switch action {
         case .delete:
-            addBlockAndActionsSubject.send(.deleteBlock)
+            blockActionHandler?.handleActionForFirstResponder(.delete)
         case .duplicate:
-            addBlockAndActionsSubject.send(.duplicateBlock)
+            blockActionHandler?.handleActionForFirstResponder(.duplicate)
             
         case .cleanStyle, .copy, .paste, .move, .moveTo:
             break

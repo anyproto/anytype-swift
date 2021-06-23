@@ -2343,7 +2343,6 @@
 				EAF98379261B8B92001D4C55 /* LoadingViewController */,
 				EAC6BB4926288680004C8C06 /* InputSwitchers */,
 				534B7F1B26264E0100D712B2 /* Toolbars */,
-				3D829171265E50190007C152 /* RedactedText.swift */,
 				128495DF267371B900351C66 /* BottomFloaterBuilder.swift */,
 			);
 			path = UIKit;
@@ -2352,6 +2351,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				3D829171265E50190007C152 /* RedactedText.swift */,
 				1206DB8C267A3017000A48A7 /* MediaPicker */,
 				128495DC2673705000351C66 /* SettingsDividerModifier */,
 				3D155276264D977600B0E976 /* Popups */,

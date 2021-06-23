@@ -11,7 +11,7 @@ final class LinearIndexWalker {
 // MARK: Search
 extension LinearIndexWalker {
     func model(
-        beforeModel model: BlockActiveRecordModelProtocol,
+        beforeId blockId: BlockId,
         includeParent: Bool,
         onlyFocused: Bool = true
     ) -> BlockActiveRecordModelProtocol? {
@@ -21,7 +21,7 @@ extension LinearIndexWalker {
         
         let models = viewModel.blocksViewModels.compactMap { $0.block }
         /// Do we actually need parent?
-        guard let modelIndex = models.firstIndex(where: { $0.blockId == model.blockId }) else { return nil }
+        guard let modelIndex = models.firstIndex(where: { $0.blockId == blockId }) else { return nil }
 
         /// Iterate back
         /// Actually, `index(before:)` doesn't respect indices of collection.

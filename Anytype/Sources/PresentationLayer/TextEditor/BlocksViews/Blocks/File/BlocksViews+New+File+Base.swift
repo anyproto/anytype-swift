@@ -18,9 +18,9 @@ extension Namespace {
         @Published var state: State? { willSet { self.objectWillChange.send() } }
         
         let router: EditorRouterProtocol?
-        init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, router: EditorRouterProtocol?) {
+        init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, router: EditorRouterProtocol?, actionHandler: NewBlockActionHandler?) {
             self.router = router
-            super.init(block, delegate: delegate)
+            super.init(block, delegate: delegate, actionHandler: actionHandler)
             setupSubscribers()
         }
         

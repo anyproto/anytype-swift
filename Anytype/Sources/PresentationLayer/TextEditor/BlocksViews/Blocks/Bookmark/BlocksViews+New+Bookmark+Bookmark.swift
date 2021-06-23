@@ -24,11 +24,12 @@ final class BookmarkViewModel: BaseBlockViewModel {
     init(
         block: BlockActiveRecordModelProtocol,
         delegate: BaseBlockDelegate?,
-        router: EditorRouterProtocol?
+        router: EditorRouterProtocol?,
+        actionHandler: NewBlockActionHandler?
         
     ) {
         self.router = router
-        super.init(block, delegate: delegate)
+        super.init(block, delegate: delegate, actionHandler: actionHandler)
 
         setup()
     }

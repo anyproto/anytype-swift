@@ -12,14 +12,16 @@ class BlockActionHandler {
     private let documentId: String
     private var subscriptions: [AnyCancellable] = []
     private weak var documentViewInteraction: DocumentViewInteraction?
+    private var indexWalker: LinearIndexWalker
 
     // MARK: - Lifecycle
 
-    init?(documentId: String?, documentViewInteraction: DocumentViewInteraction?) {
+    init?(documentId: String?, documentViewInteraction: DocumentViewInteraction?, indexWalker: LinearIndexWalker) {
         guard let documentId = documentId else { return nil }
         self.documentViewInteraction = documentViewInteraction
         self.documentId = documentId
         self.service = BlockActionService(documentId: documentId)
+        self.indexWalker = indexWalker
     }
 
     // MARK: - Public methods
@@ -41,8 +43,27 @@ class BlockActionHandler {
             handleFontAction(for: block, range: range, fontAction: fontAttributes)
         case let .setAlignment(alignment):
             setAlignment(block: block.information, alignment: alignment, completion: completion)
-        default:
+        case .duplicate:
+            service.duplicate(block: block.information)
+        case .setLink(_):
             assertionFailure("Action has not implemented yet \(String(describing: action))")
+        case .delete:
+            delete(block: block)
+        }
+    }
+    
+    private func delete(block: BlockModelProtocol) {
+        
+        // TODO: think how to manage duplicated coded in diff handlers
+        // self.handlingKeyboardAction(block, .pressKey(.delete))
+        service.delete(block: block.information) { [weak self] value in
+            guard let previousModel = self?.indexWalker.model(beforeId: block.information.id, includeParent: true) else {
+                return .init(contextId: value.contextID, events: value.messages, ourEvents: [])
+            }
+            let previousBlockId = previousModel.blockId
+            return .init(contextId: value.contextID, events: value.messages, ourEvents: [
+                .setFocus(blockId: previousBlockId, position: .end)
+            ])
         }
     }
 }

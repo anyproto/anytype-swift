@@ -3,7 +3,7 @@ import BlocksModels
 
 extension BlockActionHandler {
     /// Action on style view
-    enum ActionType: Hashable {
+    enum ActionType {
         enum TextAttributesType {
             case bold
             case italic
@@ -17,5 +17,8 @@ extension BlockActionHandler {
         case toggleFontStyle(TextAttributesType, NSRange = NSRange(location: 0, length: 0))
         case setAlignment(BlockInformationAlignment)
         case setLink(String)
+        
+        case duplicate
+        case delete
     }
 }

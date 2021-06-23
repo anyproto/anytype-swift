@@ -44,8 +44,8 @@ class PageTitleViewModel: PageBlockViewModel {
     
     // MARK: - Initialization
 
-    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
-        super.init(block, delegate: delegate)
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?) {
+        super.init(block, delegate: delegate, actionHandler: actionHandler)
         self.setupSubscribers()
     }
 

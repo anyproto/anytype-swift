@@ -12,10 +12,11 @@ class DividerBlockViewModel: BaseBlockViewModel {
     init(
         _ block: BlockActiveRecordModelProtocol,
         content: BlockContent.Divider,
-        delegate: BaseBlockDelegate?
+        delegate: BaseBlockDelegate?,
+        actionHandler: NewBlockActionHandler?
     ) {
         self.content = content
-        super.init(block, delegate: delegate)
+        super.init(block, delegate: delegate, actionHandler: actionHandler)
     }
     
     override func makeContentConfiguration() -> UIContentConfiguration {

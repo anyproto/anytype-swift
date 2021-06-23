@@ -27,7 +27,7 @@ final class CompoundViewModelConverter {
         case let .text(content):
             switch content.contentType {
             case .code:
-                return CodeBlockViewModel(block, delegate: editorViewModel)
+                return CodeBlockViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler)
             case .toggle:
                 return ToggleBlockViewModel(block, blockActionHandler: blockActionHandler, delegate: editorViewModel)
             default:
@@ -35,18 +35,19 @@ final class CompoundViewModelConverter {
             }
         case let .file(value):
             switch value.contentType {
-            case .file: return BlocksViews.File.File.ViewModel(block, delegate: editorViewModel, router: router)
-            case .none: return UnknownLabelViewModel(block, delegate: editorViewModel)
-            case .image: return BlocksViews.File.Image.ViewModel(block, delegate: editorViewModel, router: router)
-            case .video: return VideoBlockViewModel(block, delegate: editorViewModel, router: router)
+            case .file: return BlocksViews.File.File.ViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
+            case .none: return UnknownLabelViewModel(block, delegate: editorViewModel, actionHandler: blockActionHandler)
+            case .image: return BlocksViews.File.Image.ViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
+            case .video: return VideoBlockViewModel(block, delegate: editorViewModel, router: router, actionHandler: blockActionHandler)
             }
         case .divider(let content):
-            return DividerBlockViewModel(block, content: content, delegate: editorViewModel)
+            return DividerBlockViewModel(block, content: content, delegate: editorViewModel, actionHandler: blockActionHandler)
         case .bookmark:
             return BookmarkViewModel(
                 block: block,
                 delegate: editorViewModel,
-                router: router
+                router: router,
+                actionHandler: blockActionHandler
             )
         case let .link(value):
             let publisher = document?.getDetails(by: value.targetBlockID)?.wholeDetailsPublisher
@@ -56,7 +57,8 @@ final class CompoundViewModelConverter {
                 targetBlockId: value.targetBlockID,
                 publisher: publisher,
                 router: router,
-                delegate: editorViewModel
+                delegate: editorViewModel,
+                actionHandler: blockActionHandler
             )
         }
     }

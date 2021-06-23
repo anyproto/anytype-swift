@@ -35,10 +35,6 @@ final class TextBlockActionHandler {
             router?.showPage(with: pageId)
         }
     }
-
-    func model(beforeModel: BlockActiveRecordModelProtocol, includeParent: Bool) -> BlockActiveRecordModelProtocol? {
-        return indexWalker?.model(beforeModel: beforeModel, includeParent: includeParent)
-    }
     
     private func handleChangeText(_ block: BlockActiveRecordModelProtocol, text: NSAttributedString) {
         guard case var .text(textContentType) = block.content else { return }
@@ -168,7 +164,7 @@ final class TextBlockActionHandler {
         case .deleteWithPayload(_):
             // TODO: Add Index Walker
             // Add get previous block
-            guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
+            guard let previousModel = indexWalker?.model(beforeId: block.blockId, includeParent: true) else {
                 assertionFailure("""
                     We can't find previous block to focus on at command .deleteWithPayload
                     Block: \(block.blockId)
@@ -193,8 +189,8 @@ final class TextBlockActionHandler {
             break
 
         case .deleteOnEmptyContent:
-            service.delete(block: block.blockModel.information) { value in
-                guard let previousModel = self.model(beforeModel: block, includeParent: true) else {
+            service.delete(block: block.blockModel.information) { [weak self] value in
+                guard let previousModel = self?.indexWalker?.model(beforeId: block.blockId, includeParent: true) else {
                     assertionFailure(
                         "We can't find previous block to focus on at command .delete for block \(block.blockId)"
                     )

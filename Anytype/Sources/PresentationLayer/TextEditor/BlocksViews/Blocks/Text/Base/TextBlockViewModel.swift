@@ -15,18 +15,12 @@ class TextBlockViewModel: BaseBlockViewModel {
     @Published private(set) var textViewUpdate: TextViewUpdate?
     private(set) var setFocus = PassthroughSubject<BlockFocusPosition, Never>()
     
-    private weak var blockActionHandler: NewBlockActionHandler?
-
-    // MARK: - Life cycle
-    
     init(
         _ block: BlockActiveRecordModelProtocol,
         blockActionHandler: NewBlockActionHandler?,
         delegate: BaseBlockDelegate
     ) {
-        self.blockActionHandler = blockActionHandler
-
-        super.init(block, delegate: delegate)
+        super.init(block, delegate: delegate, actionHandler: blockActionHandler)
 
         setupSubscribers()
     }
@@ -41,7 +35,7 @@ class TextBlockViewModel: BaseBlockViewModel {
             textViewDelegate: self,
             viewModel: self,
             toolbarActionSubject: toolbarActionSubject,
-            blockActionHandler: blockActionHandler,
+            blockActionHandler: actionHandler,
             mentionsConfigurator: configutator
         )
     }

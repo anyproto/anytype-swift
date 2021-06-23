@@ -20,8 +20,8 @@ final class CodeBlockViewModel: BaseBlockViewModel {
     @Published var focus: BlockFocusPosition?
     @Published var codeLanguage: String? = "Swift"
 
-    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
-        super.init(block, delegate: delegate)
+    override init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?) {
+        super.init(block, delegate: delegate, actionHandler: actionHandler)
         self.setupSubscribers()
 
         if let lang = block.blockModel.information.fields[Constants.codeLanguageFieldName]?.stringValue {

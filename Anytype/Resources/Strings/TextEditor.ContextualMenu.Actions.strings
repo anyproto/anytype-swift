@@ -7,7 +7,7 @@
 */
 
 "General.AddBlockBelow" = "Add block below";
-"General.Delete" = "Move to bin";
+"General.Delete" = "Delete";
 "General.Duplicate" = "Duplicate";
 "General.MoveTo" = "Move to";
 

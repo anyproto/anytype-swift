@@ -10,12 +10,14 @@ class BaseBlockViewModel: ObservableObject {
     
     private(set) var block: BlockActiveRecordModelProtocol
     private(set) weak var baseBlockDelegate: BaseBlockDelegate?
+    private(set) weak var actionHandler: NewBlockActionHandler?
 
     // MARK: - Initialization
 
-    init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?) {
+    init(_ block: BlockActiveRecordModelProtocol, delegate: BaseBlockDelegate?, actionHandler: NewBlockActionHandler?) {
         self.block = block
         self.baseBlockDelegate = delegate
+        self.actionHandler = actionHandler
     }
     
     // MARK: - Subclass / Blocks
@@ -95,9 +97,9 @@ class BaseBlockViewModel: ObservableObject {
             case .addBlockBelow:
                 toolbarActionSubject.send(.addBlock(.text(.text)))
             case .delete:
-                toolbarActionSubject.send(.deleteBlock)
+                actionHandler?.handleAction(.delete, model: block.blockModel)
             case .duplicate:
-                toolbarActionSubject.send(.duplicateBlock)
+                actionHandler?.handleAction(.duplicate, model: block.blockModel)
             case .moveTo:
                 break
             }
